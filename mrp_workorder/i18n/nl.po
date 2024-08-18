@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -88,7 +88,6 @@ msgstr "Activiteitensoort icoon"
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_workorder_additional_product_wizard
 #, python-format
 msgid "Add By-Product"
@@ -105,7 +104,6 @@ msgstr "Bijproduct toevoegen"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_workorder_additional_product_wizard
 #, python-format
@@ -616,6 +614,11 @@ msgstr "Google Slide link"
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__worksheet_url
 msgid "Google doc URL"
 msgstr "URL van Google-document"
+
+#. module: mrp_workorder
+#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__has_operation_note
+msgid "Has Description"
+msgstr ""
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__id
@@ -1564,6 +1567,11 @@ msgid "There is no session chief. Please log in."
 msgstr "Er is geen sessiechef. Log alsjeblieft in."
 
 #. module: mrp_workorder
+#: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_view_search_inherit_planning
+msgid "This Station"
+msgstr ""
+
+#. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/hooks/employee_hooks.js:0
 #, python-format
@@ -1616,10 +1624,8 @@ msgstr "Totale hvh"
 #, python-format
 msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
-"                                quality control, consumed quantities, lot/serial numbers, etc."
+"                                    quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
-"Volg werkorders, toon instructies en registreer productiebewerkingen vanaf hier:\n"
-"kwaliteitscontrole, verbruikte hoeveelheden, partij/serienummers, enz."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1654,7 +1660,10 @@ msgstr ""
 "productieorders zijn"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
+#, python-format
 msgid "Unblock"
 msgstr "Deblokkeren"
 
@@ -1969,13 +1978,6 @@ msgstr "Je moet ingelogd zijn om deze werkorder te verwerken."
 #, python-format
 msgid "You need to supply a Lot/Serial Number for the final product."
 msgstr "Je moet een partij/serienummer voor het eindproduct ingeven."
-
-#. module: mrp_workorder
-#. odoo-python
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
-#, python-format
-msgid "You should provide a lot/serial number for the final product"
-msgstr "Je moet een partij- / serienummer opgeven voor het eindproduct"
 
 #. module: mrp_workorder
 #. odoo-python

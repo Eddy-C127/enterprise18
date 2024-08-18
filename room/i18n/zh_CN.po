@@ -5,17 +5,17 @@
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # 湘子 南 <1360857908@qq.com>, 2024
-# Wil Odoo, 2024
 # Jeffery CHEN <jeffery9@gmail.com>, 2024
 # Chloe Wang, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-09 10:16+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -151,13 +151,6 @@ msgstr "背景图像"
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
-msgid "Book now"
-msgstr "现在预订"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
 msgid "Booked"
 msgstr "已预订"
 
@@ -212,7 +205,6 @@ msgstr "忙碌"
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Cancel"
 msgstr "取消"
@@ -528,6 +520,12 @@ msgid "Public Booking"
 msgstr "公开预订"
 
 #. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
+#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
+msgid "Ratings"
+msgstr "点评"
+
+#. module: room
 #: model:ir.actions.act_window,name:room.room_room_action
 #: model:ir.model,name:room.model_room_room
 #: model:ir.model.fields,field_description:room.field_room_booking__room_id
@@ -575,20 +573,6 @@ msgstr "房间"
 #, python-format
 msgid "Save"
 msgstr "保存"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#, python-format
-msgid "Schedule"
-msgstr "计划"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
-msgid "Schedule Booking"
-msgstr "预订时间表"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__short_code

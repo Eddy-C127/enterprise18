@@ -3,16 +3,16 @@
 # 	* documents
 # 
 # Translators:
-# Wil Odoo, 2023
 # Malaz Abuidris <msea@odoo.com>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,13 +70,6 @@ msgid "%s page(s) deleted"
 msgstr "تم حذف %s صفحات "
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
-msgid "(Remaining pages"
-msgstr "(الصفحات المتبقية "
-
-#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid ", expired on"
 msgstr "، انتهت صلاحيته في "
@@ -120,6 +113,13 @@ msgstr ""
 "أولاً. "
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "<b>Select</b> this page to continue."
+msgstr "<b>قم بتحديد</b> هذه الصفحة للاستمرار. "
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid ""
 "<br/>\n"
@@ -127,13 +127,6 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "                    قام بمشاركة محتوى معك "
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
-msgid "<b>Select</b> this page to continue."
-msgstr "<b>قم بتحديد</b> هذه الصفحة للاستمرار. "
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -932,32 +925,11 @@ msgid "An error occured while uploading."
 msgstr "حدث خطأ ما أثناء الرفع. "
 
 #. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-msgid "Archive"
-msgstr "الأرشيف "
-
-#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Archive original file(s)"
 msgstr "أرشفة الملف (الملفات) الأصلية "
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-msgid "Archived"
-msgstr "مؤرشف"
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
-msgid "Moved to trash"
-msgstr "تم نقله إلى سلة المهملات "
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
-msgid "Archived Workspace"
-msgstr "مساحة العمل المؤرشفة "
 
 #. module: documents
 #. odoo-javascript
@@ -1180,6 +1152,13 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
+msgstr "اضعط على علامة × <b>للخروج من وضع المعاينة</b>. "
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close"
@@ -1191,13 +1170,6 @@ msgstr "إغلاق"
 #, python-format
 msgid "Close split tools"
 msgstr "إغلاق أدوات التقسيم "
-
-#. module: documents
-#. openerp-web
-#: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
-msgid "Click the cross to <b>exit preview</b>."
-msgstr "اضعط على علامة × <b>للخروج من وضع المعاينة</b>. "
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
@@ -1659,6 +1631,11 @@ msgstr "لقب البريد الإلكتروني"
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
 msgid "Email cc"
 msgstr "نسخة البريد الإلكتروني "
+
+#. module: documents
+#: model:ir.model.fields,help:documents.field_documents_share__alias_domain
+msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
+msgstr "نطاق البريد الإلكتروني مثال: 'example.com' في 'odoo@example.com' "
 
 #. module: documents
 #. odoo-javascript
@@ -2295,8 +2272,8 @@ msgstr "النقل إلى مساحة العمل "
 #: code:addons/documents/static/src/views/form/folder_form_controller.js:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
-#: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #, python-format
 msgid "Move to trash"
 msgstr "نقل إلى سلة المهملات "
@@ -2310,6 +2287,16 @@ msgstr "نقل إلى سلة المهملات "
 #, python-format
 msgid "Move to trash?"
 msgstr "نقل إلى سلة المهملات؟ "
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved To Trash"
+msgstr "تم نقله إلى سلة المهملات "
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+msgid "Moved to trash"
+msgstr "تم نقله إلى سلة المهملات "
 
 #. module: documents
 #. odoo-javascript
@@ -2678,6 +2665,7 @@ msgstr "مساحات العمل ذات الصلة "
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Remaining Pages"
 msgstr "الصفحات المتبقية "
@@ -2812,7 +2800,8 @@ msgid "Restore"
 msgstr "استعادة"
 
 #. module: documents
-#: code:addons/documents/models/folder.py:0
+#. odoo-python
+#: code:addons/documents/models/documents_folder.py:0
 #, python-format
 msgid "Restricted Folder"
 msgstr "مجلد مقيد "
@@ -3723,13 +3712,6 @@ msgstr "مثال: domain.com "
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
 msgid "e.g. https://www.youtube.com/watch?v=CP96yVnXNrY"
 msgstr "مثال: https://www.youtube.com/watch?v=CP96yVnXNrY "
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
-msgid "file_extension"
-msgstr "file_extension"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page

@@ -5,20 +5,20 @@
 # Translators:
 # Martin Trigaux, 2023
 # Manuela Silva <mmsrs@sky.com>, 2023
-# Wil Odoo, 2024
 # Carlos Teles, 2024
 # Peter Lawrence Romão <peterromao@yahoo.co.uk>, 2024
 # Vasco Rodrigues, 2024
 # Rita Bastos, 2024
 # Maitê Dietze, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-22 15:46+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Maitê Dietze, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Portuguese (https://app.transifex.com/odoo/teams/41243/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -860,7 +860,7 @@ msgstr "Receita recorrente anual"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
-msgid "Anticipate payment"
+msgid "Anticipate payment:"
 msgstr ""
 
 #. module: sale_subscription
@@ -923,6 +923,15 @@ msgstr ""
 msgid ""
 "Automatic payment failed after multiple attempts. Contract closed "
 "automatically."
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Automatic payment failed. Check the corresponding invoice %s. We can't "
+"automatically process negative payment"
 msgstr ""
 
 #. module: sale_subscription
@@ -1762,6 +1771,7 @@ msgstr ""
 
 #. module: sale_subscription
 #. odoo-javascript
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Go back to the subscription view"
@@ -2657,6 +2667,11 @@ msgid "Payment Failure"
 msgstr ""
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_method
+msgid "Payment Method"
+msgstr "Método de Pagamento"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_provider
 msgid "Payment Provider"
 msgstr "Prestador de Pagamento"
@@ -2842,6 +2857,8 @@ msgid "Quantity"
 msgstr "Quantidade"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__1_draft
@@ -2850,6 +2867,7 @@ msgstr "Quantidade"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__subscription_state__1_draft
+#, python-format
 msgid "Quotation"
 msgstr "Orçamento"
 
@@ -3028,7 +3046,6 @@ msgstr "Receita recorrente"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
-#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -3228,6 +3245,11 @@ msgid "Sales Advance Payment Invoice"
 msgstr "Fatura de Pagamentos de Adiantamento das Vendas"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Relatório de Análise de Vendas"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Sales History"
 msgstr ""
@@ -3285,13 +3307,6 @@ msgstr ""
 msgid ""
 "Select Variants of the Product for which this rule applies. Leave empty if "
 "this rule applies for any variant of this template."
-msgstr ""
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-#, python-format
-msgid "Select a recurrence"
 msgstr ""
 
 #. module: sale_subscription
@@ -3958,7 +3973,7 @@ msgstr ""
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid ""
-"The upsell %s has been canceled. Please recheck the quantities as they may "
+"The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
 
@@ -3979,11 +3994,6 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
-msgstr ""
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "There is an"
 msgstr ""
 
 #. module: sale_subscription
@@ -4227,7 +4237,6 @@ msgstr ""
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state_from__7_upsell
@@ -4273,12 +4282,22 @@ msgid "Use Calendar"
 msgstr "Utilizar Calendário"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr "Utilizar horário de trabalho do funcionário"
+
+#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
 "                work done, expenses and/or sales orders. Odoo will automatically manage\n"
 "                the alerts for the renewal of the subscriptions to the right salesperson."
 msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
+msgstr "Utilize o horário de trabalho do utilizador."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4303,6 +4322,11 @@ msgid ""
 "Want a recurring billing through subscription management? Get started by "
 "clicking here"
 msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
+msgid "Warehouse"
+msgstr "Armazém"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4615,6 +4639,11 @@ msgid "Your subscription is expired, will be closed soon."
 msgstr ""
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "and"
+msgstr "e"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "archived product(s)"
 msgstr ""
@@ -4638,6 +4667,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
 msgstr "por exemplo, Proposta de discussão"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "existing for this subscription, please confirm it or reject it."
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -4713,7 +4747,7 @@ msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "quotation and"
+msgid "quotation"
 msgstr ""
 
 #. module: sale_subscription
@@ -4737,11 +4771,6 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "to this day) will be automatically processed."
-msgstr ""
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "upsell"
 msgstr ""
 
 #. module: sale_subscription

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-09 10:16+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -150,13 +150,6 @@ msgstr "Imagen de fondo"
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
-msgid "Book now"
-msgstr "Reservar ahora"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
 msgid "Booked"
 msgstr "Reservado"
 
@@ -211,7 +204,6 @@ msgstr "Ocupado"
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Cancel"
 msgstr "Cancelar"
@@ -531,6 +523,12 @@ msgid "Public Booking"
 msgstr "Reserva pública"
 
 #. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
+#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
+msgid "Ratings"
+msgstr "Calificaciones"
+
+#. module: room
 #: model:ir.actions.act_window,name:room.room_room_action
 #: model:ir.model,name:room.model_room_room
 #: model:ir.model.fields,field_description:room.field_room_booking__room_id
@@ -579,20 +577,6 @@ msgstr "Salas"
 #, python-format
 msgid "Save"
 msgstr "Guardar"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#, python-format
-msgid "Schedule"
-msgstr "Programar"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
-msgid "Schedule Booking"
-msgstr "Programar reserva"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__short_code

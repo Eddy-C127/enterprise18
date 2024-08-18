@@ -3,17 +3,18 @@
 # 	* spreadsheet_edition
 # 
 # Translators:
-# Wil Odoo, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024
+# Chloe Wang, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:47+0000\n"
+"POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -652,6 +653,13 @@ msgstr "透视表属性"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/actions/input_dialog/input_dialog.js:0
+#, python-format
+msgid "Please enter a valid number."
+msgstr "请输入有效数值。"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_field_offset.js:0
 #, python-format
 msgid "Previous"
@@ -972,6 +980,7 @@ msgstr "电子表格的历史记录已损坏，可能会丢失最近的修订。
 #. module: spreadsheet_edition
 #. odoo-python
 #: code:addons/spreadsheet_edition/models/spreadsheet_mixin.py:0
+#: code:addons/spreadsheet_edition/models/spreadsheet_mixin.py:0
 #, python-format
 msgid ""
 "The operation could not be applied because of a concurrent update. Please "
@@ -1009,7 +1018,6 @@ msgstr "时间范围"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
 #: code:addons/spreadsheet_edition/static/src/bundle/pivot/plugins/pivot_autofill_plugin.js:0
-#: code:addons/spreadsheet_edition/static/src/bundle/pivot/spreadsheet_pivot_dialog.js:0
 #, python-format
 msgid "Total"
 msgstr "总计"
@@ -1112,6 +1120,27 @@ msgstr "pivot"
 #, python-format
 msgid "records of the list."
 msgstr "列表中的记录。"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+#, python-format
+msgid "this_month"
+msgstr "this_month"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+#, python-format
+msgid "this_quarter"
+msgstr "this_quarter"
+
+#. module: spreadsheet_edition
+#. odoo-javascript
+#: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
+#, python-format
+msgid "this_year"
+msgstr "this_year"
 
 #. module: spreadsheet_edition
 #: model:ir.model,name:spreadsheet_edition.model_ir_websocket

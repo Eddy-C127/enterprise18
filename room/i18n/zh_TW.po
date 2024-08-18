@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Wil Odoo, 2024
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-09 10:16+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -149,13 +149,6 @@ msgstr "背景圖像"
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
-msgid "Book now"
-msgstr "立即預訂"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
 msgid "Booked"
 msgstr "已預定"
 
@@ -210,7 +203,6 @@ msgstr "忙碌"
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Cancel"
 msgstr "取消"
@@ -526,6 +518,12 @@ msgid "Public Booking"
 msgstr "公用預訂"
 
 #. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
+#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
+msgid "Ratings"
+msgstr "評分"
+
+#. module: room
 #: model:ir.actions.act_window,name:room.room_room_action
 #: model:ir.model,name:room.model_room_room
 #: model:ir.model.fields,field_description:room.field_room_booking__room_id
@@ -573,20 +571,6 @@ msgstr "房間"
 #, python-format
 msgid "Save"
 msgstr "儲存"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#, python-format
-msgid "Schedule"
-msgstr "預約"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
-msgid "Schedule Booking"
-msgstr "排期預訂"
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__short_code

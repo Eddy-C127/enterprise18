@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-23 16:33+0000\n"
+"POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -285,7 +285,6 @@ msgstr "Вариант продукта"
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
-#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Product not Allowed"
 msgstr "Продукт не разрешен"
@@ -405,6 +404,11 @@ msgid "To produce more products create a new MO."
 msgstr "Чтобы производить больше продукции, создайте новый MO."
 
 #. module: stock_barcode_mrp
+#: model:ir.model,name:stock_barcode_mrp.model_stock_picking
+msgid "Transfer"
+msgstr "Перевод"
+
+#. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Transfers allow you to move products from one location to another."
 msgstr "Переводы позволяют перемещать товары из одного места в другое."
@@ -425,8 +429,12 @@ msgstr ""
 "Если функция не активирована, и расход любого из компонентов редактируется вручную в производственном заказе, Odoo также принимает ручной расход."
 
 #. module: stock_barcode_mrp
+#: model:ir.model,name:stock_barcode_mrp.model_mrp_production_backorder
+msgid "Wizard to mark as done or create back order"
+msgstr "Мастер пометить как выполненное или создать обратный заказ"
+
+#. module: stock_barcode_mrp
 #. odoo-javascript
-#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "You can't add the final product of a MO as a byproduct."

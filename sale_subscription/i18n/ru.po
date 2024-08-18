@@ -16,17 +16,17 @@
 # Константин Коровин <korovin74@gmail.com>, 2023
 # Сергей Шебанин <sergey@shebanin.ru>, 2023
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
 # Collex100, 2024
 # Nadia Martynova, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-22 15:46+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Nadia Martynova, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1208,8 +1208,8 @@ msgstr "Ежегодный периодический доход"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
-msgid "Anticipate payment"
-msgstr "Ожидайте оплаты"
+msgid "Anticipate payment:"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1274,6 +1274,15 @@ msgid ""
 msgstr ""
 "Автоматический платеж не прошел после нескольких попыток. Контракт закрыт "
 "автоматически."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Automatic payment failed. Check the corresponding invoice %s. We can't "
+"automatically process negative payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-python
@@ -2138,6 +2147,7 @@ msgstr "Перейдите к созданию новой подписки"
 
 #. module: sale_subscription
 #. odoo-javascript
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Go back to the subscription view"
@@ -3054,6 +3064,11 @@ msgid "Payment Failure"
 msgstr "Сбой платежа"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_method
+msgid "Payment Method"
+msgstr "Способ оплаты"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_provider
 msgid "Payment Provider"
 msgstr "Поставщик платежей"
@@ -3240,6 +3255,8 @@ msgid "Quantity"
 msgstr "Количество"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__1_draft
@@ -3248,6 +3265,7 @@ msgstr "Количество"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__subscription_state__1_draft
+#, python-format
 msgid "Quotation"
 msgstr "Коммерческое предложение"
 
@@ -3428,7 +3446,6 @@ msgstr "Повторяющийся доход"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
-#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -3634,6 +3651,11 @@ msgid "Sales Advance Payment Invoice"
 msgstr "Счет-фактура на авансовый платеж"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Отчет об анализе продаж"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Sales History"
 msgstr "История продаж"
@@ -3694,13 +3716,6 @@ msgid ""
 msgstr ""
 "Выберите Варианты продукта, для которых применяется это правило. Оставьте "
 "пустым, если правило применяется для любого варианта этого шаблона."
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-#, python-format
-msgid "Select a recurrence"
-msgstr "Выберите рецидив"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4412,7 +4427,7 @@ msgstr "Предложение %s было отменено."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid ""
-"The upsell %s has been canceled. Please recheck the quantities as they may "
+"The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
 
@@ -4433,11 +4448,6 @@ msgstr "Существует множество цен на уникальный
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
-msgstr "Есть"
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "There is an"
 msgstr "Есть"
 
 #. module: sale_subscription
@@ -4698,7 +4708,6 @@ msgstr "Обновление значения здоровья в соответ
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state_from__7_upsell
@@ -4744,6 +4753,11 @@ msgid "Use Calendar"
 msgstr "Используйте календарь"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr "Используйте график работы сотрудников"
+
+#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
@@ -4753,6 +4767,11 @@ msgstr ""
 "Используйте подписки для отслеживания задач, проблем, табелей учета рабочего времени или выставления счетов на основе\n"
 "                выполненной работы, расходов и/или заказов на продажу. Odoo будет автоматически управлять\n"
 "                оповещениями о продлении подписок для нужного продавца."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
+msgstr "Используйте рабочий график пользователя."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4777,6 +4796,11 @@ msgid ""
 "Want a recurring billing through subscription management? Get started by "
 "clicking here"
 msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
+msgid "Warehouse"
+msgstr "Склад"
 
 #. module: sale_subscription
 #. odoo-python
@@ -5126,6 +5150,11 @@ msgid "Your subscription is expired, will be closed soon."
 msgstr "Срок действия вашей подписки истек, скоро она будет закрыта."
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "and"
+msgstr "и"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "archived product(s)"
 msgstr "архивированный продукт(ы)"
@@ -5149,6 +5178,11 @@ msgstr "например, Закрытая подписка"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
 msgstr "например, Предложить обсудить"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "existing for this subscription, please confirm it or reject it."
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -5225,8 +5259,8 @@ msgstr "в год"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "quotation and"
-msgstr "коммерческое предложение и"
+msgid "quotation"
+msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -5254,11 +5288,6 @@ msgstr "обновление"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "to this day) will be automatically processed."
 msgstr "по сей день) будут автоматически обработаны."
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "upsell"
-msgstr "upsell"
 
 #. module: sale_subscription
 #: model:sms.template,body:sale_subscription.sms_template_data_payment_failure

@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
@@ -891,23 +891,6 @@ msgid "Service user number"
 msgstr "شماره‌ی کاربر سرویس"
 
 #. module: account_bacs
-msgid "Service user number of your company within BACS"
-msgstr "شماره‌ی کاربر سرویس شرکت شما در BACS"
-
-#. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
-msgid ""
-"Service user number of your company within BACS. Write 'HSBC' here if you "
-"bank does not provide one."
-msgstr ""
-"شماره کاربر خدمات شرکت شما در سیستم تهاتر بانکی. اگر بانکتان این شماره را در"
-" اختیار شما نمی‌گذارد، «HSBC» را در اینجا بنویسید. "
-
-#. module: account_bacs
-msgid "Service user number of your company within BACS, given by the bank."
-msgstr "شماره‌ی کاربر سرویس شرکت شما در BACS، که توسط بانک ارائه شده است."
-
-#. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
 msgid ""
 "Service user number of your company within BACS, given by the bank. Write "
@@ -915,6 +898,13 @@ msgid ""
 msgstr ""
 "شماره کاربر خدمات شما در سیستم تهاتر بانکی که توسط بانک مربوطه‌تان ارائه "
 "می‌شود. در غیر این صورت «HSBC» را در اینجا بنویسید."
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if your "
+"bank does not provide one."
+msgstr ""
 
 #. module: account_bacs
 #. odoo-python
@@ -1053,13 +1043,6 @@ msgstr ""
 #, python-format
 msgid "The service user number must be 6 characters long."
 msgstr "شماره‌ی کاربر سرویس باید 6 رقمی باشد."
-
-#. module: account_bacs
-#. odoo-python
-#: code:addons/account_bacs/models/res_company.py:0
-#, python-format
-msgid "The service user number must be numeric."
-msgstr "شماره‌ی کاربر سیستم باید به عدد باشد. "
 
 #. module: account_bacs
 #. odoo-python

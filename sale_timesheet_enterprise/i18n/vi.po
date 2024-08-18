@@ -3,17 +3,17 @@
 # 	* sale_timesheet_enterprise
 # 
 # Translators:
-# Wil Odoo, 2023
 # Martin Trigaux, 2024
 # Thi Huong Nguyen, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:12+0000\n"
+"POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,15 +71,6 @@ msgid "(%(percentage)s%)"
 msgstr "(%(percentage)s%)"
 
 #. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.view_employee_form
-msgid ""
-"<span class=\"w-100\" "
-"groups=\"hr_timesheet.group_hr_timesheet_approver\">per month</span>"
-msgstr ""
-"<span class=\"w-100\" "
-"groups=\"hr_timesheet.group_hr_timesheet_approver\">mỗi tháng</span>"
-
-#. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.sale_timesheet_enterprise_advance_payment_inv_timesheet_view_form
 msgid ""
 "<span>\n"
@@ -104,8 +95,8 @@ msgstr "Tất cả bảng chấm công đã ghi nhận"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Tài khoản phân tích"
+msgid "Analytic Line"
+msgstr "Dòng phân tích"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -122,28 +113,28 @@ msgstr "Ảnh đại diện"
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_use_timesheet_leaderboard
 #, python-format
 msgid "Billing Rate Leaderboard"
-msgstr "Bảng xếp hạng tỷ lệ lập hoá đơn"
+msgstr "Bảng xếp hạng tỷ lệ tính phí"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_company__billing_rate_target
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
 msgid "Billing Rate Target"
-msgstr "Chỉ tiêu tỷ lệ lập hoá đơn"
+msgstr "Chỉ tiêu tỷ lệ tính phí"
 
 #. module: sale_timesheet_enterprise
 #: model:res.groups,name:sale_timesheet_enterprise.group_timesheet_leaderboard_show_rates
 msgid "Billing Rate/Total Time indicators"
-msgstr "Chỉ báo Tỷ lệ lập hoá đơn/Tổng thời gian"
+msgstr "Chỉ báo Tỷ lệ tính phí/Tổng thời gian"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_employee__billable_time_target
 msgid "Billing Time Target"
-msgstr "Chỉ tiêu thời gian lập hoá đơn"
+msgstr "Chỉ tiêu thời gian tính phí"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__billing_rate_target
 msgid "Billing rate target for the employees"
-msgstr "Chỉ tiêu tỷ lệ lập hoá đơn cho nhân viên"
+msgstr "Chỉ tiêu tỷ lệ tính phí cho nhân viên"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -159,7 +150,7 @@ msgid ""
 "the billing rates."
 msgstr ""
 "Thúc đẩy năng suất và tinh thần cạnh tranh bằng cách hiển thị một bảng xếp "
-"hạng dựa trên tỷ lệ lập hoá đơn."
+"hạng dựa trên tỷ lệ tính phí."
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -222,7 +213,7 @@ msgstr "Hiển thị tiến độ của nhiệm vụ hiện tại."
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__group_timesheet_leaderboard_show_rates
 msgid "Display the Billing Rate on My Timesheets view"
-msgstr "Hiển thị Tỷ lệ lập hoá đơn trên chế độ xem Bảng chấm công của tôi"
+msgstr "Hiển thị Tỷ lệ tính phí trên chế độ xem Bảng chấm công của tôi"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_employee
@@ -366,7 +357,7 @@ msgstr "Dự án"
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 #, python-format
 msgid "Record timesheets to determine your billing rate!"
-msgstr "Ghi lại bảng chấm công để xác định tỷ lệ lập hoá đơn của bạn!"
+msgstr "Ghi lại bảng chấm công để xác định tỷ lệ tính phí của bạn!"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -382,6 +373,11 @@ msgid "Remaining Hours"
 msgstr "Giờ còn lại"
 
 #. module: sale_timesheet_enterprise
+#: model:ir.model,name:sale_timesheet_enterprise.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Hoá đơn tạm ứng bán hàng"
+
+#. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "Dòng đơn bán hàng"
@@ -392,13 +388,13 @@ msgid ""
 "Set a target billing rate for your employees. If their current rate falls "
 "below the target, it will be highlighted in red."
 msgstr ""
-"Đặt chỉ tiêu tỷ lệ lập hoá đơn cho nhân viên của bạn. Nếu tỷ lệ hiện tại của"
-" họ thấp hơn chỉ tiêu, thì nó sẽ được đánh dấu màu đỏ."
+"Đặt chỉ tiêu tỷ lệ tính phí cho nhân viên của bạn. Nếu tỷ lệ hiện tại của họ"
+" thấp hơn chỉ tiêu, thì nó sẽ được đánh dấu màu đỏ."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
 msgid "Set employee billing time targets"
-msgstr "Đặt chỉ tiêu tỷ lệ lập hoá đơn"
+msgstr "Đặt chỉ tiêu thời gian tính phí của nhân viên"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -437,8 +433,7 @@ msgstr "Chỉ tiêu thời gian tính phí không thể là số âm."
 #. module: sale_timesheet_enterprise
 #: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_res_company_check_billing_rate
 msgid "The billing rate target percentage must be between 0 and 100."
-msgstr ""
-"Phần trăm chỉ tiêu tỷ lệ lập hoá đơn cần nằm trong khoảng từ 0 đến 100."
+msgstr "Phần trăm chỉ tiêu tỷ lệ tính phí cần nằm trong khoảng từ 0 đến 100."
 
 #. module: sale_timesheet_enterprise
 #. odoo-python

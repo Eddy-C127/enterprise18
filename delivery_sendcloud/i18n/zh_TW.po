@@ -3,16 +3,16 @@
 # 	* delivery_sendcloud
 # 
 # Translators:
-# Wil Odoo, 2023
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,19 +24,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "%(partner_name)s email required"
-msgstr "%(partner_name)s 的電子郵件為必需"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
-msgid "%(partner_name)s phone required"
-msgstr "%(partner_name)s 的電話為必需"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid ""
 "\n"
 "Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
@@ -53,14 +40,7 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"Some packages in your transfer are too heavy for the heaviest available "
-"shipping method."
-msgstr "部份轉移包裹太重，超越可用運輸方式的最高承運重量。"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
 msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
@@ -71,10 +51,16 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"The total weight of your transfer is too heavy for the heaviest available "
-"shipping method."
-msgstr "轉移的總重量太重，超越可用運輸方式的最高承運重量。"
+#, python-format
+msgid "%(partner_name)s email required"
+msgstr "%(partner_name)s 的電子郵件為必需"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid "%(partner_name)s phone required"
+msgstr "%(partner_name)s 的電話為必需"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -92,6 +78,13 @@ msgid ""
 msgstr ""
 "<i class=\"fa fa-exclamation-triangle\"/> "
 "在測試環境中，為避免產生費用，您的發貨會在建立標籤後自動<b>取消</b>。"
+
+#. module: delivery_sendcloud
+#: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> Only administrators can configure "
+"the public and private keys."
+msgstr "<i class=\"fa fa-exclamation-triangle\"/> 只限管理員才可配置公鑰及私鑰。"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -527,8 +520,10 @@ msgstr "部份貨運商需要包裹尺寸資料。你可在一個你設為預設
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "Some packages in"
-msgstr "以下項目中的某些包裹："
+msgid ""
+"Some packages in your transfer are too heavy for the heaviest available "
+"shipping method."
+msgstr "部份轉移包裹太重，超越可用運輸方式的最高承運重量。"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -578,6 +573,15 @@ msgstr ""
 #, python-format
 msgid "The shipping product actually configured can't handle this delivery"
 msgstr "實際配置的運輸產品未能處理此次送貨"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"The total weight of your transfer is too heavy for the heaviest available "
+"shipping method."
+msgstr "轉移的總重量太重，超越可用運輸方式的最高承運重量。"
 
 #. module: delivery_sendcloud
 #. odoo-python

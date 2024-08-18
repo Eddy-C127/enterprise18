@@ -3,18 +3,19 @@
 # 	* knowledge
 # 
 # Translators:
-# Mustafa Rawi <mustafa@cubexco.com>, 2023
+# Mustafa Rawi <mustafa@mrawi.com>, 2023
 # Martin Trigaux, 2023
-# Wil Odoo, 2023
 # Malaz Abuidris <msea@odoo.com>, 2024
+# Beshoy Nabeih, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:09+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -42,6 +43,19 @@ msgstr "\" (التاريخ والوقت) "
 #, python-format
 msgid "\" (date)"
 msgstr "\" (التاريخ) "
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
+"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
+"have it restored instead."
+msgstr ""
+"\"%(article_item_name)s\" هو عنصر مقال من \"%(article_name)s\" ولا يمكن "
+"استعادته من تلقاء نفسه. تواصل مع صاحب \"%(article_name)s\" ليقوم باستعادته "
+"عوضاً عن ذلك. "
 
 #. module: knowledge
 #. odoo-python
@@ -79,19 +93,6 @@ msgstr "عدد الموظفين: "
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__favorite_count
 msgid "#Is Favorite"
 msgstr "#مفضل "
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
-"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
-"have it restored instead."
-msgstr ""
-"\"%(article_item_name)s\" هو عنصر مقال من \"%(article_name)s\" ولا يمكن "
-"استعادته من تلقاء نفسه. تواصل مع صاحب \"%(article_name)s\" ليقوم باستعادته "
-"عوضاً عن ذلك. "
 
 #. module: knowledge
 #. odoo-python
@@ -2293,6 +2294,13 @@ msgid "All Models 📖"
 msgstr "كافة النماذج 📖 "
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr "تم حفظ كافة التغييرات "
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "All my activities will always be encoded in our CRM"
 msgstr "ستكون كافة أنشطتي مرمزة دائماً في تطبيق إدارة علاقات العملاء "
@@ -3235,6 +3243,13 @@ msgstr "إنشاء مقال جديد في مساحة العمل "
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action_stages
 msgid "Create a new article item"
 msgstr "إنشاء عنصر مقال جديد "
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
+#, python-format
+msgid "Create a new private article"
+msgstr "إنشاء مقال خاص جديد "
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
@@ -5084,7 +5099,7 @@ msgstr "جاري"
 #: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
 #, python-format
 msgid "Only Internal Users can access this view."
-msgstr "يُسمَح فقط للمستخدمين الداخليين الوصول إلى نافذة العرض هذه. "
+msgstr "يُسمَح فقط للمستخدمين الداخليين الوصول إلى نافذة العرض هذه."
 
 #. module: knowledge
 #. odoo-python
@@ -5567,6 +5582,13 @@ msgstr "إعادة التسمية"
 #, python-format
 msgid "Reopen the Thread"
 msgstr "إعادة فتح المحادثة "
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
+#, python-format
+msgid "Replace"
+msgstr "استبدال"
 
 #. module: knowledge
 #. odoo-javascript
@@ -7087,6 +7109,13 @@ msgstr ""
 "                عند تمثيل العلامة التجارية، نطلب منك توخي الحذر فيما يتعلق بطريقة تمثيلك للشركة. "
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "all"
+msgstr "الكل"
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "and the following child article(s) have"
 msgstr "والمقال (المقالات) الفرعية التالية قد تم "
@@ -7215,6 +7244,13 @@ msgstr "قراءة "
 
 #. module: knowledge
 #. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "resolved"
+msgstr "تم حلها "
+
+#. module: knowledge
+#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "search"
@@ -7229,6 +7265,13 @@ msgstr "المقال "
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "to unleash the power of Knowledge !"
 msgstr "لإطلاق العنان للمعرفة! "
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "unresolved"
+msgstr "لم يتم حلها "
 
 #. module: knowledge
 #. odoo-javascript

@@ -13,14 +13,15 @@
 # Martin Trigaux, 2024
 # Betty Keresztesi, 2024
 # Corina Calin, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-22 15:46+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Corina Calin, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1204,8 +1205,8 @@ msgstr "Venituri anuale recurente"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
-msgid "Anticipate payment"
-msgstr "Anticipați plata"
+msgid "Anticipate payment:"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1269,6 +1270,15 @@ msgid ""
 "automatically."
 msgstr ""
 "Plata automată a eșuat după mai multe încercări. Contract închis automat."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Automatic payment failed. Check the corresponding invoice %s. We can't "
+"automatically process negative payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-python
@@ -2134,6 +2144,7 @@ msgstr "Continuați și creați un abonament nou"
 
 #. module: sale_subscription
 #. odoo-javascript
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Go back to the subscription view"
@@ -3050,6 +3061,11 @@ msgid "Payment Failure"
 msgstr "Eșuare plată"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_method
+msgid "Payment Method"
+msgstr "Metodă de plată"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_provider
 msgid "Payment Provider"
 msgstr "Furnizor de plată"
@@ -3239,6 +3255,8 @@ msgid "Quantity"
 msgstr "Cantitate"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__1_draft
@@ -3247,6 +3265,7 @@ msgstr "Cantitate"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__subscription_state__1_draft
+#, python-format
 msgid "Quotation"
 msgstr "Ofertă"
 
@@ -3427,7 +3446,6 @@ msgstr "Venituri recurente"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
-#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -3633,6 +3651,11 @@ msgid "Sales Advance Payment Invoice"
 msgstr "Factura Vânzare cu Plată în Avans"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Raport de analiză a vânzărilor"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Sales History"
 msgstr "Istoric vânzări"
@@ -3694,13 +3717,6 @@ msgstr ""
 "Selectați variante ale produsului pentru care se aplică această regulă. "
 "Lăsați necompletat dacă această regulă se aplică pentru orice variantă a "
 "acestui șablon."
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-#, python-format
-msgid "Select a recurrence"
-msgstr "Selectați o recurență"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4413,12 +4429,9 @@ msgstr "Upsell-ul %s a fost anulat."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid ""
-"The upsell %s has been canceled. Please recheck the quantities as they may "
+"The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
-"Vânzarea suplimentară %s a fost anulată. Vă rugăm să verificați din nou "
-"cantitățile, deoarece este posibil ca acestea să fi fost afectate de această"
-" anulare."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4440,11 +4453,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
 msgstr "Există un"
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "There is an"
-msgstr "Există o"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
@@ -4703,7 +4711,6 @@ msgstr "Actualizarea valorii sănătății conform MRR"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state_from__7_upsell
@@ -4749,6 +4756,11 @@ msgid "Use Calendar"
 msgstr "Utilizează Calendar"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr "Utilizați programul de lucru al angajaților"
+
+#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
@@ -4758,6 +4770,11 @@ msgstr ""
 "Folosiți abonamente pentru a urmări sarcinile, problemele, pontajele sau facturarea bazat pe\n"
 "munca depusă, cheltuielii și/sau comenzi de vânzări. Odoo va administra atuomat\n"
 "alertele pentru reînnoirea abonamentelor către vânzătorul potrivit."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
+msgstr "Utilizați programul de lucru al utilizatorului."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4784,6 +4801,11 @@ msgid ""
 msgstr ""
 "Doriți o facturare recurentă prin gestionarea abonamentelor? Începeți făcând"
 " click aici"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
+msgid "Warehouse"
+msgstr "Depozit"
 
 #. module: sale_subscription
 #. odoo-python
@@ -5137,6 +5159,11 @@ msgid "Your subscription is expired, will be closed soon."
 msgstr "Abonamentul dvs. a expirat, va fi închis în curând."
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "and"
+msgstr "și"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "archived product(s)"
 msgstr "produs(e) arhivate"
@@ -5160,6 +5187,11 @@ msgstr "de exemplu. Abonament închis"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
 msgstr "de exemplu. Discutați propunerea"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "existing for this subscription, please confirm it or reject it."
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -5236,8 +5268,8 @@ msgstr "pe an"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "quotation and"
-msgstr "ofertă și"
+msgid "quotation"
+msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -5265,11 +5297,6 @@ msgstr "reînnoire"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "to this day) will be automatically processed."
 msgstr "până astăzi) vor fi procesate automat."
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "upsell"
-msgstr "vânzare suplimentară"
 
 #. module: sale_subscription
 #: model:sms.template,body:sale_subscription.sms_template_data_payment_failure

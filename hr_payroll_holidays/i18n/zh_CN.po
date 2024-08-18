@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
@@ -147,6 +147,15 @@ msgid ""
 "The next month work entries are not generated yet or are validated already "
 "for time off %s"
 msgstr "下个月的工作条目尚未生成，或者已经过验证，以便休假%s"
+
+#. module: hr_payroll_holidays
+#. odoo-python
+#: code:addons/hr_payroll_holidays/models/hr_leave.py:0
+#, python-format
+msgid ""
+"The pay of the month is already validated with this day included. If you "
+"need to adapt, please refer to HR."
+msgstr "本月的薪资已经包含此日期进行了审核。如果您需要进行调整,请咨询人力资源部门。"
 
 #. module: hr_payroll_holidays
 #. odoo-python

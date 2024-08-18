@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -28,17 +28,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: ru\n"
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid ""
-"\"Template variable should be in format {{number}}. Cannot parse "
-"\"%(placeholder)s\""
-msgstr ""
-"\"Шаблонная переменная должна быть в формате {{number}}. Невозможно "
-"разобрать \"%(placeholder)s\""
 
 #. module: whatsapp
 #. odoo-python
@@ -57,7 +46,6 @@ msgstr "%(template_name)s [%(account_name)s]"
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/models.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
 msgstr "'%(field)s', похоже, не является действительным путем к полю"
@@ -146,6 +134,7 @@ msgstr "Токен доступа"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__wa_account_id
+#: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "Account"
 msgstr "Аккаунт"
 
@@ -722,13 +711,6 @@ msgstr "Область применения модели"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "Field template variables must be associated with a field."
-msgstr "Переменные шаблона поля должны быть связаны с полем."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
 msgid ""
 "Field template variables %(var_names)s must be associated with a field."
 msgstr ""
@@ -936,13 +918,6 @@ msgstr "Необходим заголовочный документ"
 #, python-format
 msgid "Header document or report is required"
 msgstr "Необходим заголовочный документ или отчет"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#, python-format
-msgid "Header text can only contain a single {{variable}}."
-msgstr "Текст заголовка может содержать только один {{variable}}."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__he
@@ -1697,6 +1672,7 @@ msgstr "Образец значения"
 #. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#: code:addons/whatsapp/static/src/core/web/messaging_menu_patch.xml:0
 #, python-format
 msgid "Search WhatsApp Channel"
 msgstr "Поиск по каналу WhatsApp"
@@ -1959,6 +1935,13 @@ msgstr "Переменные шаблона"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__body
 msgid "Template body"
 msgstr "Тело шаблона"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "Template category is missing"
+msgstr ""
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template

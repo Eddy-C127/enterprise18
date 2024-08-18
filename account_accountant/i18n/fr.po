@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Jolien De Paepe, 2024
-# Manon Rondou, 2024
 # Martin Trigaux, 2024
+# Manon Rondou, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 07:30+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -262,14 +262,14 @@ msgstr "Montant"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Company Currency)"
-msgstr ""
+msgstr "Montant (Devise de la Société)"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Foreign Currency)"
-msgstr ""
+msgstr "Montant (Devise étrangère)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -282,13 +282,9 @@ msgid "Amount Currency"
 msgstr "Devise"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
-msgid "Amount Transaction Currency"
-msgstr ""
-
-#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
 #, python-format
 msgid "Amount in Currency"
 msgstr "Montant en devise"
@@ -867,6 +863,11 @@ msgid "Force Price Included Taxes"
 msgstr "Forcer le prix toutes taxes comprises"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "Foreign Currency"
+msgstr "Devise étrangère"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
 msgstr "Index du formulaire"
@@ -1045,7 +1046,7 @@ msgstr "Date de basculement comptable"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
 msgid "Is Multi Currency"
-msgstr ""
+msgstr "Plusieurs devises"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
@@ -1330,7 +1331,7 @@ msgstr "Nom"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
 msgid "Narration"
-msgstr ""
+msgstr "Narration"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1390,9 +1391,11 @@ msgid "Not Matched"
 msgstr "Non lettré "
 
 #. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
+#, python-format
 msgid "Notes"
 msgstr "Notes"
 
@@ -1949,6 +1952,15 @@ msgid "That's on average"
 msgstr "C'est-à-dire en moyenne"
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid ""
+"The amount expressed in an optional other currency if it is a multi-currency"
+" entry."
+msgstr ""
+"Le montant exprimé dans une autre devise optionnelle si c'est une écriture "
+"multi-devise."
+
+#. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
@@ -2004,6 +2016,11 @@ msgid ""
 msgstr ""
 "Les factures jusqu'à cette date ne seront pas prises en compte comme "
 "écritures comptables."
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "L'autre devise optionelle si c'est une écriture multi-devise."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -2118,7 +2135,6 @@ msgstr "Transaction"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "Devise de la transaction"
 
@@ -2223,12 +2239,6 @@ msgstr "Écriture d'annulation"
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
-msgid "You cannot have a fiscal year on a child company."
-msgstr ""
-
-#. module: account_accountant
-#: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
@@ -2286,6 +2296,14 @@ msgid ""
 msgstr ""
 "Vous ne pouvez pas générer des écritures à reporter pour une pièce comptable"
 " diverse."
+
+#. module: account_accountant
+#. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr ""
+"Il n'est pas possible d'avoir un exercice fiscal pour une société fille."
 
 #. module: account_accountant
 #. odoo-python

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Abe Manyo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
@@ -887,24 +887,6 @@ msgid "Service user number"
 msgstr "Nomor layanan user"
 
 #. module: account_bacs
-msgid "Service user number of your company within BACS"
-msgstr "Nomor layanan user dari perusahaan Anda di dalam BACS"
-
-#. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
-msgid ""
-"Service user number of your company within BACS. Write 'HSBC' here if you "
-"bank does not provide one."
-msgstr ""
-"Angka user layanan perusahaan Anda di dalam BACS. Ketik 'HSBC' di sini bila "
-"bank Anda tidak menyediakan angka ini."
-
-#. module: account_bacs
-msgid "Service user number of your company within BACS, given by the bank."
-msgstr ""
-"Nomor layanan user dari perusahaan Anda di dalam BACS, yang bank berikan."
-
-#. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
 msgid ""
 "Service user number of your company within BACS, given by the bank. Write "
@@ -912,6 +894,13 @@ msgid ""
 msgstr ""
 "Angka user layanan perusahaan Anda di dalam BACS, diberikan oleh bank Anda. "
 "Ketik 'HSBC' di sini bila bank Anda tidak menyediakan angka ini."
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if your "
+"bank does not provide one."
+msgstr ""
 
 #. module: account_bacs
 #. odoo-python
@@ -1050,13 +1039,6 @@ msgstr "Akun vendor yang dipilih membutuhkan IBAN UK yang valid"
 #, python-format
 msgid "The service user number must be 6 characters long."
 msgstr "Nomor layanan user harus sepanjang 6 karakter."
-
-#. module: account_bacs
-#. odoo-python
-#: code:addons/account_bacs/models/res_company.py:0
-#, python-format
-msgid "The service user number must be numeric."
-msgstr "Nomor layanan user harus numerik."
 
 #. module: account_bacs
 #. odoo-python

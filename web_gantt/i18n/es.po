@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:22+0000\n"
+"POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -19,6 +19,20 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_model.js:0
+#, python-format
+msgid "%(hour)sh%(minute)s"
+msgstr "%(hour)s h %(minute)s"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_model.js:0
+#, python-format
+msgid "%sh"
+msgstr "%s h"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -302,3 +316,12 @@ msgstr "minutos"
 #, python-format
 msgid "months"
 msgstr "meses"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_row_progress_bar.xml:0
+#, python-format
+msgid ""
+"{{ props.progressBar.warning }} {{                         "
+"props.progressBar.value_formatted                     }}."
+msgstr ""

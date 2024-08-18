@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -20,17 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid ""
-"\"Template variable should be in format {{number}}. Cannot parse "
-"\"%(placeholder)s\""
-msgstr ""
-"\"Biến mẫu phải ở định dạng {{number}}. Không thể phân tích cú pháp "
-"\"%(placeholder)s\""
 
 #. module: whatsapp
 #. odoo-python
@@ -49,7 +38,6 @@ msgstr "%(template_name)s [%(account_name)s]"
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/models.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
 msgstr "'%(field)s' có vẻ không phải là đường dẫn trường hợp lệ"
@@ -139,6 +127,7 @@ msgstr "Token truy cập"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__wa_account_id
+#: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "Account"
 msgstr "Tài khoản"
 
@@ -708,13 +697,6 @@ msgstr "Trường của mô hình"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
-msgid "Field template variables must be associated with a field."
-msgstr "Các biến mẫu trường phải được liên kết với một trường."
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
 msgid ""
 "Field template variables %(var_names)s must be associated with a field."
 msgstr "Các biến mẫu trường %(var_names)s phải được liên kết với một trường."
@@ -922,13 +904,6 @@ msgstr "Tài liệu đầu trang là bắt buộc"
 #, python-format
 msgid "Header document or report is required"
 msgstr "Tài liệu hoặc báo cáo đầu trang là bắt buộc"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#, python-format
-msgid "Header text can only contain a single {{variable}}."
-msgstr "Văn bản đầu trang chỉ có thể chứa một {{variable}}."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__he
@@ -1674,6 +1649,7 @@ msgstr "Giá trị mẫu"
 #. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#: code:addons/whatsapp/static/src/core/web/messaging_menu_patch.xml:0
 #, python-format
 msgid "Search WhatsApp Channel"
 msgstr "Tìm kiếm Kênh WhatsApp"
@@ -1934,6 +1910,13 @@ msgstr "Biến mẫu"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__body
 msgid "Template body"
 msgstr "Nội dung mẫu"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "Template category is missing"
+msgstr "Thiếu danh mục mẫu"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template

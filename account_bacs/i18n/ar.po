@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Malaz Abuidris <msea@odoo.com>, 2023\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
@@ -880,14 +880,18 @@ msgid "Service user number"
 msgstr "Service user number"
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
-msgid "Service user number of your company within BACS"
-msgstr "Service user number of your company within BACS"
+#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
+msgid ""
+"Service user number of your company within BACS, given by the bank. Write "
+"'HSBC' here if your bank does not provide one."
+msgstr ""
 
 #. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
-msgid "Service user number of your company within BACS, given by the bank."
-msgstr "Service user number of your company within BACS, given by the bank."
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if your "
+"bank does not provide one."
+msgstr ""
 
 #. module: account_bacs
 #. odoo-python
@@ -1032,8 +1036,9 @@ msgstr "The service user number must be 6 characters long."
 #. odoo-python
 #: code:addons/account_bacs/models/res_company.py:0
 #, python-format
-msgid "The service user number must be numeric."
-msgstr "The service user number must be numeric."
+msgid ""
+"The service user number must be numeric, or 'HSBC' if you don't have any."
+msgstr ""
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state

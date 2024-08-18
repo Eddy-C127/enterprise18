@@ -22,16 +22,16 @@
 # Katrin Kampura, 2023
 # Mihkel avalah, 2023
 # Birgit Vijar, 2024
-# Anna, 2024
 # Stevin Lilla, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,13 +89,6 @@ msgid "%s page(s) deleted"
 msgstr "%slehekül(g)jed kustutatud"
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
-msgid "(Remaining pages"
-msgstr "(Järelejäänud leheküljed"
-
-#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid ", expired on"
 msgstr ", aegub"
@@ -135,6 +128,13 @@ msgstr ""
 "<b>Eemaldage see leht</b>, kuna esmalt on vaja kõik arved läbi töötada."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "<b>Select</b> this page to continue."
+msgstr "<b>Vali</b> see leht, et jätkata. "
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid ""
 "<br/>\n"
@@ -142,13 +142,6 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "                    Jagab teiega sisu"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
-msgid "<b>Select</b> this page to continue."
-msgstr "<b>Vali</b> see leht, et jätkata. "
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -947,32 +940,11 @@ msgid "An error occured while uploading."
 msgstr "Esines tõrge faili laadimisel"
 
 #. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-msgid "Archive"
-msgstr "Arhiveeri"
-
-#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Archive original file(s)"
 msgstr "Arhiveeri originaalfail(id)."
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-msgid "Archived"
-msgstr "Arhiveeritud"
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
-msgid "Moved to trash"
-msgstr "Tõstetud prügikasti"
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
-msgid "Archived Workspace"
-msgstr "Arhiveeritud tööala"
 
 #. module: documents
 #. odoo-javascript
@@ -1196,6 +1168,13 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
+msgstr "Vajuta ristile, et <b>sulgeda eelvaade</b>."
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close"
@@ -1207,13 +1186,6 @@ msgstr "Sulge"
 #, python-format
 msgid "Close split tools"
 msgstr "Sulge poolitamise tööriist"
-
-#. module: documents
-#. openerp-web
-#: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
-msgid "Click the cross to <b>exit preview</b>."
-msgstr "Vajuta ristile, et <b>sulgeda eelvaade</b>."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
@@ -1678,6 +1650,11 @@ msgstr "E-posti alias"
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
 msgid "Email cc"
 msgstr "E-posti koopia"
+
+#. module: documents
+#: model:ir.model.fields,help:documents.field_documents_share__alias_domain
+msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
+msgstr "Meili domeen nt. „example.com” aadressil „odoo@example.com”"
 
 #. module: documents
 #. odoo-javascript
@@ -2316,8 +2293,8 @@ msgstr "Liiguta tööalale"
 #: code:addons/documents/static/src/views/form/folder_form_controller.js:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
-#: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #, python-format
 msgid "Move to trash"
 msgstr "Liiguta prügikasti"
@@ -2331,6 +2308,16 @@ msgstr "Liiguta prügikasti"
 #, python-format
 msgid "Move to trash?"
 msgstr "Liiguta prügikasti? "
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved To Trash"
+msgstr ""
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+msgid "Moved to trash"
+msgstr "Tõstetud prügikasti"
 
 #. module: documents
 #. odoo-javascript
@@ -2697,6 +2684,7 @@ msgstr "Seotud tööala"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Remaining Pages"
 msgstr "Järelejäänud leheküljed"
@@ -2831,7 +2819,8 @@ msgid "Restore"
 msgstr "Taasta"
 
 #. module: documents
-#: code:addons/documents/models/folder.py:0
+#. odoo-python
+#: code:addons/documents/models/documents_folder.py:0
 #, python-format
 msgid "Restricted Folder"
 msgstr "Piiratud kaust"
@@ -3746,13 +3735,6 @@ msgstr "nt. domain.com"
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
 msgid "e.g. https://www.youtube.com/watch?v=CP96yVnXNrY"
 msgstr "nt: https://www.youtube.com/watch?v=CP96yVnXNrY"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
-msgid "file_extension"
-msgstr "Faililaiend"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page

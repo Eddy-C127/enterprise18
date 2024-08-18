@@ -6,16 +6,16 @@
 # a75f12d3d37ea5bf159c4b3e85eb30e7_0fa6927, 2023
 # Marcos Rodrigues, 2024
 # Martin Trigaux, 2024
-# Wil Odoo, 2024
 # Maitê Dietze, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 07:30+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Maitê Dietze, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -284,13 +284,9 @@ msgid "Amount Currency"
 msgstr "Moeda do valor"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
-msgid "Amount Transaction Currency"
-msgstr "Valor na moeda da transação"
-
-#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
 #, python-format
 msgid "Amount in Currency"
 msgstr "Valor na moeda"
@@ -863,6 +859,11 @@ msgid "Force Price Included Taxes"
 msgstr "Forçar preço incluindo impostos"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "Foreign Currency"
+msgstr "Moeda estrangeira"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
 msgstr "Índice do formulário"
@@ -1383,9 +1384,11 @@ msgid "Not Matched"
 msgstr "Não identificado"
 
 #. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
+#, python-format
 msgid "Notes"
 msgstr "Notas"
 
@@ -1937,6 +1940,15 @@ msgid "That's on average"
 msgstr "Está na média"
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid ""
+"The amount expressed in an optional other currency if it is a multi-currency"
+" entry."
+msgstr ""
+"O valor expresso em outra moeda opcional, se este for um lançamento multi-"
+"moeda"
+
+#. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
@@ -1991,6 +2003,11 @@ msgid ""
 msgstr ""
 "As faturas até esta data não serão levadas em conta como lançamentos "
 "financeiros"
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "A outra moeda opcional se este for um lançamento multi-moeda"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -2106,7 +2123,6 @@ msgstr "Transação"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "Moeda da transação"
 
@@ -2211,12 +2227,6 @@ msgstr "Lançamento de baixa"
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
-msgid "You cannot have a fiscal year on a child company."
-msgstr "Não é possível ter um exercício fiscal numa empresa dependente."
-
-#. module: account_accountant
-#: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
@@ -2272,6 +2282,13 @@ msgid ""
 msgstr ""
 "Não é possível gerar lançamentos diferidos para um lançamento diverso manual"
 " de diário."
+
+#. module: account_accountant
+#. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr "Não é possível ter um exercício fiscal numa empresa dependente."
 
 #. module: account_accountant
 #. odoo-python

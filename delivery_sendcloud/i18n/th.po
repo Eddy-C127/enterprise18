@@ -3,16 +3,16 @@
 # 	* delivery_sendcloud
 # 
 # Translators:
-# Wil Odoo, 2023
 # Rasareeyar Lappiam, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,19 +24,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "%(partner_name)s email required"
-msgstr "จำเป็นต้องใช้อีเมลของ %(partner_name)s "
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
-msgid "%(partner_name)s phone required"
-msgstr "จำเป็นต้องใช้โทรศัพท์ของ %(partner_name)s"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid ""
 "\n"
 "Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
@@ -53,15 +40,7 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"Some packages in your transfer are too heavy for the heaviest available "
-"shipping method."
-msgstr ""
-"พัสดุบางชิ้นในการโอนเงินของคุณมีน้ำหนักมากเกินไปสำหรับวิธีจัดส่งที่หนักที่สุดที่มีอยู่"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
 msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
@@ -72,11 +51,16 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"The total weight of your transfer is too heavy for the heaviest available "
-"shipping method."
-msgstr ""
-"น้ำหนักรวมของการโอนเงินของคุณหนักเกินไปสำหรับวิธีจัดส่งที่หนักที่สุดที่มีอยู่"
+#, python-format
+msgid "%(partner_name)s email required"
+msgstr "จำเป็นต้องใช้อีเมลของ %(partner_name)s "
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid "%(partner_name)s phone required"
+msgstr "จำเป็นต้องใช้โทรศัพท์ของ %(partner_name)s"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -97,6 +81,15 @@ msgstr ""
 "<i class=\"fa fa-exclamation-triangle\"/>ในสภาพแวดล้อมการทดสอบ "
 "เพื่อหลีกเลี่ยงการเรียกเก็บเงิน "
 "การจัดส่งของคุณจะ<b>ถูกยกเลิก</b>โดยอัตโนมัติหลังจากการสร้างฉลาก"
+
+#. module: delivery_sendcloud
+#: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> Only administrators can configure "
+"the public and private keys."
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\"/> "
+"มีเพียงผู้ดูแลระบบเท่านั้นที่สามารถกำหนดค่าคีย์สาธารณะและคีย์ส่วนตัวได้"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -546,8 +539,11 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "Some packages in"
-msgstr "แพ็คเกจบางส่วนใน"
+msgid ""
+"Some packages in your transfer are too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"พัสดุบางชิ้นในการโอนเงินของคุณมีน้ำหนักมากเกินไปสำหรับวิธีจัดส่งที่หนักที่สุดที่มีอยู่"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -597,6 +593,16 @@ msgstr ""
 #, python-format
 msgid "The shipping product actually configured can't handle this delivery"
 msgstr "สินค้าจัดส่งที่กำหนดค่าไว้จริงไม่สามารถจัดส่งได้"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"The total weight of your transfer is too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"น้ำหนักรวมของการโอนเงินของคุณหนักเกินไปสำหรับวิธีจัดส่งที่หนักที่สุดที่มีอยู่"
 
 #. module: delivery_sendcloud
 #. odoo-python

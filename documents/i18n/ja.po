@@ -3,17 +3,17 @@
 # 	* documents
 # 
 # Translators:
-# Wil Odoo, 2023
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
 # Junko Augias, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,13 +71,6 @@ msgid "%s page(s) deleted"
 msgstr "%sページが削除されました "
 
 #. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
-#, python-format
-msgid "(Remaining pages"
-msgstr "(残りのページ"
-
-#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid ", expired on"
 msgstr "、以下の日に有効切れ:"
@@ -114,6 +107,13 @@ msgid "<b>Deselect this page</b> as we plan to process all bills first."
 msgstr "全ての請求書を先に処理する予定なので、<b>このページの選択を解除</b>して下さい。"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "<b>Select</b> this page to continue."
+msgstr "このページを<b>選択</b>して継続。"
+
+#. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page
 msgid ""
 "<br/>\n"
@@ -121,13 +121,6 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "                   があなたとコンテンツを共有しています。"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
-msgid "<b>Select</b> this page to continue."
-msgstr "このページを<b>選択</b>して継続。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -915,32 +908,11 @@ msgid "An error occured while uploading."
 msgstr "アップロード中にエラーが発生しました。"
 
 #. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-msgid "Archive"
-msgstr "アーカイブ"
-
-#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Archive original file(s)"
 msgstr "元のファイルをアーカイブする"
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-msgid "Archived"
-msgstr "アーカイブ済"
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.document_view_form
-#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
-msgid "Moved to trash"
-msgstr "ゴミ箱へ移動"
-
-#. module: documents
-#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
-msgid "Archived Workspace"
-msgstr "アーカイブ済ワークスペース"
 
 #. module: documents
 #. odoo-javascript
@@ -1156,6 +1128,13 @@ msgstr "<b>ページセパレータ</b>をクリック: この2つのページ�
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/js/tours/documents.js:0
+#, python-format
+msgid "Click the cross to <b>exit preview</b>."
+msgstr "Xをクリックして<b>プレビューを閉じる</b>"
+
+#. module: documents
+#. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.xml:0
 #, python-format
 msgid "Close"
@@ -1167,13 +1146,6 @@ msgstr "閉じる"
 #, python-format
 msgid "Close split tools"
 msgstr "分割ツールを閉じる"
-
-#. module: documents
-#. openerp-web
-#: code:addons/documents/static/src/js/tours/documents.js:0
-#, python-format
-msgid "Click the cross to <b>exit preview</b>."
-msgstr "Xをクリックして<b>プレビューを閉じる</b>"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__company_id
@@ -1635,6 +1607,11 @@ msgstr "Eメールエイリアス"
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
 msgid "Email cc"
 msgstr "メールCC"
+
+#. module: documents
+#: model:ir.model.fields,help:documents.field_documents_share__alias_domain
+msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
+msgstr "Eメールドメイン例 'example.com' in 'odoo@example.com'"
 
 #. module: documents
 #. odoo-javascript
@@ -2259,8 +2236,8 @@ msgstr "移動先ワークスペース"
 #: code:addons/documents/static/src/views/form/folder_form_controller.js:0
 #: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
 #: code:addons/documents/static/src/views/list/folder_list_controller.js:0
-#: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
+#: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 #, python-format
 msgid "Move to trash"
 msgstr "ゴミ箱に移動"
@@ -2274,6 +2251,16 @@ msgstr "ゴミ箱に移動"
 #, python-format
 msgid "Move to trash?"
 msgstr "ゴミ箱に移動しますか？"
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_search
+msgid "Moved To Trash"
+msgstr "ゴミ箱に移動"
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.document_view_form
+msgid "Moved to trash"
+msgstr "ゴミ箱へ移動"
 
 #. module: documents
 #. odoo-javascript
@@ -2634,6 +2621,7 @@ msgstr "関連ワークスペース"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
+#: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 #, python-format
 msgid "Remaining Pages"
 msgstr "残りのページ"
@@ -2766,7 +2754,8 @@ msgid "Restore"
 msgstr "リストア"
 
 #. module: documents
-#: code:addons/documents/models/folder.py:0
+#. odoo-python
+#: code:addons/documents/models/documents_folder.py:0
 #, python-format
 msgid "Restricted Folder"
 msgstr "制限付きフォルダ"
@@ -3662,13 +3651,6 @@ msgstr "例: domain.com"
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
 msgid "e.g. https://www.youtube.com/watch?v=CP96yVnXNrY"
 msgstr "例:  https://www.youtube.com/watch?v=CP96yVnXNrY"
-
-#. module: documents
-#. odoo-javascript
-#: code:addons/documents/static/src/views/inspector/documents_inspector.xml:0
-#, python-format
-msgid "file_extension"
-msgstr "file_extension"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_files_page

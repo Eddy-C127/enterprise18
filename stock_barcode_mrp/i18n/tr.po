@@ -7,7 +7,6 @@
 # Ahmet Altinisik <aaltinisik@altinkaya.com.tr>, 2023
 # abc Def <hdogan1974@gmail.com>, 2023
 # Murat Durmuş <muratd@projetgrup.com>, 2023
-# Özlem Atalay <ozlema@eskayazilim.com.tr>, 2023
 # Umur Akın <umura@projetgrup.com>, 2023
 # Levent Karakaş <levent@mektup.at>, 2023
 # Martin Trigaux, 2023
@@ -15,14 +14,16 @@
 # Tugay Hatıl <tugayh@projetgrup.com>, 2023
 # Murat Kaplan <muratk@projetgrup.com>, 2023
 # İlknur Gözütok, 2023
+# Özlem Atalay <ozlema@eskayazilim.com.tr>, 2024
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: İlknur Gözütok, 2023\n"
+"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -119,6 +120,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "Barcode Nomenclature"
 msgstr "Barkod Kural Seti"
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "Cancel Manufacturing Order"
+msgstr ""
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -275,6 +283,13 @@ msgid "Product Variant"
 msgstr "Ürün Varyantı"
 
 #. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "Product not Allowed"
+msgstr ""
+
+#. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production
 msgid "Production Order"
 msgstr "Üretim Emri"
@@ -339,6 +354,13 @@ msgstr "Stok Hareketi"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "The Manufacturing Order has been cancelled"
+msgstr ""
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid ""
@@ -380,6 +402,11 @@ msgid "To produce more products create a new MO."
 msgstr ""
 
 #. module: stock_barcode_mrp
+#: model:ir.model,name:stock_barcode_mrp.model_stock_picking
+msgid "Transfer"
+msgstr "Aktarım"
+
+#. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Transfers allow you to move products from one location to another."
 msgstr ""
@@ -399,3 +426,15 @@ msgid ""
 msgstr ""
 "Etkinleştirildiğinde, bu bileşen için tüketim kaydı yalnızca manuel olarak kaydedilir.\n"
 "Etkinleştirilmezse ve bileşenlerden herhangi birinin tüketimi üretim siparişinde manuel olarak düzenlenirse, Odoo manuel tüketimi de varsayar."
+
+#. module: stock_barcode_mrp
+#: model:ir.model,name:stock_barcode_mrp.model_mrp_production_backorder
+msgid "Wizard to mark as done or create back order"
+msgstr "Tamamlandı olarak işaretleme veya ön teslimat oluşturma sihirbazı"
+
+#. module: stock_barcode_mrp
+#. odoo-javascript
+#: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
+#, python-format
+msgid "You can't add the final product of a MO as a byproduct."
+msgstr ""

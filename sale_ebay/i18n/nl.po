@@ -5,14 +5,13 @@
 # Translators:
 # Jolien De Paepe, 2023
 # Wil Odoo, 2024
-# Martin Trigaux, 2024
 # Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -95,6 +94,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_ebay.field_product_template__ebay_best_offer
 msgid "Allow Best Offer"
 msgstr "Het beste bod toestaan"
+
+#. module: sale_ebay
+#. odoo-python
+#: code:addons/sale_ebay/tools/ebaysdk.py:0
+#, python-format
+msgid ""
+"An unexpected error occured from eBay.\n"
+"Please check your credentials and try again later."
+msgstr ""
+"Er is een onverwachte fout opgetreden bij eBay.\n"
+"Controleer je gegevens en probeer het later opnieuw."
 
 #. module: sale_ebay
 #: model:ir.model.fields.selection,name:sale_ebay.selection__product_template__ebay_listing_type__chinese
@@ -1024,18 +1034,3 @@ msgstr "E-bay valuta"
 #: model:ir.model.fields,field_description:sale_ebay.field_res_config_settings__ebay_sales_team
 msgid "ebay Sales Team"
 msgstr "ebay verkoopteam"
-
-#. module: sale_ebay
-#: model_terms:ir.ui.view,arch_db:sale_ebay.res_config_settings_view_form
-msgid "to setup this mechanism."
-msgstr "om dit mechanisme in te stellen."
-
-#. module: sale_ebay
-#: code:addons/sale_ebay/tools/ebaysdk.py:0
-#, python-format
-msgid ""
-"An unexpected error occured from eBay.\n"
-"Please check your credentials and try again later."
-msgstr ""
-"Er is een onverwachte fout opgetreden bij eBay.\n"
-"Controleer je gegevens en probeer het later opnieuw."

@@ -19,17 +19,17 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Jenni Heikkilä <jenni.heikkila@sv-oy.fi>, 2023
 # Martin Trigaux, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
 # Konsta Aavaranta, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-13 09:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,7 +166,7 @@ msgstr "Tähän siirtoon liittyvä asiakirja on poistettu: %s"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #, python-format
 msgid "A gross increase has been created: "
-msgstr "On luotu bruttokasvu:"
+msgstr "On luotu bruttokasvu: "
 
 #. module: account_asset
 #. odoo-python
@@ -308,6 +308,13 @@ msgstr "Lisää sisäinen huomautus"
 #, python-format
 msgid "All the lines should be from the same account"
 msgstr "Kaikkien rivien pitäisi olla samalta tililtä"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "All the lines should be from the same company"
+msgstr "Kaikkien rivien on oltava saman yrityksen rivejä"
 
 #. module: account_asset
 #. odoo-python
@@ -1547,6 +1554,13 @@ msgid "Some required values are missing"
 msgstr "Jotkin vaaditut arvot puuttuvat"
 
 #. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__prorata_date
+msgid ""
+"Starting date of the period used in the prorata calculation of the first "
+"depreciation"
+msgstr "Ensimmäisen poiston prorata-laskennassa käytetyn jakson alkupäivä"
+
+#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__state
 msgid "Status"
 msgstr "Tila"
@@ -1595,13 +1609,6 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset.field_asset_modify__method_period
 msgid "The amount of time between two depreciations"
 msgstr "Kahden arvonalennuksen välinen aika"
-
-#. module: account_asset
-#: model:ir.model.fields,help:account_asset.field_account_asset__prorata_date
-msgid ""
-"Starting date of the period used in the prorata calculation of the first "
-"depreciation"
-msgstr "Ensimmäisen poiston prorata-laskennassa käytetyn jakson alkupäivä"
 
 #. module: account_asset
 #. odoo-python

@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Wil Odoo, 2023
 # Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:11+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -123,8 +123,8 @@ msgstr "Рахунок створено: %s"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Аналітичний рахунок"
+msgid "Analytic Line"
+msgstr "Рядок аналітики"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__allow_billable
@@ -279,16 +279,6 @@ msgstr "Недійсне значення: %s"
 
 #. module: industry_fsm_sale
 #. odoo-python
-#: code:addons/industry_fsm_sale/models/product_template.py:0
-#, python-format
-msgid ""
-"The following products are currently associated with a Field Service "
-"project, you cannot change their Invoicing Policy or Type:%s"
-msgstr ""
-"Наведені нижче товари наразі пов’язані з проєктом Виїзного обслуговування, "
-"ви не можете змінити їх політику виставлення рахунків або тип:%s"
-
-#. module: industry_fsm_sale
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
 msgid "Invoice"
@@ -526,6 +516,17 @@ msgstr "Завдання, з якого було створено цю проп�
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.worksheet_time_and_material
 msgid "Taxes"
 msgstr "Податки"
+
+#. module: industry_fsm_sale
+#. odoo-python
+#: code:addons/industry_fsm_sale/models/product_template.py:0
+#, python-format
+msgid ""
+"The following products are currently associated with a Field Service "
+"project, you cannot change their Invoicing Policy or Type:%s"
+msgstr ""
+"Наведені нижче товари наразі пов’язані з проєктом Виїзного обслуговування, "
+"ви не можете змінити їх політику виставлення рахунків або тип:%s"
 
 #. module: industry_fsm_sale
 #: model:ir.model.constraint,message:industry_fsm_sale.constraint_project_project_material_imply_billable

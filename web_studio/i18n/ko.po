@@ -3,17 +3,17 @@
 # 	* web_studio
 # 
 # Translators:
-# Wil Odoo, 2023
 # Martin Trigaux, 2024
 # Daye Jeong, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:09+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -314,6 +314,7 @@ msgstr "버튼 추가하기"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "Add a button"
@@ -428,7 +429,10 @@ msgid "Allowed Group"
 msgstr "허용 그룹"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__responsible_id
+#, python-format
 msgid ""
 "An activity will be assigned to this user when an approval is requested"
 msgstr "승인이 요청되면 사용자에게 활동이 할당됩니다."
@@ -1340,6 +1344,7 @@ msgstr "취소"
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 #, python-format
 msgid "Discard changes"
 msgstr "변경 내용 삭제"
@@ -1453,6 +1458,7 @@ msgstr "값 편집하기"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #, python-format
 msgid "Edit selection"
@@ -2608,6 +2614,13 @@ msgstr "외부 ID가 있는 그룹만 여기에서 사용할 수 있습니다. �
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
+#, python-format
+msgid "Only members of this group will be able to approve or reject the rule"
+msgstr "이 그룹의 구성원만 규칙을 승인하거나 거부할 수 있습니다."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Open form view"
@@ -2896,6 +2909,14 @@ msgstr "화면에서 제거하기"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
+#, python-format
+msgid "Remove rule"
+msgstr "규칙 삭제"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/editor/app_menu_editor/app_menu_editor.xml:0
 #, python-format
 msgid "Remove selection"
@@ -3144,6 +3165,13 @@ msgstr "두 번째 상태"
 #, python-format
 msgid "Second dimension"
 msgstr "2차원"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/report_editor/report_editor_xml/report_editor_xml.xml:0
+#, python-format
+msgid "See what changes have been made to this view"
+msgstr "이 보기에 변경된 사항 보기"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3630,6 +3658,15 @@ msgstr ""
 "요청한 변경으로 인해 보기에서 오류가 발생했습니다. 필드가 삭제 되었으나 여전히 다른 곳에서 사용 되었기 때문일 수 있습니다."
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
+#, python-format
+msgid ""
+"The user who approves this rule will not be able to approve other rules for "
+"the same record."
+msgstr "이 규칙을 승인한 사용자는 동일한 레코드에 대해 다른 규칙을 승인할 수 없습니다"
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 #, python-format
@@ -3664,7 +3701,10 @@ msgid "There is no record to preview"
 msgstr "미리보기 할 레코드가 없습니다."
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__users_to_notify
+#, python-format
 msgid ""
 "These users will receive a notification via internal note when an approval "
 "is requested"
@@ -3714,7 +3754,10 @@ msgid "This may be due to an incorrect syntax in the edited parts."
 msgstr "편집한 부분의 구문이 잘못되었을 수 있습니다."
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__message
+#, python-format
 msgid ""
 "This message will be displayed to users that cannot proceed without this "
 "approval"
@@ -3793,7 +3836,10 @@ msgid "Undo"
 msgstr "취소"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
+#, python-format
 msgid ""
 "Use this field to setup multi-level validation. Next activities and "
 "notifications for an approval request will only be sent once rules from "
@@ -3874,6 +3920,13 @@ msgstr "화면"
 #, python-format
 msgid "View in Error:"
 msgstr "오류 보기:"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
+#, python-format
+msgid "View {{ viewInfo.title }}"
+msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
@@ -4006,6 +4059,13 @@ msgstr "물건 망가뜨리는 걸 좋아하시죠?"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
+#, python-format
+msgid "action"
+msgstr "작업"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties.xml:0
 #, python-format
 msgid "domain not defined"
@@ -4034,6 +4094,13 @@ msgstr "예: 부동산"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
+#, python-format
+msgid "object"
+msgstr "객체"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/icon_creator/icon_creator.xml:0
 #, python-format
 msgid "or"
@@ -4045,27 +4112,6 @@ msgstr "또는"
 #, python-format
 msgid "studio_approval attribute can only be set in form views"
 msgstr "studio_approval 속성은 양식 보기에서만 설정할 수 있습니다"
-
-#. module: web_studio
-#. odoo-javascript
-#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/interactive_editor_sidebar.xml:0
-#, python-format
-msgid "tabsDisplay.new.title"
-msgstr "tabsDisplay.new.title"
-
-#. module: web_studio
-#. odoo-javascript
-#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/interactive_editor_sidebar.xml:0
-#, python-format
-msgid "tabsDisplay.properties.title"
-msgstr "tabsDisplay.properties.title"
-
-#. module: web_studio
-#. odoo-javascript
-#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/interactive_editor_sidebar.xml:0
-#, python-format
-msgid "tabsDisplay.view.title"
-msgstr "tabsDisplay.view.title"
 
 #. module: web_studio
 #. odoo-javascript

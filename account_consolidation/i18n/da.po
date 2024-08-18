@@ -8,17 +8,17 @@
 # Mads Søndergaard, 2023
 # Ejner Sønniksen <ejner@vkdata.dk>, 2023
 # lhmflexerp <lhm@flexerp.dk>, 2023
-# Martin Trigaux, 2023
 # Mads Søndergaard, 2023
 # Sanne Kristensen <sanne@vkdata.dk>, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Sanne Kristensen <sanne@vkdata.dk>, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Danish (https://app.transifex.com/odoo/teams/41243/da/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -390,7 +390,7 @@ msgstr "Kontoplaner"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_setup_ccoa
 msgid "Chart of accounts set!"
-msgstr ""
+msgstr "Kontoplan sat!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_tree
@@ -668,6 +668,11 @@ msgid "Consolidation Rate (%)"
 msgstr "Konsolidering sats (%)"
 
 #. module: account_consolidation
+#: model:ir.model.fields,field_description:account_consolidation.field_consolidation_chart__rate_ids
+msgid "Consolidation Rates"
+msgstr ""
+
+#. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_consolidation_account
 msgid "Consolidation account"
 msgstr "Konsolidering konto"
@@ -691,6 +696,11 @@ msgstr "Konsolidering journal linje"
 #: model:res.groups,name:account_consolidation.group_consolidation_user
 msgid "Consolidation user"
 msgstr "Konsolidering bruger"
+
+#. module: account_consolidation
+#: model:ir.model.fields,field_description:account_consolidation.field_consolidation_company_period__conversion_rate
+msgid "Conversion Rate"
+msgstr "Valutakurs"
 
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,button_text:account_consolidation.onboarding_onboarding_step_create_consolidation_period

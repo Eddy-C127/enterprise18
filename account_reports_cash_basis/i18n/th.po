@@ -3,15 +3,15 @@
 # 	* account_reports_cash_basis
 # 
 # Translators:
-# Wil Odoo, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,6 +40,18 @@ msgstr "วิธีเกณฑ์เงินสด"
 #: model:ir.model.fields,help:account_reports_cash_basis.field_account_report__filter_cash_basis
 msgid "Display the option to switch to cash basis mode."
 msgstr "แสดงตัวเลือกเพื่อสลับไปยังโหมดเกณฑ์เงินสด"
+
+#. module: account_reports_cash_basis
+#: model:ir.model.fields,field_description:account_reports_cash_basis.field_account_bank_statement_line__impacting_cash_basis
+#: model:ir.model.fields,field_description:account_reports_cash_basis.field_account_move__impacting_cash_basis
+#: model:ir.model.fields,field_description:account_reports_cash_basis.field_account_payment__impacting_cash_basis
+msgid "Impacting Cash Basis"
+msgstr "ส่งผลกระทบต่อเกณฑ์เงินสด"
+
+#. module: account_reports_cash_basis
+#: model:ir.model,name:account_reports_cash_basis.model_account_move
+msgid "Journal Entry"
+msgstr "รายการบันทึกประจำวัน"
 
 #. module: account_reports_cash_basis
 #: model:ir.model,name:account_reports_cash_basis.model_account_move_line

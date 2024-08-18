@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -99,7 +99,6 @@ msgstr "Toimenpiteen ikoni"
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_workorder_additional_product_wizard
 #, python-format
 msgid "Add By-Product"
@@ -116,7 +115,6 @@ msgstr "Lisää sivutuote"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_workorder_additional_product_wizard
 #, python-format
@@ -625,6 +623,11 @@ msgstr "Google Slide-linkki"
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__worksheet_url
 msgid "Google doc URL"
 msgstr "Google doc URL-osoite"
+
+#. module: mrp_workorder
+#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__has_operation_note
+msgid "Has Description"
+msgstr ""
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__id
@@ -1570,6 +1573,11 @@ msgstr ""
 "Työnohjauksen päällikön istuntoa ei löydy. Ole hyvä ja kirjaudu sisään."
 
 #. module: mrp_workorder
+#: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_view_search_inherit_planning
+msgid "This Station"
+msgstr ""
+
+#. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/hooks/employee_hooks.js:0
 #, python-format
@@ -1622,10 +1630,8 @@ msgstr "Määrä yhteensä"
 #, python-format
 msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
-"                                quality control, consumed quantities, lot/serial numbers, etc."
+"                                    quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
-"Seuraa työtilauksia, näytä ohjeita ja kirjaa valmistustoiminnot täältä:\n"
-"                                laadunvalvonta, kulutetut määrät, erä-/sarjanumerot jne."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1660,7 +1666,10 @@ msgstr ""
 "valmistustilauksia"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
+#, python-format
 msgid "Unblock"
 msgstr "Poista esto"
 
@@ -1976,13 +1985,6 @@ msgstr "Sinun on kirjauduttava sisään, jotta voit käsitellä tätä työtilau
 #, python-format
 msgid "You need to supply a Lot/Serial Number for the final product."
 msgstr "Sinun on annettava lopputuotteen erä-/sarjanumero."
-
-#. module: mrp_workorder
-#. odoo-python
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
-#, python-format
-msgid "You should provide a lot/serial number for the final product"
-msgstr "Lopullisen tuotteen erä- tai sarjanumero on ilmoitettava"
 
 #. module: mrp_workorder
 #. odoo-python

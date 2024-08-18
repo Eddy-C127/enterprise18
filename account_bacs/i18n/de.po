@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -895,24 +895,6 @@ msgid "Service user number"
 msgstr "Service User number"
 
 #. module: account_bacs
-msgid "Service user number of your company within BACS"
-msgstr "Service User Number Ihres Unternehmens bei BACS"
-
-#. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
-msgid ""
-"Service user number of your company within BACS. Write 'HSBC' here if you "
-"bank does not provide one."
-msgstr ""
-"Service User Number (Service-Benutzernummer) Ihres Unternehmens innerhalb "
-"von BACS. Schreiben Sie hier „HSBC“, wenn Ihre Bank keine Nummer angibt."
-
-#. module: account_bacs
-msgid "Service user number of your company within BACS, given by the bank."
-msgstr ""
-"Service User Number Ihres Unternehmens bei BACS, vergeben von der Bank"
-
-#. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
 msgid ""
 "Service user number of your company within BACS, given by the bank. Write "
@@ -921,6 +903,13 @@ msgstr ""
 "Service User Number (Service-Benutzernummer) Ihres Unternehmens innerhalb "
 "von BACS, die Sie von der Bank erhalten haben. Schreiben Sie hier „HSBC“, "
 "wenn Ihre Bank keine Nummer angibt."
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if your "
+"bank does not provide one."
+msgstr ""
 
 #. module: account_bacs
 #. odoo-python
@@ -1060,13 +1049,6 @@ msgstr "Das ausgewählte Kreditorenkonto muss eine gültige britische IBAN sein"
 #, python-format
 msgid "The service user number must be 6 characters long."
 msgstr "Die Service User Number muss aus 6 Zeichen bestehen."
-
-#. module: account_bacs
-#. odoo-python
-#: code:addons/account_bacs/models/res_company.py:0
-#, python-format
-msgid "The service user number must be numeric."
-msgstr "Die Service User Number muss numerisch sein."
 
 #. module: account_bacs
 #. odoo-python

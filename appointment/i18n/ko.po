@@ -5,16 +5,16 @@
 # Translators:
 # Linkup <link-up@naver.com>, 2023
 # Sarah Park, 2024
-# Wil Odoo, 2024
 # Daye Jeong, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -128,19 +128,28 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid ""
 "<br/>\n"
-"                                        <span>Duration</span>"
+"                                    <span>Duration</span>"
 msgstr ""
 "<br/>\n"
-"                                        <span>소요 시간</span>"
+"                                    <span>소요시간</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid ""
 "<br/>\n"
-"                                    <span>(Last 30 Days)</span>"
+"                                <span>(Last 30 Days)</span>"
 msgstr ""
 "<br/>\n"
-"                                    <span>(최근 30일)</span>"
+"                                <span> (최근 30일)</span>"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
+msgid ""
+"<br/>\n"
+"                                <span>Scheduled</span>"
+msgstr ""
+"<br/>\n"
+"                                <span>예약됨</span>"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -765,11 +774,6 @@ msgstr "<small class=\"text-uppercase text-muted\">일시</small>"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
 msgstr "<small class=\"text-uppercase text-muted\">미팅 세부 사항</small>"
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
-msgid "<span class=\"d-block\">Scheduled</span>"
-msgstr "<span class=\"d-block\">예약됨</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2095,6 +2099,7 @@ msgstr "참여 방법"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__assign_method
+#: model:ir.model.fields,help:appointment.field_appointment_type__user_assign_method
 msgid ""
 "How users and resources will be assigned to meetings customers book on your "
 "website."
@@ -2152,6 +2157,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, the meeting is considered as taking place online"
 msgstr ""
+
+#. module: appointment
+#: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
+msgid ""
+"If kept empty, the working schedule of the company set on the resource will "
+"be used"
+msgstr "비워두면 해당 직원에게 설정된 회사의 근무 일정이 사용됩니다."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2713,6 +2725,7 @@ msgstr "전화: %s"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__user_assign_method__resource_time
 msgid "Pick User/Resource then Time"
 msgstr "사용자 및 리소스 선택 후 시간을 선택"
 
@@ -2720,11 +2733,6 @@ msgstr "사용자 및 리소스 선택 후 시간을 선택"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Pick a Work Schedule..."
 msgstr "근무 일정 선택..."
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
-msgid "Pick a schedule to restrict openings"
-msgstr ""
 
 #. module: appointment
 #. odoo-javascript
@@ -2859,6 +2867,11 @@ msgstr "자원 일정표"
 #: model:ir.ui.menu,name:appointment.menu_appointment_resource_leaves
 msgid "Resource Leaves"
 msgstr "리소스 휴가"
+
+#. module: appointment
+#: model:ir.model,name:appointment.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "자원 근무 시간"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_resource_action
@@ -3018,6 +3031,7 @@ msgstr "시간 선택 후 사용자 및 리소스 선택"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_auto_assign
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__user_assign_method__time_auto_assign
 msgid "Select Time then auto-assign"
 msgstr "시간 선택 후 자동 배정"
 
@@ -3602,6 +3616,11 @@ msgid "User"
 msgstr "사용자"
 
 #. module: appointment
+#: model:ir.model.fields,field_description:appointment.field_appointment_type__user_assign_method
+msgid "User Assign Method"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__staff_user_ids
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__staff_user_ids
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__schedule_based_on__users
@@ -3632,13 +3651,6 @@ msgstr "수요일"
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__weekday
 msgid "Week Day"
 msgstr "평일"
-
-#. module: appointment
-#: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
-msgid ""
-"If kept empty, the working schedule of the company set on the resource will "
-"be used"
-msgstr "비워두면 해당 직원에게 설정된 회사의 근무 일정이 사용됩니다."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select

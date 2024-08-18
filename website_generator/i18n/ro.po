@@ -9,6 +9,7 @@
 # Martin Trigaux, 2024
 # Dorin Hongu <dhongu@gmail.com>, 2024
 # Corina Calin, 2024
+# Maria Muntean, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-31 15:28+0000\n"
 "PO-Revision-Date: 2024-02-07 08:49+0000\n"
-"Last-Translator: Corina Calin, 2024\n"
+"Last-Translator: Maria Muntean, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,11 +38,20 @@ msgid ""
 "            </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"            <p><b>Vești excelente!</b> Conversia site-ului dvs. este completă, iar noul dvs. site Odoo integrat este acum funcțional.</p>\n"
+"            <p>Vizitați noul dvs. site aici: <a t-att-href=\"ctx.get('website_url')\"><t t-out=\"ctx.get('website_url')\"></t></a></p>\n"
+"            <p>Vă mulțumim că ați ales Odoo pentru integrarea dvs. web!</p>\n"
+"            <p>Salutări,</p>\n"
+"            <br>\n"
+"            <p>Odoo - Cel mai bun constructor de site-uri web open source.</p>\n"
+"            </div>\n"
+"            "
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__additional_urls
 msgid "Additional URLs"
-msgstr ""
+msgstr "URL-uri suplimentare"
 
 #. module: website_generator
 #. odoo-python
@@ -55,14 +65,14 @@ msgstr "A fost generată o eroare"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Attachment not found"
-msgstr ""
+msgstr "Atașamentul nu a fost găsit"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Banned url"
-msgstr ""
+msgstr "Url interzis"
 
 #. module: website_generator
 #. odoo-python
@@ -70,6 +80,7 @@ msgstr ""
 #, python-format
 msgid "Could not fetch result, invalid output uuid or result expired"
 msgstr ""
+"Nu s-a putut prelua rezultatul, uuid de ieșire invalid sau rezultat expirat"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__create_uid
@@ -91,7 +102,7 @@ msgstr "Nume afișat"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Done, website generated"
-msgstr ""
+msgstr "Gata, site-ul web generat"
 
 #. module: website_generator
 #: model:ir.model,name:website_generator.model_ir_http
@@ -108,35 +119,35 @@ msgstr "ID"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Invalid dbuuid"
-msgstr ""
+msgstr "Dbuuid invalid"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Invalid import products"
-msgstr ""
+msgstr "Import produse invalid"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Invalid token"
-msgstr ""
+msgstr "Token invalid"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Invalid url"
-msgstr ""
+msgstr "Url invalid"
 
 #. module: website_generator
 #. odoo-javascript
 #: code:addons/website_generator/static/src/client_actions/generator_wait/generator.xml:0
 #, python-format
 msgid "It should be ready in a"
-msgstr ""
+msgstr "Ar trebui să fie gata în"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__write_uid
@@ -151,21 +162,21 @@ msgstr "Ultima actualizare pe"
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__notified
 msgid "Notified"
-msgstr ""
+msgstr "Notificat"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Number of allowed requests exhausted"
-msgstr ""
+msgstr "Numărul de cereri permise este epuizat"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Number of concurrent requests exceeded"
-msgstr ""
+msgstr "Numărul de cereri concurente depășit"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__page_count
@@ -181,11 +192,14 @@ msgid ""
 "also close this page, we will send you an email once your website has been "
 "converted."
 msgstr ""
+"Odată ce site-ul dvs. web este gata, această pagină se va reîncărca automat."
+" De asemenea, puteți închide această pagină, vă vom trimite un e-mail odată "
+"ce site-ul dvs. a fost convertit."
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__uuid
 msgid "Output UUID generated from Website Scraper Server"
-msgstr ""
+msgstr "Ieșirea UUID generată de serverul Website Scraper"
 
 #. module: website_generator
 #: model:ir.model,name:website_generator.model_website_page
@@ -205,6 +219,7 @@ msgstr "Prelucrare"
 #, python-format
 msgid "Request is still processing, result not available yet"
 msgstr ""
+"Cererea este încă în curs de procesare, rezultatul nu este încă disponibil"
 
 #. module: website_generator
 #. odoo-python
@@ -229,7 +244,7 @@ msgstr "Stare"
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__status_message
 msgid "Status Message"
-msgstr ""
+msgstr "Mesaj Status "
 
 #. module: website_generator
 #. odoo-python
@@ -243,7 +258,7 @@ msgstr "Succes"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "The request asks for too many pages"
-msgstr ""
+msgstr "Cererea solicită prea multe pagini"
 
 #. module: website_generator
 #. odoo-python
@@ -255,7 +270,7 @@ msgstr "Top Meniu pentru site-ul Web %s"
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__target_url
 msgid "URL to scrape"
-msgstr ""
+msgstr "URL de ras"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__version
@@ -267,14 +282,14 @@ msgstr "Versiune"
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Version is unsupported"
-msgstr ""
+msgstr "Versiunea nu este suportată"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Waiting for the server to process the request"
-msgstr ""
+msgstr "Așteptarea ca serverul să proceseze cererea"
 
 #. module: website_generator
 #. odoo-javascript
@@ -282,6 +297,7 @@ msgstr ""
 #, python-format
 msgid "We could not convert your website, please try again later"
 msgstr ""
+"Nu am putut converti site-ul dvs., vă rugăm să încercați din nou mai târziu"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__website_id
@@ -291,57 +307,57 @@ msgstr "Site web"
 #. module: website_generator
 #: model:ir.actions.client,name:website_generator.website_generator_screen
 msgid "Website Generator"
-msgstr ""
+msgstr "Generator Website"
 
 #. module: website_generator
 #: model:ir.actions.server,name:website_generator.action_convert_scraping_request_ICP
 msgid "Website Generator After Install"
-msgstr ""
+msgstr "Generator Website dupa instalare"
 
 #. module: website_generator
 #: model:ir.model,name:website_generator.model_website_generator_request
 msgid "Website Generator Request"
-msgstr ""
+msgstr "Cerere Generator Website"
 
 #. module: website_generator
 #: model:ir.actions.server,name:website_generator.cron_get_result_ir_actions_server
 msgid "Website Generator: Get website scraper results"
-msgstr ""
+msgstr "Generator Website : Obțineți rezultatele scraper-ului"
 
 #. module: website_generator
 #: model:mail.template,name:website_generator.email_template_website_scrapped
 msgid "Website Scraped"
-msgstr ""
+msgstr "Site web ras"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Website blocked or unreachable"
-msgstr ""
+msgstr "Site blocat sau inaccesibil"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 #, python-format
 msgid "Website not supported"
-msgstr ""
+msgstr "Site web nu este acceptat"
 
 #. module: website_generator
 #: model:mail.template,subject:website_generator.email_template_website_scrapped
 msgid "Your Odoo Website is Ready!"
-msgstr ""
+msgstr "Site-ul dvs. Odoo este gata!"
 
 #. module: website_generator
 #. odoo-javascript
 #: code:addons/website_generator/static/src/client_actions/generator_wait/generator.xml:0
 #, python-format
 msgid "Your website is being converted"
-msgstr ""
+msgstr "Site-ul dvs. web este convertit"
 
 #. module: website_generator
 #. odoo-javascript
 #: code:addons/website_generator/static/src/client_actions/generator_wait/generator.xml:0
 #, python-format
 msgid "few minutes"
-msgstr ""
+msgstr "câteva minute"

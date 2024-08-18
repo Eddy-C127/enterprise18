@@ -3,18 +3,18 @@
 # 	* timesheet_grid
 # 
 # Translators:
-# Wil Odoo, 2023
 # Iran Villalobos López, 2023
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -391,8 +391,8 @@ msgstr "El empleado debe estar vinculado a un usuario para registrar tiempo."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Cuenta analítica"
+msgid "Analytic Line"
+msgstr "Línea analítica"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_allow
@@ -1443,16 +1443,17 @@ msgstr ""
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
+#: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
-msgid "You cannot access timesheets that are not yours."
-msgstr "No puede acceder a hojas de horas que no son suyas."
+msgid "You can't encode numbers with more than six digits."
+msgstr "No puede codificar números con más de seis dígitos."
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
-msgid "You can't encode numbers with more than six digits."
-msgstr "No puede codificar números con más de seis dígitos."
+msgid "You cannot access timesheets that are not yours."
+msgstr "No puede acceder a hojas de horas que no son suyas."
 
 #. module: timesheet_grid
 #. odoo-python

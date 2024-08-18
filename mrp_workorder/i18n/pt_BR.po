@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Maitê Dietze, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
@@ -88,7 +88,6 @@ msgstr "Ícone do tipo de atividade"
 #. module: mrp_workorder
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_workorder_additional_product_wizard
 #, python-format
 msgid "Add By-Product"
@@ -105,7 +104,6 @@ msgstr "Adicionar subproduto"
 #. odoo-javascript
 #. odoo-python
 #: code:addons/mrp_workorder/models/mrp_production.py:0
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_workorder_additional_product_wizard
 #, python-format
@@ -615,6 +613,11 @@ msgstr "Link do Google Slide"
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__worksheet_url
 msgid "Google doc URL"
 msgstr "URL do documento do Google"
+
+#. module: mrp_workorder
+#: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__has_operation_note
+msgid "Has Description"
+msgstr ""
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__id
@@ -1566,6 +1569,11 @@ msgid "There is no session chief. Please log in."
 msgstr "Não há chefe de sessão. Faça o login."
 
 #. module: mrp_workorder
+#: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_view_search_inherit_planning
+msgid "This Station"
+msgstr "Esta estação"
+
+#. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/hooks/employee_hooks.js:0
 #, python-format
@@ -1619,10 +1627,8 @@ msgstr "Qtd. total"
 #, python-format
 msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
-"                                quality control, consumed quantities, lot/serial numbers, etc."
+"                                    quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
-"Acompanhe as ordens de serviço, apresente instruções e registre as operações de fabricação a partir de:\n"
-"controle de qualidade, quantidades consumidas, números de lote/série, etc."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1655,7 +1661,10 @@ msgid ""
 msgstr "Não é possível carregar amostras quando já existem ordens de produção"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
+#, python-format
 msgid "Unblock"
 msgstr "Desbloquear"
 
@@ -1971,13 +1980,6 @@ msgstr "Você deve estar conectado para processar esta ordem de trabalho."
 #, python-format
 msgid "You need to supply a Lot/Serial Number for the final product."
 msgstr "É necessário fornecer um número de série/lote para o produto final."
-
-#. module: mrp_workorder
-#. odoo-python
-#: code:addons/mrp_workorder/models/mrp_workorder.py:0
-#, python-format
-msgid "You should provide a lot/serial number for the final product"
-msgstr "É necessário fornecer um número de lote/série para o produto final"
 
 #. module: mrp_workorder
 #. odoo-python

@@ -8,14 +8,15 @@
 # Martin Trigaux, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 13:32+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -507,8 +508,11 @@ msgstr "Alle rapportvarianten"
 #, python-format
 msgid ""
 "All selected companies or branches do not share the same Tax ID. Please "
-"checkthe Tax ID of the selected companies."
+"check the Tax ID of the selected companies."
 msgstr ""
+"Alle geselecteerde bedrijven of filialen hebben niet hetzelfde "
+"belastingnummer. Controleer het belastingnummer van de geselecteerde "
+"bedrijven."
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -751,6 +755,7 @@ msgstr "Eerder"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/footnote/dialog/footnote_dialog.xml:0
 #: code:addons/account_reports/static/src/components/aged_partner_balance/dialog/expected_date_dialog.xml:0
+#: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
 #: model_terms:ir.ui.view,arch_db:account_reports.view_report_export_wizard
 #, python-format
@@ -1308,6 +1313,13 @@ msgstr "Definitie"
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity
 msgid "Delay units"
 msgstr "Vertragingseenheden"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
+#, python-format
+msgid "Depending moves"
+msgstr "Afhankelijke verplaatsingen"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
@@ -2174,6 +2186,15 @@ msgid "Is Account Coverage Report Available"
 msgstr "Het rekeningdekkingsrapport is beschikbaar"
 
 #. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
+#, python-format
+msgid "It seems there is some depending closing move to be posted"
+msgstr ""
+"Het lijkt erop dat er een afhankelijk sluitende boeking moet worden "
+"uitgevoerd"
+
+#. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
 #: model:ir.model,name:account_reports.model_account_journal
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity_journal_id
@@ -2925,15 +2946,6 @@ msgstr "Posten"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "Alleen definitieve boekingen"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid ""
-"Posting this entry will also update and post the unposted closings of the "
-"depending companies."
-msgstr ""
-"Het boeken van deze boeking zal ook de ongeboekte afsluitingen van de "
-"afhankelijke bedrijven bijwerken en boeken."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0

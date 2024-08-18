@@ -11,16 +11,16 @@
 # Lilach Gilliam <lilach.gilliam@gmail.com>, 2023
 # Yihya Hugirat <hugirat@gmail.com>, 2023
 # yael terner, 2024
-# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
 # Martin Trigaux, 2024
+# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-09 10:16+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -154,13 +154,6 @@ msgstr "תמונת רקע"
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
-msgid "Book now"
-msgstr ""
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
 msgid "Booked"
 msgstr "הוזמן"
 
@@ -215,7 +208,6 @@ msgstr "עסוק"
 #. module: room
 #. odoo-javascript
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
 #, python-format
 msgid "Cancel"
 msgstr "בטל"
@@ -531,6 +523,12 @@ msgid "Public Booking"
 msgstr ""
 
 #. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__rating_ids
+#: model:ir.model.fields,field_description:room.field_room_room__rating_ids
+msgid "Ratings"
+msgstr "דירוגים"
+
+#. module: room
 #: model:ir.actions.act_window,name:room.room_room_action
 #: model:ir.model,name:room.model_room_room
 #: model:ir.model.fields,field_description:room.field_room_booking__room_id
@@ -578,20 +576,6 @@ msgstr "חדרים"
 #, python-format
 msgid "Save"
 msgstr "שמור"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
-#, python-format
-msgid "Schedule"
-msgstr "תזמן"
-
-#. module: room
-#. odoo-javascript
-#: code:addons/room/static/src/room_booking/room_booking_view/room_booking_view.xml:0
-#, python-format
-msgid "Schedule Booking"
-msgstr ""
 
 #. module: room
 #: model:ir.model.fields,field_description:room.field_room_room__short_code

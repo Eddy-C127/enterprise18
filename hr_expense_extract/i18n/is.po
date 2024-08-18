@@ -166,7 +166,7 @@ msgstr "Búið til þann"
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Gjaldmiðill"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__res_company__expense_extract_show_ocr_option_selection__auto_send
@@ -347,6 +347,12 @@ msgid ""
 "SEPA Credit Transfer: Pay in the SEPA zone by submitting a SEPA Credit Transfer file to your bank. Module account_sepa is necessary.\n"
 "SEPA Direct Debit: Get paid in the SEPA zone thanks to a mandate your partner will have granted to you. Module account_sepa is necessary.\n"
 msgstr ""
+"Handvirkt: Borgaðu eða fáðu greitt með hvaða aðferð sem er utan Odoo.\n"
+"Greiðsluveitendur: Hver greiðsluveita hefur sína eigin greiðslumáta. Biðjið um færslu á/á kort þökk sé greiðslumiðli sem samstarfsaðilinn vistaði þegar hann kaupir eða gerist áskrifandi á netinu.\n"
+"Ávísun: Borgaðu reikninga með ávísun og prentaðu það frá Odoo.\n"
+"Lotuinnborgun: Safnaðu nokkrum viðskiptavinaávísunum í einu og búðu til og sendu lotuinnborgun til bankans þíns. Eining account_lotch_payment er nauðsynleg.\n"
+"SEPA millifærsla: Borgaðu á SEPA svæðinu með því að senda inn SEPA millifærsluskrá til bankans. Module account_sepa er nauðsynleg.\n"
+"SEPA beingreiðslur: Fáðu greitt á SEPA svæðinu þökk sé umboði sem félagi þinn mun hafa veitt þér. Module account_sepa er nauðsynleg.\n"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__expense_sample_register__partial_mode__paid
@@ -401,7 +407,7 @@ msgstr ""
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_expense_sample_register__payment_method_line_id
 msgid "Payment Method"
-msgstr ""
+msgstr "Greiðsluaðferð"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__rating_ids
@@ -411,7 +417,7 @@ msgstr "Stjörnugjöf"
 #. module: hr_expense_extract
 #: model_terms:ir.ui.view,arch_db:hr_expense_extract.expense_sample_register_view_form
 msgid "Register Payment"
-msgstr ""
+msgstr "Skrá greiðslu"
 
 #. module: hr_expense_extract
 #: model:ir.actions.act_window,name:hr_expense_extract.action_expense_sample_register

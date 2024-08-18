@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-17 13:32+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Hamed Mohammadi <hamed@dehongi.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
@@ -516,7 +516,7 @@ msgstr "تمام انواع گزارش"
 #, python-format
 msgid ""
 "All selected companies or branches do not share the same Tax ID. Please "
-"checkthe Tax ID of the selected companies."
+"check the Tax ID of the selected companies."
 msgstr ""
 
 #. module: account_reports
@@ -760,6 +760,7 @@ msgstr "قبل"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/footnote/dialog/footnote_dialog.xml:0
 #: code:addons/account_reports/static/src/components/aged_partner_balance/dialog/expected_date_dialog.xml:0
+#: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
 #: model_terms:ir.ui.view,arch_db:account_reports.view_report_export_wizard
 #, python-format
@@ -1316,6 +1317,13 @@ msgstr "تعریف"
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity
 msgid "Delay units"
 msgstr "واحد های تاخیر"
+
+#. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
+#, python-format
+msgid "Depending moves"
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
@@ -2177,6 +2185,13 @@ msgid "Is Account Coverage Report Available"
 msgstr "آیا گزارش پوشش‌دهی حساب در دسترس است"
 
 #. module: account_reports
+#. odoo-javascript
+#: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
+#, python-format
+msgid "It seems there is some depending closing move to be posted"
+msgstr ""
+
+#. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
 #: model:ir.model,name:account_reports.model_account_journal
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity_journal_id
@@ -2927,15 +2942,6 @@ msgstr "ارسال"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "تنها ورودی‌های پست شده"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
-msgid ""
-"Posting this entry will also update and post the unposted closings of the "
-"depending companies."
-msgstr ""
-"ثبت این سند، سندهای نهایی ثبت نشده‌ی شرکت‌های وابسته را نیز به روزرسانی و "
-"ثبت می‌کند."
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0

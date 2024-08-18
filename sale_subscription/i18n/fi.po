@@ -9,7 +9,6 @@
 # Sari Mäyrä <sari.mayra@sv-oy.fi>, 2023
 # Iipponen <erno@web-veistamo.fi>, 2023
 # Antti Oksman <antti.oksman@web-veistamo.fi>, 2023
-# Kari Lindgren <karisatu@gmail.com>, 2023
 # Jenni Heikkilä <jenni.heikkila@sv-oy.fi>, 2023
 # Joakim Weckman, 2023
 # Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2023
@@ -23,19 +22,21 @@
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2023
 # Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2023
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2023
-# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
-# Martin Trigaux, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Konsta Aavaranta, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Kari Lindgren <karisatu@gmail.com>, 2024
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Martin Trigaux, 2024
+# Marko Happonen <marko.happonen@sprintit.fi>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-22 15:46+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024\n"
+"Last-Translator: Marko Happonen <marko.happonen@sprintit.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1220,8 +1221,8 @@ msgstr "Vuotuiset toistuvat tulot"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
-msgid "Anticipate payment"
-msgstr "Odotettu maksu"
+msgid "Anticipate payment:"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1286,6 +1287,15 @@ msgid ""
 msgstr ""
 "Automaattinen maksu epäonnistui useiden yritysten jälkeen. Sopimus "
 "suljettiin automaattisesti."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Automatic payment failed. Check the corresponding invoice %s. We can't "
+"automatically process negative payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-python
@@ -2148,6 +2158,7 @@ msgstr "Etene ja luo uusi tilaus"
 
 #. module: sale_subscription
 #. odoo-javascript
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Go back to the subscription view"
@@ -3058,6 +3069,11 @@ msgid "Payment Failure"
 msgstr "Maksu epäonnistui"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_method
+msgid "Payment Method"
+msgstr "Maksutapa"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_provider
 msgid "Payment Provider"
 msgstr "Maksupalveluntarjoaja"
@@ -3244,6 +3260,8 @@ msgid "Quantity"
 msgstr "Määrä"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__1_draft
@@ -3252,6 +3270,7 @@ msgstr "Määrä"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__subscription_state__1_draft
+#, python-format
 msgid "Quotation"
 msgstr "Tarjous"
 
@@ -3432,7 +3451,6 @@ msgstr "Toistuvat tulot"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
-#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -3637,6 +3655,11 @@ msgid "Sales Advance Payment Invoice"
 msgstr "Myynnin ennakkolasku"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Myyntianalyysi"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Sales History"
 msgstr "Myyntihistoria"
@@ -3697,13 +3720,6 @@ msgid ""
 msgstr ""
 "Valitse sen tuotteen variantit, johon tätä sääntöä sovelletaan. Jätä "
 "tyhjäksi, jos sääntöä sovelletaan mihin tahansa tämän mallin varianttiin."
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-#, python-format
-msgid "Select a recurrence"
-msgstr "Valitse toistuvuus"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4415,11 +4431,9 @@ msgstr "Lisämyynti %s on peruutettu."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid ""
-"The upsell %s has been canceled. Please recheck the quantities as they may "
+"The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
-"Lisämyynti %s on peruttu. Tarkista tilauksen määrät uudelleen, koska "
-"peruminen on voinut vaikuttaa niihin."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4440,11 +4454,6 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
-msgstr "On olemassa"
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "There is an"
 msgstr "On olemassa"
 
 #. module: sale_subscription
@@ -4706,7 +4715,6 @@ msgstr "Päivitä terveysarvo MRR:n mukaan"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state_from__7_upsell
@@ -4752,6 +4760,11 @@ msgid "Use Calendar"
 msgstr "Käytä kalenteria"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr "Käytä työntekijän työaikataulua"
+
+#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
@@ -4761,6 +4774,11 @@ msgstr ""
 "Käytä tilauksia tehtävien, ongelmien, työaikataulujen tai laskutuksen seuraamiseen seuraavien tekijöiden perusteella\n"
 "                tehtyyn työhön, kuluihin ja/tai myyntitilauksiin. Odoo hallinnoi automaattisesti\n"
 "                hälytykset tilausten uusimisesta oikealle myyjälle."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
+msgstr "Käytä työntekijän työaikataulua."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4787,6 +4805,11 @@ msgid ""
 msgstr ""
 "Haluatko toistuvan laskutuksen tilausten hallinnan kautta? Aloita "
 "klikkaamalla tästä"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
+msgid "Warehouse"
+msgstr "Varasto"
 
 #. module: sale_subscription
 #. odoo-python
@@ -5131,6 +5154,11 @@ msgid "Your subscription is expired, will be closed soon."
 msgstr "Tilauksesi on vanhentunut ja se suljetaan pian."
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "and"
+msgstr "ja"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "archived product(s)"
 msgstr "arkistoidut tuotteet"
@@ -5154,6 +5182,11 @@ msgstr "esim. Suljettu tilaus"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
 msgstr "esim. keskustele tarjouksesta"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "existing for this subscription, please confirm it or reject it."
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -5230,8 +5263,8 @@ msgstr "vuodessa"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "quotation and"
-msgstr "tarjous ja"
+msgid "quotation"
+msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -5257,11 +5290,6 @@ msgstr "uusiminen"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "to this day) will be automatically processed."
 msgstr "tähän päivään asti) käsitellään automaattisesti."
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "upsell"
-msgstr "lisämyynti"
 
 #. module: sale_subscription
 #: model:sms.template,body:sale_subscription.sms_template_data_payment_failure

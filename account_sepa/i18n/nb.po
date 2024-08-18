@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/odoo/teams/41243/nb/)\n"
@@ -93,6 +93,11 @@ msgstr ""
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_journal__has_sepa_ct_payment_method
 msgid "Has Sepa Ct Payment Method"
+msgstr ""
+
+#. module: account_sepa
+#: model:ir.model.fields.selection,name:account_sepa.selection__account_journal__sepa_pain_version__iso_20022
+msgid "ISO 20022"
 msgstr ""
 
 #. module: account_sepa
@@ -191,14 +196,6 @@ msgid "Payments to send via SEPA"
 msgstr "Betalinger å sende via SEPA"
 
 #. module: account_sepa
-#. odoo-python
-#: code:addons/account_sepa/models/account_journal.py:0
-#, python-format
-msgid ""
-"Please first set a SEPA identification number in the accounting settings."
-msgstr ""
-
-#. module: account_sepa
 #: model:ir.model,name:account_sepa.model_account_payment_register
 msgid "Register Payment"
 msgstr "Registrer betaling"
@@ -251,6 +248,15 @@ msgstr ""
 #: code:addons/account_sepa/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are above the maximum amount allowed."
+msgstr ""
+
+#. module: account_sepa
+#. odoo-python
+#: code:addons/account_sepa/models/account_journal.py:0
+#, python-format
+msgid ""
+"Some payments are missing a value for 'UETR', required for the SEPA "
+"Pain.001.001.09 format."
 msgstr ""
 
 #. module: account_sepa

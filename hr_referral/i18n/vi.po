@@ -3,16 +3,16 @@
 # 	* hr_referral
 # 
 # Translators:
-# Wil Odoo, 2023
 # Thi Huong Nguyen, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-05 15:02+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -645,9 +645,9 @@ msgid ""
 "Hello,<br><br>There are some amazing job offers in my company! Have a look, "
 "they  can be interesting for you<br><a href=\"%s\">See Job Offers</a>"
 msgstr ""
-"Xin chào,<br><br>Có một số lời mời làm việc tuyệt vời trong công ty của tôi!"
-" Hãy xem, chúng  có thể làm cho bạn cảm thấy hứng thú<br><a href=\"%s\">Xem "
-"tin tuyển dụng</a>"
+"Xin chào,<br><br>Công ty tôi hiện đang tuyển một số vị trí rất tuyệt vời! "
+"Hãy thử xem, biết đâu bạn lại thấy các công việc đó thú vị<br><a "
+"href=\"%s\">Xem cơ hội việc làm</a>"
 
 #. module: hr_referral
 #. odoo-python
@@ -657,8 +657,9 @@ msgid ""
 "Hello,<br><br>There is an amazing job offer for %s in my company! It will be"
 " a fit for you<br><a href=\"%s\">See Job Offer</a>"
 msgstr ""
-"Xin chào,<br><br>Có một lời mời làm việc tuyệt vời cho %s ở công ty của tôi!"
-" Nó sẽ phù hợp với bạn<br><a href=\"%s\">Xem lời mời làm việc</a>"
+"Xin chào,<br><br>Công ty tôi hiện đang mở một cơ hội làm việc rất tuyệt vời "
+"cho vị trí %s! Vị trí này sẽ phù hợp với bạn<br><a href=\"%s\">Xem cơ hội "
+"việc làm</a>"
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_applicant__referral_state__hired
@@ -1078,6 +1079,11 @@ msgid "Product Name"
 msgstr "Tên sản phẩm"
 
 #. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__rating_ids
+msgid "Ratings"
+msgstr "Đánh giá"
+
+#. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.action_hr_applicant_employee_referral
 msgid "Ready to receive points?"
 msgstr "Sẵn sàng nhận điểm?"
@@ -1258,7 +1264,7 @@ msgstr "Gửi"
 #. module: hr_referral
 #: model:ir.actions.act_window,name:hr_referral.hr_referral_send_mail_action
 msgid "Send Job Offer by Mail"
-msgstr "Gửi thư mời làm việc"
+msgstr "Gửi cơ hội việc làm qua thư"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_send_mail_view_form

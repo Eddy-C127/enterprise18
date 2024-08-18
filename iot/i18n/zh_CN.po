@@ -3,16 +3,17 @@
 # 	* iot
 # 
 # Translators:
-# Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
+# Wil Odoo, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,17 +24,46 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
-"0. Power on the IoT Box<br/><br/>\n"
+".\n"
 "\n"
-"                    <strong>A. Ethernet Connection</strong><br/>\n"
-"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box.<br/>\n"
-"                    2. Enter the code below and click on \"Pair\".<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Option A. Pairing Code</strong><br/>\n"
+"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box. You can also find it on the IoT Box Homepage<br/>\n"
+"                    2. Enter the code below and click on \"Pair\".<br/>\n"
+"                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
 msgstr ""
-"0.打开IOT 盒子的电源<br/><br/>\n"
+".\n"
 "\n"
-"                   <strong>A. 以太网连接</strong><br/>\n"
-"                    1.从连接到IOT 盒的显示器或热敏打印机上读取配对代码。<br/>\n"
-"                    2.输入下面的代码并点击 \"配对\"。<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>选项 A. 配对代码</strong><br/>\n"
+"                    1. 通过与 IoT 盒子相连的显示器或热敏打印机读取配对代码。您也可以在物联网盒主页上找到它<br/>\n"
+"                    2. 输入下面的代码，然后点击 “配对”。<br/>\n"
+"                    3. 一段时间后，IoT 盒子就会和连接的设备一起出现在列表中。<br/>"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"0. Power on the IoT Box and connect it to the internet through ethernet"
+msgstr "0. 打开物联网盒电源，通过以太网将其连接到互联网"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"<br/>\n"
+"                    1. Copy the token below<br/>\n"
+"                    2. While on the same network as the IoT Box open a web browser and go to the IoT Box ip address<br/>\n"
+"                    3. In the \"Server\" section click on \"Configure\" button<br/>\n"
+"                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
+"                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
+msgstr ""
+"<br/>\n"
+"                    1. 复制下面的令牌<br/>\n"
+"                    2. 在与物联网盒相同的网络上打开网络浏览器，进入物联网盒的 IP 地址<br/>\n"
+"                    3. 在 “服务器” 部分点击 “配置” 按钮<br/>\n"
+"                    4. 在 “服务器令牌” 部分粘贴令牌，然后点击 “连接” 按钮<br/>\n"
+"                    5. 一段时间后，IoT 盒子应与连接的设备一起出现在列表中<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -44,23 +74,6 @@ msgstr "<span class=\"badge text-bg-secondary\">已断开</span>"
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-success\">Connected</span>"
 msgstr "<span class=\"badge text-bg-success\">已连接</span>"
-
-#. module: iot
-#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
-msgid ""
-"<strong>B. WiFi Connection (or Ethernet Connection doesn't work)</strong><br/>\n"
-"                    1. Make sure no ethernet cable is connected to the IoT Box<br/>\n"
-"                    2. Copy the token that is below<br/>\n"
-"                    3. Connect to the IoT Box WiFi network (you should see it in your available WiFi networks)<br/>\n"
-"                    4. You will be redirected to the IoT Box Homepage<br/>\n"
-"                    5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>"
-msgstr ""
-"<strong>B.WiFi连接（或以太网连接不起作用）</strong><br/>\n"
-"                    1.确保没有将以太网电缆连接到IOT 盒子上<br/>\n"
-"                    2.复制下面的令牌<br/>\n"
-"                    3.连接到IOT 盒的WiFi网络（你应该在你的可用WiFi网络中看到它）<br/>\n"
-"                    4.你将被重定向到IOT 盒子主页<br/>\n"
-"                    5.将令牌粘贴在令牌区域，并按照IOT 盒子主页上描述的步骤进行操作。<br/>"
 
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
@@ -117,6 +130,13 @@ msgstr "取消"
 #, python-format
 msgid "Check if the device is still connected"
 msgstr "检查设备是否仍在连接"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Check the IoT connection. Try restarting if needed."
+msgstr ""
 
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
@@ -214,6 +234,13 @@ msgid "Connection to device failed"
 msgstr "连接到设备失败"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Connection to printer failed "
+msgstr "连接至打印机失败"
+
+#. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_channel__create_uid
@@ -305,6 +332,7 @@ msgstr "下载日志"
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
+#: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
 #, python-format
 msgid "Download logs"
 msgstr "下载日志"
@@ -325,6 +353,11 @@ msgstr "财政数据模块"
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "Group By"
 msgstr "分组方式"
+
+#. module: iot
+#: model:ir.model,name:iot.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP 路由"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
@@ -500,6 +533,13 @@ msgstr "未找到 IOT 盒子"
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "No printer selected"
+msgstr "未选择打印机"
+
+#. module: iot
+#. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "No report to display"
@@ -511,6 +551,20 @@ msgstr "无报告显示"
 #, python-format
 msgid "Odoo cannot reach the IoT Box."
 msgstr "Odoo无法连通LoT盒子"
+
+#. module: iot
+#. odoo-python
+#: code:addons/iot/models/ir_actions_report.py:0
+#, python-format
+msgid ""
+"One of the printer used to print document have been removed. Please retry "
+"the operation to choose new printers to print."
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "Option B. Connection Token"
+msgstr "选项 B. 连接令牌"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -572,6 +626,13 @@ msgid "Printers"
 msgstr "打印机"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Printing operation completed on printer %s"
+msgstr ""
+
+#. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
 msgid "Publisher Warranty Contract For IoT Box"
 msgstr "IoT盒子的厂商保修合同"
@@ -625,9 +686,23 @@ msgid "Scale"
 msgstr "比例"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "Select at least one printer"
+msgstr "请选择至少一部打印机"
+
+#. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
 msgid "Selection of printers"
 msgstr "选择打印机"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Sending to printer %s..."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -645,6 +720,11 @@ msgstr "状态"
 #, python-format
 msgid "Success"
 msgstr "成功"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.iot_box_view_form
+msgid "Technical Information"
+msgstr "技术信息"
 
 #. module: iot
 #: model:ir.model,name:iot.model_iot_channel
@@ -744,6 +824,11 @@ msgstr "在此处设置设备时，将通过此设备在IOT 盒子上打印报�
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "connect"
 msgstr "连接"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "or wifi"
+msgstr "或 wifi"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

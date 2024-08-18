@@ -12,31 +12,31 @@
 # Piia Paurson <piia@avalah.ee>, 2023
 # Marek Pontus, 2023
 # Aveli Kannel <aveli@avalah.ee>, 2023
-# Algo Kärp <algokarp@gmail.com>, 2023
 # Egon Raamat <egon@avalah.ee>, 2023
 # Patrick-Jordan Kiudorv, 2023
 # Martin Aavastik <martin@avalah.ee>, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
 # Triine Aavik <triine@avalah.ee>, 2023
-# Eneli Õigus <enelioigus@gmail.com>, 2023
 # Arma Gedonsky <armagedonsky@hot.ee>, 2023
 # Katrin Kampura, 2023
 # Mihkel avalah, 2023
-# JanaAvalah, 2024
-# Martin Trigaux, 2024
-# Leaanika Randmets, 2024
 # Tairi Tiimann, 2024
 # Siim Raasuke, 2024
 # Anna, 2024
 # Stevin Lilla, 2024
+# Leaanika Randmets, 2024
+# Martin Trigaux, 2024
+# Algo Kärp <algokarp@gmail.com>, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
+# JanaAvalah, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-22 15:46+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: JanaAvalah, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1148,8 +1148,8 @@ msgstr "Iga-aastane korduv tulu"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
-msgid "Anticipate payment"
-msgstr "Oota makset"
+msgid "Anticipate payment:"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1211,6 +1211,15 @@ msgstr ""
 msgid ""
 "Automatic payment failed after multiple attempts. Contract closed "
 "automatically."
+msgstr ""
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Automatic payment failed. Check the corresponding invoice %s. We can't "
+"automatically process negative payment"
 msgstr ""
 
 #. module: sale_subscription
@@ -2067,6 +2076,7 @@ msgstr "Jätkake ja looge uus tellimus"
 
 #. module: sale_subscription
 #. odoo-javascript
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Go back to the subscription view"
@@ -2971,6 +2981,11 @@ msgid "Payment Failure"
 msgstr "Makseviga"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_method
+msgid "Payment Method"
+msgstr "Makseviis"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_provider
 msgid "Payment Provider"
 msgstr "Makseteenuse pakkuja"
@@ -3157,6 +3172,8 @@ msgid "Quantity"
 msgstr "Kogus"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__1_draft
@@ -3165,6 +3182,7 @@ msgstr "Kogus"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__subscription_state__1_draft
+#, python-format
 msgid "Quotation"
 msgstr "Pakkumine"
 
@@ -3343,7 +3361,6 @@ msgstr "Korduv tulu"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
-#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -3547,6 +3564,11 @@ msgid "Sales Advance Payment Invoice"
 msgstr "Müügi ettemaksuarve"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Müükide analüüsiraport"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Sales History"
 msgstr "Müügi ajalugu"
@@ -3607,13 +3629,6 @@ msgid ""
 msgstr ""
 "Valige Toote variatsioonid, mille suhtes see reegel kehtib. Jäta tühjaks, "
 "kui see reegel kehtib selle malli mis tahes variatsiooni kohta."
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-#, python-format
-msgid "Select a recurrence"
-msgstr "Valige kordus"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4308,11 +4323,9 @@ msgstr "Lisamüük %s on tühistatud."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid ""
-"The upsell %s has been canceled. Please recheck the quantities as they may "
+"The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
-"Lisamüük %s on tühistatud. Palun kontrollige üle kogused mis võivad olla "
-"mõjutatud selle tühistamise poolt."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4331,11 +4344,6 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
-msgstr "Seal on"
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "There is an"
 msgstr "Seal on"
 
 #. module: sale_subscription
@@ -4591,7 +4599,6 @@ msgstr "Update health value according to MRR"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state_from__7_upsell
@@ -4637,6 +4644,11 @@ msgid "Use Calendar"
 msgstr "Kasuta kalendrit"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr "Kasutage töötaja töögraafikut"
+
+#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
@@ -4646,6 +4658,11 @@ msgstr ""
 "Kasutage tellimusi, et jälgida ülesandeid, probleeme, tööajatabeleid või arvete esitamist\n"
 "                 mis põhinevad tehtud tööl, kuludel ja/või müügitellimusetel. Odoo haldab automaatselt\n"
 "                 teated tellimuste uuendamise kohta õigele müüjale."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
+msgstr "Kasuta kasutaja tööaega."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4672,6 +4689,11 @@ msgid ""
 msgstr ""
 "Soovite tellimuste haldamise kaudu korduvat arveldust? Alustage vajutades "
 "siia"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
+msgid "Warehouse"
+msgstr "Ladu"
 
 #. module: sale_subscription
 #. odoo-python
@@ -5004,6 +5026,11 @@ msgid "Your subscription is expired, will be closed soon."
 msgstr "Sinu tellimus on aegunud, see suletakse peagi."
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "and"
+msgstr "ja"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "archived product(s)"
 msgstr "arhiveeritud toode(d)"
@@ -5027,6 +5054,11 @@ msgstr "nt. Suletud tellimus"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
 msgstr "nt aruta ettepanekut"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "existing for this subscription, please confirm it or reject it."
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -5103,8 +5135,8 @@ msgstr "aastas"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "quotation and"
-msgstr "hinnapakkumine ja"
+msgid "quotation"
+msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -5128,11 +5160,6 @@ msgstr "uuendamine"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "to this day) will be automatically processed."
 msgstr "tänaseni) töödeldakse automaatselt."
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "upsell"
-msgstr "lisamüük"
 
 #. module: sale_subscription
 #: model:sms.template,body:sale_subscription.sms_template_data_payment_failure

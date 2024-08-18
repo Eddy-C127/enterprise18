@@ -4,15 +4,16 @@
 # 
 # Translators:
 # Jolien De Paepe, 2023
-# Wil Odoo, 2023
+# Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,17 +24,48 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
-"0. Power on the IoT Box<br/><br/>\n"
+".\n"
 "\n"
-"                    <strong>A. Ethernet Connection</strong><br/>\n"
-"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box.<br/>\n"
-"                    2. Enter the code below and click on \"Pair\".<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Option A. Pairing Code</strong><br/>\n"
+"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box. You can also find it on the IoT Box Homepage<br/>\n"
+"                    2. Enter the code below and click on \"Pair\".<br/>\n"
+"                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
 msgstr ""
-"0. Allumez l'IoT Box <br/><br/>\n"
+".\n"
 "\n"
-"                    <strong>A. Connexion Ethernet</strong><br/>\n"
-"                    1. Lisez le code d'appariement depuis un écran ou une imprimante thermique connectée à l'IoT Box.<br/>\n"
-"                    2. Saisissez le code ci-dessous et cliquez sur \"Appairer\".<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Option A. Code d'appariement</strong><br/>\n"
+"                    1. Lisez le code d'appariement à partir d'un écran ou d'une imprimante thermique connectée à l'IoT Box. Vous pouvez également le trouver sur la page d'accueil de l'IoT Box.<br/>\n"
+"                    2. Saisissez le code ci-dessous et cliquez sur \" Appairer \".<br/>\n"
+"                    3. Au bout d'un certain temps, l'IoT Box devrait apparaître dans la liste des appareils connectés.<br/>"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"0. Power on the IoT Box and connect it to the internet through ethernet"
+msgstr ""
+"0. Allumez l'IoT Box et connectez-la à Internet à l'aide d'une connexion "
+"Ethernet"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"<br/>\n"
+"                    1. Copy the token below<br/>\n"
+"                    2. While on the same network as the IoT Box open a web browser and go to the IoT Box ip address<br/>\n"
+"                    3. In the \"Server\" section click on \"Configure\" button<br/>\n"
+"                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
+"                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
+msgstr ""
+"<br/>\n"
+"                    1. Copiez le jeton ci-dessous<br/>\n"
+"                    2. Ouvrez un navigateur Web sur le même réseau que l'IoT Box et accédez à l'adresse IP de l'IoT Box.<br/>\n"
+"                    3. Dans la section « Serveur », cliquez sur le bouton « Configurer ».<br/>\n"
+"                    4. Collez le jeton dans la section « Jeton de serveur » et cliquez sur le bouton « Connecter ».<br/>\n"
+"                    5. Au bout d'un certain temps, l'IoT Box devrait apparaître dans la liste des appareils connectés.<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -44,23 +76,6 @@ msgstr "<span class=\"badge text-bg-secondary\">Déconnecté</span>"
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-success\">Connected</span>"
 msgstr "<span class=\"badge text-bg-success\">Connecté</span>"
-
-#. module: iot
-#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
-msgid ""
-"<strong>B. WiFi Connection (or Ethernet Connection doesn't work)</strong><br/>\n"
-"                    1. Make sure no ethernet cable is connected to the IoT Box<br/>\n"
-"                    2. Copy the token that is below<br/>\n"
-"                    3. Connect to the IoT Box WiFi network (you should see it in your available WiFi networks)<br/>\n"
-"                    4. You will be redirected to the IoT Box Homepage<br/>\n"
-"                    5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>"
-msgstr ""
-"<strong>B. Connexion WiFi (ou connexion Ethernet ne fonctionne pas)</strong><br/>\n"
-"                    1. Vérifiez qu'aucun câble Ethernet n'est connecté à l'IoT Box<br/>\n"
-"                    2. Copiez le jeton affiché ci-dessous<br/>\n"
-"                    3. Connectez-vous au réseau WiFi de l'IoT Box (vous devriez le voir dans la liste des réseaux WiFi disponibles)<br/>\n"
-"                    4. Vous serez redirigé vers la page d'accueil de l'IoT Box<br/>\n"
-"                    5. Collez le jeton dans le champ Jeton et suivez les étapes décrites dans la page d'accueil de l'IoT Box<br/>"
 
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
@@ -117,6 +132,13 @@ msgstr "Annuler"
 #, python-format
 msgid "Check if the device is still connected"
 msgstr "Vérifiez si le périphérique est toujours connecté"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Check the IoT connection. Try restarting if needed."
+msgstr ""
 
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
@@ -216,6 +238,13 @@ msgid "Connection to device failed"
 msgstr "Échec de la connexion au périphérique"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Connection to printer failed "
+msgstr "Échec de la connexion à l'imprimante"
+
+#. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_channel__create_uid
@@ -307,6 +336,7 @@ msgstr "Télécharger les journaux"
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
+#: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
 #, python-format
 msgid "Download logs"
 msgstr "Télécharger les journaux"
@@ -327,6 +357,11 @@ msgstr "Module de contrôle fiscal"
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "Group By"
 msgstr "Regrouper par"
+
+#. module: iot
+#: model:ir.model,name:iot.model_ir_http
+msgid "HTTP Routing"
+msgstr "Routage HTTP"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
@@ -505,6 +540,13 @@ msgstr "Aucune IoT Box trouvée !"
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "No printer selected"
+msgstr "Aucune imprimante sélectionnée"
+
+#. module: iot
+#. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "No report to display"
@@ -516,6 +558,20 @@ msgstr "Aucun rapport à afficher"
 #, python-format
 msgid "Odoo cannot reach the IoT Box."
 msgstr "Odoo n'arrive pas à joindre l'IoT Box."
+
+#. module: iot
+#. odoo-python
+#: code:addons/iot/models/ir_actions_report.py:0
+#, python-format
+msgid ""
+"One of the printer used to print document have been removed. Please retry "
+"the operation to choose new printers to print."
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "Option B. Connection Token"
+msgstr "Option B. Jeton de connexion"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -579,6 +635,13 @@ msgid "Printers"
 msgstr "Imprimantes"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Printing operation completed on printer %s"
+msgstr ""
+
+#. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
 msgid "Publisher Warranty Contract For IoT Box"
 msgstr "Publisher Warranty Contract pour l'IoT Box"
@@ -632,9 +695,23 @@ msgid "Scale"
 msgstr "Balance"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "Select at least one printer"
+msgstr "Sélectionner au moins une imprimante"
+
+#. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
 msgid "Selection of printers"
 msgstr "Sélection d'imprimantes"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Sending to printer %s..."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -652,6 +729,11 @@ msgstr "Statut"
 #, python-format
 msgid "Success"
 msgstr "Réussite"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.iot_box_view_form
+msgid "Technical Information"
+msgstr "Informations techniques"
 
 #. module: iot
 #: model:ir.model,name:iot.model_iot_channel
@@ -759,6 +841,11 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "connect"
 msgstr "connecter"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "or wifi"
+msgstr "ou wifi"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

@@ -24,17 +24,17 @@
 # Jukka Paulin <jukka.paulin@gmail.com>, 2023
 # Svante Suominen <svante.suominen@web-veistamo.fi>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
-# Martin Trigaux, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:09+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,6 +62,19 @@ msgstr "\" (päivämäärä ja kellonaika)"
 #, python-format
 msgid "\" (date)"
 msgstr "\" (päivämäärä)"
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
+"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
+"have it restored instead."
+msgstr ""
+"\"%(article_item_name)s\" on artikkeli lähteestä \"%(article_name)s\" eikä "
+"sitä voida palauttaa. Ota yhteyttä artikkelin \"%(article_name)s\" "
+"omistajaan saadaksesi sen palautetuksi."
 
 #. module: knowledge
 #. odoo-python
@@ -99,19 +112,6 @@ msgstr "# Työntekijät:"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__favorite_count
 msgid "#Is Favorite"
 msgstr "#On suosikki"
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
-"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
-"have it restored instead."
-msgstr ""
-"\"%(article_item_name)s\" on artikkeli lähteestä \"%(article_name)s\" eikä "
-"sitä voida palauttaa. Ota yhteyttä artikkelin \"%(article_name)s\" "
-"omistajaan saadaksesi sen palautetuksi."
 
 #. module: knowledge
 #. odoo-python
@@ -2325,6 +2325,13 @@ msgid "All Models 📖"
 msgstr "Kaikki mallit 📖"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "All my activities will always be encoded in our CRM"
 msgstr "Kaikki toimintani koodataan aina CRM-järjestelmään"
@@ -3279,6 +3286,13 @@ msgstr "Luo uusi artikkeli työtilaan"
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action_stages
 msgid "Create a new article item"
 msgstr "Luo uusi artikkelikohde"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
+#, python-format
+msgid "Create a new private article"
+msgstr ""
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
@@ -5633,6 +5647,13 @@ msgstr "Avaa säie uudelleen"
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
+msgid "Replace"
+msgstr "Korvaa"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
+#, python-format
 msgid "Replace cover"
 msgstr "Vaihda kansi"
 
@@ -7166,6 +7187,13 @@ msgstr ""
 "                Kun edustat brändiä, pyydämme sinua olemaan hyvin varovainen siinä, miten viittaat yritykseen."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "all"
+msgstr "kaikki"
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "and the following child article(s) have"
 msgstr "ja seuraavat aliartikkelit ovat"
@@ -7294,6 +7322,13 @@ msgstr "luettu"
 
 #. module: knowledge
 #. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "resolved"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "search"
@@ -7308,6 +7343,13 @@ msgstr "artikkeli"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "to unleash the power of Knowledge !"
 msgstr "vapauttamaan tiedon voiman !"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "unresolved"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript

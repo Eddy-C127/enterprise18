@@ -3,15 +3,16 @@
 # 	* maintenance_worksheet
 # 
 # Translators:
-# Maitê Dietze, 2023
+# Wil Odoo, 2024
+# Maitê Dietze, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Maitê Dietze, 2023\n"
+"Last-Translator: Maitê Dietze, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,6 +44,17 @@ msgstr ""
 "                            <span class=\"o_stat_text\">Concluída</span>"
 
 #. module: maintenance_worksheet
+#: model_terms:ir.ui.view,arch_db:maintenance_worksheet.report_custom_x_maintenance_request_worksheet_template_1
+#: model_terms:ir.ui.view,arch_db:maintenance_worksheet.x_maintenance_request_worksheet_template_1_ir_ui_view_1
+msgid "Add details about your intervention..."
+msgstr "Adicionar detalhes sobre a intervenção…"
+
+#. module: maintenance_worksheet
+#: model_terms:ir.ui.view,arch_db:maintenance_worksheet.report_custom_x_maintenance_request_worksheet_template_1
+msgid "Comments"
+msgstr "Comentários"
+
+#. module: maintenance_worksheet
 #: model:ir.model.fields,help:maintenance_worksheet.field_maintenance_request__worksheet_template_id
 msgid ""
 "Create templates for each type of request you have and customize their "
@@ -52,11 +64,21 @@ msgstr ""
 "conteúdo delas com seus próprios campos personalizados."
 
 #. module: maintenance_worksheet
+#: model_terms:ir.ui.view,arch_db:maintenance_worksheet.x_maintenance_request_worksheet_template_1_ir_ui_view_3
+msgid "Created on"
+msgstr "Criado em"
+
+#. module: maintenance_worksheet
 #: model_terms:ir.actions.act_window,help:maintenance_worksheet.maintenance_worksheet_action_settings
 msgid "Customize worksheet templates for each type of request.<br>"
 msgstr ""
 "Personalize modelos de planilhas de trabalho para cada tipo de "
 "solicitação.<br>"
+
+#. module: maintenance_worksheet
+#: model:ir.model,name:maintenance_worksheet.x_maintenance_request_worksheet_template_1_ir_model_1
+msgid "Default Worksheet"
+msgstr "Planilha de trabalho padrão"
 
 #. module: maintenance_worksheet
 #: model:ir.model,name:maintenance_worksheet.model_maintenance_request
@@ -112,3 +134,8 @@ msgstr "Modelo de planilha de trabalho"
 #: model:ir.ui.menu,name:maintenance_worksheet.menu_maintenance_configuration_worksheet_templates
 msgid "Worksheet Templates"
 msgstr "Modelos de planilha de trabalho"
+
+#. module: maintenance_worksheet
+#: model:ir.actions.act_window,name:maintenance_worksheet.x_maintenance_request_worksheet_template_1_ir_actions_act_window_1
+msgid "Worksheets"
+msgstr "Planilhas de trabalho"

@@ -3,17 +3,17 @@
 # 	* account_external_tax
 # 
 # Translators:
-# Wil Odoo, 2023
 # Jolien De Paepe, 2023
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,3 +62,10 @@ msgid ""
 msgstr ""
 "Technisch veld om te bepalen of de belasting wordt berekend via een externe "
 "dienst in plaats van Odoo."
+
+#. module: account_external_tax
+#. odoo-python
+#: code:addons/account_external_tax/models/account_move.py:0
+#, python-format
+msgid "Untaxed Amount"
+msgstr "Excl. BTW"

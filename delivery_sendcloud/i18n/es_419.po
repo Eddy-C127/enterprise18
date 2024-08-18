@@ -5,16 +5,16 @@
 # Translators:
 # Wil Odoo, 2023
 # Iran Villalobos López, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,19 +26,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "%(partner_name)s email required"
-msgstr "Se requiere el correo electrónico de %(partner_name)s"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
-msgid "%(partner_name)s phone required"
-msgstr "Se requiere el teléfono de %(partner_name)s"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid ""
 "\n"
 "Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
@@ -55,16 +42,7 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"Some packages in your transfer are too heavy for the heaviest available "
-"shipping method."
-msgstr ""
-"Algunos paquetes en su traslado son demasiado pesados incluso para el método"
-" de envío más pesado disponible."
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
 msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
@@ -75,12 +53,16 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"The total weight of your transfer is too heavy for the heaviest available "
-"shipping method."
-msgstr ""
-"El peso total de su traslado es demasiado pesado incluso para el método de "
-"envío más pesado disponible."
+#, python-format
+msgid "%(partner_name)s email required"
+msgstr "Se requiere el correo electrónico de %(partner_name)s"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid "%(partner_name)s phone required"
+msgstr "Se requiere el teléfono de %(partner_name)s"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -101,6 +83,15 @@ msgstr ""
 "<i class=\"fa fa-exclamation-triangle\"/> Para evitar cobros en el entorno "
 "de pruebas, sus envíos se <b>cancelan</b> de forma automática después de la "
 "creación de la etiqueta."
+
+#. module: delivery_sendcloud
+#: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> Only administrators can configure "
+"the public and private keys."
+msgstr ""
+"<i class=\"fa fa-exclamation-triangle\"/> Solo los administradores pueden "
+"configurar las claves públicas y privadas."
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -553,8 +544,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "Some packages in"
-msgstr "Algunos paquetes en"
+msgid ""
+"Some packages in your transfer are too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"Algunos paquetes en su traslado son demasiado pesados incluso para el método"
+" de envío más pesado disponible."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -605,6 +600,17 @@ msgstr ""
 msgid "The shipping product actually configured can't handle this delivery"
 msgstr ""
 "El envío del producto actualmente configurado no puede manejar este envío"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"The total weight of your transfer is too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"El peso total de su traslado es demasiado pesado incluso para el método de "
+"envío más pesado disponible."
 
 #. module: delivery_sendcloud
 #. odoo-python

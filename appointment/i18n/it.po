@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Sergio Zanchetta <primes2h@gmail.com>, 2023
-# Wil Odoo, 2024
 # Marianna Ciofani, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Marianna Ciofani, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -129,19 +129,28 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid ""
 "<br/>\n"
-"                                        <span>Duration</span>"
+"                                    <span>Duration</span>"
 msgstr ""
 "<br/>\n"
-"                                        <span>Durata</span>"
+"                                    <span>Durata</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid ""
 "<br/>\n"
-"                                    <span>(Last 30 Days)</span>"
+"                                <span>(Last 30 Days)</span>"
 msgstr ""
 "<br/>\n"
-"                                    <span>(Ultimi 30 giorni)</span>"
+"                                <span>(Ultimi 30 giorni)</span>"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
+msgid ""
+"<br/>\n"
+"                                <span>Scheduled</span>"
+msgstr ""
+"<br/>\n"
+"                                <span>Programmato</span>"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -767,11 +776,6 @@ msgstr "<small class=\"text-uppercase text-muted\">Data e ora</small>"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
 msgstr "<small class=\"text-uppercase text-muted\">Dettagli meeting</small>"
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
-msgid "<span class=\"d-block\">Scheduled</span>"
-msgstr "<span class=\"d-block\">Pianificato</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2128,6 +2132,7 @@ msgstr "Come partecipare"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__assign_method
+#: model:ir.model.fields,help:appointment.field_appointment_type__user_assign_method
 msgid ""
 "How users and resources will be assigned to meetings customers book on your "
 "website."
@@ -2187,6 +2192,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, the meeting is considered as taking place online"
 msgstr "Se vuoto, vuol dire che la riunione verrà svolta online"
+
+#. module: appointment
+#: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
+msgid ""
+"If kept empty, the working schedule of the company set on the resource will "
+"be used"
+msgstr ""
+"Se vuoto, verrà utilizzato l'orario di lavoro dell'azienda configurato per "
+"la risorsa"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2771,6 +2785,7 @@ msgstr "Telefono: %s"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__user_assign_method__resource_time
 msgid "Pick User/Resource then Time"
 msgstr "Scegli utente/risorsa poi tempo"
 
@@ -2778,11 +2793,6 @@ msgstr "Scegli utente/risorsa poi tempo"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Pick a Work Schedule..."
 msgstr "Scegli un orario di lavoro"
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
-msgid "Pick a schedule to restrict openings"
-msgstr "Scegli un orario per limitare le aperture"
 
 #. module: appointment
 #. odoo-javascript
@@ -2917,6 +2927,11 @@ msgstr "Calendario risorse"
 #: model:ir.ui.menu,name:appointment.menu_appointment_resource_leaves
 msgid "Resource Leaves"
 msgstr "Permessi risorsa"
+
+#. module: appointment
+#: model:ir.model,name:appointment.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "Risorsa orario lavorativo"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_resource_action
@@ -3076,6 +3091,7 @@ msgstr "Seleziona l'orario e poi l'utente/risorsa"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_auto_assign
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__user_assign_method__time_auto_assign
 msgid "Select Time then auto-assign"
 msgstr "Scegli l'orario e procedi con l'assegnazione automatica"
 
@@ -3691,6 +3707,11 @@ msgid "User"
 msgstr "Utente"
 
 #. module: appointment
+#: model:ir.model.fields,field_description:appointment.field_appointment_type__user_assign_method
+msgid "User Assign Method"
+msgstr "Metodo assegnazione utente"
+
+#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__staff_user_ids
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__staff_user_ids
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__schedule_based_on__users
@@ -3721,15 +3742,6 @@ msgstr "Mercoledì"
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__weekday
 msgid "Week Day"
 msgstr "Giorno settimanale"
-
-#. module: appointment
-#: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
-msgid ""
-"If kept empty, the working schedule of the company set on the resource will "
-"be used"
-msgstr ""
-"Se vuoto, verrà utilizzato l'orario di lavoro dell'azienda configurato per "
-"la risorsa"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select

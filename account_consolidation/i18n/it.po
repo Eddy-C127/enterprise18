@@ -3,15 +3,15 @@
 # 	* account_consolidation
 # 
 # Translators:
-# Wil Odoo, 2023
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -663,6 +663,11 @@ msgid "Consolidation Rate (%)"
 msgstr "Tasso di consolidamento (%)"
 
 #. module: account_consolidation
+#: model:ir.model.fields,field_description:account_consolidation.field_consolidation_chart__rate_ids
+msgid "Consolidation Rates"
+msgstr "Tassi di consolidamento"
+
+#. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_consolidation_account
 msgid "Consolidation account"
 msgstr "Conto di consolidamento"
@@ -686,6 +691,11 @@ msgstr "Riga registro di consolidamento"
 #: model:res.groups,name:account_consolidation.group_consolidation_user
 msgid "Consolidation user"
 msgstr "Utente consolidamento"
+
+#. module: account_consolidation
+#: model:ir.model.fields,field_description:account_consolidation.field_consolidation_company_period__conversion_rate
+msgid "Conversion Rate"
+msgstr "Tasso di cambio"
 
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,button_text:account_consolidation.onboarding_onboarding_step_create_consolidation_period

@@ -3,16 +3,16 @@
 # 	* timesheet_grid
 # 
 # Translators:
-# Wil Odoo, 2023
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -387,8 +387,8 @@ msgstr "員工必須已連結至你的使用者帳戶，才可開始記錄時間
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "分析帳戶"
+msgid "Analytic Line"
+msgstr "分析資料行"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_allow
@@ -1121,7 +1121,7 @@ msgstr "沒有工時表可以重設為草稿，或它們已經開立發票。"
 #, python-format
 msgid ""
 "This project isn't expected to have task during this period. Planned hours :"
-msgstr ""
+msgstr "此專案在此期間並不預期有任務。已規劃時數："
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task_create_timesheet__time_spent
@@ -1213,7 +1213,7 @@ msgstr "工時表分析報表"
 msgid ""
 "Timesheets before the %s (included) have been validated, and can no longer "
 "be %s."
-msgstr ""
+msgstr "%s 及之前的工時表已完成驗證，無法%s。"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
@@ -1377,6 +1377,14 @@ msgstr "只限在你是員工的經理或工時表批核人時，才可驗證員
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid "You can't encode numbers with more than six digits."
+msgstr "你不可編碼多於六位數的數字。"
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
 #, python-format
 msgid "You cannot access timesheets that are not yours."
 msgstr "您無法存取不屬於您的工時表。"
@@ -1398,7 +1406,7 @@ msgstr "若專案已停用工時表，不可調整專案工時表的工時。"
 msgid ""
 "You cannot delete a validated entry. Please, contact your manager or your "
 "timesheet approver."
-msgstr ""
+msgstr "已驗證記項不可刪除。請聯絡你的經理或工時表批核人。"
 
 #. module: timesheet_grid
 #. odoo-python

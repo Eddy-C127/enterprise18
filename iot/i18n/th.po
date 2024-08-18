@@ -3,17 +3,17 @@
 # 	* iot
 # 
 # Translators:
-# Wil Odoo, 2023
 # Odoo Thaidev <odoothaidev@gmail.com>, 2023
 # Rasareeyar Lappiam, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,17 +24,32 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
-"0. Power on the IoT Box<br/><br/>\n"
+".\n"
 "\n"
-"                    <strong>A. Ethernet Connection</strong><br/>\n"
-"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box.<br/>\n"
-"                    2. Enter the code below and click on \"Pair\".<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Option A. Pairing Code</strong><br/>\n"
+"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box. You can also find it on the IoT Box Homepage<br/>\n"
+"                    2. Enter the code below and click on \"Pair\".<br/>\n"
+"                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
 msgstr ""
-"0. เปิดใช้งานกล่อง IoT<br/><br/>\n"
-"\n"
-"                    <strong>A. การเชื่อมต่ออีเธอร์เน็ต</strong><br/>\n"
-"                    1. อ่านรหัสการจับคู่จากจอแสดงผลหรือเครื่องพิมพ์เทอร์มอลที่เชื่อมต่อกับกล่อง IoT<br/>\n"
-"                    2. ป้อนรหัสด้านล่างและคลิกที่ \"จับคู่\"<br/>"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"0. Power on the IoT Box and connect it to the internet through ethernet"
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"<br/>\n"
+"                    1. Copy the token below<br/>\n"
+"                    2. While on the same network as the IoT Box open a web browser and go to the IoT Box ip address<br/>\n"
+"                    3. In the \"Server\" section click on \"Configure\" button<br/>\n"
+"                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
+"                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -45,23 +60,6 @@ msgstr "<span class=\"badge text-bg-secondary\">ตัดการเชื่�
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-success\">Connected</span>"
 msgstr "<span class=\"badge text-bg-success\">เชื่อมต่อแล้ว</span>"
-
-#. module: iot
-#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
-msgid ""
-"<strong>B. WiFi Connection (or Ethernet Connection doesn't work)</strong><br/>\n"
-"                    1. Make sure no ethernet cable is connected to the IoT Box<br/>\n"
-"                    2. Copy the token that is below<br/>\n"
-"                    3. Connect to the IoT Box WiFi network (you should see it in your available WiFi networks)<br/>\n"
-"                    4. You will be redirected to the IoT Box Homepage<br/>\n"
-"                    5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>"
-msgstr ""
-"<strong>B. การเชื่อมต่อ WiFi (หรือการเชื่อมต่ออีเธอร์เน็ตไม่ทำงาน)</strong><br/>\n"
-"                    1. ตรวจสอบให้แน่ใจว่าไม่ได้เชื่อมต่อสายอีเธอร์เน็ตกับกล่อง IoT<br/>\n"
-"                    2. คัดลอกโทเค็นที่อยู่ด้านล่าง<br/>\n"
-"                    3. เชื่อมต่อกับเครือข่าย IoT Box WiFi (คุณควรเห็นในเครือข่าย WiFi ที่มีอยู่ของคุณ)<br/>\n"
-"                    4. คุณจะถูกนำไปที่หน้าแรกของกล่อง IoT<br/>\n"
-"                    5. วางโทเค็นในฟิลด์ของโทเค็น และทำตามขั้นตอนที่อธิบายไว้ในหน้าแรกของกล่อง IoT<br/>"
 
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
@@ -118,6 +116,13 @@ msgstr "ยกเลิก"
 #, python-format
 msgid "Check if the device is still connected"
 msgstr "ตรวจสอบว่าอุปกรณ์ยังเชื่อมต่ออยู่หรือไม่"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Check the IoT connection. Try restarting if needed."
+msgstr ""
 
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
@@ -216,6 +221,13 @@ msgid "Connection to device failed"
 msgstr "การเชื่อมต่อกับอุปกรณ์ล้มเหลว"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Connection to printer failed "
+msgstr "การเชื่อมต่อกับเครื่องพิมพ์ล้มเหลว"
+
+#. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_channel__create_uid
@@ -307,6 +319,7 @@ msgstr "ดาวน์โหลดบันทึก"
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
+#: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
 #, python-format
 msgid "Download logs"
 msgstr "ดาวน์โหลดบันทึก"
@@ -327,6 +340,11 @@ msgstr "โมดูลข้อมูลทางการเงิน"
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "Group By"
 msgstr "กลุ่มโดย"
+
+#. module: iot
+#: model:ir.model,name:iot.model_ir_http
+msgid "HTTP Routing"
+msgstr "การกำหนด HTTP"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
@@ -504,6 +522,13 @@ msgstr "ไม่พบกล่อง IoT!"
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "No printer selected"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "No report to display"
@@ -515,6 +540,20 @@ msgstr "ไม่มีรายงานที่จะแสดง"
 #, python-format
 msgid "Odoo cannot reach the IoT Box."
 msgstr "Odoo ไม่สามารถเข้าถึงกล่อง IoT ได้"
+
+#. module: iot
+#. odoo-python
+#: code:addons/iot/models/ir_actions_report.py:0
+#, python-format
+msgid ""
+"One of the printer used to print document have been removed. Please retry "
+"the operation to choose new printers to print."
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "Option B. Connection Token"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -578,6 +617,13 @@ msgid "Printers"
 msgstr "เครื่องพิมพ์"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Printing operation completed on printer %s"
+msgstr ""
+
+#. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
 msgid "Publisher Warranty Contract For IoT Box"
 msgstr "สัญญาการรับประกันของผู้จัดพิมพ์สำหรับกล่อง IoT"
@@ -631,9 +677,23 @@ msgid "Scale"
 msgstr "เครื่องชั่ง"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "Select at least one printer"
+msgstr ""
+
+#. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
 msgid "Selection of printers"
 msgstr "การเลือกเครื่องพิมพ์"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Sending to printer %s..."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -651,6 +711,11 @@ msgstr "สถานะ"
 #, python-format
 msgid "Success"
 msgstr "สำเร็จ"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.iot_box_view_form
+msgid "Technical Information"
+msgstr "ข้อมูลทางเทคนิค"
 
 #. module: iot
 #: model:ir.model,name:iot.model_iot_channel
@@ -752,6 +817,11 @@ msgstr "เมื่อตั้งค่าอุปกรณ์ที่นี
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "connect"
 msgstr "เชื่อมต่อ"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "or wifi"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

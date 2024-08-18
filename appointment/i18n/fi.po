@@ -29,7 +29,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -147,19 +147,24 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid ""
 "<br/>\n"
-"                                        <span>Duration</span>"
+"                                    <span>Duration</span>"
 msgstr ""
 "<br/>\n"
-"                                        <span>Kesto</span>"
+"                                    <span>Kesto</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid ""
 "<br/>\n"
-"                                    <span>(Last 30 Days)</span>"
+"                                <span>(Last 30 Days)</span>"
 msgstr ""
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
+msgid ""
 "<br/>\n"
-"                                    <span>(Viimeiset 30 päivää)</span>"
+"                                <span>Scheduled</span>"
+msgstr ""
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -786,11 +791,6 @@ msgstr ""
 msgid "<small class=\"text-uppercase text-muted\">Meeting details</small>"
 msgstr ""
 "<small class=\"text-uppercase text-muted\">Kokouksen yksityiskohdat</small>"
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
-msgid "<span class=\"d-block\">Scheduled</span>"
-msgstr "<span class=\"d-block\">Aikataulutettu</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -2136,6 +2136,7 @@ msgstr "Miten liittyä"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__assign_method
+#: model:ir.model.fields,help:appointment.field_appointment_type__user_assign_method
 msgid ""
 "How users and resources will be assigned to meetings customers book on your "
 "website."
@@ -2195,6 +2196,15 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, the meeting is considered as taking place online"
 msgstr "Jos tämä kenttä on tyhjä, kokouksen katsotaan tapahtuneen verkossa"
+
+#. module: appointment
+#: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
+msgid ""
+"If kept empty, the working schedule of the company set on the resource will "
+"be used"
+msgstr ""
+"Jos se jätetään tyhjäksi, käytetään resurssille asetetun yrityksen "
+"työaikataulua"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2776,6 +2786,7 @@ msgstr "Puhelinnumero: %s"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__user_assign_method__resource_time
 msgid "Pick User/Resource then Time"
 msgstr "Valitse käyttäjä/resurssi ja sitten aika"
 
@@ -2783,11 +2794,6 @@ msgstr "Valitse käyttäjä/resurssi ja sitten aika"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Pick a Work Schedule..."
 msgstr "Valitse työaikataulu..."
-
-#. module: appointment
-#: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
-msgid "Pick a schedule to restrict openings"
-msgstr "Valitse aikataulu aukkojen rajoittamiseksi"
 
 #. module: appointment
 #. odoo-javascript
@@ -2922,6 +2928,11 @@ msgstr "Resurssikalenteri"
 #: model:ir.ui.menu,name:appointment.menu_appointment_resource_leaves
 msgid "Resource Leaves"
 msgstr "Resurssivapaat"
+
+#. module: appointment
+#: model:ir.model,name:appointment.model_resource_calendar
+msgid "Resource Working Time"
+msgstr "Resurssien työaika"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_resource_action
@@ -3081,6 +3092,7 @@ msgstr "Valitse Aika ja sitten Käyttäjä/Resurssi"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_auto_assign
+#: model:ir.model.fields.selection,name:appointment.selection__appointment_type__user_assign_method__time_auto_assign
 msgid "Select Time then auto-assign"
 msgstr "Valitse Aika ja määritä sitten automaattisesti"
 
@@ -3686,6 +3698,11 @@ msgid "User"
 msgstr "Käyttäjä"
 
 #. module: appointment
+#: model:ir.model.fields,field_description:appointment.field_appointment_type__user_assign_method
+msgid "User Assign Method"
+msgstr ""
+
+#. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__staff_user_ids
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__staff_user_ids
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__schedule_based_on__users
@@ -3716,15 +3733,6 @@ msgstr "Keskiviikko"
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__weekday
 msgid "Week Day"
 msgstr "Viikonpäivä"
-
-#. module: appointment
-#: model:ir.model.fields,help:appointment.field_appointment_resource__resource_calendar_id
-msgid ""
-"If kept empty, the working schedule of the company set on the resource will "
-"be used"
-msgstr ""
-"Jos se jätetään tyhjäksi, käytetään resurssille asetetun yrityksen "
-"työaikataulua"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.staff_user_select

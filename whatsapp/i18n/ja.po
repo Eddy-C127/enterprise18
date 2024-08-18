@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-05 13:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -21,15 +21,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid ""
-"\"Template variable should be in format {{number}}. Cannot parse "
-"\"%(placeholder)s\""
-msgstr "\"テンプレート変数は以下の形式 {{number}}にして下さい。 解析できません。 \"%(placeholder)s\""
 
 #. module: whatsapp
 #. odoo-python
@@ -48,7 +39,6 @@ msgstr "%(template_name)s [%(account_name)s]"
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/models.py:0
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
 #, python-format
 msgid "'%(field)s' does not seem to be a valid field path"
 msgstr "'%(field)s' は有効なフィールドパスではないようです。"
@@ -137,6 +127,7 @@ msgstr "アクセストークン"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__wa_account_id
+#: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_search
 msgid "Account"
 msgstr "勘定科目"
 
@@ -615,7 +606,7 @@ msgstr "オランダ語"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_button__url_type__dynamic
 msgid "Dynamic"
-msgstr "ダイナミック"
+msgstr "動的"
 
 #. module: whatsapp
 #. odoo-python
@@ -624,7 +615,7 @@ msgstr "ダイナミック"
 msgid ""
 "Dynamic button variable name must be the same as its respective button's "
 "name"
-msgstr "ダイナミックボタンの変数名は、それぞれのボタン名と同じでなければなりません。"
+msgstr "動的ボタンの変数名は、それぞれのボタン名と同じでなければなりません。"
 
 #. module: whatsapp
 #: model:ir.model.constraint,message:whatsapp.constraint_whatsapp_message_unique_msg_uid
@@ -697,13 +688,6 @@ msgstr "フィールド"
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_variable__field_type__field
 msgid "Field of Model"
 msgstr "モデルフィールド"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template_variable.py:0
-#, python-format
-msgid "Field template variables must be associated with a field."
-msgstr "フィールドテンプレート変数はフィールドに関連付けられている必要があります。"
 
 #. module: whatsapp
 #. odoo-python
@@ -913,13 +897,6 @@ msgstr "ヘッダードキュメントが必要です"
 #, python-format
 msgid "Header document or report is required"
 msgstr "ヘッダードキュメントまたレポートが必要です"
-
-#. module: whatsapp
-#. odoo-python
-#: code:addons/whatsapp/models/whatsapp_template.py:0
-#, python-format
-msgid "Header text can only contain a single {{variable}}."
-msgstr "ヘッダーテキストは1つの {{variable}}のみ含むことができます。"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__he
@@ -1660,6 +1637,7 @@ msgstr "サンプル値"
 #. module: whatsapp
 #. odoo-javascript
 #: code:addons/whatsapp/static/src/core/common/discuss_app_model_patch.js:0
+#: code:addons/whatsapp/static/src/core/web/messaging_menu_patch.xml:0
 #, python-format
 msgid "Search WhatsApp Channel"
 msgstr "WhatsAppチャンネル検索"
@@ -1915,6 +1893,13 @@ msgstr "テンプレート変数"
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__body
 msgid "Template body"
 msgstr "テンプレート本文"
+
+#. module: whatsapp
+#. odoo-python
+#: code:addons/whatsapp/models/whatsapp_template.py:0
+#, python-format
+msgid "Template category is missing"
+msgstr " テンプレートカテゴリがありません"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__template

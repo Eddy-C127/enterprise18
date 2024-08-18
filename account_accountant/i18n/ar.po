@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 07:30+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
@@ -277,13 +277,9 @@ msgid "Amount Currency"
 msgstr "عملة المبلغ"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
-msgid "Amount Transaction Currency"
-msgstr ""
-
-#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
 #, python-format
 msgid "Amount in Currency"
 msgstr "المبلغ بالعملة"
@@ -849,6 +845,11 @@ msgid "Force Price Included Taxes"
 msgstr "فرض الأسعار شاملة الضريبة "
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "Foreign Currency"
+msgstr "عملة أجنبية "
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
 msgstr "فهرس النموذج"
@@ -1367,9 +1368,11 @@ msgid "Not Matched"
 msgstr "غير مطابق "
 
 #. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
+#, python-format
 msgid "Notes"
 msgstr "الملاحظات"
 
@@ -1914,6 +1917,13 @@ msgid "That's on average"
 msgstr "هذا في المتوسط"
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid ""
+"The amount expressed in an optional other currency if it is a multi-currency"
+" entry."
+msgstr "يتم عرض المبلغ بعملة اختيارية أخرى إذا كان قيداً متعدد العملات. "
+
+#. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
@@ -1966,6 +1976,11 @@ msgid ""
 "The invoices up to this date will not be taken into account as accounting "
 "entries"
 msgstr "لن يتم اعتبار الفواتير حتى هذا التاريخ كقيود محاسبية "
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "العملة الاختيارية الأخرى إذا كان القيد متعدد العملات."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -2077,7 +2092,6 @@ msgstr "معاملة"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "عملة المعاملة "
 
@@ -2182,12 +2196,6 @@ msgstr "شطب القيد "
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
-msgid "You cannot have a fiscal year on a child company."
-msgstr ""
-
-#. module: account_accountant
-#: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
@@ -2235,6 +2243,13 @@ msgstr "لا يمكنك إنشاء قيد مؤجل مع تاريخ بدء أبع
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr "لا يمكنك إنشاء قيود مؤجلة لقيد يومية من المتفرقات. "
+
+#. module: account_accountant
+#. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr ""
 
 #. module: account_accountant
 #. odoo-python

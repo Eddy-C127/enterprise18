@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Marianna Ciofani, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
@@ -151,6 +151,17 @@ msgid ""
 msgstr ""
 "Le voci lavorative del prossimo mese non sono state ancora generate oppure "
 "sono state già covalidate per le ferie %s"
+
+#. module: hr_payroll_holidays
+#. odoo-python
+#: code:addons/hr_payroll_holidays/models/hr_leave.py:0
+#, python-format
+msgid ""
+"The pay of the month is already validated with this day included. If you "
+"need to adapt, please refer to HR."
+msgstr ""
+"Lo stipendio del mese è già stato convalidato e include questo giorno. "
+"Contatta le risorse umane in caso di modifiche da apportare."
 
 #. module: hr_payroll_holidays
 #. odoo-python

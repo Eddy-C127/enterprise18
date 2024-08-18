@@ -3,17 +3,18 @@
 # 	* iot
 # 
 # Translators:
-# Wil Odoo, 2023
 # JH CHOI <hwangtog@gmail.com>, 2023
 # Sarah Park, 2023
+# Wil Odoo, 2024
+# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Sarah Park, 2023\n"
+"Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,17 +25,46 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
-"0. Power on the IoT Box<br/><br/>\n"
+".\n"
 "\n"
-"                    <strong>A. Ethernet Connection</strong><br/>\n"
-"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box.<br/>\n"
-"                    2. Enter the code below and click on \"Pair\".<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Option A. Pairing Code</strong><br/>\n"
+"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box. You can also find it on the IoT Box Homepage<br/>\n"
+"                    2. Enter the code below and click on \"Pair\".<br/>\n"
+"                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
 msgstr ""
-"0. IoT 박스 전원을 켭니다.<br/><br/>\n"
+".\n"
 "\n"
-"                    <strong>A. 이더넷에 연결합니다.</strong><br/>\n"
-"                    1. IoT Box에 연결된 디스플레이 또는 감열식 프린에서 페어링 코드를 불러옵니다.<br/>\n"
-"                    2. 아래의 코드를 입력하고 \"페어링\"을 클릭합니다.<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>옵션 A. 코드 페어링</strong><br/>\n"
+"                    1.  IoT Box에 연결된 디스플레이 또는 감열식 프린에서 페어링 코드를 불러옵니다. IoT Box 홈페이지에서도 찾을 수 있습니다.<br/>\n"
+"                    2.  아래의 코드를 입력하고 \"페어링\"을 클릭합니다.<br/>\n"
+"                    3. 잠시 후 IoT 박스가 연결된 장치와 함께 목록에 나타납니다.<br/>"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"0. Power on the IoT Box and connect it to the internet through ethernet"
+msgstr "0. IoT Box의 전원을 켜고 이더넷을 통해 인터넷에 연결합니다."
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"<br/>\n"
+"                    1. Copy the token below<br/>\n"
+"                    2. While on the same network as the IoT Box open a web browser and go to the IoT Box ip address<br/>\n"
+"                    3. In the \"Server\" section click on \"Configure\" button<br/>\n"
+"                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
+"                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
+msgstr ""
+"<br/>\n"
+"                    1. 아래 토큰을 복사합니다.<br/>\n"
+"                    2. IoT Box와 동일한 네트워크에 있는 동안 웹 브라우저를 열고 IoT Box IP 주소3로 이동합니다.<br/>\n"
+"                    3. \"서버\" 섹션에서 \"설정\" 버튼을 클릭합니다.<br/>\n"
+"                    4. \"서버 토큰\" 섹션에 토큰을 붙여넣기 하고 \"연결\" 버튼을 클릭합니다.<br/>\n"
+"                    5. 잠시 후 IoT Box가 연결된 장치와 함께 목록이 표시됩니다.<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -45,23 +75,6 @@ msgstr "<span class=\"badge text-bg-secondary\">연결 해제됨</span>"
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-success\">Connected</span>"
 msgstr "<span class=\"badge text-bg-success\">연결됨</span>"
-
-#. module: iot
-#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
-msgid ""
-"<strong>B. WiFi Connection (or Ethernet Connection doesn't work)</strong><br/>\n"
-"                    1. Make sure no ethernet cable is connected to the IoT Box<br/>\n"
-"                    2. Copy the token that is below<br/>\n"
-"                    3. Connect to the IoT Box WiFi network (you should see it in your available WiFi networks)<br/>\n"
-"                    4. You will be redirected to the IoT Box Homepage<br/>\n"
-"                    5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>"
-msgstr ""
-"<strong>B. WiFi 연결 (또는 이더넷 연결이 작동하지 않음)</strong><br/>\n"
-"                    1. Make sure no ethernet cable is connected to the IoT Box<br/>\n"
-"                    2. Copy the token that is below<br/>\n"
-"                    3. Connect to the IoT Box WiFi network (you should see it in your available WiFi networks)<br/>\n"
-"                    4. You will be redirected to the IoT Box Homepage<br/>\n"
-"                    5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>"
 
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
@@ -118,6 +131,13 @@ msgstr "취소"
 #, python-format
 msgid "Check if the device is still connected"
 msgstr "디바이스가 아직 연결되어 있는지 확인"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Check the IoT connection. Try restarting if needed."
+msgstr ""
 
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
@@ -218,6 +238,13 @@ msgid "Connection to device failed"
 msgstr "장치에 연결하지 못했습니다"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Connection to printer failed "
+msgstr "프린터 연결 실패"
+
+#. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_channel__create_uid
@@ -309,6 +336,7 @@ msgstr "다운로드 로그"
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
+#: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
 #, python-format
 msgid "Download logs"
 msgstr "다운로드 로그"
@@ -329,6 +357,11 @@ msgstr "회계 데이터 모듈"
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "Group By"
 msgstr "그룹별"
+
+#. module: iot
+#: model:ir.model,name:iot.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP 라우팅"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
@@ -504,6 +537,13 @@ msgstr "IoT Box를 찾을 수 없습니다!"
 
 #. module: iot
 #. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "No printer selected"
+msgstr "선택한 프린터가 없음"
+
+#. module: iot
+#. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #, python-format
 msgid "No report to display"
@@ -515,6 +555,20 @@ msgstr "표시할 보고서가 없습니다."
 #, python-format
 msgid "Odoo cannot reach the IoT Box."
 msgstr "Odoo는 IoT Box에 연결할 수 없습니다."
+
+#. module: iot
+#. odoo-python
+#: code:addons/iot/models/ir_actions_report.py:0
+#, python-format
+msgid ""
+"One of the printer used to print document have been removed. Please retry "
+"the operation to choose new printers to print."
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "Option B. Connection Token"
+msgstr "옵션 B. 연결 토큰"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -576,6 +630,13 @@ msgid "Printers"
 msgstr "프린트"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Printing operation completed on printer %s"
+msgstr ""
+
+#. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
 msgid "Publisher Warranty Contract For IoT Box"
 msgstr "IoT 박스에 대한 게시자 보증 계약서"
@@ -629,9 +690,23 @@ msgid "Scale"
 msgstr "크기"
 
 #. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_form.js:0
+#, python-format
+msgid "Select at least one printer"
+msgstr "하나 이상의 프린터를 선택합니다."
+
+#. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
 msgid "Selection of printers"
 msgstr "프린터 선택"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+#, python-format
+msgid "Sending to printer %s..."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -649,6 +724,11 @@ msgstr "상태"
 #, python-format
 msgid "Success"
 msgstr "성공"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.iot_box_view_form
+msgid "Technical Information"
+msgstr "기술적인 정보"
 
 #. module: iot
 #: model:ir.model,name:iot.model_iot_channel
@@ -748,6 +828,11 @@ msgstr "장치를 설정할면 보고서는 IoT 상자에 있는 이 장치를 �
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "connect"
 msgstr "연결"
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "or wifi"
+msgstr "또는 Wi-Fi"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

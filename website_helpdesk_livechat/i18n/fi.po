@@ -51,6 +51,17 @@ msgid "Alright, we should have everything we need"
 msgstr "Ok, meillä pitäisi olla kaikki mitä tarvitsemme"
 
 #. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/chatbot_script.py:0
+#, python-format
+msgid ""
+"An \"Email\" step type must exist before the \"Create Ticket\" step for a "
+"ticket to be created."
+msgstr ""
+"Sähköpostiaskeltyypin on oltava olemassa ennen Luo tukipyyntö-vaihetta, "
+"jotta tukipyyntö voidaan luoda."
+
+#. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial_misc
 msgid "Anything else to add?"
 msgstr "Onko muuta lisättävää?"

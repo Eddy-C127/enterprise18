@@ -5,16 +5,16 @@
 # Translators:
 # Martin Trigaux, 2023
 # Vo Thanh Thuy, 2023
-# Wil Odoo, 2024
 # Thi Huong Nguyen, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-22 15:46+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1198,8 +1198,8 @@ msgstr "Doanh thu định kỳ hàng năm"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
-msgid "Anticipate payment"
-msgstr "Dự kiến thanh toán"
+msgid "Anticipate payment:"
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1264,6 +1264,15 @@ msgid ""
 msgstr ""
 "Thanh toán tự động không thành công sau nhiều lần thử. Hợp đồng tự động bị "
 "đóng."
+
+#. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid ""
+"Automatic payment failed. Check the corresponding invoice %s. We can't "
+"automatically process negative payment"
+msgstr ""
 
 #. module: sale_subscription
 #. odoo-python
@@ -2126,6 +2135,7 @@ msgstr "Tiếp tục và tạo một đăng ký mới"
 
 #. module: sale_subscription
 #. odoo-javascript
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
 #, python-format
 msgid "Go back to the subscription view"
@@ -3037,6 +3047,11 @@ msgid "Payment Failure"
 msgstr "Lỗi thanh toán"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_method
+msgid "Payment Method"
+msgstr "Phương thức thanh toán"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_provider
 msgid "Payment Provider"
 msgstr "Nhà cung cấp dịch vụ thanh toán"
@@ -3226,6 +3241,8 @@ msgid "Quantity"
 msgstr "Số lượng"
 
 #. module: sale_subscription
+#. odoo-python
+#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__order_state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__1_draft
@@ -3234,6 +3251,7 @@ msgstr "Số lượng"
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__state__draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__subscription_state__1_draft
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__subscription_state__1_draft
+#, python-format
 msgid "Quotation"
 msgstr "Báo giá"
 
@@ -3414,7 +3432,6 @@ msgstr "Doanh thu định kỳ"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
-#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_plan_check_for_valid_billing_period_value
 #, python-format
 msgid ""
 "Recurring period must be a positive number. Please ensure the input is a "
@@ -3619,6 +3636,11 @@ msgid "Sales Advance Payment Invoice"
 msgstr "Hoá đơn tạm ứng bán hàng"
 
 #. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_report
+msgid "Sales Analysis Report"
+msgstr "Báo cáo phân tích bán hàng"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "Sales History"
 msgstr "Lịch sử bán hàng"
@@ -3679,13 +3701,6 @@ msgid ""
 msgstr ""
 "Chọn biến thể của sản phẩm áp dụng quy tắc này. Để trống nếu quy tắc này áp "
 "dụng cho tất cả biến thể của mẫu này. "
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-#, python-format
-msgid "Select a recurrence"
-msgstr "Chọn thời gian định kỳ"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4264,7 +4279,7 @@ msgid ""
 " subscription deferred revenues"
 msgstr ""
 "Cài đặt hoãn lại chưa được thiết lập đúng. Vui lòng hoàn thành để tạo doanh "
-"thu hoãn lại của gói đăng ký"
+"thu chưa thực hiện của gói đăng ký"
 
 #. module: sale_subscription
 #: model:ir.model.constraint,message:sale_subscription.constraint_sale_order_template_check_duration_value
@@ -4393,7 +4408,7 @@ msgstr "Đơn bán thêm %s đã bị hủy."
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid ""
-"The upsell %s has been canceled. Please recheck the quantities as they may "
+"The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
 
@@ -4414,11 +4429,6 @@ msgstr "Có nhiều chiến lược giá cho một sản phẩm, gói và bảng
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "There is a"
-msgstr "Có một"
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "There is an"
 msgstr "Có một"
 
 #. module: sale_subscription
@@ -4676,7 +4686,6 @@ msgstr "Cập nhật giá trị tình trạng theo MRR"
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
-#: code:addons/sale_subscription/models/sale_order.py:0
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state__7_upsell
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__subscription_state_from__7_upsell
@@ -4722,6 +4731,11 @@ msgid "Use Calendar"
 msgstr "Dùng lịch"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr "Sử dụng lịch làm việc của nhân viên"
+
+#. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
 msgid ""
 "Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
@@ -4731,6 +4745,11 @@ msgstr ""
 "Sử dụng đăng ký để theo dõi các nhiệm vụ, vấn đề, thời gian biểu hoặc hóa đơn đươc lập dựa trên\n"
 "                công việc hoàn thành, chi phí và/hoặc đơn hàng. Hệ thống sẽ tự động quản lý\n"
 "                cảnh báo để gia hạn đăng ký này tới đúng người."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
+msgstr "Sử dụng lịch làm việc của người dùng."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -4757,6 +4776,11 @@ msgid ""
 msgstr ""
 "Bạn muốn thanh toán định kỳ thông qua quản lý đăng ký? Hãy bắt đầu bằng cách"
 " nhấp vào đây"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__warehouse_id
+msgid "Warehouse"
+msgstr "Kho hàng"
 
 #. module: sale_subscription
 #. odoo-python
@@ -5104,6 +5128,11 @@ msgid "Your subscription is expired, will be closed soon."
 msgstr "Gói đăng ký của bạn đã hết hạn và sẽ sớm bị đóng."
 
 #. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "and"
+msgstr "và"
+
+#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "archived product(s)"
 msgstr "(các) sản phẩm được lưu trữ"
@@ -5127,6 +5156,11 @@ msgstr "ví dụ: Đăng ký đã đóng"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
 msgstr "vd: Thảo luận về đề xuất"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
+msgid "existing for this subscription, please confirm it or reject it."
+msgstr "hiện có cho gói đăng ký này, vui lòng xác nhận hoặc từ chối."
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -5202,8 +5236,8 @@ msgstr "trên năm"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "quotation and"
-msgstr "báo giá và"
+msgid "quotation"
+msgstr "báo giá"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -5227,11 +5261,6 @@ msgstr "báo giá gia hạn"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "to this day) will be automatically processed."
 msgstr "cho ngày này) sẽ được tự động thực hiện."
-
-#. module: sale_subscription
-#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
-msgid "upsell"
-msgstr "báo giá bán thêm"
 
 #. module: sale_subscription
 #: model:sms.template,body:sale_subscription.sms_template_data_payment_failure

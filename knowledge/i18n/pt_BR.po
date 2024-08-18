@@ -5,17 +5,17 @@
 # Translators:
 # Éder Brito <britoederr@gmail.com>, 2023
 # Martin Trigaux, 2023
-# Wil Odoo, 2023
 # a75f12d3d37ea5bf159c4b3e85eb30e7_0fa6927, 2023
 # Maitê Dietze, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:09+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Maitê Dietze, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,6 +43,19 @@ msgstr "\" (Data e hora)"
 #, python-format
 msgid "\" (date)"
 msgstr "\" (data)\""
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
+"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
+"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
+"have it restored instead."
+msgstr ""
+"\"%(article_item_name)s\" é um item de artigo de \"%(article_name)s\" e não "
+"pode ser restaurado sozinho. Entre em contato com o proprietário do "
+"\"%(article_name)s\" para restaurá-lo."
 
 #. module: knowledge
 #. odoo-python
@@ -80,19 +93,6 @@ msgstr "Nº de funcionários:"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__favorite_count
 msgid "#Is Favorite"
 msgstr "#É favorito"
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
-"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
-"have it restored instead."
-msgstr ""
-"\"%(article_item_name)s\" é um item de artigo de \"%(article_name)s\" e não "
-"pode ser restaurado sozinho. Entre em contato com o proprietário do "
-"\"%(article_name)s\" para restaurá-lo."
 
 #. module: knowledge
 #. odoo-python
@@ -2304,6 +2304,13 @@ msgid "All Models 📖"
 msgstr "Todos os modelos 📖"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr "Todas as alterações salvas"
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "All my activities will always be encoded in our CRM"
 msgstr "Todas as minhas atividades sempre serão codificadas no nosso CRM"
@@ -3259,6 +3266,13 @@ msgstr "Criar um novo artigo no espaço de trabalho"
 #: model_terms:ir.actions.act_window,help:knowledge.knowledge_article_item_action_stages
 msgid "Create a new article item"
 msgstr "Criar um novo item de artigo"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
+#, python-format
+msgid "Create a new private article"
+msgstr "Criar um novo artigo privado"
 
 #. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
@@ -5620,6 +5634,13 @@ msgstr "Abrir a thread novamente"
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
+msgid "Replace"
+msgstr "Trocar"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
+#, python-format
 msgid "Replace cover"
 msgstr "Substituir capa"
 
@@ -7153,6 +7174,13 @@ msgstr ""
 "                Por isso, pedimos que você seja muito cuidadoso com o modo como se refere à empresa ao representar nossa marca."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "all"
+msgstr "todos"
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "and the following child article(s) have"
 msgstr "e o(s) seguinte(s) artigo(s) dependente(s) tem"
@@ -7281,6 +7309,13 @@ msgstr "leitura"
 
 #. module: knowledge
 #. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "resolved"
+msgstr "resolvido"
+
+#. module: knowledge
+#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "search"
@@ -7295,6 +7330,13 @@ msgstr "o artigo"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "to unleash the power of Knowledge !"
 msgstr "dominar o poder do Conhecimento!"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "unresolved"
+msgstr "não resolvido"
 
 #. module: knowledge
 #. odoo-javascript

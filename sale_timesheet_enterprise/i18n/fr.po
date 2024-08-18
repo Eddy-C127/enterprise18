@@ -3,18 +3,18 @@
 # 	* sale_timesheet_enterprise
 # 
 # Translators:
-# Wil Odoo, 2023
 # Jolien De Paepe, 2024
 # Martin Trigaux, 2024
 # Manon Rondou, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:12+0000\n"
+"POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,15 +72,6 @@ msgid "(%(percentage)s%)"
 msgstr "(%(percentage)s%)"
 
 #. module: sale_timesheet_enterprise
-#: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.view_employee_form
-msgid ""
-"<span class=\"w-100\" "
-"groups=\"hr_timesheet.group_hr_timesheet_approver\">per month</span>"
-msgstr ""
-"<span class=\"w-100\" "
-"groups=\"hr_timesheet.group_hr_timesheet_approver\">par mois</span>"
-
-#. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.sale_timesheet_enterprise_advance_payment_inv_timesheet_view_form
 msgid ""
 "<span>\n"
@@ -105,8 +96,8 @@ msgstr "Toutes les feuilles de temps enregistrées"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Compte analytique"
+msgid "Analytic Line"
+msgstr "Ligne analytique"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -386,6 +377,11 @@ msgstr "Enregistrez les feuilles de temps pour gagner votre rang !"
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
 msgid "Remaining Hours"
 msgstr "Heures restantes"
+
+#. module: sale_timesheet_enterprise
+#: model:ir.model,name:sale_timesheet_enterprise.model_sale_advance_payment_inv
+msgid "Sales Advance Payment Invoice"
+msgstr "Facture de paiement d'avance"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_sale_order_line

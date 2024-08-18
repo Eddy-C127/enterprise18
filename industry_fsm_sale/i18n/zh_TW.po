@@ -3,16 +3,16 @@
 # 	* industry_fsm_sale
 # 
 # Translators:
-# Wil Odoo, 2023
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:11+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -120,8 +120,8 @@ msgstr "發票已建立：%s"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "分析帳戶"
+msgid "Analytic Line"
+msgstr "分析資料行"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__allow_billable
@@ -269,14 +269,6 @@ msgstr "該值無效： %s"
 
 #. module: industry_fsm_sale
 #. odoo-python
-#: code:addons/industry_fsm_sale/models/product_template.py:0
-#, python-format
-msgid ""
-"The following products are currently associated with a Field Service "
-"project, you cannot change their Invoicing Policy or Type:%s"
-msgstr "以下產品目前已與外勤服務專案項目關聯，不可更改其開立發票政策或類型：%s"
-
-#. module: industry_fsm_sale
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
 msgid "Invoice"
@@ -513,6 +505,15 @@ msgid "Taxes"
 msgstr "稅金"
 
 #. module: industry_fsm_sale
+#. odoo-python
+#: code:addons/industry_fsm_sale/models/product_template.py:0
+#, python-format
+msgid ""
+"The following products are currently associated with a Field Service "
+"project, you cannot change their Invoicing Policy or Type:%s"
+msgstr "以下產品目前已與外勤服務專案項目關聯，不可更改其開立發票政策或類型：%s"
+
+#. module: industry_fsm_sale
 #: model:ir.model.constraint,message:industry_fsm_sale.constraint_project_project_material_imply_billable
 msgid "The material can be allowed only when the task can be billed."
 msgstr "只有在任務可作收費時，才允許使用該物料。"
@@ -529,7 +530,7 @@ msgstr "若外勤工作專案項目可以收費而且允許工時表，就必須
 #: code:addons/industry_fsm_sale/models/sale_order.py:0
 #, python-format
 msgid "This Sales Order has been created from Task: %s"
-msgstr ""
+msgstr "此銷售訂單已根據任務建立： %s"
 
 #. module: industry_fsm_sale
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.portal_my_task

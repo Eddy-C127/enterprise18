@@ -7,7 +7,7 @@
 # Hamed Mohammadi <hamed@dehongi.com>, 2023
 # Yousef Shadmanesh <y.shadmanesh@gmail.com>, 2023
 # Hamid Darabi, 2023
-# fardin mardani, 2023
+# fardin mardani <fmardani0@gmail.com>, 2023
 # Hanna Kheradroosta, 2023
 # Martin Trigaux, 2023
 # 
@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Martin Trigaux, 2023\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
@@ -499,10 +499,15 @@ msgid "Timer after which the order will be highlighted"
 msgstr ""
 
 #. module: pos_preparation_display
+#: model:ir.actions.server,name:pos_preparation_display.preparation_display_delete_cron_ir_actions_server
+msgid "delete_preparation_display_order"
+msgstr ""
+
+#. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 #, python-format
-msgid "or simply wait for commands to be sent to this location."
+msgid "or simply wait for orders to be sent for preparation."
 msgstr ""
 
 #. module: pos_preparation_display

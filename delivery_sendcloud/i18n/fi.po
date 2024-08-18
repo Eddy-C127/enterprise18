@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -23,6 +23,34 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"\n"
+"Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
+"                             \n"
+"Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
+"\t%s"
+msgstr ""
+"\n"
+"Lisäksi jotkin yksittäiset tuotteet ovat liian painavia raskaimpaan käytettävissä olevaan toimitustapaan.\n"
+"                             \n"
+"Jaa seuraavan tuotteen (seuraavien tuotteiden) määrä pakettien kesken, jos mahdollista, tai valitse toinen kuljetusliike:\n"
+"\t%s"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"\n"
+"Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
+msgstr ""
+"\n"
+"Yritä jakaa tuotteesi paketeissa niin, että ne painavat vähemmän kuin %(max_weight)s %(unit)s, tai valitse toinen kuljetustapa."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -37,41 +65,6 @@ msgstr "%(partner_name)s sähköposti vaaditaan"
 #, python-format
 msgid "%(partner_name)s phone required"
 msgstr "%(partner_name)s puhelin vaaditaan"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"\n"
-"Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
-"                             \n"
-"Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
-"\t%s"
-msgstr ""
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"Some packages in your transfer are too heavy for the heaviest available "
-"shipping method."
-msgstr ""
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"\n"
-"Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
-msgstr ""
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"The total weight of your transfer is too heavy for the heaviest available "
-"shipping method."
-msgstr ""
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -92,6 +85,13 @@ msgstr ""
 "<i class=\"fa fa-exclamation-triangle\"/> Testiympäristössä lähetys "
 "<b>peruutetaan</b> automaattisesti etiketin luomisen jälkeen, jotta "
 "vältyttäisiin veloituksilta."
+
+#. module: delivery_sendcloud
+#: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> Only administrators can configure "
+"the public and private keys."
+msgstr ""
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -539,8 +539,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "Some packages in"
-msgstr "Jotkin paketit"
+msgid ""
+"Some packages in your transfer are too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"Jotkin siirtämäsi paketit ovat liian painavia raskaimpaan käytettävissä "
+"olevaan toimitustapaan."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -590,6 +594,17 @@ msgstr ""
 #, python-format
 msgid "The shipping product actually configured can't handle this delivery"
 msgstr "Itse määritetty toimitustuote ei pysty käsittelemään tätä toimitusta"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"The total weight of your transfer is too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"Siirtosi kokonaispaino on liian raskas raskaimmalle käytettävissä olevalle "
+"toimitustavalle."
 
 #. module: delivery_sendcloud
 #. odoo-python

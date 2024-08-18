@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -58,21 +58,21 @@ msgstr "<span class=\"font-small\">簽名</span>"
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid ""
 "<span>If an error is made in the payment of your Direct Debit, by</span>"
-msgstr ""
+msgstr "<span>如果你的直接扣賬付款出現錯誤，請通過以下方式處理</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid ""
 "<span>If there are any changes to the amount, date or frequency of your "
 "Direct Debit</span>"
-msgstr ""
+msgstr "<span>如果你的直接扣賬的金額、日期或頻率有任何變更</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid ""
 "<span>If you receive a refund you are not entitled to, you must pay it back "
 "when</span>"
-msgstr ""
+msgstr "<span>如果你收到無權獲得的退款，必須在以下情況退還</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -106,14 +106,14 @@ msgstr "<span>銀行或建屋互助會，你有權要求你的銀行或建屋互
 msgid ""
 "<span>to collect a payment, confirmation of the amount and date will be "
 "given to you at the time of the request</span>"
-msgstr ""
+msgstr "<span>要收取付款，會在提出要求時向你確認付款金額和日期</span>"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid ""
 "<span>will notify you (insert number of) working days in advance of your "
 "account being debited or as otherwise agreed. If you request</span>"
-msgstr ""
+msgstr "<span>將在你的賬戶被扣款前（插入天數）個工作日通知你，或按照另行協議。如果你要求</span>"
 
 #. module: account_bacs
 #: model_terms:ir.actions.act_window,help:account_bacs.account_bacs_direct_debit_instruction_tree_act
@@ -139,7 +139,7 @@ msgstr "銀行賬戶未設定。"
 #, python-format
 msgid ""
 "A debtor account is required to validate a BACS Direct Debit Instruction."
-msgstr ""
+msgstr "為使 BACS 直接扣賬指示有效，需要有扣賬賬戶。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__partner_bank_id
@@ -231,7 +231,7 @@ msgstr "BACS 直接扣賬方案只接受英國銀行賬戶。請為此 BACS 直�
 msgid ""
 "BACS Direct Debit scheme only accepts UK bank accounts. Please select a "
 "journal associated to one."
-msgstr ""
+msgstr "BACS 直接扣賬計劃只接受英國銀行賬戶。請選擇已關聯至英國銀行賬戶的日記賬。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_expiry_date
@@ -259,7 +259,7 @@ msgstr "BACS 處理日期"
 #: code:addons/account_bacs/models/bacs_direct_debit_instruction.py:0
 #, python-format
 msgid "BACS Service User Number is not set on the company."
-msgstr ""
+msgstr "公司未設定 BACS 服務使用者號碼。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_batch_payment__bacs_submission_serial
@@ -283,7 +283,7 @@ msgstr "Bacs 直接扣賬"
 #: model:ir.model.fields,field_description:account_bacs.field_account_move__bacs_has_usable_ddi
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_has_usable_ddi
 msgid "Bacs Has Usable Ddi"
-msgstr ""
+msgstr "Bacs 有可用的 Ddi"
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_res_partner_bank
@@ -331,7 +331,7 @@ msgstr "已關閉"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.res_config_settings_view_form
 msgid "Collect and send payments using UK BACS Service"
-msgstr ""
+msgstr "使用英國 BACS 服務收取及發送付款"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -351,7 +351,7 @@ msgstr "公司"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__company_id
 msgid "Company for whose invoices the DDI can be used."
-msgstr ""
+msgstr "發票可使用 DDI 的公司。"
 
 #. module: account_bacs
 #: model:ir.model,name:account_bacs.model_res_config_settings
@@ -377,12 +377,12 @@ msgstr "日期 %s 的抵銷總額大於 999,999,999.99。"
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_account_payment__bacs_ddi_usable
 msgid "Could a SDD ddi be used?"
-msgstr ""
+msgstr "能否使用 SDD ddi？"
 
 #. module: account_bacs
 #: model_terms:ir.actions.act_window,help:account_bacs.account_bacs_direct_debit_instruction_tree_act
 msgid "Create a new BACS Direct Debit Instruction."
-msgstr ""
+msgstr "建立新的 BACS 直接扣賬指示。"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
@@ -414,7 +414,7 @@ msgstr "客戶"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__partner_id
 msgid "Customer whose payments are to be managed by this DDI."
-msgstr ""
+msgstr "將由此 DDI 管理付款的客戶。"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -443,7 +443,7 @@ msgstr "直接扣賬指示表格"
 msgid ""
 "Direct Debit Instruction identifier must be unique! Please choose another "
 "one."
-msgstr ""
+msgstr "直接扣賬指示的識別碼必須獨一無二。請選用另一個。"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -507,7 +507,7 @@ msgstr "Font awesome 圖示，例如，fa-task"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Good news! A valid BACS Direct Debit Instruction is available."
-msgstr ""
+msgstr "好消息！你現在可以使用有效的 BACS 直接扣賬指示。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__has_message
@@ -574,7 +574,7 @@ msgstr "使用此授權付款的發票。"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Invoices paid with this DDI."
-msgstr ""
+msgstr "使用此 DDI 付款的發票。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__message_is_follower
@@ -600,7 +600,7 @@ msgstr "日記賬項目"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_journal_id
 msgid "Journal to use to receive BACS Direct Debit payments from this DDI."
-msgstr ""
+msgstr "用於由此 DDI 接收 BACS 直接扣賬付款的日記賬。"
 
 #. module: account_bacs
 #: model:ir.model.fields,field_description:account_bacs.field_bacs_ddi__write_uid
@@ -693,6 +693,11 @@ msgid ""
 "                    then only have to generate a BACS Direct Debit file containing this operation\n"
 "                    and send it to your bank to effectively get paid."
 msgstr ""
+"當你在 Odoo 開立發票，\n"
+"                    而發票客戶在發票日期當天具有有效的直接扣賬指示，\n"
+"                    驗證發票時將會觸發其自動付款，然後你只需要\n"
+"                    產生記載此操作的 BACS 直接扣賬檔案，\n"
+"                    並將其發送到你的銀行，以有效率地收取付款。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_bank_statement_line__bacs_ddi_id
@@ -701,7 +706,7 @@ msgstr ""
 msgid ""
 "Once this invoice has been paid with BACS Direct Debit, contains the DDI "
 "that allowed the payment."
-msgstr ""
+msgstr "此發票以 BACS 直接扣賬付款後，會包含允許付款的 DDI。"
 
 #. module: account_bacs
 #. odoo-python
@@ -710,14 +715,14 @@ msgstr ""
 msgid ""
 "Only IBAN account numbers can receive BACS Direct Debit payments. Please "
 "select a journal associated to one."
-msgstr ""
+msgstr "只有 IBAN 賬號可以接收 BACS 直接扣賬付款。請選擇已關聯至 IBAN 賬戶的日記賬。"
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/bacs_direct_debit_instruction.py:0
 #, python-format
 msgid "Only mandates in draft state can be cancelled."
-msgstr ""
+msgstr "只限處於草稿狀態的授權可以取消。"
 
 #. module: account_bacs
 #. odoo-python
@@ -730,12 +735,12 @@ msgstr "取消時，只限草稿狀態的授權才可從資料庫中刪除。"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Oops! No valid BACS Direct Debit Instruction for this customer."
-msgstr ""
+msgstr "哎呀！此客戶沒有有效的 BACS 直接扣賬指示。"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.sdd_account_payment_form
 msgid "Originating BACS Direct Debit Instruction"
-msgstr ""
+msgstr "發起方 BACS 直接扣賬指示"
 
 #. module: account_bacs
 #. odoo-python
@@ -768,7 +773,7 @@ msgstr "付款Len"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
 msgid "Payments generated for this DDI that have not yet been collected."
-msgstr ""
+msgstr "已為此 DDI 生成但尚未收取的付款。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__payment_ids
@@ -778,7 +783,7 @@ msgstr "因應此授權而產生的付款。"
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_multi_mode
 msgid "Payments in batch get processed on their individual date."
-msgstr ""
+msgstr "大批傳送的付款，會在各自的日期獲得處理。"
 
 #. module: account_bacs
 #. odoo-python
@@ -790,7 +795,7 @@ msgstr "待收取付款"
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "Please fill in the whole form using a ball point pen and send it to:"
-msgstr ""
+msgstr "請用原子筆填寫整份表格，然後寄往："
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
@@ -844,25 +849,17 @@ msgid "Service user number"
 msgstr "服務使用者號碼"
 
 #. module: account_bacs
-msgid "Service user number of your company within BACS"
-msgstr "貴公司在 BACS 內的服務用戶數目"
-
-#. module: account_bacs
-#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
-msgid ""
-"Service user number of your company within BACS. Write 'HSBC' here if you "
-"bank does not provide one."
-msgstr ""
-
-#. module: account_bacs
-msgid "Service user number of your company within BACS, given by the bank."
-msgstr ""
-
-#. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_res_company__bacs_sun
 msgid ""
 "Service user number of your company within BACS, given by the bank. Write "
 "'HSBC' here if your bank does not provide one."
+msgstr "由銀行提供、你公司在 BACS 系統中的服務使用者號碼。如果你公司的銀行未有提供，請在此處填寫「HSBC」（匯豐）。"
+
+#. module: account_bacs
+#: model:ir.model.fields,help:account_bacs.field_res_config_settings__bacs_sun
+msgid ""
+"Service user number of your company within BACS. Write 'HSBC' here if your "
+"bank does not provide one."
 msgstr ""
 
 #. module: account_bacs
@@ -877,7 +874,7 @@ msgstr "部份付款超出允許的最高金額。"
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments are not in GBP."
-msgstr ""
+msgstr "部份付款並非以 GBP（英鎊）進行。"
 
 #. module: account_bacs
 #. odoo-python
@@ -916,7 +913,7 @@ msgstr "適用日計帳"
 msgid ""
 "The BACS Direct Debit Instruction associated to the payment has been revoked"
 " and cannot be used anymore."
-msgstr ""
+msgstr "關聯至付款的 BACS 直接扣賬指示已被撤銷，不能再使用。"
 
 #. module: account_bacs
 #. odoo-python
@@ -936,12 +933,12 @@ msgstr ""
 msgid ""
 "The company '%s' requires a SUN to generate BACS files. Please configure it "
 "first."
-msgstr ""
+msgstr "公司「%s」需要有 SUN 才可產生 BACS 檔案。請先配置此項。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_expiry_date
 msgid "The date on which the file will expire."
-msgstr ""
+msgstr "檔案將會過期的日期。"
 
 #. module: account_bacs
 #. odoo-python
@@ -950,7 +947,7 @@ msgstr ""
 msgid ""
 "The journal '%s' requires a proper IBAN account to initiate a BACS Payment. "
 "Please configure it first."
-msgstr ""
+msgstr "日記賬「%s」需要有一個正確的 IBAN 賬戶，才可發起 BACS 付款。請先配置此項。"
 
 #. module: account_bacs
 #. odoo-python
@@ -958,7 +955,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The maximum number of BACS submissions (999) for the day has been reached."
-msgstr ""
+msgstr "已達到同一天內向 BACS 提交的數量上限（999）。"
 
 #. module: account_bacs
 #. odoo-python
@@ -967,40 +964,33 @@ msgstr ""
 msgid ""
 "The payment must be linked to a BACS Direct Debit Instruction in order to "
 "generate a Direct Debit File."
-msgstr ""
+msgstr "付款必須關聯至 BACS 直接扣賬指示，才可產生直接扣賬檔案。"
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_batch_payment.py:0
 #, python-format
 msgid "The processing date cannot be in the past."
-msgstr ""
+msgstr "處理的日期不可是過去日子。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_account_batch_payment__bacs_processing_date
 msgid "The processing day of the BACS transaction."
-msgstr ""
+msgstr "BACS 交易的處理日。"
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/account_payment.py:0
 #, python-format
 msgid "The selected vendor account needs to be a valid UK IBAN"
-msgstr ""
+msgstr "所選的供應商賬戶，必須是有效的英國 IBAN 賬戶"
 
 #. module: account_bacs
 #. odoo-python
 #: code:addons/account_bacs/models/res_company.py:0
 #, python-format
 msgid "The service user number must be 6 characters long."
-msgstr ""
-
-#. module: account_bacs
-#. odoo-python
-#: code:addons/account_bacs/models/res_company.py:0
-#, python-format
-msgid "The service user number must be numeric."
-msgstr ""
+msgstr "服務使用者號碼必須為 6 位數字。"
 
 #. module: account_bacs
 #. odoo-python
@@ -1008,7 +998,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The service user number must be numeric, or 'HSBC' if you don't have any."
-msgstr ""
+msgstr "服務使用者號碼必須為數字。如果沒有，則必須是「HSBC」。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__state
@@ -1027,12 +1017,12 @@ msgstr ""
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__name
 msgid "The unique identifier of this DDI."
-msgstr ""
+msgstr "此 DDI 的唯一識別碼。"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form
 msgid "This guarantee should be detached and retained by the payer."
-msgstr ""
+msgstr "此擔保書應撕下，由付款人保留。"
 
 #. module: account_bacs
 #. odoo-python
@@ -1040,7 +1030,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Trying to register a payment on a DDI belonging to a different partner."
-msgstr ""
+msgstr "正嘗試在屬於不同合作夥伴的 DDI 上登記付款。"
 
 #. module: account_bacs
 #: model:ir.model.fields,help:account_bacs.field_bacs_ddi__activity_exception_decoration
@@ -1056,6 +1046,8 @@ msgid ""
 "date %(date)s for partner %(partner)r. Please create one before encoding a "
 "BACS Direct Debit payment."
 msgstr ""
+"由於合作夥伴 %(partner)r 在日期 %(date)s 沒有可用的 DDI，因此無法過賬以下付款：%(payment)r。請於編碼 BACS "
+"直接扣賬付款之前，建立此項。"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.account_bacs_direct_debit_instruction_form
@@ -1079,7 +1071,7 @@ msgstr "網站溝通記錄"
 msgid ""
 "You cannot delete a bank account linked to an active BACS Direct Debit "
 "Instruction."
-msgstr ""
+msgstr "你不可刪除已關聯至有效 BACS 直接扣賬指示的銀行賬戶。"
 
 #. module: account_bacs
 #: model_terms:ir.ui.view,arch_db:account_bacs.ddi_form

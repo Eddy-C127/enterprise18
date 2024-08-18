@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Language: he\n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: worksheet
 #. odoo-python
@@ -180,6 +180,17 @@ msgstr "חיפוש תבנית גליון עבודה"
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_list
 msgid "Worksheets"
 msgstr "גיליונות עבודה"
+
+#. module: worksheet
+#. odoo-python
+#: code:addons/worksheet/models/worksheet_template.py:0
+#, python-format
+msgid ""
+"You can't restrict this worksheet template to '%s' because it's still "
+"connected to tasks in '%s' (and potentially other companies). Please either "
+"unlink those tasks from this worksheet template, move them to a project for "
+"the right company, or keep this worksheet template open to all companies."
+msgstr ""
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form

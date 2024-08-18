@@ -3,15 +3,15 @@
 # 	* account_accountant
 # 
 # Translators:
-# Thi Huong Nguyen, 2024
 # Martin Trigaux, 2024
+# Thi Huong Nguyen, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 07:30+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -174,7 +174,7 @@ msgstr "Tài khoản sử dụng cho chi phí hoãn lại"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
 msgid "Account used for deferred revenues"
-msgstr "Tài khoản sử dụng cho doanh thu hoãn lại"
+msgstr "Tài khoản sử dụng cho doanh thu chưa thực hiện"
 
 #. module: account_accountant
 #: model:ir.ui.menu,name:account_accountant.menu_accounting
@@ -260,14 +260,14 @@ msgstr "Số tiền"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Company Currency)"
-msgstr ""
+msgstr "Số tiền (đơn vị tiền tệ của công ty)"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Foreign Currency)"
-msgstr ""
+msgstr "Số tiền (ngoại tệ)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -280,13 +280,9 @@ msgid "Amount Currency"
 msgstr "Tiền tệ của số tiền"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
-msgid "Amount Transaction Currency"
-msgstr ""
-
-#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
 #, python-format
 msgid "Amount in Currency"
 msgstr "Số tiền theo loại tiền tệ"
@@ -610,12 +606,12 @@ msgstr "Ngày"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_end_date
 msgid "Date at which the deferred expense/revenue ends"
-msgstr "Ngày chi phí/doanh thu hoãn lại kết thúc"
+msgstr "Ngày chi phí/doanh thu chưa thực hiện kết thúc"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_start_date
 msgid "Date at which the deferred expense/revenue starts"
-msgstr "Ngày chi phí/doanh thu hoãn lại bắt đầu"
+msgstr "Ngày chi phí/doanh thu chưa thực hiện bắt đầu"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
@@ -688,7 +684,7 @@ msgstr "Sổ nhật ký hoãn lại"
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_revenue_account_id
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_move__deferred_entry_type__revenue
 msgid "Deferred Revenue"
-msgstr "Doanh thu hoãn lại"
+msgstr "Doanh thu chưa thực hiện"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -858,6 +854,11 @@ msgid "Force Price Included Taxes"
 msgstr "Buộc tuỳ chọn Giá đã bao gồm thuế"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "Foreign Currency"
+msgstr "Ngoại tệ"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
 msgstr "Chỉ số biểu mẫu"
@@ -905,7 +906,7 @@ msgstr "Phương thức tạo bút toán chi phí hoãn lại"
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Generate Deferred Revenue Entries Method"
-msgstr "Phương thức tạo bút toán doanh thu hoãn lại"
+msgstr "Phương thức tạo bút toán doanh thu chưa thực hiện"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1033,7 +1034,7 @@ msgstr "Ngưỡng chuyển đổi hóa đơn"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
 msgid "Is Multi Currency"
-msgstr ""
+msgstr "Nhiều loại tiền tệ"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
@@ -1279,7 +1280,7 @@ msgstr "Phương pháp dùng để tạo bút toán chi phí hoãn lại"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred revenue entries"
-msgstr "Phương pháp dùng để tạo bút toán doanh thu hoãn lại"
+msgstr "Phương pháp dùng để tạo bút toán doanh thu chưa thực hiện"
 
 #. module: account_accountant
 #. odoo-python
@@ -1319,7 +1320,7 @@ msgstr "Tên"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
 msgid "Narration"
-msgstr ""
+msgstr "Narration"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1378,9 +1379,11 @@ msgid "Not Matched"
 msgstr "Không khớp"
 
 #. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
+#, python-format
 msgid "Notes"
 msgstr "Ghi chú"
 
@@ -1929,6 +1932,15 @@ msgid "That's on average"
 msgstr "Đó là theo trung bình"
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid ""
+"The amount expressed in an optional other currency if it is a multi-currency"
+" entry."
+msgstr ""
+"Số tiền được biểu thị bằng đơn vị tiền tệ tùy chọn khác nếu nó là một bút "
+"toán đa tiền tệ."
+
+#. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
@@ -1981,6 +1993,11 @@ msgid ""
 "The invoices up to this date will not be taken into account as accounting "
 "entries"
 msgstr "Các hóa đơn tính đến ngày này sẽ không được tính là bút toán kế toán."
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "Đơn vị tiền tệ tùy chọn khác nếu là bút toán đa tiền tệ."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -2095,7 +2112,6 @@ msgstr "Giao dịch"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "Tiền tệ giao dịch"
 
@@ -2200,12 +2216,6 @@ msgstr "Bút toán xoá bỏ"
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
-msgid "You cannot have a fiscal year on a child company."
-msgstr ""
-
-#. module: account_accountant
-#: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
@@ -2258,6 +2268,13 @@ msgstr ""
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr "Bạn không thể tạo bút toán hoãn lại cho bút toán về hoạt động khác."
+
+#. module: account_accountant
+#. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr "Công ty con không thể có năm tài chính."
 
 #. module: account_accountant
 #. odoo-python

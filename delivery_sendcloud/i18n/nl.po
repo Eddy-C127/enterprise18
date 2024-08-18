@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -26,19 +26,6 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "%(partner_name)s email required"
-msgstr "%(partner_name)s e-mailadres vereist"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-#, python-format
-msgid "%(partner_name)s phone required"
-msgstr "%(partner_name)s telefoon vereist"
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid ""
 "\n"
 "Additionally, some individual product(s) are too heavy for the heaviest available shipping method.\n"
@@ -55,16 +42,7 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"Some packages in your transfer are too heavy for the heaviest available "
-"shipping method."
-msgstr ""
-"Sommige verpakkingen in je transfer zijn te zwaar voor de zwaarst "
-"beschikbare verzendmethode."
-
-#. module: delivery_sendcloud
-#. odoo-python
-#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
 msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
@@ -75,12 +53,16 @@ msgstr ""
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
-msgid ""
-"The total weight of your transfer is too heavy for the heaviest available "
-"shipping method."
-msgstr ""
-"Het totale gewicht van je verplaatsing is te zwaar voor de zwaarst "
-"beschikbare verzendmethode."
+#, python-format
+msgid "%(partner_name)s email required"
+msgstr "%(partner_name)s e-mailadres vereist"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid "%(partner_name)s phone required"
+msgstr "%(partner_name)s telefoon vereist"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -101,6 +83,13 @@ msgstr ""
 "<i class=\"fa fa-exclamation-triangle\"/> In een testomgeving worden je "
 "verzendingen automatisch <b>geannuleerd</b> nadat het label is gemaakt om "
 "kosten te voorkomen."
+
+#. module: delivery_sendcloud
+#: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
+msgid ""
+"<i class=\"fa fa-exclamation-triangle\"/> Only administrators can configure "
+"the public and private keys."
+msgstr ""
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -551,8 +540,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
-msgid "Some packages in"
-msgstr "Sommige verpakkingen in"
+msgid ""
+"Some packages in your transfer are too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"Sommige verpakkingen in je transfer zijn te zwaar voor de zwaarst "
+"beschikbare verzendmethode."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -604,6 +597,17 @@ msgid "The shipping product actually configured can't handle this delivery"
 msgstr ""
 "Het momenteel geconfigureerde verzendproduct kan deze levering niet "
 "verwerken"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"The total weight of your transfer is too heavy for the heaviest available "
+"shipping method."
+msgstr ""
+"Het totale gewicht van je verplaatsing is te zwaar voor de zwaarst "
+"beschikbare verzendmethode."
 
 #. module: delivery_sendcloud
 #. odoo-python

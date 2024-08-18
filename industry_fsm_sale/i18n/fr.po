@@ -3,17 +3,17 @@
 # 	* industry_fsm_sale
 # 
 # Translators:
-# Wil Odoo, 2023
 # Jolien De Paepe, 2023
 # Manon Rondou, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:11+0000\n"
+"POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -124,8 +124,8 @@ msgstr "Une facture a été créée : %s"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Compte analytique"
+msgid "Analytic Line"
+msgstr "Ligne analytique"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__allow_billable
@@ -280,17 +280,6 @@ msgstr "Valeur invalide : %s"
 
 #. module: industry_fsm_sale
 #. odoo-python
-#: code:addons/industry_fsm_sale/models/product_template.py:0
-#, python-format
-msgid ""
-"The following products are currently associated with a Field Service "
-"project, you cannot change their Invoicing Policy or Type:%s"
-msgstr ""
-"Les produits suivants sont actuellement associés à un projet de service sur "
-"site, vous ne pouvez pas modifier leur politique ou leur type de facturation"
-" :%s"
-
-#. module: industry_fsm_sale
 #: code:addons/industry_fsm_sale/models/project_task.py:0
 #, python-format
 msgid "Invoice"
@@ -527,6 +516,18 @@ msgstr "Tâche à partir de laquelle ce devis a été créé"
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.worksheet_time_and_material
 msgid "Taxes"
 msgstr "Taxes"
+
+#. module: industry_fsm_sale
+#. odoo-python
+#: code:addons/industry_fsm_sale/models/product_template.py:0
+#, python-format
+msgid ""
+"The following products are currently associated with a Field Service "
+"project, you cannot change their Invoicing Policy or Type:%s"
+msgstr ""
+"Les produits suivants sont actuellement associés à un projet de service sur "
+"site, vous ne pouvez pas modifier leur politique ou leur type de facturation"
+" :%s"
 
 #. module: industry_fsm_sale
 #: model:ir.model.constraint,message:industry_fsm_sale.constraint_project_project_material_imply_billable

@@ -4,17 +4,17 @@
 # 
 # Translators:
 # Norimichi Sugimoto <norimichi.sugimoto@tls-ltd.co.jp>, 2023
-# Wil Odoo, 2023
 # Ryoko Tsuda <ryoko@quartile.co>, 2024
 # Junko Augias, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:09+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +48,17 @@ msgstr "\" (日付)"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #, python-format
 msgid ""
+"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
+"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
+"have it restored instead."
+msgstr ""
+"\"%(article_item_name)s\"は\"%(article_name)s\"の記事アイテムであり、単独で復元することはできません。代わりに\"%(article_name)s\"の所有者に連絡して復元を依頼して下さい。"
+
+#. module: knowledge
+#. odoo-python
+#: code:addons/knowledge/models/knowledge_article.py:0
+#, python-format
+msgid ""
 "\"%(article_name)s\" is a template and can not be a child of an article "
 "(\"%(parent_article_name)s\")."
 msgstr "\"%(article_name)s\"はテンプレートで、記事 (\"%(parent_article_name)s\")の子であることはできません。"
@@ -75,17 +86,6 @@ msgstr "従業員数:"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__favorite_count
 msgid "#Is Favorite"
 msgstr "#お気に入り"
-
-#. module: knowledge
-#. odoo-python
-#: code:addons/knowledge/models/knowledge_article.py:0
-#, python-format
-msgid ""
-"\"%(article_item_name)s\" is an Article Item from \"%(article_name)s\" and "
-"cannot be restored on its own. Contact the owner of \"%(article_name)s\" to "
-"have it restored instead."
-msgstr ""
-"\"%(article_item_name)s\"は\"%(article_name)s\"の記事アイテムであり、単独で復元することはできません。代わりに\"%(article_name)s\"の所有者に連絡して復元を依頼して下さい。"
 
 #. module: knowledge
 #. odoo-python
@@ -2259,6 +2259,13 @@ msgid "All Models 📖"
 msgstr "全モデル📖"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/form_status_indicator/form_status_indicator.xml:0
+#, python-format
+msgid "All changes saved"
+msgstr "全ての変更が保存されました"
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "All my activities will always be encoded in our CRM"
 msgstr "全ての自分の活動は常にCRMにエンコードされます"
@@ -3165,6 +3172,13 @@ msgid "Create a new article item"
 msgstr "新規記事項目を作成"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/sidebar/sidebar_section.xml:0
+#, python-format
+msgid "Create a new private article"
+msgstr "新規プライベート記事を作成"
+
+#. module: knowledge
 #: model:knowledge.article,template_description:knowledge.knowledge_article_template_product_catalog
 msgid ""
 "Create a simple catalog to provide technical details about your products."
@@ -3751,7 +3765,7 @@ msgstr "コンテンツを強調して、以下を使用:"
 #: code:addons/knowledge/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Highlight the structure of this article"
-msgstr "この時期の構成を強調"
+msgstr "この記事の構成を強調"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history
@@ -5472,6 +5486,13 @@ msgstr "スレッドの再開"
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #, python-format
+msgid "Replace"
+msgstr "置き換える"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
+#, python-format
 msgid "Replace cover"
 msgstr "表紙を入替"
 
@@ -6957,6 +6978,13 @@ msgstr ""
 "                このため、ブランドを代表する際には、当社への言及の仕方に細心の注意を払うようお願いします。"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "all"
+msgstr "全て"
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "and the following child article(s) have"
 msgstr "そして以下の子記事は以下を持っています:"
@@ -7085,6 +7113,13 @@ msgstr "読む"
 
 #. module: knowledge
 #. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "resolved"
+msgstr "解決済"
+
+#. module: knowledge
+#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #, python-format
 msgid "search"
@@ -7099,6 +7134,13 @@ msgstr "記事"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "to unleash the power of Knowledge !"
 msgstr "ナレッジの力を解き放ちましょう！"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#, python-format
+msgid "unresolved"
+msgstr "未解決"
 
 #. module: knowledge
 #. odoo-javascript

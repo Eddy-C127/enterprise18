@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Sarah Park, 2024
-# Daye Jeong, 2024
 # Martin Trigaux, 2024
+# Daye Jeong, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 07:30+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -254,14 +254,14 @@ msgstr "금액"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Company Currency)"
-msgstr ""
+msgstr " 금액 (회사 통화)"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Foreign Currency)"
-msgstr ""
+msgstr "금액 (외화 기준)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -274,13 +274,9 @@ msgid "Amount Currency"
 msgstr "통화 금액"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
-msgid "Amount Transaction Currency"
-msgstr ""
-
-#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
 #, python-format
 msgid "Amount in Currency"
 msgstr "통화 환산 금액"
@@ -841,6 +837,11 @@ msgid "Force Price Included Taxes"
 msgstr "가격에 반드시 세금이 포함되도록 합니다."
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "Foreign Currency"
+msgstr "외화"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
 msgstr "양식 인덱스"
@@ -1007,7 +1008,7 @@ msgstr "청구서 변경 마감일"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
 msgid "Is Multi Currency"
-msgstr ""
+msgstr "다중 통화"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
@@ -1291,7 +1292,7 @@ msgstr "이름"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
 msgid "Narration"
-msgstr ""
+msgstr "나레이션"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1348,9 +1349,11 @@ msgid "Not Matched"
 msgstr "일치하지 않습니다."
 
 #. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
+#, python-format
 msgid "Notes"
 msgstr "메모"
 
@@ -1889,6 +1892,13 @@ msgid "That's on average"
 msgstr "평균입니다."
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid ""
+"The amount expressed in an optional other currency if it is a multi-currency"
+" entry."
+msgstr "다중 통화 항목인 경우에 선택할 수 있는 추가 통화로 표시된 금액입니다."
+
+#. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
@@ -1937,6 +1947,11 @@ msgid ""
 "The invoices up to this date will not be taken into account as accounting "
 "entries"
 msgstr "청구서는 해당 날짜까지 회계 처리되지 않습니다."
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "다중 통화 항목인 경우에 선택할 수 있는 추가 통화입니다."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -2045,7 +2060,6 @@ msgstr "거래"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "거래 통화"
 
@@ -2150,12 +2164,6 @@ msgstr "상각 처리"
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
-msgid "You cannot have a fiscal year on a child company."
-msgstr ""
-
-#. module: account_accountant
-#: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
@@ -2200,6 +2208,13 @@ msgstr "시작일이 종료일보다 이후인 이연 항목은 생성할 수 �
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr "기타 전표 항목에 대해서는 이연 항목을 생성할 수 없습니다."
+
+#. module: account_accountant
+#. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr "하위 회사에는 회계 연도를 지정할 수 없습니다."
 
 #. module: account_accountant
 #. odoo-python

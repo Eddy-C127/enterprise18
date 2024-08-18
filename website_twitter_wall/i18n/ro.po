@@ -8,6 +8,7 @@
 # Dorin Hongu <dhongu@gmail.com>, 2024
 # Foldi Robert <foldirobert@nexterp.ro>, 2024
 # Martin Trigaux, 2024
+# Maria Muntean, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Maria Muntean, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr ""
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_walls
 msgid "<b>Hey! No wall found</b>"
-msgstr ""
+msgstr "<b>Hei! Nu s-a găsit niciun perete</b>"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_walls
@@ -36,7 +37,7 @@ msgstr "<i class=\"fa fa-plus-circle\"/>Creează acum"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
 msgid "<i class=\"fa fa-twitter\"/> <strong> Join the wall</strong>"
-msgstr ""
+msgstr "<i class=\"fa fa-twitter\"/> <strong>Alăturați-vă peretelui</strong>"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
@@ -148,7 +149,7 @@ msgstr "Este publicat"
 #. module: website_twitter_wall
 #: model:ir.model.fields,help:website_twitter_wall.field_website_twitter_wall__is_live
 msgid "Is live mode on/off"
-msgstr ""
+msgstr "Este activat/dezactivat modul live"
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__last_search
@@ -173,7 +174,7 @@ msgstr "Vizualizare Listă"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
 msgid "Live mode"
-msgstr ""
+msgstr "Modul live"
 
 #. module: website_twitter_wall
 #: model:ir.model.fields.selection,name:website_twitter_wall.selection__website_twitter_wall__mode__mixed
@@ -198,7 +199,7 @@ msgstr "Popular"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
 msgid "Query operators"
-msgstr ""
+msgstr "Operatori de interogare"
 
 #. module: website_twitter_wall
 #: model:ir.model.fields.selection,name:website_twitter_wall.selection__website_twitter_wall__mode__recent
@@ -218,7 +219,7 @@ msgstr "Scor CRM de căutare"
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__search_pattern
 msgid "Search string"
-msgstr ""
+msgstr "Șir de căutare"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_share
@@ -243,7 +244,7 @@ msgstr "Distribuiți #{wall.name} pe twitter"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.snippet_options
 msgid "Share Option"
-msgstr ""
+msgstr "Opțiune de partajare"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
@@ -262,6 +263,8 @@ msgstr "Vizualizare Listă"
 msgid ""
 "The Twitter authentication failed. Please check your API key and secret."
 msgstr ""
+"Autentificarea Twitter a eșuat. Vă rugăm să verificați cheia și secretul "
+"API."
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,help:website_twitter_wall.field_website_twitter_wall__website_url
@@ -275,6 +278,8 @@ msgid ""
 "The search criteria to get the tweets you want. You can use the Twitter query operators.\n"
 "You can also use the special \"favorites:screen_name\" operator to get the favorited tweets of \"screen_name\"."
 msgstr ""
+"Criteriile de căutare pentru a obține tweet-urile dorite. Puteți utiliza operatorii de interogare Twitter.\n"
+"De asemenea, puteți utiliza operatorul special \"favorites:screen_name\" pentru a obține tweet-urile favorite ale \"screen_name\"."
 
 #. module: website_twitter_wall
 #. odoo-python
@@ -282,11 +287,12 @@ msgstr ""
 #, python-format
 msgid "The tweets search failed. Check your credentials and access token"
 msgstr ""
+"Căutarea de tweet-uri a eșuat. Verificați credențialele și token-ul de acces"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
 msgid "Three columns view"
-msgstr ""
+msgstr "Vizualizare pe trei coloane"
 
 #. module: website_twitter_wall
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_wall__total_tweets
@@ -330,7 +336,7 @@ msgstr "Perete Twitter"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.snippet_options
 msgid "Twitter Wall Page"
-msgstr ""
+msgstr "Pagina de Perete Twitter"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.twitter_wall_view
@@ -351,12 +357,12 @@ msgstr "Vizibil pe site-ul curent"
 #: model:ir.model.fields,field_description:website_twitter_wall.field_website_twitter_tweet__wall_ids
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_tweet_view_form
 msgid "Wall"
-msgstr ""
+msgstr "Perete"
 
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
 msgid "Wall Name"
-msgstr ""
+msgstr "Nume Perete"
 
 #. module: website_twitter_wall
 #: model:ir.actions.act_window,name:website_twitter_wall.website_twitter_wall_action
@@ -364,7 +370,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_tree
 msgid "Walls"
-msgstr ""
+msgstr "Pereți"
 
 #. module: website_twitter_wall
 #: model:ir.model,name:website_twitter_wall.model_website_twitter_tweet
@@ -380,4 +386,4 @@ msgstr "URL website"
 #. module: website_twitter_wall
 #: model_terms:ir.ui.view,arch_db:website_twitter_wall.website_twitter_wall_view_form
 msgid "e.g. My Twitter Wall"
-msgstr ""
+msgstr "de exemplu, Peretele meu Twitter"

@@ -18,21 +18,21 @@
 # Simo Suurla <simo@suurla.fi>, 2023
 # Miku Laitinen <miku.laitinen@gmail.com>, 2023
 # Tommi Rintala <tommi.rintala@gmail.com>, 2023
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
 # Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2023
 # Joakim Weckman, 2024
 # Svante Suominen <svante.suominen@web-veistamo.fi>, 2024
 # Konsta Aavaranta, 2024
-# Martin Trigaux, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-19 07:30+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -299,13 +299,9 @@ msgid "Amount Currency"
 msgstr "Valuuttamäärä"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
-msgid "Amount Transaction Currency"
-msgstr "Summa transaktion valuuttana"
-
-#. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
 #, python-format
 msgid "Amount in Currency"
 msgstr "Valuuttamäärä"
@@ -876,6 +872,11 @@ msgid "Force Price Included Taxes"
 msgstr "Pakota hinta sisältäen verot"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "Foreign Currency"
+msgstr "Ulkomaan valuutta"
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
 msgid "Form Index"
 msgstr "Lomakkeen Indeksi"
@@ -1394,9 +1395,11 @@ msgid "Not Matched"
 msgstr "Ei täsmää"
 
 #. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
+#, python-format
 msgid "Notes"
 msgstr "Muistiinpanot"
 
@@ -1947,6 +1950,15 @@ msgid "That's on average"
 msgstr "Se on keskimäärin"
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
+msgid ""
+"The amount expressed in an optional other currency if it is a multi-currency"
+" entry."
+msgstr ""
+"Summa on ilmoitettu valinnaisessa toisessa valuutassa, jos kyseessä on "
+"monivaluuttainen merkintä."
+
+#. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 #, python-format
@@ -2000,6 +2012,11 @@ msgid ""
 "entries"
 msgstr ""
 "Tähän päivään mennessä tehtyjä laskuja ei oteta huomioon kirjanpitovienteinä"
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
+msgid "The optional other currency if it is a multi-currency entry."
+msgstr "Valinnainen toinen valuutta, jos merkintä on monivaluuttainen."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -2114,7 +2131,6 @@ msgstr "Tapahtuma"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
-#: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Transaction Currency"
 msgstr "Tapahtuman valuutta"
 
@@ -2219,12 +2235,6 @@ msgstr "Poistokirjaus"
 #. odoo-python
 #: code:addons/account_accountant/models/account_fiscal_year.py:0
 #, python-format
-msgid "You cannot have a fiscal year on a child company."
-msgstr "Tytäryhtiöllä ei voi olla tilikautta."
-
-#. module: account_accountant
-#: code:addons/account_accountant/models/account_fiscal_year.py:0
-#, python-format
 msgid ""
 "You can not have an overlap between two fiscal years, please correct the "
 "start and/or end dates of your fiscal years."
@@ -2277,6 +2287,13 @@ msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
 msgstr ""
 "Et voi luoda jaksotuskirjauksia sekalaisia päiväkirjamerkintöjä varten."
+
+#. module: account_accountant
+#. odoo-python
+#: code:addons/account_accountant/models/account_fiscal_year.py:0
+#, python-format
+msgid "You cannot have a fiscal year on a child company."
+msgstr "Tytäryhtiöllä ei voi olla tilikautta."
 
 #. module: account_accountant
 #. odoo-python

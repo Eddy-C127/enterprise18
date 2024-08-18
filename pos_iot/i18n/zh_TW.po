@@ -3,16 +3,16 @@
 # 	* pos_iot
 # 
 # Translators:
-# Wil Odoo, 2023
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-26 16:10+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -166,13 +166,6 @@ msgstr "啟用電子秤整合。"
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/app/last_transaction_status/last_transaction_status.js:0
-#, python-format
-msgid "Failed to request last transaction status"
-msgstr "索取上次交易狀態失敗"
-
-#. module: pos_iot
-#. odoo-javascript
 #: code:addons/pos_iot/static/src/app/io_t_error_popup/io_t_error_popup.xml:0
 #, python-format
 msgid "Firefox only: Click on Confirm Security Exception"
@@ -263,6 +256,8 @@ msgid ""
 "It seems that no scale was detected.\n"
 "Make sure that the scale is connected and visible in the IoT app."
 msgstr ""
+"似乎未有偵測到重量計。\n"
+"請確保重量計/磅秤已連接，並在 IoT 物聯網應用程式中可見。"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -461,8 +456,8 @@ msgstr "交易進行中"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
-msgid "Worldline"
-msgstr "Worldline"
+msgid "Worldline (BENELUX)"
+msgstr "Worldline（比荷盧）"
 
 #. module: pos_iot
 #. odoo-javascript

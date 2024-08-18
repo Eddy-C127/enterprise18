@@ -6,14 +6,15 @@
 # Hamid Darabi, 2023
 # Mohsen Mohammadi <iammohsen.123@gmail.com>, 2023
 # Zahed Alfak <tamass4116@gmail.com>, 2023
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-10-26 22:21+0000\n"
+"POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Zahed Alfak <tamass4116@gmail.com>, 2023\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,6 +35,11 @@ msgid ""
 msgstr ""
 
 #. module: sale_subscription_stock
+#: model:ir.model,name:sale_subscription_stock.model_sale_order
+msgid "Sales Order"
+msgstr "سفارش فروش"
+
+#. module: sale_subscription_stock
 #: model:ir.model,name:sale_subscription_stock.model_sale_order_line
 msgid "Sales Order Line"
 msgstr "سطر سفارش‌فروش"
@@ -49,3 +55,8 @@ msgstr "گزارش جایگزینی انبار"
 #, python-format
 msgid "Subscriptions"
 msgstr "اشتراک ها"
+
+#. module: sale_subscription_stock
+#: model:ir.model,name:sale_subscription_stock.model_stock_picking
+msgid "Transfer"
+msgstr "انتقال"

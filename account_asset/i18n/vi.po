@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-13 09:45+0000\n"
+"POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -288,6 +288,13 @@ msgstr "Thêm ghi chú nội bộ"
 #, python-format
 msgid "All the lines should be from the same account"
 msgstr "Tất cả các dòng nên xuất phát từ cùng một tài khoản"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "All the lines should be from the same company"
+msgstr "Tất cả các dòng nên xuất phát từ cùng một công ty"
 
 #. module: account_asset
 #. odoo-python
@@ -1528,6 +1535,14 @@ msgid "Some required values are missing"
 msgstr "Thiết một số giá trị bắt buộc"
 
 #. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__prorata_date
+msgid ""
+"Starting date of the period used in the prorata calculation of the first "
+"depreciation"
+msgstr ""
+"Ngày bắt đầu của kỳ được sử dụng trong tính toán tỷ lệ khấu hao đầu tiên"
+
+#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__state
 msgid "Status"
 msgstr "Trạng thái"
@@ -1577,14 +1592,6 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset.field_asset_modify__method_period
 msgid "The amount of time between two depreciations"
 msgstr "Thời gian giữa hai lần khấu hao"
-
-#. module: account_asset
-#: model:ir.model.fields,help:account_asset.field_account_asset__prorata_date
-msgid ""
-"Starting date of the period used in the prorata calculation of the first "
-"depreciation"
-msgstr ""
-"Ngày bắt đầu của kỳ được sử dụng trong tính toán tỷ lệ khấu hao đầu tiên"
 
 #. module: account_asset
 #. odoo-python
