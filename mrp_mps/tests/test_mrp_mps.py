@@ -647,7 +647,7 @@ class TestMpsMps(common.TransactionCase):
         As a result, for the product mps, each outgoing quantity should be zero
         """
         self.env.company.manufacturing_period = 'day'
-        self.env.company.manufacturing_period_to_display = 10
+        self.env.company.manufacturing_period_to_display_day = 10
 
         customer_location = self.env.ref('stock.stock_location_customers')
         stock_location = self.warehouse.lot_stock_id

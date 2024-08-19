@@ -10,14 +10,20 @@ class Company(models.Model):
     _inherit = "res.company"
 
     manufacturing_period = fields.Selection([
+        ('year', 'Yearly'),
         ('month', 'Monthly'),
         ('week', 'Weekly'),
         ('day', 'Daily')], string="Manufacturing Period",
         default='month', required=True,
         help="Default value for the time ranges in Master Production Schedule report.")
-
-    manufacturing_period_to_display = fields.Integer('Number of columns for the\
-        given period to display in Master Production Schedule', default=12)
+    manufacturing_period_to_display_year = fields.Integer(
+        'Number of columns for the yearly period to display in Master Production Schedule', default=3)
+    manufacturing_period_to_display_month = fields.Integer(
+        'Number of columns for the monthly period to display in Master Production Schedule', default=12)
+    manufacturing_period_to_display_week = fields.Integer(
+        'Number of columns for the weekly period to display in Master Production Schedule', default=12)
+    manufacturing_period_to_display_day = fields.Integer(
+        'Number of columns for the daily period to display in Master Production Schedule', default=30)
     mrp_mps_show_starting_inventory = fields.Boolean(
         'Display Starting Inventory', default=True)
     mrp_mps_show_demand_forecast = fields.Boolean(
@@ -51,7 +57,7 @@ class Company(models.Model):
             years = 0
         first_day = start_of(subtract(fields.Date.today(), years=years),
                              self.manufacturing_period)
-        for columns in range(self.manufacturing_period_to_display):
+        for columns in range(getattr(self, 'manufacturing_period_to_display_%s' % self.manufacturing_period)):
             last_day = end_of(first_day, self.manufacturing_period)
             date_range.append((first_day, last_day))
             first_day = add(last_day, days=1)
