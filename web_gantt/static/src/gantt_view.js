@@ -1,5 +1,5 @@
 import { registry } from "@web/core/registry";
-import { scrollSymbol } from "@web/webclient/actions/action_hook";
+import { scrollSymbol } from "@web/search/action_hook";
 import { GanttArchParser } from "./gantt_arch_parser";
 import { GanttController } from "./gantt_controller";
 import { GanttModel } from "./gantt_model";

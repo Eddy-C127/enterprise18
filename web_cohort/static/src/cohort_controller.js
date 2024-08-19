@@ -4,7 +4,7 @@ import { useService } from "@web/core/utils/hooks";
 import { Layout } from "@web/search/layout";
 import { useModelWithSampleData } from "@web/model/model";
 import { standardViewProps } from "@web/views/standard_view_props";
-import { useSetupView } from "@web/views/view_hook";
+import { useSetupAction } from "@web/search/action_hook";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
 
@@ -25,7 +25,7 @@ export class CohortController extends Component {
         this.actionService = useService("action");
         this.model = useModelWithSampleData(this.props.Model, toRaw(this.props.modelParams));
 
-        useSetupView({
+        useSetupAction({
             rootRef: useRef("root"),
             getLocalState: () => {
                 return { metaData: this.model.metaData };

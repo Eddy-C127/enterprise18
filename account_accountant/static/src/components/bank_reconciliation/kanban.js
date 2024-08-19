@@ -4,13 +4,12 @@ import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
 import { scrollTo } from "@web/core/utils/scrolling";
-import { CallbackRecorder } from "@web/webclient/actions/action_hook";
 import { getCurrency } from "@web/core/currency";
 import { formatMonetary } from "@web/views/fields/formatters";
 import { formatDate } from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
 
-import { useSetupView } from "@web/views/view_hook";
+import { CallbackRecorder, useSetupAction } from "@web/search/action_hook";
 import { RelationalModel } from "@web/model/relational_model/relational_model";
 import { makeActiveField } from "@web/model/relational_model/utils";
 import { kanbanView } from "@web/views/kanban/kanban_view";
@@ -168,7 +167,7 @@ export class BankRecKanbanController extends KanbanController {
 
         this.viewRef = useRef("root");
 
-        useSetupView({
+        useSetupAction({
             rootRef: this.viewRef,
             getLocalState: () => {
                 const exportState = {};

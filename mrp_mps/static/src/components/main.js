@@ -7,7 +7,7 @@ import { MasterProductionScheduleModel } from '@mrp_mps/models/master_production
 import { useService, useBus } from "@web/core/utils/hooks";
 import { CheckBox } from "@web/core/checkbox/checkbox";
 import { usePager } from "@web/search/pager_hook";
-import { useSetupAction } from "@web/webclient/actions/action_hook";
+import { useSetupAction } from "@web/search/action_hook";
 import { ActionMenus } from "@web/search/action_menus/action_menus";
 import { download } from "@web/core/network/download";
 import { rpc } from "@web/core/network/rpc";

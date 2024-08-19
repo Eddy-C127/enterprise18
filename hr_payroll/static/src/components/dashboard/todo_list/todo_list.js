@@ -7,7 +7,7 @@ import { useAutofocus, useService } from "@web/core/utils/hooks";
 import { orderByToString } from "@web/search/utils/order_by";
 import { Field } from "@web/views/fields/field";
 import { Record } from "@web/model/record";
-import { useSetupAction } from "@web/webclient/actions/action_hook";
+import { useSetupAction } from "@web/search/action_hook";
 
 /**
  * This component is actually a dumbed down list view for our notes.

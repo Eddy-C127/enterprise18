@@ -4,7 +4,7 @@ import { FormController } from "@web/views/form/form_controller";
 import { patch } from "@web/core/utils/patch";
 import { useService } from "@web/core/utils/hooks";
 import { evaluateBooleanExpr } from "@web/core/py_js/py";
-import { CallbackRecorder } from "@web/webclient/actions/action_hook";
+import { CallbackRecorder } from "@web/search/action_hook";
 import {
     useEffect,
     useSubEnv

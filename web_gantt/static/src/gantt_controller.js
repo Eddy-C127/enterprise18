@@ -10,9 +10,7 @@ import { useService } from "@web/core/utils/hooks";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { useSearchBarToggler } from "@web/search/search_bar/search_bar_toggler";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
-import { CallbackRecorder } from "@web/webclient/actions/action_hook";
-
-import { useSetupView } from "@web/views/view_hook";
+import { CallbackRecorder, useSetupAction } from "@web/search/action_hook";
 
 export class GanttController extends Component {
     static components = {
@@ -42,7 +40,7 @@ export class GanttController extends Component {
         const rootRef = useRef("root");
 
         this.model = useModelWithSampleData(this.props.Model, this.props.modelParams);
-        useSetupView({
+        useSetupAction({
             rootRef,
             getLocalState: () => {
                 return { metaData: this.model.metaData, displayParams: this.model.displayParams };

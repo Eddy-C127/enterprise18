@@ -11,7 +11,7 @@ import { standardViewProps } from "@web/views/standard_view_props";
 import { useViewButtons } from "@web/views/view_button/view_button_hook";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { ViewButton } from "@web/views/view_button/view_button";
-import { useSetupView } from "@web/views/view_hook";
+import { useSetupAction } from "@web/search/action_hook";
 import { CogMenu } from "@web/search/cog_menu/cog_menu";
 import { SearchBar } from "@web/search/search_bar/search_bar";
 import { useSearchBarToggler } from "@web/search/search_bar/search_bar_toggler";
@@ -68,7 +68,7 @@ export class GridController extends Component {
             ranges: this.props.archInfo.ranges,
             defaultAnchor,
         });
-        useSetupView({
+        useSetupAction({
             getLocalState: () => {
                 const { anchor, range } = this.model.navigationInfo;
                 return {

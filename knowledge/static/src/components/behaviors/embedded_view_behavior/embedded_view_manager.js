@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { CallbackRecorder } from "@web/webclient/actions/action_hook";
+import { CallbackRecorder } from "@web/search/action_hook";
 import { getDefaultConfig } from "@web/views/view";
 import { EmbeddedView } from "@knowledge/views/embedded_view";
 import { ItemCalendarPropsDialog } from "@knowledge/components/item_calendar_props_dialog/item_calendar_props_dialog";

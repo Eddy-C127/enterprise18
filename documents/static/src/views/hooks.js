@@ -7,7 +7,7 @@ import { escape } from "@web/core/utils/strings";
 import { memoize } from "@web/core/utils/functions";
 import { formatFloat } from "@web/views/fields/formatters";
 import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
-import { useSetupView } from "@web/views/view_hook";
+import { useSetupAction } from "@web/search/action_hook";
 import { PdfManager } from "@documents/owl/components/pdf_manager/pdf_manager";
 import { x2ManyCommands } from "@web/core/orm_service";
 import { EventBus, onWillStart, markup, useComponent, useEnv, useRef, useSubEnv } from "@odoo/owl";
@@ -108,7 +108,7 @@ export function useDocumentView(helpers) {
     };
 
     // Keep selection between views
-    useSetupView({
+    useSetupAction({
         rootRef: root,
         getGlobalState: () => ({
             sharedSelection: component.model.exportSelection(),

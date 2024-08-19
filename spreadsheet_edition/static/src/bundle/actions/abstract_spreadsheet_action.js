@@ -1,7 +1,7 @@
 import { _t } from "@web/core/l10n/translation";
 import { onMounted, onWillStart, useState, Component, useSubEnv, onWillUnmount } from "@odoo/owl";
 import { useService } from "@web/core/utils/hooks";
-import { useSetupAction } from "@web/webclient/actions/action_hook";
+import { useSetupAction } from "@web/search/action_hook";
 import { downloadFile } from "@web/core/network/download";
 import { user } from "@web/core/user";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";

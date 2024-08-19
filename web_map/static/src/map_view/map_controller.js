@@ -5,7 +5,7 @@ import { loadJS, loadCSS } from "@web/core/assets";
 import { useService } from "@web/core/utils/hooks";
 import { useModelWithSampleData } from "@web/model/model";
 import { standardViewProps } from "@web/views/standard_view_props";
-import { useSetupView } from "@web/views/view_hook";
+import { useSetupAction } from "@web/search/action_hook";
 import { Layout } from "@web/search/layout";
 import { usePager } from "@web/search/pager_hook";
 import { SearchBar } from "@web/search/search_bar/search_bar";
@@ -41,7 +41,7 @@ export class MapController extends Component {
             this.model.stopFetchingCoordinates();
         });
 
-        useSetupView({
+        useSetupAction({
             getLocalState: () => {
                 return this.model.metaData;
             },

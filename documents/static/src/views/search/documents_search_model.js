@@ -4,7 +4,7 @@ import { _t } from "@web/core/l10n/translation";
 import { SearchModel } from "@web/search/search_model";
 import { browser } from "@web/core/browser/browser";
 import { router } from "@web/core/browser/router";
-import { useSetupAction } from "@web/webclient/actions/action_hook";
+import { useSetupAction } from "@web/search/action_hook";
 
 import { onWillStart } from "@odoo/owl";
 
