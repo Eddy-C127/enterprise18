@@ -1,6 +1,16 @@
 import { expect, test } from "@odoo/hoot";
-import { animationFrame } from "@odoo/hoot-mock";
-import { contains, defineModels, fields, models, onRpc } from "@web/../tests/web_test_helpers";
+import { animationFrame, Deferred } from "@odoo/hoot-mock";
+import { onMounted } from "@odoo/owl";
+import {
+    contains,
+    defineModels,
+    fields,
+    models,
+    onRpc,
+    patchWithCleanup,
+    serverState,
+} from "@web/../tests/web_test_helpers";
+import { CodeEditor } from "@web/core/code_editor/code_editor";
 
 import {
     createMockViewResult,
@@ -489,4 +499,139 @@ test("buttons can be edited when being selected", async () => {
     await contains("button.o-web-studio-editor--element-clickable").click();
     expect("input[id=class]").toHaveCount(1);
     expect("input[id=name]").toHaveValue("my_last_action");
+});
+
+test("grouped kanban editor", async () => {
+    onRpc("web_read_group", async ({ kwargs }) => {
+        expect.step("web_read_group");
+        expect(kwargs.limit).toBe(1);
+    });
+    await mountViewEditor({
+        type: "kanban",
+        resModel: "coucou",
+        arch: `<kanban default_group_by='display_name'>
+                    <templates>
+                        <t t-name='kanban-card'>
+                            <field name='display_name'/>
+                        </t>
+                    </templates>
+                </kanban>`,
+    });
+    expect.verifySteps(["web_read_group"]);
+    expect(".o_web_studio_kanban_view_editor").toHaveClass("o_kanban_grouped");
+    expect(".o_web_studio_kanban_view_editor .o_view_nocontent").toHaveCount(0);
+    expect(".o_web_studio_kanban_view_editor .o-web-studio-editor--element-clickable").toHaveCount(
+        1
+    );
+    expect(".o_web_studio_kanban_view_editor .o-web-studio-editor--element-clickable").toHaveClass(
+        "o_web_studio_widget_empty"
+    );
+    expect(".o_web_studio_kanban_view_editor .o_web_studio_hook").toHaveCount(7);
+});
+
+test("grouped kanban editor with record", async () => {
+    Coucou._records = [{ id: 1, display_name: "coucou 1" }];
+    await mountViewEditor({
+        type: "kanban",
+        resModel: "coucou",
+        arch: `<kanban default_group_by='display_name'>
+                    <templates>
+                        <t t-name='kanban-card'>
+                            <field name='display_name'/>
+                        </t>
+                    </templates>
+                </kanban>`,
+    });
+    expect(".o_web_studio_kanban_view_editor").toHaveClass("o_kanban_grouped");
+    expect(".o_web_studio_kanban_view_editor .o-web-studio-editor--element-clickable").toHaveCount(
+        1
+    );
+    expect(
+        ".o_web_studio_kanban_view_editor .o-web-studio-editor--element-clickable"
+    ).not.toHaveClass("o_web_studio_widget_empty");
+    expect(".o_web_studio_kanban_view_editor .o_web_studio_hook").toHaveCount(7);
+});
+
+test("kanban editor, grouped on date field, no record", async () => {
+    Coucou._fields.date = fields.Date({ string: "Date" });
+    await mountViewEditor({
+        type: "kanban",
+        resModel: "coucou",
+        arch: `<kanban default_group_by='date'>
+                <templates>
+                    <t t-name='kanban-card'>
+                        <field name='display_name'/>
+                    </t>
+                </templates>
+            </kanban>`,
+    });
+    expect(".o_web_studio_kanban_view_editor").toHaveClass("o_kanban_grouped");
+    expect(".o_kanban_record:not(.o_kanban_demo)").toHaveCount(1);
+});
+
+test("kanban editor, grouped on date field granular, no record, progressbar", async () => {
+    Coucou._fields.date = fields.Date({ string: "Date" });
+    serverState.debug = true;
+    const def = new Deferred();
+    patchWithCleanup(CodeEditor.prototype, {
+        setup() {
+            super.setup();
+            onMounted(() => def.resolve());
+        },
+    });
+    const arch = `<kanban default_group_by='date:month'>
+                <progressbar colors="{}" field="priority"/>
+                <field name="priority" />
+                <templates>
+                    <t t-name='kanban-card'>
+                        <field name='display_name'/>
+                    </t>
+                </templates>
+            </kanban>`;
+    onRpc("/web_studio/get_xml_editor_resources", () => {
+        return {
+            main_view_key: "",
+            views: [
+                {
+                    active: true,
+                    arch,
+                    id: 99999999,
+                    inherit_id: false,
+                    name: "default view",
+                    xml_id: "default",
+                },
+            ],
+        };
+    });
+    await mountViewEditor({
+        type: "kanban",
+        resModel: "coucou",
+        arch,
+    });
+    expect(".o_web_studio_kanban_view_editor").toHaveClass("o_kanban_grouped");
+    expect(".o_kanban_record:not(.o_kanban_demo)").toHaveCount(1);
+    await contains("button.o_web_studio_open_xml_editor").click();
+    await def;
+    expect(".o_web_studio_xml_editor").toHaveCount(1);
+    expect(".o_view_controller.o_kanban_view").toHaveCount(1);
+});
+
+test("grouped kanban editor cannot add columns or load more", async () => {
+    Coucou._records = [
+        { id: 1, display_name: "Martin", priority: "2", m2o: 1 },
+        { id: 2, display_name: "Jean", priority: "3", m2o: 1 },
+    ];
+    await mountViewEditor({
+        type: "kanban",
+        resModel: "coucou",
+        arch: `<kanban default_group_by='m2o'>
+                <templates>
+                    <t t-name='kanban-card'>
+                        <field name='display_name'/>
+                    </t>
+                </templates>
+            </kanban>`,
+    });
+    expect(".o_kanban_load_more").toHaveCount(0);
+    expect(".o_kanban_add_column").toHaveCount(0);
 });

@@ -92,16 +92,16 @@ function makeMockRPC() {
 }
 
 export async function mountViewEditor(params) {
-    const currentViewId = 99999999;
     const actionToEdit = { res_model: params.resModel };
     const config = { ...getDefaultConfig(), ...params.config };
+    params.viewId = params.viewId || 99999999;
 
     prepareRegistry();
     const env = params.env || getMockEnv() || (await makeMockEnv({ config }));
 
     if (params.type && params.arch) {
         parseViewProps(params);
-        actionToEdit.views = [[currentViewId, params.type]];
+        actionToEdit.views = [[params.viewId, params.type]];
     }
 
     makeMockRPC();

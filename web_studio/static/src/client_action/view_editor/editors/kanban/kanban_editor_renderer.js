@@ -22,4 +22,30 @@ export class KanbanEditorRenderer extends kanbanView.Renderer {
             () => [rootRef.el]
         );
     }
+
+    get canUseSortable() {
+        return false;
+    }
+
+    get showNoContentHelper() {
+        return false;
+    }
+
+    getGroupsOrRecords() {
+        const { list } = this.props;
+        const groupsOrRec = super.getGroupsOrRecords(...arguments);
+        if (list.isGrouped) {
+            return [groupsOrRec.filter((el) => el.group.list.records.length)[0]];
+        } else {
+            return [groupsOrRec[0]];
+        }
+    }
+
+    canCreateGroup() {
+        return false;
+    }
+
+    getGroupUnloadedCount() {
+        return 0;
+    }
 }
