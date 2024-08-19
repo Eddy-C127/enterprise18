@@ -23,7 +23,6 @@ patch(TimerTimesheetGridDataPoint.prototype, {
             if (this.orm.isSample) {
                 data.leaderboard = [];
                 data.employee_id = 1;
-                data.billing_rate_target = 80;
             } else {
                 data = await this.orm.call(
                     "res.company",
@@ -35,7 +34,6 @@ patch(TimerTimesheetGridDataPoint.prototype, {
             this.data.leaderboard.show_leaderboard = data.show_leaderboard;
             this.data.leaderboard.stored_leaderboard = data.leaderboard;
             this.data.leaderboard.total_time_target = data.total_time_target;
-            this.data.leaderboard.billing_rate_target = data.billing_rate_target;
             this.data.leaderboard.leaderboard = this.sortAndFilterLeaderboard(this.data.leaderboard.stored_leaderboard, this.data.leaderboardType);
             this.data.leaderboard.current_employee = this.setCurrentEmployeeIndexFromLeaderboard(this.data.leaderboard.leaderboard, data.employee_id);
             this.data.leaderboard.current_employee_id = data.employee_id;

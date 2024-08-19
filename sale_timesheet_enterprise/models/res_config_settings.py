@@ -10,10 +10,10 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     timesheet_show_rates = fields.Boolean(
-        string="Billing Rate Target",
+        string="Billing Rate Indicators",
         related="company_id.timesheet_show_rates",
         readonly=False,
-        help="Display the Billing Rate on My Timesheets view"
+        help="Show the billing indicators on My Timesheets view"
     )
     timesheet_show_leaderboard = fields.Boolean(
         string="Billing Rate Leaderboard",

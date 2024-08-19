@@ -44,7 +44,6 @@ QUnit.module("timesheet_grid", (hooks) => {
                     return {
                         "leaderboard": [],
                         "employee_id": false,
-                        "billing_rate_target": false,
                         "total_time_target": false,
                     };
                 }

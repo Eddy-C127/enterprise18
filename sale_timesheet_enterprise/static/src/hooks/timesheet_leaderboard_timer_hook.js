@@ -15,11 +15,11 @@ export function timesheetLeaderboardTimerHook() {
             const { timesheet_show_rates, timesheet_show_leaderboard: showLeaderboard } = read[0];
             let showIndicators = timesheet_show_rates;
             if (timesheet_show_rates) {
-                const result = await orm.call("hr.employee", "get_billing_rate_target", [
+                const result = await orm.call("hr.employee", "get_billable_time_target", [
                     [user.userId],
                 ]);
-                const billingRateTarget = result.length ? result[0].billing_rate_target : 0;
-                showIndicators = billingRateTarget > 0;
+                const billableTimeTarget = result.length ? result[0].billable_time_target : 0;
+                showIndicators = billableTimeTarget > 0;
             }
 
             return {

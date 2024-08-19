@@ -38,7 +38,6 @@ patch(TimesheetTimerRendererHook.prototype, {
         );
         this.leaderboard.show_leaderboard = data.show_leaderboard;
         this.leaderboard.total_time_target = data.total_time_target;
-        this.leaderboard.billing_rate_target = data.billing_rate_target;
         this.leaderboard.stored_leaderboard = data.leaderboard;
         this.leaderboard.leaderboard = this._sortAndFilterLeaderboard(this.leaderboard.stored_leaderboard, this.leaderboardType);
         this.leaderboard.current_employee = this._setCurrentEmployeeIndexFromLeaderboard(this.leaderboard.leaderboard, data.employee_id);

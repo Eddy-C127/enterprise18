@@ -111,9 +111,9 @@ export class TimesheetLeaderboardDialog extends Component {
     }
 
     getBillingRateText(employee) {
-        return _t("%(billableTime)s / %(total_time_target)s (%(billingRate)s%)", {
+        return _t("%(billableTime)s / %(billable_time_target)s (%(billingRate)s%)", {
             billableTime: this.format(employee.billable_time),
-            total_time_target: this.format(employee.total_time_target),
+            billable_time_target: this.format(employee.billable_time_target),
             billingRate: Math.round(employee.billing_rate),
         });
     }

@@ -55,15 +55,14 @@ QUnit.module("Timesheet Leaderboard Grid View", (hooks) => {
                     return {
                         "id": id,
                         "name": `Test ${id}`,
+                        "billable_time_target": 100.0,
                         "billable_time": 150.0,
                         "total_time": 150.0,
                         "total_valid_time": 150.0,
                         "billing_rate": 150.0,
-                        "total_time_target": 100.0,
                     }
                 }),
                 "employee_id": 1,
-                "billing_rate_target": 80,
                 "total_time_target": 144.0,
             },
             "2002-03-01T00:00:00.000+01:00": {
@@ -71,15 +70,14 @@ QUnit.module("Timesheet Leaderboard Grid View", (hooks) => {
                     {
                         "id": 6,
                         "name": "User 5",
+                        "billable_time_target": 100.0,
                         "billable_time": 148.0,
                         "total_time": 148.0,
                         "total_valid_time": 148.0,
                         "billing_rate": 148.0,
-                        "total_time_target": 100.0,
                     },
                 ],
                 "employee_id": 1,
-                "billing_rate_target": 80,
                 "total_time_target": 144.0,
             },
             "2002-04-01T00:00:00.000+01:00": {
@@ -87,51 +85,50 @@ QUnit.module("Timesheet Leaderboard Grid View", (hooks) => {
                     {
                         "id": 1,
                         "name": "Administrator",
+                        "billable_time_target": 25.0,
                         "billable_time": 20.0,
                         "total_time": 20.0, // 5th in total time leaderboard
                         "total_valid_time": 20.0,
                         "billing_rate": 100.0, // 1st in billing rate leaderboard
-                        "total_time_target": 20.0,
                     },
                     {
                         "id": 2,
                         "name": "User 1",
+                        "billable_time_target": 50.0,
                         "billable_time": 40.0,
                         "total_time": 40.0, // 4th in total time leaderboard
                         "total_valid_time": 40.0,
                         "billing_rate": 80.0, // 2nd in billing rate leaderboard
-                        "total_time_target": 50.0,
                     },
                     {
                         "id": 3,
                         "name": "User 2",
+                        "billable_time_target": 100.0,
                         "billable_time": 60.0,
                         "total_time": 60.0, // 3rd in total time leaderboard
                         "total_valid_time": 60.0,
                         "billing_rate": 60.0, // 3rd in billing rate leaderboard
-                        "total_time_target": 100.0,
                     },
                     {
                         "id": 4,
                         "name": "User 3",
+                        "billable_time_target": 200.0,
                         "billable_time": 80.0,
                         "total_time": 80.0, // 2nd in total time leaderboard
                         "total_valid_time": 80.0,
                         "billing_rate": 40.0, // 4th in billing rate leaderboard
-                        "total_time_target": 200.0,
                     },
                     {
                         "id": 5,
                         "name": "User 4",
+                        "billable_time_target": 500.0,
                         "billable_time": 100.0,
                         "total_time": 100.0, // 1st in total time leaderboard
                         "total_valid_time": 100.0,
                         "billing_rate": 20.0, // 5th in billing rate leaderboard
-                        "total_time_target": 500.0,
                     }
                 ],
                 "employee_id": 1,
-                "billing_rate_target": 80,
                 "total_time_target": 144.0,
             },
             "2002-05-01T00:00:00.000+01:00": {
@@ -139,15 +136,14 @@ QUnit.module("Timesheet Leaderboard Grid View", (hooks) => {
                     {
                         "id": 7,
                         "name": "User 6",
+                        "billable_time_target": 100.0,
                         "billable_time": 128.0,
                         "total_time": 128.0,
                         "total_valid_time": 128.0,
                         "billing_rate": 128.0,
-                        "total_time_target": 100.0,
                     },
                 ],
                 "employee_id": 1,
-                "billing_rate_target": 80,
                 "total_time_target": 120.0,
             },
         }
@@ -185,10 +181,10 @@ QUnit.module("Timesheet Leaderboard Grid View", (hooks) => {
         assert.containsNone(leaderboard, ".o_timesheet_leaderboard_confetti");
     });
 
-    QUnit.test("Check that the billing rate is displayed in red if < than the billing rate target.", async function (assert) {
+    QUnit.test("Check that the billing rate is displayed in red if < than 100.", async function (assert) {
         const rankingDataApril = rankingData["2002-04-01T00:00:00.000+01:00"];
         const employee = rankingDataApril["leaderboard"][0]; // current employee
-        employee["billing_rate"] = 70.0; // set billing rate lower than billing rate target
+        employee["billing_rate"] = 70.0;
         await initAndOpenView();
         assert.hasClass(leaderboard.querySelector("span").children[2], 'text-danger');
     });

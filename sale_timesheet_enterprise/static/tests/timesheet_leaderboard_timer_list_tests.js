@@ -28,7 +28,6 @@ async function initAndOpenView(showIndicators = true, showLeaderboard = true) {
                 return {
                     "leaderboard": [],
                     "employee_id": false,
-                    "billing_rate_target": false,
                     "total_time_target": false,
                 };
             } else if (args.method === "read" && args.args[1].length === 2 && args.args[1][0] === "timesheet_show_rates" && args.args[1][1] === "timesheet_show_leaderboard") {

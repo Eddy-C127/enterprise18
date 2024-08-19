@@ -6,19 +6,19 @@ from odoo import api, fields, models
 class HrEmployee(models.Model):
     _inherit = "hr.employee"
 
-    billing_rate_target = fields.Float("Billing Rate Target", groups="hr.group_hr_user")
-    show_billing_rate_target = fields.Boolean(related="company_id.timesheet_show_rates", groups="hr.group_hr_user")
+    billable_time_target = fields.Float("Billing Time Target", groups="hr.group_hr_user")
+    show_billable_time_target = fields.Boolean(related="company_id.timesheet_show_rates", groups="hr.group_hr_user")
 
     @api.model
-    def get_billing_rate_target(self, user_ids):
+    def get_billable_time_target(self, user_ids):
         if self.env.user.has_group("hr_timesheet.group_hr_timesheet_user"):
-            return self.sudo().search_read([("user_id", 'in', user_ids)], ["billing_rate_target"])
+            return self.sudo().search_read([("user_id", 'in', user_ids)], ["billable_time_target"])
         return []
 
     _sql_constraints = [
         (
-            "check_billable_rate_target",
-            "CHECK(billing_rate_target >= 0 AND billing_rate_target <= 1)",
-            "The billing rate target must be between 0 and 100."
+            "check_billable_time_target",
+            "CHECK(billable_time_target >= 0)",
+            "The billable time target cannot be negative."
         ),
     ]

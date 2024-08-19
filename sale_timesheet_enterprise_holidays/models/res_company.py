@@ -27,10 +27,12 @@ class ResCompany(models.Model):
              GROUP BY aal.employee_id
         )
         SELECT A.id,
+               he.billable_time_target,
                he.name,
                billable_time,
                total_time,
-               total_valid_time
+               total_valid_time,
+               billable_time / he.billable_time_target * 100 AS billing_rate
           FROM A
-     LEFT JOIN hr_employee AS he ON A.id = he.id WHERE he.billing_rate_target > 0
+     LEFT JOIN hr_employee AS he ON A.id = he.id WHERE he.billable_time_target > 0
     """
