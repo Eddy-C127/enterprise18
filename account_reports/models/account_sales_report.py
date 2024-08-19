@@ -335,6 +335,10 @@ class ECSalesReportCustomHandler(models.AbstractModel):
         # GB left the EU on January 1st 2021. But before this date, it's still to be considered as a EC country
         if fields.Date.from_string(options['date']['date_from']) < fields.Date.from_string('2021-01-01'):
             rslt.add('GB')
+        # Monaco  is treated as part of France for VAT purposes (but should not be displayed within FR context)
+        if self.env.company.account_fiscal_country_id.code != 'FR':
+            rslt.add('MC')
+
         return rslt
 
     def get_warning_act_window(self, options, params):
