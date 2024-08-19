@@ -1,9 +1,8 @@
 import { defineMailModels } from "@mail/../tests/mail_test_helpers";
-import { before, beforeEach, describe, expect, test } from "@odoo/hoot";
+import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { click, queryOne } from "@odoo/hoot-dom";
-import { animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
+import { animationFrame, mockDate, advanceTime } from "@odoo/hoot-mock";
 import { defineModels, defineParams, fields, models } from "@web/../tests/web_test_helpers";
-import { registry } from "@web/core/registry";
 import {
     getGridContent,
     mountGanttView,
@@ -54,22 +53,6 @@ class Users extends models.Model {
 
 defineMailModels();
 defineModels([Attendances, Users]);
-
-before(() => {
-    const services = registry.category("services");
-    for (const [name] of services.getEntries()) {
-        if (name.startsWith("mail.") || name.startsWith("discuss.")) {
-            services.remove(name);
-        }
-    }
-
-    const main_components = registry.category("main_components");
-    for (const [name] of main_components.getEntries()) {
-        if (name.startsWith("mail.") || name.startsWith("discuss.")) {
-            main_components.remove(name);
-        }
-    }
-});
 
 beforeEach(() => {
     defineParams({
@@ -181,7 +164,7 @@ test("Open Ended record spanning multiple days", async () => {
         },
     ]);
     click(queryOne(SELECTORS.previousButton));
-    await runAllTimers();
+    await advanceTime(500);
     await animationFrame();
     gridContent = getGridContent();
     expect(gridContent.range).toBe("From: 12/11/2018 to: 12/11/2018");
@@ -198,7 +181,7 @@ test("Open Ended record spanning multiple days", async () => {
         },
     ]);
     click(queryOne(SELECTORS.previousButton));
-    await runAllTimers();
+    await advanceTime(500);
     await animationFrame();
     gridContent = getGridContent();
     expect(gridContent.range).toBe("From: 12/10/2018 to: 12/10/2018");
@@ -351,10 +334,10 @@ test("Open ended record updated correctly", async () => {
     ]);
     mockDate("2018-12-20 18:00:00");
     click(queryOne(SELECTORS.previousButton));
-    await runAllTimers();
+    await advanceTime(500);
     await animationFrame();
     click(queryOne(SELECTORS.nextButton));
-    await runAllTimers();
+    await advanceTime(500);
     await animationFrame();
     gridContent = getGridContent();
     expect(gridContent.range).toBe("From: 12/20/2018 to: 12/20/2018");
@@ -418,10 +401,10 @@ test("Future Open ended record not shown before it happens and appears after sta
     ]);
     mockDate("2018-11-02 17:00:00");
     click(queryOne(SELECTORS.previousButton));
-    await runAllTimers();
+    await advanceTime(500);
     await animationFrame();
     click(queryOne(SELECTORS.nextButton));
-    await runAllTimers();
+    await advanceTime(500);
     await animationFrame();
     gridContent = getGridContent();
     expect(gridContent.range).toBe("From: 11/02/2018 to: 11/02/2018");
