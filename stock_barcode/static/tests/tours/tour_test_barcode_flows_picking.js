@@ -5150,11 +5150,11 @@ registry.category("web_tour.tours").add('test_serial_product_packaging', {test: 
     { trigger: '.o_barcode_client_action', run: 'scan sn3' },
     { trigger: '.o_barcode_client_action', run: 'scan sn4' },
     {
-        trigger: '.o_barcode_line.o_selected .o_line_button.o_toggle_sublines',
+        trigger: '.o_barcode_line.o_selected.o_line_completed .o_line_button.o_toggle_sublines',
         run: 'click',
     },
     {
-        trigger: '.o_barcode_line.o_selected',
+        trigger: '.o_barcode_line.o_selected .o_sublines',
         run: function() {
             const line = helper.getLine();
             helper.assertLineQty(line, "4/4");
