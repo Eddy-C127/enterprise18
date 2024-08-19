@@ -68,16 +68,16 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
         return self._build_custom_engine_result(amount_currency_id=journal_currency.id)
 
     def _report_custom_engine_unreconciled_last_statement_receipts(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
-        return self._bank_reconciliation_report_custom_engine_unreconciled_common(options, 'receipts', current_groupby, True)
+        return self._bank_reconciliation_report_custom_engine_common(options, 'receipts', current_groupby, True)
 
     def _report_custom_engine_unreconciled_last_statement_payments(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
-        return self._bank_reconciliation_report_custom_engine_unreconciled_common(options, 'payments', current_groupby, True)
+        return self._bank_reconciliation_report_custom_engine_common(options, 'payments', current_groupby, True)
 
     def _report_custom_engine_unreconciled_receipts(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
-        return self._bank_reconciliation_report_custom_engine_unreconciled_common(options, 'receipts', current_groupby, False)
+        return self._bank_reconciliation_report_custom_engine_common(options, 'receipts', current_groupby, False)
 
     def _report_custom_engine_unreconciled_payments(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
-        return self._bank_reconciliation_report_custom_engine_unreconciled_common(options, 'payments', current_groupby, False)
+        return self._bank_reconciliation_report_custom_engine_common(options, 'payments', current_groupby, False)
 
     def _report_custom_engine_outstanding_receipts(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
         return self._bank_reconciliation_report_custom_engine_outstanding_common(options, 'receipts', current_groupby)
@@ -109,18 +109,24 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
 
         return self._build_custom_engine_result(amount=last_statement.balance_end_real, amount_currency_id=journal_currency.id)
 
-    def _bank_reconciliation_report_custom_engine_unreconciled_common(self, options, internal_type, current_groupby, from_last_statement):
+    def _report_custom_engine_transaction_without_statement_amount(self, expressions, options, date_scope, current_groupby, next_groupby, offset=0, limit=None, warnings=None):
+        return self._bank_reconciliation_report_custom_engine_common(options, 'all', current_groupby, False, unreconciled=False)
+
+    def _bank_reconciliation_report_custom_engine_common(self, options, internal_type, current_groupby, from_last_statement, unreconciled=True):
         """
-            Retrieve unreconciled entries for bank reconciliation based on specified parameters.
+            Retrieve entries for bank reconciliation based on specified parameters.
             Parameters:
             - options (dict): A dictionary containing options of the report.
             - internal_type (str): The internal type used for classification (e.g., receipt, payment). For the receipt
-                                   we will query the unreconciled entries with a positive amounts and for the payment
+                                   we will query the entries with a positive amounts and for the payment
                                    the negative amounts.
+                                   If the internal type is another thing that receipt or payment it will get all the
+                                   entries position or negative
             - current_groupby (str): The current grouping criteria.
-            - last_statement (bool, optional): If True, query unreconciled entries from the last bank statement.
-                                               Otherwise, query unreconciled entries that are not part of the last bank
+            - last_statement (bool, optional): If True, query entries from the last bank statement.
+                                               Otherwise, query entries that are not part of the last bank
                                                statement.
+            - unreconciled (bool, optional): If True, query the unreconciled entries only
 
         """
         journal, journal_currency, _company_currency = self._get_bank_journal_and_currencies(options)
@@ -146,10 +152,11 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
                     amount_currency_id=journal_currency.id,
                 )
             else:
-                amount = sum(
-                    res.get('amount', 0) * abs(res['suspense_balance']) / (abs(res['suspense_balance']) + abs(res['other_balance']))
-                    for res in query_res_lines
-                )
+                amount = 0
+                for res in query_res_lines:
+                    reconcile_rate = abs(res['suspense_balance']) / (abs(res['suspense_balance']) + abs(res['other_balance']))
+                    amount += res.get('amount', 0) * reconcile_rate if unreconciled else res.get('amount', 0)
+
                 return self._build_custom_engine_result(
                     amount=amount,
                     amount_currency_id=journal_currency.id,
@@ -172,6 +179,14 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
         else:
             last_statement_id_condition = SQL("st_line.statement_id IS NULL")
 
+        if internal_type == 'receipts':
+            st_line_amount_condition = SQL("AND st_line.amount > 0")
+        elif internal_type == 'payments':
+            st_line_amount_condition = SQL("AND st_line.amount < 0")
+        else:
+            # For the Transaction without statement, the internal type is 'all'
+            st_line_amount_condition = SQL("")
+
         # Build query
         query = SQL(
             """
@@ -190,8 +205,8 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
              JOIN account_bank_statement_line st_line ON st_line.move_id = account_move_line.move_id
              JOIN account_move move ON move.id = st_line.move_id
             WHERE %(search_condition)s
-          AND NOT st_line.is_reconciled
-              AND %(is_receipt)s
+                  %(is_unreconciled)s
+                  %(st_line_amount_condition)s
               AND %(last_statement_id_condition)s
          GROUP BY %(group_by)s,
                   st_line.id,
@@ -203,6 +218,8 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
             table_references=query.from_clause,
             search_condition=query.where_clause,
             is_receipt=SQL("st_line.amount > 0") if internal_type == "receipts" else SQL("st_line.amount < 0"),
+            is_unreconciled=SQL("AND NOT st_line.is_reconciled") if unreconciled else SQL(""),
+            st_line_amount_condition=st_line_amount_condition,
             last_statement_id_condition=last_statement_id_condition,
             group_by=SQL.identifier('account_move_line', current_groupby) if current_groupby else SQL('st_line.id'),  # Same key in the groupby because we can't put a null key in a group by
         )

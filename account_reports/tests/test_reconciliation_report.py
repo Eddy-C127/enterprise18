@@ -643,3 +643,102 @@ class TestReconciliationReport(TestAccountReportsCommon):
             currency_map={3: {'currency': bank_journal.currency_id}},
             ignore_folded=False,
         )
+
+    def test_reconciliation_report_transaction_without_statement(self):
+        """
+            This test will ensure that the section transaction without statement section contains the reconcile entries.
+            So the section should not always be the sum of his children.
+        """
+        bank_journal = self.company_data['default_journal_bank']
+
+        bank_statement_lines = self.env['account.bank.statement.line'].create([
+            {
+                'payment_ref': 'Initial balance',
+                'journal_id': bank_journal.id,
+                'partner_id': self.partner_a.id,
+                'amount': 1000.0,
+                'date': '2019-01-01',
+            },
+            {
+                'payment_ref': 'To be reconciled',
+                'journal_id': bank_journal.id,
+                'partner_id': self.partner_a.id,
+                'amount': 100.0,
+                'date': '2019-01-01',
+            }
+        ])
+
+        report = self.env.ref('account_reports.bank_reconciliation_report').with_context(
+            active_id=bank_journal.id,
+            active_model='account.journal'
+        )
+        options = self._generate_options(report, '2019-01-01', '2019-01-12')
+        options['all_entries'] = True
+        options['unfold_all'] = True
+
+        lines = report._get_lines(options)
+        self.assertLinesValues(
+            lines,
+            #   Name                                                             Date            Amount
+            [0, 1, 3],
+            [
+                ('Balance of \'101401 Bank\'',                                      '',         1100.0),
+                ('Last statement balance',                                          '',            0.0),
+                ('Including Unreconciled Receipts',                                 '',            0.0),
+                ('Including Unreconciled Payments',                                 '',            0.0),
+                ('Transactions without statement',                                  '',         1100.0),
+                ('Including Unreconciled Receipts',                                 '',         1100.0),
+                ('BNK1/2019/00002',                                       '01/01/2019',          100.0),
+                ('BNK1/2019/00001',                                       '01/01/2019',         1000.0),
+                ('Including Unreconciled Payments',                                 '',            0.0),
+                ('Misc. operations',                                                '',            0.0),
+                ('Outstanding Receipts/Payments',                                   '',            0.0),
+                ('(+) Outstanding Receipts',                                        '',            0.0),
+                ('(-) Outstanding Payments',                                        '',            0.0),
+            ],
+            options,
+            currency_map={3: {'currency': bank_journal.currency_id}},
+            ignore_folded=False,
+        )
+
+        payment = self.env['account.payment'].create({
+            'amount': 100.0,
+            'payment_type': 'inbound',
+            'date': '2019-01-01',
+            'journal_id': bank_journal.id,
+            'partner_id': self.partner_a.id,
+        })
+        payment.action_post()
+
+        payment_line = payment.line_ids.filtered(lambda line: line.account_id == bank_journal.company_id.account_journal_payment_debit_account_id)
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=bank_statement_lines[1].id).new({})
+        wizard._action_add_new_amls(payment_line, allow_partial=False)
+        wizard._action_validate()
+
+        options = self._generate_options(report, '2019-01-01', '2019-01-12')
+        options['all_entries'] = True
+        options['unfold_all'] = True
+
+        lines = report._get_lines(options)
+        self.assertLinesValues(
+            lines,
+            #   Name                                                             Date            Amount
+            [0,                                                                    1,               3],
+            [
+                ('Balance of \'101401 Bank\'',                                    '',          1100.0),
+                ('Last statement balance',                                        '',             0.0),
+                ('Including Unreconciled Receipts',                               '',             0.0),
+                ('Including Unreconciled Payments',                               '',             0.0),
+                ('Transactions without statement',                                '',          1100.0),
+                ('Including Unreconciled Receipts',                               '',          1000.0),
+                ('BNK1/2019/00001',                                     '01/01/2019',          1000.0),
+                ('Including Unreconciled Payments',                               '',             0.0),
+                ('Misc. operations',                                              '',             0.0),
+                ('Outstanding Receipts/Payments',                                 '',             0.0),
+                ('(+) Outstanding Receipts',                                      '',             0.0),
+                ('(-) Outstanding Payments',                                      '',             0.0),
+            ],
+            options,
+            currency_map={3: {'currency': bank_journal.currency_id}},
+            ignore_folded=False,
+        )
