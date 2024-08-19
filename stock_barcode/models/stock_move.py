@@ -16,7 +16,13 @@ class StockMove(models.Model):
     def split_uncompleted_moves(self):
         """ Creates a new move for every uncompleted move in order to get one picked move
         with the picked quantity, and one not picked move with the remaining quantity."""
-        new_moves = self.filtered(lambda mv: mv.picked)._create_backorder()
+        moves_to_reset = self.filtered(lambda m: m.picked and m.quantity == 0)
+        moves_to_backorder = (self - moves_to_reset).filtered('picked')
+        for move in moves_to_reset:
+            move.move_line_ids.unlink()
+            move.quantity = move.product_uom_qty
+            move.picked = False
+        new_moves = moves_to_backorder._create_backorder()
         if new_moves:
             # In some case, we already split the move lines in the front end.
             # Those move lines are linked to the original move. If their quantity

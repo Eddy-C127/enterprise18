@@ -5186,3 +5186,20 @@ registry.category("web_tour.tours").add('test_multi_company_record_access_in_bar
         { trigger: '.o_stock_barcode_main_menu' },
     ]
 });
+
+registry.category("web_tour.tours").add('test_no_zero_demand_new_line_from_split', {
+    test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan TNZDNLFS picking' },
+        { trigger: '.o_edit', run: 'click' },
+        { trigger: 'button.o_digipad_increment', run: 'click' },
+        { trigger: '.o_save', run: 'click' },
+        { trigger: '.o_barcode_line' },
+        { trigger: '.o_exit', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan TNZDNLFS picking' },
+        { trigger: '.o_edit', run: 'click' },
+        { trigger: 'button.o_digipad_decrement', run: 'click' },
+        { trigger: '.o_save', run: 'click' },
+        { trigger: '.o_barcode_line' },
+        { trigger: '.o_exit', run: 'click' },
+    ]
+});
