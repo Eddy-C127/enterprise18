@@ -2,16 +2,20 @@ from odoo import api, fields, models, Command, _
 from lxml import etree
 
 
-def adapt_arch_to_model(arch, fields_dict):
+def adapt_arch_to_model(arch, Model):
     """
     Take the generic arch with studio_placeholder tag and replace
     them with fields found in the model
     """
+    fields_dict = Model._fields
     arch = etree.fromstring(arch, parser=etree.XMLParser(remove_blank_text=True, resolve_entities=False))
 
     name_placeholders = arch.findall(".//studio_placeholder[@for='name']")
     for name_placeholder in name_placeholders:
-        replacement_name = etree.fromstring("<span t-field='record.display_name'/>")
+        name_field = "display_name"
+        if Model._rec_name and fields_dict[Model._rec_name].type in ("char", "text", "html"):
+            name_field = Model._rec_name
+        replacement_name = etree.fromstring(f"<span t-field='record.{name_field}'/>")
         name_placeholder.getparent().replace(name_placeholder, replacement_name)
 
     monetary_placeholders = arch.findall(".//studio_placeholder[@for='monetary']")
@@ -46,19 +50,33 @@ def adapt_arch_to_model(arch, fields_dict):
 
     image_placeholders = arch.findall(".//studio_placeholder[@for='image']")
     image_name = next(filter(lambda key: "image" in key, fields_dict), False)
-    for image_placeholder in image_placeholders:
-        if image_name:
-            image_class = image_placeholder.get('class') or ""
-            image_style = image_placeholder.get('style') or ""
-            image_arch = f"""
-                    <t>
-                        <img t-if='record.{image_name}' class='o_website_image {image_class}' style='{image_style}' t-attf-src='data:image/png;base64,{{{{record.{image_name}}}}}'/>
-                        <div t-else="" class='o_website_image bg-light {image_class}'/>
-                    </t>
-                """
-            replacement_image = etree.fromstring(image_arch)
-            image_placeholder.getparent().replace(image_placeholder, replacement_image)
-        else:
+    if image_name:
+        for image_placeholder in image_placeholders:
+            tfield_image = etree.Element("div", {
+                "t-if": f"record.{image_name}",
+                "t-field": f"record.{image_name}",
+                "t-options-widget": "'image'",
+                "t-options-qweb_img_raw_data": "True",
+                "t-options-class": "'o_website_image h-100 w-100 rounded-3'"
+            })
+            classes = image_placeholder.get("class", "").split(" ")
+            if classes:
+                tfield_image.set("class", f"{' '.join(classes)}")
+
+            if image_placeholder.get("style"):
+                tfield_image.set("style", f"{image_placeholder.get('style')}")
+
+            classes.extend(["bg-light", "o_website_image", "rounded-3"])
+            telse = etree.Element("div", {
+                "t-else": "",
+                "class": " ".join(classes)
+            })
+
+            for el in [telse, tfield_image]:
+                image_placeholder.addnext(el)
+            image_placeholder.getparent().remove(image_placeholder)
+    else:
+        for image_placeholder in image_placeholders:
             image_placeholder.getparent().remove(image_placeholder)
 
     html_placeholders = arch.findall(".//studio_placeholder[@for='html']")
@@ -115,7 +133,6 @@ class WebsiteControllerPageStudio(models.Model):
         for values in list(vals_list):
             if not values.get("model_id", values.get("model_name")):
                 continue
-            page_type = values.get("page_type")
             name_slugified = self.env['ir.http']._slugify(values.get("name_slugified", ""))
             model = self.env["ir.model"].browse(values["model_id"])
             if 'x_studio_website_description' not in self.env[model.model]._fields:
@@ -129,15 +146,14 @@ class WebsiteControllerPageStudio(models.Model):
                     'sanitize_overridable': True,
                 })
 
-            if not values.get("view_id") and page_type and name_slugified:
-                template = "website_studio.default_listing" if page_type == "listing" else "website_studio.default_record_page"
+            if not values.get("view_id") and name_slugified:
+                template = "website_studio.default_listing"
                 view = self._create_auto_view(template, name_slugified, values.get("website_id"), model)
                 values["view_id"] = view.id
 
-            if values.get("auto_single_page"):
+            if values.get("auto_single_page") and not values.get("record_view_id"):
                 view = self._create_auto_view("website_studio.default_record_page", name_slugified, values.get("website_id"), model)
-                sub_vals = dict(values, page_type="single", view_id=view.id, auto_single_page=False, use_menu=False)
-                vals_list.append(sub_vals)
+                values["record_view_id"] = view.id
 
             if not values.get("menu_ids") and values.get("use_menu") and "name" in values:
                 # Fix me: make one menu per website ???
@@ -164,7 +180,7 @@ class WebsiteControllerPageStudio(models.Model):
     def _create_auto_view(self, template, view_key, website_id, model=None):
         template_record = self.env.ref(template)
         key = self.env["website"].get_unique_key(view_key, "website_studio")
-        view = template_record.copy({'website_id': website_id, 'key': key})
+        view = template_record.copy({'website_id': website_id, 'key': key, "model": model.model})
 
         arch = template_record.arch.replace(template, key)
         if self._context.get("website_studio.create_page") and model:
@@ -177,7 +193,7 @@ class WebsiteControllerPageStudio(models.Model):
         return view
 
     def _replace_arch_placeholders(self, arch, model):
-        return adapt_arch_to_model(arch, self.env[model.model]._fields)
+        return adapt_arch_to_model(arch, self.env[model.model])
 
     def _get_ir_model_access(self, model):
         return self.env["ir.model.access"].with_context(active_test=False).search([("model_id", "=", model.id), ("group_id", "=", self.env.ref("website.website_page_controller_expose").id)])

@@ -12,12 +12,12 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
             run: "click",
         },
         {
-            trigger: ".o_menu_sections a:contains('Website')",
+            trigger: ".o_menu_sections a:contains('Model Pages')",
             run: "click",
         },
         {
             content: "Create a listing page",
-            trigger: ".o_website_studio_listing .o_web_studio_thumbnail_item",
+            trigger: ".o-kanban-button-new",
             run: "click",
         },
         {
@@ -38,20 +38,19 @@ registry.category("web_tour.tours").add("website_studio_listing_and_page", {
             trigger: "div[name='auto_single_page'] input:checked",
         },
         {
-            trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
+            trigger: ".o_form_button_save",
             run: "click",
         },
         {
-            trigger: "body:not(:has(.modal))",
-            run: () => {
-                const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
-                assertEqual(listingCount, 1);
-                const pagesCount = [...document.querySelectorAll(".o_website_studio_single .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
-                assertEqual(pagesCount, 1);
-                // the listing has the right name
-                assertEqual(document.querySelector(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
-                // the page has the right name
-                assertEqual(document.querySelector(".o_website_studio_single .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
+            trigger: ".o_back_button",
+            run: "click",
+        },
+        {
+            trigger: ".o_kanban_view",
+            run() {
+                const pages = this.anchor.querySelectorAll(".o_kanban_record:not(.o_kanban_ghost)");
+                assertEqual(pages.length, 1);
+                assertEqual(pages[0].querySelector("[data-section='title']").textContent, "MyCustom Name");
             },
         },
     ],
@@ -66,16 +65,12 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
             run: "click",
         },
         {
-            trigger: ".o_menu_sections a:contains('Website')",
-            run: "click",
-        },
-        {
-            trigger: ".o_website_studio_listing",
+            trigger: ".o_menu_sections a:contains('Model Pages')",
             run: "click",
         },
         {
             content: "Create a listing page",
-            trigger: ".o_website_studio_listing .fa-plus",
+            trigger: ".o-kanban-button-new",
             run: "click",
         },
         {
@@ -97,22 +92,23 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         },
         {
             content: "Uncheck the toggle and only create the listing",
-            trigger: ".modal:not(.o_inactive_modal) div[name='auto_single_page'] input",
+            trigger: "div[name='auto_single_page'] input",
             run: "click",
         },
         {
-            trigger: ".modal:not(.o_inactive_modal) .o_form_button_save",
+            trigger: ".o_form_button_save",
             run: "click",
         },
         {
-            trigger: "body:not(:has(.modal))",
-            run: () => {
-                const listingCount = [...document.querySelectorAll(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
-                assertEqual(listingCount, 1);
-                const pagesCount = [...document.querySelectorAll(".o_website_studio_single .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)")].length;
-                assertEqual(pagesCount, 0);
-                // the listing has the right name
-                assertEqual(document.querySelector(".o_website_studio_listing .o_web_studio_thumbnail_item:not(.o_website_studio_new_card)").textContent, "MyCustom Name");
+            trigger: ".o_back_button",
+            run: "click",
+        },
+        {
+            trigger: ".o_kanban_view",
+            run() {
+                const pages = this.anchor.querySelectorAll(".o_kanban_record:not(.o_kanban_ghost)");
+                assertEqual(pages.length, 1);
+                assertEqual(pages[0].querySelector("[data-section='title']").textContent, "MyCustom Name");
             },
         },
     ],

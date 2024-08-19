@@ -30,8 +30,5 @@ model. Furthermore, you can create a new website form or edit an existing one.
         'web.assets_tests': [
             'website_studio/static/tests/tours/**/*',
         ],
-        'web.qunit_suite_tests': [
-            'website_studio/static/tests/*.js',
-        ],
     }
 }

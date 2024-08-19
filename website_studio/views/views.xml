@@ -23,24 +23,15 @@
                             <span class="bg-300 align-self-baseline">/model/</span>
                             <field name="name_slugified" nolabel="1" force_save="True"/>
                             <span invisible="name_slugified" class="bg-300">...</span>
-                            <span class="bg-300 flex-shrink-0 align-self-baseline" invisible="page_type == 'listing'">
-                                /my-little-record-23
-                            </span>
                         </div>
-                        <field name="page_type" readonly="id" />
                         <field name="model_id" readonly="id" force_save="True" string="Exposed model"/>
+                        <field name="view_id" readonly="1" invisible="not id" />
+                        <field name="record_view_id" readonly="1" invisible="not id" />
                         <field name="website_id" />
-                        <field name="website_published" widget="boolean_toggle"/>
                     </group>
                     <group string="Advanced">
                         <field name="record_domain" widget="domain" options="{'model': 'model'}"/>
-                        <field name="view_id" readonly="1" invisible="not id" />
                     </group>
-                    <notebook>
-                        <page string="Menus" invisible="not id">
-                            <field name="menu_ids" />
-                        </page>
-                    </notebook>
                 </group>
             </sheet>
             </form>
@@ -57,9 +48,9 @@
                 <field name="model" invisible="1"/>
             </xpath>
 
-            <xpath expr="//field[@name='view_id']" position="after">
-                <field name="use_menu" widget="boolean_toggle" options='{"autosave": False}' invisible="id or page_type == 'single'" />
-                <field name="auto_single_page" widget="boolean_toggle" options='{"autosave": False}' invisible="id or page_type == 'single'" readonly="page_type == 'single'" />
+            <xpath expr="//field[@name='record_domain']" position="after">
+                <field name="use_menu" widget="boolean_toggle" options='{"autosave": False}' invisible="id" />
+                <field name="auto_single_page" widget="boolean_toggle" options='{"autosave": False}' invisible="id" />
             </xpath>
         </field>
     </record>
