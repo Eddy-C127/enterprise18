@@ -89,6 +89,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
 
     def test_xml_tree_out_invoice_tax_included(self):
         """Checks the XML of the basic invoice when a tax is modified to be included in price."""
+        self.env['decimal.precision'].search([('name', '=', 'Product Price')]).digits = 5
         self._get_tax_by_xml_id('tax_vat_510_sup_01').price_include = True
         self.test_xml_tree_out_invoice_basic(xpath="""
             <xpath expr="//totalSinImpuestos" position="replace">
@@ -114,7 +115,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                     <codigoPrincipal>N/A</codigoPrincipal>
                     <descripcion>product_a</descripcion>
                     <cantidad>5.000000</cantidad>
-                    <precioUnitario>89.285000</precioUnitario>
+                    <precioUnitario>89.285714</precioUnitario>
                     <descuento>89.29</descuento>
                     <precioTotalSinImpuesto>357.14</precioTotalSinImpuesto>
                     <impuestos>
@@ -179,7 +180,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                     <codigoPrincipal>N/A</codigoPrincipal>
                     <descripcion>product_b</descripcion>
                     <cantidad>12.120000</cantidad>
-                    <precioUnitario>1.230198</precioUnitario>
+                    <precioUnitario>1.230000</precioUnitario>
                     <descuento>0.00</descuento>
                     <precioTotalSinImpuesto>14.91</precioTotalSinImpuesto>
                     <impuestos>
@@ -196,7 +197,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                     <codigoPrincipal>N/A</codigoPrincipal>
                     <descripcion>product_b</descripcion>
                     <cantidad>120.000000</cantidad>
-                    <precioUnitario>0.120042</precioUnitario>
+                    <precioUnitario>0.120000</precioUnitario>
                     <descuento>3.03</descuento>
                     <precioTotalSinImpuesto>11.38</precioTotalSinImpuesto>
                     <impuestos>
@@ -273,7 +274,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                     <codigoPrincipal>N/A</codigoPrincipal>
                     <descripcion>product_b</descripcion>
                     <cantidad>12.120000</cantidad>
-                    <precioUnitario>2.460396</precioUnitario>
+                    <precioUnitario>2.460000</precioUnitario>
                     <descuento>0.00</descuento>
                     <precioTotalSinImpuesto>29.82</precioTotalSinImpuesto>
                     <impuestos>
@@ -290,7 +291,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
                     <codigoPrincipal>N/A</codigoPrincipal>
                     <descripcion>product_b</descripcion>
                     <cantidad>120.000000</cantidad>
-                    <precioUnitario>0.240084</precioUnitario>
+                    <precioUnitario>0.240000</precioUnitario>
                     <descuento>6.06</descuento>
                     <precioTotalSinImpuesto>22.76</precioTotalSinImpuesto>
                     <impuestos>
