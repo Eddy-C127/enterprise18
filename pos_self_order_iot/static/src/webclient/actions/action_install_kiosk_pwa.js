@@ -3,6 +3,7 @@ import { InstallKiosk } from "@web/webclient/actions/action_install_kiosk_pwa";
 import { onWillStart, useState } from "@odoo/owl";
 import { TagsList } from "@web/core/tags_list/tags_list";
 import { useService } from "@web/core/utils/hooks";
+import { rpc } from "@web/core/network/rpc";
 import { _t } from "@web/core/l10n/translation";
 
 /**
@@ -24,7 +25,7 @@ patch(InstallKiosk.prototype, {
                 return {
                     id: iot_box.id,
                     text: iot_box.name,
-                    ip: iot_box.ip,
+                    ip_url: iot_box.ip_url,
                     onClick: () => this.actionOpenKioskIot(null, iot_box),
                     onDelete: () => {
                         this.state.tags = this.state.tags.filter((tag) => tag.id !== iot_box.id);
@@ -38,34 +39,25 @@ patch(InstallKiosk.prototype, {
         const url = new URL(this.url);
         for (const iot of iotBoxesToOpen) {
             try {
-                const response = await fetch(`http://${iot.ip}/hw_proxy/customer_facing_display`, {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        params: {
-                            action: "open_kiosk",
-                            pos_id: this.props.action.context.active_id,
-                            access_token: url.searchParams.get("access_token"),
-                        },
-                    }),
-                    signal: AbortSignal.timeout(5000),
+                const openKiosk = rpc(`${iot.ip_url}/hw_proxy/customer_facing_display`, {
+                    action: "open_kiosk",
+                    pos_id: this.props.action.context.active_id,
+                    access_token: url.searchParams.get("access_token"),
                 });
+                this.notification.add(_t("Opening Kiosk..."), {
+                    title: iot.text,
+                    type: "info",
+                });
+                await openKiosk;
 
-                if (response.ok) {
-                    // the fetch will set 'right' as default orientation for the kiosk, we need to update the iot model
-                    // to take this into account
-                    await this.orm.write("iot.box", [iot.id], { screen_orientation: "right" });
-                    this.notification.add(_t("Kiosk successfully opened."), {
-                        title: iot.text,
-                        type: "success",
-                    });
-                    this.dialog.closeAll();
-                } else {
-                    this.notification.add(_t(await response.text()), {
-                        title: iot.text,
-                        type: "danger",
-                    });
-                }
+                // the fetch will set 'right' as default orientation for the kiosk, we need to update the iot model
+                // to take this into account
+                await this.orm.write("iot.box", [iot.id], { screen_orientation: "right" });
+                this.notification.add(_t("Kiosk successfully opened."), {
+                    title: iot.text,
+                    type: "success",
+                });
+                this.dialog.closeAll();
             } catch {
                 this.notification.add(_t("IoT Box is unreachable.", iot.text), {
                     title: iot.text,

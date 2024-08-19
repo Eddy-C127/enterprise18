@@ -26,7 +26,7 @@ class PosConfig(models.Model):
 
     def get_available_iot_box_ids(self):
         self.available_iot_box_ids = self.env['iot.box'].search([('can_be_kiosk', '=', True)])
-        return self.available_iot_box_ids.read(['id', 'name', 'ip'])
+        return self.available_iot_box_ids.read(['id', 'name', 'ip_url'])
 
     @api.model
     def _load_restaurant_data(self):
