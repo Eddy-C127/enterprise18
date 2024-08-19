@@ -5,8 +5,8 @@
             transition: padding .3s;
 
             &.o_kanban_demo {
-                min-height: 70px;
                 background: $o-web-studio-bg-light;
+                aspect-ratio: 2;
             }
             &.o_kanban_ghost {
                 opacity: 0;
@@ -97,14 +97,6 @@
                         opacity: 1 !important;
                     }
                 }
-            }
-        }
-
-        .o_kanban_group {
-            background-color: $o-web-studio-bg-action;
-
-            &:nth-child(even) {
-                background-color: darken($o-web-studio-bg-action, 3%);
             }
         }
 }

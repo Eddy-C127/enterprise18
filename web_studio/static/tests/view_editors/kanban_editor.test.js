@@ -543,6 +543,9 @@ test("grouped kanban editor with record", async () => {
                 </kanban>`,
     });
     expect(".o_web_studio_kanban_view_editor").toHaveClass("o_kanban_grouped");
+    expect(".o_kanban_group .o_kanban_header").toHaveCount(2);
+    expect(".o_kanban_grouped .o_kanban_header_title").toHaveText("coucou 1");
+    expect(".o_kanban_group .o_kanban_counter").toHaveCount(0);
     expect(".o_web_studio_kanban_view_editor .o-web-studio-editor--element-clickable").toHaveCount(
         1
     );
@@ -609,6 +612,9 @@ test("kanban editor, grouped on date field granular, no record, progressbar", as
         arch,
     });
     expect(".o_web_studio_kanban_view_editor").toHaveClass("o_kanban_grouped");
+    expect(".o_kanban_group .o_kanban_header").toHaveCount(2);
+    expect(".o_kanban_grouped .o_kanban_header_title").toHaveText("Fake Group");
+    expect(".o_kanban_group .o_kanban_counter").toHaveCount(2);
     expect(".o_kanban_record:not(.o_kanban_demo)").toHaveCount(1);
     await contains("button.o_web_studio_open_xml_editor").click();
     await def;

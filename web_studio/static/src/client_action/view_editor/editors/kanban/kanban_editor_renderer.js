@@ -1,12 +1,18 @@
 import { kanbanView } from "@web/views/kanban/kanban_view";
+import { KanbanHeader } from "@web/views/kanban/kanban_header";
 import { KanbanEditorRecord } from "@web_studio/client_action/view_editor/editors/kanban/kanban_editor_record";
 import { useRef, useEffect } from "@odoo/owl";
+
+class KanbanEditorHeader extends KanbanHeader {
+    static template = "web_studio.KanbanEditorHeader";
+}
 
 export class KanbanEditorRenderer extends kanbanView.Renderer {
     static template = "web_studio.KanbanEditorRenderer";
     static components = {
         ...kanbanView.Renderer.components,
         KanbanRecord: KanbanEditorRecord,
+        KanbanHeader: KanbanEditorHeader,
     };
 
     setup() {
