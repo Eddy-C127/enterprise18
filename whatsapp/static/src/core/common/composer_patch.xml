@@ -10,8 +10,5 @@
         <xpath expr="//FileUploader/t/button" position="attributes">
             <attribute name="t-att-disabled" add="or (thread and thread.channel_type === 'whatsapp' and props.composer.attachments.length > 0)" separator=" " />
         </xpath>
-        <xpath expr="//*[@t-if='!extended' and @t-call='mail.Composer.sendButton']" position="attributes">
-            <attribute name="t-if" add="and (!thread or thread.channel_type !== 'whatsapp' or state.active)" separator=" " />
-        </xpath>
     </t>
 </templates>
