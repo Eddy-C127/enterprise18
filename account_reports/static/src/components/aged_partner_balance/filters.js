@@ -21,7 +21,7 @@ export class AgedPartnerBalanceFilters extends AccountReportFilters {
             return;
         }
 
-        await this.filterClicked({ optionKey:"aging_interval", optionValue: agingInterval});
+        await this.filterClicked({ optionKey:"aging_interval", optionValue: agingInterval, reload: true });
     }
 
 }

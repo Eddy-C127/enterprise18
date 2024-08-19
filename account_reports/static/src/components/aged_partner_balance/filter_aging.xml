@@ -32,7 +32,6 @@
     <t t-name="account_reports.AccountReportAgingInterval">
         <Dropdown
             menuClass="'account_report_filter intervals'"
-            onStateChanged="(isOpen) => this.applyFilters(isOpen, 'aging_interval')"
         >
             <button class="btn btn-secondary">
                 <i class="fa fa-calendar-o me-1"/>
