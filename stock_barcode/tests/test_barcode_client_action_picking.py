@@ -2824,6 +2824,41 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             ], limit=1)
         )
 
+    def test_no_zero_demand_new_line_from_split(self):
+        """ If a split of incomplete barcode lines is triggered when the line quantity == 0, don't
+        go through with the split.
+        """
+        self.clean_access_rights()
+
+        self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 1)
+        picking = self.env['stock.picking'].create({
+            'name': 'TNZDNLFS picking',
+            'picking_type_id': self.picking_type_internal.id,
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.stock_location.id,
+            'move_ids': [Command.create({
+                'name': 'TNZDNLFS move',
+                'product_id': self.product1.id,
+                'product_uom_qty': 1,
+                'location_id': self.stock_location.id,
+                'location_dest_id': self.stock_location.id,
+            })],
+        })
+        picking.action_confirm()
+
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_no_zero_demand_new_line_from_split', login='admin', timeout=180)
+
+        self.assertRecordValues(
+            picking.move_ids,
+            [{'quantity': 1, 'product_uom_qty': 1, 'picked': False}]
+        )
+        self.assertRecordValues(
+            picking.move_line_ids,
+            [{'picked': False, 'quantity': 1}]
+        )
+
     # === GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_lot_number(self):
         """

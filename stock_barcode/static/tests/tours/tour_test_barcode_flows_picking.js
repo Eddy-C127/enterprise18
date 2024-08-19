@@ -4483,3 +4483,34 @@ registry.category("web_tour.tours").add('test_multi_company_record_access_in_bar
         { trigger: '.o_stock_barcode_main_menu', isCheck: true },
     ]
 });
+
+registry.category("web_tour.tours").add('test_no_zero_demand_new_line_from_split', {
+    test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan TNZDNLFS picking' },
+        { trigger: '.o_edit', run: 'click' },
+        {
+            extra_trigger: '.o_field_widget[name="product_id"]',
+            trigger: '.o_field_widget[name="qty_done"] input',
+            run: 'text 1',
+        },
+        { trigger: '.o_save', run: 'click' },
+        {
+            extra_trigger: '.o_barcode_line',
+            trigger: '.o_exit',
+            run: 'click'
+        },
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan TNZDNLFS picking' },
+        { trigger: '.o_edit', run: 'click' },
+        {
+            extra_trigger: '.o_field_widget[name="product_id"]',
+            trigger: '.o_field_widget[name="qty_done"] input',
+            run: 'text 0',
+        },
+        { trigger: '.o_save', run: 'click' },
+        {
+            extra_trigger: '.o_barcode_line',
+            trigger: '.o_exit',
+            run: 'click'
+        },
+    ]
+});

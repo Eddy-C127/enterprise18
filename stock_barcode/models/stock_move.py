@@ -14,6 +14,10 @@ class StockMove(models.Model):
         # Split moves where necessary and move quants
         new_moves_vals = []
         for move in self:
+            if move.picked and move.quantity == 0:
+                move.move_line_ids.unlink()
+                move.quantity = move.product_uom_qty
+                move.picked = False
             if not move.picked:
                 continue
             # To know whether we need to split a move, rounds to the general
