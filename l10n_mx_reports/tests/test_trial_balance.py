@@ -192,6 +192,8 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
             <catalogocuentas:Ctas CodAgrup="120" NumCta="120" Desc="Advances to suppliers" Nivel="1" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="120.01" NumCta="120.01" Desc="Advance to national suppliers" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="120.02" NumCta="120.02" Desc="Advance payment to foreign suppliers" Nivel="2" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="173" NumCta="173" Desc="Deferred expenditure" Nivel="1" Natur="D"/>
+            <catalogocuentas:Ctas CodAgrup="173.01" NumCta="173.01" Desc="Deferred expenditure" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="201" NumCta="201" Desc="Suppliers" Nivel="1" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="201.01" NumCta="201.01" Desc="National suppliers" Nivel="2" Natur="A"/>
             <catalogocuentas:Ctas CodAgrup="205" NumCta="205" Desc="Short-term sundry creditors" Nivel="1" Natur="A"/>
