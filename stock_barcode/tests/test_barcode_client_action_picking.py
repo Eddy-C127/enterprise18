@@ -3019,6 +3019,63 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             [{'picked': False, 'quantity': 1}]
         )
 
+    def test_barcode_pack_lot(self):
+        """
+        This test ensures that products of the same lot can be
+        packed in different packages.
+        """
+        self.clean_access_rights()
+        group_tracking = self.env.ref('stock.group_tracking_lot')
+        self.env.user.write({'groups_id': [Command.link(group_tracking.id)]})
+        warehouse = self.picking_type_out.warehouse_id
+        # Enable "Show reserved lots/SN"
+        warehouse.out_type_id.write({
+            'show_reserved_sns': True,
+            'restrict_scan_source_location': 'no',
+        })
+        # Create a product and its packaging.
+        product = self.env['product.product'].create({
+            'name': 'Lovely product',
+            'is_storable': True,
+            'tracking': 'lot',
+            'uom_id': self.uom_unit.id,
+        })
+
+        lot_1, lot_2 = self.env['stock.lot'].create([
+            {'name': 'LOT004', 'product_id': product.id},
+            {'name': 'LOT005', 'product_id': product.id},
+        ])
+        # create 2 lots to test the flow for both reserved and not reserved lots
+        self.env['stock.quant']._update_available_quantity(product, warehouse.lot_stock_id, 4, lot_id=lot_1)
+        self.env['stock.quant']._update_available_quantity(product, warehouse.lot_stock_id, 2, lot_id=lot_2)
+
+        delivery = self.env['stock.picking'].create({
+            'name': "Lovely delivery",
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+            'move_ids': [Command.create({
+                'name': 'Lovely move',
+                'location_id': self.stock_location.id,
+                'location_dest_id': self.customer_location.id,
+                'product_id': product.id,
+                'product_uom': product.uom_id.id,
+                'product_uom_qty': 4
+            })],
+        })
+        delivery.action_confirm()
+        self.assertEqual(delivery.move_line_ids.lot_id, lot_1)
+        url = self._get_client_action_url(delivery.id)
+        self.start_tour(url, 'test_barcode_pack_lot_tour', login='admin', timeout=180)
+        self.assertEqual(delivery.state, 'done')
+        self.assertRecordValues(delivery.move_line_ids, [
+            {'quantity': 1.0, 'lot_id': lot_1.id},
+            {'quantity': 1.0, 'lot_id': lot_1.id},
+            {'quantity': 1.0, 'lot_id': lot_2.id},
+            {'quantity': 1.0, 'lot_id': lot_2.id},
+        ])
+        self.assertEqual(len(delivery.move_line_ids.result_package_id), 4)
+
     # === GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_lot_number(self):
         """
