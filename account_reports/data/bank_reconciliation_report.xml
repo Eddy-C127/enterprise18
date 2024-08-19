@@ -193,14 +193,15 @@
                         <field name="expression_ids">
                             <record id="transaction_without_statement_expr" model="account.report.expression">
                                 <field name="label">amount</field>
-                                <field name="engine">aggregation</field>
-                                <field name="formula">unreconciled_receipt.amount + unreconciled_payments.amount</field>
+                                <field name="engine">custom</field>
+                                <field name="formula">_report_custom_engine_transaction_without_statement_amount</field>
+                                <field name="subformula">amount</field>
                                 <field name="auditable" eval="False"/>
                             </record>
                             <record id="transaction_without_statement_expr_forced_currency_amount" model="account.report.expression">
                                 <field name="label">_currency_amount</field>
                                 <field name="engine">custom</field>
-                                <field name="formula">_report_custom_engine_forced_currency_amount</field>
+                                <field name="formula">_report_custom_engine_transaction_without_statement_amount</field>
                                 <field name="subformula">amount_currency_id</field>
                             </record>
                         </field>
