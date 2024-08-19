@@ -42,7 +42,7 @@ class DeliveryCarrier(models.Model):
     @api.depends('delivery_type')
     def _compute_can_generate_return(self):
         super()._compute_can_generate_return()
-        self.filtered(lambda c: c.delivery_type == 'sendcloud').can_generate_return = False
+        self.filtered(lambda c: c.delivery_type == 'sendcloud').can_generate_return = True
 
     @api.depends('country_id')
     def _compute_sendcloud_shipping_id(self):
@@ -55,14 +55,6 @@ class DeliveryCarrier(models.Model):
     def write(self, vals):
         original_sendcloud_product_ids = set(self.sendcloud_shipping_id.ids + self.sendcloud_return_id.ids)
         res = super().write(vals)
-        for dc in self:
-            if dc.delivery_type != 'sendcloud':
-                continue
-            # TODO: Should be in delivery_stock
-            if dc.return_label_on_delivery:
-                dc.return_label_on_delivery = False
-            if dc.get_return_label_from_portal:
-                dc.get_return_label_from_portal = False
         to_delete_sendcloud_product_ids = original_sendcloud_product_ids - set(self.sendcloud_shipping_id.ids + self.sendcloud_return_id.ids)
         if to_delete_sendcloud_product_ids:
             self.env['sendcloud.shipping.product'].browse(to_delete_sendcloud_product_ids).unlink()
