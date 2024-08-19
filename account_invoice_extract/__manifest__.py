@@ -9,7 +9,6 @@
     'depends': ['account_extract'],
     'data': [
         'security/ir.model.access.csv',
-        'data/extraction_status.xml',
         'data/crons.xml',
         'views/account_move_views.xml',
         'views/res_config_settings_views.xml',
