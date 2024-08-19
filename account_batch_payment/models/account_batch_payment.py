@@ -123,7 +123,7 @@ class AccountBatchPayment(models.Model):
         for batch in self:
             batch.currency_id = batch.journal_id.currency_id or batch.company_currency_id or self.env.company.currency_id
 
-    @api.depends('currency_id', 'payment_ids.amount')
+    @api.depends('currency_id', 'payment_ids.amount', 'payment_ids.is_matched')
     def _compute_from_payment_ids(self):
         for batch in self:
             amount = 0.0
