@@ -1173,6 +1173,12 @@ export default class BarcodePickingModel extends BarcodeModel {
         return !(this.record.use_create_lots || this.record.use_existing_lots);
     }
 
+    _lineCannotBeTaken(line){
+        // A packed line without expected quantity or completed cannot be taken
+        const fullyPacked = line.result_package_id && (!line.reserved_uom_qty || this._lineIsComplete(line))
+        return fullyPacked || super._lineCannotBeTaken(...arguments)
+    }
+
     _lineIsComplete(line) {
         let isComplete = line.reserved_uom_qty && line.qty_done >= line.reserved_uom_qty;
         if (line.isPackageLine && !line.reserved_uom_qty && line.qty_done) {

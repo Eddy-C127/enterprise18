@@ -4514,3 +4514,56 @@ registry.category("web_tour.tours").add('test_no_zero_demand_new_line_from_split
         },
     ]
 });
+
+registry.category("web_tour.tours").add("test_barcode_pack_lot_tour", { test: true, steps: () => [
+    // Pack two units of the same not reserved lot in different packages
+    { trigger: '.o_barcode_line', run: "scan LOT002" },
+    { trigger: '.o_line_button.o_toggle_sublines', run: 'click'},
+    {
+        extra_trigger: 'span.o_line_lot_name:contains("LOT002")',
+        trigger: 'button.o_put_in_pack',
+        run: 'click',
+    },
+    {
+        extra_trigger: '.o_barcode_line:nth-child(2):has(".fa-archive")',
+        trigger: '.o_barcode_line_summary',
+        run: 'click',
+    },
+    { trigger: '.o_barcode_line_summary', run: "scan LOT002" },
+    {
+        extra_trigger: '.o_barcode_line.o_line_not_completed:contains(LOT002):not(:has(.fa-archive))',
+        trigger: 'button.o_put_in_pack',
+        run: 'click',
+    },
+    // Pack two units of the same reserved lot in different packages
+    {
+        extra_trigger: '.o_barcode_line:nth-child(3):has(".fa-archive")',
+        trigger: '.o_barcode_line_summary',
+        run: "scan LOT001" ,
+    },
+    {
+        extra_trigger: '.o_barcode_scanner_qty:has(.d-inline-block:contains(3))',
+        trigger: 'button.o_put_in_pack',
+        run: 'click',
+    },
+    {
+        extra_trigger: '.o_barcode_line:nth-child(4):has(".fa-archive")',
+        trigger: '.o_barcode_line_summary',
+        run: 'click',
+    },
+    { trigger: '.o_barcode_line_summary', run: "scan LOT001" },
+    {
+        extra_trigger: '.o_barcode_scanner_qty:has(.d-inline-block:contains(4))',
+        trigger: 'button.o_put_in_pack',
+        run: 'click',
+    },
+    {
+        extra_trigger: '.o_barcode_line:nth-child(5):has(".fa-archive")',
+        trigger: '.o_validate_page',
+        run: 'click',
+    },
+    {
+        trigger: '.o_notification.border-success',
+        run: 'click',
+    },
+]});
