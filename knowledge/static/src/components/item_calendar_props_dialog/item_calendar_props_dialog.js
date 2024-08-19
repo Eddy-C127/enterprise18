@@ -33,6 +33,15 @@ export class ItemCalendarPropsDialog extends Component {
         name: { type: String, optional: true },
         saveItemCalendarProps: { type: Function },
         scale: { type: String, optional: true },
+        showWeekEnds: { type: Boolean, optional: true },
+        slotMaxTime: { type: String, optional: true },
+        slotMinTime: { type: String, optional: true },
+    };
+
+    static defaultProps = {
+        showWeekEnds: true,
+        slotMinTime: "00:00",
+        slotMaxTime: "24:00",
     };
 
     setup() {
@@ -43,6 +52,9 @@ export class ItemCalendarPropsDialog extends Component {
         this.state = useState({
             name: this.props.name,
             scale: this.props.scale || "week",
+            showWeekEnds: this.props.showWeekEnds,
+            slotMaxTime: this.props.slotMaxTime,
+            slotMinTime: this.props.slotMinTime,
         });
         this.colorChoices = [];
         this.dateChoices = [];
@@ -252,6 +264,9 @@ export class ItemCalendarPropsDialog extends Component {
             colorPropertyId: this.state.colorPropertyId || undefined,
             scale: this.state.scale,
             dateType: this.dateStartProperty.type,
+            showWeekEnds: this.state.showWeekEnds,
+            slotMinTime: this.state.slotMinTime || "00:00",
+            slotMaxTime: this.state.slotMaxTime || "24:00",
         });
         this.props.close();
     }

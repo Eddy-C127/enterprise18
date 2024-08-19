@@ -9,7 +9,7 @@ import { calendarView } from '@web/views/calendar/calendar_view';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { ItemCalendarModel } from "@knowledge/views/item_calendar/item_calendar_model";
 import { registry } from "@web/core/registry";
-import { onMounted, onWillUpdateProps } from "@odoo/owl";
+import { onMounted, onWillUpdateProps, useEffect } from "@odoo/owl";
 
 export class KnowledgeArticleItemsCalendarController extends CalendarController {
     static template = "knowledge.ArticleItemsCalendarController";
@@ -32,6 +32,8 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
             // Update the model if the itemCalendarProps were updated
             if (JSON.stringify(this.props.itemCalendarProps) !== JSON.stringify(nextProps.itemCalendarProps)) {
                 this.updateModel(nextProps.itemCalendarProps);
+                this.state.isWeekendVisible =
+                    nextProps.itemCalendarProps.showWeekEnds ?? this.state.isWeekendVisible;
                 this.state.missingConfiguration = false;
             }
         });
@@ -101,6 +103,8 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
     onWillStartModel() {
         if (this.props.itemCalendarProps) {
             this.updateModel(this.props.itemCalendarProps);
+            this.state.isWeekendVisible =
+                this.props.itemCalendarProps.showWeekEnds ?? this.state.isWeekendVisible;
         } else {
             this.state.missingConfiguration = true;
             this.model.meta.invalid = true;
@@ -139,6 +143,14 @@ export class KnowledgeArticleItemsCalendarController extends CalendarController 
             this.model.meta.scale = modelProps.scale;
         }
     }
+
+    get rendererProps() {
+        return {
+            ...super.rendererProps,
+            slotMaxTime: this.props.itemCalendarProps?.slotMaxTime || "24:00",
+            slotMinTime: this.props.itemCalendarProps?.slotMinTime || "00:00",
+        };
+    }
 }
 
 class KnowledgeArticleItemsCommonPopover extends CalendarCommonPopover {
@@ -158,13 +170,42 @@ class KnowledgeArticleItemsCommonPopover extends CalendarCommonPopover {
 }
 
 class KnowledgeArticleItemsCommonRenderer extends CalendarCommonRenderer {
+    static props = {
+        ...CalendarCommonRenderer.props,
+        slotMinTime: { type: String },
+        slotMaxTime: { type: String },
+    };
     static components = {
         ...CalendarCommonRenderer.components,
         Popover: KnowledgeArticleItemsCommonPopover,
     };
+
+    get options() {
+        return {
+            ...super.options,
+            slotMinTime: this.props.slotMinTime,
+            slotMaxTime: this.props.slotMaxTime,
+        };
+    }
+
+    setup() {
+        super.setup();
+        useEffect(
+            (slotMinTime, slotMaxTime) => {
+                this.fc.api.setOption("slotMinTime", slotMinTime);
+                this.fc.api.setOption("slotMaxTime", slotMaxTime);
+            },
+            () => [this.options.slotMinTime, this.options.slotMaxTime]
+        );
+    }
 }
 
 class KnowledgeArticleItemsCalendarRenderer extends CalendarRenderer {
+    static props = {
+        ...CalendarRenderer.props,
+        slotMinTime: { type: String },
+        slotMaxTime: { type: String },
+    };
     static components = {
         ...CalendarRenderer.components,
         day: KnowledgeArticleItemsCommonRenderer,

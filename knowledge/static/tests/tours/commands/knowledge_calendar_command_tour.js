@@ -133,6 +133,21 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 }, {
     trigger: '.o_select_menu_menu .o_select_menu_item.o_create_choice',
     run: 'click',
+}, { // Change the min slot time
+    trigger: ".o_knowledge_item_calendar_dialog_slot_min_time input",
+    run: function () {
+        this.anchor.value = "08:00";
+        this.anchor.dispatchEvent(new Event("change"));
+    },
+}, { // Change the max slot time
+    trigger: ".o_knowledge_item_calendar_dialog_slot_max_time input",
+    run: function () {
+        this.anchor.value = "16:30";
+        this.anchor.dispatchEvent(new Event("change"));
+    },
+}, { // Hide Weekends
+    trigger: "input[type='checkbox']",
+    run: "click"
 }, { // Insert the calendar
     trigger: '.modal-footer .btn-primary',
     run: 'click',
@@ -140,6 +155,16 @@ registry.category("web_tour.tours").add('knowledge_calendar_command_tour', {
 {
     trigger:
         ".o_knowledge_behavior_type_embedded_view .o_knowledge_article_view_calendar_embedded_view",
+}, { // Check that the display options are applied
+    trigger: ".fc-timegrid-slot:not(.fc-timegrid-slot-lane[data-time='07:00:00'])",
+}, {
+    trigger: ".fc-timegrid-slot.fc-timegrid-slot-lane[data-time='08:00:00']",
+}, {
+    trigger: ".fc-timegrid-slot:not(.fc-timegrid-slot-lane[data-time='16:30:00'])",
+}, {
+    trigger: ".fc-timegrid-slot.fc-timegrid-slot-lane[data-time='16:00:00']",
+}, {
+    trigger: ":not(.fc-day-sat), :not(.fc-day-sun)",
 },
 {
     //---------------------------------------------------
