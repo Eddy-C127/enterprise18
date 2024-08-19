@@ -167,6 +167,12 @@ class AccountBankStatementLine(models.Model):
                     bank_accounts = self.env['res.partner.bank'].search(extra_domain + domain)
                     if len(bank_accounts.partner_id) == 1:
                         return bank_accounts.partner_id
+                    else:
+                        # We have several partner with same account, possibly some archived partner
+                        # so try to filter out inactive partner and if one remains, select this one
+                        bank_accounts = bank_accounts.filtered(lambda bacc: bacc.partner_id.active)
+                        if len(bank_accounts) == 1:
+                            return bank_accounts.partner_id
 
         # Retrieve the partner from the partner name.
         if self.partner_name:

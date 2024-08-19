@@ -70,6 +70,10 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         })
         self.assertEqual(st_line._retrieve_partner(), self.env['res.partner'])
 
+        # Archive partner_a and see if partner_b is then chosen
+        self.partner_a.active = False
+        self.assertEqual(st_line._retrieve_partner(), self.partner_b)
+
     def test_retrieve_partner_from_account_number_in_other_company(self):
         st_line = self._create_st_line(1000.0, partner_id=None, account_number="014 474 8555")
         self.env['res.partner.bank'].create({
@@ -1996,6 +2000,43 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             {'flag': 'new_aml',         'balance': -1000.0, 'reconcile_model_id': rule.id},
             {'flag': 'manual',          'balance': 2.0,     'reconcile_model_id': rule.id},
         ])
+
+    @freeze_time('2017-01-01')
+    def test_auto_reconcile_model_with_archived_partner(self):
+        self.env['account.reconcile.model'].search([('company_id', '=', self.company_data['company'].id)]).unlink()
+        self.env['res.partner.bank'].search([('company_id', '=', self.company_data['company'].id)]).unlink()
+
+        # Needed as partner_a does not have a company and we need a company in order to find matching partner from account_number
+        self.partner_a.company_id = self.company_data['company'].id
+        self.env['res.partner.bank'].create({
+            'partner_id': self.partner_a.id,
+            'acc_number': '12345',
+        })
+        invoice_line = self._create_invoice_line(
+            'out_invoice',
+            invoice_date='2017-01-01',
+            invoice_line_ids=[{'price_unit': 1000.0}],
+        )
+        st_line = self._create_st_line(1000.0, account_number='12345', date='2017-01-01', payment_ref=invoice_line.move_id.name)
+
+        self.env['account.reconcile.model'].create({
+            'name': "test_reconcile_model_with_archived_partner",
+            'rule_type': 'invoice_matching',
+            'auto_reconcile': True,
+            'match_partner': True,
+        })
+
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        wizard._action_trigger_matching_rules()
+        self.assertEqual(wizard.partner_id, self.partner_a)
+        self.assertTrue(wizard.matching_rules_allow_auto_reconcile)
+
+        # archive partner and trigger again, partner should still be set (match based on account_number), because it's the only match
+        self.partner_a.active = False
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        wizard._action_trigger_matching_rules()
+        self.assertEqual(wizard.partner_id, self.partner_a)  # Partner should still be set
+        self.assertTrue(wizard.matching_rules_allow_auto_reconcile)  # no special process because the partner is unactive
 
     def test_early_payment_included_multi_currency(self):
         self.env['account.reconcile.model'].search([('company_id', '=', self.company_data['company'].id)]).unlink()
