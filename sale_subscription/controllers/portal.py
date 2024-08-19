@@ -359,7 +359,7 @@ class PaymentPortal(payment_portal.PaymentPortal):
         """
         order_sudo, redirection = self._get_subscription(access_token, order_id)
         if redirection:
-            return redirection
+            raise werkzeug.exceptions.NotFound()
         logged_in = not request.env.user._is_public()
         partner_sudo = request.env.user.partner_id if logged_in else order_sudo.partner_id
         # Anticipate the next period by forcing invoice creation
