@@ -278,9 +278,13 @@ class HrContract(models.Model):
 
     @api.depends('origin_contract_id')
     def _compute_contract_reviews_count(self):
+        data = dict(self.with_context(active_test=False)._read_group(
+            [('origin_contract_id', 'in', self.ids)],
+            ['origin_contract_id'],
+            ['__count'],
+        ))
         for contract in self:
-            contract.contract_reviews_count = self.with_context(active_test=False).search_count(
-                [('origin_contract_id', '=', contract.id)])
+            contract.contract_reviews_count = data.get(contract, 0)
 
     @api.depends('default_contract_id')
     def _compute_sign_template_id(self):

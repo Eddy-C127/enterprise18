@@ -292,7 +292,7 @@ class HrPayslip(models.Model):
             if payslip.state in ['draft', 'verify']:
                 payslips_to_report = self.env['hr.payslip'].search([
                     ('has_negative_net_to_report', '=', True),
-                    ('employee_id', '=', payslip.employee_id.id),
+                    ('employee_id', 'in', payslip.employee_id.ids),
                     ('credit_note', '=', False),
                 ])
                 payslip.negative_net_to_report_display = payslips_to_report

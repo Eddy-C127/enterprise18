@@ -105,7 +105,7 @@ class ProjectTask(models.Model):
             worksheet_count = 0
             if record.worksheet_template_id:
                 Worksheet = self.env[record.worksheet_template_id.sudo().model_id.model]
-                worksheet_count = Worksheet.search_count([('x_project_task_id', '=', record.id)])
+                worksheet_count = Worksheet.search_count([('x_project_task_id', 'in', record.ids)])
             record.worksheet_count = worksheet_count
 
     @api.model
