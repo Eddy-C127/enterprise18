@@ -43,8 +43,8 @@ class L10nEcCertificate(models.Model):
                 self.password.encode(),
             )
             return certificate
-        except Exception:
-            raise ValidationError(_("Error loading certificate %s, check that password is correct and file type is p12", self.display_name))
+        except Exception as e:  # noqa: BLE001
+            raise ValidationError(_("Error while loading certificate: %s", e))
 
     @api.depends('content', 'password')
     def _compute_l10n_ec_metadata(self):
