@@ -1,9 +1,5 @@
 /** @odoo-module **/
 
-
-const helper = {};
-export default helper;
-
 /**
  * Returns the line for the given index and ensure the line is an HTMLElement (fails otherwise).
  *
@@ -11,7 +7,7 @@ export default helper;
  * @param {string} errorClue
  * @returns {HTMLElement}
  */
-helper._getLineOrFail = (lineOrIndex, errorClue="No line found") => {
+export function _getLineOrFail (lineOrIndex, errorClue="No line found") {
     const line = typeof lineOrIndex === "number" ?
         document.querySelectorAll('.o_barcode_line')[lineOrIndex] :
         lineOrIndex;
@@ -21,16 +17,18 @@ helper._getLineOrFail = (lineOrIndex, errorClue="No line found") => {
     const errorMessage = typeof lineOrIndex === "number" ?
         `${errorClue}: the given index (${lineOrIndex}) doesn't match an existing line` :
         `${errorClue}: the given object isn't a line`;
-    helper.fail(errorMessage);
-};
+    fail(errorMessage);
+}
 /**
+ * @param {string} selector
  * @param {Object} description
  * @param {string} [description.barcode] the line's product's barcode
  * @param {Boolean} [description.completed] get only completed line if true
  * @param {Boolean} [description.selected] get only selected line if true
+ * @param {string} [description.selector]
  * @returns {string}
  */
-helper._prepareSelector = (selector, description) => {
+export function _prepareSelector(selector, description) {
     const { barcode, selected, completed } = description;
     if (selected !== undefined) {
         selector += selected ? ".o_selected" : ":not(.o_selected)";
@@ -41,179 +39,181 @@ helper._prepareSelector = (selector, description) => {
     selector += barcode ? `[data-barcode="${barcode}"]`: "";
     description.selector = selector;
     return selector;
-};
+}
 
-helper.fail = (errorMessage) => {
-    console.error(errorMessage);
-};
+export function fail(errorMessage) {
+    throw new Error(errorMessage);
+}
 
 /**
- * Get and returns exactly one line, helper.fails if multiple lines are found).
+ * Get and returns exactly one line, fails if multiple lines are found).
  * @param {Object} description @see getLines
  * @returns {HTMLElement}
  */
-helper.getLine = (description={}) => {
-    const line = helper.getLines(description);
-    if(line.length > 1) {
-        helper.fail(`getLine: Multiple lines were found for the selector "${description.selector}" (use 'getLines' instead if its wanted)`);
+export function getLine(description = {}) {
+    const line = getLines(description);
+    if (line.length > 1) {
+        fail(`getLine: Multiple lines were found for the selector "${description.selector}" (use 'getLines' instead if its wanted)`);
     } else if (line.length === 0) {
-        helper.fail(`getLine: No line was found for the selector "${description.selector}"`);
+        fail(`getLine: No line was found for the selector "${description.selector}"`);
     }
     return line[0];
-};
+}
 
 /**
- * Get and returns all lines matching the given description, helper.fails if no line is found.
+ * Get and returns all lines matching the given description, fails if no line is found.
  * @param {Object} [description] if no description, will return all the barcode's line
  * @see _prepareSelector for more information about description's keys.
- * @returns {HTMLElement[]}
+ * @returns {Element[]}
  */
-helper.getLines = (description={}) => {
-    const selector = helper._prepareSelector(":not(.o_sublines) > .o_barcode_line", description);
+export function getLines(description = {}) {
+    const selector = _prepareSelector(":not(.o_sublines) > .o_barcode_line", description);
     const lines = document.querySelectorAll(selector);
-    const { index } = description;
+    const {index} = description;
     if (index !== undefined) {
         if (typeof index === "number") { // Single index (not an array), returns only one line.
             return [lines[index]];
-        };
+        }
         const chosenLines = [];
         for (const i of index) {
             chosenLines.push(lines[i]);
         }
         if (chosenLines.length !== index.length) {
-            helper.fail(`Expects ${index.length} lines, got ${chosenLines.length}`)
+            fail(`Expects ${index.length} lines, got ${chosenLines.length}`)
         }
         return chosenLines;
     }
-    return lines;
-};
+    return Array.from(lines);
+}
 
-helper.getSubline = (description={}) => {
-    const subline = helper.getSublines(description);
-    if(subline.length > 1) {
-        helper.fail(`Multiple sublines were found for the selector "${description.selector}"`);
+export function getSubline(description = {}) {
+    const subline = getSublines(description);
+    if (subline.length > 1) {
+        fail(`Multiple sublines were found for the selector "${description.selector}"`);
     }
     return subline[0];
-};
+}
 
-helper.getSublines = (description={}) => {
-    const selector = helper._prepareSelector(".o_sublines .o_barcode_line", description);
+export function getSublines(description = {}) {
+    const selector = _prepareSelector(".o_sublines .o_barcode_line", description);
     const sublines = document.querySelectorAll(selector);
     if (!sublines.length) {
-        helper.fail(`No subline was found for the selector "${selector}"`);
+        fail(`No subline was found for the selector "${selector}"`);
     }
     return sublines;
-};
+}
 
-helper.triggerKeydown = (eventKey, shiftkey=false) => {
+export function triggerKeydown(eventKey, shiftkey = false) {
     document.querySelector('.o_barcode_client_action')
-        .dispatchEvent(new window.KeyboardEvent('keydown', { bubbles: true, key: eventKey, shiftKey: shiftkey}));
-};
+        .dispatchEvent(new window.KeyboardEvent('keydown', {bubbles: true, key: eventKey, shiftKey: shiftkey}));
+}
 
-helper.assert = (current, expected, info) => {
+export function assert(current, expected, info) {
     if (current !== expected) {
-        helper.fail(info + ': "' + current + '" instead of "' + expected + '".');
+        fail(`${info}: "${current}" instead of "${expected}".`);
     }
-};
+}
 
 /**
  * Checks if a button on the given line is visible or not.
  *
  * @param {HTMLElement|Integer} lineOrIndex the line (or its index) to test its the button visibility
  * @param {string} buttonName could be 'add_quantity', 'remove_unit' or 'set'.
- * @param {boolean} [isVisible=true]
+ * @param {boolean} [shouldBeVisible=true]
  */
-helper.assertButtonIsVisible = (lineOrIndex, buttonName, shouldBeVisible=true) => {
-    const line = helper._getLineOrFail(lineOrIndex);
+export function assertButtonIsVisible(lineOrIndex, buttonName, shouldBeVisible = true) {
+    const line = _getLineOrFail(lineOrIndex);
     const button = line.querySelector(`.o_line_button.o_${buttonName}`);
     const label = line.querySelector('.o_product_label,.package')?.innerText;
-    helper.assert(Boolean(button), shouldBeVisible,
-        `${label ? label + " line": "Line"}'s button "${buttonName}" ${shouldBeVisible ? "should" : "should not"} be visible`);
-};
+    assert(!!button, shouldBeVisible,
+        `${label ? label + " line" : "Line"}'s button "${buttonName}" ${shouldBeVisible ? "should" : "should not"} be visible`);
+}
 
-helper.assertValidateVisible = (expected) => {
+export function assertValidateVisible(expected) {
     const validateButton = document.querySelector('.o_validate_page,.o_apply_page');
-    helper.assert(Boolean(validateButton), expected, 'Validate visible');
-};
+    assert(!!validateButton, expected, 'Validate visible');
+}
 
-helper.assertValidateEnabled = (expected) => {
+export function assertValidateEnabled(expected) {
     const validateButton = document.querySelector('.o_validate_page,.o_apply_page') || false;
-    helper.assert(validateButton && !validateButton.hasAttribute('disabled'), expected, 'Validate enabled');
-};
+    assert(validateButton && !validateButton.hasAttribute('disabled'), expected, 'Validate enabled');
+}
 
-helper.assertValidateIsHighlighted = (expected) => {
+export function assertValidateIsHighlighted(expected) {
     const validateButton = document.querySelector('.o_validate_page,.o_apply_page') || false;
     const isHighlighted = validateButton && validateButton.classList.contains('btn-primary');
-    helper.assert(isHighlighted, expected, 'Validate button is highlighted');
-};
+    assert(isHighlighted, expected, 'Validate button is highlighted');
+}
 
-helper.assertLinesCount = (expectedCount, description) => {
-    const currentCount = helper.getLines(description).length;
-    helper.assert(currentCount, expectedCount, `Should have ${expectedCount} line(s)`);
-};
+export function assertLinesCount(expectedCount, description) {
+    const currentCount = getLines(description).length;
+    assert(currentCount, expectedCount, `Should have ${expectedCount} line(s)`);
+}
 
-helper.assertScanMessage = (expected) => {
+export function assertScanMessage(expected) {
     const instruction = document.querySelector(`.o_scan_message`);
     const cssClass = instruction.classList[1];
-    helper.assert(cssClass, `o_${expected}`, "Not the right message displayed");
-};
+    assert(cssClass, `o_${expected}`, "Not the right message displayed");
+}
 
-helper.assertSublinesCount = (expected) => {
+export function assertSublinesCount(expected) {
     const current = document.querySelectorAll('.o_sublines > .o_barcode_line').length;
-    helper.assert(current, expected, `Should have ${expected} subline(s), found ${current}`);
-};
+    assert(current, expected, `Should have ${expected} subline(s), found ${current}`);
+}
 
-helper.assertLineDestinationIsNotVisible = (lineOrIndex) => {
-    const line = helper._getLineOrFail(lineOrIndex);
+export function assertLineDestinationIsNotVisible(lineOrIndex) {
+    const line = _getLineOrFail(lineOrIndex);
     const destinationElement = line.querySelector('.o_line_destination_location');
     if (destinationElement) {
         const product = line.querySelector('.o_product_label').innerText;
-        helper.fail(`The destination for line of the product ${product} should not be visible, "${destinationElement.innerText}" instead`);
+        fail(`The destination for line of the product ${product} should not be visible, "${destinationElement.innerText}" instead`);
     }
-};
+}
+
 
 /**
  * Checks if the given line is going in the given location. Implies the destination is visible.
- * @param {Element} line
+ * @param {Element} lineOrIndex
  * @param {string} location
  */
-helper.assertLineDestinationLocation = (lineOrIndex, location) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check the line's destination");
+export function assertLineDestinationLocation(lineOrIndex, location) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check the line's destination");
     const destinationElement = line.querySelector('.o_line_destination_location');
     const product = line.querySelector('.o_product_label').innerText;
     if (!destinationElement) {
-        helper.fail(`The destination (${location}) for line of the product ${product} is not visible`);
+        fail(`The destination (${location}) for line of the product ${product} is not visible`);
     }
-    helper.assert(
+    assert(
         destinationElement.innerText, location,
         `The destination for line of product ${product} isn't in the right location`);
-};
+}
 
-helper.assertLineIsHighlighted =  (lineOrIndex, expected=true) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check if the line is highlighted");
+export function assertLineIsHighlighted(lineOrIndex, expected = true) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check if the line is highlighted");
     const errorMessage = `line ${expected ? "should" : "shouldn't"} be highlighted`;
-    helper.assert(line.classList.contains('o_highlight'), expected, errorMessage);
-};
+    assert(line.classList.contains('o_highlight'), expected, errorMessage);
+}
 
-helper.assertLineLocations = (lineOrIndex, source=false, destination=false) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check line's locations");
+export function assertLineLocations(lineOrIndex, source = null, destination = null) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check line's locations");
     if (source) {
-        helper.assertLineSourceLocation(line, source);
+        assertLineSourceLocation(line, source);
     } else {
-        helper.assertLineSourceIsNotVisible(line);
+        assertLineSourceIsNotVisible(line);
     }
     if (destination) {
-        helper.assertLineDestinationLocation(line, destination);
+        assertLineDestinationLocation(line, destination);
     } else {
-        helper.assertLineDestinationIsNotVisible(line);
+        assertLineDestinationIsNotVisible(line);
     }
-};
+}
 
-helper.assertLineProduct = (lineOrIndex, productName) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check line's product");
+export function assertLineProduct(lineOrIndex, productName) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check line's product");
     const lineProduct = line.querySelector('.o_product_label').innerText;
-    helper.assert(lineProduct, productName, "Not the expected product");
-};
+    assert(lineProduct, productName, "Not the expected product");
+}
+
 
 /**
  * Checks the quantity. It will get the done/counted quantity and will also
@@ -221,10 +221,10 @@ helper.assertLineProduct = (lineOrIndex, productName) => {
  * Also, if the unit of measure is displayed, it will check that too.
  *
  * @param {(HTMLElement|integer)} lineOrIndex @see _getLineOrFail
- * @param {string} expectedQty quantity on the line, formatted as "n (/ N) ( UOM)"
+ * @param {string} expectedQuantityWithUOM quantity on the line, formatted as "n (/ N) ( UOM)"
  */
-helper.assertLineQty = (lineOrIndex, expectedQuantityWithUOM) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check the line's quantity");
+export function assertLineQty(lineOrIndex, expectedQuantityWithUOM) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check the line's quantity");
     const elQty = line.querySelector('.o_barcode_scanner_qty');
     const elUOM = line.querySelector('.o_line_uom');
     let qtyText = elQty.innerText;
@@ -233,17 +233,17 @@ helper.assertLineQty = (lineOrIndex, expectedQuantityWithUOM) => {
         qtyText += " " + elUOM.innerText;
         errorMessage += " or with the Unit of Measure";
     }
-    helper.assert(qtyText, expectedQuantityWithUOM, errorMessage);
-};
+    assert(qtyText, expectedQuantityWithUOM, errorMessage);
+}
 
-helper.assertLineSourceIsNotVisible = (lineOrIndex) => {
-    const line = helper._getLineOrFail(lineOrIndex);
+export function assertLineSourceIsNotVisible(lineOrIndex) {
+    const line = _getLineOrFail(lineOrIndex);
     const sourceElement = line.parentNode.querySelector('.o_barcode_location_line');
     if (sourceElement) {
         const product = line.querySelector('.o_product_label').innerText;
-        helper.fail(`The location for line of the product ${product} should not be visible, "${sourceElement.innerText}" instead`);
+        fail(`The location for line of the product ${product} should not be visible, "${sourceElement.innerText}" instead`);
     }
-};
+}
 
 /**
  * Checks the given lot or serial number is written on the given line.
@@ -254,23 +254,23 @@ helper.assertLineSourceIsNotVisible = (lineOrIndex) => {
  * number (or an empty string if the lot is displayed but empty), either false
  * if the element shouldn't be visible at all.
  */
-helper.assertLineTrackingNumber = (lineOrIndex, expectedTrackingNumber) => {
-    const line = helper._getLineOrFail(lineOrIndex);
+export function assertLineTrackingNumber(lineOrIndex, expectedTrackingNumber) {
+    const line = _getLineOrFail(lineOrIndex);
     const elTrackingNumber = line.querySelector(".o_line_lot_name");
     const product = line.querySelector('.product-label')?.innerText || "";
     if (expectedTrackingNumber === false) {
-        helper.assert(
-            Boolean(elTrackingNumber), false,
+        assert(
+            !!elTrackingNumber, false,
             `No tracking number should be visible on the ${product} line`);
     } else {
-        helper.assert(
-            Boolean(elTrackingNumber), true,
+        assert(
+            !!elTrackingNumber, true,
             `${expectedTrackingNumber} should be visible but there is no tracking number on the ${product} line`);
-        helper.assert(
+        assert(
             elTrackingNumber.innerText, expectedTrackingNumber,
             `Not the expected tracking number for the ${product} line`);
     }
-};
+}
 
 /**
  * Checks each given lines match the corresponding tracking numbers.
@@ -278,59 +278,59 @@ helper.assertLineTrackingNumber = (lineOrIndex, expectedTrackingNumber) => {
  * @param {HTMLElement[]} lines
  * @param {string[]} trackingNumbers
  */
-helper.assertLinesTrackingNumbers = (lines, trackingNumbers) => {
-    helper.assert(lines.length, trackingNumbers.length, "Not the same amount of lines and tracking numbers");
+export function assertLinesTrackingNumbers(lines, trackingNumbers) {
+    assert(lines.length, trackingNumbers.length, "Not the same amount of lines and tracking numbers");
     for (const [index, line] of lines.entries()) {
-        helper.assertLineTrackingNumber(line, trackingNumbers[index]);
+        assertLineTrackingNumber(line, trackingNumbers[index]);
     }
-};
+}
 
 /**
  * Checks if the given line is in the given location. Implies the location is visible.
- * @param {Element} line
+ * @param {Element} lineOrIndex
  * @param {string} location
  */
-helper.assertLineSourceLocation = (lineOrIndex, location) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check the line's source");
+export function assertLineSourceLocation(lineOrIndex, location) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check the line's source");
     const sourceElement = line.parentNode.querySelector('.o_barcode_location_line');
     const product = line.querySelector('.o_product_label').innerText;
     if (!sourceElement) {
-        helper.fail(`The source (${location}) for line of the product ${product} is not visible`);
+        fail(`The source (${location}) for line of the product ${product} is not visible`);
     }
-    helper.assert(
+    assert(
         sourceElement.innerText, location,
         `The source for line of product ${product} isn't in the right location`);
-};
+}
 
-helper.assertFormLocationSrc = (expected) => {
+export function assertFormLocationSrc(expected) {
     const location = document.querySelector('.o_field_widget[name="location_id"] input');
-    helper.assert(location.value, expected, 'Wrong source location');
-};
+    assert(location.value, expected, 'Wrong source location');
+}
 
-helper.assertFormLocationDest = (expected) => {
+export function assertFormLocationDest(expected) {
     const location = document.querySelector('.o_field_widget[name="location_dest_id"] input');
-    helper.assert(location.value, expected, 'Wrong destination location');
-};
+    assert(location.value, expected, 'Wrong destination location');
+}
 
-helper.assertFormQuantity = (expected) => {
+export function assertFormQuantity(expected) {
     const quantityField = document.querySelector(
         '.o_field_widget[name="inventory_quantity"] input, .o_field_widget[name="qty_done"] input');
-    helper.assert(quantityField.value, expected, 'Wrong quantity');
-};
+    assert(quantityField.value, expected, 'Wrong quantity');
+}
 
-helper.assertErrorMessage = (expected) => {
+export function assertErrorMessage(expected) {
     const errorMessage = document.querySelector('.o_notification:last-child .o_notification_content');
-    helper.assert(errorMessage.innerText, expected, 'wrong or absent error message');
-};
+    assert(errorMessage.innerText, expected, 'wrong or absent error message');
+}
 
-helper.assertKanbanRecordsCount = (expected) => {
+export function assertKanbanRecordsCount(expected) {
     const kanbanRecords = document.querySelectorAll(
         '.o_kanban_view .o_kanban_record:not(.o_kanban_ghost)');
-    helper.assert(kanbanRecords.length, expected, 'Wrong number of cards');
-};
+    assert(kanbanRecords.length, expected, 'Wrong number of cards');
+}
 
-helper.assertLineIsFaulty =  (lineOrIndex, expected=true) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check if the line is faulty");
+export function assertLineIsFaulty(lineOrIndex, expected = true) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check if the line is faulty");
     const errorMessage = `line ${expected ? "should" : "shouldn't"} be faulty`;
-    helper.assert(line.classList.contains('o_faulty'), expected, errorMessage);
-};
+    assert(line.classList.contains('o_faulty'), expected, errorMessage);
+}

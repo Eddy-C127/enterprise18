@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
-import helper from '@stock_barcode/../tests/tours/tour_helper_stock_barcode';
+export * from '@stock_barcode/../tests/tours/tour_helper_stock_barcode';
+import {assert, _getLineOrFail} from '@stock_barcode/../tests/tours/tour_helper_stock_barcode';
 
 /**
  * Checks the line is linked to the given picking.
@@ -8,11 +9,11 @@ import helper from '@stock_barcode/../tests/tours/tour_helper_stock_barcode';
  * @param {HTMLElement|Integer} lineOrIndex
  * @param {string} pickingName
  */
-helper.assertLineBelongTo = (lineOrIndex, pickingName) => {
-    const line = helper._getLineOrFail(lineOrIndex, "Can't check line's picking");
+export function assertLineBelongTo(lineOrIndex, pickingName) {
+    const line = _getLineOrFail(lineOrIndex, "Can't check line's picking");
     const pickingLabel = line.querySelector('.o_picking_label').innerText;
-    helper.assert(pickingLabel, pickingName, "Wrong picking");
-};
+    assert(pickingLabel, pickingName, "Wrong picking");
+}
 
 /**
  * Checks all lines are linked to the given picking.
@@ -20,8 +21,6 @@ helper.assertLineBelongTo = (lineOrIndex, pickingName) => {
  * @param {HTMLElement[]} lines
  * @param {string} pickingName
  */
-helper.assertLinesBelongTo = (lines, pickingName) => {
-    lines.forEach(line => helper.assertLineBelongTo(line, pickingName));
-};
-
-export default helper;
+export function assertLinesBelongTo(lines, pickingName) {
+    lines.forEach(line => assertLineBelongTo(line, pickingName));
+}

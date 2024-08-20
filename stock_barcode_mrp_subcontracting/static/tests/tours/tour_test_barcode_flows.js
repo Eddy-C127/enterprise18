@@ -2,7 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { registry } from "@web/core/registry";
-import helper from '@stock_barcode/../tests/tours/tour_helper_stock_barcode';
+import * as helper from '@stock_barcode/../tests/tours/tour_helper_stock_barcode';
 import { stepUtils } from "@stock_barcode/../tests/tours/tour_step_utils";
 
 // ----------------------------------------------------------------------------
