@@ -16,6 +16,22 @@ from odoo.tools import mute_logger
 @tagged('post_install', '-at_install')
 class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail):
 
+    def _get_payment_values(self, subscription, invoice_ids, amount=None, reference="PAYMENT"):
+        return {
+            'amount': amount or subscription.amount_total,
+            'provider_id': self.provider.id,
+            'payment_method_id': self.payment_method_id,
+            'operation': 'offline',
+            'currency_id': subscription.currency_id.id,
+            'reference': reference,
+            'token_id': False,
+            'partner_id': subscription.partner_id.id,
+            'partner_country_id': subscription.partner_id.country_id.id,
+            'invoice_ids': invoice_ids,
+            'sale_order_ids': [(6, 0, subscription.ids)],
+            'state': 'draft',
+        }
+
     def test_auto_payment_with_token(self):
 
         self.original_prepare_invoice = self.subscription._prepare_invoice
@@ -456,21 +472,8 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
         # /payment/pay will create a transaction, validate it and post-process-it
         reference = "CONTRACT-%s-%s" % (subscription.id, datetime.datetime.now().strftime('%y%m%d_%H%M%S%f'))
-        values = {
-            'amount': subscription.amount_total / 2.,  # partial amount
-            'provider_id': self.provider.id,
-            'payment_method_id': self.payment_method_id,
-            'operation': 'offline',
-            'currency_id': subscription.currency_id.id,
-            'reference': reference,
-            'token_id': False,
-            'partner_id': subscription.partner_id.id,
-            'partner_country_id': subscription.partner_id.country_id.id,
-            'invoice_ids': [],
-            'sale_order_ids': [(6, 0, subscription.ids)],
-            'state': 'draft',
-        }
-        tx = self.env["payment.transaction"].create(values)
+        tx = self.env["payment.transaction"].create(
+            self._get_payment_values(subscription, [], subscription.amount_total / 2., reference))
         tx._set_done()
         tx._post_process()
 
@@ -805,4 +808,68 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
                 sub.payment_token_id.id,
                 test_payment_token.id,
                 "Token must be assigned to subscription after transaction creation."
+            )
+
+    def test_successful_reopen_churned_subscription(self):
+        """
+        Ensure that a churned subscription is reopened when any
+        of its invoices is paid within the next invoicing date.
+        """
+        # Confirm subscription, generate invoice and then close it.
+        subscription = self.subscription
+        subscription.action_confirm()
+        subscription._create_recurring_invoice()
+        subscription.set_close()
+
+        # Ensure that the subscription is churned, and that the next invoice
+        # date happens after today. The transaction date must be less than
+        # this date for the subscription to be successfuly re-opened.
+        self.assertEqual(
+            subscription.subscription_state,
+            "6_churn",
+            "The subscription must be churned after closing it."
+        )
+        self.assertTrue(
+            datetime.datetime.now().date() <= subscription.next_invoice_date,
+            "For sub reopening, we must have payment date <= next invoice date."
+        )
+
+        # Create and process the payment transaction for the invoice.
+        # Ensure that the subscription got re-opened after paying it.
+        tx = self.env["payment.transaction"].create(
+            self._get_payment_values(subscription, subscription.invoice_ids.ids)
+        )
+        tx._set_done()
+        tx._post_process()
+        self.assertEqual(tx.state, 'done')
+        self.assertEqual(
+            subscription.subscription_state,
+            "3_progress",
+            "Churned subscription must be re-opened after paying the invoice."
+        )
+
+    def test_unsuccessful_reopen_churned_subscription(self):
+        """
+        Ensure that a churned subscription is not re-opened when
+        any of its invoices is paid after the next invoicing date.
+        """
+        # Confirm subscription, generate invoice and then close it.
+        subscription = self.subscription
+        subscription.action_confirm()
+        subscription._create_recurring_invoice()
+        subscription.set_close()
+
+        # Simulate the payment transaction for the invoice one week after the
+        # next invoicing date and ensure that the subscription wasn't reopened.
+        with freeze_time(subscription.next_invoice_date + relativedelta(weeks=1)):
+            tx_2 = self.env["payment.transaction"].create(
+                self._get_payment_values(subscription, subscription.invoice_ids.ids)
+            )
+            tx_2._set_done()
+            tx_2._post_process()
+            self.assertEqual(tx_2.state, 'done')
+            self.assertEqual(
+                subscription.subscription_state,
+                "6_churn",
+                "Churned subscription must not re-open after the invoice late payment."
             )

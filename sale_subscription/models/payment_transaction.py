@@ -129,20 +129,30 @@ class PaymentTransaction(models.Model):
 
         In particular, for confirmed transactions we handle reconciliation for subscription's
         validation transaction references. For cancelled or error transactions, we call
-        `_handle_unsuccessful_transaction`.
+        `_handle_unsuccessful_transaction`. If any subscription got paid, trigger the post
+        subscription actions method in batch.
 
         :return: None
         """
         super()._post_process()
+        any_paid_subscription = False
         for tx in self:
             orders = tx.sale_order_ids or tx.invoice_ids.line_ids.subscription_id
-            if tx.state == 'done' and any(orders.mapped('is_subscription')):
+            subscriptions = orders.filtered(lambda order: order.is_subscription)
+            if tx.state == 'done' and len(subscriptions) > 0:
                 if tx.operation != 'validation':
                     tx.with_context(forced_invoice=True)._create_or_link_to_invoice()
-                self._post_subscription_action()
+                any_paid_subscription = True
+                # Re-open churned subscriptions after payment.
+                subscriptions.filtered(
+                    lambda sub:
+                        sub.subscription_state == '6_churn' and
+                        tx.last_state_change.date() <= sub.next_invoice_date
+                ).set_open()
             elif tx.state in ('error', 'cancel'):
                 tx._handle_unsuccessful_transaction()
-
+        if any_paid_subscription:
+            self._post_subscription_action()
 
     def _post_subscription_action(self):
         """
