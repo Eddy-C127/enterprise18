@@ -300,7 +300,7 @@ class SaleOrderLine(models.Model):
                 # remove 1 day as normal people thinks in terms of inclusive ranges.
                 next_invoice_date = default_next_invoice_date - relativedelta(days=1)
 
-            description = self.name
+            description = res.get('name') or self.name
             if self.recurring_invoice:
                 duration = self.order_id.plan_id.billing_period_display
                 format_start = format_date(self.env, new_period_start, lang_code=lang_code)
