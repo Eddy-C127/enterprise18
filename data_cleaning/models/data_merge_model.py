@@ -93,6 +93,8 @@ class DataMergeModel(models.Model):
     @api.onchange('res_model_id')
     def _onchange_res_model_id(self):
         self._check_prevent_merge()
+        if self.res_model_name:
+            self.env[self.res_model_name].check_access_rights('read')
         if any(rule.field_id.model_id != self.res_model_id for rule in self.rule_ids):
             self.rule_ids = [(5, 0, 0)]
 
