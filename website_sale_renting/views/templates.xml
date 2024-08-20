@@ -319,7 +319,10 @@
     <template id="website_sale_renting.shop_rental_datepicker_opt" active="False"/>
 
     <template id="website_sale_renting.datepicker">
-        <div class="o_website_sale_daterange_picker o_website_sale_shop_daterange_picker o_not_editable flex-grow-1 mb-sm-3">
+        <div
+            id="o_website_sale_daterange_picker"
+            class="o_website_sale_daterange_picker o_website_sale_shop_daterange_picker o_not_editable flex-grow-1 mb-sm-3"
+        >
             <input type="hidden" name="rental_duration_unit" value="hour"/>
             <t t-set="wso" t-value="website.sale_get_order()"/>
             <input type="hidden" name="default_start_date" t-if="wso and wso.has_rented_products" t-att-value="wso.rental_start_date"/>
@@ -397,19 +400,41 @@
             <t t-if="is_view_active('website_sale_renting.shop_rental_datepicker_opt')">
                 <t t-set="periodIsSet" t-value="website.sale_get_order() and website.sale_get_order().has_rented_products"/>
                 <t t-set="disclaimer">The period must be the same for all the products in your cart. Go to your cart to change it or create different orders.</t>
-                <div t-attf-class="nav-item border-0 {{(attrib_values or tags) and 'mb-5' or 'mb-1'}}">
-                    <h6 class="mb-3 mt-0">
-                        <b>Rental Period</b>
-                        <i t-attf-class="o_rental_info_message fa fa-info-circle #{not periodIsSet and 'd-none'} ms-1 text-info" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-delay="0" t-att-title="disclaimer" role="tooltip"/>
-                    </h6>
-                    <button t-if="request.params.get('start_date') and request.params.get('end_date')" t-attf-class="btn btn-light d-flex align-items-center w-100 mb-3 py-1 clear-daterange #{periodIsSet and 'd-none'}">
-                        <small class="mx-auto"><b>Clear Rental Period</b></small>
-                        <i class="oi oi-close" role="img"/>
-                    </button>
-                    <t t-call="website_sale_renting.datepicker">
-                        <t t-set="_rentingStartDate" t-value="'o_wsale_aside_renting_start_date'"/>
-                        <t t-set="_rentingEndDate" t-value="'o_wsale_aside_renting_end_date'"/>
-                    </t>
+                <div class="website_sale_renting_wrap">
+                    <div
+                        t-attf-class="nav-item border-0 {{(attrib_values or tags) and 'mb-5' or 'mb-1'}}"
+                    >
+                        <h6 class="mb-3 mt-0">
+                            <b>Rental Period</b>
+                            <i
+                                t-attf-class="o_rental_info_message fa fa-info-circle #{not periodIsSet and 'd-none'} ms-1 text-info"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="bottom"
+                                data-bs-delay="0"
+                                t-att-title="disclaimer"
+                                role="tooltip"
+                            />
+                        </h6>
+                        <div id="website_sale_renting_inner">
+                            <button
+                                t-if="request.params.get('start_date') and request.params.get('end_date')"
+                                t-attf-class="btn btn-light d-flex align-items-center w-100 mb-3 py-1 clear-daterange #{periodIsSet and 'd-none'}"
+                            >
+                                <small class="mx-auto"><b>Clear Rental Period</b></small>
+                                <i class="oi oi-close" role="img"/>
+                            </button>
+                            <t t-call="website_sale_renting.datepicker">
+                                <t
+                                    t-set="_rentingStartDate"
+                                    t-value="'o_wsale_aside_renting_start_date'"
+                                />
+                                <t
+                                    t-set="_rentingEndDate"
+                                    t-value="'o_wsale_aside_renting_end_date'"
+                                />
+                            </t>
+                        </div>
+                    </div>
                 </div>
             </t>
         </xpath>
@@ -419,8 +444,37 @@
         </xpath>
     </template>
 
+    <template
+        id="website_sale_renting.products_collapsible" inherit_id="website_sale_renting.products"
+    >
+        <xpath expr="//div[hasclass('website_sale_renting_wrap')]" position="attributes">
+            <attribute name="class" add="accordion accordion-flush" separator=" "/>
+        </xpath>
+        <xpath expr="//div[hasclass('website_sale_renting_wrap')]/div" position="attributes">
+            <attribute name="t-attf-class">accordion-item {{not (is_view_active('website_sale.products_attributes') or is_view_active('website_sale.products_categories')) or 'border-bottom'}}</attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('website_sale_renting_wrap')]//h6" position="replace">
+            <button
+                class="accordion-button px-0 bg-transparent shadow-none"
+                type="button"
+                data-bs-toggle="collapse"
+                t-attf-data-bs-target="#website_sale_renting_inner"
+                t-attf-aria-controls="website_sale_renting_inner"
+                aria-expanded="true"
+            >
+                <b>Rental Period</b>
+            </button>
+        </xpath>
+        <xpath expr="//div[@id='website_sale_renting_inner']" position="attributes">
+            <attribute name="class" add="accordion-collapse collapse show" separator=" "/>
+        </xpath>
+    </template>
+
     <template id="website_sale_renting_period" inherit_id="website_sale.products_attributes">
-        <xpath expr="//form[hasclass('js_attributes')]" position="inside">
+        <xpath
+            expr="//form[hasclass('js_attributes')]//div[hasclass('accordion-item')]"
+            position="before"
+        >
             <input type="hidden" id="start_date" name="start_date" t-att-value="start_date"/>
             <input type="hidden" id="end_date" name="end_date" t-att-value="end_date"/>
         </xpath>
