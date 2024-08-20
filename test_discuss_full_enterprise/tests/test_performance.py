@@ -4,9 +4,8 @@ from odoo.addons.test_discuss_full.tests.test_performance import TestDiscussFull
 
 # Queries for _query_count_init_store:
 #   1: _get_default_voip_provider when creating res.users.settings
-#   5: voipConfig
-#       5: missedCalls
-TestDiscussFullPerformance._query_count_init_store += 6
+#   1: voipConfig: missedCalls
+TestDiscussFullPerformance._query_count_init_store += 2
 TestDiscussFullPerformance._query_count_init_messaging += 0
 TestDiscussFullPerformance._query_count_discuss_channels += 0
 
@@ -15,7 +14,7 @@ old_get_init_store_data_result = TestDiscussFullPerformance._get_init_store_data
 
 def _get_init_store_data_result(self):
     res = old_get_init_store_data_result(self)
-    provider = self.env.ref("voip.default_voip_provider")
+    provider = self.env.ref("voip.default_voip_provider").sudo()
     channel_types_with_seen_infos = res["Store"]["channel_types_with_seen_infos"] + ["whatsapp"]
     res["Store"].update(
         {
