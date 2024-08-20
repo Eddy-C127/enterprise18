@@ -17,11 +17,6 @@ class TestAllReportsGeneration(AccountTestInvoicingCommon):
         cls.setup_other_currency('EUR')
 
         cls.reports = cls.env['account.report'].with_context(active_test=False).search([])
-        # The consolidation report needs a consolidation.period to be open, which we won't have by default.
-        # Therefore, instead of testing it here, wse skip it and add a dedicated test in the consolidation module.
-        conso_report = cls.env.ref('account_consolidation.consolidated_balance_report', raise_if_not_found=False)
-        if conso_report and conso_report in cls.reports:
-            cls.reports -= conso_report
 
         # Make the reports always available, so that they don't clash with the comany's country
         cls.reports.availability_condition = 'always'
