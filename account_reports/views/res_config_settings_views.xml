@@ -31,6 +31,9 @@
                         <div class="mt8">
                             <button name="open_tax_group_list" icon="oi-arrow-right" type="object" string="Configure your tax accounts" class="btn-link"/>
                         </div>
+                        <div class="mt8" invisible="not account_reports_show_per_company_setting">
+                            <button name="open_company_dependent_report_settings" icon="oi-arrow-right" type="object" string="Configure start dates" class="btn-link"/>
+                        </div>
                     </div>
                 </setting>
             </setting>

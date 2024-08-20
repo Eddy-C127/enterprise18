@@ -51,9 +51,8 @@ class TestAccountMaExport(TestAccountReportsCommon):
             </DeclarationReleveDeduction>
         """)
 
+        self.env.company.account_tax_periodicity = 'trimester'  # 'monthly' or 'trimester' are required
         options = self._generate_options(self.report, '2019-01-01', '2019-04-01')
-        options['date']['period_type'] = 'quarter'  # 'month' or 'quarter' are required
-
         report = self._l10n_ma_generate_report(options)
         self._report_compare_with_test_file(report, test_xml="""
             <DeclarationReleveDeduction>
@@ -220,6 +219,7 @@ class TestAccountMaExport(TestAccountReportsCommon):
         self.assertTrue('company_vat_missing' in errors)
 
         self.env.company.vat = '001561191000066'
+        self.env.company.account_tax_periodicity = 'semester'
         options = self._generate_options(self.report, '2019-01-01', '2019-02-01')
         errors = self.handler._l10n_ma_prepare_vat_report_values(options)['errors']
         self.assertTrue('period_invalid' in errors)

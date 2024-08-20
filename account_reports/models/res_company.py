@@ -139,7 +139,7 @@ class ResCompany(models.Model):
                 raise UserError(error)
 
             # Compute tax closing description
-            ref = _("%(report_label)s: %(period)s", report_label=report.display_name, period=self._get_tax_closing_move_description(periodicity, period_start, period_end, fpos))
+            ref = _("%(report_label)s: %(period)s", report_label=self._get_tax_closing_report_display_name(report), period=self._get_tax_closing_move_description(periodicity, period_start, period_end, fpos, report))
 
             # Values for update/creation of closing move
             closing_vals = {
@@ -191,7 +191,13 @@ class ResCompany(models.Model):
 
         return all_closing_moves
 
-    def _get_tax_closing_move_description(self, periodicity, period_start, period_end, fiscal_position):
+    def _get_tax_closing_report_display_name(self, report):
+        if report.get_external_id().get(report.id) in ('account.generic_tax_report', 'account.generic_tax_report_account_tax', 'account.generic_tax_report_tax_account'):
+            return _("Tax return")
+
+        return report.display_name
+
+    def _get_tax_closing_move_description(self, periodicity, period_start, period_end, fiscal_position, report):
         """ Returns a string description of the provided period dates, with the
         given tax periodicity.
         """
@@ -226,6 +232,11 @@ class ResCompany(models.Model):
             # Don't add region information in case there is no foreign VAT fpos
             region_string = ''
 
+        # Shift back to normal dates if we are using a start date so periods aren't broken
+        start_day, start_month = self._get_tax_closing_start_date_attributes(report)
+        if start_day != 1 or start_month != 1:
+            return f"{format_date(self.env, period_start)} - {format_date(self.env, period_end)}{region_string}"
+
         if periodicity == 'year':
             return f"{period_start.year}{region_string}"
         elif periodicity == 'trimester':
@@ -238,17 +249,62 @@ class ResCompany(models.Model):
     def _get_tax_closing_period_boundaries(self, date, report):
         """ Returns the boundaries of the tax period containing the provided date
         for this company, as a tuple (start, end).
+
+        This function needs to stay consitent with the one inside Javascript in the filters for the tax report
         """
         self.ensure_one()
         period_months = self._get_tax_periodicity_months_delay(report)
-        period_number = (date.month//period_months) + (1 if date.month % period_months != 0 else 0)
-        end_date = date_utils.end_of(datetime.date(date.year, period_number * period_months, 1), 'month')
-        start_date = end_date + relativedelta(day=1, months=-period_months + 1)
+        start_day, start_month = self._get_tax_closing_start_date_attributes(report)
+        aligned_date = date + relativedelta(days=-(start_day - 1))  # we offset the date back from start_day amount of day - 1 so we can compute months periods aligned to the start and end of months
+        year = aligned_date.year
+        month_offset = aligned_date.month - start_month
+        period_number = (month_offset // period_months) + 1
+
+        # If the date is before the start date and start month of this year, this mean we are in the previous period
+        # So the initial_date should be one year before and the period_number should be computed in reverse because month_offset is negative
+        if date < datetime.date(date.year, start_month, start_day):
+            year -= 1
+            period_number = ((12 + month_offset) // period_months) + 1
+
+        month_delta = period_number * period_months
+
+        # We need to work with offsets because it handle automatically the end of months (28, 29, 30, 31)
+        end_date = datetime.date(year, start_month, 1) + relativedelta(months=month_delta, days=start_day - 2)  # -1 because the first days is aldready counted and -1 because the first day of the next period must not be in this range
+        start_date = datetime.date(year, start_month, 1) + relativedelta(months=month_delta - period_months, day=start_day)
 
         return start_date, end_date
 
+    def _get_available_tax_unit(self, report):
+        """
+        Must ensures that report has a country_id to search for a tax unit
+
+        :return: A recordset of available tax units for this report country_id and this company
+        """
+        self.ensure_one()
+        return self.env['account.tax.unit'].search([
+            ('company_ids', 'in', self.id),
+            ('country_id', '=', report.country_id.id),
+        ], limit=1)
+
     def _get_tax_periodicity(self, report):
-        return self.account_tax_periodicity
+        main_company = self
+        if report.filter_multi_company == 'tax_units' and report.country_id and (tax_unit := self._get_available_tax_unit(report)):
+            main_company = tax_unit.main_company_id
+
+        return main_company.account_tax_periodicity
+
+    def _get_tax_closing_start_date_attributes(self, report):
+        if not report.tax_closing_start_date:
+            start_year = fields.Date.start_of(fields.Date.today(), 'year')
+            return start_year.day, start_year.month
+
+        main_company = self
+        if report.filter_multi_company == 'tax_units' and report.country_id and (tax_unit := self._get_available_tax_unit(report)):
+            main_company = tax_unit.main_company_id
+
+        start_date = report.with_company(main_company).tax_closing_start_date
+
+        return start_date.day, start_date.month
 
     def _get_tax_periodicity_months_delay(self, report):
         """ Returns the number of months separating two tax returns with the provided periodicity

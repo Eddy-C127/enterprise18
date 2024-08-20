@@ -18,6 +18,8 @@ class ResConfigSettings(models.TransientModel):
     account_tax_periodicity_reminder_day = fields.Integer(related='company_id.account_tax_periodicity_reminder_day', string='Reminder', readonly=False, required=True)
     account_tax_periodicity_journal_id = fields.Many2one(related='company_id.account_tax_periodicity_journal_id', string='Journal', readonly=False)
 
+    account_reports_show_per_company_setting = fields.Boolean(compute="_compute_account_reports_show_per_company_setting")
+
     def open_tax_group_list(self):
         self.ensure_one()
         return {
@@ -30,3 +32,36 @@ class ResConfigSettings(models.TransientModel):
                 'search_default_country_id': self.account_fiscal_country_id.id,
             },
         }
+
+    @api.depends('company_id')
+    def _compute_account_reports_show_per_company_setting(self):
+        custom_start_country_codes = self._get_country_codes_with_another_tax_closing_start_date()
+        countries = self.env['account.fiscal.position'].search([
+            ('company_id', '=', self.env.company.id),
+            ('foreign_vat', '!=', False),
+        ]).mapped('country_id') + self.env.company.account_fiscal_country_id
+        for config_settings in self:
+            config_settings.account_reports_show_per_company_setting = bool(set(countries.mapped('code')) & custom_start_country_codes)
+
+    def open_company_dependent_report_settings(self):
+        self.ensure_one()
+        generic_tax_report = self.env.ref('account.generic_tax_report')
+        available_reports = generic_tax_report._get_variants(generic_tax_report.id)
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Configure your start dates'),
+            'res_model': 'account.report',
+            'domain': [('id', 'in', available_reports.ids)],
+            'views': [(self.env.ref('account_reports.account_report_tree_configure_start_dates').id, 'list')]
+        }
+
+    def _get_country_codes_with_another_tax_closing_start_date(self):
+        """
+        To be overridden by specific countries that wants this
+
+        Used to know which countries can have specific start dates settings on reports
+
+        :returns set(str):   A set of country codes from which the start date settings should be shown
+        """
+        return set()

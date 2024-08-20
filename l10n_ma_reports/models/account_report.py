@@ -26,7 +26,7 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
             'errors': {},
             'year': str(date_from.year),
         }
-        if period_type == 'quarter':
+        if period_type == 'trimester':
             template_vals['period'] = date_utils.get_quarter_number(date_from)
             template_vals['regime_code'] = '2'
         else:
@@ -49,7 +49,7 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
                 'action_params': {'partner_ids': errored_vendors.ids},
             }
 
-        if period_type not in {'month', 'quarter'}:
+        if period_type not in {'monthly', 'trimester'}:
             template_vals['errors']['period_invalid'] = {
                 'message': _('This report only supports monthly and quarterly periods.'),
                 'level': 'danger',
@@ -117,7 +117,7 @@ class MoroccanTaxReportCustomHandler(models.AbstractModel):
     def _l10n_ma_prepare_vat_report_values(self, options):
         date_from = fields.Date.from_string(options['date'].get('date_from'))
         date_to = fields.Date.from_string(options['date'].get('date_to'))
-        period_type = options['date']['period_type']
+        period_type = options['tax_periodicity']['periodicity']
         company = self.env.company
 
         prorata_expression = self.env.ref('l10n_ma.l10n_ma_vat_d_prorata_pro')

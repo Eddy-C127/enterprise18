@@ -90,11 +90,13 @@ class BelgianTaxReportCustomHandler(models.AbstractModel):
     _description = 'Belgian Tax Report Custom Handler'
 
     def _get_custom_display_config(self):
-        return {
+        parent_config = super()._get_custom_display_config()
+        parent_config.update({
             'pdf_export': {
                 'pdf_export_filters': 'l10n_be_reports.pdf_export_filters',
             },
-        }
+        })
+        return parent_config
 
     def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)

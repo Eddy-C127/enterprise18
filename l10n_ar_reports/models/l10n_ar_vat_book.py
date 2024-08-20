@@ -16,11 +16,9 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
     _description = 'Argentinian Report Custom Handler'
 
     def _get_custom_display_config(self):
-        return {
-            'templates': {
-                'AccountReportFilters': 'l10n_ar_reports.L10nArReportsFiltersCustomizable',
-            },
-        }
+        parent_config = super()._get_custom_display_config()
+        parent_config['templates']['AccountReportFilters'] = 'l10n_ar_reports.L10nArReportsFiltersCustomizable'
+        return parent_config
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
         # dict of the form {move_id: {column_group_key: {expression_label: value}}}

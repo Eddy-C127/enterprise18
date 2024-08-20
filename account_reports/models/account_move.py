@@ -202,7 +202,7 @@ class AccountMove(models.Model):
 
         for move in self.filtered(lambda m: m.id not in move_ids_with_activity and m._get_tax_to_pay_on_closing() > 0):
             period_start, period_end = move.company_id._get_tax_closing_period_boundaries(move.date, move.tax_closing_report_id)
-            period_desc = move.company_id._get_tax_closing_move_description(move.company_id._get_tax_periodicity(move.tax_closing_report_id), period_start, period_end, move.fiscal_position_id)
+            period_desc = move.company_id._get_tax_closing_move_description(move.company_id._get_tax_periodicity(move.tax_closing_report_id), period_start, period_end, move.fiscal_position_id, move.tax_closing_report_id)
             MailActivity.create({
                 'res_id': move.id,
                 'res_model_id': self.env.ref('account.model_account_move').id,
@@ -237,9 +237,8 @@ class AccountMove(models.Model):
 
         options = {
             'date': {
-                'date_from': fields.Date.to_string(date_from),
                 'date_to': fields.Date.to_string(date_to),
-                'filter': 'custom',
+                'filter': 'custom_tax_period',
                 'mode': 'range',
             },
             'selected_variant_id': self.tax_closing_report_id.id,

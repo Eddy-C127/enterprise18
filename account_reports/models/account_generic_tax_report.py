@@ -8,7 +8,6 @@ from odoo.addons.web.controllers.utils import clean_action
 from odoo.exceptions import UserError, RedirectWarning
 from odoo.osv import expression
 from odoo.tools import SQL
-from odoo.tools.misc import get_lang
 
 
 class AccountTaxReportHandler(models.AbstractModel):
@@ -22,6 +21,19 @@ class AccountTaxReportHandler(models.AbstractModel):
     def _custom_options_initializer(self, report, options, previous_options):
         options['buttons'].append({'name': _('Closing Entry'), 'action': 'action_periodic_vat_entries', 'sequence': 110, 'always_show': True})
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
+
+        day, month = self.env.company._get_tax_closing_start_date_attributes(report)
+        options['tax_periodicity'] = {
+            'periodicity': self.env.company._get_tax_periodicity(report),
+            'months_per_period': self.env.company._get_tax_periodicity_months_delay(report),
+            'start_day': day,
+            'start_month': month,
+        }
+
+    def _get_custom_display_config(self):
+        display_config = defaultdict(dict)
+        display_config['templates']['AccountReportFilters'] = 'account_reports.GenericTaxReportFiltersCustomizable'
+        return display_config
 
     def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
         if 'account_reports.common_warning_draft_in_period' in warnings:
@@ -54,13 +66,40 @@ class AccountTaxReportHandler(models.AbstractModel):
     # TAX CLOSING
     # -------------------------------------------------------------------------
 
+    def _is_period_equal_to_options(self, report, options):
+        options_date_to = fields.Date.from_string(options['date']['date_to'])
+        options_date_from = fields.Date.from_string(options['date']['date_from'])
+        date_from, date_to = self.env.company._get_tax_closing_period_boundaries(options_date_to, report)
+        return date_from == options_date_from and date_to == options_date_to
+
     def action_periodic_vat_entries(self, options, from_post=False):
+        report = self.env['account.report'].browse(options['report_id'])
+        if (options['date']['period_type'] != 'tax_period' and not self._is_period_equal_to_options(report, options)) and not self.env.context.get('override_tax_closing_warning'):
+            if len(options['companies']) > 1 and (report.filter_multi_company != 'tax_units' or not (report.country_id and options['available_tax_units'])):
+                message = _("You're about the generate the closing entries of multiple companies at once. Each of them will be created in accordance with its company tax periodicity.")
+            else:
+                message = _("The currently selected dates don't match a tax period. The closing entry will be created for the closest-matching period according to your periodicity setup.")
+
+            return {
+                    'type': 'ir.actions.client',
+                    'tag': 'account_reports.redirect_action',
+                    'target': 'new',
+                    'params': {
+                        'depending_action': self.with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options),
+                        'message': message,
+                        'button_text': _("Proceed"),
+                    },
+                    'context': {
+                        'dialog_size': 'medium',
+                        'override_tax_closing_warning': True,
+                    },
+                }
+
         # When integer_rounding is available, we always want it for tax closing (as it means it's a legal requirement)
         if options.get('integer_rounding'):
             options['integer_rounding_enabled'] = True
 
         # Return action to open form view of newly created entry
-        report = self.env['account.report'].browse(options['report_id'])
         moves = self.env['account.move']
 
         # Get all companies impacting the report.
@@ -520,12 +559,11 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
     _description = 'Generic Tax Report Custom Handler'
 
     def _get_custom_display_config(self):
-        return {
-            'css_custom_class': 'generic_tax_report',
-            'templates': {
-                'AccountReportLineName': 'account_reports.TaxReportLineName',
-            },
-        }
+        parent_config = super()._get_custom_display_config()
+        parent_config['css_custom_class'] = 'generic_tax_report'
+        parent_config['templates']['AccountReportLineName'] = 'account_reports.TaxReportLineName'
+
+        return parent_config
 
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
         return self._get_dynamic_lines(report, options, 'default', warnings)

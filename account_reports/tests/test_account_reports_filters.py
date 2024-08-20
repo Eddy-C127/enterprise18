@@ -1561,3 +1561,57 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
         for i, val in enumerate(new_expected_values):
             self.assertDictEqual(new_options['column_headers'][0][i], val)
+
+    ####################################################
+    # DATES RANGE
+    ####################################################
+
+    @freeze_time('2024-09-01')
+    def test_tax_period_filter(self):
+        generic_tax_report = self.env.ref('account.generic_tax_report')
+        self._assert_filter_date(
+            generic_tax_report,
+            {},
+            {
+                'string': 'Aug 2024',
+                'period_type': 'tax_period',
+                'mode': 'range',
+                'filter': 'previous_tax_period',
+                'period': -1,
+                'date_from': '2024-08-01',
+                'date_to': '2024-08-31',
+                'currency_table_period_key': '2024-08-01_2024-08-31',
+            },
+        )
+
+        self._assert_filter_date(
+            generic_tax_report,
+            {'date': {'period': -8, 'filter': 'previous_tax_period'}},
+            {
+                'string': 'Jan 2024',
+                'period_type': 'tax_period',
+                'mode': 'range',
+                'filter': 'previous_tax_period',
+                'period': -8,
+                'date_from': '2024-01-01',
+                'date_to': '2024-01-31',
+                'currency_table_period_key': '2024-01-01_2024-01-31',
+            },
+        )
+
+        self.env.company.account_tax_periodicity = 'year'
+
+        self._assert_filter_date(
+            generic_tax_report,
+            {'date': {'period': -1, 'filter': 'previous_tax_period'}},
+            {
+                'string': '2023',
+                'period_type': 'tax_period',
+                'mode': 'range',
+                'filter': 'previous_tax_period',
+                'period': -1,
+                'date_from': '2023-01-01',
+                'date_to': '2023-12-31',
+                'currency_table_period_key': '2023-01-01_2023-12-31',
+            },
+        )

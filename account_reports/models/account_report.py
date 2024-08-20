@@ -100,6 +100,22 @@ class AccountReport(models.Model):
     # Account Coverage Report
     is_account_coverage_report_available = fields.Boolean(compute='_compute_is_account_coverage_report_available')
 
+    tax_closing_start_date = fields.Date(  # the default value is set in _auto_init
+        string="Start Date",
+        company_dependent=True
+    )
+
+    def _auto_init(self):
+        super()._auto_init()
+
+        def precommit():
+            self.env['ir.property']._set_default(
+                name='tax_closing_start_date',
+                model=self._name,
+                value=fields.Date.context_today(self).replace(month=1, day=1),
+            )
+        self.env.cr.precommit.add(precommit)
+
     @api.constrains('custom_handler_model_id')
     def _validate_custom_handler_model(self):
         for report in self:
@@ -442,6 +458,24 @@ class AccountReport(models.Model):
             company_fiscalyear_dates = self.env.company.compute_fiscalyear_dates(date)
             record = company_fiscalyear_dates.get('record')
             string = record and record.name
+        elif period_type == 'tax_period':
+            day, month = self.env.company._get_tax_closing_start_date_attributes(self)
+            months_per_period = self.env.company._get_tax_periodicity_months_delay(self)
+            # We need to format ourselves the date and not switch the period type to the actual period because we do not want to write the actual period in the options but keep tax_period
+            if day == 1 and month == 1 and months_per_period in (1, 3, 12):
+                match months_per_period:
+                    case 1:
+                        string = format_date(self.env, fields.Date.to_string(date_to), date_format='MMM yyyy')
+                    case 3:
+                        quarter_names = get_quarter_names('abbreviated', locale=get_lang(self.env).code)
+                        string = '%s\N{NO-BREAK SPACE}%s' % (
+                            quarter_names[date_utils.get_quarter_number(date_to)], date_to.year)
+                    case 12:
+                        string = date_to.strftime('%Y')
+            else:
+                dt_from_str = format_date(self.env, fields.Date.to_string(date_from))
+                dt_to_str = format_date(self.env, fields.Date.to_string(date_to))
+                string = '%s - %s' % (dt_from_str, dt_to_str)
 
         if not string:
             fy_day = self.env.company.fiscalyear_last_day
@@ -494,9 +528,10 @@ class AccountReport(models.Model):
         elif period_type in {'custom', 'today'}:
             date_to = date_from + relativedelta(days=periods)
 
-        if tax_period:
-            date_from, date_to = self.env.company._get_tax_closing_period_boundaries(date_to, self)
-            return self._get_dates_period(date_from, date_to, mode)
+        if tax_period or 'tax_period' in period_type:
+            month_per_period = self.env.company._get_tax_periodicity_months_delay(self)
+            date_from, date_to = self.env.company._get_tax_closing_period_boundaries(date_from + relativedelta(months=month_per_period * periods), self)
+            return self._get_dates_period(date_from, date_to, mode, period_type='tax_period')
         if period_type in ('fiscalyear', 'today'):
             # Don't pass the period_type to _get_dates_period to be able to retrieve the account.fiscal.year record if
             # necessary.
@@ -607,7 +642,13 @@ class AccountReport(models.Model):
                 date_from = company_fiscalyear_dates['date_from']
                 date_to = company_fiscalyear_dates['date_to']
             elif 'tax_period' in options_filter:
-                date_from, date_to = self.env.company._get_tax_closing_period_boundaries(fields.Date.context_today(self), self)
+                if 'custom' in options_filter:
+                    base_date = fields.Date.from_string(period_date_to)
+                else:
+                    base_date = fields.Date.context_today(self)
+
+                date_from, date_to = self.env.company._get_tax_closing_period_boundaries(base_date, self)
+                period_type = 'tax_period'
 
         options['date'] = self._get_dates_period(
             date_from,

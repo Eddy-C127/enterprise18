@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=bad-whitespace
+from datetime import date
 from unittest.mock import patch
 from freezegun import freeze_time
 
@@ -370,12 +371,12 @@ class TestTaxReport(TestAccountReportsCommon):
             {'fiscal_position': 'domestic'}
         )
 
-        action = self.env['account.tax.report.handler'].action_periodic_vat_entries(options)
+        action = self.env['account.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         move = self.env['account.move'].browse(action['res_id'])
         with patch.object(self.registry['account.move'], '_get_vat_report_attachments', autospec=True, side_effect=lambda *args, **kwargs: []):
             move.action_post()
 
-        action = self.env['account.tax.report.handler'].action_periodic_vat_entries(options)
+        action = self.env['account.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         same_move = self.env['account.move'].browse(action['res_id'])
         self.assertEqual(move.id, same_move.id)
 
@@ -2316,7 +2317,7 @@ class TestTaxReport(TestAccountReportsCommon):
             vat_closing_move.action_post()
 
         # Calling the action_periodic_vat_entries method should return the existing tax closing entry.
-        vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        vat_closing_action = self.env['account.generic.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         self.assertEqual(vat_closing_move.id, vat_closing_action['res_id'])
 
     def setup_multi_vat_context(self):
@@ -2795,12 +2796,12 @@ class TestTaxReport(TestAccountReportsCommon):
         initial closing entry will be reused.
         """
         options = self._generate_options(self.basic_tax_report, '2021-03-01', '2021-03-31')
-        vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        vat_closing_action = self.env['account.generic.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         initial_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
         with self.enter_test_mode():
             initial_closing_entry.action_post()
         initial_closing_entry.button_draft()
-        vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        vat_closing_action = self.env['account.generic.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         subsequent_closing_entry  = self.env['account.move'].browse(vat_closing_action['res_id'])
         self.assertEqual(initial_closing_entry, subsequent_closing_entry)
 
@@ -2810,14 +2811,14 @@ class TestTaxReport(TestAccountReportsCommon):
         """
         options = self._generate_options(self.basic_tax_report, '2023-01-01', '2023-03-31')
         self.init_invoice('out_invoice', partner=self.partner_a, invoice_date='2023-03-22', post=True, amounts=[200], taxes=self.tax_sale_a)
-        initial_vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        initial_vat_closing_action = self.env['account.generic.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         initial_closing_entry = self.env['account.move'].browse(initial_vat_closing_action['res_id'])
         initial_values = []
         for aml in initial_closing_entry.line_ids:
             self.assertEqual(aml.balance, 30 if aml.balance > 0 else -30)
             initial_values.append({'account_id': aml.account_id.id, 'balance': aml.balance})
         self.init_invoice('out_invoice', partner=self.partner_a, invoice_date='2023-03-22', post=True, amounts=[1000], taxes=self.tax_sale_a)
-        subsequent_vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        subsequent_vat_closing_action = self.env['account.generic.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         subsequent_closing_entry  = self.env['account.move'].browse(subsequent_vat_closing_action['res_id'])
         self.assertRecordValues(subsequent_closing_entry.line_ids, [
             {'account_id': initial_values[0]['account_id'], 'balance': initial_values[0]['balance']},
@@ -2879,13 +2880,13 @@ class TestTaxReport(TestAccountReportsCommon):
         if subsequent closing entries are already posted.
         """
         options = self._generate_options(self.basic_tax_report, '2023-01-01', '2023-03-31')
-        vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        vat_closing_action = self.env['account.generic.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         Q1_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
         with self.enter_test_mode():
             Q1_closing_entry.action_post()
 
         options = self._generate_options(self.basic_tax_report, '2023-04-01', '2023-06-30')
-        vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
+        vat_closing_action = self.env['account.generic.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(options)
         Q2_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
 
         # We need to force recompute the entry as it is already generated from posting the Q1 entry.
@@ -2895,3 +2896,80 @@ class TestTaxReport(TestAccountReportsCommon):
 
         with self.assertRaises(UserError):
             Q1_closing_entry.button_draft()
+
+    def assert_period(self, input_date, expected_start, expected_end):
+        period_start, period_end = self.env.company._get_tax_closing_period_boundaries(input_date, self.basic_tax_report)
+        self.assertEqual(period_start, expected_start, f"Period start date ({fields.Date.to_string(period_start)}) doesn't match the expected period start date: ({fields.Date.to_string(expected_start)})")
+        self.assertEqual(period_end, expected_end, f"Period end date ({fields.Date.to_string(period_end)}) doesn't match the expected period end date: ({fields.Date.to_string(expected_end)})")
+
+    @freeze_time('2024-09-01')
+    def test_tax_report_start_date(self):
+        # Periodicity only with default start_date
+        self.env.company.account_tax_periodicity = 'monthly'
+        self.assert_period(date(2024, 1, 1), expected_start=date(2024, 1, 1), expected_end=date(2024, 1, 31))
+        self.assert_period(date(2024, 9, 30), expected_start=date(2024, 9, 1), expected_end=date(2024, 9, 30))
+        self.assert_period(date(2024, 10, 1), expected_start=date(2024, 10, 1), expected_end=date(2024, 10, 31))
+
+        self.env.company.account_tax_periodicity = 'trimester'
+        self.assert_period(date(2024, 1, 1), expected_start=date(2024, 1, 1), expected_end=date(2024, 3, 31))
+        self.assert_period(date(2024, 5, 1), expected_start=date(2024, 4, 1), expected_end=date(2024, 6, 30))
+        self.assert_period(date(2024, 9, 30), expected_start=date(2024, 7, 1), expected_end=date(2024, 9, 30))
+        self.assert_period(date(2024, 10, 1), expected_start=date(2024, 10, 1), expected_end=date(2024, 12, 31))
+
+        self.env.company.account_tax_periodicity = 'year'
+        self.assert_period(date(2024, 1, 1), expected_start=date(2024, 1, 1), expected_end=date(2024, 12, 31))
+        self.assert_period(date(2023, 12, 31), expected_start=date(2023, 1, 1), expected_end=date(2023, 12, 31))
+
+        # Basic start dates
+        self.env.company.account_tax_periodicity = 'trimester'
+        self.basic_tax_report.tax_closing_start_date = '2024-01-01'
+        self.assert_period(date(2024, 1, 1), expected_start=date(2024, 1, 1), expected_end=date(2024, 3, 31))
+        self.assert_period(date(2024, 4, 1), expected_start=date(2024, 4, 1), expected_end=date(2024, 6, 30))
+        self.assert_period(date(2024, 5, 1), expected_start=date(2024, 4, 1), expected_end=date(2024, 6, 30))
+        self.assert_period(date(2024, 9, 30), expected_start=date(2024, 7, 1), expected_end=date(2024, 9, 30))
+        self.assert_period(date(2024, 10, 1), expected_start=date(2024, 10, 1), expected_end=date(2024, 12, 31))
+
+        self.basic_tax_report.tax_closing_start_date = '2024-02-01'
+        self.assert_period(date(2024, 1, 1), expected_start=date(2023, 11, 1), expected_end=date(2024, 1, 31))
+        self.assert_period(date(2024, 1, 31), expected_start=date(2023, 11, 1), expected_end=date(2024, 1, 31))
+        self.assert_period(date(2024, 2, 1), expected_start=date(2024, 2, 1), expected_end=date(2024, 4, 30))
+        self.assert_period(date(2024, 6, 1), expected_start=date(2024, 5, 1), expected_end=date(2024, 7, 31))
+        self.assert_period(date(2024, 10, 31), expected_start=date(2024, 8, 1), expected_end=date(2024, 10, 31))
+        self.assert_period(date(2024, 11, 1), expected_start=date(2024, 11, 1), expected_end=date(2025, 1, 31))
+
+        self.env.company.account_tax_periodicity = 'monthly'
+        self.assert_period(date(2024, 2, 1), expected_start=date(2024, 2, 1), expected_end=date(2024, 2, 29))
+        self.assert_period(date(2024, 1, 31), expected_start=date(2024, 1, 1), expected_end=date(2024, 1, 31))
+        self.assert_period(date(2024, 1, 1), expected_start=date(2024, 1, 1), expected_end=date(2024, 1, 31))
+        self.assert_period(date(2024, 4, 1), expected_start=date(2024, 4, 1), expected_end=date(2024, 4, 30))
+        self.assert_period(date(2024, 12, 31), expected_start=date(2024, 12, 1), expected_end=date(2024, 12, 31))
+        self.assert_period(date(2024, 12, 1), expected_start=date(2024, 12, 1), expected_end=date(2024, 12, 31))
+
+        # Complexe start dates
+        self.env.company.account_tax_periodicity = 'trimester'
+
+        self.basic_tax_report.tax_closing_start_date = '2024-02-06'
+        self.assert_period(date(2024, 2, 5), expected_start=date(2023, 11, 6), expected_end=date(2024, 2, 5))
+        self.assert_period(date(2024, 2, 1), expected_start=date(2023, 11, 6), expected_end=date(2024, 2, 5))
+        self.assert_period(date(2023, 11, 7), expected_start=date(2023, 11, 6), expected_end=date(2024, 2, 5))
+
+        self.assert_period(date(2024, 2, 6), expected_start=date(2024, 2, 6), expected_end=date(2024, 5, 5))
+        self.assert_period(date(2024, 5, 5), expected_start=date(2024, 2, 6), expected_end=date(2024, 5, 5))
+        self.assert_period(date(2024, 4, 5), expected_start=date(2024, 2, 6), expected_end=date(2024, 5, 5))
+
+        self.assert_period(date(2024, 5, 6), expected_start=date(2024, 5, 6), expected_end=date(2024, 8, 5))
+        self.assert_period(date(2024, 11, 5), expected_start=date(2024, 8, 6), expected_end=date(2024, 11, 5))
+        self.assert_period(date(2024, 11, 6), expected_start=date(2024, 11, 6), expected_end=date(2025, 2, 5))
+
+        self.basic_tax_report.tax_closing_start_date = '2024-06-06'
+        self.assert_period(date(2024, 3, 5), expected_start=date(2023, 12, 6), expected_end=date(2024, 3, 5))
+        self.assert_period(date(2024, 6, 5), expected_start=date(2024, 3, 6), expected_end=date(2024, 6, 5))
+        self.assert_period(date(2024, 9, 5), expected_start=date(2024, 6, 6), expected_end=date(2024, 9, 5))
+        self.assert_period(date(2024, 12, 5), expected_start=date(2024, 9, 6), expected_end=date(2024, 12, 5))
+
+        self.env.company.account_tax_periodicity = 'monthly'
+        self.assert_period(date(2024, 3, 5), expected_start=date(2024, 2, 6), expected_end=date(2024, 3, 5))
+        self.assert_period(date(2024, 3, 6), expected_start=date(2024, 3, 6), expected_end=date(2024, 4, 5))
+        self.assert_period(date(2024, 12, 5), expected_start=date(2024, 11, 6), expected_end=date(2024, 12, 5))
+        self.assert_period(date(2024, 12, 6), expected_start=date(2024, 12, 6), expected_end=date(2025, 1, 5))
+        self.assert_period(date(2025, 1, 5), expected_start=date(2024, 12, 6), expected_end=date(2025, 1, 5))

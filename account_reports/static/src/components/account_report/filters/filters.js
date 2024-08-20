@@ -8,7 +8,7 @@ import { DateTimeInput } from '@web/core/datetime/datetime_input';
 import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
-
+import { formatDate} from "@web/core/l10n/dates";
 const { DateTime } = luxon;
 
 export class AccountReportFilters extends Component {
@@ -293,6 +293,7 @@ export class AccountReportFilters extends Component {
             "month": 0,
             "quarter": 0,
             "year": 0,
+            "tax_period": 0
         };
 
         const specifier = this.controller.options.date.filter.split('_')[0];
@@ -351,6 +352,8 @@ export class AccountReportFilters extends Component {
                 return this._displayQuarter(dateTo);
             case "year":
                 return this._displayYear(dateTo);
+            case "tax_period":
+                return this._displayTaxPeriod(dateTo);
             default:
                 throw new Error(`Invalid period type in displayPeriod(): ${ periodType }`);
         }
@@ -368,6 +371,48 @@ export class AccountReportFilters extends Component {
 
     _displayYear(dateTo) {
         return dateTo.plus({ years: this.dateFilter.year }).toFormat("yyyy");
+    }
+
+    _displayTaxPeriod(dateTo) {
+        const periodicitySettings = this.controller.options.tax_periodicity;
+        const targetDateInPeriod = dateTo.plus({months: periodicitySettings.months_per_period * this.dateFilter['tax_period']})
+        const [start, end] = this._computeTaxPeriodDates(periodicitySettings, targetDateInPeriod);
+
+        if (periodicitySettings.start_month == 1 && periodicitySettings.start_day == 1) {
+            switch (periodicitySettings.months_per_period) {
+                case 1: return end.toFormat("MMMM yyyy");
+                case 3: return `Q${end.quarter} ${dateTo.year}`;
+                case 12: return end.toFormat("yyyy");
+            }
+        }
+
+        return formatDate(start) + ' - ' + formatDate(end);
+    }
+
+    _computeTaxPeriodDates(periodicitySettings, dateInsideTargettesPeriod) {
+        /**
+         * This function need to stay consitent with the one inside res_company from module account_reports.
+         * function_name = _get_tax_closing_period_boundaries
+         */
+        const startMonth = periodicitySettings.start_month;
+        const startDay = periodicitySettings.start_day
+        const monthsPerPeriod = periodicitySettings.months_per_period;
+        const aligned_date = dateInsideTargettesPeriod.minus({days: startDay - 1}) 
+        let year = aligned_date.year;
+        const monthOffset = aligned_date.month - startMonth;
+
+        let periodNumber = Math.floor(monthOffset / monthsPerPeriod) + 1;
+
+        if (dateInsideTargettesPeriod < DateTime.now().set({year: year, month: startMonth, day: startDay})) {
+            year -= 1;
+            periodNumber = Math.floor((12 + monthOffset) / monthsPerPeriod) + 1;
+        }
+
+        let deltaMonth = periodNumber * monthsPerPeriod;
+
+        const endDate = DateTime.utc(year, startMonth, 1).plus({ months: deltaMonth, days: startDay-2})
+        const startDate = DateTime.utc(year, startMonth, 1).plus({ months: deltaMonth-monthsPerPeriod }).set({ day: startDay})
+        return [startDate, endDate];
     }
 
     //------------------------------------------------------------------------------------------------------------------
