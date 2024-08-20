@@ -39,6 +39,9 @@ class ProductTemplate(models.Model):
             return False
         product_data = products[0]
 
+        if not product.name:
+            product.name = product_data.get('title')
+
         # Image
         if not product.image_1920 and (images := product_data.get('images')):
             for image in images:
@@ -47,15 +50,8 @@ class ProductTemplate(models.Model):
                     # Response is not 200 when fetching the image so we just ignore it.
                     continue
 
-                if img_response and not product.image_1920:
-                    product.image_1920 = base64.b64encode(img_response.content)
-                    break
-                elif img_response and 'product_template_image_ids' in self.env['product.template']:
-                    self.product_template_image_ids = [Command.create({
-                        'name': product_data.get('title'),
-                        'image_1920': base64.b64encode(img_response.content),
-                        'product_tmpl_id': self.id,
-                    })]
+                if img_response:
+                    self._set_lookup_image(product, img_response)
 
         # Weight
         if not product.weight and (barcode_lookup_weight := product_data.get('weight', '')):
@@ -131,9 +127,6 @@ class ProductTemplate(models.Model):
             sub_category = product_data.get('category', "").split('>')[-1].strip()
             if category := self.env['product.category'].search([('name', 'ilike', sub_category)], limit=1):
                 product.categ_id = category
-
-        if not product.name:
-            product.name = product_data.get('title')
 
         # Dimensions and volume
         dimensions = {dim: (product_data.get(dim)) for dim in ['length', 'width', 'height']}
@@ -223,3 +216,10 @@ class ProductTemplate(models.Model):
             if 'available_in_pos' in product and not self._context.get('can_be_sold') and product.pos_categ_ids:
                 product.available_in_pos = True
         return products
+
+    def _set_lookup_image(self, product, img):
+        image = base64.b64encode(img.content)
+        if not product.image_1920:
+            product.image_1920 = image
+            return True
+        return image
