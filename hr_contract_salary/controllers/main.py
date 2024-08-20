@@ -99,19 +99,24 @@ class SignContract(Sign):
                     benefit.activity_creation_type == "always" and value:
 
                 sent_templates |= sign_template
+                request_items = []
+                template_roles = sign_template.sign_item_ids.responsible_id
+
+                if request.env.ref('sign.sign_item_role_employee') in template_roles:
+                    request_items.append(Command.create({'role_id': request.env.ref('sign.sign_item_role_employee').id,
+                                        'partner_id': contract.employee_id.work_contact_id.id}))
+
+                if request.env.ref('hr_contract_sign.sign_item_role_job_responsible') in template_roles:
+                    request_items.append(Command.create({'role_id': request.env.ref('hr_contract_sign.sign_item_role_job_responsible').id,
+                                        'partner_id': contract.hr_responsible_id.partner_id.id}))
 
                 sign_request_sudo = SignRequestSudo.create({
                     'template_id': sign_template.id,
-                    'request_item_ids': [
-                        Command.create({'role_id': request.env.ref('sign.sign_item_role_employee').id,
-                                        'partner_id': contract.employee_id.work_contact_id.id}),
-                        Command.create({'role_id': request.env.ref('hr_contract_sign.sign_item_role_job_responsible').id,
-                                        'partner_id': contract.hr_responsible_id.partner_id.id}),
-                    ],
+                    'request_item_ids': request_items,
                     'reference': _('Signature Request - %s', benefit.name or contract.name),
                     'subject': _('Signature Request - %s', benefit.name or contract.name),
                 })
-                sign_request_sudo.message_subcribe(partner_ids=benefit.sign_copy_partner_id.ids)
+                sign_request_sudo.message_subscribe(partner_ids=benefit.sign_copy_partner_id.ids)
                 sign_request_sudo.toggle_favorited()
 
                 contract.sign_request_ids += sign_request_sudo
