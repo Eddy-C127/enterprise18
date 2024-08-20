@@ -4,7 +4,7 @@
         <record id="view_bank_statement_form_bank_rec_widget" model="ir.ui.view">
             <field name="name">account.bank.statement.form.bank_rec_widget</field>
             <field name="model">account.bank.statement</field>
-            <field name="priority">100</field>
+            <field name="priority">10</field>
             <field name="arch" type="xml">
                 <form string="Bank Statement">
                     <div class="alert alert-warning text-center" role="alert" invisible="is_valid and is_complete">
@@ -52,6 +52,8 @@
                                 confirm="Are you sure you want to delete this statement?"/>
                     </footer>
                 </xpath>
+                <xpath expr="//div[hasclass('o_attachment_preview')]" position="replace"/>
+                <chatter position="replace"/>
             </field>
         </record>
 
