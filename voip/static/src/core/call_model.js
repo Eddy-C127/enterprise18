@@ -1,5 +1,4 @@
 import { Record } from "@mail/core/common/record";
-import { assignDefined } from "@mail/utils/common/misc";
 
 import { deserializeDateTime } from "@web/core/l10n/dates";
 import { _t } from "@web/core/l10n/translation";
@@ -13,22 +12,20 @@ export class Call extends Record {
      * @param {Object} data
      * @returns {Call}
      */
-    static insert(data) {
-        const call = this.get(data) ?? this.new(data);
+    update(data) {
+        super.update(...arguments);
         if (data.partner) {
-            data.partner = this.store.Persona.insert({ ...data.partner, type: "partner" });
+            this.partner = this.store.Persona.insert({ ...data.partner, type: "partner" });
         }
         if (data.creationDate) {
-            data.creationDate = deserializeDateTime(data.creationDate);
+            this.creationDate = deserializeDateTime(data.creationDate);
         }
         if (data.startDate) {
-            data.startDate = deserializeDateTime(data.startDate);
+            this.startDate = deserializeDateTime(data.startDate);
         }
         if (data.endDate) {
-            data.endDate = deserializeDateTime(data.endDate);
+            this.endDate = deserializeDateTime(data.endDate);
         }
-        assignDefined(call, data);
-        return call;
     }
 
     activity;

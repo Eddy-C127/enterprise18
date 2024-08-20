@@ -3,7 +3,7 @@
     <t t-name="voip.Numpad">
         <div t-attf-class="o-voip-Numpad {{ props.extraClass }}">
             <div class="d-flex border-bottom">
-                <input class="o_input form-control-lg ps-3 border-0" type="text" placeholder="Enter the number…" t-model.trim="softphone.numpad.value" t-ref="input" t-on-keydown="onKeydown"/>
+                <input class="o_input form-control-lg ps-3 border-0" type="text" placeholder="Enter the number…" t-model.trim="softphone.numpad.value" t-att-data-value="softphone.numpad.value" t-ref="input" t-on-keydown="onKeydown"/>
                 <button class="btn fa fa-long-arrow-left shadow-none" title="Backspace" t-on-click="onClickBackspace"/>
             </div>
             <div class="container justify-content-center">

@@ -27,7 +27,7 @@ test("Number input content is persisted when closing then re-opening the numpad.
     await insertText("input[placeholder='Enter the number…']", "513");
     await click("button[title='Close Numpad']");
     await click("button[title='Open Numpad']");
-    await contains("input[placeholder='Enter the number…']", { value: "513" });
+    await contains("input[placeholder='Enter the number…'][data-value='513']");
 });
 
 test("Clicking on the “Backspace button” deletes the last character of the number input.", async () => {
@@ -36,8 +36,7 @@ test("Clicking on the “Backspace button” deletes the last character of the n
     await click("button[title='Open Numpad']");
     await insertText("input[placeholder='Enter the number…']", "123");
     await click("button[title='Backspace']");
-    await tick();
-    await contains("input[placeholder='Enter the number…']", { value: "12" });
+    await contains("input[placeholder='Enter the number…'][data-value='12']");
 });
 
 test("Cursor is taken into account when clicking Backspace.", async () => {
@@ -50,7 +49,7 @@ test("Cursor is taken into account when clicking Backspace.", async () => {
     await click("button[title='Backspace']");
     expect(input.selectionStart).toBe(2);
     expect(input.selectionEnd).toBe(2);
-    await contains("input[placeholder='Enter the number…']", { value: "0123456" });
+    await contains("input[data-value='0123456']");
 });
 
 test("Cursor range selection is taken into account when clicking Backspace.", async () => {
@@ -63,7 +62,7 @@ test("Cursor range selection is taken into account when clicking Backspace.", as
     await click("button[title='Backspace']");
     expect(input.selectionStart).toBe(2);
     expect(input.selectionEnd).toBe(2);
-    await contains("input[placeholder='Enter the number…']", { value: "0123456" });
+    await contains("input[placeholder='Enter the number…'][data-value='0123456']");
 });
 
 test("When cursor is at the beginning of the input, clicking Backspace does nothing.", async () => {
@@ -76,7 +75,7 @@ test("When cursor is at the beginning of the input, clicking Backspace does noth
     await click("button[title='Backspace']");
     expect(input.selectionStart).toBe(0);
     expect(input.selectionEnd).toBe(0);
-    await contains("input[placeholder='Enter the number…']", { value: "0123456" });
+    await contains("input[placeholder='Enter the number…'][data-value='0123456']");
 });
 
 test("Clicking on a key appends it to the number input.", async () => {
@@ -86,7 +85,7 @@ test("Clicking on a key appends it to the number input.", async () => {
     await insertText("input[placeholder='Enter the number…']", "123");
     await click("button", { text: "#" });
     await tick();
-    await contains("input[placeholder='Enter the number…']", { value: "123#" });
+    await contains("input[placeholder='Enter the number…'][data-value='123#']");
 });
 
 test("Number input is focused after clicking on a key.", async () => {
@@ -108,7 +107,7 @@ test("Cursor is taken into account when clicking on a key.", async () => {
     await click("button", { text: "1" });
     expect(input.selectionStart).toBe(2);
     expect(input.selectionEnd).toBe(2);
-    await contains("input[placeholder='Enter the number…']", { value: "0123456" });
+    await contains("input[placeholder='Enter the number…'][data-value='0123456']");
 });
 
 test("Cursor range selection is taken into account when clicking on a key.", async () => {
@@ -121,7 +120,7 @@ test("Cursor range selection is taken into account when clicking on a key.", asy
     await click("button", { text: "1" });
     expect(input.selectionStart).toBe(2);
     expect(input.selectionEnd).toBe(2);
-    await contains("input[placeholder='Enter the number…']", { value: "0123456" });
+    await contains("input[placeholder='Enter the number…'][data-value='0123456']");
 });
 
 test("Pressing Enter in the input makes a call to the dialed number.", async () => {
