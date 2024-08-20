@@ -1677,3 +1677,50 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
             },
             "The tracked product should have the 'tracking' key set to True, even if the product was not added to the task."
         )
+
+    def test_fsm_task_and_tracked_product_confirmation(self):
+        """
+        2-steps pick ship delivery
+        Ensure 2 sale line ids with the same product.
+        """
+        self.warehouse.delivery_steps = 'pick_ship'
+        delivery_route_2 = self.warehouse.delivery_route_id
+        # Create the pull rules to generate two pickings
+        delivery_route_2.rule_ids[0].write({
+            'action': 'pull',
+            'picking_type_id': self.warehouse.int_type_id.id,
+            'location_dest_id': delivery_route_2.rule_ids[1].location_src_id.id
+        })
+        delivery_route_2.rule_ids[1].write({'action': 'pull'})
+        self.task.write({'partner_id': self.partner_1.id})
+        self.task.with_user(self.project_user)._fsm_ensure_sale_order()
+
+        product = self.env['product.product'].create([{
+            'name': 'Product T',
+            'type': 'consu',
+            'tracking': 'none',
+            'is_storable': True,
+        }]).with_context({'fsm_task_id': self.task.id})
+
+        # Create the two so lines with the same product and 1 qty
+        so = self.task.sale_order_id
+        so.write({
+            'order_line': [
+                Command.create({
+                    'product_id': product.id,
+                    'product_uom_qty': 1,
+                    'task_id': self.task.id,
+                }),
+                Command.create({
+                    'product_id': product.id,
+                    'product_uom_qty': 1,
+                    'task_id': self.task.id,
+                }),
+            ],
+        })
+        self.assertEqual(len(so.picking_ids), 2, "There are two pickings generated, pick and ship")
+        picking, _dummy = so.picking_ids
+        # Mark the delivery as a priotiry then validate the task
+        picking.write({'priority': "1"})
+        self.task.with_user(self.project_user).action_fsm_validate()
+        self.assertEqual(self.task.fsm_done, True)
