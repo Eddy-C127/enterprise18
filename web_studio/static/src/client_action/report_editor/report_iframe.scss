@@ -26,7 +26,7 @@ div.page {
 }
 
 // OdooEditor and QWeb style
-.o-we-hint {
+.o-we-hint:not([oe-expression-readable]) {
     position: relative;
 
     &:before {
