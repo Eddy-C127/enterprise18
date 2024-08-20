@@ -592,8 +592,8 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'withholding_tax_total_vals_list': self._dian_tax_totals(invoice, vals['taxes_vals'], withholding=True),
         })
 
-        if invoice.l10n_co_edi_operation_type == '20':
-            # Credit note with a referenced invoice
+        if invoice.l10n_co_edi_operation_type == '20' or invoice.move_type == 'in_refund':
+            # Credit note or Credit note Support Document with a referenced invoice
             reversed_move = invoice.reversed_entry_id
             vals['vals']['discrepancy_response_vals'] = [{
                 'reference_id': reversed_move.name,
@@ -603,7 +603,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             vals['vals']['billing_reference_vals'] = {
                 'id': reversed_move.name,
                 'uuid': reversed_move.l10n_co_edi_cufe_cude_ref,
-                'uuid_attrs': {"schemeName": "CUFE-SHA384"},
+                'uuid_attrs': {"schemeName": ("CUDS" if invoice.move_type == 'in_refund' else "CUFE") + "-SHA384"},
                 'issue_date': reversed_move.invoice_date.isoformat(),
             }
 
@@ -832,6 +832,24 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
                 tax_subtotal['per_unit_amount'] = self.format_float(rate, 2)
             tax_total_dict[tax_co_type]['tax_amount'] += tax_subtotal['tax_amount']  # abs for withholding taxes
             tax_total_dict[tax_co_type]['tax_subtotal_vals'].append(tax_subtotal)
+
+        if '05' in tax_total_dict and move.l10n_co_edi_is_support_document and withholding:
+            # Taxes with type '05' are retention taxes (15 %) that apply on the *tax amount* of a regular VAT tax
+            # Hence, the tax "15% RteVAT 19%" is encoded as a -2.85% tax in Odoo
+            if 'tax_details_per_record' in taxes_vals:
+                # On document level, backtrack the taxable amount based on the tax amount
+                for subtotal in tax_total_dict['05']['tax_subtotal_vals']:
+                    subtotal['tax_category_vals']['percent'] = '15.00'
+                    subtotal['taxable_amount'] = subtotal['tax_amount'] / 0.15
+            else:
+                # On invoice line, look at the sibling tax total node '01' and extract its exact tax amount
+                # DSAY05: the Taxable Amount for the taxes with type '05' should be equal to the Tax Amount
+                # on which the taxes with type '01' were applied
+                sibling_tax_totals = self._dian_tax_totals(move, taxes_vals, withholding=False)
+                tax_amount_01 = next((tot for tot in sibling_tax_totals if tot['tax_co_type'] == '01'), {'tax_amount': 0})['tax_amount']
+                for subtotal in tax_total_dict['05']['tax_subtotal_vals']:
+                    subtotal['tax_category_vals']['percent'] = '15.00'
+                    subtotal['taxable_amount'] = tax_amount_01
         return [v for k, v in tax_total_dict.items()]
 
     def _dian_get_identifier_vals(self, invoice, invoice_vals):

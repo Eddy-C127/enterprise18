@@ -9,14 +9,14 @@
     <cbc:ProfileID>DIAN 2.1: documento soporte en adquisiciones efectuadas a no obligados a facturar.</cbc:ProfileID>
     <cbc:ProfileExecutionID>2</cbc:ProfileExecutionID>
     <cbc:ID>DS/2024/01/0001</cbc:ID>
-    <cbc:UUID schemeID="2" schemeName="CUDS-SHA384">036d3cc99fcfe866881cecbd803e745b69b83aa13e7a1e90e086f39dd8d00b7a53c68d641f376cac4d1d17e8c65b4677</cbc:UUID>
+    <cbc:UUID schemeID="2" schemeName="CUDS-SHA384">22c568404f1950d2ba3276a7ccfbb34e499cbd128f0ae3be1f7c3aad6cf6fc65f7b065730b32cbc5582e88b43cc03582</cbc:UUID>
     <cbc:IssueDate>2024-01-29</cbc:IssueDate>
     <cbc:IssueTime>19:00:00-05:00</cbc:IssueTime>
     <cbc:DueDate>2024-01-30</cbc:DueDate>
     <cbc:InvoiceTypeCode>05</cbc:InvoiceTypeCode>
-    <cbc:Note>DS/2024/01/00012024-01-2919:00:00-05:00800.0001152.00952.00900108281018419008123452</cbc:Note>
+    <cbc:Note>DS/2024/01/00012024-01-2919:00:00-05:001600.0001304.001904.00900108281018419008123452</cbc:Note>
     <cbc:DocumentCurrencyCode listAgencyID="6" listAgencyName="United Nations Economic Commission for Europe" listID="ISO 4217 Alpha">COP</cbc:DocumentCurrencyCode>
-    <cbc:LineCountNumeric>1</cbc:LineCountNumeric>
+    <cbc:LineCountNumeric>2</cbc:LineCountNumeric>
     <cac:OrderReference>
         <cbc:ID>DS/2024/01/0001</cbc:ID>
     </cac:OrderReference>
@@ -142,10 +142,10 @@
         <cbc:PaymentID>DS/2024/01/0001</cbc:PaymentID>
     </cac:PaymentMeans>
     <cac:TaxTotal>
-        <cbc:TaxAmount currencyID="COP">152.00</cbc:TaxAmount>
+        <cbc:TaxAmount currencyID="COP">304.00</cbc:TaxAmount>
         <cac:TaxSubtotal>
-            <cbc:TaxableAmount currencyID="COP">800.00</cbc:TaxableAmount>
-            <cbc:TaxAmount currencyID="COP">152.00</cbc:TaxAmount>
+            <cbc:TaxableAmount currencyID="COP">1600.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="COP">304.00</cbc:TaxAmount>
             <cac:TaxCategory>
                 <cbc:Percent>19.00</cbc:Percent>
                 <cac:TaxScheme>
@@ -155,11 +155,25 @@
             </cac:TaxCategory>
         </cac:TaxSubtotal>
     </cac:TaxTotal>
+    <cac:WithholdingTaxTotal>
+        <cbc:TaxAmount currencyID="COP">22.80</cbc:TaxAmount>
+        <cac:TaxSubtotal>
+            <cbc:TaxableAmount currencyID="COP">152.00</cbc:TaxableAmount>
+            <cbc:TaxAmount currencyID="COP">22.80</cbc:TaxAmount>
+            <cac:TaxCategory>
+                <cbc:Percent>15.00</cbc:Percent>
+                <cac:TaxScheme>
+                    <cbc:ID>05</cbc:ID>
+                    <cbc:Name>ReteIVA</cbc:Name>
+                </cac:TaxScheme>
+            </cac:TaxCategory>
+        </cac:TaxSubtotal>
+    </cac:WithholdingTaxTotal>
     <cac:LegalMonetaryTotal>
-        <cbc:LineExtensionAmount currencyID="COP">800.00</cbc:LineExtensionAmount>
-        <cbc:TaxExclusiveAmount currencyID="COP">800.00</cbc:TaxExclusiveAmount>
-        <cbc:TaxInclusiveAmount currencyID="COP">952.00</cbc:TaxInclusiveAmount>
-        <cbc:PayableAmount currencyID="COP">952.00</cbc:PayableAmount>
+        <cbc:LineExtensionAmount currencyID="COP">1600.00</cbc:LineExtensionAmount>
+        <cbc:TaxExclusiveAmount currencyID="COP">1600.00</cbc:TaxExclusiveAmount>
+        <cbc:TaxInclusiveAmount currencyID="COP">1904.00</cbc:TaxInclusiveAmount>
+        <cbc:PayableAmount currencyID="COP">1904.00</cbc:PayableAmount>
     </cac:LegalMonetaryTotal>
     <cac:InvoiceLine>
         <cbc:ID>1</cbc:ID>
@@ -184,6 +198,59 @@
                 </cac:TaxCategory>
             </cac:TaxSubtotal>
         </cac:TaxTotal>
+        <cac:Item>
+            <cbc:Description>product_a</cbc:Description>
+            <cbc:Name>product_a</cbc:Name>
+            <cac:SellersItemIdentification>
+                <cbc:ID>562438192</cbc:ID>
+                <cbc:ExtendedID>562438192</cbc:ExtendedID>
+            </cac:SellersItemIdentification>
+            <cac:StandardItemIdentification>
+                <cbc:ID schemeID="010" schemeName="GTIN">562438192</cbc:ID>
+            </cac:StandardItemIdentification>
+        </cac:Item>
+        <cac:Price>
+            <cbc:PriceAmount currencyID="COP">800.0</cbc:PriceAmount>
+            <cbc:BaseQuantity unitCode="94">1.0</cbc:BaseQuantity>
+        </cac:Price>
+    </cac:InvoiceLine>
+    <cac:InvoiceLine>
+        <cbc:ID>2</cbc:ID>
+        <cbc:InvoicedQuantity unitCode="94">1.0</cbc:InvoicedQuantity>
+        <cbc:LineExtensionAmount currencyID="COP">800.00</cbc:LineExtensionAmount>
+        <cac:InvoicePeriod>
+            <cbc:StartDate>2024-01-30</cbc:StartDate>
+            <cbc:DescriptionCode>1</cbc:DescriptionCode>
+            <cbc:Description>Por operación</cbc:Description>
+        </cac:InvoicePeriod>
+        <cac:TaxTotal>
+            <cbc:TaxAmount currencyID="COP">152.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="COP">800.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="COP">152.00</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:Percent>19.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>01</cbc:ID>
+                        <cbc:Name>IVA</cbc:Name>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:TaxTotal>
+        <cac:WithholdingTaxTotal>
+            <cbc:TaxAmount currencyID="COP">22.80</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+                <cbc:TaxableAmount currencyID="COP">152.00</cbc:TaxableAmount>
+                <cbc:TaxAmount currencyID="COP">22.80</cbc:TaxAmount>
+                <cac:TaxCategory>
+                    <cbc:Percent>15.00</cbc:Percent>
+                    <cac:TaxScheme>
+                        <cbc:ID>05</cbc:ID>
+                        <cbc:Name>ReteIVA</cbc:Name>
+                    </cac:TaxScheme>
+                </cac:TaxCategory>
+            </cac:TaxSubtotal>
+        </cac:WithholdingTaxTotal>
         <cac:Item>
             <cbc:Description>product_a</cbc:Description>
             <cbc:Name>product_a</cbc:Name>

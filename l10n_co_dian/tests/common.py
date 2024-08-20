@@ -124,6 +124,7 @@ class TestCoDianCommon(AccountTestInvoicingCommon):
         cls.tax_iva_19 = cls.env["account.chart.template"].ref('l10n_co_tax_8')
         cls.tax_ret_ica_1_104 = cls.env["account.chart.template"].ref('l10n_co_tax_45')
         cls.tax_ret_ica_0414 = cls.env["account.chart.template"].ref('l10n_co_tax_57')
+        cls.tax_ret_iva_2_85 = cls.env["account.chart.template"].ref('l10n_co_tax_12')
 
         # Other
         cls.product_a.barcode = "562438192"

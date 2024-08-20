@@ -308,7 +308,11 @@ class TestDianMoves(TestCoDianCommon):
         self._assert_document_dian(xml, "l10n_co_dian/tests/attachments/debit_note_32.xml")
 
     def test_support_document(self):
-        """ RetICA taxes should not be reported in Support Documents """
+        """
+        - RetICA taxes should not be reported in Support Documents
+        - RetIVA taxes for Support Documents should be reported ONLY with percentage 15.00 or 100.00
+          In addition, the taxable amount of these taxes should be the tax amount of the taxes with type '01'
+        """
         bill = self._create_move(
             move_type="in_invoice",
             invoice_date=datetime.today(),
@@ -318,8 +322,39 @@ class TestDianMoves(TestCoDianCommon):
                     'product_id': self.product_a.id,
                     'tax_ids': [Command.set(self.tax_iva_19.ids + self.tax_ret_ica_1_104.ids)],
                 }),
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'tax_ids': [Command.set(self.tax_iva_19.ids + self.tax_ret_iva_2_85.ids)],
+                }),
             ],
         )
         bill.partner_id.country_id = self.env.ref('base.us')
         xml = self.env['account.edi.xml.ubl_dian']._export_invoice(bill)[0]
-        self._assert_document_dian(xml, "l10n_co_dian/tests/attachments/bill.xml")
+        self._assert_document_dian(xml, "l10n_co_dian/tests/attachments/support_document.xml")
+
+    def test_support_document_credit_note(self):
+        """ Support Document credit note referencing another support document """
+        bill = self._create_move(
+            move_type='in_invoice',
+            invoice_date=datetime.today(),
+            journal_id=self.support_document_journal.id,
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'tax_ids': [Command.set(self.tax_iva_19.ids + self.tax_ret_ica_1_104.ids)],
+                }),
+            ],
+        )
+        xml = self.env['account.edi.xml.ubl_dian']._export_invoice(bill)[0]
+        self.env['l10n_co_dian.document']._create_document(xml, bill, state='invoice_accepted')
+
+        credit_note = self._create_move(
+            move_type='in_refund',
+            invoice_date=datetime.today(),
+            journal_id=self.support_document_journal.id,
+            reversed_entry_id=bill.id,
+            l10n_co_edi_operation_type='10',  # "Estandar"
+            l10n_co_edi_description_code_credit='1',  # "Devolución parcial de los bienes"
+        )
+        xml = self.env['account.edi.xml.ubl_dian']._export_invoice(credit_note)[0]
+        self._assert_document_dian(xml, 'l10n_co_dian/tests/attachments/support_document_credit_note.xml')
