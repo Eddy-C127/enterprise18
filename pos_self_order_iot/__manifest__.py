@@ -23,6 +23,7 @@
         ],
         'web.assets_backend': [
             'pos_self_order_iot/static/src/webclient/actions/*',
+            'pos_self_order_iot/static/src/views/*',
         ],
     },
     'license': 'OEEL-1',

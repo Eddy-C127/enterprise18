@@ -1,7 +1,4 @@
-import json
-import requests
-from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo import api, fields, models
 
 MIN_VERSION_FOR_KIOSK = 24.08
 
@@ -32,18 +29,6 @@ class IotBox(models.Model):
             return float(self.version)
         except ValueError:
             return 0.0
-
-    @api.onchange('screen_orientation')
-    def _onchange_screen_orientation(self):
-        try:
-            requests.post(
-                f'http://{self.ip}/hw_proxy/rotate_screen',
-                headers={'Content-Type': 'application/json'},
-                data=json.dumps({"params": {'orientation': self.screen_orientation}}),
-                timeout=5,
-            )
-        except requests.exceptions.RequestException:
-            raise UserError(_("Could not connect to the IoT Box"))
 
     @api.depends('device_ids.type', 'version')
     def _compute_can_be_kiosk(self):
