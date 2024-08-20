@@ -295,11 +295,6 @@ class HrContract(models.Model):
             if contract.default_contract_id and contract.id != contract.default_contract_id.id:
                 contract.contract_update_template_id = contract.default_contract_id.contract_update_template_id
 
-    def _get_redundant_salary_data(self):
-        employees = self.mapped('employee_id').filtered(lambda employee: not employee.active)
-        partners = employees.work_contact_id.filtered(lambda partner: not partner.active)
-        return [employees, partners]
-
     def _clean_redundant_salary_data(self):
         # Unlink archived draft contract older than 7 days linked to a signature
         # Unlink the related employee, partner, and new car (if any)
@@ -309,8 +304,15 @@ class HrContract(models.Model):
             ('active', '=', False),
             ('sign_request_ids', '!=', False),
             ('create_date', '<=', Date.to_string(seven_days_ago))])
-        records_to_unlink = contracts._get_redundant_salary_data()
-        for records in records_to_unlink:
+        employees = contracts.employee_id.filtered(lambda employee: not employee.active)
+        other_contracts_from_same_employees = self.with_context(active_test=False).search([
+            ('id', 'not in', contracts.ids),
+            ('employee_id', 'in', employees.ids),
+        ])
+        employee_to_delete = employees - other_contracts_from_same_employees.employee_id
+        partner_to_delete = employee_to_delete.work_contact_id.filtered(lambda partner: not partner.active)
+        sign_request_to_delete = self.env['sign.request.item'].search([('partner_id', 'in', partner_to_delete.ids)]).sign_request_id
+        for records in [employee_to_delete, sign_request_to_delete, partner_to_delete]:
             if not records:
                 continue
             _logger.info('Salary: About to unlink %s: %s' % (records._name, records.ids))

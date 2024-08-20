@@ -54,13 +54,6 @@ class HrContract(models.Model):
         for contract in self:
             contract.double_holiday_wage = contract.wage_with_holidays * 0.92
 
-    def _get_redundant_salary_data(self):
-        res = super()._get_redundant_salary_data()
-        cars = self.mapped('car_id').filtered(lambda car: not car.active and not car.license_plate)
-        vehicle_contracts = cars.with_context(active_test=False).mapped('log_contracts').filtered(
-            lambda contract: not contract.active)
-        return res + [cars, vehicle_contracts]
-
     @api.model
     def _benefit_white_list(self):
         return super()._benefit_white_list() + [
