@@ -308,10 +308,17 @@ class TestDianMoves(TestCoDianCommon):
         self._assert_document_dian(xml, "l10n_co_dian/tests/attachments/debit_note_32.xml")
 
     def test_support_document(self):
+        """ RetICA taxes should not be reported in Support Documents """
         bill = self._create_move(
             move_type="in_invoice",
             invoice_date=datetime.today(),
             journal_id=self.support_document_journal.id,
+            invoice_line_ids=[
+                Command.create({
+                    'product_id': self.product_a.id,
+                    'tax_ids': [Command.set(self.tax_iva_19.ids + self.tax_ret_ica_1_104.ids)],
+                }),
+            ],
         )
         bill.partner_id.country_id = self.env.ref('base.us')
         xml = self.env['account.edi.xml.ubl_dian']._export_invoice(bill)[0]

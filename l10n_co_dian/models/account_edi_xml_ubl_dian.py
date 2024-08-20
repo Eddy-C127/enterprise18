@@ -435,7 +435,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
 
     def _get_invoice_tax_totals_vals_list(self, invoice, taxes_vals):
         # OVERRIDE account.edi.xml.ubl_21
-        return self._dian_tax_totals(invoice.company_id.currency_id, taxes_vals, withholding=False)
+        return self._dian_tax_totals(invoice, taxes_vals, withholding=False)
 
     def _get_invoice_line_item_vals(self, line, taxes_vals):
         # EXTENDS account.edi.xml.ubl_20
@@ -496,7 +496,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'currency': currency,
             'currency_dp': self._get_currency_decimal_places(currency),
             'line_extension_amount': line._l10n_co_dian_net_price_subtotal(),
-            'withholding_tax_total_vals_list': self._dian_tax_totals(currency, taxes_vals, withholding=True),
+            'withholding_tax_total_vals_list': self._dian_tax_totals(line.move_id, taxes_vals, withholding=True),
             'line_quantity_attrs': {'unitCode': uom_code},
         })
         if line.move_id.l10n_co_edi_is_support_document:
@@ -589,7 +589,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'line_count_numeric': len(vals['vals']['line_vals']),
             'sales_order_id': False,
             'payment_exchange_rate_vals': self._get_invoice_payment_exchange_rate_vals(invoice),
-            'withholding_tax_total_vals_list': self._dian_tax_totals(invoice.company_id.currency_id, vals['taxes_vals'], withholding=True),
+            'withholding_tax_total_vals_list': self._dian_tax_totals(invoice, vals['taxes_vals'], withholding=True),
         })
 
         if invoice.l10n_co_edi_operation_type == '20':
@@ -765,7 +765,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             code = '94'
         return code
 
-    def _dian_tax_totals(self, currency, taxes_vals, withholding):
+    def _dian_tax_totals(self, move, taxes_vals, withholding):
         """
         Colombian particularity: there should be one `TaxTotal` per colombian tax type, comprising 1 or more
         `TaxSubtotal` (1 per tax amount). The same applies for `WithholdingTaxTotal`.
@@ -785,6 +785,13 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             },
         ]
         """
+        def filter_tax_details(key):
+            if move.l10n_co_edi_is_support_document:
+                # For support document, only the taxes IVA (01), ReteICA (05), ReteRenta (06) should be included
+                return key['tax_co_ret'] == withholding and key['tax_co_type'] in ('01', '05', '06')
+            return key['tax_co_ret'] == withholding
+
+        currency = move.company_id.currency_id
         tax_total_dict = defaultdict(lambda: {
             'currency': currency,
             'currency_dp': self._get_currency_decimal_places(currency),
@@ -792,7 +799,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'per_unit_amount': 0,
             'tax_subtotal_vals': [],
         })
-        filtered_tax_details = {k: v for k, v in taxes_vals['tax_details'].items() if k['tax_co_ret'] == withholding}
+        filtered_tax_details = {k: v for k, v in taxes_vals['tax_details'].items() if filter_tax_details(k)}
         for grouping_key, vals in filtered_tax_details.items():
             tax_co_type = grouping_key['tax_co_type']
             tax_total_dict[tax_co_type]['tax_co_type'] = tax_co_type  # not used in the xml, used to build the CUFE

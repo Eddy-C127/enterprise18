@@ -122,6 +122,7 @@ class TestCoDianCommon(AccountTestInvoicingCommon):
         # Taxes
         cls.tax_iva_5 = cls.env["account.chart.template"].ref('l10n_co_tax_0')
         cls.tax_iva_19 = cls.env["account.chart.template"].ref('l10n_co_tax_8')
+        cls.tax_ret_ica_1_104 = cls.env["account.chart.template"].ref('l10n_co_tax_45')
         cls.tax_ret_ica_0414 = cls.env["account.chart.template"].ref('l10n_co_tax_57')
 
         # Other
