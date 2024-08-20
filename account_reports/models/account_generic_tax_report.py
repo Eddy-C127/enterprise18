@@ -1072,10 +1072,14 @@ class GenericTaxReportCustomHandler(models.AbstractModel):
             is_inconsistent = currency.compare_amounts(computed_tax_amount, tax_value)
 
             if is_inconsistent:
-                report_line['alert'] = True
-                warnings['account_reports.tax_report_warning_lines_consistency'] = {'alert_type': 'danger'}
+                error = abs(abs(tax_value) - abs(computed_tax_amount)) / net_value
 
-                return
+                # Error is bigger than 0.1%. We can not ignore it.
+                if error > 0.001:
+                    report_line['alert'] = True
+                    warnings['account_reports.tax_report_warning_lines_consistency'] = {'alert_type': 'danger'}
+
+                    return
 
      # -------------------------------------------------------------------------
      # BUTTONS & CARET OPTIONS
