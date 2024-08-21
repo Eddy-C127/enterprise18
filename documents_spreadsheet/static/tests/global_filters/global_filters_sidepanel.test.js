@@ -386,11 +386,11 @@ test("Panel has collapsible section with field matching in new filters", async f
     await openGlobalFilterSidePanel();
     await clickCreateFilter("date");
     await animationFrame();
-    const collapsible = target.querySelector(".o_side_panel_collapsible");
+    const collapsible = target.querySelector(".o-sidePanel .collapsible_section");
     expect(".o_spreadsheet_field_matching").toHaveCount(1);
     expect(collapsible).toHaveClass("show");
 
-    await contains(".o_side_panel_collapsible_title").click();
+    await contains(".o-sidePanel .collapsor").click();
     expect(collapsible).not.toHaveClass("show");
 });
 
@@ -403,7 +403,7 @@ test("Collapsible section with field matching is collapsed for existing filter",
     await animationFrame();
 
     await contains(".o_side_panel_filter_icon.fa-cog").click();
-    const collapsible = target.querySelector(".o_side_panel_collapsible");
+    const collapsible = target.querySelector(".o-sidePanel .collapsible_section");
     expect(collapsible).not.toHaveClass("show");
 });
 
@@ -411,7 +411,7 @@ test("Creating a date filter without a data source does not display Field Matchi
     await createSpreadsheet();
     await openGlobalFilterSidePanel();
     await clickCreateFilter("date");
-    expect(".o_side_panel_collapsible").toHaveCount(0);
+    expect(".o-sidePanel .collapsible_section").toHaveCount(0);
 });
 
 test("open relational global filter panel then go to pivot on sheet 2", async function () {
@@ -1768,7 +1768,7 @@ test("Can clear a field matching an invalid field", async function () {
     );
     await openGlobalFilterSidePanel();
     await contains("i.o_side_panel_filter_icon.fa-cog").click();
-    await contains(".o_side_panel_collapsible_title").click(); // uncollapse the field matching
+    await contains(".o-sidePanel .collapsor").click(); // uncollapse the field matching
     expect(".o_model_field_selector_warning").toHaveCount(1);
     expect(".o_spreadsheet_field_matching .o_model_field_selector").toHaveText("not_a_field");
     await contains(".o_model_field_selector .fa.fa-times").click();

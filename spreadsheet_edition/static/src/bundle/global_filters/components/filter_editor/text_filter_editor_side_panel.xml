@@ -35,19 +35,19 @@
 
         </Section>
         <t t-if="shouldDisplayFieldMatching()">
-            <div class="o_side_panel_section">
-                <SidePanelCollapsible collapsedAtInit="!isNewFilter">
-                    <t t-set-slot="title">Field matching</t>
-                    <t t-set-slot="content">
+            <SidePanelCollapsible collapsedAtInit="!isNewFilter">
+                <t t-set-slot="title">Field matching</t>
+                <t t-set-slot="content">
+                    <Section class="'pt-0'">
                         <FilterEditorFieldMatching
                             fieldMatchings="fieldMatchings"
                             wrongFieldMatchings="wrongFieldMatchings"
                             selectField.bind="onSelectedField"
                             filterModelFieldSelectorField.bind="filterModelFieldSelectorField"
                         />
-                    </t>
-                </SidePanelCollapsible>
-            </div>
+                    </Section>
+                </t>
+            </SidePanelCollapsible>
         </t>
         <div class="o_side_panel_section o-sidePanelButtons">
             <t t-call="spreadsheet_edition.FilterEditorButtons">
