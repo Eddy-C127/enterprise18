@@ -200,7 +200,7 @@ class ResCompany(models.Model):
 
         return {'date_from': date_from, 'date_to': date_to}
 
-    def _get_fiscalyear_lock_statement_lines_redirect_action(self, unreconciled_statement_lines):
+    def _get_unreconciled_statement_lines_redirect_action(self, unreconciled_statement_lines):
         # OVERRIDE account
         return self.env['account.bank.statement.line']._action_open_bank_reconciliation_widget(
             extra_domain=[('id', 'in', unreconciled_statement_lines.ids)],
