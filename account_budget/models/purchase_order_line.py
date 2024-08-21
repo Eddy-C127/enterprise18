@@ -15,7 +15,7 @@ class PurchaseOrderLine(models.Model):
             distribution = []
             for analytic_account_ids, percentage in (line.analytic_distribution or {}).items():
                 dist_dict = {'rate': float(percentage) / 100}
-                for analytic_account in self.env['account.analytic.account'].browse(map(int, analytic_account_ids.split(","))):
+                for analytic_account in self.env['account.analytic.account'].browse(map(int, analytic_account_ids.split(","))).exists():
                     root_plan = analytic_account.root_plan_id
                     dist_dict[root_plan._column_name()] = analytic_account.id
                 distribution.append(dist_dict)
