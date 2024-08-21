@@ -327,11 +327,11 @@ test("Pivot focus changes on top bar menu click", async function () {
 
     await doMenuAction(topbarMenuRegistry, ["data", "item_pivot_1"], env);
     await animationFrame();
-    expect(".o_sp_en_display_name").toHaveText("(#1) Partners by Foo");
+    expect(".os-pivot-title").toHaveValue("Partners by Foo");
 
     await doMenuAction(topbarMenuRegistry, ["data", "item_pivot_2"], env);
     await animationFrame();
-    expect(".o_sp_en_display_name").toHaveText("(#2) Partner Pivot");
+    expect(".os-pivot-title").toHaveValue("Partner Pivot");
 });
 
 test("A warning is displayed in the menu item if the pivot is unused", async function () {

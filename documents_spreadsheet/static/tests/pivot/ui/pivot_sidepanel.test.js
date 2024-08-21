@@ -101,9 +101,7 @@ test("Update the pivot title from the side panel", async function () {
     const { model, env, pivotId } = await createSpreadsheetFromPivotView();
     env.openSidePanel("PivotSidePanel", { pivotId });
     await animationFrame();
-    await contains(".o_sp_en_rename").click();
-    await contains(".o_sp_en_name").edit("new name");
-    await contains(".o_sp_en_save").click();
+    await contains(".os-input").edit("new name");
     expect(model.getters.getPivotName(pivotId)).toBe("new name");
 });
 
@@ -153,12 +151,12 @@ test("Duplicate the pivot from the side panel", async function () {
     await animationFrame();
 
     expect(model.getters.getPivotIds().length).toBe(1);
-    expect(".o_sp_en_display_name").toHaveText("(#1) Partners by Foo");
+    expect(".os-pivot-title").toHaveValue("Partners by Foo");
 
     await contains(".os-cog-wheel-menu-icon").click();
     await contains(".o-popover .fa-clone").click();
     expect(model.getters.getPivotIds().length).toBe(2);
-    expect(".o_sp_en_display_name").toHaveText("(#2) Partners by Foo (copy)");
+    expect(".os-pivot-title").toHaveValue("Partners by Foo (copy)");
 });
 
 test("A warning is displayed in the side panel if the pivot is unused", async function () {
