@@ -66,6 +66,9 @@ export class MapRenderer extends Component {
                 this.leafletMap = L.map(this.mapContainerRef.el, {
                     maxBounds: [L.latLng(180, -180), L.latLng(-180, 180)],
                 });
+                this.leafletMap.attributionControl.setPrefix(
+                    '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>'
+                );
                 L.tileLayer(this.apiTilesRoute, {
                     attribution: mapTileAttribution,
                     tileSize: 512,
