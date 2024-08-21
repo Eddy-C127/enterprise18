@@ -377,7 +377,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 array = ['' for x in range(125)]
                 # For DateV, we can't have negative amount on a line, so we need to inverse the amount and inverse the
                 # credit/debit symbol.
-                array[1] = 'h' if aml.currency_id.compare_amounts(line_amount, 0) < 0 else 's'
+                array[1] = 'H' if aml.currency_id.compare_amounts(line_amount, 0) < 0 else 'S'
                 line_amount = abs(line_amount)
                 array[0] = float_repr(line_amount, aml.company_id.currency_id.decimal_places).replace('.', ',')
                 array[2] = currency.name
