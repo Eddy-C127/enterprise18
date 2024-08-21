@@ -1,7 +1,7 @@
 import { click, hover, queryAll, queryFirst, setInputRange } from "@odoo/hoot-dom";
-import { animationFrame, runAllTimers } from "@odoo/hoot-mock";
-import { contains, mountView } from "@web/../tests/web_test_helpers";
+import { advanceTime, animationFrame, runAllTimers } from "@odoo/hoot-mock";
 import { getPickerCell, zoomOut } from "@web/../tests/core/datetime/datetime_test_helpers";
+import { contains, mountView } from "@web/../tests/web_test_helpers";
 
 /**
  * @typedef CellHelperOptions
@@ -217,21 +217,25 @@ export function focusToday() {
 
 /** @type {PillHelper<Promise<DragPillHelpers>>} */
 export async function dragPill(text, options) {
-    /** @param {DragParams} params */
+    /**
+     * @param {DragParams} [params]
+     */
     const drop = async (params) => {
-        await moveTo(params);
-        const res = dragActions.drop();
-        await animationFrame();
-        return res;
+        if (params) {
+            await moveTo(params);
+        }
+        await dragActions.drop();
     };
 
-    /** @param {DragParams} params */
+    /**
+     * @param {DragParams} params
+     */
     const moveTo = async (params) => {
         let cell;
         if (params?.column) {
             cell = await hoverGridCell(params.column, params.row, params);
         } else if (params?.pill) {
-            cell = await hoverPillCell(getPillWrapper(params.pill, params));
+            ({ cell } = await hoverPillCell(getPillWrapper(params.pill, params)));
         }
         return dragActions.moveTo(cell, {
             position: getCellPositionOffset(cell, params.part),
@@ -240,8 +244,14 @@ export async function dragPill(text, options) {
     };
 
     const pill = getPillWrapper(text, options);
-    await hoverPillCell(pill);
-    const dragActions = await contains(pill).drag();
+    pill.scrollIntoView({ behavior: "instant", inline: "center" });
+    const { cell, part } = await hoverPillCell(pill);
+    const dragActions = await contains(pill).drag({
+        // D&D needs the correct initial position since it will attempt an implicit
+        // hover on the pill.
+        position: getCellPositionOffset(cell, part - 1),
+        relative: true,
+    });
 
     return { ...dragActions, drop, moveTo };
 }
@@ -476,7 +486,7 @@ function getCellPositionOffset(cell, part) {
 async function hoverCell(cell, options) {
     const part = options?.part ?? 1;
     hover(cell, { position: getCellPositionOffset(cell, part), relative: true });
-    await runAllTimers();
+    await advanceTime(1000);
 }
 
 /**
@@ -501,7 +511,6 @@ export async function clickCell(columnHeader, rowHeader = null, options) {
 /**
  * Hovers a cell found from a pill element.
  * @param {HTMLElement} pill
- * @returns {Promise<HTMLElement>}
  */
 async function hoverPillCell(pill) {
     const cell = getCellFromPill(pill);
@@ -509,7 +518,7 @@ async function hoverPillCell(pill) {
     const cellStyle = getGridStyle(cell).column[0];
     const part = pStart - cellStyle + 1;
     await hoverCell(cell, { part });
-    return cell;
+    return { cell, part };
 }
 
 /**

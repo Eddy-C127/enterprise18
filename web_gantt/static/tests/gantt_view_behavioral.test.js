@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import {
     click,
+    hover,
     keyDown,
     keyUp,
-    manuallyDispatchProgrammaticEvent,
     pointerDown,
     press,
     queryAllTexts,
@@ -938,24 +938,28 @@ test("resize a pill (2)", async () => {
     expect.verifySteps([[[2], { stop: "2018-12-23 06:29:59" }]]);
 });
 
-test("resize a pill: quickly enter the neighbour pill when resize start", async () => {
-    await mountGanttView({
-        resModel: "tasks",
-        arch: '<gantt date_start="start" date_stop="stop" />',
-        domain: [["id", "in", [4, 7]]],
-    });
-    expect(SELECTORS.pill).toHaveCount(2);
-    await contains(getPillWrapper("Task 4")).hover();
-    expect(getPillWrapper("Task 4")).toHaveClass(CLASSES.resizable);
-    expect(SELECTORS.resizeHandle).toHaveCount(2);
+test.tags("desktop")(
+    "resize a pill: quickly enter the neighbour pill when resize start",
+    async () => {
+        await mountGanttView({
+            resModel: "tasks",
+            arch: '<gantt date_start="start" date_stop="stop" />',
+            domain: [["id", "in", [4, 7]]],
+        });
+        expect(SELECTORS.pill).toHaveCount(2);
+        await contains(getPillWrapper("Task 4")).hover();
+        expect(getPillWrapper("Task 4")).toHaveClass(CLASSES.resizable);
+        expect(SELECTORS.resizeHandle).toHaveCount(2);
 
-    // Here we simulate a resize start on Task 4 and quickly enter Task 7
-    // The resize handle should not be added to Task 7
-    await pointerDown(SELECTORS.resizeEndHandle);
-    await manuallyDispatchProgrammaticEvent(getPillWrapper("Task 7"), "pointerenter");
-    expect(getPillWrapper("Task 4").querySelectorAll(SELECTORS.resizeHandle)).toHaveCount(2);
-    expect(getPillWrapper("Task 7").querySelectorAll(SELECTORS.resizeHandle)).toHaveCount(0);
-});
+        // Here we simulate a resize start on Task 4 and quickly enter Task 7
+        // The resize handle should not be added to Task 7
+        pointerDown(SELECTORS.resizeEndHandle);
+        hover(getPillWrapper("Task 7"));
+
+        expect(getPillWrapper("Task 4").querySelectorAll(SELECTORS.resizeHandle)).toHaveCount(2);
+        expect(getPillWrapper("Task 7").querySelectorAll(SELECTORS.resizeHandle)).toHaveCount(0);
+    }
+);
 
 test("create a task maintains the domain", async () => {
     Tasks._views = { form: '<form><field name="name"/></form>' };
