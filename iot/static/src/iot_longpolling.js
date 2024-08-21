@@ -37,9 +37,11 @@ export class IoTLongpolling {
      *
      * @param {String} iot_ip
      * @param {Array} devices list of devices
+     * @param {String} listener_id
+     * @param {Boolean} fallback if true, no `IoTConnectionErrorDialog` popup will be displayed on fail
      * @param {Callback} callback
      */
-    addListener(iot_ip, devices, listener_id, callback) {
+    addListener(iot_ip, devices, listener_id, callback, fallback = false) {
         if (!this._listeners[iot_ip]) {
             this._listeners[iot_ip] = {
                 last_event: 0,
@@ -48,7 +50,7 @@ export class IoTLongpolling {
                 rpc: false,
             };
         }
-        for (var device in devices) {
+        for (const device in devices) {
             this._listeners[iot_ip].devices[devices[device]] = {
                 listener_id: listener_id,
                 device_identifier: devices[device],
@@ -56,7 +58,7 @@ export class IoTLongpolling {
             };
         }
         this.stopPolling(iot_ip);
-        this.startPolling(iot_ip);
+        this.startPolling(iot_ip, fallback);
         return Promise.resolve();
     }
 
@@ -64,6 +66,7 @@ export class IoTLongpolling {
      * Stop listening to iot device with id `device_identifier`
      * @param {string} iot_ip
      * @param {string} device_identifier
+     * @param {string} listener_id
      */
     removeListener(iot_ip, device_identifier, listener_id) {
         const device = this._listeners[iot_ip].devices[device_identifier];
@@ -73,8 +76,8 @@ export class IoTLongpolling {
     }
 
     /**
-     * Execute a action on device_identifier
-     * Action depend of driver that support the device
+     * Execute an action on device_identifier
+     * Action depends on the driver that supports the device
      *
      * @param {String} iot_ip
      * @param {String} device_identifier
@@ -104,14 +107,16 @@ export class IoTLongpolling {
     /**
      * Start a long polling, i.e. it continually opens a long poll
      * connection as long as it is not stopped (@see `stopPolling`)
+     * @param {String} iot_ip
+     * @param {Boolean} fallback if true, no `IoTConnectionErrorDialog` popup will be displayed on fail
      */
-    startPolling(iot_ip) {
+    startPolling(iot_ip, fallback = false) {
         if (iot_ip) {
             if (!this._listeners[iot_ip].rpc) {
-                this._poll(iot_ip);
+                this._poll(iot_ip, fallback);
             }
         } else {
-            var self = this;
+            const self = this;
             Object.keys(this._listeners).forEach((ip) => {
                 self.startPolling(ip);
             });
@@ -136,9 +141,9 @@ export class IoTLongpolling {
     //--------------------------------------------------------------------------
 
     _delayedStartPolling(delay) {
-        var self = this;
+        const self = this;
         setTimeout(function () {
-            self.startPolling();
+            self.startPolling(null);
         }, delay);
     }
 
@@ -187,8 +192,9 @@ export class IoTLongpolling {
      * Make a request to an IoT Box
      *
      * @param {String} iot_ip
+     * @param {Boolean} fallback if true, no `IoTConnectionErrorDialog` popup will be displayed on fail
      */
-    _poll(iot_ip) {
+    _poll(iot_ip, fallback = false) {
         var self = this;
         var listener = this._listeners[iot_ip];
         var data = {
@@ -214,7 +220,9 @@ export class IoTLongpolling {
                 }
             }).fail(function (jqXHR, textStatus) {
                 if (textStatus === 'error') {
-                    self._doWarnFail(iot_ip);
+                    if (!fallback) {
+                        self._doWarnFail(iot_ip);
+                    }
                 } else {
                     self._onError();
                 }
