@@ -260,7 +260,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         payments.action_post()
 
         # Add payments to a batch.
-        self.env['account.batch.payment'].create({
+        batch_payment = self.env['account.batch.payment'].create({
             'journal_id': self.company_data['default_journal_bank'].id,
             'payment_ids': [Command.set(payments.ids)],
             'payment_method_id': payment_method_line.payment_method_id.id,
@@ -276,6 +276,8 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
         wizard._js_action_validate()
         self.assertTrue(wizard.return_todo_command)
         self.assertTrue(wizard.return_todo_command.get('done'))
+
+        self.assertEqual(batch_payment.amount_residual, sum(payments[1:].mapped('amount')), "The batch amount should change following payment reconciliation")
 
     def test_multiple_exchange_diffs_in_batch(self):
         payment_method_line = self.company_data['default_journal_bank'].inbound_payment_method_line_ids\
