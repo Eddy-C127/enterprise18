@@ -24,10 +24,8 @@ const mountViewParams = {
     arch: `
         <kanban js_class="helpdesk_team_kanban_view">
             <templates>
-                <t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                <t t-name="kanban-card">
+                    <field name="name"/>
                 </t>
             </templates>
         </kanban>

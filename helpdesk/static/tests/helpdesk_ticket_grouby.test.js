@@ -15,13 +15,10 @@ defineHelpdeskModels();
 
 const kanbanViewArch = `
    <kanban default_group_by="stage_id" js_class="helpdesk_ticket_kanban">
-        <field name="stage_id"/>
         <templates>
-            <t t-name="kanban-box">
-                <div>
-                    <field name="name"/>
-                    <field name="sla_deadline"/>
-                </div>
+            <t t-name="kanban-card">
+                <field name="name"/>
+                <field name="sla_deadline"/>
             </t>
         </templates>
     </kanban>

@@ -25,15 +25,9 @@
         <field name="arch" type="xml">
             <kanban sample="1" default_order="team_id">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click oe_kanban_content">
-                            <strong class="o_kanban_record_title">
-                                <field name="name"/>
-                            </strong>
-                            <div>
-                                <field name="team_id"/>
-                            </div>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bolder fs-5"/>
+                        <field name="team_id"/>
                     </t>
                 </templates>
             </kanban>
