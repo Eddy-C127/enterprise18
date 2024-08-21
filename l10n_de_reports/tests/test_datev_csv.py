@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import csv
-import io
 import itertools
 import zipfile
 from io import BytesIO, TextIOWrapper, StringIO
@@ -742,11 +741,12 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         move_guid = move._l10n_de_datev_get_guid()
 
-        with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10_de_datev_export_to_zip_and_attach(options)['file_content']), 'r') as zf,\
-                io.TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), encoding='utf-8') as f:
+        with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10_de_datev_export_to_zip_and_attach(options)['file_content']), 'r') as zf:
             xml = zf.open('document.xml').read()
-            reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
-            csv_data = list(reader)[2]
+
+        f = StringIO(self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, move))
+        reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
+        csv_data = list(reader)[2]
 
         self.assertEqual(f'BEDI"{move_guid}"', csv_data[19])
 
@@ -762,10 +762,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
             </header>
             <content>
                 <document guid="{move_guid}" processID="1" type="2">
-                    <extension xsi:type="File" name="INV-2020-00001-1.xml"></extension>
-                </document>
-                <document guid="{move_guid}" processID="1" type="2">
-                    <extension xsi:type="File" name="INV-2020-00001-2.pdf"></extension>
+                    <extension xsi:type="File" name="INV-2020-00001.pdf"></extension>
                 </document>
             </content>
         </archive>
