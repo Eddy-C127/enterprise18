@@ -51,7 +51,7 @@ test("Reinsert a pivot", async function () {
     const { model, env } = await createSpreadsheetWithPivot();
     selectCell(model, "D8");
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT("1")`, {
+    expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT(1)`, {
         message: "It should be part of a pivot formula",
     });
 });
@@ -92,7 +92,7 @@ test("Reinsert a pivot in a too small sheet", async function () {
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
     expect(model.getters.getNumberCols("111")).toBe(6);
     expect(model.getters.getNumberRows("111")).toBe(5);
-    expect(getCorrespondingCellFormula(model, "B3")).toBe(`=PIVOT("1")`, {
+    expect(getCorrespondingCellFormula(model, "B3")).toBe(`=PIVOT(1)`, {
         message: "It should be part of a pivot formula",
     });
 });
@@ -238,7 +238,7 @@ test("undo pivot reinsert", async function () {
     const { model, env } = await createSpreadsheetWithPivot();
     selectCell(model, "D8");
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT("1")`, {
+    expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT(1)`, {
         message: "It should contain a pivot formula",
     });
     model.dispatch("REQUEST_UNDO");
