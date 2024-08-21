@@ -36,7 +36,7 @@ class CalendarEvent(models.Model):
         values = super()._google_values()
         if not self.appointment_type_id:
             return values
-        if self.appointment_type_id.event_videocall_source != 'google_meet':
+        if self.appointment_type_id.sudo().event_videocall_source != 'google_meet':
             values.pop('conferenceData', None)
         elif not self.google_id and not self.videocall_location and not values.get('conferenceData'):
             values['conferenceData'] = {'createRequest': {'requestId': uuid.uuid4().hex}}
