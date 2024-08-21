@@ -213,20 +213,15 @@
                                     <field name="company_id" column_invisible="True"/>
                                 </list>
                                 <kanban class="o_kanban_mobile">
-                                    <field name="company_id"/>
-                                    <field name="user_id"/>
-                                    <field name="status"/>
                                     <templates>
-                                        <t t-name="kanban-box">
-                                            <div class="oe_kanban_card oe_kanban_global_click">
-                                                <div class="o_kanban_content">
-                                                    <t t-esc="record.user_id.value"/>
-                                                    <t t-if="record.status.raw_value">
-                                                        <t t-set="classname" t-value="{'approved': 'text-bg-success', 'pending': 'text-bg-warning', 'refused': 'text-bg-danger'}[record.status.raw_value] || 'text-bg-light'"/>
-                                                        <span t-esc="record.status.raw_value" t-attf-class="float-end rounded-pill {{ classname }}"/>
-                                                    </t>
-                                                </div>
-                                            </div>
+                                        <t t-name="kanban-card" class="flex-row">
+                                            <field name="user_id"/>
+                                            <t t-if="record.status.raw_value">
+                                                <t t-set="classname" t-value="{'approved': 'text-bg-success', 'pending': 'text-bg-warning', 'refused': 'text-bg-danger'}[record.status.raw_value] || 'text-bg-light'"/>
+                                                <span t-attf-class="ms-auto rounded-pill {{ classname }}">
+                                                    <field name="status"/>
+                                                </span>
+                                            </t>
                                         </t>
                                     </templates>
                                 </kanban>
@@ -253,15 +248,11 @@
         <field name="arch" type="xml">
             <kanban create="false" class="o_modules_kanban" default_group_by="request_status" default_order="create_date desc" 
             group_create="false" group_edit="false" group_delete="false" sample="1">
-                <field name="request_owner_id"/>
                 <field name="request_status"/>
                 <field name="user_status"/>
-                <field name="name"/>
-                <field name="activity_ids"/>
-                <field name="category_id"/>
                 <templates>
                     <t t-name="kanban-menu">
-                        <a t-if="widget.editable" role="menuitem" type="edit" class="dropdown-item">Edit Request</a>
+                        <a t-if="widget.editable" role="menuitem" type="open" class="dropdown-item">Edit Request</a>
                         <a t-if="widget.deletable" role="menuitem" type="delete" class="dropdown-item">Delete</a>
                         <a name="action_approve" type="object" invisible="user_status != 'pending'"
                             role="menuitem" class="dropdown-item">Approve</a>
@@ -270,37 +261,22 @@
                         <a name="action_withdraw" type="object" invisible="request_status == 'new' or user_status in ['waiting', 'pending', 'cancel']"
                             role="menuitem" class="dropdown-item">Withdraw</a>
                     </t>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click container">
-                            <div class="oe_kanban_content">
-                                <div class="ribbon ribbon-top-right" invisible="user_status not in ['pending', 'approved', 'refused', 'cancel']">
-                                    <span t-if="record.user_status.raw_value == 'pending'" class="text-bg-info"><t t-esc="record.user_status.value"/></span>
-                                    <span t-if="record.user_status.raw_value == 'approved'" class="text-bg-success"><t t-esc="record.user_status.value"/></span>
-                                    <span t-if="record.user_status.raw_value == 'refused'" class="text-bg-danger"><t t-esc="record.user_status.value"/></span>
-                                    <span t-if="record.user_status.raw_value == 'cancel'" class="text-bg-warning"><t t-esc="record.user_status.value"/></span>
-                                </div>
-                                <div>
-                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
-                                </div>
-
-                                <div class="text-muted o_kanban_record_subtitle">
-                                    <field name="category_id"/>
-                                </div>
-
-                                <div class="text-muted o_kanban_record_subtitle">
-                                    <field name="date_start" widget="date"/> - <field name="date_end" widget="date"/>
-                                </div>
-
-                                <div class="o_kanban_record_bottom">
-                                    <div class="oe_kanban_bottom_left">
-                                        <field name="activity_ids" widget="kanban_activity"/>
-                                    </div>
-                                    <div class="oe_kanban_bottom_right">
-                                        <field name="request_owner_id" widget="many2one_avatar_user"/>
-                                    </div>
-                                </div>
-                            </div>
+                    <t t-name="kanban-card">
+                        <div class="ribbon ribbon-top-right" invisible="user_status not in ['pending', 'approved', 'refused', 'cancel']">
+                            <field name="user_status" t-if="record.user_status.raw_value == 'pending'" class="text-bg-info"/>
+                            <field name="user_status" t-if="record.user_status.raw_value == 'approved'" class="text-bg-success"/>
+                            <field name="user_status" t-if="record.user_status.raw_value == 'refused'" class="text-bg-danger"/>
+                            <field name="user_status" t-if="record.user_status.raw_value == 'cancel'" class="text-bg-warning"/>
                         </div>
+                        <field name="name" class="fw-bolder fs-5"/>
+                        <field name="category_id" class="text-muted"/>
+                        <div class="d-flex text-muted">
+                            <field name="date_start" widget="date" class="me-1"/>-<field name="date_end" widget="date" class="ms-1"/>
+                        </div>
+                        <footer class="pt-0 fs-6">
+                            <field name="activity_ids" widget="kanban_activity"/>
+                            <field name="request_owner_id" widget="many2one_avatar_user" class="ms-auto"/>
+                        </footer>
                     </t>
                 </templates>
             </kanban>
