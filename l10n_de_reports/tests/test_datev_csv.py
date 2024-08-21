@@ -739,9 +739,10 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         with zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10_de_datev_export_to_zip_and_attach(options)['file_content']), 'r') as zf:
             xml = zf.open('document.xml').read()
-            csv = zf.open('EXTF_accounting_entries.csv')
-            reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
-            csv_data = list(reader)[2]
+
+        csv = self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, move)
+        reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
+        csv_data = list(reader)[2]
 
         self.assertEqual(f'BEDI"{move_guid}"', csv_data[19])
 
@@ -757,10 +758,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
             </header>
             <content>
                 <document guid="{move_guid}" processID="1" type="2">
-                    <extension xsi:type="File" name="INV-2020-00001-1.xml"></extension>
-                </document>
-                <document guid="{move_guid}" processID="1" type="2">
-                    <extension xsi:type="File" name="INV-2020-00001-2.pdf"></extension>
+                    <extension xsi:type="File" name="INV-2020-00001.pdf"></extension>
                 </document>
             </content>
         </archive>

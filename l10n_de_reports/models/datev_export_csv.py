@@ -29,14 +29,14 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         if self.env.company.country_code in ('DE', 'CH', 'AT'):
             options.setdefault('buttons', []).extend((
                 {
-                    'name': _('Datev (zip)'),
+                    'name': _('Datev DATA (zip)'),
                     'sequence': 30,
                     'action': 'export_file',
                     'action_param': 'l10n_de_datev_export_to_zip',
                     'file_export_type': _('Datev zip'),
                 },
                 {
-                    'name': _('Datev + ATCH (zip)'),
+                    'name': _('Datev ATCH (zip)'),
                     'sequence': 40,
                     'action': 'export_file',
                     'action_param': 'l10_de_datev_export_to_zip_and_attach',
@@ -78,19 +78,15 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     # cannot set date_from on move as domain depends on the move line account if "strict_range" is False
                 domain += report._get_options_journals_domain(options)
                 moves = self.env['account.move'].search(domain)
-                set_move_line_ids = set(move_line_ids)
-                zf.writestr('EXTF_accounting_entries.csv', self._l10n_de_datev_get_csv(options, moves))
-                zf.writestr('EXTF_customer_accounts.csv', self._l10n_de_datev_get_partner_list(options, set_move_line_ids, customer=True))
-                zf.writestr('EXTF_vendor_accounts.csv', self._l10n_de_datev_get_partner_list(options, set_move_line_ids, customer=False))
                 if options.get('add_attachments'):
-                    # add all moves attachments in zip file, this is not part of DATEV specs
+                    # add all moves attachments in zip file
                     slash_re = re.compile('[\\/]')
                     documents = []
                     for move in moves.filtered(lambda m: m.attachment_ids):
                         # '\' is not allowed in file name, replace by '-'
                         base_name = slash_re.sub('-', move.name)
                         attachment = move.message_main_attachment_id
-                        extension = attachment.name[:attachment.name.rfind('.')]
+                        extension = f".{attachment.name.split('.')[-1]}"
                         name = '%(base)s%(extension)s' % {'base': base_name, 'extension': extension}
                         zf.writestr(name, attachment.raw)
                         documents.append({
@@ -107,6 +103,14 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                             },
                         )
                         zf.writestr('document.xml', "<?xml version='1.0' encoding='UTF-8'?>" + str(metadata_document))
+                else:
+                    # ZIP for Data => csv
+                    set_move_line_ids = set(move_line_ids)
+                    zf.writestr('EXTF_accounting_entries.csv', self._l10n_de_datev_get_csv(options, moves))
+                    zf.writestr('EXTF_customer_accounts.csv',
+                                self._l10n_de_datev_get_partner_list(options, set_move_line_ids, customer=True))
+                    zf.writestr('EXTF_vendor_accounts.csv',
+                                self._l10n_de_datev_get_partner_list(options, set_move_line_ids, customer=False))
             buf.seek(0)
             content = buf.read()
         return {
@@ -318,7 +322,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 array[10] = receipt1[-36:]
                 array[11] = receipt2
                 array[13] = aml.name or ref
-                if options.get('add_attachments') and m._get_mail_thread_data_attachments():
+                if m._get_mail_thread_data_attachments():
                     array[19] = f'BEDI"{m._l10n_de_datev_get_guid()}"'
                 lines.append(array)
             # In case of epd we actively fix rounding issues by checking the base line and tax line
