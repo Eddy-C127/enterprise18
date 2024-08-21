@@ -81,11 +81,11 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(3, len(data), "csv should have 3 lines")
-        self.assertIn(['119,00', 's', 'EUR', '34000000', str(move.partner_id.id + 700000000),
+        self.assertIn(['119,00', 'S', 'EUR', '34000000', str(move.partner_id.id + 700000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.invoice_line_ids[0].name], data)
-        self.assertIn(['119,00', 's', 'EUR', '34000000', str(move.partner_id.id + 700000000),
+        self.assertIn(['119,00', 'S', 'EUR', '34000000', str(move.partner_id.id + 700000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.invoice_line_ids[1].name], data)
-        self.assertIn(['119,00', 's', 'EUR', '49800000', str(move.partner_id.id + 700000000),
+        self.assertIn(['119,00', 'S', 'EUR', '49800000', str(move.partner_id.id + 700000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.invoice_line_ids[2].name], data)
 
     def test_datev_out_invoice(self):
@@ -117,7 +117,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(1, len(data), "csv should have 1 line")
-        self.assertIn(['119,00', 'h', 'EUR', '49800000', str(move.partner_id.id + 100000000),
+        self.assertIn(['119,00', 'H', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                       self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
 
     def test_datev_miscellaneous(self):
@@ -157,7 +157,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(1, len(data), "csv should have 1 lines")
-        self.assertIn(['100,00', 'h', 'EUR', '34000000', '49800000', '112', move.name, move.name], data)
+        self.assertIn(['100,00', 'H', 'EUR', '34000000', '49800000', '112', move.name, move.name], data)
 
     def test_datev_out_invoice_payment(self):
         report = self.env.ref('account_reports.general_ledger_report')
@@ -195,9 +195,9 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
-        self.assertIn(['119,00', 'h', 'EUR', '49800000', str(move.partner_id.id + 100000000),
+        self.assertIn(['119,00', 'H', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
-        self.assertIn(['119,00', 'h', 'EUR', str(move.partner_id.id + 100000000), debit_account_code, '', '312',
+        self.assertIn(['119,00', 'H', 'EUR', str(move.partner_id.id + 100000000), debit_account_code, '', '312',
                        pay.name, pay.line_ids[0].name], data)
 
     def test_datev_out_invoice_payment_same_account_counteraccount(self):
@@ -238,9 +238,9 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.assertEqual(2, len(data), "csv should have 2 lines")
-        self.assertIn(['119,00', 'h', 'EUR', '49800000', str(move.partner_id.id + 100000000),
+        self.assertIn(['119,00', 'H', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
-        self.assertIn(['119,00', 'h', 'EUR', str(move.partner_id.id + 100000000), debit_account_code, '', '312',
+        self.assertIn(['119,00', 'H', 'EUR', str(move.partner_id.id + 100000000), debit_account_code, '', '312',
                        pay.name, pay.line_ids[0].name], data)
 
     def test_datev_in_invoice_payment(self):
@@ -279,9 +279,9 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
-        self.assertIn(['119,00', 's', 'EUR', '49800000', str(move.partner_id.id + 700000000),
+        self.assertIn(['119,00', 'S', 'EUR', '49800000', str(move.partner_id.id + 700000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
-        self.assertIn(['119,00', 's', 'EUR', str(move.partner_id.id + 700000000), credit_account_code, '', '312',
+        self.assertIn(['119,00', 'S', 'EUR', str(move.partner_id.id + 700000000), credit_account_code, '', '312',
                        pay.name, pay.line_ids[0].name], data)
 
     def test_datev_bank_statement(self):
@@ -313,7 +313,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         reader = pycompat.csv_reader(csv, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
-        self.assertIn(['100,00', 'h', 'EUR', suspense_account_code, bank_account_code, '101',
+        self.assertIn(['100,00', 'H', 'EUR', suspense_account_code, bank_account_code, '101',
                        statement.line_ids[0].name, statement.line_ids[0].payment_ref], data)
 
     def test_datev_out_invoice_paid(self):
@@ -365,9 +365,9 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
-        self.assertIn(['100,00', 'h', 'EUR', str(self.company_data['default_account_revenue'].code).ljust(8, '0'),
+        self.assertIn(['100,00', 'H', 'EUR', str(self.company_data['default_account_revenue'].code).ljust(8, '0'),
                        str(100000000 + move.partner_id.id), '112', move.name, move.name], data)
-        self.assertIn(['100,00', 'h', 'EUR', str(100000000 + move.partner_id.id), bank_account_code, '101',
+        self.assertIn(['100,00', 'H', 'EUR', str(100000000 + move.partner_id.id), bank_account_code, '101',
                        statement.line_ids[0].name, statement.line_ids[0].line_ids[1].name], data)
         # 2nd line of the statement because it's the line without the bank account
 
@@ -424,15 +424,15 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(5, len(data), "csv should have 5 line")
-        self.assertIn(['1190,00', 'h', 'EUR', '49800000', str(move.partner_id.id + 100000000),
+        self.assertIn(['1190,00', 'H', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.invoice_line_ids[0].name], data)
-        self.assertIn(['1190,00', 's', 'EUR', '49800000', str(move.partner_id.id + 100000000),
+        self.assertIn(['1190,00', 'S', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.invoice_line_ids[1].name], data)
-        self.assertIn(['1190,00', 's', 'EUR', '49800000', str(move.partner_id.id + 100000000),
+        self.assertIn(['1190,00', 'S', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.invoice_line_ids[2].name], data)
-        self.assertIn(['2140,00', 'h', 'EUR', '15000000', str(move.partner_id.id + 100000000),
+        self.assertIn(['2140,00', 'H', 'EUR', '15000000', str(move.partner_id.id + 100000000),
                        self.tax_7.l10n_de_datev_code, '112', move.name, move.name], data)
-        self.assertIn(['3570,00', 'h', 'EUR', '34000000', str(move.partner_id.id + 100000000),
+        self.assertIn(['3570,00', 'H', 'EUR', '34000000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
 
     def test_datev_miscellaneous_several_line_same_account(self):
@@ -489,8 +489,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
-        self.assertIn(['100,00', 'h', 'EUR', '16000000', '49800000', '112', move.name, move.name], data)
-        self.assertIn(['100,00', 'h', 'EUR', '15000000', '49800000', '112', move.name, move.name], data)
+        self.assertIn(['100,00', 'H', 'EUR', '16000000', '49800000', '112', move.name, move.name], data)
+        self.assertIn(['100,00', 'H', 'EUR', '15000000', '49800000', '112', move.name, move.name], data)
 
     def test_datev_all_aml_present(self):
         report = self.env.ref('account_reports.general_ledger_report')
@@ -631,8 +631,8 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         csv = self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, moves)
         reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
-        self.assertIn(['18,14', 's', 'EUR', '21300000', debit_account_code, self.tax_19.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
-        self.assertIn(['2,13', 's', 'EUR', '21300000', debit_account_code, self.tax_7.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
+        self.assertIn(['18,14', 'S', 'EUR', '21300000', debit_account_code, self.tax_19.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
+        self.assertIn(['2,13', 'S', 'EUR', '21300000', debit_account_code, self.tax_7.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
 
     def test_datev_out_bank_payment_epd_rounding(self):
         report = self.env.ref('account_reports.general_ledger_report')
@@ -706,7 +706,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         csv = self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, payment_move)
         reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
-        self.assertIn(['5,67', 'h', 'EUR', '26700000', '12010000', self.tax_19.l10n_de_datev_code, '212', payment_move.name, "Early Payment Discount"], data)
+        self.assertIn(['5,67', 'H', 'EUR', '26700000', '12010000', self.tax_19.l10n_de_datev_code, '212', payment_move.name, "Early Payment Discount"], data)
 
     @freeze_time('2021-01-02 18:00')
     def test_datev_out_invoice_with_attch(self):
