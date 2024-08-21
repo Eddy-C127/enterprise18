@@ -30,6 +30,7 @@ export default class BarcodeModel extends EventBus {
         this.needSourceConfirmation = false;
         this.useTrackingNumber = true;
         this.uriCache = new Set(); // Avoid to scan multiple times the same URI.
+        this.notificationCache = new Set(); // Avoid to display same notification
     }
 
     setData(data) {
@@ -428,6 +429,10 @@ export default class BarcodeModel extends EventBus {
      * @param {Object} options
      */
     notification(message, options={}) {
+        if (this.notificationCache.has(message)) {
+            return; // Don't display the notification if it's already displayed.
+        }
+        this.notificationCache.add(message);
         if (options.type === "danger") {
             this.trigger("playSound", "error");
         }
@@ -632,6 +637,7 @@ export default class BarcodeModel extends EventBus {
             }
             this.actionMutex.exec(() => this._processBarcode(barcode));
         }
+        this.notificationCache.clear();
     }
 
     // --------------------------------------------------------------------------
