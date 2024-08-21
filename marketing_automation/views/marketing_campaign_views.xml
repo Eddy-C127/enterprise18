@@ -249,6 +249,11 @@
                                                             </a>
                                                         </div>
                                                         <div class="col">
+                                                            <a name="action_view_opened" string="Opened" type="object">
+                                                                <strong><t t-esc="Math.round((record.total_open.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Opened
+                                                            </a>
+                                                        </div>
+                                                        <div class="col">
                                                             <a name="action_view_clicked" string="Clicked" type="object">
                                                                 <strong><t t-esc="Math.round((record.total_click.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Clicked
                                                             </a>
@@ -256,11 +261,6 @@
                                                         <div class="col">
                                                             <a name="action_view_replied" string="Replied" type="object">
                                                                 <strong><t t-esc="Math.round((record.total_reply.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Replied
-                                                            </a>
-                                                        </div>
-                                                        <div class="col">
-                                                            <a name="action_view_bounced" string="Bounced" type="object">
-                                                                <strong><t t-esc="Math.round((record.total_bounce.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Bounced
                                                             </a>
                                                         </div>
                                                     </div>

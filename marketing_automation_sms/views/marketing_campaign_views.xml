@@ -16,13 +16,13 @@
                         </a>
                     </div>
                     <div class="col">
-                        <a name="action_view_clicked" type="object">
-                            <strong><t t-esc="Math.round((record.total_click.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Clicked
+                        <a name="action_view_opened" type="object">
+                            <strong><t t-esc="Math.round((record.total_open.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Opened
                         </a>
                     </div>
                     <div class="col">
-                        <a name="action_view_bounced" type="object">
-                            <strong><t t-esc="Math.round((record.total_bounce.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Bounced
+                        <a name="action_view_clicked" type="object">
+                            <strong><t t-esc="Math.round((record.total_click.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Clicked
                         </a>
                     </div>
                 </div>

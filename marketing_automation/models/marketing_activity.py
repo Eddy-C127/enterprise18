@@ -534,16 +534,18 @@ class MarketingActivity(models.Model):
     def action_view_clicked(self):
         return self._action_view_documents_filtered('click')
 
-    def action_view_bounced(self):
-        return self._action_view_documents_filtered('bounce')
+    def action_view_opened(self):
+        return self._action_view_documents_filtered('open')
 
     def _action_view_documents_filtered(self, view_filter):
         if not self.mass_mailing_id:  # Only available for mass mailing
             return False
         action = self.env["ir.actions.actions"]._for_xml_id("marketing_automation.marketing_participants_action_mail")
 
-        if view_filter in ('reply', 'bounce'):
+        if view_filter == 'reply':
             found_traces = self.trace_ids.filtered(lambda trace: trace.mailing_trace_status == view_filter)
+        elif view_filter == 'open':
+            found_traces = self.trace_ids.filtered(lambda trace: trace.mailing_trace_status in ('open', 'reply'))
         elif view_filter == 'sent':
             found_traces = self.trace_ids.filtered('mailing_trace_ids.sent_datetime')
         elif view_filter == 'click':
