@@ -69,5 +69,7 @@ class PurchaseOrderLine(models.Model):
     # Calculate the Purchase Order Line
     @api.depends('order_id', 'name')
     def _compute_display_name(self):
-        for pol in self.filtered(lambda pol: pol.company_id.country_code == 'KE'):
+        ke_pol = self.filtered(lambda pol: pol.company_id.country_code == 'KE')
+        super(PurchaseOrderLine, self - ke_pol)._compute_display_name()
+        for pol in ke_pol:
             pol.display_name = f"{pol.order_id.name} {pol.name}"
