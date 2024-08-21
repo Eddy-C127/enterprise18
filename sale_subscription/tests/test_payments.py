@@ -674,3 +674,29 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.assertAlmostEqual(invoice2.amount_total_signed, -1076.9)
             self.assertTrue(self.subscription.payment_exception)
             self.assertEqual(self.subscription.next_invoice_date, datetime.date(2024, 2, 23), "The next invoice date should not be updated")
+
+    def test_payment_pending(self):
+        test_payment_token = self.env['payment.token'].create({
+                'payment_details': 'Test',
+                'partner_id': self.user_portal.partner_id.id,
+                'provider_id': self.dummy_provider.id,
+                'payment_method_id': self.payment_method_id,
+                'provider_ref': 'test'
+            })
+        self.subscription.write({'payment_token_id': test_payment_token.id,
+                                 'client_order_ref': 'Customer REF XXXXXXX'
+        })
+        self.subscription.action_confirm()
+        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment_pending),\
+             self.mock_mail_gateway():
+            self.subscription._create_recurring_invoice()
+
+        invoice = self.subscription.order_line.invoice_lines.move_id
+        self.assertTrue(self.subscription.pending_transaction, "The pending transaction flag should remain")
+        self.assertEqual(invoice.state, 'draft', "The draft invoice should exist")
+        self.assertEqual(
+            self.subscription.next_invoice_date, self.subscription.start_date,
+            "We should not have updated the next invoice date, as the invoice was unlinked",
+        )
+        invoice._post()
+        self.assertFalse(self.subscription.pending_transaction, "The pending transaction flag should not remain")

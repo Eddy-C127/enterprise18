@@ -41,7 +41,7 @@ class AccountMove(models.Model):
                     all_subscription_ids.append(subscription.id)
                 if not automatic_invoice:
                     post_hook_subscription_ids.append(subscription.id)
-
+                subscription.pending_transaction = False
             if all_subscription_ids:
                 # update the renewal quotes to start at the next invoice date values
                 renewal_quotes = self.env['sale.order'].search([
