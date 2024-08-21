@@ -31,6 +31,8 @@ class HrEmployee(models.Model):
             return False
 
         partial_number = number[:-2]
+        if self.birthday.year >= 2000:
+            partial_number = '2' + partial_number
         modulo = int(partial_number) % 97
 
         return modulo == 97 - int(number[-2:])
