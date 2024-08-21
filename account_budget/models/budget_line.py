@@ -88,7 +88,7 @@ class BudgetLine(models.Model):
                     company_id=company_id,
                     json_table=SQL(', ').join(SQL("%s INT", SQL.identifier(fname)) for fname in account_fname),
                     pod_fields=SQL(', ').join(self._field_to_sql('a', fname) for fname in account_fname),
-                    pod_condition=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('a', fname), account_ids[fname]) for fname in fnames),
+                    pod_condition=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('a', fname), account_ids[fname]) for fname in fnames) or SQL('FALSE'),
                 )
             else:
                 purchase_order_query = SQL(
@@ -122,7 +122,7 @@ class BudgetLine(models.Model):
                 date_to=date_to,
                 company_id=company_id,
                 aal_fields=SQL(', ').join(self._field_to_sql('aal', fname) for fname in account_fname),
-                all_conditions=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('aal', fname), account_ids[fname]) for fname in fnames),
+                all_conditions=SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('aal', fname), account_ids[fname]) for fname in fnames) or SQL('FALSE'),
                 join_condition=budget_type == 'expense' and SQL(' AND ').join(SQL('%s = %s', self._field_to_sql('pod', fname), self._field_to_sql('aal', fname)) for fname in account_fname) or SQL('FALSE'),
                 aal_amount_condition=aal_amount_condition,
                 purchase_order_query=purchase_order_query
