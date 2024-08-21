@@ -33,4 +33,6 @@ class WebsiteSale(main.WebsiteSale):
         return request.redirect("/shop/checkout")
 
 class CustomerPortal(portal.CustomerPortal):
-    OPTIONAL_BILLING_FIELDS = [*portal.CustomerPortal.OPTIONAL_BILLING_FIELDS, 'property_ups_carrier_account']
+
+    def _get_optional_fields(self):
+        return super()._get_optional_fields() + ['property_ups_carrier_account']
