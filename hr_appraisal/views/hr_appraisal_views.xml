@@ -251,62 +251,32 @@
                 sample="1"
                 js_class="appraisal_kanban_view">
                 <field name="state"/>
-                <field name="activity_ids" />
-                <field name="activity_state" />
                 <field name="manager_ids" />
                 <field name="waiting_feedback"/>
                 <progressbar field="state" colors='{"done": "success","pending": "warning", "new": "secondary", "cancel": "danger"}'/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_card oe_kanban_global_click o_kanban_record_has_image_fill o_kanban_card_appraisal">
-                            <field name="avatar_128" class="o_kanban_image_fill_left" widget="background_image"/>
-
-                            <div class="ribbon ribbon-top-right" invisible="state != 'done'">
-                                <span class="bg-success">Done</span>
-                            </div>
-                            <div class="ribbon ribbon-top-right" invisible="state != 'cancel'">
-                                <span class="text-bg-danger">Cancelled</span>
-                            </div>
-                            <div class="oe_kanban_details d-flex justify-content-between flex-column">
-                                <div>
-                                    <div class="o_kanban_record_top align-items-start">
-                                        <div class="o_kanban_record_headings">
-                                            <strong class="o_kanban_record_title">
-                                                <field name="employee_id"/>
-                                            </strong>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <field name="department_id"/>
-                                    </div>
-                                    <div class="o_kanban_inline_block">
-                                        <div>
-                                            <field name="date_close" widget="appraisal_remaining_days"/>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <field name="appraisal_properties" widget="properties"/>
-                                    </div>
+                    <t t-name="kanban-card" class="flex-row">
+                            <widget name="web_ribbon" title="Done" bg_color="text-bg-success" invisible="state != 'done'"/>
+                            <widget name="web_ribbon" title="Cancelled" bg_color="text-bg-danger" invisible="state != 'cancel'"/>
+                            <aside class="o_kanban_aside_full">
+                                <field name="avatar_128" widget="background_image" class="d-block position-relative"/>
+                            </aside>
+                            <main class="ms-2">
+                                <field name="employee_id" class="fw-bolder fs-5"/>
+                                <field name="department_id"/>
+                                <field name="date_close" widget="appraisal_remaining_days"/>
+                                <field name="appraisal_properties" widget="properties"/>
+                                <div t-if="record.date_final_interview.raw_value and record.state.raw_value != 'new'">
+                                    <span class="fw-bold">Meeting: </span>
+                                    <field name="date_final_interview" class="fst-italic"/>
                                 </div>
-                                <div>
-                                    <div>
-                                        <t t-if="record.date_final_interview.raw_value and record.state.raw_value != 'new'"><strong><span>Meeting: </span></strong>
-                                        <span><i><field name="date_final_interview"/></i></span></t>
-                                    </div>
-                                    <div class="o_kanban_record_bottom d-flex justify-content-between">
-                                        <div class="oe_kanban_bottom_left">
-                                            <field name="activity_ids" widget="kanban_activity"/>
-                                        </div>
-                                        <div class="oe_kanban_bottom_right align-items-end">
-                                            <widget name="appraisal_manager_chat"/>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                <footer class="fs-6 pt-0">
+                                    <field name="activity_ids" widget="kanban_activity"/>
+                                    <widget name="appraisal_manager_chat" class="ms-auto"/>
+                                </footer>
+                            </main>
                             <small role="img" class="fa fa-circle text-success" invisible="state != 'pending' or waiting_feedback"
                                 aria-label="Ready" title="Ready"/>
-                            <div class="clearfix"></div>
-                        </div>
                     </t>
                 </templates>
             </kanban>

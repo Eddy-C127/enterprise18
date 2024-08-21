@@ -12,7 +12,7 @@ registry.category("web_tour.tours").add("test_send_appraisal_request_by_email_fl
             run: "click",
         },
         {
-            trigger: ".o_kanban_record_headings",
+            trigger: ".o_kanban_record",
             content: "Go to the one employee appraisal",
             run: "click",
         },

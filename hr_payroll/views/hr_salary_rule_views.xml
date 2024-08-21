@@ -21,22 +21,12 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
-                            <div class="row">
-                                <div class="col-8">
-                                    <strong><field name="name"/></strong>
-                                </div>
-                                <div class="col-4">
-                                    <span class="float-end"><field name="category_id"/></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12">
-                                    <span>Code: <field name="code"/></span>
-                                </div>
-                            </div>
+                    <t t-name="kanban-card" class="row g-0">
+                        <field name="name" class="col-8 fw-bolder"/>
+                        <div class="col-4">
+                            <field name="category_id" class="float-end text-end"/>
                         </div>
+                        <span>Code: <field name="code"/></span>
                     </t>
                 </templates>
             </kanban>

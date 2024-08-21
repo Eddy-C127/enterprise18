@@ -32,32 +32,17 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" sample="1">
                 <field name="currency_id"/>
-                <field name="employee_id"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
-                            <div class="row">
-                                <div class="col-6">
-                                   <field name="employee_id" widget="many2one_avatar_user" options="{'display_avatar_name': True}" readonly="state not in ['draft', 'verify']" class="fw-bold"/>
-                                </div>
-                                <div class="col-6">
-                                    <span class="float-end badge text-bg-secondary">
-                                        <field name="state"/>
-                                    </span>
-                                </div>
-                                <div class="col-12">
-                                    <span>
-                                        <field name="date_from" readonly="state in ['cancel', 'done', 'paid']"/> - <field name="date_to" readonly="state in ['cancel', 'done', 'paid']"/>
-                                    </span>
-                                </div>
-                                <div class="col-12">
-                                    <span><field name="name" readonly="state in ['cancel', 'done', 'paid']"/></span>
-                                </div>
-                                <div class="col-12">
-                                    <span>Net - <field name="net_wage"/></span>
-                                </div>
-                            </div>
+                    <t t-name="kanban-card" class="row g-0">
+                        <field name="employee_id" widget="many2one_avatar_user" options="{'display_avatar_name': True}" readonly="state not in ['draft', 'verify']" class="col-6 fw-bold mb-1"/>
+                        <div class="col-6">
+                            <field name="state" class="float-end badge text-bg-secondary"/>
                         </div>
+                        <div>
+                            <field name="date_from" readonly="state in ['cancel', 'done', 'paid']"/> - <field name="date_to" readonly="state in ['cancel', 'done', 'paid']"/>
+                        </div>
+                        <field name="name" readonly="state in ['cancel', 'done', 'paid']"/>
+                        <span>Net - <field name="net_wage"/></span>
                     </t>
                 </templates>
             </kanban>

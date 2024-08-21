@@ -66,43 +66,26 @@
         <field name="model">hr.appraisal.goal</field>
         <field name="arch" type="xml">
             <kanban quick_create="false" class="o_hr_employee_kanban" sample="1">
-                <field name="description"/>
-                <field name="progression"/>
                 <templates>
                     <t t-name="kanban-menu">
                         <t t-if="widget.deletable"><a type="delete" class="dropdown-item" role="menuitem">Delete</a></t>
                         <a type="object" name="action_confirm" class="dropdown-item" role="menuitem">Mark as Done</a>
                     </t>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_card oe_kanban_global_click oe_kanban_content">
-                            <div class="ribbon ribbon-top-right" invisible="progression != '100'">
-                                <span class="text-bg-success">Done</span>
-                            </div>
-                            <div class="o_kanban_record_top mb-0">
-                                <div class="o_kanban_record_top_left">
-                                    <span><field name="name"/></span>
-                                </div>
-                                <t t-if="record.progression.raw_value != 100">
-                                    <div class="o_kanban_top_right me-2 fw-bold">
-                                        <t t-esc="record.progression.value"/>
-                                    </div>
-                                </t>
-                            </div>
-                            <div class="o_kanban_record_subtitle" >
-                                <field name="employee_id"/>
-                                <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                            </div>
-                            <div class="o_kanban_record_bottom mt-auto d-flex justify-content-between align-items-end">
-                                <div class="oe_kanban_bottom_left">
-                                    <field name="activity_ids" widget="kanban_activity"/>
-                                    <field name="create_date" widget="timeless_date"/>
-                                </div>
-                                <div class="oe_kanban_bottom_right">
-                                    <field name="employee_id" widget="many2one_avatar_user"/>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
+                    <t t-name="kanban-card">
+                        <widget name="web_ribbon" title="Done" bg_color="text-bg-success" invisible="progression != '100'"/>
+                        <div class="d-flex">
+                            <field name="name" class="fs-4 mb-1"/>
+                            <field t-if="record.progression.raw_value != 100" name="progression" class="fw-bold ms-auto me-2"/>
                         </div>
+                        <field name="employee_id"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <footer class="fs-6 pt-1 ms-2 me-2">
+                            <div class="d-flex align-items-center">
+                                <field name="activity_ids" widget="kanban_activity"/>
+                                <field name="create_date" widget="timeless_date" class="ms-2"/>
+                            </div>
+                            <field name="employee_id" widget="many2one_avatar_user" class="ms-auto"/>
+                        </footer>
                     </t>
                 </templates>
             </kanban>
