@@ -5,9 +5,7 @@
         <field name="interval_number">1</field>
         <field name="interval_type">days</field>
         <field name="model_id" ref="model_mrp_production_schedule"/>
-        <field name="code">
-            model.action_cron_replenish()
-        </field>
+        <field name="code">model.action_cron_replenish()</field>
         <field name="state">code</field>
     </record>
 </odoo>

@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+from freezegun import freeze_time
+
 from datetime import date, datetime, timedelta
 from odoo.tests import common, Form
 from odoo import Command
@@ -898,3 +900,30 @@ class TestMpsMps(common.TransactionCase):
             'bom_id': self.bom_table.id,
         })
         self.assertFalse(mps_table_2.route_id)
+
+    @freeze_time('2024-01-01')
+    def test_periods_display(self):
+        """ Test that each period type (year, month, week, day) returns the correct
+        number of columns with the correct column title. """
+        self.env.company.manufacturing_period_to_display_year = 5
+        self.env.company.manufacturing_period_to_display_month = 15
+        self.env.company.manufacturing_period_to_display_week = 7
+        self.env.company.manufacturing_period_to_display_day = 21
+
+        mps_state_default = self.mps.get_mps_view_state()
+        self.assertEqual(mps_state_default['manufacturing_period'], 'month')
+        self.assertEqual(len(mps_state_default['dates']), self.env.company.manufacturing_period_to_display_month)
+        self.assertListEqual(mps_state_default['dates'][9:], ['Oct 2024', 'Nov 2024', 'Dec 2024', 'Jan 2025', 'Feb 2025', 'Mar 2025'])
+
+        mps_state_year = self.mps.get_mps_view_state(period_scale='year')
+        self.assertEqual(mps_state_year['manufacturing_period'], 'year')
+        self.assertEqual(len(mps_state_year['dates']), self.env.company.manufacturing_period_to_display_year)
+        self.assertListEqual(mps_state_year['dates'], ['2024', '2025', '2026', '2027', '2028'])
+
+        mps_state_week = self.mps.get_mps_view_state(period_scale='week')
+        self.assertEqual(len(mps_state_week['dates']), self.env.company.manufacturing_period_to_display_week)
+        self.assertEqual(mps_state_week['dates'][2:5], ['Week 3 (15-21/Jan)', 'Week 4 (22-28/Jan)', 'Week 5 (29-4/Jan)'])
+
+        mps_state_day = self.mps.get_mps_view_state(period_scale='day')
+        self.assertEqual(len(mps_state_day['dates']), self.env.company.manufacturing_period_to_display_day)
+        self.assertEqual(mps_state_day['dates'][7:12], ['Jan 8', 'Jan 9', 'Jan 10', 'Jan 11', 'Jan 12'])

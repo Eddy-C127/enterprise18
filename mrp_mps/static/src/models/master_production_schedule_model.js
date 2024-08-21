@@ -19,7 +19,7 @@ export class MasterProductionScheduleModel extends EventBus {
         this.mutex = new Mutex();
     }
 
-    async load(domain, offset, limit) {
+    async load(domain, offset, limit, scale) {
         if (domain !== undefined) {
             this.domain = domain;
         }
@@ -29,7 +29,10 @@ export class MasterProductionScheduleModel extends EventBus {
         if (limit !== undefined) {
             this.limit = limit;
         }
-        this.data = await this.orm.call('mrp.production.schedule', 'get_mps_view_state', [this.domain, this.offset, this.limit]);
+        if (scale !== undefined) {
+            this.scale = scale;
+        }
+        this.data = await this.orm.call('mrp.production.schedule', 'get_mps_view_state', [this.domain, this.offset, this.limit, this.scale]);
         this.notify();
     }
 
@@ -43,7 +46,7 @@ export class MasterProductionScheduleModel extends EventBus {
             return this.orm.call(
                 'mrp.production.schedule',
                 'get_production_schedule_view_state',
-                [productionScheduleIds],
+                [productionScheduleIds, this.scale],
             );
         }).then((production_schedule_ids) => {
             for (var i = 0; i < production_schedule_ids.length; i++) {
@@ -115,7 +118,7 @@ export class MasterProductionScheduleModel extends EventBus {
             this.orm.call(
                 'mrp.production.schedule',
                 'set_forecast_qty',
-                [productionScheduleId, dateIndex, forecastQty],
+                [productionScheduleId, dateIndex, forecastQty, this.scale],
             ).then(() => {
                 return this.reload(productionScheduleId);
             });
@@ -230,7 +233,7 @@ export class MasterProductionScheduleModel extends EventBus {
             this.orm.call(
                 'mrp.production.schedule',
                 'set_replenish_qty',
-                [productionScheduleId, dateIndex, replenishQty],
+                [productionScheduleId, dateIndex, replenishQty, this.scale],
             ).then(() => {
                 return this.reload(productionScheduleId);
             });
@@ -249,7 +252,7 @@ export class MasterProductionScheduleModel extends EventBus {
             this.orm.call(
                 'mrp.production.schedule',
                 'remove_replenish_qty',
-                [productionScheduleId, dateIndex]
+                [productionScheduleId, dateIndex, this.scale]
             ).then(() => {
                 return this.reload(productionScheduleId);
             });

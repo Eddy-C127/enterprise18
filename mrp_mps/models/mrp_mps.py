@@ -273,7 +273,7 @@ class MrpProductionSchedule(models.Model):
             record.is_indirect = not record.is_indirect
 
     @api.model
-    def get_mps_view_state(self, domain=False, offset=0, limit=False):
+    def get_mps_view_state(self, domain=False, offset=0, limit=False, period_scale=False):
         """ Return the global information about MPS and a list of production
         schedules values with the domain.
 
@@ -288,7 +288,7 @@ class MrpProductionSchedule(models.Model):
         """
         productions_schedules = self.env['mrp.production.schedule'].search(domain or [], offset=offset, limit=limit)
         count = self.env['mrp.production.schedule'].search_count(domain or [])
-        productions_schedules_states = productions_schedules.get_production_schedule_view_state()
+        productions_schedules_states = productions_schedules.get_production_schedule_view_state(period_scale)
         company_groups = self.env.company.read([
             'mrp_mps_show_starting_inventory',
             'mrp_mps_show_demand_forecast',
@@ -302,9 +302,10 @@ class MrpProductionSchedule(models.Model):
             'mrp_mps_show_actual_demand_year_minus_2',
         ])
         return {
-            'dates': self.env.company._date_range_to_str(),
+            'dates': self.env.company._date_range_to_str(period_scale),
             'production_schedule_ids': productions_schedules_states,
-            'manufacturing_period': self.env.company.manufacturing_period,
+            'manufacturing_period': period_scale or self.env.company.manufacturing_period,
+            'manufacturing_period_types': [s[0] for s in self.env.company._fields['manufacturing_period'].selection],
             'company_id': self.env.company.id,
             'groups': company_groups,
             'count': count,
@@ -400,7 +401,7 @@ class MrpProductionSchedule(models.Model):
         for mps in schedules_to_compute:
             mps.mps_sequence = 10 + level_by_product[mps.product_id]
 
-    def get_production_schedule_view_state(self):
+    def get_production_schedule_view_state(self, period_scale=False):
         """ Prepare and returns the fields used by the MPS client action.
         For each schedule returns the fields on the model. And prepare the cells
         for each period depending the manufacturing period set on the company.
@@ -425,9 +426,9 @@ class MrpProductionSchedule(models.Model):
         starting_inventory_qty - forecast_qty - indirect_demand_qty + replenish_qty
         """
         company_id = self.env.company
-        date_range = company_id._get_date_range()
-        date_range_year_minus_1 = company_id._get_date_range(years=1)
-        date_range_year_minus_2 = company_id._get_date_range(years=2)
+        date_range = company_id._get_date_range(force_period=period_scale)
+        date_range_year_minus_1 = company_id._get_date_range(years=1, force_period=period_scale)
+        date_range_year_minus_2 = company_id._get_date_range(years=2, force_period=period_scale)
 
         # We need to get the schedule that impact the schedules in self. Since
         # the state is not saved, it needs to recompute the quantity to
@@ -601,13 +602,13 @@ class MrpProductionSchedule(models.Model):
             ]]))
         return (supplying_mps | supplied_mps).ids
 
-    def remove_replenish_qty(self, date_index):
+    def remove_replenish_qty(self, date_index, period_scale=False):
         """ Remove the quantity to replenish on the forecast cell.
 
         param date_index: index of the period used to find start and stop date
         where the manual replenish quantity should be remove.
         """
-        date_start, date_stop = self.company_id._get_date_range()[date_index]
+        date_start, date_stop = self.company_id._get_date_range(force_period=period_scale)[date_index]
         forecast_ids = self.forecast_ids.filtered(lambda f:
             f.date >= date_start and f.date <= date_stop)
         forecast_ids.write({
@@ -616,7 +617,7 @@ class MrpProductionSchedule(models.Model):
         })
         return True
 
-    def set_forecast_qty(self, date_index, quantity):
+    def set_forecast_qty(self, date_index, quantity, period_scale=False):
         """ Save the forecast quantity:
 
         params quantity: The new total forecasted quantity
@@ -624,7 +625,7 @@ class MrpProductionSchedule(models.Model):
         """
         # Get the last date of current period
         self.ensure_one()
-        date_start, date_stop = self.company_id._get_date_range()[date_index]
+        date_start, date_stop = self.company_id._get_date_range(force_period=period_scale)[date_index]
         existing_forecasts = self.forecast_ids.filtered(lambda f: f.date >= date_start and f.date <= date_stop)
         quantity = float_round(float(quantity), precision_rounding=self.product_uom_id.rounding)
         quantity_to_add = quantity - sum(existing_forecasts.mapped('forecast_qty'))
@@ -656,7 +657,7 @@ class MrpProductionSchedule(models.Model):
                 first_forecast.write({'forecast_qty': new_qty})
         return True
 
-    def set_replenish_qty(self, date_index, quantity):
+    def set_replenish_qty(self, date_index, quantity, period_scale=False):
         """ Save the replenish quantity and mark the cells as manually updated.
 
         params quantity: The new quantity to replenish
@@ -664,7 +665,7 @@ class MrpProductionSchedule(models.Model):
         """
         # Get the last date of current period
         self.ensure_one()
-        date_start, date_stop = self.company_id._get_date_range()[date_index]
+        date_start, date_stop = self.company_id._get_date_range(force_period=period_scale)[date_index]
         existing_forecast = self.forecast_ids.filtered(lambda f:
             f.date >= date_start and f.date <= date_stop)
         quantity = float_round(float(quantity), precision_rounding=self.product_uom_id.rounding)

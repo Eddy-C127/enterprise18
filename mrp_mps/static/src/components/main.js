@@ -14,6 +14,14 @@ import { rpc } from "@web/core/network/rpc";
 import { ExportDataDialog } from "@web/views/view_dialogs/export_data_dialog";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 import { Component, onWillStart, useSubEnv } from "@odoo/owl";
+import { ViewScaleSelector } from "@web/views/view_components/view_scale_selector";
+
+export const SCALE_LABELS = {
+    day: _t("Day"),
+    week: _t("Week"),
+    month: _t("Month"),
+    year: _t("Year"),
+};
 
 export class MainComponent extends Component {
     static template = "mrp_mps.mrp_mps";
@@ -23,6 +31,7 @@ export class MainComponent extends Component {
         CheckBox,
         MrpMpsSearchBar,
         ActionMenus,
+        ViewScaleSelector,
     };
     static props = {
         ...standardActionServiceProps,
@@ -87,6 +96,25 @@ export class MainComponent extends Component {
 
     get manufacturingPeriods() {
         return this.model.data.dates;
+    }
+
+    get periodTypes() {
+        return Object.fromEntries(
+            this.model.data.manufacturing_period_types.map((s) => [s, { description: SCALE_LABELS[s] }])
+        );
+    }
+
+    get currentPeriodType() {
+        return this.model.data.manufacturing_period;
+    }
+
+    async setScale(scale) {
+        await this.model.load(
+            this.props.searchDomain,
+            this.env.config.offset,
+            this.env.config.limit,
+            scale,
+        );
     }
 
     get groups() {
