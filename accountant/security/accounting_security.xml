@@ -11,6 +11,14 @@
     <!-- To change the categoy name from Invoicing -> Accounting-->
     <record model="ir.module.category" id="base.module_category_accounting_accounting">
         <field name="name">Accounting</field>
+        <field name="description">Helps you handle your invoices and accounting actions.
+
+        Invoicing: Invoices, payments and basic invoice reporting.
+        Invoicing &amp; Banks: adds the accounting dashboard, bank management and follow-up reports.
+        Bookkeeper: access to all Accounting features, including reporting, asset management, analytic accounting, without configuration rights.
+        Administrator: full access including configuration rights and accounting data management.
+        Readonly: access to all the accounting data but in readonly mode, no actions allowed.
+        </field>
     </record>
 
     <record id="account.group_account_readonly" model="res.groups">
@@ -24,7 +32,6 @@
     </record>
 
     <record id="account.group_account_manager" model="res.groups">
-        <field name="name">Accountant</field>
         <field name="implied_ids" eval="[(3, ref('account.group_account_invoice')), (4, ref('account.group_account_user'))]"/>
     </record>
 

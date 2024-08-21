@@ -45,6 +45,7 @@ def uninstall_hook(env):
     if group_basic:
         group_basic.write({
             'users': [Command.clear()],
+            'category_id': env.ref("base.module_category_hidden").id,
         })
         group_manager.write({
             'implied_ids': [Command.unlink(group_basic.id)],
