@@ -291,7 +291,7 @@ registry.category("web_tour.tours").add("account_accountant_bank_rec_widget_ui",
         },
         {
             content: "Page Next",
-            trigger: ".o_pager_next:first()",
+            trigger: ".o_pager_next:first():not(:disabled)",
             run: "click",
         },
         {
