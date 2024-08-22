@@ -30,14 +30,14 @@
         </record>
 
         <record id="action_account_report_gt" model="ir.actions.client">
-            <field name="name">Tax Report</field>
+            <field name="name">Tax Return</field>
             <field name="tag">account_report</field>
             <field name="path">tax-report</field>
             <field name="context" eval="{'report_id': ref('account.generic_tax_report')}"/>
         </record>
 
         <record id="action_account_report_ja" model="ir.actions.client">
-            <field name="name">Journal Report</field>
+            <field name="name">Journal Audit</field>
             <field name="tag">account_report</field>
             <field name="path">journal-report</field>
             <field name="context" eval="{'report_id': ref('account_reports.journal_report')}"/>
@@ -149,7 +149,7 @@ if records:
         </record>
 
         <record id="action_account_report_budget_tree" model="ir.actions.act_window">
-            <field name="name">Financial Budgets</field>
+            <field name="name">Analytic Budget</field>
             <field name="res_model">account.report.budget</field>
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="account_report_budget_tree"/>
