@@ -117,3 +117,36 @@ class TestAccountInvoice(TestAccountReportsCommon):
             expected_lines,
             options,
         )
+
+    @freeze_time('2019-12-31')
+    def test_vat_record_books_with_receipts(self):
+        self.init_invoice(
+            'out_receipt',
+            partner=self.partner_es,
+            amounts=[5000],
+            invoice_date='2019-12-31',
+            taxes=self.company_data['default_tax_sale'],
+            post=True,
+        )
+        receipt = self.init_invoice(
+            'out_receipt',
+            amounts=[3000],
+            invoice_date='2019-12-31',
+            taxes=self.company_data['default_tax_sale'],
+        )
+        receipt.partner_id = False
+        receipt.action_post()
+
+        report = self.env.ref('account.generic_tax_report')
+        options = self._generate_options(
+            report, "2019-12-31", "2019-12-31", default_options={"unfold_all": True}
+        )
+
+        vat_record_books = self.env['l10n_es.libros.registro.export.handler'].export_libros_de_iva(options)['file_content']
+
+        self._test_xlsx_file(vat_record_books, {
+            0: ('Autoliquidación', '', 'Actividad', '', '', 'Tipo de Factura', 'Concepto de Ingreso', 'Ingreso Computable', 'Fecha Expedición', 'Fecha Operación', 'Identificación de la Factura', '', '', 'NIF Destinario', '', '', 'Nombre Destinario', 'Clave de Operación', 'Calificación de la Operación', 'Operación Exenta', 'Total Factura', 'Base Imponible', 'Tipo de IVA', 'Cuota IVA Repercutida', 'Tipo de Recargo eq.', 'Cuota Recargo eq.', 'Cobro (Operación Criterio de Caja de IVA y/o artículo 7.2.1º de Reglamento del IRPF)', '', '', '', 'Tipo Retención del IRPF', 'Importe Retenido del IRPF', 'Registro Acuerdo Facturación', 'Inmueble', '', 'Referencia Externa'),
+            1: ('Ejercicio', 'Periodo', 'Código', 'Tipo', 'Grupo o Epígrafe del IAE', '', '', '', '', '', 'Serie', 'Número', 'Número-Final', 'Tipo', 'Código País', 'Identificación', '', '', '', '', '', '', '', '', '', '', 'Fecha', 'Importe', 'Medio Utilizado', 'Identificación Medio Utilizado', '', '', '', 'Situación', 'Referencia Catastral', ''),
+            2: (2019, '4T', 'A', '01', '0000', 'F2', 'I01', 3000, '12/31/2019', '', '', 'INV/2019/00002', '', '', '', '', False, '01', 'S1', '', 3630, 3000, 21, 630, 0, 0, '', '', '', '', 0, 0, '', '', '', ''),
+            3: (2019, '4T', 'A', '01', '0000', 'F1', 'I01', 5000, '12/31/2019', '', '', 'INV/2019/00001', '', '', '', '', 'España', '01', 'S1', '', 6050, 5000, 21, 1050, 0, 0, '', '', '', '', 0, 0, '', '', '', ''),
+        })
