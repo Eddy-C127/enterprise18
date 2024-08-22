@@ -78,8 +78,6 @@ class TestMerge(TransactionCase):
             'invoice_line_ids': [Command.create({'name': 'test line', 'price_unit': 1000})],
         })
         move_1.action_post()
-        wizard = self.env['account.move.send'].create({'move_ids': [Command.set(move_1.ids)]})
-        wizard.action_send_and_print()
 
         self.customer_invoice_journal.restrict_mode_hash_table = True
 
@@ -90,8 +88,6 @@ class TestMerge(TransactionCase):
             'invoice_line_ids': [Command.create({'name': 'test line', 'price_unit': 1000})],
         })
         move.action_post()
-        wizard = self.env['account.move.send'].create({'move_ids': [Command.set(move.ids)]})
-        wizard.action_send_and_print()
 
         # The integrity check should work
         integrity_check = move.company_id._check_hash_integrity()['results']

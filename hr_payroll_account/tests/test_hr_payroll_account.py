@@ -578,7 +578,7 @@ class TestHrPayrollAccount(TestHrPayrollAccountCommon):
 
         invoice = self.hr_payslip_john.move_id
         invoice.action_post()
-        invoice.button_hash()
+        self.assertNotEqual(invoice.inalterable_hash, False)
 
         # Cancel the payslip: posted entry will be reversed
         self.hr_payslip_john.action_payslip_cancel()
