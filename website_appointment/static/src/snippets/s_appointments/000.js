@@ -41,7 +41,14 @@ const AppointmentsListSnippet = DynamicSnippet.extend({
             searchDomain = Domain.and([searchDomain, Domain.or(nameDomains)]);
         }
         return searchDomain.toList();
-    }
+    },
+    /**
+     * @override
+     * @private
+     */
+    _getMainPageUrl() {
+        return "/appointment";
+    },
 });
 
 publicWidget.registry.s_appointments = AppointmentsListSnippet;
