@@ -18,3 +18,9 @@ def _sign_post_init(env):
         module = env.ref('base.module_sign_itsme')
         if module:
             module.sudo().button_install()
+
+
+def uninstall_hook(env):
+    # disable the a sign invoices while uninstalling a module
+    if env['ir.module.module']._get('account_accountant').state == 'installed':
+        env['res.company'].search([]).sign_invoice = False

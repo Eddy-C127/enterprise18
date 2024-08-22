@@ -42,6 +42,7 @@ Let your customers follow the signature process easily.
     ],
     'application': True,
     'post_init_hook': '_sign_post_init',
+    'uninstall_hook': 'uninstall_hook',
     'installable': True,
     'license': 'OEEL-1',
     'assets': {
