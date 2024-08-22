@@ -105,6 +105,12 @@ $o-web-studio-sidebar-margin: $grid-gutter-width * 0.5;
             margin-left: -.5em;
         }
 
+        .o_record_selector, .o_multi_record_selector {
+            .o_dropdown_button {
+                display: none;
+            }
+        }
+
         div,
         .o_studio_sidebar_approval_rule > div,
         div > .card > .card-collapse > .card-body > div
