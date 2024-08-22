@@ -167,7 +167,7 @@ class WebsiteForm(form.WebsiteForm):
             attachments.generate_access_token()
             message = ticket.message_ids.filtered(lambda m: m.attachment_ids == attachments)
             message.is_internal = False
-            message.subtype_id.internal = False
+            message.subtype_id = request.env.ref('mail.mt_comment')
 
     def insert_record(self, request, model, values, custom, meta=None):
         res = super().insert_record(request, model, values, custom, meta=meta)
