@@ -60,14 +60,18 @@ class TestReportsMrpAccountSubcontracting(TestMrpSubcontractingCommon):
 
     def test_mrp_cost_structure_backorder(self):
         """ Check that values of mrp_cost_structure are correctly calculated for subcontracting """
-
+        # update the price of the component
+        self.picking.product_id.bom_ids.bom_line_ids.product_id.standard_price = 10
+        self.picking.move_ids.price_unit = 15
+        self.picking.move_ids.product_uom_qty = 10
         self.picking.action_confirm()
-        self.picking.move_ids_without_package.quantity = 1
+        # valide only 4 units and create a backorder
+        self.picking.move_ids_without_package.quantity = 4
         res = self.picking.button_validate()
         wizard = Form(self.env[res.get('res_model')].with_context(res['context'])).save()
         wizard.process()
         backorder_id = self.picking.search([('backorder_id', '=', self.picking.id)])
-        backorder_id.move_ids_without_package.quantity = 1
+        backorder_id.move_ids_without_package.quantity = 6
         backorder_id.button_validate()
 
         self.env.flush_all()  # Need to flush for mrp report
@@ -76,11 +80,19 @@ class TestReportsMrpAccountSubcontracting(TestMrpSubcontractingCommon):
         self.assertEqual(len(mo_subcontracted), 2)
         self.assertEqual(mo_subcontracted.mapped('state'), ['done', 'done'])
 
+        report = self.env['report.mrp_account_enterprise.mrp_cost_structure']
+
         # Test MRP Cost structure
         for mo in mo_subcontracted:
-            report = self.env['report.mrp_account_enterprise.mrp_cost_structure']
             report_values = report._get_report_values(docids=mo.id)['lines'][0]
-            self.assertEqual(report_values['subcontracting_total_cost'], 25)
-            self.assertEqual(report_values['subcontracting_total_qty'], 1)
-            self.assertEqual(report_values['subcontracting'][0]['unit_cost'], 25)
+            self.assertEqual(report_values['subcontracting_total_cost'], 15 * mo.qty_producing)
+            self.assertEqual(report_values['subcontracting_total_qty'], mo.qty_producing)
+            self.assertEqual(report_values['subcontracting'][0]['unit_cost'], 15)
+            # ((component 1 = $ 10) + (component 1 = $ 10)) * mo.qty_propducing = $ 80 for 4 units
+            #                                                                     $ 120 for 6 units
+            self.assertEqual(report_values['total_cost_components'], 20 * mo.qty_producing)
             self.assertEqual(report_values['subcontracting'][0]['partner_name'], self.subcontractor_partner1.display_name)
+
+        mrp_report = self.env['mrp.report'].search([('product_id', '=', self.picking.product_id.id)])
+        self.assertEqual(mrp_report.mapped('subcontracting_cost'), [60, 90])
+        self.assertEqual(mrp_report.mapped('unit_subcontracting_cost'), [15, 15])
