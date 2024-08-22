@@ -6,7 +6,7 @@
              <field name="name">sale.report.graph</field>
              <field name="model">sale.report</field>
              <field name="arch" type="xml">
-                 <graph string="Sales Analysis" type="line" sample="1" banner_route="/onboarding/website_sale_dashboard">
+                 <graph string="Sales Analysis" type="line" sample="1">
                      <field name="date" interval="day"/>
                      <field name="price_subtotal" type="measure"/>
                  </graph>
