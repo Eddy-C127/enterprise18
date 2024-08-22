@@ -454,6 +454,18 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         })
         self.assertEqual(slot.end_datetime.minute, 6, 'The min should be 6, just like in the template, not 5 due to rounding error')
 
+    def test_end_time_rounding_edge_case(self):
+        """
+        Test to ensure 0.996 doesn't round to 60,
+        minutes need to be between 0 and 59.
+        """
+        shift_template = self.env['planning.slot.template'].create({
+            'start_time': 8.995,
+            'end_time': 17.996,
+            'duration_days': 1,
+        })
+        self.assertEqual(shift_template.name, '8:59 AM - 5:59 PM ')
+
     def test_copy_planning_shift(self):
         """ Test state of the planning shift is only copied once we are in the planning split tool
 
