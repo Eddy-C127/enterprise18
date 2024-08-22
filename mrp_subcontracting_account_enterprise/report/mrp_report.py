@@ -31,13 +31,20 @@ class MrpReport(models.Model):
             LEFT JOIN (
                 SELECT
                     mo.id AS mo_id,
-                    COALESCE(SUM(sm_sub.price_unit), 0.0) * COALESCE(SUM(sm_fin.product_qty), 0.0)                 AS total
+                    COALESCE(SUM(sm_sub_total.total), 0.0) AS total
                 FROM mrp_production AS mo
-                LEFT JOIN stock_move AS sm_fin ON (sm_fin.production_id = mo.id AND sm_fin.product_id = mo.product_id)
-                LEFT JOIN stock_move_move_rel AS sm_rel ON sm_rel.move_orig_id = sm_fin.id
-                LEFT JOIN stock_move AS sm_sub ON (sm_rel.move_dest_id = sm_sub.id AND sm_sub.is_subcontract = 't')
-                GROUP BY
-                    mo.id
+                LEFT JOIN (
+                    SELECT
+                        sm_fin.production_id,
+                        sm_fin.product_id,
+                        sm_sub.price_unit * sm_fin.product_qty AS total
+                    FROM stock_move AS sm_fin
+                    LEFT JOIN stock_move_move_rel AS sm_rel ON sm_rel.move_orig_id = sm_fin.id
+                    LEFT JOIN stock_move AS sm_sub ON sm_rel.move_dest_id = sm_sub.id
+                    WHERE sm_sub.is_subcontract = 't'
+                    GROUP BY sm_fin.production_id, sm_fin.product_id, sm_sub.price_unit, sm_fin.product_qty
+                ) AS sm_sub_total ON sm_sub_total.production_id = mo.id AND sm_sub_total.product_id = mo.product_id
+                GROUP BY mo.id
             ) sub_cost ON sub_cost.mo_id = mo.id
         """
         return super()._from() + extra_from
