@@ -7,7 +7,7 @@
       t-ref="container"
       t-on-keydown.self="onKeyDown"
       >
-      <Section>
+      <Section t-if="revisions.length">
         <VersionHistoryItem
           t-foreach="loadedRevisions"
           t-as="revision"
@@ -20,7 +20,7 @@
         />
       </Section>
 
-      <Section class="'pt-0'">
+      <Section class="'pt-0'" t-if="revisions.length">
         <div t-if="state.loaded &lt; revisions.length"
           class="d-flex justify-content-center o-version-history-load-more-container">
           <button t-on-click="onLoadMoreClicked" class="o-button o-version-history-load-more">
@@ -34,9 +34,11 @@
         <Section>
           There are no prior revisions for this spreadsheet.
         </Section>
-        <div class="o-sidePanelButtons">
-          <button t-on-click="props.onCloseSidePanel" class="o-button">Back</button>
-        </div>
+        <Section>
+          <div class="o-sidePanelButtons">
+            <button t-on-click="props.onCloseSidePanel" class="o-button">Back</button>
+          </div>
+        </Section>
       </t>
     </div>
   </t>
