@@ -23,22 +23,6 @@
             </field>
         </record>
 
-        <record id="consolidation_account_tree_onboarding" model="ir.ui.view">
-            <field name="name">consolidation.account.tree.onboarding</field>
-            <field name="model">consolidation.account</field>
-            <field name="inherit_id" ref="consolidation_account_tree"/>
-            <field name="mode">primary</field>
-            <field name="priority">1000</field>
-            <field name="arch" type="xml">
-                <xpath expr="//tree/field[@name='full_name']" position="replace">
-                    <field name="name"/>
-                </xpath>
-                <tree position="attributes">
-                    <attribute name="editable">bottom</attribute>
-                </tree>
-            </field>
-        </record>
-
         <record id="consolidation_account_form" model="ir.ui.view">
             <field name="name">consolidation.account.form</field>
             <field name="model">consolidation.account</field>

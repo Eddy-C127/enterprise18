@@ -115,30 +115,12 @@
             </field>
         </record>
 
-        <record id="consolidation_period_form_onboarding" model="ir.ui.view">
-            <field name="name">consolidation.period.form.onboarding</field>
-            <field name="model">consolidation.period</field>
-            <field name="inherit_id" ref="consolidation_period_form"/>
-            <field name="mode">primary</field>
-            <field name="priority">1000</field>
-            <field name="arch" type="xml">
-                <form position="inside">
-                    <footer position="replace">
-                        <button name="action_save_onboarding_create_step" class="btn btn-primary" type="object"
-                                string="Apply" data-hotkey="q"/>
-                        <button special="cancel" data-hotkey="x" string="Cancel"/>
-                    </footer>
-                </form>
-            </field>
-        </record>
-
         <record id="consolidation_period_kanban" model="ir.ui.view">
             <field name="name">consolidation.period.kanban</field>
             <field name="model">consolidation.period</field>
             <field name="priority">1</field>
             <field name="arch" type="xml">
-                <kanban class="o_kanban_dashboard o_account_kanban"
-                        banner_route="/onboarding/account_consolidation_dashboard">
+                <kanban class="o_kanban_dashboard o_account_kanban">
                     <field name="color"/>
                     <field name="chart_id"/> <!-- Needed to allow chart color update -->
                     <templates>
@@ -290,14 +272,6 @@
             <field name="name">Analysis Periods</field>
             <field name="res_model">consolidation.period</field>
             <field name="view_mode">tree,form</field>
-        </record>
-
-        <record id="consolidation_period_action_onboarding" model="ir.actions.act_window">
-            <field name="name">Create First Period</field>
-            <field name="res_model">consolidation.period</field>
-            <field name="view_mode">form</field>
-            <field name="view_id" ref="consolidation_period_form_onboarding"/>
-            <field name="target">new</field>
         </record>
 
         <!-- consolidation.company_period views -->

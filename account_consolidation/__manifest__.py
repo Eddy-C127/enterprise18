@@ -11,7 +11,6 @@
         'security/ir.model.access.csv',
         'data/consolidated_balance_report.xml',
         'data/account_report_actions.xml',
-        'data/onboarding_data.xml',
         'views/account_account_views.xml',
         'views/account_move_views.xml',
         'views/consolidation_account_views.xml',

@@ -484,19 +484,6 @@ class Sign(http.Controller):
                 })
         return warnings
 
-    @http.route("/sign/check_iap_credits", type="json", auth="user")
-    def check_iap_credits(self, context=None):
-        if context:
-            request.update_context(**context)
-        warnings = self.get_iap_credit_warnings()
-        if warnings:
-            return {
-                'html': request.env['ir.qweb']._render('sign.sign_iap_credits_banner', {
-                    'warnings': warnings
-                })
-            }
-        return {}
-
     @http.route(['/sign/sign_request_state/<int:request_id>/<token>'], type='json', auth='public')
     def get_sign_request_state(self, request_id, token):
         """

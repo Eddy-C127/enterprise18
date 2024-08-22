@@ -97,58 +97,6 @@ class ConsolidationChart(models.Model):
             'search_view_id': [self.env.ref('account_consolidation.consolidation_account_search_mapping').id, 'search']
         }
 
-    # ONBOARDING
-    @api.model
-    # Onboarding requires an object method
-    def setting_consolidation_action(self):
-        """
-        Called by the 'Create' button of the setup bar in "first consolidation" step.
-        :return: the action to execute
-        """
-        action = self.env["ir.actions.actions"]._for_xml_id("account_consolidation.consolidation_chart_action_onboarding")
-        last_chart = self.search([], order="id desc", limit=1)
-        if last_chart.id:
-            action.update({
-                'res_id': last_chart.id,
-            })
-        return action
-
-    def action_save_onboarding_consolidation_step(self):
-        self.env['onboarding.onboarding.step'].action_validate_step(
-            'account_consolidation.onboarding_onboarding_step_setup_consolidation'
-        )
-
-    @api.model
-    def setting_consolidated_chart_of_accounts_action(self):
-        """
-        Called by the 'Setup' button of the setup bar in "Consolidated Chart of Accounts" step.
-        :return: the action to execute
-        """
-        action = self.env["ir.actions.actions"]._for_xml_id("account_consolidation.consolidation_account_action")
-        last_chart = self.search([], order="id desc", limit=1)
-        action.update({
-            'context': {'default_chart_id': last_chart.id, 'search_default_chart_id': last_chart.id},
-            'views': [
-                (self.env.ref('account_consolidation.consolidation_account_tree_onboarding').id, 'list'),
-                (False, 'form')
-            ]
-        })
-        self.env['onboarding.onboarding.step'].action_validate_step(
-            'account_consolidation.onboarding_onboarding_step_setup_ccoa'
-        )
-        return action
-
-    @api.model
-    def setting_create_period_action(self):
-        """
-        Called by the 'Create' button of the setup bar in "first period" step.
-        :return: the action to execute
-        """
-        action = self.env["ir.actions.actions"]._for_xml_id("account_consolidation.consolidation_period_action_onboarding")
-        last_chart = self.search([], order="id desc", limit=1)
-        action.update({'context': {'default_chart_id': last_chart.id}})
-        return action
-
 
 class ConsolidationAccount(models.Model):
     _name = "consolidation.account"
