@@ -1,12 +1,4 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-import io
-import unittest
-
-try:
-    from openpyxl import load_workbook
-except ImportError:
-    load_workbook = None
-
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
 
 from odoo import Command, fields
@@ -119,28 +111,6 @@ class TestSLSPGeneration(TestAccountReportsCommon):
             })
         invoices = cls.env['account.move'].create(invoice_vals)
         invoices.action_post()
-
-    def _test_xlsx_file(self, file_content, expected_values):
-        """ Takes in the binary content of a xlsx file and a dict of expected values.
-        It will then parse the file in order to compare the values with the expected ones.
-        The expected values dict format is:
-        'row_number': ['cell_1_val', 'cell_2_val', ...]
-
-        :param file_content: The binary content of the xlsx file
-        :param expected_values: The dict of expected values
-        """
-        if load_workbook is None:
-            raise unittest.SkipTest("openpyxl not available")
-
-        report_file = io.BytesIO(file_content)
-        xlsx = load_workbook(filename=report_file, data_only=True)
-        sheet = xlsx.worksheets[0]
-        sheet_values = list(sheet.values)
-
-        for row, values in expected_values.items():
-            row_values = [v if v is not None else '' for v in sheet_values[row]]
-            for row_value, expected_value in zip(row_values, values):
-                self.assertEqual(row_value, expected_value)
 
     def test_sl_sales(self):
         """ Test the report """
