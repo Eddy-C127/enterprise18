@@ -1,5 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from odoo.tests import tagged
 
 from . import test_common
 
@@ -179,3 +180,63 @@ class TestDeduplication(test_common.TestCommon):
         })
         dmm.modified(['records_to_merge_count'])
         self.assertEqual(dmm.records_to_merge_count, 0, "records_to_merge_count is calulated without error")
+
+
+@tagged('post_install', '-at_install')
+class TestDeduplicationCompanyField(test_common.TestCommon):
+    def test_deduplication_company_field_non_stored(self):
+        """Check deduplication for a model with non-stored company field
+        and grouping by company.
+        """
+        if self.env['ir.module.module']._get('documents').state != 'installed':
+            self.skipTest("Documents module is not installed")
+
+        DocumentModel = self.env['ir.model'].search([('model', '=', 'documents.document')])
+        Document = self.env['documents.document']
+
+        DMModel = self.DMModel.create({
+            'name': 'Data deduplication for Documents',
+            'res_model_id': DocumentModel.id,
+            'domain': [('name', 'like', 'test')],
+        })
+        self.DMRule.create({
+            'model_id': DMModel.id,
+            'field_id': self.env['ir.model.fields']._get(DocumentModel.model, "name").id,
+            'match_mode': "exact"
+        })
+
+        folder = self.env['documents.folder'].create({
+            'name': 'Folder of first company',
+            'company_id': self.env.companies[0].id,
+        })
+        other_company = self.env["res.company"].create({"name": "Other company"})
+        folder_other_company = self.env['documents.folder'].create({
+            'name': 'Folder of second company',
+            'company_id': other_company.id,
+        })
+        Document.create([
+            {"name": "test1", "folder_id": folder.id},
+            {"name": "test2", "folder_id": folder.id},
+            {"name": "test1", "folder_id": folder_other_company.id},
+            {"name": "test2", "folder_id": folder_other_company.id},
+        ])
+
+        DMModel.find_duplicates()
+        DMModel._compute_records_to_merge_count()
+        self.assertEqual(DMModel.records_to_merge_count, 0, '0 record should have been found')
+
+        Document.create({
+            "name": "test1",
+            "folder_id": folder.id,
+        })
+        DMModel.find_duplicates()
+        DMModel._compute_records_to_merge_count()
+        self.assertEqual(DMModel.records_to_merge_count, 2, '2 records should have been found')
+
+        Document.create({
+            "name": "test1",
+            "folder_id": folder_other_company.id,
+        })
+        DMModel.find_duplicates()
+        DMModel._compute_records_to_merge_count()
+        self.assertEqual(DMModel.records_to_merge_count, 4, '4 records should have been found')

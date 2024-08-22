@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, api, fields, _
@@ -209,7 +208,10 @@ class DataMergeModel(models.Model):
                 sql_group_by = SQL()
                 company_field = res_model._fields.get('company_id')
                 if company_field and not dm_model.mix_by_company:
-                    sql_group_by = SQL(', %s', res_model._field_to_sql(table, 'company_id', query))
+                    if company_field.store:
+                        sql_group_by = SQL(', %s', res_model._field_to_sql(table, 'company_id', query))
+                    elif company_field.related and company_field.related_field.store:
+                        sql_group_by = SQL(', %s', res_model._field_to_sql(table, company_field.related, query))
 
                 # Get all the rows matching the rule defined
                 # (e.g. exact match of the name) having at least 2 records
