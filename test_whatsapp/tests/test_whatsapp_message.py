@@ -251,3 +251,55 @@ class WhatsAppMessage(WhatsAppFullCase, MockIncomingWhatsApp):
                 'state': 'received',
             },
         )
+
+    def test_message_reaction(self):
+        """Check a reaction is correctly added on a whatsapp message."""
+        with self.mockWhatsappGateway():
+            self._receive_whatsapp_message(self.whatsapp_account, "test", "32499123456")
+        discuss_channel = self.assertWhatsAppDiscussChannel(
+            "32499123456",
+            wa_msg_count=1,
+            msg_count=1,
+        )
+        message = discuss_channel.message_ids[0]
+        self._reset_bus()
+        with self.assertBus(
+            [
+                (self.cr.dbname, "discuss.channel", discuss_channel.id),
+            ],
+            [
+                {
+                    "type": "mail.record/insert",
+                    "payload": {
+                        "mail.message": [
+                            {
+                                "id": message.id,
+                                "reactions": [
+                                    [
+                                        "ADD",
+                                        {
+                                            "content": "👍",
+                                            "count": 1,
+                                            "guests": [],
+                                            "message": {"id": message.id},
+                                            "partners": [["ADD", {"id": message.author_id.id}]],
+                                        },
+                                    ]
+                                ],
+                            }
+                        ]
+                    },
+                },
+            ],
+        ):
+            # receiving a reaction
+            with self.mockWhatsappGateway():
+                self._receive_whatsapp_message(
+                    self.whatsapp_account,
+                    "",
+                    "32499123456",
+                    additional_message_values={
+                        "reaction": {"message_id": message.wa_message_ids[0].msg_uid, "emoji": "👍"},
+                        "type": "reaction",
+                    },
+                )
