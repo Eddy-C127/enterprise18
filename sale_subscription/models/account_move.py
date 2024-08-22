@@ -59,3 +59,20 @@ class AccountMove(models.Model):
             self.env['sale.order'].browse(post_hook_subscription_ids)._post_invoice_hook()
 
         return posted_moves
+
+    def _message_auto_subscribe_followers(self, updated_values, subtype_ids):
+        """ Assignment emails are sent when an account.move is created with a
+        different user_id than the current one. For subscriptions it can send
+        thousands of email depending on the database size.
+        This override prevent the assignment emails to be sent to the
+        salesperson.
+        """
+        res = super()._message_auto_subscribe_followers(updated_values, subtype_ids)
+        user_id = updated_values.get('user_id')
+        if user_id and self.invoice_line_ids.subscription_id:
+            for move in self:
+                salesperson = move.invoice_line_ids.subscription_id.user_id
+                if salesperson and user_id == salesperson.id and user_id != self.env.user.id:
+                    partner_id = salesperson.partner_id.id
+                    res = [(v[0], v[1], False) for v in res if v[0] == partner_id and v[2] == 'mail.message_user_assigned']
+        return res
