@@ -137,8 +137,10 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
             'activity_group': iae_group[3:],
             'invoice_type': {
                 'out_invoice': 'F2' if line.move_id.l10n_es_is_simplified else 'F1',
+                'out_receipt': 'F2' if line.move_id.l10n_es_is_simplified else 'F1',
                 'out_refund': 'R5' if line.move_id.l10n_es_is_simplified else 'R1',
                 'in_invoice': 'F5' if tax.l10n_es_type == 'dua' else 'F1',
+                'in_receipt': 'F5' if tax.l10n_es_type == 'dua' else 'F1',
                 'in_refund': 'R4',
             }[line.move_type],
             'date_expedition': format_date(self.env, line.date.isoformat(), date_format='MM/dd/yyyy'),
