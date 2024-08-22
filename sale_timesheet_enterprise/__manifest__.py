@@ -27,6 +27,7 @@ linked to an SO, or only the validated timesheets
         'views/sale_timesheet_enterprise_menus.xml',
         'views/project_portal_template.xml',
         'wizard/sale_make_invoice_advance_views.xml',
+        'report/timesheets_analysis_views.xml',
     ],
     'demo': [
         'data/sale_timesheet_enterprise_demo.xml'
@@ -36,11 +37,13 @@ linked to an SO, or only the validated timesheets
     'assets': {
         'web.assets_backend': [
             'sale_timesheet_enterprise/static/src/**/*',
+            ('remove', 'sale_timesheet_enterprise/static/src/views/pivot/**'),
             ('remove', 'sale_timesheet_enterprise/static/src/views/timer_timesheet_grid/**'),
             ('remove', 'sale_timesheet_enterprise/static/src/views/timesheet_grid/**'),
             ('remove', 'sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_timer_grid/**'),
         ],
         'web.assets_backend_lazy': [
+            'sale_timesheet_enterprise/static/src/views/pivot/**',
             'sale_timesheet_enterprise/static/src/views/timer_timesheet_grid/**',
             'sale_timesheet_enterprise/static/src/views/timesheet_grid/**',
             'sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_timer_grid/**',

@@ -15,6 +15,12 @@ class HrEmployee(models.Model):
             return self.sudo().search_read([("user_id", 'in', user_ids)], ["billable_time_target"])
         return []
 
+    @api.model
+    def get_all_billable_time_targets(self):
+        if self.env.user.has_group("hr_timesheet.group_hr_timesheet_user") and self.env.user.company_id.timesheet_show_rates:
+            return self.sudo().search_read([("company_id", "=", self.env.user.company_id.id)], ["billable_time_target"])
+        return []
+
     _sql_constraints = [
         (
             "check_billable_time_target",
