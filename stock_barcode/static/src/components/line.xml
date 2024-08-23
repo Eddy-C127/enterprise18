@@ -81,9 +81,11 @@
                     t-att-disabled="!this.env.model.lineCanBeEdited(line)"
                     t-on-click="() => this.addQuantity(1)">+1</button>
             <button t-if="displayFulfillbutton" name="fulfillButton"
-                    t-on-click="() => this.addQuantity(incrementQty)" t-esc="'+' + incrementQty"
+                    t-on-click="() => this.addQuantity(incrementQty)"
                     t-att-disabled="!this.env.model.lineCanBeEdited(line)"
-                    t-attf-class="o_line_button o_add_remaining_quantity btn btn-{{isSelected ? 'light' : 'secondary'}}"/>
+                    t-attf-class="o_line_button o_add_remaining_quantity btn btn-{{isSelected ? 'light' : 'secondary'}}">
+                <t t-if="incrementQty > 0">+</t><t t-esc="incrementQty"/>
+            </button>
             <button t-if="displayDeleteButton" name="deleteButton"
                     t-on-click="() => this.env.model.deleteLine(line)"
                     t-att-disabled="!this.env.model.lineCanBeEdited(line)"
