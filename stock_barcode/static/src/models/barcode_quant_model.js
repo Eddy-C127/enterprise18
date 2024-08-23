@@ -356,7 +356,9 @@ export default class BarcodeQuantModel extends BarcodeModel {
         }
         if (quants.length === 1 && (
             product.tracking === 'none' || params.fieldsParams.lot_name || params.fieldsParams.lot_id)) {
-            const inventory_quantity = params.fieldsParams.inventory_quantity || 1;
+            const inventory_quantity = product.tracking === "lot"
+                ? quants[0].quantity
+                : params.fieldsParams.inventory_quantity || 1;
             params.fieldsParams = Object.assign({}, params.fieldsParams, { inventory_quantity });
         }
         let newLine = false;
