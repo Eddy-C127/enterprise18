@@ -3,7 +3,7 @@
 import base64
 import logging
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests import tagged, loaded_demo_data
 from odoo.tools.misc import file_open
 from odoo.addons.stock_barcode.tests.test_barcode_client_action import TestBarcodeClientAction
@@ -254,6 +254,54 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         Quant._unlink_zero_quants()
         product1_quant = Quant.search([('product_id', '=', self.product1.id)])
         self.assertEqual(len(product1_quant), 0)
+
+    def test_inventory_dialog_not_counted_serial_numbers(self):
+        """ This test ensures when some SN were counted in a location, if there
+        is uncounted SN in this location, a dialog asks the user if they want to
+        count them as missing when the inventory adjustment is applied.
+        """
+        self.env['ir.config_parameter'].set_param('stock_barcode.barcode_separator_regex', '[,;]')
+        self.clean_access_rights()
+        group_lot = self.env.ref('stock.group_production_lot')
+        group_location = self.env.ref('stock.group_stock_multi_locations')
+        self.env.user.groups_id = [Command.link(group_lot.id)]
+        self.env.user.groups_id = [Command.link(group_location.id)]
+        Quant = self.env['stock.quant']
+        # Creates some serial numbers and adds them in the stock.
+        productserial2 = self.env['product.product'].create({
+            'name': 'productserial2',
+            'is_storable': True,
+            'categ_id': self.env.ref('product.product_category_all').id,
+            'barcode': 'productserial2',
+            'tracking': 'serial',
+        })
+        serial1_sns = self.create_serial_numbers(self.productserial1, 1, 6)
+        serial2_sns = self.create_serial_numbers(productserial2, 1, 3)
+        # Adds 3 SNs in Shelf 1 and adds 6 SNs in Shelf 2.
+        for sn in serial1_sns[:3]:
+            Quant._update_available_quantity(sn.product_id, self.shelf1, 1, lot_id=sn)
+        for sn in (serial1_sns[3:] | serial2_sns):
+            Quant._update_available_quantity(sn.product_id, self.shelf2, 1, lot_id=sn)
+        # Marks created quants as to count.
+        quants = Quant.search([('product_id', 'in', [self.productserial1.id, productserial2.id])])
+        wizard_request_count = self.env['stock.request.count'].create({
+            'user_id': self.env.user.id,
+            'quant_ids': quants.ids,
+            'set_count': 'empty',
+        })
+        wizard_request_count.action_request_count()
+        self.start_tour("/odoo/barcode?debug=assets", 'test_inventory_dialog_not_counted_serial_numbers', login='admin')
+        self.assertRecordValues(quants, [
+            {'product_id': self.productserial1.id, 'lot_id': serial1_sns[0].id, 'quantity': 1, 'location_id': self.shelf1.id},
+            {'product_id': self.productserial1.id, 'lot_id': serial1_sns[1].id, 'quantity': 1, 'location_id': self.shelf1.id},
+            {'product_id': self.productserial1.id, 'lot_id': serial1_sns[2].id, 'quantity': 0, 'location_id': self.shelf1.id},
+            {'product_id': self.productserial1.id, 'lot_id': serial1_sns[3].id, 'quantity': 1, 'location_id': self.shelf2.id},
+            {'product_id': self.productserial1.id, 'lot_id': serial1_sns[4].id, 'quantity': 1, 'location_id': self.shelf2.id},
+            {'product_id': self.productserial1.id, 'lot_id': serial1_sns[5].id, 'quantity': 1, 'location_id': self.shelf2.id},
+            {'product_id': productserial2.id, 'lot_id': serial2_sns[0].id, 'quantity': 1, 'location_id': self.shelf2.id},
+            {'product_id': productserial2.id, 'lot_id': serial2_sns[1].id, 'quantity': 1, 'location_id': self.shelf2.id},
+            {'product_id': productserial2.id, 'lot_id': serial2_sns[2].id, 'quantity': 1, 'location_id': self.shelf2.id},
+        ])
 
     def test_inventory_image_visible_for_quant(self):
         """ Ensure the product's image is visible in the Barcode quant form view."""

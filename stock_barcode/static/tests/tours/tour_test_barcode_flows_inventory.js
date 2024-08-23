@@ -712,6 +712,95 @@ registry.category("web_tour.tours").add('test_inventory_create_quant', {test: tr
     },
 ]});
 
+registry.category("web_tour.tours").add("test_inventory_dialog_not_counted_serial_numbers", {test: true, steps: () => [
+    { trigger: ".o_button_inventory", run: "click" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(3);
+            helper.assertLineProduct(0, "productserial1");
+            helper.assertLineQty(0, "?/3");
+            helper.assertLineSourceLocation(0, "WH/Stock/Section 1");
+            helper.assertLineProduct(1, "productserial1");
+            helper.assertLineQty(1, "?/3");
+            helper.assertLineSourceLocation(1, "WH/Stock/Section 2");
+            helper.assertLineProduct(2, "productserial2");
+            helper.assertLineQty(2, "?/3");
+            helper.assertLineSourceLocation(2, "WH/Stock/Section 2");
+        }
+    },
+    // Scan 1 SN for productserial1 in Section 1 and apply => Dialog should be displayed.
+    { trigger: ".o_scan_message.o_scan_src", run: "scan LOC-01-01-00" },
+    { trigger: ".o_scan_message.o_scan_product_or_src", run: "scan productserial1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan sn1" },
+    { trigger: ".o_apply_page:not(disabled)", run: "click" },
+    { trigger: ".o_stock_barcode_apply_quant_dialog" },
+    // Apply only counted quant and reopen the Inv. Adjust. => other Section 1 quants are still here.
+    { trigger: ".o_dialog button.o_apply", run: "click" },
+    { trigger: ".o_button_inventory", run: "click" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(3);
+            helper.assertLineProduct(0, "productserial1");
+            helper.assertLineQty(0, "?/2");
+            helper.assertLineSourceLocation(0, "WH/Stock/Section 1");
+            helper.assertLineProduct(1, "productserial1");
+            helper.assertLineQty(1, "?/3");
+            helper.assertLineSourceLocation(1, "WH/Stock/Section 2");
+            helper.assertLineProduct(2, "productserial2");
+            helper.assertLineQty(2, "?/3");
+            helper.assertLineSourceLocation(2, "WH/Stock/Section 2");
+        }
+    },
+    // Scan a SN for productserial1 in Section 1 and apply => Apply also not counted SN.
+    { trigger: ".o_scan_message.o_scan_src", run: "scan LOC-01-01-00" },
+    { trigger: ".o_scan_message.o_scan_product_or_src", run: "scan productserial1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan sn2" },
+    { trigger: ".o_barcode_line.o_selected.o_line_completed" },
+    { trigger: ".o_apply_page:not(disabled)", run: "click" },
+    { trigger: ".o_stock_barcode_apply_quant_dialog" },
+    { trigger: ".o_dialog button.o_apply_all", run: "click" },
+    // Reopen the Inventory Adjustment.
+    { trigger: ".o_button_inventory", run: "click" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(2);
+            helper.assertLineProduct(0, "productserial1");
+            helper.assertLineQty(0, "?/3");
+            helper.assertLineSourceLocation(0, "WH/Stock/Section 2");
+            helper.assertLineProduct(1, "productserial2");
+            helper.assertLineQty(1, "?/3");
+            helper.assertLineSourceLocation(1, "WH/Stock/Section 2");
+        }
+    },
+    // Scan all SN for productserial1 in Section 2 and apply => Dialog should
+    // not be displayed (remaining SN in this location is for another product.)
+    { trigger: ".o_scan_message.o_scan_src", run: "scan LOC-01-02-00" },
+    { trigger: ".o_scan_message.o_scan_product_or_src", run: "scan productserial1" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan sn4,sn5,sn6" },
+    { trigger: ".o_barcode_line.o_selected.o_line_completed" },
+    { trigger: ".o_apply_page", run: "click" },
+    // Reopen the Inventory Adjustment and scan remaining SN for productserial2.
+    { trigger: ".o_button_inventory", run: "click" },
+    {
+        trigger: ".o_barcode_client_action",
+        run: () => {
+            helper.assertLinesCount(1);
+            helper.assertLineProduct(0, "productserial2");
+            helper.assertLineQty(0, "?/3");
+            helper.assertLineSourceLocation(0, "WH/Stock/Section 2");
+        }
+    },
+    { trigger: ".o_scan_message.o_scan_src", run: "scan LOC-01-02-00" },
+    { trigger: ".o_scan_message.o_scan_product_or_src", run: "scan productserial2" },
+    { trigger: ".o_barcode_line.o_selected", run: "scan sn1,sn2,sn3" },
+    // Apply => No dialog because all SN are counted.
+    ...stepUtils.validateBarcodeOperation(".o_barcode_line.o_selected.o_line_completed"),
+    { trigger: ".o_stock_barcode_main_menu" },
+]});
+
 registry.category("web_tour.tours").add("test_inventory_image_visible_for_quant", {test: true, steps: () => [
     { trigger: "button.o_button_inventory", run: "click" },
     { trigger: ".o_barcode_line:first-child button.o_edit", run: "click" },

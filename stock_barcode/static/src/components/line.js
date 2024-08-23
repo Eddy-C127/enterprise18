@@ -122,8 +122,8 @@ export default class LineComponent extends Component {
         this.env.model.trigger('update');
     }
 
-    setOnHandQuantity(ev) {
-        this.env.model.setOnHandQuantity(this.line);
+    toggleAsCounted(ev) {
+        this.env.model.toggleAsCounted(this.line);
     }
 
     onClickImage() {

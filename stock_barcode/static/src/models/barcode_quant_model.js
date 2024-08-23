@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import { ApplyQuantDialog } from '@stock_barcode/components/apply_quant_dialog';
 import BarcodeModel from '@stock_barcode/models/barcode_model';
 import { _t } from "@web/core/l10n/translation";
 
@@ -12,21 +13,69 @@ export default class BarcodeQuantModel extends BarcodeModel {
         this.deleteLineMethod = this.validateMethod;
     }
 
+    async validate() {
+        return this.apply();
+    }
+
     /**
-     * Validates only the quants of the current inventory page and don't close it.
-     *
+     * Check if the Inventory Adjustment can be applied and apply it only if it can be.
      * @returns {Promise}
      */
-    async apply() {
+    apply() {
+        if (this.checkBeforeApply()) {
+            return this._apply();
+        }
+    }
+
+    /**
+     * Makes some checks and returns true if the Inventory Adjustment can be
+     * applied or display a notification if it can not.
+     * @returns {Boolean}
+     */
+    checkBeforeApply() {
+        if (this.applyOn === 0) {
+            const message = _t("There is nothing to apply in this page.");
+            this.notification(message, { type: "warning" });
+            return false;
+        }
+        // Checks if there are not counted serial numbers in the same location than counted quants.
+        const countedSerialNumbers = this.groupedLines.filter(
+            gl => gl.lines && gl.inventory_quantity_set && gl.product_id.tracking === "serial"
+        );
+        const notCountedSiblingSerialNumbers = [];
+        for (const groupedLine of countedSerialNumbers) {
+            for (const line of groupedLine.lines) {
+                if (!line.inventory_quantity_set) {
+                    notCountedSiblingSerialNumbers.push(line);
+                }
+            }
+        }
+        // In case there is not counted SN, asks the user if they want to count them as missing.
+        if (notCountedSiblingSerialNumbers.length) {
+            this.dialogService.add(ApplyQuantDialog, {
+                onApply: this._apply.bind(this),
+                onApplyAll: () => {
+                    // Set not counted SN as counted before to apply.
+                    for (const line of notCountedSiblingSerialNumbers) {
+                        this.toggleAsCounted(line);
+                    }
+                    this._apply();
+                },
+            });
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Apply quantity set on counted quants.
+     * @returns {Promise}
+     */
+    async _apply() {
         await this.save();
         const linesToApply = this.pageLines.filter(line => line.inventory_quantity_set);
-        if (linesToApply.length === 0) {
-            const message = _t("There is nothing to apply in this page.");
-            return this.notification(message, { type: "warning" });
-        }
-        const action = await this.orm.call('stock.quant', 'action_validate',
-            [linesToApply.map(quant => quant.id)]
-        );
+        const quantIds = linesToApply.map(quant => quant.id);
+        const action = await this.orm.call("stock.quant", "action_validate", [quantIds]);
         const notifyAndGoAhead = res => {
             if (res && res.special) { // Do nothing if come from a discarded wizard.
                 return this.trigger('refresh');
@@ -208,12 +257,11 @@ export default class BarcodeQuantModel extends BarcodeModel {
     }
 
     /**
-     * Marks the line as set and set its inventory quantity if it was unset, or
-     * unset it if the line was already set.
+     * Marks or unmarks the line as counted and set its inventory quantity to zero.
      *
      * @param {Object} line
      */
-    setOnHandQuantity(line) {
+    toggleAsCounted(line) {
         line.inventory_quantity = 0;
         line.inventory_quantity_set = !line.inventory_quantity_set;
         this._markLineAsDirty(line);
