@@ -1,14 +1,13 @@
-import { expect, test, describe } from "@odoo/hoot";
-import { advanceTime, runAllTimers } from "@odoo/hoot-mock";
+import { describe, expect, test } from "@odoo/hoot";
 import { click, queryAll } from "@odoo/hoot-dom";
+import { advanceTime, runAllTimers } from "@odoo/hoot-mock";
 
+import { contains, defineModels, mountView, onRpc } from "@web/../tests/web_test_helpers";
 import { deepCopy } from "@web/core/utils/objects";
-import { defineModels, mountView, onRpc, contains } from "@web/../tests/web_test_helpers";
 
 import { defineMailModels } from "@mail/../tests/mail_test_helpers";
 
 import { ProductProduct } from "@industry_fsm_sale/../tests/industry_fsm_sale_mock_model";
-
 
 const saleOrderLineInfo = {
     1: {
@@ -98,8 +97,9 @@ test("fsm_product_kanban widget in kanban view", async () => {
 test("click on the minus/plus_buttons to decrease/increase the quantity of a product.", async () => {
     let firstPass = true;
 
-    onRpc("/product/catalog/update_order_line_info", (params) => {
-        const { product_id, quantity } = params.json().params;
+    onRpc("/product/catalog/update_order_line_info", async (request) => {
+        const { params } = await request.json();
+        const { product_id, quantity } = params;
         expect.step("update_sale_order_line_info");
         if (product_id === 2) {
             if (firstPass) {
@@ -162,8 +162,9 @@ test("click on the minus/plus_buttons to decrease/increase the quantity of a pro
 });
 
 test("check the debounce delay", async () => {
-    onRpc("/product/catalog/update_order_line_info", (params) => {
-        const { product_id, quantity } = params.json().params;
+    onRpc("/product/catalog/update_order_line_info", async (request) => {
+        const { params } = await request.json();
+        const { product_id, quantity } = params;
         expect.step("update_sale_order_line_info");
         expect(quantity).toBe(4);
         expect(product_id).toBe(2);
@@ -195,8 +196,9 @@ test("check the debounce delay", async () => {
 });
 
 test("edit manually the product quantity and check Unit price update", async () => {
-    onRpc("/product/catalog/update_order_line_info", (params) => {
-        const { product_id, quantity } = params.json().params;
+    onRpc("/product/catalog/update_order_line_info", async (request) => {
+        const { params } = await request.json();
+        const { product_id, quantity } = params;
         expect.step("update_sale_order_line_info");
         expect(quantity).toBe(12, {
             message: "The quantity should be set to 12 in the route params",
@@ -240,8 +242,9 @@ test("edit manually the product quantity and check Unit price update", async () 
 });
 
 test("edit manually a wrong product quantity", async () => {
-    onRpc("/product/catalog/update_order_line_info", (params) => {
-        const { product_id, quantity } = params.json().params;
+    onRpc("/product/catalog/update_order_line_info", async (request) => {
+        const { params } = await request.json();
+        const { product_id, quantity } = params;
         expect.step("update_sale_order_line_info");
         if (product_id === 2) {
             expect(quantity).toBe(0, {
@@ -264,7 +267,9 @@ test("edit manually a wrong product quantity", async () => {
         },
     });
 
-    await contains(".o_kanban_record:nth-child(2) .o_product_catalog_quantity .o_input").fill("12a");
+    await contains(".o_kanban_record:nth-child(2) .o_product_catalog_quantity .o_input").fill(
+        "12a"
+    );
     await runAllTimers(); // for skipping the debounce delay
 
     expect(

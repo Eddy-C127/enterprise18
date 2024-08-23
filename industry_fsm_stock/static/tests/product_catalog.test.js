@@ -46,8 +46,9 @@ defineMailModels();
 onRpc("/product/catalog/order_lines_info", () => deepCopy(stockSaleOrderLineInfo));
 
 test("check disabling of decrease/remove buttons when quantity of product is equal to minimumQuantityOnProduct", async () => {
-    onRpc("/product/catalog/update_order_line_info", (params) => {
-        const { product_id, quantity } = params.json().params;
+    onRpc("/product/catalog/update_order_line_info", async (request) => {
+        const { params } = await request.json();
+        const { product_id, quantity } = params;
         expect.step("update_sale_order_line_info");
         if (product_id === 3) {
             expect(quantity).toBe(2, {
@@ -83,8 +84,9 @@ test("check disabling of decrease/remove buttons when quantity of product is equ
 });
 
 test("check quantity not decreasable below minimumQuantityOnProduct", async () => {
-    onRpc("/product/catalog/update_order_line_info", (params) => {
-        const { product_id, quantity } = params.json().params;
+    onRpc("/product/catalog/update_order_line_info", async (request) => {
+        const { params } = await request.json();
+        const { product_id, quantity } = params;
         expect.step("update_sale_order_line_info");
         if (product_id === 3) {
             expect(quantity).toBe(2, {

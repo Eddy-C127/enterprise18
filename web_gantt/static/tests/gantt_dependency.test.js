@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "@odoo/hoot";
 import { hover, pointerDown, queryAll, queryFirst, queryOne, resize } from "@odoo/hoot-dom";
-import { animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
+import { advanceFrame, animationFrame, mockDate, runAllTimers } from "@odoo/hoot-mock";
 import {
     contains,
     defineModels,
@@ -903,9 +903,7 @@ test("Connect two very distant pills", async () => {
     const selector = `${SELECTORS.pill}:contains('Task 2')`;
     expect(selector).toHaveCount(0);
     moveTo(queryFirst(SELECTORS.pill), { relative: true, position: { x: 1500 } });
-    while (!queryFirst(selector)) {
-        await animationFrame(); // FIXME JUM! -> advanceTime should work!
-    }
+    await advanceFrame(200);
     await moveTo(selector);
     await drop();
     expect.verifySteps([`[[2],{"depend_on_ids":[[4,1,false]]}]`]);
