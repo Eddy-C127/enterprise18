@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from '@web/core/registry';
+import { ensureJQuery } from "@web/core/ensure_jquery";
 import { IoTConnectionErrorDialog } from './iot_connection_error_dialog';
 
 export class IoTLongpolling {
@@ -9,7 +10,8 @@ export class IoTLongpolling {
         this.setup(...arguments);
     }
     // setup to allow patching
-    setup({ dialog }) {
+    async setup({ dialog }) {
+        await ensureJQuery();
         // CONSTANTS
         this.POLL_TIMEOUT = 60000;
         this.POLL_ROUTE = '/hw_drivers/event';
