@@ -1,11 +1,11 @@
 {
-    "version": 12,
+    "version": 19,
     "sheets": [
         {
             "id": "Sheet1",
             "name": "Dashboard",
             "colNumber": 9,
-            "rowNumber": 38,
+            "rowNumber": 40,
             "rows": {
                 "6": {
                     "size": 40
@@ -85,89 +85,47 @@
                     "content": "=_t(\"Return on investments\")"
                 },
                 "A29": {
-                    "content": "=_t(\"Working capital\")"
-                },
-                "A30": {
-                    "style": 3,
                     "content": "=_t(\"Financial independence\")"
                 },
                 "A31": {
-                    "content": "=_t(\"Quick ratio\")"
-                },
-                "A33": {
                     "style": 2,
                     "content": "=_t(\"Position\")",
                     "border": 1
                 },
-                "A34": {
+                "A32": {
                     "style": 3,
                     "content": "=_t(\"Average debtors days\")",
                     "border": 2
                 },
-                "A35": {
+                "A33": {
                     "content": "=_t(\"Average creditors days\")"
                 },
-                "A36": {
+                "A34": {
                     "style": 3,
                     "content": "=_t(\"Short term cash forecast\")"
                 },
-                "A37": {
-                    "content": "=_t(\"Current assets to liabilities\")"
-                },
-                "B1": {
-                    "style": 4
-                },
-                "B2": {
-                    "style": 4
-                },
-                "B3": {
-                    "style": 4
-                },
-                "B4": {
-                    "style": 4
-                },
-                "B5": {
-                    "style": 4
-                },
-                "B6": {
-                    "style": 4
-                },
-                "B7": {
-                    "style": 4,
+                "A36": {
+                    "style": 2,
+                    "content": "=_t(\"Liquidity\")",
                     "border": 1
                 },
-                "B9": {
-                    "style": 4
+                "A37": {
+                    "style": 4,
+                    "content": "=_t(\"Cash asset ratio\")",
+                    "border": 2
                 },
-                "B10": {
-                    "style": 4
+                "A38": {
+                    "content": "=_t(\"Quick ratio\")"
                 },
-                "B11": {
-                    "style": 4
+                "A39": {
+                    "style": 4,
+                    "content": "=_t(\"Current assets to liabilities\")"
                 },
-                "B12": {
-                    "style": 4
-                },
-                "B13": {
-                    "style": 4
-                },
-                "B14": {
-                    "style": 4
-                },
-                "B15": {
-                    "style": 4
-                },
-                "B16": {
-                    "style": 4
-                },
-                "B17": {
-                    "style": 4
-                },
-                "B18": {
-                    "style": 4
+                "A40": {
+                    "content": "=_t(\"Working capital\")"
                 },
                 "B19": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")",
                     "border": 1
                 },
@@ -186,16 +144,13 @@
                 "B23": {
                     "content": "=Data!C14"
                 },
-                "B24": {
-                    "style": 4
-                },
                 "B25": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")",
                     "border": 1
                 },
                 "B26": {
-                    "style": 3,
+                    "style": 4,
                     "content": "=Data!C16",
                     "border": 2
                 },
@@ -209,89 +164,47 @@
                 "B29": {
                     "content": "=Data!C19"
                 },
-                "B30": {
-                    "style": 3,
-                    "content": "=Data!C20"
-                },
                 "B31": {
-                    "content": "=Data!C21"
-                },
-                "B33": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")",
                     "border": 1
                 },
-                "B34": {
+                "B32": {
                     "style": 3,
                     "format": 1,
-                    "content": "=Data!C23",
+                    "content": "=Data!C21",
                     "border": 2
                 },
-                "B35": {
+                "B33": {
                     "format": 1,
-                    "content": "=Data!C24"
+                    "content": "=Data!C22"
+                },
+                "B34": {
+                    "style": 3,
+                    "content": "=Data!C23"
                 },
                 "B36": {
-                    "style": 3,
-                    "content": "=Data!C25"
-                },
-                "B37": {
-                    "content": "=Data!C26"
-                },
-                "C1": {
-                    "style": 4
-                },
-                "C2": {
-                    "style": 4
-                },
-                "C3": {
-                    "style": 4
-                },
-                "C4": {
-                    "style": 4
-                },
-                "C5": {
-                    "style": 4
-                },
-                "C6": {
-                    "style": 4
-                },
-                "C7": {
-                    "style": 4,
+                    "style": 5,
+                    "content": "=ODOO.FILTER.VALUE(\"Year\")",
                     "border": 1
                 },
-                "C9": {
-                    "style": 4
+                "B37": {
+                    "style": 4,
+                    "content": "=Data!C35",
+                    "border": 2
                 },
-                "C10": {
-                    "style": 4
+                "B38": {
+                    "content": "=Data!C36"
                 },
-                "C11": {
-                    "style": 4
+                "B39": {
+                    "style": 4,
+                    "content": "=Data!C37"
                 },
-                "C12": {
-                    "style": 4
-                },
-                "C13": {
-                    "style": 4
-                },
-                "C14": {
-                    "style": 4
-                },
-                "C15": {
-                    "style": 4
-                },
-                "C16": {
-                    "style": 4
-                },
-                "C17": {
-                    "style": 4
-                },
-                "C18": {
-                    "style": 4
+                "B40": {
+                    "content": "=Data!C38"
                 },
                 "C19": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")-1",
                     "border": 1
                 },
@@ -310,16 +223,13 @@
                 "C23": {
                     "content": "=Data!D14"
                 },
-                "C24": {
-                    "style": 4
-                },
                 "C25": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")-1",
                     "border": 1
                 },
                 "C26": {
-                    "style": 3,
+                    "style": 4,
                     "content": "=Data!D16",
                     "border": 2
                 },
@@ -333,89 +243,47 @@
                 "C29": {
                     "content": "=Data!D19"
                 },
-                "C30": {
-                    "style": 3,
-                    "content": "=Data!D20"
-                },
                 "C31": {
-                    "content": "=Data!D21"
-                },
-                "C33": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")-1",
                     "border": 1
                 },
-                "C34": {
+                "C32": {
                     "style": 3,
                     "format": 1,
-                    "content": "=Data!D23",
+                    "content": "=Data!D21",
                     "border": 2
                 },
-                "C35": {
+                "C33": {
                     "format": 1,
-                    "content": "=Data!D24"
+                    "content": "=Data!D22"
+                },
+                "C34": {
+                    "style": 3,
+                    "content": "=Data!D23"
                 },
                 "C36": {
-                    "style": 3,
-                    "content": "=Data!D25"
-                },
-                "C37": {
-                    "content": "=Data!D26"
-                },
-                "D1": {
-                    "style": 4
-                },
-                "D2": {
-                    "style": 4
-                },
-                "D3": {
-                    "style": 4
-                },
-                "D4": {
-                    "style": 4
-                },
-                "D5": {
-                    "style": 4
-                },
-                "D6": {
-                    "style": 4
-                },
-                "D7": {
-                    "style": 4,
+                    "style": 5,
+                    "content": "=ODOO.FILTER.VALUE(\"Year\")-1",
                     "border": 1
                 },
-                "D9": {
-                    "style": 4
+                "C37": {
+                    "style": 4,
+                    "content": "=Data!D35",
+                    "border": 2
                 },
-                "D10": {
-                    "style": 4
+                "C38": {
+                    "content": "=Data!D36"
                 },
-                "D11": {
-                    "style": 4
+                "C39": {
+                    "style": 4,
+                    "content": "=Data!D37"
                 },
-                "D12": {
-                    "style": 4
-                },
-                "D13": {
-                    "style": 4
-                },
-                "D14": {
-                    "style": 4
-                },
-                "D15": {
-                    "style": 4
-                },
-                "D16": {
-                    "style": 4
-                },
-                "D17": {
-                    "style": 4
-                },
-                "D18": {
-                    "style": 4
+                "C40": {
+                    "content": "=Data!D38"
                 },
                 "D19": {
-                    "style": 4,
+                    "style": 5,
                     "content": "Δ",
                     "border": 1
                 },
@@ -438,16 +306,13 @@
                     "format": 2,
                     "content": "=iferror(B23/C23,0)"
                 },
-                "D24": {
-                    "style": 4
-                },
                 "D25": {
-                    "style": 4,
+                    "style": 5,
                     "content": "Δ",
                     "border": 1
                 },
                 "D26": {
-                    "style": 3,
+                    "style": 4,
                     "format": 2,
                     "content": "=B26-C26",
                     "border": 2
@@ -464,36 +329,47 @@
                 "D29": {
                     "content": "=B29-C29"
                 },
-                "D30": {
-                    "style": 3,
-                    "content": "=B30-C30"
-                },
                 "D31": {
-                    "content": "=B31-C31"
-                },
-                "D33": {
-                    "style": 4,
+                    "style": 5,
                     "content": "Δ",
                     "border": 1
+                },
+                "D32": {
+                    "style": 3,
+                    "format": 3,
+                    "content": "=iferror(B32/C32,0)",
+                    "border": 2
+                },
+                "D33": {
+                    "format": 3,
+                    "content": "=iferror(B33/C33,0)"
                 },
                 "D34": {
                     "style": 3,
                     "format": 3,
-                    "content": "=iferror(B34/C34,0)",
-                    "border": 2
-                },
-                "D35": {
-                    "format": 3,
-                    "content": "=iferror(B35/C35,0)"
+                    "content": "=iferror(B34/C34,0)"
                 },
                 "D36": {
-                    "style": 3,
-                    "format": 3,
-                    "content": "=iferror(B36/C36,0)"
+                    "style": 5,
+                    "content": "Δ",
+                    "border": 1
                 },
                 "D37": {
+                    "style": 4,
+                    "format": 2,
+                    "content": "=iferror(B37/C37,0)",
+                    "border": 2
+                },
+                "D38": {
+                    "content": "=B38-C38"
+                },
+                "D39": {
+                    "style": 4,
                     "format": 3,
-                    "content": "=iferror(B37/C37,0)"
+                    "content": "=iferror(B39/C39,0)"
+                },
+                "D40": {
+                    "content": "=B40-C40"
                 },
                 "F19": {
                     "style": 2,
@@ -536,90 +412,194 @@
                     "style": 3,
                     "content": "=_t(\"Net assets\")"
                 },
-                "G19": {
+                "F31": {
+                    "style": 2,
+                    "content": "=_t(\"Solvency\")",
+                    "border": 3
+                },
+                "F32": {
                     "style": 4,
+                    "content": "=_t(\"Debt to Equity\")",
+                    "border": 4
+                },
+                "F33": {
+                    "content": "=_t(\"Solvency\")"
+                },
+                "F34": {
+                    "style": 4,
+                    "content": "=_t(\"Debt ratio\")"
+                },
+                "F35": {
+                    "content": "=_t(\"Permanence\")"
+                },
+                "F36": {
+                    "style": 4,
+                    "content": "=_t(\"Financial independence\")"
+                },
+                "F37": {
+                    "content": "=_t(\"Financial balance\")"
+                },
+                "F38": {
+                    "style": 4,
+                    "content": "=_t(\"Long term working capital\")"
+                },
+                "F39": {
+                    "content": "=_t(\"Return on equity\")"
+                },
+                "G19": {
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")",
                     "border": 1
                 },
                 "G20": {
                     "style": 3,
-                    "content": "=Data!C28",
+                    "content": "=Data!C25",
                     "border": 2
                 },
                 "G21": {
-                    "content": "=Data!C29"
+                    "content": "=Data!C26"
                 },
                 "G22": {
                     "style": 3,
-                    "content": "=Data!C30"
+                    "content": "=Data!C27"
                 },
                 "G23": {
-                    "content": "=Data!C31"
+                    "content": "=Data!C28"
                 },
                 "G24": {
                     "style": 3,
-                    "content": "=Data!C32"
+                    "content": "=Data!C29"
                 },
                 "G26": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")",
                     "border": 1
                 },
                 "G27": {
                     "style": 3,
-                    "content": "=Data!C34",
+                    "content": "=Data!C31",
                     "border": 2
                 },
                 "G28": {
-                    "content": "=Data!C35"
+                    "content": "=Data!C32"
                 },
                 "G29": {
                     "style": 3,
-                    "content": "=Data!C36"
+                    "content": "=Data!C33"
+                },
+                "G31": {
+                    "style": 5,
+                    "content": "=ODOO.FILTER.VALUE(\"Year\")",
+                    "border": 3
+                },
+                "G32": {
+                    "style": 4,
+                    "format": 4,
+                    "content": "=Data!C40",
+                    "border": 4
+                },
+                "G33": {
+                    "content": "=Data!C41"
+                },
+                "G34": {
+                    "style": 4,
+                    "content": "=Data!C42"
+                },
+                "G35": {
+                    "content": "=Data!C43"
+                },
+                "G36": {
+                    "style": 4,
+                    "content": "=Data!C44"
+                },
+                "G37": {
+                    "content": "=Data!C45"
+                },
+                "G38": {
+                    "style": 4,
+                    "content": "=Data!C46"
+                },
+                "G39": {
+                    "content": "=Data!C47"
                 },
                 "H19": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")-1",
                     "border": 1
                 },
                 "H20": {
                     "style": 3,
-                    "content": "=Data!D28",
+                    "content": "=Data!D25",
                     "border": 2
                 },
                 "H21": {
-                    "content": "=Data!D29"
+                    "content": "=Data!D26"
                 },
                 "H22": {
                     "style": 3,
-                    "content": "=Data!D30"
+                    "content": "=Data!D27"
                 },
                 "H23": {
-                    "content": "=Data!D31"
+                    "content": "=Data!D28"
                 },
                 "H24": {
                     "style": 3,
-                    "content": "=Data!D32"
+                    "content": "=Data!D29"
                 },
                 "H26": {
-                    "style": 4,
+                    "style": 5,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")-1",
                     "border": 1
                 },
                 "H27": {
                     "style": 3,
-                    "content": "=Data!D34",
+                    "content": "=Data!D31",
                     "border": 2
                 },
                 "H28": {
-                    "content": "=Data!D35"
+                    "content": "=Data!D32"
                 },
                 "H29": {
                     "style": 3,
-                    "content": "=Data!D36"
+                    "content": "=Data!D33"
+                },
+                "H31": {
+                    "style": 5,
+                    "content": "=ODOO.FILTER.VALUE(\"Year\")-1",
+                    "border": 3
+                },
+                "H32": {
+                    "style": 4,
+                    "format": 4,
+                    "content": "=Data!D40",
+                    "border": 4
+                },
+                "H33": {
+                    "content": "=Data!D41"
+                },
+                "H34": {
+                    "style": 4,
+                    "content": "=Data!D42"
+                },
+                "H35": {
+                    "content": "=Data!D43"
+                },
+                "H36": {
+                    "style": 4,
+                    "content": "=Data!D44"
+                },
+                "H37": {
+                    "content": "=Data!D45"
+                },
+                "H38": {
+                    "style": 4,
+                    "content": "=Data!D46"
+                },
+                "H39": {
+                    "content": "=Data!D47"
                 },
                 "I19": {
-                    "style": 4,
+                    "style": 5,
                     "content": "Δ",
                     "border": 1
                 },
@@ -648,7 +628,7 @@
                     "content": "=iferror(G24/H24,0)"
                 },
                 "I26": {
-                    "style": 4,
+                    "style": 5,
                     "content": "Δ",
                     "border": 1
                 },
@@ -667,14 +647,65 @@
                     "format": 2,
                     "content": "=iferror(G29/H29,0)"
                 },
+                "I31": {
+                    "style": 5,
+                    "content": "Δ",
+                    "border": 3
+                },
+                "I32": {
+                    "style": 4,
+                    "format": 2,
+                    "content": "=iferror(G32/H32,0)",
+                    "border": 4
+                },
+                "I33": {
+                    "format": 2,
+                    "content": "=iferror(G33/H33,0)"
+                },
+                "I34": {
+                    "style": 4,
+                    "format": 2,
+                    "content": "=iferror(G34/H34,0)"
+                },
+                "I35": {
+                    "format": 2,
+                    "content": "=iferror(G35/H35,0)"
+                },
+                "I36": {
+                    "style": 4,
+                    "format": 2,
+                    "content": "=iferror(G36/H36,0)"
+                },
+                "I37": {
+                    "format": 2,
+                    "content": "=iferror(G37/H37,0)"
+                },
+                "I38": {
+                    "style": 4,
+                    "format": 2,
+                    "content": "=iferror(G38/H38,0)"
+                },
+                "I39": {
+                    "format": 2,
+                    "content": "=iferror(G39/H39,0)"
+                },
                 "A8": {
                     "border": 2
+                },
+                "B7": {
+                    "border": 1
                 },
                 "B8": {
                     "border": 2
                 },
+                "C7": {
+                    "border": 1
+                },
                 "C8": {
                     "border": 2
+                },
+                "D7": {
+                    "border": 1
                 },
                 "D8": {
                     "border": 2
@@ -715,13 +746,15 @@
                 {
                     "id": "151b0f60-aa89-457e-9456-9807ab779be6",
                     "x": 0,
-                    "y": 178,
+                    "y": 177,
                     "width": 1000,
                     "height": 230,
                     "tag": "chart",
                     "data": {
-                        "title": "",
-                        "background": "#FFFFFF",
+                        "title": {
+                            "text": ""
+                        },
+                        "background": "",
                         "legendPosition": "none",
                         "metaData": {
                             "groupBy": [
@@ -729,7 +762,8 @@
                             ],
                             "measure": "price_subtotal",
                             "order": null,
-                            "resModel": "account.invoice.report"
+                            "resModel": "account.invoice.report",
+                            "mode": "line"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -787,11 +821,14 @@
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "difference",
-                        "title": "Current income",
+                        "title": {
+                            "text": "Current income"
+                        },
                         "type": "scorecard",
                         "baseline": "Data!C3",
                         "baselineDescr": "last period",
-                        "keyValue": "Data!C2"
+                        "keyValue": "Data!C2",
+                        "humanize": false
                     }
                 },
                 {
@@ -805,10 +842,13 @@
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "difference",
-                        "title": "Receivables",
+                        "title": {
+                            "text": "Receivables"
+                        },
                         "type": "scorecard",
                         "baselineDescr": "to receive",
-                        "keyValue": "Data!C4"
+                        "keyValue": "Data!C4",
+                        "humanize": false
                     }
                 },
                 {
@@ -822,11 +862,14 @@
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "difference",
-                        "title": "Current expense",
+                        "title": {
+                            "text": "Current expense"
+                        },
                         "type": "scorecard",
                         "baseline": "Data!C6",
                         "baselineDescr": "last period",
-                        "keyValue": "Data!C5"
+                        "keyValue": "Data!C5",
+                        "humanize": false
                     }
                 },
                 {
@@ -840,24 +883,33 @@
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "difference",
-                        "title": "Payables",
+                        "title": {
+                            "text": "Payables"
+                        },
                         "type": "scorecard",
                         "baselineDescr": "to pay",
-                        "keyValue": "Data!C7"
+                        "keyValue": "Data!C7",
+                        "humanize": false
                     }
                 }
             ],
-            "filterTables": [],
+            "tables": [],
             "areGridLinesVisible": true,
-            "isVisible": true
+            "isVisible": true,
+            "headerGroups": {
+                "ROW": [],
+                "COL": []
+            },
+            "dataValidationRules": [],
+            "comments": {}
         },
         {
             "id": "08b80fa9-158a-44a6-ad6c-c29245a6e31a",
             "name": "Data",
             "colNumber": 31,
-            "rowNumber": 149,
+            "rowNumber": 169,
             "rows": {
-                "40": {
+                "51": {
                     "size": 23
                 }
             },
@@ -866,7 +918,7 @@
                     "size": 239
                 },
                 "1": {
-                    "size": 214
+                    "size": 347
                 },
                 "2": {
                     "size": 234
@@ -885,12 +937,6 @@
                 }
             },
             "merges": [
-                "A10:F10",
-                "A15:F15",
-                "A22:F22",
-                "A27:F27",
-                "A33:F33",
-                "A37:F37",
                 "A1:C1"
             ],
             "cells": {
@@ -917,7 +963,7 @@
                     "content": "=_t(\"Payables\")"
                 },
                 "A9": {
-                    "style": 5,
+                    "style": 6,
                     "content": "=_t(\"Year\")"
                 },
                 "A10": {
@@ -950,183 +996,203 @@
                     "content": "=_t(\"Return on investments\")"
                 },
                 "A19": {
-                    "content": "=_t(\"Working capital\")"
-                },
-                "A20": {
                     "content": "=_t(\"Financial independence\")"
                 },
-                "A21": {
-                    "content": "=_t(\"Quick ratio\")"
-                },
-                "A22": {
+                "A20": {
                     "style": 2,
                     "content": "=_t(\"Position\")"
                 },
-                "A23": {
+                "A21": {
                     "content": "=_t(\"Average debtors days\")"
                 },
-                "A24": {
+                "A22": {
                     "content": "=_t(\"Average creditors days\")"
                 },
-                "A25": {
+                "A23": {
                     "content": "=_t(\"Short term cash forecast\")"
                 },
-                "A26": {
-                    "content": "=_t(\"Current assets to liabilities\")"
-                },
-                "A27": {
+                "A24": {
                     "style": 2,
                     "content": "=_t(\"Profitability\")"
                 },
-                "A28": {
+                "A25": {
                     "content": "=_t(\"Income\")"
                 },
-                "A29": {
+                "A26": {
                     "content": "=_t(\"Cost of revenue\")"
                 },
-                "A30": {
+                "A27": {
                     "content": "=_t(\"Gross profit\")"
                 },
-                "A31": {
+                "A28": {
                     "content": "=_t(\"Expenses\")"
                 },
-                "A32": {
+                "A29": {
                     "content": "=_t(\"Net profit\")"
                 },
-                "A33": {
+                "A30": {
                     "style": 2,
                     "content": "=_t(\"Balance sheet\")"
                 },
-                "A34": {
+                "A31": {
                     "content": "=_t(\"Receivable\")"
                 },
-                "A35": {
+                "A32": {
                     "content": "=_t(\"Payables\")"
                 },
-                "A36": {
+                "A33": {
                     "content": "=_t(\"Net assets\")"
                 },
+                "A34": {
+                    "style": 2,
+                    "content": "=_t(\"Liquidity\")"
+                },
+                "A35": {
+                    "content": "=_t(\"Cash asset ratio\")"
+                },
+                "A36": {
+                    "content": "=_t(\"Quick ratio\")"
+                },
                 "A37": {
+                    "content": "=_t(\"Current assets to liabilities\")"
+                },
+                "A38": {
+                    "content": "=_t(\"Working capital\")"
+                },
+                "A39": {
+                    "style": 2,
+                    "content": "=_t(\"Solvency\")"
+                },
+                "A40": {
+                    "content": "=_t(\"Debt to Equity\")"
+                },
+                "A41": {
+                    "content": "=_t(\"Solvency\")"
+                },
+                "A42": {
+                    "content": "=_t(\"Debt ratio\")"
+                },
+                "A43": {
+                    "content": "=_t(\"Permanence\")"
+                },
+                "A44": {
+                    "content": "=_t(\"Financial independance\")"
+                },
+                "A45": {
+                    "content": "=_t(\"Financial balance\")"
+                },
+                "A46": {
+                    "content": "=_t(\"Long term working capital\")"
+                },
+                "A47": {
+                    "content": "=_t(\"Return on equity\")"
+                },
+                "A48": {
                     "style": 2,
                     "content": "=_t(\"Other variables\")"
                 },
-                "A38": {
-                    "style": 6,
+                "A49": {
                     "content": "OPINC"
                 },
-                "A39": {
-                    "style": 6,
+                "A50": {
                     "content": "OIN"
                 },
-                "A40": {
-                    "style": 6,
+                "A51": {
                     "content": "TA"
                 },
-                "A41": {
-                    "style": 6,
+                "A52": {
                     "content": "CA"
                 },
-                "A42": {
-                    "style": 6,
+                "A53": {
                     "content": "BA"
                 },
-                "A43": {
-                    "style": 6,
+                "A54": {
                     "content": "REC"
                 },
-                "A44": {
-                    "style": 6,
+                "A55": {
                     "content": "CAS"
                 },
-                "A45": {
-                    "style": 6,
+                "A56": {
                     "content": "PRE"
                 },
-                "A46": {
-                    "style": 6,
+                "A57": {
                     "content": "FA"
                 },
-                "A47": {
-                    "style": 6,
+                "A58": {
                     "content": "PNCA"
                 },
-                "A48": {
-                    "style": 6,
+                "A59": {
                     "content": "L"
                 },
-                "A49": {
-                    "style": 6,
+                "A60": {
                     "content": "CL"
                 },
-                "A50": {
-                    "style": 6,
+                "A61": {
+                    "content": "CL-CC"
+                },
+                "A62": {
                     "content": "CL1"
                 },
-                "A51": {
-                    "style": 6,
+                "A63": {
                     "content": "CL2"
                 },
-                "A52": {
-                    "style": 6,
+                "A64": {
                     "content": "NL"
                 },
-                "A53": {
-                    "style": 6,
+                "A65": {
                     "content": "DEP"
                 },
-                "A54": {
+                "A66": {
+                    "content": "CC"
+                },
+                "A67": {
                     "content": "EQ"
                 },
-                "A55": {
+                "A68": {
+                    "content": "EQ1"
+                },
+                "A69": {
                     "content": "UNALLOCATED_EARNINGS"
                 },
-                "A56": {
+                "A70": {
                     "content": "CURR_YEAR_EARNINGS"
                 },
-                "A57": {
+                "A71": {
                     "content": "CURR_YEAR_EARNINGS_PNL"
                 },
-                "A58": {
+                "A72": {
                     "content": "CURR_YEAR_EARNINGS_ALLOC"
                 },
-                "A59": {
+                "A73": {
                     "content": "PREV_YEAR_EARNINGS"
                 },
-                "A60": {
+                "A74": {
                     "content": "RETAINED_EARNINGS"
                 },
-                "B1": {
-                    "style": 2
+                "A75": {
+                    "content": "CY_EARN"
                 },
                 "B2": {
-                    "style": 7,
-                    "content": "=C38"
+                    "content": "=C49"
                 },
                 "B3": {
-                    "style": 7,
-                    "content": "=D38"
+                    "content": "=D49"
                 },
                 "B4": {
-                    "style": 7,
-                    "content": "=C34"
-                },
-                "B5": {
-                    "style": 7,
                     "content": "=C31"
                 },
+                "B5": {
+                    "content": "=C28"
+                },
                 "B6": {
-                    "style": 7,
-                    "content": "=D31"
+                    "content": "=D28"
                 },
                 "B7": {
-                    "content": "=C35"
+                    "content": "=C32"
                 },
                 "B9": {
-                    "style": 5,
+                    "style": 6,
                     "content": "=_t(\"Code\")"
-                },
-                "B10": {
-                    "style": 2
                 },
                 "B11": {
                     "content": "CR"
@@ -1137,152 +1203,113 @@
                 "B13": {
                     "content": "CR + CS"
                 },
-                "B15": {
-                    "style": 2
-                },
                 "B16": {
-                    "style": 6,
                     "content": "GRP/OPINC"
                 },
                 "B17": {
-                    "style": 6,
                     "content": "NEP/INC"
                 },
                 "B18": {
-                    "style": 6,
                     "content": "NEP/TA"
                 },
                 "B19": {
-                    "style": 6,
-                    "content": "CA-CL"
-                },
-                "B20": {
-                    "style": 8,
-                    "content": "EQ/CL"
+                    "content": "EQ1/CL"
                 },
                 "B21": {
-                    "content": "(BA + REC +CA)/CL"
-                },
-                "B22": {
-                    "style": 2
-                },
-                "B23": {
-                    "style": 6,
                     "content": "DEB/OPINC*365"
                 },
-                "B24": {
+                "B22": {
                     "content": "CRE/(COS+EXP)*365"
                 },
-                "B25": {
+                "B23": {
                     "content": "DEB-CRE"
                 },
-                "B26": {
-                    "style": 6,
-                    "content": "CA/CL"
-                },
-                "B27": {
-                    "style": 2
-                },
-                "B28": {
-                    "style": 6,
+                "B25": {
                     "content": "INC = OPINC + OIN"
                 },
-                "B29": {
-                    "style": 6,
+                "B26": {
                     "content": "COS"
                 },
-                "B30": {
-                    "style": 6,
+                "B27": {
                     "content": "GRP = OPINC - COS"
                 },
-                "B31": {
-                    "style": 6,
+                "B28": {
                     "content": "EXP"
                 },
-                "B32": {
-                    "style": 6,
+                "B29": {
                     "content": "NEP = OPINC + OIN - COS - EXP - DEP"
                 },
-                "B33": {
-                    "style": 2
-                },
-                "B34": {
-                    "style": 6,
+                "B31": {
                     "content": "DEB"
                 },
-                "B35": {
+                "B32": {
                     "content": "CRE"
                 },
-                "B36": {
-                    "style": 6,
+                "B33": {
                     "content": "NA = TA - L"
                 },
+                "B35": {
+                    "content": "BA / (CL + CC)"
+                },
+                "B36": {
+                    "content": "(BA + REC +CAS+PRE)/CL"
+                },
                 "B37": {
-                    "style": 2
+                    "content": "CA/CL"
                 },
                 "B38": {
-                    "style": 6
-                },
-                "B39": {
-                    "style": 6
+                    "content": "CAS+REC-(CL-CC)"
                 },
                 "B40": {
-                    "style": 6,
-                    "content": "CA + FA + PNCA"
+                    "content": "L/EQ1"
                 },
                 "B41": {
-                    "style": 6,
-                    "content": "BA + REC + CAS + PRE"
+                    "content": "[(EQ1 + CY_EARN) / TA]"
                 },
                 "B42": {
-                    "style": 6
+                    "content": "(CL + NL + CC) / TA"
                 },
                 "B43": {
-                    "style": 6
+                    "content": "(EQ1 + NL) / TA"
                 },
                 "B44": {
-                    "style": 6
+                    "content": "EQ1 / (EQ1+NL)"
                 },
                 "B45": {
-                    "style": 6
+                    "content": "(EQ1+NL)/(FA+PNCA)"
                 },
                 "B46": {
-                    "style": 6
+                    "content": "EQ1 + NL - FA - PNCA"
                 },
                 "B47": {
-                    "style": 6
-                },
-                "B48": {
-                    "style": 6,
-                    "content": "CL + NL"
-                },
-                "B49": {
-                    "style": 6,
-                    "content": "CL1 + CL2"
-                },
-                "B50": {
-                    "style": 6
+                    "content": "CURR_YEAR_EARNINGS_PNL/ EQ1"
                 },
                 "B51": {
-                    "style": 6
+                    "content": "CA + FA + PNCA"
                 },
                 "B52": {
-                    "style": 6
+                    "content": "BA + REC + CAS + PRE"
                 },
-                "B53": {
-                    "style": 2
+                "B59": {
+                    "content": "CL + NL"
                 },
-                "B54": {
+                "B60": {
+                    "content": "CL1 + CL2"
+                },
+                "B61": {
+                    "content": "CL-CC"
+                },
+                "B67": {
                     "content": "UNALLOCATED EARNINGS + RETAINED EARNINGS"
                 },
-                "B55": {
+                "B68": {
+                    "content": "Equity"
+                },
+                "B69": {
                     "content": "CURR_YEAR_EARNINGS + PREV_YEAR_EARNINGS"
                 },
-                "B56": {
+                "B70": {
                     "content": "CURR_YEAR_EARNINGS_PNL + CURR_YEAR_EARNINGS_ALLOC"
-                },
-                "C1": {
-                    "style": 2
                 },
                 "C2": {
                     "style": 3,
@@ -1309,11 +1336,8 @@
                     "content": "=FORMAT.LARGE.NUMBER(B7)"
                 },
                 "C9": {
-                    "style": 5,
+                    "style": 6,
                     "content": "=ODOO.FILTER.VALUE(\"Year\")"
-                },
-                "C10": {
-                    "style": 2
                 },
                 "C11": {
                     "content": "=ODOO.DEBIT($F11,C$9)-ODOO.DEBIT($F11,C$9-1)"
@@ -1327,174 +1351,187 @@
                 "C14": {
                     "content": "=ODOO.BALANCE($F14,C$9)"
                 },
-                "C15": {
-                    "style": 2
-                },
                 "C16": {
                     "format": 3,
-                    "content": "=iferror(C30/C38,0)"
+                    "content": "=iferror(C27/C49,0)"
                 },
                 "C17": {
                     "format": 3,
-                    "content": "=iferror(C32/C28,0)"
+                    "content": "=iferror(C29/C25,0)"
                 },
                 "C18": {
                     "format": 3,
-                    "content": "=iferror(C32/C40,0)"
+                    "content": "=iferror(C29/C51,0)"
                 },
                 "C19": {
-                    "content": "=C41-C49"
-                },
-                "C20": {
-                    "style": 8,
                     "format": 1,
-                    "content": "=iferror(C54/C49,0)"
+                    "content": "=iferror(C68/C60,0)"
                 },
                 "C21": {
-                    "style": 8,
-                    "format": 1,
-                    "content": "=iferror((C42+C43+C41)/C49,0)"
+                    "format": 5,
+                    "content": "=iferror(C31/C49*365,0)"
                 },
                 "C22": {
-                    "style": 2
+                    "format": 5,
+                    "content": "=iferror(C32/(C26+C28)*365,0)"
                 },
                 "C23": {
-                    "format": 4,
-                    "content": "=iferror(C34/C38*365,0)"
-                },
-                "C24": {
-                    "format": 4,
-                    "content": "=iferror(C35/(C29+C31)*365,0)"
+                    "content": "=C31-C32"
                 },
                 "C25": {
-                    "content": "=C34-C35"
+                    "content": "=C49+C50"
                 },
                 "C26": {
-                    "format": 4,
-                    "content": "=iferror(C41/C49,0)"
+                    "content": "=ODOO.BALANCE($F26,C$9)"
                 },
                 "C27": {
-                    "style": 2
+                    "content": "=C49-C26"
                 },
                 "C28": {
-                    "content": "=C38+C39"
+                    "content": "=ODOO.BALANCE($F28,C$9)"
                 },
                 "C29": {
-                    "content": "=ODOO.BALANCE($F29,C$9)"
-                },
-                "C30": {
-                    "content": "=C38-C29"
+                    "content": "=C49+C50-C26-C28-C65"
                 },
                 "C31": {
                     "content": "=ODOO.BALANCE($F31,C$9)"
                 },
                 "C32": {
-                    "content": "=C38+C39-C29-C31-C53"
+                    "content": "=-ODOO.BALANCE($F32,C$9)"
                 },
                 "C33": {
-                    "style": 2
-                },
-                "C34": {
-                    "content": "=ODOO.BALANCE($F34,C$9)"
+                    "content": "=C51-C59"
                 },
                 "C35": {
-                    "content": "=-ODOO.BALANCE($F35,C$9)"
+                    "format": 4,
+                    "content": "=IFERROR(C53/(C60+C66),0)"
                 },
                 "C36": {
-                    "content": "=C40-C48"
+                    "format": 1,
+                    "content": "=iferror((C53+C54+C55+C56)/C60,0)"
                 },
                 "C37": {
-                    "style": 2
+                    "format": 5,
+                    "content": "=iferror(C52/C60,0)"
                 },
                 "C38": {
-                    "content": "=-ODOO.BALANCE($F38,C$9)"
-                },
-                "C39": {
-                    "content": "=-ODOO.BALANCE($F39,C$9)"
+                    "content": "=C55+C54-C61"
                 },
                 "C40": {
-                    "style": 6,
-                    "content": "=C41+C46+C47"
+                    "format": 4,
+                    "content": "=IFERROR((C59)/C68,0)"
                 },
                 "C41": {
-                    "style": 6,
-                    "content": "=C42+C43+C44+C45"
+                    "format": 6,
+                    "content": "=IFERROR(((C68+C75)/C51),0)"
                 },
                 "C42": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F42,C$9)"
+                    "format": 4,
+                    "content": "=IFERROR((C60+C64+C66)/C51,0)"
                 },
                 "C43": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F43,C$9)"
+                    "format": 4,
+                    "content": "=IFERROR((C68+C64)/C51,0)"
                 },
                 "C44": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F44,C$9)"
+                    "format": 4,
+                    "content": "=IFERROR(C68/(C68+C64),0)"
                 },
                 "C45": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F45,C$9)"
+                    "format": 4,
+                    "content": "=IFERROR((C68+C64)/(C57+C58),0)"
                 },
                 "C46": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F46,C$9)"
+                    "content": "=C68+C64-C57-C58"
                 },
                 "C47": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F47,C$9)"
-                },
-                "C48": {
-                    "style": 6,
-                    "content": "=C49+C52"
+                    "format": 4,
+                    "content": "=IFERROR(C71/C68,0)"
                 },
                 "C49": {
-                    "style": 6,
-                    "content": "=C50+C51"
+                    "content": "=-ODOO.BALANCE($F49,C$9)"
                 },
                 "C50": {
-                    "style": 6,
                     "content": "=-ODOO.BALANCE($F50,C$9)"
                 },
                 "C51": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F51,C$9)"
+                    "content": "=C52+C57+C58"
                 },
                 "C52": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F52,C$9)"
+                    "content": "=C53+C54+C55+C56"
                 },
                 "C53": {
-                    "style": 6,
                     "content": "=ODOO.BALANCE($F53,C$9)"
                 },
                 "C54": {
-                    "content": "=C55+C60"
+                    "content": "=ODOO.BALANCE($F54,C$9)"
                 },
                 "C55": {
-                    "content": "=C56+C59"
+                    "content": "=ODOO.BALANCE($F55,C$9)"
                 },
                 "C56": {
-                    "content": "=C57+C58"
+                    "content": "=ODOO.BALANCE($F56,C$9)"
                 },
                 "C57": {
-                    "content": "=-ODOO.BALANCE($F57,C$9)"
+                    "content": "=ODOO.BALANCE($F57,C$9)"
                 },
                 "C58": {
-                    "content": "=-ODOO.BALANCE($F58,C$9)+ODOO.BALANCE($F58,C$9-1)"
+                    "content": "=ODOO.BALANCE($F58,C$9)"
                 },
                 "C59": {
-                    "content": "=D55"
+                    "content": "=C60+C64"
                 },
                 "C60": {
-                    "content": "=-ODOO.BALANCE($F60,C$9)"
+                    "content": "=C62+C63"
+                },
+                "C61": {
+                    "content": "=C60-C66"
+                },
+                "C62": {
+                    "content": "=-ODOO.BALANCE($F62,C$9)"
+                },
+                "C63": {
+                    "content": "=-ODOO.BALANCE($F63,C$9)"
+                },
+                "C64": {
+                    "content": "=-ODOO.BALANCE($F64,C$9)"
+                },
+                "C65": {
+                    "content": "=ODOO.BALANCE($F65,C$9)"
+                },
+                "C66": {
+                    "content": "=-ODOO.BALANCE($F66,C$9)"
+                },
+                "C67": {
+                    "content": "=C69+C74"
+                },
+                "C68": {
+                    "content": "=-ODOO.BALANCE($F68,C$9)"
+                },
+                "C69": {
+                    "content": "=C70+C73"
+                },
+                "C70": {
+                    "content": "=C71+C72"
+                },
+                "C71": {
+                    "content": "=-ODOO.BALANCE($F71,C$9)"
+                },
+                "C72": {
+                    "content": "=-ODOO.BALANCE($F72,C$9)+ODOO.BALANCE($F72,C$9-1)"
+                },
+                "C73": {
+                    "content": "=D69"
+                },
+                "C74": {
+                    "content": "=-ODOO.BALANCE($F74,C$9)"
+                },
+                "C75": {
+                    "content": "=-ODOO.BALANCE($F72,C$9)"
                 },
                 "D9": {
-                    "style": 9,
+                    "style": 6,
                     "content": "=C9-1"
-                },
-                "D10": {
-                    "style": 2
                 },
                 "D11": {
                     "content": "=ODOO.DEBIT($F11,D$9)-ODOO.DEBIT($F11,D$9-1)"
@@ -1508,176 +1545,187 @@
                 "D14": {
                     "content": "=ODOO.BALANCE($F14,D$9)"
                 },
-                "D15": {
-                    "style": 2
-                },
                 "D16": {
                     "format": 3,
-                    "content": "=iferror(D30/D38,0)"
+                    "content": "=iferror(D27/D49,0)"
                 },
                 "D17": {
                     "format": 3,
-                    "content": "=iferror(D32/D28,0)"
+                    "content": "=iferror(D29/D25,0)"
                 },
                 "D18": {
                     "format": 3,
-                    "content": "=iferror(D32/D40,0)"
+                    "content": "=iferror(D29/D51,0)"
                 },
                 "D19": {
-                    "content": "=D41-D49"
-                },
-                "D20": {
-                    "style": 8,
                     "format": 1,
-                    "content": "=iferror(D54/D49,0)"
+                    "content": "=iferror(D67/D60,0)"
                 },
                 "D21": {
-                    "style": 8,
-                    "format": 1,
-                    "content": "=iferror((D42+D43+D41)/D49,0)"
+                    "format": 5,
+                    "content": "=iferror(D31/D49*365,0)"
                 },
                 "D22": {
-                    "style": 2
+                    "format": 5,
+                    "content": "=iferror(D32/(D26+D28)*365,0)"
                 },
                 "D23": {
-                    "format": 4,
-                    "content": "=iferror(D34/D38*365,0)"
-                },
-                "D24": {
-                    "format": 4,
-                    "content": "=iferror(D35/(D29+D31)*365,0)"
+                    "content": "=D31-D32"
                 },
                 "D25": {
-                    "content": "=D34-D35"
+                    "content": "=D49+D50"
                 },
                 "D26": {
-                    "format": 4,
-                    "content": "=iferror(D41/D49,0)"
+                    "content": "=ODOO.BALANCE($F26,D$9)"
                 },
                 "D27": {
-                    "style": 2
+                    "content": "=D49-D26"
                 },
                 "D28": {
-                    "content": "=D38+D39"
+                    "content": "=ODOO.BALANCE($F28,D$9)"
                 },
                 "D29": {
-                    "content": "=ODOO.BALANCE($F29,D$9)"
-                },
-                "D30": {
-                    "content": "=D38-D29"
+                    "content": "=D49+D50-D26-D28-D65"
                 },
                 "D31": {
                     "content": "=ODOO.BALANCE($F31,D$9)"
                 },
                 "D32": {
-                    "content": "=D38+D39-D29-D31-D53"
+                    "content": "=-ODOO.BALANCE($F32,D$9)"
                 },
                 "D33": {
-                    "style": 2
-                },
-                "D34": {
-                    "content": "=ODOO.BALANCE($F34,D$9)"
+                    "content": "=D51-D59"
                 },
                 "D35": {
-                    "content": "=-ODOO.BALANCE($F35,D$9)"
+                    "format": 4,
+                    "content": "=IFERROR(D53/(D60+D66),0)"
                 },
                 "D36": {
-                    "content": "=D40-D48"
+                    "format": 1,
+                    "content": "=iferror((D53+D54+D55+D56)/D60,0)"
                 },
                 "D37": {
-                    "style": 2
+                    "format": 5,
+                    "content": "=iferror(D52/D60,0)"
                 },
                 "D38": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F38,D$9)"
-                },
-                "D39": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F39,D$9)"
+                    "content": "=D55+D54-D61"
                 },
                 "D40": {
-                    "style": 6,
-                    "content": "=D41+D46+D47"
+                    "format": 4,
+                    "content": "=IFERROR((D59)/D68,0)"
                 },
                 "D41": {
-                    "style": 6,
-                    "content": "=D42+D43+D44+D45"
+                    "format": 6,
+                    "content": "=IFERROR(((D68+D75)/D51),0)"
                 },
                 "D42": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F42,D$9)"
+                    "format": 4,
+                    "content": "=IFERROR((D60+D64+D66)/D51,0)"
                 },
                 "D43": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F43,D$9)"
+                    "format": 4,
+                    "content": "=IFERROR((D68+D64)/D51,0)"
                 },
                 "D44": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F44,D$9)"
+                    "format": 4,
+                    "content": "=IFERROR(D68/(D68+D64),0)"
                 },
                 "D45": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F45,D$9)"
+                    "format": 4,
+                    "content": "=IFERROR((D68+D64)/(D57+D58),0)"
                 },
                 "D46": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F46,D$9)"
+                    "content": "=D68+D64-D57-D58"
                 },
                 "D47": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F47,D$9)"
-                },
-                "D48": {
-                    "style": 6,
-                    "content": "=D49+D52"
+                    "format": 4,
+                    "content": "=IFERROR(D71/D68,0)"
                 },
                 "D49": {
-                    "style": 6,
-                    "content": "=D50+D51"
+                    "content": "=-ODOO.BALANCE($F49,D$9)"
                 },
                 "D50": {
-                    "style": 6,
                     "content": "=-ODOO.BALANCE($F50,D$9)"
                 },
                 "D51": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F51,D$9)"
+                    "content": "=D52+D57+D58"
                 },
                 "D52": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F52,D$9)"
+                    "content": "=D53+D54+D55+D56"
                 },
                 "D53": {
-                    "style": 6,
                     "content": "=ODOO.BALANCE($F53,D$9)"
                 },
                 "D54": {
-                    "content": "=D55+D60"
+                    "content": "=ODOO.BALANCE($F54,D$9)"
                 },
                 "D55": {
-                    "content": "=D56+D59"
+                    "content": "=ODOO.BALANCE($F55,D$9)"
                 },
                 "D56": {
-                    "content": "=D57+D58"
+                    "content": "=ODOO.BALANCE($F56,D$9)"
                 },
                 "D57": {
-                    "content": "=-ODOO.BALANCE($F57,D$9)"
+                    "content": "=ODOO.BALANCE($F57,D$9)"
                 },
                 "D58": {
-                    "content": "=-ODOO.BALANCE($F58,D$9)+ODOO.BALANCE($F58,D$9-1)"
+                    "content": "=ODOO.BALANCE($F58,D$9)"
                 },
                 "D59": {
-                    "content": "=E55"
+                    "content": "=D60+D64"
                 },
                 "D60": {
-                    "content": "=-ODOO.BALANCE($F60,D$9)"
+                    "content": "=D62+D63"
+                },
+                "D61": {
+                    "content": "=D60-D66"
+                },
+                "D62": {
+                    "content": "=-ODOO.BALANCE($F62,D$9)"
+                },
+                "D63": {
+                    "content": "=-ODOO.BALANCE($F63,D$9)"
+                },
+                "D64": {
+                    "content": "=-ODOO.BALANCE($F64,D$9)"
+                },
+                "D65": {
+                    "content": "=ODOO.BALANCE($F65,D$9)"
+                },
+                "D66": {
+                    "content": "=ODOO.BALANCE($F66,D$9)"
+                },
+                "D67": {
+                    "content": "=D69+D74"
+                },
+                "D68": {
+                    "content": "=-ODOO.BALANCE($F68,D$9)"
+                },
+                "D69": {
+                    "content": "=D70+D73"
+                },
+                "D70": {
+                    "content": "=D71+D72"
+                },
+                "D71": {
+                    "content": "=-ODOO.BALANCE($F71,D$9)"
+                },
+                "D72": {
+                    "content": "=-ODOO.BALANCE($F72,D$9)+ODOO.BALANCE($F72,D$9-1)"
+                },
+                "D73": {
+                    "content": "=E69"
+                },
+                "D74": {
+                    "content": "=-ODOO.BALANCE($F74,D$9)"
+                },
+                "D75": {
+                    "content": "=-ODOO.BALANCE($F72,D$9)"
                 },
                 "E9": {
-                    "style": 9,
+                    "style": 6,
                     "content": "=D9-1"
-                },
-                "E10": {
-                    "style": 2
                 },
                 "E11": {
                     "content": "=ODOO.DEBIT($F11,E$9)-ODOO.DEBIT($F11,E$9-1)"
@@ -1691,176 +1739,187 @@
                 "E14": {
                     "content": "=ODOO.BALANCE($F14,E$9)"
                 },
-                "E15": {
-                    "style": 2
-                },
                 "E16": {
                     "format": 3,
-                    "content": "=iferror(E30/E38,0)"
+                    "content": "=iferror(E27/E49,0)"
                 },
                 "E17": {
                     "format": 3,
-                    "content": "=iferror(E32/E28,0)"
+                    "content": "=iferror(E29/E25,0)"
                 },
                 "E18": {
                     "format": 3,
-                    "content": "=iferror(E32/E40,0)"
+                    "content": "=iferror(E29/E51,0)"
                 },
                 "E19": {
-                    "content": "=E41-E49"
-                },
-                "E20": {
-                    "style": 8,
                     "format": 1,
-                    "content": "=iferror(E54/E49,0)"
+                    "content": "=iferror(E67/E60,0)"
                 },
                 "E21": {
-                    "style": 8,
-                    "format": 1,
-                    "content": "=iferror((E42+E43+E41)/E49,0)"
+                    "format": 5,
+                    "content": "=iferror(E31/E49*365,0)"
                 },
                 "E22": {
-                    "style": 2
+                    "format": 5,
+                    "content": "=iferror(E32/(E26+E28)*365,0)"
                 },
                 "E23": {
-                    "format": 4,
-                    "content": "=iferror(E34/E38*365,0)"
-                },
-                "E24": {
-                    "format": 4,
-                    "content": "=iferror(E35/(E29+E31)*365,0)"
+                    "content": "=E31-E32"
                 },
                 "E25": {
-                    "content": "=E34-E35"
+                    "content": "=E49+E50"
                 },
                 "E26": {
-                    "format": 4,
-                    "content": "=iferror(E41/E49,0)"
+                    "content": "=ODOO.BALANCE($F26,E$9)"
                 },
                 "E27": {
-                    "style": 2
+                    "content": "=E49-E26"
                 },
                 "E28": {
-                    "content": "=E38+E39"
+                    "content": "=ODOO.BALANCE($F28,E$9)"
                 },
                 "E29": {
-                    "content": "=ODOO.BALANCE($F29,E$9)"
-                },
-                "E30": {
-                    "content": "=E38-E29"
+                    "content": "=E49+E50-E26-E28-E65"
                 },
                 "E31": {
                     "content": "=ODOO.BALANCE($F31,E$9)"
                 },
                 "E32": {
-                    "content": "=E38+E39-E29-E31-E53"
+                    "content": "=-ODOO.BALANCE($F32,E$9)"
                 },
                 "E33": {
-                    "style": 2
-                },
-                "E34": {
-                    "content": "=ODOO.BALANCE($F34,E$9)"
+                    "content": "=E51-E59"
                 },
                 "E35": {
-                    "content": "=-ODOO.BALANCE($F35,E$9)"
+                    "format": 4,
+                    "content": "=IFERROR(E53/(E60+E66),0)"
                 },
                 "E36": {
-                    "content": "=E40-E48"
+                    "format": 1,
+                    "content": "=iferror((E53+E54+E55+E56)/E60,0)"
                 },
                 "E37": {
-                    "style": 2
+                    "format": 5,
+                    "content": "=iferror(E52/E60,0)"
                 },
                 "E38": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F38,E$9)"
-                },
-                "E39": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F39,E$9)"
+                    "content": "=E55+E54-E61"
                 },
                 "E40": {
-                    "style": 6,
-                    "content": "=E41+E46+E47"
+                    "format": 4,
+                    "content": "=IFERROR((E59)/E68,0)"
                 },
                 "E41": {
-                    "style": 6,
-                    "content": "=E42+E43+E44+E45"
+                    "format": 6,
+                    "content": "=IFERROR(((E68+E75)/E51),0)"
                 },
                 "E42": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F42,E$9)"
+                    "format": 4,
+                    "content": "=IFERROR((E60+E64+E66)/E51,0)"
                 },
                 "E43": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F43,E$9)"
+                    "format": 4,
+                    "content": "=IFERROR((E68+E64)/E51,0)"
                 },
                 "E44": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F44,E$9)"
+                    "format": 4,
+                    "content": "=IFERROR(E68/(E68+E64),0)"
                 },
                 "E45": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F45,E$9)"
+                    "format": 4,
+                    "content": "=IFERROR((E68+E64)/(E57+E58),0)"
                 },
                 "E46": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F46,E$9)"
+                    "content": "=E68+E64-E57-E58"
                 },
                 "E47": {
-                    "style": 6,
-                    "content": "=ODOO.BALANCE($F47,E$9)"
-                },
-                "E48": {
-                    "style": 6,
-                    "content": "=E49+E52"
+                    "format": 4,
+                    "content": "=IFERROR(E71/E68,0)"
                 },
                 "E49": {
-                    "style": 6,
-                    "content": "=E50+E51"
+                    "content": "=-ODOO.BALANCE($F49,E$9)"
                 },
                 "E50": {
-                    "style": 6,
                     "content": "=-ODOO.BALANCE($F50,E$9)"
                 },
                 "E51": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F51,E$9)"
+                    "content": "=E52+E57+E58"
                 },
                 "E52": {
-                    "style": 6,
-                    "content": "=-ODOO.BALANCE($F52,E$9)"
+                    "content": "=E53+E54+E55+E56"
                 },
                 "E53": {
-                    "style": 6,
                     "content": "=ODOO.BALANCE($F53,E$9)"
                 },
                 "E54": {
-                    "content": "=E55+E60"
+                    "content": "=ODOO.BALANCE($F54,E$9)"
                 },
                 "E55": {
-                    "content": "=E56+E59"
+                    "content": "=ODOO.BALANCE($F55,E$9)"
                 },
                 "E56": {
-                    "content": "=E57+E58"
+                    "content": "=ODOO.BALANCE($F56,E$9)"
                 },
                 "E57": {
-                    "content": "=-ODOO.BALANCE($F57,E$9)"
+                    "content": "=ODOO.BALANCE($F57,E$9)"
                 },
                 "E58": {
-                    "content": "=-ODOO.BALANCE($F58,E$9)+ODOO.BALANCE($F58,E$9-1)"
+                    "content": "=ODOO.BALANCE($F58,E$9)"
                 },
                 "E59": {
-                    "content": "=-ODOO.BALANCE($F58,E$9-1)-ODOO.BALANCE($F59,E9, -1)-ODOO.BALANCE($F59,E9, -2)-ODOO.BALANCE($F59,E9, -3)-ODOO.BALANCE($F59,E9, -4)-ODOO.BALANCE($F59,E9, -5)"
+                    "content": "=E60+E64"
                 },
                 "E60": {
-                    "content": "=-ODOO.BALANCE($F60,E$9)"
+                    "content": "=E62+E63"
+                },
+                "E61": {
+                    "content": "=E60-E66"
+                },
+                "E62": {
+                    "content": "=-ODOO.BALANCE($F62,E$9)"
+                },
+                "E63": {
+                    "content": "=-ODOO.BALANCE($F63,E$9)"
+                },
+                "E64": {
+                    "content": "=-ODOO.BALANCE($F64,E$9)"
+                },
+                "E65": {
+                    "content": "=ODOO.BALANCE($F65,E$9)"
+                },
+                "E66": {
+                    "content": "=ODOO.BALANCE($F66,E$9)"
+                },
+                "E67": {
+                    "content": "=E69+E74"
+                },
+                "E68": {
+                    "content": "=-ODOO.BALANCE($F68,E$9)"
+                },
+                "E69": {
+                    "content": "=E70+E73"
+                },
+                "E70": {
+                    "content": "=E71+E72"
+                },
+                "E71": {
+                    "content": "=-ODOO.BALANCE($F71,E$9)"
+                },
+                "E72": {
+                    "content": "=-ODOO.BALANCE($F72,E$9)+ODOO.BALANCE($F72,E$9-1)"
+                },
+                "E73": {
+                    "content": "=-ODOO.BALANCE($F72,E$9-1)-ODOO.BALANCE($F73,E9, -1)-ODOO.BALANCE($F73,E9, -2)-ODOO.BALANCE($F73,E9, -3)-ODOO.BALANCE($F73,E9, -4)-ODOO.BALANCE($F73,E9, -5)"
+                },
+                "E74": {
+                    "content": "=-ODOO.BALANCE($F74,E$9)"
+                },
+                "E75": {
+                    "content": "=-ODOO.BALANCE($F72,E$9)"
                 },
                 "F9": {
-                    "style": 5,
+                    "style": 6,
                     "content": "=_t(\"Accounts\")"
-                },
-                "F10": {
-                    "style": 2
                 },
                 "F11": {
                     "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"asset_cash\"),\", \",ODOO.ACCOUNT.GROUP(\"liability_credit_card\"))"
@@ -1871,1120 +1930,102 @@
                 "F14": {
                     "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"asset_cash\"),\", \",ODOO.ACCOUNT.GROUP(\"liability_credit_card\"))"
                 },
-                "F15": {
-                    "style": 2
-                },
-                "F16": {
-                    "style": 10
-                },
-                "F17": {
-                    "style": 10
-                },
-                "F18": {
-                    "style": 10
-                },
-                "F19": {
-                    "style": 10
-                },
-                "F20": {
-                    "style": 10
-                },
-                "F21": {
-                    "style": 10
-                },
-                "F22": {
-                    "style": 2
-                },
-                "F23": {
-                    "style": 10
-                },
-                "F24": {
-                    "style": 10
-                },
-                "F25": {
-                    "style": 10
-                },
                 "F26": {
-                    "style": 10
-                },
-                "F27": {
-                    "style": 2
-                },
-                "F28": {
-                    "style": 10
-                },
-                "F29": {
                     "content": "=ODOO.ACCOUNT.GROUP(\"expense_direct_cost\")"
                 },
-                "F30": {
-                    "style": 10
-                },
-                "F31": {
-                    "style": 10,
+                "F28": {
                     "content": "=ODOO.ACCOUNT.GROUP(\"expense\")"
                 },
+                "F31": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_receivable\")"
+                },
                 "F32": {
-                    "style": 10
-                },
-                "F33": {
-                    "style": 2
-                },
-                "F34": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_receivable\")"
-                },
-                "F35": {
-                    "style": 10,
                     "content": "=ODOO.ACCOUNT.GROUP(\"liability_payable\")"
-                },
-                "F36": {
-                    "style": 10
-                },
-                "F37": {
-                    "style": 2
-                },
-                "F38": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"income\")"
-                },
-                "F39": {
-                    "content": "=ODOO.ACCOUNT.GROUP(\"income_other\")"
-                },
-                "F40": {
-                    "style": 10
-                },
-                "F41": {
-                    "style": 10
-                },
-                "F42": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_cash\")"
-                },
-                "F43": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_receivable\")"
-                },
-                "F44": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_current\")"
-                },
-                "F45": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_prepayments\")"
-                },
-                "F46": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_fixed\")"
-                },
-                "F47": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_non_current\")"
-                },
-                "F48": {
-                    "style": 10
                 },
                 "F49": {
-                    "style": 10
+                    "content": "=ODOO.ACCOUNT.GROUP(\"income\")"
                 },
                 "F50": {
-                    "style": 10,
-                    "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"liability_current\"),\", \",ODOO.ACCOUNT.GROUP(\"liability_credit_card\"))"
-                },
-                "F51": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"liability_payable\")"
-                },
-                "F52": {
-                    "style": 10,
-                    "content": "=ODOO.ACCOUNT.GROUP(\"liability_non_current\")"
+                    "content": "=ODOO.ACCOUNT.GROUP(\"income_other\")"
                 },
                 "F53": {
-                    "content": "=ODOO.ACCOUNT.GROUP(\"expense_depreciation\")"
+                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_cash\")"
+                },
+                "F54": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_receivable\")"
+                },
+                "F55": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_current\")"
+                },
+                "F56": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_prepayments\")"
                 },
                 "F57": {
-                    "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"income\"),\",\",ODOO.ACCOUNT.GROUP(\"income_other\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_direct_cost\"),\",\",ODOO.ACCOUNT.GROUP(\"expense\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_depreciation\"))"
+                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_fixed\")"
                 },
                 "F58": {
-                    "content": "=ODOO.ACCOUNT.GROUP(\"equity_unaffected\")"
+                    "content": "=ODOO.ACCOUNT.GROUP(\"asset_non_current\")"
                 },
-                "F59": {
-                    "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"income\"),\",\",ODOO.ACCOUNT.GROUP(\"income_other\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_direct_cost\"),\",\",ODOO.ACCOUNT.GROUP(\"expense\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_depreciation\"))"
+                "F62": {
+                    "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"liability_current\"),\", \",ODOO.ACCOUNT.GROUP(\"liability_credit_card\"))"
                 },
-                "F60": {
+                "F63": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"liability_payable\")"
+                },
+                "F64": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"liability_non_current\")"
+                },
+                "F65": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"expense_depreciation\")"
+                },
+                "F66": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"liability_credit_card\")"
+                },
+                "F68": {
                     "content": "=ODOO.ACCOUNT.GROUP(\"equity\")"
                 },
-                "G16": {
-                    "style": 6
+                "F71": {
+                    "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"income\"),\",\",ODOO.ACCOUNT.GROUP(\"income_other\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_direct_cost\"),\",\",ODOO.ACCOUNT.GROUP(\"expense\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_depreciation\"))"
                 },
-                "G17": {
-                    "style": 10
+                "F72": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"equity_unaffected\")"
                 },
-                "G18": {
-                    "style": 10
+                "F73": {
+                    "content": "=CONCATENATE(ODOO.ACCOUNT.GROUP(\"income\"),\",\",ODOO.ACCOUNT.GROUP(\"income_other\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_direct_cost\"),\",\",ODOO.ACCOUNT.GROUP(\"expense\"),\",\",ODOO.ACCOUNT.GROUP(\"expense_depreciation\"))"
                 },
-                "G19": {
-                    "style": 10
-                },
-                "G20": {
-                    "style": 10
-                },
-                "G21": {
-                    "style": 10
-                },
-                "G22": {
-                    "style": 10
-                },
-                "G23": {
-                    "style": 10
-                },
-                "G24": {
-                    "style": 10
-                },
-                "G25": {
-                    "style": 10
-                },
-                "G26": {
-                    "style": 10
-                },
-                "G27": {
-                    "style": 10
-                },
-                "G28": {
-                    "style": 10
-                },
-                "G29": {
-                    "style": 10
-                },
-                "G30": {
-                    "style": 10
-                },
-                "G31": {
-                    "style": 10
-                },
-                "G32": {
-                    "style": 10
-                },
-                "G33": {
-                    "style": 10
-                },
-                "G34": {
-                    "style": 10
-                },
-                "G35": {
-                    "style": 10
-                },
-                "G36": {
-                    "style": 10
-                },
-                "G37": {
-                    "style": 10
-                },
-                "G38": {
-                    "style": 10
-                },
-                "G39": {
-                    "style": 10
-                },
-                "G40": {
-                    "style": 10
-                },
-                "G41": {
-                    "style": 10
-                },
-                "G42": {
-                    "style": 10
-                },
-                "G43": {
-                    "style": 10
-                },
-                "G44": {
-                    "style": 10
-                },
-                "G45": {
-                    "style": 10
-                },
-                "G46": {
-                    "style": 10
-                },
-                "G47": {
-                    "style": 10
-                },
-                "G48": {
-                    "style": 10
-                },
-                "G49": {
-                    "style": 10
-                },
-                "G50": {
-                    "style": 10
-                },
-                "G51": {
-                    "style": 10
-                },
-                "G52": {
-                    "style": 10
-                },
-                "G53": {
-                    "style": 11
-                },
-                "G54": {
-                    "style": 11
-                },
-                "H8": {
-                    "style": 12
-                },
-                "H9": {
-                    "style": 12
-                },
-                "H10": {
-                    "style": 12
-                },
-                "H11": {
-                    "style": 12
-                },
-                "H12": {
-                    "style": 12
-                },
-                "H13": {
-                    "style": 12
-                },
-                "H14": {
-                    "style": 12
-                },
-                "H15": {
-                    "style": 12
-                },
-                "H16": {
-                    "style": 13
-                },
-                "H17": {
-                    "style": 6
-                },
-                "H18": {
-                    "style": 6
-                },
-                "H19": {
-                    "style": 6
-                },
-                "H20": {
-                    "style": 6
-                },
-                "H21": {
-                    "style": 6
-                },
-                "H22": {
-                    "style": 6
-                },
-                "H23": {
-                    "style": 6
-                },
-                "H24": {
-                    "style": 6
-                },
-                "H25": {
-                    "style": 6
-                },
-                "H26": {
-                    "style": 6
-                },
-                "H27": {
-                    "style": 6
-                },
-                "H28": {
-                    "style": 6
-                },
-                "H29": {
-                    "style": 6
-                },
-                "H30": {
-                    "style": 6
-                },
-                "H31": {
-                    "style": 6
-                },
-                "H32": {
-                    "style": 6
-                },
-                "H33": {
-                    "style": 6
-                },
-                "H34": {
-                    "style": 6
-                },
-                "H35": {
-                    "style": 6
-                },
-                "H36": {
-                    "style": 6
-                },
-                "H37": {
-                    "style": 6
-                },
-                "H38": {
-                    "style": 6
-                },
-                "H39": {
-                    "style": 6
-                },
-                "H40": {
-                    "style": 6
-                },
-                "H41": {
-                    "style": 6
-                },
-                "H42": {
-                    "style": 6
-                },
-                "H43": {
-                    "style": 6
-                },
-                "H44": {
-                    "style": 6
-                },
-                "H45": {
-                    "style": 6
-                },
-                "H46": {
-                    "style": 6
-                },
-                "H47": {
-                    "style": 6
-                },
-                "H48": {
-                    "style": 6
-                },
-                "H49": {
-                    "style": 6
-                },
-                "H50": {
-                    "style": 6
-                },
-                "H51": {
-                    "style": 6
-                },
-                "H52": {
-                    "style": 6
-                },
-                "H53": {
-                    "style": 2
-                },
-                "H54": {
-                    "style": 2
-                },
-                "I8": {
-                    "style": 12
-                },
-                "I9": {
-                    "style": 12
-                },
-                "I10": {
-                    "style": 12
-                },
-                "I11": {
-                    "style": 12
-                },
-                "I12": {
-                    "style": 12
-                },
-                "I13": {
-                    "style": 12
-                },
-                "I14": {
-                    "style": 12
-                },
-                "I15": {
-                    "style": 12
-                },
-                "I16": {
-                    "style": 12
-                },
-                "I17": {
-                    "style": 2
-                },
-                "I18": {
-                    "style": 2
-                },
-                "I19": {
-                    "style": 2
-                },
-                "I20": {
-                    "style": 2
-                },
-                "I21": {
-                    "style": 2
-                },
-                "I22": {
-                    "style": 2
-                },
-                "I23": {
-                    "style": 2
-                },
-                "I24": {
-                    "style": 2
-                },
-                "I25": {
-                    "style": 2
-                },
-                "I26": {
-                    "style": 2
-                },
-                "I27": {
-                    "style": 2
-                },
-                "I28": {
-                    "style": 2
-                },
-                "I29": {
-                    "style": 2
-                },
-                "I30": {
-                    "style": 2
-                },
-                "I31": {
-                    "style": 2
-                },
-                "I32": {
-                    "style": 2
-                },
-                "I33": {
-                    "style": 2
-                },
-                "I34": {
-                    "style": 2
-                },
-                "I35": {
-                    "style": 2
-                },
-                "I36": {
-                    "style": 2
-                },
-                "I37": {
-                    "style": 2
-                },
-                "I38": {
-                    "style": 2
-                },
-                "I39": {
-                    "style": 2
-                },
-                "I40": {
-                    "style": 2
-                },
-                "I41": {
-                    "style": 2
-                },
-                "I42": {
-                    "style": 2
-                },
-                "I43": {
-                    "style": 2
-                },
-                "I44": {
-                    "style": 2
-                },
-                "I45": {
-                    "style": 2
-                },
-                "I46": {
-                    "style": 2
-                },
-                "I47": {
-                    "style": 2
-                },
-                "I48": {
-                    "style": 2
-                },
-                "I49": {
-                    "style": 2
-                },
-                "I50": {
-                    "style": 2
-                },
-                "I51": {
-                    "style": 2
-                },
-                "I52": {
-                    "style": 2
-                },
-                "I53": {
-                    "style": 2
-                },
-                "I54": {
-                    "style": 2
-                },
-                "J8": {
-                    "style": 12
-                },
-                "J9": {
-                    "style": 12
-                },
-                "J10": {
-                    "style": 12
-                },
-                "J11": {
-                    "style": 12
-                },
-                "J12": {
-                    "style": 12
-                },
-                "J13": {
-                    "style": 12
-                },
-                "J14": {
-                    "style": 12
-                },
-                "J15": {
-                    "style": 12
-                },
-                "J16": {
-                    "style": 12
-                },
-                "J17": {
-                    "style": 2
-                },
-                "J18": {
-                    "style": 2
-                },
-                "J19": {
-                    "style": 2
-                },
-                "J20": {
-                    "style": 2
-                },
-                "J21": {
-                    "style": 2
-                },
-                "J22": {
-                    "style": 2
-                },
-                "J23": {
-                    "style": 2
-                },
-                "J24": {
-                    "style": 2
-                },
-                "J25": {
-                    "style": 2
-                },
-                "J26": {
-                    "style": 2
-                },
-                "J27": {
-                    "style": 2
-                },
-                "J28": {
-                    "style": 2
-                },
-                "J29": {
-                    "style": 2
-                },
-                "J30": {
-                    "style": 2
-                },
-                "J31": {
-                    "style": 2
-                },
-                "J32": {
-                    "style": 2
-                },
-                "J33": {
-                    "style": 2
-                },
-                "J34": {
-                    "style": 2
-                },
-                "J35": {
-                    "style": 2
-                },
-                "J36": {
-                    "style": 2
-                },
-                "J37": {
-                    "style": 2
-                },
-                "J38": {
-                    "style": 2
-                },
-                "J39": {
-                    "style": 2
-                },
-                "J40": {
-                    "style": 2
-                },
-                "J41": {
-                    "style": 2
-                },
-                "J42": {
-                    "style": 2
-                },
-                "J43": {
-                    "style": 2
-                },
-                "J44": {
-                    "style": 2
-                },
-                "J45": {
-                    "style": 2
-                },
-                "J46": {
-                    "style": 2
-                },
-                "J47": {
-                    "style": 2
-                },
-                "J48": {
-                    "style": 2
-                },
-                "J49": {
-                    "style": 2
-                },
-                "J50": {
-                    "style": 2
-                },
-                "J51": {
-                    "style": 2
-                },
-                "J52": {
-                    "style": 2
-                },
-                "J53": {
-                    "style": 2
-                },
-                "J54": {
-                    "style": 2
-                },
-                "K8": {
-                    "style": 12
-                },
-                "K9": {
-                    "style": 12
-                },
-                "K10": {
-                    "style": 12
-                },
-                "K11": {
-                    "style": 12
-                },
-                "K12": {
-                    "style": 12
-                },
-                "K13": {
-                    "style": 12
-                },
-                "K14": {
-                    "style": 12
-                },
-                "K15": {
-                    "style": 12
-                },
-                "K16": {
-                    "style": 12
-                },
-                "K17": {
-                    "style": 2
-                },
-                "K18": {
-                    "style": 2
-                },
-                "K19": {
-                    "style": 2
-                },
-                "K20": {
-                    "style": 2
-                },
-                "K21": {
-                    "style": 2
-                },
-                "K22": {
-                    "style": 2
-                },
-                "K23": {
-                    "style": 2
-                },
-                "K24": {
-                    "style": 2
-                },
-                "K25": {
-                    "style": 2
-                },
-                "K26": {
-                    "style": 2
-                },
-                "K27": {
-                    "style": 2
-                },
-                "K28": {
-                    "style": 2
-                },
-                "K29": {
-                    "style": 2
-                },
-                "K30": {
-                    "style": 2
-                },
-                "K31": {
-                    "style": 2
-                },
-                "K32": {
-                    "style": 2
-                },
-                "K33": {
-                    "style": 2
-                },
-                "K34": {
-                    "style": 2
-                },
-                "K35": {
-                    "style": 2
-                },
-                "K36": {
-                    "style": 2
-                },
-                "K37": {
-                    "style": 2
-                },
-                "K38": {
-                    "style": 2
-                },
-                "K39": {
-                    "style": 2
-                },
-                "K40": {
-                    "style": 2
-                },
-                "K41": {
-                    "style": 2
-                },
-                "K42": {
-                    "style": 2
-                },
-                "K43": {
-                    "style": 2
-                },
-                "K44": {
-                    "style": 2
-                },
-                "K45": {
-                    "style": 2
-                },
-                "K46": {
-                    "style": 2
-                },
-                "K47": {
-                    "style": 2
-                },
-                "K48": {
-                    "style": 2
-                },
-                "K49": {
-                    "style": 2
-                },
-                "K50": {
-                    "style": 2
-                },
-                "K51": {
-                    "style": 2
-                },
-                "K52": {
-                    "style": 2
-                },
-                "K53": {
-                    "style": 2
-                },
-                "K54": {
-                    "style": 2
-                },
-                "L8": {
-                    "style": 12
-                },
-                "L9": {
-                    "style": 12
-                },
-                "L10": {
-                    "style": 12
-                },
-                "L11": {
-                    "style": 12
-                },
-                "L12": {
-                    "style": 12
-                },
-                "L13": {
-                    "style": 12
-                },
-                "L14": {
-                    "style": 12
-                },
-                "L15": {
-                    "style": 12
-                },
-                "L16": {
-                    "style": 12
-                },
-                "L17": {
-                    "style": 2
-                },
-                "L18": {
-                    "style": 2
-                },
-                "L19": {
-                    "style": 2
-                },
-                "L20": {
-                    "style": 2
-                },
-                "L21": {
-                    "style": 2
-                },
-                "L22": {
-                    "style": 2
-                },
-                "L23": {
-                    "style": 2
-                },
-                "L24": {
-                    "style": 2
-                },
-                "L25": {
-                    "style": 2
-                },
-                "L26": {
-                    "style": 2
-                },
-                "L27": {
-                    "style": 2
-                },
-                "L28": {
-                    "style": 2
-                },
-                "L29": {
-                    "style": 2
-                },
-                "L30": {
-                    "style": 2
-                },
-                "L31": {
-                    "style": 2
-                },
-                "L32": {
-                    "style": 2
-                },
-                "L33": {
-                    "style": 2
-                },
-                "L34": {
-                    "style": 2
-                },
-                "L35": {
-                    "style": 2
-                },
-                "L36": {
-                    "style": 2
-                },
-                "L37": {
-                    "style": 2
-                },
-                "L38": {
-                    "style": 2
-                },
-                "L39": {
-                    "style": 2
-                },
-                "L40": {
-                    "style": 2
-                },
-                "L41": {
-                    "style": 2
-                },
-                "L42": {
-                    "style": 2
-                },
-                "L43": {
-                    "style": 2
-                },
-                "L44": {
-                    "style": 2
-                },
-                "L45": {
-                    "style": 2
-                },
-                "L46": {
-                    "style": 2
-                },
-                "L47": {
-                    "style": 2
-                },
-                "L48": {
-                    "style": 2
-                },
-                "L49": {
-                    "style": 2
-                },
-                "L50": {
-                    "style": 2
-                },
-                "L51": {
-                    "style": 2
-                },
-                "L52": {
-                    "style": 2
-                },
-                "L53": {
-                    "style": 2
-                },
-                "L54": {
-                    "style": 2
-                },
-                "M8": {
-                    "style": 12
-                },
-                "M9": {
-                    "style": 12
-                },
-                "M10": {
-                    "style": 12
-                },
-                "M11": {
-                    "style": 12
-                },
-                "M12": {
-                    "style": 12
-                },
-                "M13": {
-                    "style": 12
-                },
-                "M14": {
-                    "style": 12
-                },
-                "M15": {
-                    "style": 12
-                },
-                "M16": {
-                    "style": 12
-                },
-                "M17": {
-                    "style": 2
-                },
-                "M18": {
-                    "style": 2
-                },
-                "M19": {
-                    "style": 2
-                },
-                "M20": {
-                    "style": 2
-                },
-                "M21": {
-                    "style": 2
-                },
-                "M22": {
-                    "style": 2
-                },
-                "M23": {
-                    "style": 2
-                },
-                "M24": {
-                    "style": 2
-                },
-                "M25": {
-                    "style": 2
-                },
-                "M26": {
-                    "style": 2
-                },
-                "M27": {
-                    "style": 2
-                },
-                "M28": {
-                    "style": 2
-                },
-                "M29": {
-                    "style": 2
-                },
-                "M30": {
-                    "style": 2
-                },
-                "M31": {
-                    "style": 2
-                },
-                "M32": {
-                    "style": 2
-                },
-                "M33": {
-                    "style": 2
-                },
-                "M34": {
-                    "style": 2
-                },
-                "M35": {
-                    "style": 2
-                },
-                "M36": {
-                    "style": 2
-                },
-                "M37": {
-                    "style": 2
-                },
-                "M38": {
-                    "style": 2
-                },
-                "M39": {
-                    "style": 2
-                },
-                "M40": {
-                    "style": 2
-                },
-                "M41": {
-                    "style": 2
-                },
-                "M42": {
-                    "style": 2
-                },
-                "M43": {
-                    "style": 2
-                },
-                "M44": {
-                    "style": 2
-                },
-                "M45": {
-                    "style": 2
-                },
-                "M46": {
-                    "style": 2
-                },
-                "M47": {
-                    "style": 2
-                },
-                "M48": {
-                    "style": 2
-                },
-                "M49": {
-                    "style": 2
-                },
-                "M50": {
-                    "style": 2
-                },
-                "M51": {
-                    "style": 2
-                },
-                "M52": {
-                    "style": 2
-                },
-                "M53": {
-                    "style": 2
-                },
-                "M54": {
-                    "style": 2
+                "F74": {
+                    "content": "=ODOO.ACCOUNT.GROUP(\"equity\")"
                 }
             },
             "conditionalFormats": [],
             "figures": [],
-            "filterTables": [],
+            "tables": [
+                {
+                    "range": "A9:F91",
+                    "type": "static",
+                    "config": {
+                        "hasFilters": false,
+                        "totalRow": false,
+                        "firstColumn": false,
+                        "lastColumn": false,
+                        "numberOfHeaders": 1,
+                        "bandedRows": false,
+                        "bandedColumns": false,
+                        "automaticAutofill": true,
+                        "styleId": "TableStyleLight11"
+                    }
+                }
+            ],
             "areGridLinesVisible": true,
-            "isVisible": true
+            "isVisible": true,
+            "headerGroups": {
+                "ROW": [],
+                "COL": []
+            },
+            "dataValidationRules": [],
+            "comments": {}
         }
     ],
-    "entities": {},
     "styles": {
         "1": {
             "textColor": "#01666b",
@@ -2998,87 +2039,53 @@
             "fillColor": "#f8f9fa"
         },
         "4": {
+            "fillColor": "#F8F9FA"
+        },
+        "5": {
             "align": "right",
             "bold": true
         },
-        "5": {
-            "italic": true,
-            "bold": true
-        },
         "6": {
-            "bold": false
-        },
-        "7": {
-            "fillColor": ""
-        },
-        "8": {
-            "bold": false,
-            "fillColor": ""
-        },
-        "9": {
-            "align": "left",
             "italic": true,
             "bold": true
-        },
-        "10": {
-            "bold": false,
-            "align": "left"
-        },
-        "11": {
-            "bold": true,
-            "align": "left"
-        },
-        "12": {
-            "wrapping": "wrap"
-        },
-        "13": {
-            "align": "center"
         }
     },
     "formats": {
         "1": "0.0",
         "2": "0%",
         "3": "0.0%",
-        "4": "0.00"
+        "4": "#,##0.00",
+        "5": "0.00",
+        "6": "0.00%"
     },
     "borders": {
         "1": {
-            "bottom": [
-                "thin",
-                "#000"
-            ]
+            "bottom": {
+                "style": "thin",
+                "color": "#000"
+            }
         },
         "2": {
-            "top": [
-                "thin",
-                "#000"
-            ]
+            "top": {
+                "style": "thin",
+                "color": "#000"
+            }
+        },
+        "3": {
+            "bottom": {
+                "style": "thin",
+                "color": "#000000"
+            }
+        },
+        "4": {
+            "top": {
+                "style": "thin",
+                "color": "#000000"
+            }
         }
     },
     "revisionId": "START_REVISION",
-    "odooVersion": 5,
-    "globalFilters": [
-        {
-            "id": "7785b753-917c-4640-a937-4b6226222ca8",
-            "type": "date",
-            "label": "Year",
-            "defaultValue": {},
-            "rangeType": "year",
-            "defaultsToCurrentPeriod": true
-        }
-    ],
-    "pivots": {},
-    "pivotNextId": 1,
-    "lists": {},
-    "listNextId": 1,
-    "chartOdooMenusReferences": {
-        "cb548cd5-6798-46c9-ade5-3b497efbfc4a": "accountant.menu_accounting",
-        "151b0f60-aa89-457e-9456-9807ab779be6": "accountant.menu_accounting",
-        "86aac7b2-f3a5-46e1-a097-916aa4b8f8d0": "account_reports.menu_action_account_report_profit_and_loss",
-        "3586cbc4-6ca3-46af-951f-94d4773f94dc": "account_reports.menu_action_account_report_aged_receivable",
-        "57f18f9a-55b7-4b84-b927-480c4c56c026": "account_reports.menu_action_account_report_profit_and_loss",
-        "8f1fb053-5700-4bb3-b93d-55ceb2083d31": "account_reports.menu_action_account_report_aged_payable"
-    },
+    "uniqueFigureIds": true,
     "settings": {
         "locale": {
             "name": "English (US)",
@@ -3089,5 +2096,28 @@
             "timeFormat": "hh:mm:ss",
             "formulaArgSeparator": ","
         }
+    },
+    "pivots": {},
+    "pivotNextId": 1,
+    "customTableStyles": {},
+    "odooVersion": 12,
+    "globalFilters": [
+        {
+            "id": "7785b753-917c-4640-a937-4b6226222ca8",
+            "type": "date",
+            "label": "Year",
+            "defaultValue": "this_year",
+            "rangeType": "fixedPeriod"
+        }
+    ],
+    "lists": {},
+    "listNextId": 1,
+    "chartOdooMenusReferences": {
+        "cb548cd5-6798-46c9-ade5-3b497efbfc4a": "accountant.menu_accounting",
+        "151b0f60-aa89-457e-9456-9807ab779be6": "accountant.menu_accounting",
+        "86aac7b2-f3a5-46e1-a097-916aa4b8f8d0": "account_reports.menu_action_account_report_profit_and_loss",
+        "3586cbc4-6ca3-46af-951f-94d4773f94dc": "account_reports.menu_action_account_report_aged_receivable",
+        "57f18f9a-55b7-4b84-b927-480c4c56c026": "account_reports.menu_action_account_report_profit_and_loss",
+        "8f1fb053-5700-4bb3-b93d-55ceb2083d31": "account_reports.menu_action_account_report_aged_payable"
     }
 }
