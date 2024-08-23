@@ -2841,11 +2841,6 @@ class TestTaxReport(TestAccountReportsCommon):
                 main_closing_move = closing_moves.filtered(lambda x: x.company_id == main_company)
                 self.assertEqual(len(main_closing_move), 1)
 
-                # The warning message telling multiple closing will be posted at once by posting the current one should only appear on the
-                # main company's closing move.
-                self.assertTrue(main_closing_move.tax_closing_show_multi_closing_warning)
-                self.assertFalse(any(closing.tax_closing_show_multi_closing_warning for closing in (closing_moves - main_closing_move)))
-
                 with self.enter_test_mode():
                     action = main_closing_move.action_post()
                     self.assertTrue(action['params']['depending_action'])
@@ -2856,8 +2851,6 @@ class TestTaxReport(TestAccountReportsCommon):
                     self.assertTrue(all(move.state == 'posted' for move in (closing_moves - main_closing_move)))
                     main_closing_move.action_post()
                     self.assertTrue(main_closing_move.state == 'posted')
-                self.assertFalse(main_closing_move.tax_closing_show_multi_closing_warning)
-
     def test_tax_report_prevent_draft_if_subsequent_posted(self):
         """
         Test the reset to draft functionality to ensure it is not possible to reset to draft a closing entry

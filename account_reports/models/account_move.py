@@ -20,27 +20,6 @@ class AccountMove(models.Model):
     tax_report_control_error = fields.Boolean() # DEPRECATED; will be removed in master
     # technical field used to know whether to show the tax closing alert or not
     tax_closing_alert = fields.Boolean(compute='_compute_tax_closing_alert')
-    # Used to display a warning banner in case the current closing is a main company (of branches or tax unit), as posting it will post other moves
-    tax_closing_show_multi_closing_warning = fields.Boolean(compute="_compute_tax_closing_show_multi_closing_warning")
-
-    @api.depends('company_id', 'state')
-    def _compute_tax_closing_show_multi_closing_warning(self):
-        for move in self:
-            move.tax_closing_show_multi_closing_warning = False
-
-            if move.tax_closing_end_date and move.state == 'draft':
-                report, options = move._get_report_options_from_tax_closing_entry()
-                report_company_ids = report.get_report_company_ids(options)
-                sender_company = report._get_sender_company_for_export(options)
-
-                if len(report_company_ids) > 1 and sender_company == move.company_id:
-                    other_company_closings = self.env['account.move'].search([
-                        ('tax_closing_end_date', '=', move.tax_closing_end_date),
-                        ('company_id', 'in', report_company_ids),
-                        ('state', '=', 'posted'),
-                    ])
-                    # Show the warning if some of the sub companies (branches or member of the tax unit) still need to post a tax closing.
-                    move.tax_closing_show_multi_closing_warning = len(other_company_closings) != len(report_company_ids) - 1
 
     def _post(self, soft=True):
         # Overridden to create carryover external values and join the pdf of the report when posting the tax closing
