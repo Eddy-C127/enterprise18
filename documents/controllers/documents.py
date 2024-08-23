@@ -134,7 +134,7 @@ class ShareRoute(http.Controller):
                     vals['res_id'] = res_id
                     vals['res_model'] = res_model
                 vals_list.append(vals)
-            cids = request.httprequest.cookies.get('cids', str(request.env.user.company_id.id))
+            cids = request.cookies.get('cids', str(request.env.user.company_id.id))
             allowed_company_ids = [int(cid) for cid in cids.split('-')]
             documents = request.env['documents.document'].with_context(
                 allowed_company_ids=allowed_company_ids,

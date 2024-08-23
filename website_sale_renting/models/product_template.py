@@ -176,8 +176,8 @@ class ProductTemplate(models.Model):
             # Return the UTC value according to the client
             # because the frontend will convert values according to its timezone
             # (and without conversion, we risk changing day).
-            if request and request.is_frontend and request.httprequest.cookies.get('tz'):
-                client_tz = timezone(request.httprequest.cookies['tz'])
+            if request and request.is_frontend and request.cookies.get('tz'):
+                client_tz = timezone(request.cookies['tz'])
                 default_start_dt = client_tz.localize(default_start_dt).astimezone(UTC)
                 default_end_dt = client_tz.localize(default_end_dt).astimezone(UTC)
         return default_start_dt, default_end_dt

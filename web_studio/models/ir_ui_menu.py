@@ -26,7 +26,7 @@ class IrUiMenu(models.Model):
     @api.model
     def load_menus(self, debug):
         menus = super(IrUiMenu, self).load_menus(debug)
-        cids = request and request.httprequest.cookies.get('cids')
+        cids = request and request.cookies.get('cids')
         if cids:
             cids = [int(cid) for cid in cids.split('-')]
         company = self.env['res.company'].browse(cids[0]) \

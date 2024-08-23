@@ -842,7 +842,7 @@ class AppointmentController(http.Controller):
             return request.session.timezone
         if appointment_type.location_id:
             return appointment_type.appointment_tz
-        cookie = request.httprequest.cookies.get('tz')
+        cookie = request.cookies.get('tz')
         if cookie and cookie in dict(_tz_get(self)):
             return cookie
         return appointment_type.appointment_tz

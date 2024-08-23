@@ -175,7 +175,7 @@ class SocialAccount(models.Model):
         if not self.env.user.has_group('base.group_multi_company'):
             return
 
-        cids = request.httprequest.cookies.get('cids')
+        cids = request.cookies.get('cids')
         if cids:
             allowed_company_ids = {int(cid) for cid in cids.split('-')}
         else:

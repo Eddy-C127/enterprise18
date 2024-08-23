@@ -38,7 +38,7 @@ class Website(models.Model):
         :rtype: bool
         """
         now = fields.datetime.now()
-        customer_tz = request.httprequest.cookies.get('tz') if request else None
+        customer_tz = request.cookies.get('tz') if request else None
         return pytz.timezone(self.tz).utcoffset(now) != pytz.timezone(
             customer_tz or 'UTC'
         ).utcoffset(now)
