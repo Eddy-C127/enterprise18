@@ -77,3 +77,32 @@ class AccountMoveLine(models.Model):
                 move_line_to_recompute = move_line_to_recompute - line
 
         super(AccountMoveLine, move_line_to_recompute)._compute_name()
+
+    def _sale_determine_order(self):
+        mapping_from_invoice = super()._sale_determine_order()
+        if mapping_from_invoice:
+            renewed_subscriptions_ids = [
+                so.id for so in mapping_from_invoice.values()
+                if so.subscription_state == '5_renewed'
+            ]
+            child_orders = self.env['sale.order'].search([
+                ('subscription_state', '=', '3_progress'),
+                ('origin_order_id', 'in', renewed_subscriptions_ids),
+            ], order='id ASC')
+            # An AML in the mapping that is renewed but has no child orders indicates an invalid
+            # state -> remove it from the mapping before returning.
+            bad_aml_ids = []
+            for aml_id, so in mapping_from_invoice.items():
+                if so.subscription_state == '5_renewed':
+                    origin_order_id = so.origin_order_id.id or so.id
+                    min_child_order = next(
+                        (child for child in child_orders if child.origin_order_id.id == origin_order_id),
+                        None
+                    )
+                    if min_child_order:
+                        mapping_from_invoice[aml_id] = min_child_order
+                    else:
+                        bad_aml_ids.append(aml_id)
+            for aml_id in bad_aml_ids:
+                del mapping_from_invoice[aml_id]
+        return mapping_from_invoice

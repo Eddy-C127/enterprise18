@@ -4387,3 +4387,92 @@ class TestSubscriptionInvoiceSignature(TestInvoiceSignature, TestSubscription):
         self.assertEqual(sub.invoice_count, 1)
         self.assertEqual(sub.invoice_ids.company_id, branch)
         self.assertEqual(sub.invoice_ids.state, 'posted')
+
+    def test_sale_determine_order(self):
+        """ If a subscription order is locked but has a renewal (child order), an attempt to
+        expense some purchase order which is linked to the analytic account of the subscription
+        should use the non-locked, renewed order.
+        """
+        required_modules = ('project_hr_expense', 'purchase')
+        if not all(self.env['ir.module.module']._get(module).state == 'installed' for module in required_modules):
+            self.skipTest(f'This test requires the installation of the following modules: {required_modules}')
+
+        analytic_plan = self.env['account.analytic.plan'].create({'name': 'TSDO analytic plan'})
+        analytic_account1, analytic_account2 = self.env['account.analytic.account'].create([{
+            'name': f'TSDO analytic account {i}',
+            'plan_id': analytic_plan.id,
+        } for i in (1, 2)])
+
+        project = self.env['project.project'].with_context({'mail_create_nolog': True}).create({
+            'name': 'Project',
+            'partner_id': self.partner_a.id,
+            'account_id': analytic_account1.id,
+        })
+        recurring_service_with_linked_project = self.env['product.product'].create({
+            'name': 'service_with_linked_project',
+            'standard_price': 30,
+            'list_price': 90,
+            'type': 'service',
+            'service_tracking': 'task_global_project',
+            'project_id': project.id,
+            'recurring_invoice': True,
+        })
+        expensable_service_product = self.env['product.product'].create({
+            'name': 'Material',
+            'type': 'service',
+            'standard_price': 5,
+            'list_price': 10,
+            'can_be_expensed': True,
+            'expense_policy': 'sales_price',
+            'purchase_method': 'purchase',
+        })
+        subscription1, subscription2 = self.env['sale.order'].create([{
+            'name': 'TestSubscription',
+            'is_subscription': True,
+            'plan_id': self.plan_month.id,
+            'partner_id': self.partner_a.id,
+            'order_line': [(0, 0, {
+                'product_id': recurring_service_with_linked_project.id,
+                'product_uom_qty': 1,
+                'price_unit': 10,
+            })],
+            'project_account_id': analytic_account_id,
+        } for analytic_account_id in [analytic_account1.id, analytic_account2.id]])
+        purchase_order = self.env['purchase.order'].create({
+            'partner_id': self.partner_a.id,
+            'order_line': [(0, 0, {
+                'product_id': expensable_service_product.id,
+                'product_uom_qty': 1,
+                'analytic_distribution': {analytic_account1.id: 100.0},
+            }), (0, 0, {
+                'product_id': expensable_service_product.id,
+                'product_uom_qty': 1,
+                'analytic_distribution': {analytic_account2.id: 100.0},
+            })],
+        })
+        subscriptions = subscription1 + subscription2
+        subscriptions.action_confirm()
+        subscriptions._create_invoices()
+        subscriptions.invoice_ids[0].action_post()
+        subscription1.prepare_renewal_order()
+        subscription2.prepare_renewal_order()
+        first_renewal_sub1 = subscription1.subscription_child_ids[0]
+        first_renewal_sub1.action_confirm()
+        first_renewal_sub1.with_context(disable_cancel_warning=True).action_cancel()
+        subscription1.subscription_state = '3_progress'
+        subscription1.prepare_renewal_order()
+        second_renewal_sub1 = subscription1.subscription_child_ids.filtered(lambda so: so.state == 'draft')
+        second_renewal_sub1.action_confirm()
+        second_renewal_sub1._create_invoices()
+        second_renewal_sub1.invoice_ids.filtered(lambda am: am.state == 'draft').action_post()
+        second_renewal_sub1.prepare_renewal_order()
+        second_renewal_renewal_sub1 = second_renewal_sub1.subscription_child_ids[0]
+        second_renewal_renewal_sub1.action_confirm()
+
+        purchase_order.button_confirm()
+        purchase_order.action_create_invoice()
+        purchase_order_invoice = purchase_order.invoice_ids[0]
+        purchase_order_invoice.invoice_date = '2000-05-05'
+        purchase_order_invoice.action_post()
+
+        self.assertEqual(purchase_order_invoice.state, 'posted')
