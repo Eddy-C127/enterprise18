@@ -63,3 +63,27 @@ class AccountMoveLine(models.Model):
                 values['deferred_start_date'] = line.deferred_start_date
                 values['deferred_end_date'] = line.deferred_end_date
         return data_list
+
+    def _sale_determine_order(self):
+        mapping_from_invoice = super()._sale_determine_order()
+        if mapping_from_invoice:
+            renewed_subscriptions_ids = [
+                so.id for so in mapping_from_invoice.values()
+                if so.subscription_state == '5_renewed'
+            ]
+            child_orders = self.env['sale.order'].search([
+                ('subscription_state', '=', '3_progress'),
+                ('origin_order_id', 'in', renewed_subscriptions_ids),
+            ], order='id ASC')
+            for aml_id, so in mapping_from_invoice.items():
+                if so.subscription_state == '5_renewed':
+                    origin_order_id = so.origin_order_id.id or so.id
+                    min_child_order = next(
+                        (child for child in child_orders if child.origin_order_id.id == origin_order_id),
+                        None
+                    )
+                    if min_child_order:
+                        mapping_from_invoice[aml_id] = min_child_order
+                    else:
+                        del mapping_from_invoice[aml_id]
+        return mapping_from_invoice
