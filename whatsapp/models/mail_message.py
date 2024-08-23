@@ -39,9 +39,10 @@ class MailMessage(models.Model):
         return (group_command, {
             'content': content,
             'count': count,
-            'guests': [],
             'message': {'id': self.id},
-            'partners': [('DELETE' if unlink_reaction else 'ADD', {'id': partner_id.id})],
+            "personas": [
+                ("DELETE" if unlink_reaction else "ADD", {"id": partner_id.id, "type": "partner"}),
+            ],
         })
 
     def message_format(self, *args, **kwargs):
