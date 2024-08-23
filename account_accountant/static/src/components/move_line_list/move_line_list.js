@@ -27,6 +27,9 @@ export class AccountMoveLineListController extends ListController {
             selectedRecord: false,
             thread: null,
         });
+
+        // We need to override the openRecord from ListController since it does things we do not want like opening the default form view
+        this.openRecord = () => {}
     }
 
     get previewEnabled() {
