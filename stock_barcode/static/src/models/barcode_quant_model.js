@@ -456,9 +456,11 @@ export default class BarcodeQuantModel extends BarcodeModel {
     }
 
     _groupSublines(sublines, ids, virtual_ids, qtyDemand, qtyDone) {
+        const hasAtLeastOneSetSubline = sublines.find(l => l.inventory_quantity_set);
         return Object.assign(super._groupSublines(...arguments), {
             inventory_quantity: qtyDone,
             quantity: qtyDemand,
+            inventory_quantity_set: hasAtLeastOneSetSubline,
         });
     }
 
