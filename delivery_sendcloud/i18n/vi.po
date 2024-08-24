@@ -406,6 +406,16 @@ msgid "Other Functionalities"
 msgstr "Chức năng khác"
 
 #. module: delivery_sendcloud
+#. odoo-javascript
+#: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
+#, python-format
+msgid ""
+"Please check SendCloud return product documentation before selecting return "
+"product. For some products, you can be charged for return labels printed but"
+" not used."
+msgstr ""
+
+#. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__delivery_type
 msgid "Provider"
 msgstr "Nhà cung cấp"
@@ -579,6 +589,17 @@ msgstr "Loại kiện hàng tồn kho"
 #, python-format
 msgid "The %s address needs to have the street, city, zip, and country"
 msgstr "Địa chỉ %s cần có tên đường, thành phố, mã bưu điện và quốc gia"
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"The delivery address of the customer has been removed from the pickup "
+"location. This information is required by Sendcloud. Please go to the "
+"delivery partner via the delivery order and make sure the parent of the "
+"delivery partner is the partner you want to ship to."
+msgstr ""
 
 #. module: delivery_sendcloud
 #. odoo-python

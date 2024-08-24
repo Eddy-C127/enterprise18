@@ -9,8 +9,8 @@
 # marcescu, 2023
 # Carolina Fernández, 2024
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2024
-# Larissa Manderfeld, 2024
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1204,7 +1204,7 @@ msgstr "Ingreso anual recurrente"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Anticipate payment:"
-msgstr ""
+msgstr "Anticipar el pago:"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1278,6 +1278,8 @@ msgid ""
 "Automatic payment failed. Check the corresponding invoice %s. We can't "
 "automatically process negative payment"
 msgstr ""
+"Ocurrió un error con el pago automático, revise la factura correspondiente "
+"%s. No es posible procesar el pago negativo. "
 
 #. module: sale_subscription
 #. odoo-python
@@ -4439,6 +4441,8 @@ msgid ""
 "The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
+"Se ha cancelado la venta adicional %s. Vuelva a comprobar las cantidades ya "
+"que pueden haberse visto afectadas por esta cancelación."
 
 #. module: sale_subscription
 #. odoo-python
@@ -4983,7 +4987,7 @@ msgstr "No puede cancelar una suscripción que ya se facturó."
 #: code:addons/sale_subscription/wizard/sale_subscription_change_customer_wizard.py:0
 #, python-format
 msgid "You cannot change the customer of non recurring sale order."
-msgstr "No puede cambiar el cliente de un pedido de venta recurrente."
+msgstr "No puede cambiar el cliente de un pedido de venta no recurrente."
 
 #. module: sale_subscription
 #. odoo-python

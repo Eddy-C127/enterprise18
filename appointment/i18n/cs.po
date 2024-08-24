@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Tomáš Píšek, 2023
-# Jiří Podhorecký, 2023
+# Jiří Podhorecký <jirka.p@volny.cz>, 2023
 # Ivana Bartonkova, 2023
 # Aleš Fiala <f.ales1@seznam.cz>, 2024
 # Katerina Horylova, 2024
@@ -2780,6 +2780,13 @@ msgstr "Zvolte si své dostupnosti"
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__placeholder
 msgid "Placeholder"
 msgstr "Vzor"
+
+#. module: appointment
+#. odoo-python
+#: code:addons/appointment/controllers/appointment.py:0
+#, python-format
+msgid "Please connect to book the appointment"
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info

@@ -24,11 +24,11 @@
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Konsta Aavaranta, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Kari Lindgren <karisatu@gmail.com>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Martin Trigaux, 2024
 # Marko Happonen <marko.happonen@sprintit.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -36,7 +36,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Marko Happonen <marko.happonen@sprintit.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1222,7 +1222,7 @@ msgstr "Vuotuiset toistuvat tulot"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Anticipate payment:"
-msgstr ""
+msgstr "Odota maksua:"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1296,6 +1296,8 @@ msgid ""
 "Automatic payment failed. Check the corresponding invoice %s. We can't "
 "automatically process negative payment"
 msgstr ""
+"Automaattinen maksu epäonnistui. Tarkista vastaava lasku %s. Emme voi "
+"käsitellä negatiivista maksua automaattisesti"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4434,6 +4436,8 @@ msgid ""
 "The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
+"Lisämyynti %s on peruutettu. Tarkista määrät uudelleen, sillä peruutus on "
+"saattanut vaikuttaa niihin."
 
 #. module: sale_subscription
 #. odoo-python
@@ -5186,7 +5190,7 @@ msgstr "esim. keskustele tarjouksesta"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "existing for this subscription, please confirm it or reject it."
-msgstr ""
+msgstr "olemassa olevaa tilausta varten, vahvista tai hylkää se."
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__rating_operator__>
@@ -5264,7 +5268,7 @@ msgstr "vuodessa"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "quotation"
-msgstr ""
+msgstr "tarjous"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template

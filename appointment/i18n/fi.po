@@ -158,6 +158,8 @@ msgid ""
 "<br/>\n"
 "                                <span>(Last 30 Days)</span>"
 msgstr ""
+"<br/>\n"
+"                                    <span>(Viimeiset 30 päivää)</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -165,6 +167,8 @@ msgid ""
 "<br/>\n"
 "                                <span>Scheduled</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>Aikataulutettu</span>"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -2808,6 +2812,13 @@ msgid "Placeholder"
 msgstr "Paikanpitäjä"
 
 #. module: appointment
+#. odoo-python
+#: code:addons/appointment/controllers/appointment.py:0
+#, python-format
+msgid "Please connect to book the appointment"
+msgstr ""
+
+#. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Please, select another date."
 msgstr "Valitse toinen päivä."
@@ -3700,7 +3711,7 @@ msgstr "Käyttäjä"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__user_assign_method
 msgid "User Assign Method"
-msgstr ""
+msgstr "Käyttäjän menetelmä"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__staff_user_ids

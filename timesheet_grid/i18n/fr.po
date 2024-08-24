@@ -5,8 +5,8 @@
 # Translators:
 # Jolien De Paepe, 2023
 # Larissa Manderfeld, 2024
-# Manon Rondou, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -186,8 +186,8 @@ msgstr ""
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</t>\n"
-"                    <t t-if=\"object.company_id.email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                    <t t-if=\"object.company_id.e-mail\">\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id.e-mail }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.e-mail or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"object.company_id.website\">\n"
 "                        | <a t-attf-href=\"'%s' % {{ object.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</a>\n"
@@ -339,8 +339,8 @@ msgstr ""
 "                </td></tr>\n"
 "                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</t>\n"
-"                    <t t-if=\"object.company_id.email\">\n"
-"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                    <t t-if=\"object.company_id.e-mail\">\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id.e-mail }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.e-mail or ''\">info@yourcompany.com</a>\n"
 "                    </t>\n"
 "                    <t t-if=\"object.company_id.website\">\n"
 "                        | <a t-attf-href=\"'%s' % {{ object.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</a>\n"
@@ -873,8 +873,8 @@ msgid ""
 " to validate."
 msgstr ""
 "Nombre de jours après la fin de la semaine/mois après lesquels un rappel "
-"automatique par email sera envoyé aux managers de feuilles de temps qui ont "
-"encore des feuilles de temps à valider."
+"automatique par e-mail sera envoyé aux managers de feuilles de temps qui ont"
+" encore des feuilles de temps à valider."
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_res_config_settings__reminder_user_delay
@@ -883,7 +883,7 @@ msgid ""
 "email reminder will be sent to timesheet users that still have timesheets to"
 " encode (according to their working hours)."
 msgstr ""
-"Nombre de jours après la fin de la semaine/mois après lesquels un email de "
+"Nombre de jours après la fin de la semaine/mois après lesquels un e-mail de "
 "rappel automatique sera envoyé aux utilisateurs de feuilles de temps qui ont"
 " encore des feuilles de temps à encoder (selon leurs heures de travail)."
 
@@ -1236,12 +1236,12 @@ msgstr "Unité de temps des feuilles de temps"
 #. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_ir_actions_server
 msgid "Timesheet: Approvers Email Reminder"
-msgstr "Feuille de temps : rappel par email aux approbateurs"
+msgstr "Feuille de temps : rappel par e-mail aux approbateurs"
 
 #. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_user_ir_actions_server
 msgid "Timesheet: Employees Email Reminder"
-msgstr "Feuille de temps : rappel par email pour les employés"
+msgstr "Feuille de temps : rappel par e-mail pour les employés"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__timesheet_ids

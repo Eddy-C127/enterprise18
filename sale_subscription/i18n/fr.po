@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Jolien De Paepe, 2024
-# Manon Rondou, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -272,7 +272,7 @@ msgstr ""
 "                <table style=\"width:600px;margin:auto;text-align:center;font-size:12px;\">\n"
 "                    <tbody>\n"
 "                        <tr><td style=\"padding-top:10px;color:#afafaf;\">\n"
-"                            <p>Email envoyé automatiquement par <a target=\"_blank\" href=\"https://www.odoo.com/app/subscriptions\" style=\"color:#875A7B;text-decoration:none;\">Odoo Abonnement</a> pour <a t-att-href=\"object.company_id.website\" style=\"color:#875A7B;text-decoration:none;\" t-out=\"object.company_id.name or ''\">YourCompany</a></p>\n"
+"                            <p>E-mail envoyé automatiquement par <a target=\"_blank\" href=\"https://www.odoo.com/app/subscriptions\" style=\"color:#875A7B;text-decoration:none;\">Odoo Abonnement</a> pour <a t-att-href=\"object.company_id.website\" style=\"color:#875A7B;text-decoration:none;\" t-out=\"object.company_id.name or ''\">YourCompany</a></p>\n"
 "                        </td></tr>\n"
 "                    </tbody>\n"
 "                </table>\n"
@@ -613,8 +613,8 @@ msgstr ""
 "                    <t t-if=\"company.phone\">\n"
 "                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
 "                    </t>\n"
-"                    <t t-if=\"company.email\">\n"
-"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@yourcompany.com</a> |\n"
+"                    <t t-if=\"company.e-mail\">\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.e-mail }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.e-mail or ''\">info@yourcompany.com</a> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.website\">\n"
 "                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.example.com</a>\n"
@@ -792,8 +792,8 @@ msgstr ""
 "                    <t t-if=\"company.phone\">\n"
 "                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
 "                    </t>\n"
-"                    <t t-if=\"company.email\">\n"
-"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@yourcompany.com</a> |\n"
+"                    <t t-if=\"company.e-mail\">\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.e-mail }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.e-mail or ''\">info@yourcompany.com</a> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.website\">\n"
 "                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.example.com</a>\n"
@@ -979,8 +979,8 @@ msgstr ""
 "                    <t t-if=\"company.phone\">\n"
 "                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
 "                    </t>\n"
-"                    <t t-if=\"company.email\">\n"
-"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@yourcompany.com</a> |\n"
+"                    <t t-if=\"company.e-mail\">\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.e-mail }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.e-mail or ''\">info@yourcompany.com</a> |\n"
 "                    </t>\n"
 "                    <t t-if=\"company.website\">\n"
 "                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.example.com</a>\n"
@@ -1199,7 +1199,7 @@ msgstr "Revenu annuel récurrent"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Anticipate payment:"
-msgstr ""
+msgstr "Anticiper le paiement :"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__filter_domain
@@ -1273,13 +1273,15 @@ msgid ""
 "Automatic payment failed. Check the corresponding invoice %s. We can't "
 "automatically process negative payment"
 msgstr ""
+"Le paiement automatique a échoué. Vérifiez la facture correspondante %s. "
+"Nous ne pouvons pas traiter automatiquement un paiement négatif"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 #, python-format
 msgid "Automatic payment failed. Email sent to customer. Error: %s"
-msgstr "Échec du paiement automatique. Email envoyé au client. Erreur : %s"
+msgstr "Échec du paiement automatique. E-mail envoyé au client. Erreur : %s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1297,7 +1299,7 @@ msgstr ""
 #, python-format
 msgid "Automatic payment failed. No email sent this time. Error: %s"
 msgstr ""
-"Échec du paiement automatique. Aucun email n'est envoyé pour l'instant. "
+"Échec du paiement automatique. Aucun e-mail n'est envoyé pour l'instant. "
 "Erreur : %s"
 
 #. module: sale_subscription
@@ -1311,7 +1313,7 @@ msgid ""
 msgstr ""
 "Le paiement automatique a réussi. Référence de paiement : %(ref)s. Montant :"
 " %(amount)s. Contrat défini sur : En cours, Prochaine facture : %(inv)s. "
-"Email envoyé au client."
+"E-mail envoyé au client."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__payment_exception
@@ -1336,7 +1338,7 @@ msgid ""
 "email sent."
 msgstr ""
 "Renouvellement automatique réussi. Abonnement gratuit. Prochaine facture "
-":%(inv)s. Aucun email envoyé."
+":%(inv)s. Aucun e-mail envoyé."
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_base_automation
@@ -1988,7 +1990,7 @@ msgstr "Unité de durée"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__template_id
 msgid "Email Template"
-msgstr "Modèle d'email"
+msgstr "Modèle d'e-mail"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__invoice_mail_template_id
@@ -1996,8 +1998,8 @@ msgid ""
 "Email template used to send invoicing email automatically.\n"
 "Leave it empty if you don't want to send email automatically."
 msgstr ""
-"Le modèle d'email utilisé pour envoyer automatiquement l'email de facturation.\n"
-"Laissez-le vide si vous ne voulez pas envoyer d'email automatiquement."
+"Le modèle d'e-mail utilisé pour envoyer automatiquement l'e-mail de facturation.\n"
+"Laissez-le vide si vous ne voulez pas envoyer d'e-mail automatiquement."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_close_reason__empty_retention_message
@@ -2343,7 +2345,7 @@ msgstr "Notes internes"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__invoice_mail_template_id
 msgid "Invoice Email Template"
-msgstr "Modèle d'email de facture"
+msgstr "Modèle d'e-mail de facture"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__invoice_status
@@ -2657,7 +2659,7 @@ msgid ""
 msgstr ""
 "Paiement manuel réussi. Référence de paiement : %(ref)s. Montant : "
 "%(amount)s. Contrat défini sur : En cours, Prochaine facture : %(inv)s. "
-"Email envoyé au client."
+"E-mail envoyé au client."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__margin
@@ -3758,7 +3760,7 @@ msgstr "Envoyer un SMS à un client"
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__action__mail_post
 msgid "Send an email to the customer"
-msgstr "Envoyer un email au client"
+msgstr "Envoyer un e-mail au client"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
@@ -4114,7 +4116,7 @@ msgstr "Abonnement :"
 #. module: sale_subscription
 #: model:mail.template,name:sale_subscription.mail_template_subscription_alert
 msgid "Subscription: Default Email Alert"
-msgstr "Abonnement : Email d'alerte par défaut"
+msgstr "Abonnement : E-mail d'alerte par défaut"
 
 #. module: sale_subscription
 #: model:sms.template,name:sale_subscription.sms_template_data_default_alert
@@ -4428,6 +4430,8 @@ msgid ""
 "The upsell %s has been canceled.  Please recheck the quantities as they may "
 "have been affected by this cancellation."
 msgstr ""
+"La vente incitative %s a été annulée. Veuillez revérifier les quantités afin"
+" d'éviter qu'elles ne soient affectées par cette annulation."
 
 #. module: sale_subscription
 #. odoo-python

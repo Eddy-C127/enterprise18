@@ -20,6 +20,7 @@
 # Martin Trigaux, 2023
 # Linas Versada <linaskrisiukenas@gmail.com>, 2023
 # Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
+# Gailius Kazlauskas <gailius@vialaurea.lt>, 2024
 # 
 msgid ""
 msgstr ""
@@ -27,7 +28,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024\n"
+"Last-Translator: Gailius Kazlauskas <gailius@vialaurea.lt>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1106,7 +1107,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__impacts_monthly_total
 msgid "Impacts Monthly Total"
-msgstr ""
+msgstr "Paveikia mėnesio sumą"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__impacts_net_salary
@@ -1597,6 +1598,12 @@ msgid ""
 "Sum of Benefits value: You can pick in all benefits and compute a sum of them\n"
 "Monthly Total: The information will be a total of all the informations in the category Monthly Benefits"
 msgstr ""
+"Pasirinkite, kaip bus apskaičiuojama informacijos vertė:\n"
+"Fiksuota vertė: Nustatykite nustatytą vertę visoms nuorodoms\n"
+"Sutarties vertė: Gaukite vertę iš lauko sutarties įraše\n"
+"Atlyginimo lapelio vertė: Gaukite vertę iš lauko atlyginimo lapelio įraše\n"
+"Naudų sumos vertė: Galite pasirinkti visus privalumus ir apskaičiuoti jų sumą\n"
+"Viso mėnesio suma: Informacija bus bendra visai kategorijos „Mėnesio naudų“ duomenų sumai."
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,name:hr_contract_salary.hr_contract_salary_personal_info_place_of_birth
@@ -1820,7 +1827,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_resume
 msgid "Salary Package Resume"
-msgstr ""
+msgstr "Atlyginimo paketo suvestinė"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_resume_category
@@ -2210,7 +2217,7 @@ msgstr "Suma"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__value_type
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_resume_view_search
 msgid "Value Type"
-msgstr ""
+msgstr "Vertės tipas"
 
 #. module: hr_contract_salary
 #. odoo-python

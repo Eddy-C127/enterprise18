@@ -6,6 +6,7 @@
 # Jolien De Paepe, 2024
 # Camille Dantinne <cmd@odoo.com>, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -213,7 +214,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<br/>(the email access has not been sent)"
-msgstr "<br/>(cet email n'a pas été envoyé)"
+msgstr "<br/>(cet e-mail n'a pas été envoyé)"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -247,8 +248,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Links sent via email expire after a set "
 "delay to increase security."
 msgstr ""
-"<i class=\"fa fa-info-circle\"/> Les liens envoyés par email expirent après "
-"un délai défini pour augmenter la sécurité."
+"<i class=\"fa fa-info-circle\"/> Les liens envoyés par e-mail expirent après"
+" un délai défini pour augmenter la sécurité."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -280,8 +281,8 @@ msgid ""
 "<small>Email Verification: The signatory has confirmed control of their "
 "email inbox by clicking on a unique link</small>"
 msgstr ""
-"<small>Vérification par email : Le signataire a confirmé l'accès à sa boîte "
-"de réception en cliquant sur un lien unique</small>"
+"<small>Vérification par e-mail : Le signataire a confirmé l'accès à sa boîte"
+" de réception en cliquant sur un lien unique</small>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -357,7 +358,7 @@ msgstr "<strong>Date de création :</strong>"
 msgid ""
 "<strong>Warning</strong> do not forward this email to other people!<br/>"
 msgstr ""
-"<strong>Avertissement</strong> ne transmettez pas cet email à d'autres "
+"<strong>Avertissement</strong> ne transmettez pas cet e-mail à d'autres "
 "personnes !<br/>"
 
 #. module: sign
@@ -367,7 +368,7 @@ msgid ""
 "            They will be able to access this document and sign it as yourself.<br/>\n"
 "            <span>Your IP address and localization are associated to your signature to ensure traceability.</span>"
 msgstr ""
-"<strong>Attention</strong> ne transmettez pas cet email à d'autres personnes !<br/>\n"
+"<strong>Attention</strong> ne transmettez pas cet e-mail à d'autres personnes !<br/>\n"
 "             Ils pourront accéder à ce document et le signer comme s'il s'agissait de vous.<br/>\n"
 "             <span>Votre adresse IP et votre localisation sont associées à votre signature pour assurer la traçabilité.</span>"
 
@@ -581,7 +582,7 @@ msgstr "Tous les documents"
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "All signers must have valid email addresses"
-msgstr "Tous les signataires doivent avoir des adresses email valides"
+msgstr "Tous les signataires doivent avoir des adresses e-mail valides"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -950,7 +951,7 @@ msgid ""
 "Contacts in copy will be notified by email once the document is either fully"
 " signed or refused."
 msgstr ""
-"Les contacts en copie seront notifiés par email dès que le document est "
+"Les contacts en copie seront notifiés par e-mail dès que le document est "
 "entièrement signé ou refusé."
 
 #. module: sign
@@ -1326,17 +1327,17 @@ msgstr "Modifier le nom du modèle"
 #: model:sign.item.type,placeholder:sign.sign_item_type_email
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__subject
 msgid "Email Subject"
-msgstr "Sujet de l'email"
+msgstr "Sujet de l'e-mail"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Email Verification"
-msgstr "Vérification par email"
+msgstr "Vérification par e-mail"
 
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_employee
@@ -1917,7 +1918,7 @@ msgstr "<b>Préparons et signons</b> notre premier document."
 #: code:addons/sign/static/src/js/tours/sign.js:0
 #, python-format
 msgid "Let's send the request by email."
-msgstr "Envoyons la demande par email."
+msgstr "Envoyons la demande par e-mail."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__redirect_url_text
@@ -2421,7 +2422,7 @@ msgstr "Placeholder"
 #: code:addons/sign/models/sign_request.py:0
 #, python-format
 msgid "Please configure senders'(%s) email addresses"
-msgstr "Veuillez configurer les adresses email des expéditeurs'(%s)"
+msgstr "Veuillez configurer les adresses e-mail des expéditeurs'(%s)"
 
 #. module: sign
 #. odoo-python
@@ -3250,7 +3251,7 @@ msgid ""
 msgstr ""
 "Puisque vous allez signer ce document, vous pouvez le faire directement dans"
 " Odoo.<br>Les utilisateurs externes peuvent utiliser le lien fourni par "
-"email."
+"e-mail."
 
 #. module: sign
 #. odoo-javascript
@@ -3461,7 +3462,7 @@ msgstr "Conditions générales en page web"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__res_company__sign_terms_type__plain
 msgid "Terms in Email"
-msgstr "Conditions générales dans l'email"
+msgstr "Conditions générales dans l'e-mail"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_res_company__sign_terms_type
@@ -3472,9 +3473,9 @@ msgid ""
 "        Terms as Web Page - A link will be pasted at the bottom of every signature request email, leading to your content.\n"
 "        "
 msgstr ""
-"Conditions générales dans l'email - Le texte sera présent au bas de chaque email de demande de signature.\n"
+"Conditions générales dans l'e-mail - Le texte sera présent au bas de chaque e-mail de demande de signature.\n"
 "\n"
-"Conditions générales en page web - Un lien sera copié au bas de chaque email de demande de signature, menant au contenu."
+"Conditions générales en page web - Un lien sera copié au bas de chaque e-mail de demande de signature, menant au contenu."
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__text
@@ -3506,7 +3507,7 @@ msgid ""
 "email to all participants, along with a traceability report."
 msgstr ""
 "Ça y est, vous avez fini !<br>Le document est signé et une copie a été "
-"envoyée par email à tous les participants, ainsi qu'une rapport de "
+"envoyée par e-mail à tous les participants, ainsi qu'une rapport de "
 "traçabilité."
 
 #. module: sign
@@ -3583,7 +3584,7 @@ msgid ""
 "The final document and this completion history have been sent by email "
 "on&amp;nbsp;"
 msgstr ""
-"Le document final et cet historique d'achèvement ont été envoyés par email "
+"Le document final et cet historique d'achèvement ont été envoyés par e-mail "
 "sur&amp;nbsp;"
 
 #. module: sign
@@ -3894,7 +3895,7 @@ msgstr "Type"
 #: code:addons/sign/static/src/fields/signer_x2many.js:0
 #, python-format
 msgid "Type a name or email..."
-msgstr "Tapez un nom ou un email..."
+msgstr "Tapez un nom ou un e-mail..."
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__activity_exception_decoration
@@ -4154,7 +4155,7 @@ msgstr ""
 #, python-format
 msgid "We will send you this document by email once everyone has signed."
 msgstr ""
-"Nous vous enverrons ce document par email une fois que tout le monde aura "
+"Nous vous enverrons ce document par e-mail une fois que tout le monde aura "
 "signé."
 
 #. module: sign
@@ -4165,7 +4166,7 @@ msgid ""
 "We'll send an email to warn other contacts in copy & signers with the reason"
 " you provided."
 msgstr ""
-"Nous enverrons un email avec la raison que vous avez fournie aux autres "
+"Nous enverrons un e-mail avec la raison que vous avez fournie aux autres "
 "contacts en copie & signataires."
 
 #. module: sign
@@ -4220,7 +4221,7 @@ msgstr "Bois"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Write email or search contact..."
-msgstr "Écrire un email ou chercher un contact..."
+msgstr "Écrire un e-mail ou chercher un contact..."
 
 #. module: sign
 #. odoo-python
@@ -4241,7 +4242,7 @@ msgid ""
 " help."
 msgstr ""
 "Vous pouvez demander de l'aide à la personne qui vous a demandé de signer le"
-" document par email."
+" document par e-mail."
 
 #. module: sign
 #. odoo-python
@@ -4367,7 +4368,7 @@ msgstr "Vous trouverez tous les documents qui attendent votre signature ici."
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #, python-format
 msgid "You will receive the final signed document by email."
-msgstr "Vous recevrez le document final signé par email."
+msgstr "Vous recevrez le document final signé par e-mail."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.ignore_sign_request_item
@@ -4400,7 +4401,7 @@ msgstr "Votre code de confirmation est %s"
 #: code:addons/sign/static/src/dialogs/public_signer_dialog.xml:0
 #, python-format
 msgid "Your email"
-msgstr "Votre email"
+msgstr "Votre e-mail"
 
 #. module: sign
 #. odoo-javascript
@@ -4500,7 +4501,7 @@ msgstr "jours."
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "demo@email.com"
-msgstr "demo@email.com"
+msgstr "demo@e-mail.com"
 
 #. module: sign
 #. odoo-javascript

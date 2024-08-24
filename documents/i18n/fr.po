@@ -3,9 +3,9 @@
 # 	* documents
 # 
 # Translators:
+# Wil Odoo, 2023
 # Jolien De Paepe, 2024
 # Manon Rondou, 2024
-# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -382,8 +382,8 @@ msgstr ""
 "                                    </td></tr>\n"
 "                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
-"                                        <t t-if=\"object.create_uid.company_id.email\">\n"
-"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email\">info@yourcompany.com</a>\n"
+"                                        <t t-if=\"object.create_uid.company_id.e-mail\">\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.e-mail }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.e-mail\">info@yourcompany.com</a>\n"
 "                                        </t>\n"
 "                                        <t t-if=\"object.create_uid.company_id.website\">\n"
 "                                            | <a t-att-href=\"object.create_uid.company_id.website\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website\">http://www.example.com</a>\n"
@@ -544,7 +544,7 @@ msgstr ""
 "                                        <div>\n"
 "                                            Bonjour <t t-out=\"object.owner_id.name or ''\">OdooBot</t>,\n"
 "                                            <br><br>\n"
-"                                            <t t-out=\"object.create_uid.name or ''\">OdooBot</t> (<t t-out=\"object.create_uid.email or ''\">odoobot@example.com</t>) vous a demandé de fournir le document suivant :\n"
+"                                            <t t-out=\"object.create_uid.name or ''\">OdooBot</t> (<t t-out=\"object.create_uid.e-mail or ''\">odoobot@example.com</t>) vous a demandé de fournir le document suivant :\n"
 "                                            <br><br>\n"
 "                                            <center>\n"
 "                                                <div>\n"
@@ -587,8 +587,8 @@ msgstr ""
 "                                    </td></tr>\n"
 "                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
 "                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
-"                                        <t t-if=\"object.create_uid.company_id.email\">\n"
-"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                                        <t t-if=\"object.create_uid.company_id.e-mail\">\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.e-mail }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.e-mail or ''\">info@yourcompany.com</a>\n"
 "                                        </t>\n"
 "                                        <t t-if=\"object.create_uid.company_id.website\">\n"
 "                                            | <a t-attf-href=\"'%s' % {{ object.create_uid.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website or ''\">http://www.example.com</a>\n"
@@ -914,8 +914,8 @@ msgid ""
 "launch user defined actions, request a signature, convert to vendor bills "
 "with AI, etc."
 msgstr ""
-"Un moyen simple de traiter les emails entrants consiste à configurer votre "
-"scanner pour envoyer des PDF à votre email de l'espace de travail. Les "
+"Un moyen simple de traiter les e-mails entrants consiste à configurer votre "
+"scanner pour envoyer des PDF à votre e-mail de l'espace de travail. Les "
 "fichiers numérisés apparaîtront automatiquement dans votre espace de "
 "travail. Ensuite, traitez vos documents en masse avec l'outil de division : "
 "lancez des actions définies par l'utilisateur, demandez une signature, "
@@ -1030,7 +1030,7 @@ msgid ""
 "alias</span>."
 msgstr ""
 "Automatisez votre boîte de réception à l'aide de documents scannés ou "
-"d'emails envoyés à <span class=\"o_folder_description_alias\">l'alias "
+"d'e-mails envoyés à <span class=\"o_folder_description_alias\">l'alias "
 "<strong>inbox-financial</strong></span>."
 
 #. module: documents
@@ -1638,12 +1638,12 @@ msgstr "Alias de messagerie"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
 msgid "Email cc"
-msgstr "Email cc"
+msgstr "E-mail cc"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_domain
 msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
-msgstr "Domaine de l'email e.g. 'example.com' dans 'odoo@example.com'"
+msgstr "Domaine de l'e-mail e.g. 'example.com' dans 'odoo@example.com'"
 
 #. module: documents
 #. odoo-javascript
@@ -2531,7 +2531,7 @@ msgstr ""
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
 #, python-format
 msgid "Or send emails to"
-msgstr "Ou bien envoyez des emails à"
+msgstr "Ou bien envoyez des e-mails à"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_internal_knowledge_other
@@ -2694,7 +2694,7 @@ msgstr "Pages restantes"
 #: code:addons/documents/static/src/views/activity/documents_activity_controller.js:0
 #, python-format
 msgid "Reminder emails have been sent."
-msgstr "Les emails de rappel ont été envoyés."
+msgstr "Les e-mails de rappel ont été envoyés."
 
 #. module: documents
 #: model:mail.template,subject:documents.mail_template_document_request_reminder
@@ -3054,7 +3054,7 @@ msgstr "Étiquettes partagées"
 #. module: documents
 #: model:ir.ui.menu,name:documents.share_menu
 msgid "Shares & Emails"
-msgstr "Partages & Emails"
+msgstr "Partages & E-mails"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -3241,8 +3241,8 @@ msgid ""
 " email that does not reply to an existing record will cause the creation of "
 "a new record of this model (e.g. a Project Task)"
 msgstr ""
-"Le modèle (type de document Odoo) auquel correspond cet alias. Chaque email "
-"entrant ne correspondant pas à un enregistrement existant entraînera la "
+"Le modèle (type de document Odoo) auquel correspond cet alias. Chaque e-mail"
+" entrant ne correspondant pas à un enregistrement existant entraînera la "
 "création d'un nouvel enregistrement de ce modèle (par ex. une tâche d'un "
 "projet)"
 
@@ -3252,7 +3252,7 @@ msgid ""
 "The name of the email alias, e.g. 'jobs' if you want to catch emails for "
 "<jobs@example.odoo.com>"
 msgstr ""
-"Le nom de l'alias, par exemple 'carrières' pour récupérer les emails de "
+"Le nom de l'alias, par exemple 'carrières' pour récupérer les e-mails de "
 "<carrières@example.odoo.com>"
 
 #. module: documents
@@ -3328,7 +3328,7 @@ msgid ""
 "\"Call\" or \"Send email\")."
 msgstr ""
 "Cela représente les différentes catégories de choses que vous devez faire "
-"(par exemple \"Appeler\" ou \"Envoyer un email\")."
+"(par exemple \"Appeler\" ou \"Envoyer un e-mail\")."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__thumbnail
@@ -3478,12 +3478,12 @@ msgstr "Charger un document"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__email_drop
 msgid "Upload by Email"
-msgstr "Charger par email"
+msgstr "Charger par e-mail"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_view_form_popup
 msgid "Upload by email"
-msgstr "Charger par email"
+msgstr "Charger par e-mail"
 
 #. module: documents
 #. odoo-python

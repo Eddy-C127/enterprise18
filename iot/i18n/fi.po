@@ -14,9 +14,9 @@
 # Mikko Salmela <salmemik@gmail.com>, 2023
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2023
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2023
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Marko Happonen <marko.happonen@sprintit.fi>, 2024
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Veikko Väätäjä <veikko.vaataja@gmail.com>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,12 +44,20 @@ msgid ""
 "                    2. Enter the code below and click on \"Pair\".<br/>\n"
 "                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
 msgstr ""
+".\n"
+"\n"
+"                   <br/><br/>\n"
+"\n"
+"                   <strong>Vaihtoehto A. Parituskoodi</strong><br/>\n"
+"                    1. Lue pariliitoskoodi IoT Boxiin liitetystä näytöstä tai lämpökirjoittimesta. Löydät sen myös IoT Boxin kotisivulta<br/>\n"
+"                    2. Syötä alla oleva koodi ja napsauta \"Pair\".<br/>\n"
+"                    3. Jonkin ajan kuluttua IoT Boxin pitäisi näkyä luettelossa yhdessä liitettyjen laitteiden kanssa.<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
 "0. Power on the IoT Box and connect it to the internet through ethernet"
-msgstr ""
+msgstr "0. Käynnistä IoT-box ja yhdistä se internetiin ethernet-kaapelilla"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -61,6 +69,12 @@ msgid ""
 "                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
 "                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
 msgstr ""
+"<br/>\n"
+"                    1. Kopioi alla oleva merkki<br/>\n"
+"                    2. Kun olet samassa verkossa IoT Boxin kanssa, avaa verkkoselain ja siirry IoT Boxin ip-osoitteeseen<br/>\n"
+"                    3. Napsauta \"Server\"-osiossa \"Configure\"-painiketta<br/>\n"
+"                    4. Liitä tunniste \"Server token\" -osioon ja napsauta \"Connect\"-painiketta<br/>\n"
+"                    5. Jonkin ajan kuluttua IoT Boxin pitäisi näkyä luettelossa yhdessä liitettyjen laitteiden kanssa<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -133,7 +147,7 @@ msgstr "Tarkista, onko laite edelleen kytketty"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Check the IoT connection. Try restarting if needed."
-msgstr ""
+msgstr "Tarkista IoT-yhteys. Kokeile tarvittaessa uudelleenkäynnistystä."
 
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
@@ -172,7 +186,7 @@ msgid ""
 "webpage"
 msgstr ""
 "Napsauta Jatka .../Lisää poikkeus/Käy tällä verkkosivustolla/Mene "
-"verkkosivulle.."
+"verkkosivulle"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
@@ -238,7 +252,7 @@ msgstr "Yhteys laitteeseen epäonnistui"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Connection to printer failed "
-msgstr ""
+msgstr "Yhteys tulostimeen epäonnistui"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__create_uid
@@ -562,11 +576,13 @@ msgid ""
 "One of the printer used to print document have been removed. Please retry "
 "the operation to choose new printers to print."
 msgstr ""
+"Yksi asiakirjan tulostamiseen käytetyistä tulostimista on poistettu. Yritä "
+"toimintoa uudelleen ja valitse uudet tulostimet tulostusta varten."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "Option B. Connection Token"
-msgstr ""
+msgstr "Vaihtoehto B. Yhteyden pääsytunniste"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -632,7 +648,7 @@ msgstr "Tulostimet"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Printing operation completed on printer %s"
-msgstr ""
+msgstr "Tulostustoiminto on valmis tulostimessa %s"
 
 #. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
@@ -704,7 +720,7 @@ msgstr "Tulostimien valinta"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Sending to printer %s..."
-msgstr ""
+msgstr "Lähetys tulostimeen %s..."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -837,7 +853,7 @@ msgstr "yhdistä"
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "or wifi"
-msgstr ""
+msgstr "tai wifi"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

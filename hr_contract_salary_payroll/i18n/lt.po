@@ -6,6 +6,7 @@
 # Linas Versada <linaskrisiukenas@gmail.com>, 2023
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2023
 # Martin Trigaux, 2023
+# Gailius Kazlauskas <gailius@vialaurea.lt>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"Last-Translator: Gailius Kazlauskas <gailius@vialaurea.lt>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,17 +47,17 @@ msgstr "Sutartys"
 #. module: hr_contract_salary_payroll
 #: model:ir.ui.menu,name:hr_contract_salary_payroll.hr_payroll_menu_contract_type
 msgid "Employment Types"
-msgstr ""
+msgstr "Įdarbinimo tipai"
 
 #. module: hr_contract_salary_payroll
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary_payroll.hr_contract_salary_resume_view_search_inherit
 msgid "Impacts Monthly Total"
-msgstr ""
+msgstr "Įtakoja mėnesio sumą"
 
 #. module: hr_contract_salary_payroll
 #: model:ir.model.fields.selection,name:hr_contract_salary_payroll.selection__hr_contract_salary_resume__value_type__payslip
 msgid "Payslip Value"
-msgstr ""
+msgstr "Atlyginimo vertė"
 
 #. module: hr_contract_salary_payroll
 #: model:ir.model,name:hr_contract_salary_payroll.model_hr_payslip_worked_days
@@ -73,6 +74,12 @@ msgid ""
 "Sum of Benefits value: You can pick in all benefits and compute a sum of them\n"
 "Monthly Total: The information will be a total of all the informations in the category Monthly Benefits"
 msgstr ""
+"Pasirinkite, kaip bus apskaičiuojama informacijos vertė:\n"
+"Fiksuota vertė: Nustatykite nustatytą vertę visoms nuorodoms\n"
+"Sutarties vertė: Gaukite vertę iš lauko sutarties įraše\n"
+"Atlyginimo lapelio vertė: Gaukite vertę iš lauko atlyginimo lapelio įraše\n"
+"Naudų sumos vertė: Galite pasirinkti visus privalumus ir apskaičiuoti jų sumą\n"
+"Viso mėnesio suma: Informacija bus bendra visai kategorijos „Mėnesio naudų“ duomenų sumai."
 
 #. module: hr_contract_salary_payroll
 #. odoo-javascript
@@ -82,11 +89,13 @@ msgid ""
 "Please note that this information may be inaccurate and should be used for "
 "reference only."
 msgstr ""
+"Atkreipkite dėmesį, kad ši informacija gali būti netiksli ir turėtų būti "
+"naudojama tik kaip nuoroda."
 
 #. module: hr_contract_salary_payroll
 #: model:ir.model,name:hr_contract_salary_payroll.model_hr_contract_salary_resume
 msgid "Salary Package Resume"
-msgstr ""
+msgstr "Atlyginimo paketo suvestinė"
 
 #. module: hr_contract_salary_payroll
 #: model:ir.ui.menu,name:hr_contract_salary_payroll.hr_payroll_menu_contract_templates
@@ -99,6 +108,7 @@ msgstr "Šablonai"
 #, python-format
 msgid "The amounts are calculated  based on a full time permanent contract."
 msgstr ""
+"Sumos apskaičiuojamos remiantis nuolatine visos darbo dienos sutartimi."
 
 #. module: hr_contract_salary_payroll
 #. odoo-javascript
@@ -108,6 +118,8 @@ msgid ""
 "There is no defined payroll structure for your contract. Please contact a "
 "responsible for more information."
 msgstr ""
+"Jūsų sutarčiai nėra nustatyta atlyginimų struktūra. Norėdami gauti daugiau "
+"informacijos, kreipkitės į atsakingą asmenį."
 
 #. module: hr_contract_salary_payroll
 #. odoo-python
@@ -116,11 +128,12 @@ msgstr ""
 msgid ""
 "This is the gross calculated for the current month with a total of %s hours."
 msgstr ""
+" Tai yra bendras apskaičiuotas šio mėnesio atlyginimas, sudarantis %s val."
 
 #. module: hr_contract_salary_payroll
 #: model:ir.model.fields,field_description:hr_contract_salary_payroll.field_hr_contract_salary_resume__value_type
 msgid "Value Type"
-msgstr ""
+msgstr "Vertės tipas"
 
 #. module: hr_contract_salary_payroll
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary_payroll.salary_package_sidebar_payroll

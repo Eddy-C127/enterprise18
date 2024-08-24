@@ -5,8 +5,8 @@
 # Translators:
 # Jolien De Paepe, 2024
 # Larissa Manderfeld, 2024
-# Manon Rondou, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -882,7 +882,7 @@ msgstr "<strong>Coordonnées</strong>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Email: </strong>"
-msgstr "<strong>Email : </strong>"
+msgstr "<strong>E-mail : </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -1559,7 +1559,7 @@ msgstr "Annuler/reprogrammer"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__canceled_mail_template_id
 msgid "Cancelation Email"
-msgstr "Email d'annulation"
+msgstr "E-mail d'annulation"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__capacity
@@ -1660,7 +1660,7 @@ msgstr "Confirmer l'arrivée"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Confirmation Email"
-msgstr "Email de confirmation"
+msgstr "E-mail de confirmation"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_confirmation
@@ -1955,21 +1955,21 @@ msgstr "Durée"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Email*"
-msgstr "Email*"
+msgstr "E-mail*"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Email: %(email)s"
-msgstr "Email : %(email)s"
+msgstr "E-mail : %(email)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/appointment.py:0
 #, python-format
 msgid "Email: %s"
-msgstr "Email : %s"
+msgstr "E-mail : %s"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__leave_end_dt
@@ -2173,7 +2173,7 @@ msgstr "Si coché, certains messages ont une erreur de livraison."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "If empty, Odoo will not send emails"
-msgstr "Si vice, Odoo n'envoie pas d'emails"
+msgstr "Si vice, Odoo n'envoie pas d'e-mails"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__restrict_to_resource_ids
@@ -2214,7 +2214,7 @@ msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "canceled."
 msgstr ""
-"Si cette option est activée, un email sera envoyé au client lorsque le "
+"Si cette option est activée, un e-mail sera envoyé au client lorsque le "
 "rendez-vous est annulé."
 
 #. module: appointment
@@ -2223,7 +2223,7 @@ msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "confirmed."
 msgstr ""
-"Si cette option est activée, un email sera envoyé au client lorsque le "
+"Si cette option est activée, un e-mail sera envoyé au client lorsque le "
 "rendez-vous est confirmé."
 
 #. module: appointment
@@ -2293,7 +2293,7 @@ msgstr "Message d'introduction"
 #: code:addons/appointment/static/src/js/appointment_validation.js:0
 #, python-format
 msgid "Invalid Email"
-msgstr "Email invalide"
+msgstr "E-mail invalide"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_invite_ids
@@ -2304,7 +2304,7 @@ msgstr "Liens d'invitation"
 #. module: appointment
 #: model:mail.template,description:appointment.attendee_invitation_mail_template
 msgid "Invitation email to new attendees of an appointment"
-msgstr "Email d'invitation aux nouveaux participants d'un rendez-vous"
+msgstr "E-mail d'invitation aux nouveaux participants d'un rendez-vous"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.attendee_invitation_mail_template
@@ -2815,6 +2815,13 @@ msgstr "Choisissez vos disponibilités"
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__placeholder
 msgid "Placeholder"
 msgstr "Placeholder"
+
+#. module: appointment
+#. odoo-python
+#: code:addons/appointment/controllers/appointment.py:0
+#, python-format
+msgid "Please connect to book the appointment"
+msgstr ""
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3870,7 +3877,7 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
-"par ex. john.doe@email.com\r\n"
+"par ex. john.doe@e-mail.com\r\n"
 "par ex. jane.doe@example.com\r\n"
 "..."
 
@@ -3881,7 +3888,7 @@ msgid ""
 "e.g. jane.doe@example.com\r\n"
 "..."
 msgstr ""
-"par ex. john.doe@email.com \r\n"
+"par ex. john.doe@e-mail.com \r\n"
 "par ex. jane.doe@example.com\r\n"
 "..."
 

@@ -380,6 +380,16 @@ msgid "Other Functionalities"
 msgstr ""
 
 #. module: delivery_sendcloud
+#. odoo-javascript
+#: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
+#, python-format
+msgid ""
+"Please check SendCloud return product documentation before selecting return "
+"product. For some products, you can be charged for return labels printed but"
+" not used."
+msgstr ""
+
+#. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__delivery_type
 msgid "Provider"
 msgstr "Szolgáltató"
@@ -546,6 +556,17 @@ msgstr "Készlet csomagolás típus"
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 #, python-format
 msgid "The %s address needs to have the street, city, zip, and country"
+msgstr ""
+
+#. module: delivery_sendcloud
+#. odoo-python
+#: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
+#, python-format
+msgid ""
+"The delivery address of the customer has been removed from the pickup "
+"location. This information is required by Sendcloud. Please go to the "
+"delivery partner via the delivery order and make sure the parent of the "
+"delivery partner is the partner you want to ship to."
 msgstr ""
 
 #. module: delivery_sendcloud

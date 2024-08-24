@@ -7,10 +7,10 @@
 # 稀饭~~ <wangwhai@qq.com>, 2024
 # Yazi Tian, 2024
 # 湘子 南 <1360857908@qq.com>, 2024
-# Martin Trigaux, 2024
 # Emily Jia <eji@odoo.com>, 2024
-# Jeffery CHEN <jeffery9@gmail.com>, 2024
+# Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Jeffery CHEN <jeffery9@gmail.com>, 2024
 # Chloe Wang, 2024
 # 
 msgid ""
@@ -104,12 +104,12 @@ msgstr "（%s行）"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_receipts
 msgid "(+) Outstanding Receipts"
-msgstr "（+）未结收据"
+msgstr "（+）未结清收据"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_payments
 msgid "(-) Outstanding Payments"
-msgstr "（-）未结付款"
+msgstr "（-）未结清付款"
 
 #. module: account_reports
 #. odoo-python
@@ -1302,7 +1302,7 @@ msgstr "延迟单位"
 #: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #, python-format
 msgid "Depending moves"
-msgstr ""
+msgstr "依赖的分录"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
@@ -2149,7 +2149,7 @@ msgstr "账户覆盖报告是否可用"
 #: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #, python-format
 msgid "It seems there is some depending closing move to be posted"
-msgstr ""
+msgstr "似乎有些依赖其他项目的结算分录，有待过账"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
@@ -2699,7 +2699,7 @@ msgstr "其他收入"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr "未结收据/支付"
+msgstr "未结清的收据/支付"
 
 #. module: account_reports
 #. odoo-python

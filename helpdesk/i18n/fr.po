@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Jolien De Paepe, 2024
-# Manon Rondou, 2024
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -79,7 +79,7 @@ msgstr "8 heures pour terminer"
 #: model_terms:digest.tip,tip_description:helpdesk.digest_tip_helpdesk_0
 msgid "<b class=\"tip_title\">Tip: Create tickets from incoming emails</b>"
 msgstr ""
-"<b class=\"tip_title\">Astuce : créez des tickets à partir d'emails "
+"<b class=\"tip_title\">Astuce : créez des tickets à partir d'e-mails "
 "entrants</b>"
 
 #. module: helpdesk
@@ -134,7 +134,7 @@ msgstr ""
 "         <t t-out=\"object.sudo().partner_id.name or 'Madam/Sir'\">Madame, Monsieur</t>,<br><br>\n"
 "        Nous vous informons que nous avons clôturé votre ticket (référence <t t-out=\"object.id or ''\">15</t>). \n"
 "        Nous espérons que les services fournis ont répondu à vos attentes et que vous avez trouvé une solution satisfaisante à votre problème.<br><br>\n"
-"        Toutefois, si vous avez d'autres questions ou commentaires, n'hésitez pas à répondre à cet email pour rouvrir votre ticket. \n"
+"        Toutefois, si vous avez d'autres questions ou commentaires, n'hésitez pas à répondre à cet e-mail pour rouvrir votre ticket. \n"
 "        Notre équipe reste à votre disposition et sera heureuse de répondre à toutes vos questions.<br><br>\n"
 "        Merci d'avoir choisi nos services et de votre coopération tout au long de ce processus. Votre fidélité nous est précieuse et nous apprécions l'opportunité de vous servir.<br><br>\n"
 "        Cordialement,<br><br>\n"
@@ -306,7 +306,7 @@ msgstr ""
 "    a été bien reçue et est en cours de révision par notre équipe <t t-out=\"object.team_id.name or ''\">Assistance VIP</t>.<br><br>\n"
 "    La référence de votre ticket est <strong><t t-out=\"object.ticket_ref or ''\">15</t></strong>.<br><br>\n"
 "\n"
-"    Pour fournir des informations supplémentaires, répondez simplement à cet email.<br><br>\n"
+"    Pour fournir des informations supplémentaires, répondez simplement à cet e-mail.<br><br>\n"
 "    <t t-if=\"object.team_id.show_knowledge_base\">\n"
 "        N'hésitez pas à visiter notre <a t-attf-href=\"{{ object.team_id.get_knowledge_base_url() }}\">Centre d'assistance</a>. Vous pourriez y trouver la réponse à votre question.\n"
 "        <br><br>\n"
@@ -584,7 +584,7 @@ msgstr "À propos des équipes"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Accept Emails From"
-msgstr "Accepter les emails de"
+msgstr "Accepter les e-mails de"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__access_instruction_message
@@ -720,7 +720,7 @@ msgstr "Alias de messagerie"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_email_from
 msgid "Alias Email From"
-msgstr "Alias Email de"
+msgstr "Alias E-mail de"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__alias_name
@@ -1200,7 +1200,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Create tickets by sending an email to an alias"
-msgstr "Créez des tickets en envoyant un email à un alias"
+msgstr "Créez des tickets en envoyant un e-mail à un alias"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_ticket_action_7days_success
@@ -1292,7 +1292,7 @@ msgstr "Service Clientèle"
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket_report_analysis__partner_email
 #, python-format
 msgid "Customer Email"
-msgstr "Email client"
+msgstr "E-mail client"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_sla_report_analysis__partner_name
@@ -1466,7 +1466,7 @@ msgstr "Insatisfait"
 msgid "Do not have access, skip this data for user's digest email"
 msgstr ""
 "Accès non disponible, ne pas tenir compte de cette donnée dans le digest "
-"d'email envoyé à l'utilisateur"
+"d'e-mail envoyé à l'utilisateur"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -1503,7 +1503,7 @@ msgstr "Alias de messagerie"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__template_id
 msgid "Email Template"
-msgstr "Modèle d'email"
+msgstr "Modèle d'e-mail"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_stage__template_id
@@ -1512,32 +1512,32 @@ msgid ""
 "By default, the email will be sent from the email alias of the helpdesk team.\n"
 "Otherwise it will be sent from the company's email address, or from the catchall (as defined in the System Parameters)."
 msgstr ""
-"Email envoyé automatiquement au client lorsque le ticket atteint cette étape.\n"
-"Par défaut, l'email sera envoyé à partir de l'alias de l'équipe d'assistance.\n"
-"Sinon, il sera envoyé à partir de l'adresse email de l'entreprise ou du catchall (tel que défini dans les paramètres système)."
+"E-mail envoyé automatiquement au client lorsque le ticket atteint cette étape.\n"
+"Par défaut, l'e-mail sera envoyé à partir de l'alias de l'équipe d'assistance.\n"
+"Sinon, il sera envoyé à partir de l'adresse e-mail de l'entreprise ou du catchall (tel que défini dans les paramètres système)."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__email_cc
 msgid "Email cc"
-msgstr "Email cc"
+msgstr "E-mail cc"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_domain
 msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
-msgstr "Domaine de l'email e.g. 'example.com' dans 'odoo@example.com'"
+msgstr "Domaine de l'e-mail e.g. 'example.com' dans 'odoo@example.com'"
 
 #. module: helpdesk
 #: model_terms:digest.tip,tip_description:helpdesk.digest_tip_helpdesk_0
 msgid "Emails sent to"
-msgstr "Emails envoyés à"
+msgstr "E-mails envoyés à"
 
 #. module: helpdesk
 #: model_terms:digest.tip,tip_description:helpdesk.digest_tip_helpdesk_0
 msgid ""
 "Emails sent to a Helpdesk Team alias generate tickets in your pipeline."
 msgstr ""
-"Les emails envoyés à l'alias d'une équipe d'assistance génèrent des tickets "
-"dans votre pipeline."
+"Les e-mails envoyés à l'alias d'une équipe d'assistance génèrent des tickets"
+" dans votre pipeline."
 
 #. module: helpdesk
 #: model:mail.template,description:helpdesk.rating_ticket_request_email_template
@@ -2656,7 +2656,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__is_partner_email_update
 msgid "Partner Email will Update"
-msgstr "L'email du partenaire sera mis à jour"
+msgstr "L'e-mail du partenaire sera mis à jour"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__is_partner_phone_update
@@ -3217,7 +3217,7 @@ msgstr "Self-Service"
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.action_helpdesk_ticket_mass_mail
 msgid "Send Email"
-msgstr "Envoyer un email"
+msgstr "Envoyer un e-mail"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3232,11 +3232,11 @@ msgid ""
 "team. Automatically send an email to customers when a ticket reaches a "
 "specific stage in a helpdesk team by setting this template on that stage."
 msgstr ""
-"Envoyez un email de confirmation aux clients pour les informer que leur "
+"Envoyez un e-mail de confirmation aux clients pour les informer que leur "
 "ticket d'assistance a été reçu et est en cours d'examen par l'équipe "
-"d'assistance. Envoyez automatiquement un email aux clients lorsqu'un ticket "
-"atteint une étape spécifique dans une équipe d'assistance en définissant un "
-"modèle sur cette étape."
+"d'assistance. Envoyez automatiquement un e-mail aux clients lorsqu'un ticket"
+" atteint une étape spécifique dans une équipe d'assistance en définissant un"
+" modèle sur cette étape."
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_stage__sequence
@@ -3258,7 +3258,7 @@ msgstr "Définir un domaine d'alias"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "Set an Email Template on Stages"
-msgstr "Définir un modèle d'email sur des étapes"
+msgstr "Définir un modèle d'e-mail sur des étapes"
 
 #. module: helpdesk
 #: model:mail.template,description:helpdesk.solved_ticket_request_email_template
@@ -3267,7 +3267,7 @@ msgid ""
 "stages"
 msgstr ""
 "Définir ce modèle sur une étape de projet pour automatiquement envoyer un "
-"email lorsque la tâche atteint cette étape"
+"e-mail lorsque la tâche atteint cette étape"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -3523,8 +3523,8 @@ msgid ""
 " email that does not reply to an existing record will cause the creation of "
 "a new record of this model (e.g. a Project Task)"
 msgstr ""
-"Le modèle (type de document Odoo) auquel correspond cet alias. Chaque email "
-"entrant ne correspondant pas à un enregistrement existant entraînera la "
+"Le modèle (type de document Odoo) auquel correspond cet alias. Chaque e-mail"
+" entrant ne correspondant pas à un enregistrement existant entraînera la "
 "création d'un nouvel enregistrement de ce modèle (par ex. une tâche d'un "
 "projet)"
 
@@ -3534,7 +3534,7 @@ msgid ""
 "The name of the email alias, e.g. 'jobs' if you want to catch emails for "
 "<jobs@example.odoo.com>"
 msgstr ""
-"Le nom de l'alias, par exemple 'carrières' pour récupérer les emails de "
+"Le nom de l'alias, par exemple 'carrières' pour récupérer les e-mails de "
 "<carrières@example.odoo.com>"
 
 #. module: helpdesk
@@ -3602,7 +3602,7 @@ msgstr ""
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__medium_id
 msgid "This is the method of delivery, e.g. Postcard, Email, or Banner Ad"
 msgstr ""
-"Le mode de livraison, par ex. carte postale, email ou bannière publicitaire"
+"Le mode de livraison, par ex. carte postale, e-mail ou bannière publicitaire"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_ticket__source_id
@@ -3611,7 +3611,7 @@ msgid ""
 "of email list"
 msgstr ""
 "La source du lien, par ex. moteur de recherche, domaine externe ou nom de la"
-" liste d'adresses email"
+" liste d'adresses e-mail"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_stage_view_form
@@ -3649,7 +3649,7 @@ msgid ""
 "\"Call\" or \"Send email\")."
 msgstr ""
 "Cela représente les différentes catégories de choses que vous devez faire "
-"(par exemple \"Appeler\" ou \"Envoyer un email\")."
+"(par exemple \"Appeler\" ou \"Envoyer un e-mail\")."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -3843,7 +3843,7 @@ msgstr "Feuilles de temps"
 #. module: helpdesk
 #: model:digest.tip,name:helpdesk.digest_tip_helpdesk_0
 msgid "Tip: Create tickets from incoming emails"
-msgstr "Astuce : créez des tickets à partir d'emails entrants"
+msgstr "Astuce : créez des tickets à partir d'e-mails entrants"
 
 #. module: helpdesk
 #: model_terms:ir.actions.act_window,help:helpdesk.helpdesk_my_ticket_action_no_create
@@ -3856,7 +3856,7 @@ msgid ""
 "                Collaborate efficiently by chatting in real-time or via email."
 msgstr ""
 "Pour faire avancer les choses, planifiez des activités et utilisez le statut du ticket. <br>\n"
-"Collaborez efficacement en discutant en temps réel ou par email."
+"Collaborez efficacement en discutant en temps réel ou par e-mail."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -4033,7 +4033,7 @@ msgid ""
 "customers. Add new people to the followers' list to make them aware of the "
 "progress of this ticket."
 msgstr ""
-"Utilisez le chatter pour <b>envoyer des emails</b> et communiquer "
+"Utilisez le chatter pour <b>envoyer des e-mails</b> et communiquer "
 "efficacement avec vos clients. Ajoutez de nouvelles personnes à la liste des"
 " abonnés pour les tenir au courant de l'avancement de ce ticket."
 

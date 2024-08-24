@@ -22,8 +22,8 @@
 # Yihya Hugirat <hugirat@gmail.com>, 2024
 # hed shefer <hed@laylinetech.com>, 2024
 # yael terner, 2024
-# Ha Ketem <haketem@gmail.com>, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# Ha Ketem <haketem@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -31,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024\n"
+"Last-Translator: Ha Ketem <haketem@gmail.com>, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,7 +72,7 @@ msgstr "\" יתרת החשבון מושפעת מ"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "%s is not a numeric value"
-msgstr ""
+msgstr "%s איננו ערך מספרי"
 
 #. module: account_reports
 #. odoo-javascript
@@ -111,7 +111,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "(%s lines)"
-msgstr ""
+msgstr "(%s שורות)"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_receipts
@@ -128,7 +128,7 @@ msgstr "(-) תשלומים שטרם נפרעו"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "(1 line)"
-msgstr ""
+msgstr "(1 שורה)"
 
 #. module: account_reports
 #. odoo-python
@@ -167,25 +167,25 @@ msgstr "-> רענן"
 #: model:account.report.column,name:account_reports.aged_payable_report_period1
 #: model:account.report.column,name:account_reports.aged_receivable_report_period1
 msgid "1-30"
-msgstr ""
+msgstr "1-30"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period2
 #: model:account.report.column,name:account_reports.aged_receivable_report_period2
 msgid "31-60"
-msgstr ""
+msgstr "31-60"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period3
 #: model:account.report.column,name:account_reports.aged_receivable_report_period3
 msgid "61-90"
-msgstr ""
+msgstr "61-90"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period4
 #: model:account.report.column,name:account_reports.aged_receivable_report_period4
 msgid "91-120"
-msgstr ""
+msgstr "91-120"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -489,14 +489,14 @@ msgstr "כל היומנים"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "All Payable"
-msgstr ""
+msgstr "כל התשלומים"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "All Receivable"
-msgstr ""
+msgstr "כל התקבולים"
 
 #. module: account_reports
 #. odoo-python
@@ -533,21 +533,21 @@ msgstr "סכום מטבע"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Amount In Currency"
-msgstr ""
+msgstr "סכום במטבע"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Amount in currency: %s"
-msgstr ""
+msgstr "סכום במטבע: %s"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Analytic Accounts Groupby"
-msgstr ""
+msgstr "קיבוץ חשבונות אנליטיים לפי"
 
 #. module: account_reports
 #. odoo-javascript
@@ -562,14 +562,14 @@ msgstr "מסנן אנליטי"
 #: model:ir.model.fields,field_description:account_reports.field_account_report__filter_analytic_groupby
 #, python-format
 msgid "Analytic Group By"
-msgstr ""
+msgstr "קיבוץ אנליטי לפי"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Analytic Plans Groupby"
-msgstr ""
+msgstr "קיבוץ תכנית אנליטית לפי"
 
 #. module: account_reports
 #. odoo-javascript
@@ -642,7 +642,7 @@ msgstr "ממוצע ימי אשראי לקוחות"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "B: %s"
-msgstr ""
+msgstr "מ: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -1496,7 +1496,7 @@ msgstr "מנוע"
 #: code:addons/account_reports/models/account_sales_report.py:0
 #, python-format
 msgid "Entries with partners with no VAT"
-msgstr ""
+msgstr "רשומות עם שותפים ללא מע\"מ"
 
 #. module: account_reports
 #. odoo-python
@@ -1603,7 +1603,7 @@ msgstr "אשף ייצוא לדוחות הנהלת חשבונות"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 msgid "Expression"
-msgstr ""
+msgstr "ביטוי"
 
 #. module: account_reports
 #. odoo-python
@@ -1625,7 +1625,7 @@ msgstr "שדה"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Field %s does not exist on account.move.line."
-msgstr ""
+msgstr "שדה%s לא קיים בaccount.move.line."
 
 #. module: account_reports
 #. odoo-python
@@ -1814,7 +1814,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Go to report configuration"
-msgstr ""
+msgstr "להגדרות הדוח"
 
 #. module: account_reports
 #. odoo-python
@@ -1857,7 +1857,7 @@ msgstr "קבץ לפי"
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Group By Months"
-msgstr ""
+msgstr "קיבוץ לפי חודשים"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_horizontal_group_form
@@ -2831,7 +2831,7 @@ msgstr "שיעורי רווחיות"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "Period comparison"
-msgstr ""
+msgstr "השוואת תקופות"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_tax_periodicity
@@ -3161,7 +3161,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 #, python-format
 msgid "Sort By Date"
-msgstr ""
+msgstr "מיון לפי תאריך"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3194,7 +3194,7 @@ msgstr "תת-נוסחא"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #, python-format
 msgid "T: %s"
-msgstr ""
+msgstr "ת: %s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3756,7 +3756,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Unknown date scope: %s"
-msgstr ""
+msgstr "טווח תאריכים לא ידוע: %s"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.multicurrency_revaluation_report
@@ -3954,12 +3954,12 @@ msgstr ""
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 #, python-format
 msgid "You need to activate more than one currency to access this report."
-msgstr ""
+msgstr "צריך להפעיל יותר ממטבע אחד כדי לצפות בדו\"ח זה."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_main
 msgid "[Draft]"
-msgstr ""
+msgstr "[טיוטה]"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3968,7 +3968,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "addressed to"
-msgstr ""
+msgstr "ממוען ל"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4025,7 +4025,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "in the next period."
-msgstr ""
+msgstr "בתקופה הבאה"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4069,7 +4069,7 @@ msgstr "לא זמין"
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "partners"
-msgstr ""
+msgstr "שותפים"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4112,7 +4112,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 #, python-format
 msgid "that are not established abroad."
-msgstr ""
+msgstr "שאינם מבוססים בחו\"ל"
 
 #. module: account_reports
 #. odoo-javascript
