@@ -15,7 +15,7 @@ export class WorkEntriesGanttModel extends GanttModel {
 
     getRange() {
         const { globalStart, globalStop } = this._buildMetaData();
-        return { start: globalStart, end: globalStop };
+        return { start: globalStart, end: globalStop.minus({ millisecond: 1 }) };
     }
 
     /**
