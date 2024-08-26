@@ -8,10 +8,17 @@
                 <sheet>
                     <div name="button_box" class="oe_button_box">
                         <button name="action_open_active_sub" type="object"
-                                class="oe_stat_button" icon="fa-dollar">
+                                class="oe_stat_button" icon="fa-refresh">
                             <div class="o_stat_info">
                                 <span class="o_stat_text">Subscriptions</span>
                                 <field name="active_subs_count" class="o_stat_value"/>
+                            </div>
+                        </button>
+                        <button name="action_open_active_subscription_lines" type="object"
+                                class="oe_stat_button" icon="fa-bars">
+                            <div class="o_stat_info">
+                                <field name="subscription_line_count" class="o_stat_value"/>
+                                <span class="o_stat_text">Subscription Items</span>
                             </div>
                         </button>
                     </div>

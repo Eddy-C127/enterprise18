@@ -12,3 +12,4 @@ from . import test_sale_subscription_portal
 from . import test_sale_subscription_product_configurator
 from . import test_sale_order_alert
 from . import test_sale_report
+from . import test_subscription_plan

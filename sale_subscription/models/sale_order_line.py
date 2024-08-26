@@ -23,6 +23,12 @@ class SaleOrderLine(models.Model):
     recurring_monthly = fields.Monetary(compute='_compute_recurring_monthly', string="Monthly Recurring Revenue")
     parent_line_id = fields.Many2one('sale.order.line', compute='_compute_parent_line_id', store=True, precompute=True, index='btree_not_null')
     last_invoiced_date = fields.Date(index=True)
+    pricelist_id = fields.Many2one(related="order_id.pricelist_id")
+    subscription_start_date = fields.Date(related="order_id.start_date")
+    subscription_end_date = fields.Date(related="order_id.end_date")
+    next_invoice_date = fields.Date(related="order_id.next_invoice_date")
+    product_template_variant_value_ids = fields.Many2many(related="product_id.product_template_variant_value_ids")
+    subscription_plan_id = fields.Many2one(related="order_id.plan_id")
 
     @property
     def upsell_total(self):

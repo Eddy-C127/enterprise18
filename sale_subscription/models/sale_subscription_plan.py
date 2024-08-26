@@ -56,6 +56,7 @@ class SaleSubscriptionPlan(models.Model):
 
     # UX
     active_subs_count = fields.Integer(compute="_compute_active_subs_count", string="Subscriptions")
+    subscription_line_count = fields.Integer(compute="_compute_active_subscription_line_count", string="Subscription Count")
 
     _sql_constraints = [
         (
@@ -94,12 +95,35 @@ class SaleSubscriptionPlan(models.Model):
             if template['plan_id']:
                 self.browse(template['plan_id'][0]).active_subs_count = template['plan_id_count']
 
+    def _compute_active_subscription_line_count(self):
+        self.subscription_line_count = 0
+        line_counts = self.env['sale.order.line'].read_group(
+          [('order_id.is_subscription', '=', True), ('subscription_plan_id', 'in', self.ids), ('order_id.subscription_state', 'in', ('3_progress', '4_paused'))],
+          ['__count'],
+          ['subscription_plan_id']
+        )
+        line_counts = {r['subscription_plan_id'][0]: r['subscription_plan_id_count'] for r in line_counts}
+        for plan in self:
+            plan.subscription_line_count = line_counts.get(plan.id, 0)
+
     def action_open_active_sub(self):
         return {
             'name': _('Subscriptions'),
             'view_mode': 'list,form',
             'domain': [('plan_id', 'in', self.ids), ('is_subscription', '=', True), ('subscription_state', 'in', ['3_progress', '4_paused'])],
             'res_model': 'sale.order',
+            'type': 'ir.actions.act_window',
+        }
+
+    def action_open_active_subscription_lines(self):
+        subscription_items_plan = self.env['sale.order'].search([('plan_id', 'in', self.ids), ('is_subscription', '=', True), ('subscription_state', 'in', ['3_progress', '4_paused'])]).order_line
+        return {
+            'name': _('Subscription Items'),
+            'view_mode': 'list,form',
+            'views': [(self.env.ref('sale_subscription.sale_subscription_sale_order_line_list').id, 'list')],
+            'search_view_id': [self.env.ref('sale_subscription.sale_subscription_sales_order_line_filter').id],
+            'domain': [('id', 'in', subscription_items_plan.ids)],
+            'res_model': 'sale.order.line',
             'type': 'ir.actions.act_window',
         }
 

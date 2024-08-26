@@ -39,6 +39,7 @@ Features:
         'views/product_pricelist_views.xml',
         'views/sale_subscription_alert.xml',
         'views/sale_subscription_views.xml',
+        'views/sale_order_line_view.xml',
         'views/res_partner_views.xml',
         'views/account_analytic_account_views.xml',
         'views/sale_subscription_portal_templates.xml',
