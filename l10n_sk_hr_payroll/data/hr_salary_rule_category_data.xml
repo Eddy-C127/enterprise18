@@ -9,7 +9,6 @@
     <record id="hr_payroll_meal_vouchers_employer" model="hr.salary.rule.category">
         <field name="name">Meal Vouchers (Employer)</field>
         <field name="code">MEALEMPLOYER</field>
-        <field name="parent_id" ref="hr_payroll.ALW"/>
     </record>
 
     <record id="hr_payroll_social_security_employee" model="hr.salary.rule.category">
@@ -26,6 +25,7 @@
     <record id="hr_payroll_social_security_employee_total" model="hr.salary.rule.category">
         <field name="name">Social Security Total (Employee)</field>
         <field name="code">SOCIALEMPLOYEETOTAL</field>
+        <field name="parent_id" ref="hr_payroll.DED"/>
     </record>
 
     <record id="hr_payroll_social_security_employer_total" model="hr.salary.rule.category">
