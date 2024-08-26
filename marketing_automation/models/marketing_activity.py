@@ -139,11 +139,11 @@ class MarketingActivity(models.Model):
     @api.depends('activity_domain', 'campaign_id.domain', 'parent_id.domain')
     def _compute_inherited_domain(self):
         for activity in self:
-            domain = expression.AND([literal_eval(activity.activity_domain),
-                                     literal_eval(activity.campaign_id.domain)])
+            domain = expression.AND([literal_eval(activity.activity_domain or '[]'),
+                                     literal_eval(activity.campaign_id.domain or '[]')])
             ancestor = activity.parent_id
             while ancestor:
-                domain = expression.AND([domain, literal_eval(ancestor.activity_domain)])
+                domain = expression.AND([domain, literal_eval(ancestor.activity_domain or '[]')])
                 ancestor = ancestor.parent_id
             activity.domain = domain
 
