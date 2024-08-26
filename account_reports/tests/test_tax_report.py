@@ -469,7 +469,7 @@ class TestTaxReport(TestAccountReportsCommon):
 
     def test_vat_closing_button_availability(self):
         def assertTaxClosingAvailable(is_enabled, active_companies, export_main_company=None):
-            options = tax_report.with_context(allowed_company_ids=active_companies.ids).get_options()
+            options = tax_report.with_context(allowed_company_ids=active_companies.ids).get_options({})
             closing_button_dict = next(filter(lambda x: x['action'] == 'action_periodic_vat_entries', options['buttons']))
             self.assertEqual(closing_button_dict.get('disabled', False), not is_enabled)
             if is_enabled:

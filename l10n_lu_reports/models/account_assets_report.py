@@ -8,7 +8,8 @@ from odoo.tools.float_utils import float_round
 
 class AssetsReport(models.Model):
     _inherit = 'account.report'
-    def assets_init_custom_options(self, options, previous_options=None):
+
+    def assets_init_custom_options(self, options, previous_options):
         super().assets_init_custom_options(options, previous_options)
         if self.env.company.country_id.code == 'LU':
             options.setdefault('buttons', []).append({

@@ -151,7 +151,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             },
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
 
         options_per_col_group = report._split_options_per_column_group(options)
@@ -193,7 +193,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         options['columns'] = total_column + not_started_column + before_column + options['columns'] + later_column
         options['column_headers'] = []
         options['deferred_report_type'] = self._get_deferred_report_type()
-        options['deferred_grouping_field'] = (previous_options or {}).get('deferred_grouping_field') or 'account_id'
+        options['deferred_grouping_field'] = previous_options.get('deferred_grouping_field') or 'account_id'
         if (
             self._get_deferred_report_type() == 'expense' and self.env.company.generate_deferred_expense_entries_method == 'manual'
             or self._get_deferred_report_type() == 'revenue' and self.env.company.generate_deferred_revenue_entries_method == 'manual'

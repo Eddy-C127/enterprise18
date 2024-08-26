@@ -29,7 +29,7 @@ class EstonianECSalesReportCustomHandler(models.AbstractModel):
 
         return lines
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._init_core_custom_options(report, options, previous_options)
 
         ec_operation_category = options.get('sales_report_taxes', {'goods': tuple(), 'triangular': tuple(), 'services': tuple()})

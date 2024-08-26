@@ -364,7 +364,7 @@ class LuxembourgSalesReportTest(AccountSalesReportCommon):
             self.env[report.custom_handler_model_name].get_correction_data(options, comparison_files=[('', '')])
         # Case 2: ecdf declaration without VAT Intra declarations inside
         asset_report = self.env.ref('account_asset.assets_report')
-        options = asset_report.get_options(None)
+        options = asset_report.get_options({})
         wizard = self.env['l10n_lu.generate.asset.report'].create({})
         wizard.with_context({'model': 'account.report', 'report_generation_options': options, 'skip_xsd': True}).get_xml()
         declaration_to_compare = base64.b64decode(wizard.report_data.decode("utf-8"))

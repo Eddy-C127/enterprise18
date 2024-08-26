@@ -11,7 +11,7 @@ class ColumbianReportCustomHandler(models.AbstractModel):
     _inherit = 'account.report.custom.handler'
     _description = 'Columbian Report Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         for button in options['buttons']:
             if button['name'] == 'PDF':

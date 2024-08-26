@@ -18,9 +18,9 @@ class AccountReport(models.Model):
         info['filters']['show_cash_basis'] = self.filter_cash_basis
         return info
 
-    def _init_options_cash_basis(self, options, previous_options=None):
+    def _init_options_cash_basis(self, options, previous_options):
         if self.filter_cash_basis:
-            options['report_cash_basis'] = (previous_options or {}).get('report_cash_basis', False)
+            options['report_cash_basis'] = previous_options.get('report_cash_basis', False)
 
     @api.model
     def _prepare_lines_for_cash_basis(self):

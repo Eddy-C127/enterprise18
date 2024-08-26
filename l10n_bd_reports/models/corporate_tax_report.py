@@ -9,7 +9,7 @@ class CorporateTaxReportHandler(models.AbstractModel):
     _inherit = 'account.report.custom.handler'
     _description = "Custom Handler for Corporate TAX Reports in Bangladesh"
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         # EXTEND account.report
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options['buttons'].append({'name': _("Closing Entry"), 'action': 'action_create_accounting_entry', 'sequence': 110, 'always_show': True})

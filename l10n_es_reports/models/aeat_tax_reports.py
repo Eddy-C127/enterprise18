@@ -413,7 +413,7 @@ class SpanishMod111TaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_es.tax.report.handler'
     _description = 'Spanish Tax Report Custom Handler (Mod111)'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         super()._append_boe_button(options, 111)
 
@@ -484,7 +484,7 @@ class SpanishMod115TaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_es.tax.report.handler'
     _description = 'Spanish Tax Report Custom Handler (Mod115)'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         super()._append_boe_button(options, 115)
 
@@ -529,7 +529,7 @@ class SpanishMod303TaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_es.tax.report.handler'
     _description = 'Spanish Tax Report Custom Handler (Mod303)'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         super()._append_boe_button(options, 303)
 
@@ -831,7 +831,7 @@ class SpanishMod347TaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_es.tax.report.handler'
     _description = 'Spanish Tax Report Custom Handler (Mod347)'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         super()._append_boe_button(options, 347)
 
@@ -1166,7 +1166,7 @@ class SpanishMod349TaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_es.tax.report.handler'
     _description = 'Spanish Tax Report Custom Handler (Mod349)'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         super()._append_boe_button(options, 349)
 
@@ -1306,7 +1306,7 @@ class SpanishMod390TaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_es.tax.report.handler'
     _description = 'Spanish Tax Report Custom Handler (Mod390)'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         super()._append_boe_button(options, 390)
 
@@ -1317,7 +1317,7 @@ class SpanishMod390TaxReportCustomHandler(models.AbstractModel):
         casilla_lines_map = {}
         for section in options['sections']:
             section_report = self.env['account.report'].browse(section['id'])
-            report_lines = section_report._get_lines(section_report.get_options())
+            report_lines = section_report._get_lines(section_report.get_options({}))
             casilla_lines_map.update(self._retrieve_casilla_lines(report_lines))
 
         # Header

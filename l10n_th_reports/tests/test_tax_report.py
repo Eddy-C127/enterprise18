@@ -76,7 +76,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         self.env.flush_all()
 
         report = self.env.ref('l10n_th.tax_report_pnd53')
-        options = report.get_options()
+        options = report.get_options({})
 
         report_data = self.env['l10n_th.pnd53.report.handler'].l10n_th_print_pnd_tax_report_pnd53(options)['file_content']
         expected = ("No.,Tax ID,Title,Contact Name,Street,Street2,City,State,Zip,Branch Number,Invoice/Bill Date,Tax Rate,Total Amount,WHT Amount,WHT Condition,Tax Type\n"
@@ -118,7 +118,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         self.env.flush_all()
 
         report = self.env.ref('l10n_th.tax_report_pnd3')
-        options = report.get_options()
+        options = report.get_options({})
 
         report_data = self.env['l10n_th.pnd3.report.handler'].l10n_th_print_pnd_tax_report_pnd3(options)['file_content']
         expected = ("No.,Tax ID,Title,Contact Name,Street,Street2,City,State,Zip,Branch Number,Invoice/Bill Date,Tax Rate,Total Amount,WHT Amount,WHT Condition,Tax Type\n"
@@ -135,7 +135,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         self.init_invoice("out_invoice", self.partner_b, "2023-05-20", amounts=[1000, 1000], taxes=[tax_1, tax_2], post=True)
 
         report = self.env.ref('l10n_th.tax_report')
-        options = report.get_options()
+        options = report.get_options({})
 
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_sale_tax_report(options)['file_content']
         expected = [
@@ -154,7 +154,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         self.init_invoice("out_invoice", self.partner_b, "2023-05-20", amounts=[1000, 1000], taxes=[tax_1, tax_2], post=True)
 
         report = self.env.ref('l10n_th.tax_report')
-        options = report.get_options()
+        options = report.get_options({})
 
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_sale_tax_report(options)['file_content']
         expected = [
@@ -177,7 +177,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         move_to_reverse._reverse_moves([{"invoice_date": move_to_reverse.date}], cancel=True)
 
         report = self.env.ref('l10n_th.tax_report')
-        options = report.get_options()
+        options = report.get_options({})
 
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_purchase_tax_report(options)['file_content']
         expected = [
@@ -202,7 +202,7 @@ class L10nThaiTaxReportTest(AccountSalesReportCommon):
         ]})
         reverse_move.action_post()
         report = self.env.ref('l10n_th.tax_report')
-        options = report.get_options()
+        options = report.get_options({})
 
         report_data = self.env['l10n_th.tax.report.handler'].l10n_th_print_purchase_tax_report(options)['file_content']
         expected = [

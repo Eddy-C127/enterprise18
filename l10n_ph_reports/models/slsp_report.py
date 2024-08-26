@@ -25,7 +25,7 @@ class SlspCustomHandler(models.AbstractModel):
             },
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.setdefault('buttons', []).append(
             {
@@ -37,9 +37,9 @@ class SlspCustomHandler(models.AbstractModel):
             }
         )
         # Initialise the custom options for this report.
-        options['include_no_tin'] = (previous_options or {}).get('include_no_tin', False)
+        options['include_no_tin'] = previous_options.get('include_no_tin', False)
         # Initialise the custom options for this report.
-        options['include_imports'] = (previous_options or {}).get('include_imports', False)
+        options['include_imports'] = previous_options.get('include_imports', False)
 
     # First level, month rows
     def _build_month_lines(self, report, options):

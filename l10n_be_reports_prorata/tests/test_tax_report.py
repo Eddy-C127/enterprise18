@@ -20,7 +20,7 @@ class TestBelgiumTaxReportProrata(AccountSalesReportCommon):
         handler = self.env['l10n_be.tax.report.handler']
 
         report = self.env.ref('l10n_be.tax_report_vat')
-        options = report.get_options()
+        options = report.get_options({})
 
         wizard_action = handler.print_tax_report_to_xml(options)
         wizard = self.env[wizard_action['res_model']].with_context(wizard_action['context']).browse(wizard_action['res_id'])

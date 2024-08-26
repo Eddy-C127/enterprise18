@@ -14,7 +14,7 @@ class LuxembourgishFinancialReportCustomHandler(models.AbstractModel):
     _inherit = 'account.report.custom.handler'
     _description = 'Luxembourgish Financial Report Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.setdefault('buttons', []).append(
             {'name': _('XML'), 'sequence': 30, 'action': 'open_report_export_wizard_accounts_report'}

@@ -8,7 +8,7 @@ class FECReportCustomHandler(models.AbstractModel):
     _inherit = 'account.general.ledger.report.handler'
     _description = 'FEC Report Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         if self.env.company.account_fiscal_country_id.code != 'FR':
             return
@@ -29,7 +29,7 @@ class FECReportCustomHandler(models.AbstractModel):
 
     def generate_fec_report(self, wizard):
         report = self.env.ref('account_reports.general_ledger_report')
-        options = report.get_options()
+        options = report.get_options({})
         options['fec_wizard_id'] = wizard.id
         return report.export_file(options, 'generate_fec_content')
 

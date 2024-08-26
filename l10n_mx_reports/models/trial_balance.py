@@ -15,7 +15,7 @@ CFDIBCE_XSLT_CADENA = 'l10n_mx_reports/data/xslt/1.3/BalanzaComprobacion_1_2.xsl
 class TrialBalanceCustomHandler(models.AbstractModel):
     _inherit = 'account.trial.balance.report.handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options)
         if self.env.company.account_fiscal_country_id.code == 'MX':
             options['buttons'] += [

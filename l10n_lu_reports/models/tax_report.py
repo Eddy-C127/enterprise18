@@ -10,7 +10,7 @@ class LuxembourgishTaxReportCustomHandler(models.AbstractModel):
     _inherit = 'account.tax.report.handler'
     _description = 'Luxembourgish Tax Report Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.setdefault('buttons', []).append(
             {'name': _('XML'), 'sequence': 30, 'action': 'open_report_export_wizard', 'file_export_type': _('XML')}

@@ -500,7 +500,7 @@ class TestBalanceSheetBalanced(TestAccountReportsCommon):
         # Find the available Balance Sheets for the current company.
         generic_balance_sheet = self.env.ref('account_reports.balance_sheet').with_company(self.env.company)
         generic_balance_sheet.with_context(active_test=False).variant_report_ids.write({'active': True})
-        available_report_ids = [variant['id'] for variant in generic_balance_sheet.get_options()['available_variants']]
+        available_report_ids = [variant['id'] for variant in generic_balance_sheet.get_options({})['available_variants']]
         available_reports = self.env['account.report'].browse(available_report_ids)
 
         # Don't test Balance Sheets for which the REPORT_CONFIG specifies a chart_template_refs that differs from this CoA.

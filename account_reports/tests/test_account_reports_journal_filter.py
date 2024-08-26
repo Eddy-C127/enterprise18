@@ -69,7 +69,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         j7 = self._quick_create_journal("j7", self.vanilla_company1)
         j8 = self._quick_create_journal("j8", self.vanilla_company1)
 
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "All Journals", [
             (j1, False),
             (j2, False),
@@ -161,7 +161,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         j7 = self._quick_create_journal("j7", self.vanilla_company2)
         j8 = self._quick_create_journal("j8", self.vanilla_company2)
 
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "All Journals", [
             {'id': 'divider'},
             (j1, False),
@@ -205,7 +205,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         g1 = self._quick_create_journal_group("g1", self.vanilla_company1, j2 + j4)
         g2 = self._quick_create_journal_group("g2", self.vanilla_company1, j2 + j5)
 
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "g1", [
             {'id': 'divider'},
             (g1, True),
@@ -263,7 +263,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         g2 = self._quick_create_journal_group("g2", self.vanilla_company1, j2 + j4)
         g3 = self._quick_create_journal_group("g3", self.vanilla_company2, j6)
 
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "g1, g3", [
             {'id': 'divider'},
             (g1, True),
@@ -341,7 +341,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
 
         g1 = self._quick_create_journal_group("g1", self.vanilla_company1, j2)
 
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "g1, j3, j4", [
             {'id': 'divider'},
             (g1, True),
@@ -465,7 +465,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         g2 = self._quick_create_journal_group("g2", self.vanilla_company1, misc + bill)
 
         report = self.env.ref('account_reports.cash_flow_report')
-        options = report.get_options()
+        options = report.get_options({})
         self._assert_filter_journal(options, "g1", [
             {'id': 'divider'},
             (g1, True),
@@ -539,7 +539,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         j10 = self._quick_create_journal("j10", vanilla_company3)
 
         # With all companies selected, all journals should be displayed
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "All Journals", [
             {'id': 'divider'},
             (j1, False),
@@ -585,7 +585,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         })
 
         # Parent company journals should be displayed too
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "All Journals", [
             {'id': 'divider'},
             (j1, False),
@@ -621,7 +621,7 @@ class TestAccountReportsJournalFilter(AccountTestInvoicingCommon):
         })
 
         # Only parent company journals should be displayed
-        options = self.report.get_options()
+        options = self.report.get_options({})
         self._assert_filter_journal(options, "All Journals", [
             (j1, False),
             (j2, False),

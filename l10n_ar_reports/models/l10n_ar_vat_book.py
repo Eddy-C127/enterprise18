@@ -79,10 +79,8 @@ class ArgentinianReportCustomHandler(models.AbstractModel):
 
         return lines
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
-        if previous_options is None:
-            previous_options = {}
 
         # Add export button
         zip_export_button = {

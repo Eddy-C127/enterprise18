@@ -15,7 +15,7 @@ class LuxembourgishECSalesReportCustomHandler(models.AbstractModel):
     _inherit = 'account.ec.sales.report.handler'
     _description = 'Luxembourgish EC Sales Report Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """
         Add the invoice lines search domain that is specific to the country.
         Typically, the taxes account.report.expression ids relative to the country for the triangular, sale of goods

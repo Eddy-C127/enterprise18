@@ -42,7 +42,7 @@ class BelgianECSalesReportCustomHandler(models.AbstractModel):
             ],
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """
         Add the invoice lines search domain that is specific to the country.
         Typically, the taxes account.report.expression ids relative to the country for the triangular, sale of goods

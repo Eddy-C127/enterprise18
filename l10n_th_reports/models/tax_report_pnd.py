@@ -76,7 +76,7 @@ class TaxReportPND53(models.AbstractModel):
     _inherit = "l10n_th.pnd.report.handler"
     _description = "Thai Tax Report (PND53) Custom Handler"
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.setdefault('buttons', []).extend((
             {
@@ -113,7 +113,7 @@ class TaxReportPND3(models.AbstractModel):
     _inherit = "l10n_th.pnd.report.handler"
     _description = "Thai Tax Report (PND3) Custom Handler"
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.setdefault('buttons', []).extend((
             {

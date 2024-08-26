@@ -31,7 +31,7 @@ class L10nLuGenerateAccountsReport(models.TransientModel):
                 self.pl = 'full'
 
     def _get_report_options(self, report):
-        return report.get_options()
+        return report.get_options({})
 
     def _lu_get_declarations(self, declaration_template_values):
         # Basic (required) declaration group

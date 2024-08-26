@@ -21,12 +21,12 @@ class JournalReportCustomHandler(models.AbstractModel):
     _inherit = "account.report.custom.handler"
     _description = "Journal Report Custom Handler"
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """ Initialize the options for the journal report. """
 
         # Initialise the custom option for this report.
         options['ignore_totals_below_sections'] = True
-        options['show_payment_lines'] = previous_options.get('show_payment_lines', True) if previous_options else True
+        options['show_payment_lines'] = previous_options.get('show_payment_lines', True)
 
     def _get_custom_display_config(self):
         return {

@@ -14,7 +14,7 @@ class IeTaxReportCustomHandler(models.AbstractModel):
     _inherit = 'account.tax.report.handler'
     _description = 'Custom Tax Report Handler for Ireland'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options)
         if self.env.company.account_fiscal_country_id.code == 'IE':
             options.setdefault('buttons', []).append({

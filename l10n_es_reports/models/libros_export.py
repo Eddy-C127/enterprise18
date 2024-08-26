@@ -45,7 +45,7 @@ SURCHARGE_TAX_EQUIVALENT = {
 class GenericTaxReportCustomHandler(models.AbstractModel):
     _inherit = 'account.generic.tax.report.handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         if self.env.company.account_fiscal_country_id.code == 'ES':
             options['buttons'].append({

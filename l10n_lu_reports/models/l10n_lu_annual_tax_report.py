@@ -13,7 +13,7 @@ class LuAnnualTaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_lu.tax.report.handler'
     _description = 'Luxembourgish Annual Tax Report Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         # closing entry button shouldn't be visible in the annual tax report
         options['buttons'] = [button for button in options['buttons'] if button['action'] != 'action_periodic_vat_entries']

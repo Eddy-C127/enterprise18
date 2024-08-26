@@ -20,7 +20,7 @@ class AccountReport(models.AbstractModel):
         sequence_map[self._init_options_analytic_groupby] = 995
         return sequence_map
 
-    def _init_options_analytic_groupby(self, options, previous_options=None):
+    def _init_options_analytic_groupby(self, options, previous_options):
         if not self.filter_analytic_groupby:
             return
         enable_analytic_accounts = self.env.user.has_group('analytic.group_analytic_accounting')
@@ -30,15 +30,15 @@ class AccountReport(models.AbstractModel):
         options['display_analytic_groupby'] = True
         options['display_analytic_plan_groupby'] = True
 
-        options['include_analytic_without_aml'] = (previous_options or {}).get('include_analytic_without_aml', False)
-        previous_analytic_accounts = (previous_options or {}).get('analytic_accounts_groupby', [])
+        options['include_analytic_without_aml'] = previous_options.get('include_analytic_without_aml', False)
+        previous_analytic_accounts = previous_options.get('analytic_accounts_groupby', [])
         analytic_account_ids = [int(x) for x in previous_analytic_accounts]
         selected_analytic_accounts = self.env['account.analytic.account'].with_context(active_test=False).search(
             [('id', 'in', analytic_account_ids)])
         options['analytic_accounts_groupby'] = selected_analytic_accounts.ids
         options['selected_analytic_account_groupby_names'] = selected_analytic_accounts.mapped('name')
 
-        previous_analytic_plans = (previous_options or {}).get('analytic_plans_groupby', [])
+        previous_analytic_plans = previous_options.get('analytic_plans_groupby', [])
         analytic_plan_ids = [int(x) for x in previous_analytic_plans]
         selected_analytic_plans = self.env['account.analytic.plan'].search([('id', 'in', analytic_plan_ids)])
         options['analytic_plans_groupby'] = selected_analytic_plans.ids

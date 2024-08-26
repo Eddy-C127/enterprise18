@@ -53,7 +53,7 @@ class DenmarkECSalesReportCustomHandler(models.AbstractModel):
         lines.append((0, super()._get_report_line_total(report, options, totals_by_column_group)))
         return lines
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """
         Add custom options for the invoice lines domain specific to Denmark
 

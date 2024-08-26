@@ -33,7 +33,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
             },
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         active_currencies = self.env['res.currency'].search([('active', '=', True)])
         if len(active_currencies) < 2:
@@ -50,7 +50,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
                 'currency_name': currency_id.name,
                 'currency_main': self.env.company.currency_id.name,
                 'rate': (rates[currency_id.id]
-                         if not (previous_options or {}).get('currency_rates', {}).get(str(currency_id.id), {}).get('rate') else
+                         if not previous_options.get('currency_rates', {}).get(str(currency_id.id), {}).get('rate') else
                          float(previous_options['currency_rates'][str(currency_id.id)]['rate'])),
             } for currency_id in active_currencies
         }

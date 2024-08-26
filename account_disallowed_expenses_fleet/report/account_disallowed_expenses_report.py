@@ -17,7 +17,7 @@ class DisallowedExpensesFleetCustomHandler(models.AbstractModel):
             }
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
 
         # Initialize vehicle_split filter by default

@@ -29,7 +29,7 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
 
         return lines
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         # Check if there are multiple rates
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         period_domain = [('date_from', '>=', options['date']['date_from']), ('date_from', '<=', options['date']['date_to'])]

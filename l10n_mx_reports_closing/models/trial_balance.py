@@ -87,11 +87,11 @@ class L10nMXTrialBalanceCustomHandler(models.AbstractModel):
             '&', ('move_id.l10n_mx_closing_move', '=', True), ('date', '<', first_day_of_fiscalyear_str),
         ]
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         # OVERRIDE
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         if self.env.company.account_fiscal_country_id.code == 'MX':
-            options['l10n_mx_month_13'] = (previous_options or {}).get('l10n_mx_month_13', False)
+            options['l10n_mx_month_13'] = previous_options.get('l10n_mx_month_13', False)
             # Properly supporting comparisons with a Month 13 period is too complicated, so we turn the Month 13 filter off if the user does a comparison.
             # When doing a comparison, any Month 13 entries are included in the following (January) period.
             if options.get('comparison', {}).get('filter') != 'no_comparison':

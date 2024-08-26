@@ -25,7 +25,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             },
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         if report.env.user.has_group('base.group_multi_currency'):
             options['multi_currency'] = True
@@ -40,9 +40,9 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             'direction': 'ASC',
         }
 
-        options['order_column'] = (previous_options or {}).get('order_column') or default_order_column
-        options['aging_based_on'] = (previous_options or {}).get('aging_based_on') or 'base_on_maturity_date'
-        options['aging_interval'] = (previous_options or {}).get('aging_interval') or 30
+        options['order_column'] = previous_options.get('order_column') or default_order_column
+        options['aging_based_on'] = previous_options.get('aging_based_on') or 'base_on_maturity_date'
+        options['aging_interval'] = previous_options.get('aging_interval') or 30
 
         # Set aging column names
         interval = options['aging_interval']

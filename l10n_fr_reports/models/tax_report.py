@@ -25,7 +25,7 @@ class FrenchReportCustomHandler(models.AbstractModel):
         ]
         return self._vat_closing_entry_results_rounding(company, options, results, rounding_accounts, vat_results_summary)
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
 
         options['buttons'].append({

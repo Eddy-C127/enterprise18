@@ -386,7 +386,7 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
 
     @freeze_time('2019-12-31')
     def test_generate_xml_minimal(self):
-        options = self.report.get_options(None)
+        options = self.report.get_options({})
 
         # The sequence changes between execution of the test. To handle that, we increase by 1 more, so we can get its value here
         sequence_number = self.env['ir.sequence'].next_by_code('declarantnum')
@@ -423,7 +423,7 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
         Test whether when there is partner's vat starting with "be", the report does not crash
         """
         self.env['res.partner'].search([]).write({'vat': False})
-        options = self.report.get_options(None)
+        options = self.report.get_options({})
         self.assertLinesValues(
             self.report._get_lines(options),
             #   Name                        VAT number          Turnover            VAT amount
@@ -499,7 +499,7 @@ class BelgiumPartnerVatListingTest(TestAccountReportsCommon):
     @freeze_time('2019-12-31')
     def test_generate_xml_minimal_with_representative(self):
         company = self.env.company
-        options = self.report.get_options(None)
+        options = self.report.get_options({})
 
         # Create a new partner for the representative and link it to the company.
         representative = self.env['res.partner'].create({

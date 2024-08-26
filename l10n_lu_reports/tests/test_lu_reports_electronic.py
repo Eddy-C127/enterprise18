@@ -67,7 +67,7 @@ class LuxembourgElectronicReportTest(TestAccountReportsCommon):
 
     def _get_xml_declaration(self, report_xmlid, yearly=False):
         report = self.env.ref(report_xmlid)
-        options = report.get_options()
+        options = report.get_options({})
 
         # Add the filename in the options, which is initially done by the get_report_filename() method
         now_datetime = datetime.now()
@@ -518,7 +518,7 @@ class LuxembourgElectronicReportTest(TestAccountReportsCommon):
     @freeze_time('2019-12-31')
     def test_generate_bs_pnl_xml(self):
         report = self.env.ref('l10n_lu_reports.account_financial_report_l10n_lu_bs')
-        options = report.get_options()
+        options = report.get_options({})
         # Add the filename in the options, which is initially done by the get_report_filename() method
         now_datetime = datetime.now()
         file_ref_data = {

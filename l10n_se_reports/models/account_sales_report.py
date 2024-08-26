@@ -46,7 +46,7 @@ class SwedishECSalesReportCustomHandler(models.AbstractModel):
         lines.append((0, super()._get_report_line_total(report, options, totals_by_column_group)))
         return lines
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """
         Called in _sales_report_init_core_custom_options to add the invoice lines search domain that is specific to the
         country.

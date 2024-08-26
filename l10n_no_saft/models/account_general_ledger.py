@@ -7,7 +7,7 @@ from odoo import api, models, _
 class GeneralLedgerCustomHandler(models.AbstractModel):
     _inherit = 'account.general.ledger.report.handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options)
         if self.env.company.account_fiscal_country_id.code == 'NO':
             options.setdefault('buttons', []).append({

@@ -22,7 +22,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
     def test_generate_xml_minimal(self):
         company = self.env.company
         report = self.env.ref('l10n_be.tax_report_vat')
-        options = report.get_options()
+        options = report.get_options({})
 
         # The partner id is changing between execution of the test so we need to append it manually to the reference.
         ref = str(company.partner_id.id) + '112019'
@@ -65,7 +65,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
     def test_generate_xml_minimal_with_comment(self):
         company = self.env.company
         report = self.env.ref('l10n_be.tax_report_vat')
-        options = report.get_options()
+        options = report.get_options({})
         options['comment'] = "foo"
 
         ref = str(company.partner_id.id) + '112019'
@@ -109,7 +109,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
     def test_generate_xml_minimal_with_representative(self):
         company = self.env.company
         report = self.env.ref('l10n_be.tax_report_vat')
-        options = report.get_options()
+        options = report.get_options({})
 
         # Create a new partner for the representative and link it to the company.
         representative = self.env['res.partner'].create({
@@ -202,7 +202,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
         move.action_post()
 
         report = self.env.ref('l10n_be.tax_report_vat')
-        options = report.get_options()
+        options = report.get_options({})
 
         # The partner id is changing between execution of the test so we need to append it manually to the reference.
         ref = str(company.partner_id.id) + '112019'
@@ -287,7 +287,7 @@ class BelgiumTaxReportTest(AccountSalesReportCommon):
         move.action_post()
 
         report = self.env.ref('l10n_be.tax_report_vat')
-        options = report.get_options()
+        options = report.get_options({})
         options['tax_unit'] = tax_unit.id
 
         # The partner id is changing between execution of the test so we need to append it manually to the reference.

@@ -6,7 +6,7 @@ from odoo import models, _
 class AccountReport(models.Model):
     _inherit = 'account.report'
 
-    def _init_options_buttons(self, options, previous_options=None):
+    def _init_options_buttons(self, options, previous_options):
         # OVERRIDE
         super()._init_options_buttons(options, previous_options)
         options['buttons'].append({'name': _('Copy to Documents'), 'sequence': 100, 'action': 'open_report_export_wizard'})

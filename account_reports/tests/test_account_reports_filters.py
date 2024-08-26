@@ -1316,7 +1316,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
 
     def test_filter_multi_company(self):
         def _check_company_filter(allowed_companies, expected_companies, message=None, match_active=True):
-            options = self.single_date_report.with_context(allowed_company_ids=allowed_companies.ids).get_options()
+            options = self.single_date_report.with_context(allowed_company_ids=allowed_companies.ids).get_options({})
             computed_company_ids = self.env['account.report'].get_report_company_ids(options)
             if match_active:
                 # Active company should match

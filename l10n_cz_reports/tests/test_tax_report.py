@@ -51,7 +51,7 @@ class CzechTaxReportTest(AccountSalesReportCommon):
         today = fields.Date.today()
 
         report = self.env.ref('l10n_cz.l10n_cz_vat_declaration')
-        options = report.get_options()
+        options = report.get_options({})
         self._fill_tax_report_line_external_value('l10n_cz.l10n_cz_vat_declaration_line_54_coefficient', 35, invoice_date)
         self._fill_tax_report_line_external_value('l10n_cz.l10n_cz_vat_declaration_line_55_value', 83, invoice_date)
 

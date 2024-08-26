@@ -84,7 +84,7 @@ class TestReportSections(AccountTestInvoicingHttpCommon):
         self.composite_report.root_report_id = generic_tax_report
 
         # Open root report
-        options = generic_tax_report.get_options()
+        options = generic_tax_report.get_options({})
         self.assertEqual(options['variants_source_id'], generic_tax_report.id, "The root report should be the variants source.")
         self.assertEqual(options['sections_source_id'], generic_tax_report.id, "No variant is selected; the root report should be chosen.")
         self.assertEqual(options['selected_variant_id'], generic_tax_report.id, "No variant is selected; the root report should be chosen.")
@@ -106,7 +106,7 @@ class TestReportSections(AccountTestInvoicingHttpCommon):
 
     def test_sections_options_report_selection_root(self):
         # Open the report
-        options = self.composite_report.get_options()
+        options = self.composite_report.get_options({})
         self.assertEqual(options['variants_source_id'], self.composite_report.id, "The root report should be the variants source.")
         self.assertEqual(options['sections_source_id'], self.composite_report.id, "The root report should be the sections source.")
         self.assertEqual(options['selected_section_id'], self.section_1.id, "Opening the composite report should select its first section.")
@@ -120,7 +120,7 @@ class TestReportSections(AccountTestInvoicingHttpCommon):
         self.assertEqual(options['report_id'], self.section_2.id, "Selecting the second section from the first one should open it.")
 
     def test_sections_tour(self):
-        def patched_init_options_custom(report, options, previous_options=None):
+        def patched_init_options_custom(report, options, previous_options):
             # Emulates a custom handler modifying the export buttons
             if report == self.composite_report:
                 options['buttons'][0]['name'] = 'composite_report_custom_button'

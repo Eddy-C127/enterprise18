@@ -121,7 +121,7 @@ class AssetsReportCustomHandler(models.AbstractModel):
             ]
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         column_group_options_map = report._split_options_per_column_group(options)
 
@@ -143,12 +143,12 @@ class AssetsReportCustomHandler(models.AbstractModel):
         ]
 
         # Group by account by default
-        groupby_activated = (previous_options or {}).get('assets_groupby_account', True)
+        groupby_activated = previous_options.get('assets_groupby_account', True)
         options['assets_groupby_account'] = groupby_activated
         # If group by account is activated, activate the hierarchy (which will group by account group as well) if
         # the company has at least one account group, otherwise only group by account
         has_account_group = self.env['account.group'].search_count([('company_id', '=', self.env.company.id)], limit=1)
-        hierarchy_activated = (previous_options or {}).get('hierarchy', True)
+        hierarchy_activated = previous_options.get('hierarchy', True)
         options['hierarchy'] = has_account_group and hierarchy_activated or False
 
     def _query_lines(self, options, prefix_to_match=None, forced_account_id=None):

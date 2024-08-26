@@ -197,7 +197,7 @@ class AccountReport(models.Model):
                 ret += journal_group
         return ret
 
-    def _init_options_journals(self, options, previous_options=None, additional_journals_domain=None):
+    def _init_options_journals(self, options, previous_options, additional_journals_domain=None):
         # The additional additional_journals_domain optinal parameter allows calling this with an additional restriction on journals,
         # to regenerate the journal options accordingly.
 
@@ -225,7 +225,7 @@ class AccountReport(models.Model):
             per_company_map[journal_group.company_id.id]['available_journal_groups'] |= journal_group
 
         # Adapt the code from previous options.
-        previous_journals = previous_options.get('journals', []) if previous_options else []
+        previous_journals = previous_options.get('journals', [])
         if previous_options and (not previous_journals or any(journal_opt['id'] in all_journal_ids for journal_opt in previous_journals)):
             # Reload from previous options.
             for journal_opt in previous_journals:
@@ -392,7 +392,7 @@ class AccountReport(models.Model):
     # ####################################################
     # OPTIONS: USER DEFINED FILTERS ON AML
     ####################################################
-    def _init_options_aml_ir_filters(self, options, previous_options=None):
+    def _init_options_aml_ir_filters(self, options, previous_options):
         options['aml_ir_filters'] = []
         if not self.filter_aml_ir_filters:
             return
@@ -402,7 +402,7 @@ class AccountReport(models.Model):
             return
 
         aml_ir_filters = [{'id': x.id, 'name': x.name, 'selected': False} for x in ir_filters]
-        previous_options_aml_ir_filters = previous_options.get('aml_ir_filters', []) if previous_options else []
+        previous_options_aml_ir_filters = previous_options.get('aml_ir_filters', [])
         previous_options_filters_map = {filter_item['id']: filter_item for filter_item in previous_options_aml_ir_filters}
 
         for filter_item in aml_ir_filters:
@@ -563,13 +563,13 @@ class AccountReport(models.Model):
 
         return self._get_dates_period(date_from, date_to, mode, period_type=period_type)
 
-    def _init_options_date(self, options, previous_options=None):
+    def _init_options_date(self, options, previous_options):
         """ Initialize the 'date' options key.
 
         :param options:             The current report options to build.
         :param previous_options:    The previous options coming from another report.
         """
-        date = (previous_options or {}).get('date', {})
+        date = previous_options.get('date', {})
         period_date_to = date.get('date_to')
         period_date_from = date.get('date_from')
         mode = date.get('mode')
@@ -648,7 +648,7 @@ class AccountReport(models.Model):
 
         options['date']['filter'] = options_filter
 
-    def _init_options_comparison(self, options, previous_options=None):
+    def _init_options_comparison(self, options, previous_options):
         """ Initialize the 'comparison' options key.
 
         This filter must be loaded after the 'date' filter.
@@ -659,7 +659,7 @@ class AccountReport(models.Model):
         if not self.filter_period_comparison or (previous_options or {}).get('export_mode') == 'file':
             return
 
-        previous_comparison = (previous_options or {}).get('comparison', {})
+        previous_comparison = previous_options.get('comparison', {})
         previous_filter = previous_comparison.get('filter')
 
         period_order = previous_comparison.get('period_order') or 'descending'
@@ -711,7 +711,7 @@ class AccountReport(models.Model):
         if len(options['comparison']['periods']) > 0:
             options['comparison'].update(options['comparison']['periods'][0])
 
-    def _init_options_column_percent_comparison(self, options, previous_options=None):
+    def _init_options_column_percent_comparison(self, options, previous_options):
         if options['selected_horizontal_group_id'] is None:
             if self.filter_growth_comparison and len(options['columns']) == 2 and len(options.get('comparison', {}).get('periods', [])) == 1:
                 options['column_percent_comparison'] = 'growth'
@@ -763,13 +763,13 @@ class AccountReport(models.Model):
     # OPTIONS: analytic filter
     ####################################################
 
-    def _init_options_analytic(self, options, previous_options=None):
+    def _init_options_analytic(self, options, previous_options):
         if not self.filter_analytic:
             return
 
 
         if self.env.user.has_group('analytic.group_analytic_accounting'):
-            previous_analytic_accounts = (previous_options or {}).get('analytic_accounts', [])
+            previous_analytic_accounts = previous_options.get('analytic_accounts', [])
             analytic_account_ids = [int(x) for x in previous_analytic_accounts]
             selected_analytic_accounts = self.env['account.analytic.account'].with_context(active_test=False).search([('id', 'in', analytic_account_ids)])
 
@@ -781,13 +781,13 @@ class AccountReport(models.Model):
     # OPTIONS: partners
     ####################################################
 
-    def _init_options_partner(self, options, previous_options=None):
+    def _init_options_partner(self, options, previous_options):
         if not self.filter_partner:
             return
 
         options['partner'] = True
-        previous_partner_ids = previous_options and previous_options.get('partner_ids') or []
-        options['partner_categories'] = previous_options and previous_options.get('partner_categories') or []
+        previous_partner_ids = previous_options.get('partner_ids') or []
+        options['partner_categories'] = previous_options.get('partner_categories') or []
 
         selected_partner_ids = [int(partner) for partner in previous_partner_ids]
         # search instead of browse so that record rules apply and filter out the ones the user does not have access to
@@ -824,8 +824,8 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: not reconciled entries
     ####################################################
-    def _init_options_reconciled(self, options, previous_options=None):
-        if self.filter_unreconciled and previous_options:
+    def _init_options_reconciled(self, options, previous_options):
+        if self.filter_unreconciled:
             options['unreconciled'] = previous_options.get('unreconciled', False)
         else:
             options['unreconciled'] = False
@@ -840,7 +840,7 @@ class AccountReport(models.Model):
     # OPTIONS: account_type
     ####################################################
 
-    def _init_options_account_type(self, options, previous_options=None):
+    def _init_options_account_type(self, options, previous_options):
         '''
         Initialize a filter based on the account_type of the line (trade/non trade, payable/receivable).
         Selects a name to display according to the selections.
@@ -863,7 +863,7 @@ class AccountReport(models.Model):
         else:
             options['account_type'] = account_type_list
 
-        if previous_options and previous_options.get('account_type'):
+        if previous_options.get('account_type'):
             previously_selected_ids = {x['id'] for x in previous_options['account_type'] if x.get('selected')}
             for opt in options['account_type']:
                 opt['selected'] = opt['id'] in previously_selected_ids
@@ -894,7 +894,7 @@ class AccountReport(models.Model):
     ####################################################
 
     @api.model
-    def _init_options_order_column(self, options, previous_options=None):
+    def _init_options_order_column(self, options, previous_options):
         # options['order_column'] is in the form {'expression_label': expression label of the column to order, 'direction': the direction order ('ASC' or 'DESC')}
         options['order_column'] = None
 
@@ -909,11 +909,11 @@ class AccountReport(models.Model):
     # OPTIONS: hierarchy
     ####################################################
 
-    def _init_options_hierarchy(self, options, previous_options=None):
+    def _init_options_hierarchy(self, options, previous_options):
         company_ids = self.get_report_company_ids(options)
         if self.filter_hierarchy != 'never' and self.env['account.group'].search_count(self.env['account.group']._check_company_domain(company_ids), limit=1):
             options['display_hierarchy_filter'] = True
-            if previous_options and 'hierarchy' in previous_options:
+            if 'hierarchy' in previous_options:
                 options['hierarchy'] = previous_options['hierarchy']
             else:
                 options['hierarchy'] = self.filter_hierarchy == 'by_default'
@@ -1097,15 +1097,15 @@ class AccountReport(models.Model):
     # OPTIONS: prefix groups threshold
     ####################################################
 
-    def _init_options_prefix_groups_threshold(self, options, previous_options=None):
-        previous_threshold = (previous_options or {}).get('prefix_groups_threshold')
+    def _init_options_prefix_groups_threshold(self, options, previous_options):
+        previous_threshold = previous_options.get('prefix_groups_threshold')
         options['prefix_groups_threshold'] = previous_threshold or self.prefix_groups_threshold
 
     ####################################################
     # OPTIONS: fiscal position (multi vat)
     ####################################################
 
-    def _init_options_fiscal_position(self, options, previous_options=None):
+    def _init_options_fiscal_position(self, options, previous_options):
         if self.filter_fiscal_position and self.country_id and len(options['companies']) == 1:
             vat_fpos_domain = [
                 *self.env['account.fiscal.position']._check_company_domain(next(comp_id for comp_id in self.get_report_company_ids(options))),
@@ -1125,7 +1125,7 @@ class AccountReport(models.Model):
             if len(vat_fiscal_positions) > (0 if options['allow_domestic'] else 1) or not accepted_prev_vals:
                 accepted_prev_vals.add('all')
 
-            if previous_options and previous_options.get('fiscal_position') in accepted_prev_vals:
+            if previous_options.get('fiscal_position') in accepted_prev_vals:
                 # Legit value from previous options; keep it
                 options['fiscal_position'] = previous_options['fiscal_position']
             elif len(vat_fiscal_positions) == 1 and not options['allow_domestic']:
@@ -1138,7 +1138,7 @@ class AccountReport(models.Model):
             # No country, or we're displaying data from several companies: disable fiscal position filtering
             vat_fiscal_positions = []
             options['allow_domestic'] = True
-            previous_fpos = previous_options and previous_options.get('fiscal_position')
+            previous_fpos = previous_options.get('fiscal_position')
             options['fiscal_position'] = previous_fpos if previous_fpos in ('all', 'domestic') else 'all'
 
         options['available_vat_fiscal_positions'] = [{
@@ -1193,7 +1193,7 @@ class AccountReport(models.Model):
     # OPTIONS: MULTI COMPANY
     ####################################################
 
-    def _init_options_companies(self, options, previous_options=None):
+    def _init_options_companies(self, options, previous_options):
         if self.filter_multi_company == 'selector':
             companies = self.env.companies
         elif self.filter_multi_company == 'tax_units':
@@ -1204,7 +1204,7 @@ class AccountReport(models.Model):
 
         options['companies'] = [{'name': c.name, 'id': c.id, 'currency_id': c.currency_id.id} for c in companies]
 
-    def _multi_company_tax_units_init_options(self, options, previous_options=None):
+    def _multi_company_tax_units_init_options(self, options, previous_options):
         """ Initializes the companies option for reports configured to compute it from tax units.
         """
         tax_units_domain = [('company_ids', 'in', self.env.company.id)]
@@ -1234,7 +1234,7 @@ class AccountReport(models.Model):
             'company_only'
         }
 
-        if previous_options and previous_options.get('tax_unit') in companies_authorized_tax_unit_opt:
+        if previous_options.get('tax_unit') in companies_authorized_tax_unit_opt:
             options['tax_unit'] = previous_options['tax_unit']
 
         else:
@@ -1261,7 +1261,7 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: MULTI CURRENCY
     ####################################################
-    def _init_options_multi_currency(self, options, previous_options=None):
+    def _init_options_multi_currency(self, options, previous_options):
         options['multi_currency'] = (
             any([company.get('currency_id') != options['companies'][0].get('currency_id') for company in options['companies']])
             or any([column.figure_type != 'monetary' for column in self.column_ids])
@@ -1271,14 +1271,9 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: ROUNDING UNIT
     ####################################################
-    def _init_options_rounding_unit(self, options, previous_options=None):
+    def _init_options_rounding_unit(self, options, previous_options):
         default = 'decimals'
-
-        if previous_options:
-            options['rounding_unit'] = previous_options.get('rounding_unit', default)
-        else:
-            options['rounding_unit'] = default
-
+        options['rounding_unit'] = previous_options.get('rounding_unit', default)
         options['rounding_unit_names'] = self._get_rounding_unit_names()
 
     def _get_rounding_unit_names(self):
@@ -1300,8 +1295,8 @@ class AccountReport(models.Model):
     # ####################################################
     # OPTIONS: ALL ENTRIES
     ####################################################
-    def _init_options_all_entries(self, options, previous_options=None):
-        if self.filter_show_draft and previous_options:
+    def _init_options_all_entries(self, options, previous_options):
+        if self.filter_show_draft:
             options['all_entries'] = previous_options.get('all_entries', False)
         else:
             options['all_entries'] = False
@@ -1309,14 +1304,11 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: UNFOLDED LINES
     ####################################################
-    def _init_options_unfolded(self, options, previous_options=None):
-        if previous_options is None:
-            previous_options = {}
-
+    def _init_options_unfolded(self, options, previous_options):
         options['unfold_all'] = self.filter_unfold_all and previous_options.get('unfold_all', False)
 
         previous_section_source_id = previous_options.get('sections_source_id')
-        if previous_options and (not previous_section_source_id or previous_section_source_id == options['sections_source_id']):
+        if not previous_section_source_id or previous_section_source_id == options['sections_source_id']:
             # Only keep the unfolded lines if they belong to the same report or a section of the same report
             options['unfolded_lines'] = previous_options.get('unfolded_lines', [])
         else:
@@ -1325,9 +1317,9 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: HIDE LINE AT 0
     ####################################################
-    def _init_options_hide_0_lines(self, options, previous_options=None):
+    def _init_options_hide_0_lines(self, options, previous_options):
         if self.filter_hide_0_lines != 'never':
-            previous_val = (previous_options or {}).get('hide_0_lines')
+            previous_val = previous_options.get('hide_0_lines')
             if previous_val is not None:
                 options['hide_0_lines'] = previous_val
             else:
@@ -1353,7 +1345,7 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: HORIZONTAL GROUP
     ####################################################
-    def _init_options_horizontal_groups(self, options, previous_options=None):
+    def _init_options_horizontal_groups(self, options, previous_options):
         options['available_horizontal_groups'] = [
             {
                 'id': horizontal_group.id,
@@ -1361,23 +1353,23 @@ class AccountReport(models.Model):
             }
             for horizontal_group in self.horizontal_group_ids
         ]
-        previous_selected = (previous_options or {}).get('selected_horizontal_group_id')
+        previous_selected = previous_options.get('selected_horizontal_group_id')
         options['selected_horizontal_group_id'] = previous_selected if previous_selected in self.horizontal_group_ids.ids else None
 
     ####################################################
     # OPTIONS: SEARCH BAR
     ####################################################
-    def _init_options_search_bar(self, options, previous_options=None):
+    def _init_options_search_bar(self, options, previous_options):
         if self.search_bar:
             options['search_bar'] = True
-            if 'default_filter_accounts' not in self._context and previous_options and 'filter_search_bar' in previous_options:
+            if 'default_filter_accounts' not in self._context and 'filter_search_bar' in previous_options:
                 options['filter_search_bar'] = previous_options['filter_search_bar']
 
     ####################################################
     # OPTIONS: COLUMN HEADERS
     ####################################################
 
-    def _init_options_column_headers(self, options, previous_options=None):
+    def _init_options_column_headers(self, options, previous_options):
         # Prepare column headers, in case the order of the comparison is ascending we reverse the order of the columns
         all_comparison_date_vals = ([options['date']] + options.get('comparison', {}).get('periods', []))
         if options.get('comparison') and options['comparison']['period_order'] == 'ascending':
@@ -1429,7 +1421,7 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: COLUMNS
     ####################################################
-    def _init_options_columns(self, options, previous_options=None):
+    def _init_options_columns(self, options, previous_options):
         default_group_vals = {'horizontal_groupby_element': {}, 'forced_options': {}}
         all_column_group_vals_in_order = self._generate_columns_group_vals_recursively(options['column_headers'], default_group_vals)
 
@@ -1515,7 +1507,7 @@ class AccountReport(models.Model):
             'res_id': self.id,
         }
 
-    def _init_options_buttons(self, options, previous_options=None):
+    def _init_options_buttons(self, options, previous_options):
         options['buttons'] = [
             {'name': _('PDF'), 'sequence': 10, 'action': 'export_file', 'action_param': 'export_to_pdf', 'file_export_type': _('PDF'), 'branch_allowed': True},
             {'name': _('Download Excel'), 'sequence': 20, 'action': 'export_file', 'action_param': 'export_to_xlsx', 'file_export_type': _('XLSX'), 'branch_allowed': True},
@@ -1554,7 +1546,7 @@ class AccountReport(models.Model):
         }
         return type_mapping.get(file_type, False)
 
-    def _init_options_section_buttons(self, options, previous_options=None):
+    def _init_options_section_buttons(self, options, previous_options):
         """ In case we're displaying a section, we want to replace its buttons by its source report's. This needs to be done last, after calling the
         custom handler, to avoid its _custom_options_initializer function to generate additional buttons.
         """
@@ -1567,10 +1559,10 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: VARIANTS
     ####################################################
-    def _init_options_variants(self, options, previous_options=None):
+    def _init_options_variants(self, options, previous_options):
         allowed_variant_ids = set()
 
-        previous_section_source_id = (previous_options or {}).get('sections_source_id')
+        previous_section_source_id = previous_options.get('sections_source_id')
         if previous_section_source_id:
             previous_section_source = self.env['account.report'].browse(previous_section_source_id)
             if self in previous_section_source.section_report_ids:
@@ -1604,7 +1596,7 @@ class AccountReport(models.Model):
             for variant in sorted(available_variants, key=lambda x: (x.country_id and 1 or 0, x.sequence, x.id))
         ]
 
-        previous_opt_report_id = (previous_options or {}).get('selected_variant_id')
+        previous_opt_report_id = previous_options.get('selected_variant_id')
         if previous_opt_report_id in allowed_variant_ids or previous_opt_report_id == self.id:
             options['selected_variant_id'] = previous_opt_report_id
         elif allowed_country_variant_ids:
@@ -1624,7 +1616,7 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: SECTIONS
     ####################################################
-    def _init_options_sections(self, options, previous_options=None):
+    def _init_options_sections(self, options, previous_options):
         if options.get('selected_variant_id'):
             options['sections_source_id'] = options['selected_variant_id']
         else:
@@ -1636,7 +1628,7 @@ class AccountReport(models.Model):
         options['sections'] = [{'name': section.name, 'id': section.id} for section in available_sections]
 
         if available_sections:
-            section_id = (previous_options or {}).get('selected_section_id')
+            section_id = previous_options.get('selected_section_id')
             if not section_id or section_id not in available_sections.ids:
                 section_id = available_sections[0].id
 
@@ -1650,8 +1642,8 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: REPORT_ID
     ####################################################
-    def _init_options_report_id(self, options, previous_options=None):
-        if (previous_options or {}).get('no_report_reroute'):
+    def _init_options_report_id(self, options, previous_options):
+        if previous_options.get('no_report_reroute'):
             # Used for exports
             options['report_id'] = self.id
         else:
@@ -1660,20 +1652,20 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: EXPORT MODE
     ####################################################
-    def _init_options_export_mode(self, options, previous_options=None):
-        options['export_mode'] = (previous_options or {}).get('export_mode')
+    def _init_options_export_mode(self, options, previous_options):
+        options['export_mode'] = previous_options.get('export_mode')
 
     ####################################################
     # OPTIONS: HORIZONTAL SPLIT
     ####################################################
-    def _init_options_horizontal_split(self, options, previous_options=None):
+    def _init_options_horizontal_split(self, options, previous_options):
         if any(line.horizontal_split_side for line in self.line_ids):
-            options['horizontal_split'] = (previous_options or {}).get('horizontal_split', False)
+            options['horizontal_split'] = previous_options.get('horizontal_split', False)
 
     ####################################################
     # OPTIONS: CUSTOM
     ####################################################
-    def _init_options_custom(self, options, previous_options=None):
+    def _init_options_custom(self, options, previous_options):
         custom_handler_model = self._get_custom_handler_model()
         if custom_handler_model:
             self.env[custom_handler_model]._custom_options_initializer(self, options, previous_options)
@@ -1681,21 +1673,21 @@ class AccountReport(models.Model):
     ####################################################
     # OPTIONS: INTEGER ROUNDING
     ####################################################
-    def _init_options_integer_rounding(self, options, previous_options=None):
+    def _init_options_integer_rounding(self, options, previous_options):
         if self.integer_rounding:
             options['integer_rounding'] = self.integer_rounding
             if options.get('export_mode') == 'file':
                 options['integer_rounding_enabled'] = True
             else:
-                options['integer_rounding_enabled'] = (previous_options or {}).get('integer_rounding_enabled', True)
+                options['integer_rounding_enabled'] = previous_options.get('integer_rounding_enabled', True)
             return options
 
     ####################################################
     # OPTIONS: BUDGETS
     ####################################################
-    def _init_options_budgets(self, options, previous_options=None):
+    def _init_options_budgets(self, options, previous_options):
         if self.filter_budgets:
-            previous_selection = {budget_option['id'] for budget_option in (previous_options or {}).get('budgets', []) if budget_option.get('selected')}
+            previous_selection = {budget_option['id'] for budget_option in previous_options.get('budgets', []) if budget_option.get('selected')}
 
             options['budgets'] = [
                 {
@@ -1706,29 +1698,29 @@ class AccountReport(models.Model):
                 }
                 for budget in self.env['account.report.budget'].search([('company_id', '=', self.env.company.id)])
             ]
-            options['show_all_accounts'] = (previous_options or {}).get('show_all_accounts') or False
+            options['show_all_accounts'] = previous_options.get('show_all_accounts') or False
 
     # OPTIONS: LOADING CALL
 
     ####################################################
 
-    def _init_options_loading_call(self, options, previous_options=None):
+    def _init_options_loading_call(self, options, previous_options):
         """ Used by the js to know if it needs to reload the options (to not overwrite new options from the js) """
-        options['loading_call_number'] = (previous_options or {}).get('loading_call_number') or 0
+        options['loading_call_number'] = previous_options.get('loading_call_number') or 0
         return options
 
     ####################################################
     # OPTIONS: CORE
     ####################################################
 
-    def get_options(self, previous_options=None):
+    def get_options(self, previous_options):
         self.ensure_one()
 
         initializers_in_sequence = self._get_options_initializers_in_sequence()
 
         options = {}
 
-        if (previous_options or {}).get('_running_export_test'):
+        if previous_options.get('_running_export_test'):
             options['_running_export_test'] = True
 
         # We need report_id to be initialized. Compute the necessary options to check for reroute.
@@ -1742,7 +1734,7 @@ class AccountReport(models.Model):
         # Stop the computation to check for reroute once we have computed the necessary information
         if (not self.root_report_id or (self.use_sections and self.section_report_ids)) and options['report_id'] != self.id:
             # Load the variant/section instead of the root report
-            variant_options = {**(previous_options or {})}
+            variant_options = {**previous_options}
             for reroute_opt_key in ('selected_variant_id', 'selected_section_id', 'variants_source_id', 'sections_source_id'):
                 opt_val = options.get(reroute_opt_key)
                 if opt_val:
@@ -2763,7 +2755,7 @@ class AccountReport(models.Model):
 
             :param expressions: The account.report.expression objects to evaluate.
 
-            :param options: The options dict for this report, obtained from get_options().
+            :param options: The options dict for this report, obtained from.get_options({}).
 
             :param groupby_to_expand: The full groupby string for the grouping we want to evaluate. If None, the aggregated value will be computed.
                                       For example, when evaluating a group by partner_id, which further will be divided in sub-groups by account_id,
@@ -6813,7 +6805,7 @@ class AccountReportCustomHandler(models.AbstractModel):
         """
         return self.env['account.report']._caret_options_initializer_default()
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """ To be overridden to add report-specific _init_options... code to the report. """
         if report.root_report_id:
             report.root_report_id._init_options_custom(options, previous_options)

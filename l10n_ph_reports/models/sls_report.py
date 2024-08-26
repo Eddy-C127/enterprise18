@@ -7,7 +7,7 @@ class SlsCustomHandler(models.AbstractModel):
     _inherit = 'l10n_ph.slsp.report.handler'
     _description = 'Summary Lists of Sales Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.update({
             'move_type': 'out_invoice',

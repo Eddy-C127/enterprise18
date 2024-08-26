@@ -79,7 +79,7 @@ class ECSalesReportCustomHandler(models.AbstractModel):
             ],
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """
         Add the invoice lines search domain that is specific to the country.
         Typically, the taxes tag_ids relative to the country for the triangular, sale of goods or services
@@ -113,7 +113,7 @@ class ECSalesReportCustomHandler(models.AbstractModel):
 
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 
-    def _init_core_custom_options(self, report, options, previous_options=None):
+    def _init_core_custom_options(self, report, options, previous_options):
         """
         Add the invoice lines search domain that is common to all countries.
         :param dict options: Report options
@@ -124,7 +124,7 @@ class ECSalesReportCustomHandler(models.AbstractModel):
             {'id': 'triangular', 'name': _('Triangular'), 'selected': True},
             {'id': 'services', 'name': _('Services'), 'selected': True},
         ]
-        options['ec_tax_filter_selection'] = (previous_options or {}).get('ec_tax_filter_selection', default_tax_filter)
+        options['ec_tax_filter_selection'] = previous_options.get('ec_tax_filter_selection', default_tax_filter)
 
     def _get_report_line_partner(self, report, options, partner, partner_values, markup=''):
         """

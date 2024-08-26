@@ -91,7 +91,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
             ],
         }
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         """ Modifies the provided options to add a column group for initial balance and end balance, as well as the appropriate columns.
         """
         super()._custom_options_initializer(report, options, previous_options=previous_options)

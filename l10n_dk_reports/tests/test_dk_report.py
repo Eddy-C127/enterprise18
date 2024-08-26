@@ -129,7 +129,7 @@ class TestDKReport(TestDKReportCommon):
 
     def test_l10n_dk_general_ledger_csv_export(self):
         report = self.env.ref('account_reports.general_ledger_report')
-        options = report.get_options()
+        options = report.get_options({})
         csv_content = self.env[report.custom_handler_model_name].l10n_dk_export_general_ledger_csv(options)['file_content']
         reader = csv.reader(io.StringIO(csv_content.decode()), delimiter=',')
 

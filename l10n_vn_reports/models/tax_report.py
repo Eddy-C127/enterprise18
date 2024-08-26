@@ -509,7 +509,7 @@ class SalesTaxCustomHandler(models.AbstractModel):
     _inherit = 'l10n_vn.tax.report.handler'
     _description = 'Taxes Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.update({
             'move_type': 'out_invoice',
@@ -558,7 +558,7 @@ class PurchaseTaxCustomHandler(models.AbstractModel):
     _inherit = 'l10n_vn.tax.report.handler'
     _description = 'Taxes Custom Handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         options.update({
             'move_type': 'in_invoice',

@@ -8,7 +8,7 @@ class SpanishMod130TaxReportCustomHandler(models.AbstractModel):
     _inherit = 'l10n_es.tax.report.handler'
     _description = 'Spanish Tax Report Custom Handler (Mod130)'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
         super()._append_boe_button(options, 130)
 

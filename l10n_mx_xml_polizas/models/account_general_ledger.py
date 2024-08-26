@@ -11,7 +11,7 @@ _logger = logging.getLogger(__name__)
 class GeneralLedgerCustomHandler(models.AbstractModel):
     _inherit = 'account.general.ledger.report.handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         # Overridden to add export button on GL for Mexican companies
         super()._custom_options_initializer(report, options, previous_options=previous_options)
 

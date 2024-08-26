@@ -14,7 +14,7 @@ from odoo.addons.account_edi_ubl_cii.models.account_edi_common import UOM_TO_UNE
 class GeneralLedgerCustomHandler(models.AbstractModel):
     _inherit = 'account.general.ledger.report.handler'
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options)
 
         if self.env.company.account_fiscal_country_id.code != 'RO':

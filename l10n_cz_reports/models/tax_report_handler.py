@@ -10,7 +10,7 @@ class CzechTaxReportCustomHandler(models.AbstractModel):
     _inherit = "account.tax.report.handler"
     _description = "Czech Tax Report Custom Handler"
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
 
         options.setdefault('buttons', []).append({
@@ -25,7 +25,7 @@ class CzechTaxReportCustomHandler(models.AbstractModel):
         report = self.env['account.report'].browse(options['report_id'])
         sender_company = report._get_sender_company_for_export(options)
 
-        report_options = {**report.get_options(), 'export_mode': 'file'}
+        report_options = {**report.get_options({}), 'export_mode': 'file'}
         report_lines = report._get_lines(report_options)
 
         values = {}

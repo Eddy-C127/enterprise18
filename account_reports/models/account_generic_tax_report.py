@@ -19,7 +19,7 @@ class AccountTaxReportHandler(models.AbstractModel):
     # This model is needed for the Closing Entry button to be available for all reports, including the generic one
     # With this, custom tax reports don't need to inherit from the generic tax report
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         options['buttons'].append({'name': _('Closing Entry'), 'action': 'action_periodic_vat_entries', 'sequence': 110, 'always_show': True})
         self._enable_export_buttons_for_common_vat_groups_in_branches(options)
 

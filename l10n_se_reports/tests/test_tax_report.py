@@ -44,7 +44,7 @@ class SwedishTaxReportTest(AccountSalesReportCommon):
         move.action_post()
 
         report = self.env.ref('l10n_se.tax_report')
-        options = report.get_options()
+        options = report.get_options({})
 
         expected_xml = """
         <!DOCTYPE eSKDUpload PUBLIC "-//Skatteverket, Sweden//DTD Skatteverket eSKDUpload-DTD Version 6.0//SV" "https://www1.skatteverket.se/demoeskd/eSKDUpload_6p0.dtd">

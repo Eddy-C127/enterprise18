@@ -22,7 +22,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             company_data_warning = warnings.setdefault('account_saft.company_data_warning', {'alert_type': 'warning', 'args': ''})
             company_data_warning['args'] += f"{', ' if company_data_warning['args'] else ''}{_('the account number')}"
 
-    def _custom_options_initializer(self, report, options, previous_options=None):
+    def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options)
         if self.env.company.account_fiscal_country_id.code == 'DK':
             options.setdefault('buttons', []).append({

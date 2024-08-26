@@ -23,7 +23,7 @@ class L10nLuGenerateTaxReport(models.TransientModel):
     @api.model
     def default_get(self, default_fields):
         rec = super().default_get(default_fields)
-        options = self.env.ref('l10n_lu.tax_report').get_options()
+        options = self.env.ref('l10n_lu.tax_report').get_options({})
         date_from = fields.Date.from_string(options['date'].get('date_from'))
         date_to = fields.Date.from_string(options['date'].get('date_to'))
 
@@ -42,7 +42,7 @@ class L10nLuGenerateTaxReport(models.TransientModel):
 
     def _get_export_vat(self):
         report = self.env.ref('l10n_lu.tax_report')
-        options = report.get_options()
+        options = report.get_options({})
         return report.get_vat_for_export(options, raise_warning=False)
 
     def _lu_get_declarations(self, declaration_template_values):
