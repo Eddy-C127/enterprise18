@@ -23,7 +23,7 @@ class AccountJournal(models.Model):
 
     def create_document_from_attachment(self, attachment_ids=None):
         journal = self or self.browse(self.env.context.get('default_journal_id'))
-        if journal.type in ('bank', 'cash'):
+        if journal.type in ('bank', 'credit', 'cash'):
             attachments = self.env['ir.attachment'].browse(attachment_ids)
             if not attachments:
                 raise UserError(_("No attachment was provided"))
