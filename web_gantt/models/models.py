@@ -9,9 +9,6 @@ from odoo.exceptions import UserError
 from odoo.tools.misc import OrderedSet, unique
 
 
-ERROR_MESSAGE = _lt("Too many records to display. Only 1000 are shown. Please consider adding a filter")
-
-
 class Base(models.AbstractModel):
     _inherit = 'base'
 
@@ -99,11 +96,6 @@ class Base(models.AbstractModel):
             for one_group in final_result['groups']
             for record_id in one_group['__record_ids']
         ))
-
-        LIM = 1000
-        if len(all_record_ids) > LIM:
-            all_record_ids = all_record_ids[:LIM]
-            final_result['error_msg'] = str(ERROR_MESSAGE)
 
         # Do search_fetch to order records (model order can be no-trivial)
         all_records = self.search_fetch([('id', 'in', all_record_ids)], read_specification.keys())

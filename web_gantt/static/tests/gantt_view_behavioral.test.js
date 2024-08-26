@@ -1746,29 +1746,6 @@ test("display mode button", async () => {
     expect.verifySteps([]);
 });
 
-test("limit reached", async () => {
-    expect.assertions(2);
-    const message = "blabla";
-    onRpc("get_gantt_data", function () {
-        return {
-            error_msg: message,
-            groups: [],
-            records: [],
-            length: 0,
-        };
-    });
-    mockService("notification", {
-        add: (message, options) => {
-            expect(message).toBe(message);
-            expect(options).toBe(undefined);
-        },
-    });
-    await mountGanttView({
-        resModel: "tasks",
-        arch: `<gantt date_start="start" date_stop="stop"/>`,
-    });
-});
-
 test("unavailabilities fetched with right parameters", async () => {
     onRpc("get_gantt_data", ({ kwargs }) => {
         expect.step(Object.values(pick(kwargs, "start_date", "stop_date", "scale")));

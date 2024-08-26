@@ -594,7 +594,7 @@ export class GanttModel extends Model {
             }
         }
 
-        const { length, groups, records, error_msg, progress_bars, unavailabilities } =
+        const { length, groups, records, progress_bars, unavailabilities } =
             await this.keepLast.add(
                 this.orm.call(resModel, "get_gantt_data", [], {
                     domain,
@@ -625,10 +625,6 @@ export class GanttModel extends Model {
         data.progressBars = this._processProgressBars(progress_bars);
 
         await this.keepLast.add(this._fetchDataPostProcess(metaData, data));
-
-        if (error_msg) {
-            this.notification.add(error_msg);
-        }
 
         this.data = data;
         this.metaData = metaData;
