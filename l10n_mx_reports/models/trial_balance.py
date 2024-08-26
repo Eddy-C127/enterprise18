@@ -107,7 +107,8 @@ class TrialBalanceCustomHandler(models.AbstractModel):
 
         coa_values = self._l10n_mx_get_coa_values(options)
         file_name = f"{coa_values['vat']}{coa_values['year']}{coa_values['month']}CT"
-        coa_report = etree.fromstring(self.env['ir.qweb']._render('l10n_mx_reports.cfdicoa', coa_values))
+        cfdi = self.env['ir.qweb']._render('l10n_mx_reports.cfdicoa', coa_values)
+        coa_report = self._l10n_mx_edi_add_digital_stamp(CFDIBCE_XSLT_CADENA, cfdi)
 
         return {
             'file_name': f"{file_name}.xml",
