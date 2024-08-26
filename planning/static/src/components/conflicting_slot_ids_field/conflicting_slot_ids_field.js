@@ -27,7 +27,7 @@ export class ConflictingSlotIdsField extends Component {
                             noLeadingZeroHour: true,
                         }).replace(/(:00|:)/g, "h");
                     } else {
-                        formattedValue = getFormattedValue(r, fieldName, {});
+                        formattedValue = getFormattedValue(r, fieldName);
                     }
                     if (fieldName === "allocated_percentage") {
                         formattedValue += "%";
