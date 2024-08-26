@@ -316,7 +316,7 @@ result_rate = -25
         <field name="condition_select">none</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = -categories['SOCIALEMPLOYEE']
+result = categories['SOCIALEMPLOYEE']
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="struct_id" ref="l10n_sk_hr_payroll.hr_payroll_structure_sk_employee_salary"/>
@@ -324,7 +324,7 @@ result = -categories['SOCIALEMPLOYEE']
 
     <record id="l10n_sk_social_security_total_employer" model="hr.salary.rule">
         <field name="category_id" ref="l10n_sk_hr_payroll.hr_payroll_social_security_employer_total"/>
-        <field name="name">Social Security Total (Employee)</field>
+        <field name="name">Social Security Total (Employer)</field>
         <field name="code">SOCIALEMPLOYERTOTAL</field>
         <field name="sequence">500</field>
         <field name="condition_select">none</field>
@@ -350,5 +350,3 @@ result = -categories['INCOMETAX']
         <field name="struct_id" ref="l10n_sk_hr_payroll.hr_payroll_structure_sk_employee_salary"/>
     </record>
 </odoo>
-
-
