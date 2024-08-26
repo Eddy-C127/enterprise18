@@ -86,25 +86,18 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     # add all moves attachments in zip file, this is not part of DATEV specs
                     slash_re = re.compile('[\\/]')
                     documents = []
-                    for move in moves:
-                        # rename files by move name + sequence number (if more than 1 file)
+                    for move in moves.filtered(lambda m: m.attachment_ids):
                         # '\' is not allowed in file name, replace by '-'
                         base_name = slash_re.sub('-', move.name)
-                        # retrieve all chatter attachments
-                        attachments = move._get_mail_thread_data_attachments()
-                        if len(attachments) > 1:
-                            name_pattern = f'%(base)s-%(index)0.{len(str(len(attachments)))}d%(extension)s'
-                        else:
-                            name_pattern = '%(base)s%(extension)s'
-                        for i, attachment in enumerate(attachments.sorted('id'), 1):
-                            extension = os.path.splitext(attachment.name)[1]
-                            name = name_pattern % {'base': base_name, 'index': i, 'extension': extension}
-                            zf.writestr(name, attachment.raw)
-                            documents.append({
-                                'guid': move._l10n_de_datev_get_guid(),
-                                'filename': name,
-                                'type': 2 if move.is_sale_document() else 1 if move.is_purchase_document() else None,
-                            })
+                        attachment = move.message_main_attachment_id
+                        extension = attachment.name[:attachment.name.rfind('.')]
+                        name = '%(base)s%(extension)s' % {'base': base_name, 'extension': extension}
+                        zf.writestr(name, attachment.raw)
+                        documents.append({
+                            'guid': move._l10n_de_datev_get_guid(),
+                            'filename': name,
+                            'type': 2 if move.is_sale_document() else 1 if move.is_purchase_document() else None,
+                        })
                     if documents:
                         metadata_document = self.env['ir.qweb']._render(
                             'l10n_de_reports.datev_export_metadata',
