@@ -163,7 +163,7 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
         """
 
         expected_coa_xml = b"""<?xml version='1.0' encoding='utf-8'?>
-        <catalogocuentas:Catalogo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:catalogocuentas="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas" xsi:schemaLocation="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas/CatalogoCuentas_1_3.xsd" Version="1.3" RFC="EKU9003173C9" Mes="01" Anio="2021">
+        <catalogocuentas:Catalogo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:catalogocuentas="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas" xsi:schemaLocation="http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas http://www.sat.gob.mx/esquemas/ContabilidadE/1_3/CatalogoCuentas/CatalogoCuentas_1_3.xsd" Version="1.3" RFC="EKU9003173C9" Mes="01" Anio="2021" Sello="___ignore___" Certificado="___ignore___" noCertificado="___ignore___">
             <catalogocuentas:Ctas CodAgrup="101" NumCta="101" Desc="Cash" Nivel="1" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="101.01" NumCta="101.01" Desc="Cash in hand" Nivel="2" Natur="D"/>
             <catalogocuentas:Ctas CodAgrup="102" NumCta="102" Desc="Bank" Nivel="1" Natur="D"/>
@@ -240,8 +240,10 @@ class TestL10nMXTrialBalanceReport(TestMxEdiCommon, TestAccountReportsCommon):
         </catalogocuentas:Catalogo>
         """
 
+        frozen_today = datetime(year=2018, month=1, day=1, hour=0, minute=0, second=0, tzinfo=timezone('utc'))
         options = self._generate_options(self.report, '2021-01-01', '2021-12-31')
-        coa_report = self.env[self.report.custom_handler_model_name].with_context(skip_xsd=True).action_l10n_mx_generate_coa_sat_xml(options)['file_content']
+        with freeze_time(frozen_today):
+            coa_report = self.env[self.report.custom_handler_model_name].with_context(skip_xsd=True).action_l10n_mx_generate_coa_sat_xml(options)['file_content']
         self.assertXmlTreeEqual(
             self.get_xml_tree_from_string(coa_report),
             self.get_xml_tree_from_string(expected_coa_xml),
