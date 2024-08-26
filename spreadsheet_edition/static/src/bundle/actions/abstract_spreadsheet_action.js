@@ -259,7 +259,7 @@ export class AbstractSpreadsheetAction extends Component {
      * @private
      */
     async _leaveSpreadsheet() {
-        this.model.leaveSession();
+        await this.model.leaveSession();
         this.model.off("update", this);
         if (!this.isReadonly) {
             return this.onSpreadsheetLeft();
