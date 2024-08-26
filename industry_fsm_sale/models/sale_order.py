@@ -86,6 +86,7 @@ class SaleOrderLine(models.Model):
             lambda sol:
                 sol.task_id.is_fsm
                 and float_is_zero(sol.price_unit, precision_rounding=sol.currency_id.rounding)
+                and sol.invoice_status in (None, 'to_invoice')
         )
         sol_from_task_without_amount.invoice_status = 'no'
         super(SaleOrderLine, self - sol_from_task_without_amount)._compute_invoice_status()
