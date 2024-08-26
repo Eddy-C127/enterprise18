@@ -86,6 +86,7 @@
         </record>
 
         <menuitem id="budget_report_menu" name="Budget Report"
+                  groups="account.group_account_readonly"
                   parent="account.account_reports_management_menu" action="budget_report_action"/>
     </data>
 </odoo>

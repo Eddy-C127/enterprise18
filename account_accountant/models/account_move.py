@@ -108,11 +108,6 @@ class AccountMove(models.Model):
         for invoice in invoice_with_signature:
             invoice.signature = invoice.signing_user.sign_signature
 
-    @api.model
-    def _get_invoice_in_payment_state(self):
-        # OVERRIDE to enable the 'in_payment' state on invoices.
-        return 'in_payment'
-
     def _post(self, soft=True):
         # Deferred management
         posted = super()._post(soft)
