@@ -279,3 +279,32 @@ class TestFsmFlowSale(TestFsmFlowSaleCommon):
         task_with_assignee._fsm_create_sale_order()
         self.assertEqual(task_no_assignee.sale_order_id.user_id, self.env.user)
         self.assertEqual(task_with_assignee.sale_order_id.user_id, assignee_1)
+
+    def test_invoice_status_after_change_price_for_fully_invoiced_order(self):
+        so = self.env['sale.order'].create({
+            'partner_id': self.partner_1.id,
+            'order_line': [
+                Command.create({
+                    'product_id': self.consu_product_ordered.id,
+                    'product_uom_qty': 10,
+                })
+            ]
+        })
+
+        sol = self.env['sale.order.line'].create({
+            'order_id': so.id,
+            'product_id': self.service_product_delivered.id,
+            'product_uom_qty': 3,
+            'price_unit': 40,
+            'sequence': 20,
+            'task_id': self.task.id
+        })
+        so.action_confirm()
+        sol.qty_delivered = 3
+
+        invoice = so._create_invoices()
+        invoice.action_post()
+
+        self.assertEqual(so.invoice_status, 'invoiced')
+        sol.price_unit = 0
+        self.assertEqual(so.invoice_status, 'invoiced')
