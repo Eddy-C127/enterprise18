@@ -41,7 +41,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
         store=True,
         readonly=False,
         copy=False,
-        string="Operation Type",
+        string="Goods Operation Type",
         help="Brazil: this is the operation type related to the goods transaction. This will define the CFOP used on the NF-e."
     )
     l10n_br_is_avatax = fields.Boolean(

@@ -66,7 +66,7 @@ class AccountExternalTaxMixin(models.AbstractModel):
                 tax_cache[key] = self.env['account.tax'].search([
                     *self.env['account.tax']._check_company_domain(doc.company_id),
                     ('name', '=', tax_name),
-                    ('description', '=', tax_description),
+                    ('description', 'ilike', tax_description),  # ilike because its a Html field
                 ]) or self.env['account.tax'].sudo().with_company(doc.company_id).create({
                     'name': tax_name,
                     'description': tax_description,
@@ -154,7 +154,7 @@ class AccountExternalTaxMixin(models.AbstractModel):
             partner = partner or record.partner_id
             country = partner.country_id
             if (
-                partner != self.env.ref('base.public_partner')
+                partner and partner != self.env.ref('base.public_partner')
                 and (
                     not country
                     or (country.zip_required and not partner.zip)
