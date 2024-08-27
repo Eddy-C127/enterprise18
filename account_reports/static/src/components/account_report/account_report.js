@@ -17,6 +17,8 @@ import { AccountReportLineCell } from "@account_reports/components/account_repor
 import { AccountReportLineName } from "@account_reports/components/account_report/line_name/line_name";
 import { AccountReportSearchBar } from "@account_reports/components/account_report/search_bar/search_bar";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
+import { useSetupAction } from "@web/search/action_hook";
+
 
 export class AccountReport extends Component {
     static template = "account_reports.AccountReport";
@@ -39,6 +41,18 @@ export class AccountReport extends Component {
     static defaultComponentsMap = [];
 
     setup() {
+
+        useSetupAction({
+            getLocalState: () => {
+                return {
+                    keep_journal_groups_options: true,  // used when using the breadcrumb
+                };
+            }
+        })
+        if (this.props?.state?.keep_journal_groups_options !== undefined) {
+            this.props.action.keep_journal_groups_options = true;
+        }
+
         // Can not use 'control-panel-bottom-right' slot without this, as viewSwitcherEntries doesn't exist here.
         this.env.config.viewSwitcherEntries = [];
 

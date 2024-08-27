@@ -464,6 +464,23 @@ export class AccountReportFilters extends Component {
         }
     }
 
+    unfoldCompanyJournals(selectedCompany) {
+        let inSelectedCompanySection = false;
+        for (const journal of this.controller.options.journals) {
+            if (journal.id === "divider" && journal.model === "res.company") {
+                if (journal.name === selectedCompany.name) {
+                    journal.unfolded = !journal.unfolded;
+                    inSelectedCompanySection = true;
+                } else if (inSelectedCompanySection) {
+                    break;  // Reached another company divider, exit the loop
+                }
+            }
+            if (inSelectedCompanySection && journal.model === "account.journal") {
+                journal.visible = !journal.visible;
+            }
+        }
+    }
+
     async filterVariant(reportId) {
         this.controller.saveSessionOptions({
             ...this.controller.options,

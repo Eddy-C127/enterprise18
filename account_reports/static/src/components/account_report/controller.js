@@ -16,7 +16,6 @@ export class AccountReportController {
 
     async load(env) {
         this.env = env;
-
         this.reportOptionsMap = {};
         this.reportInformationMap = {};
         this.lastOpenedSectionByReport = {};
@@ -33,8 +32,8 @@ export class AccountReportController {
             }
         );
         this.actionReportId = this.action.context.report_id;
-
-        const mainReportOptions = await this.loadReportOptions(this.actionReportId, false, this.action.params?.ignore_session);
+        const isOpeningReport = !this.action?.keep_journal_groups_options  // true when opening the report, except when coming from the breadcrumb
+        const mainReportOptions = await this.loadReportOptions(this.actionReportId, false, this.action.params?.ignore_session, isOpeningReport);
         const cacheKey = this.getCacheKey(mainReportOptions['sections_source_id'], mainReportOptions['report_id']);
 
         // We need the options to be set and saved in order for the loading to work properly
@@ -130,7 +129,7 @@ export class AccountReportController {
     }
 
     async loadReport(reportId, preloading=false) {
-        const options = await this.loadReportOptions(reportId, preloading); // This also sets the promise in the cache
+        const options = await this.loadReportOptions(reportId, preloading, false); // This also sets the promise in the cache
         const reportToDisplayId = options['report_id']; // Might be different from reportId, in case the report to open uses sections
 
         const cacheKey = this.getCacheKey(options['sections_source_id'], reportToDisplayId)
@@ -158,7 +157,7 @@ export class AccountReportController {
         return cacheKey;
     }
 
-    async loadReportOptions(reportId, preloading=false, ignore_session=false) {
+    async loadReportOptions(reportId, preloading=false, ignore_session=false, isOpeningReport=false) {
         const loadOptions = (ignore_session || !this.hasSessionOptions()) ? (this.action.params?.options || {}) : this.sessionOptions();
         const cacheKey = this.getCacheKey(loadOptions['sections_source_id'] || reportId, reportId);
 
@@ -166,6 +165,8 @@ export class AccountReportController {
             this.incrementCallNumber(cacheKey);
         }
         loadOptions["loading_call_number"] = this.loadingCallNumberByCacheKey[cacheKey];
+
+        loadOptions["is_opening_report"] = isOpeningReport;
 
         if (!this.reportOptionsMap[cacheKey]) {
             // The options for this section are not loaded nor loading. Let's load them !

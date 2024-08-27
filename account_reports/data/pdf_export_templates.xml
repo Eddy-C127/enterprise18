@@ -79,10 +79,17 @@
         <!-- Journals -->
         <t t-if="options.get('journals')">
             <div class="row" name="filter_info_template_journals">
-                <t t-set="journal_value" t-value="[journal.get('title') for journal in options['journals'] if journal.get('selected')]"/>
-                <t t-if="journal_value">
-                    <div class="col-3">Journals:</div>
-                    <div class="col-9 o_text_muted" t-out="', '.join(journal_value)"/>
+                <t t-set="journal_group_selected" t-value="options.get('selected_journal_groups')"/>
+                <t t-if="journal_group_selected">
+                    <div class="col-3">Multi-Ledger: </div>
+                    <div class="col-9 o_text_muted" t-out="journal_group_selected['title']"/>
+                </t>
+                <t t-else="">
+                    <t t-set="journal_value" t-value="[journal.get('title') for journal in options['journals'] if journal.get('selected')]"/>
+                    <t t-if="journal_value">
+                        <div class="col-3">Journals: </div>
+                        <div class="col-9 o_text_muted" t-out="', '.join(journal_value)"/>
+                    </t>
                 </t>
             </div>
         </t>

@@ -178,185 +178,160 @@ class AccountReport(models.Model):
                 *(additional_domain or []),
             ], order="company_id, name")
 
-    def _get_filter_journal_groups(self, options, report_accepted_journals):
-        groups = self.env['account.journal.group'].search([
-            ('company_id', 'in', self.get_report_company_ids(options)),
-            ], order='sequence')
-
-        all_journals = self._get_filter_journals(options)
-        all_journals_by_company = {}
-        for journal in all_journals:
-            all_journals_by_company.setdefault(journal.company_id, self.env['account.journal'])
-            all_journals_by_company[journal.company_id] += journal
-
-        ret = self.env['account.journal.group']
-        for journal_group in groups:
-            # Only display the group if some journals it could accept are accepted by this report
-            group_accepted_journals = all_journals_by_company[journal_group.company_id] - journal_group.excluded_journal_ids
-            if report_accepted_journals & group_accepted_journals:
-                ret += journal_group
-        return ret
+    def _get_filter_journal_groups(self, options):
+        return self.env['account.journal.group'].search([
+            *self.env['account.journal.group']._check_company_domain(self.get_report_company_ids(options)),
+        ], order='sequence')
 
     def _init_options_journals(self, options, previous_options, additional_journals_domain=None):
-        # The additional additional_journals_domain optinal parameter allows calling this with an additional restriction on journals,
+        # The additional additional_journals_domain optional parameter allows calling this with an additional restriction on journals,
         # to regenerate the journal options accordingly.
+        def option_value(value, selected=False, group_journals=None):
+            result = {
+                'id': value.id,
+                'model': value._name,
+                'name': value.display_name,
+                'selected': selected,
+            }
+
+            if value._name == 'account.journal.group':
+                result.update({
+                    'title': value.display_name,
+                    'journals': group_journals.ids,
+                    'journal_types': list(set(group_journals.mapped('type'))),
+                })
+            elif value._name == 'account.journal':
+                result.update({
+                    'title': f"{value.name} - {value.code}",
+                    'type': value.type,
+                    'visible': True,
+                })
+
+            return result
 
         if not self.filter_journals:
             return
 
-        # Collect all stuff and split them by company.
-        all_journals = self._get_filter_journals(options, additional_domain=additional_journals_domain)
-        all_journal_groups = self._get_filter_journal_groups(options, all_journals)
-        all_journal_ids = set(all_journals.ids)
+        previous_journals = previous_options.get('journals', [])
+        previous_journal_group_action = previous_options.get('__journal_group_action', {})
 
-        report_companies = self.env['res.company'].browse(self.get_report_company_ids(options))
-        per_company_map = {}
-        for company in report_companies.sudo().parent_ids:
-            per_company_map[company.id] = ({
-                'available_journals': self.env['account.journal'],
-                'available_journal_groups': self.env['account.journal.group'],
-                'selected_journals': self.env['account.journal'],
-                'selected_journal_groups': self.env['account.journal.group'],
-            })
+        all_journals = self._get_filter_journals(options, additional_domain=additional_journals_domain)
+        all_journal_groups = self._get_filter_journal_groups(options)
+
+        options['journals'] = []
+        options['selected_journal_groups'] = {}
+
+        groups_journals_selected = set()
+        options_journal_groups = []
+
+        # First time opening the report, and make sure it's not specifically stated that we should not reset the filter
+        is_opening_report = previous_options.get('is_opening_report')  # key from JS controller when report is being opened
+        # a key to prevent the reset of the journals filter even when is_opening_report is True
+        can_reset_journals_filter = not previous_options.get('not_reset_journals_filter')
+
+        # 1. Handle journal group selection
+        for group in all_journal_groups:
+            group_journals = all_journals - group.excluded_journal_ids
+            selected = False
+            first_group_already_selected = bool(options['selected_journal_groups'])  # only one group should be selected at most
+
+            # select the first group by default when opening the report
+            if is_opening_report and not first_group_already_selected and can_reset_journals_filter:
+                selected = True
+            # Otherwise, select the previous selected group (if any)
+            elif group.id == previous_journal_group_action.get('id'):
+                selected = previous_journal_group_action.get('action') == 'add'
+
+            group_option = option_value(group, selected=selected, group_journals=group_journals)
+            options_journal_groups.append(group_option)
+
+            # Select all the group journals
+            if selected:
+                options['selected_journal_groups'] = group_option
+                groups_journals_selected |= set(group_journals.ids)
+
+        # 2. Handle journals selection
+        previous_selected_journals_ids = {
+            journal['id']
+            for journal in previous_journals
+            if journal.get('model') == 'account.journal' and journal.get('selected')
+        }
+
+        company_journals_map = defaultdict(list)
+        journals_selected = set()
 
         for journal in all_journals:
-            per_company_map[journal.company_id.id]['available_journals'] |= journal
-        for journal_group in all_journal_groups:
-            per_company_map[journal_group.company_id.id]['available_journal_groups'] |= journal_group
+            selected = False
 
-        # Adapt the code from previous options.
-        previous_journals = previous_options.get('journals', [])
-        if previous_options and (not previous_journals or any(journal_opt['id'] in all_journal_ids for journal_opt in previous_journals)):
-            # Reload from previous options.
-            for journal_opt in previous_journals:
-                if journal_opt.get('model') == 'account.journal' and journal_opt.get('selected'):
-                    journal_id = int(journal_opt['id'])
-                    if journal_id in all_journal_ids:
-                        journal = self.env['account.journal'].browse(journal_id)
-                        per_company_map[journal.company_id.id]['selected_journals'] |= journal
+            if journal.id in groups_journals_selected:
+                selected = True
 
-            # Process the action performed by the user js-side.
-            journal_group_action = previous_options.get('__journal_group_action', None)
-            if journal_group_action:
-                action = journal_group_action['action']
-                group = self.env['account.journal.group'].browse(journal_group_action['id'])
-                company_vals = per_company_map[group.company_id.id]
-                if action == 'add':
-                    remaining_journals = company_vals['available_journals'] - group.excluded_journal_ids
-                    company_vals['selected_journals'] = remaining_journals
-                elif action == 'remove':
-                    has_selected_journal_in_other_company = False
-                    for company_id, other_company_vals in per_company_map.items():
-                        if company_id == group.company_id.id:
-                            continue
+            elif not options['selected_journal_groups'] and previous_journal_group_action.get('action') != 'remove':
+                if journal.id in previous_selected_journals_ids:
+                    selected = True
 
-                        if other_company_vals['selected_journals']:
-                            has_selected_journal_in_other_company = True
-                            break
+            if selected:
+                journals_selected.add(journal.id)
 
-                    if has_selected_journal_in_other_company:
-                        company_vals['selected_journals'] = company_vals['available_journals']
-                    else:
-                        company_vals['selected_journals'] = self.env['account.journal']
+            company_journals_map[journal.company_id].append(option_value(journal, selected=journal.id in journals_selected))
 
-                    # When removing the last selected group in multi-company, make sure there is no selected journal left.
-                    # For example, suppose company1 having j1, j2 as journals and group1 excluding j2, company2 having j3, j4.
-                    # Suppose group1, j1, j3, j4 selected. If group1 is removed, we need to unselect j3 and j4 as well.
-                    if all(x['selected_journals'] == x['available_journals'] for x in per_company_map.values()):
-                        for company_vals in per_company_map.values():
-                            company_vals['selected_journals'] = self.env['account.journal']
-        else:
-            # Select the first available group if nothing selected.
-            has_selected_at_least_one_group = False
-            for company_id, company_vals in per_company_map.items():
-                if not company_vals['selected_journals'] and company_vals['available_journal_groups']:
-                    first_group = company_vals['available_journal_groups'][0]
-                    remaining_journals = company_vals['available_journals'] - first_group.excluded_journal_ids
-                    company_vals['selected_journals'] = remaining_journals
-                    has_selected_at_least_one_group = True
+        # 3. Recompute selected groups in case the set of selected journals is equal to a group's accepted journals
+        for group in options_journal_groups:
+            if journals_selected == set(group['journals']):
+                group['selected'] = True
+                options['selected_journal_groups'] = group
 
-            # Select all journals in others groups.
-            if has_selected_at_least_one_group:
-                for company_id, company_vals in per_company_map.items():
-                    if not company_vals['selected_journals']:
-                        company_vals['selected_journals'] = company_vals['available_journals']
+        # 4. Unselect all journals if all are selected and no group is specifically selected
+        if journals_selected == set(all_journals.ids) and not options['selected_journal_groups']:
+            for company, journals in company_journals_map.items():
+                for journal in journals:
+                    journal['selected'] = False
 
-        # Build the options.
-        journal_groups_options = []
-        journal_options_per_company = defaultdict(list)
-        for company_id, company_vals in per_company_map.items():
-
-            # Groups.
-            for group in company_vals['available_journal_groups']:
-                remaining_journals = company_vals['available_journals'] - company_vals['selected_journals']
-                selected = remaining_journals == (group.excluded_journal_ids & company_vals['available_journals'])
-                journal_groups_options.append({
-                    'id': group.id,
-                    'model': group._name,
-                    'name': group.display_name,
-                    'title': group.display_name,
-                    'selected': selected,
-                    'journals': (company_vals['available_journals'] - group.excluded_journal_ids).ids,
-                    'journal_types': list(set((company_vals['available_journals'] - group.excluded_journal_ids).mapped('type'))),
-                })
-                if selected:
-                    company_vals['selected_journal_groups'] |= group
-                    options['selected_journal_groups'] = journal_groups_options[-1]
-
-            # Journals.
-            for journal in company_vals['available_journals']:
-                journal_options_per_company[journal.company_id].append({
-                    'id': journal.id,
-                    'model': journal._name,
-                    'name': journal.display_name,
-                    'title': f"{journal.name} - {journal.code}",
-                    'selected': journal in company_vals['selected_journals'],
-                    'type': journal.type,
-                })
-
-        # Build the final options.
-        options['journals'] = []
-        if journal_groups_options:
-            options['journals'].append({
+        # 5. Build group options
+        if all_journal_groups:
+            options['journals'] = [{
                 'id': 'divider',
                 'name': _("Multi-ledger"),
                 'model': 'account.journal.group',
-            })
-            options['journals'] += journal_groups_options
-        for company, journal_options in journal_options_per_company.items():
-            if len(journal_options_per_company) > 1 or journal_groups_options:
+            }] + options_journal_groups
+
+        # 6. Build journals options
+        if len(company_journals_map) > 1 or all_journal_groups:
+            for company, journals in company_journals_map.items():
+
+                # if not is_opening_report, then gets the unfolded attribute of the company from the previous options
+                unfolded = False if is_opening_report else next(
+                    (entry.get('unfolded') for entry in previous_journals
+                     if entry['model'] == 'res.company' and entry['name'] == company.name), False)
+
+                for journal in journals:
+                    journal['visible'] = unfolded
+
                 options['journals'].append({
                     'id': 'divider',
                     'model': company._name,
                     'name': company.display_name,
+                    'unfolded': unfolded,
                 })
-            options['journals'] += journal_options
 
-        # Compute the name to display on the widget.
-        names_to_display = []
+                options['journals'] += journals
 
-        has_globally_selected_groups = False
-        has_selected_all_journals = True
-        for company_id, journal_options in per_company_map.items():
-            for journal_group in journal_options['selected_journal_groups']:
-                names_to_display.append(journal_group.display_name)
-                has_globally_selected_groups = True
-            if journal_options['selected_journals'] != journal_options['available_journals']:
-                has_selected_all_journals = False
+        else:
+            options['journals'].extend(next(iter(company_journals_map.values())))
 
-        for company_id, journal_options in per_company_map.items():
-            has_selected_groups = bool(journal_options['selected_journal_groups'])
-            if not has_selected_groups and (not has_selected_all_journals or has_globally_selected_groups):
-                for journal in journal_options['selected_journals']:
-                    names_to_display.append(journal.code)
+        # 7 Compute the name to display on the widget
+        if options.get('selected_journal_groups'):
+            names_to_display = [options['selected_journal_groups']['name']]
+        elif len(all_journals) == len(journals_selected) or not journals_selected:
+            names_to_display = [_("All Journals")]
+        else:
+            names_to_display = []
 
-        if not names_to_display:
-            names_to_display.append(_("All Journals"))
-            for journal_option in options['journals']:
-                if journal_option.get('model') == 'account.journal':
-                    journal_option['selected'] = False
+            for journal in options['journals']:
+                if journal.get('model') == 'account.journal' and journal['selected']:
+                    names_to_display += [journal['name']]
 
-        # Abbreviate the name
+        # 8. Abbreviate the name
         max_nb_journals_displayed = 5
         nb_remaining = len(names_to_display) - max_nb_journals_displayed
         displayed_names = ', '.join(names_to_display[:max_nb_journals_displayed])
@@ -2201,7 +2176,9 @@ class AccountReport(models.Model):
             generic_line_id = general_ledger._get_generic_line_id(model, record_id, parent_line_id=parent_line_id)
             lines_to_unfold.append(generic_line_id)
 
+        options['not_reset_journals_filter'] = True  # prevents resetting the default journal group
         gl_options = general_ledger.get_options(options)
+        gl_options['not_reset_journals_filter'] = True  # prevents resetting the default journal group
         gl_options['unfolded_lines'] = lines_to_unfold
 
         account_id = self.env['account.account'].browse(records_to_unfold[-1][1])
@@ -4261,6 +4238,11 @@ class AccountReport(models.Model):
         else:
             ctx['search_default_date_before'] = 1
 
+        if options.get('selected_journal_groups'):
+            ctx.update({
+                'search_default_journal_group_id': [options['selected_journal_groups']['id']],
+            })
+
         journal_type = params.get('journal_type')
         if journal_type or options.get('selected_journal_groups') and options['selected_journal_groups']['journal_types']:
             type_to_view_param = {
@@ -4283,6 +4265,10 @@ class AccountReport(models.Model):
                 'purchase': {
                     'filter': 'search_default_purchases',
                     'view_id': self.env.ref('account.view_move_line_tree_grouped_sales_purchases').id
+                },
+                'credit': {
+                    'filter': 'search_default_credit',
+                    'view_id': self.env.ref('account.view_move_line_tree').id
                 },
             }
             if options.get('selected_journal_groups'):
