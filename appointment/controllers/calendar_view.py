@@ -52,6 +52,7 @@ class AppointmentCalendarView(http.Controller):
         appointment_type = AppointmentType.with_context(
             AppointmentType._get_clean_appointment_context()
         ).create({
+            'name': _('%(name)s - My availabilities', name=request.env.user.name),
             'category': 'custom',
             'slot_ids': [(0, 0, {
                 'start_datetime': fields.Datetime.from_string(slot.get('start')),
@@ -140,6 +141,7 @@ class AppointmentCalendarView(http.Controller):
 
     def _prepare_appointment_type_anytime_values(self):
         return {
+            'name': _("%(name)s - Let's meet anytime", name=request.env.user.name),
             'max_schedule_days': 15,
             'category': 'anytime',
         }

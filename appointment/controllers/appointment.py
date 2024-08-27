@@ -159,7 +159,6 @@ class AppointmentController(http.Controller):
 
     def _appointment_website_domain(self):
         return [
-            ('category', 'in', ['punctual', 'recurring']),
             '|', ('end_datetime', '=', False), ('end_datetime', '>=', datetime.utcnow())
         ]
 

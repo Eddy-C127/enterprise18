@@ -11,7 +11,7 @@
                 <field name="staff_user_ids"/>
                 <field name="resource_ids"/>
                 <field name="category"/>
-                <filter string="My Appointments" name="my_appointments" domain="[('staff_user_ids', 'in', [uid])]"/>
+                <filter string="My Appointments" name="my_appointments" domain="['|', ('staff_user_ids', 'in', [uid]), ('create_uid', '=', uid)]"/>
                 <separator/>
                 <filter string="Recurring" name="filter_category_recurring" domain="[('category', '=', 'recurring')]"/>
                 <filter string="Punctual" name="filter_category_punctual" domain="[('category', '=', 'punctual')]"/>
@@ -54,7 +54,6 @@
                             <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                             <div class="col-lg-2 col-sm-5 col-11 py-0 my-auto text-large text-truncate">
                                 <span class="fw-bold ms-2 o_appointment_kanban_ungrouped_name" t-att-title="record.name.value"><field name="name"/></span><br/>
-                                <field name="category" class="ms-2"/>
                             </div>
                             <div class="col-lg-4 col-sm-7 col-12 py-0 mt-3 mb-2 my-lg-auto d-flex">
                                 <div class="align-self-center me-sm-0 me-3 text-large w-50 w-lg-25">
@@ -247,7 +246,6 @@
                             <!-- Users Details -->
                             <field name="staff_user_ids" widget="many2many_avatar_user"
                                 invisible="schedule_based_on == 'resources'"
-                                readonly="category == 'anytime'"
                                 options="{'no_open': False}"
                                 placeholder="Select Users..."/>
                             <!-- Resources Details-->
@@ -428,8 +426,8 @@
         <field name="path">appointments</field>
         <field name="res_model">appointment.type</field>
         <field name="view_mode">kanban,list,form</field>
-        <field name="domain">[('category', '!=', 'custom')]</field>
-        <field name="context">{'search_default_filter_category_recurring': 1}</field>
+        <field name="domain"></field>
+        <field name="context"></field>
     </record>
 
     <record id="appointment_type_action_custom" model="ir.actions.act_window">

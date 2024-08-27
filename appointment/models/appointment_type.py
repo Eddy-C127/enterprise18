@@ -340,8 +340,6 @@ class AppointmentType(models.Model):
     def _check_staff_user_configuration(self):
         anytime_appointments = self.search([('category', '=', 'anytime')])
         for appointment_type in self.filtered(lambda appt: appt.schedule_based_on == "users" and appt.category == "anytime"):
-            if len(appointment_type.staff_user_ids) != 1:
-                raise ValidationError(_("Anytime appointment types should only have one user but got %s users", len(appointment_type.staff_user_ids)))
             duplicate = anytime_appointments.filtered(lambda apt_type: bool(apt_type.staff_user_ids & appointment_type.staff_user_ids))
             if appointment_type.ids != duplicate.ids:
                 raise ValidationError(_("Only one anytime appointment type is allowed for a specific user."))
