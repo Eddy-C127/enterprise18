@@ -94,5 +94,5 @@ class TestReportsMrpAccountSubcontracting(TestMrpSubcontractingCommon):
             self.assertEqual(report_values['subcontracting'][0]['partner_name'], self.subcontractor_partner1.display_name)
 
         mrp_report = self.env['mrp.report'].search([('product_id', '=', self.picking.product_id.id)])
-        self.assertEqual(mrp_report.mapped('subcontracting_cost'), [60, 90])
+        self.assertEqual(sorted(mrp_report.mapped('subcontracting_cost')), [60, 90])
         self.assertEqual(mrp_report.mapped('unit_subcontracting_cost'), [15, 15])
