@@ -566,7 +566,7 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
 
     @users('apt_manager')
     def test_customer_event_description(self):
-        """Check calendar file description generation."""
+        """Check calendar file description and summary generation."""
         appointment_type = self.apt_type_bxls_2days
         host_user = self.apt_manager
         host_partner = host_user.partner_id
@@ -623,8 +623,20 @@ class AppointmentTest(AppointmentCommon, HttpCaseWithUserDemo):
                     f'Phone: {host_partner.phone}' if host_partner.phone else False)
                     if line)
             self.assertEqual(appointment._get_customer_description(), (message + details).strip())
-            self.assertEqual(appointment._get_customer_summary(),
-                             f'{appointment_type.name} with {host_partner.name or "somebody"}')
+
+        # Test summary for all appointment types
+        resource_appointment = self.apt_type_resource
+        resource_event = self.env['calendar.event'].create({
+            'name': '%s - %s' % (resource_appointment.name, attendee.name),
+            'start': datetime.now(),
+            'stop': datetime.now() + timedelta(hours=1),
+            'appointment_type_id': resource_appointment.id,
+            'user_id': host_user.id,
+        })
+        user_summary = f'{appointment_type.name} with {host_partner.name or "somebody"}'
+        for event, summary in ((appointment, user_summary), (resource_event, resource_event.name)):
+            with self.subTest(summary=summary):
+                self.assertEqual(event._get_customer_summary(), summary)
 
     @users('apt_manager')
     @freeze_time('2022-02-13T20:00:00')

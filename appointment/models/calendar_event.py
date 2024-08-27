@@ -438,7 +438,7 @@ class CalendarEvent(models.Model):
 
     def _get_customer_summary(self):
         # Summary should make sense for the person who booked the meeting
-        if self.appointment_type_id and self.partner_id:
+        if self.appointment_type_id and self.appointment_type_id.schedule_based_on == 'users' and self.partner_id:
             return _('%(appointment_name)s with %(partner_name)s',
                      appointment_name=self.appointment_type_id.name,
                      partner_name=self.partner_id.name or _('somebody'))
