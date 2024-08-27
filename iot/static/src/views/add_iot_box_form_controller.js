@@ -60,7 +60,9 @@ export class AddIoTBoxFormController extends FormController {
      * @returns {Promise<void>}
      */
     async onClickCancelButtonAddIoT(params) {
-        this.notifyIoTBoxFound(await this.lookForNewIoTBox());
+        if (!params.clickParams.name || params.clickParams.name !== "box_pairing") {
+            this.notifyIoTBoxFound(await this.lookForNewIoTBox());
+        }
         this.onClickViewButton(params);
     }
 

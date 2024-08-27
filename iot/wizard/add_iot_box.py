@@ -68,8 +68,8 @@ class AddIotBox(models.TransientModel):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'type': 'warning',
-                    'message': _("Connecting to the IoT..."),
+                    'type': 'info',
+                    'message': _("Using Pairing Code to connect..."),
                     'sticky': False,
                     'params': {
                         'next': {'type': 'ir.actions.act_window_close'},
