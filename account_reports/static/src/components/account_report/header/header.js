@@ -60,7 +60,7 @@ export class AccountReportHeader extends Component {
         return this.controller.lines[0].columns.map((column) => {
             if (columnsPerGroupKey[`${column.column_group_key}_${column.expression_label}`]) {
                 return columnsPerGroupKey[`${column.column_group_key}_${column.expression_label}`];
-            } else if (column.comparison_mode) {
+            } else {
                 return {
                     expression_label: "",
                     sortable: false,
