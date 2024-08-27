@@ -26,7 +26,7 @@ class Task(models.Model):
                 result['company_id'] = company_id
         return result
 
-    is_fsm = fields.Boolean(related='project_id.is_fsm', search='_search_is_fsm')
+    is_fsm = fields.Boolean(compute='_compute_is_fsm', search='_search_is_fsm')
     fsm_done = fields.Boolean("Task Done", compute='_compute_fsm_done', readonly=False, store=True, copy=False)
     # Use to count conditions between : time, worksheet and materials
     # If 2 over 3 are enabled for the project, the required count = 2
@@ -105,15 +105,15 @@ class Task(models.Model):
         })
         super(Task, self - fsm_done_tasks)._compute_display_timer_buttons()
 
+    @api.depends('project_id')
+    def _compute_is_fsm(self):
+        for task in self:
+            task.is_fsm = task.project_id.is_fsm
+
     @api.model
     def _search_is_fsm(self, operator, value):
-        query = """
-            SELECT p.id
-            FROM project_project P
-            WHERE P.active = 't' AND P.is_fsm
-        """
-        operator_new = operator == "=" and "inselect" or "not inselect"
-        return [('project_id', operator_new, (query, ()))]
+        project_query = self.env['project.project'].sudo()._search([('is_fsm', operator, value)])
+        return [('project_id', 'in', project_query)]
 
     # TODO: remove in master
     def _onchange_planned_date(self):
