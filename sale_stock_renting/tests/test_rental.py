@@ -2,7 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from datetime import timedelta
-from odoo.fields import Datetime
+from odoo.fields import Datetime, Date
 from odoo.tests import Form
 from odoo.addons.sale_stock_renting.tests.test_rental_common import TestRentalCommon
 
@@ -565,3 +565,24 @@ class TestRentalPicking(TestRentalCommon):
         rental_order_1.order_line.write({'product_uom_qty': 1, 'is_rental': True})
         rental_order_1.with_user(public_user).sudo().action_confirm()
         self.assertTrue(rental_order_1.picking_ids)
+
+    def test_reordering_rule_forecast(self):
+        """ Test the rental orders will only consider outgoing rental move in the forecast
+        computation. """
+        # Set a fixed visibility_days
+        self.product_id.stock_quant_ids.sudo().unlink()
+        self.env['ir.config_parameter'].sudo().set_param('stock.visibility_days', 7)
+        date = Date.today() + timedelta(days=7)
+
+        rental_order_1 = self.sale_order_id.copy()
+        rental_order_1.order_line.write({'product_uom_qty': 1, 'is_rental': True})
+        rental_order_1.rental_start_date = Datetime.now() + timedelta(days=2)
+        rental_order_2 = self.sale_order_id.copy()
+        rental_order_2.order_line.write({'product_uom_qty': 2, 'is_rental': True})
+        rental_order_2.rental_start_date = Datetime.now() + timedelta(days=4)
+        rental_order_2.rental_return_date = Datetime.now() + timedelta(days=5)
+        self.assertEqual(self.product_id.with_context(date=date).qty_available, 0)
+        (rental_order_1 | rental_order_2).action_confirm()
+        self.env['stock.warehouse.orderpoint'].action_open_orderpoints()
+        self.assertEqual(self.product_id.orderpoint_ids.lead_days_date, date)
+        self.assertEqual(self.product_id.orderpoint_ids.qty_forecast, -2)
