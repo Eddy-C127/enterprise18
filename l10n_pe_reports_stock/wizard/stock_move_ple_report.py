@@ -176,6 +176,7 @@ class StockMovePleReport(models.TransientModel):
 
         query.left_join('stock_move__sol__solr__aml__am', 'l10n_latam_document_type_id', 'l10n_latam_document_type', 'id', 'doctype')
         query.left_join('stock_move__pol__aml_p__am_p', 'l10n_latam_document_type_id', 'l10n_latam_document_type', 'id', 'doctype_p')
+        query.order = "stock_move.id, stock_move__svl.id"
 
         qu = query.select('stock_move.id',
                           'stock_move.date',
