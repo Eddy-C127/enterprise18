@@ -18,6 +18,7 @@ import { SidebarViewToolbox } from "@web_studio/client_action/view_editor/intera
 import { ChatterProperties } from "@web_studio/client_action/view_editor/editors/form/form_editor_sidebar/properties/chatter_properties/chatter_properties";
 import { useEditNodeAttributes } from "@web_studio/client_action/view_editor/view_editor_model";
 import { WidgetProperties } from "@web_studio/client_action/view_editor/interactive_editor/properties/widget_properties/widget_properties";
+import { OTdLabelProperties } from "./properties/o_td_label_properties/o_td_label_properties";
 
 export class FormEditorSidebar extends Component {
     static template = "web_studio.ViewEditor.FormEditorSidebar";
@@ -78,6 +79,9 @@ export class FormEditorSidebar extends Component {
             },
             widget: {
                 component: WidgetProperties,
+            },
+            div: {
+                component: OTdLabelProperties,
             },
         };
     }

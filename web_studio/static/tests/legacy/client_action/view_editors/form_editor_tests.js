@@ -3088,6 +3088,37 @@ QUnit.module("View Editors", (hooks) => {
         );
         assert.verifySteps(["edit_view"]);
     });
+
+    QUnit.test("remove empty o_td_label", async function (assert) {
+        await createViewEditor({
+            serverData,
+            type: "form",
+            resModel: "coucou",
+            arch: `<form><sheet><group><group><div class="o_td_label"/></group></group></sheet></form>`,
+            mockRPC: (route, args) => {
+                if (route === "/web_studio/edit_view") {
+                    assert.step("edit_view");
+                    const { target, type } = args.operations[0];
+                    assert.deepEqual(target, {
+                        tag: "div",
+                        attrs: { class: "o_td_label" },
+                        xpath_info: [
+                            { tag: "form", indice: 1 },
+                            { tag: "sheet", indice: 1 },
+                            { tag: "group", indice: 1 },
+                            { tag: "group", indice: 1 },
+                            { tag: "div", indice: 1 },
+                        ],
+                    });
+                    assert.strictEqual(type, "remove");
+                }
+            },
+        });
+        await click(target, ".o-web-studio-editor--element-clickable .o_td_label");
+        await click(target, ".o_web_studio_sidebar .o_web_studio_remove");
+        await click(target, ".o_dialog .btn-primary");
+        assert.verifySteps(["edit_view"]);
+    });
 });
 
 QUnit.module("View Editors", (hooks) => {
