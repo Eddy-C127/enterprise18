@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import _, api, models
+from odoo.osv import expression
 
 
 class ProductProduct(models.Model):
@@ -48,6 +49,13 @@ class ProductProduct(models.Model):
                         product=product.display_name,
                         qty=total_qty,
                     )
+
+    def _get_domain_locations_new(self, location_ids):
+        domain_quant, domain_move_in_loc, domain_move_out_loc = super()._get_domain_locations_new(location_ids)
+        if self.env.context.get('ignore_rental_returns'):
+            rental_loc_ids = self.env.companies.rental_loc_id.ids
+            domain_move_in_loc = expression.AND([domain_move_in_loc, [('location_id', 'not in', rental_loc_ids)]])
+        return domain_quant, domain_move_in_loc, domain_move_out_loc
 
     def _get_qty_in_rent_domain(self):
         """Allow precising the warehouse_id to get qty currently in rent."""
