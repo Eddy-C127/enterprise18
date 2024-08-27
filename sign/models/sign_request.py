@@ -452,8 +452,6 @@ class SignRequest(models.Model):
         if self.state != 'sent' or any(sri.state != 'completed' for sri in self.request_item_ids):
             raise UserError(_("This sign request cannot be signed"))
         self.write({'state': 'signed'})
-        if not bool(config['test_enable'] or config['test_file']):
-            self.env.cr.commit()
         if not self._check_is_encrypted():
             # if the file is encrypted, we must wait that the document is decrypted
             self._send_completed_document()
@@ -795,7 +793,7 @@ class SignRequest(models.Model):
         mail_values['reply_to'] = mail_values.get('email_from')
         mail = sign_request.env['mail.mail'].sudo().create(dict(body_html=body_html, **mail_values))
         if force_send:
-            mail.send()
+            mail.send_after_commit()
         return mail
 
     def _schedule_activity(self, sign_users):
