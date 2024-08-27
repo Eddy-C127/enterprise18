@@ -39,9 +39,6 @@
         'point_of_sale._assets_pos': [
             'pos_preparation_display/static/src/override/**/*.js',
         ],
-        'point_of_sale.assets_qunit_tests': [
-            'pos_preparation_display/static/tests/unit/**/*',
-        ],
         'web.assets_tests': [
             'pos_preparation_display/static/tests/tours/point_of_sale/**/*',
         ],

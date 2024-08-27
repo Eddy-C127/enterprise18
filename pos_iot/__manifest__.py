@@ -35,8 +35,5 @@ Supported devices include payment terminals, receipt printers, scales and custom
         'web.assets_tests': [
             'pos_iot/static/tests/tours/**/*',
         ],
-        'point_of_sale.assets_qunit_tests': [
-            'pos_iot/static/tests/unit/**/*',
-        ],
     }
 }
