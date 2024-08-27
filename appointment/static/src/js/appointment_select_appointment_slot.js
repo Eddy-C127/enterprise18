@@ -4,7 +4,7 @@ import publicWidget from "@web/legacy/js/public/public_widget";
 import { renderToElement, renderToFragment } from "@web/core/utils/render";
 import { serializeDateTime, deserializeDateTime } from "@web/core/l10n/dates";
 import { rpc } from "@web/core/network/rpc";
-import { session } from '@web/session';
+import { user } from "@web/core/user";
 const { DateTime } = luxon;
 
 publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
@@ -115,7 +115,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         if (
             !this.el.querySelector('.o_appointment_cancelled') &&
             (!ignoreUpcomingEventUntil || deserializeDateTime(ignoreUpcomingEventUntil) < DateTime.utc()) &&
-            (allAppointmentsToken.length !== 0 || session.user_id !== false)
+            (allAppointmentsToken.length !== 0 || user.userId !== false)
         ) {
             const upcomingAppointmentData = await rpc("/appointment/get_upcoming_appointments", {
                 calendar_event_access_tokens: allAppointmentsToken,
@@ -134,7 +134,7 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
                         appointmentToken: upcomingAppointmentData.next_upcoming_appointment.access_token,
                         partnerId: upcomingAppointmentData.next_upcoming_appointment.appointment_booker_id[0],
                     }));
-                if (session.user_id === false) {
+                if (user.userId === false) {
                     localStorage.setItem('appointment.upcoming_events_access_token', JSON.stringify(upcomingAppointmentData.valid_access_tokens));
                 }
             } else {

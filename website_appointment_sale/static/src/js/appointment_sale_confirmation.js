@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import publicWidget from "@web/legacy/js/public/public_widget";
-import { session } from '@web/session';
+import { user } from "@web/core/user";
 
 publicWidget.registry.appointmentSaleConfirmation = publicWidget.Widget.extend({
     selector: '.o_wappointment_sale_confirmation_card',
@@ -15,7 +15,7 @@ publicWidget.registry.appointmentSaleConfirmation = publicWidget.Widget.extend({
      */
     start: function() {
         return this._super(...arguments).then(() => { 
-            if (session.user_id) {
+            if (user.userId) {
                 return;
             }
             const eventAccessToken = this.el.dataset.eventAccessToken;

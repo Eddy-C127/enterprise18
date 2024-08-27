@@ -10,7 +10,7 @@ import { ThankYouDialog } from "@sign/dialogs/dialogs";
 import { registry } from "@web/core/registry";
 import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { uiService } from "@web/core/ui/ui_service";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 
 const serviceRegistry = registry.category("services");
 
@@ -82,10 +82,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         await mountThankYouDialog(await createEnv(mockRPC));
 
-        assert.strictEqual(
-            target.querySelector(".modal-title").textContent.trim(),
-            "All done!"
-        );
+        assert.strictEqual(target.querySelector(".modal-title").textContent.trim(), "All done!");
         assert.strictEqual(
             target.querySelector("#thank-you-message").textContent,
             "bla",
@@ -125,7 +122,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         const env = await createEnv(mockRPC);
 
-        patchWithCleanup(session, {user_id: false});
+        patchWithCleanup(user, { userId: false });
 
         await mountThankYouDialog(env);
 

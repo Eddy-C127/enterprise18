@@ -3,7 +3,7 @@
 import { serializeDate } from "@web/core/l10n/dates";
 import { GridRow } from "@web_grid/views/grid_model";
 import { TimesheetGridDataPoint, TimesheetGridModel } from "../timesheet_grid/timesheet_grid_model";
-import { session } from "@web/session";
+import { user } from "@web/core/user";
 
 export class TimerGridRow extends GridRow {
     constructor(domain, valuePerFieldName, model, section, isAdditionalRow = false) {
@@ -66,7 +66,7 @@ export class TimerTimesheetGridDataPoint extends TimesheetGridDataPoint {
             "res.users",
             "get_daily_working_hours",
             [
-                session.user_id,
+                user.userId,
                 serializeDate(this.navigationInfo.periodStart),
                 serializeDate(this.navigationInfo.periodEnd),
             ],

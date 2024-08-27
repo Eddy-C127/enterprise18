@@ -2,6 +2,7 @@
 
 import { _t } from "@web/core/l10n/translation";
 import { session } from "@web/session";
+import { user } from "@web/core/user";
 import { Dialog } from "@web/core/dialog/dialog";
 import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
@@ -48,7 +49,7 @@ export class ThankYouDialog extends Component {
     }
 
     get suggestSignUp() {
-        return session.user_id === false;
+        return user.userId === false;
     }
 
     get dialogProps() {
@@ -74,14 +75,12 @@ export class ThankYouDialog extends Component {
         );
         this.closeLabel = _t("Close");
         if (!session.is_frontend) {
-            const result = await this.orm.call(
-                "sign.request",
-                "get_close_values",
-                [[this.signInfo.get("documentId")]],
-            );
+            const result = await this.orm.call("sign.request", "get_close_values", [
+                [this.signInfo.get("documentId")],
+            ]);
             this.closeAction = result.action;
-            this.closeLabel = result.label
-            const closeContext = result.custom_action ? {} : {clearBreadcrumbs: true};
+            this.closeLabel = result.label;
+            const closeContext = result.custom_action ? {} : { clearBreadcrumbs: true };
             this.closeContext = closeContext;
         }
         if (!this.suggestSignUp && !session.is_website_user) {

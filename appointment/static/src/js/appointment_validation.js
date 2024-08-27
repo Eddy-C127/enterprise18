@@ -6,7 +6,7 @@ import publicWidget from "@web/legacy/js/public/public_widget";
 import { findInvalidEmailFromText } from  "./utils.js"
 import { deserializeDateTime } from "@web/core/l10n/dates";
 import { _t } from "@web/core/l10n/translation";
-import { session } from '@web/session';
+import { user } from "@web/core/user";
 
 publicWidget.registry.appointmentValidation = publicWidget.Widget.extend({
     selector: '.o_appointment_validation_details',
@@ -34,7 +34,7 @@ publicWidget.registry.appointmentValidation = publicWidget.Widget.extend({
      */
     start: function() {
         return this._super(...arguments).then(() => {
-            if (session.user_id) {
+            if (user.userId) {
                 return;
             }
             const eventAccessToken = this.el.dataset.eventAccessToken;

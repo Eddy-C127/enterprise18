@@ -11,10 +11,10 @@ import {
     makeDeferred,
 } from "@web/../tests/helpers/utils";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
-import { session } from "@web/session";
 import { registry } from "@web/core/registry";
 import { actionService } from "@web/webclient/actions/action_service";
 import { getApprovalSpecBatchedService } from "@web_studio/approval/approval_hook";
+import { user } from "@web/core/user";
 
 const fakeStudioService = {
     start() {
@@ -110,8 +110,8 @@ QUnit.module("Studio Approval", (hooks) => {
     QUnit.test("approval widget basic rendering", async function (assert) {
         assert.expect(12);
 
-        patchWithCleanup(session, {
-            uid: 42,
+        patchWithCleanup(user, {
+            userId: 42,
         });
 
         await makeView({
