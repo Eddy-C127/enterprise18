@@ -357,6 +357,28 @@ class TestTaxReport(TestAccountReportsCommon):
             ]
         })
 
+    def test_vat_closing_moves_with_lock_date(self):
+        """
+        Check that we are still able to create a tax closing event if the lock date is set as the closing move
+        is not dependent of the lock date.
+        This also ensures that if we try to close again this period with a move already posted we get the same
+        """
+        self.env.company.tax_lock_date = fields.Date.from_string('2021-12-31')
+
+        options = self._generate_options(
+            self.basic_tax_report, '2021-01-15', '2021-02-01',
+            {'fiscal_position': 'domestic'}
+        )
+
+        action = self.env['account.tax.report.handler'].action_periodic_vat_entries(options)
+        move = self.env['account.move'].browse(action['res_id'])
+        with patch.object(self.registry['account.move'], '_get_vat_report_attachments', autospec=True, side_effect=lambda *args, **kwargs: []):
+            move.action_post()
+
+        action = self.env['account.tax.report.handler'].action_periodic_vat_entries(options)
+        same_move = self.env['account.move'].browse(action['res_id'])
+        self.assertEqual(move.id, same_move.id)
+
     def test_vat_closing_domestic(self):
         """ Tests the VAT closing when a foreign VAT fiscal position is selected on the tax report
         """
@@ -2784,7 +2806,7 @@ class TestTaxReport(TestAccountReportsCommon):
 
     def test_tax_report_closing_entry_draft_with_new_entries(self):
         """
-        Test whether the tax closing entry gets properly computed when reset to draft and the VAT closing button is clicked again.
+        Test whether the tax closing entry gets untouched when reset to draft and the VAT closing button is clicked again.
         """
         options = self._generate_options(self.basic_tax_report, '2023-01-01', '2023-03-31')
         self.init_invoice('out_invoice', partner=self.partner_a, invoice_date='2023-03-22', post=True, amounts=[200], taxes=self.tax_sale_a)
@@ -2798,8 +2820,8 @@ class TestTaxReport(TestAccountReportsCommon):
         subsequent_vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
         subsequent_closing_entry  = self.env['account.move'].browse(subsequent_vat_closing_action['res_id'])
         self.assertRecordValues(subsequent_closing_entry.line_ids, [
-            {'account_id': initial_values[0]['account_id'], 'balance': initial_values[0]['balance'] + 150},
-            {'account_id': initial_values[1]['account_id'], 'balance': initial_values[1]['balance'] - 150},
+            {'account_id': initial_values[0]['account_id'], 'balance': initial_values[0]['balance']},
+            {'account_id': initial_values[1]['account_id'], 'balance': initial_values[1]['balance']},
         ])
 
     def test_tax_report_multi_company_post_closing(self):
@@ -2865,6 +2887,9 @@ class TestTaxReport(TestAccountReportsCommon):
         options = self._generate_options(self.basic_tax_report, '2023-04-01', '2023-06-30')
         vat_closing_action = self.env['account.generic.tax.report.handler'].action_periodic_vat_entries(options)
         Q2_closing_entry = self.env['account.move'].browse(vat_closing_action['res_id'])
+
+        # We need to force recompute the entry as it is already generated from posting the Q1 entry.
+        Q2_closing_entry = self.env['account.generic.tax.report.handler']._generate_tax_closing_entries(self.basic_tax_report, options, closing_moves=Q2_closing_entry)
         with self.enter_test_mode():
             Q2_closing_entry.action_post()
 

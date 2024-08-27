@@ -134,13 +134,7 @@ class AccountMove(models.Model):
         sender_company = report._get_sender_company_for_export(options)
         company_ids = report.get_report_company_ids(options)
         if sender_company == self.company_id:
-            # In branch/tax unit setups, first post all the unposted moves of the other companies when posting the main company.
-            # The action param will be the value of the from_post argument
-            tax_closing_action = report.dispatch_report_action(options, 'action_periodic_vat_entries', action_param=True, on_sections_source=report.use_sections)
-            depending_closings = self.env['account.move'].with_context(allowed_company_ids=company_ids).search([
-                *(tax_closing_action.get('domain') or [('id', '=', tax_closing_action['res_id'])]),
-                ('id', '!=', self.id),
-            ])
+            depending_closings = self.env['account.tax.report.handler']._get_tax_closing_entries_for_closed_period(report, options, self.env['res.company'].browse(company_ids), posted_only=False) - self
             depending_closings_to_post = depending_closings.filtered(lambda x: x.state == 'draft')
             if depending_closings_to_post:
                 depending_action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
@@ -225,7 +219,7 @@ class AccountMove(models.Model):
     def refresh_tax_entry(self):
         for move in self.filtered(lambda m: m.tax_closing_report_id and m.state == 'draft'):
             report, options = move._get_report_options_from_tax_closing_entry()
-            self.env['account.generic.tax.report.handler']._generate_tax_closing_entries(report, options, closing_moves=move)
+            self.env[report.custom_handler_model_name or 'account.generic.tax.report.handler']._generate_tax_closing_entries(report, options, closing_moves=move)
 
     def _get_report_options_from_tax_closing_entry(self):
         self.ensure_one()

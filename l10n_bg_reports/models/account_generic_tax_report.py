@@ -31,7 +31,7 @@ class BulgarianTaxReportCustomHandler(models.AbstractModel):
         vat_to_refund = external_values['line_80'].value + external_values['line_81'].value + external_values['line_82'].value
 
         # User requested a vat refund.
-        if not float_is_zero(vat_to_refund, precision_rounding=closing_moves.currency_id.rounding):
+        if closing_moves and not float_is_zero(vat_to_refund, precision_rounding=closing_moves.currency_id.rounding):
             # Since we only override the closing moves when we have external values and external values are not
             # available on multi-company, we will always get exactly one closing move.
             for closing_move in closing_moves:

@@ -64,21 +64,11 @@ class AccountTaxReportHandler(models.AbstractModel):
         moves = self.env['account.move']
 
         # Get all companies impacting the report.
-        end_date = fields.Date.from_string(options['date']['date_to'])
         companies = self.env['res.company'].browse(report.get_report_company_ids(options))
 
-        # Get the moves separately for companies with a lock date on the concerned period, and those without.
-        tax_locked_companies = companies.filtered(lambda c: c.tax_lock_date and c.tax_lock_date >= end_date)
-        locked_companies_moves = self._get_tax_closing_entries_for_closed_period(report, options, tax_locked_companies, posted_only=False)
-        posted_locked_moves = locked_companies_moves.filtered(lambda x: x.state == 'posted')
-        moves += posted_locked_moves
-
-        non_tax_locked_companies = companies - tax_locked_companies
-        draft_locked_moves = locked_companies_moves.filtered(lambda x: x.state == 'draft')
-        draft_closing_moves = self._get_tax_closing_entries_for_closed_period(report, options, non_tax_locked_companies, posted_only=False) \
-                              + draft_locked_moves
-        companies_to_regenerate = non_tax_locked_companies + draft_locked_moves.company_id
-        moves += self._generate_tax_closing_entries(report, options, companies=companies_to_regenerate, closing_moves=draft_closing_moves, from_post=from_post)
+        companies_moves = self._get_tax_closing_entries_for_closed_period(report, options, companies, posted_only=False)
+        moves += companies_moves
+        moves += self._generate_tax_closing_entries(report, options, companies=companies - companies_moves.company_id, from_post=from_post)
 
         # Make the action for the retrieved move and return it.
         action = self.env["ir.actions.actions"]._for_xml_id("account.action_move_journal_line")
