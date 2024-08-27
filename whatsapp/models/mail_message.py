@@ -16,34 +16,17 @@ class MailMessage(models.Model):
     def _post_whatsapp_reaction(self, reaction_content, partner_id):
         self.ensure_one()
         reaction_to_delete = self.reaction_ids.filtered(lambda r: r.partner_id == partner_id)
-        reactionGroups = []
         if reaction_to_delete:
             content = reaction_to_delete.content
             reaction_to_delete.unlink()
-            reactionGroups.append(self._get_whatsapp_reaction_format(content, partner_id, unlink_reaction=True))
+            self._bus_send_reaction_group(content)
         if reaction_content and self.id:
             self.env['mail.message.reaction'].create({
                 'message_id': self.id,
                 'content': reaction_content,
                 'partner_id': partner_id.id,
             })
-            reactionGroups.append(self._get_whatsapp_reaction_format(reaction_content, partner_id))
-        self._bus_send_store(self, {"reactions": reactionGroups})
-
-    def _get_whatsapp_reaction_format(self, content, partner_id, unlink_reaction=False):
-        self.ensure_one()
-        group_domain = [('message_id', '=', self.id), ('content', '=', content)]
-        count = self.env['mail.message.reaction'].search_count(group_domain)
-        # remove old reaction and add new one if count > 0 from same partner
-        group_command = 'ADD' if count > 0 else 'DELETE'
-        return (group_command, {
-            'content': content,
-            'count': count,
-            'message': {'id': self.id},
-            "personas": [
-                ("DELETE" if unlink_reaction else "ADD", {"id": partner_id.id, "type": "partner"}),
-            ],
-        })
+            self._bus_send_reaction_group(reaction_content)
 
     def _to_store(self, store: Store, **kwargs):
         super()._to_store(store, **kwargs)
