@@ -28,8 +28,7 @@
             'point_of_sale/static/src/utils.js',
 
             'point_of_sale/static/src/sounds/notification.wav',
-            'point_of_sale/static/src/app/sound/sound_service.js',
-
+            'mail/static/src/core/common/sound_effects_service.js',
             'pos_preparation_display/static/src/app/**/*',
         ],
         'pos_preparation_display.assets_tour_tests': [

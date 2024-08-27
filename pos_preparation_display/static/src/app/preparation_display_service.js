@@ -5,8 +5,9 @@ import { getOnNotified } from "@point_of_sale/utils";
 import { useService } from "@web/core/utils/hooks";
 
 export const preparationDisplayService = {
-    dependencies: ["orm", "bus_service", "sound"],
-    async start(env, { orm, bus_service, sound }) {
+    dependencies: ["orm", "bus_service", "mail.sound_effects"],
+    async start(env, { orm, bus_service }) {
+        const sound = env.services["mail.sound_effects"];
         const datas = await orm.call(
             "pos_preparation_display.display",
             "get_preparation_display_data",

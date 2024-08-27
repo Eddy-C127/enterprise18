@@ -249,7 +249,7 @@ export class PreparationDisplay extends Reactive {
 
                 if (this.noteByLines[line.id] && line.internal_note !== this.noteByLines[line.id]) {
                     blinking = true;
-                    this.env.services.sound.play("bell");
+                    this.env.services["mail.sound_effects"].play("bell");
                 }
 
                 const orderline = new Orderline(line, orderObj, blinking);
