@@ -10,7 +10,6 @@
     "data": [
         "views/iot_views.xml",
         "data/iot_demo.xml",
-        "data/demo_data.xml",
     ],
     'assets': {
         'pos_self_order.assets': [
