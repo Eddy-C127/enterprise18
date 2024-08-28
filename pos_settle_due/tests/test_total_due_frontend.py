@@ -6,6 +6,18 @@ from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCom
 
 @odoo.tests.tagged('post_install', '-at_install')
 class TestPointOfSaleFlow(TestPointOfSaleHttpCommon):
+
+    def test_settle_account_due_update_instantly(self):
+        self.partner_test_a = self.env["res.partner"].create({"name": "A Partner"})
+        self.customer_account_payment_method = self.env['pos.payment.method'].create({
+            'name': 'Customer Account',
+            'split_transactions': True,
+        })
+
+        self.main_pos_config.write({'payment_method_ids': [(6, 0, self.customer_account_payment_method.ids)]})
+        self.main_pos_config.open_ui()
+        self.start_tour("/pos/ui?config_id=%d" % self.main_pos_config.id, 'pos_settle_account_due_update_instantly', login="accountman")
+
     def test_settle_due_account_button(self):
         """ Test that an invoice can be created after the session is closed """
         self.customer_account_payment_method = self.env['pos.payment.method'].create({

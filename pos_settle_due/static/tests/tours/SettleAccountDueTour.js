@@ -3,6 +3,7 @@ import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
 import * as PartnerList from "@point_of_sale/../tests/tours/utils/partner_list_util";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/utils/payment_screen_util";
 import * as ProductScreen from "@point_of_sale/../tests/tours/utils/product_screen_util";
+import * as ReceiptScreen from "@point_of_sale/../tests/tours/utils/receipt_screen_util";
 import * as Utils from "@point_of_sale/../tests/tours/utils/common";
 import { registry } from "@web/core/registry";
 
@@ -42,5 +43,24 @@ registry.category("web_tour.tours").add("SettleDueButtonPresent", {
             PartnerList.checkDropDownItemText("Deposit money"),
             PartnerList.clickPartnerOptions("B Partner"),
             PartnerList.checkDropDownItemText("Settle due accounts"),
+        ].flat(),
+});
+
+registry.category("web_tour.tours").add("pos_settle_account_due_update_instantly", {
+    test: true,
+    steps: () =>
+        [
+            Chrome.startPoS(),
+            ProductScreen.clickPartnerButton(),
+            ProductScreen.clickCustomer("A Partner"),
+            ProductScreen.addOrderline("Desk Pad", "10"),
+            ProductScreen.clickPayButton(),
+            PaymentScreen.clickPaymentMethod("Customer Account"),
+            PaymentScreen.clickValidate(),
+            ReceiptScreen.clickNextOrder(),
+            ProductScreen.clickPartnerButton(),
+            {
+                trigger: "tr:contains('A Partner') .partner-due:contains('19.80')",
+            },
         ].flat(),
 });
