@@ -182,6 +182,7 @@ class WhatsAppComposer(models.TransientModel):
     def _compute_button_dynamic_url(self):
         for rec in self:
             freetext_btn_vars = rec.wa_template_id.variable_ids.filtered(lambda line: line.line_type == 'button' and line.field_type == 'free_text')
+            freetext_btn_vars = freetext_btn_vars.sorted(key=lambda var: var.button_id.sequence)
             if not rec._origin.button_dynamic_url_1:
                 rec.button_dynamic_url_1 = freetext_btn_vars[0].demo_value if len(freetext_btn_vars) > 0 else ''
             if not rec._origin.button_dynamic_url_2:
