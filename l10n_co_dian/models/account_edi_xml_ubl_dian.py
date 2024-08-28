@@ -544,6 +544,12 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             })
         return vals_list
 
+    def _get_sts_namespace(self, invoice):
+        if invoice.l10n_co_edi_debit_note or invoice.move_type == 'out_refund':
+            return "http://www.dian.gov.co/contratos/facturaelectronica/v1/Structures"
+        else:
+            return "dian:gov:co:facturaelectronica:Structures-2-1"
+
     def _export_invoice_vals(self, invoice):
         # EXTENDS account.edi.xml.ubl_21
         vals = super()._export_invoice_vals(invoice)
@@ -567,6 +573,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         else:
             algorithm = "CUFE-SHA384"
 
+        vals['sts_namespace'] = self._get_sts_namespace(invoice)
         vals['vals'].update({
             'customization_id': self._dian_get_customization_id(invoice),
             'ubl_version_id': 'UBL 2.1',
@@ -725,6 +732,13 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
                 constraints['dian_credit_note'] = _("There is no invoice linked to this credit note but the operation type is '20'.")
             elif not move.reversed_entry_id.l10n_co_edi_cufe_cude_ref:
                 constraints['dian_credit_note_cufe'] = _("The invoice linked to this credit note has no CUFE.")
+
+        if move.move_type == 'in_refund':
+            # Support Document Credit Note
+            if not move.reversed_entry_id:
+                constraints['dian_credit_note'] = _("There is no support document linked to this credit note.")
+            if not move.reversed_entry_id.l10n_co_edi_cufe_cude_ref:
+                constraints['dian_credit_note_cufe'] = _("The support document linked to this credit note has no CUDS.")
 
         if move.l10n_co_edi_operation_type == '30':
             # Debit note with a referenced invoice
@@ -956,14 +970,10 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
                 'x509_issuer_description': cert_public.issuer.rfc4514_string(),
                 'x509_serial_number': cert_public.serial_number,
             })
-        if invoice.l10n_co_edi_debit_note or invoice.move_type == 'out_refund':
-            sts_namespace = "http://www.dian.gov.co/contratos/facturaelectronica/v1/Structures"
-        else:
-            sts_namespace = "dian:gov:co:facturaelectronica:Structures-2-1"
         root = etree.fromstring(xml)
         signature_vals = {
             'record': invoice,
-            'sts_namespace': sts_namespace,
+            'sts_namespace': self._get_sts_namespace(invoice),
             'provider_check_digit': invoice.company_id.partner_id._get_vat_verification_code(),
             'provider_id': invoice.company_id.partner_id._get_vat_without_verification_code(),
             'software_id': operation_mode.dian_software_id,
