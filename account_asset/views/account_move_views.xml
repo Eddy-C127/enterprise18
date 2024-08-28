@@ -48,7 +48,7 @@
         <field name="arch" type="xml">
             <field name="move_id" position="after">
                 <group string="Related Assets" invisible="not asset_ids">
-                    <field name="asset_ids" nolabel="1" colspan="2"/>
+                    <field name="asset_ids" nolabel="1"/>
                 </group>
             </field>
         </field>

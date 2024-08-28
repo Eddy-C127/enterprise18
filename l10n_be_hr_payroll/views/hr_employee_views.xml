@@ -88,7 +88,7 @@
                                    widget="double_pay"
                                    context="{'default_year':first_contract_year_n1, 'default_employee_id': id}"
                                    domain="[('year', '=', first_contract_year_n1)]"
-                                   colspan="2" nolabel="1" force_save="1">
+                                   nolabel="1" force_save="1">
                                 <tree editable="bottom">
                                     <field name="months_count"/>
                                     <field name="amount"/>
@@ -130,7 +130,7 @@
                                    force_save="1"
                                    context="{'default_year':first_contract_year, 'default_employee_id': id}"
                                    domain="[('year', '=', first_contract_year)]"
-                                   colspan="2" nolabel="1">
+                                   nolabel="1">
                                 <tree editable="bottom">
                                     <field name="months_count"/>
                                     <field name="amount"/>

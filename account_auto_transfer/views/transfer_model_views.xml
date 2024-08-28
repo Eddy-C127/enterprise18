@@ -101,7 +101,7 @@
                     </group>
                     <group>
                         <group string="Origin Accounts">
-                            <field name="account_ids" colspan="2" nolabel="1">
+                            <field name="account_ids" nolabel="1">
                                 <tree>
                                     <field name="code"/>
                                     <field name="name"/>
@@ -110,7 +110,7 @@
                             </field>
                         </group>
                         <group string="Automated Transfer">
-                            <field name="line_ids" nolabel="1" colspan="2"
+                            <field name="line_ids" nolabel="1"
                                    context="{'default_transfer_model_id': id}">
                                 <tree editable="bottom">
                                     <field name="percent_is_readonly" column_invisible="True"/>

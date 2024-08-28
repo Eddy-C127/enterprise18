@@ -52,7 +52,7 @@
                         <page string="Commissions" invisible="type == 'achieve'">
                             <group>
                                 <group>
-                                    <field name="target_commission_ids" readonly="state != 'draft'" nolabel="1" colspan="2">
+                                    <field name="target_commission_ids" readonly="state != 'draft'" nolabel="1">
                                         <tree editable="bottom" default_order="target_rate">
                                             <control>
                                                 <create string="Add a new commission level"/>
@@ -65,7 +65,7 @@
                                     </field>
                                 </group>
                                 <group>
-                                    <field name="target_commission_graph" widget="commission_graph" nolabel="1" colspan="2"/>
+                                    <field name="target_commission_graph" widget="commission_graph" nolabel="1"/>
                                 </group>
                             </group>
                         </page>

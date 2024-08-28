@@ -60,7 +60,7 @@
                         </group>
                         <!-- COMPANIES -->
                         <group string="Consolidated Companies">
-                            <field name="company_ids" options="{'no_create':True}" nolabel="1" colspan="2"
+                            <field name="company_ids" options="{'no_create':True}" nolabel="1"
                                    context="{'chart_id': id, 'consolidation_currency_id': currency_id}">
                                 <tree>
                                     <field name="name" string="Company Name"/>

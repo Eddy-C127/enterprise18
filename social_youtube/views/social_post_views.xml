@@ -120,7 +120,7 @@
                                 readonly="state != 'draft'"/>
                         </group>
                         <group invisible="youtube_accounts_count != 1 or ((not youtube_title or youtube_title == '') and not youtube_video_id)">
-                            <field name="youtube_preview" nolabel="1" colspan="2"
+                            <field name="youtube_preview" nolabel="1"
                                 widget="social_post_preview"
                                 readonly="1"
                                 class="o_social_preview_wrapper m-0 px-4 py-4 bg-200" />

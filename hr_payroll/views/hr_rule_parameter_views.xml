@@ -10,12 +10,11 @@
                         <field name="name"/>
                         <field name="code"/>
                     </group>
-                    <div string="Versions"  class="o_salary_rule_container position-relative" invisible="id">
+                    <div class="o_salary_rule_container position-relative" invisible="id">
                         <group class="pe-none user-select-none mt-4 opacity-25 lh-1">
                             <div>
                                 <span>Versions</span>
-                                <field name="parameter_version_ids"
-                                        colspan="2" nolabel="1" invisible="id">
+                                <field name="parameter_version_ids" nolabel="1">
                                     <tree>
                                         <field name="date_from"/>
                                         <field name="parameter_value"/>
@@ -28,7 +27,7 @@
                         </span>
                     </div>
                     <group string="Versions" invisible="not id">
-                        <field name="parameter_version_ids" nolabel="1" colspan="2"
+                        <field name="parameter_version_ids" nolabel="1"
                                 context="{'default_rule_parameter_id': id}">
                             <tree editable="bottom">
                                 <field name="date_from"/>
