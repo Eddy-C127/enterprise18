@@ -278,29 +278,17 @@
         <field name="model">worksheet.template</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" sample="1">
-                <field name="name"/>
-                <field name="worksheet_count"/>
                 <field name="sequence" widget="handle"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
-                            <div class="o_kanban_record_top">
-                                <div class="o_kanban_record_headings">
-                                    <strong class="o_kanban_record_title"><field name="name"/></strong>
-                                </div>
-                            </div>
-                            <div class="o_kanban_record_body">
-                                <field name="company_id" widget="many2one" groups="base.group_multi_company"/>
-                            </div>
-                            <div class="o_kanban_record_bottom">
-                                <div class="oe_kanban_bottom_left">
-                                    <a name="action_view_worksheets" type="object">
-                                        <span class="o_value"><t t-esc="record.worksheet_count.raw_value"/></span>
-                                        <span class="o_label ms-2">Worksheets</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bolder fs-5"/>
+                        <field name="company_id" widget="many2one" groups="base.group_multi_company"/>
+                        <footer class="fs-6">
+                            <a name="action_view_worksheets" type="object">
+                                <field name="worksheet_count"/>
+                                <span class="o_label ms-2">Worksheets</span>
+                            </a>
+                        </footer>
                     </t>
                 </templates>
             </kanban>

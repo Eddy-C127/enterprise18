@@ -35,15 +35,11 @@ test("Check that FsmDateWidget is displaying information in the correct format",
         type: "kanban",
         arch: `
             <kanban>
-                <field name="id"/>
-                <field name="planned_date_begin"/>
                 <field name="date_deadline"/>
                 <field name="stage_id"/>
                 <template>
-                    <t t-name="kanban-box">
-                        <div>
-                            <field name="planned_date_begin" widget="fsm_date"/>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="planned_date_begin" widget="fsm_date"/>
                     </t>
                 </template>
             </kanban>

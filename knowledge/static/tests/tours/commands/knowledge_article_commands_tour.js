@@ -401,12 +401,12 @@ const embedKanbanSteps = [{ // open the command bar
     run: 'click'
 },
 {
-    trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title .o_article_emoji:contains("🙃")`,
+    trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_article_emoji:contains("🙃")`,
 },
 { // Verify that the article has been properly created
-    trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title span:contains("New Quick Create Item")`,
+    trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer span:contains("New Quick Create Item")`,
 }, { // Click on the icon of the created article to open the emoji picker
-    trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_kanban_record_title .o_article_emoji`,
+    trigger: `${embedViewSelector(embedKanbanName)} .o_kanban_renderer .o_article_emoji`,
     run: 'click',
 }, { // Select another emoji for the created article
     trigger: '.o-Emoji[data-codepoints="🤩"]',

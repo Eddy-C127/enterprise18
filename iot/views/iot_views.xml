@@ -76,22 +76,14 @@
                 <header>
                     <button name="%(iot.action_add_iot_box)d" type="action" string="Connect" class="btn-primary o-kanban-button-new"  display="always"/>
                 </header>
-                <field name="name"/>
-                <field name="identifier"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click p-0">
-                            <div class="p-4 border-start">
-                                <div class="col-10 text-truncate fw-bold" t-att-title="record.name.raw_value"><field name="name"/></div>
-                                <div class="col-10">
-                                    <span><field name="ip_url" widget="url"/></span>
-                                </div>
-                                <div>
-                                    <a class="p-2" name="%(iot_device_action_search_iot_box)d" type="action">
-                                        <span class="float-end" aria-label="Device Count"><field name="device_count"/> <i t-attf-class="fa fa-plug"/></span>
-                                    </a>
-                                </div>
-                            </div>
+                    <t t-name="kanban-card" class="p-0">
+                        <div class="p-4 border-start">
+                            <div class="text-truncate fw-bold" t-att-title="record.name.raw_value"><field name="name"/></div>
+                            <field name="ip_url" widget="url"/>
+                            <a class="p-2" name="%(iot_device_action_search_iot_box)d" type="action">
+                                <span class="float-end" aria-label="Device Count"><field name="device_count"/> <i t-attf-class="fa fa-plug"/></span>
+                            </a>
                         </div>
                     </t>
                 </templates>
@@ -170,34 +162,29 @@
         <field name="model">iot.device</field>
         <field name="arch" type="xml">
             <kanban create="false" group_create="false" sample="1">
-                <field name="name"/>
                 <field name="type"/>
                 <field name="connection"/>
                 <field name="connected"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click p-0">
-                            <div class="row g-0">
-                                <div class="col-3 p-2 text-center align-self-center">
-                                    <t t-set="types" t-value="{'camera': 'camera', 'printer': 'printer', 'device': 'rulers', 'payment': 'payment-terminal', 'scale': 'scales', 'keyboard': 'keyboard', 'scanner': 'barcode-scanner', 'display': 'desktop', 'fiscal_data_module': 'fdm'}"/>
-                                    <img t-attf-src="/iot/static/src/img/#{types[record.type.raw_value]}.svg" t-attf-alt="Device type is #{record.type.raw_value}"/>
-                                </div>
-                                <div class="col-9 p-2 border-start">
-                                    <div class="text-truncate fw-bold" t-att-title="record.name.raw_value"><field name="name"/></div>
-                                    <span class="text-muted fst-italic text-truncate"><field name="iot_id"/></span>
-                                    <div>
-                                        <t t-if="record.connected.raw_value">
-                                            <span class="badge text-bg-success">Connected</span>
-                                        </t>
-                                        <t t-else="">
-                                            <span class="badge text-bg-secondary">Disconnected</span>
-                                        </t>
-                                    </div>
-                                    <t t-set="connections" t-value="{'network': 'wifi', 'direct': 'usb', 'bluetooth': 'bluetooth-b', 'serial': 'usb', 'hdmi': 'usb'}"/>
-                                    <span class="float-end fa-stack" t-att-title="record.connection.raw_value"><i t-attf-class="fa fa-#{connections[record.connection.raw_value]}"></i></span>
-                                </div>
+                    <t t-name="kanban-card" class="row g-0 p-0">
+                        <aside class="col-3 text-center align-self-center">
+                            <t t-set="types" t-value="{'camera': 'camera', 'printer': 'printer', 'device': 'rulers', 'payment': 'payment-terminal', 'scale': 'scales', 'keyboard': 'keyboard', 'scanner': 'barcode-scanner', 'display': 'desktop', 'fiscal_data_module': 'fdm'}"/>
+                            <img t-attf-src="/iot/static/src/img/#{types[record.type.raw_value]}.svg" t-attf-alt="Device type is #{record.type.raw_value}"/>
+                        </aside>
+                        <main class="col p-2 border-start">
+                            <div class="text-truncate fw-bold" t-att-title="record.name.raw_value"><field name="name"/></div>
+                            <field name="iot_id" class="text-muted fst-italic text-truncate"/>
+                            <div>
+                                <t t-if="record.connected.raw_value">
+                                    <span class="badge text-bg-success">Connected</span>
+                                </t>
+                                <t t-else="">
+                                    <span class="badge text-bg-secondary">Disconnected</span>
+                                </t>
                             </div>
-                        </div>
+                            <t t-set="connections" t-value="{'network': 'wifi', 'direct': 'usb', 'bluetooth': 'bluetooth-b', 'serial': 'usb', 'hdmi': 'usb'}"/>
+                            <span class="ms-auto fa-stack" t-att-title="record.connection.raw_value"><i t-attf-class="fa fa-#{connections[record.connection.raw_value]}"></i></span>
+                        </main>
                     </t>
                 </templates>
             </kanban>

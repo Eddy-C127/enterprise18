@@ -137,12 +137,9 @@ QUnit.module("Knowledge External Embeds Tests", (hooks) => {
             views: {
                 "quick_create,1,kanban":
                     `<kanban on_create="quick_create" quick_create="1" default_group_by="state">
-                        <field name="int"/>
                         <templates>
-                            <t t-name="kanban-box">
-                                <div>
+                            <t t-name="kanban-card">
                                 <field name="name"/>
-                                </div>
                             </t>
                         </templates>
                     </kanban>`,
