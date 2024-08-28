@@ -4,10 +4,11 @@
 from markupsafe import Markup
 
 from odoo.tests.common import tagged, HttpCase
+from odoo.addons.mail.tests.common import MailCommon
 
 
 @tagged('-at_install', 'post_install')
-class TestDiscussChannelExpand(HttpCase):
+class TestDiscussChannelExpand(HttpCase, MailCommon):
 
     def test_channel_expand_tour(self):
         testuser = self.env['res.users'].create({
@@ -27,5 +28,5 @@ class TestDiscussChannelExpand(HttpCase):
         )
         # clear all bus notifications, so that tour does not replay old notifications
         # on a more recent state with init_messaging
-        self.env['bus.bus'].search([]).unlink()
+        self._reset_bus()
         self.start_tour("/web", 'mail_enterprise/static/tests/tours/discuss_channel_expand_test_tour.js', login='testuser')

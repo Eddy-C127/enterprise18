@@ -17,6 +17,7 @@ class TestSpreadsheetBus(SpreadsheetTestCommon, MailCase):
             channel_with_db(self.env.registry.db_name, c)
             for c in self.env["ir.websocket"]._add_spreadsheet_collaborative_bus_channels(channels)
         ]
+        self.env.cr.precommit.run()  # trigger the creation of bus.bus records
         return self.env["bus.bus"]._poll(channels, last)
 
     def poll_spreadsheet(self, spreadsheet_id, share_id=None, access_token=None):
