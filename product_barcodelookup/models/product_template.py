@@ -191,6 +191,8 @@ class ProductTemplate(models.Model):
 
         if description := product_data.get('description'):
             product.description = Markup("<p>%s</p>") % description
+        elif not product.description:
+            product.description = ""
         product.description += Markup("<br>").join([Markup("<b>%s</b><br><ul>%s</ul>") % (attr_name, attr_value)
                                                     for attr_name, attr_value in product_description.items() if attr_value])
         return description
