@@ -16,6 +16,11 @@ class websiteHelpdeskForumUi(HelpdeskCommon, TestForumCommon, HttpCase):
         cls.test_team.use_website_helpdesk_forum = True
         cls._activate_multi_website()
 
+        cls.env['forum.post'].create({
+            'name': 'Very Smart Question',
+            'forum_id': cls.env.ref('website_forum.forum_help').id,
+        })
+
     def test_website_helpdesk_forum_tour(self):
         partner = self.env['res.partner'].create({
             'name': 'Jean-Luc',
