@@ -147,6 +147,7 @@ CURRENCY_PROVIDER_SELECTION = [
     (['CA'], 'boc', '[CA] Bank of Canada'),
     (['CH'], 'fta', '[CH] Federal Tax Administration of Switzerland'),
     (['CL'], 'mindicador', '[CL] Central Bank of Chile via mindicador.cl'),
+    (['CO'], 'banrepco', '[CO] Bank of the Republic'),
     (['CZ'], 'cnb', '[CZ] Czech National Bank'),
     (['EG'], 'cbegy', '[EG] Central Bank of Egypt'),
     (['GT'], 'banguat', '[GT] Bank of Guatemala'),
@@ -799,6 +800,65 @@ class ResCompany(models.Model):
             rate = data_json['serie'][0]['valor']
             rslt[index] = (1.0 / rate,  date)
         return rslt
+
+    def _parse_banrepco_data(self, available_currencies):
+        """
+        Parse function for the Banco de la Republica de Colombia
+        * the webservice returns the exchange rate between Colombian Peso (COP) and USD
+        """
+        client = Client('https://totoro.banrep.gov.co/OCDEv1.0/Services/NSIStdV21WsService?wsdl')
+        date_time = fields.Datetime.context_timestamp(self, fields.Datetime.now())
+
+        result = client.service.GetGenericData({
+            'Header': {
+                'ID': 'IDREF2',
+                'Test': 'false',
+                'Prepared': date_time,
+                'Sender': {'id': 'Unknown'},
+                'Receiver': {'id': 'Unknown'}
+            },
+            'Query': {
+                'ReturnDetails': {
+                    'detail': 'Full',
+                    'observationAction': 'Active',
+                    'Structure': {
+                        'dimensionAtObservation': "REFERENCE_AREA",
+                        'structureID': "StructureId",
+                        'Structure': {
+                            'Ref': {
+                                'agencyID': "OECD",
+                                'id': "STES",
+                                'version': "3.0",
+                            }
+                        },
+                    },
+                },
+                'DataWhere': {
+                    'DataSetID': "DF_TRM_DAILY_LATEST",
+                    'Dataflow': {
+                        'Ref': {
+                            'agencyID': "ESTAT",
+                            'id': "DF_TRM_DAILY_LATEST",
+                        },
+                    },
+                    'Or': [
+                        {'DimensionValue': {'ID': 'SUBJECT', 'Value': {'operator': 'equal', '_value_1': 'CCSP'}}},
+                        {'DimensionValue': {'ID': 'UNIT_MEASURE', 'Value': {'operator': 'equal', '_value_1': 'COP'}}},
+                        {'DimensionValue': {'ID': 'REFERENCE_AREA', 'Value': {'operator': 'equal', '_value_1': 'CO'}}},
+                        {'DimensionValue': {'ID': 'FREQ', 'Value': {'operator': 'equal', '_value_1': 'D'}}},
+                        {'DimensionValue': {'ID': 'DOMAIN', 'Value': {'operator': 'equal', '_value_1': 'FINMARK'}}},
+                        {'DimensionValue': {'ID': 'OBS_STATUS', 'Value': {'operator': 'equal', '_value_1': 'A'}}},
+                        {'DimensionValue': {'ID': 'UNIT_MULT', 'Value': {'operator': 'equal', '_value_1': '0'}}},
+                    ],
+                },
+            },
+        })
+
+        rate = float(result.DataSet[0].Series[0].Obs[0].ObsValue.value)
+        time_period = next(x.value for x in result.DataSet[0].Series[0].SeriesKey.Value if x.id == 'TIME_PERIOD')
+        date = fields.Date.to_string(datetime.datetime.strptime(time_period, '%Y%m%d'))
+
+        return {'COP': (1, date), 'USD': (1.0 / rate, date)}
 
     def _parse_tcmb_data(self, available_currencies):
         """Parse function for Turkish Central bank provider
