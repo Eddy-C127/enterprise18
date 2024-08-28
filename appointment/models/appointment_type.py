@@ -159,8 +159,8 @@ class AppointmentType(models.Model):
 
     # Statistics / Technical / Misc
     appointment_count = fields.Integer('# Appointments', compute='_compute_appointment_count')
-    appointment_count_report = fields.Integer(
-        '# Appointments in the last 30 days', compute='_compute_appointment_count_report')
+    appointment_count_upcoming = fields.Integer(
+        '# Upcoming Appointments', compute='_compute_appointment_count_upcoming')
     appointment_invite_ids = fields.Many2many('appointment.invite', string='Invitation Links')
     appointment_invite_count = fields.Integer('# Invitation Links', compute='_compute_appointment_invite_count')
     meeting_ids = fields.One2many('calendar.event', 'appointment_type_id', string="Appointment Meetings")
@@ -186,16 +186,14 @@ class AppointmentType(models.Model):
             appointment_type.appointment_count = mapped_data.get(appointment_type.id, 0)
 
     @api.depends('meeting_ids')
-    def _compute_appointment_count_report(self, n_days=30):
-        from_n_days_ago = datetime.combine(datetime.today().date() - timedelta(days=n_days), datetime.min.time())
-        until_yesterday = datetime.combine(datetime.today().date(), datetime.max.time())
+    def _compute_appointment_count_upcoming(self):
         meeting_data = self.env['calendar.event']._read_group(
-            [('appointment_type_id', 'in', self.ids), ('start', '>=', from_n_days_ago), ('start', '<=', until_yesterday)],
+            [('appointment_type_id', 'in', self.ids), ('start', '>', datetime.now())],
             ['appointment_type_id'], ['__count'])
         mapped_data = {appointment_type.id: count for appointment_type, count in meeting_data}
 
         for appointment_type in self:
-            appointment_type.appointment_count_report = mapped_data.get(appointment_type.id, 0)
+            appointment_type.appointment_count_upcoming = mapped_data.get(appointment_type.id, 0)
 
     @api.depends('appointment_duration')
     def _compute_appointment_duration_formatted(self):

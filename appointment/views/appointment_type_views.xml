@@ -78,19 +78,19 @@
                             </div>
                             <div class="col-lg-2 col-sm-5 col-6 py-0 my-2 my-lg-auto text-large">
                                 <span class="fw-normal">
+                                    <field name="appointment_count_upcoming"/>
+                                    <t t-if="record.schedule_based_on.raw_value == 'users'"> Meetings</t>
+                                    <t t-else=""> Bookings</t>
+                                </span><br/>
+                                <span>Upcoming</span>
+                            </div>
+                            <div class="col-lg-3 col-sm-7 col-6 py-0 ps-2 ps-sm-3 my-2 my-lg-auto text-large">
+                                <span class="fw-normal">
                                     <field name="appointment_count"/>
                                     <t t-if="record.schedule_based_on.raw_value == 'users'"> Meetings</t>
                                     <t t-else=""> Bookings</t>
                                 </span><br/>
-                                <span>Scheduled</span>
-                            </div>
-                            <div class="col-lg-3 col-sm-7 col-6 py-0 ps-2 ps-sm-3 my-2 my-lg-auto text-large">
-                                <span class="fw-normal">
-                                    <field name="appointment_count_report"/> Total
-                                    <t t-if="record.schedule_based_on.raw_value == 'users'"> Meetings</t>
-                                    <t t-else=""> Bookings</t>
-                                </span><br/>
-                                <span>(Last 30 Days)</span>
+                                <span>Total</span>
                             </div>
                             <field name="active" invisible="1"/>
                         </div>
