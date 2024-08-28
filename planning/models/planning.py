@@ -2293,9 +2293,7 @@ class PlanningPlanning(models.Model):
             ('start_datetime', '>=', self.start_datetime),
             ('end_datetime', '<=', self.end_datetime),
             ('state', '=', 'published'),
-            '|',
-                ('employee_id', '=', employee.id),
-                ('request_to_switch', '=', True),
+            ('employee_id', '=', employee.id),
         ])
         slots_in_planning._get_ics_file(calendar, employee.tz)
         return calendar
