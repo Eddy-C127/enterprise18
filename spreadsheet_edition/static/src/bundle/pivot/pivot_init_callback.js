@@ -8,7 +8,7 @@ import { deepCopy } from "@web/core/utils/objects";
 import { _t } from "@web/core/l10n/translation";
 
 const uuidGenerator = new helpers.UuidGenerator();
-const { parseDimension, isDateField } = helpers;
+const { parseDimension, isDateOrDatetimeField } = helpers;
 
 const { SidePanelStore } = stores;
 
@@ -25,7 +25,7 @@ function ensureSuccess(result) {
 
 function addEmptyGranularity(dimensions, fields) {
     return dimensions.map((dimension) => {
-        if (isDateField(fields[dimension.fieldName])) {
+        if (isDateOrDatetimeField(fields[dimension.fieldName])) {
             return {
                 granularity: "month",
                 ...dimension,

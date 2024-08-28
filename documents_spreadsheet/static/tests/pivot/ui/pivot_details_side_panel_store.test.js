@@ -173,6 +173,10 @@ test("can reuse date fields until all granularities are used", async () => {
             { fieldName: "create_date", granularity: "iso_week_number" },
             { fieldName: "create_date", granularity: "week" },
             { fieldName: "create_date", granularity: "day_of_month" },
+            { fieldName: "create_date", granularity: "day_of_week" },
+            { fieldName: "create_date", granularity: "hour_number" },
+            { fieldName: "create_date", granularity: "minute_number" },
+            { fieldName: "create_date", granularity: "second_number" },
         ],
     });
     expect(store.unusedGroupableFields.length).toBe(1);
@@ -186,7 +190,11 @@ test("can reuse date fields until all granularities are used", async () => {
             { fieldName: "create_date", granularity: "iso_week_number" },
             { fieldName: "create_date", granularity: "week" },
             { fieldName: "create_date", granularity: "day_of_month" },
+            { fieldName: "create_date", granularity: "day_of_week" },
             { fieldName: "create_date", granularity: "day" },
+            { fieldName: "create_date", granularity: "hour_number" },
+            { fieldName: "create_date", granularity: "minute_number" },
+            { fieldName: "create_date", granularity: "second_number" },
         ],
     });
     expect(store.unusedGroupableFields.length).toBe(0);

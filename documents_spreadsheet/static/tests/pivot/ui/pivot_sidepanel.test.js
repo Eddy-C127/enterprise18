@@ -721,10 +721,10 @@ test("pivot with twice the same date field with different granularity", async fu
     expect(firstDateGroup).toHaveValue("year");
     expect(secondDateGroup).toHaveValue("day");
     expect(firstDateGroup).toHaveText(
-        "Year\nQuarter\nQuarter & Year\nMonth\nMonth & Year\nWeek\nWeek & Year\nDay of Month"
+        "Year\nQuarter\nQuarter & Year\nMonth\nMonth & Year\nWeek\nWeek & Year\nDay of Month\nDay of Week"
     );
     expect(secondDateGroup).toHaveText(
-        "Quarter\nQuarter & Year\nMonth\nMonth & Year\nWeek\nWeek & Year\nDay of Month\nDay"
+        "Quarter\nQuarter & Year\nMonth\nMonth & Year\nWeek\nWeek & Year\nDay of Month\nDay\nDay of Week"
     );
 });
 

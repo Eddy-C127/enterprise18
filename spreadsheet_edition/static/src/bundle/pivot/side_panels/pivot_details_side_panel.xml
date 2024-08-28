@@ -11,10 +11,11 @@
             <OdooPivotLayoutConfigurator
                 unusedGroupableFields="store.unusedGroupableFields"
                 measureFields="store.measureFields"
-                unusedDateTimeGranularities="store.unusedDateTimeGranularities"
                 definition="definition"
+                unusedGranularities="store.unusedGranularities"
+                dateGranularities="store.dateGranularities"
+                datetimeGranularities="store.datetimeGranularities"
                 onDimensionsUpdated.bind="onDimensionsUpdated"
-                allGranularities="store.allGranularities"
                 pivotId="props.pivotId"
             />
             <div class="o_side_panel_section">

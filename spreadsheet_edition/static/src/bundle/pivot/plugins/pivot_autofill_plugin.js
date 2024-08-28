@@ -2,7 +2,8 @@ import { _t } from "@web/core/l10n/translation";
 import { UIPlugin, tokenize, helpers } from "@odoo/o-spreadsheet";
 import { domainHasNoRecordAtThisPosition } from "@spreadsheet/pivot/pivot_helpers";
 
-const { getNumberOfPivotFunctions, isDateField, pivotTimeAdapter, createPivotFormula } = helpers;
+const { getNumberOfPivotFunctions, isDateOrDatetimeField, pivotTimeAdapter, createPivotFormula } =
+    helpers;
 
 /**
  * @typedef {import("@odoo/o-spreadsheet").SpreadsheetPivotTable} SpreadsheetPivotTable
@@ -729,7 +730,7 @@ export class PivotAutofillPlugin extends UIPlugin {
      */
     _isGroupedOnlyByOneDate(definition, dimension) {
         const groupBys = dimension === "COLUMN" ? definition.columns : definition.rows;
-        return groupBys.length === 1 && isDateField(groupBys[0]);
+        return groupBys.length === 1 && isDateOrDatetimeField(groupBys[0]);
     }
     /**
      * @param {OdooPivotDefinition} definition
