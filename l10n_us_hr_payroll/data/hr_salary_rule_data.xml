@@ -764,6 +764,24 @@ result = -pfl_amount
         <field name="partner_id" ref="res_partner_tax_finance_ny"/>
     </record>
 
+    <record id="l10n_us_employee_salary_worker_compensation" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_us_hr_payroll.hr_payroll_taxes"/>
+        <field name="name">Worker's Compensation</field>
+        <field name="code">WORKER_COMPENSATION</field>
+        <field name="sequence">166</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">
+result = employee.address_id.state_id.code == 'WA' and contract.l10n_us_worker_compensation_id
+        </field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+payroll_deduction = contract.l10n_us_worker_compensation_id.payroll_deduction
+xp_factor = payslip._rule_parameter('l10n_us_business_experience_factor')
+result = payroll_deduction * payslip.sum_worked_hours * xp_factor
+        </field>
+        <field name="struct_id" ref="l10n_us_hr_payroll.hr_payroll_structure_us_employee_salary"/>
+    </record>
+
     <record id="l10n_us_employee_salary_roth_401k" model="hr.salary.rule">
         <field name="category_id" ref="l10n_us_hr_payroll.hr_payroll_post_tax_deductions"/>
         <field name="name">Roth 401(k)</field>
@@ -1323,6 +1341,25 @@ result_rate = payslip._rule_parameter('l10n_us_nv_cep_rate')
         </field>
         <field name="appears_on_payslip" eval="False"/>
         <field name="partner_id" ref="res_partner_department_employment_nv"/>
+        <field name="struct_id" ref="l10n_us_hr_payroll.hr_payroll_structure_us_employee_salary"/>
+    </record>
+
+    <record id="l10n_us_employee_salary_company_worker_compensation" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_us_hr_payroll.hr_payroll_employer_deductions"/>
+        <field name="name">Employer Taxes: Worker's Compensation</field>
+        <field name="code">COMPANY_WORKER_COMPENSATION</field>
+        <field name="sequence">177</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">
+result = employee.address_id.state_id.code == 'WA' and contract.l10n_us_worker_compensation_id
+        </field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+composite_rate = contract.l10n_us_worker_compensation_id.composite_rate
+payroll_deduction = contract.l10n_us_worker_compensation_id.payroll_deduction
+xp_factor = payslip._rule_parameter('l10n_us_business_experience_factor')
+result = (composite_rate - payroll_deduction) * payslip.sum_worked_hours * xp_factor
+        </field>
         <field name="struct_id" ref="l10n_us_hr_payroll.hr_payroll_structure_us_employee_salary"/>
     </record>
 

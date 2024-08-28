@@ -3292,4 +3292,15 @@
         <field name="rule_parameter_id" ref="l10n_us_employee_salary_ca_sdi_tax_rate"/>
         <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
     </record>
+
+    <record id="l10n_us_business_experience_factor" model="hr.rule.parameter">
+        <field name="name">US: Business Experience Factor</field>
+        <field name="code">l10n_us_business_experience_factor</field>
+        <field name="country_id" ref="base.us"/>
+    </record>
+    <record id="l10n_us_business_experience_factor_2024" model="hr.rule.parameter.value">
+        <field name="parameter_value">1</field>
+        <field name="rule_parameter_id" ref="l10n_us_business_experience_factor"/>
+        <field name="date_from" eval="datetime(2024, 1, 1).date()"/>
+    </record>
 </odoo>

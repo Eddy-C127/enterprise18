@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import models, fields
@@ -28,7 +27,7 @@ class HrContract(models.Model):
     l10n_us_pre_retirement_matching_yearly_cap = fields.Float(
         string='Retirement Plans: Matching Yearly Cap',
         default=100,
-        help="Maximun amount, as percentage (%), of the employee's salary that will be matched by the Employer as benefit.")
+        help="Maximum amount, as percentage (%), of the employee's salary that will be matched by the Employer as benefit.")
     l10n_us_health_benefits_medical = fields.Monetary(
         string="Health Benefits: Medical",
         help="Pre-tax amount (USD) deducted for Medical health benefits.")
@@ -59,6 +58,12 @@ class HrContract(models.Model):
             ('fixed', '$ / slip')],
         string="ROTH 401(k) Type",
         default='percent')
+    l10n_us_employee_state_code = fields.Char(
+        related='employee_id.address_id.state_id.code',
+        readonly=True)
+    l10n_us_worker_compensation_id = fields.Many2one(
+        'l10n.us.worker.compensation',
+        string="Worker Compensation")
 
     _sql_constraints = [
         (
