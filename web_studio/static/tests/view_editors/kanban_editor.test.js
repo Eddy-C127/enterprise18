@@ -544,7 +544,7 @@ test("grouped kanban editor with record", async () => {
     });
     expect(".o_web_studio_kanban_view_editor").toHaveClass("o_kanban_grouped");
     expect(".o_kanban_group .o_kanban_header").toHaveCount(2);
-    expect(".o_kanban_grouped .o_kanban_header_title").toHaveText("coucou 1");
+    expect(".o_kanban_grouped .o_kanban_header_title").toHaveText("coucou 1\n(1)");
     expect(".o_kanban_group .o_kanban_counter").toHaveCount(0);
     expect(".o_web_studio_kanban_view_editor .o-web-studio-editor--element-clickable").toHaveCount(
         1
