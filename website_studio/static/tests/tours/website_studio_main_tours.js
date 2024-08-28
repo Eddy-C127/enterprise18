@@ -113,3 +113,55 @@ registry.category("web_tour.tours").add("website_studio_listing_without_page", {
         },
     ],
 });
+
+registry.category("web_tour.tours").add("website_studio_website_form", {
+    test: true,
+    steps: () => [
+        {
+            trigger: ".o_edit_website_container .o-website-btn-custo-primary",
+            run: "click",
+        },
+        {
+            trigger: "#snippet_groups",
+        },
+        {
+            trigger: ":iframe .odoo-editor-editable .s_website_form .o_default_snippet_text",
+            run: "click",
+        },
+        {
+            trigger: ".snippet-option-WebsiteFormEditor we-select:eq(0)",
+            run: "click",
+        },
+        {
+            trigger: ".snippet-option-WebsiteFormEditor we-select:eq(0).o_we_widget_opened"
+        },
+        {
+            trigger: ".snippet-option-WebsiteFormEditor we-button[data-select-action='website_studio.form_more_model']",
+            run: "click",
+        },
+        {
+            trigger: ".modal .o_list_view"
+        },
+        {
+            trigger: ".modal .o_searchview_input",
+            run: "edit x_test_model && press Enter"
+        },
+        {
+            trigger: ".modal .o_data_row:contains(x_test_model) .o_data_cell",
+            run: "click",
+        },
+        {
+            trigger: "body:not(:has(.modal)) .o_we_user_value_widget[data-name='enable_website_form_access'].active"
+        },
+        {
+            trigger: ":iframe form[data-model_name='x_test_model']",
+        },
+        {
+            trigger: ".o_we_website_top_actions button[data-action='save']",
+            run: "click",
+        },
+        {
+            trigger: ".o_website_preview:not(.editor_enable) :iframe form[data-model_name='x_test_model']",
+        },
+    ]
+});

@@ -216,3 +216,70 @@ class TestUi(odoo.tests.HttpCase):
         self.assertEqual(image_field[0].get("t-options-widget"), "'image'")
         monetary_field = listing_tree.xpath("//span[@t-field='record.x_studio_monetary']")
         self.assertEqual(len(monetary_field), 1)
+
+    def test_website_form(self):
+        self.create_empty_app()
+
+        pre_values_model = {
+            "website_form_access": False,
+            "website_form_key": False,
+            "website_form_label": False,
+        }
+
+        for fname, val in pre_values_model.items():
+            self.assertEqual(self.newModel[fname], val)
+
+        view = self.env["ir.ui.view"].create({
+            "arch": """
+            <t t-name="website.website-studio-page">
+                <t t-call="website.layout">
+                    <div id="wrap" class="oe_structure">
+                        <section class="s_website_form o_cc o_cc2 pt64 pb64 o_colored_level" data-vcss="001" data-snippet="s_website_form" data-name="Form">
+                            <div class="o_container_small">
+                                <form action="/website/form/" method="post" enctype="multipart/form-data" class="o_mark_required" data-mark="*" data-pre-fill="true" data-model_name="mail.mail" data-success-mode="redirect" data-success-page="/contactus-thank-you">
+                                    <div class="row text-center">
+                                        <div class="col-12 pb16 o_colored_level">
+                                            <h2 class="o_default_snippet_text">Let's Connect</h2>
+                                        </div>
+                                    </div>
+                                    <div class="s_website_form_rows row s_col_no_bgcolor">
+                                        <div data-name="Field" class="s_website_form_field mb-3 col-12 s_website_form_dnone">
+                                            <div class="row s_col_no_resize s_col_no_bgcolor">
+                                                <label class="col-form-label col-sm-auto s_website_form_label" style="width: 200px">
+                                                    <span class="s_website_form_label_content"/>
+                                                </label>
+                                            <div class="col-sm"></div>
+                                        </div>
+                                    </div>
+                                    <div class="mb-0 py-2 col-12 s_website_form_submit text-end s_website_form_no_submit_label" data-name="Submit Button">
+                                            <div style="width: 200px;" class="s_website_form_label"/>
+                                            <span id="s_website_form_result"/>
+                                            <a href="#" role="button" class="btn btn-primary s_website_form_send o_default_snippet_text">Submit</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </section>
+                    </div>
+                </t>
+            </t>""",
+            "type": "qweb"
+        })
+        self.env["website.page"].create({
+            "url": "/website-studio-page",
+            "view_id": view.id,
+        })
+
+        self.start_tour("/@/website-studio-page", 'website_studio_website_form', login="admin", timeout=3600)
+        post_values_model = {
+            "website_form_access": True,
+            "website_form_key": f"website_studio.{self.newModel.model}",
+            "website_form_label": f"Create {self.newModel.name}",
+        }
+        for fname, val in post_values_model.items():
+            self.assertEqual(self.newModel[fname], val)
+
+        cow_view = self.env["ir.ui.view"].search([("key", "=", view.key), ("id", "not in", view.ids)])
+        view_tree = etree.fromstring(cow_view.arch)
+        form = view_tree.xpath("//form")[0]
+        self.assertEqual(form.get("data-model_name"), self.newModel.model)
