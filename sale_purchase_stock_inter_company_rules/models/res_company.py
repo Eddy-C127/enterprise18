@@ -10,11 +10,13 @@ class res_company(models.Model):
         string="Warehouse",
         help="Default value to set on Purchase(Sales) Orders that will be created based on Sale(Purchase) Orders made to this company",
         compute='_compute_intercompany_stock_fields',
+        readonly=False,
         store=True,
     )
     intercompany_sync_delivery_receipt = fields.Boolean(
         string="Synchronize Deliveries to your Receipts",
         compute='_compute_intercompany_stock_fields',
+        readonly=False,
         store=True,
     )
     intercompany_receipt_type_id = fields.Many2one(
@@ -22,6 +24,7 @@ class res_company(models.Model):
         string="Receipt Operation Type",
         help="Default Operation type to set on Receipts that will be created for inter-company transfers",
         compute='_compute_intercompany_stock_fields',
+        readonly=False,
         store=True,
     )
 
