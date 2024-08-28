@@ -435,6 +435,24 @@ class TestReportEditorUIUnit(HttpCase):
              </t>
         """)
 
+    def test_basic_report_edition_cancel_discard(self):
+        self.start_tour(self.tour_url, "web_studio.test_basic_report_edition_cancel_discard", login="admin")
+
+        main_arch, _ = get_combined_and_studio_arch(self.main_view)
+
+        self.assertXMLEqual(main_arch, """
+            <t t-name="web_studio.test_report">
+               <t t-call="web.html_container">
+                 <div>
+                   <p>edited with odoo editor</p>
+                 </div>
+                 <t t-foreach="docs" t-as="doc">
+                   <t t-call="web_studio.test_report_document"/>
+                 </t>
+               </t>
+             </t>
+        """)
+
     def test_basic_report_edition_xml_discard(self):
         self.start_tour(self.tour_url, "web_studio.test_basic_report_edition_xml_discard", login="admin")
 

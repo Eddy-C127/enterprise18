@@ -481,7 +481,11 @@ export class ReportEditorWysiwyg extends Component {
 
     async discard() {
         this.wysiwyg.odooEditor.document.getSelection().removeAllRanges();
-        await this.wysiwyg.cancel(false);
+        try {
+            await this.wysiwyg.cancel(false);
+        } catch {
+            return
+        }
         await this.reportEditorModel.discardReport();
     }
 

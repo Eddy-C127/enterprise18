@@ -260,6 +260,46 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_di
     ],
 });
 
+registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_cancel_discard", {
+    test: true,
+    sequence: 260,
+    steps: () => [
+        {
+            trigger: ".o_web_studio_sidebar input[id='name']",
+            run: "text modified in test",
+        },
+        {
+            trigger: ".o_web_studio_menu .breadcrumb-item.active",
+            run() {
+                assertEqual(this.$anchor[0].textContent, "modified in test");
+            },
+        },
+        {
+            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable p:eq(0)",
+            run: "text edited with odoo editor",
+        },
+        {
+            trigger: ".o-web-studio-discard-report.btn-secondary",
+        },
+        {
+            trigger: ".modal-dialog .btn-secondary",
+        },
+        {
+            trigger: ".o-web-studio-report-editor-wysiwyg iframe .odoo-editor-editable p:eq(0)",
+            run() {
+                assertEqual(this.$anchor[0].textContent, "edited with odoo editor");
+            },
+        },
+        {
+            trigger: ".o-web-studio-save-report.btn-primary",
+        },
+        {
+            trigger: ".o-web-studio-save-report:not(.btn-primary)",
+            isCheck: true,
+        },
+    ],
+});
+
 registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_xml_discard", {
     test: true,
     sequence: 260,
