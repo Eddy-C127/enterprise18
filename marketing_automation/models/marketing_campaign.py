@@ -322,9 +322,7 @@ class MarketingCampaign(models.Model):
 
     def action_view_tracker_statistics(self):
         action = self.env["ir.actions.actions"]._for_xml_id("marketing_automation.link_tracker_action_marketing_campaign")
-        action['domain'] = [
-            ('mass_mailing_id', 'in', self.mapped('marketing_activity_ids.mass_mailing_id').ids)
-        ]
+        action['domain'] = [('campaign_id', 'in', self.utm_campaign_id.ids)]
         return action
 
     def sync_participants(self):
