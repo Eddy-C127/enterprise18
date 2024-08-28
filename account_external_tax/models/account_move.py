@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 from odoo import models, _
-from odoo.tools import float_compare, formatLang
+from odoo.tools import formatLang
 
 
 class AccountMove(models.Model):
@@ -103,10 +104,17 @@ class AccountMove(models.Model):
 
         for record in self:
             for tax, external_amount in summary.get(record, {}).items():
-                tax_line = record.line_ids.filtered(lambda l: l.tax_line_id == tax)
+                tax_lines = record.line_ids.filtered(lambda l: l.tax_line_id == tax)
+                if not tax_lines:
+                    continue
 
                 # Check that the computed taxes are close enough. For exemptions this could not be the case
                 # since some integrations will return the non-exempt rate%. In that case this will manually fix the tax
                 # lines to what the external service says they should be.
-                if float_compare(tax_line.amount_currency, external_amount, precision_rounding=record.currency_id.rounding) != 0:
-                    tax_line.amount_currency = external_amount
+                computed_taxes = sum(tax_lines.mapped('amount_currency'))
+                if record.currency_id.compare_amounts(computed_taxes, external_amount) != 0:
+                    diff = external_amount - computed_taxes
+                    for i, tax_line in enumerate(tax_lines):
+                        line_diff = record.currency_id.round(diff / (len(tax_lines) - i))
+                        diff -= line_diff
+                        tax_line.amount_currency += line_diff
