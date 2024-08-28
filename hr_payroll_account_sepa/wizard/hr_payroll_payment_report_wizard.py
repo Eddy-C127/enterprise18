@@ -18,7 +18,7 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
         payments_data = []
         sct_generic = ((self.journal_id.currency_id or self.journal_id.company_id.currency_id).name != 'EUR'
                        or self.journal_id.sepa_pain_version == 'iso_20022')
-        for slip in self.payslip_ids:
+        for slip in self.payslip_ids.filtered(lambda p: p.state == "done" and p.net_wage > 0):
             payments_data.append(slip._get_payments_vals(self.journal_id))
             if (not sct_generic and
                     (not slip.employee_id.bank_account_id.bank_bic
