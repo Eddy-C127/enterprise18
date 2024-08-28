@@ -45,6 +45,14 @@ class QualityPoint(models.Model):
     norm_unit = fields.Char('Norm Unit', default=lambda self: 'mm')  # TDE RENAME ?
     average = fields.Float(compute="_compute_standard_deviation_and_average")
     standard_deviation = fields.Float(compute="_compute_standard_deviation_and_average")
+    spreadsheet_template_id = fields.Many2one(
+        'quality.spreadsheet.template',
+        domain="['|', ('company_id', '=', False), ('company_id', '=', company_id)]",
+    )
+    spreadsheet_check_cell = fields.Char(
+        related="spreadsheet_template_id.check_cell",
+        readonly=False,
+    )
 
     @api.depends('name', 'title')
     @api.depends_context('on_demand_wizard')
@@ -233,6 +241,14 @@ class QualityCheck(models.Model):
     is_lot_tested_fractionally = fields.Boolean(related='point_id.is_lot_tested_fractionally')
     testing_percentage_within_lot = fields.Float(related="point_id.testing_percentage_within_lot")
     product_tracking = fields.Selection(related='product_id.tracking')
+    spreadsheet_id = fields.Many2one(
+        'quality.check.spreadsheet',
+        domain="[('company_id', 'in', company_ids)]",
+    )
+    spreadsheet_check_cell = fields.Char(
+        related="spreadsheet_id.check_cell",
+        readonly=False,
+    )
 
     @api.depends('measure_success')
     def _compute_warning_message(self):
@@ -366,6 +382,30 @@ class QualityCheck(models.Model):
             'default_qty_tested': check_id.qty_to_test,
         })
         return action
+
+    def action_open_spreadsheet(self):
+        if not self.spreadsheet_id:
+            self.spreadsheet_id = self._create_spreadsheet_from_template()
+        action = self.spreadsheet_id.action_open_spreadsheet()
+        action['params']['check_id'] = self.id
+        return action
+
+    def _create_spreadsheet_from_template(self):
+        self.ensure_one()
+        spreadsheet_template = self.point_id.spreadsheet_template_id
+        spreadsheet = self.env['quality.check.spreadsheet'].create({
+            'name': spreadsheet_template.name,
+            'spreadsheet_data': spreadsheet_template.spreadsheet_data,
+            'check_cell': self.point_id.spreadsheet_check_cell,
+        })
+        spreadsheet.spreadsheet_snapshot = spreadsheet_template.spreadsheet_snapshot
+        spreadsheet_template._copy_revisions_to(spreadsheet)
+        return spreadsheet
+
+    def unlink(self):
+        if self.spreadsheet_id:
+            self.spreadsheet_id.unlink()
+        return super().unlink()
 
     def _can_move_line_to_failure_location(self):
         self.ensure_one()

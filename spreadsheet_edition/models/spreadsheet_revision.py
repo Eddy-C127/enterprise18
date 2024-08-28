@@ -54,17 +54,19 @@ class SpreadsheetRevision(models.Model):
             revision.display_name = revision.name or revision.revision_uuid
 
     @api.autovacuum
-    def _gc_revisions(self):
+    def _gc_revisions(self, domain=(), inactivity_days=365):
         """Delete the history for spreadsheets that have not been modified for more
         than a year (overridable with an 'ir.config_parameter').
         """
-        inactivity_days = self.env['ir.config_parameter'].sudo().get_param(
+        config_param = self.env['ir.config_parameter'].sudo().get_param(
             'spreadsheet_edition.gc_revisions_inactivity_in_days',
-            '365'
+            ''
         )
-        one_year_ago = fields.Datetime.now() - relativedelta(days=int(inactivity_days))
+        if config_param:
+            inactivity_days = int(config_param)
+        one_year_ago = fields.Datetime.now() - relativedelta(days=inactivity_days)
         inactive_spreadsheets = self.with_context(active_test=False)._read_group(
-            domain=[],
+            domain=domain,
             groupby=["res_model", "res_id"],
             aggregates=["write_date:max"],
             having=[("write_date:max", "<=", one_year_ago)],

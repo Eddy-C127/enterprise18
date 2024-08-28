@@ -8,7 +8,7 @@
     'sequence': 120,
     'summary': 'Control the quality of your products',
     'website': 'https://www.odoo.com/app/quality',
-    'depends': ['quality'],
+    'depends': ['quality', 'spreadsheet_edition'],
     'description': """
 Quality Control
 ===============
@@ -30,6 +30,7 @@ Quality Control
         'wizard/quality_check_wizard_views.xml',
         'wizard/on_demand_quality_check_wizard_views.xml',
         'security/ir.model.access.csv',
+        'security/security.xml',
     ],
     'demo': [
         'data/quality_control_demo.xml',
@@ -39,6 +40,13 @@ Quality Control
     'assets': {
         'web.assets_backend': [
             'quality_control/static/src/**/*',
+            ('remove', 'quality_control/static/src/spreadsheet_bundle/**/*'),
+        ],
+        'spreadsheet.o_spreadsheet': [
+            'quality_control/static/src/spreadsheet_bundle/**/*',
+        ],
+        'web.assets_unit_tests': [
+            'quality_control/static/tests/**/*',
         ],
     }
 }

@@ -94,7 +94,7 @@ export class AbstractSpreadsheetAction extends Component {
             download: this.download.bind(this),
             downloadAsJson: this.downloadAsJson.bind(this),
             showHistory: this.showHistory.bind(this),
-            insertThreadInSheet: this.threadField ? this.insertThreadInSheet.bind(this) : undefined,
+            insertThreadInSheet: this.insertThreadInSheet.bind(this),
             print,
             getLinesNumber: this._getLinesNumber.bind(this),
             getUserLocale: () => this.data && this.data.user_locale,
@@ -156,6 +156,19 @@ export class AbstractSpreadsheetAction extends Component {
     }
 
     createModel() {
+        this.model = new Model(
+            this.spreadsheetData,
+            this.getModelConfig(),
+            this.stateUpdateMessages
+        );
+        if (this.env.debug) {
+            // eslint-disable-next-line no-import-assign
+            spreadsheet.__DEBUG__ = spreadsheet.__DEBUG__ || {};
+            spreadsheet.__DEBUG__.model = this.model;
+        }
+    }
+
+    getModelConfig() {
         const transportService = this.spreadsheetService.makeCollaborativeChannel(
             this.resModel,
             this.resId,
@@ -166,33 +179,24 @@ export class AbstractSpreadsheetAction extends Component {
         odooDataProvider.addEventListener("data-source-updated", () => {
             this.model.dispatch("EVALUATE_CELLS");
         });
-        this.model = new Model(
-            this.spreadsheetData,
-            {
-                custom: { env: this.env, orm: this.orm, odooDataProvider },
-                external: {
-                    fileStore: this.fileStore,
-                    loadCurrencies: this.loadCurrencies,
-                    loadLocales: this.loadLocales,
-                },
-                defaultCurrency: createDefaultCurrency(this.data.default_currency),
-                transportService,
-                client: {
-                    id: uuidGenerator.uuidv4(),
-                    name: user.name,
-                    userId: user.userId,
-                },
-                mode: this.isReadonly ? "readonly" : "normal",
-                snapshotRequested: this.snapshotRequested,
-                customColors: this.data.company_colors,
+        return {
+            custom: { env: this.env, orm: this.orm, odooDataProvider },
+            external: {
+                fileStore: this.fileStore,
+                loadCurrencies: this.loadCurrencies,
+                loadLocales: this.loadLocales,
             },
-            this.stateUpdateMessages
-        );
-        if (this.env.debug) {
-            // eslint-disable-next-line no-import-assign
-            spreadsheet.__DEBUG__ = spreadsheet.__DEBUG__ || {};
-            spreadsheet.__DEBUG__.model = this.model;
-        }
+            defaultCurrency: createDefaultCurrency(this.data.default_currency),
+            transportService,
+            client: {
+                id: uuidGenerator.uuidv4(),
+                name: user.name,
+                userId: user.userId,
+            },
+            mode: this.isReadonly ? "readonly" : "normal",
+            snapshotRequested: this.snapshotRequested,
+            customColors: this.data.company_colors,
+        };
     }
 
     async execInitCallbacks() {

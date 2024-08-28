@@ -62,6 +62,8 @@
                         invisible="quality_state != 'none' or test_type != 'passfail'" data-hotkey="w"/>
                     <button name="do_fail" type="object" class="btn-danger" string="Fail"
                         invisible="quality_state != 'none' or test_type != 'passfail'" data-hotkey="k"/>
+                    <button name="action_open_spreadsheet" type="object" class="btn-primary " string="Open spreadsheet"
+                        invisible="test_type != 'spreadsheet'" data-hotkey="w"/>
                     <button name="action_generate_previous_window" type="object" class="btn-secondary" string="Previous" invisible="position_current_check == 1"/>
                     <button name="action_generate_next_window" type="object" class="btn-secondary" string="Next" invisible="is_last_check"/>
                     <button string="Discard" class="btn btn-secondary" special="cancel" data-hotkey="x" />

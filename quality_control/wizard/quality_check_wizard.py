@@ -123,6 +123,12 @@ class QualityCheckWizard(models.TransientModel):
         )
         return action
 
+    def action_open_spreadsheet(self):
+        action = self.current_check_id.action_open_spreadsheet()
+        action['context'] = self.env.context
+        action['params']['quality_check_wizard_id'] = self.id
+        return action
+
     def show_failure_message(self):
         self.qty_failed = self.qty_line
         return {

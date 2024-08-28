@@ -3,6 +3,7 @@ import { onMounted, onWillUnmount } from "@odoo/owl";
 
 import { _t } from "@web/core/l10n/translation";
 import { sum } from "@spreadsheet/helpers/helpers";
+import { addToRegistryWithCleanup } from "@spreadsheet_edition/bundle/helpers/misc";
 
 import { FieldSyncCorePlugin } from "./model/field_sync_core_plugin";
 import { FieldSyncUIPlugin } from "./model/field_sync_ui_plugin";
@@ -160,11 +161,4 @@ export function addSpreadsheetFieldSyncExtensionWithCleanUp(cleanUpHook = () => 
     const identity = (cmd) => cmd;
     addToRegistryWithCleanup(cleanUpHook, inverseCommandRegistry, "ADD_FIELD_SYNC", identity);
     addToRegistryWithCleanup(cleanUpHook, inverseCommandRegistry, "DELETE_FIELD_SYNCS", identity);
-}
-
-function addToRegistryWithCleanup(cleanUpHook, registry, name, item) {
-    registry.add(name, item);
-    cleanUpHook(() => {
-        registry.remove(name);
-    });
 }
