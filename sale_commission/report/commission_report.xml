@@ -51,7 +51,7 @@
             <search string="Commission Report">
                 <field name="user_id"/>
                 <field name="team_id"/>
-                <field name="plan_id"/>
+                <field name="plan_id" groups="sales_team.group_sale_manager"/>
                 <field name="target_id"/>
                 <field name="company_id"/>
                 <filter string="My Achievements" name="my"
@@ -62,7 +62,7 @@
                     <filter string="Salesperson" name="salesperson" context="{'group_by':'user_id'}"/>
                     <filter string="Sales Team" name="saleschannel" context="{'group_by':'team_id'}"/>
                     <filter string="Period" name="target" context="{'group_by':'target_id'}"/>
-                    <filter string="Commission Plan" name="plan" context="{'group_by':'plan_id'}"/>
+                    <filter string="Commission Plan" name="plan" context="{'group_by':'plan_id'}" groups="sales_team.group_sale_manager"/>
                     <filter string="Company" name="company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
                 </group>
             </search>
