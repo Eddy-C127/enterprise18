@@ -476,14 +476,18 @@ class WhatsAppTemplate(models.Model):
                 'text': button.name
             }
             if button.button_type == 'url':
-                button_data['url'] = button.website_url
-                if button.url_type == 'dynamic':
-                    button_data['url'] += '{{1}}'
-                    button_data['example'] = button.variable_ids[0].demo_value
+                button_data.update(self._get_url_button_data(button))
             elif button.button_type == 'phone_number':
                 button_data['phone_number'] = button.call_number
             buttons.append(button_data)
         return {'type': 'BUTTONS', 'buttons': buttons}
+
+    def _get_url_button_data(self, button):
+        button_data = {'url': button.website_url}
+        if button.url_type == 'dynamic':
+            button_data['url'] += '{{1}}'
+            button_data['example'] = button.variable_ids[0].demo_value
+        return button_data
 
     def _get_template_footer_component(self):
         if not self.footer_text:
@@ -570,6 +574,9 @@ class WhatsAppTemplate(models.Model):
         template_vals['header_attachment_ids'] = [Command.create(attachment) for attachment in template_vals['header_attachment_ids']]
         return template_vals
 
+    def _get_additional_button_values(self, button):
+        return {}
+
     def _update_template_from_response(self, remote_template_vals):
         self.ensure_one()
         update_fields = ('body', 'header_type', 'header_text', 'footer_text', 'lang_code', 'template_type', 'status', 'quality')
@@ -587,8 +594,10 @@ class WhatsAppTemplate(models.Model):
 
         for button in template_vals['button_ids']:
             button['variable_ids'] = [Command.create(var) for var in button['variable_ids']]
-        update_vals['button_ids'] = [Command.clear()] + [Command.create(button) for button in template_vals['button_ids']]
+            additional_button_vals = self._get_additional_button_values(button)
+            button.update(additional_button_vals)
 
+        update_vals['button_ids'] = [Command.clear()] + [Command.create(button) for button in template_vals['button_ids']]
         if not self.header_attachment_ids or self.header_type != template_vals['header_type']:
             new_attachment_commands = [Command.create(attachment) for attachment in template_vals['header_attachment_ids']]
             update_vals['header_attachment_ids'] = [Command.clear()] + new_attachment_commands
@@ -749,7 +758,8 @@ class WhatsAppTemplate(models.Model):
         components = []
         if not self.variable_ids:
             return components
-        dynamic_buttons = self.button_ids.filtered(lambda line: line.url_type == 'dynamic')
+        dynamic_buttons = self.button_ids._filter_dynamic_buttons()
+        dynamic_buttons = dynamic_buttons.sorted(lambda btn: btn.sequence)
         dynamic_index = {button: i for i, button in enumerate(self.button_ids)}
         free_text_index = 1
         for button in dynamic_buttons:
@@ -769,9 +779,12 @@ class WhatsAppTemplate(models.Model):
             })
         return components
 
-    def _get_send_template_vals(self, record, free_text_json, attachment=False):
+    def _get_send_template_vals(self, record, whatsapp_message):
         """Prepare JSON dictionary for sending WhatsApp template message"""
         self.ensure_one()
+        free_text_json = whatsapp_message.free_text_json
+        attachment = whatsapp_message.mail_message_id.attachment_ids
+
         components = []
         template_variables_value = self.variable_ids._get_variables_value(record)
 

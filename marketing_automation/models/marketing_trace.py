@@ -3,7 +3,7 @@
 
 from dateutil.relativedelta import relativedelta
 
-from odoo import fields, models, _
+from odoo import api, fields, models, _
 from odoo.fields import Datetime
 
 
@@ -39,7 +39,16 @@ class MarketingTrace(models.Model):
     # mailing traces
     mailing_trace_ids = fields.One2many('mailing.trace', 'marketing_trace_id', string='Mass mailing statistics')
     mailing_trace_status = fields.Selection(related='mailing_trace_ids.trace_status', readonly=True)
-    links_click_datetime = fields.Datetime(related='mailing_trace_ids.links_click_datetime', readonly=True)
+    links_click_datetime = fields.Datetime(compute='_compute_links_click_datetime')
+
+    @api.depends('mailing_trace_ids')
+    def _compute_links_click_datetime(self):
+        # necessary, because sometimes mailing_trace_ids aren't available
+        # due to failed messages, which prevents `links_click_datetime` to get assigned
+        self.links_click_datetime = False
+        mailing_trace = self.filtered(lambda x: x.mailing_trace_ids)
+        for trace in mailing_trace:
+            trace.links_click_datetime = trace.mailing_trace_ids[0].links_click_datetime
 
     def participant_action_cancel(self):
         self.action_cancel(message=_('Manually'))
@@ -54,6 +63,7 @@ class MarketingTrace(models.Model):
     def action_execute(self):
         self.activity_id.execute_on_traces(self)
 
+    # DANE: try to make this function to work on batches later
     def process_event(self, action):
         """Process event coming from customers currently centered on email actions.
         It updates child traces :

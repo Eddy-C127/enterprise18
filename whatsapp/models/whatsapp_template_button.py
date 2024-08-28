@@ -62,28 +62,33 @@ class WhatsAppTemplateButton(models.Model):
                             continue
             button.has_invalid_number = False
 
+    def _get_button_variable_vals(self, button):
+        return {
+            "demo_value": button.website_url + "???",
+            "line_type": "button",
+            "name": button.name,
+            "wa_template_id": button.wa_template_id.id,
+        }
+
+    def _filter_dynamic_buttons(self):
+        """
+        Retrieve buttons filtered by 'dynamic' URL type.
+        """
+        dynamic_urls = self.filtered(lambda button: button.button_type == 'url' and button.url_type == 'dynamic')
+        return dynamic_urls
+
     @api.depends('button_type', 'url_type', 'website_url', 'name')
     def _compute_variable_ids(self):
-        dynamic_urls = self.filtered(lambda button: button.button_type == 'url' and button.url_type == 'dynamic')
-        to_clear = self - dynamic_urls
-        for button in dynamic_urls:
+        button_urls = self._filter_dynamic_buttons()
+        to_clear = self - button_urls
+        for button in button_urls:
             if button.variable_ids:
                 button.variable_ids = [
-                    (1, button.variable_ids[0].id, {
-                        'demo_value': button.website_url + '???',
-                        'line_type': 'button',
-                        'name': button.name,
-                        'wa_template_id': button.wa_template_id.id,
-                    }),
+                    (1, button.variable_ids[0].id, self._get_button_variable_vals(button)),
                 ]
             else:
                 button.variable_ids = [
-                    (0, 0, {
-                        'demo_value': button.website_url + '???',
-                        'line_type': 'button',
-                        'name': button.name,
-                        'wa_template_id': button.wa_template_id.id,
-                    }),
+                    (0, 0, self._get_button_variable_vals(button)),
                 ]
         if to_clear:
             to_clear.variable_ids = [(5, 0)]

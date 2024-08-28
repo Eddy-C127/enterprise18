@@ -224,7 +224,7 @@ class WhatsAppComposer(models.TransientModel):
         self.ensure_one()
         return self._send_whatsapp_template()
 
-    def _send_whatsapp_template(self, force_send_by_cron=False):
+    def _create_whatsapp_messages(self, force_create=False):
         records = self._get_active_records()
 
         if self.wa_template_id and self.wa_template_id.variable_ids:
@@ -235,7 +235,7 @@ class WhatsAppComposer(models.TransientModel):
                 )
         free_text_json = self._get_text_free_json()
         message_vals = []
-        raise_exception = False if self.batch_mode or force_send_by_cron else True
+        raise_exception = not (self.batch_mode or force_create)
         for rec in records:
             mobile_number = rec._find_value_from_field_path(self.wa_template_id.phone_field) if self.batch_mode else self.phone
             formatted_number_wa = wa_phone_validation.wa_phone_format(
@@ -244,7 +244,7 @@ class WhatsAppComposer(models.TransientModel):
                 raise_exception=raise_exception,
             )
             # Continue to the next iteration if the formatted_number_wa is False and not forced to send by cron parameter.
-            if not (formatted_number_wa or force_send_by_cron):
+            if not (formatted_number_wa or force_create):
                 continue
 
             body = self._get_html_preview_whatsapp(rec=rec)
@@ -271,6 +271,12 @@ class WhatsAppComposer(models.TransientModel):
             })
         if message_vals:
             messages = self.env['whatsapp.message'].create(message_vals)
+            return messages
+        return self.env["whatsapp.message"]
+
+    def _send_whatsapp_template(self, force_send_by_cron=False):
+        messages = self._create_whatsapp_messages(force_create=force_send_by_cron)
+        if messages:
             messages._send(force_send_by_cron=force_send_by_cron)
             return messages
         return self.env["whatsapp.message"]

@@ -171,6 +171,7 @@ class WhatsAppAccount(models.Model):
         wa_api = WhatsAppApi(self)
 
         for messages in value.get('messages', []):
+            parent_msg_id = False
             parent_id = False
             channel = False
             sender_name = value.get('contacts', [{}])[0].get('profile', {}).get('name')
@@ -179,6 +180,7 @@ class WhatsAppAccount(models.Model):
             if 'context' in messages and messages['context'].get('id'):
                 parent_whatsapp_message = self.env['whatsapp.message'].sudo().search([('msg_uid', '=', messages['context']['id'])])
                 if parent_whatsapp_message:
+                    parent_msg_id = parent_whatsapp_message.id
                     parent_id = parent_whatsapp_message.mail_message_id
                 if parent_id:
                     channel = self.env['discuss.channel'].sudo().search([('message_ids', 'in', parent_id.id)], limit=1)
@@ -188,6 +190,7 @@ class WhatsAppAccount(models.Model):
             kwargs = {
                 'message_type': 'whatsapp_message',
                 'author_id': channel.whatsapp_partner_id.id,
+                'parent_msg_id': parent_msg_id,
                 'subtype_xmlid': 'mail.mt_comment',
                 'parent_id': parent_id.id if parent_id else None
             }

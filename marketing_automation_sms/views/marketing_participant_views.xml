@@ -6,7 +6,7 @@
         <field name="inherit_id" ref="marketing_automation.marketing_participant_view_form"/>
         <field name="arch" type="xml">
             <xpath expr="//span[hasclass('o_ma_type')]/i" position="after">
-                <i class="fa fa-comment" t-elif="record.activity_type.raw_value == 'sms'" title="SMS" role="img" aria-label="SMS"/>
+                <i class="fa fa-comment pe-1" t-elif="record.activity_type.raw_value == 'sms'" title="SMS" role="img" aria-label="SMS"/>
             </xpath>
         </field>
     </record>
