@@ -14,7 +14,7 @@
     </t>
 
     <t t-name="account_accountant.AttachmentPreview">
-        <div class="o_attachment_preview" t-att-class="{'hidden': !attachmentPreviewState.displayAttachment || mailPopoutService.externalWindow}">
+        <div class="o_attachment_preview d-print-none" t-att-class="{'hidden': !attachmentPreviewState.displayAttachment || mailPopoutService.externalWindow}">
             <t t-if="this.attachmentPreviewState.displayAttachment || mailPopoutService.externalWindow">
                 <t t-if="this.attachmentPreviewState.thread and this.attachmentPreviewState.thread.attachmentsInWebClientView.length > 0">
                     <AttachmentView

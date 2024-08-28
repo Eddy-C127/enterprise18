@@ -47,7 +47,7 @@
 
                 <!-- Warnings -->
                 <t t-if="controller.warnings">
-                    <div id="warnings" class="warnings">
+                    <div id="warnings" class="warnings d-print-none">
                         <t t-foreach="controller.warnings" t-as="warningTemplateRef" t-key="warningTemplateRef">
                             <t t-set="warningParams" t-value="controller.warnings[warningTemplateRef]"/>
 
@@ -60,11 +60,11 @@
 
                 <t t-if="controller.lines.length">
                     <!-- Table -->
-                    <div class="mx-auto fit-content">
+                    <div class="mx-auto fit-content w-print-100">
                         <div class="d-flex align-items-start">
                             <t t-foreach="controller.options['horizontal_split'] ? ['left', 'right'] : [null]" t-as="splitSide" t-key="splitSide">
                                 <table
-                                    class="table table-borderless table-hover"
+                                    class="table table-borderless table-hover w-print-100"
                                     t-att-class="tableClasses"
                                 >
                                     <t t-component="env.component('AccountReportHeader')"/>

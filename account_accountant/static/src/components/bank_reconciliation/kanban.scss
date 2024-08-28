@@ -195,6 +195,12 @@
     }
 }
 
+@include media-only(print) {
+    .o_bank_rec_widget_kanban_view .o_control_panel {
+        margin-bottom: $border-width;
+    }
+}
+
 .o_bank_rec_liquidity_line{
     font-weight: bold;
 }
