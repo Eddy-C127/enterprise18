@@ -50,12 +50,8 @@ const fn = (hidden) => {
     const canCreate = memoize(env => {
         return env.services.orm.call(
             "knowledge.article",
-            "check_access_rights",
-            [],
-            {
-                operation: "create",
-                raise_exception: false,
-            },
+            "has_access",
+            [[], "create"],
         );
     });
     let articlesData;

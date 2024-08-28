@@ -22,7 +22,7 @@ beforeEach(() => {
         </form>
     `;
 
-    onRpc("check_access_rights", () => true);
+    onRpc("has_access", () => true);
 });
 
 test("Fsm task calendar view", async () => {

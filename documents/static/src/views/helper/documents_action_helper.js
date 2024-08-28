@@ -63,12 +63,8 @@ export class DocumentsActionHelper extends Component {
         if (this.hasShareReadAccessRights === undefined) {
             this.hasShareReadAccessRights = await this.orm.call(
                 "documents.share",
-                "check_access_rights",
-                [],
-                {
-                    operation: "read",
-                    raise_exception: false,
-                }
+                "has_access",
+                [[], "read"]
             );
         }
         if (!this.hasShareReadAccessRights) {

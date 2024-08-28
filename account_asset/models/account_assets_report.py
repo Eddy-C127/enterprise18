@@ -344,8 +344,8 @@ class AssetsReportCustomHandler(models.AbstractModel):
     def _query_values(self, options, prefix_to_match=None, forced_account_id=None):
         "Get the data from the database"
 
-        self.env['account.move.line'].check_access_rights('read')
-        self.env['account.asset'].check_access_rights('read')
+        self.env['account.move.line'].check_access('read')
+        self.env['account.asset'].check_access('read')
 
         query = Query(self.env, alias='asset', table=SQL.identifier('account_asset'))
         account_alias = query.join(lhs_alias='asset', lhs_column='account_asset_id', rhs_table='account_account', rhs_column='id', link='account_asset_id')

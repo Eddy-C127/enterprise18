@@ -26,7 +26,7 @@ class CustomerPortal(portal.CustomerPortal):
         if 'ticket_count' in counters:
             values['ticket_count'] = (
                 request.env['helpdesk.ticket'].search_count(self._prepare_helpdesk_tickets_domain())
-                if request.env['helpdesk.ticket'].check_access_rights('read', raise_exception=False)
+                if request.env['helpdesk.ticket'].has_access('read')
                 else 0
             )
         return values

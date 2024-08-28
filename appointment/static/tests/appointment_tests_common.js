@@ -60,7 +60,7 @@ export class CalendarEvent extends models.Model {
             partner_ids: [216, 100, 214, 217],
         },
     ];
-    check_access_rights = function () {
+    has_access = function () {
         return Promise.resolve(true);
     };
 }

@@ -65,8 +65,7 @@ class SocialStreamPostLinkedIn(models.Model):
     def _linkedin_edit_post(self, new_message):
         """Make a API call to update the post message."""
         self.ensure_one()
-        self.check_access_rights("write")
-        self.check_access_rule("write")
+        self.check_access("write")
 
         response = self.account_id._linkedin_request(
             f"posts/{quote(self.linkedin_post_urn)}",
@@ -81,8 +80,7 @@ class SocialStreamPostLinkedIn(models.Model):
     def _linkedin_delete_post(self):
         """Make a API call to delete the post."""
         self.ensure_one()
-        self.check_access_rights("unlink")
-        self.check_access_rule("unlink")
+        self.check_access("unlink")
 
         response = self.account_id._linkedin_request(
             f"posts/{quote(self.linkedin_post_urn)}", method="DELETE")

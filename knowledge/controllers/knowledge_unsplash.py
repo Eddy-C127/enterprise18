@@ -3,7 +3,6 @@ import werkzeug
 
 from odoo.addons.web_unsplash.controllers import main
 from odoo import http
-from odoo.exceptions import AccessError
 from odoo.http import request
 from werkzeug.urls import url_encode
 
@@ -18,11 +17,7 @@ class KnowledgeUnsplash(main.Web_Unsplash):
         params in kwargs. If successful, the image will be saved as a knowledge
         cover, and added as cover of the article given in the params.
         """
-
-        try:
-            article.check_access_rights('write')
-            article.check_access_rule('write')
-        except AccessError:
+        if not article.has_access('write'):
             raise werkzeug.exceptions.Forbidden()
 
         # Fetch a random image

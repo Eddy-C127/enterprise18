@@ -4,7 +4,6 @@
 import json
 
 from odoo import _, api, fields, models
-from odoo.exceptions import AccessError
 from odoo.tools.misc import format_datetime
 
 
@@ -149,10 +148,7 @@ class SocialPostConvert2Lead(models.TransientModel):
         ).sudo().create(lead_values)
 
         # return to lead (if can see) or simply close wizard (if cannot)
-        try:
-            self.env['crm.lead'].check_access_rights('read')
-            self.env['crm.lead'].browse(lead_sudo.ids).check_access_rule('read')
-        except AccessError:
+        if not lead_sudo.with_env(self.env).has_access('read'):
             return {
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',

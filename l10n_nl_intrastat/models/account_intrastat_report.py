@@ -78,7 +78,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         # Fetch data.
         report = self.env['account.report'].browse(options['report_id'])
         options = report.get_options(previous_options={**options, 'export_mode': 'file'})
-        self.env['account.move.line'].check_access_rights('read')
+        self.env['account.move.line'].check_access('read')
 
         company = self.env.company
         date_from = options['date']['date_from']

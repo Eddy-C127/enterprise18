@@ -655,12 +655,12 @@ class TestCaseDocuments(TransactionCase):
         manager = new_test_user(self.env, login='Manager', groups='documents.group_documents_manager,base.group_partner_manager')
 
         document.available_rule_ids.unlink_record(document.id)
-        self.env['ir.model'].with_user(admin).check_access_rights('read')
+        self.env['ir.model'].with_user(admin).check_access('read')
         workflow.with_user(admin).link_to_record(document)
 
         document.available_rule_ids.unlink_record(document.id)
         with self.assertRaises(AccessError):
-            self.env['ir.model'].with_user(manager).check_access_rights('read')
+            self.env['ir.model'].with_user(manager).check_access('read')
         workflow.with_user(manager).link_to_record(document)
 
     def test_document_thumbnail_status(self):

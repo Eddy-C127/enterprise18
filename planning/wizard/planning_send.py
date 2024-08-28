@@ -52,7 +52,7 @@ class PlanningSend(models.TransientModel):
 
     def get_employees_without_work_email(self):
         self.ensure_one()
-        if not self.employee_ids.check_access_rights('write', raise_exception=False):
+        if not self.employee_ids.has_access('write'):
             return None
         employee_ids_without_work_email = self.employee_ids.filtered(lambda employee: not employee.work_email).ids
         if not employee_ids_without_work_email:

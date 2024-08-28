@@ -463,11 +463,9 @@ class AppointmentController(http.Controller):
             # Backward compatibility for old version that had their appointment types "published" by default (aka accessible with read access rights)
             appointment_types = appointment_types.sudo().filtered('is_published') or appointment_types
 
-        try:
-            appointment_types.check_access_rights('read')
-        except exceptions.AccessError:
+        if not appointment_types.browse().has_access('read'):
             raise Forbidden()
-        appointment_types = appointment_types._filter_access_rules('read')
+        appointment_types = appointment_types._filtered_access('read')
 
         if domain:
             appointment_types = appointment_types.filtered_domain(domain)

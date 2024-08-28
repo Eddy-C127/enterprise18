@@ -1,14 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from ast import literal_eval
-
-from odoo import models, fields, api, exceptions
-from odoo.tools.translate import _
-from odoo.tools import consteq
-
-from odoo.osv import expression
-
 import uuid
+
+from odoo import models, fields, api
+from odoo.osv import expression
+from odoo.tools import consteq
 
 
 class DocumentShare(models.Model):
@@ -120,12 +117,10 @@ class DocumentShare(models.Model):
         False only if no write right.
         """
         self.ensure_one()
-        try:
-            # checks the rights first in case of empty recordset
-            documents.with_user(self.create_uid).check_access_rights('write')
-        except exceptions.AccessError:
+        documents = documents.with_user(self.create_uid)
+        if not documents.browse().has_access('write'):
             return False
-        return documents.with_user(self.create_uid)._filter_access_rules('write')
+        return documents._filtered_access('write')
 
     def _check_token(self, access_token):
         if not access_token:

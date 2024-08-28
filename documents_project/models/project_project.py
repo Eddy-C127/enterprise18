@@ -216,9 +216,4 @@ class ProjectProject(models.Model):
         return self.use_documents and super()._check_create_documents()
 
     def _check_project_read_access(self):
-        try:
-            self.check_access_rights('read')
-            self.check_access_rule('read')
-        except AccessError:
-            return False
-        return True
+        return self.has_access('read')

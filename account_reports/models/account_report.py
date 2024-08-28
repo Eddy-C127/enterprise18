@@ -1826,7 +1826,7 @@ class AccountReport(models.Model):
             # That option key is set when splitting options between column groups
             domain += options['forced_domain']
 
-        self.env['account.move.line'].check_access_rights('read')
+        self.env['account.move.line'].check_access('read')
 
         query = self.env['account.move.line']._where_calc(domain)
 

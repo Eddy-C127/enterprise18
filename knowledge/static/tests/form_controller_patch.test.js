@@ -8,7 +8,7 @@ defineKnowledgeModels();
 
 beforeEach(() => {
     onRpc("knowledge.article", "get_user_sorted_articles", () => []);
-    onRpc("knowledge.article", "check_access_rights", () => true);
+    onRpc("knowledge.article", "has_access", () => true);
     onRpc("res.partner", "web_save", () => step("save"));
 });
 

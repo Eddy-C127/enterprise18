@@ -1703,7 +1703,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
         if not model:
             return result
 
-        request.env[model_name].check_access_rights('read')
+        request.env[model_name].check_access('read')
         email_alias = request.env['mail.alias'].search([
             ('alias_domain_id', '=', current_alias_domain.id),
             ('alias_force_thread_id', '=', False),
@@ -1726,7 +1726,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
         if not model_id:
             return
 
-        request.env[model_name].check_access_rights('read')
+        request.env[model_name].check_access('read')
         current_alias_domain = request.env.company.alias_domain_id
         alias_name = request.env['mail.alias']._sanitize_alias_name(value)
         existing_alias = request.env['mail.alias'].search([

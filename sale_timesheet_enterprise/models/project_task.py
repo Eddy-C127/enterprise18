@@ -91,7 +91,7 @@ class ProjectTask(models.Model):
         return result
 
     def _gantt_progress_bar_sale_line_id(self, res_ids):
-        if not self.env['sale.order.line'].check_access_rights('read', raise_exception=False):
+        if not self.env['sale.order.line'].has_access('read'):
             return {}
         uom_hour = self.env.ref('uom.product_uom_hour')
         planned_hours_per_sol = self.env['project.task']._read_group([

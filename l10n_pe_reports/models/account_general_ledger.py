@@ -100,7 +100,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         # Prepare query to get lines
         domain = ledger._get_options_domain(options, "strict_range")
 
-        self.env['account.move.line'].check_access_rights('read')
+        self.env['account.move.line'].check_access('read')
         query = self.env['account.move.line']._where_calc(domain)
 
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.

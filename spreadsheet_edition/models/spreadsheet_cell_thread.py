@@ -38,7 +38,7 @@ class SpreadsheetCellThread(models.Model):
 
     def get_spreadsheet_access_action(self):
         related_record = self._get_spreadsheet_record()
-        if related_record and related_record.check_access_rights("read", raise_exception=False):
+        if related_record and related_record.has_access("read"):
             action = related_record.action_open_spreadsheet()
             action["params"] = action.get("params", {})
             action["params"]["thread_id"] = self.id
@@ -74,12 +74,26 @@ class SpreadsheetCellThread(models.Model):
     def _get_spreadsheet_record(self):
         return False
 
-    def check_access_rule(self, operation):
-        if self.env.su:
-            return
-        super().check_access_rule(operation)
+    def _check_access(self, operation: str) -> tuple | None:
+        result = super()._check_access(operation)
+        if result:
+            self -= result[0]  # noqa: PLW0642
+        if not self:
+            return result
+
+        forbidden_ids = []
+        function = None
         for thread in self:
             # sudo() to avoid infinite recursion when checking access
-            if record := self.sudo()._get_spreadsheet_record():
-                record.with_user(self.env.user).check_access_rights('read')
-                record.with_user(self.env.user).check_access_rule('read')
+            if record := thread.sudo()._get_spreadsheet_record():
+                if rec_result := record.with_env(self.env)._check_access('read'):
+                    forbidden_ids.append(thread.id)
+                    function = function or rec_result[1]
+
+        forbidden = self.browse(forbidden_ids)
+        if result:
+            return (result[0] + forbidden, result[1])
+        elif forbidden:
+            return (forbidden, function)
+        else:
+            return None

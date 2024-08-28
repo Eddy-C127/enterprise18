@@ -248,12 +248,7 @@ Source: Opinion on the indexation of the amounts set in Article 1, paragraph 4, 
         # use sql and manually filter the employees
 
         # return nothing if user has no right to either employee or bank partner
-        try:
-            self.check_access_rights('read')
-            # niss field is for this group only
-            if not self.env.user.has_group('hr.group_hr_user'):
-                raise AccessError()
-        except AccessError:
+        if not self.browse().has_access('read') or not self.env.user.has_group('hr.group_hr_user'):
             return []
 
         self.env.cr.execute('''

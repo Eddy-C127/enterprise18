@@ -57,7 +57,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
             report._get_options_domain(options, 'strict_range'),
             [('statement_line_id', '!=', False), ('matching_number', '=', False)],
         ])
-        self.env['account.move.line'].check_access_rights('read')
+        self.env['account.move.line'].check_access('read')
         query = self.env['account.move.line']._where_calc(domain)
         journal_alias = query.join(lhs_alias='account_move_line', lhs_column='journal_id', rhs_table='account_journal', rhs_column='id', link='journal_id')
         account_alias = query.join(lhs_alias=journal_alias, lhs_column='default_account_id', rhs_table='account_account', rhs_column='id', link='default_account_id')
@@ -180,7 +180,7 @@ class AccountCashFlowReportHandler(models.AbstractModel):
             report._get_options_domain(options, 'strict_range'),
             [('statement_line_id', '!=', False), ('matching_number', '=', False)],
         ])
-        self.env['account.move.line'].check_access_rights('read')
+        self.env['account.move.line'].check_access('read')
         query = self.env['account.move.line']._where_calc(domain)
 
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.

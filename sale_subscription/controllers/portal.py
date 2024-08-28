@@ -31,7 +31,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
         """ Add subscription details to main account page """
         values = super()._prepare_home_portal_values(counters)
         if 'subscription_count' in counters:
-            if request.env['sale.order'].check_access_rights('read', raise_exception=False):
+            if request.env['sale.order'].has_access('read'):
                 partner = request.env.user.partner_id
                 values['subscription_count'] = request.env['sale.order'].search_count(self._get_subscription_domain(partner))
             else:

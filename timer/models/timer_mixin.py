@@ -72,8 +72,7 @@ class TimerMixin(models.AbstractModel):
         timers = self.env['timer.timer'].search([
             ('res_model', '=', self._name), ('res_id', 'in', self.ids), ('user_id', '!=', self.env.user.id)])
         if timers:
-            self.check_access_rights('unlink')
-            self.check_access_rule('unlink')
+            self.check_access('unlink')
             timers.sudo().unlink()
         return super().unlink()
 

@@ -259,22 +259,18 @@ class TestKnowledgeArticleBusiness(KnowledgeCommonBusinessCase):
                            msg='Invite: descendants should not be impacted')
 
         # check access is effectively granted
-        shared_article.with_user(self.user_employee2).check_access_rights('write')
-        shared_article.with_user(self.user_employee2).check_access_rule('write')
-        shared_article.with_user(self.user_customer).check_access_rights('write')
-        shared_article.with_user(self.user_customer).check_access_rule('write')
-        direct_child_write.with_user(self.user_employee2).check_access_rights('write')
-        direct_child_write.with_user(self.user_employee2).check_access_rule('write')
-        direct_child_write.with_user(self.user_customer).check_access_rights('write')
-        direct_child_write.with_user(self.user_customer).check_access_rule('write')
-        direct_child_read.with_user(self.user_employee2).check_access_rights('read')
+        shared_article.with_user(self.user_employee2).check_access('write')
+        shared_article.with_user(self.user_customer).check_access('write')
+        direct_child_write.with_user(self.user_employee2).check_access('write')
+        direct_child_write.with_user(self.user_customer).check_access('write')
+        direct_child_read.browse().with_user(self.user_employee2).check_access('read')
         with self.assertRaises(exceptions.AccessError,
                                msg='Invite: access should have been blocked'):
-            direct_child_read.with_user(self.user_employee2).check_access_rule('read')
-        grand_child.with_user(self.user_employee2).check_access_rights('read')
+            direct_child_read.with_user(self.user_employee2).check_access('read')
+        grand_child.browse().with_user(self.user_employee2).check_access('read')
         with self.assertRaises(exceptions.AccessError,
                                msg='Invite: access should have been blocked'):
-            grand_child.with_user(self.user_employee2).check_access_rule('read')
+            grand_child.with_user(self.user_employee2).check_access('read')
 
         # employee2 is downgraded, employee_manager is removed
         with self.mock_mail_gateway():
@@ -1391,11 +1387,10 @@ class TestKnowledgeArticleRemoval(KnowledgeCommonBusinessCase):
         }).with_user(self.env.user)
 
         # Check the access rights:
-        parent_article.check_access_rights('read')
+        parent_article.browse().check_access('read')
         with self.assertRaises(exceptions.AccessError):
-            parent_article.check_access_rule('read')
-        child_article.check_access_rights('write')
-        child_article.check_access_rule('write')
+            parent_article.check_access('read')
+        child_article.check_access('write')
 
         # Unarchive the child article:
         child_article.action_unarchive()

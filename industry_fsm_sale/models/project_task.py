@@ -362,7 +362,7 @@ class Task(models.Model):
             'domain': domain,
             'context': {
                 'fsm_mode': True,
-                'create': self.env['product.template'].check_access_rights('create', raise_exception=False),
+                'create': self.env['product.template'].has_access('create'),
                 'fsm_task_id': self.id,  # avoid 'default_' context key as we are going to create SOL with this context
                 'pricelist': self.partner_id.property_product_pricelist.id,
                 'order_id': self.sale_order_id.id,

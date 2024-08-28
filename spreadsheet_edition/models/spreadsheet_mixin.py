@@ -306,8 +306,7 @@ class SpreadsheetMixin(models.AbstractModel):
             if share_id and access_token:
                 self._check_spreadsheet_share(operation, share_id, access_token)
             else:
-                self.check_access_rights(operation)
-                self.check_access_rule(operation)
+                self.check_access(operation)
         except AccessError as e:
             if raise_exception:
                 raise e

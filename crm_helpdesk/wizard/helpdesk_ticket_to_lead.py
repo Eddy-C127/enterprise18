@@ -128,10 +128,7 @@ class HelpdeskTicketConvert2Lead(models.TransientModel):
         )
 
         # return to lead (if can see) or ticket (if cannot)
-        try:
-            self.env['crm.lead'].check_access_rights('read')
-            self.env['crm.lead'].browse(lead_sudo.ids).check_access_rule('read')
-        except:
+        if not lead_sudo.with_env(self.env).has_access('read'):
             return {
                 'name': _('Ticket Converted'),
                 'view_mode': 'form',

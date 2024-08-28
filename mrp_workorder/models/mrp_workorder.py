@@ -657,7 +657,7 @@ class MrpProductionWorkcenterLine(models.Model):
         return super(MrpProductionWorkcenterLine, self.with_context(bypass_duration_calculation=True))._web_gantt_reschedule_write_new_dates(new_start_date, new_stop_date, start_date_field_name, stop_date_field_name)
 
     def _web_gantt_progress_bar_workcenter_id(self, res_ids, start, stop):
-        self.env['mrp.workorder'].check_access_rights('read')
+        self.env['mrp.workorder'].check_access('read')
         workcenters = self.env['mrp.workcenter'].search([('id', 'in', res_ids)])
         workorders = self.env['mrp.workorder'].search([
             ('workcenter_id', 'in', res_ids),

@@ -389,7 +389,7 @@ class ResPartner(models.Model):
         return {r['partner_id']: r for r in self.env.cr.dictfetchall()}
 
     def _get_followup_data_query(self, partner_ids=None):
-        self.env['account.move.line'].check_access_rights('read')
+        self.env['account.move.line'].check_access('read')
         self.env['account.move.line'].flush_model()
         self.env['ir.property'].flush_model()
         self.env['res.partner'].flush_model()

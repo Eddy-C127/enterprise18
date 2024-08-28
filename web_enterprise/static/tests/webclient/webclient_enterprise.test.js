@@ -499,7 +499,7 @@ test.tags("desktop")(
                 sequence: 10,
             };
         });
-        onRpc("check_access_rights", () => {
+        onRpc("has_access", () => {
             return true;
         });
         serverState.debug = true;

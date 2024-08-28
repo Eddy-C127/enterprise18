@@ -236,8 +236,7 @@ class ShareRoute(http.Controller):
         if the user that generates the thumbnail is not the user who uploaded the document.
         """
         document = request.env['documents.document'].browse(document_id)
-        document.check_access_rights('read')
-        document.check_access_rule('read')
+        document.check_access('read')
         if document.thumbnail_status != 'client_generated':
             return
         document.sudo().write({
@@ -268,7 +267,7 @@ class ShareRoute(http.Controller):
         """
         ids_list = [int(x) for x in file_ids.split(',')]
         documents = request.env['documents.document'].browse(ids_list)
-        documents.check_access_rights('read')
+        documents.check_access('read')
         response = self._make_zip(zip_name, documents)
         return response
 
@@ -372,7 +371,7 @@ class ShareRoute(http.Controller):
             **(documents_values or {}),
         }
         documents = request.env['documents.document']
-        documents.with_user(share.create_uid).check_access_rights('create')
+        documents.with_user(share.create_uid).check_access('create')
         max_upload_size = documents.get_document_max_upload_limit()
         for file in files:
             data = file.read()
@@ -387,7 +386,7 @@ class ShareRoute(http.Controller):
                 **documents_values,
             }
             documents |= documents.sudo().create(document_dict).sudo(False)
-        documents.with_user(share.create_uid).check_access_rule('create')
+        documents.with_user(share.create_uid).check_access('create')
         return documents
 
     # Upload file(s) route.

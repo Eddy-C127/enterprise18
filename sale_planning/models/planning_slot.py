@@ -678,7 +678,7 @@ class PlanningSlot(models.Model):
     # Gantt Progress Bar
     # -----------------------------------
     def _gantt_progress_bar_sale_line_id(self, res_ids):
-        if not self.env['sale.order.line'].check_access_rights('read', raise_exception=False):
+        if not self.env['sale.order.line'].has_access('read'):
             return {}
         return {
             sol.id: {

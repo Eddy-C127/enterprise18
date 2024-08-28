@@ -32,7 +32,7 @@ QUnit.module("View Editors", (hooks) => {
                 <field name="display_name" />
             </calendar>`,
             mockRPC(route, args) {
-                if (args.method === "check_access_rights") {
+                if (args.method === "has_access") {
                     return true;
                 }
             },
@@ -60,7 +60,7 @@ QUnit.module("View Editors", (hooks) => {
                 <field name="display_name" />
             </calendar>`,
             mockRPC(route, args) {
-                if (args.method === "check_access_rights") {
+                if (args.method === "has_access") {
                     return true;
                 }
             },
@@ -91,7 +91,7 @@ QUnit.module("View Editors", (hooks) => {
                         <field name="display_name"/>
                     </calendar>`,
                 mockRPC(route, args) {
-                    if (args.method === "check_access_rights") {
+                    if (args.method === "has_access") {
                         return true;
                     } else if (route === "/web_studio/edit_view") {
                         assert.step("edit_view");

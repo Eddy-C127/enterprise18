@@ -29,7 +29,7 @@ QUnit.module("Views", ({ beforeEach }) => {
                         date_deadline: { string: "Date End", type: "date" },
                     },
                     methods: {
-                        check_access_rights: function () {
+                        has_access: function () {
                             return Promise.resolve(true);
                         },
                     },

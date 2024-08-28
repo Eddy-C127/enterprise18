@@ -34,7 +34,7 @@ class purchase_order(models.Model):
                 name=company.name,
             ))
         # check intercompany user access rights
-        if not self.env['sale.order'].check_access_rights('create', raise_exception=False):
+        if not self.env['sale.order'].has_access('create'):
             raise UserError(_(
                 "Inter company user of company %(name)s doesn't have enough access rights",
                 name=company.name,

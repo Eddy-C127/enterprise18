@@ -46,8 +46,8 @@ class HrEmployee(models.Model):
         # bypass orm for performance, we only care about the employee id anyway
 
         # return nothing if user has no right to either employee or bank partner
-        if (not self.check_access_rights('read', raise_exception=False) or
-                not self.env['res.partner.bank'].check_access_rights('read', raise_exception=False)):
+        if (not self.browse().has_access('read') or
+                not self.env['res.partner.bank'].has_access('read')):
             return []
 
         self.env.cr.execute('''

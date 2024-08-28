@@ -1385,7 +1385,7 @@ class Task(models.Model):
     def _gantt_progress_bar_user_ids(self, res_ids, start, stop):
         start_naive, stop_naive = start.replace(tzinfo=None), stop.replace(tzinfo=None)
         users = self.env['res.users'].search([('id', 'in', res_ids)])
-        self.env['project.task'].check_access_rights('read')
+        self.env['project.task'].check_access('read')
 
         project_tasks = self.env['project.task'].sudo().search([
             ('user_ids', 'in', res_ids),

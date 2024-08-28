@@ -5,4 +5,4 @@ class Document(models.Model):
 
     def join_spreadsheet_session(self, share_id=None, access_token=None):
         data = super().join_spreadsheet_session(share_id, access_token)
-        return dict(data, can_add_to_dashboard=self.env['spreadsheet.dashboard'].check_access_rights('create', raise_exception=False))
+        return dict(data, can_add_to_dashboard=self.env['spreadsheet.dashboard'].has_access('create'))

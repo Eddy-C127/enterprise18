@@ -4,7 +4,7 @@
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models, _, Command
-from odoo.exceptions import UserError, AccessError
+from odoo.exceptions import UserError
 from odoo.tools import format_list
 
 
@@ -21,9 +21,7 @@ class SignSendRequest(models.TransientModel):
         elif res.get('activity_id'):
             activity = self.env['mail.activity'].browse(res['activity_id'])
             if template := activity.activity_type_id.default_sign_template_id:
-                try:
-                    template.check_access_rule('read')
-                except AccessError:
+                if not template.has_access('read'):
                     return res
                 res['template_id'] = template.id
             else:

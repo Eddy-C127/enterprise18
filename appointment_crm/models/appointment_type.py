@@ -28,7 +28,7 @@ class AppointmentType(models.Model):
 
         for appointment in self:
             lead_ids = appointment_lead_mapped_data[appointment.id]
-            leads = self.env['crm.lead'].browse(lead_ids)._filter_access_rules('read')
+            leads = self.env['crm.lead'].browse(lead_ids)._filtered_access('read')
             appointment.lead_ids = leads
             appointment.lead_count = len(leads)
 

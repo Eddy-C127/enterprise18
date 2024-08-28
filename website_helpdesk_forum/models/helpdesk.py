@@ -19,7 +19,7 @@ class HelpdeskTeam(models.Model):
         # if the team has forums and the user has access to at least one of them,
         # or the team has no forum and the user has access to at least one of all.
         accessible_forums = self.env['forum.forum'].search_count([], limit=1)
-        accessible_all_teams_forums = set(self.sudo().website_forum_ids.sudo(False)._filter_access_rules_python('read').ids)
+        accessible_all_teams_forums = set(self.sudo().website_forum_ids.sudo(False)._filtered_access('read').ids)
         for team in self:
             team_sudo = team.sudo()
             if not team_sudo.use_website_helpdesk_forum:

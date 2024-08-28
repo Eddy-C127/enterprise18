@@ -62,7 +62,7 @@ class WhatsAppTemplateVariable(models.Model):
         for variable in to_check:
             model = self.env[variable.model]
             if not is_system:
-                if not model.check_access_rights('read', raise_exception=False):
+                if not model.has_access('read'):
                     model_description = self.env['ir.model']._get(variable.model).display_name
                     raise ValidationError(
                         _("You can not select field of %(model)s.", model=model_description)

@@ -38,7 +38,7 @@ class PosConfig(models.Model):
 
     @api.model
     def l10n_de_get_fiskaly_urls_and_keys(self, config_id):
-        self.check_access_rights('read')
+        self.browse().check_access('read')
         company = self.browse(config_id).company_id.sudo()
         return {
             'kassensichv_url': self.env['res.company']._l10n_de_fiskaly_kassensichv_url(),

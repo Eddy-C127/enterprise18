@@ -14,11 +14,8 @@ class RentalSign(models.TransientModel):
             company = self.env['sale.order'].browse(res.get('order_id')).company_id or self.env.company
             default_template = company.rental_sign_tmpl_id
             # if document not properly accessible by all employees, avoid access error
-            try:
-                default_template.check_access_rule("read")
+            if default_template.has_access("read"):
                 res["template_id"] = company.rental_sign_tmpl_id.id
-            except:
-                pass
         return res
 
     template_id = fields.Many2one(

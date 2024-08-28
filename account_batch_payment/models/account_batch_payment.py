@@ -341,8 +341,7 @@ class AccountBatchPayment(models.Model):
 
     def export_batch_payment(self):
         #export and save the file for each batch payment
-        self.check_access_rights('write')
-        self.check_access_rule('write')
+        self.check_access('write')
         for record in self.sudo():
             record = record.with_company(record.journal_id.company_id)
             export_file_data = record._generate_export_file()

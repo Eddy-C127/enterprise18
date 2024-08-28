@@ -934,7 +934,7 @@ class Planning(models.Model):
         """ Allow planning user to self assign open shift. """
         self.ensure_one()
         # user must at least 'read' the shift to self assign (Prevent any user in the system (portal, ...) to assign themselves)
-        if not self.check_access_rights('read', raise_exception=False):
+        if not self.has_access('read'):
             raise AccessError(_("You don't have the right to assign yourself to shifts."))
         if self.resource_id and not self.request_to_switch:
             raise UserError(_("You can not assign yourself to an already assigned shift."))
@@ -957,7 +957,7 @@ class Planning(models.Model):
         """ Allow planning user to make shift available for other people to assign themselves to. """
         self.ensure_one()
         # same as with self-assign, a user must be able to 'read' the shift in order to request a switch
-        if not self.check_access_rights('read', raise_exception=False):
+        if not self.has_access('read'):
             raise AccessError(_("You don't have the right to switch shifts."))
         if self.employee_id != self.env.user.employee_id:
             raise UserError(_("You cannot request to switch a shift that is assigned to another user."))
@@ -969,7 +969,7 @@ class Planning(models.Model):
         """ Allows the planning user to cancel the shift switch if they change their mind at a later date """
         self.ensure_one()
         # same as above, the user rights are checked in order for the operation to be completed
-        if not self.check_access_rights('read', raise_exception=False):
+        if not self.has_access('read'):
             raise AccessError(_("You don't have the right to cancel a request to switch."))
         if self.employee_id != self.env.user.employee_id:
             raise UserError(_("You cannot cancel a request to switch made by another user."))
@@ -1403,7 +1403,7 @@ class Planning(models.Model):
                 Returns None, if no employee or all employees have an email set.
         """
         self.ensure_one()
-        if not self.employee_id.check_access_rights('write', raise_exception=False):
+        if not self.employee_id.has_access('write'):
             return None
         employees = self.employee_id or self._get_employees_to_send_slot()
         employee_ids_without_work_email = employees.filtered(lambda employee: not employee.work_email).ids

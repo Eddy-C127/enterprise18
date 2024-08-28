@@ -227,8 +227,7 @@ class DiscussChannel(models.Model):
         if self.channel_type != 'whatsapp':
             raise ValidationError(_('This join method is not possible for regular channels.'))
 
-        self.check_access_rights('write')
-        self.check_access_rule('write')
+        self.check_access('write')
         current_partner = self.env.user.partner_id
         member = self.channel_member_ids.filtered(lambda m: m.partner_id == current_partner)
         if member:

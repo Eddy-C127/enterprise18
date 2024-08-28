@@ -11,7 +11,7 @@ class ForumPost(models.Model):
     @api.depends_context('uid')
     @api.depends('ticket_id')
     def _compute_show_ticket(self):
-        allowed_tickets = self.ticket_id._filter_access_rules('read')
+        allowed_tickets = self.ticket_id._filtered_access('read')
         for post in self:
             post.show_ticket = post.ticket_id in allowed_tickets
 

@@ -13,7 +13,7 @@ patch(MockServer.prototype, {
      * @private
      */
     async _performRPC(route, args) {
-        if (args.model === 'documents.share' && args.method === 'check_access_rights') {
+        if (args.model === 'documents.share' && args.method === 'has_access') {
             return true;
         }
         return super._performRPC(...arguments);

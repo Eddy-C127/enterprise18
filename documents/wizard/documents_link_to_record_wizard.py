@@ -23,7 +23,7 @@ class LinkToRecordWizard(models.TransientModel):
     @api.depends_context('uid')
     def _compute_accessible_model_ids(self):
         model_ids = self.env['ir.model'].sudo().search([('model', '!=', 'documents.document'), ('is_mail_thread', '=', 'True')])
-        model_ids = model_ids.filtered(lambda m: self.env[m.model].check_access_rights('write', raise_exception=False))
+        model_ids = model_ids.filtered(lambda m: self.env[m.model].has_access('write'))
         for link_to in self:
             link_to.accessible_model_ids = model_ids.ids
 

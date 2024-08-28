@@ -91,7 +91,7 @@ beforeEach(() => {
         { id: 2, name: "Functional Consultant", color: 2 },
     ];
 
-    onRpc("check_access_rights", () => {
+    onRpc("has_access", () => {
         return true;
     });
 

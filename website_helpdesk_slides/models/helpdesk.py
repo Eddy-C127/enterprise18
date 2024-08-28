@@ -18,7 +18,7 @@ class HelpdeskTeam(models.Model):
         # if the team has slide channels and the user has access to at least one of them,
         # or the team has no slide channel and the user has access to at least one of all.
         accessible_channels = self.env['slide.channel'].search_count([], limit=1)
-        accessible_all_teams_channels = set(self.sudo().website_slide_channel_ids.sudo(False)._filter_access_rules_python('read').ids)
+        accessible_all_teams_channels = set(self.sudo().website_slide_channel_ids.sudo(False)._filtered_access('read').ids)
         for team in self:
             team_sudo = team.sudo()
             if not team_sudo.use_website_helpdesk_slides:

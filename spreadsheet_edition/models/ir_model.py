@@ -9,7 +9,7 @@ class IrModel(models.Model):
     @api.model
     def has_searchable_parent_relation(self, model_name):
         model = self.env.get(model_name)
-        if model is None or not model.check_access_rights("read", raise_exception=False):
+        if model is None or not model.has_access("read"):
             return False
         # we consider only stored parent relationships were meant to
         # be used to be searched

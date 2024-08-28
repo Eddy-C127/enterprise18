@@ -126,7 +126,7 @@ beforeEach(() => {
                     <filter name="group_by_name" context="{'group_by':'name'}"/>
                 </search>`,
     };
-    patchWithCleanup(Partner.prototype, { check_access_rights: () => true });
+    patchWithCleanup(Partner.prototype, { has_access: () => true });
     serverData = { models, actions, views };
 });
 

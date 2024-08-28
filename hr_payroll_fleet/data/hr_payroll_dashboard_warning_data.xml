@@ -6,8 +6,8 @@
             <field name="name">Vehicles With Drivers And Without Running Contract</field>
             <field name="country_id" eval="False"/>
             <field name="evaluation_code">
-vehicle_access = self.env['fleet.vehicle'].check_access_rights('read', raise_exception=False)
-log_contract_access = self.env['fleet.vehicle.log.contract'].check_access_rights('read', raise_exception=False)
+vehicle_access = self.env['fleet.vehicle'].has_access('read')
+log_contract_access = self.env['fleet.vehicle.log.contract'].has_access('read')
 
 if vehicle_access and log_contract_access:
     self.env.cr.execute("""
@@ -36,8 +36,8 @@ if vehicle_access and log_contract_access:
             <field name="name">Employees With Multiple Company Cars</field>
             <field name="country_id" eval="False"/>
             <field name="evaluation_code">
-vehicle_access = self.env['fleet.vehicle'].check_access_rights('read', raise_exception=False)
-log_contract_access = self.env['fleet.vehicle.log.contract'].check_access_rights('read', raise_exception=False)
+vehicle_access = self.env['fleet.vehicle'].has_access('read')
+log_contract_access = self.env['fleet.vehicle.log.contract'].has_access('read')
 
 if vehicle_access and log_contract_access:
     self.env.cr.execute("""

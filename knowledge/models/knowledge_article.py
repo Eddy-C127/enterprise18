@@ -930,10 +930,7 @@ class Article(models.Model):
 
         # check access to parents
         if parent_ids:
-            try:
-                self.check_access_rights('write')
-                self.env['knowledge.article'].browse(list(parent_ids)).check_access_rule('write')
-            except AccessError:
+            if not self.browse(parent_ids).has_access('write'):
                 raise AccessError(_("You cannot create an article under articles on which you cannot write"))
 
         # compute all maximum sequences / parent
@@ -1008,10 +1005,7 @@ class Article(models.Model):
             parent = self.env['knowledge.article']
             if vals.get('parent_id') and self.filtered(lambda r: r.parent_id.id != vals['parent_id']):
                 parent = self.browse(vals['parent_id'])
-                try:
-                    parent.check_access_rights('write')
-                    parent.check_access_rule('write')
-                except AccessError:
+                if not parent.has_access('write'):
                     raise AccessError(_("You cannot move an article under %(parent_name)s as you cannot write on it",
                                         parent_name=parent.display_name))
             if 'sequence' not in vals:
@@ -1313,10 +1307,7 @@ class Article(models.Model):
 
     def action_toggle_favorite(self):
         """ Read access is sufficient for toggling its own favorite status. """
-        try:
-            self.check_access_rights('read')
-            self.check_access_rule('read')
-        except AccessError:
+        if not self.has_access('read'):
             # Return a meaningful error message as this may be called through UI
             raise AccessError(_("You cannot add or remove this article to your favorites"))
 
@@ -1342,7 +1333,7 @@ class Article(models.Model):
                     root;
         :param bool send_to_trash: Article specific archive:
         """
-        # _detach_unwritable_descendants calls _filter_access_rules_python which returns
+        # _detach_unwritable_descendants calls _filtered_access() which returns
         # a sudo-ed recordset
         articles = self + self._detach_unwritable_descendants().with_env(self.env)
         articles.filtered('active').toggle_active()
@@ -2088,7 +2079,7 @@ class Article(models.Model):
         :return <knowledge.article> children: the children articles which were
           not detached, meaning that current user has write access on them """
         all_descendants_sudo = self.sudo()._get_descendants()
-        writable_descendants_sudo = all_descendants_sudo.with_env(self.env)._filter_access_rules_python('write')
+        writable_descendants_sudo = all_descendants_sudo.with_env(self.env)._filtered_access('write').sudo()
         other_descendants_sudo = all_descendants_sudo - writable_descendants_sudo
 
         # copy rights to allow breaking the hierarchy while keeping access for members
@@ -2139,8 +2130,7 @@ class Article(models.Model):
         before_article = before_article if before_article is not False else self.env['knowledge.article']
 
         try:
-            self.check_access_rights('write')
-            (self + parent).check_access_rule('write')
+            (self + parent).check_access('write')
         except (AccessError, UserError):
             if parent:
                 raise AccessError(
@@ -2215,10 +2205,7 @@ class Article(models.Model):
         :return: True
         """
         self.ensure_one()
-        try:
-            self.check_access_rights('write')
-            self.check_access_rule('write')
-        except AccessError:
+        if not self.has_access('write'):
             raise AccessError(
                 _("You are not allowed to move '%(article_name)s'.",
                   article_name=self.display_name)
@@ -3002,11 +2989,7 @@ class Article(models.Model):
     def _get_accessible_root_ancestors(self):
         accessible_root_ancestor = self
         def update_has_access(parent):
-            try:
-                parent.check_access_rule('read') is None
-            except AccessError:
-                return False
-            return True
+            return parent.has_access('read')
         accessible_root_ancestors = accessible_root_ancestor if update_has_access(accessible_root_ancestor) else self.env['knowledge.article']
         while update_has_access(accessible_root_ancestor) and update_has_access(accessible_root_ancestor.parent_id) and accessible_root_ancestor.parent_id.id:
             accessible_root_ancestor = accessible_root_ancestor.parent_id
@@ -3032,10 +3015,7 @@ class Article(models.Model):
             ("is_template", "=", False),
             ("is_article_visible", "=", True)
         ]
-        try:
-            has_root_access = self.root_article_id.check_access_rule('read') is None
-        except AccessError:
-            has_root_access = False
+        has_root_access = self.root_article_id.has_access('read')
 
         # Fetch root article_ids as sudo, ACLs will be checked on next global call fetching 'all_visible_articles'
         # this helps avoiding 2 queries done for ACLs (and redundant with the global fetch)

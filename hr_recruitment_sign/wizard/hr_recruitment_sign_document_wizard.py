@@ -88,7 +88,7 @@ class HrRecruitmentSignDocumentWizard(models.TransientModel):
         self.ensure_one()
 
         sign_request = self.env['sign.request']
-        if not self.check_access_rights('create', raise_exception=False):
+        if not self.browse().has_access('create'):
             sign_request = sign_request.sudo()
 
         sign_values = []
@@ -129,7 +129,7 @@ class HrRecruitmentSignDocumentWizard(models.TransientModel):
         } for sign_request_values in sign_values])
         sign_requests.message_subscribe(partner_ids=self.cc_partner_ids.ids)
 
-        if not self.check_access_rights('write', raise_exception=False):
+        if not self.browse().has_access('write'):
             sign_requests = sign_requests.sudo()
 
         for sign_request in sign_requests:

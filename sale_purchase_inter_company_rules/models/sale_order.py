@@ -37,7 +37,7 @@ class sale_order(models.Model):
             if not intercompany_uid:
                 raise UserError(_('Provide one user for intercompany relation for %(name)s '), name=company.name)
             # check intercompany user access rights
-            if not self.env['purchase.order'].with_user(intercompany_uid).check_access_rights('create', raise_exception=False):
+            if not self.env['purchase.order'].with_user(intercompany_uid).has_access('create'):
                 raise UserError(_("Inter company user of company %s doesn't have enough access rights", company.name))
 
             company_partner = rec.company_id.partner_id.with_user(intercompany_uid)

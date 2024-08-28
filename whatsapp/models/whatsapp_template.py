@@ -154,7 +154,7 @@ class WhatsAppTemplate(models.Model):
         for tmpl in self.filtered('phone_field'):
             model = self.env[tmpl.model]
             if not is_system:
-                if not model.check_access_rights('read', raise_exception=False):
+                if not model.has_access('read'):
                     model_description = self.env['ir.model']._get(tmpl.model).display_name
                     raise AccessError(
                         _("You can not select field of %(model)s.", model=model_description)
@@ -814,7 +814,7 @@ class WhatsAppTemplate(models.Model):
 
     def button_create_action(self):
         """ Create action for sending WhatsApp template message in model defined in template. It will be used in bulk sending"""
-        self.check_access_rule('write')
+        self.check_access('write')
         actions = self.env['ir.actions.act_window'].sudo().search([
             ('res_model', '=', 'whatsapp.composer'),
             ('binding_model_id', 'in', self.model_id.ids)
@@ -833,7 +833,7 @@ class WhatsAppTemplate(models.Model):
         return actions
 
     def button_delete_action(self):
-        self.check_access_rule('write')
+        self.check_access('write')
         self.env['ir.actions.act_window'].sudo().search([
             ('res_model', '=', 'whatsapp.composer'),
             ('binding_model_id', 'in', self.model_id.ids)

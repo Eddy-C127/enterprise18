@@ -310,7 +310,7 @@ class DocumentFolder(models.Model):
         values = {'parent_folder_id': parent_folder_id}
         parent_folder = self.browse(parent_folder_id)
         if parent_folder and self.parent_folder_id != parent_folder:
-            parent_folder.check_access_rule('write')
+            parent_folder.check_access('write')
             if parent_folder.parent_path.startswith(self.parent_path):
                 raise UserError(_("Cannot move folder under the given parent as this would create a recursive hierarchy"))
             values.update(parent_folder._get_inherited_settings_as_vals())

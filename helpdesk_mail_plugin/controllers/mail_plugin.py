@@ -16,7 +16,7 @@ class MailPluginController(mail_plugin.MailPluginController):
         """
         contact_values = super(MailPluginController, self)._get_contact_data(partner)
 
-        if not request.env['helpdesk.ticket'].check_access_rights('create', raise_exception=False):
+        if not request.env['helpdesk.ticket'].has_access('create'):
             return contact_values
 
         contact_values['tickets'] = self._fetch_partner_tickets(partner) if partner else []
@@ -42,12 +42,12 @@ class MailPluginController(mail_plugin.MailPluginController):
 
     def _mail_content_logging_models_whitelist(self):
         models_whitelist = super(MailPluginController, self)._mail_content_logging_models_whitelist()
-        if not request.env['helpdesk.ticket'].check_access_rights('create', raise_exception=False):
+        if not request.env['helpdesk.ticket'].has_access('create'):
             return models_whitelist
         return models_whitelist + ['helpdesk.ticket']
 
     def _translation_modules_whitelist(self):
         modules_whitelist = super(MailPluginController, self)._translation_modules_whitelist()
-        if not request.env['helpdesk.ticket'].check_access_rights('create', raise_exception=False):
+        if not request.env['helpdesk.ticket'].has_access('create'):
             return modules_whitelist
         return modules_whitelist + ['helpdesk_mail_plugin']

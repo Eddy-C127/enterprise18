@@ -2,7 +2,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
-from odoo.exceptions import AccessError
 
 
 class WorkflowActionRule(models.Model):
@@ -107,7 +106,7 @@ class WorkflowActionRule(models.Model):
         elif self.link_model:
             # Throw a warning if the user does not have access to the model.
             link_model_sudo = self.link_model.sudo()
-            self.env[link_model_sudo.model].check_access_rights('write')
+            self.env[link_model_sudo.model].check_access('write')
             context['default_is_readonly_model'] = True
             context['default_model_id'] = link_model_sudo.id
             first_valid_id = self.env[link_model_sudo.model].search([], limit=1).id
@@ -157,12 +156,8 @@ class WorkflowActionRule(models.Model):
 
         # Use sudo if user has write access on document else allow to do the
         # other workflow actions(like: schedule activity, send mail etc...)
-        try:
-            documents.check_access_rights('write')
-            documents.check_access_rule('write')
+        if documents.has_access('write'):
             documents = documents.sudo()
-        except AccessError:
-            pass
 
         documents.write(document_dict)
 

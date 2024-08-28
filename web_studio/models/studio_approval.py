@@ -326,8 +326,7 @@ class StudioApprovalRule(models.Model):
         """
         self.ensure_one()
         record = self.env[self.sudo().model_name].browse(res_id)
-        record.check_access_rights('write')
-        record.check_access_rule('write')
+        record.check_access('write')
         ruleSudo = self.sudo()
         existing_entry = self.env['studio.approval.entry'].search([
                 ('model', '=', ruleSudo.model_name),
@@ -379,8 +378,7 @@ class StudioApprovalRule(models.Model):
         # Odoo itself (not PG); the NOWAIT ensures that no deadlock will happen
         # check if the user has write access to the record
         record = self.env[self.sudo().model_name].browse(res_id)
-        record.check_access_rights('write')
-        record.check_access_rule('write')
+        record.check_access('write')
         # check if the user has the necessary group
         if not self.can_validate:
             raise UserError(_('Only %s members can approve this rule.', self.group_id.display_name))
@@ -514,7 +512,7 @@ class StudioApprovalRule(models.Model):
                 }
         """
         records = self.env[model]
-        records.check_access_rights('read')
+        records.check_access('read')
 
         def m2o_to_id(t_uple):
             return t_uple and t_uple[0]
@@ -534,7 +532,7 @@ class StudioApprovalRule(models.Model):
         if res_ids:
             records = records.browse(res_ids).exists()
             # we check that the user has read access on the underlying record before returning anything
-            records.check_access_rule('read')
+            records.check_access('read')
 
         # Search every rule matching all methods and actions: we'll map those results afterwards
         rules_domain = [('model_name', '=', model)]
@@ -722,8 +720,7 @@ class StudioApprovalRule(models.Model):
         # we check that the user has write access on the underlying record before doing anything
         # if another type of access is necessary to perform the action, it will be checked
         # there anyway
-        record.check_access_rights('write')
-        record.check_access_rule('write')
+        record.check_access('write')
         ruleSudo = self.sudo()
         domain = self._get_rule_domain(model, method, action_id)
         # order by 'exclusive_user' so that restrictive rules are approved first

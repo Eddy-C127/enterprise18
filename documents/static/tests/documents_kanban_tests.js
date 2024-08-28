@@ -2647,7 +2647,7 @@ QUnit.module("documents", {}, function () {
                     </div>
                 </t></templates></kanban>`,
                         mockRPC: async function (route, args, performRPC) {
-                            if (args.method === "check_access_rights") {
+                            if (args.method === "has_access") {
                                 return true;
                             } else if (
                                 args.model === "documents.workflow.rule" &&
