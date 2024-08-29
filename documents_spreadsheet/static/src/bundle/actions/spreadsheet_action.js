@@ -2,24 +2,15 @@
 import { registry } from "@web/core/registry";
 import { x2ManyCommands } from "@web/core/orm_service";
 
-import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
-import { SpreadsheetName } from "@spreadsheet_edition/bundle/actions/control_panel/spreadsheet_name";
-
 import { Model } from "@odoo/o-spreadsheet";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
 import { _t } from "@web/core/l10n/translation";
 
 import { useState, useSubEnv } from "@odoo/owl";
-import { SpreadsheetNavbar } from "@spreadsheet_edition/bundle/components/spreadsheet_navbar/spreadsheet_navbar";
 
 export class SpreadsheetAction extends AbstractSpreadsheetAction {
     static template = "documents_spreadsheet.SpreadsheetAction";
-    static components = {
-        SpreadsheetComponent,
-        SpreadsheetName,
-        SpreadsheetNavbar,
-    };
     static path = "spreadsheet";
     static displayName = _t("Spreadsheet");
 

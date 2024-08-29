@@ -3,19 +3,13 @@ import { _t } from "@web/core/l10n/translation";
 import { range } from "@web/core/utils/numbers";
 import { WarningDialog } from "@web/core/errors/error_dialogs";
 
-import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
 import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
-import { SpreadsheetNavbar } from "@spreadsheet_edition/bundle/components/spreadsheet_navbar/spreadsheet_navbar";
 
 import { useSubEnv } from "@odoo/owl";
 import { useSpreadsheetFieldSyncExtension } from "../field_sync_extension_hook";
 
 export class SpreadsheetFieldSyncAction extends AbstractSpreadsheetAction {
     static template = "spreadsheet_sale_management.SpreadsheetFieldSyncAction";
-    static components = {
-        SpreadsheetComponent,
-        SpreadsheetNavbar,
-    };
     static path = "sale-order-spreadsheet";
 
     resModel = "sale.order.spreadsheet";

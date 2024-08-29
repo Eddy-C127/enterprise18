@@ -18,6 +18,9 @@ import { CommentsStore } from "../comments/comments_store";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import { createDefaultCurrency } from "@spreadsheet/currency/helpers";
 
+import { SpreadsheetNavbar } from "@spreadsheet_edition/bundle/components/spreadsheet_navbar/spreadsheet_navbar";
+import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
+
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
 const { Model } = spreadsheet;
@@ -37,6 +40,10 @@ const { useStoreProvider, ModelStore, SidePanelStore } = spreadsheet.stores;
 export class AbstractSpreadsheetAction extends Component {
     static template = "";
     static props = { ...standardActionServiceProps };
+    static components = {
+        SpreadsheetComponent,
+        SpreadsheetNavbar,
+    };
     static target = "fullscreen";
 
     setup() {

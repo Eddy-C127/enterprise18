@@ -2,20 +2,12 @@
 
 import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
 import { registry } from "@web/core/registry";
-import { SpreadsheetComponent } from "@spreadsheet/actions/spreadsheet_component";
 import { _t } from "@web/core/l10n/translation";
-import { CheckBox } from "@web/core/checkbox/checkbox";
 
 import { useSubEnv } from "@odoo/owl";
-import { SpreadsheetNavbar } from "@spreadsheet_edition/bundle/components/spreadsheet_navbar/spreadsheet_navbar";
 
 export class DashboardEditAction extends AbstractSpreadsheetAction {
     static template = "spreadsheet_dashboard_edition.DashboardEditAction";
-    static components = {
-        CheckBox,
-        SpreadsheetComponent,
-        SpreadsheetNavbar,
-    };
 
     resModel = "spreadsheet.dashboard";
     threadField = "dashboard_id";
