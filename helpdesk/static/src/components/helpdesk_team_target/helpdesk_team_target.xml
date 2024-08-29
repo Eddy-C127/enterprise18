@@ -8,7 +8,7 @@
                    t-on-keydown="_onInputKeydown"
             />
             <span t-else="" class="btn btn-light justify-content-center align-items-center d-flex h-100 p-0 border-0 bg-100 fw-normal"
-                  t-att-title="props.showDemo ? 'Average rating daily target' : 'Click to set'"
+                  t-att-title="this.helpdeskTeamTargetTitle"
                   t-att-class="{'o_target_to_set': !props.showDemo}" t-on-click.stop="_toggleFocus"
             >
                 <div t-if="state.value" class="position-relative p-2">

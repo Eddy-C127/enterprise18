@@ -58,19 +58,6 @@ class HelpdeskTeam(models.Model):
             self._ensure_website_menu()
         return res
 
-    def action_view_all_rating(self):
-        """ Override this method without calling parent to redirect to rating website team page """
-        self.ensure_one()
-        if not self.portal_show_rating:
-            return super().action_view_all_rating()
-
-        return {
-            'type': 'ir.actions.act_url',
-            'name': "Redirect to the Website Helpdesk Rating Page",
-            'target': 'self',
-            'url': "/helpdesk/rating/"
-        }
-
     @api.model_create_multi
     def create(self, vals_list):
         teams = super(HelpdeskTeam, self).create(vals_list)

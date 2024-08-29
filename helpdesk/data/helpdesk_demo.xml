@@ -22,13 +22,8 @@
     <!-- Set target on user -->
     <record id="base.user_admin" model="res.users">
         <field name="helpdesk_target_closed">5</field>
-        <field name="helpdesk_target_rating">92</field>
+        <field name="helpdesk_target_rating">4.5</field>
         <field name="helpdesk_target_success">87</field>
-    </record>
-
-    <!-- helpdesk stages -->
-    <record id="helpdesk.stage_solved" model="helpdesk.stage">
-        <field name="template_id" ref="helpdesk.rating_ticket_request_email_template"/>
     </record>
 
     <!-- helpdesk team -->

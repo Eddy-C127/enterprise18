@@ -191,16 +191,17 @@
                                 </a>
                             </td>
                             <td t-if="state.dashboardValues.rating_enable" t-attf-class="{{demoClass}} p-0">
-                                <t t-if="state.dashboardValues.today.rating > 0" t-set="success_rate_percentage" t-value="`${formatFloat(state.dashboardValues.today.rating)} %`"/>
+                                <t t-set="success_rate_rating" t-value="`/`"/>
+                                <t t-if="state.dashboardValues.today.rating > 0" t-set="success_rate_rating" t-value="`${formatFloat(state.dashboardValues.today.rating, {'digits': [1, 1]})} / 5`"/>
                                 <a name="action_view_rating_today"
                                    t-attf-class="btn w-100 h-100 p-0 border-0 text-capitalize fw-normal {{(state.dashboardValues.helpdesk_target_rating &lt;= state.dashboardValues.today.rating) ? 'btn-success': 'btn-light bg-100'}} {{showDemo ? 'o_cursor_default' : ''}}"
-                                   title="Today Average Rating"
+                                   title="Today's Average Rating"
                                    type="object"
                                    t-on-click="onActionClicked"
                                    data-hotkey="j"
                                 >
                                     <div class="p-2">
-                                        <h2 class="mb-0 text-reset" t-out="success_rate_percentage"/>
+                                        <h2 class="mb-0 text-reset" t-out="success_rate_rating"/>
                                         Average Rating
                                     </div>
                                 </a>
@@ -231,14 +232,14 @@
                                 </a>
                             </td>
                             <td t-if="state.dashboardValues.rating_enable" t-attf-class="{{demoClass}} p-0">
-                                <t t-if="state.dashboardValues['7days'].rating > 0" t-set="success_rate_percentage" t-value="`${formatFloat(state.dashboardValues['7days'].rating)} %`"/>
+                                <t t-if="state.dashboardValues['7days'].rating > 0" t-set="success_rate_rating" t-value="`${formatFloat(state.dashboardValues['7days'].rating)} %`"/>
                                 <a name="action_view_rating_7days"
                                    t-attf-class="btn align-items-center d-flex w-100 h-100 p-0 border-0 fw-normal {{(state.dashboardValues.helpdesk_target_rating &lt;= state.dashboardValues['7days'].rating) ? 'btn-success': state.dashboardValues['7days'].rating &lt;= 0 ? 'btn-light bg-100' : 'btn-warning'}} {{showDemo ? 'o_cursor_default' : ''}}"
-                                   title="Avg 7 Days Customer Satisfaction"
+                                   title="Average Rating for the Past 7 Days"
                                    t-on-click="onActionClicked"
                                    data-hotkey="m"
                                 >
-                                    <div class="w-100 p-2" t-out="success_rate_percentage"/>
+                                    <div class="w-100 p-2" t-out="success_rate_rating"/>
                                 </a>
                             </td>
                         </tr>
@@ -246,7 +247,7 @@
                             <td class="o_text py-2 text-start align-middle">Daily Target</td>
                             <HelpdeskTeamTarget update="(value) => this.updateHelpdeskTarget('helpdesk_target_closed', value)" hotkey="v" showDemo="showDemo" demoClass="demoClass" value="parseInteger(state.dashboardValues.helpdesk_target_closed)"/>
                             <HelpdeskTeamTarget t-if="state.dashboardValues.success_rate_enable" update="(value) => this.updateHelpdeskTarget('helpdesk_target_success', value)" hotkey="x" showDemo="showDemo" demoClass="demoClass" value="parseInteger(state.dashboardValues.helpdesk_target_success)" percentage="true"/>
-                            <HelpdeskTeamTarget t-if="state.dashboardValues.rating_enable" update="(value) => this.updateHelpdeskTarget('helpdesk_target_rating', value)" hotkey="w" showDemo="showDemo" demoClass="demoClass" value="parseInteger(state.dashboardValues.helpdesk_target_rating)" percentage="true"/>
+                            <HelpdeskTeamTarget t-if="state.dashboardValues.rating_enable" update="(value) => this.updateHelpdeskTarget('helpdesk_target_rating', value)" hotkey="w" showDemo="showDemo" demoClass="demoClass" value="state.dashboardValues.helpdesk_target_rating" rating="true"/>
                         </tr>
                     </tbody>
                 </table>

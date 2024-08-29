@@ -71,27 +71,6 @@ class TestHelpdeskRating(HelpdeskCommon, HttpCase, MailCommon):
         self.assertIn(f"{rating}/5", message.body, f"The posted rating should be {rating}/5.")
         self.assertIn(feedback, message.body, 'The posted rating should contain the customer feedback.')
 
-    def test_rating_website(self):
-        self.test_team.portal_show_rating = True
-
-        rating = self.env['rating.rating'].create({
-            **self.default_rating_vals,
-            'rating': 5,
-            'rated_partner_id': self.helpdesk_user.partner_id.id,
-            'res_id': self.test_team_ticket2.id,
-        })
-
-        yesterday = date.today() - relativedelta(days=1)
-        yesterday_str = f'{yesterday.year}-{yesterday.month}-{yesterday.day}'
-        self.env.cr.execute("UPDATE rating_rating SET create_date=%s, write_date=%s WHERE id=%s", (yesterday_str, yesterday_str, rating.id))
-        rating.invalidate_recordset(['create_date', 'write_date'])
-
-        self.authenticate('partner_1', 'partner_1')
-        res = self.url_open(f"/helpdesk/rating/{self.test_team.id}")
-
-        self.assertEqual(res.status_code, 200, 'The request should be successful.')
-        self.assertRegex(res.text, f"<img.+alt=\"{self.test_team_ticket2.name}", 'The rating should be displayed on the page.')
-
     def test_helpdesk_dashboard(self):
         """ Test the rating stat displayed in the dashboard for the current user.
 
@@ -123,12 +102,12 @@ class TestHelpdeskRating(HelpdeskCommon, HttpCase, MailCommon):
         self.assertTrue(HelpdeskTeam.with_user(self.helpdesk_manager)._check_rating_feature_enabled(True))
         data = HelpdeskTeam.with_user(self.helpdesk_manager).retrieve_dashboard()
         self.assertEqual(data['today']['rating'], 0, 'The average rating of the Helpdesk Manager should be equal to 0 since no rating is done today.')
-        self.assertEqual(data['7days']['rating'], 60, 'The average rating of the Helpdesk Manager should be equal to 3 / 5')
+        self.assertEqual(data['7days']['rating'], 3, 'The average rating of the Helpdesk Manager should be equal to 3 / 5')
 
         self.assertTrue(HelpdeskTeam.with_user(self.helpdesk_user)._check_rating_feature_enabled(True))
         data = HelpdeskTeam.with_user(self.helpdesk_user).retrieve_dashboard()
         self.assertEqual(data['today']['rating'], 0, 'The average rating of the Helpdesk user should be equal to 0 since no rating is done today.')
-        self.assertEqual(data['7days']['rating'], 100, 'The average rating should be equal to 5 / 5.')
+        self.assertEqual(data['7days']['rating'], 5, 'The average rating should be equal to 5 / 5.')
 
         # create ratings for today
         ratings = self.env['rating.rating'].create([
@@ -147,12 +126,12 @@ class TestHelpdeskRating(HelpdeskCommon, HttpCase, MailCommon):
         ])
         ratings.invalidate_recordset()
         data = HelpdeskTeam.with_user(self.helpdesk_manager).retrieve_dashboard()
-        self.assertEqual(data['today']['rating'], 100, 'The average rating of the Helpdesk Manager user should be equal to 5 / 5')
-        self.assertEqual(data['7days']['rating'], 80, 'The average rating of the Helpdesk Manager user should be equal to 4 / 5')
+        self.assertEqual(data['today']['rating'], 5, 'The average rating of the Helpdesk Manager user should be equal to 5 / 5')
+        self.assertEqual(data['7days']['rating'], 4, 'The average rating of the Helpdesk Manager user should be equal to 4 / 5')
 
         data = HelpdeskTeam.with_user(self.helpdesk_user).retrieve_dashboard()
-        self.assertEqual(data['today']['rating'], 20, 'The average rating should be equal to 1 / 5.')
-        self.assertEqual(data['7days']['rating'], 60, 'The average rating should be equal to 3 / 5.')
+        self.assertEqual(data['today']['rating'], 1, 'The average rating should be equal to 1 / 5.')
+        self.assertEqual(data['7days']['rating'], 3, 'The average rating should be equal to 3 / 5.')
 
     def test_email_rating_template(self):
         self.stage_done.template_id = self.env.ref('helpdesk.rating_ticket_request_email_template')

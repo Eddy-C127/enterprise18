@@ -21,10 +21,6 @@ class HelpdeskTeam(models.Model):
     _order = 'sequence,name'
     _rating_satisfaction_days = 7  # include only last 7 days to compute satisfaction and average
 
-    _sql_constraints = [('not_portal_show_rating_if_not_use_rating',
-                         'check (portal_show_rating = FALSE OR use_rating = TRUE)',
-                         'It is necessary to enable customer ratings in the settings of your helpdesk team so that they can be displayed on the portal.'), ]
-
     def _default_stage_ids(self):
         default_stages = self.env['helpdesk.stage']
         for xml_id in ['stage_new', 'stage_in_progress', 'stage_solved', 'stage_cancelled']:
@@ -99,10 +95,6 @@ class HelpdeskTeam(models.Model):
     use_product_repairs = fields.Boolean('Repairs')
     use_twitter = fields.Boolean('X')
     use_rating = fields.Boolean('Customer Ratings')
-    portal_show_rating = fields.Boolean(
-        'Ratings on Website', compute='_compute_portal_show_rating', store=True, readonly=False,
-        help="If enabled, portal users will have access to your customer satisfaction statistics from the last 30 days in their portal.\n"
-             "They will only have access to the ratings themselves, and not to the written feedback if any was left. You can also manually hide ratings of your choosing.")
     use_sla = fields.Boolean('SLA Policies', default=True)
     unassigned_tickets = fields.Integer(string='Unassigned Tickets', compute='_compute_unassigned_tickets')
     resource_calendar_id = fields.Many2one('resource.calendar', 'Working Hours',
@@ -237,11 +229,6 @@ class HelpdeskTeam(models.Model):
         mapped_data = {team.id: count for team, count in sla_data}
         for team in self:
             team.sla_policy_count = mapped_data.get(team.id, 0)
-
-    @api.depends('use_rating')
-    def _compute_portal_show_rating(self):
-        without_rating = self.filtered(lambda t: not t.use_rating)
-        without_rating.update({'portal_show_rating': False})
 
     @api.onchange('use_alias', 'name')
     def _onchange_use_alias(self):
@@ -617,9 +604,9 @@ class HelpdeskTeam(models.Model):
                 'my_all': {'count': 10, 'hours': 30, 'failed': 4},
                 'my_high': {'count': 3, 'hours': 10, 'failed': 2},
                 'my_urgent': {'count': 2, 'hours': 15, 'failed': 1},
-                'today': {'sla_ticket_count': 1, 'count': 1, 'rating': 50, 'success': 50},
-                '7days': {'sla_ticket_count': 1, 'count': 15, 'rating': 70, 'success': 80},
-                'helpdesk_target_rating': 80,
+                'today': {'sla_ticket_count': 1, 'count': 1, 'rating': 2.5, 'success': 50},
+                '7days': {'sla_ticket_count': 1, 'count': 15, 'rating': 3.5, 'success': 80},
+                'helpdesk_target_rating': 3.5,
                 'helpdesk_target_success': 85,
                 'helpdesk_target_closed': 12,
             })
@@ -713,10 +700,11 @@ class HelpdeskTeam(models.Model):
                 rating_stat['score'] += rating.rating
                 rating_stat['count'] += 1
 
-            avg = lambda d: fields.Float.round(d['score'] / d['count'] if d['count'] > 0 else 0.0, 2) * 20
+            def average_score(d):
+                return fields.Float.round(d['score'] / d['count'] if d['count'] > 0 else 0.0, 2)
 
-            result['today']['rating'] = avg(today_rating_stat)
-            result['7days']['rating'] = avg(rating_stat)
+            result['today']['rating'] = average_score(today_rating_stat)
+            result['7days']['rating'] = average_score(rating_stat)
         return result
 
     def _action_view_rating(self, period=False, only_closed_tickets=False, user_id=None):
@@ -854,10 +842,6 @@ class HelpdeskTeam(models.Model):
     def action_view_rating_7days(self):
         #  call this method of on click "Customer Rating" button on dashbord for last 7days rating of teams tickets
         return self.search([('member_ids', 'in', self._uid)])._action_view_rating(period='seven_days', user_id=self._uid)
-
-    def action_view_all_rating(self):
-        """ return the action to see all the rating about the all sort of activity of the team (tickets) """
-        return self._action_view_rating()
 
     def action_view_team_rating(self):
         self.ensure_one()

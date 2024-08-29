@@ -203,10 +203,12 @@
                             documentation="/applications/services/helpdesk/overview/ratings.html">
                             <field name="use_rating"/>
                             <div id="use_rating" invisible="not use_rating">
-                                <field name="portal_show_rating" class="oe_inline"/>
-                                <label for="portal_show_rating" string="Publish this team's ratings on your website"/>
+                                <p class="text-muted o_row ps-1">
+                                    <i class="fa fa-lightbulb-o"/>
+                                    <span class="ms-2">A rating request will automatically be sent by email to the customer when their ticket reaches the corresponding stage with the email template set.</span>
+                                </p>
                                 <div class="mt-3">
-                                    <button name="%(helpdesk.helpdesk_stage_action)d" type="action" string="Set an Email Template on Stages" icon="oi-arrow-right" class="btn-link" context="{'search_default_team_ids': name}"/>
+                                    <button name="%(helpdesk.helpdesk_stage_team_action)d" type="action" string="Set an Email Template on Stages" icon="oi-arrow-right" class="btn-link" context="{'search_default_team_ids': name}"/>
                                 </div>
                             </div>
                         </setting>

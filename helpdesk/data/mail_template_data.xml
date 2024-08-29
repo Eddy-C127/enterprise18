@@ -100,15 +100,15 @@
             </t>
             Please take a moment to rate our services related to the ticket "<strong t-out="object.name or ''">Table legs are unbalanced</strong>"
             <t t-if="object._rating_get_operator().name">
-                assigned to <strong t-out="object._rating_get_operator().name or ''">Mitchell Admin</strong>.<br/><br/>
+                assigned to <strong t-out="object._rating_get_operator().name or ''">Mitchell Admin</strong>.<br/>
             </t>
             <t t-else="">
                 .<br/><br/>
             </t>
         </td></tr>
         <tr><td style="text-align: center;">
-            <table border="0" cellpadding="0" cellspacing="0" summary="o_mail_notification" style="width:100%; margin: 32px 0px 32px 0px;">
-                <tr><td style="font-size: 14px;">
+            <table border="0" cellpadding="0" cellspacing="0" style="width:100%; margin: 32px 0px 32px 0px; display: inline-table;">
+                <tr><td style="font-size: 14px; text-align:center;">
                     <strong>Tell us how you feel about our services</strong><br/>
                     <span style="text-color: #888888">(click on one of these smileys)</span>
                 </td></tr>
@@ -116,17 +116,17 @@
                     <table style="width:100%;text-align:center;margin-top:2rem;">
                         <tr>
                             <td>
-                                <a t-attf-href="/rate/{{ access_token }}/5">
+                                <a t-attf-href="/rate/{{ access_token }}/5" t-att-class="'pe-none' if object._rating_get_operator() else ''">
                                     <img alt="Satisfied" src="/rating/static/src/img/rating_5.png" title="Satisfied"/>
                                 </a>
                             </td>
                             <td>
-                                <a t-attf-href="/rate/{{ access_token }}/3">
+                                <a t-attf-href="/rate/{{ access_token }}/3" t-att-class="'pe-none' if object._rating_get_operator() else ''">
                                     <img alt="Okay" src="/rating/static/src/img/rating_3.png" title="Okay"/>
                                 </a>
                             </td>
                             <td>
-                                <a t-attf-href="/rate/{{ access_token }}/1">
+                                <a t-attf-href="/rate/{{ access_token }}/1" t-att-class="'pe-none' if object._rating_get_operator() else ''">
                                     <img alt="Dissatisfied" src="/rating/static/src/img/rating_1.png" title="Dissatisfied"/>
                                 </a>
                             </td>

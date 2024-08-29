@@ -105,7 +105,7 @@ test("edit the target", async () => {
         message:
             "The input should no longer be rendered since the user finished the edition by pressing Enter key.",
     });
-    expect(".o_target_to_set> div:contains('1200')").toHaveCount(1, {
+    expect(".o_target_to_set > div:contains('1,200')").toHaveCount(1, {
         message: "should have correct targets",
     });
 });

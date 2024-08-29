@@ -15,6 +15,21 @@
         </field>
     </record>
 
+    <record id="helpdesk_stage_view_tree_inherited" model="ir.ui.view">
+        <field name="name">helpdesk.stages.tree.inherit</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_tree"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='team_ids']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+            <xpath expr="//field[@name='template_id']" position="attributes">
+                <attribute name="optional">show</attribute>
+            </xpath>
+        </field>
+    </record>
+
     <record id="helpdesk_stage_view_search" model="ir.ui.view">
         <field name="name">helpdesk.stages.search</field>
         <field name="model">helpdesk.stage</field>
@@ -95,6 +110,27 @@
             Adapt your pipeline to your workflow and track the progress of your tickets.
           </p>
         </field>
+    </record>
+
+    <record id="helpdesk_stage_team_action" model="ir.actions.act_window">
+        <field name="name">Team Stages</field>
+        <field name="res_model">helpdesk.stage</field>
+        <field name="view_mode">list,form,kanban</field>
+        <field name="search_view_id" ref="helpdesk_stage_view_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No stages found. Let's create one!
+            </p><p>
+                Adapt your pipeline to your workflow and track the progress of your tickets.
+            </p>
+        </field>
+    </record>
+
+    <record id="helpdesk_stage_tree_view_team" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="helpdesk_stage_view_tree_inherited"/>
+        <field name="act_window_id" ref="helpdesk_stage_team_action"/>
     </record>
 
 </odoo>

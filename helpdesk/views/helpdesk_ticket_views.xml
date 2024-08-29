@@ -228,7 +228,7 @@
                 <field name="rating_avg_text" string="Rating" decoration-danger="rating_avg_text == 'ko'"
                     decoration-warning="rating_avg_text == 'ok'" decoration-success="rating_avg_text == 'top'"
                     invisible="rating_avg_text == 'none'"
-                    class="fw-bold" widget="badge" optional="hide"/>
+                    class="fw-bold" widget="helpdesk_smiley_badge" optional="hide"/>
                 <field name="kanban_state" nolabel="1" width="20px" optional="show" widget="state_selection"/>
                 <field name="stage_id" optional="show" readonly="not context.get('default_team_id', False)"/>
             </list>
