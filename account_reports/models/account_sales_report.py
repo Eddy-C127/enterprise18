@@ -219,9 +219,10 @@ class ECSalesReportCustomHandler(models.AbstractModel):
                 groupby_partners_keyed.setdefault('sales_type_code', []).append(row['sales_type_code'])
 
                 vat = row['vat_number'] or ''
-                groupby_partners_keyed.setdefault('vat_number', vat[2:])
+                vat_country_code = vat[:2] if vat[:2].isalpha() else None
+                groupby_partners_keyed.setdefault('vat_number', vat if not vat_country_code else vat[2:])
                 groupby_partners_keyed.setdefault('full_vat_number', vat)
-                groupby_partners_keyed.setdefault('country_code', vat[:2])
+                groupby_partners_keyed.setdefault('country_code', vat_country_code or row.get('country_code'))
 
                 if warnings is not None:
                     if row['country_code'] not in self._get_ec_country_codes(options):
