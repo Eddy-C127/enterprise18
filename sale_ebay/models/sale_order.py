@@ -214,11 +214,14 @@ class SaleOrder(models.Model):
 
         if product.product_variant_count > 1:
             if 'Variation' in transaction:
+                splitted_url = transaction['Variation']['VariationViewItemURL'].split("vti", 1)[1]
                 variant = product.product_variant_ids.filtered(
                     lambda l:
                     l.ebay_use and
-                    l.ebay_variant_url.split("vti", 1)[1] ==
-                    transaction['Variation']['VariationViewItemURL'].split("vti", 1)[1])
+                    l.ebay_variant_url.split("vti", 1)[1] == splitted_url
+                    or l.name == transaction['Variation']['VariationTitle']
+                )
+
             # If multiple variants but only one listed on eBay as Item Specific
             else:
                 call_data = {'ItemID': product.ebay_id, 'IncludeItemSpecifics': True}
