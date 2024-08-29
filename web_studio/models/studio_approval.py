@@ -36,7 +36,18 @@ class StudioApprovalRule(models.Model):
         help="These users will receive a notification via internal note when an approval is requested"
     )
     notification_order = fields.Selection(
-        [('1', '1'), ('2', '2'), ('3', '3')],
+        selection=[
+            ('1', 'Step 1'),
+            ('2', 'Step 2'),
+            ('3', 'Step 3'),
+            ('4', 'Step 4'),
+            ('5', 'Step 5'),
+            ('6', 'Step 6'),
+            ('7', 'Step 7'),
+            ('8', 'Step 8'),
+            ('9', 'Step 9')
+        ],
+        string='Step',
         default='1',
         help="Use this field to setup multi-level validation. Next activities and notifications for an approval request will only be sent once rules from previous levels have been validated"
     )
@@ -406,7 +417,7 @@ class StudioApprovalRule(models.Model):
         if not self.env.context.get('prevent_approval_request_unlink'):
             ruleSudo._unlink_request(res_id)
 
-        if ruleSudo.notification_order != '3':
+        if ruleSudo.notification_order != '9':
             same_level_rules = []
             higher_level_rules = []
             # approval rules for higher levels can be requested if no rules with the current level are set

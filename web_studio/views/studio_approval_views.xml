@@ -109,7 +109,7 @@
                             <field name="group_id"/>
                             <field name="responsible_id"/>
                             <field name="users_to_notify" widget="many2many_tags"/>
-                            <field name="notification_order" widget="radio" options="{'horizontal': true}"/>
+                            <field name="notification_order"/>
                             <field name="exclusive_user" widget="boolean_toggle"/>
                         </group>
                         <group>
