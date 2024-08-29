@@ -5,8 +5,8 @@ from lxml import etree
 from lxml.objectify import fromstring
 from odoo import fields, models, release, tools, _
 from odoo.exceptions import UserError
-from odoo.tools import date_utils
 from odoo.tools.float_utils import float_repr
+from odoo.tools.json import json_default
 from odoo.tools.xml_utils import _check_with_xsd
 
 IRAS_DIGITS = 2
@@ -371,7 +371,7 @@ class IrasAuditFile(models.Model):
         return {
             'type': 'ir_actions_account_report_download',
             'data': {
-                 'options': json.dumps(options, default=date_utils.json_default),
+                 'options': json.dumps(options, default=json_default),
                  'file_generator': 'l10n_sg_print_iras_audit_file_xml',
              }
         }
@@ -390,7 +390,7 @@ class IrasAuditFile(models.Model):
         return {
             'type': 'ir_actions_account_report_download',
             'data': {
-                 'options': json.dumps(options, default=date_utils.json_default),
+                 'options': json.dumps(options, default=json_default),
                  'file_generator': 'l10n_sg_print_iras_audit_file_txt',
              }
         }
