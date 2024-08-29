@@ -45,13 +45,18 @@ class KnowledgeCommon(MailCommon):
         )
         cls.partner_public = cls.user_public.partner_id
 
-        cls.customer = cls.env['res.partner'].create({
-            'country_id': cls.env.ref('base.be').id,
-            'email': 'corentine@test.example.com',
-            'mobile': '+32455001122',
-            'name': 'Corentine Customer',
-            'phone': '+32455334455',
-        })
+        cls.user_customer = mail_new_test_user(
+            cls.env,
+            country_id=cls.env.ref('base.be').id,
+            groups='base.group_portal',
+            login='portal_customer',
+            email='corentine@test.example.com',
+            mobile='+32455001122',
+            name='Corentine Customer',
+            phone='+32455334455',
+        )
+
+        cls.customer = cls.user_customer.partner_id
 
     def assertMembers(self, articles, exp_internal_permission, exp_partners_permissions, msg=None):
         """ Custom assert for members, to ease writing tests. Check state of

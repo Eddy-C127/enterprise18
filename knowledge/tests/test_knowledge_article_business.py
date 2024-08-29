@@ -259,13 +259,19 @@ class TestKnowledgeArticleBusiness(KnowledgeCommonBusinessCase):
                            msg='Invite: descendants should not be impacted')
 
         # check access is effectively granted
+        shared_article.with_user(self.user_employee2).check_access_rights('write')
         shared_article.with_user(self.user_employee2).check_access_rule('write')
-        shared_article.with_user(self.customer).check_access_rule('write')
+        shared_article.with_user(self.user_customer).check_access_rights('write')
+        shared_article.with_user(self.user_customer).check_access_rule('write')
+        direct_child_write.with_user(self.user_employee2).check_access_rights('write')
         direct_child_write.with_user(self.user_employee2).check_access_rule('write')
-        direct_child_write.with_user(self.customer).check_access_rule('write')
+        direct_child_write.with_user(self.user_customer).check_access_rights('write')
+        direct_child_write.with_user(self.user_customer).check_access_rule('write')
+        direct_child_read.with_user(self.user_employee2).check_access_rights('read')
         with self.assertRaises(exceptions.AccessError,
                                msg='Invite: access should have been blocked'):
             direct_child_read.with_user(self.user_employee2).check_access_rule('read')
+        grand_child.with_user(self.user_employee2).check_access_rights('read')
         with self.assertRaises(exceptions.AccessError,
                                msg='Invite: access should have been blocked'):
             grand_child.with_user(self.user_employee2).check_access_rule('read')
@@ -1433,8 +1439,10 @@ class TestKnowledgeArticleRemoval(KnowledgeCommonBusinessCase):
         }).with_user(self.env.user)
 
         # Check the access rights:
+        parent_article.check_access_rights('read')
         with self.assertRaises(exceptions.AccessError):
             parent_article.check_access_rule('read')
+        child_article.check_access_rights('write')
         child_article.check_access_rule('write')
 
         # Unarchive the child article:
