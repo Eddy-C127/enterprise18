@@ -32,6 +32,7 @@ export class TimesheetTimerHeader extends Component {
     };
 
     setup() {
+        this.userService = useService("user");
         this.orm = useService("orm");
         onWillStart(async () => await this.onWillStart());
         onWillUpdateProps((nextProps) => this.onWillUpdateProps(nextProps));
@@ -43,6 +44,7 @@ export class TimesheetTimerHeader extends Component {
         if (this.props.timesheet && this.props.timesheet.data.name === "/") {
             this._clearTimesheetName();
         }
+        this.isProjectManager = await this.userService.hasGroup('project.group_project_manager');
     }
 
     onWillUpdateProps(nextProps) {
@@ -64,6 +66,10 @@ export class TimesheetTimerHeader extends Component {
                 ? new Domain(evaluateExpr(domain, evalContext)).toList()
                 : domain || [];
         }
+    }
+
+    getIsProjectManager() {
+        return this.isProjectManager;
     }
 
     //----------------------------------------------------------------------

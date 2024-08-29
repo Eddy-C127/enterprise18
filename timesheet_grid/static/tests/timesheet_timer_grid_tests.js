@@ -5,6 +5,7 @@ import { registry } from "@web/core/registry";
 import { ormService } from "@web/core/orm_service";
 import { contains } from "@web/../tests/utils";
 import { serializeDateTime, serializeDate, deserializeDate } from "@web/core/l10n/dates";
+import { makeFakeUserService } from "@web/../tests/helpers/mock_services";
 import {
     click,
     editInput,
@@ -27,6 +28,8 @@ import { timesheetGridUOMService } from "@timesheet_grid/services/timesheet_grid
 import { TimesheetGridSetupHelper } from "./helpers";
 
 const { DateTime } = luxon;
+
+const serviceRegistry = registry.category("services");
 
 let serverData, target, timesheetGridSetup;
 
@@ -1478,6 +1481,11 @@ QUnit.module("Views", (hooks) => {
     QUnit.test(
         "Start timer and create a new project and a new task",
         async function (assert) {
+            serviceRegistry.add(
+                "user",
+                makeFakeUserService((group) => group === "project.group_project_manager"),
+                { force: true }
+            );
             let reload = false;
             const pyEnv = getPyEnv();
             const { openView } = await start({
