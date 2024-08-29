@@ -987,3 +987,27 @@ registry.category("web_tour.tours").add('test_always_backorder_mo', {test: true,
     { trigger: '.o_notification.border-success', isCheck: true },
     { trigger: '.oe_kanban_card:contains("Final Product")', isCheck: true },
 ]});
+
+registry.category("web_tour.tours").add('test_backorder_partial_completion_save_sensible_split', {
+    test: true, steps: () => [
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan TBPCSNS mo' },
+        {
+            trigger: '.o_barcode_line:has(.o_barcode_line_title .product-label:contains("Final Product")) .o_edit',
+            run: 'click'
+        },
+        { trigger: '.btn-primary[data-button="5"]', run: 'click' },
+        { trigger: '.o_save', run: 'click' },
+        {
+            trigger: '.o_barcode_line:has(.o_barcode_line_title .product-label:contains("Compo 01")) .o_edit',
+            run: 'click'
+        },
+        { trigger: '.btn-primary[data-button="5"]', run: 'click' },
+        { trigger: '.o_save', run: 'click' },
+        { trigger: '.o_barcode_line', isCheck: true },
+        { trigger: '.o_exit', run: 'click' },
+        { trigger: '.o_stock_barcode_main_menu', run: 'scan TBPCSNS mo' },
+        { trigger: '.o_validate_page', run: 'click' },
+        { trigger: 'button[name="action_backorder"]', run: 'click' },
+        { trigger: '.o_notification_buttons', isCheck: true },
+    ]
+})
