@@ -7,7 +7,6 @@ import { user } from "@web/core/user";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
 import { UNTITLED_SPREADSHEET_NAME, DEFAULT_LINES_NUMBER } from "@spreadsheet/helpers/constants";
-import { createDefaultCurrencyFormat } from "@spreadsheet/currency/helpers";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { initCallbackRegistry } from "@spreadsheet/o_spreadsheet/init_callbacks";
 import { RecordFileStore } from "../image/record_file_store";
@@ -17,6 +16,7 @@ import { InputDialog } from "./input_dialog/input_dialog";
 import { OdooDataProvider } from "@spreadsheet/data_sources/odoo_data_provider";
 import { CommentsStore } from "../comments/comments_store";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
+import { createDefaultCurrency } from "@spreadsheet/currency/helpers";
 
 const uuidGenerator = new spreadsheet.helpers.UuidGenerator();
 
@@ -149,10 +149,6 @@ export class AbstractSpreadsheetAction extends Component {
         odooDataProvider.addEventListener("data-source-updated", () => {
             this.model.dispatch("EVALUATE_CELLS");
         });
-        const defaultCurrency = this.record.default_currency;
-        const defaultCurrencyFormat = defaultCurrency
-            ? createDefaultCurrencyFormat(defaultCurrency)
-            : undefined;
         this.model = new Model(
             this.spreadsheetData,
             {
@@ -162,7 +158,7 @@ export class AbstractSpreadsheetAction extends Component {
                     loadCurrencies: this.loadCurrencies,
                     loadLocales: this.loadLocales,
                 },
-                defaultCurrencyFormat,
+                defaultCurrency: createDefaultCurrency(this.record.default_currency),
                 transportService: this.transportService,
                 client: {
                     id: uuidGenerator.uuidv4(),

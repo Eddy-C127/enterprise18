@@ -602,6 +602,9 @@ test("change measure aggregator", async function () {
             fieldName: "probability",
             aggregator: "min",
             userDefinedName: undefined,
+            computedBy: undefined,
+            format: undefined,
+            isHidden: undefined,
         },
     ]);
 });

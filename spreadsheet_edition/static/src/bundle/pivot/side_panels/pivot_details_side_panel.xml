@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <templates>
     <div t-name="spreadsheet_edition.PivotDetailsSidePanel" class="o_spreadsheet_pivot_side_panel h-100 overflow-hidden d-flex justify-content-between flex-column">
-        <div class="h-100 overflow-auto">
+        <div class="h-100 position-relative overflow-x-hidden overflow-y-auto">
             <t t-set="definition" t-value="store.definition"/>
             <PivotTitleSection pivotId="props.pivotId" flipAxis.bind="flipAxis"/>
             <div class="o_side_panel_section">
