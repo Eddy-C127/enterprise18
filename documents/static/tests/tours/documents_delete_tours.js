@@ -67,7 +67,7 @@ function restoreDocumentSteps() {
             content: "Check that we are in the trash",
         },
         {
-            trigger: '.o_kanban_record_title:contains("Chouchou")',
+            trigger: '.o_kanban_record:contains("Chouchou")',
             content: "Select document",
             run: "click",
         },
@@ -141,7 +141,7 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             content: "Check that we are in the trash",
         },
         {
-            trigger: '.o_kanban_record_title:contains("Chouchou")',
+            trigger: '.o_kanban_record:contains("Chouchou")',
             content: "Select document",
             run: "click",
         },

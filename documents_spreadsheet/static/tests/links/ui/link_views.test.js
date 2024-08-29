@@ -106,7 +106,7 @@ beforeEach(() => {
     };
     const views = {
         "partner,1,list": '<list><field name="foo"/></list>',
-        "partner,2,kanban": `<kanban><templates><t t-name="kanban-box"><field name="foo"/></t></templates></kanban>`,
+        "partner,2,kanban": `<kanban><templates><t t-name="kanban-card"><field name="foo"/></t></templates></kanban>`,
         "partner,view_graph_xml_id,graph": /*xml*/ `
                 <graph>
                     <field name="probability" type="measure"/>

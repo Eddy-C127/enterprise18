@@ -26,7 +26,7 @@ export class DocumentsKanbanRecord extends KanbanRecord {
             t-on-click.synthetic="onGlobalClick"
             t-on-keydown.synthetic="onKeydown"
             t-ref="root">
-            <t t-call="{{ templates[this.constructor.KANBAN_BOX_ATTRIBUTE] }}" t-call-context="this.renderingContext"/>
+            <t t-call="{{ templates[this.constructor.KANBAN_CARD_ATTRIBUTE] }}" t-call-context="this.renderingContext"/>
         </div>`;
     setup() {
         super.setup();

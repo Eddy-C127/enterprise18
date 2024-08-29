@@ -261,11 +261,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
                 assert.strictEqual(
@@ -434,11 +432,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -488,10 +484,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                        <div>
-                            <field name="name"/>
-                        </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                        <field name="name"/>
                     </t></templates></kanban>`,
                 });
 
@@ -532,10 +526,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                        <div>
-                            <field name="name"/>
-                        </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                        <field name="name"/>
                     </t></templates></kanban>`,
                 });
                 await contains(".o_kanban_record", { count: 11 });
@@ -552,11 +544,11 @@ QUnit.module("documents", {}, function () {
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                        <div>
-                            <field name="name"/>
-                            <button name="some_method" type="object"/>
-                        </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <div>
+                        <field name="name"/>
+                        <button name="some_method" type="object"/>
+                    </div>
                     </t></templates></kanban>`,
                 });
 
@@ -604,7 +596,7 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                     <div>
                         <field name="name"/>
                         <button name="some_method" type="object"/>
@@ -667,9 +659,9 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                        <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
+                        <kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                            <div class="d-flex">
+                                <i class="fa fa-circle mt-1 o_record_selector"/>
                                 <field name="name"/>
                                 <field name="is_editable_attachment" widget="boolean_toggle"/>
                             </div>
@@ -710,12 +702,10 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch:
-                            '<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">' +
-                            "<div>" +
-                            '<i class="fa fa-circle o_record_selector"/>' +
+                            '<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">' +
+                            '<i class="fa fa-circle mt-1 o_record_selector"/>' +
                             '<field name="name"/>' +
                             '<button name="some_method" type="object"/>' +
-                            "</div>" +
                             "</t></templates></kanban>",
                         searchViewArch: `
                     <search>
@@ -778,12 +768,10 @@ QUnit.module("documents", {}, function () {
                     const kanban = await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
                         <button name="some_method" type="object"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -859,10 +847,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     domain: [domain],
                     mockRPC: async function (route, args) {
@@ -914,10 +900,8 @@ QUnit.module("documents", {}, function () {
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -944,10 +928,8 @@ QUnit.module("documents", {}, function () {
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -974,10 +956,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
                 await legacyClick(
@@ -1066,10 +1046,8 @@ QUnit.module("documents", {}, function () {
                     resModel: "documents.document",
                     domain: [["user_id", "!=", 299792458]],  // Add some filter to the domain
                     arch: `<kanban js_class="documents_kanban"><templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card">
+                            <field name="name"/>
                         </t></templates></kanban>`,
                     mockRPC: function (route, args) {
                         if (route === "/web/dataset/call_kw/documents.document/web_search_read" && args.model === "documents.document"
@@ -1096,10 +1074,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -1131,11 +1107,9 @@ QUnit.module("documents", {}, function () {
                 const views = {
                     "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <i class="fa fa-circle-thin o_record_selector"/>
-                            <field name="name"/>
-                        </div>
+                    <t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle-thin mt-1 o_record_selector"/>
+                        <field name="name"/>
                     </t>
                 </templates>
                 </kanban>`,
@@ -1220,11 +1194,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -1275,11 +1247,9 @@ QUnit.module("documents", {}, function () {
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -1312,10 +1282,8 @@ QUnit.module("documents", {}, function () {
                     const kanban = await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban" limit="2"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban" limit="2"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -1363,10 +1331,8 @@ QUnit.module("documents", {}, function () {
 
             QUnit.test("document inspector: document preview", async function (assert) {
                 const views = {
-                    "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                        <div>
-                            <field name="name"/>
-                        </div>
+                    "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                        <field name="name"/>
                     </t></templates></kanban>`,
                 };
                 const { openView } = await createDocumentsViewWithMessaging({
@@ -1422,10 +1388,8 @@ QUnit.module("documents", {}, function () {
                     var def = testUtils.makeTestPromise();
 
                     const views = {
-                        "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                        <div>
-                            <field name="name"/>
-                        </div>
+                        "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                        <field name="name"/>
                     </t></templates></kanban>`,
                     };
                     const { openView } = await createDocumentsViewWithMessaging({
@@ -1464,11 +1428,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     mockRPC: async (route, args) => {
                         if (args.method === "action_get_share_url") {
@@ -1511,10 +1473,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -1562,10 +1522,8 @@ QUnit.module("documents", {}, function () {
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     mockRPC: async (route, args, performRpc) => {
                         if (route === "/web/dataset/call_kw/documents.document/toggle_lock") {
@@ -1624,10 +1582,8 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -1678,11 +1634,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
                         <field name="name"/>
                         <field name="owner_id"/>
-                    </div>
                 </t></templates></kanban>`,
                         mockRPC: async function (route, args) {
                             if (args.method === "write") {
@@ -1751,12 +1705,10 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     // select two records with same m2o value
@@ -1808,13 +1760,11 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
                         <field name="owner_id"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                         mockRPC: function (route, args) {
                             if (args.method === "write") {
                                 assert.deepEqual(
@@ -1897,11 +1847,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                         mockRPC: async function (route, args, performRpc) {
                             if (args.method === "write") {
                                 const result = performRpc(route, args);
@@ -1961,10 +1909,8 @@ QUnit.module("documents", {}, function () {
                 const kanban = await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     async mockRPC(route, args) {
                         if (args.method === "get_formview_action") {
@@ -2000,11 +1946,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -2051,10 +1995,8 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -2081,11 +2023,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     mockRPC: async function (route, args) {
                         if (args.method === "write") {
@@ -2129,11 +2069,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                                <div>
-                                    <i class="fa fa-circle o_record_selector"/>
-                                    <field name="name"/>
-                                </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                                <i class="fa fa-circle mt-1 o_record_selector"/>
+                                <field name="name"/>
                             </t></templates></kanban>`,
                     mockRPC: function (route, args) {
                         if (args.method === "write") {
@@ -2177,7 +2115,7 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <div>
                             <i class="fa fa-circle o_record_selector"/>
                             <field name="name"/>
@@ -2256,10 +2194,8 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -2284,11 +2220,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     await legacyClick(
@@ -2311,11 +2245,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -2340,11 +2272,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                     });
 
@@ -2408,12 +2338,10 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     await legacyClick(
@@ -2457,11 +2385,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -2494,12 +2420,10 @@ QUnit.module("documents", {}, function () {
                     const kanban = await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
                         <button name="some_method" type="object"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     patchWithCleanup(kanban.env.services.action, {
@@ -2586,12 +2510,10 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                         mockRPC: async function (route, args) {
                             if (
                                 args.model === "documents.workflow.rule" &&
@@ -2639,13 +2561,11 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
                         <field name="is_editable_attachment" invisible="1"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                         mockRPC: async function (route, args, performRPC) {
                             if (args.method === "has_access") {
                                 return true;
@@ -2728,12 +2648,10 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
                     await legacyClick(target.querySelector(".o_kanban_record"));
                     const input = await clickOpenM2ODropdown(target, "partner_id");
@@ -2763,11 +2681,9 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                    <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                        <div>
-                            <i class="fa fa-circle o_record_selector"/>
-                            <field name="name"/>
-                        </div>
+                    <kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
+                        <field name="name"/>
                     </t></templates></kanban>`,
                     mockRPC: async function (route, args) {
                         if (args.method === "write") {
@@ -2809,11 +2725,9 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                             <templates>
-                                <t t-name="kanban-box">
-                                    <div>
-                                        <field name="name" required="True"/>
-                                        <field name="folder_id" required="True"/>
-                                    </div>
+                                <t t-name="kanban-card" class="flex-row">
+                                    <field name="name" required="True"/>
+                                    <field name="folder_id" required="True"/>
                                 </t>
                             </templates>
                         </kanban>`,
@@ -2868,11 +2782,9 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-                        <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                            <div draggable="true" class="oe_kanban_global_area">
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t></templates></kanban>`,
                     });
 
@@ -2896,11 +2808,9 @@ QUnit.module("documents", {}, function () {
                 const views = {
                     "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -2951,11 +2861,9 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -2999,11 +2907,9 @@ QUnit.module("documents", {}, function () {
                 const views = {
                     "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -3030,11 +2936,9 @@ QUnit.module("documents", {}, function () {
                 const views = {
                     "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -3092,11 +2996,9 @@ QUnit.module("documents", {}, function () {
                 const views = {
                     "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -3132,11 +3034,9 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -3196,11 +3096,9 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -3226,11 +3124,9 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t>
                     </templates>
                 </kanban>`,
@@ -3266,11 +3162,9 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <i class="fa fa-circle o_record_selector"/>
-                            <field name="name"/>
-                        </div>
+                    <t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
+                        <field name="name"/>
                     </t>
                 </templates>
             </kanban>`,
@@ -3302,11 +3196,9 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <i class="fa fa-circle o_record_selector"/>
-                            <field name="name"/>
-                        </div>
+                    <t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
+                        <field name="name"/>
                     </t>
                 </templates>
             </kanban>`,
@@ -3347,10 +3239,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -3515,10 +3405,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     mockRPC: function (route, args) {
                         if (args.method === "search_panel_select_multi_range") {
@@ -3548,10 +3436,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     domain: [["res_model", "=", false]],
                 });
@@ -3593,10 +3479,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                    </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -3678,11 +3562,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     await legacyClick(
@@ -3767,10 +3649,8 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                         searchViewArch: `
                     <search>
@@ -3871,10 +3751,8 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
                 </t></templates></kanban>`,
                         mockRPC: function (route, args) {
                             if (
@@ -3917,12 +3795,10 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     await legacyClick(
@@ -3981,11 +3857,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     await toggleSearchBarMenu(target);
@@ -4001,7 +3875,7 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                     <div>
                         <field name="tag_ids" widget="documents_many2many_tags"/>
                     </div>
@@ -4037,11 +3911,9 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban><templates><t t-name="kanban-box">
-                    <div>
-                        <field name="name"/>
-                        <field name="tag_ids" widget="documents_many2many_tags"/>
-                    </div>
+                    arch: `<kanban><templates><t t-name="kanban-card" class="flex-row">
+                    <field name="name"/>
+                    <field name="tag_ids" widget="documents_many2many_tags"/>
                 </t></templates></kanban>`,
                 });
 
@@ -4081,11 +3953,9 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div draggable="true" class="oe_kanban_global_area">
-                    <i class="fa fa-circle o_record_selector"/>
+            <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
                     <field name="name"/>
-                </div>
             </t></templates></kanban>`,
                         mockRPC: async function (route, args) {
                             if (args.method === "write" && args.model === "documents.document") {
@@ -4145,11 +4015,9 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div draggable="true" class="oe_kanban_global_area">
-                    <i class="fa fa-circle o_record_selector"/>
-                    <field name="name"/>
-                </div>
+            <kanban js_class="documents_kanban"><templates draggable="true"><t t-name="kanban-card" class="flex-row">
+                <i class="fa fa-circle mt-1 o_record_selector"/>
+                <field name="name"/>
             </t></templates></kanban>`,
                         mockRPC: function (route, args) {
                             if (args.method === "write" && args.model === "documents.document") {
@@ -4207,13 +4075,9 @@ QUnit.module("documents", {}, function () {
                         url: "https://youtu.be/Ayab6wZ_U1A",
                     });
                     const views = {
-                        "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                            <div class="o_kanban_image">
-                                <div name="document_preview" class="o_kanban_image_wrapper" t-if="record.type.raw_value == 'url'"/>
-                            </div>
-                            <div>
-                                <field name="name"/>
-                            </div>
+                        "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                            <div name="document_preview" class="o_kanban_image_wrapper" t-if="record.type.raw_value == 'url'"/>
+                            <field name="name"/>
                         </t></templates></kanban>`,
                     };
                     const { openView } = await createDocumentsViewWithMessaging({
@@ -4280,12 +4144,10 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-                        <kanban js_class="documents_kanban">
-                            <templates><t t-name="kanban-box">
-                                <div draggable="true" class="oe_kanban_global_area">
-                                    <i class="fa fa-circle o_record_selector"/>
-                                    <field name="name"/>
-                                </div>
+                        <kanban js_class="documents_kanban" draggable="true">
+                            <templates><t t-name="kanban-card" class="flex-row">
+                                <i class="fa fa-circle mt-1 o_record_selector"/>
+                                <field name="name"/>
                             </t></templates>
                         </kanban>`,
                         mockRPC: function (route, args) {
@@ -4326,11 +4188,9 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div draggable="true" class="oe_kanban_global_area">
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
                 await click(
@@ -4352,11 +4212,9 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div draggable="true" class="oe_kanban_global_area">
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     mockRPC: async (route, args, performRpc) => {
                         if (args.method === "move_folder_to") {
@@ -4456,11 +4314,9 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div draggable="true" class="oe_kanban_global_area">
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                         serverData: { views },
                     });
@@ -4508,11 +4364,9 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div draggable="true" class="oe_kanban_global_area">
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -4537,11 +4391,9 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-                            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                                <div draggable="true" class="oe_kanban_global_area">
-                                    <i class="fa fa-circle o_record_selector"/>
-                                    <field name="name"/>
-                                </div>
+                            <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                                <i class="fa fa-circle mt-1 o_record_selector"/>
+                                <field name="name"/>
                             </t></templates></kanban>`,
                     });
                     assert.containsN(
@@ -4566,11 +4418,9 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                        <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                            <div draggable="true" class="oe_kanban_global_area">
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t></templates></kanban>`,
                 });
 
@@ -4598,10 +4448,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                    <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                        <div draggable="true" class="oe_kanban_global_area">
-                            <field name="name"/>
-                        </div>
+                    <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                        <field name="name"/>
                     </t></templates></kanban>`,
                     context: {
                         default_tag_ids: [1, 2],
@@ -4626,10 +4474,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div draggable="true" class="oe_kanban_global_area">
-                    <field name="name"/>
-                </div>
+            <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                <field name="name"/>
             </t></templates></kanban>`,
                     context: {
                         default_res_model: "project",
@@ -4651,10 +4497,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div draggable="true" class="oe_kanban_global_area">
-                    <field name="name"/>
-                </div>
+            <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                <field name="name"/>
             </t></templates></kanban>`,
                 });
 
@@ -4700,10 +4544,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div draggable="true" class="oe_kanban_global_area">
-                    <field name="name"/>
-                </div>
+            <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                <field name="name"/>
             </t></templates></kanban>`,
                 });
 
@@ -4740,8 +4582,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div draggable="true" class="oe_kanban_global_area o_documents_attachment" data-id="${documentsDocumentId1}">
+                <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                    <div class="o_documents_attachment" data-id="${documentsDocumentId1}">
                         <field name="name"/>
                     </div>
                 </t></templates></kanban>`,
@@ -4782,10 +4624,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div draggable="true" class="oe_kanban_global_area">
-                    <field name="name"/>
-                </div>
+            <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                <field name="name"/>
             </t></templates></kanban>`,
                 });
 
@@ -4829,10 +4669,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div draggable="true" class="oe_kanban_global_area">
-                    <field name="name"/>
-                </div>
+            <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                <field name="name"/>
             </t></templates></kanban>`,
                 });
 
@@ -4877,11 +4715,9 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
-                        <field name="name"/>
-                    </div>
+                <kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                    <i class="fa fa-circle mt-1 o_record_selector"/>
+                    <field name="name"/>
                 </t></templates></kanban>`,
                 });
 
@@ -5052,10 +4888,8 @@ QUnit.module("documents", {}, function () {
                     type: "kanban",
                     resModel: "documents.document",
                     arch: `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div draggable="true" class="oe_kanban_global_area">
-                        <field name="name"/>
-                    </div>
+                <kanban js_class="documents_kanban" draggable="true"><templates><t t-name="kanban-card">
+                    <field name="name"/>
                 </t></templates></kanban>`,
                     async mockRPC(route, args) {
                         if (args.model === "ir.attachment" && args.method === "unlink") {
@@ -5157,9 +4991,9 @@ QUnit.module("documents", {}, function () {
                     arch: `
                 <kanban js_class="documents_kanban">
                     <templates>
-                        <div t-name="kanban-box">
+                        <t t-name="kanban-card">
                             <field name="name"/>
-                        </div>
+                        </t>
                     </templates>
                 </kanban>`,
                     async mockRPC(route, args) {
@@ -5216,9 +5050,9 @@ QUnit.module("documents", {}, function () {
                     arch: `
                 <kanban js_class="documents_kanban">
                     <templates>
-                        <div t-name="kanban-box">
+                        <t t-name="kanban-card">
                             <field name="name"/>
-                        </div>
+                        </t>
                     </templates>
                 </kanban>`,
                     async mockRPC(route, args) {
@@ -5245,12 +5079,10 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "kanban",
                         resModel: "documents.document",
-                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                    <div>
-                        <i class="fa fa-circle o_record_selector"/>
+                        arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                        <i class="fa fa-circle mt-1 o_record_selector"/>
                         <field name="name"/>
-                    </div>
-                </t></templates></kanban>`,
+                    </t></templates></kanban>`,
                     });
 
                     const firstRecord = target.querySelector(".o_kanban_record");
@@ -5315,11 +5147,9 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-                        <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                            <div>
-                                <i class="fa fa-circle o_record_selector"/>
-                                <field name="name"/>
-                            </div>
+                        <kanban js_class="documents_kanban"><templates><t t-name="kanban-card" class="flex-row">
+                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                            <field name="name"/>
                         </t></templates></kanban>`,
                     });
 
@@ -5353,15 +5183,11 @@ QUnit.module("documents", {}, function () {
                         url: "https://youtu.be/Ayab6wZ_U1A",
                     });
                     const views = {
-                        "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                            <div class="o_kanban_image">
-                                <div name="document_preview" class="o_kanban_image_wrapper" t-if="record.type.raw_value == 'url'">
-                                    <img width="100" height="100" class="o_attachment_image"/>
-                                </div>
+                        "documents.document,false,kanban": `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                            <div name="document_preview" class="o_kanban_image_wrapper" t-if="record.type.raw_value == 'url'">
+                                <img width="100" height="100" class="o_attachment_image"/>
                             </div>
-                            <div>
-                                <field name="name"/>
-                            </div>
+                            <field name="name"/>
                         </t></templates></kanban>`,
                     };
                     const { openView } = await createDocumentsViewWithMessaging({
@@ -5454,11 +5280,9 @@ QUnit.module("documents", {}, function () {
                         resModel: "documents.document",
                         arch: `<kanban js_class="documents_kanban">
                                     <templates>
-                                        <t t-name="kanban-box">
-                                            <div>
-                                                <i class="fa fa-circle o_record_selector"/>
-                                                <field name="name"/>
-                                            </div>
+                                        <t t-name="kanban-card" class="flex-row">
+                                            <i class="fa fa-circle mt-1 o_record_selector"/>
+                                            <field name="name"/>
                                         </t>
                                     </templates>
                                 </kanban>`,
@@ -5498,10 +5322,8 @@ QUnit.module("documents", {}, function () {
                             views: {
                                 "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                                     <templates>
-                                        <t t-name="kanban-box">
-                                            <div>
-                                                <field name="name"/>
-                                            </div>
+                                        <t t-name="kanban-card">
+                                            <field name="name"/>
                                         </t>
                                     </templates>
                                 </kanban>`,
@@ -5553,7 +5375,7 @@ QUnit.module("documents", {}, function () {
                         type: "kanban",
                         resModel: "documents.document",
                         arch: `
-                            <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
+                            <kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
                                 <div name="document_preview">
                                     <field name="name"/>
                                 </div>
@@ -5582,10 +5404,8 @@ QUnit.module("documents", {}, function () {
                 await createDocumentsView({
                     type: "kanban",
                     resModel: "documents.document",
-                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                                <div>
-                                    <field name="name"/>
-                                </div>
+                    arch: `<kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                                <field name="name"/>
                             </t></templates></kanban>`,
                     mockRPC: async function (route, args) {
                         if (args.method === "web_save") {

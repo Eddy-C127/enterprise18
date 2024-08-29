@@ -48,93 +48,71 @@
                 <field name="id"/>
                 <field name="mimetype"/>
                 <field name="favorited_ids"/>
-                <field name="owner_id"/>
                 <field name="lock_uid"/>
                 <field name="type"/>
-                <field name="create_uid"/>
-                <field name="url"/>
                 <field name="url_preview_image"/>
-                <field name="create_date"/>
-                <field name="active"/>
                 <field name="checksum"/>
-                <field name="name"/>
-                <field name="res_model_name"/>
-                <field name="res_model"/>
-                <field name="res_name"/>
-                <field name="activity_ids"/>
-                <field name="activity_state"/>
-                <field name="is_editable_attachment"/>
                 <field name="is_multipage"/>
                 <field name="thumbnail_status"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div draggable="true" class="d-flex flex-column oe_kanban_global_area o_kanban_attachment o_documents_attachment"
+                    <t t-name="kanban-card">
+                        <div draggable="true" class="d-flex flex-column o_kanban_attachment o_documents_attachment h-100"
                              t-attf-class="#{record.is_multipage.raw_value ? 'o_kanban_stack' : ''}" t-att-data-id="record.id.raw_value">
                             <t t-set="fileRequest" t-value="record.type.raw_value === 'empty'"/>
-                            <div class="o_kanban_image" t-attf-class="#{fileRequest ? 'o_request_image' : ''}">
+                            <div t-attf-class="#{fileRequest ? 'o_request_image' : ''}">
                                 <t t-set="hasStoredThumbnail" t-value="record.thumbnail_status.raw_value === 'present'"/>
                                 <!-- should be made more generic if we support different websites for videos -->
                                 <t t-set="youtubeUrlMatch" t-value="record.url.raw_value ? record.url.raw_value.match('youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]{11})') : false"/>
                                 <t t-set="youtubeVideoToken" t-value="youtubeUrlMatch ? youtubeUrlMatch.length > 1 ? youtubeUrlMatch[1] : false : false"/>
-                                <div name="document_preview" class="o_kanban_image_wrapper" t-att-title="fileRequest ? 'Upload file' : ''">
-                                    <img t-if="youtubeVideoToken" width="100" height="100" alt="Document" class="o_attachment_image"
+                                <div name="document_preview" class="o_kanban_image_wrapper d-flex justify-content-center" t-att-title="fileRequest ? 'Upload file' : ''">
+                                    <img t-if="youtubeVideoToken" class="w-100 h-100" alt="Document"
                                          t-attf-src="https://img.youtube.com/vi/{{youtubeVideoToken}}/0.jpg"/>
                                     <a t-elif="record.type.raw_value =='url'" target="_blank" t-att-href="record.url.raw_value" class="o_kanban_image_wrapper">
                                         <img t-if="record.url_preview_image.raw_value" class="w-100 h-100"
                                             t-att-src="record.url_preview_image.raw_value" t-att-alt="record.name.raw_value"/>
                                         <t t-else="">
-                                            <span class="o_url_image fa fa-link fa-3x text-muted"/>
+                                            <span class="fa fa-link fa-3x text-muted"/>
                                         </t>
                                     </a>
                                     <t t-elif="hasStoredThumbnail">
                                         <t t-set="unique" t-value="record.checksum.value ? record.checksum.value.slice(-8) : ''"/>
-                                        <div class="o_documents_image">
-                                            <img t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;unique=#{unique}" alt="Document preview"/>
-                                        </div>
+                                        <img t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;unique=#{unique}" class="w-100 h-100" alt="Document preview"/>
                                     </t>
                                     <div t-elif="fileRequest" class="fa fa-upload fa-3x text-muted">
                                         <input type="file" class="o_input_file o_hidden o_kanban_replace_document"/>
                                     </div>
-                                    <div t-else="!hasStoredThumbnail" class="o_image o_image_thumbnail" t-att-data-mimetype="record.mimetype.value"/>
+                                    <div t-else="!hasStoredThumbnail" class="o_image" t-att-data-mimetype="record.mimetype.value"/>
                                 </div>
                             </div>
-                            <div class="o_kanban_details flex-grow-1 flex-shrink-1 flex-auto">
-                                <div class="o_kanban_details_wrapper">
-                                    <div t-att-title="record.name.raw_value" class="o_kanban_record_title w-100">
+                            <div class="flex-grow-1 flex-shrink-1 flex-auto">
+                                    <div t-att-title="record.name.raw_value" class="fw-bolder w-100 d-flex">
                                         <field name="is_favorited" nolabel="1" widget="boolean_favorite"/>
-                                        <field name="name" class="o_text_overflow w-75" required="True" string="Document"/>
+                                        <field name="name" class="text-truncate w-75" required="True" string="Document"/>
                                         <t t-if="record.lock_uid.raw_value">
-                                            <i class="o_documents_lock fa fa-lock float-end mt-1" t-att-title="record.lock_uid.value"/>
+                                            <i class="ms-5 fa fa-lock mt-1" t-att-title="record.lock_uid.value"/>
                                         </t>
                                     </div>
-                                    <div class="o_kanban_record_body">
-                                        <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
-                                            <strong><field name="res_model_name"/></strong>
-                                            <t t-if="record.res_name.raw_value">
-                                                <span t-att-title="record.res_name.raw_value">: <field name="res_name"/></span>
-                                            </t>
-                                            <t t-elif="fileRequest">
-                                                 <span><b> Request</b></span>
-                                            </t>
-                                        </t>
-                                        <t t-elif="record.type.raw_value == 'url'" class="d-block">
-                                            <field name="url" class="d-block o_field_document_url" widget="url"/>
+                                    <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
+                                        <field name="res_model_name" class="fw-bolder"/>
+                                        <t t-if="record.res_name.raw_value">
+                                            <span t-att-title="record.res_name.raw_value">: <field name="res_name"/></span>
                                         </t>
                                         <t t-elif="fileRequest">
-                                            <span><b>Requested Document</b></span>
+                                            <span class="fw-bolder"> Request</span>
                                         </t>
-                                        <div t-else="" class="mb-3"/>
-                                        <field name="tag_ids" class="d-block text-wrap" widget="documents_many2many_tags"/>
-                                    </div>
-                                    <div class="o_kanban_record_bottom">
-                                        <div class="oe_kanban_bottom_left">
-                                            <field name="activity_ids" widget="kanban_activity"/>
-                                        </div>
-                                        <div class="oe_kanban_bottom_right">
-                                            <field name="owner_id" widget="many2one_avatar_user"/>
-                                        </div>
-                                    </div>
-                                </div>
+                                    </t>
+                                    <t t-elif="record.type.raw_value == 'url'" class="d-block">
+                                        <field name="url" class="text-nowrap text-truncate" widget="url"/>
+                                    </t>
+                                    <t t-elif="fileRequest">
+                                        <span class="fw-bolder">Requested Document</span>
+                                    </t>
+                                    <div t-else="" class="mb-3"/>
+                                    <field name="tag_ids" class="d-block text-wrap mb-1" widget="documents_many2many_tags"/>
+                                    <footer>
+                                        <field name="activity_ids" class="d-inline-block" widget="kanban_activity"/>
+                                        <field name="owner_id" class="float-end" widget="many2one_avatar_user"/>
+                                    </footer>
                             </div>
                         </div>
                         <t t-if="record.is_multipage.raw_value">

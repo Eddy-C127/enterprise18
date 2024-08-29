@@ -29,6 +29,11 @@
             min-height: 200px;
             width: 200px;
             margin: .5rem;
+            border: none;
+
+            > div:nth-of-type(1) {
+                border: 1px solid #d8dadd;
+            }
 
             &:hover .o-file-upload-progress-bar-abort {
                 display: inline-block;
@@ -37,6 +42,9 @@
 
             .o_kanban_stack {
                 width: calc(100% - 6px);
+                border: 1px solid #d8dadd;
+                height: 100%;
+                background-color: white;
                 &:nth-of-type(1){
                     z-index: $o-dms-kanban-stack-zindex;
                 }
@@ -65,29 +73,13 @@
                 background-color: #fff0;
             }
 
-            .o_kanban_image, .o_kanban_image_wrapper {
-                height: 140px;
-                width: 100%;
-            }
-
-            .o_kanban_image .o_kanban_image_wrapper {
+            .o_kanban_image_wrapper {
                 background-color: $gray-200;
-                height: 100%;
-
-                .o_documents_image {
-                    width: 100%;
-                    height: 100%;
-
-                    img {
-                        object-fit: cover;
-                        object-position: center;
-                        width: 100%;
-                    }
-                }
+                width: 100%;
+                height: 140px;
 
                 img {
-                    object-fit: contain;
-                    width: auto;
+                    width: 100%;
                     height: 100%;
                 }
             }
@@ -103,30 +95,6 @@
 
             .oe_kanban_previewer {
                 cursor: zoom-in;
-            }
-
-            .o_kanban_details {
-                padding-left: $o-kanban-attachement-image-size + $o-kanban-inside-hgutter;
-                padding-left: 0;
-
-                .o_documents_lock {
-                    color: map-get($grays, '700');
-                }
-
-                .o_kanban_details_wrapper {
-                    height: 100%;
-
-                    .o_field_document_url a {
-                        display: block;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-                        white-space: nowrap;
-                    }
-                }
-            }
-
-            .o_kanban_record_title {
-                margin-bottom: 0;
             }
 
             .o_record_selector {
@@ -151,6 +119,14 @@
                 &:hover:before {
                     content: "\f006";
                 }
+            }
+        }
+
+        .o_kanban_record:not(.o_kanban_ghost){
+            &.o_record_selected, &.o_record_selected ~ .o_kanban_stack {
+                opacity: 1;
+                border-color: $o-component-active-border;
+                background-color: $o-component-active-bg;
             }
         }
 

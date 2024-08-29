@@ -22,7 +22,7 @@ let target;
 const basicDocumentKanbanArch = /* xml */ `
 <kanban js_class="documents_kanban">
     <templates>
-        <t t-name="kanban-box">
+        <t t-name="kanban-card">
             <div>
                 <div name="document_preview" class="o_kanban_image_wrapper">a thumbnail</div>
                 <i class="fa fa-circle o_record_selector" />

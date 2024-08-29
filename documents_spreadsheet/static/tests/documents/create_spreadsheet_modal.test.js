@@ -13,8 +13,8 @@ defineDocumentSpreadsheetModels();
 const kanbanArch = /* xml */ `
     <kanban js_class="documents_kanban">
         <templates>
-            <t t-name="kanban-box">
-                <div><field name="name"/></div>
+            <t t-name="kanban-card">
+                <field name="name"/>
             </t>
         </templates>
     </kanban>`;
@@ -247,8 +247,8 @@ test("Can create a blank spreadsheet from template dialog", async function () {
 test("Context is transmitted when creating spreadsheet", async function () {
     const serverData = await getDocumentBasicData({
         "documents.document,false,kanban": `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-box">
-                <div><field name="name"/></div>
+                <kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                <field name="name"/>
                 </t></templates></kanban>
                 `,
         "documents.document,false,search": getEnrichedSearchArch(),
