@@ -1304,6 +1304,7 @@ class SaleOrder(models.Model):
         reminder_mail_template = self.env.ref('sale_subscription.email_payment_reminder', raise_if_not_found=False)
         close_mail_template = self.env.ref('sale_subscription.email_payment_close', raise_if_not_found=False)
         invoice.unlink()
+        self.pending_transaction = False
         for order in self:
             auto_close_days = self.plan_id.auto_close_limit or 15
             date_close = order.next_invoice_date + relativedelta(days=auto_close_days)
@@ -1612,8 +1613,12 @@ class SaleOrder(models.Model):
                 self._handle_subscription_payment_failure(invoice, transaction)
                 self._subscription_commit_cursor(auto_commit)
                 return
+            elif transaction.renewal_state == 'pending':
+                self.payment_exception = False
+                self._subscription_commit_cursor(auto_commit)
             # if transaction is a success, post a message
             elif transaction.renewal_state == 'authorized':
+                self.payment_exception = False
                 self._subscription_commit_cursor(auto_commit)
                 invoice._post()
                 self._subscription_commit_cursor(auto_commit)

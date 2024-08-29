@@ -171,15 +171,21 @@ class PaymentTransaction(models.Model):
                     order._subscription_post_success_payment(tx, tx.invoice_ids, automatic=automatic)
 
     def _set_done(self, **kwargs):
-        self.sale_order_ids.filtered('is_subscription').payment_exception = False
+        orders = self.sale_order_ids
+        # Flag of subscription processed in the cron is removed in the cron to avoid concurrent updates
+        orders.filtered(lambda so: so.is_subscription and not so.is_invoice_cron).payment_exception = False
         return super()._set_done(**kwargs)
 
     def _set_pending(self, **kwargs):
-        self.sale_order_ids.filtered('is_subscription').payment_exception = False
+        orders = self.sale_order_ids
+        # Flag of subscription processed in the cron is removed in the cron to avoid concurrent updates
+        orders.filtered(lambda so: so.is_subscription and not so.is_invoice_cron).payment_exception = False
         return super()._set_pending(**kwargs)
 
     def _set_authorized(self, **kwargs):
-        self.sale_order_ids.filtered('is_subscription').payment_exception = False
+        orders = self.sale_order_ids
+        # Flag of subscription processed in the cron is removed in the cron to avoid concurrent updates
+        orders.filtered(lambda so: so.is_subscription and not so.is_invoice_cron).payment_exception = False
         return super()._set_authorized(**kwargs)
 
     def _handle_unsuccessful_transaction(self):
@@ -187,7 +193,8 @@ class PaymentTransaction(models.Model):
         for transaction in self:
             subscriptions = transaction.sale_order_ids.filtered('is_subscription')
             if subscriptions:
-                subscriptions.pending_transaction = False
+                # Flag of subscription processed in the cron is removed in the cron to avoid concurrent updates
+                subscriptions.filtered(lambda so: not so.is_invoice_cron).pending_transaction = False
                 transaction._cancel_draft_invoices()
 
     def _cancel_draft_invoices(self):
