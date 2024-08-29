@@ -94,7 +94,7 @@ export class AbstractSpreadsheetAction extends Component {
             download: this.download.bind(this),
             downloadAsJson: this.downloadAsJson.bind(this),
             showHistory: this.showHistory.bind(this),
-            insertThreadInSheet: this.insertThreadInSheet.bind(this),
+            insertThreadInSheet: this.threadField ? this.insertThreadInSheet.bind(this) : undefined,
             print,
             getLinesNumber: this._getLinesNumber.bind(this),
             getUserLocale: () => this.data && this.data.user_locale,
