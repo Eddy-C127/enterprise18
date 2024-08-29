@@ -33,7 +33,7 @@ class StudioApprovalRule(models.Model):
     users_to_notify = fields.Many2many(
         comodel_name='res.users',
         string='Users to notify',
-        help="These users will receive a notification via internal note when an approval is requested"
+        help="These users will receive a notification via internal note on approval/refusal"
     )
     notification_order = fields.Selection(
         selection=[
@@ -752,7 +752,7 @@ class StudioApprovalRule(models.Model):
     def _create_request(self, res_id):
         self.ensure_one()
         ruleSudo = self.sudo()
-        if not (self.responsible_id or ruleSudo.users_to_notify) or not self.model_id.sudo().is_mail_activity:
+        if not self.responsible_id or not self.model_id.sudo().is_mail_activity:
             return False
         request = self.env['studio.approval.request'].sudo().search([('rule_id', '=', self.id), ('res_id', '=', res_id)])
         if request:
@@ -785,16 +785,13 @@ class StudioApprovalRule(models.Model):
                     return False
 
         record = self.env[self.model_name].browse(res_id)
-        if self.responsible_id:
-            activity_type_id = self._get_or_create_activity_type()
-            activity = record.activity_schedule(activity_type_id=activity_type_id, user_id=self.responsible_id.id)
-            request = self.env['studio.approval.request'].sudo().create({
-                'rule_id': self.id,
-                'mail_activity_id': activity.id,
-                'res_id': res_id,
-            })
-        partner_ids = ruleSudo.users_to_notify.partner_id
-        request.notify_to_users(record, ruleSudo.name, partner_ids)
+        activity_type_id = self._get_or_create_activity_type()
+        activity = record.activity_schedule(activity_type_id=activity_type_id, user_id=self.responsible_id.id)
+        request = self.env['studio.approval.request'].sudo().create({
+            'rule_id': self.id,
+            'mail_activity_id': activity.id,
+            'res_id': res_id,
+        })
         return True
 
     @api.model
@@ -880,11 +877,15 @@ class StudioApprovalEntry(models.Model):
             if not entry.rule_id.model_id.is_mail_thread:
                 continue
             record = self.env[entry.model].browse(entry.res_id)
+            partner_ids = entry.rule_id.users_to_notify.partner_id
             record.message_post_with_source(
                 'web_studio.notify_approval',
+                author_id=entry.user_id.partner_id.id,
+                partner_ids=partner_ids.ids,
                 render_values={
+                    'partner_ids': partner_ids,
+                    'target_name': entry.rule_id.name or entry.rule_id.method or entry.rule_id.action_id.name,
                     'user_name': entry.user_id.display_name,
-                    'group_name': entry.group_id.display_name,
                     'approved': entry.approved,
                     },
                 subtype_xmlid='mail.mt_note',
@@ -900,22 +901,3 @@ class StudioApprovalRequest(models.Model):
     rule_id = fields.Many2one('studio.approval.rule', string='Approval Rule', ondelete='cascade',
                               required=True, index=True)
     res_id = fields.Many2oneReference(string='Record ID', model_field='model', required=True)
-
-    def notify_to_users(self, record, rule_name, partner_ids):
-        """Post a request for approval note on the record."""
-        if record.message_post_with_source:
-            user = self.env.user
-            context = {}
-            if partner_ids:
-                context = {'lang': partner_ids[0].lang}
-            record.message_post_with_source(
-                'web_studio.request_approval',
-                author_id=user.partner_id.id,
-                partner_ids=partner_ids.ids,
-                render_values={
-                    'message': _('An approval for \'%(rule_name)s\' has been requested on %(record_name)s', rule_name=rule_name, record_name=record.name),
-                    'partner_ids': partner_ids,
-                    },
-                subtype_xmlid='mail.mt_note',
-            )
-            del context
