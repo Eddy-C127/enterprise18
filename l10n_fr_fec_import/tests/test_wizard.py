@@ -38,6 +38,8 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         ACH\tACHATS\tACH000005\t20180910\t40100000\tSuppliers\tPARTNER01\tPARTNER 01\t3\t20180910\tPARTNER 01\t0,00\t49,80\tAA\t\t20190725\t\t
         ACH\tACHATS\tACH000006\t20180910\t61320000\tPRIMES D'ASSURANCES\t\t\t3\t20180910\tASSURANCE\t200,50\t0,00\t\t\t20190725\t\tEUR
         ACH\tACHATS\tACH000006\t20180910\t44566000\tASSURANCE\t\t\t3\t20180910\tASSURANCE\t0,00\t200,50\t\t\t20190725\t\tEUR
+        ACH\tACHATS\tACH000007\t20181010\t512001\tVat on other goods and services\t\t\t3\t20180910\tPARTNER 01\t49,80\t0,00\tAA\t\t20190725\t\t
+        ACH\tACHATS\tACH000007\t20181010\t40100000\tSuppliers\tPARTNER02\tPARTNER 01\t3\t20180910\tPARTNER 01\t0,00\t49,80\tAA\t\t20190725\t\t
     """
 
     # ----------------------------------------
@@ -197,17 +199,26 @@ class AccountTestFecImport(AccountTestInvoicingCommon):
         self.assertRecordValues(partners, expected_values)
 
     def test_import_fec_partners_no_duplicate(self):
-        """ Test that the partners are not imported from the FEC file if already existing"""
-
-        partner = self.env['res.partner'].create({
+        """
+        Test that the partners are not imported from the FEC file if already existing
+        But that if two partners have the same name but a different ref, they are correctly created and linked
+        """
+        partner_1 = self.env['res.partner'].create({
             'name': 'PARTNER 01',
             'ref': 'PARTNER01'
         })
 
-        self.wizard._import_files(['account.account', 'account.journal', 'res.partner'])
+        self.wizard._import_files(['account.account', 'account.journal', 'res.partner', 'account.move'])
 
-        partners = self.env['res.partner'].search_count([('ref', '=', partner.ref)])
-        self.assertEqual(partners, 1)
+        partners_1 = self.env['res.partner'].search_count([('ref', '=', partner_1.ref)])
+        self.assertEqual(partners_1, 1)
+
+        partners_2 = self.env['res.partner'].search([('ref', '=', 'PARTNER02')])
+        self.assertEqual(len(partners_2), 1)
+
+        domain = [('company_id', '=', self.company.id), ('move_name', '=', 'ACH000007')]
+        move_lines = self.env['account.move.line'].search(domain, order='move_name, id')
+        self.assertEqual(move_lines.partner_id, partners_2)
 
     def test_import_fec_moves(self):
         """ Test that the moves are correctly imported from the FEC file """

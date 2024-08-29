@@ -234,13 +234,13 @@ class FecImportWizard(models.TransientModel):
             if partner_ref:
                 partner_ref = partner_ref.replace(' ', '_')
                 # Check for an existing partner with the same name or ref
-                partner_key = partner_name or partner_ref
+                partner_key = partner_ref or partner_name
                 if not partner_key or partner_key in partners_set:
                     continue
                 partners_set.add(partner_key)
 
                 # Check if the partner is already existing
-                existing_partner = cache["res.partner"].get(partner_key, None)
+                existing_partner = cache["res.partner.ref"].get(partner_ref, None)
                 if existing_partner:
                     partner_xml_id = self._make_xml_id('partner', partner_ref)
                     self.env['ir.model.data']._update_xmlids([{'xml_id': partner_xml_id, 'record': existing_partner}])
