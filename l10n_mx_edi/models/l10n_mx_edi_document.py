@@ -16,7 +16,7 @@ from odoo import _, api, models, modules, fields, tools
 from odoo.exceptions import UserError
 from odoo.osv import expression
 from odoo.tools import frozendict
-from odoo.tools.float_utils import float_is_zero
+from odoo.tools.float_utils import float_is_zero, float_round
 
 CFDI_DATE_FORMAT = '%Y-%m-%dT%H:%M:%S'
 CANCELLATION_REASON_SELECTION = [
@@ -934,10 +934,26 @@ class L10nMxEdiDocument(models.Model):
             discount = line['discount']
 
             if percentage_paid:
-                for key in ('transferred_values_list', 'withholding_values_list'):
-                    for tax_values in line[key]:
+                for list_key in ('transferred_values_list', 'withholding_values_list'):
+                    for tax_values in line[list_key]:
                         tax_values['base'] = currency.round(tax_values['base'] * percentage_paid)
                         tax_values['importe'] = currency.round(tax_values['importe'] * percentage_paid)
+
+            # Post fix the base and tax amounts to be within allowed 0.01 rounding error
+            total_delta_base = 0.0
+            if cfdi_values['company'].tax_calculation_rounding_method == 'round_globally':
+                for list_key in ('transferred_values_list', 'withholding_values_list'):
+                    for tax_values in line[list_key]:
+                        if tax_values['importe'] and tax_values['tasa_o_cuota']:
+                            post_amounts_map = self._get_post_fix_tax_amounts_map(
+                                base_amount=tax_values['base'],
+                                tax_amount=tax_values['importe'],
+                                tax_rate=tax_values['tasa_o_cuota'],
+                                precision_digits=cfdi_values['line_base_importe_dp'],
+                            )
+                            tax_values['base'] = post_amounts_map['new_base_amount']
+                            tax_values['importe'] = post_amounts_map['new_tax_amount']
+                            total_delta_base += post_amounts_map['delta_base_amount']
 
             transferred_values_list = line['transferred_values_list']
             withholding_values_list = line['withholding_values_list']
@@ -974,7 +990,7 @@ class L10nMxEdiDocument(models.Model):
                 cfdi_line_values['objeto_imp'] = tax_objected
             else:
                 cfdi_line_values['objeto_imp'] = '01'
-            cfdi_line_values['importe'] = line['gross_price_subtotal']
+            cfdi_line_values['importe'] = line['gross_price_subtotal'] + total_delta_base
             if cfdi_line_values['objeto_imp'] == '02':
                 cfdi_line_values['traslados_list'] = transferred_values_list
                 cfdi_line_values['retenciones_list'] = withholding_values_list
@@ -993,8 +1009,11 @@ class L10nMxEdiDocument(models.Model):
             for tax_values in cfdi_line_values['retenciones_list']:
                 key = frozendict({'impuesto': tax_values['impuesto']})
                 withholding_reduced_values_map[key]['importe'] += tax_values['importe']
-            for result_dict, key in ((withholding_values_map, 'retenciones_list'), (transferred_values_map, 'traslados_list')):
-                for tax_values in cfdi_line_values[key]:
+            for result_dict, list_key in (
+                (withholding_values_map, 'retenciones_list'),
+                (transferred_values_map, 'traslados_list'),
+            ):
+                for tax_values in cfdi_line_values[list_key]:
                     tax_key = frozendict({
                         'impuesto': tax_values['impuesto'],
                         'tipo_factor': tax_values['tipo_factor'],
@@ -1003,18 +1022,18 @@ class L10nMxEdiDocument(models.Model):
                     result_dict[tax_key]['base'] += tax_values['base']
                     result_dict[tax_key]['importe'] += tax_values['importe']
 
-        for target_key, source_dict in (
+        for list_key, source_dict in (
             ('retenciones_list', withholding_values_map),
             ('retenciones_reduced_list', withholding_reduced_values_map),
             ('traslados_list', transferred_values_map),
         ):
-            cfdi_values[target_key] = [
+            cfdi_values[list_key] = [
                 {
-                    **k,
-                    'base': currency.round(v['base']),
-                    'importe': currency.round(v['importe']),
+                    **tax_key,
+                    'base': currency.round(tax_values['base']),
+                    'importe': currency.round(tax_values['importe']),
                 }
-                for k, v in source_dict.items()
+                for tax_key, tax_values in source_dict.items()
             ]
 
         # Totals.
@@ -1047,6 +1066,19 @@ class L10nMxEdiDocument(models.Model):
         if not withholding_tax_amounts:
             cfdi_values['total_impuestos_retenidos'] = None
 
+    @api.model
+    def _get_post_fix_tax_amounts_map(self, base_amount, tax_amount, tax_rate, precision_digits):
+        total = base_amount + tax_amount
+        new_base_amount = float_round(total / (1 + tax_rate), precision_digits=precision_digits)
+        new_tax_amount = total - new_base_amount
+        return {
+            'new_base_amount': new_base_amount,
+            'new_tax_amount': new_tax_amount,
+            'delta_base_amount': new_base_amount - base_amount,
+            'delta_tax_amount': new_tax_amount - tax_amount,
+        }
+
+    @api.model
     def _clean_cfdi_values(self, cfdi_values):
         """ Clean values from 'cfdi_values' that could represent a security risk like sudoed records.
 
@@ -1160,6 +1192,7 @@ class L10nMxEdiDocument(models.Model):
             raise UserError(_("You can't make a global invoice for invoices having different currencies."))
 
         root_company = cfdi_values_list[0]['root_company']
+        currency = cfdi_values_list[0]['currency']
 
         # Sequence:
         sequence = self._get_global_invoice_cfdi_sequence(root_company)
@@ -1259,11 +1292,11 @@ class L10nMxEdiDocument(models.Model):
                 for tax_values in line_values['retenciones_list']:
                     tax_key = frozendict({'impuesto': tax_values['impuesto']})
                     add_or_none(global_withholding_reduced_values_map[tax_key], tax_values, 'importe')
-                for result_dict, global_result_dict, result_key in (
+                for result_dict, global_result_dict, list_key in (
                     (withholding_values_map, None, 'retenciones_list'),
                     (transferred_values_map, global_transferred_values_map, 'traslados_list'),
                 ):
-                    for tax_values in line_values[result_key]:
+                    for tax_values in line_values[list_key]:
                         tax_key = frozendict({
                             'impuesto': tax_values['impuesto'],
                             'tipo_factor': tax_values['tipo_factor'],
@@ -1285,13 +1318,13 @@ class L10nMxEdiDocument(models.Model):
                 aggregated_values = lines_values_map[key]
 
                 # Aggregate Taxes.
-                for tax_result_dict, key in (
+                for tax_result_dict, list_key in (
                     (withholding_values_map, 'retenciones_list'),
                     (transferred_values_map, 'traslados_list'),
                 ):
                     for tax_key, tax_amounts in tax_result_dict.items():
                         for amount_key in tax_amounts:
-                            add_or_none(aggregated_values[key][tax_key], tax_amounts, amount_key)
+                            add_or_none(aggregated_values[list_key][tax_key], tax_amounts, amount_key)
 
                 # Aggregate others fields.
                 aggregated_values['importe'] += (line_values['importe'] or 0.0) - (line_values['descuento'] or 0.0)
@@ -1302,15 +1335,23 @@ class L10nMxEdiDocument(models.Model):
                     **line_values,
                     **aggregated_values,
                     'no_identificacion': cfdi_values['document_name'],
-                    'traslados_list': [
-                        {**k, **v}
-                        for k, v in aggregated_values['traslados_list'].items()
-                    ],
-                    'retenciones_list': [
-                        {**k, **v}
-                        for k, v in aggregated_values['retenciones_list'].items()
-                    ],
                 }
+                for list_key in ('traslados_list', 'retenciones_list'):
+                    cfdi_line_values[list_key] = []
+                    for tax_key, tax_amounts in aggregated_values[list_key].items():
+                        tax_values = {**tax_key, **tax_amounts}
+                        if tax_values['importe'] and tax_values['tasa_o_cuota']:
+                            post_amounts_map = self._get_post_fix_tax_amounts_map(
+                                base_amount=tax_values['base'],
+                                tax_amount=tax_values['importe'],
+                                tax_rate=tax_values['tasa_o_cuota'],
+                                precision_digits=results['line_base_importe_dp'],
+                            )
+                            tax_values['base'] = post_amounts_map['new_base_amount']
+                            tax_values['importe'] = post_amounts_map['new_tax_amount']
+                            cfdi_line_values['importe'] += post_amounts_map['delta_base_amount']
+                        cfdi_line_values[list_key].append(tax_values)
+
                 if cfdi_line_values['traslados_list'] or cfdi_line_values['retenciones_list']:
                     cfdi_line_values['objeto_imp'] = '02'
                 else:
@@ -1324,14 +1365,26 @@ class L10nMxEdiDocument(models.Model):
                 line_values_list.append(cfdi_line_values)
 
         # Taxes.
-        results['retenciones_reduced_list'] = [
-            {**k, **v}
-            for k, v in global_withholding_reduced_values_map.items()
-        ]
-        results['traslados_list'] = [
-            {**k, **v}
-            for k, v in global_transferred_values_map.items()
-        ]
+        for total_key, key, global_result_dict in (
+            ('total_impuestos_retenidos', 'retenciones_reduced_list', global_withholding_reduced_values_map),
+            ('total_impuestos_trasladados', 'traslados_list', global_transferred_values_map),
+        ):
+            results[key] = []
+            for tax_key, tax_amounts in global_result_dict.items():
+                tax_values = {**tax_key, **tax_amounts}
+                if tax_values['importe'] and tax_values.get('tasa_o_cuota'):
+                    post_amounts_map = self._get_post_fix_tax_amounts_map(
+                        base_amount=tax_values['base'],
+                        tax_amount=tax_values['importe'],
+                        tax_rate=tax_values['tasa_o_cuota'],
+                        precision_digits=currency.decimal_places,
+                    )
+                    tax_values['base'] = post_amounts_map['new_base_amount']
+                    tax_values['importe'] = post_amounts_map['new_tax_amount']
+                    if results[total_key] is not None:
+                        results[total_key] += post_amounts_map['delta_tax_amount']
+                    results['subtotal'] += post_amounts_map['delta_base_amount']
+                results[key].append(tax_values)
         results['objeto_imp'] = '02' if results['retenciones_reduced_list'] or results['traslados_list'] else '03'
 
         # Cleanup attributes for Exento taxes.

@@ -1131,10 +1131,14 @@ class AccountMove(models.Model):
                         company.tax_calculation_rounding_method == 'round_per_line'
                         and all(tax_values[key] is not None for key in ('base', 'importe', 'tasa_o_cuota'))
                     ):
-                        total = tax_values['base'] + tax_values['importe']
-                        percent = tax_values['tasa_o_cuota']
-                        tax_values['importe'] = invoice.currency_id.round(total * percent / (1 + percent))
-                        tax_values['base'] = invoice.currency_id.round(total - tax_values['importe'])
+                        post_amounts_map = self.env['l10n_mx_edi.document']._get_post_fix_tax_amounts_map(
+                            base_amount=tax_values['base'],
+                            tax_amount=tax_values['importe'],
+                            tax_rate=tax_values['tasa_o_cuota'],
+                            precision_digits=invoice.currency_id.decimal_places,
+                        )
+                        tax_values['importe'] = post_amounts_map['new_tax_amount']
+                        tax_values['base'] = post_amounts_map['new_base_amount']
 
             # 'equivalencia' (rate) is a conditional attribute used to express the exchange rate according to the currency
             # registered in the document related. It is required when the currency of the related document is different

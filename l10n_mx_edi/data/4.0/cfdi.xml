@@ -54,8 +54,8 @@
                         t-att-ClaveUnidad="line_values['clave_unidad']"
                         t-att-Unidad="format_string(line_values['unidad'], 20)"
                         t-att-Descripcion="format_string(line_values['description'], 1000)"
-                        t-att-ValorUnitario="format_float(line_values['valor_unitario'])"
-                        t-att-Importe="format_float(line_values['importe'])"
+                        t-att-ValorUnitario="format_float(line_values['valor_unitario'], precision=line_base_importe_dp)"
+                        t-att-Importe="format_float(line_values['importe'], precision=line_base_importe_dp)"
                         t-att-ObjetoImp="line_values['objeto_imp']"
                         t-att-Descuento="format_float(line_values['descuento'])">
                         <cfdi:Impuestos t-if="line_values['traslados_list'] or line_values['retenciones_list']">
