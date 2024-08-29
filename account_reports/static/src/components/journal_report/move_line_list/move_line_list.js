@@ -7,11 +7,11 @@ import { AccountMoveLineListRenderer, AccountMoveLineListView } from "@account_a
 export class JournalReportAccountMoveLineReconcileListRenderer extends AccountMoveLineListRenderer {
     setup() {
         super.setup();
-        for (const group of this.props.list.groups) {
-            for (const innerGroup of group.list?.groups) {
+        this.props.list.groups?.forEach(group => {
+            group.list?.groups?.forEach(innerGroup => {
                 this.toggleGroup(innerGroup);
-            }
-        }
+            });
+        });
     }
 }
 
