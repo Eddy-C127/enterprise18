@@ -39,3 +39,15 @@ class ProductCode(models.Model):
     def _compute_display_name(self):
         for prod in self:
             prod.display_name = f"{prod.code} {prod.name or ''}"
+
+    @api.model
+    def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
+        if name:
+            if operator in ('=', '!='):
+                name_domain = ['|', ('code', '=', name.split(' ')[0]), ('name', operator, name)]
+            else:
+                name_domain = ['|', ('code', '=like', name.split(' ')[0] + '%'), ('name', operator, name)]
+            if operator in expression.NEGATIVE_TERM_OPERATORS:
+                name_domain = ['&', '!'] + name_domain[1:]
+            domain = expression.AND([name_domain, domain])
+        return self._search(domain, limit=limit, order=order)

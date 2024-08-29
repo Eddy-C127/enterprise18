@@ -48,6 +48,17 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="view_product_uom_categ_search_unspsc">
+            <field name="name">view.uom.categ.unspsc.search</field>
+            <field name="model">product.unspsc.code</field>
+            <field name="arch" type="xml">
+                <search string="UNSPSC Category">
+                    <field name="name"/>
+                    <field name="code" filter_domain="[('code', '=ilike', self + '%')]"/>
+                </search>
+            </field>
+        </record>
+
         <record model="ir.ui.view" id="view_product_unspsc_code_form">
             <field name="name">view.product.unspsc.code.form</field>
             <field name="model">product.unspsc.code</field>
