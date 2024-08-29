@@ -9,12 +9,6 @@
                 <attribute name="invisible">mailing_type != 'mail'</attribute>
                 <attribute name="readonly">state in ('sending', 'done') and not use_in_marketing_automation</attribute>
             </xpath>
-            <xpath expr="//label[@for='subject']" position="attributes">
-                <attribute name="invisible">mailing_type != 'mail'</attribute>
-            </xpath>
-            <xpath expr="//label[@for='subject']" position="after">
-                <label for="sms_subject" invisible="mailing_type != 'sms'"/>
-            </xpath>
             <xpath expr="//field[@name='subject']" position="attributes">
                 <attribute name="invisible">mailing_type != 'mail'</attribute>
             </xpath>
