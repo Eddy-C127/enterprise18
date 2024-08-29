@@ -97,6 +97,7 @@ class SpreadsheetMixin(models.AbstractModel):
             "default_currency": self.env["res.currency"].get_company_currency_for_spreadsheet(),
             "user_locale": self.env["res.lang"]._get_user_spreadsheet_locale(),
             "company_colors": self._get_context_company_colors(),
+            "writable_rec_name_field": self._get_writable_record_name_field(),
         }
 
     def dispatch_spreadsheet_message(self, message: CollaborationMessage, share_id=None, access_token=None):
@@ -587,6 +588,11 @@ class SpreadsheetMixin(models.AbstractModel):
             mapping[attachment_id] = attachment_copy
             return attachment_copy
         return self.env["ir.attachment"]
+
+    def _get_writable_record_name_field(self):
+        if self._rec_name and not self._fields[self._rec_name].readonly:
+            return self._fields[self._rec_name].name
+        return None
 
 
 def get_attachment_image_src(original_path, attachment_copy):

@@ -75,19 +75,6 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
     }
 
     /**
-     * Saves the spreadsheet name change.
-     * @param {Object} detail
-     * @returns {Promise}
-     */
-    async _onSpreadSheetNameChanged(detail) {
-        await super._onSpreadSheetNameChanged(detail);
-        const { name } = detail;
-        return this.orm.write("documents.document", [this.resId], {
-            name,
-        });
-    }
-
-    /**
      * @private
      * @returns {Promise}
      */

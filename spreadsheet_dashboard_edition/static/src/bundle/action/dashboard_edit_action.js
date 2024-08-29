@@ -38,14 +38,6 @@ export class DashboardEditAction extends AbstractSpreadsheetAction {
         });
     }
 
-    async _onSpreadSheetNameChanged(detail) {
-        await super._onSpreadSheetNameChanged(detail);
-        const { name } = detail;
-        await this.orm.write("spreadsheet.dashboard", [this.resId], {
-            name,
-        });
-    }
-
     async shareSpreadsheet(data, excelExport) {
         const url = await this.orm.call("spreadsheet.dashboard.share", "action_get_share_url", [
             {

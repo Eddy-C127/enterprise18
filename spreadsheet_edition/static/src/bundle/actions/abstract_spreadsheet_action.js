@@ -31,6 +31,7 @@ const { useStoreProvider, ModelStore, SidePanelStore } = spreadsheet.stores;
  * @property {Object[]} revisions
  * @property {boolean} snapshot_requested
  * @property {Boolean} isReadonly
+ * @property {string} [writable_rec_name_field]
  */
 
 export class AbstractSpreadsheetAction extends Component {
@@ -254,6 +255,11 @@ export class AbstractSpreadsheetAction extends Component {
         if (name && name !== this.state.spreadsheetName) {
             this.state.spreadsheetName = name;
             this.env.config.setDisplayName(this.state.spreadsheetName);
+            if (this.record.writable_rec_name_field) {
+                await this.orm.write(this.resModel, [this.resId], {
+                    [this.record.writable_rec_name_field]: name,
+                });
+            }
         }
     }
 

@@ -13,6 +13,7 @@ export function mockJoinSpreadsheetSession(resModel) {
             name: record.name,
             revisions: [],
             isReadonly: false,
+            writable_rec_name_field: "name",
         };
     };
 }

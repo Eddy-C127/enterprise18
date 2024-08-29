@@ -81,17 +81,6 @@ export class SpreadsheetFieldSyncAction extends AbstractSpreadsheetAction {
             orderFilter.defaultValue = [this.orderId];
         }
     }
-
-    /**
-     * Save a new name for the given template
-     * @param {Object} detail
-     * @param {string} detail.name
-     */
-    async _onSpreadSheetNameChanged(detail) {
-        await super._onSpreadSheetNameChanged(detail);
-        const { name } = detail;
-        await this.orm.write("sale.order.spreadsheet", [this.resId], { name });
-    }
 }
 
 registry

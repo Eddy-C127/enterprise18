@@ -37,19 +37,6 @@ export class SpreadsheetTemplateAction extends AbstractSpreadsheetAction {
         this._openSpreadsheet(id);
         return id;
     }
-
-    /**
-     * Save a new name for the given template
-     * @param {Object} detail
-     * @param {string} detail.name
-     */
-    async _onSpreadSheetNameChanged(detail) {
-        await super._onSpreadSheetNameChanged(detail);
-        const { name } = detail;
-        await this.orm.write("spreadsheet.template", [this.resId], {
-            name,
-        });
-    }
 }
 
 registry
