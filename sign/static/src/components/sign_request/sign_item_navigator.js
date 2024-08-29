@@ -12,6 +12,7 @@ import { offset } from "./utils";
  */
 export function startSignItemNavigator(parent, target, types, env) {
     function setTip(text) {
+        navigator.style.fontFamily = "Helvetica";
         navigator.innerText = text;
     }
 
