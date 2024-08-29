@@ -10,7 +10,7 @@ class Project(models.Model):
 
     def check_can_start_timer(self):
         self.ensure_one()
-        if self.company_id.timesheet_encode_uom_id == self.env.ref('uom.product_uom_day'):
+        if self.sudo().company_id.timesheet_encode_uom_id == self.env.ref('uom.product_uom_day'):
             return {
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
