@@ -83,6 +83,8 @@ QUnit.module("Views", (hooks) => {
                     return serializeDateTime(DateTime.now());
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -124,6 +126,8 @@ QUnit.module("Views", (hooks) => {
                     return null;
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return "2017-01-25";
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -243,6 +247,8 @@ QUnit.module("Views", (hooks) => {
                     return null;
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return "2017-01-30";
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -293,6 +299,8 @@ QUnit.module("Views", (hooks) => {
                     return serializeDateTime(DateTime.now());
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -380,6 +388,8 @@ QUnit.module("Views", (hooks) => {
                     return false;
                 } else if (args.model === "analytic.line" && args.method === "web_read_group" && !timerRunning) {
                     assert.step("view reloaded");
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -482,6 +492,8 @@ QUnit.module("Views", (hooks) => {
                     return null;
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -548,6 +560,8 @@ QUnit.module("Views", (hooks) => {
                     return {};
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -644,6 +658,8 @@ QUnit.module("Views", (hooks) => {
                     return serializeDateTime(DateTime.now());
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -774,6 +790,8 @@ QUnit.module("Views", (hooks) => {
                     return null;
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -952,6 +970,8 @@ QUnit.module("Views", (hooks) => {
                     return null;
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     return false;
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -1003,6 +1023,8 @@ QUnit.module("Views", (hooks) => {
                         return dailyWorkingHours;
                     } else if (args.method === "get_last_validated_timesheet_date") {
                         return false;
+                    } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                        return [];
                     }
                     return timesheetGridSetup.mockTimesheetGridRPC(route, args);
                 },
@@ -1126,6 +1148,8 @@ QUnit.module("Views", (hooks) => {
                 ) {
                     args.kwargs.args =
                         args.model === "project.project" ? [["allow_timesheets", "=", true]] : [];
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
@@ -1239,6 +1263,8 @@ QUnit.module("Views", (hooks) => {
                         return serializeDateTime(DateTime.now());
                     } else if (args.method === "action_timer_stop") {
                         return 0.25;
+                    } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                        return [];
                     }
                     return timesheetGridSetup.mockTimesheetGridRPC(route, args);
                 },
@@ -1322,6 +1348,8 @@ QUnit.module("Views", (hooks) => {
                         return serializeDateTime(DateTime.now());
                     } else if (args.method === "action_timer_stop") {
                         return 0.25;
+                    } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                        return [];
                     }
                     return timesheetGridSetup.mockTimesheetGridRPC(route, args);
                 },
@@ -1417,6 +1445,8 @@ QUnit.module("Views", (hooks) => {
                         return serializeDateTime(DateTime.now());
                     } else if (args.method === "action_timer_unlink") {
                         return null;
+                    } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                        return [];
                     }
                     return timesheetGridSetup.mockTimesheetGridRPC(route, args);
                 },
@@ -1496,6 +1526,8 @@ QUnit.module("Views", (hooks) => {
                         reload = false;
                     } else if (args.method === "name_search" && ["project.project", "project.task"].includes(args.model)) {
                         args.kwargs.args = args.model === "project.project" ? [["allow_timesheets", "=", true]] : [];
+                    } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                        return [];
                     }
                     return timesheetGridSetup.mockTimesheetGridRPC(route, args);
                 },
@@ -1578,6 +1610,8 @@ QUnit.module("Views", (hooks) => {
                         return {};
                     case "get_server_time":
                         return serializeDateTime(DateTime.now());
+                    case "get_create_edit_project_ids":
+                        return [];
                     default:
                         return timesheetGridSetup.mockTimesheetGridRPC(...arguments);
                 }
@@ -1614,7 +1648,9 @@ QUnit.module("Views", (hooks) => {
                         "2017-01-24": 4,
                         "2017-01-25": 4,
                     };
-                };
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
+                }
                 return timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
         });
@@ -1646,6 +1682,8 @@ QUnit.module("Views", (hooks) => {
                     };
                 } else if (args.method === "get_last_validated_timesheet_date") {
                     assert.step("get_last_validated_timesheet_date");
+                } else if (route === '/web/dataset/call_kw/project.project/get_create_edit_project_ids') {
+                    return [];
                 }
                 return await timesheetGridSetup.mockTimesheetGridRPC(route, args);
             },
