@@ -75,7 +75,7 @@ QUnit.module("Worksheet", (hooks) => {
                 };
                 Object.defineProperty(env, "isSmall", {
                     get() {
-                        return true;
+                        return false;
                     },
                 });
                 return ui;
