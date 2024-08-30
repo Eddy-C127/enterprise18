@@ -57,9 +57,9 @@ class SocialStreamInstagram(models.Model):
             }
 
             if post.get('media_type') == 'CAROUSEL_ALBUM':
-                media_urls = [{'image_url': media.get('media_url')} for media in post.get('children', {}).get('data', [])]
+                media_urls = [{'image_url': media.get('media_url', '')} for media in post.get('children', {}).get('data', [])]
             else:
-                media_urls = [{'image_url': post.get('media_url')}]
+                media_urls = [{'image_url': post.get('media_url', '')}]
 
             if values['instagram_post_id'] in existing_posts:
                 values['stream_post_image_ids'] = [Command.clear()] + [Command.create(url) for url in media_urls]
