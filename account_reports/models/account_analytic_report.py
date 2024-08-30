@@ -147,7 +147,7 @@ class AccountReport(models.AbstractModel):
             -- Create a temporary table, dropping not null constraints because we're not filling those columns
             CREATE TEMPORARY TABLE IF NOT EXISTS analytic_temp_account_move_line () inherits (account_move_line) ON COMMIT DROP;
             ALTER TABLE analytic_temp_account_move_line NO INHERIT account_move_line;
-            ALTER TABLE analytic_temp_account_move_line DROP CONSTRAINT account_move_line_check_amount_currency_balance_sign;
+            ALTER TABLE analytic_temp_account_move_line DROP CONSTRAINT IF EXISTS account_move_line_check_amount_currency_balance_sign;
             ALTER TABLE analytic_temp_account_move_line ALTER COLUMN move_id DROP NOT NULL;
             ALTER TABLE analytic_temp_account_move_line ALTER COLUMN currency_id DROP NOT NULL;
 
