@@ -8,7 +8,6 @@ class AccountMove(models.Model):
     @api.depends("l10n_br_is_avatax", "move_type", "debit_origin_id")
     def _compute_l10n_br_goods_operation_type_id(self):
         """Override."""
-        super()._compute_l10n_br_goods_operation_type_id()
         self.l10n_br_goods_operation_type_id = False
         for move in self.filtered("l10n_br_is_avatax"):
             if move.debit_origin_id:
