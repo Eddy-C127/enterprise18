@@ -1,8 +1,9 @@
 import secrets
 import psycopg2
 
-from odoo import fields, models, registry, api, SUPERUSER_ID, _
+from odoo import fields, models, api, SUPERUSER_ID, _
 from odoo.exceptions import ValidationError, UserError
+from odoo.modules.registry import Registry
 from odoo.tools import SQL
 from odoo.addons.pos_urban_piper import const
 
@@ -328,8 +329,7 @@ class PosConfig(models.Model):
         db_name = self.env.cr.dbname
 
         try:
-            db_registry = registry(db_name)
-            with db_registry.cursor() as cr:
+            with Registry(db_name).cursor() as cr:
                 env = api.Environment(cr, SUPERUSER_ID, {})
                 IrLogging = env['ir.logging']
                 IrLogging.sudo().create({'name': 'Urban piper error handler',

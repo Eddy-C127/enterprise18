@@ -7,8 +7,9 @@ from itertools import chain
 
 from dateutil.rrule import rrule, MONTHLY
 
-from odoo import models, fields, registry, release, _
+from odoo import models, fields, release, _
 from odoo.exceptions import RedirectWarning, UserError
+from odoo.modules.registry import Registry
 from odoo.tools import get_lang, SQL
 from odoo.tools.misc import street_split
 
@@ -404,7 +405,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         def amount_type(credit):
             return 'C' if credit else 'D'
 
-        with registry(self.env.cr.dbname).cursor() as cr:
+        with Registry(self.env.cr.dbname).cursor() as cr:
             self = self.with_env(self.env(cr=cr))
             batch_size = int(self.env['ir.config_parameter'].sudo().get_param('l10n_nl_reports.general_ledger_batch_size', 10**4))
             # System parameter to allow users to set docRef length (default 999 as per spec) for compatibility with other software

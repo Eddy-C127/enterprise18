@@ -1,7 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from datetime import timedelta
 
-from odoo import models, fields, api, registry, SUPERUSER_ID
+from odoo import SUPERUSER_ID, api, fields, models
+from odoo.modules.registry import Registry
 from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT
 from datetime import datetime
 
@@ -120,7 +121,7 @@ class AccountExternalTaxMixin(models.AbstractModel):
             # exception is thrown later in this request.
             self.env.flush_all()
             dbname = self._cr.dbname
-            with registry(dbname).cursor() as cr:
+            with Registry(dbname).cursor() as cr:
                 env = api.Environment(cr, SUPERUSER_ID, {})
                 env['ir.logging'].create({
                     'name': module_name,
