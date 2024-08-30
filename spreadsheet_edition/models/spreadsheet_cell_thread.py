@@ -74,9 +74,12 @@ class SpreadsheetCellThread(models.Model):
     def _get_spreadsheet_record(self):
         return False
 
-    def check_access_rights(self, operation, raise_exception=True):
+    def check_access_rule(self, operation):
         if self.env.su:
             return
-        record = self.sudo()._get_spreadsheet_record()  # stop looping on fetch of field
-        return record and record.with_user(self.env.user).check_access_rights(operation, raise_exception)\
-            and super().check_access_rights(operation, raise_exception)
+        super().check_access_rule(operation)
+        for thread in self:
+            # sudo() to avoid infinite recursion when checking access
+            if record := self.sudo()._get_spreadsheet_record():
+                record.with_user(self.env.user).check_access_rights('read')
+                record.with_user(self.env.user).check_access_rule('read')
