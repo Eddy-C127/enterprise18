@@ -616,3 +616,31 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
 
         for test_picking, expected_move_line_vals in zip(test_pickings, expected_move_line_vals_list):
             self.assertRecordValues(test_picking.move_line_ids, expected_move_line_vals)
+
+    def test_always_backorder_mo_without_redirect_to_backend(self):
+        """
+        Check that you are not redirect to the backend when you automatically
+        backorder an mo from the barcode module.
+        """
+        self.clean_access_rights()
+        warehouse = self.stock_location.warehouse_id
+        manufacturing_type = warehouse.manu_type_id
+        manufacturing_type.create_backorder = "always"
+        product = self.final_product
+        bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': product.product_tmpl_id.id,
+            'product_qty': 1.0,
+        })
+        mo = self.env['mrp.production'].create({
+            'product_id': product.id,
+            'product_qty': 3.0,
+            'bom_id': bom.id,
+        })
+        mo.action_confirm()
+
+        action_id = self.env.ref('stock_barcode.stock_picking_type_action_kanban')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_always_backorder_mo', login='admin', timeout=180)
+        self.assertRecordValues(mo, [{'state':  'done', 'qty_produced': 1.0}])
+        bo = mo.backorder_ids - mo
+        self.assertRecordValues(bo, [{'product_id': product.id, 'product_qty': 2.0}])

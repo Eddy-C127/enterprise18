@@ -1099,3 +1099,14 @@ registry.category("web_tour.tours").add('test_kit_bom_decomposition_keeps_locati
         { trigger: '.btn.o_validate_page', run: 'click' },
     ]
 });
+
+registry.category("web_tour.tours").add('test_always_backorder_mo', {test: true, steps: () => [
+    { trigger: '.o_kanban_record_title:contains(Manufacturing)', run: 'click' },
+    { trigger: '.oe_kanban_card:contains(Final Product)', run: 'click' },
+    { trigger: '.o_barcode_line.o_header .fa-pencil', run: 'click' },
+    { trigger: '.o_digipad_increment', run: "click" },
+    { trigger: '.btn.o_save', run: 'click' },
+    { trigger: '.o_validate_page', run: 'click' },
+    { trigger: '.o_notification_bar.bg-success' },
+    { trigger: '.oe_kanban_card:contains(Final Product)' },
+]});

@@ -189,3 +189,6 @@ class ManufacturingOrder(models.Model):
         action = dict(action, target='fullscreen')
         action['context'] = self.env.context
         return {'action': action}
+
+    def _should_return_records(self):
+        return super()._should_return_records() and not self.env.context.get('barcode_trigger', False)
