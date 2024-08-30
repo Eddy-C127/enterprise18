@@ -2245,7 +2245,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         report = self.env.ref('account_asset.assets_report')
 
         # No prefix group, no group by account
-        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_groupby_account': False, 'unfold_all': False})
+        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_grouping_field': 'none', 'unfold_all': False})
 
         # without Analytic Filter
         self.assertLinesValues(
@@ -2289,7 +2289,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         report.filter_analytic_groupby = True
 
         # No prefix group, no group by account
-        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_groupby_account': False, 'unfold_all': False})
+        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_grouping_field': 'none', 'unfold_all': False})
 
         # without Analytic Groupby
         self.assertLinesValues(
@@ -2306,7 +2306,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         )
         # with Analytic Groupby
         options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={
-            'assets_groupby_account': False,
+            'assets_grouping_field': 'none',
             'unfold_all': False,
             'analytic_accounts_groupby': [self.analytic_account.id],
         })
@@ -2372,6 +2372,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         }])
 
     def test_depreciation_schedule_prefix_groups(self):
+        asset_group = self.env['account.asset.group'].create({'name': 'Odoo Office'})
         for i in range(1, 3):
             asset = self.env['account.asset'].create({
                 'method_period': '12',
@@ -2380,6 +2381,7 @@ class TestAccountAsset(TestAccountReportsCommon):
                 'original_value': i * 100.0,
                 'acquisition_date': fields.Date.today() - relativedelta(years=3),
                 'account_asset_id': self.company_data['default_account_assets'].id,
+                'asset_group_id': asset_group.id,
                 'account_depreciation_id': self.company_data['default_account_assets'].copy().id,
                 'account_depreciation_expense_id': self.company_data['default_account_expense'].id,
                 'journal_id': self.company_data['default_journal_misc'].id,
@@ -2393,7 +2395,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         report = self.env.ref('account_asset.assets_report')
 
         # No prefix group, no group by account
-        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_groupby_account': False})
+        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_grouping_field': 'none'})
         self.assertLinesValues(
             # pylint: disable=C0326
             report._get_lines(options),
@@ -2409,7 +2411,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         )
 
         # No prefix group, group by account
-        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_groupby_account': True})
+        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_grouping_field': 'account_id'})
         options['unfold_all'] = True
         self.assertLinesValues(
             # pylint: disable=C0326
@@ -2428,7 +2430,7 @@ class TestAccountAsset(TestAccountReportsCommon):
 
         report.prefix_groups_threshold = 3
         # Prefix group, no group by account
-        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_groupby_account': False, 'unfold_all': True})
+        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_grouping_field': 'none', 'unfold_all': True})
         options['unfold_all'] = True
         self.assertLinesValues(
             # pylint: disable=C0326
@@ -2447,7 +2449,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         )
 
         # Prefix group, group by account
-        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_groupby_account': True, 'unfold_all': True})
+        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_grouping_field': 'account_id', 'unfold_all': True})
         options['unfold_all'] = True
         self.assertLinesValues(
             # pylint: disable=C0326
@@ -2462,6 +2464,25 @@ class TestAccountAsset(TestAccountReportsCommon):
                 ('T (1 line)',                  10000,          0,       0,       10000,      4500,               0,             0,            4500,             5500,),
                 ('truck',                       10000,          0,       0,       10000,      4500,               0,             0,            4500,             5500,),
                 ('Total',                       10300,          0,       0,       10300,      4725,               0,             0,            4725,             5575,),
+            ],
+            options,
+        )
+
+        # No prefix group, group by asset group
+        options = self._generate_options(report, '2021-01-01', '2021-12-31', default_options={'assets_grouping_field': 'asset_group_id'})
+        options['unfold_all'] = True
+        self.assertLinesValues(
+            # pylint: disable=C0326
+            report._get_lines(options),
+            #    Name                       Assets/start  Assets/+  Assets/- Assets/end  Depreciation/start  Depreciation/+  Depreciation/- Depreciation/end  Book Value
+        [    0,                                 5,              6,        7,       8,          9,                  10,             11,            12,              13],
+            [
+                ('(No Asset Group)',            10000,          0,       0,       10000,      4500,               0,             0,            4500,             5500),
+                ('truck',                       10000,          0,       0,       10000,      4500,               0,             0,            4500,             5500),
+                ('Odoo Office',                 300,            0,       0,         300,       225,               0,             0,             225,               75),
+                ('Asset 1',                     100,            0,       0,         100,        75,               0,             0,              75,               25),
+                ('Asset 2',                     200,            0,       0,         200,       150,               0,             0,             150,               50),
+                ('Total',                       10300,          0,       0,       10300,      4725,               0,             0,            4725,             5575),
             ],
             options,
         )

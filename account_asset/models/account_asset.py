@@ -90,6 +90,7 @@ class AccountAsset(models.Model):
         check_company=True,
         domain="[('account_type', '!=', 'off_balance')]",
     )
+    asset_group_id = fields.Many2one('account.asset.group', string='Asset Group', tracking=True, index=True)
     account_depreciation_id = fields.Many2one(
         comodel_name='account.account',
         string='Depreciation Account',

@@ -140,6 +140,7 @@
                                                 'default_account_depreciation_id': account_depreciation_id,
                                                 'default_account_depreciation_expense_id': account_depreciation_expense_id
                                             }" readonly="state != 'draft'"/>
+                                    <field name="asset_group_id"/>
                                 </group>
                                 <group string="Current Values" invisible="state == 'model'" name="current_values">
                                     <field name="salvage_value" widget="monetary" options="{'currency_field': 'currency_id'}" readonly="state != 'draft'"/>
