@@ -46,4 +46,4 @@ class AccountBatchPayment(models.Model):
 
             return export_file_data
 
-#         return super()._generate_export_file()
+        return super()._generate_export_file()
