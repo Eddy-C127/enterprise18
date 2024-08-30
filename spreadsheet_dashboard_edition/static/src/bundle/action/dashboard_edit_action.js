@@ -18,9 +18,9 @@ export class DashboardEditAction extends AbstractSpreadsheetAction {
         useSubEnv({
             makeCopy: this.makeCopy.bind(this),
             onSpreadsheetShared: this.shareSpreadsheet.bind(this),
-            isDashboardPublished: () => this.record && this.record.is_published,
+            isDashboardPublished: () => this.data && this.data.is_published,
             toggleDashboardPublished: this.togglePublished.bind(this),
-            isRecordReadonly: () => this.record && this.record.isReadonly,
+            isRecordReadonly: () => this.data && this.data.isReadonly,
         });
     }
 

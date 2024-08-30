@@ -27,7 +27,7 @@ const { Model } = spreadsheet;
 const { useStoreProvider, ModelStore, SidePanelStore } = spreadsheet.stores;
 
 /**
- * @typedef SpreadsheetRecord
+ * @typedef SpreadsheetData
  * @property {number} id
  * @property {string} name
  * @property {string} data
@@ -101,7 +101,7 @@ export class AbstractSpreadsheetAction extends Component {
             insertThreadInSheet: this.insertThreadInSheet.bind(this),
             print,
             getLinesNumber: this._getLinesNumber.bind(this),
-            getUserLocale: () => this.record && this.record.user_locale,
+            getUserLocale: () => this.data && this.data.user_locale,
         });
         this.state = useState({
             spreadsheetName: UNTITLED_SPREADSHEET_NAME,
@@ -148,8 +148,8 @@ export class AbstractSpreadsheetAction extends Component {
         if (!this.props.state) {
             await this._setupPreProcessingCallbacks();
         }
-        const record = await this._fetchData();
-        this._initializeWith(record);
+        const data = await this._fetchData();
+        this._initializeWith(data);
     }
 
     createModel() {
@@ -166,7 +166,7 @@ export class AbstractSpreadsheetAction extends Component {
                     loadCurrencies: this.loadCurrencies,
                     loadLocales: this.loadLocales,
                 },
-                defaultCurrency: createDefaultCurrency(this.record.default_currency),
+                defaultCurrency: createDefaultCurrency(this.data.default_currency),
                 transportService: this.transportService,
                 client: {
                     id: uuidGenerator.uuidv4(),
@@ -175,7 +175,7 @@ export class AbstractSpreadsheetAction extends Component {
                 },
                 mode: this.isReadonly ? "readonly" : "normal",
                 snapshotRequested: this.snapshotRequested,
-                customColors: this.record.company_colors,
+                customColors: this.data.company_colors,
             },
             this.stateUpdateMessages
         );
@@ -215,15 +215,15 @@ export class AbstractSpreadsheetAction extends Component {
     /**
      * @protected
      * @abstract
-     * @param {SpreadsheetRecord} record
+     * @param {SpreadsheetData} data
      */
-    _initializeWith(record) {
-        this.state.spreadsheetName = record.name;
-        this.spreadsheetData = record.data;
-        this.stateUpdateMessages = record.revisions;
-        this.snapshotRequested = record.snapshot_requested;
-        this.isReadonly = record.isReadonly;
-        this.record = record;
+    _initializeWith(data) {
+        this.state.spreadsheetName = data.name;
+        this.spreadsheetData = data.data;
+        this.stateUpdateMessages = data.revisions;
+        this.snapshotRequested = data.snapshot_requested;
+        this.isReadonly = data.isReadonly;
+        this.data = data;
     }
 
     /**
@@ -262,9 +262,9 @@ export class AbstractSpreadsheetAction extends Component {
         if (name && name !== this.state.spreadsheetName) {
             this.state.spreadsheetName = name;
             this.env.config.setDisplayName(this.state.spreadsheetName);
-            if (this.record.writable_rec_name_field) {
+            if (this.data.writable_rec_name_field) {
                 await this.orm.write(this.resModel, [this.resId], {
-                    [this.record.writable_rec_name_field]: name,
+                    [this.data.writable_rec_name_field]: name,
                 });
             }
         }
@@ -286,7 +286,7 @@ export class AbstractSpreadsheetAction extends Component {
     }
 
     /**
-     * @returns {Promise<SpreadsheetRecord>}
+     * @returns {Promise<SpreadsheetData>}
      */
     async _fetchData() {
         return this.orm.call(this.resModel, "join_spreadsheet_session", [

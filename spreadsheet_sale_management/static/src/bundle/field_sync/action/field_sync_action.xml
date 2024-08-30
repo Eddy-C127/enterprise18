@@ -4,12 +4,12 @@
         <SpreadsheetNavbar t-props="navbarProps">
             <t t-set-slot="navbar-additional-actions">
                 <button
-                    t-if="record.order_id"
+                    t-if="data.order_id"
                     class="btn btn-primary mx-1 py-0 px-1"
                     t-on-click="writeToOrder"
                     data-hotkey="s"
                 >
-                    Save in <t t-esc="record.order_display_name"/>
+                    Save in <t t-esc="data.order_display_name"/>
                 </button>
             </t>
         </SpreadsheetNavbar>

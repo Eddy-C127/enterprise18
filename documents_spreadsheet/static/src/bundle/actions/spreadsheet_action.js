@@ -36,9 +36,9 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
     /**
      * @override
      */
-    _initializeWith(record) {
-        super._initializeWith(record);
-        this.state.isFavorited = record.is_favorited;
+    _initializeWith(data) {
+        super._initializeWith(data);
+        this.state.isFavorited = data.is_favorited;
     }
 
     /**
@@ -97,7 +97,7 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
     async shareSpreadsheet(data, excelExport) {
         const vals = {
             document_ids: [x2ManyCommands.set([this.resId])],
-            folder_id: this.record.folder_id,
+            folder_id: this.data.folder_id,
             type: "ids",
             spreadsheet_shares: [
                 {
