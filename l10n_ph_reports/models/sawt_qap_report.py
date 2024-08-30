@@ -121,6 +121,7 @@ class SawtQapCustomHandler(models.AbstractModel):
                       ON currency_table.company_id = account_move_line.company_id
                    WHERE %(search_condition)s
                 GROUP BY p.id, cp.id, %(account_tag_name)s
+                ORDER BY p.id
                 %(tail_query)s
                 """,
                 column_group_key=column_group_key,
@@ -231,6 +232,7 @@ class SawtQapCustomHandler(models.AbstractModel):
                       ON currency_table.company_id = account_move_line.company_id
                     WHERE %(search_condition)s
                 GROUP BY account_move_line__move_id.id, %(account_tag_name)s
+                ORDER BY account_move_line__move_id.id
                 %(tail_query)s
                 """,
                 column_group_key=column_group_key,
@@ -282,15 +284,14 @@ class SawtQapCustomHandler(models.AbstractModel):
     def _report_expand_unfoldable_line_l10n_ph_expand_move(self, line_dict_id, groupby, options, progress, offset, unfold_all_batch_data=None):
         """ Used to expand an account move line and load the third level, being the tax lines. """
         report = self.env['account.report'].browse(options['report_id'])
-        month = report._parse_line_id(line_dict_id)[1][0]
         move_id = report._get_res_id_from_line_id(line_dict_id, 'account.move')
-        lines_values = self._query_tax_lines(report, options, move_id, month, offset)
+        lines_values = self._query_tax_lines(report, options, move_id, offset)
         return self._get_report_expand_unfoldable_line_value(report, options, line_dict_id, progress, lines_values,
                                                              report_line_method=self._get_report_line_tax)
 
-    def _query_tax_lines(self, report, options, move_id, month, offset):
+    def _query_tax_lines(self, report, options, move_id, offset):
         """ Query the values for the partner line.
-        The move line will sum up the values for the different columns, while being filtered for the given month only.
+        The move line will sum up the values for the different columns, while being filtered for the given move id only.
         """
         limit = report.load_more_limit + 1 if report.load_more_limit and options['export_mode'] != 'print' else None
         queries = []
@@ -330,6 +331,7 @@ class SawtQapCustomHandler(models.AbstractModel):
                       ON currency_table.company_id = account_move_line.company_id
                    WHERE %(search_condition)s AND account_tax.l10n_ph_atc IS NOT NULL
                 GROUP BY account_move_line__move_id.id, %(account_tag_name)s, account_move_line.id, account_tax.id
+                ORDER BY account_tax.id
                 %(tail_query)s
                 """,
                 column_group_key=column_group_key,
