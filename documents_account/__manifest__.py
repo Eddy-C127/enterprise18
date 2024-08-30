@@ -19,6 +19,7 @@ Documents app in the desired format(s).
         'security/security.xml',
         'data/documents_workflow_data.xml',
         'data/mail_activity_type_data.xml',
+        'data/documents_account_tour.xml',
         'views/account_move_views.xml',
         'views/documents_account_folder_setting_views.xml',
         'views/documents_document_views.xml',

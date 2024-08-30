@@ -8,8 +8,6 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("social_tour", {
     url: "/odoo",
-        rainbowManMessage: () => markup(_t(`<strong>Congrats! Come back in a few minutes to check your statistics.</strong>`)),
-        sequence: 190,
     steps: () => [
         stepUtils.showAppsMenuItem(),
         {

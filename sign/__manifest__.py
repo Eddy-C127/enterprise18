@@ -18,6 +18,7 @@ Let your customers follow the signature process easily.
         'data/mail_activity_type_data.xml',
         'data/mail_templates.xml',
         'data/sign_data.xml',
+        'data/sign_tour.xml',
         'views/sign_template_views_mobile.xml',
         'wizard/sign_duplicate_template_with_pdf_views.xml',
         'wizard/sign_send_request_views.xml',

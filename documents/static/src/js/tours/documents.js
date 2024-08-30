@@ -7,13 +7,6 @@ import { queryOne } from "@odoo/hoot-dom";
 
 registry.category("web_tour.tours").add("documents_tour", {
     url: "/odoo",
-    rainbowManMessage: () =>
-        markup(
-            _t(
-                "Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is complete. Try uploading your own documents now."
-            )
-        ),
-    sequence: 180,
     steps: () => [
         {
             trigger: '.o_app[data-menu-xmlid="documents.menu_root"]',

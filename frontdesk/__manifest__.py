@@ -28,6 +28,7 @@
         'data/sms_template_data.xml',
         'data/frontdesk_data.xml',
         'data/frontdesk_templates.xml',
+        'data/frontdesk_tour.xml',
     ],
     'demo': [
         'demo/frontdesk_demo.xml',

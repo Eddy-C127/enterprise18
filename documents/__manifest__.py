@@ -32,6 +32,7 @@ App to upload and manage your documents.
         'data/documents_workflow_data.xml',
         'data/ir_asset_data.xml',
         'data/ir_config_parameter_data.xml',
+        'data/documents_tour.xml',
         'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
         'views/documents_document_views.xml',

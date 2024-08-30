@@ -16,6 +16,7 @@
         'data/ir_cron_data.xml',
         'data/mail_template_data.xml',
         'data/timesheet_grid_data.xml',
+        'data/timesheet_grid_tour.xml',
         'security/timesheet_security.xml',
         'security/ir.model.access.csv',
         'views/hr_timesheet_views.xml',

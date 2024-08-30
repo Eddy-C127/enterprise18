@@ -27,6 +27,7 @@ Schedule your teams and employees with shift.
         'report/planning_report_views.xml',
         'data/planning_cron.xml',
         'data/mail_template_data.xml',
+        'data/planning_tour.xml',
     ],
     'demo': [
         'data/planning_demo.xml',

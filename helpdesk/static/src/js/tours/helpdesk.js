@@ -6,8 +6,6 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("helpdesk_tour", {
     url: "/odoo",
-    rainbowManMessage: () => markup(_t('<center><strong><b>Good job!</b> You walked through all steps of this tour.</strong></center>')),
-    sequence: 220,
     steps: () => [
         {
     trigger: '.o_app[data-menu-xmlid="helpdesk.menu_helpdesk_root"]',

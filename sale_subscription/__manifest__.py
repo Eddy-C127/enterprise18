@@ -50,6 +50,7 @@ Features:
         'data/mail_template_data.xml',
         'data/sale_subscription_data.xml',
         'data/sms_template_data.xml',
+        'data/sale_subscription_tour.xml',
         'report/sale_subscription_report_view.xml',
         'report/sale_order_log_report_view.xml',
     ],

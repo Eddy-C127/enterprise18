@@ -5,9 +5,7 @@ import { registry } from "@web/core/registry";
 import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('planning_tour', {
-    sequence: 120,
     url: '/odoo',
-    rainbowManMessage: () => markup(_t("<b>Congratulations!</b></br> You are now a master of planning.")),
     steps: () => [
     {
         trigger: '.o_app[data-menu-xmlid="planning.planning_menu_root"]',
@@ -53,7 +51,7 @@ registry.category("web_tour.tours").add('planning_tour', {
         content: markup(_t("Let's check out the Gantt view for cool features. Get ready to <b>share your schedule</b> and easily plan your shifts with just one click by <em>copying the previous week's schedule</em>.")),
         tooltipPosition: 'bottom',
         run: "click",
-    }, 
+    },
     {
         isActive: ["auto", "desktop"],
         trigger: ".o_action:not(.o_view_sample_data)",

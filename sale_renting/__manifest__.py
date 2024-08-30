@@ -23,6 +23,7 @@ Manage user and manager notifications
         'security/ir_rules.xml',
 
         'data/rental_data.xml',
+        'data/rental_tour.xml',
 
         'views/product_pricelist_views.xml',
         'views/product_pricing_views.xml',

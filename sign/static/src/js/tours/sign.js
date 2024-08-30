@@ -8,8 +8,6 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add("sign_tour", {
     url: "/odoo",
-    rainbowManMessage: _t("Congratulations, you signed your first document!"),
-    sequence: 150,
     steps: () => [
         stepUtils.showAppsMenuItem(),
         {

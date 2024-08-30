@@ -14,6 +14,7 @@
         'security/social_security.xml',
         'security/ir.model.access.csv',
         'data/ir_cron_data.xml',
+        'data/social_tour.xml',
         'views/social_menu_views.xml',
         'views/social_account_views.xml',
         'views/social_live_post_views.xml',

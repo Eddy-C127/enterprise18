@@ -46,6 +46,7 @@ Features:
         'data/helpdesk_data.xml',
         'data/ir_cron_data.xml',
         'data/ir_sequence_data.xml',
+        'data/helpdesk_tour.xml',
         'views/helpdesk_ticket_views.xml',
         'report/helpdesk_ticket_analysis_views.xml',
         'report/helpdesk_sla_report_analysis_views.xml',

@@ -8,7 +8,6 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('rental_tour', {
     url: "/odoo",
-    sequence: 240,
     steps: () => [stepUtils.showAppsMenuItem(), {
     trigger: '.o_app[data-menu-xmlid="sale_renting.rental_menu_root"]',
     content: markup(_t("Want to <b>rent products</b>? \n Let's discover Odoo Rental App.")),
