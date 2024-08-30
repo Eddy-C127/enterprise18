@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import ast
 
-from odoo.addons.account_reports.models.exceptions import TaxClosingNonPostedDependingMovesError
+from odoo.addons.account.models.exceptions import TaxClosingNonPostedDependingMovesError
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 from odoo.tools.misc import format_date
