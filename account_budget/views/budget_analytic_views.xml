@@ -53,7 +53,7 @@
                                     <field name="committed_amount" decoration-danger="is_above_budget" sum="Committed" optional="show" column_invisible="parent.budget_type == 'revenue' or parent.state in ('draft','canceled')"/>
                                     <field name="achieved_amount" decoration-danger="is_above_budget" sum="achieved" column_invisible="parent.state in ('draft','canceled')"/>
                                     <field name="theoritical_amount" sum="Theoritical" optional="hide" column_invisible="parent.state in ('draft','canceled')"/>
-                                    <field name="committed_percentage" widget="percentage" optional="hide" column_invisible="parent.state in ('draft','canceled')"/>
+                                    <field name="committed_percentage" widget="percentage" optional="hide" column_invisible="parent.budget_type == 'revenue' or parent.state in ('draft','canceled')"/>
                                     <field name="achieved_percentage" widget="percentage" optional="hide" column_invisible="parent.state in ('draft','canceled')"/>
                                     <field name="theoritical_percentage" widget="percentage" optional="hide" column_invisible="parent.state in ('draft','canceled')"/>
 
