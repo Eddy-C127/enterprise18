@@ -975,3 +975,15 @@ registry.category("web_tour.tours").add('test_kit_bom_decomposition_keeps_locati
         { extra_trigger: '.o_notification_body', trigger: '.btn.o_validate_page', run: 'click' },
     ]
 });
+
+registry.category("web_tour.tours").add('test_always_backorder_mo', {test: true, steps: () => [
+    { trigger: '.o_kanban_card_header:contains("Manufacturing")', run: 'click' },
+    { trigger: '.oe_kanban_card:contains("Final Product")', run: 'click' },
+    { trigger: '.o_title.navbar-text:contains("WH/MO")', run: 'click' },
+    { trigger: '.fa-pencil', run: 'click' },
+    { trigger: 'div[name="qty_producing"] .o_input', run: 'text 1' },
+    { trigger: '.btn.o_save', run: 'click' },
+    { trigger: '.o_validate_page', run: 'click' },
+    { trigger: '.o_notification.border-success', isCheck: true },
+    { trigger: '.oe_kanban_card:contains("Final Product")', isCheck: true },
+]});
