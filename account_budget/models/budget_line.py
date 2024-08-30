@@ -19,33 +19,29 @@ class BudgetLine(models.Model):
     date_to = fields.Date('End Date', related='budget_analytic_id.date_to', store=True)
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id', readonly=True)
     budget_amount = fields.Monetary(
-        string='Budget',
-        help="Amount you plan to earn/spend. Record a positive amount if it is a revenue and a negative amount if it is a cost.")
+        string='Budgeted')
     achieved_amount = fields.Monetary(
         compute='_compute_all',
         string='Achieved',
-        help="Amount really earned/spent.")
+        help="Amount Billed/Invoiced.")
     achieved_percentage = fields.Float(
         compute='_compute_all',
-        string='Achievement',
-        help="Comparison between practical and Achieved amount in percentage.")
+        string='Achieved (%)')
     committed_amount = fields.Monetary(
         compute='_compute_all',
         string='Committed',
-        help="Amount you have purchased but not invoiced at this date.")
+        help="Already Billed amount + Confirmed purchase orders.")
     committed_percentage = fields.Float(
         compute='_compute_all',
-        string='Commitment',
-        help="Percentage of the budget that has been committed.")
+        string='Committed (%)')
     theoritical_amount = fields.Monetary(
         compute='_compute_theoritical_amount',
-        string='Theoritical',
-        help="Amount you are supposed to have earned/spent at this date.")
+        string='Theoretical',
+        help="Amount supposed to be Billed/Invoiced, formula = (Budget Amount / Budget Days) x Budget Days Completed")
     theoritical_percentage = fields.Float(
         compute='_compute_theoritical_amount',
-        string='Theoritical Percentage',
-        aggregator='avg',
-        help="Comparison between practical and theoretical amount in percentage.")
+        string='Theoretical (%)',
+        aggregator='avg')
     company_id = fields.Many2one(related='budget_analytic_id.company_id', comodel_name='res.company', string='Company', store=True, readonly=True)
     is_above_budget = fields.Boolean(compute='_compute_above_budget')
     budget_analytic_state = fields.Selection(related='budget_analytic_id.state', string='Budget State', store=True, readonly=True)
