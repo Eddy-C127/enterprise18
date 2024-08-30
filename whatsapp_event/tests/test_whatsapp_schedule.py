@@ -105,6 +105,25 @@ class TestWhatsappSchedule(EventCase, WhatsAppCommon):
         self.assertEqual(before_scheduler.scheduled_date, self.test_event.date_begin + timedelta(days=-3))
 
     @users('user_eventmanager')
+    def test_event_type(self):
+        """ Test event type support of whatsapp schedulers """
+        event_type = self.env["event.type"].create({
+            "name": "Test with WA scheduler",
+            "event_type_mail_ids": [
+                (0, 0, {"template_ref": "whatsapp.template,%i" % self.whatsapp_template_rem.id})
+            ],
+        })
+        self.assertEqual(event_type.event_type_mail_ids.notification_type, "whatsapp")
+        event = self.env["event.event"].create({
+            "date_begin": self.reference_now + timedelta(days=5),
+            "date_end": self.reference_now + timedelta(days=10),
+            "event_type_id": event_type.id,
+            "name": "Test",
+        })
+        self.assertEqual(event.event_mail_ids.notification_type, "whatsapp")
+        self.assertEqual(event.event_mail_ids.template_ref, self.whatsapp_template_rem)
+
+    @users('user_eventmanager')
     def test_whatsapp_schedule(self):
         test_event = self.env['event.event'].browse(self.test_event.ids)
 
