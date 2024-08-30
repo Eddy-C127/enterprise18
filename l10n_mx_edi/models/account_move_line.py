@@ -4,6 +4,13 @@ from odoo import models
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
+    def _l10n_mx_edi_compute_line_name(self):
+        if self.name:
+            if self.product_id.display_name in self.name or self.name in self.product_id.display_name:
+                return self.name
+            return f"{self.product_id.display_name} {self.name}"
+        return self.product_id.display_name
+
     def _get_product_unspsc_code(self):
         self.ensure_one()
 
