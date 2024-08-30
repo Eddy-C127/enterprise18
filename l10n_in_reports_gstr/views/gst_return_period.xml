@@ -52,11 +52,9 @@
                         <field name="quarter" style="width: 150px" invisible="periodicity != 'trimester'"/>
                         <field name="year" class="oe_inline ml4"/>
                     </h2>
-                    <field name="gstr1_blocking_level" invisible="1"/>
                     <group class="mt8">
                         <group>
                             <field name="company_id" readonly="tax_unit_id not in ('', False)"/>
-                            <field name="display_tax_unit" invisible="1"/>
                             <field name="tax_unit_id" invisible="not display_tax_unit"/>
                             <field name="periodicity"/>
                             <label for="gstr1_include_einvoice" string="E-Invoice in GSTR-1"/>
@@ -113,7 +111,6 @@
                                 <small class="text-muted">Details submited by vendors</small>
 
                                 <div class="float-end text-white">
-                                    <field name="gstr2b_blocking_level" invisible="1"/>
                                     <field name="gstr2b_status" class="badge bg-secondary" invisible="gstr2b_status != 'not_recived'" nolabel="1"/>
                                     <field name="gstr2b_status" class="bg-warning badge" invisible="gstr2b_status not in ['waiting_reception', 'being_processed'] or gstr2b_blocking_level == 'error'" nolabel="1"/>
                                     <field name="gstr2b_status" class="bg-warning badge" invisible="gstr2b_status != 'partially_matched'" nolabel="1"/>

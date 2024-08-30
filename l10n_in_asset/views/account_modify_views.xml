@@ -6,7 +6,6 @@
         <field name="inherit_id" ref="account_asset.asset_modify_form"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='value_residual']" position="replace">
-                <field name="l10n_in_fiscal_code" invisible="1"/>
                 <field name="value_residual" invisible="modify_action not in ('modify', 'resume') or l10n_in_fiscal_code == 'IN'"/>
                 <field name="l10n_in_value_residual" invisible="modify_action not in ('modify', 'resume') or l10n_in_fiscal_code != 'IN'"/>
             </xpath>
