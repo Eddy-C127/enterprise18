@@ -1,12 +1,14 @@
 from .common import TestMxEdiPosCommon
 
+from odoo import http
 from odoo.addons.l10n_mx_edi.tests.common import EXTERNAL_MODE
+from odoo.addons.point_of_sale.tests.test_frontend import TestPointOfSaleHttpCommon
 from odoo.exceptions import UserError
 from odoo.tests import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install', *(['-standard', 'external'] if EXTERNAL_MODE else []))
-class TestCFDIPosOrder(TestMxEdiPosCommon):
+class TestCFDIPosOrder(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
 
     def test_global_invoice_negative_lines_zero_total(self):
         """ Test a pos order completely refunded by the negative lines. """
@@ -547,3 +549,36 @@ class TestCFDIPosOrder(TestMxEdiPosCommon):
             })
             refund = self.env['pos.order'].browse(order.refund()['res_id'])
             self.assertEqual(refund.refunded_order_id, order)
+
+    def test_pos_order_then_invoice_request(self):
+        """
+        Test that the company name is correctly set as the receptor's name in the CFDI document
+        when a customer requests an invoice from a POS ticket.
+        """
+        with self.mx_external_setup(self.frozen_today):
+            self.authenticate(None, None)
+
+            with self.with_pos_session():
+                pos_order = self._create_order({
+                    'pos_order_lines_ui_args': [(self.product, 1)],
+                })
+                pos_order.access_token = '1234567890'
+
+            get_invoice_data = {
+                'access_token': pos_order.access_token,
+                'name': 'individual',
+                'email': "test@test.com",
+                'company_name': 'company',
+                'street': "Test street",
+                'city': "Test City",
+                'zipcode': '12345',
+                'country_id': self.env.ref('base.mx').id,
+                'phone': "123456789",
+                'invoice_l10n_mx_edi_usage': 'D10',
+                'partner_l10n_mx_edi_fiscal_regime': '624',
+                'csrf_token': http.Request.csrf_token(self),
+            }
+            with self.with_mocked_pac_sign_success():
+                self.url_open(f'/pos/ticket/validate?access_token={pos_order.access_token}', data=get_invoice_data)
+
+            self._assert_invoice_cfdi(pos_order.account_move, 'test_pos_order_then_invoice_request')

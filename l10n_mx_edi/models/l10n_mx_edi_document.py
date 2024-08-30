@@ -677,14 +677,14 @@ class L10nMxEdiDocument(models.Model):
 
                 customer_values.update({
                     'rfc': 'XEXX010101000' if is_foreign_customer else 'XAXX010101000',
-                    'nombre': self._cfdi_sanitize_to_legal_name(invoice_customer.name),
+                    'nombre': self._cfdi_sanitize_to_legal_name(invoice_customer.commercial_company_name or invoice_customer.name),
                     'uso_cfdi': 'S01',
                 })
         else:
             customer_values = {
                 'to_public': False,
                 'rfc': invoice_customer.vat.strip(),
-                'nombre': self._cfdi_sanitize_to_legal_name(invoice_customer.name),
+                'nombre': self._cfdi_sanitize_to_legal_name(invoice_customer.commercial_company_name or invoice_customer.name),
                 'domicilio_fiscal_receptor': invoice_customer.zip,
                 'regimen_fiscal_receptor': invoice_customer.l10n_mx_edi_fiscal_regime or '616',
                 'uso_cfdi': usage if usage != 'P01' else 'S01',
