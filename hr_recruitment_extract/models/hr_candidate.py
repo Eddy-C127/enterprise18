@@ -54,7 +54,7 @@ class HrCandidate(models.Model):
                 applicant_skills = self.env['hr.candidate.skill']
                 for skill in skills:
                     existing_applicant_skill = self.env['hr.candidate.skill'].search([
-                        ('applicant_id', '=', self.id),
+                        ('candidate_id', '=', self.id),
                         ('skill_id', '=', skill.id),
                     ])
 
