@@ -21,4 +21,5 @@
         'reports/account_invoice.xml',
     ],
     'license': 'OEEL-1',
+    'post_init_hook': '_post_init_hook',
 }
