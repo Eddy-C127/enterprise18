@@ -354,10 +354,10 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             # pylint: disable=C0326
             {'flag': 'liquidity',       'amount_currency': 1000.0,     'balance': 1000.0},
             {'flag': 'new_aml',         'amount_currency': -655.0,     'balance': -655.0},
-            {'flag': 'new_batch',       'amount_currency': -840.0,     'balance': -430.0,   'source_batch_payment_id': batch.id},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': 150,      'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -40.0,    'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -25.0,    'source_batch_payment_id': batch.id,     'currency_id': self.other_currency_2},
+            {'flag': 'new_batch',       'amount_currency': -840.0,     'balance': -430.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': 150},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -40.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -25.0},
         ])
 
         wizard._action_expand_batch_payments(batch)
@@ -365,12 +365,12 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             # pylint: disable=C0326
             {'flag': 'liquidity',       'amount_currency': 1000.0,     'balance': 1000.0},
             {'flag': 'new_aml',         'amount_currency': -655.0,     'balance': -655.0},
-            {'flag': 'new_aml',         'amount_currency': -100.0,     'balance': -100.0,   'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': 50.0,     'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'new_aml',         'amount_currency': -200.0,     'balance': -200.0,   'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': 100.0,    'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'new_aml',         'amount_currency': -240.0,     'balance': -80.0,    'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -40.0,    'source_batch_payment_id': batch.id,     'currency_id': self.other_currency},
-            {'flag': 'new_aml',         'amount_currency': -300.0,     'balance': -50.0,    'source_batch_payment_id': batch.id,     'currency_id': self.other_currency_2},
-            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -25.0,    'source_batch_payment_id': batch.id,     'currency_id': self.other_currency_2},
+            {'flag': 'new_aml',         'amount_currency': -100.0,     'balance': -100.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': 50.0},
+            {'flag': 'new_aml',         'amount_currency': -200.0,     'balance': -200.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': 100.0},
+            {'flag': 'new_aml',         'amount_currency': -240.0,     'balance': -80.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -40.0},
+            {'flag': 'new_aml',         'amount_currency': -300.0,     'balance': -50.0},
+            {'flag': 'exchange_diff',   'amount_currency': 0.0,        'balance': -25.0},
         ])

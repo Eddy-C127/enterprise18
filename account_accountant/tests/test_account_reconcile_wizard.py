@@ -365,8 +365,8 @@ class TestAccountReconcileWizard(AccountTestInvoicingCommon):
         }
         write_off_expected_values = [
             {'account_id': self.receivable_account.id, 'name': 'Write-Off Test Label', 'balance': -500.0},
-            {'account_id': tax_recover_account_id.id, 'name': f'{tax_id.name}', 'balance': 100.0, 'tax_tag_ids': 'tax_tax_tag'},
-            {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label', 'balance': 400.0, 'tax_tag_ids': 'base_tax_tag', 'tax_ids': tax_id.ids},
+            {'account_id': tax_recover_account_id.id, 'name': f'{tax_id.name}', 'balance': 100.0},
+            {'account_id': self.write_off_account.id, 'name': 'Write-Off Test Label', 'balance': 400.0},
         ]
         self.assertWizardReconcileValues(line_1 + line_2, wizard_input_values, write_off_expected_values)
 

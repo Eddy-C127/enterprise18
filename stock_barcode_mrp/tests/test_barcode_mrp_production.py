@@ -276,12 +276,12 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
         # ensure that lot ml not scanned by validation time is removed
         self.assertEqual(len(mo.move_raw_ids.move_line_ids), 2)
         self.assertRecordValues(mo.move_raw_ids, [
-            {'product_id': self.component01.id, 'product_uom_qty': 2, 'quantity': 2, 'location_id': self.stock_location.id},
-            {'product_id': self.component_lot.id, 'product_uom_qty': 2, 'quantity': 2, 'lot_ids': lot_02, 'location_id': self.stock_location.id},
+            {'product_id': self.component01.id, 'product_uom_qty': 2, 'quantity': 2, 'lot_ids': [], 'location_id': self.stock_location.id},
+            {'product_id': self.component_lot.id, 'product_uom_qty': 2, 'quantity': 2, 'lot_ids': lot_02.ids, 'location_id': self.stock_location.id},
         ])
         self.assertRecordValues(mo.move_raw_ids.move_line_ids, [
-            {'product_id': self.component01.id, 'quantity': 2, 'location_id': self.shelf1.id},
-            {'product_id': self.component_lot.id, 'quantity': 2, 'lot_id': lot_02, 'location_id': self.stock_location.id},
+            {'product_id': self.component01.id, 'quantity': 2, 'lot_id': False, 'location_id': self.shelf1.id},
+            {'product_id': self.component_lot.id, 'quantity': 2, 'lot_id': lot_02.id, 'location_id': self.stock_location.id},
         ])
         self.assertRecordValues(mo.finished_move_line_ids, [
             {'product_id': self.final_product_lot.id, 'quantity': 2},

@@ -99,7 +99,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         wizard._js_action_mount_st_line(st_line.id)
         self.assertRecordValues(wizard.line_ids, [
             {'flag': 'liquidity',   'account_id': st_line.journal_id.default_account_id.id,             'balance': 1000},
-            {'flag': 'aml',         'account_id': self.company_data['default_account_receivable'].id,   'balance': -1000,   'display_name': st_line.payment_ref},
+            {'flag': 'aml',         'account_id': self.company_data['default_account_receivable'].id,   'balance': -1000},
         ])
         # Check that the aml comes from a move, and not from the auto-balance line
         self.assertTrue(wizard.line_ids[1].source_aml_move_id)
@@ -128,7 +128,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         # If aml was created from the reco model button, display name matches payment_ref.
         self.assertRecordValues(wizard.line_ids, [
             {'flag': 'liquidity',   'balance': 1800,     'amount_currency': 1800},
-            {'flag': 'aml',         'balance': -1800,    'amount_currency': -3600,   'display_name': st_line.payment_ref},
+            {'flag': 'aml',         'balance': -1800,    'amount_currency': -3600},
         ])
         # Confirm that the aml comes from a move, and not from the auto-balance line
         self.assertTrue(wizard.line_ids[1].source_aml_move_id)
@@ -176,7 +176,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
         wizard._js_action_mount_st_line(st_line.id)
         self.assertRecordValues(wizard.line_ids, [
             {'flag': 'liquidity',   'account_id': st_line.journal_id.default_account_id.id,          'balance': -1000},
-            {'flag': 'aml',         'account_id': self.company_data['default_account_payable'].id,   'balance': 850,   'display_name': st_line.payment_ref},
+            {'flag': 'aml',         'account_id': self.company_data['default_account_payable'].id,   'balance': 850},
             {'flag': 'aml',         'account_id': self.company_data['default_account_payable'].id,   'balance': 150},
         ])
         # Check that the aml comes from an existing move

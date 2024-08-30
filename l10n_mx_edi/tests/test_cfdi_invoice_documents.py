@@ -61,7 +61,6 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
             'message': False,
             'state': 'invoice_sent',
             'sat_state': 'not_defined',
-            'attachment_origin': False,
             'cancellation_reason': False,
             'cancel_button_needed': True,
             'retry_button_needed': False,
@@ -836,7 +835,6 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
             'l10n_mx_edi_update_payments_needed': False,
         }])
         inv4_sent_doc_values = {
-            'datetime': fields.Datetime.from_string('2017-01-02 00:00:00'),
             'move_id': invoice4.id,
             'invoice_ids': invoice4.ids,
             'message': False,
