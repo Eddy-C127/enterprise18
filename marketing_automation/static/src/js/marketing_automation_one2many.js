@@ -229,23 +229,23 @@ export class HierarchyKanbanRenderer extends KanbanRenderer {
     setup() {
         super.setup();
 
-        const rootEl = this.props.archInfo.templateDocs["kanban-box"].firstElementChild;
+        const rootEl = this.props.archInfo.templateDocs["kanban-card"].firstElementChild;
         const rootTemplate = createElement("t", { "t-name": "root" });
         append(rootTemplate, rootEl);
         this.props.archInfo.templateDocs.root = rootTemplate;
 
         const mainTemplate = parseXML(
             `
-            <t t-name="kanban-box">
+            <t t-name="kanban-card">
                 <t t-set="currentDepth" t-value="currentDepth ? currentDepth + 1 : 1"/>
                 <div t-if="__comp__.props.getRecordDepth(__comp__.props.record) - currentDepth + 1 > 0" class="o_ma_body_wrapper"
-                    t-call="{{ __comp__.templates['kanban-box'] }}"/>
+                    t-call="{{ __comp__.templates['kanban-card'] }}"/>
                 <t t-else="" t-call="{{ __comp__.templates.root }}"/>
             </t>
             `,
         );
 
-        this.props.archInfo.templateDocs["kanban-box"] = mainTemplate;
+        this.props.archInfo.templateDocs["kanban-card"] = mainTemplate;
 
         this.rootRef = useRef("root");
     }

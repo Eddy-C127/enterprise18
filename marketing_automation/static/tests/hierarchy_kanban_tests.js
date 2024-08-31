@@ -72,15 +72,11 @@ QUnit.module('Marketing Automation', (hooks) => {
                         '<div>' +
                             '<field name="marketing_activity_ids" widget="hierarchy_kanban" class="o_ma_hierarchy_container">' +
                                 '<kanban>' +
-                                    '<field name="id"/>' +
-                                    '<field name="name"/>' +
                                     '<field name="parent_id"/>' +
                                     '<templates>' +
-                                        '<div t-name="kanban-box">' +
+                                        '<div t-name="kanban-card">' +
                                             '<div class="o_ma_body position-relative" t-att-data-record-id="record.id.raw_value">' +
-                                                '<div class="o_title">' +
-                                                    '<t t-esc="record.name.value"/>' +
-                                                '</div>' +
+                                                '<field name="name" class="o_title"/>' +
                                             '</div>' +
                                         '</div>' +
                                     '</templates>' +

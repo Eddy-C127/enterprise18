@@ -10,21 +10,15 @@
                     <div class="col text-uppercase">
                         <i class="fa fa-pie-chart" /> Details
                     </div>
-                    <div class="col" title="SMS Sent">
-                        <a name="action_view_sent" type="object">
-                            <strong><t t-esc="record.total_sent.raw_value or 0"></t></strong> Sent
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a name="action_view_opened" type="object">
-                            <strong><t t-esc="Math.round((record.total_open.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Opened
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a name="action_view_clicked" type="object">
-                            <strong><t t-esc="Math.round((record.total_click.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Clicked
-                        </a>
-                    </div>
+                    <a name="action_view_sent" class="col" title="SMS Sent" type="object">
+                        <field name="total_sent" class="fw-bold"/> Sent
+                    </a>
+                    <a name="action_view_opened" class="col" type="object">
+                        <strong><t t-esc="Math.round((record.total_open.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Opened
+                    </a>
+                    <a name="action_view_clicked" class="col" type="object">
+                        <strong><t t-esc="Math.round((record.total_click.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Clicked
+                    </a>
                 </div>
 			</xpath>
 			<xpath expr="//div[hasclass('o_ma_child_activity_buttons')]" position="inside">
@@ -37,22 +31,16 @@
                         title="Bounced" role="img" aria-label="Bounced" />
                 </t>
         	</xpath>
-            <xpath expr="//strong[hasclass('o_ma_interval')]" position="before">
-                <t t-if="record.trigger_type.raw_value == 'sms_click'">
-                    <div class="o_ma_text_processed text-success">
-                        <i class="fa fa-hand-pointer-o" /> Clicked after
-                    </div>
-                </t>
-                <t t-if="record.trigger_type.raw_value == 'sms_not_click'">
-                    <div class="o_ma_text_rejected text-danger">
-                        <i class="fa fa-hand-pointer-o" /> Not clicked within
-                    </div>
-                </t>
-                <t t-if="record.trigger_type.raw_value == 'sms_bounce'">
-                    <div class="o_ma_text_rejected text-danger">
-                        <i class="fa fa-exclamation-circle" /> Bounced after
-                    </div>
-                </t>
+            <xpath expr="//div[hasclass('o_ma_interval')]" position="before">
+                <div t-if="record.trigger_type.raw_value == 'sms_click'" class="o_ma_text_processed text-success">
+                    <i class="fa fa-hand-pointer-o" /> Clicked after
+                </div>
+                <div t-if="record.trigger_type.raw_value == 'sms_not_click'" class="o_ma_text_rejected text-danger">
+                    <i class="fa fa-hand-pointer-o" /> Not clicked within
+                </div>
+                <div t-if="record.trigger_type.raw_value == 'sms_bounce'" class="o_ma_text_rejected text-danger">
+                    <i class="fa fa-exclamation-circle" /> Bounced after
+                </div>
             </xpath>
             <xpath expr="//div[hasclass('o_ma_icon')]/span" position="after">
                 <span class="fa fa-mobile fs-2" t-elif="record.activity_type.raw_value == 'sms'" title="SMS" role="img" aria-label="SMS"/>
