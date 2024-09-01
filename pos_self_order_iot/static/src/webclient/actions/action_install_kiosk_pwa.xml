@@ -3,7 +3,7 @@
         <xpath expr="//div/*[last()]" position="after">
             <div t-if="state.tags.length > 0">
                 <br/>
-                <div class="fs-2 mb-2">Or open the Kiosk on your IoT Boxes:</div>
+                <div class="text-center fs-2 mb-2">Or open the Kiosk on your IoT Boxes:</div>
                 <div>
                     <TagsList tags="state.tags"/>
                 </div>

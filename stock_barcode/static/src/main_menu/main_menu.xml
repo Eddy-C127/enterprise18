@@ -9,8 +9,8 @@
                         <a t-if="!pwaService.isScopedApp" href="#" class="o_stock_barcode_home_menu oi oi-apps me-3 text-dark"
                             t-on-click="() => this.home.toggle(true)"/>
                         <span class="fs-2 me-auto">Barcode Scanner</span>
-                        <button t-if="pwaService.isScopedApp" class="btn btn-light fa fa-sign-out" t-on-click="logout" />
-                        <a t-elif="pwaService.isSupportedOnBrowser" data-tooltip="Install App" class="btn btn-light d-flex align-items-center justify-content-center fa fa-download" href="/scoped_app?app_id=stock_barcode&amp;path=scoped_app/barcode" target="_blank" />
+                        <button t-if="pwaService.isScopedApp" class="btn btn-secondary" t-on-click="logout">Log out</button>
+                        <a t-elif="pwaService.isSupportedOnBrowser" class="btn btn-secondary d-flex align-items-center justify-content-center" href="/scoped_app?app_id=stock_barcode&amp;path=scoped_app/barcode" target="_blank">Install</a>
                     </div>
                 </header>
                 <main class="flex-grow-1">
