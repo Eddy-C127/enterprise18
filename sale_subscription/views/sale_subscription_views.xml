@@ -183,59 +183,46 @@
         <field name="model">sale.order</field>
         <field name="arch" type="xml">
             <kanban default_group_by="subscription_state" class="o_kanban_mobile o_kanban_order" sample="1" quick_create="false">
-                <field name="user_id"/>
                 <field name="state"/>
                 <field name="subscription_state" options="{'group_by_tooltip': {'description': 'Description'}}"/>
-                <field name="starred"/>
                 <field name="sale_order_template_id" groups="sales_team.group_sale_manager"/>
                 <field name="currency_id"/>
-                <field name="activity_ids"/>
-                <field name="health"/>
                 <field name="payment_exception"/>
                 <field name="rating_ids"/>
-                <field name="activity_state" />
                 <field name="rating_last_value" />
-                <field name="next_invoice_date"/>
                 <field name="start_date"/>
                 <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}' help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
-                            <div class="oe_kanban_content">
-                                <strong class="float-end">
-                                    <field name="recurring_total" widget="monetary"/>
-                                </strong>
-                                <div class="o_kanban_record_title">
-                                    <field name="partner_id" readonly="state in ['cancel', 'sale']"/>
-                                </div>
-                                <div class="o_kanban_record_body">
-                                    <field name="plan_id" class="float-end"/>
-                                    <field name="name" readonly="state != 'draft'"/>
-                                    <div t-if="record.payment_exception.raw_value" class="badge rounded-pill text-bg-danger me-2 mt-1">
-                                        Payment Failure
-                                    </div>
-                                    <div t-if="record.subscription_state.raw_value == '3_progress' and luxon.DateTime.fromISO(record.start_date.raw_value) &gt; luxon.DateTime.now()" class="badge rounded-pill float-end text-bg-info me-2 mt-1">
-                                        Future
-                                    </div>
-                                </div>
-                                <div class="o_kanban_record_bottom">
-                                    <div class="oe_kanban_bottom_left">
-                                        <field name="starred" widget="boolean_favorite" nolabel="1" force_save="1" />
-                                        <field name="activity_ids" widget="kanban_activity"/>
-                                        <b t-if="record.rating_ids.raw_value.length">
-                                            <span style="font-weight:bold;" class="fa fa-fw mt4 fa-smile-o text-success" t-if="record.rating_last_value.value == 5" title="Latest Rating: Satisfied" role="img" aria-label="Happy face"/>
-                                            <span style="font-weight:bold;" class="fa fa-fw mt4 fa-meh-o text-warning" t-if="record.rating_last_value.value == 3" title="Latest Rating: Okay" role="img" aria-label="Neutral face"/>
-                                            <span style="font-weight:bold;" class="fa fa-fw mt4 fa-frown-o text-danger" t-if="record.rating_last_value.value == 1" title="Latest Rating: Dissatisfied" role="img" aria-label="Sad face"/>
-                                        </b>
-                                    </div>
-                                    <div class="oe_kanban_bottom_right">
-                                        <field name="health" widget="state_selection" readonly="1" invisible="health != 'bad'"/>
-                                        <field name="user_id" widget="many2one_avatar_user"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
+                    <t t-name="kanban-card">
+                        <div class="d-flex fw-bolder">
+                            <field name="partner_id" readonly="state in ['cancel', 'sale']"/>
+                            <field name="recurring_total" class="ms-auto" widget="monetary"/>
                         </div>
+                        <div>
+                            <field name="plan_id" class="float-end"/>
+                            <field name="name" readonly="state != 'draft'"/>
+                            <div t-if="record.payment_exception.raw_value" class="badge rounded-pill text-bg-danger me-2 mt-1">
+                                Payment Failure
+                            </div>
+                            <div t-if="record.subscription_state.raw_value == '3_progress' and luxon.DateTime.fromISO(record.start_date.raw_value) &gt; luxon.DateTime.now()" class="badge rounded-pill float-end text-bg-info me-2 mt-1">
+                                Future
+                            </div>
+                        </div>
+                        <footer class="fs-6">
+                            <div class="d-flex">
+                                <field name="starred" widget="boolean_favorite" nolabel="1" force_save="1" />
+                                <field name="activity_ids" widget="kanban_activity" class="ms-2"/>
+                                <b t-if="record.rating_ids.raw_value.length">
+                                    <span style="font-weight:bold;" class="fa fa-fw mt4 fa-smile-o text-success" t-if="record.rating_last_value.value == 5" title="Latest Rating: Satisfied" role="img" aria-label="Happy face"/>
+                                    <span style="font-weight:bold;" class="fa fa-fw mt4 fa-meh-o text-warning" t-if="record.rating_last_value.value == 3" title="Latest Rating: Okay" role="img" aria-label="Neutral face"/>
+                                    <span style="font-weight:bold;" class="fa fa-fw mt4 fa-frown-o text-danger" t-if="record.rating_last_value.value == 1" title="Latest Rating: Dissatisfied" role="img" aria-label="Sad face"/>
+                                </b>
+                            </div>
+                            <div class="ms-auto">
+                                <field name="health" widget="state_selection" readonly="1" invisible="health != 'bad'"/>
+                                <field name="user_id" widget="many2one_avatar_user"/>
+                            </div>
+                        </footer>
                     </t>
                 </templates>
             </kanban>

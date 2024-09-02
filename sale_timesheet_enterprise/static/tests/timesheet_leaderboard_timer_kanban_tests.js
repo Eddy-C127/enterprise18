@@ -21,7 +21,7 @@ async function initAndOpenView(showIndicators = true, showLeaderboard = true) {
         arch:
             `<kanban js_class="timesheet_timer_kanban">
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="kanban-card">
                         <field name="foo"/>
                     </t>
                 </templates>

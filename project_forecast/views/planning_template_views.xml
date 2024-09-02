@@ -28,16 +28,9 @@
         <field name="model">planning.slot.template</field>
         <field name="inherit_id" ref="planning.planning_slot_template_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="after">
+            <xpath expr="//field[@name='role_id']" position="after">
                 <field name="project_id" />
             </xpath>
-            <div class="oe_kanban_card oe_kanban_global_click" position="inside">
-                <div>
-                    <div class="o_row">
-                        <field name="project_id" />
-                    </div>
-                </div>
-            </div>
         </field>
     </record>
 

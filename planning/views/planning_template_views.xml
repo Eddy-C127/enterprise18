@@ -56,25 +56,13 @@
             <field name="model">planning.slot.template</field>
             <field name="arch" type="xml">
                 <kanban>
-                    <field name="role_id" />
-                    <field name="name" />
                     <templates>
-                        <t t-name="kanban-box">
-                            <div class="oe_kanban_card oe_kanban_global_click">
-                                <div class="o_kanban_record_top">
-                                    <div class="o_kanban_record_headings">
-                                        <div class="row">
-                                            <strong class="col-12">
-                                                <i class="fa fa-clock-o" role="img" aria-label="Hours" title="Hours"/>
-                                                <field name="name" class="ms-2"/>
-                                            </strong>
-                                            <strong class="col-12">
-                                                <field name="role_id" />
-                                            </strong>
-                                        </div>
-                                    </div>
-                                </div>
+                        <t t-name="kanban-card">
+                            <div class="fw-bolder">
+                                <i class="fa fa-clock-o" role="img" aria-label="Hours" title="Hours"/>
+                                <field name="name" class="ms-2"/>
                             </div>
+                            <field name="role_id" class="fw-bolder"/>
                         </t>
                     </templates>
                 </kanban>

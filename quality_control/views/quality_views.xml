@@ -18,35 +18,18 @@
         <field name="model">quality.alert</field>
         <field name="arch" type="xml">
             <kanban default_group_by="stage_id" class="o_kanban_small_column" sample='1'>
-                <field name="description"/>
-                <field name="user_id"/>
-                <field name="stage_id"/>
-                <field name="tag_ids"/>
-                <field name="priority"/>
-                <field name="activity_ids"/>
-                <field name="activity_state"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
-                            <div>
-                                <field name="tag_ids"/>
+                    <t t-name="kanban-card">
+                        <field name="tag_ids"/>
+                        <field name="product_tmpl_id" class="fw-bolder"/>
+                        <field name="display_name"/>
+                        <footer class="fs-6 pt-0 mt-1">
+                            <div class="d-flex">
+                                <field name="priority" widget="priority"/>
+                                <field name="activity_ids" widget="kanban_activity" class="ms-2"/>
                             </div>
-                            <div>
-                                <strong><field name="product_tmpl_id"/></strong>
-                            </div>
-                            <div>
-                                <field name="display_name"/>
-                            </div>
-                            <div class="o_kanban_record_bottom">
-                                <div class="oe_kanban_bottom_left">
-                                    <field name="priority" widget="priority"/>
-                                    <field name="activity_ids" widget="kanban_activity"/>
-                                </div>
-                                <div class="oe_kanban_bottom_right">
-                                    <field name="user_id" widget="many2one_avatar_user"/>
-                                </div>
-                            </div>
-                        </div>
+                            <field name="user_id" widget="many2one_avatar_user" class="ms-auto"/>
+                        </footer>
                     </t>
                 </templates>
             </kanban>
@@ -303,35 +286,20 @@
         <field name="model">quality.check</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_small_column" sample="1">
-                <field name="name"/>
-                <field name="user_id"/>
-                <field name="control_date"/>
-                <field name="product_id"/>
-                <field name="lot_id"/>
                 <field name="quality_state"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
-                            <div class="row">
-                                <div class="col-6">
-                                    <strong><span><t t-esc="record.name.value"/></span></strong>
-                                </div>
-                                <div class="col-6">
-                                    <strong><span t-attf-class="float-end text-end badge #{['none'].indexOf(record.quality_state.raw_value) > -1 ? 'text-bg-secondary' : ['fail'].indexOf(record.quality_state.raw_value) > -1 ? 'text-bg-danger' : ['done'].indexOf(record.quality_state.raw_value) > -1 ? 'text-bg-primary' : 'text-bg-success'}"><t t-esc="record.quality_state.value"/></span></strong>
-                                </div>
-                            </div>
-                            <div class="row text-muted">
-                                <div class="col-8">
-                                    <span><t t-esc="record.product_id.value"/></span>
-                                </div>
-                                <div class="col-4">
-                                    <span><t t-esc="record.lot_id.value"/></span>
-                                </div>
-                            </div>
-                            <div class="oe_kanban_bottom_right float-end">
-                                <field name="user_id" widget="many2one_avatar_user"/>
+                    <t t-name="kanban-card">
+                        <div class="row">
+                            <field name="name" class="col-6 fw-bolder"/>
+                            <div class="col-6">
+                                <span t-attf-class="float-end text-end badge #{['none'].indexOf(record.quality_state.raw_value) > -1 ? 'text-bg-secondary' : ['fail'].indexOf(record.quality_state.raw_value) > -1 ? 'text-bg-danger' : ['done'].indexOf(record.quality_state.raw_value) > -1 ? 'text-bg-primary' : 'text-bg-success'}"><field name="quality_state"/></span>
                             </div>
                         </div>
+                        <div class="row text-muted">
+                            <field name="product_id" class="col-8"/>
+                            <field name="lot_id" class="col-4"/>
+                        </div>
+                        <field name="user_id" widget="many2one_avatar_user" class="ms-auto"/>
                     </t>
                 </templates>
             </kanban>
@@ -637,14 +605,8 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
-                            <div class="row">
-                                <div class="col-12">
-                                    <strong><field name="name"/></strong>
-                                </div>
-                            </div>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bolder"/>
                     </t>
                 </templates>
             </kanban>
@@ -726,14 +688,9 @@
         <field name="model">quality.alert.stage</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="name"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click">
-                            <div>
-                                <strong><field name="name"/></strong>
-                            </div>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bolder"/>
                     </t>
                 </templates>
             </kanban>
@@ -794,16 +751,19 @@
         <field name="model">quality.point</field>
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
-                <field name="name"/>
-                <field name="product_ids"/>
-                <field name="picking_type_ids"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
-                            <div><strong><t t-esc="record.name.value"/></strong></div>
-                            <div><strong>Products:</strong> <t t-esc="record.product_ids.value"/></div>
-                            <div><strong>Operations:</strong> <t t-esc="record.picking_type_ids.value"/></div>
+                    <t t-name="kanban-card">
+                        <div class="d-flex">
+                            <field name="name" class="fw-bolder me-2 flex-shrink-0"/>
+                            <span t-if="record.title.value">-</span>
+                            <field name="title" class="text-truncate ms-2"/>
                         </div>
+                        <div>Type: <field name="test_type_id"/></div>
+                        <div>Control per: <field name="measure_on"/></div>
+                        <div>Team: <field name="team_id"/></div>
+                        <footer>
+                            <field class="ms-auto" name="user_id" widget="many2one_avatar_user"/>
+                        </footer>
                     </t>
                 </templates>
             </kanban>
