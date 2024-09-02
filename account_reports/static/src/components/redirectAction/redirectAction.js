@@ -10,7 +10,6 @@ class RedirectAction extends Component {
 
     static props = {
         action: Object,
-        close: Function,
     }
 
     setup() {
@@ -19,6 +18,10 @@ class RedirectAction extends Component {
 
     openClientAction() {
         this.actionService.doAction(this.props.action.params.depending_action);
+    }
+
+    close() {
+        this.actionService.doAction({type: 'ir.actions.act_window_close'});
     }
 }
 
