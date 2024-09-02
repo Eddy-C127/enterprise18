@@ -45,15 +45,15 @@ test("Should not have attachment preview for still uploading attachment", async 
     await openFormView("mail.test.simple.main.attachment", recordId);
     const files = [new File([new Uint8Array(1)], "invoice.pdf", { type: "application/pdf" })];
     await dragenterFiles(".o-mail-Chatter", files);
-    await dropFiles(".o-mail-Dropzone", files);
+    await dropFiles(".o-Dropzone", files);
     await contains("iframe[data-src*='/web/static/lib/pdfjs/web/viewer.html']");
     await click(".o-mail-AttachmentCard-unlink");
     await click(".modal button", { text: "Ok" });
     await contains("iframe[data-src*='/web/static/lib/pdfjs/web/viewer.html']", { count: 0 });
     shouldBlockAttachmentUpload = true;
     await dragenterFiles(".o-mail-Chatter", files);
-    await dropFiles(".o-mail-Dropzone", files);
-    await contains(".o-mail-Dropzone", { count: 0 });
+    await dropFiles(".o-Dropzone", files);
+    await contains(".o-Dropzone", { count: 0 });
     await contains(".o-mail-Attachment", { count: 0 });
     await contains("iframe[data-src*='/web/static/lib/pdfjs/web/viewer.html']", { count: 0 });
 });

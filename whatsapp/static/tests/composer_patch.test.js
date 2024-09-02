@@ -55,7 +55,7 @@ test("Allow only single attachment in every message", async () => {
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 
     await dragenterFiles(".o-mail-Composer-input", [file2]);
-    await dropFiles(".o-mail-Dropzone", [file2]);
+    await dropFiles(".o-Dropzone", [file2]);
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 });
 
@@ -79,7 +79,7 @@ test("Can not add attachment after copy pasting an attachment", async () => {
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 
     await dragenterFiles(".o-mail-Composer-input", [file2]);
-    await dropFiles(".o-mail-Dropzone", [file2]);
+    await dropFiles(".o-Dropzone", [file2]);
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 });
 
@@ -96,7 +96,7 @@ test("Can not add attachment after drag dropping an attachment", async () => {
         new File(["hello, world"], "text2.txt", { type: "text/plain" }),
     ];
     await dragenterFiles(".o-mail-Composer-input", [file1]);
-    await dropFiles(".o-mail-Dropzone", [file1]);
+    await dropFiles(".o-Dropzone", [file1]);
     await contains("button[title='Attach files']:disabled");
     await contains(".o-mail-AttachmentCard", { text: "text.txt", contains: [".fa-check"] });
 
