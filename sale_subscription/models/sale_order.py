@@ -919,7 +919,7 @@ class SaleOrder(models.Model):
 
     def _create_renew_upsell_order(self, subscription_state, message_body):
         self.ensure_one()
-        if self.start_date == self.next_invoice_date:
+        if self.start_date == self.next_invoice_date or not self.invoice_ids.filtered_domain([('state', '=', 'posted')]):
             raise ValidationError(_("You can not upsell or renew a subscription that has not been invoiced yet. "
                                     "Please, update directly the %s contract or invoice it first.", self.name))
         values = self._prepare_upsell_renew_order_values(subscription_state)
