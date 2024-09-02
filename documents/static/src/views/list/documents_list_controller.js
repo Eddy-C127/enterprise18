@@ -46,7 +46,6 @@ export class DocumentsListController extends ListController {
 
     getStaticActionMenuItems() {
         const isM2MGrouped = this.model.root.isM2MGrouped;
-        const active = this.model.root.records[0].isActive;
         return {
             export: {
                 isAvailable: () => this.isExportEnable,
@@ -55,12 +54,18 @@ export class DocumentsListController extends ListController {
                 callback: () => this.onExportData(),
             },
             delete: {
-                isAvailable: () => this.activeActions.delete && !isM2MGrouped,
+                isAvailable: () => {
+                    return this.activeActions.delete
+                        && !isM2MGrouped
+                        && this.model.root.records.length;
+                },
                 sequence: 40,
                 description: _t("Delete"),
-                callback: active
-                    ? () => this.onArchiveSelectedRecords()
-                    : () => this.onDeleteSelectedRecords(),
+                callback: () => {
+                    return this.model.root.records[0].isActive
+                        ? this.onArchiveSelectedRecords()
+                        : this.onDeleteSelectedRecords();
+                },
             },
         };
     }
