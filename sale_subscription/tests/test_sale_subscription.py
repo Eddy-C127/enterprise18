@@ -2049,35 +2049,36 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(subscription.start_date, datetime.date(2022, 2, 10))
 
     def test_refund_qty_invoiced(self):
-        subscription = self.env['sale.order'].create({
-            'partner_id': self.partner.id,
-            'plan_id': self.plan_month.id,
-            'order_line': [
-                (0, 0, {
-                    'name': self.product.name,
-                    'product_id': self.product.id,
-                    'product_uom_qty': 3.0,
-                    'product_uom': self.product.uom_id.id,
-                    'price_unit': 12,
-                })],
-        })
-        subscription.action_confirm()
-        subscription._create_recurring_invoice()
-        self.assertEqual(subscription.order_line.qty_invoiced, 3, "The 3 products should be invoiced")
-        subscription._get_invoiced()
-        inv = subscription.invoice_ids
-        inv.payment_state = 'paid'
-        # We refund the invoice
-        refund_wizard = self.env['account.move.reversal'].with_context(
-            active_model="account.move",
-            active_ids=inv.ids).create({
-            'reason': 'Test refund tax repartition',
-            'journal_id': inv.journal_id.id,
-        })
-        res = refund_wizard.refund_moves()
-        refund_move = self.env['account.move'].browse(res['res_id'])
-        self.assertEqual(inv.reversal_move_id, refund_move, "The initial move should be reversed")
-        self.assertEqual(subscription.order_line.qty_invoiced, 0, "The products should be not be invoiced")
+        with freeze_time("2024-09-01"):
+            subscription = self.env['sale.order'].create({
+                'partner_id': self.partner.id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    (0, 0, {
+                        'name': self.product.name,
+                        'product_id': self.product.id,
+                        'product_uom_qty': 3.0,
+                        'product_uom': self.product.uom_id.id,
+                        'price_unit': 12,
+                    })],
+            })
+            subscription.action_confirm()
+            subscription._create_recurring_invoice()
+            self.assertEqual(subscription.order_line.qty_invoiced, 3, "The 3 products should be invoiced")
+            subscription._get_invoiced()
+            inv = subscription.invoice_ids
+            inv.payment_state = 'paid'
+            # We refund the invoice
+            refund_wizard = self.env['account.move.reversal'].with_context(
+                active_model="account.move",
+                active_ids=inv.ids).create({
+                'reason': 'Test refund tax repartition',
+                'journal_id': inv.journal_id.id,
+            })
+            res = refund_wizard.refund_moves()
+            refund_move = self.env['account.move'].browse(res['res_id'])
+            self.assertEqual(inv.reversal_move_id, refund_move, "The initial move should be reversed")
+            self.assertEqual(subscription.order_line.qty_invoiced, 0, "The products should be not be invoiced")
 
     def test_discount_parent_line(self):
         with freeze_time("2022-01-01"):

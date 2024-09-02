@@ -1,6 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 # -*- coding: utf-8 -*-
 
+from freezegun import freeze_time
+
 from odoo import Command
 
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
@@ -19,7 +21,6 @@ class TestSaleReport(TestSubscriptionCommon):
                 'taxes_id': [Command.set(self.tax_10.ids)],
                 'recurring_invoice': True,
                 'uom_id': self.env.ref('uom.product_uom_unit').id,
-                'product_subscription_pricing_ids': [Command.set(self.pricing_month.ids)]
             },
             {
                 'name': 'Product B',
@@ -107,22 +108,23 @@ class TestSaleReport(TestSubscriptionCommon):
         self.assertEqual(recurring_line.price_subtotal, 200)
 
     def test_report_confirm_upsell_with_same_product_and_discount(self):
-        action = self.original_subscription.prepare_upsell_order()
-        upsell_sub = self.env['sale.order'].browse(action['res_id'])
-        upsell_sub.order_line = [Command.create({
-                'name': self.recurring_product.name,
-                'product_id': self.recurring_product.id,
-                'product_uom_qty': 1.0,
-                'price_unit': self.recurring_product.list_price,
-                'discount': 30,
-            })]
-        upsell_sub.action_confirm()
-        self.env.flush_all()
+        with freeze_time("2024-08-30 02:01:00 UTC"):
+            action = self.original_subscription.prepare_upsell_order()
+            upsell_sub = self.env['sale.order'].browse(action['res_id'])
+            upsell_sub.order_line = [Command.create({
+                    'name': self.recurring_product.name,
+                    'product_id': self.recurring_product.id,
+                    'product_uom_qty': 1.0,
+                    'price_unit': self.recurring_product.list_price,
+                    'discount': 30,
+                })]
+            upsell_sub.action_confirm()
+            self.env.flush_all()
 
-        report_lines = self.env['sale.report'].search([('name', 'in', [self.original_subscription.name, upsell_sub.name])])
-        self.assertEqual(len(report_lines), 1)
-        self.assertEqual(report_lines.product_id, self.recurring_product)
-        self.assertEqual(report_lines.product_uom_qty, 3)
-        self.assertEqual(report_lines.price_subtotal, 300)
-        self.assertEqual(upsell_sub.order_line.filtered('discount').price_subtotal, 70)
-        # Note: on the Sales report, it is normal to lose the discount given in the upsell.
+            report_lines = self.env['sale.report'].search([('name', 'in', [self.original_subscription.name, upsell_sub.name])])
+            self.assertEqual(len(report_lines), 1)
+            self.assertEqual(report_lines.product_id, self.recurring_product)
+            self.assertEqual(report_lines.product_uom_qty, 3)
+            self.assertEqual(report_lines.price_subtotal, 300)
+            self.assertEqual(upsell_sub.order_line.filtered('discount').price_subtotal, 70)
+            # Note: on the Sales report, it is normal to lose the discount given in the upsell.
