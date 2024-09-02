@@ -255,7 +255,7 @@ class TestKeEdiStock(TestKeEdiCommon):
                 'tax_ids': [],
                 'balance': 4320.00,
             }, {
-                'name': '',
+                'name': False,
                 'product_id': None,
                 'product_uom_id': False,
                 'quantity': 0,

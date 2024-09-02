@@ -850,7 +850,7 @@ class TestQualityCheck(TestQualityCommon):
         # there should be 3 move lines and 3 checks
         self.assertEqual(len(receipt.move_line_ids), 3)
         self.assertRecordValues(receipt.check_ids, [
-            {'quality_state': 'pass', 'product_id': self.product.id, 'qty_line': 2, 'failure_location_id': []},
+            {'quality_state': 'pass', 'product_id': self.product.id, 'qty_line': 2, 'failure_location_id': False},
             {'quality_state': 'fail', 'product_id': self.product_2.id, 'qty_line': 1, 'failure_location_id': self.failure_location.id},
-            {'quality_state': 'pass', 'product_id': self.product_2.id, 'qty_line': 1, 'failure_location_id': []},
+            {'quality_state': 'pass', 'product_id': self.product_2.id, 'qty_line': 1, 'failure_location_id': False},
         ])
