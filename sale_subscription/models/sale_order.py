@@ -1379,7 +1379,10 @@ class SaleOrder(models.Model):
             return super()._get_invoice_grouping_keys()
 
     def _get_auto_invoice_grouping_keys(self):
-        return super()._get_invoice_grouping_keys() + ['payment_token_id']
+        grouping_keys = super()._get_invoice_grouping_keys() + ['payment_token_id', 'partner_invoice_id']
+        grouping_keys = list(set(grouping_keys))
+        grouping_keys.remove('partner_id')
+        return grouping_keys
 
 
     def _recurring_invoice_get_subscriptions(self, grouped=False, batch_size=30):
