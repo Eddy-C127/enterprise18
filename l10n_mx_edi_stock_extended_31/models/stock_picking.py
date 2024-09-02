@@ -28,6 +28,6 @@ class Picking(models.Model):
         cartaporte_values = super()._l10n_mx_edi_get_cartaporte_pdf_values()
 
         if self.l10n_mx_edi_external_trade and self.picking_type_code in ('outgoing', 'incoming'):
-            cartaporte_values['regimenes_aduanero'] = ", ".join(cartaporte_values['regimenes_aduanero'])
+            cartaporte_values['regimenes_aduanero'] = ", ".join(self.l10n_mx_edi_customs_regime_ids.mapped('code'))
 
         return cartaporte_values

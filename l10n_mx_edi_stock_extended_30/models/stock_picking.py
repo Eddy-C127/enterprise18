@@ -83,6 +83,24 @@ class Picking(models.Model):
         # EXTENDS 'l10n_mx_edi_stock_30'
         cartaporte_values = super()._l10n_mx_edi_get_cartaporte_pdf_values()
 
+        warehouse_partner = self.picking_type_id.warehouse_id.partner_id
+        origin_partner = self.partner_id if self.picking_type_code == 'incoming' else warehouse_partner
+        destination_partner = self.partner_id if self.picking_type_code == 'outgoing' else warehouse_partner
+
+        # Add legible data to the origin and destination addresses
+        if cartaporte_values['origen_domicilio']['municipio'] != origin_partner.city:
+            cartaporte_values['origen_domicilio']['municipio'] += f" - {origin_partner.city}"
+        if cartaporte_values['destino_domicilio']['municipio'] != destination_partner.city:
+            cartaporte_values['destino_domicilio']['municipio'] += f" - {destination_partner.city}"
+        origen_res_fisc = cartaporte_values['origen_ubicacion']['residencia_fiscal']
+        origen_country_name = self.env['res.country'].search([('l10n_mx_edi_code', '=', origen_res_fisc)], limit=1).name
+        if origen_country_name:
+            origen_res_fisc += f" - {origen_country_name}"
+        destino_res_fisc = cartaporte_values['destino_ubicacion']['residencia_fiscal']
+        destino_country_name = self.env['res.country'].search([('l10n_mx_edi_code', '=', destino_res_fisc)], limit=1).name
+        if destino_country_name:
+            destino_res_fisc += f" - {destino_country_name}"
+
         if self.picking_type_code in ('outgoing', 'incoming'):
             cartaporte_values['entrada_salida_merc'] = "Salida" if self.picking_type_code == 'outgoing' else "Entrada"
 
