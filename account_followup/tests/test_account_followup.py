@@ -4,7 +4,7 @@ from unittest.mock import patch
 from freezegun import freeze_time
 
 from odoo import Command, fields
-from odoo.tests import Form, tagged
+from odoo.tests import tagged
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from dateutil.relativedelta import relativedelta
 
@@ -130,15 +130,6 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
 
         with freeze_time('2022-02-03'):
             # followup_next_action_date exceeded and invoice not reconciled yet
-            self.assertPartnerFollowup(self.partner_a, 'in_need_of_action', self.second_followup_line)
-
-            # Exclude every unreconciled invoice lines
-            self.partner_a.unreconciled_aml_ids.blocked = True
-            # Every unreconciled invoice lines are blocked, the result from the query will be None
-            self.assertPartnerFollowup(self.partner_a, None, None)
-
-            # It resets if we unblock
-            self.partner_a.unreconciled_aml_ids.blocked = False
             self.assertPartnerFollowup(self.partner_a, 'in_need_of_action', self.second_followup_line)
 
             self.env['account.payment.register'].create({
@@ -327,15 +318,6 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
             {'amount_residual_currency': 400.0},
         ])
 
-        with Form(self.partner_a, view='account_followup.customer_statements_form_view') as form:
-            # The Form() does not mock the default_order defined on the view.
-            # We need to define which line is the first with the date
-            for index, _orm_command in enumerate(form._values['unreconciled_aml_ids']):
-                with form.unreconciled_aml_ids.edit(index) as aml_form:
-                    if aml_form.invoice_date == '2016-01-01':
-                        aml_form.blocked = True
-
-        self.assertRecordValues(self.partner_a, [{'total_due': 500.0}])
         self.assertRecordValues(self.partner_a.unreconciled_aml_ids.sorted(), [
             {'amount_residual_currency': 500.0},
             {'amount_residual_currency': 400.0},
@@ -343,11 +325,10 @@ class TestAccountFollowupReports(AccountTestInvoicingCommon):
 
     def test_compute_total_due(self):
         self.create_invoice('2016-01-01')
-        self.partner_a.unreconciled_aml_ids.blocked = True
         self.create_invoice('2017-01-01')
         self.create_invoice(fields.Date.today() + relativedelta(months=1))
-        self.assertRecordValues(self.partner_a, [{'total_due': 1000.0}])
-        self.assertRecordValues(self.partner_a, [{'total_overdue': 500.0}])
+        self.assertRecordValues(self.partner_a, [{'total_due': 1500.0}])
+        self.assertRecordValues(self.partner_a, [{'total_overdue': 1000.0}])
 
     def test_send_followup_no_due_date(self):
         """

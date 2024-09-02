@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import werkzeug
 from werkzeug.exceptions import InternalServerError
 
 from odoo.addons.account_reports.models.account_report import AccountReportFileDownloadException
+from odoo.addons.account.controllers.download_docs import _get_headers
 from odoo import http
 from odoo.models import check_method_name
 from odoo.http import content_disposition, request
@@ -76,3 +76,15 @@ class AccountReportController(http.Controller):
             headers.append(('Content-Length', len(file_content)))
 
         return headers
+
+    @http.route('/account_reports/download_attachments/<models("ir.attachment"):attachments>', type='http', auth='user')
+    def download_report_attachments(self, attachments):
+        attachments.check_access('read')
+        assert all(attachment.res_id and attachment.res_model == 'res.partner' for attachment in attachments)
+        if len(attachments) == 1:
+            headers = _get_headers(attachments.name, attachments.mimetype, attachments.raw)
+            return request.make_response(attachments.raw, headers)
+        else:
+            content = attachments._build_zip_from_attachments()
+            headers = _get_headers('attachments.zip', 'zip', content)
+            return request.make_response(content, headers)

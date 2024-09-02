@@ -14,7 +14,7 @@ class ResPartner(models.Model):
         self.active_company_country_code = self.env.company.country_code
 
     def action_print_report_statement_account(self, options=None):
-        domain = [('blocked', '=', False)]
+        domain = []
         date_to = fields.Date.today()
         if options:
             date_to = options.get("date", {}).get("date_to", fields.Date.today())

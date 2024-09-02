@@ -433,12 +433,6 @@ class AccountMoveLine(models.Model):
     _name = "account.move.line"
     _inherit = "account.move.line"
 
-    expected_pay_date = fields.Date(
-        string="Expected Date",
-        help="Expected payment date as manually set through the customer statement"
-             "(e.g: if you had the customer on the phone and want to remember the date he promised he would pay)",
-    )
-
     move_attachment_ids = fields.One2many('ir.attachment', compute='_compute_attachment')
 
     # Deferred management fields

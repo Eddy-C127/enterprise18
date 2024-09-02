@@ -173,7 +173,7 @@ export class AccountReportFilters extends Component {
             );
         }
         if (this.controller.filters.show_unreconciled && this.controller.options.unreconciled) {
-            selectedExtraOptions.push(_t("Only Show Unreconciled Entries"));
+            selectedExtraOptions.push(_t("Unreconciled Entries"));
         }
         if (this.controller.options.include_analytic_without_aml) {
             selectedExtraOptions.push(_t("Including Analytic Simulations"));

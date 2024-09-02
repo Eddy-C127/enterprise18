@@ -25,7 +25,7 @@ class FollowupManualReminder(models.TransientModel):
             )
         defaults.update(
             partner_id=partner.id,
-            attachment_ids=[Command.set(partner._get_included_unreconciled_aml_ids().move_id.message_main_attachment_id.ids)],
+            attachment_ids=[Command.set(partner.unreconciled_aml_ids.move_id.message_main_attachment_id.ids)],
             render_model='res.partner'
         )
         return defaults

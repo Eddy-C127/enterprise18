@@ -105,6 +105,9 @@ class AccountReport(models.Model):
         company_dependent=True
     )
 
+    # Fields used for send reports by cron
+    send_and_print_values = fields.Json(copy=False)
+
     def _auto_init(self):
         super()._auto_init()
 
@@ -141,6 +144,47 @@ class AccountReport(models.Model):
                 dummy, menuitem = report._get_existing_menuitem()
                 menuitem.active = vals['active']
         return super().write(vals)
+
+    ####################################################
+    # CRON
+    ####################################################
+
+    @api.model
+    def _cron_account_report_send(self, job_count=10):
+        """ Handle Send & Print async processing.
+        :param job_count: maximum number of jobs to process if specified.
+        """
+        to_process = self.env['account.report'].search(
+            [('send_and_print_values', '!=', False)],
+        )
+        if not to_process:
+            return
+
+        processed_count = 0
+        need_retrigger = False
+
+        for report in to_process:
+            if need_retrigger:
+                break
+            send_and_print_vals = report.send_and_print_values
+            report_partner_ids = send_and_print_vals.get('report_options', {}).get('partner_ids', [])
+            need_retrigger = processed_count + len(report_partner_ids) > job_count
+            for _id in report_partner_ids[:job_count - processed_count]:
+                options = {
+                    **send_and_print_vals['report_options'],
+                    'partner_ids': [_id],
+                }
+                self.env['account.report.send']._process_send_and_print(report=report, options=options)
+                processed_count += 1
+                report_partner_ids.remove(_id)
+            if report_partner_ids:
+                send_and_print_vals['report_options']['partner_ids'] = report_partner_ids
+                report.send_and_print_values = send_and_print_vals
+            else:
+                report.send_and_print_values = False
+
+        if need_retrigger:
+            self.env.ref('account_reports.ir_cron_account_report_send')._trigger()
 
     ####################################################
     # MENU MANAGEMENT
@@ -5505,6 +5549,12 @@ class AccountReport(models.Model):
             }
         }
 
+    def _get_report_send_recipients(self, options):
+        custom_handler_model = self._get_custom_handler_model()
+        if custom_handler_model and hasattr(self.env[custom_handler_model], '_get_report_send_recipients'):
+            return self.env[custom_handler_model]._get_report_send_recipients(options)
+        return self.env['res.partner']
+
     def export_to_pdf(self, options):
         self.ensure_one()
 
@@ -5999,7 +6049,7 @@ class AccountReport(models.Model):
         # Array of tuples for the extra options: (name, option_key, condition)
         extra_options = [
             (_("With Draft Entries"), 'all_entries', self.filter_show_draft),
-            (_("Only Show Unreconciled Entries"), 'unreconciled', self.filter_unreconciled),
+            (_("Unreconciled Entries"), 'unreconciled', self.filter_unreconciled),
             (_("Including Analytic Simulations"), 'include_analytic_without_aml', True)
         ]
         filter_names = [
@@ -6072,7 +6122,8 @@ class AccountReport(models.Model):
                     currency=account_currency if col_expr_label == 'amount_currency' else None,
                 ))
 
-        if not any(column.get('no_format') for column in line_columns):
+        # Display unfold & initial balance even when debit/credit column is hidden and the balance == 0
+        if not any(isinstance(column.get('no_format'), (int, float)) and column.get('expression_label') != 'balance' for column in line_columns):
             return None
 
         return {

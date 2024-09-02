@@ -155,16 +155,15 @@ class ResPartner(models.Model):
         due_data = defaultdict(float)
         overdue_data = defaultdict(float)
         unreconciled_aml_ids = defaultdict(list)
-        for overdue, partner, blocked, amount_residual_sum, aml_ids in self.env['account.move.line']._read_group(
+        for overdue, partner, amount_residual_sum, aml_ids in self.env['account.move.line']._read_group(
             domain=self._get_unreconciled_aml_domain(),
-            groupby=['followup_overdue', 'partner_id', 'blocked'],
+            groupby=['followup_overdue', 'partner_id'],
             aggregates=['amount_residual:sum', 'id:array_agg'],
         ):
             unreconciled_aml_ids[partner] += aml_ids
-            if not blocked:
-                due_data[partner] += amount_residual_sum
-                if overdue:
-                    overdue_data[partner] += amount_residual_sum
+            due_data[partner] += amount_residual_sum
+            if overdue:
+                overdue_data[partner] += amount_residual_sum
 
         for partner in self:
             partner.total_due = due_data.get(partner, 0.0)
@@ -177,8 +176,7 @@ class ResPartner(models.Model):
             current_followup_line = partner.followup_line_id
             previous_followup_line = self.env['account_followup.followup.line'].search([('delay', '<', current_followup_line.delay), ('company_id', 'parent_of', self.env.company.id)], order='delay desc', limit=1)
             for unreconciled_aml in partner.unreconciled_aml_ids:
-                if not unreconciled_aml.blocked:
-                    unreconciled_aml.followup_line_id = previous_followup_line
+                unreconciled_aml.followup_line_id = previous_followup_line
 
     def _get_unreconciled_aml_domain(self):
         return [
@@ -243,7 +241,7 @@ class ResPartner(models.Model):
             if is_overdue:
                 has_overdue_invoices = True
 
-            if self.env.company in aml.company_id.parent_ids and not aml.blocked:
+            if self.env.company in aml.company_id.parent_ids:
                 if aml.followup_line_id and aml.followup_line_id.delay >= (highest_followup_line or first_followup_line).delay:
                     highest_followup_line = aml.followup_line_id
                 max_delay = max(max_delay, aml_delay)
@@ -267,15 +265,11 @@ class ResPartner(models.Model):
         self.ensure_one()
         if not options:
             options = {}
-        invoices_to_print = self._get_included_unreconciled_aml_ids().move_id.filtered(lambda l: l.is_invoice(include_receipts=True))
+        invoices_to_print = self.unreconciled_aml_ids.move_id.filtered(lambda l: l.is_invoice(include_receipts=True))
         if options.get('manual_followup'):
             # For manual reminders, only print invoices with the selected attachments
             return invoices_to_print.filtered(lambda inv: inv.message_main_attachment_id.id in options.get('attachment_ids'))
         return invoices_to_print.filtered(lambda inv: inv.message_main_attachment_id)
-
-    def _get_included_unreconciled_aml_ids(self):
-        self.ensure_one()
-        return self.unreconciled_aml_ids.filtered(lambda aml: not aml.blocked)
 
     @api.model
     def _get_first_followup_level(self):
@@ -293,21 +287,32 @@ class ResPartner(models.Model):
 
         today = fields.Date.context_today(self)
         previous_levels = self.env['account_followup.followup.line'].search([('delay', '<=', followup_line.delay), ('company_id', '=', self.env.company.id)])
-        for aml in self._get_included_unreconciled_aml_ids().filtered('date_maturity'):
+        for aml in self.unreconciled_aml_ids.filtered('date_maturity'):
             eligible_levels = previous_levels.filtered(lambda level: (today - aml.date_maturity).days >= level.delay)
             if eligible_levels:
                 aml.followup_line_id = max(eligible_levels, key=lambda level: level.delay)
 
-    def open_action_followup(self):
+    def _get_partner_account_report_attachment(self, report, options=None):
         self.ensure_one()
-        return {
-            'name': _("Overdue Payments for %s", self.display_name),
-            'type': 'ir.actions.act_window',
-            'view_mode': 'form',
-            'views': [[self.env.ref('account_followup.customer_statements_form_view').id, 'form']],
-            'res_model': 'res.partner',
-            'res_id': self.id,
-        }
+        if not options:
+            options = report.get_options({
+                'partner_ids': self.ids,
+                'unfold_all': True,
+                'unreconciled': True,
+                'hide_account': True,
+                'all_entries': False,
+            })
+        attachment_file = report.export_to_pdf(options)
+        return self.env['ir.attachment'].create([
+            {
+                'name': f"{self.name} - {attachment_file['file_name']}",
+                'res_model': self._name,
+                'res_id': self.id,
+                'type': 'binary',
+                'raw': attachment_file['file_content'],
+                'mimetype': 'application/pdf',
+            },
+        ])
 
     def send_followup_email(self, options):
         """
@@ -421,7 +426,6 @@ class ResPartner(models.Model):
              AND account.account_type = 'asset_receivable'
              AND aml.parent_state = 'posted'
              AND aml.reconciled IS NOT TRUE
-             AND aml.blocked IS FALSE
              AND aml.company_id = ANY(%(company_ids)s)
              {"" if partner_ids is None else "AND aml.partner_id IN %(partner_ids)s"}
         GROUP BY partner.id
@@ -439,7 +443,6 @@ class ResPartner(models.Model):
                    AND line.parent_state = 'posted'
                    AND line.reconciled IS NOT TRUE
                    AND line.balance > 0
-                   AND line.blocked IS FALSE
                    AND line.company_id = ANY(%(company_ids)s)
                    AND COALESCE(ful.delay, %(min_delay)s - 1) <= partner.followup_delay
                    AND COALESCE(line.date_maturity, line.date) + COALESCE(ful.delay, %(min_delay)s - 1) < %(current_date)s
@@ -455,7 +458,6 @@ class ResPartner(models.Model):
                    AND line.parent_state = 'posted'
                    AND line.reconciled IS NOT TRUE
                    AND line.balance > 0
-                   AND line.blocked IS FALSE
                    AND line.company_id = ANY(%(company_ids)s)
                    AND COALESCE(line.date_maturity, line.date) < %(current_date)s
                  LIMIT 1

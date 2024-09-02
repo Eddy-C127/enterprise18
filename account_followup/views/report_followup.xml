@@ -32,15 +32,6 @@
                     </div>
 
                     <div>
-                        <table class="table table-borderless o_account_reports_table" t-att-width="'100%'" style="page-break-inside: avoid">
-                            <t t-call="account_followup.table_header_template_followup_report">
-                                <t t-set="column_headers" t-value="[report._get_followup_report_columns_name()]"/>
-                            </t>
-
-                            <t t-call="account_followup.line_template">
-                                <t t-set="lines" t-value="report._get_followup_report_lines(options)"/>
-                            </t>
-                        </table>
                         <div class="oe_structure"></div>
                     </div>
                 </div>

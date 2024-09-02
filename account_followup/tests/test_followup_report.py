@@ -146,10 +146,11 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
         self.partner_a._compute_unpaid_invoices()
         options['attachment_ids'] = invoice_attachments.ids
         with patch.object(type(self.env['mail.mail']), 'unlink', lambda self: None):
-            self.env['account.followup.report']._send_email(options)
+            with patch.object(self.env.registry['account.report'], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: {'file_name': 'fake_partner_ledger.pdf', 'file_content': b'', 'file_type': 'pdf'}):
+                self.env['account.followup.report']._send_email(options)
         sent_attachments = self.env['mail.message'].search([('partner_ids', '=', self.partner_a.id)]).attachment_ids
 
-        self.assertEqual(invoice_attachments, sent_attachments)
+        self.assertEqual(sent_attachments.mapped('name'), ['some_attachment.pdf', 'some_attachment.pdf', f'{self.partner_a.name} - fake_partner_ledger.pdf'])
 
         attachaments_domain = [('attachment_ids', '=', attachment.id) for attachment in invoice_attachments]
         mail = self.env['mail.mail'].search([('recipient_ids', '=', self.partner_a.id)] + attachaments_domain)
@@ -213,7 +214,8 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
         self.init_invoice('out_invoice', partner=child_partner, invoice_date='2016-01-01', amounts=[500], post=True)
         self.partner_a._compute_unpaid_invoices()
         with patch.object(type(self.env['mail.mail']), 'unlink', lambda self: None):
-            self.env['account.followup.report']._send_email(options)
+            with patch.object(self.env.registry['account.report'], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: {'file_name': 'fake_partner_ledger.pdf', 'file_content': b'', 'file_type': 'pdf'}):
+                self.env['account.followup.report']._send_email(options)
 
         mail = self.env['mail.mail'].search([('recipient_ids', '=', self.partner_a.id)])
         self.assertTrue(mail, "The payment reminder email should have been sent to the company.")
@@ -246,7 +248,8 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
 
         self.partner_a._compute_unpaid_invoices()
         with patch.object(type(self.env['mail.mail']), 'unlink', lambda self: None):
-            self.env['account.followup.report']._send_email(options)
+            with patch.object(self.env.registry['account.report'], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: {'file_name': 'fake_partner_ledger.pdf', 'file_content': b'', 'file_type': 'pdf'}):
+                self.env['account.followup.report']._send_email(options)
 
         mail = self.env['mail.mail'].search([('recipient_ids', '=', invoice_partner.id)])
         self.assertTrue(mail, "The payment reminder email should have been sent to the invoice partner.")
@@ -263,7 +266,8 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
 
         self.partner_a._compute_unpaid_invoices()
         with patch.object(type(self.env['mail.mail']), 'unlink', lambda self: None):
-            self.env['account.followup.report']._send_email(options)
+            with patch.object(self.env.registry['account.report'], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: {'file_name': 'fake_partner_ledger.pdf', 'file_content': b'', 'file_type': 'pdf'}):
+                self.env['account.followup.report']._send_email(options)
 
         mail = self.env['mail.mail'].search([('recipient_ids', '=', followup_partner.id)])
         self.assertTrue(mail, "The payment reminder email should have been sent to the followup partner.")
@@ -431,7 +435,8 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
             ).create({})
             wizard.email = True  # tick the 'email' checkbox
             wizard.template_id = mail_template
-            wizard.process_followup()
+            with patch.object(self.env.registry['account.report'], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: {'file_name': 'fake_partner_ledger.pdf', 'file_content': b'', 'file_type': 'pdf'}):
+                wizard.process_followup()
             yield
             self.assertEqual(len(message), 1)
             self.assertEqual(message.author_id, self.env.user.partner_id)
@@ -483,7 +488,8 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
             })
             self.partner_a.followup_line_id.mail_template_id = mail_template
             self.partner_a.followup_next_action_date = False
-            self.partner_a._execute_followup_partner(options={'snailmail': False})
+            with patch.object(self.env.registry['account.report'], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: {'file_name': 'fake_partner_ledger.pdf', 'file_content': b'', 'file_type': 'pdf'}):
+                self.partner_a._execute_followup_partner(options={'snailmail': False})
             yield
             self.assertEqual(len(message), 1)
             self.assertEqual(message.author_id, self.partner_a._get_followup_responsible().partner_id, "Automatic followups should have the followup responsible as the author.")

@@ -19,8 +19,10 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
     def _get_custom_display_config(self):
         return {
             'css_custom_class': 'aged_partner_balance',
-            'components': {
+            'templates': {
                 'AccountReportLineName': 'account_reports.AgedPartnerBalanceLineName',
+            },
+            'components': {
                 'AccountReportFilters': 'account_reports.AgedPartnerBalanceFilters',
             },
         }
@@ -121,7 +123,6 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             if current_groupby == 'id':
                 query_res = query_res_lines[0] # We're grouping by id, so there is only 1 element in query_res_lines anyway
                 currency = self.env['res.currency'].browse(query_res['currency_id'][0]) if len(query_res['currency_id']) == 1 else None
-                expected_date = len(query_res['expected_date']) == 1 and query_res['expected_date'][0] or len(query_res['due_date']) == 1 and query_res['due_date'][0]
                 rslt.update({
                     'invoice_date': query_res['invoice_date'][0] if len(query_res['invoice_date']) == 1 else None,
                     'due_date': query_res['due_date'][0] if len(query_res['due_date']) == 1 else None,
@@ -129,7 +130,6 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     'currency_id': query_res['currency_id'][0] if len(query_res['currency_id']) == 1 else None,
                     'currency': currency.display_name if currency else None,
                     'account_name': query_res['account_name'][0] if len(query_res['account_name']) == 1 else None,
-                    'expected_date': expected_date or None,
                     'total': None,
                     'has_sublines': query_res['aml_count'] > 0,
 
@@ -144,7 +144,6 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     'currency_id': None,
                     'currency': None,
                     'account_name': None,
-                    'expected_date': None,
                     'total': sum(rslt[f'period{i}'] for i in range(len(periods))),
                     'has_sublines': False,
                 })
@@ -204,7 +203,6 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                 ARRAY_AGG(account_move_line.payment_id) AS payment_id,
                 ARRAY_AGG(DISTINCT move.invoice_date) AS invoice_date,
                 ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS report_date,
-                ARRAY_AGG(DISTINCT account_move_line.expected_pay_date) AS expected_date,
                 ARRAY_AGG(DISTINCT %(account_code)s) AS account_name,
                 ARRAY_AGG(DISTINCT COALESCE(account_move_line.%(aging_date_field)s, account_move_line.date)) AS due_date,
                 ARRAY_AGG(DISTINCT account_move_line.currency_id) AS currency_id,
@@ -301,6 +299,11 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         action.get('context', {}).update({'search_default_group_by_account': 0, 'search_default_group_by_partner': 1})
         return action
 
+    def open_partner_ledger(self, options, params):
+        report = self.env['account.report'].browse(options['report_id'])
+        record_model, record_id = report._get_model_info_from_id(params.get('line_id'))
+        return self.env[record_model].browse(record_id).open_partner_ledger()
+
     def _common_custom_unfold_all_batch_data_generator(self, internal_type, report, options, lines_to_expand_by_function):
         rslt = {} # In the form {full_sub_groupby_key: all_column_group_expression_totals for this groupby computation}
         report_periods = 6 # The report has 6 periods
@@ -358,22 +361,8 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             'currency_id': None,
             'currency': None,
             'account_name': None,
-            'expected_date': None,
             'total': 0,
         }
-
-    def change_expected_date(self, options, params=None):
-        aml_id = self.env['account.report']._get_res_id_from_line_id(params['line_id'], 'account.move.line')
-        aml = self.env['account.move.line'].browse(aml_id)
-
-        old_date = format_date(self.env, aml.expected_pay_date) if aml.expected_pay_date else _('any')
-        aml.write({'expected_pay_date': params['expected_pay_date']})
-
-        if aml.move_id.move_type == 'out_invoice':
-            new_date = format_date(self.env, aml.expected_pay_date) if aml.expected_pay_date else _('any')
-            move_msg = _('Expected payment date for journal item "%(item)s" has been changed from %(old_date)s to %(new_date)s on journal entry "%(entry)s"', item=aml.name, old_date=old_date, new_date=new_date, entry=aml.move_id.name)
-            aml.partner_id._message_log(body=move_msg)
-            aml.move_id._message_log(body=move_msg)
 
     def aged_partner_balance_audit(self, options, params, journal_type):
         """ Open a list of invoices/bills and/or deferral entries for the clicked cell

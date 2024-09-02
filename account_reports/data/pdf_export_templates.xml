@@ -170,7 +170,7 @@
 
             <!-- Unreconciled -->
             <t t-if="report.filter_unreconciled and options['unreconciled']">
-                <t t-set="extra_options" t-value="extra_options + ['Only Show Unreconciled Entries']"/>
+                <t t-set="extra_options" t-value="extra_options + ['Unreconciled Entries']"/>
             </t>
 
             <!-- Analytic -->

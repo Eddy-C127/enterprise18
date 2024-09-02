@@ -33,12 +33,6 @@
                 <field name="expression_label">account_name</field>
                 <field name="figure_type">string</field>
             </record>
-            <record id="aged_receivable_report_expected_date" model="account.report.column">
-                <field name="name">Expected Date</field>
-                <field name="expression_label">expected_date</field>
-                <field name="figure_type">date</field>
-                <field name="sortable" eval="True"/>
-            </record>
             <record id="aged_receivable_report_period0" model="account.report.column">
                 <field name="name">At Date</field>
                 <field name="expression_label">period0</field>
@@ -112,13 +106,6 @@
                       <field name="engine">custom</field>
                       <field name="formula">_report_custom_engine_aged_receivable</field>
                       <field name="subformula">account_name</field>
-                      <field name="auditable" eval="False"/>
-                  </record>
-                  <record id="aged_receivable_line_expected_date" model="account.report.expression">
-                      <field name="label">expected_date</field>
-                      <field name="engine">custom</field>
-                      <field name="formula">_report_custom_engine_aged_receivable</field>
-                      <field name="subformula">expected_date</field>
                       <field name="auditable" eval="False"/>
                   </record>
                   <record id="aged_receivable_line_period0" model="account.report.expression">
@@ -208,12 +195,6 @@
                 <field name="expression_label">account_name</field>
                 <field name="figure_type">string</field>
             </record>
-            <record id="aged_payable_report_expected_date" model="account.report.column">
-                <field name="name">Expected Date</field>
-                <field name="expression_label">expected_date</field>
-                <field name="figure_type">date</field>
-                <field name="sortable" eval="True"/>
-            </record>
             <record id="aged_payable_report_period0" model="account.report.column">
                 <field name="name">At Date</field>
                 <field name="expression_label">period0</field>
@@ -287,13 +268,6 @@
                         <field name="engine">custom</field>
                         <field name="formula">_report_custom_engine_aged_payable</field>
                         <field name="subformula">account_name</field>
-                        <field name="auditable" eval="False"/>
-                    </record>
-                    <record id="aged_payable_line_expected_date" model="account.report.expression">
-                        <field name="label">expected_date</field>
-                        <field name="engine">custom</field>
-                        <field name="formula">_report_custom_engine_aged_payable</field>
-                        <field name="subformula">expected_date</field>
                         <field name="auditable" eval="False"/>
                     </record>
                     <record id="aged_payable_line_period0" model="account.report.expression">

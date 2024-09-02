@@ -59,7 +59,7 @@ class AccountFollowupReport(models.AbstractModel):
         today = fields.Date.today()
         line_num = 0
         for l in partner.unreconciled_aml_ids.sorted().filtered(lambda aml: not aml.currency_id.is_zero(aml.amount_residual_currency)):
-            if l.company_id in self.env.company._accessible_branches() and not l.blocked:
+            if l.company_id in self.env.company._accessible_branches():
                 currency = l.currency_id or l.company_id.currency_id
                 if currency not in res:
                     res[currency] = []
@@ -76,11 +76,11 @@ class AccountFollowupReport(models.AbstractModel):
                     'template': 'account_followup.line_template',
                 }
                 date_due = format_date(self.env, aml.date_maturity or aml.move_id.invoice_date or aml.date, lang_code=lang_code)
-                total += not aml.blocked and amount or 0
+                total += amount or 0
                 is_overdue = today > aml.date_maturity if aml.date_maturity else today > aml.date
                 is_payment = aml.payment_id
                 if is_overdue or is_payment:
-                    total_issued += not aml.blocked and amount or 0
+                    total_issued += amount or 0
                 date_due = {
                     'name': date_due, 'class': 'date',
                     'style': 'white-space:nowrap;text-align:left;',
@@ -382,6 +382,8 @@ Best Regards,
                 body_html = self.with_context(mail=True).get_followup_report_html(options)
 
                 attachment_ids = options.get('attachment_ids', partner._get_invoices_to_print(options).message_main_attachment_id.ids)
+                partner_ledger_report = self.env.ref('account_reports.partner_ledger_report')
+                attachment_ids.append(partner._get_partner_account_report_attachment(partner_ledger_report).id)
                 # If the follow-up was executed manually, the author_id will be set to the ID of the current logged-in user.
                 # Otherwise, if the follow-up is automatic, the author_id will be the followup responsible or OdooBot.
                 author_id = options.get('author_id', partner._get_followup_responsible().partner_id.id)

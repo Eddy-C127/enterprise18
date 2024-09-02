@@ -13,14 +13,14 @@
                     class="btn btn_action"
                     t-on-click="(ev) => controller.reportAction(ev, 'caret_option_open_record_form', { line_id: props.line.id })"
                 >
-                    Open
+                    Partner
                 </button>
 
                 <button
                     class="btn btn_action"
-                    t-on-click="(ev) => controller.reportAction(ev, 'open_journal_items', { line_id: props.line.id })"
+                    t-on-click="(ev) => controller.reportAction(ev, 'open_partner_ledger', { line_id: props.line.id })"
                 >
-                    Journal Items
+                    Ledger
                 </button>
             </t>
         </xpath>
@@ -34,12 +34,5 @@
             </t>
         </xpath>
 
-       <xpath expr="//div[@data-id='caret_options']" position="inside">
-            <t t-if="controller.groups.account_user">
-                <DropdownItem onSelected="(ev) => this.openExpectedDateDialog(ev)">
-                    Change expected payment date
-                </DropdownItem>
-            </t>
-       </xpath>
     </t>
 </templates>
