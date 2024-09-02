@@ -6,16 +6,11 @@
         <field name="model">sign.template</field>
         <field name="arch" type="xml">
             <kanban>
-                <field name="color"/>
                 <templates>
-                    <div t-name="kanban-box" class="oe_kanban_global_click">
-                        <div class="o_kanban_title clearfix">
-                            <span><field name="attachment_id"/></span>
-                        </div>
-                        <div class="oe_kanban_content">
-                            <em><field name="create_date"/></em>
-                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                        </div>
+                    <div t-name="kanban-card">
+                        <field name="attachment_id"/>
+                        <field name="create_date" class="fst-italic d-block"/>
+                        <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                     </div>
                 </templates>
             </kanban>

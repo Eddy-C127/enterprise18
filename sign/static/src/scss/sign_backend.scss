@@ -144,11 +144,9 @@
 
 .o_kanban_view {
     .o_kanban_record {
-        .o_kanban_record_body {
-            .o_signers {
-                max-height: 6.3rem;
-                overflow: auto;
-            }
+        .o_signers {
+            max-height: 6.3rem;
+            overflow: auto;
         }
     }
 }
@@ -169,17 +167,15 @@
                 }
             }
         }
-        .o_kanban_record_body {
-            .o_signers {
-                .fa-times {
-                    position: absolute;
-                }
-                input {
-                    position: absolute;
-                }
-                span {
-                    margin-left: 1.3rem;
-                }
+        .o_signers {
+            .fa-times {
+                position: absolute;
+            }
+            input {
+                position: absolute;
+            }
+            span {
+                margin-left: 1.3rem;
             }
         }
     }

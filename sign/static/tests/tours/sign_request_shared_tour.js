@@ -36,11 +36,11 @@ registry.category("web_tour.tours").add("shared_sign_request_tour", {
             run: "click",
         },
         {
-            trigger: '.oe_kanban_main:first span:contains("template_1_role")',
+            trigger: '.o_kanban_record span:contains("template_1_role")',
         },
         {
             content: "Share the template",
-            trigger: '.o_kanban_record_bottom:first button:contains("Share"):first',
+            trigger: '.o_kanban_record:first button:contains("Share"):first',
             run: "click",
         },
         {

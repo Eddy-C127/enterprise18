@@ -30,11 +30,9 @@ test("Drop to upload file in kanban", async () => {
         arch: `
         <kanban js_class="sign_kanban" class="o_sign_template_kanban">
             <templates>
-                <div t-name="kanban-box">
-                    <div class="o_kanban_record_title">
-                        <field name="display_name"/>
-                    </div>
-                </div>
+                <t t-name="kanban-card">
+                    <field name="display_name" class="fw-bolder fs-5"/>
+                </t>
             </templates>
         </kanban>`,
     });

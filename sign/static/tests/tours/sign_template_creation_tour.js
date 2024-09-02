@@ -86,7 +86,7 @@ registry.category("web_tour.tours").add("sign_template_creation_tour", {
         },
         {
             content: "Enter Template Edit Mode",
-            trigger: '.oe_kanban_main:first span:contains("blank_template")',
+            trigger: '.o_kanban_record span:contains("blank_template")',
             run: "click",
         },
         {
