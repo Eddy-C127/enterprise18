@@ -63,6 +63,19 @@ class TestWebsiteSaleSubscription(TestWebsiteSaleSubscriptionCommon):
             self.assertEqual(combination_info_variant_2['subscription_duration'], 1)
             self.assertEqual(combination_info_variant_2['subscription_unit'], 'month')
 
+    def test_product_variants_different_recurrences(self):
+        """
+        Check that a product can be added to the cart if any of its variants have
+        a plan matching the SO plan.
+        """
+        so = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+        })
+
+        with MockRequest(self.env, website=self.current_website):
+            so._cart_update(product_id=self.sub_with_variants.product_variant_ids[-1].id, add_qty=1)
+            self.assertTrue(self.sub_with_variants._website_can_be_added())
+
     def test_combination_info_multi_pricelist(self):
         product = self.sub_product_3.with_context(website_id=self.current_website.id)
 

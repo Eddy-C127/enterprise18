@@ -30,7 +30,7 @@ class ProductTemplate(models.Model):
         if not pricing:
             pricelist = pricelist or website.pricelist_id
             pricing = pricing or self.env['sale.subscription.pricing'].sudo()._get_first_suitable_recurring_pricing(
-                product or self, pricelist=pricelist)
+                product or self, plan=so.plan_id, pricelist=pricelist)
         return so.plan_id == pricing.plan_id
 
     def _get_additionnal_combination_info(self, product_or_template, quantity, date, website):
