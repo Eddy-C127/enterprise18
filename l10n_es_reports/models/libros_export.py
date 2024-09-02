@@ -42,22 +42,21 @@ SURCHARGE_TAX_EQUIVALENT = {
 }
 
 
-class SpanishLibrosRegistroExportHandler(models.AbstractModel):
-    _name = 'l10n_es.libros.registro.export.handler'
+class GenericTaxReportCustomHandler(models.AbstractModel):
     _inherit = 'account.generic.tax.report.handler'
-    _description = 'Spanish Libros Registro de IVA'
 
     def _custom_options_initializer(self, report, options, previous_options=None):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
-        options['buttons'].append({
-            'name': _('VAT Record Books (XLSX)'),
-            'sequence': 0,
-            'action': 'export_file',
-            'action_param': 'export_libros_de_iva',
-            'file_export_type': _('XLSX'),
-        })
+        if self.env.company.account_fiscal_country_id.code == 'ES':
+            options['buttons'].append({
+                'name': _('VAT Record Books (XLSX)'),
+                'sequence': 0,
+                'action': 'export_file',
+                'action_param': 'export_libros_de_iva',
+                'file_export_type': _('XLSX'),
+            })
 
-    def _fill_libros_header(self, sheet_income, sheet_expense):
+    def _l10n_es_libros_fill_header(self, sheet_income, sheet_expense):
         def fill_header(sheet_val, header_title, subheaders=None):
             if not subheaders:
                 sheet_val['sheet'].merge_range(0, sheet_val['index'], 1, sheet_val['index'], header_title)
@@ -123,7 +122,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
             fill_header(sheet_val, 'Inmueble', ('Situación', 'Referencia Catastral'))
             fill_header(sheet_val, 'Referencia Externa')
 
-    def _get_common_line_vals(self, line, tax):
+    def _l10n_es_libros_get_common_line_vals(self, line, tax):
         iae_group = self.env.company.l10n_es_reports_iae_group
         partner = line.partner_id
         exempt_reason = line.move_id.invoice_line_ids.tax_ids.filtered(lambda t: t.l10n_es_exempt_reason == 'E2')
@@ -169,9 +168,9 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
 
         return common_line_vals
 
-    def _create_income_line_vals(self, line, tax):
+    def _l10n_es_libros_create_income_line_vals(self, line, tax):
         line_vals = {field: '' for field in INCOME_FIELDS}
-        line_vals.update(self._get_common_line_vals(line, tax))
+        line_vals.update(self._l10n_es_libros_get_common_line_vals(line, tax))
         line_vals.update({
             'income_concept': 'I01',
             'income_computable': -line.balance,
@@ -189,10 +188,10 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
 
         return line_vals
 
-    def _create_expense_line_vals(self, line, tax):
+    def _l10n_es_libros_create_expense_line_vals(self, line, tax):
         expense_concept = 'G01'
         line_vals = {field: '' for field in EXPENSE_FIELDS}
-        line_vals.update(self._get_common_line_vals(line, tax))
+        line_vals.update(self._l10n_es_libros_get_common_line_vals(line, tax))
         line_vals.update({
             'expense_concept': expense_concept,
             'expense_deductible': line.balance,
@@ -206,7 +205,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         return line_vals
 
     @api.model
-    def _merge_base_line(self, line_vals, base_line):
+    def _l10n_es_libros_merge_base_line(self, line_vals, base_line):
         is_income = base_line.move_id.is_sale_document(include_receipts=True)
         sign = -1 if is_income else 1
         new_balance = line_vals['base_amount'] + base_line.balance * sign
@@ -232,7 +231,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         return
 
     @api.model
-    def _merge_line_tax(self, line_vals, line, tax, tax_amount):
+    def _l10n_es_libros_merge_line_tax(self, line_vals, line, tax, tax_amount):
         if tax.l10n_es_type == 'recargo':
             line_vals.update({
                 'total_amount': line_vals['total_amount'] + tax_amount,
@@ -259,14 +258,14 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
             if not line.move_id.is_sale_document(include_receipts=True) and any('mod303' in tag for tag in line.tax_tag_ids.mapped('name')):
                 line_vals['tax_deductible'] += tax_amount
 
-    def _format_sheet_line_vals(self, sheet_line_vals):
+    def _l10n_es_libros_format_sheet_line_vals(self, sheet_line_vals):
         for move_idx in sheet_line_vals:
             for line_vals in sheet_line_vals[move_idx].values():
                 for field, value in line_vals.items():
                     if field in FORMAT_NEEDED_FIELDS and value != '':
                         line_vals[field] = round(value, 2)
 
-    def _get_sheet_line_vals(self, lines):
+    def _l10n_es_libros_get_sheet_line_vals(self, lines):
         """ Parse the invoice lines to generate each report lines based on the combination
         of taxes used on each line.
         Then parse the tax lines to populate the fields related to tax amounts of the report lines.
@@ -282,7 +281,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         for line in lines.filtered(lambda l: l.tax_ids):
             is_income = line.move_id.is_sale_document(include_receipts=True)
             sheet_line_vals = inc_line_vals if is_income else exp_line_vals
-            create_line_vals = self._create_income_line_vals if is_income else self._create_expense_line_vals
+            create_line_vals = self._l10n_es_libros_create_income_line_vals if is_income else self._l10n_es_libros_create_expense_line_vals
             move = line.move_id
             sheet_line_vals.setdefault(move.id, {})
             taxes = line.tax_ids.flatten_taxes_hierarchy()
@@ -311,7 +310,7 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                 continue    # no report line should be created for such line
             # initialize [inc/exp]_line_vals with base balance and first regular tax of invoice lines
             if tax_key in sheet_line_vals[move.id]:
-                self._merge_base_line(sheet_line_vals[move.id][tax_key], line)
+                self._l10n_es_libros_merge_base_line(sheet_line_vals[move.id][tax_key], line)
             else:
                 sheet_line_vals[move.id][tax_key] = create_line_vals(line, regular_tax)
 
@@ -337,17 +336,17 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
                     tax_amount = move.company_id.currency_id.round(line.balance * ratio)
                     remaining_tax_balance -= tax_amount
                 # update the report line with the tax amount
-                self._merge_line_tax(sheet_line_vals[move.id][tax_key], line, tax, tax_amount * sign)
+                self._l10n_es_libros_merge_line_tax(sheet_line_vals[move.id][tax_key], line, tax, tax_amount * sign)
 
-        self._format_sheet_line_vals(inc_line_vals)
-        self._format_sheet_line_vals(exp_line_vals)
+        self._l10n_es_libros_format_sheet_line_vals(inc_line_vals)
+        self._l10n_es_libros_format_sheet_line_vals(exp_line_vals)
         return inc_line_vals, exp_line_vals
 
-    def _fill_libros_content(self, sheet_income, sheet_expense, report, options):
+    def _l10n_es_libros_fill_content(self, sheet_income, sheet_expense, report, options):
         domain = report._get_options_domain(options, 'strict_range') + [('move_type', '!=', 'entry')]
         lines = self.env['account.move.line'].search(domain)
 
-        inc_line_vals, exp_line_vals = self._get_sheet_line_vals(lines)
+        inc_line_vals, exp_line_vals = self._l10n_es_libros_get_sheet_line_vals(lines)
         sheet_inc_vals = {'sheet': sheet_income, 'line_vals': inc_line_vals, 'row_idx': 2, 'fields': INCOME_FIELDS}
         sheet_exp_vals = {'sheet': sheet_expense, 'line_vals': exp_line_vals, 'row_idx': 2, 'fields': EXPENSE_FIELDS}
 
@@ -371,8 +370,8 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
         sheet_expense = workbook.add_worksheet('RECIBIDAS_GASTOS')
 
         options['number_format'] = number_format
-        self._fill_libros_header(sheet_income, sheet_expense)
-        self._fill_libros_content(sheet_income, sheet_expense, report, options)
+        self._l10n_es_libros_fill_header(sheet_income, sheet_expense)
+        self._l10n_es_libros_fill_content(sheet_income, sheet_expense, report, options)
 
         workbook.close()
         output.seek(0)
@@ -384,3 +383,9 @@ class SpanishLibrosRegistroExportHandler(models.AbstractModel):
             'file_content': generated_file,
             'file_type': 'xlsx',
         }
+
+
+class SpanishLibrosRegistroExportHandler(models.AbstractModel):  # TODO: Remove in master
+    _name = 'l10n_es.libros.registro.export.handler'
+    _inherit = 'account.generic.tax.report.handler'
+    _description = 'Spanish Libros Registro de IVA'

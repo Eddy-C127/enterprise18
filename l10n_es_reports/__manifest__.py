@@ -30,7 +30,6 @@ Accounting reports for Spain
         'data/pymes_balance_sheet_report_data.xml',
         'data/full_balance_sheet_report_data.xml',
         'data/assoc_balance_sheet_report_data.xml',
-        'data/account_libros_registro_de_iva_export.xml',
         'data/account_report_ec_sales_list_report.xml',
         'data/account_tags.xml',
         'data/mod111.xml',
