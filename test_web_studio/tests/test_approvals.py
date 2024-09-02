@@ -40,7 +40,8 @@ class TestStudioApprovals(TransactionCase):
                 "name": "Rule 1",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             },
@@ -48,7 +49,8 @@ class TestStudioApprovals(TransactionCase):
                 "name": "Rule 2",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             },
@@ -57,7 +59,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(self.other_user.id)],
                 "exclusive_user": True,
             },
@@ -65,7 +68,8 @@ class TestStudioApprovals(TransactionCase):
                 "name": "Rule 4",
                 "model_id": IrModel._get("test.studio.model_action2").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             }
@@ -105,7 +109,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_step",
                 "domain": "[('step', '<', 1)]",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -113,7 +118,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_step",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(self.other_user.id)],
                 "exclusive_user": True,
             },
@@ -123,7 +129,8 @@ class TestStudioApprovals(TransactionCase):
                 "method": "action_step",
                 "domain": "[('step', '>=', 1)]",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(self.other_user.id)],
             },
             {
@@ -131,7 +138,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action2").id,
                 "method": "action_step",
                 "notification_order": "1",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
         ])
@@ -175,7 +183,8 @@ class TestStudioApprovals(TransactionCase):
                 "method": "action_step",
                 "notification_order": "1",
                 "exclusive_user": True,
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
             },
             {
                 "name": "R1",
@@ -183,7 +192,8 @@ class TestStudioApprovals(TransactionCase):
                 "method": "action_step",
                 "notification_order": "2",
                 "exclusive_user": True,
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
             },
             {
                 "name": "R2",
@@ -191,7 +201,8 @@ class TestStudioApprovals(TransactionCase):
                 "method": "action_step",
                 "notification_order": "2",
                 "exclusive_user": True,
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
             },
             {
                 "name": "R3",
@@ -199,7 +210,8 @@ class TestStudioApprovals(TransactionCase):
                 "method": "action_step",
                 "notification_order": "3",
                 "exclusive_user": True,
-                "responsible_id": self.test_user_2.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.test_user_2.id)],
             },
         ])
         model_action = self.env["test.studio.model_action"].create({
@@ -245,7 +257,7 @@ class TestStudioApprovals(TransactionCase):
             {
                 "name": "R0",
                 "model_id": IrModel._get("test.studio.model_action").id,
-                "group_id": self.env.ref("base.group_system").id,
+                "approval_group_id": self.env.ref("base.group_system").id,
                 "method": "action_step",
                 "notification_order": "1",
                 "users_to_notify": [Command.link(self.demo_user.id), Command.link(self.other_user.id)]
@@ -272,7 +284,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "domain": "[('name', '=', 'test')]",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             },
@@ -280,7 +293,8 @@ class TestStudioApprovals(TransactionCase):
                 "name": "rule 2",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
                 "exclusive_user": True,
             },
@@ -289,7 +303,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(self.other_user.id)],
                 "exclusive_user": True,
             }
@@ -318,7 +333,8 @@ class TestStudioApprovals(TransactionCase):
                 "name": "rule 1",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -326,7 +342,8 @@ class TestStudioApprovals(TransactionCase):
                 "domain": "[('name', '=', 'test')]",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -335,7 +352,8 @@ class TestStudioApprovals(TransactionCase):
                 "method": "action_confirm",
                 "domain": "[('name', '=', 'test')]",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -343,7 +361,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "notification_order": "2",
-                "responsible_id": self.other_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.other_user.id)],
                 "users_to_notify": [Command.link(self.other_user.id)],
             }
         ])
@@ -371,14 +390,16 @@ class TestStudioApprovals(TransactionCase):
                 "name": "rule 1",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
                 "name": "rule 1 - bis",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -386,7 +407,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
         ])
@@ -411,14 +433,16 @@ class TestStudioApprovals(TransactionCase):
                 "name": "rule 1",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
                 "name": "rule 1 - bis",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -426,7 +450,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
         ])
@@ -451,14 +476,16 @@ class TestStudioApprovals(TransactionCase):
                 "name": "rule 1",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
                 "name": "rule 1 - bis",
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
             {
@@ -466,7 +493,8 @@ class TestStudioApprovals(TransactionCase):
                 "model_id": IrModel._get("test.studio.model_action").id,
                 "method": "action_confirm",
                 "notification_order": "2",
-                "responsible_id": self.admin_user.id,
+                "approval_group_id": self.env.ref("base.group_user").id,
+                "approver_ids": [Command.link(self.admin_user.id)],
                 "users_to_notify": [Command.link(2)],
             },
         ])
@@ -491,7 +519,7 @@ class TestStudioApprovalsUIUnit(HttpCase):
         cls.testView.model = "test.studio.model_action"
         cls.testView.arch = """
             <form>
-                <button name="action_confirm" type="object" studio_approval="True" class="mybutton"/>
+                <button name="action_confirm" type="object" class="mybutton"/>
             </form>
         """
         cls.admin_user = cls.env.ref("base.user_admin")
@@ -500,10 +528,24 @@ class TestStudioApprovalsUIUnit(HttpCase):
         rule = self.env["studio.approval.rule"].create({
             "model_id": self.env["ir.model"]._get("test.studio.model_action").id,
             "method": "action_confirm",
-            "responsible_id": self.admin_user.id,
+            "approval_group_id": self.env.ref("base.group_user").id,
+            "approver_ids": [Command.link(self.admin_user.id)],
             "users_to_notify": [Command.link(self.admin_user.id)],
         })
 
         url = f"/odoo/action-studio?mode=editor&_action={self.testAction.id}&_view_type=form&_tab=views&menu_id={self.testMenu.id}"
         self.start_tour(url, "test_web_studio.test_disable_approvals", login="admin")
+        self.assertEqual(rule.active, False)
+
+    def test_disable_approvals_via_kanban(self):
+        rule = self.env["studio.approval.rule"].create({
+            "model_id": self.env["ir.model"]._get("test.studio.model_action").id,
+            "method": "action_confirm",
+            "approval_group_id": self.env.ref("base.group_user").id,
+            "approver_ids": [Command.link(self.admin_user.id)],
+            "users_to_notify": [Command.link(self.admin_user.id)],
+        })
+
+        url = f"/odoo/action-studio?mode=editor&_action={self.testAction.id}&_view_type=form&_tab=views&menu_id={self.testMenu.id}"
+        self.start_tour(url, "test_web_studio.test_disable_approvals_via_kanban", login="admin")
         self.assertEqual(rule.active, False)

@@ -1637,10 +1637,7 @@ registry.category("web_tour.tours").add("web_studio_add_one2many_no_related_many
         {
             trigger: "h4.modal-title",
             run() {
-                assertEqual(
-                    this.anchor.textContent,
-                    "No related many2one fields found"
-                );
+                assertEqual(this.anchor.textContent, "No related many2one fields found");
             },
         },
         {
@@ -1669,14 +1666,14 @@ registry.category("web_tour.tours").add("web_studio_test_approval_button_xml_id"
             run: "click",
         },
         {
-            trigger: ".o_web_studio_sidebar #studio_approval",
+            trigger: ".o_web_studio_sidebar [name='create_approval_rule']",
             run: "click",
         },
         {
-            trigger: ".o_web_studio_view_renderer .o_web_studio_approval_avatar"
+            trigger: ".o_web_studio_view_renderer .o_web_studio_approval_avatar",
         },
         {
-            trigger: ".o_web_studio_sidebar .o_approval_group #group_id"
+            trigger: ".o_web_studio_sidebar .o_approval_group #approval_group_id",
         },
-    ]
-})
+    ],
+});

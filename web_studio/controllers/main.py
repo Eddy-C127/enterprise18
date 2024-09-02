@@ -26,7 +26,6 @@ OPERATIONS_WHITELIST = [
     'avatar_image',
     'buttonbox',
     'chatter',
-    'enable_approval',
     'kanban_colorpicker',
     'kanban_menu',
     'kanban_wrap_main',
@@ -957,45 +956,6 @@ Are you sure you want to remove the selection values of those records?""", len(r
         else:
             xml_node.text = node.get('text')
         xpath_node.insert(0, xml_node)
-
-    def _operation_enable_approval(self, arch, operation, model):
-        """Set 'studio_approval="True"' on all matching buttons in the view."""
-        btn_type = operation.get('btn_type')
-        btn_name = operation.get('btn_name')
-        btn_string = operation.get('btn_string')
-        view_id = operation.get('view_id')
-        parser = etree.XMLParser(remove_blank_text=True)
-        raw_base_arch = request.env[model].get_view(view_id, 'form')['arch']
-        base_arch = etree.fromstring(raw_base_arch, parser=parser)
-
-        # if no rule is found, create one on the fly
-        method = action_id = False
-        if btn_type == 'object':
-            method = btn_name
-        else:
-            action_id = request.env['studio.approval.rule']._parse_action_from_button(btn_name)
-
-        rule_domain = request.env['studio.approval.rule']._get_rule_domain(model, method, action_id)
-        existing_rules = request.env['studio.approval.rule'].search(rule_domain)
-        enabling_rules = operation.get("enable")
-        if enabling_rules and not existing_rules:
-            request.env['studio.approval.rule'].create_rule(model, method, action_id, btn_string)
-        if not enabling_rules and existing_rules:
-            existing_rules.write({"active": False})
-
-        matching_buttons = base_arch.findall(".//button[@type='%s'][@name='%s']" % (btn_type, btn_name))
-        for idx, btn in enumerate(matching_buttons):
-            # note that these xpath are not the sexiest, but they will be cleaned
-            # at view normalization
-            xpath_node = etree.SubElement(arch, 'xpath', {
-            'expr': "(//button[@type='%s'][@name='%s'])[%s]" % (btn_type, btn_name, idx + 1),
-            'position': 'attributes'
-            })
-            attribute_node = etree.Element('attribute', name='studio_approval')
-            attribute_node.text = str(enabling_rules)
-            # NOTE: this will leave some extended views with `studio_approval=False`
-            # which is handled client side to do nothing
-            xpath_node.insert(0, attribute_node)
 
     def _get_or_create_fields_for_button(self, model, field, button_name):
         """ Returns the button_count_field and the button_action link to a stat button.

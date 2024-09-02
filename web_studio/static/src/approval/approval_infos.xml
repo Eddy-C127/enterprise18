@@ -3,7 +3,12 @@
 
 <t t-name="StudioApprovalInfos">
     <div class="o-approval-popover" t-if="props.isPopover">
-        <div class="o-approval-popover--header">Approval</div>
+        <div class="o-approval-popover--header d-flex align-items-center justify-content-between">
+            <span>Approval</span>
+            <button class="ms-2 btn btn-custom p-0" title="Open kanban view of approvals" t-on-click="openKanbanApprovalRules">
+                <i class="oi oi-view-kanban" />
+            </button>
+        </div>
         <t t-call="StudioApprovalInfos.contents" />
     </div>
     <t t-else="">
@@ -38,7 +43,6 @@
                 <div class="o_web_studio_approval_description flex-grow-1">
                     <t t-if="rule.message" t-esc="rule.message"/>
                     <t t-else="">Awaiting approval</t>
-                    <p class="small mb-0" t-esc="rule.group_id[1]"/>
                 </div>
                 <t t-if="rule.can_validate">
                     <div class="o_web_studio_approval_button">

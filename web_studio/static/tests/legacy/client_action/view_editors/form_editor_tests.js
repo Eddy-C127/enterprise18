@@ -2498,17 +2498,16 @@ QUnit.module("View Editors", (hooks) => {
                     </form>
                 `,
             resId: 1,
-            mockRPC: function (route, args) {
+            mockRPC: async function (route, args, performRPC) {
                 if (route === "/web_studio/get_studio_view_arch") {
                     return { studio_view_arch: "" };
                 }
                 if (route === "/web_studio/edit_view") {
                     changeArch(
-                        args.view_id,
-                        `
+                        args.view_id,`
                         <form>
                             <header>
-                                <button name="0" string="Test" type="action" class="o_test_action_button" studio_approval="True"/>
+                                <button name="0" string="Test" type="action" class="o_test_action_button"/>
                             </header>
                             <sheet>
                                 <field name="m2o"/>
@@ -2518,10 +2517,10 @@ QUnit.module("View Editors", (hooks) => {
                     );
                 }
                 if (route === "/web/dataset/call_kw/studio.approval.rule/create_rule") {
-                    assert.strictEqual(
-                        args.args[3],
-                        "Test",
-                        "button string is used to set the rule name"
+                    assert.deepEqual(
+                        args.args,
+                        // model, method, action, notification_order
+                        ["coucou", null, "0", "2"],
                     );
                     return {};
                 }
@@ -2532,15 +2531,18 @@ QUnit.module("View Editors", (hooks) => {
                     const allRules = Object.fromEntries(
                         rules.map((id) => {
                             const rule = {
+                                action_id: "0",
+                                approval_group_id: [1, "User types / Internal User"],
+                                approver_ids: [],
                                 can_validate: true,
                                 domain: false,
                                 exclusive_user: false,
-                                message: false,
-                                responsible_id: false,
-                                group_id: [1, "User types / Internal User"],
                                 id,
+                                message: false,
+                                method: false,
+                                name: false,
+                                notification_order: "1",
                                 users_to_notify: [],
-                                notification_order: false,
                             };
                             return [id, rule];
                         })
@@ -2549,6 +2551,12 @@ QUnit.module("View Editors", (hooks) => {
                         all_rules: allRules,
                         coucou: [[[false, false, "0"], { rules, entries: [] }]],
                     };
+                } else if (args.method === "get_views") {
+                    const result = await performRPC(route, args);
+                    for (const modelInfo of Object.values(result.models)) {
+                        modelInfo.has_approval_rules = rules.length > 0;
+                    }
+                    return result;
                 }
             },
         });
@@ -2560,7 +2568,6 @@ QUnit.module("View Editors", (hooks) => {
         );
 
         await click(target, ".o_form_statusbar button[name='0']");
-        await click(target, ".o_web_studio_sidebar_approval input[name='studio_approval']");
         assert.containsOnce(
             target,
             ".o_web_studio_sidebar_approval > .o_studio_sidebar_approval_rule",
@@ -2607,7 +2614,10 @@ QUnit.module("View Editors", (hooks) => {
                 return {};
             },
         };
-        registry.category("services").add("http", fakeHTTPService);
+        registry
+            .category("services")
+            .add("http", fakeHTTPService)
+            .add(getApprovalSpecBatchedService.name, getApprovalSpecBatchedService);
         await createViewEditor({
             serverData,
             type: "form",
@@ -2635,7 +2645,10 @@ QUnit.module("View Editors", (hooks) => {
                 return {};
             },
         };
-        registry.category("services").add("http", fakeHTTPService);
+        registry
+            .category("services")
+            .add("http", fakeHTTPService)
+            .add(getApprovalSpecBatchedService.name, getApprovalSpecBatchedService);
         await createViewEditor({
             serverData,
             type: "form",
@@ -2666,7 +2679,10 @@ QUnit.module("View Editors", (hooks) => {
                 return {};
             },
         };
-        registry.category("services").add("http", fakeHTTPService);
+        registry
+            .category("services")
+            .add("http", fakeHTTPService)
+            .add(getApprovalSpecBatchedService.name, getApprovalSpecBatchedService);
         await createViewEditor({
             serverData,
             type: "form",

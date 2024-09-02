@@ -17,7 +17,7 @@ import {
 import { ViewEditorModel } from "./view_editor_model";
 import { ViewEditorSnackbar } from "./view_editor_snackbar";
 
-export function useViewEditorModel(viewRef) {
+export function useViewEditorModel(viewRef, { initialState }) {
     const env = useEnv();
 
     /* Services */
@@ -41,6 +41,7 @@ export function useViewEditorModel(viewRef) {
         services,
         editionFlow,
         viewRef,
+        initialState,
     });
     useSubEnv({ viewEditorModel });
 

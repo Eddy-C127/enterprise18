@@ -75,4 +75,8 @@ export class FormEditorController extends formView.Controller {
     }
 
     beforeUnload() {}
+
+    _shouldUseSubEnv() {
+        return false;
+    }
 }

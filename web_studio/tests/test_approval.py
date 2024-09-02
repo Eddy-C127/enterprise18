@@ -1,5 +1,6 @@
 from psycopg2 import IntegrityError
 
+from odoo import Command
 from odoo.addons.mail.tests.common import mail_new_test_user
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests.common import TransactionCase
@@ -51,14 +52,14 @@ class TestStudioApproval(TransactionCase):
             'model_id': partner_model.id,
             'method': cls.METHOD,
             'message': "You didn't say the magic word!",
-            'group_id': cls.group_manager.id,
+            'approval_group_id': cls.group_manager.id,
         })
         cls.rule_with_domain = cls.env['studio.approval.rule'].create({
             'active': False,
             'model_id': partner_model.id,
             'method': cls.METHOD,
             'message': "You didn't say the magic word!",
-            'group_id': cls.group_manager.id,
+            'approval_group_id': cls.group_manager.id,
             'domain': '[("is_company", "=", True)]',
         })
         cls.rule_exclusive = cls.env['studio.approval.rule'].create({
@@ -66,7 +67,7 @@ class TestStudioApproval(TransactionCase):
             'model_id': partner_model.id,
             'method': cls.METHOD,
             'message': "You didn't say the magic word!",
-            'group_id': cls.group_manager.id,
+            'approval_group_id': cls.group_manager.id,
             'exclusive_user': True,
         })
         cls.rule_exclusive_with_domain = cls.env['studio.approval.rule'].create({
@@ -74,7 +75,7 @@ class TestStudioApproval(TransactionCase):
             'model_id': partner_model.id,
             'method': cls.METHOD,
             'message': "You didn't say the magic word!",
-            'group_id': cls.group_manager.id,
+            'approval_group_id': cls.group_manager.id,
             'domain': '[("is_company", "=", True)]',
             'exclusive_user': True,
         })
@@ -103,8 +104,7 @@ class TestStudioApproval(TransactionCase):
         # check that modifying forbidden fields is prevented when entries exist
         with self.assertRaises(UserError):
             self.rule.method = 'unlink'
-        with self.assertRaises(UserError):
-            self.rule.group_id = self.env.ref('base.group_user')
+
         with self.assertRaises(UserError):
             self.rule.model_id = self.env.ref('base.model_res_partner_bank')
         with self.assertRaises(UserError):
@@ -224,10 +224,9 @@ class TestStudioApproval(TransactionCase):
         """
         # set the base rule for users and the 'exlusive_user' rules for admin
         self.rule.active = True
-        self.rule.group_id = self.group_user
+        self.rule.approval_group_id = self.group_user
         self.rule_exclusive.active = True
         user_rule = self.rule
-        manager_rule = self.rule_exclusive
         approval_result = self.env['studio.approval.rule'].with_user(self.user).check_approval(
             model=self.MODEL,
             res_id=self.record.id,
@@ -267,7 +266,7 @@ class TestStudioApproval(TransactionCase):
         """
         # set the base rule for users and the 'exlusive_user' rules for admin
         self.rule.active = True
-        self.rule.group_id = self.group_user
+        self.rule.approval_group_id = self.group_user
         self.rule_exclusive.active = True
         user_rule = self.rule
         manager_rule = self.rule_exclusive
@@ -316,7 +315,7 @@ class TestStudioApproval(TransactionCase):
         """Archiving of approvals should be applied even with active_test disabled."""
         # set the base rule for users and the 'exclusive_user' rules for admin
         self.rule.active = True
-        self.rule.group_id = self.group_user
+        self.rule.approval_group_id = self.group_user
         self.rule_exclusive.active = True
         manager_rule = self.rule_exclusive
         approval_result = self.env['studio.approval.rule'].with_user(self.manager).check_approval(
@@ -337,7 +336,7 @@ class TestStudioApproval(TransactionCase):
         """Archiving of rules should not prevent rules with 'exclusive_user' from working."""
         # set the base rule for users and the 'exclusive_user' rules for admin
         self.rule.active = True
-        self.rule.group_id = self.group_user
+        self.rule.approval_group_id = self.group_user
         self.rule_exclusive.active = True
         non_exlusive_rule = self.rule
         # validate a rule that is not exclusive then archive it
@@ -355,15 +354,15 @@ class TestStudioApproval(TransactionCase):
         """Test that exclusive rules for different methods does not interact unexpectdedly."""
         # set the base rule for users and the 'exlusive_user' rules for admin
         self.rule.active = True
-        self.rule.group_id = self.group_user
+        self.rule.approval_group_id = self.group_user
         self.rule_exclusive.active = True
-        self.rule_exclusive.group_id = self.group_user
-        other_exclusive_rule = self.env['studio.approval.rule'].create({
+        self.rule_exclusive.approval_group_id = self.group_user
+        self.env['studio.approval.rule'].create({
             'active': True,
             'model_id': self.rule_exclusive.model_id.id,
             'method': 'open_commercial_entity',
             'message': "You didn't say the magic word!",
-            'group_id': self.group_user.id,
+            'approval_group_id': self.group_user.id,
             'exclusive_user': True,
         })
         approval_result = self.env['studio.approval.rule'].with_user(self.user).check_approval(
@@ -384,7 +383,7 @@ class TestStudioApproval(TransactionCase):
     def test_11_approval_activity(self):
         """Test the integration between approvals and next activities"""
         self.rule.active = True
-        self.rule.responsible_id = self.manager
+        self.rule.approver_ids = [Command.set([self.manager.id])]
         # generate a next activity for the rule's responsible by asking for approval
         self.env['studio.approval.rule'].with_user(self.user).check_approval(
             model=self.MODEL,
@@ -410,7 +409,7 @@ class TestStudioApproval(TransactionCase):
     def test_12_approval_activity_spoof(self):
         """Test that validating an approval activity as another user will not leak approval rights"""
         self.rule.active = True
-        self.rule.responsible_id = self.manager
+        self.rule.approver_ids = [Command.set([self.manager.id])]
         # generate a next activity for the rule's responsible by asking for approval
         self.env['studio.approval.rule'].with_user(self.user).check_approval(
             model=self.MODEL,
@@ -436,7 +435,7 @@ class TestStudioApproval(TransactionCase):
     def test_13_approval_activity_dismissal(self):
         """Test that granting approval unlinks the activity that was created for that purpose"""
         self.rule.active = True
-        self.rule.responsible_id = self.manager
+        self.rule.approver_ids = [Command.set([self.manager.id])]
         # generate a next activity for the rule's responsible by asking for approval
         self.env['studio.approval.rule'].with_user(self.user).check_approval(
             model=self.MODEL,
@@ -457,7 +456,7 @@ class TestStudioApproval(TransactionCase):
     def test_14_approval_activity_dismissal_refused(self):
         """Test that granting approval unlinks the activity that was created for that purpose"""
         self.rule.active = True
-        self.rule.responsible_id = self.manager
+        self.rule.approver_ids = [Command.set([self.manager.id])]
         # generate a next activity for the rule's responsible by asking for approval
         self.env['studio.approval.rule'].with_user(self.user).check_approval(
             model=self.MODEL,
@@ -478,7 +477,7 @@ class TestStudioApproval(TransactionCase):
     def test_15_approval_notification_order(self):
         """Test the multi-levels of approvals"""
         self.rule.active = True
-        self.rule.responsible_id = self.manager
+        self.rule.approver_ids = [Command.set([self.manager.id])]
         self.rule.notification_order = '2'
         self.rule.message = 'This approval is the second step of approval'
         lower_level_rule = self.env['studio.approval.rule'].create({
@@ -486,9 +485,9 @@ class TestStudioApproval(TransactionCase):
             'model_id': self.rule.model_id.id,
             'method': self.rule.method,
             'message': 'This approval is the first step of approval',
-            'group_id': self.group_user.id,
+            'approval_group_id': self.group_user.id,
         })
-        lower_level_rule.responsible_id = self.manager
+        lower_level_rule.approver_ids = [Command.set([self.manager.id])]
         # only the rule of level 1 should create a request for approval activity
         request_level_1 = lower_level_rule._create_request(self.record.id)
         request_level_2 = self.rule._create_request(self.record.id)
@@ -505,12 +504,13 @@ class TestStudioApproval(TransactionCase):
 
         partner_model = self.env.ref('base.model_res_partner')
         self.rule.active = True
+        self.rule.approver_ids = [Command.set([self.manager.id])]
         self.env['studio.approval.rule'].create({
             'active': True,
             'model_id': partner_model.id,
             'method': 'view_header_get',
             'message': "You didn't say the magic word 2!",
-            'group_id': self.group_manager.id,
+            'approval_group_id': self.group_manager.id,
         })
 
         all_approvals = self.env['studio.approval.rule'].with_user(self.user).get_approval_spec(
@@ -554,11 +554,11 @@ class TestStudioApprovalPost(TransactionCase):
         # setup 2 users with custom groups
         cls.group_user = cls.env['res.groups'].with_context(**creation_context).create({
             'name': 'Approval User',
-            'implied_ids': [(4, cls.env.ref('base.group_user').id)],
+            'implied_ids': [Command.link(cls.env.ref('base.group_user').id)],
         })
         cls.group_manager = cls.env['res.groups'].with_context(**creation_context).create({
             'name': 'Approval Manager',
-            'implied_ids': [(4, cls.group_user.id)],
+            'implied_ids': [Command.link(cls.group_user.id)],
         })
         cls.user = mail_new_test_user(
             cls.env, login='Employee',
@@ -567,10 +567,10 @@ class TestStudioApprovalPost(TransactionCase):
             cls.env, login='Manager',
             groups="base.group_user,base.group_partner_manager", context=creation_context)
         cls.user.write({
-            'groups_id': [(4, cls.group_user.id)]
+            'groups_id': [Command.link(cls.group_user.id)]
         })
         cls.manager.write({
-            'groups_id': [(4, cls.group_manager.id)]
+            'groups_id': [Command.link(cls.group_manager.id)]
         })
         cls.record = cls.user.partner_id
         # setup validation rules; inactive by default, they'll get
@@ -602,7 +602,7 @@ class TestStudioApprovalPost(TransactionCase):
             'model_id': self.env.ref('base.model_res_partner').id,
             'method': 'open_commercial_entity',
             'message': "You didn't say the magic word!",
-            'group_id': self.group_manager.id,
+            'approval_group_id': self.group_manager.id,
         })
 
         # the method is patched
@@ -614,8 +614,7 @@ class TestStudioApprovalPost(TransactionCase):
         partner = self.env['res.partner'].with_user(self.user).search([])[0]
         user_result = partner.with_user(self.user).open_commercial_entity()
         self.assertTrue(user_result.get('type') == 'ir.actions.client' and user_result.get('tag') == 'display_notification', 'The patched method should return a notification action')
-        self.assertEqual(user_result.get('params', {}).get('title'), 'The following approvals are missing:', 'The notification should have the correct title')
-        self.assertEqual(user_result.get('params', {}).get('message'), "You didn't say the magic word!", 'The notification contains the corresponding message')
+        self.assertEqual(user_result.get('params', {}).get('message'), "An approval is missing", 'The notification contains the corresponding message')
         self.assertEqual(user_result.get('params', {}).get('type'), 'warning', 'The notification should be a warning')
 
         # the manager can indeed execute this method
@@ -644,7 +643,7 @@ class TestStudioApprovalPost(TransactionCase):
             'model_id': self.env.ref('base.model_res_partner').id,
             'method': 'open_commercial_entity',
             'message': "You didn't say the magic word!",
-            'group_id': self.group_manager.id,
+            'approval_group_id': self.group_manager.id,
         })
         # the method is well patched and the user don't have the approval authorization
         # however if we sudo the user, the method should be executed nonetheless
@@ -661,7 +660,7 @@ class TestStudioApprovalPost(TransactionCase):
                 'model_id': self.env.ref('base.model_res_partner').id,
                 'method': '_get_gravatar_image',
                 'message': "You didn't say the magic word!",
-                'group_id': self.group_manager.id,
+                'approval_group_id': self.group_manager.id,
             })
 
         with self.assertRaises(ValidationError):
@@ -670,7 +669,7 @@ class TestStudioApprovalPost(TransactionCase):
                 'model_id': self.env.ref('base.model_res_partner').id,
                 'method': '__setattr__',
                 'message': "You didn't say the magic word!",
-                'group_id': self.group_manager.id,
+                'approval_group_id': self.group_manager.id,
             })
 
         with self.assertRaises(ValidationError):
@@ -679,7 +678,7 @@ class TestStudioApprovalPost(TransactionCase):
                 'model_id': self.env.ref('base.model_res_partner').id,
                 'method': 'create',
                 'message': "You didn't say the magic word!",
-                'group_id': self.group_manager.id,
+                'approval_group_id': self.group_manager.id,
             })
 
         with self.assertRaises(ValidationError):
@@ -688,7 +687,7 @@ class TestStudioApprovalPost(TransactionCase):
                 'model_id': self.env.ref('base.model_res_partner').id,
                 'method': 'write',
                 'message': "You didn't say the magic word!",
-                'group_id': self.group_manager.id,
+                'approval_group_id': self.group_manager.id,
             })
 
         with self.assertRaises(ValidationError):
@@ -697,5 +696,5 @@ class TestStudioApprovalPost(TransactionCase):
                 'model_id': self.env.ref('base.model_res_partner').id,
                 'method': 'unlink',
                 'message': "You didn't say the magic word!",
-                'group_id': self.group_manager.id,
+                'approval_group_id': self.group_manager.id,
             })

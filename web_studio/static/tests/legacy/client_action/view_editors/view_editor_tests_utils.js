@@ -188,8 +188,8 @@ export async function createViewEditor({ arch, serverData = {}, mockRPC, resMode
     // this intercepts the call and changes the args in place to simulate that (not-so-good)-API
     if (mockRPC && typeof mockRPC === "function") {
         const _mockRPC = mockRPC;
-        mockRPC = (route, args) => {
-            const res = _mockRPC(route, args);
+        mockRPC = (route, args, performRPC) => {
+            const res = _mockRPC(route, args, performRPC);
             if (route === "/web_studio/edit_view_arch") {
                 args.view_id = currentViewId;
             }

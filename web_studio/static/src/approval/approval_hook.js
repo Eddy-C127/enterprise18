@@ -1,9 +1,8 @@
 /** @odoo-module */
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
-import { renderToMarkup } from "@web/core/utils/render";
 
-import { xml, reactive, useComponent, useEnv, toRaw, onMounted, onWillDestroy } from "@odoo/owl";
+import { reactive, useComponent, useEnv, toRaw, onMounted, onWillDestroy } from "@odoo/owl";
 import { useRecordObserver } from "@web/model/relational_model/utils";
 import { Deferred } from "@web/core/utils/concurrency";
 import { registry } from "@web/core/registry";
@@ -73,15 +72,6 @@ registry
     .category("services")
     .add(getApprovalSpecBatchedService.name, getApprovalSpecBatchedService);
 
-const missingApprovalsTemplate = xml`
-    <ul>
-        <li t-foreach="missingApprovals" t-as="approval" t-key="approval_index">
-            <t t-esc="approval.message or approval.group_id[1]" />
-        </li>
-    </ul>
-`;
-const notificationTitle = _t("The following approvals are missing:");
-
 function getMissingApprovals(entries, rules) {
     const missingApprovals = [];
     const doneApprovals = entries.filter((e) => e.approved).map((e) => e.rule_id[0]);
@@ -143,10 +133,14 @@ class StudioApproval {
 
     displayNotification(data) {
         const missingApprovals = getMissingApprovals(data.entries, data.rules);
-        this.notification.add(renderToMarkup(missingApprovalsTemplate, { missingApprovals }), {
-            type: "warning",
-            title: notificationTitle,
-        });
+        this.notification.add(
+            missingApprovals.length > 1
+                ? _t("Some approvals are missing")
+                : _t("An approval is missing"),
+            {
+                type: "warning",
+            }
+        );
     }
 
     async checkApproval() {

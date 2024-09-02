@@ -4,27 +4,23 @@
     <ViewStructureProperties>
         <div class="o_web_studio_sidebar_approval border-bottom border-secondary pb-4 mb-3">
             <ModifiersProperties node="props.node" availableOptions="props.availableOptions"/>
-            <h6 class="mb-1">Approvals</h6>
-            <Property
-                name="'studio_approval'"
-                type="'boolean'"
-                value="isApprovalEnabled"
-                onChange.bind="onEnableApproval"
-                class="'mb-2'"
-            >
-                Set approval rules
-            </Property>
-            <t t-if="isApprovalEnabled and state.approvalSpec">
+            <div class="d-flex align-items-center mb-1">
+                <h6 class="mb-0">Approvals</h6>
+                <button class="ms-auto btn btn-custom" title="Open kanban view of approvals" t-on-click="openKanbanApprovalRules">
+                    <i class="fs-4 oi oi-view-kanban" />
+                </button>
+            </div>
+            <t t-if="state.approvalSpec">
                 <t t-foreach="state.approvalSpec.rules" t-as="ruleId" t-key="ruleId">
                     <t t-set="rule" t-value="state.allRules[ruleId]" />
                     <t t-call="web_studio.ViewEditorSidebar.ApprovalRule"/>
                 </t>
-                <div>
-                    <a href="#" role="button" class="o_web_studio_sidebar_btn_link" name="create_approval_rule" t-on-click="createApprovalRule">
-                        <i class="fa fa-plus me-2" aria-hidden="true"></i>Add an approval rule
-                    </a>
-                </div>
             </t>
+            <div>
+                <a href="#" role="button" class="o_web_studio_sidebar_btn_link" name="create_approval_rule" t-on-click="createApprovalRule">
+                    <i class="fa fa-plus me-2" aria-hidden="true"></i>Add an approval step
+                </a>
+            </div>
         </div>
         <t t-if="showRainbowMan">
             <RainbowEffect effect="this.props.node.attrs.effect" onChange.bind="onChangeAttribute" />
@@ -48,44 +44,48 @@
     <Record t-props="recordProps" onRecordChanged="(r, c) => this.onChangeApprovalRecord(r, c, rule.id)" values="rule" t-slot-scope="data">
         <t t-set="record" t-value="data.record" />
         <div>
+            <div>
+                <div class="d-flex">
+                    <label t-attf-for="rule_responsible_{{rule.id}}">
+                        Approvers
+                        <sup class="text-info p-1" data-tooltip="Users will be able to approve or reject the step and will receive activities" t-esc="'?'"/>
+                    </label>
+                    <div class="ms-auto">
+                        <button
+                                t-attf-class="btn btn-sm btn-dark o_approval_domain {{rule.domain ? '' : 'opacity-50'}}"
+                                t-att-data-tooltip="rule.domain ? 'Edit rule condition' : 'Set condition on rule'"
+                                t-on-click="() => this.onApprovalSelectDomain(rule.id)">
+                                <i class="fa fa-fw fa-filter"/>
+                        </button>
+                        <button
+                            class="btn btn-sm btn-dark o_approval_archive opacity-50"
+                            data-tooltip="Remove rule"
+                            t-on-click="() => this.onApprovalArchive(rule.id)">
+                            <i class="fa fa-fw fa-trash"/>
+                        </button>
+                    </div>
+                </div>
+                <div class="o_field_widget o_field_many2one o_web_studio_sidebar_tags" t-attf-class="{{ !isValid('approver_ids', record) ? 'border border-danger' : ''}}" name="approver_ids">
+                    <Many2ManyTagsField id="'approver_ids'" name="'approver_ids'" record="data.record" canCreate="false" canQuickCreate="false" canCreateEdit="false" domain="domainResUsers"/>
+                </div>
+            </div>
             <label t-attf-for="rule_group_{{rule.id}}">
-                Allowed Group
-                <sup class="text-info p-1" data-tooltip="Only members of this group will be able to approve or reject the rule" t-esc="'?'"/>
+                Approver Group
+                <sup class="text-info p-1" data-tooltip="The members of this group will be able to approve or reject the step" t-esc="'?'"/>
             </label>
             <div class="o_approval_group">
-                <div class="o_field_widget o_field_many2one" name="group_id">
-                    <Many2OneField id="'group_id'" name="'group_id'" record="data.record" canOpen="false"/>
+                <div class="o_field_widget o_field_many2one" name="approval_group_ids" t-attf-class="{{ !isValid('approval_group_id', record) ? 'border border-danger' : ''}}">
+                    <Many2OneField id="'approval_group_id'" name="'approval_group_id'" record="data.record" canOpen="false" canCreate="false" canQuickCreate="false" canCreateEdit="false" domain="domainResUsers"/>
                 </div>
-                <button
-                    t-attf-class="btn btn-sm btn-dark o_approval_domain {{rule.domain ? '' : 'opacity-50'}}"
-                    t-att-data-tooltip="rule.domain ? 'Edit rule condition' : 'Set condition on rule'"
-                    t-on-click="() => this.onApprovalSelectDomain(rule.id)">
-                    <i class="fa fa-fw fa-filter"/>
-                </button>
-                <button
-                    class="btn btn-sm btn-dark o_approval_archive opacity-50"
-                    data-tooltip="Remove rule"
-                    t-on-click="() => this.onApprovalArchive(rule.id)">
-                    <i class="fa fa-fw fa-trash"/>
-                </button>
-            </div>
-        </div>
-        <div>
-            <label t-attf-for="rule_responsible_{{rule.id}}">
-                Responsible
-                <sup class="text-info p-1" data-tooltip="An activity will be assigned to this user when an approval is requested" t-esc="'?'"/>
-            </label>
-            <div class="o_field_widget o_field_many2one" name="responsible_id">
-                <Many2OneField id="'responsible_id'" name="'responsible_id'" record="data.record" canOpen="false"/>
             </div>
         </div>
         <div class="o_web_studio_sidebar_tags">
             <div>
                 <label t-attf-for="users_to_notify_{{rule.id}}">
-                    Users to notify
-                    <sup class="text-info p-1" data-tooltip="These users will receive a notification via internal note when an approval is requested" t-esc="'?'"/>
+                    Users to Notify
+                    <sup class="text-info p-1" data-tooltip="These users will receive a notification via internal note when the step is approved or rejected" t-esc="'?'"/>
                 </label>
-                <div class="o_field_widget o_field_many2many_tags" name="users_to_notify">
+                <div class="o_field_widget o_field_many2one" name="users_to_notify">
                     <Many2ManyTagsField id="'users_to_notify'" name="'users_to_notify'" record="data.record"/>
                 </div>
             </div>
@@ -96,31 +96,33 @@
                 <sup class="text-info p-1" data-tooltip="This message will be displayed to users that cannot proceed without this approval" t-esc="'?'"/>
             </label>
             <input t-attf-id="approval_message_{{rule.id}}" t-attf-name="approval_message_{{rule.id}}" type="text"
-                t-att-value="rule.message || null" placeholder="Add a description..." t-on-change="(ev) => this.onApprovalEdit('operation_approval_message', rule.id, ev.target.value)"/>
+                t-att-value="rule.message || null" t-on-change="(ev) => this.onApprovalEdit('operation_approval_message', rule.id, ev.target.value)"/>
         </div>
-        <div class="o_web_studio_sidebar_checkbox mt4" name="">
-            <div data-tooltip="The user who approves this rule will not be able to approve other rules for the same record.">
-                <CheckBox value="rule.exclusive_user" onChange="(value) => this.onApprovalEdit('operation_different_users', rule.id, value)" id="'exclusive_user_' + rule.id">
-                    Exclusive Approval
-                </CheckBox>
+        <div class="d-flex">
+            <div class="o_web_studio_sidebar_text">
+                <label t-attf-for="notification_order{{rule.id}}">
+                    Approval Order
+                    <sup class="text-info p-1" data-tooltip="Use this field to setup multi-level validation. Next activities for an approval request will only be sent once steps from previous levels have been validated" t-esc="'?'"/>
+                </label>
+                <select t-attf-id="notification_order{{rule.id}}" t-on-change="(ev) => this.onChangeNotificationOrder(ev, rule.id)" class="form-select">
+                    <option t-att-selected="!rule.notification_order || rule.notification_order === '1'">1</option>
+                    <option t-att-selected="rule.notification_order === '2'">2</option>
+                    <option t-att-selected="rule.notification_order === '3'">3</option>
+                    <option t-att-selected="rule.notification_order === '4'">4</option>
+                    <option t-att-selected="rule.notification_order === '5'">5</option>
+                    <option t-att-selected="rule.notification_order === '6'">6</option>
+                    <option t-att-selected="rule.notification_order === '7'">7</option>
+                    <option t-att-selected="rule.notification_order === '8'">8</option>
+                    <option t-att-selected="rule.notification_order === '9'">9</option>
+                </select>
             </div>
-        </div>
-        <div class="o_web_studio_sidebar_text">
-            <label t-attf-for="notification_order{{rule.id}}">
-                Notification Order
-                <sup class="text-info p-1" data-tooltip="Use this field to setup multi-level validation. Next activities and notifications for an approval request will only be sent once rules from previous levels have been validated" t-esc="'?'"/>
-            </label>
-            <select t-attf-id="notification_order{{rule.id}}" t-on-change="(ev) => this.onChangeNotificationOrder(ev, rule.id)">
-                <option t-att-selected="!rule.notification_order || rule.notification_order === '1'">1</option>
-                <option t-att-selected="rule.notification_order === '2'">2</option>
-                <option t-att-selected="rule.notification_order === '3'">3</option>
-                <option t-att-selected="rule.notification_order === '4'">4</option>
-                <option t-att-selected="rule.notification_order === '5'">5</option>
-                <option t-att-selected="rule.notification_order === '6'">6</option>
-                <option t-att-selected="rule.notification_order === '7'">7</option>
-                <option t-att-selected="rule.notification_order === '8'">8</option>
-                <option t-att-selected="rule.notification_order === '9'">9</option>
-            </select>
+            <div class="o_web_studio_sidebar_checkbox align-self-end ms-2" name="">
+                <div data-tooltip="The user who approves this step will not be able to approve other steps for the same record.">
+                    <CheckBox value="rule.exclusive_user" onChange="(value) => this.onApprovalEdit('operation_different_users', rule.id, value)" id="'exclusive_user_' + rule.id">
+                        Exclusive Approval
+                    </CheckBox>
+                </div>
+            </div>
         </div>
     </Record>
 </div>

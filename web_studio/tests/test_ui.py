@@ -1793,9 +1793,6 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         </form>
         """
         self.start_tour("/odoo?debug=tests", "web_studio_test_approval_button_xml_id", login="admin")
-        tree = self.testView._get_combined_arch()
-        button = tree.xpath("//button")[0]
-        self.assertEqual(button.get("studio_approval"), "True")
 
         approvals = self.env["studio.approval.rule"].get_approval_spec([{"action_id": "base.action_model_data", "model": "res.partner", "res_id": False}])
         partner_approvals = dict(approvals["res.partner"])

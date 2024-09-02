@@ -15,11 +15,9 @@ export class ViewButtonStudio extends ViewButton {
         super.setup();
         useStudioRef("rootRef");
 
-        if (this.props.studioApproval) {
-            useBus(this.env.viewEditorModel.env.bus, "approval-update", () => {
-                this.approval.fetchApprovals();
-            });
-        }
+        useBus(this.env.viewEditorModel.env.bus, "approval-update", () => {
+            this.approval.fetchApprovals();
+        });
     }
     getClassName() {
         let className = super.getClassName();
@@ -42,5 +40,9 @@ export class ViewButtonStudio extends ViewButton {
         this.env.config.onNodeClicked(
             target?.getAttribute("studioxpath") || this.props.studioXpath
         );
+    }
+
+    _shouldUseApproval() {
+        return true;
     }
 }

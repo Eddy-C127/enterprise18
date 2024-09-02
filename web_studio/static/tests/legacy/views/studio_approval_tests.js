@@ -24,6 +24,14 @@ const fakeStudioService = {
     },
 };
 
+async function addHasApprovalRules(getViewsProm) {
+    const result = await getViewsProm;
+    for (const modelInfo of Object.values(result.models)) {
+        modelInfo.has_approval_rules = true;
+    }
+    return result;
+}
+
 QUnit.module("Studio Approval", (hooks) => {
     let target;
     let serverData;
@@ -34,7 +42,7 @@ QUnit.module("Studio Approval", (hooks) => {
         defaultRules = {
             1: {
                 id: 1,
-                group_id: [1, "Internal User"],
+                approval_group_id: [1, "Internal User"],
                 domain: false,
                 can_validate: true,
                 message: false,
@@ -87,8 +95,8 @@ QUnit.module("Studio Approval", (hooks) => {
             type: "form",
             resModel: "partner",
             serverData,
-            arch: `<form><button studio_approval="True" type="object" name="myMethod"/></form>`,
-            async mockRPC(route, args) {
+            arch: `<form><button type="object" name="myMethod"/></form>`,
+            async mockRPC(route, args, performRPC) {
                 if (args.method === "get_approval_spec") {
                     assert.step(args.method);
                     await prom;
@@ -96,6 +104,8 @@ QUnit.module("Studio Approval", (hooks) => {
                         all_rules: defaultRules,
                         partner: [[[false, "myMethod", false], { rules: [1], entries: [] }]],
                     };
+                } else if (args.method === "get_views") {
+                    return addHasApprovalRules(performRPC(route, args));
                 }
             },
         });
@@ -121,30 +131,31 @@ QUnit.module("Studio Approval", (hooks) => {
             arch: `<form string="Partners">
                 <sheet>
                     <header>
-                        <button type="object" name="someMethod" string="Apply Method" studio_approval="True"/>
+                        <button type="object" name="someMethod" string="Apply Method"/>
                     </header>
                     <div name="button_box">
-                        <button class="oe_stat_button" studio_approval="True" id="visibleStat">
+                        <button class="oe_stat_button" name="yetAnotherMethod" id="visibleStat">
                             <field name="int_field"/>
                         </button>
-                        <button class="oe_stat_button" studio_approval="True"
-                                invisible="bar" id="invisibleStat">
+                        <button class="oe_stat_button"
+                                invisible="bar" id="invisibleStat"
+                                name="yetAnotherMethod">
                             <field name="bar"/>
                         </button>
                     </div>
                     <group>
                         <group style="background-color: red">
-                            <field name="display_name" studio_approval="True"/>
+                            <field name="display_name"/>
                             <field name="bar"/>
                             <field name="int_field"/>
                         </group>
                     </group>
                     <button type="object" name="anotherMethod"
-                            string="Apply Second Method" studio_approval="True"/>
+                            string="Apply Second Method"/>
                 </sheet>
             </form>`,
             resId: 2,
-            mockRPC: function (route, args) {
+            mockRPC: function (route, args, performRPC) {
                 if (args.method === "get_approval_spec") {
                     assert.step("fetch_approval_spec");
                     return {
@@ -154,6 +165,8 @@ QUnit.module("Studio Approval", (hooks) => {
                             [[2, "anotherMethod", false], { rules: [1], entries: [] }],
                         ],
                     };
+                } else if (args.method === "get_views") {
+                    return addHasApprovalRules(performRPC(route, args));
                 }
             },
         });
@@ -187,7 +200,7 @@ QUnit.module("Studio Approval", (hooks) => {
                     <sheet>
                         <header>
                             <button type="object" id="mainButton" name="someMethod"
-                                     string="Apply Method" studio_approval="True"/>
+                                     string="Apply Method"/>
                         </header>
                         <group>
                             <group style="background-color: red">
@@ -199,7 +212,7 @@ QUnit.module("Studio Approval", (hooks) => {
                     </sheet>
                 </form>`,
             resId: 2,
-            mockRPC: function (route, args) {
+            mockRPC: function (route, args, performRPC) {
                 if (args.method === "get_approval_spec") {
                     assert.step("fetch_approval_spec");
                     return {
@@ -217,6 +230,8 @@ QUnit.module("Studio Approval", (hooks) => {
                 } else if (args.method === "someMethod") {
                     assert.step("someMethod");
                     return true;
+                } else if (args.method === "get_views") {
+                    return addHasApprovalRules(performRPC(route, args));
                 }
             },
         });
@@ -250,7 +265,7 @@ QUnit.module("Studio Approval", (hooks) => {
             arch: `<form string="Partners">
                     <sheet>
                         <header>
-                            <button id="mainButton" class="oe_stat_button" type="action" name="someaction" studio_approval="True">
+                            <button id="mainButton" class="oe_stat_button" type="action" name="someaction">
                                 Test
                             </button>
                         </header>
@@ -264,7 +279,7 @@ QUnit.module("Studio Approval", (hooks) => {
                     </sheet>
                 </form>`,
             resId: 2,
-            mockRPC: function (route, args) {
+            mockRPC: function (route, args, performRPC) {
                 if (args.method === "get_approval_spec") {
                     assert.step("fetch_approval_spec");
                     return {
@@ -278,6 +293,8 @@ QUnit.module("Studio Approval", (hooks) => {
                         rules: [defaultRules[1]],
                         entries: [],
                     });
+                } else if (args.method === "get_views") {
+                    return addHasApprovalRules(performRPC(route, args));
                 }
             },
         });
@@ -296,9 +313,9 @@ QUnit.module("Studio Approval", (hooks) => {
                     <sheet>
                         <header>
                             <button type="object" id="mainButton" name="someMethod"
-                                     string="Apply Method" studio_approval="True"/>
+                                     string="Apply Method"/>
                             <button type="object" id="mainButton" name="someMethod2"
-                                     string="Apply Method 2" studio_approval="True"/>
+                                     string="Apply Method 2"/>
                         </header>
                         <group>
                             <group style="background-color: red">
@@ -310,7 +327,7 @@ QUnit.module("Studio Approval", (hooks) => {
                     </sheet>
                 </form>`,
             resId: 2,
-            mockRPC: function (route, args) {
+            mockRPC: function (route, args, performRPC) {
                 if (args.method === "get_approval_spec") {
                     assert.step("fetch_approval_spec");
                     return {
@@ -320,6 +337,8 @@ QUnit.module("Studio Approval", (hooks) => {
                             [[2, "someMethod2", false], { rules: [1], entries: [] }],
                         ],
                     };
+                } else if (args.method === "get_views") {
+                    return addHasApprovalRules(performRPC(route, args));
                 }
             },
         });
@@ -340,7 +359,7 @@ QUnit.module("Studio Approval", (hooks) => {
             arch: `<form string="Partners">
                     <sheet>
                         <header>
-                            <button type="object=" name="someMethod" string="Apply Method" studio_approval="True"/>
+                            <button type="object=" name="someMethod" string="Apply Method"/>
                         </header>
                         <group>
                             <group style="background-color: red">
@@ -352,7 +371,7 @@ QUnit.module("Studio Approval", (hooks) => {
                     </sheet>
                 </form>`,
             resId: 2,
-            mockRPC: function (route, args) {
+            mockRPC: function (route, args, performRPC) {
                 if (args.method === "get_approval_spec") {
                     const entries = [];
                     if (hasValidatedRule !== undefined) {
@@ -378,6 +397,8 @@ QUnit.module("Studio Approval", (hooks) => {
                     hasValidatedRule = undefined;
                     assert.step("delete_approval");
                     return Promise.resolve(true);
+                } else if (args.method === "get_views") {
+                    return addHasApprovalRules(performRPC(route, args));
                 }
             },
         });
@@ -397,7 +418,7 @@ QUnit.module("Studio Approval", (hooks) => {
         serverData.views = {
             "partner,false,form": `
             <form>
-                <button type="object=" name="someMethod" string="Apply Method" studio_approval="True"/>
+                <button type="object=" name="someMethod" string="Apply Method"/>
             </form>`,
             "partner,false,list": '<list><field name="display_name"/></list>',
             "partner,false,search": "<search></search>",
@@ -418,7 +439,7 @@ QUnit.module("Studio Approval", (hooks) => {
 
         let index = 0;
         const recordIds = [1, 2, 3];
-        const mockRPC = (route, args) => {
+        const mockRPC = (route, args, performRPC) => {
             if (args.method === "get_approval_spec") {
                 const currentIndex = index++;
                 defaultRules[currentIndex] = { ...defaultRules[1], id: currentIndex };
@@ -432,6 +453,8 @@ QUnit.module("Studio Approval", (hooks) => {
                         ],
                     ],
                 };
+            } else if (args.method === "get_views") {
+                return addHasApprovalRules(performRPC(route, args));
             }
         };
         const webClient = await createWebClient({ serverData, mockRPC });
@@ -454,7 +477,7 @@ QUnit.module("Studio Approval", (hooks) => {
             },
         };
 
-        const mockRPC = (route, args) => {
+        const mockRPC = (route, args, performRPC) => {
             const rule = {
                 id: 1,
                 group_id: [1, "Internal User"],
@@ -490,6 +513,8 @@ QUnit.module("Studio Approval", (hooks) => {
 
             if (args.method === "someMethod") {
                 assert.step("button method executed");
+            } else if (args.method === "get_views") {
+                return addHasApprovalRules(performRPC(route, args));
             }
         };
 
@@ -499,7 +524,7 @@ QUnit.module("Studio Approval", (hooks) => {
             type: "form",
             resModel: "partner",
             arch: `<form>
-                <button type="action" name="someMethod" string="Apply Method" studio_approval="True"/>
+                <button type="action" name="someMethod" string="Apply Method"/>
             </form>`,
         });
 
@@ -525,7 +550,7 @@ QUnit.module("Studio Approval", (hooks) => {
             },
         };
 
-        const mockRPC = (route, args) => {
+        const mockRPC = (route, args, performRPC) => {
             const rule = {
                 id: 1,
                 group_id: [1, "Internal User"],
@@ -561,6 +586,8 @@ QUnit.module("Studio Approval", (hooks) => {
 
             if (args.method === "someMethod") {
                 assert.step("button method executed");
+            } else if (args.method === "get_views") {
+                return addHasApprovalRules(performRPC(route, args));
             }
         };
 
@@ -570,7 +597,7 @@ QUnit.module("Studio Approval", (hooks) => {
             type: "form",
             resModel: "partner",
             arch: `<form>
-                <button type="action" name="someaction" string="Apply Method" studio_approval="True"/>
+                <button type="action" name="someaction" string="Apply Method"/>
                 <field name="int_field"/>
             </form>`,
             resId: 1,
@@ -595,7 +622,7 @@ QUnit.module("Studio Approval", (hooks) => {
             /* This uses two exclusive buttons. When one is displayed, the other is not.
         When clicking on the first button, this changes the int_field value which
         then hides the first button and display the second one */
-            const mockRPC = (route, args) => {
+            const mockRPC = (route, args, performRPC) => {
                 if (args.method === "check_approval") {
                     assert.step("check_approval");
                     return Promise.resolve({
@@ -628,6 +655,8 @@ QUnit.module("Studio Approval", (hooks) => {
 
                 if (args.method === "otherMethod") {
                     return true;
+                } else if (args.method === "get_views") {
+                    return addHasApprovalRules(performRPC(route, args));
                 }
             };
 
@@ -637,8 +666,8 @@ QUnit.module("Studio Approval", (hooks) => {
                 type: "form",
                 resModel: "partner",
                 arch: `<form>
-                <button type="object" name="someMethod" string="Apply Method" invisible="int_field == 1" studio_approval="True"/>
-                <button type="object" name="otherMethod" string="Other Method" invisible="int_field != 1" studio_approval="True"/>
+                <button type="object" name="someMethod" string="Apply Method" invisible="int_field == 1"/>
+                <button type="object" name="otherMethod" string="Other Method" invisible="int_field != 1"/>
                 <field name="int_field"/>
             </form>`,
                 resId: 1,
@@ -663,7 +692,7 @@ QUnit.module("Studio Approval", (hooks) => {
     );
 
     QUnit.test("approval with domain: pager", async (assert) => {
-        const mockRPC = (route, args) => {
+        const mockRPC = (route, args, performRPC) => {
             if (args.method === "get_approval_spec") {
                 assert.step(`get_approval_spec: ${args.args[0][0].res_id}`);
                 const rules = [];
@@ -683,6 +712,8 @@ QUnit.module("Studio Approval", (hooks) => {
                         ],
                     ],
                 };
+            } else if (args.method === "get_views") {
+                return addHasApprovalRules(performRPC(route, args));
             }
         };
 
@@ -692,7 +723,7 @@ QUnit.module("Studio Approval", (hooks) => {
             type: "form",
             resModel: "partner",
             arch: `<form>
-                    <button type="object" name="someMethod" string="Apply Method" studio_approval="True"/>
+                    <button type="object" name="someMethod" string="Apply Method"/>
                     <field name="int_field"/>
                 </form>`,
             resId: 1,
@@ -712,7 +743,7 @@ QUnit.module("Studio Approval", (hooks) => {
     QUnit.test("approval save a record", async (assert) => {
         serverData.models.partner.records = [];
         let hasRules = true;
-        const mockRPC = (route, args) => {
+        const mockRPC = (route, args, performRPC) => {
             if (args.method === "web_save") {
                 assert.step(args.method, args.args);
             }
@@ -735,6 +766,8 @@ QUnit.module("Studio Approval", (hooks) => {
                         ],
                     ],
                 };
+            } else if (args.method === "get_views") {
+                return addHasApprovalRules(performRPC(route, args));
             }
         };
 
@@ -744,7 +777,7 @@ QUnit.module("Studio Approval", (hooks) => {
             type: "form",
             resModel: "partner",
             arch: `<form>
-                    <button type="object" name="someMethod" string="Apply Method" studio_approval="True"/>
+                    <button type="object" name="someMethod" string="Apply Method"/>
                     <field name="int_field"/>
                 </form>`,
         });

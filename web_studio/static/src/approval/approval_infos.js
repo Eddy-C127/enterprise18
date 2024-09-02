@@ -5,6 +5,7 @@ import { Dialog } from "@web/core/dialog/dialog";
 import { user } from "@web/core/user";
 
 import { useState, Component } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
 
 export class StudioApprovalInfos extends Component {
     static template = "StudioApprovalInfos";
@@ -20,6 +21,7 @@ export class StudioApprovalInfos extends Component {
         const approval = this.props.approval;
         this.approval = approval;
         this.state = useState(approval.state);
+        this.actionService = useService("action");
     }
 
     formatDate(val, format) {
@@ -36,5 +38,16 @@ export class StudioApprovalInfos extends Component {
 
     cancelApproval(ruleId) {
         return this.approval.cancelApproval(ruleId);
+    }
+
+    openKanbanApprovalRules() {
+        const { resModel, method, action } = this.approval;
+        return this.actionService.doActionButton({
+            type: "object",
+            name: "open_kanban_rules",
+            resModel: "studio.approval.rule",
+            resIds: [],
+            args: JSON.stringify([resModel, method, action]),
+        });
     }
 }

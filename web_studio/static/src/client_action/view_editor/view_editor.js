@@ -1,5 +1,5 @@
 /** @odoo-module */
-import { Component, onWillUpdateProps, useState, useSubEnv, useRef } from "@odoo/owl";
+import { Component, onWillUpdateProps, useState, useSubEnv, useRef, markRaw } from "@odoo/owl";
 
 import { useBus, useService } from "@web/core/utils/hooks";
 import { registry } from "@web/core/registry";
@@ -11,6 +11,8 @@ import { standardActionServiceProps } from "@web/webclient/actions/action_servic
 import { getDefaultConfig } from "@web/views/view";
 
 import { XmlResourceEditor } from "@web_studio/client_action/xml_resource_editor/xml_resource_editor";
+import { useSetupAction } from "@web/search/action_hook";
+import { _t } from "@web/core/l10n/translation";
 
 class ViewXmlEditor extends XmlResourceEditor {
     static props = { ...XmlResourceEditor.props, studioViewArch: { type: String } };
@@ -40,6 +42,8 @@ export class ViewEditor extends Component {
     static components = { StudioView, InteractiveEditor, ViewXmlEditor };
     static template = "web_studio.ViewEditor";
 
+    static displayName = _t("View Editor");
+
     setup() {
         /* Services */
         this.studio = useService("studio");
@@ -53,7 +57,35 @@ export class ViewEditor extends Component {
         this.rootRef = useRef("root");
         this.rendererRef = useRef("viewRenderer");
 
-        this.viewEditorModel = useViewEditorModel(this.rendererRef);
+        const initialState = {};
+        const breadcrumbs = this.env.editionFlow.breadcrumbs;
+        if (breadcrumbs.length) {
+            initialState.showInvisible = breadcrumbs[0].initialState.showInvisible;
+            initialState.activeNodeXpath = breadcrumbs.at(-1).initialState.activeNodeXpath;
+        }
+
+        this.viewEditorModel = useViewEditorModel(this.rendererRef, { initialState });
+
+        useSetupAction({
+            getLocalState: () => {
+                // Use this as a hook that is triggered when the actionService knows
+                // this component will be unmounted, is still alive and the new action
+                // is being built.
+                // We store the state in the breadcrumbs, because there two ways
+                // to respawn the editor:
+                // - the editor's breadcrumbs
+                // - the standard actionService breadcrumbs
+                const breadcrumbs = this.viewEditorModel.breadcrumbs;
+                breadcrumbs[0].initialState = markRaw({
+                    showInvisible: this.viewEditorModel.showInvisible,
+                });
+                const last = breadcrumbs.at(-1);
+                last.initialState = markRaw({
+                    ...(last.initialState || {}),
+                    activeNodeXpath: this.viewEditorModel.activeNodeXpath,
+                });
+            },
+        });
     }
 
     get interactiveEditorKey() {

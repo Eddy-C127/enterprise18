@@ -34,7 +34,7 @@
                 t-as="crumb"
                 t-key="crumb.id"
                 t-on-click="crumb.handler"
-                class="breadcrumb-item cursor-default"
+                class="breadcrumb-item cursor-pointer"
                 t-att-class="{active: crumb_last, o_back_button: !crumb_last}"
                 t-esc="crumb.data.name"/>
         </ol>

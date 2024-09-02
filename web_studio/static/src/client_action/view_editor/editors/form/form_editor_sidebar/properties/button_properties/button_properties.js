@@ -38,24 +38,30 @@ export class ButtonProperties extends Component {
     setup() {
         this.dialog = useService("dialog");
         this.orm = useService("orm");
+        this.actionService = useService("action");
         this.state = useState({});
         this.editNodeAttributes = useEditNodeAttributes();
 
         this.decoratedOrmCall = useSnackbarWrapper(this.orm.call.bind(this.orm));
         this.decoratedOrmWrite = useSnackbarWrapper(this.orm.write.bind(this.orm));
 
+        this.domainResUsers = [
+            ["id", "not in", [1]],
+            ["share", "=", false],
+        ];
         const m2mFieldsToFetch = {
             display_name: { type: "char" },
         };
         const approvalRecordDefinition = {
-            group_id: {
+            approval_group_id: {
                 type: "many2one",
                 relation: "res.groups",
-            },
-            responsible_id: {
-                type: "many2one",
-                relation: "res.users",
                 domain: [["share", "=", false]],
+            },
+            approver_ids: {
+                type: "many2many",
+                relation: "res.users",
+                related: { activeFields: m2mFieldsToFetch, fields: m2mFieldsToFetch },
             },
             users_to_notify: {
                 type: "many2many",
@@ -70,18 +76,20 @@ export class ButtonProperties extends Component {
         };
 
         onWillStart(() => {
-            if (this.props.node.attrs.studio_approval) {
-                this.updateApprovalSpec();
-            }
+            this.updateApprovalSpec();
         });
 
         onWillUpdateProps((nextProps) => {
-            if (nextProps.node.attrs.studio_approval) {
-                this.updateApprovalSpec(this.getApprovalParams(nextProps.node));
-            } else {
-                delete this.state.approvalSpec;
-            }
+            this.updateApprovalSpec(this.getApprovalParams(nextProps.node));
         });
+    }
+
+    isValid(fieldName, record) {
+        if (["approver_ids", "approval_group_id"].includes(fieldName)) {
+            const evalContext = record.evalContext;
+            return evalContext.approver_ids.length || evalContext.approval_group_id;
+        }
+        return true;
     }
 
     onChangeAttribute(value, name) {
@@ -93,30 +101,19 @@ export class ButtonProperties extends Component {
         this.updateApprovalSpec();
     }
 
-    onEnableApproval(enable) {
-        this.env.viewEditorModel.doOperation({
-            enable,
-            type: "enable_approval",
-            btn_name: this.props.node.attrs.name,
-            btn_type: this.props.node.attrs.type,
-            btn_string: this.props.node.attrs.string,
-            model: this.env.viewEditorModel.controllerProps.resModel,
-            view_id: this.env.viewEditorModel.view.id,
-        });
-    }
-
     get showRainbowMan() {
         const attrs = this.props.node.attrs;
         return attrs.class !== "oe_stat_button" && attrs.type === "object";
     }
 
-    get isApprovalEnabled() {
-        return this.props.node.attrs.studio_approval === "True";
-    }
-
     async createApprovalRule() {
         const params = this.getApprovalParams();
-        params[3] = this.props.node.attrs.string;
+        if (this.state.approvalSpec?.rules.length) {
+            const orders = this.state.approvalSpec.rules.map((id) =>
+                parseInt(this.state.allRules[id]["notification_order"])
+            );
+            params.push(Math.min(Math.max(...orders) + 1, 9).toString());
+        }
         await this.decoratedOrmCall("studio.approval.rule", "create_rule", params);
         this.updateApprovalSpec();
     }
@@ -182,7 +179,6 @@ export class ButtonProperties extends Component {
         await this.decoratedOrmWrite("studio.approval.rule", [id], {
             notification_order: ev.target.value,
         });
-        this.updateApprovalSpec();
     }
 
     async updateApprovalSpec(params = this.getApprovalParams()) {
@@ -194,5 +190,20 @@ export class ButtonProperties extends Component {
             rules: [],
             entries: [],
         };
+    }
+
+    async openKanbanApprovalRules() {
+        const [resModel, method, action] = this.getApprovalParams();
+        return this.actionService.doActionButton({
+            context: {
+                studio: true,
+            },
+            type: "object",
+            name: "open_kanban_rules",
+            resModel: "studio.approval.rule",
+            resIds: [],
+            args: JSON.stringify([resModel, method, action]),
+            stackPosition: "replaceCurrentAction",
+        });
     }
 }

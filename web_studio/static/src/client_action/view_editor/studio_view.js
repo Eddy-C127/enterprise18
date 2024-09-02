@@ -35,7 +35,13 @@ export class StudioView extends Component {
         this.viewRenderer = useRef("viewRenderer");
 
         this.controllerProps = { ...this.viewEditorModel.controllerProps };
-
+        if (this.viewEditorModel.initialState.activeNodeXpath) {
+            onMounted(() => {
+                const initialActiveNodeXpath = this.viewEditorModel.initialState.activeNodeXpath;
+                this.viewEditorModel.initialState.activeNodeXpath = null;
+                this.viewEditorModel.activeNodeXpath = initialActiveNodeXpath;
+            });
+        }
         useEffect(
             (xpath) => {
                 if (xpath) {

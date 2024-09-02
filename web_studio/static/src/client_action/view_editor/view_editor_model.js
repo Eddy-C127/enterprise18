@@ -91,8 +91,9 @@ function buildKey(...args) {
 }
 
 export class ViewEditorModel extends Reactive {
-    constructor({ env, services, editionFlow, viewRef }) {
+    constructor({ env, services, editionFlow, viewRef, initialState = {} }) {
         super();
+        this.initialState = initialState;
         this._isInEdition = false;
         this.mode = "interactive";
         this.env = env;
@@ -275,7 +276,7 @@ export class ViewEditorModel extends Reactive {
         };
         this.viewRef = viewRef;
 
-        this.showInvisible = false;
+        this.showInvisible = initialState.showInvisible || false;
 
         // Keep track of the current sidebarTab to be able to
         // restore it when switching back from the xml editor

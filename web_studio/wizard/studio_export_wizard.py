@@ -230,7 +230,8 @@ FIELDS_TO_EXPORT = {
     "res.groups": ["color", "comment", "implied_ids", "name", "share"],
     "ir.default": ["field_id", "condition", "json_value"],
     "studio.approval.rule": [
-        "group_id",
+        "approver_ids",
+        "approval_group_id",
         "model_id",
         "method",
         "action_id",

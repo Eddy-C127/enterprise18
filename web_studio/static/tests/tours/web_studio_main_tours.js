@@ -1219,7 +1219,7 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
         },
         {
             // enable approvals for the button
-            trigger: '.o_web_studio_sidebar label[for="studio_approval"]',
+            trigger: '.o_web_studio_sidebar_approval [name="create_approval_rule"]',
             run: "click",
         },
         {

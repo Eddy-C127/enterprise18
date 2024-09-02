@@ -32,6 +32,9 @@ patch(MockServer.prototype, {
         if (route === "/web_studio/get_studio_view_arch") {
             return Promise.resolve(this.mockGetStudioViewArch(args));
         }
+        if (args.method === "get_approval_spec") {
+            return Promise.resolve(this.mockGetApprovalSpec(args));
+        }
 
         return super.performRPC(...arguments);
     },
@@ -42,6 +45,15 @@ patch(MockServer.prototype, {
 
     mockChatterAllowed() {
         return false;
+    },
+
+    mockGetApprovalSpec({ args }) {
+        const result = { all_rules: {} };
+        const args_list = args[0];
+        for (const { model } of args_list) {
+            result[model] = [];
+        }
+        return result;
     },
 
     mockGetStudioViewArch() {

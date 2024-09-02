@@ -21,3 +21,4 @@ from . import report_paperformat
 from . import studio_approval
 from . import ir_default
 from . import studio_export_model
+from . import models

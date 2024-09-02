@@ -89,6 +89,14 @@ function makeMockRPC() {
         return { default_value: undefined };
     });
     onRpc("/web_studio/get_studio_view_arch", () => ({ studio_view_arch: "" }));
+    onRpc("get_approval_spec", ({ args }) => {
+        const result = { all_rules: {} };
+        const args_list = args[0];
+        for (const { model } of args_list) {
+            result[model] = [];
+        }
+        return result;
+    });
 }
 
 export async function mountViewEditor(params) {
@@ -143,6 +151,7 @@ function prepareRegistry() {
         "overlay",
         "ui",
         "effect",
+        "web_studio.get_approval_spec_batched",
     ];
     Object.keys(serviceRegistry.content).forEach((e) => {
         if (!REQUIRED_SERVICES.includes(e)) {
