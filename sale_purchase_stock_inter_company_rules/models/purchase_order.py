@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, _
+from odoo import Command, models, _
 from odoo.exceptions import UserError
 
 
@@ -23,4 +23,15 @@ class purchase_order(models.Model):
         res = super()._prepare_sale_order_line_data(line, company)
         if line.product_id.sale_delay:
             res['customer_lead'] = line.product_id and line.product_id.sale_delay or 0.0
+        # adds a product_custom_attribute_value_ids if the PO was generated from an SO
+        so_lines = self.env['stock.move'].browse(line.move_ids._rollup_move_dests()).mapped('sale_line_id')
+        so_line = so_lines[0] if so_lines else line.move_dest_ids.sale_line_id
+        pcavs = so_line.product_custom_attribute_value_ids
+        pcavs_vals_list = []
+        for pcav in pcavs:
+            pcavs_vals_list.append(Command.create({
+                'custom_product_template_attribute_value_id': pcav.custom_product_template_attribute_value_id.id,
+                'custom_value': pcav.custom_value,
+            }))
+        res['product_custom_attribute_value_ids'] = pcavs_vals_list
         return res
