@@ -10,6 +10,7 @@
     'depends': [
         'web',
         'web_editor',
+        'digest',
         'html_editor',
         'mail',
         'portal',
@@ -18,6 +19,7 @@
     ],
     'data': [
         'data/article_templates.xml',
+        'data/digest_data.xml',
         'data/ir_config_parameter_data.xml',
         'data/ir_attachment_data.xml',
         'data/knowledge_cover_data.xml',

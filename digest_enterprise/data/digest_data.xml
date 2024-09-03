@@ -13,5 +13,17 @@
                 </div>
             </field>
         </record>
+        <record id="digest_tip_web_enterprise_1" model="digest.tip">
+            <field name="name">Tip: Your Business right in their pocket</field>
+            <field name="sequence">3400</field>
+            <field name="group_id" ref="base.group_system"/>
+            <field name="tip_description" type="html">
+<div>
+    <p class="tip_title">Tip: Your Business right in their pocket</p>
+    <p class="tip_content">Connect your WhatsApp account to Odoo to receive inbound messages directly in your CRM.</p>
+    <img src="https://download.odoocdn.com/digests/whatsapp/static/src/img/18-whatsapp-message-flow.png" width="540" class="illustration_border"/>
+</div>
+            </field>
+        </record>
     </data>
 </odoo>
