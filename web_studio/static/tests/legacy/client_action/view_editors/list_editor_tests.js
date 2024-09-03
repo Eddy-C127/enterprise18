@@ -2610,5 +2610,33 @@ QUnit.module(
                 "'View' button are present in the list view"
             );
         });
+
+        QUnit.test("groupby fields should not be included", async function (assert) {
+            const arch = `<tree>
+                <field name="display_name"/>
+                <groupby name="m2o">
+                    <field name="toughness" invisible="1"/>
+                </groupby>
+            </tree>`;
+            await createViewEditor({
+                serverData,
+                type: "list",
+                resModel: "coucou",
+                arch,
+                mockRPC: function (route, args) {
+                    if (route === "/web_studio/edit_view") {
+                        assert.step("edit_view");
+                        assert.deepEqual(args.operations[0].new_attrs, {
+                            column_invisible: "False",
+                            invisible: "False",
+                        });
+                    }
+                },
+            });
+            await click(target, "th[data-name='display_name']");
+            await click(target.querySelector(".o_web_studio_attrs"));
+            await click(target.querySelector(".modal .btn-primary"));
+            assert.verifySteps(["edit_view"]);
+        });
     }
 );

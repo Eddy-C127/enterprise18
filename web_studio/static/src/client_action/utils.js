@@ -3,7 +3,7 @@ import { reactive, useComponent, useEnv, useSubEnv } from "@odoo/owl";
 
 export function getFieldsInArch(xmlDoc) {
     return Array.from(xmlDoc.querySelectorAll("field"))
-        .filter((el) => !el.parentElement.closest("field"))
+        .filter((el) => !el.parentElement.closest("field,groupby"))
         .map((n) => n.getAttribute("name"));
 }
 
