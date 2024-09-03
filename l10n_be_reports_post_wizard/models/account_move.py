@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, _
+from odoo import models, api, _
 
 
 class AccountMove(models.Model):
@@ -40,18 +40,19 @@ class AccountMove(models.Model):
 
         return super().action_post()
 
-    def _get_report_options_from_tax_closing_entry(self):
+    @api.model
+    def _get_tax_closing_report_options(self, company, fiscal_position, report, date_inside_period):
         """This override retrieves the generation options that were inserted in
            the context by the wizard opened by `action_post` overridden by this module,
            and merges them in the computed options.
         """
-        report, options = super()._get_report_options_from_tax_closing_entry()
+        options = super()._get_tax_closing_report_options(company, fiscal_position, report, date_inside_period)
 
         l10n_be_options = self.env.context.get('l10n_be_reports_generation_options', False)
         if l10n_be_options:
             options.update(l10n_be_options)
 
-        return report, options
+        return options
 
     def _get_vat_report_attachments(self, report, options):
         attachments = super()._get_vat_report_attachments(report, options)

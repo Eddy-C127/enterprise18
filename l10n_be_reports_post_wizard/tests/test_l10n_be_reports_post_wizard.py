@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-from datetime import date, timedelta
 from unittest.mock import patch
 
+from odoo import fields
 from odoo.addons.account_reports.tests.common import TestAccountReportsCommon
-from odoo.tests import tagged, freeze_time
+from odoo.tests import tagged
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
-@freeze_time("2019-12-31")
 class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
 
     @classmethod
@@ -21,22 +20,10 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
             'email': 'jsmith@mail.com',
             'phone': '+32475123456',
         })
-
-    def setUp(self, *args, **kwargs):
-        super().setUp(*args, **kwargs)
-
-        self.tax_return_move = self.env['account.move'].search([
-            ('tax_closing_report_id', '!=', False),
-            ('state', '=', 'draft'),
-            ('company_id', '=', self.company_data['company'].id),
-        ])
-
-        # Force the closing end date in the past to avoid an error
-        today = date.today()
-        self.end_of_last_month = today + timedelta(days=-today.day)
-        self.tax_return_move.write({
-            'date': self.end_of_last_month,
-        })
+        cls.report = cls.env.ref('l10n_be.tax_report_vat')
+        cls.options = cls._generate_options(cls.report, '2019-11-01', '2019-11-30')
+        action = cls.env['account.tax.report.handler'].with_context({'override_tax_closing_warning': True}).action_periodic_vat_entries(cls.options)
+        cls.tax_return_move = cls.env['account.move'].browse(action['res_id'])
 
     def test_posting_opens_wizard(self):
         ''' Test that posting the tax report opens the wizard
@@ -57,26 +44,23 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
         }.items())
         self.assertGreaterEqual(action['context'].items(), {
             'l10n_be_reports_generation_options': {},
-            'l10n_be_reports_closing_date': self.end_of_last_month,
+            'l10n_be_reports_closing_date': fields.Date.from_string(self.options['date']['date_to']),
             'l10n_be_action_resume_post_move_ids': self.tax_return_move.ids,
         }.items())
 
     def test_validating_wizard_posts_move(self):
         ''' Test that validating the wizard posts the move
         '''
+        # Posting the tax returns move with the wizard data actually posts the move
         self.tax_return_move.refresh_tax_entry()
 
-        # Posting the tax returns move with the wizard data actually posts the move
-        report = self.env.ref('l10n_be.tax_report_vat')
-        options = self._generate_options(report, '2023-01-31', '2023-01-31')
-
         mock_pdf = {
-            'file_name': report.get_default_report_filename(options, 'pdf'),
+            'file_name': self.report.get_default_report_filename(self.options, 'pdf'),
             'file_content': b'',
             'file_type': 'pdf',
         }
 
-        with patch.object(type(report), 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: mock_pdf):
+        with patch.object(self.env.registry[self.report._name], 'export_to_pdf', autospec=True, side_effect=lambda *args, **kwargs: mock_pdf):
             action = self.tax_return_move.action_post()
             export_wizard = self.env[action['res_model']].with_context(action['context']).create({})
             export_wizard.action_resume_post()
@@ -99,11 +83,8 @@ class TestL10nBeReportsPostWizard(TestAccountReportsCommon):
 
         export_wizard = self.env[action['res_model']].with_context(action['context']).create({'comment': test_comment})
 
-        report = self.env.ref('l10n_be.tax_report_vat')
-        options = self._generate_options(report, '2023-01-31', '2023-01-31')
-
         mock_pdf = {
-            'file_name': report.get_default_report_filename(options, 'pdf'),
+            'file_name': self.report.get_default_report_filename(self.options, 'pdf'),
             'file_content': b'',
             'file_type': 'pdf',
         }

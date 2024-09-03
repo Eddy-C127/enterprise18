@@ -57,6 +57,13 @@ class ResCompany(models.Model):
             ('type', '=', 'general'),
         ], limit=1)
 
+    def _get_tax_closing_journal(self):
+        journals = self.env['account.journal']
+        for company in self:
+            journals |= company.account_tax_periodicity_journal_id or company._get_default_misc_journal()
+
+        return journals
+
     @api.model_create_multi
     def create(self, vals_list):
         companies = super().create(vals_list)
@@ -67,7 +74,7 @@ class ResCompany(models.Model):
         tax_closing_update_dependencies = ('account_tax_periodicity', 'account_tax_periodicity_journal_id.id')
         to_update = self.env['res.company']
         for company in self:
-            if company.account_tax_periodicity_journal_id:
+            if company._get_tax_closing_journal():
                 need_tax_closing_update = any(
                     update_dep in values and company.mapped(update_dep)[0] != values[update_dep]
                     for update_dep in tax_closing_update_dependencies
@@ -78,14 +85,55 @@ class ResCompany(models.Model):
 
         res = super().write(values)
 
+        # Early return
+        if not to_update:
+            return res
+
         to_reset_closing_moves = self.env['account.move'].sudo().search([
             ('company_id', 'in', to_update.ids),
             ('tax_closing_report_id', '!=', False),
             ('state', '=', 'draft'),
         ])
         to_reset_closing_moves.button_cancel()
+        misc_journals = self.env['account.journal'].sudo().search([
+            *self.env['account.journal']._check_company_domain(to_update),
+            ('type', '=', 'general'),
+        ])
+        to_reset_closing_reminder_activities = self.env['mail.activity'].sudo().search([
+            ('res_id', 'in', misc_journals.ids),
+            ('res_model_id', '=', self.env['ir.model']._get_id('account.journal')),
+            ('activity_type_id', '=', self.env.ref('account_reports.tax_closing_activity_type').id),
+            ('active', '=', True),
+        ])
+        to_reset_closing_reminder_activities.action_cancel()
+        generic_tax_report = self.env.ref('account.generic_tax_report')
 
-        hidden_tax_journals = self.account_tax_periodicity_journal_id.sudo().filtered(lambda j: not j.show_on_dashboard)
+        # Create a new reminder
+        # The user is unlikely to change the periodicity often and for multiple companies at once
+        # So it is fair enough to make this that way as we are obliged to get the tax report for each company
+        # And then loop over all the reports to get their period boudaries and look for activity
+        for company in to_update:
+            tax_reports = self.env['account.report'].search([
+                ('availability_condition', '=', 'country'),
+                ('country_id', 'in', company.account_enabled_tax_country_ids.ids),
+                ('root_report_id', '=', generic_tax_report.id),
+            ])
+            if not tax_reports.filtered(lambda x: x.country_id == company.account_fiscal_country_id):
+                tax_reports += generic_tax_report
+
+            for tax_report in tax_reports:
+                period_start, period_end = company._get_tax_closing_period_boundaries(fields.Date.today(), tax_report)
+                activity = company._get_tax_closing_reminder_activity(tax_report.id, period_end)
+                if not activity and self.env['account.move'].search_count([
+                    ('date', '<=', period_end),
+                    ('date', '>=', period_start),
+                    ('tax_closing_report_id', '=', tax_report.id),
+                    ('company_id', '=', company.id),
+                    ('state', '=', 'posted')
+                ]) == 0:
+                    company._generate_tax_closing_reminder_activity(tax_report, period_end)
+
+        hidden_tax_journals = self._get_tax_closing_journal().sudo().filtered(lambda j: not j.show_on_dashboard)
         if hidden_tax_journals:
             hidden_tax_journals.show_on_dashboard = True
 
@@ -110,13 +158,11 @@ class ResCompany(models.Model):
         # Compute period dates depending on the date
         period_start, period_end = self._get_tax_closing_period_boundaries(in_period_date, report)
         periodicity = self._get_tax_periodicity(report)
-        activity_deadline = period_end + relativedelta(days=self.account_tax_periodicity_reminder_day)
-        # Search for an existing tax closing move
-        tax_closing_activity_type = self.env.ref('account_reports.tax_closing_activity_type', raise_if_not_found=False)
-        tax_closing_activity_type_id = tax_closing_activity_type.id if tax_closing_activity_type else False
+        tax_closing_journal = self._get_tax_closing_journal()
 
         all_closing_moves = self.env['account.move']
-        for fpos in itertools.chain(fiscal_positions, [None] if include_domestic else []):
+        for fpos in itertools.chain(fiscal_positions, [False] if include_domestic else []):
+            fpos_id = fpos.id if fpos else False
             tax_closing_move = self.env['account.move'].search([
                 ('state', '=', 'draft'),
                 ('company_id', '=', self.id),
@@ -144,48 +190,25 @@ class ResCompany(models.Model):
             # Values for update/creation of closing move
             closing_vals = {
                 'company_id': self.id,# Important to specify together with the journal, for branches
-                'journal_id': self.account_tax_periodicity_journal_id.id,
+                'journal_id': tax_closing_journal.id,
                 'date': period_end,
                 'tax_closing_report_id': report.id,
-                'fiscal_position_id': fpos.id if fpos else None,
+                'fiscal_position_id': fpos_id,
                 'ref': ref,
                 'name': '/', # Explicitly set a void name so that we don't set the sequence for the journal and don't consume a sequence number
             }
 
             if tax_closing_move:
-                # Update the next activity on the existing move
-                for act in tax_closing_move.activity_ids:
-                    if act.activity_type_id.id == tax_closing_activity_type_id:
-                        act.write({'date_deadline': activity_deadline})
-
                 tax_closing_move.write(closing_vals)
             else:
                 # Create a new, empty, tax closing move
                 tax_closing_move = self.env['account.move'].create(closing_vals)
-                _dummy, tax_closing_options = tax_closing_move._get_report_options_from_tax_closing_entry()
 
-                if report._get_sender_company_for_export(tax_closing_options) == tax_closing_move.company_id:
-                    # In case of VAT units or branches, only the main company's closing needs to receive the next activity
-                    group_account_manager = self.env.ref('account.group_account_manager')
-                    advisor_user = tax_closing_activity_type.default_user_id if tax_closing_activity_type else self.env['res.users']
-                    if advisor_user and not (self in advisor_user.company_ids and group_account_manager in advisor_user.groups_id):
-                        advisor_user = self.env['res.users']
-
-                    if not advisor_user:
-                        advisor_user = self.env['res.users'].search(
-                            [('company_ids', 'in', self.ids), ('groups_id', 'in', group_account_manager.ids)],
-                            limit=1, order="id ASC",
-                        )
-
-                    self.env['mail.activity'].with_context(mail_activity_quick_update=True).create({
-                        'res_id': tax_closing_move.id,
-                        'res_model_id': self.env['ir.model']._get_id('account.move'),
-                        'activity_type_id': tax_closing_activity_type_id,
-                        'date_deadline': activity_deadline,
-                        'automated': True,
-                        'summary': ref,
-                        'user_id':  advisor_user.id or self.env.user.id,
-                    })
+            # Create a reminder activity if it doesn't exist
+            activity = self._get_tax_closing_reminder_activity(report.id, period_end, fpos_id)
+            tax_closing_options = tax_closing_move._get_tax_closing_report_options(tax_closing_move.company_id, tax_closing_move.fiscal_position_id, tax_closing_move.tax_closing_report_id, tax_closing_move.date)
+            if not activity and report._get_sender_company_for_export(tax_closing_options) == tax_closing_move.company_id:
+                self._generate_tax_closing_reminder_activity(report, period_end, fpos)
 
             all_closing_moves += tax_closing_move
 
@@ -196,6 +219,62 @@ class ResCompany(models.Model):
             return _("Tax return")
 
         return report.display_name
+
+    def _generate_tax_closing_reminder_activity(self, report, date_in_period=None, fiscal_position=None):
+        """
+        Create a reminder on the current tax_closing_journal for a certain report with a fiscal_position or not if None.
+        The reminder will target the period from which the date sits in
+        """
+        self.ensure_one()
+        if not date_in_period:
+            date_in_period = fields.Date.today()
+        # Search for an existing tax closing move
+        tax_closing_activity_type = self.env.ref('account_reports.tax_closing_activity_type')
+
+        # Tax period
+        period_start, period_end = self._get_tax_closing_period_boundaries(date_in_period, report)
+        periodicity = self._get_tax_periodicity(report)
+        activity_deadline = period_end + relativedelta(days=self.account_tax_periodicity_reminder_day)
+
+        # Reminder title
+        summary = _(
+            "%(report_label)s: %(period)s",
+            report_label=self._get_tax_closing_report_display_name(report),
+            period=self._get_tax_closing_move_description(periodicity, period_start, period_end, fiscal_position, report)
+        )
+
+        activity_user = tax_closing_activity_type.default_user_id if tax_closing_activity_type else self.env['res.users']
+        if activity_user and not (self in activity_user.company_ids and activity_user.has_group('account.group_account_manager')):
+            activity_user = self.env['res.users']
+
+        if not activity_user:
+            activity_user = self.env['res.users'].search(
+                [('company_ids', 'in', self.ids), ('groups_id', 'in', self.env.ref('account.group_account_manager').ids)],
+                limit=1, order="id ASC",
+            )
+
+        self.env['mail.activity'].with_context(mail_activity_quick_update=True).create({
+            'res_id': self._get_tax_closing_journal().id,
+            'res_model_id': self.env['ir.model']._get_id('account.journal'),
+            'activity_type_id': tax_closing_activity_type.id,
+            'date_deadline': activity_deadline,
+            'automated': True,
+            'summary': summary,
+            'user_id':  activity_user.id or self.env.user.id,
+            'account_tax_closing_params': {
+                'report_id': report.id,
+                'tax_closing_end_date': fields.Date.to_string(period_end),
+                'fpos_id': fiscal_position.id if fiscal_position else False,
+            },
+        })
+
+    def _get_tax_closing_reminder_activity(self, report_id, period_end, fpos_id=False):
+        self.ensure_one()
+        tax_closing_activity_type = self.env.ref('account_reports.tax_closing_activity_type')
+        return self._get_tax_closing_journal().activity_ids.filtered(
+            lambda act: act.activity_type_id == tax_closing_activity_type and act.account_tax_closing_params['report_id'] == report_id
+                and fields.Date.from_string(act.account_tax_closing_params['tax_closing_end_date']) == period_end and act.account_tax_closing_params['fpos_id'] == fpos_id
+        )
 
     def _get_tax_closing_move_description(self, periodicity, period_start, period_end, fiscal_position, report):
         """ Returns a string description of the provided period dates, with the

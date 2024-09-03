@@ -44,7 +44,7 @@ class AccountTestSAFTImport(AccountTestInvoicingCommon):
         self.assertEqual(file_partners, partners.mapped('name'), "Partners creation failed")
 
         moves = self.env['account.move'].search(self.env['account.move']._check_company_domain(self.env.company))
-        self.assertEqual(len(moves), 13, "Move import failed")
+        self.assertEqual(len(moves), 12, "Move import failed")
         self.assertEqual(
             sum(self.env['account.move'].search(self.env['account.move']._check_company_domain(self.env.company)).line_ids.mapped('debit')),
             276762.5,

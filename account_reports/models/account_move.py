@@ -23,7 +23,8 @@ class AccountMove(models.Model):
     def _post(self, soft=True):
         # Overridden to create carryover external values and join the pdf of the report when posting the tax closing
         for move in self.filtered(lambda m: m.tax_closing_report_id):
-            report, options = move._get_report_options_from_tax_closing_entry()
+            report = move.tax_closing_report_id
+            options = move._get_tax_closing_report_options(move.company_id, move.fiscal_position_id, report, move.date)
             move._close_tax_period(report, options)
 
         return super()._post(soft)
@@ -58,7 +59,8 @@ class AccountMove(models.Model):
         # Overridden in order to delete the carryover values when resetting the tax closing to draft
         super().button_draft()
         for closing_move in self.filtered(lambda m: m.tax_closing_report_id):
-            report, options = closing_move._get_report_options_from_tax_closing_entry()
+            report = closing_move.tax_closing_report_id
+            options = closing_move._get_tax_closing_report_options(closing_move.company_id, closing_move.fiscal_position_id, report, closing_move.date)
             closing_months_delay = closing_move.company_id._get_tax_periodicity_months_delay(report)
 
             carryover_values = self.env['account.report.external.value'].search([
@@ -104,7 +106,7 @@ class AccountMove(models.Model):
         action = self.env["ir.actions.actions"]._for_xml_id("account_reports.action_account_report_gt")
         if not self.tax_closing_report_id:
             raise UserError(_("You can't open a tax report from a move without a VAT closing date."))
-        options = self._get_report_options_from_tax_closing_entry()[1]
+        options = self._get_tax_closing_report_options(self.company_id, self.fiscal_position_id, self.tax_closing_report_id, self.date)
         # Pass options in context and set ignore_session: true to prevent using session options
         action.update({'params': {'options': options, 'ignore_session': True}})
         return action
@@ -121,10 +123,8 @@ class AccountMove(models.Model):
         self.ensure_one()
         if not self.env.user.has_group('account.group_account_manager'):
             raise UserError(_('Only Billing Administrators are allowed to change lock dates!'))
-
-        tax_closing_activity_type = self.env.ref('account_reports.tax_closing_activity_type')
-
-        report, options = self._get_report_options_from_tax_closing_entry()
+        report = self.tax_closing_report_id
+        options = self._get_tax_closing_report_options(self.company_id, self.fiscal_position_id, report, self.date)
 
         if not self.company_id.tax_lock_date or self.date > self.company_id.tax_lock_date:
             self.company_id.sudo().tax_lock_date = self.date
@@ -171,16 +171,12 @@ class AccountMove(models.Model):
                 )
 
             # End activity
-            activity = self.activity_ids.filtered(lambda m: m.activity_type_id.id == tax_closing_activity_type.id)
+            activity = self.company_id._get_tax_closing_reminder_activity(report.id, self.date, self.fiscal_position_id.id)
             if activity:
                 activity.action_done()
 
-            # Create the recurring entry (new draft move and new activity)
-            if self.fiscal_position_id.foreign_vat:
-                next_closing_params = {'fiscal_positions': self.fiscal_position_id}
-            else:
-                next_closing_params = {'include_domestic': True}
-            self.company_id._get_and_update_tax_closing_moves(self.date + relativedelta(days=1), self.tax_closing_report_id, **next_closing_params)
+            # Generate next activity
+            self.company_id._generate_tax_closing_reminder_activity(self.tax_closing_report_id, self.date + relativedelta(days=1), self.fiscal_position_id if self.fiscal_position_id.foreign_vat else None)
 
         self._close_tax_period_pay_activity()
 
@@ -217,23 +213,24 @@ class AccountMove(models.Model):
 
     def refresh_tax_entry(self):
         for move in self.filtered(lambda m: m.tax_closing_report_id and m.state == 'draft'):
-            report, options = move._get_report_options_from_tax_closing_entry()
+            report = move.tax_closing_report_id
+            options = move._get_tax_closing_report_options(move.company_id, move.fiscal_position_id, report, move.date)
             self.env[report.custom_handler_model_name or 'account.generic.tax.report.handler']._generate_tax_closing_entries(report, options, closing_moves=move)
 
-    def _get_report_options_from_tax_closing_entry(self):
-        self.ensure_one()
-        date_from, date_to = self.company_id._get_tax_closing_period_boundaries(self.date, self.tax_closing_report_id)
+    @api.model
+    def _get_tax_closing_report_options(self, company, fiscal_position, report, date_inside_period):
+        _dummy, date_to = company._get_tax_closing_period_boundaries(date_inside_period, report)
 
         # In case the company submits its report in different regions, a closing entry
         # is made for each fiscal position defining a foreign VAT.
         # We hence need to make sure to select a tax report in the right country when opening
         # the report (in case there are many, we pick the first one available; it doesn't impact the closing)
-        if self.fiscal_position_id.foreign_vat:
-            fpos_option = self.fiscal_position_id.id
-            report_country = self.fiscal_position_id.country_id
+        if fiscal_position and fiscal_position.foreign_vat:
+            fpos_option = fiscal_position.id
+            report_country = fiscal_position.country_id
         else:
             fpos_option = 'domestic'
-            report_country = self.company_id.account_fiscal_country_id
+            report_country = company.account_fiscal_country_id
 
         options = {
             'date': {
@@ -241,15 +238,15 @@ class AccountMove(models.Model):
                 'filter': 'custom_tax_period',
                 'mode': 'range',
             },
-            'selected_variant_id': self.tax_closing_report_id.id,
-            'sections_source_id': self.tax_closing_report_id.id,
+            'selected_variant_id': report.id,
+            'sections_source_id': report.id,
             'fiscal_position': fpos_option,
             'tax_unit': 'company_only',
         }
 
-        if self.tax_closing_report_id.filter_multi_company == 'tax_units':
+        if report.filter_multi_company == 'tax_units':
             # Enforce multicompany if the closing is done for a tax unit
-            candidate_tax_unit = self.company_id.account_tax_unit_ids.filtered(lambda x: x.country_id == report_country)
+            candidate_tax_unit = company.account_tax_unit_ids.filtered(lambda x: x.country_id == report_country)
             if candidate_tax_unit:
                 options['tax_unit'] = candidate_tax_unit.id
                 company_ids = candidate_tax_unit.company_ids.ids
@@ -260,9 +257,7 @@ class AccountMove(models.Model):
         else:
             company_ids = self.env.company.ids
 
-        report_options = self.tax_closing_report_id.with_context(allowed_company_ids=company_ids).get_options(previous_options=options)
-
-        return self.tax_closing_report_id, report_options
+        return report.with_context(allowed_company_ids=company_ids).get_options(previous_options=options)
 
     def _get_vat_report_attachments(self, report, options):
         # Fetch pdf

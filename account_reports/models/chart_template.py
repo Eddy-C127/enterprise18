@@ -32,4 +32,8 @@ class AccountChartTemplate(models.AbstractModel):
         ], limit=1)
         if not tax_report:
             tax_report = generic_tax_report
-        company._get_and_update_tax_closing_moves(fields.Date.today(), tax_report, include_domestic=True)
+
+        _dummy, period_end = company._get_tax_closing_period_boundaries(fields.Date.today(), tax_report)
+        activity = company._get_tax_closing_reminder_activity(tax_report.id, period_end)
+        if not activity:
+            company._generate_tax_closing_reminder_activity(tax_report, period_end)
