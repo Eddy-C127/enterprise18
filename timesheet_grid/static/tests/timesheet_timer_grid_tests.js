@@ -22,6 +22,7 @@ import { start } from "@mail/../tests/helpers/test_utils";
 
 import { setupTestEnv } from "@hr_timesheet/../tests/hr_timesheet_common_tests";
 import { timesheetGridUOMService } from "@timesheet_grid/services/timesheet_grid_uom_service";
+import { patchUserWithCleanup } from "@web/../tests/helpers/mock_services";
 
 import { TimesheetGridSetupHelper } from "./helpers";
 
@@ -1549,6 +1550,7 @@ QUnit.module("Views", (hooks) => {
     QUnit.test(
         "Start timer and create a new project and a new task",
         async function (assert) {
+            patchUserWithCleanup({ hasGroup: (group) => group === "project.group_project_manager" });
             let reload = false;
             const pyEnv = getPyEnv();
             const { openView } = await start({

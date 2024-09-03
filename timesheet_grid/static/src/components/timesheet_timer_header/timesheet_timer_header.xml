@@ -59,6 +59,7 @@
                             canCreateEdit="false"
                             fieldInfo="props.fields['project_id']"
                             placeholder="props.fields['project_id'].placeholder"
+                            canQuickCreate="getIsProjectManager()"
                         />
                         <Field
                             name="'task_id'"

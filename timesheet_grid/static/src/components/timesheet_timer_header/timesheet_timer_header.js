@@ -3,6 +3,7 @@
 import { Field, getPropertyFieldInfo } from "@web/views/fields/field";
 import { TimesheetDisplayTimer } from "../timesheet_display_timer/timesheet_display_timer";
 import { useService, useAutofocus } from "@web/core/utils/hooks";
+import { user } from "@web/core/user";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 
 export class TimesheetTimerHeader extends Component {
@@ -41,12 +42,17 @@ export class TimesheetTimerHeader extends Component {
         if (this.props.timesheet && this.props.timesheet.data.name === "/") {
             this._clearTimesheetName();
         }
+        this.isProjectManager = await user.hasGroup('project.group_project_manager');
     }
 
     onWillUpdateProps(nextProps) {
         if (nextProps.timesheet && nextProps.timesheet.data.name === "/") {
             this._clearTimesheetName(nextProps.timesheet);
         }
+    }
+
+    getIsProjectManager() {
+        return this.isProjectManager;
     }
 
     //----------------------------------------------------------------------
