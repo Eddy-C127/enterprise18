@@ -195,6 +195,7 @@ publicWidget.registry.SalaryPackageWidget = publicWidget.Widget.extend({
         const resumeSidebar = renderToElement('hr_contract_salary.salary_package_resume', {
             'lines': data.resume_lines_mapped,
             'categories': data.resume_categories,
+            'configurator_warning': data.configurator_warning,
         });
         this.$("div[name='salary_package_resume']").html(resumeSidebar);
         $("input[name='wage_with_holidays']").val(data['wage_with_holidays']);

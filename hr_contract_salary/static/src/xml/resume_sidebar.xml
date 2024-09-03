@@ -46,5 +46,11 @@
                 </div>
             </t>
         </t>
+    <t t-if="configurator_warning">
+        <div role="alert" class="alert alert-danger text-center">
+            <t t-esc="configurator_warning"/>
+        </div>
+    </t>
     </div>
+
 </templates>

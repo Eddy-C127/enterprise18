@@ -38,12 +38,14 @@ hrContractSalary.include({
             const modal_body = renderToElement('hr_contract_salary.salary_package_resume', {
                 'lines': data.wishlist_simulation.resume_lines_mapped,
                 'categories': data.wishlist_simulation.resume_categories,
-                'hide_details': true
+                'configurator_warning': data.wishlist_warning,
+                'hide_details': true,
             });
             const wishlistModalEl = this.el.querySelector('main[name="wishlist_modal_body"]');
             wishlistModalEl.innerHTML = "";
             wishlistModalEl.appendChild(modal_body);
         }
+        document.querySelector("button#hr_cs_submit").disabled = !!data["configurator_warning"];
     },
 
     onchangeCompanyCar: function(event) {

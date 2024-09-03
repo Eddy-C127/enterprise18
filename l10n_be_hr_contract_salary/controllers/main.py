@@ -423,6 +423,14 @@ class HrContractSalary(main.HrContractSalary):
         wishlist_result = {}
         contract = self._check_access_rights(contract_id)
 
+        offer = request.env['hr.contract.salary.offer'].sudo().browse(offer_id)
+        minimum_gross_wage = request.env['hr.rule.parameter'].sudo()._get_parameter_from_code(
+            'cp200_min_gross_wage', offer.contract_start_date, raise_if_not_found=False)
+        gross_to_compare = result['new_gross']
+
+        if minimum_gross_wage and gross_to_compare < minimum_gross_wage:
+            result['configurator_warning'] = _("Your monthly gross wage is below the minimum legal amount %(min_gross)s €", min_gross=minimum_gross_wage)
+
         if benefits['contract'].get('fold_wishlist_car_total_depreciated_cost', False) and 'wishlist_car_total_depreciated_cost' in benefits['contract']:
             benefits['contract'].update({
                 'fold_company_car_total_depreciated_cost': True,
@@ -445,6 +453,8 @@ class HrContractSalary(main.HrContractSalary):
 
             request.env.cr.rollback()
             result['wishlist_simulation'] = wishlist_result
+            if minimum_gross_wage and new_gross < minimum_gross_wage:
+                result['wishlist_warning'] = _("Your monthly gross wage will be below the minimum legal amount %(min_gross)s €", min_gross=minimum_gross_wage)
 
         return result
 
