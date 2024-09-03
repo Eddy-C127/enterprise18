@@ -5,7 +5,6 @@ from odoo import models, fields, api
 from odoo.exceptions import UserError
 from odoo.exceptions import ValidationError
 from odoo.tools.translate import _
-from odoo.osv.expression import OR
 
 
 class PosConfig(models.Model):
@@ -173,9 +172,3 @@ class PosConfig(models.Model):
 
     def _get_special_products(self):
         return super()._get_special_products() | self._get_work_products()
-
-    def _get_available_product_domain(self):
-        domain = super()._get_available_product_domain()
-        if work_products := self._get_work_products():
-            return OR([domain, [('id', 'in', work_products.ids)]])
-        return domain
