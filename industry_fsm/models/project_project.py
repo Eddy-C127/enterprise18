@@ -71,3 +71,7 @@ class Project(models.Model):
             super()._get_projects_to_make_billable_domain(),
             [('is_fsm', '=', False)],
         ])
+
+    @api.model
+    def get_create_edit_project_ids(self):
+        return self.env['project.project'].search([('is_fsm', '=', True)]).ids
