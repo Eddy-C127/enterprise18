@@ -173,6 +173,15 @@ class SaleOrderLine(models.Model):
                 result[line.id] = line.qty_delivered - qty_invoiced.get(line.id, 0.0)
         return result
 
+    def _get_deferred_date(self, last_invoice_date=None, next_invoice_date=None):
+        self.ensure_one()
+        # Warning this only works when the invoice period is not updated on a SO
+        last_period_start = self.order_id.next_invoice_date and self.order_id.next_invoice_date - self.order_id.plan_id.billing_period
+        period_start = last_invoice_date or last_period_start
+        next_invoice_date = next_invoice_date or self.order_id.next_invoice_date
+        period_end = next_invoice_date and next_invoice_date - relativedelta(days=1)
+        return period_start, period_end
+
     def _get_subscription_qty_invoiced(self, last_invoice_date=None, next_invoice_date=None):
         result = {}
         amount_sign = {'out_invoice': 1, 'out_refund': -1}
@@ -180,11 +189,8 @@ class SaleOrderLine(models.Model):
             if not line.recurring_invoice or line.order_id.state != 'sale':
                 continue
             qty_invoiced = 0.0
-            last_period_start = line.order_id.next_invoice_date and line.order_id.next_invoice_date - line.order_id.plan_id.billing_period
-            start_date = last_invoice_date or last_period_start
-            end_date = next_invoice_date or line.order_id.next_invoice_date
-            day_before_end_date = end_date and end_date - relativedelta(days=1)
-            if not start_date or not day_before_end_date:
+            period_start, period_end = line._get_deferred_date(last_invoice_date=last_invoice_date, next_invoice_date=next_invoice_date)
+            if not period_start or not period_end:
                 continue
             # The related_invoice_lines have their subscription_{start,end}_date between start_date and day_before_end_date
             # But sometimes, migrated contract and account_move_line don't have these value set.
@@ -193,8 +199,8 @@ class SaleOrderLine(models.Model):
             related_invoice_lines = line.invoice_lines.filtered(
                 lambda l: l.move_id.state != 'cancel' and
                         l.deferred_start_date and l.deferred_end_date and
-                        start_date <= l.deferred_start_date <= day_before_end_date and
-                        l.deferred_end_date == day_before_end_date)
+                        period_start <= l.deferred_start_date <= period_end and
+                        l.deferred_end_date == period_end)
             for invoice_line in related_invoice_lines:
                 line_sign = amount_sign.get(invoice_line.move_id.move_type, 1)
                 qty_invoiced += line_sign * invoice_line.product_uom_id._compute_quantity(invoice_line.quantity, line.product_uom)
