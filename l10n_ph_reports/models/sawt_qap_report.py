@@ -410,12 +410,12 @@ class SawtQapCustomHandler(models.AbstractModel):
         # Get the lines, according to the options.
         lines = report._get_lines(options)
 
-        move_ids = set()
+        move_ids = []
         for line in lines:
             model, res_id = report._get_model_info_from_id(line['id'])
             if model != 'account.move':
                 continue
-            move_ids.add(res_id)
+            move_ids.append(res_id)
         moves = self.env['account.move'].browse(move_ids)
         file_name = 'sawt' if options['move_type'] == 'out_invoice' else 'qap'
         generated_file = utils._export_bir_2307(file_name, moves, file_format='xlsx')
