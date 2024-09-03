@@ -23,19 +23,15 @@
         <field name="model">social.post</field>
         <field name="inherit_id" ref="social.social_post_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='click_count']" position="after">
-                <field name="sale_invoiced_amount"/>
-                <field name="sale_quotation_count"/>
-            </xpath>
             <xpath expr="//div[@id='post-stats']" position="attributes">
                 <attribute name="class" add="justify-content-between" separator=" "/>
             </xpath>
             <xpath expr="//div[@id='post-stats']" position="inside">
-                <div class="d-flex justify-content-between py-1 border-top" groups="sales_team.group_sale_salesman">
-                    <small class="pe-1">Quotations:</small> <small class="fw-bold"><t t-esc="record.sale_quotation_count.raw_value"/></small>
+                <div class="d-flex justify-content-between py-1 border-top small" groups="sales_team.group_sale_salesman">
+                    Quotations:<field name="sale_quotation_count" class="fw-bold" />
                 </div>
-                <div class="d-flex justify-content-between py-1 border-top" groups="sales_team.group_sale_salesman">
-                    <small class="pe-1">Revenues:</small> <small class="fw-bold"><t t-esc="record.sale_invoiced_amount.raw_value"/></small>
+                <div class="d-flex justify-content-between py-1 border-top small" groups="sales_team.group_sale_salesman">
+                    Revenues:<field name="sale_invoiced_amount" class="fw-bold"/>
                 </div>
             </xpath>
         </field>

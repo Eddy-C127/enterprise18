@@ -26,25 +26,18 @@
         <field name="model">social.post</field>
         <field name="arch" type="xml">
             <kanban js_class="social_post_kanban_view" sample="1">
-                <field name="display_message"/>
-                <field name="create_uid"/>
                 <field name="image_ids" widget="many2many_binary"/>
                 <field name="image_urls"/>
-                <field name="published_date"/>
                 <field name="post_method"/>
-                <field name="scheduled_date"/>
-                <field name="state"/>
                 <field name="has_post_errors"/>
                 <field name="media_ids"/>
                 <field name="account_ids"/>
                 <field name="live_posts_by_media"/>
-                <field name="engagement"/>
-                <field name="click_count"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_global_click o_social_post_kanban #{record.has_post_errors.raw_value ? 'o_social_post_kanban_error' : ''} d-flex flex-column p-0">
-                            <div class="o_social_post_header d-flex justify-content-between border-bottom py-2 px-3">
-                                <div class="o_social_post_media d-flex align-items-center">
+                    <t t-name="kanban-card" class="p-0">
+                        <div t-attf-class="#{record.has_post_errors.raw_value ? 'o_social_post_kanban_error' : ''} d-flex flex-column h-100">
+                            <div class="d-flex justify-content-between border-bottom py-2 px-3">
+                                <div class="d-flex align-items-center">
                                     <t t-foreach="record.media_ids.raw_value" t-as="media_id" t-key="media_id_index">
                                         <t t-if="record.live_posts_by_media.raw_value"> <!-- unset in sample mode -->
                                             <img class="img me-1" height="20" t-att-title="title" t-attf-src="/web/image/social.media/#{media_id}/image/20x20" alt="Media"/>
@@ -84,27 +77,24 @@
                                 </div>
                             </div>
                             <div id="post-stats" class="bg-100 px-3 py-1 border-bottom">
-                                <div class="d-flex justify-content-between py-1 m-0">
-                                    <small class="pe-1">Clicks:</small> <small class="fw-bold d-inline-block ms-auto" t-esc="record.click_count.raw_value"/>
+                                <div class="d-flex justify-content-between py-1 m-0 small">
+                                    Clicks: <field name="click_count" class="fw-bold d-inline-block ms-auto"/>
                                 </div>
-                                <div class="d-flex justify-content-between py-1 m-0 border-top">
-                                    <small class="pe-1">Engagement:</small> <small class="fw-bold d-inline-block ms-auto" t-esc="record.engagement.raw_value"/>
+                                <div class="d-flex justify-content-between py-1 m-0 border-top small">
+                                    Engagement: <field name="engagement" class="fw-bold d-inline-block ms-auto"/>
                                 </div>
                             </div>
                             <div class="d-flex flex-grow-0 align-items-center px-3 py-2">
-                                <time class="flex-grow-1 small fw-bold">
-                                    <t t-set="state" t-value="record.state.raw_value"/>
-                                    <t t-if="state === 'posted'">
-                                        <i class="fa fa-calendar-check-o me-1" />
-                                        <t t-esc="record.published_date.value"/>
-                                    </t>
-                                    <t t-if="state === 'scheduled'">
-                                        <i class="fa fa-calendar me-1" />
-                                        <t t-esc="record.scheduled_date.value"/>
-                                    </t>
-                                </time>
+                                <t t-if="record.state.raw_value === 'posted'">
+                                    <i class="fa fa-calendar-check-o me-1 small fw-bold" title="Calendar"/>
+                                    <field name="published_date" class="small fw-bold"/>
+                                </t>
+                                <t t-if="record.state.raw_value === 'scheduled'">
+                                    <i class="fa fa-calendar me-1 small fw-bold" title="Calendar"/>
+                                    <field name="scheduled_date" class="small fw-bold"/>
+                                </t>
 
-                                <field name="create_uid" widget="many2one_avatar_user"/>
+                                <field name="create_uid" widget="many2one_avatar_user" class="ms-auto"/>
                             </div>
                         </div>
                     </t>
@@ -255,41 +245,32 @@
                     invisible="state not in ['posting', 'posted']">
                     <field name="live_post_ids" nolabel="1">
                         <kanban>
-                            <field name="account_id"/>
-                            <field name="state"/>
-                            <field name="failure_reason" />
                             <field name="live_post_link" />
                             <templates>
-                                <t t-name="kanban-box">
-                                    <div class="o_social_live_post_kanban ms-0 me-3">
-                                        <div class="row">
-                                            <div class="col-md-8 o_social_live_post_kanban_account">
-                                                <field name="account_id" />
-                                                <t t-if="record.live_post_link.raw_value"><a t-att-href="record.live_post_link.raw_value" target="blank"><i class="fa fa-globe ms-1" title="See the post"/></a></t>
-                                            </div>
-                                            <div class="col-md-4 text-end mb-2">
-                                                <field name="state" widget="label_selection" options="{'classes': {'ready': 'info', 'posting': 'warning', 'posted': 'success', 'failed': 'danger'}}"/>
-                                            </div>
+                                <t t-name="kanban-card" class="o_social_live_post_kanban ms-0">
+                                    <div class="row">
+                                        <div class="col-md-8 fw-bolder">
+                                            <field name="account_id"/>
+                                            <a t-if="record.live_post_link.raw_value" t-att-href="record.live_post_link.raw_value" target="blank"><i class="fa fa-globe ms-1" title="See the post"/></a>
                                         </div>
-                                        <div class="d-flex flex-row justify-content-between w-100">
-                                            <field name="media_type" invisible="1"/>
-                                            <div class="o_live_post_content d-flex flex-column overflow-hidden pe-2">
-                                                <field name="message"
-                                                    widget="social_post_formatter"/>
-                                            </div>
-                                            <field name="image_ids"
-                                                class="w-auto"
-                                                widget="social_many2many_images"/>
+                                        <div class="col-md-4 text-end mb-2">
+                                            <field name="state" widget="label_selection" options="{'classes': {'ready': 'info', 'posting': 'warning', 'posted': 'success', 'failed': 'danger'}}"/>
                                         </div>
-                                        <div class="text-end mt-4 d-flex flex-row w-100 justify-content-between">
-                                            <div class="o_social_live_post_kanban_failure_reason mt-2" t-att-title="record.failure_reason.raw_value">
-                                                <field name="failure_reason" />
-                                            </div>
-                                            <button name="action_retry_post" string="Retry" type="object" class="btn btn-primary"
-                                                invisible="state != 'failed'">
-                                                Retry
-                                            </button>
+                                    </div>
+                                    <div class="d-flex flex-row justify-content-between w-100">
+                                        <div class="o_live_post_content d-flex flex-column overflow-hidden pe-2">
+                                            <field name="message" widget="social_post_formatter"/>
                                         </div>
+                                        <field name="image_ids" class="w-auto" widget="social_many2many_images"/>
+                                    </div>
+                                    <div class="text-end mt-4 d-flex flex-row w-100 justify-content-between">
+                                        <div class="o_social_live_post_kanban_failure_reason mt-2" t-att-title="record.failure_reason.raw_value">
+                                            <field name="failure_reason" />
+                                        </div>
+                                        <button name="action_retry_post" string="Retry" type="object" class="btn btn-primary"
+                                            invisible="state != 'failed'">
+                                            Retry
+                                        </button>
                                     </div>
                                 </t>
                             </templates>

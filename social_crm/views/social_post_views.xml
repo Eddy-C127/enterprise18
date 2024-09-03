@@ -25,14 +25,13 @@
         <field name="model">social.post</field>
         <field name="inherit_id" ref="social.social_post_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='click_count']" position="after">
+            <xpath expr="//field[@name='live_posts_by_media']" position="after">
                 <field name="use_leads"/>
-                <field name="leads_opportunities_count"/>
             </xpath>
             <xpath expr="//div[@id='post-stats']" position="inside">
                 <div class="d-flex justify-content-between py-1 border-top" groups="sales_team.group_sale_salesman">
                     <small t-if="record.use_leads.raw_value" class="pe-1">Leads:</small>
-                    <small t-else="" class="pe-1">Opportunities:</small> <small class="fw-bold"><t t-esc="record.leads_opportunities_count.raw_value"/></small>
+                    <small t-else="" class="pe-1">Opportunities:</small> <field name="leads_opportunities_count" class="fw-bold small"/>
                 </div>
             </xpath>
         </field>

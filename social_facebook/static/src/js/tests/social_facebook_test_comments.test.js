@@ -18,13 +18,10 @@ return '<kanban class="o_social_stream_post_kanban"' +
     '    records_draggable="false"' +
     '    group_create="false"' +
     '    js_class="social_stream_post_kanban_view">' +
-    '    <field name="id"/>' +
     '    <field name="author_name"/>' +
     '    <field name="author_link"/>' +
     '    <field name="post_link"/>' +
     '    <field name="published_date"/>' +
-    '    <field name="formatted_published_date"/>' +
-    '    <field name="message"/>' +
     '    <field name="media_type"/>' +
     '    <field name="account_id"/>' +
     '    <field name="link_url"/>' +
@@ -32,23 +29,15 @@ return '<kanban class="o_social_stream_post_kanban"' +
     '    <field name="link_title"/>' +
     '    <field name="link_description"/>' +
     '    <field name="stream_post_image_ids"/>' +
-    '    <field name="stream_post_image_urls"/>' +
-    '    <field name="stream_id" readonly="1"/>' +
     '    <field name="facebook_author_id"/>' +
-    '    <field name="facebook_likes_count"/>' +
     '    <field name="facebook_user_likes"/>' +
     '    <field name="facebook_reactions_count"/>' +
-    '    <field name="facebook_comments_count"/>' +
-    '    <field name="facebook_shares_count"/>' +
-    '    <field name="facebook_reach"/>' +
-    '    <field name="facebook_page_id"/>' +
     '    <field name="linkedin_author_image_url"/>' +
     '    <field name="instagram_facebook_author_id"/>' +
     '    <field name="twitter_profile_image_url"/>' +
     '    <templates>' +
 
-'<t t-name="kanban-box">' +
-'	<div class="o_social_stream_post_kanban_global p-0 mb-3">' +
+'<t t-name="kanban-card" class="o_social_stream_post_kanban_global p-0 mb-3">' +
 '		<div class="o_social_stream_post_message py-2">' +
 '			<div class="d-flex justify-content-between mb-2 px-2">' +
 '				<t t-set="author_info">' +
@@ -58,55 +47,45 @@ return '<kanban class="o_social_stream_post_kanban"' +
 '' +
 '				<div class="o_social_author_information d-flex align-items-center">' +
 '					<a t-if="record.author_link.value"' +
-'						class="o_social_stream_post_author d-flex align-items-center"' +
+'						class="d-flex align-items-center"' +
 '						t-att-href="record.author_link.value"' +
 '						t-att-title="record.author_name.value or \'Unknown\'"' +
 '						t-out="author_info"' +
 '						target="_blank"/>' +
 '' +
 '					<div t-else=""' +
-'						class="o_social_stream_post_author d-flex align-items-center"' +
+'						class="d-flex align-items-center"' +
 '						t-out="author_info"/>' +
 '				</div>' +
 '' +
-'				<a t-att-href="record.post_link.value" target="_blank">' +
-'					<time class="o_social_stream_post_published_date small"' +
-'						t-esc="record.formatted_published_date.value"' +
-'						t-att-title="record.published_date.value"/>' +
+'				<a t-att-href="record.post_link.value" target="_blank" class="o_social_stream_post_published_date small" t-att-title="record.published_date.value">' +
+'					<field name="formatted_published_date"/>' +
 '				</a>' +
 '			</div>' +
 '			<div name="o_social_stream_post_message_body"' +
 '				class="o_social_stream_post_message_body px-2 pb-2 mb-2 border-bottom}">' +
-'' +
-'				<div class="o_social_stream_post_message_text overflow-hidden mb-2">' +
-'					<field name="message" widget="social_post_formatter"/>' +
-'				</div>' +
+'				<field name="message" widget="social_post_formatter" class="o_social_stream_post_message_text overflow-hidden mb-2"/>' +
 '			</div>' +
 '           <div class="o_social_stream_post_facebook_stats px-2 d-flex justify-content-around"' +
 '           	t-if="record.media_type.raw_value === \'facebook\'">' +
-'           	<div t-attf-class="o_social_facebook_likes o_social_subtle_btn ps-2 pe-3 #{record.facebook_user_likes.raw_value ? \'o_social_facebook_user_likes\' : \'\'}">' +
-'            		<t t-if="record.facebook_likes_count.raw_value !== 0">' +
-'            			<i class="fa fa-thumbs-up me-1" title="Likes"/>' +
-'            			<field name="facebook_likes_count" class="fw-bold"/>' +
-'            		</t>' +
+'            	<div t-if="record.facebook_likes_count.raw_value !== 0" t-attf-class="o_social_facebook_likes o_social_subtle_btn ps-2 pe-3 #{record.facebook_user_likes.raw_value ? \'o_social_facebook_user_likes\' : \'\'}">' +
+'            		<i class="fa fa-thumbs-up me-1" title="Likes"/>' +
+'            		<field name="facebook_likes_count" class="fw-bold"/>' +
 '            	</div>' +
 '            	<div class="o_social_facebook_comments o_social_comments o_social_subtle_btn px-3">' +
 '            		<i class="fa fa-comments me-1" title="Comments"/>' +
-'            		<b t-esc="record.facebook_comments_count.value !== \'0\' ? record.facebook_comments_count.value : \'\'"/>' +
+'            		<field t-if="record.facebook_comments_count.value !== \'0\'" name="facebook_comments_count" class="fw-bold"/>' +
 '            	</div>' +
 '            	<div class="flex-grow-1 d-flex text-muted justify-content-end">' +
-'            		<div>' +
-'            			<t t-esc="record.facebook_shares_count.value"/>' +
-'            			Shares' +
-'            		</div>' +
+'            		<field name="facebook_shares_count" class="me-1"/>' +
+'            		Shares' +
 '            		<div class="ms-3">' +
-'            			<t t-esc="record.facebook_reach.value"/>' +
+'            			<field name="facebook_reach"/>' +
 '            			Views' +
 '            		</div>' +
 '            	</div>' +
 '            </div>' +
 '		</div>' +
-'	</div>' +
 '</t>' +
     '    </templates>' +
     '</kanban>';

@@ -6,17 +6,11 @@
         <field name="model">social.stream.post</field>
         <field name="inherit_id" ref="social.social_stream_post_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='stream_id']" position="after">
+            <xpath expr="//field[@name='stream_post_image_urls']" position="after">
                 <field name="twitter_tweet_id"/>
-                <field name="twitter_author_id"/>
                 <field name="twitter_profile_image_url"/>
-                <field name="twitter_likes_count"/>
                 <field name="twitter_user_likes"/>
-                <field name="twitter_retweet_count"/>
-                <field name="twitter_screen_name"/>
-                <field name="twitter_comments_count"/>
                 <field name="twitter_quoted_tweet_id_str"/>
-                <field name="twitter_quoted_tweet_message"/>
                 <field name="twitter_quoted_tweet_author_name"/>
                 <field name="twitter_quoted_tweet_author_link"/>
                 <field name="twitter_quoted_tweet_profile_image_url"/>
@@ -44,6 +38,7 @@
 
                         <div class="o_social_twitter_comments o_social_comments o_social_subtle_btn px-4">
                             <i class="fa fa-comments me-1" title="Comments"/>
+                            <field name="twitter_comments_count" t-if="record.twitter_comments_count.value !== '0'" class="fw-bold"/>
                         </div>
                     </div>
 
@@ -53,12 +48,10 @@
                                 role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i t-attf-class="fa fa-retweet #{record.twitter_can_retweet.raw_value ? '' : 'active'} me-1"
                                     role="img" aria-label="Repost" title="Repost or Quote"/>
-                                <t t-if="record.twitter_retweet_count.value > 0">
-                                    <div class="d-inline-block">
-                                        <t t-esc="record.twitter_retweet_count.value"/>
-                                        Reposts
-                                    </div>
-                                </t>
+                                <div t-if="record.twitter_retweet_count.value > 0" class="d-inline-block">
+                                    <field name="twitter_retweet_count"/>
+                                    Reposts
+                                </div>
                             </a>
                             <div class="dropdown-menu kanban_ignore_dropdown" role="menu">
                                 <a class="dropdown-item o_social_twitter_retweet" href="#" role="button">

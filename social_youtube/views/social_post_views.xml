@@ -6,9 +6,7 @@
         <field name="model">social.post</field>
         <field name="inherit_id" ref="social.social_post_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='click_count']" position="after">
-                <field name="youtube_title"/>
-                <field name="youtube_description"/>
+            <xpath expr="//field[@name='live_posts_by_media']" position="after">
                 <field name="youtube_video_id"/>
                 <field name="youtube_thumbnail_url"/>
                 <field name="youtube_video_url"/>

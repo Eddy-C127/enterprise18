@@ -4,10 +4,8 @@
         <field name="model">social.stream.post</field>
         <field name="inherit_id" ref="social.social_stream_post_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='stream_id']" position="after">
+            <xpath expr="//field[@name='stream_post_image_urls']" position="after">
                 <field name="instagram_facebook_author_id"/>
-                <field name="instagram_post_id"/>
-                <field name="instagram_comments_count"/>
                 <field name="instagram_likes_count"/>
                 <field name="account_id"/>
             </xpath>
@@ -23,7 +21,7 @@
                     </div>
                     <div t-attf-class="o_social_instagram_comments o_social_comments o_social_subtle_btn px-3">
                         <i class="fa fa-comments me-1" title="Comments"/>
-                        <b t-esc="record.instagram_comments_count.value !== '0' ? record.instagram_comments_count.value : ''"/>
+                        <field t-if="record.instagram_comments_count.value" name="instagram_comments_count" class="fw-bold"/>
                     </div>
                     <div class="flex-grow-1" />
                 </div>

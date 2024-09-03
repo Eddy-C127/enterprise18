@@ -199,10 +199,8 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
     }
 }
 
-.o_social_post_kanban {
-    &.o_social_post_kanban_error {
-        border-color: map-get($theme-colors, 'danger');
-    }
+.o_social_post_kanban_error {
+    border-color: map-get($theme-colors, 'danger');
 }
 
 // General Components
@@ -319,10 +317,6 @@ $o-social-font-family-reset: $o-font-family-sans-serif;
     .o_field_widget.badge {
         display: inline-block;
         width: auto;
-    }
-
-    .o_social_live_post_kanban_account {
-        font-weight: 600;
     }
 
     .o_social_live_post_kanban_failure_reason {
