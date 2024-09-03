@@ -232,15 +232,18 @@ class HrPayslip(models.Model):
         ''' Open the account.payment.register wizard to pay the selected journal entries.
         :return: An action opening the account.payment.register wizard.
         '''
+        if any(state == 'paid' for state in self.mapped('state')):
+            raise UserError(_("You can only register payments for unpaid documents."))
         if not self.struct_id.rule_ids.filtered(lambda r: r.code == "NET").account_credit.reconcile:
             raise UserError(_('The credit account on the NET salary rule is not reconciliable'))
         bank_account = self.employee_id.sudo().bank_account_id
         if not bank_account.allow_out_payment:
             raise UserError(_('The employee bank account is untrusted'))
-        return self.move_id.with_context(
-            default_partner_id=self.employee_id.work_contact_id.id,
-            default_partner_bank_id=bank_account.id
-        ).action_register_payment()
+        if any(m.state != 'posted' for m in self.move_id):
+            raise UserError(_("You can only register payment for posted journal entries."))
+        return self.move_id.line_ids.action_register_payment(
+            ctx={"default_partner_id": self.employee_id.work_contact_id.id,
+                 "default_partner_bank_id": bank_account.id})
 
     def action_open_move(self):
         return {
