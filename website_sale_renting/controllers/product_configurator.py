@@ -3,10 +3,11 @@
 from odoo.http import route
 
 from odoo.addons.sale_renting.controllers.product_configurator import (
-    SaleRentingProductConfiguratorController
+    SaleRentingProductConfiguratorController,
 )
+from odoo.addons.sale_renting.controllers.utils import _convert_rental_dates
 from odoo.addons.website_sale.controllers.product_configurator import (
-    WebsiteSaleProductConfiguratorController
+    WebsiteSaleProductConfiguratorController,
 )
 
 
@@ -16,20 +17,20 @@ class WebsiteSaleRentingProductConfiguratorController(
 
     @route()
     def website_sale_product_configurator_get_values(self, *args, **kwargs):
-        self._convert_rental_dates(kwargs)
+        _convert_rental_dates(kwargs)
         return super().website_sale_product_configurator_get_values(*args, **kwargs)
 
     @route()
     def website_sale_product_configurator_update_combination(self, *args, **kwargs):
-        self._convert_rental_dates(kwargs)
+        _convert_rental_dates(kwargs)
         return super().website_sale_product_configurator_update_combination(*args, **kwargs)
 
     @route()
     def website_sale_product_configurator_get_optional_products(self, *args, **kwargs):
-        self._convert_rental_dates(kwargs)
+        _convert_rental_dates(kwargs)
         return super().website_sale_product_configurator_get_optional_products(*args, **kwargs)
 
     @route()
     def website_sale_product_configurator_update_cart(self, *args, **kwargs):
-        self._convert_rental_dates(kwargs)
+        _convert_rental_dates(kwargs)
         return super().website_sale_product_configurator_update_cart(*args, **kwargs)

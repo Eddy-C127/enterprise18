@@ -1,6 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.tools import format_amount
 
 
@@ -49,6 +50,20 @@ class ProductTemplate(models.Model):
         not_rentable.update({'qty_in_rent': 0.0})
         for template in rentable:
             template.qty_in_rent = sum(template.mapped('product_variant_ids.qty_in_rent'))
+
+    @api.constrains('type', 'combo_ids', 'rent_ok')
+    def _check_rental_combo_ids(self):
+        for template in self:
+            if (
+                template.type == 'combo'
+                and template.rent_ok
+                and any(
+                    not product.rent_ok for product in template.combo_ids.combo_item_ids.product_id
+                )
+            ):
+                raise ValidationError(
+                    _("A rental combo product can only contain rental products.")
+                )
 
     @api.model
     def _get_incompatible_types(self):

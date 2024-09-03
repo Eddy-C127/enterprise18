@@ -1,4 +1,7 @@
-from odoo import models, fields, api, _
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 from odoo.tools import format_amount
 
 
@@ -51,6 +54,21 @@ class product_template(models.Model):
                 )
             else:
                 record.display_subscription_pricing = None
+
+    @api.constrains('type', 'combo_ids', 'recurring_invoice')
+    def _check_subscription_combo_ids(self):
+        for template in self:
+            if (
+                template.type == 'combo'
+                and template.recurring_invoice
+                and any(
+                    not product.recurring_invoice
+                    for product in template.combo_ids.combo_item_ids.product_id
+                )
+            ):
+                raise ValidationError(
+                    _("A subscription combo product can only contain subscription products.")
+                )
 
     def copy(self, default=None):
         copied_tmpls = self.env['product.template']

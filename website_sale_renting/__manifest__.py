@@ -23,9 +23,10 @@ appropriate views and selling choices.
     ],
     'assets': {
         'web.assets_frontend': [
+            'sale_renting/static/src/js/combo_configurator_dialog/*',
             'sale_renting/static/src/js/product_configurator_dialog/*',
             'website_sale_renting/static/src/scss/*.scss',
-            'website_sale_renting/static/src/js/website_sale_product_configurator.js',
+            'website_sale_renting/static/src/js/website_sale_configurators.js',
             ('prepend', 'website_sale_renting/static/src/js/*.js'),
         ],
         'web.assets_tests': [

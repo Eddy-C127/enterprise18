@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from dateutil.relativedelta import relativedelta
 from math import ceil
+
+from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
 from odoo.osv import expression
@@ -129,7 +129,9 @@ class SaleOrder(models.Model):
         self.has_returnable_lines = False
         for order in self:
             if order.state == 'sale' and order.is_rental_order:
-                rental_order_lines = order.order_line.filtered('is_rental')
+                rental_order_lines = order.order_line.filtered(
+                    lambda line: line.is_rental and line.product_type != 'combo'
+                )
                 order.has_pickable_lines = any(
                     sol.qty_delivered < sol.product_uom_qty for sol in rental_order_lines
                 )
@@ -194,6 +196,7 @@ class SaleOrder(models.Model):
         lines_to_pickup = self.order_line.filtered(
             lambda r:
                 r.is_rental
+                and r.product_type != 'combo'
                 and float_compare(r.product_uom_qty, r.qty_delivered, precision_digits=precision) > 0)
         return self._open_rental_wizard('pickup', lines_to_pickup.ids)
 
@@ -203,6 +206,7 @@ class SaleOrder(models.Model):
         lines_to_return = self.order_line.filtered(
             lambda r:
                 r.is_rental
+                and r.product_type != 'combo'
                 and float_compare(r.qty_delivered, r.qty_returned, precision_digits=precision) > 0)
         return self._open_rental_wizard('return', lines_to_return.ids)
 
@@ -237,7 +241,11 @@ class SaleOrder(models.Model):
         domain = super()._get_product_catalog_domain()
         if self.is_rental_order:
             return expression.OR([
-                domain, [('rent_ok', '=', True), ('company_id', 'in', [self.company_id.id, False])]
+                domain, [
+                    ('rent_ok', '=', True),
+                    ('company_id', 'in', [self.company_id.id, False]),
+                    ('type', '!=', 'combo'),
+                ]
             ])
         return domain
 

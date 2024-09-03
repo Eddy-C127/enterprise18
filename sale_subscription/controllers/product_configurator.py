@@ -3,6 +3,7 @@
 from odoo.http import request
 
 from odoo.addons.sale.controllers.product_configurator import SaleProductConfiguratorController
+from odoo.addons.sale_subscription.controllers.utils import _get_subscription_data
 
 
 class SaleSubscriptionProductConfiguratorController(SaleProductConfiguratorController):
@@ -26,16 +27,11 @@ class SaleSubscriptionProductConfiguratorController(SaleProductConfiguratorContr
         :param res.currency|None currency: The currency of the transaction.
         :param datetime|None date: The date of the `sale.order`, to compute the price at the right
             rate.
-        :param int subscription_plan_id|None: The subscription plan of the product, as a
+        :param int|None subscription_plan_id: The subscription plan of the product, as a
             `sale.subscription.plan` id.
         :param dict kwargs: Locally unused data passed to `super`.
         :rtype: dict
-        :return: A dict with the following structure:
-            {
-                ...  # fields from `super`.
-                'price': float,
-                'price_info': str,
-            }
+        :return: A dict containing data about the specified product.
         """
         basic_product_information = super()._get_basic_product_information(
             product_or_template,
@@ -48,22 +44,12 @@ class SaleSubscriptionProductConfiguratorController(SaleProductConfiguratorContr
         )
 
         if product_or_template.recurring_invoice:
-            subscription_plan = request.env['sale.subscription.plan'].browse(subscription_plan_id)
-            pricing = (
-                request.env[
-                    'sale.subscription.pricing'
-                ].sudo()._get_first_suitable_recurring_pricing(
-                    product_or_template, plan=subscription_plan, pricelist=pricelist
-                )
-            )
-            if pricing:
-                basic_product_information.update({
-                    'price': pricing.currency_id._convert(
-                        from_amount=pricing.price,
-                        to_currency=currency,
-                        company=request.env.company,
-                        date=date,
-                    ),
-                    'price_info': pricing.plan_id.billing_period_display_sentence,
-                })
+            basic_product_information.update(_get_subscription_data(
+                request.env,
+                product_or_template,
+                pricelist,
+                date,
+                currency,
+                subscription_plan_id,
+            ))
         return basic_product_information

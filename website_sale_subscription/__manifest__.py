@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
@@ -20,10 +19,11 @@ appropriate views and selling choices.
     ],
     'assets': {
         'web.assets_frontend': [
+            'sale_subscription/static/src/js/combo_configurator_dialog/*',
             'sale_subscription/static/src/js/product_configurator_dialog/*',
             ('before', 'website_sale/static/src/js/website_sale.js', 'website_sale_subscription/static/src/js/variant_mixin.js'),
             'website_sale_subscription/static/src/js/website_sale_subscription.js',
-            'website_sale_subscription/static/src/js/website_sale_product_configurator.js',
+            'website_sale_subscription/static/src/js/website_sale_configurators.js',
         ],
         'web.assets_tests': [
             'website_sale_subscription/static/tests/tours/**/*',

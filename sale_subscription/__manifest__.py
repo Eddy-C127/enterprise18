@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 
@@ -62,6 +61,7 @@ Features:
     'license': 'OEEL-1',
     'assets': {
         'web.assets_backend': [
+            'sale_subscription/static/src/js/combo_configurator_dialog/*',
             'sale_subscription/static/src/js/product_configurator_dialog/*',
             'sale_subscription/static/src/js/sale_product_field.js',
             'sale_subscription/static/src/js/tours/sale_subscription.js',

@@ -1,10 +1,10 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, tools
+from odoo.tools import SQL
 
 from odoo.addons.sale.models.sale_order import SALE_ORDER_STATE
 from odoo.addons.sale_renting.models.sale_order import RENTAL_STATUS
-from odoo.tools import SQL
 
 
 class RentalSchedule(models.Model):
@@ -18,7 +18,9 @@ class RentalSchedule(models.Model):
     def _read_group_product_ids(self, products, domain):
         if self._context.get('restrict_renting_products'):
             return products
-        all_rental_products = products.search([('rent_ok', '=', True)])
+        all_rental_products = products.search(
+            [('rent_ok', '=', True), ('type', '!=', 'combo')], limit=81
+        )
         if len(all_rental_products) > 80:
             return products
         return all_rental_products
@@ -31,7 +33,7 @@ class RentalSchedule(models.Model):
             and len(groupby) == 1
             and not self.env.context.get('restrict_renting_products')
             and limit >= self.env['product.product'].search_count(
-                [('rent_ok', '=', True)],
+                [('rent_ok', '=', True), ('type', '!=', 'combo')],
                 limit=limit + 1,
             )
         ):
@@ -192,6 +194,7 @@ class RentalSchedule(models.Model):
                 FROM %s
                 WHERE sol.product_id IS NOT NULL
                     AND sol.is_rental
+                    AND t.type != 'combo'
                 GROUP BY %s)
             """,
             self._with(),
