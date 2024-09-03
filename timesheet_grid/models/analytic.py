@@ -259,7 +259,7 @@ class AnalyticLine(models.Model):
                 ('id', 'in', self.employee_id.ids),
                 ('user_id', '!=', self._uid),
                 '|', ('parent_id.user_id', '=', self._uid),
-                '|', ('timesheet_manager_id', '=', self._uid),
+                '|', ('timesheet_manager_id', 'in', [False, self._uid]),
                 '|', ('id', 'in', self.env.user.employee_id.subordinate_ids.ids),
                 '&', ('parent_id', '=', False), ('timesheet_manager_id', '=', False),
             ])
@@ -646,7 +646,7 @@ class AnalyticLine(models.Model):
                 domain,
                 [
                     ('user_id', '!=', self._uid),
-                    '|', ('employee_id.timesheet_manager_id', '=', self._uid),
+                    '|', ('employee_id.timesheet_manager_id', 'in', [False, self._uid]),
                     '|', ('employee_id', 'in', self.env.user.employee_id.subordinate_ids.ids),
                     '|', ('employee_id.parent_id.user_id', '=', self._uid),
                     '&', ('employee_id.timesheet_manager_id', '=', False), ('employee_id.parent_id', '=', False),
