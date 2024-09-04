@@ -11,6 +11,17 @@ patch(SelfOrder.prototype, {
     async setup(env, services) {
         this.iot_longpolling = services.iot_longpolling;
         await super.setup(...arguments);
+
+        if (!this.config.iface_print_via_proxy || this.config.self_ordering_mode !== "kiosk") {
+            return;
+        }
+
+        const device = new DeviceController(this.iot_longpolling, {
+            iot_ip: this.config.iface_printer_id.iot_ip,
+            identifier: this.config.iface_printer_id.identifier,
+        });
+
+        this.printer.setPrinter(new IoTPrinter({ device }));
     },
     create_printer(printer) {
         if (printer.device_identifier && printer.printer_type === "iot") {

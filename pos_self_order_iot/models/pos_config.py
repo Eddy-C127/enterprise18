@@ -23,6 +23,11 @@ class PosConfig(models.Model):
                 res[printer.id]["device_identifier"] = printer.device_identifier
         return res
 
+    def _load_self_data_models(self):
+        models = super()._load_self_data_models()
+        models += ['iot.device']
+        return models
+
     def get_available_iot_box_ids(self):
         self.available_iot_box_ids = self.env['iot.box'].search([('can_be_kiosk', '=', True)])
         return self.available_iot_box_ids.read(['id', 'name', 'ip_url'])
