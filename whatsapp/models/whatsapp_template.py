@@ -912,13 +912,14 @@ class WhatsAppTemplate(models.Model):
             body = body.replace(var.name, variable_values.get(f'{var.line_type}-{var.name}', fallback_value))
         return self._format_markup_to_html(f'*{header}*\n\n{body}' if header else body)
 
-
     # ------------------------------------------------------------
     # TOOLS
     # ------------------------------------------------------------
 
     @api.model
     def _can_use_whatsapp(self, model_name):
+        if not self.has_access('read'):
+            return False
         return self.env.user.has_group('whatsapp.group_whatsapp_admin') or \
             len(self._find_default_for_model(model_name)) > 0
 
