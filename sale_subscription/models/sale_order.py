@@ -363,6 +363,16 @@ class SaleOrder(models.Model):
         self.flush_recordset(fnames=['origin_order_id'])
         all_subscription_ids = self.search([('origin_order_id', 'in', parent_order_ids)]).ids + parent_order_ids
 
+        # We have two ways to access the account.move from the sale.order.
+        # First we get the invoices using the subscription_id value on the account.move.line.
+        # It is useful if the sale.order.line are deleted and replaced by others during the subscription life.
+        subscription_move_lines = self.env['account.move.line'].search([('subscription_id', 'in', all_subscription_ids)])
+        move_by_origin = defaultdict(list)
+        for aml in subscription_move_lines:
+            origin_order = aml.subscription_id.origin_order_id.id or aml.subscription_id.id
+            move_by_origin[origin_order].append(aml.move_id.id)
+
+        # Secondly we get the invoices using the relationship between account.move.line and sale.order.line of sale module.
         query = """
             SELECT COALESCE(origin_order_id, so.id),
                    array_agg(DISTINCT am.id) AS move_ids
@@ -380,9 +390,11 @@ class SaleOrder(models.Model):
         self.env.cr.execute(query, [tuple(self.env.companies.ids), tuple(all_subscription_ids)])
         orders_vals = self.env.cr.fetchall()
         for origin_order_id, invoices_ids in orders_vals:
+            other_move_ids = move_by_origin[origin_order_id]
+            all_move_ids = set(invoices_ids + other_move_ids)
             so_by_origin[origin_order_id].update({
-                'invoice_ids': invoices_ids,
-                'invoice_count': len(invoices_ids)
+                'invoice_ids': [Command.set(all_move_ids)],
+                'invoice_count': len(all_move_ids)
             })
         return res
 

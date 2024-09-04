@@ -238,12 +238,11 @@ class TestSubscription(TestSubscriptionCommon):
         ])
 
         with freeze_time("2021-02-03"):
-            inv = sub._create_invoices()
-            inv._post()
+            invoice = sub._create_invoices()
+            invoice._post()
 
         # second invoice, should NOT include one-time discount
         self.assertEqual(len(sub.invoice_ids), 2)
-        invoice = sub.invoice_ids[-1]
         self.assertEqual(invoice.amount_untaxed, 168.0)
         self.assertEqual(len(invoice.invoice_line_ids), 5)
         self.assertRecordValues(invoice.invoice_line_ids, [
@@ -3716,6 +3715,20 @@ class TestSubscription(TestSubscriptionCommon):
         self.assertEqual(result['groups'][0]['subscription_state'], '3_progress')
         self.assertEqual(result['groups'][1]['subscription_state_count'], 0)
         self.assertEqual(result['groups'][1]['subscription_state'], '4_paused')
+
+    def test_recurring_invoice_count(self):
+        sub = self.env['sale.order'].create({
+            'name': 'TestSubscription',
+            'is_subscription': True,
+            'plan_id': self.plan_month.id,
+            'partner_id': self.user_portal.partner_id.id,
+            'pricelist_id': self.company_data['default_pricelist'].id,
+            'order_line': [(0, 0, {'product_id': self.product.id})],
+        })
+        sub.action_confirm()
+        inv = self.env['sale.order']._cron_recurring_create_invoice()
+        new_invoice = inv.copy()
+        self.assertEqual(sub.invoice_ids, inv | new_invoice)
 
 
 @tagged('post_install', '-at_install')
