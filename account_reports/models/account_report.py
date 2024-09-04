@@ -4801,21 +4801,23 @@ class AccountReport(models.Model):
         return dates_domain
 
     def _build_annotations_domain(self, options):
-        period_date_from = self._get_annotations_domain_date_from(options)
-        period_date_from = self._adjust_date_for_joined_comparison(options, period_date_from)
-        dates_domain = osv.expression.AND([
-            [('date', '>=', period_date_from)],
-            [('date', '<=', options['date']['date_to'])],
-        ])
-        dates_domain = self._adjust_domain_for_unjoined_comparison(options, dates_domain)
+        domain = [('report_id', '=', options['report_id'])]
+        if options.get('date'):
+            period_date_from = self._get_annotations_domain_date_from(options)
+            period_date_from = self._adjust_date_for_joined_comparison(options, period_date_from)
+            dates_domain = osv.expression.AND([
+                [('date', '>=', period_date_from)],
+                [('date', '<=', options['date']['date_to'])],
+            ])
+            dates_domain = self._adjust_domain_for_unjoined_comparison(options, dates_domain)
 
-        domain = osv.expression.AND([
-            [('report_id', '=', options['report_id'])],
-            osv.expression.OR([
-                [('date', '=', False)],
-                dates_domain,
-            ]),
-        ])
+            domain = osv.expression.AND([
+                domain,
+                osv.expression.OR([
+                    [('date', '=', False)],
+                    dates_domain,
+                ]),
+            ])
 
         fiscal_position_option = options.get('fiscal_position')
         if isinstance(fiscal_position_option, int):
