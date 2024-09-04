@@ -36,6 +36,7 @@ export class AppointmentInviteCopyClose extends Component {
                     { type: "success" }
                 );
                 this.env.dialogData.close();
+                this.env.model.action.loadState();
             });
         }
     }

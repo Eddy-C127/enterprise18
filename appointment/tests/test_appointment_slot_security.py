@@ -53,13 +53,6 @@ class TestAppointmentSlotSecurity(AppointmentSecurityCommon):
                 appointment_slot.with_user(self.apt_manager).appointment_type_id.write({'is_published': True})
                 appointment_slot.read(['weekday'])
 
-        # Can't write an appointment slot if he is not part of the related appointment type staff users
-        with self.assertRaises(AccessError):
-            self.slot_apt_manager.write({'weekday': '2'})
-        with self.assertRaises(AccessError):
-            self.slot_internal_user.write({'weekday': '2'})
-        (self.slot_apt_user + self.slot_resource + self.slot_no_staff).write({'weekday': '2'})
-
         # Can't create an appointment slot if he is not part of the related appointment type staff users
         with self.assertRaises(AccessError):
             self.env['appointment.slot'].create({
@@ -76,10 +69,14 @@ class TestAppointmentSlotSecurity(AppointmentSecurityCommon):
             **self.common_slot_config
         } for apt_type in (self.apt_type_apt_user + self.apt_type_resource + self.apt_type_no_staff)])
 
-        # Can unlink an appointment slot if the slot is created by the user.
+        # Can't write and unlink an appointment slot created by someone else.
         for appointment_slot in self.all_apt_slots:
             with self.subTest(appointment_slot=appointment_slot), self.assertRaises(AccessError):
+                appointment_slot.write({'weekday': '2'})
+            with self.subTest(appointment_slot=appointment_slot), self.assertRaises(AccessError):
                 appointment_slot.unlink()
+        # Can write and unlink an appointment slot if the slot is created by the user.
+        (created_slot_apt_user + created_slot_resource + created_slot_no_staff).write({'weekday': '2'})
         (created_slot_apt_user + created_slot_resource + created_slot_no_staff).unlink()
         # Can unlink an appointment slot if the related appointment type is created by the user.
         created_apt = self.env['appointment.type'].create({

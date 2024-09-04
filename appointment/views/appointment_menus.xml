@@ -21,13 +21,11 @@
         id="menu_appointment_schedule_resource_booking"
         parent="menu_appointment_schedule_resources"
         action="calendar_event_action_all_resources_bookings"
-        groups="group_appointment_manager"
         name="Resources Bookings"/>
     <menuitem
         id="menu_appointment_schedule_staff_appointment"
         parent="menu_appointment_schedule_resources"
         action="calendar_event_action_all_users_appointments"
-        groups="group_appointment_manager"
         name="Staff Bookings"/>
 
     <!-- Appointment's type, report menu-->
@@ -41,17 +39,13 @@
         id="menu_schedule_report"
         parent="appointment.main_menu_appointments"
         name="Reporting"
+        action="calendar_event_action_appointment_reporting"
         sequence="15"/>
     <menuitem
-        id="menu_schedule_report_all"
-        parent="appointment.menu_schedule_report"
-        action="calendar_event_action_appointment_reporting"/>
-    <menuitem
         id="menu_appointment_invite"
-        parent="appointment.menu_schedule_report"
+        parent="appointment.main_menu_appointments"
         action="appointment_invite_action"
-        groups="group_appointment_user"
-        name="Share Links"/>
+        name="Shared Links"/>
 
     <!-- Appointment's config menu-->
     <menuitem

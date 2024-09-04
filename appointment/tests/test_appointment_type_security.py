@@ -35,10 +35,12 @@ class TestAppointmentTypeSecurity(AppointmentSecurityCommon):
         """  Test security access to appointment.type for the group_appointment_user.
         Can create an appointment type.
         Can read every published appointment type.
-        Can read / write an appointment type that:
+        Can read an appointment type that:
             - is created by the user.
             - has the user in its staff OR doesn't have any staff
             - is resource-based.
+        Can write an appointment type that:
+            - is created by the user.
         Can unlink an appointment type that:
             - is created by the user.
         """
@@ -55,22 +57,20 @@ class TestAppointmentTypeSecurity(AppointmentSecurityCommon):
                 appointment_type.with_user(self.apt_manager).write({'is_published': True})
                 appointment_type.read(['name'])
 
-        # Can't write on appointment type for which he is not part of staff users
-        with self.assertRaises(AccessError):
-            self.apt_type_apt_manager.write({'is_published': True})
-        with self.assertRaises(AccessError):
-            self.apt_type_internal_user.write({'is_published': True})
-        (self.apt_type_apt_user + self.apt_type_resource + self.apt_type_no_staff).write({'is_published': True})
-
         # Can create an appointment type
         created_apt = self.env['appointment.type'].create({
             'name': 'Test Create',
         })
 
-        # Can only unlink appointment types created by himself
+        # Can't write or unlink appointment type created by some one else
         for appointment_type in self.all_apt_types:
             with self.subTest(appointment_type=appointment_type), self.assertRaises(AccessError):
+                appointment_type.write({'name': 'test'})
+            with self.subTest(appointment_type=appointment_type), self.assertRaises(AccessError):
                 appointment_type.unlink()
+
+        # Can only write or unlink appointment types created by himself
+        created_apt.write({'name': 'test'})
         created_apt.unlink()
 
     @users('internal_user')

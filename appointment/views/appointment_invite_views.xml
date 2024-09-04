@@ -18,7 +18,7 @@
         <field name="name">appointment.invite.view.tree</field>
         <field name="model">appointment.invite</field>
         <field name="arch" type="xml">
-            <tree string="Invitation Links" edit="0" create="0" duplicate="0" sample="1">
+            <tree string="Invitation Links" edit="0" duplicate="0" sample="1" js_class="appointment_share_link_list">
                 <field name="create_date" optional="hide"/>
                 <field name="create_uid" widget="many2one_avatar_user" optional="hide"/>
                 <field name="appointment_type_count" column_invisible="True"/>
@@ -32,7 +32,7 @@
                 <field name="resource_ids" string="Restrict to Resource"
                     widget="many2many_tags_avatar" readonly="appointment_type_count &gt; 1"
                     column_invisible="context.get('schedule_based_on') == 'users'"
-                    domain="[('id','in',suggested_resource_ids)]" options="{'no_create': True}"/>
+                    domain="[('id','in',suggested_resource_ids)]" options="{'no_create': True}" optional="hide"/>
                 <field name="book_url" readonly="1" widget="CopyClipboardChar"/>
                 <field name="calendar_event_count"/>
             </tree>
@@ -90,7 +90,7 @@
                     <div invisible="not suggested_staff_user_ids and not suggested_resource_ids">
                         <label for="base_book_url" string="Link URL" class="opacity-100 fw-bold text-900"/><br/>
                         <field name="base_book_url" nolabel="1" readonly="1" class="me-1 oe_inline"/>
-                        <field name="short_code" nolabel="1" required="1" class="oe_inline o_input" onchange_on_keydown="True" keydown_debounce_delay="500"/>
+                        <field name="short_code" nolabel="1" required="1" class="oe_inline o_input" onchange_on_keydown="True" keydown_debounce_delay="500" readonly="1"/>
                     </div>
                     <field name="book_url" class="d-none o_appointment_book_url" readonly="1" nolabel="1"/>
                 </sheet>
@@ -125,6 +125,7 @@
         <field name="name">Share Links</field>
         <field name="res_model">appointment.invite</field>
         <field name="view_mode">tree</field>
+        <field name="context">{'search_default_my_book_urls': 1,}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No Shared Links yet!
