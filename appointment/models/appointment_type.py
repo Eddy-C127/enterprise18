@@ -165,6 +165,8 @@ class AppointmentType(models.Model):
     appointment_invite_count = fields.Integer('# Invitation Links', compute='_compute_appointment_invite_count')
     meeting_ids = fields.One2many('calendar.event', 'appointment_type_id', string="Appointment Meetings")
 
+    # Onboarding connectors display (see o_appointment_cal_sync_alert)
+    connectors_displayed = fields.Boolean(compute="_compute_connectors_displayed")
     # Technical field for backward compatibility with previous default published appointment type
     is_published = fields.Boolean('Is Published')
     # override mail.thread for better string/help
@@ -264,6 +266,15 @@ class AppointmentType(models.Model):
     def _compute_resource_ids(self):
         for appointment_type in self.filtered(lambda appt: appt.schedule_based_on == 'users'):
             appointment_type.resource_ids = False
+
+    def _compute_connectors_displayed(self):
+        connectors_enabled = not self._get_calendars_already_setup() and self._get_calendars_possible_to_setup()
+        for appointment_type in self:
+            appointment_type.connectors_displayed = (
+                connectors_enabled and
+                appointment_type.schedule_based_on == 'users' and
+                appointment_type.env.user in self.staff_user_ids
+            )
 
     @api.depends('schedule_based_on')
     def _compute_staff_user_ids(self):
@@ -468,6 +479,14 @@ class AppointmentType(models.Model):
                 pass
             action['views'].insert(0, to_insert)
         return action
+
+    @api.model
+    def _get_calendars_already_setup(self):
+        return []
+
+    @api.model
+    def _get_calendars_possible_to_setup(self):
+        return []
 
     def _get_gantt_scale(self):
         """Return the default scale to show related meetings in gantt.
