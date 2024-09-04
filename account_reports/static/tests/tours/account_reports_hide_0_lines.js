@@ -66,7 +66,7 @@ registry.category("web_tour.tours").add('account_reports_hide_0_lines', {
 
 registry.category("web_tour.tours").add('account_reports_hide_0_lines_with_string_columns', {
     test: true,
-    url: '/web?#action=account_reports.action_account_report_general_ledger',
+    url: '/odoo/action-account_reports.action_account_report_general_ledger',
     steps: () => [
         {
             content: "Check if the 211000 Account Payable line is present (but the value is 0)",

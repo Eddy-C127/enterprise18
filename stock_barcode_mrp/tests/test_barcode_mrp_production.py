@@ -502,9 +502,8 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
             ('company_id', '=', company2.id),
         ], limit=1).barcode = 'company2_mrp_operation'
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
         cids = '-'.join(str(cid) for cid in self.env.user.company_ids.ids)
-        url = f'/web#action={action_id.id}&cids={cids}'
+        url = f'/odoo/action-stock_barcode.stock_barcode_action_main_menu?cids={cids}'
         self.start_tour(url, 'test_multi_company_manufacture_creation_in_barcode', login='admin', timeout=180)
 
         self.assertEqual(
@@ -534,9 +533,8 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
             ('company_id', '=', self.env.company.id),
         ], limit=1).barcode = 'company_mrp_operation'
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
         cids = '-'.join(str(cid) for cid in self.env.user.company_ids.ids)
-        url = f'/web#action={action_id.id}&cids={cids}'
+        url = f'/odoo/action-stock_barcode.stock_barcode_action_main_menu?cids={cids}'
         self.start_tour(url, 'test_multi_company_record_access_in_mrp_barcode', login='admin', timeout=180)
 
         self.assertFalse(
@@ -595,8 +593,7 @@ class TestMRPBarcodeClientAction(TestBarcodeClientAction):
                 'location_dest_id': self.stock_location.id,
             })
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_barcode_action_main_menu"
         self.start_tour(url, 'test_kit_bom_decomposition_keeps_location', login='admin', timeout=180)
 
         expected_move_line_vals_list = [

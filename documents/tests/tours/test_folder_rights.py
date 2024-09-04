@@ -14,4 +14,4 @@ class TestDocumentFolderRights(HttpCase):
             "company_id": self.env.company.id,
         })
 
-        self.start_tour("/web", 'test_document_folder_rights_for_multi_company', login='admin')
+        self.start_tour("/odoo", 'test_document_folder_rights_for_multi_company', login='admin')

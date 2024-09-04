@@ -1297,7 +1297,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
             })],
         }).action_post()
 
-        self.start_tour("/web", 'account_reports_hide_0_lines_with_string_columns', login=self.env.user.login)
+        self.start_tour("/odoo", 'account_reports_hide_0_lines_with_string_columns', login=self.env.user.login)
 
     def test_rounding_unit_tour(self):
         self.env['account.move'].create({

@@ -2972,9 +2972,8 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             'barcode': 'company2_product',
         })
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
         cids = '-'.join(str(cid) for cid in self.env.user.company_ids.ids)
-        url = f'/web#action={action_id.id}&cids={cids}'
+        url = f'/odoo/action-stock_barcode.stock_barcode_action_main_menu?cids={cids}'
         self.start_tour(url, 'test_multi_company_record_access_in_barcode', login='admin', timeout=180)
 
         self.assertTrue(
@@ -3006,8 +3005,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         })
         picking.action_confirm()
 
-        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/web#action=" + str(action_id.id)
+        url = "/odoo/action-stock_barcode.stock_barcode_action_main_menu"
         self.start_tour(url, 'test_no_zero_demand_new_line_from_split', login='admin', timeout=180)
 
         self.assertRecordValues(

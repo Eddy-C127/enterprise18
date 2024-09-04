@@ -65,4 +65,4 @@ class TestWebEnterprise(HttpCase):
         invoice_action = self.env.ref("account.action_move_out_invoice_type", raise_if_not_found=False)
         if not invoice_action:
             return
-        self.start_tour("/web#action=account.action_move_out_invoice_type", "web_enterprise.test_studio_list_upsell", login="admin")
+        self.start_tour("/odoo/action-account.action_move_out_invoice_type", "web_enterprise.test_studio_list_upsell", login="admin")

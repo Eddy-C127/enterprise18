@@ -718,7 +718,7 @@ test("go back to home menu using browser back button", async () => {
 
 test("initial action crashes", async () => {
     expect.errors(1);
-    redirect("/web#action=__test__client__action__&menu_id=1");
+    redirect("/odoo/action-__test__client__action__?menu_id=1");
     const ClientAction = registry.category("actions").get("__test__client__action__");
     class Override extends ClientAction {
         setup() {
