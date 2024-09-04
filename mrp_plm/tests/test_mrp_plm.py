@@ -42,9 +42,11 @@ class TestMrpPlm(TestPlmCommon):
         action = mo.action_create_eco()
         new_eco_form = Form(self.env['mrp.eco'].with_context(action['context']))
         new_eco = new_eco_form.save()
+        new_eco.will_update_version = False
         new_eco.action_new_revision()
         # Checks the ECO's revision BoM has the expected changes.
         new_bom = new_eco.new_bom_id
+        self.assertEqual(new_bom.version, bom.version, "Update version was unchecked in eco, so new bom version should equal original bom's")
         self.assertRecordValues(new_bom.bom_line_ids, [
             {'product_id': component_1.id, 'product_qty': 1, 'product_uom_id': uom_unit.id},
             {'product_id': component_2.id, 'product_qty': 4, 'product_uom_id': uom_unit.id},
@@ -94,6 +96,7 @@ class TestMrpPlm(TestPlmCommon):
         new_eco.action_new_revision()
         # Checks the ECO's revision BoM has the expected changes.
         new_bom = new_eco.new_bom_id
+        self.assertEqual(new_bom.version, bom.version + 1, "By default, new bom version should be original bom's + 1")
         self.assertRecordValues(new_bom.bom_line_ids, [
             {'product_id': component_1_in_cm.id, 'product_qty': 60, 'product_uom_id': uom_cm.id},
             {'product_id': component_2.id, 'product_qty': 4, 'product_uom_id': uom_dozen.id},
@@ -103,6 +106,7 @@ class TestMrpPlm(TestPlmCommon):
         "Test eco rebase with old bom changes."
 
         # Create eco for bill of material.
+        version_num = self.bom_table.version
         self.eco1 = self._create_eco('ECO1', self.bom_table, self.eco_type.id, self.eco_stage.id)
         # Start new revision of eco1.
         self.eco1.action_new_revision()
@@ -124,6 +128,7 @@ class TestMrpPlm(TestPlmCommon):
 
         # Rebase eco1 with current BoM changes ( 3 + 5 ( New added product )).
         self.eco1.apply_rebase()
+        self.assertEqual(self.eco1.new_bom_revision, version_num + 1, "By default, new bom version should match original bom's + 1")
 
         # Check quantity of table lag on new revision of BoM.
         self.assertEqual(new_bom_leg.product_qty, 8, "Wrong table leg quantity on new revision of bom.")
@@ -135,9 +140,12 @@ class TestMrpPlm(TestPlmCommon):
         self.assertEqual(self.eco1.state, 'rebase', "Wrong state on eco.")
         self.assertEqual(len(self.eco1.bom_rebase_ids), 1, "Wrong rebase line on eco.")
         self.assertEqual(self.eco1.bom_rebase_ids.change_type, 'add', "Wrong type on rebase line.")
+        self.eco1.will_update_version = False
+        self.assertEqual(self.eco1.new_bom_revision, version_num, "Update version was unchecked in eco, so new bom version should equal original bom's")
 
         # Rebase eco1 with BoM changes.
         self.eco1.apply_rebase()
+        self.assertEqual(self.eco1.new_bom_revision, version_num, "Update version was unchecked in eco, rebasing should leave new bom version as equal to original bom's")
 
         new_bom_bolt = self.eco1.new_bom_id.bom_line_ids.filtered(lambda x: x.product_id == self.table_bolt)
 
@@ -182,6 +190,7 @@ class TestMrpPlm(TestPlmCommon):
         eco1 = self._create_eco('ECO1', self.bom_table, self.eco_type.id, self.eco_stage.id)
         eco2 = self._create_eco('ECO2', self.bom_table, self.eco_type.id, self.eco_stage.id)
         eco3 = self._create_eco('ECO3', self.bom_table, self.eco_type.id, self.eco_stage.id)
+        version_num = self.bom_table.version
 
         # Start new revision of eco1, eco2, eco3
         eco1.action_new_revision()
@@ -208,6 +217,7 @@ class TestMrpPlm(TestPlmCommon):
         # -------------------------------------------------------------------------------
 
         eco1.action_apply()
+        self.assertEqual(eco1.new_bom_revision, version_num + 1, "By default, new bom version should match original bom's + 1")
         self.assertFalse(eco1.bom_id.active, "Old BoM of eco1 should be deactivated.")
         self.assertTrue(eco1.new_bom_id.active, "New BoM revision of ECO 1 should be activated.")
         # Check eco status after activate new bom revision of eco.
@@ -219,9 +229,11 @@ class TestMrpPlm(TestPlmCommon):
         # ECO 2 : Rebase with ECO 1 changes.
         # ------------------------------
 
+        eco2.will_update_version = False
         eco2.apply_rebase()
         self.assertEqual(eco2.state, 'progress', "Wrong state on eco2.")
         self.assertEqual(eco1.new_bom_id.id, eco2.bom_id.id, "Eco2 BoM should replace with new activated BoM revision of Eco1.")
+        self.assertEqual(eco2.new_bom_revision, eco1.new_bom_id.version, "Update version was unchecked in eco, rebasing should leave new bom version as BoM revision of Eco1")
 
         # ----------------------------------------------------------------------
         # ECO 2 : Add new product 'Table Bolt'
@@ -239,6 +251,7 @@ class TestMrpPlm(TestPlmCommon):
         self.assertFalse(eco1.bom_id.active, "BoM of ECO 1 should be deactivated")
         self.assertFalse(eco1.new_bom_id.active, "BoM revision of ECO 1 should be deactivated")
         self.assertTrue(eco2.new_bom_id.active, "BoM revision of ECO 2 should be activated")
+        self.assertEqual(eco2.new_bom_revision, eco1.new_bom_id.version, "Update version was unchecked in eco, new bom version should still match BoM revision of Eco1")
 
         # -----------------------------------------------------
         # ECO3 : Change same line in eco3 as changes in eco1.
@@ -263,6 +276,7 @@ class TestMrpPlm(TestPlmCommon):
         eco3.action_apply()
         self.assertFalse(eco2.new_bom_id.active, "BoM revision of ECO 2 should be deactivated")
         self.assertTrue(eco3.new_bom_id.active, "BoM revision of ECO 3 should be activated")
+        self.assertEqual(eco3.new_bom_revision, eco2.new_bom_id.version + 1, "By default, new bom version should match eco2 bom's + 1")
         self.assertFalse(eco3.previous_change_ids.ids)
         self.assertFalse(eco3.bom_rebase_ids.ids)
 
@@ -416,7 +430,8 @@ class TestMrpPlm(TestPlmCommon):
         ])
 
     def test_product_version(self):
-        """Test product version number will be increase after a product ECO is done.
+        """Test product version number increases or doesn't increase after a product ECO is done
+        depending on setting.
         """
         version_num = self.table.product_tmpl_id.version
         mrp_eco = self.env['mrp.eco'].create({
@@ -429,7 +444,71 @@ class TestMrpPlm(TestPlmCommon):
         mrp_eco.action_new_revision()
         mrp_eco.action_apply()
         self.assertEqual(mrp_eco.state, 'done')
-        self.assertEqual(self.table.product_tmpl_id.version, version_num + 1)
+        self.assertEqual(self.table.product_tmpl_id.version, version_num + 1, "By default, product's version should increment when eco applied")
+
+        version_num = self.table.product_tmpl_id.version
+        mrp_eco_no_change = self.env['mrp.eco'].create({
+            'name': 'plm no version change',
+            'product_tmpl_id': self.table.product_tmpl_id.id,
+            'stage_id': self.eco_stage.id,
+            'type_id': self.eco_type.id,
+            'type': 'product',
+            'will_update_version': False
+        })
+        mrp_eco_no_change.action_new_revision()
+        mrp_eco_no_change.action_apply()
+        self.assertEqual(mrp_eco_no_change.state, 'done')
+        self.assertEqual(self.table.product_tmpl_id.version, version_num, "Update version was unchecked in eco, so product's version shouldn't increment when eco applied")
+
+    def test_new_bom_version(self):
+        """Test new bom version number increases or doesn't increase depending on state + setting
+        We force the state values because it's assumed there are other tests checking that the state matches
+        """
+        # updates version = True by default
+        version_num = self.bom_table.version
+        bom_eco = self._create_eco('bom_eco', self.bom_table, self.eco_type.id, self.eco_stage.id)
+        bom_eco.action_new_revision()
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+        # unchecking updates version => the new bom version auto-increments down even when not done
+        bom_eco.will_update_version = False
+        self.assertEqual(bom_eco.new_bom_revision, version_num)
+        # rechecking updates version => the new bom version auto-increments up when not done
+        bom_eco.will_update_version = True
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+
+        # check that version updates occur as long as eco != Done
+        # note that test for rebasing increments version as expected is done
+        # in another test due to conditions needed for rebasing to work
+        bom_eco.state = 'rebase'
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+        bom_eco.will_update_version = False
+        self.assertEqual(bom_eco.new_bom_revision, version_num)
+        bom_eco.will_update_version = True
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+
+        bom_eco.state = 'conflict'
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+        bom_eco.will_update_version = False
+        self.assertEqual(bom_eco.new_bom_revision, version_num)
+        bom_eco.will_update_version = True
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+        bom_eco.conflict_resolve()
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+        bom_eco.state = 'conflict'
+        bom_eco.will_update_version = False
+        bom_eco.conflict_resolve()
+        self.assertEqual(bom_eco.new_bom_revision, version_num)
+        bom_eco.will_update_version = True
+
+        bom_eco.state = 'progress'
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+        bom_eco.action_apply()
+        self.assertEqual(bom_eco.state, 'done')
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
+
+        # in theory the field shouldn't be update-able when eco is done, but let's check anyways
+        bom_eco.will_update_version = False
+        self.assertEqual(bom_eco.new_bom_revision, version_num + 1)
 
     def test_mrp_user_without_plm_permission_can_create_bom(self):
         mrp_manager = new_test_user(

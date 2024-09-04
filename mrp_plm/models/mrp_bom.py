@@ -84,12 +84,12 @@ class MrpBom(models.Model):
 
     def _get_active_version(self):
         self.ensure_one()
-        domain = [('version', '>', self.version)]
+        domain = [('version', '>=', self.version)]
         if self.product_id:
             domain = expression.AND([domain, [('product_id', '=', self.product_id.id)]])
         else:
             domain = expression.AND([domain, [('product_tmpl_id', '=', self.product_tmpl_id.id)]])
-        boms = self.with_context(active_test=False).search(domain, order='version')
+        boms = self.with_context(active_test=False).search(domain, order='version, id')
         previous_boms = self
         for bom in boms:
             if bom.previous_bom_id not in previous_boms:

@@ -261,6 +261,9 @@ class MrpEco(models.Model):
         'mrp.bom', 'New Bill of Materials',
         copy=False)
     new_bom_revision = fields.Integer('BoM Revision', related='new_bom_id.version', store=True, readonly=False)
+    will_update_version = fields.Boolean(
+        "Update Version", default=True,
+        help="If unchecked, the version of the product/BoM will remain unchanged once the ECO is applied")
     bom_change_ids = fields.One2many(
         'mrp.eco.bom.change', 'eco_id', string="ECO BoM Changes",
         compute='_compute_bom_change_ids', help='Difference between old BoM and new BoM revision', store=True)
@@ -441,7 +444,7 @@ class MrpEco(models.Model):
                 # Remove all rebase line of current eco.
                 self.previous_change_ids.unlink()
         if self.current_bom_id:
-            self.new_bom_id.write({'version': self.current_bom_id.version + 1, 'previous_bom_id': self.current_bom_id.id})
+            self.new_bom_id.write({'version': self.will_update_version and self.current_bom_id.version + 1 or self.current_bom_id.version, 'previous_bom_id': self.current_bom_id.id})
             vals.update({'bom_id': self.current_bom_id.id, 'current_bom_id': False})
         self.message_post(body=_('Successfully Rebased!'))
         return self.write(vals)
@@ -615,6 +618,10 @@ class MrpEco(models.Model):
                     doc = self.env['product.document'].create([{'ir_attachment_id': vals['displayed_image_attachment_id']}])
             vals.pop('displayed_image_attachment_id')
             vals['displayed_image_id'] = doc
+        if 'will_update_version' in vals:
+            for eco in self:
+                if eco.new_bom_id and eco.state != 'done' and eco.will_update_version != vals['will_update_version']:
+                    eco.new_bom_id.version += 1 if vals['will_update_version'] else -1
         res = super(MrpEco, self).write(vals)
         if vals.get('stage_id'):
             self._create_approvals()
@@ -706,7 +713,10 @@ class MrpEco(models.Model):
             vals.update({'bom_id': self.current_bom_id.id, 'current_bom_id': False})
         self.write(vals)
         # Set previous BoM on new revision and change version of BoM.
-        self.new_bom_id.write({'version': self.bom_id.version + 1, 'previous_bom_id': self.bom_id.id})
+        self.new_bom_id.write({
+            'version': self.will_update_version and self.bom_id.version + 1 or self.bom_id.version,
+            'previous_bom_id': self.bom_id.id
+            })
         # Remove all rebase lines.
         rebase_lines = self.bom_rebase_ids + self.previous_change_ids
         rebase_lines.unlink()
@@ -718,10 +728,10 @@ class MrpEco(models.Model):
             if eco.type == 'bom':
                 if eco.production_id:
                     # This ECO was generated from a MO. Uses it MO as base for the revision.
-                    eco.new_bom_id = eco.production_id._create_revision_bom()
+                    eco.new_bom_id = eco.production_id._create_revision_bom(eco.will_update_version)
                 if not eco.new_bom_id:
                     eco.new_bom_id = eco.bom_id.sudo().copy(default={
-                        'version': eco.bom_id.version + 1,
+                        'version': eco.will_update_version and eco.bom_id.version + 1 or eco.bom_id.version,
                         'active': False,
                         'previous_bom_id': eco.bom_id.id,
                     })
@@ -747,7 +757,7 @@ class MrpEco(models.Model):
                 eco.apply_rebase()
             if eco.allow_apply_change:
                 if eco.type == 'product':
-                    eco.product_tmpl_id.version = eco.product_tmpl_id.version + 1
+                    eco.product_tmpl_id.version = eco.will_update_version and eco.product_tmpl_id.version + 1 or eco.product_tmpl_id.version
                 else:
                     eco.mapped('new_bom_id').apply_new_version()
 

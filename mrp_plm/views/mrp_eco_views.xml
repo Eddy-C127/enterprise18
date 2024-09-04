@@ -447,6 +447,7 @@
                             <field name="state" invisible="1"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}" readonly="state == 'done'"/>
                             <field name="current_bom_id" invisible="1"/>
+                            <field name="will_update_version" readonly="state == 'done'"/>
                         </group>
                     </group>
                     <notebook>

@@ -79,7 +79,7 @@ class MrpProduction(models.Model):
                 production._link_bom(production.latest_bom_id)
         super(MrpProduction, productions_without_latest_bom).action_update_bom()
 
-    def _create_revision_bom(self):
+    def _create_revision_bom(self, will_update_version=True):
         """ Compares the MO's components, by-products and workorders with its BoM's lines,
         by-products and operations to create and return a new BoM that copies the MO's BoM but
         includes the changes, deletions and additions made in the MO.
@@ -101,6 +101,6 @@ class MrpProduction(models.Model):
             'product_qty': self.bom_id.product_qty,
             'product_tmpl_id': self.bom_id.product_tmpl_id.id,
             'product_uom_id': self.bom_id.product_uom_id.id,
-            'version': self.bom_id.version + 1,
+            'version': will_update_version and self.bom_id.version + 1 or self.bom_id.version,
         })
         return revision_bom
