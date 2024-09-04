@@ -59,7 +59,7 @@ export const DocumentsSpreadsheetControllerMixin = () => ({
         }
         return {
             ...documentShareVals,
-            spreadsheet_shares: spreadsheetShares,
+            spreadsheet_shares: JSON.stringify(spreadsheetShares),
         };
     },
 

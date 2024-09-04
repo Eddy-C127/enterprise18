@@ -1,5 +1,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
+
 
 from .common import SpreadsheetTestCommon
 from odoo.exceptions import AccessError
@@ -20,13 +22,13 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             "document_ids": [(6, 0, [document.id])],
             "folder_id": document.folder_id.id,
             "type": "ids",
-            "spreadsheet_shares": [
+            "spreadsheet_shares": json.dumps([
             {
                 "spreadsheet_data": document.spreadsheet_data,
                 "document_id": document.id,
                 "excel_files": EXCEL_FILES,
             }
-        ]
+        ])
         }
         url = self.env["documents.share"].action_get_share_url(share_vals)
         share = self.env["documents.share"].search(
@@ -46,7 +48,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             "document_ids": [(6, 0, documents.ids)],
             "folder_id": document1.folder_id.id,
             "type": "ids",
-            "spreadsheet_shares": [
+            "spreadsheet_shares": json.dumps([
             {
                 "spreadsheet_data": document1.spreadsheet_data,
                 "document_id": document1.id,
@@ -57,7 +59,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
                 "document_id": document2.id,
                 "excel_files": EXCEL_FILES,
             },
-        ]
+        ])
         }
         url = self.env["documents.share"].action_get_share_url(share_vals)
         share = self.env["documents.share"].search(
@@ -73,13 +75,13 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
             "document_ids": [(6, 0, [document.id])],
             "folder_id": document.folder_id.id,
             "type": "ids",
-            "spreadsheet_shares": [
+            "spreadsheet_shares": json.dumps([
                 {
                     "spreadsheet_data": document.spreadsheet_data,
                     "document_id": document.id,
                     "excel_files": EXCEL_FILES,
                 }
-            ]
+            ])
         }
         share = self.env["documents.share"].create(share_vals)
         spreadsheet_share = share.freezed_spreadsheet_ids

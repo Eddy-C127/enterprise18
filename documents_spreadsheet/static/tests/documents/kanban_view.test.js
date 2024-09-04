@@ -113,13 +113,13 @@ test("share spreadsheet from the document inspector", async function () {
                     document_ids: [x2ManyCommands.set([1])],
                     folder_id: 1,
                     type: "ids",
-                    spreadsheet_shares: [
+                    spreadsheet_shares: JSON.stringify([
                         {
                             spreadsheet_data: JSON.stringify(model.exportData()),
-                            document_id: 1,
                             excel_files: excel,
+                            document_id: 1,
                         },
-                    ],
+                    ]),
                 });
                 return "localhost:8069/share/url/132465";
             }
@@ -160,13 +160,13 @@ test("share a selected spreadsheet from the share button", async function () {
                 expect(shareVals.default_document_ids).toEqual([x2ManyCommands.set([1])]);
                 expect(shareVals.default_folder_id).toBe(1);
                 expect(shareVals.default_type).toBe("ids");
-                expect(shareVals.default_spreadsheet_shares).toEqual([
+                expect(shareVals.default_spreadsheet_shares).toEqual(JSON.stringify([
                     {
                         spreadsheet_data: JSON.stringify(model.exportData()),
-                        document_id: 1,
                         excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
+                        document_id: 1,
                     },
-                ]);
+                ]));
             }
         },
     });
@@ -205,13 +205,13 @@ test("share the full workspace from the share button", async function () {
                 expect(shareVals.default_folder_id).toBe(1);
                 expect(shareVals.default_type).toBe("domain");
                 expect(shareVals.default_domain).toEqual([["folder_id", "=", 1]]);
-                expect(shareVals.default_spreadsheet_shares).toEqual([
+                expect(shareVals.default_spreadsheet_shares).toEqual(JSON.stringify([
                     {
                         spreadsheet_data: JSON.stringify(model.exportData()),
-                        document_id: 1,
                         excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
+                        document_id: 1,
                     },
-                ]);
+                ]));
             }
         },
     });

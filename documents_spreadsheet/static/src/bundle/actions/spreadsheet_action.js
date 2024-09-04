@@ -99,13 +99,13 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
             document_ids: [x2ManyCommands.set([this.resId])],
             folder_id: this.data.folder_id,
             type: "ids",
-            spreadsheet_shares: [
+            spreadsheet_shares: JSON.stringify([
                 {
                     document_id: this.resId,
                     spreadsheet_data: JSON.stringify(data),
                     excel_files: excelExport.files,
                 },
-            ],
+            ]),
         };
         const url = await this.orm.call("documents.share", "action_get_share_url", [vals]);
         return url;

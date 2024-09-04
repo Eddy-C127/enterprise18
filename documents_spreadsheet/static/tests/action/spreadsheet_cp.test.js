@@ -165,13 +165,13 @@ test("share spreadsheet from control panel", async function () {
                     document_ids: [x2ManyCommands.set([spreadsheetId])],
                     folder_id: 1,
                     type: "ids",
-                    spreadsheet_shares: [
+                    spreadsheet_shares: JSON.stringify([
                         {
-                            spreadsheet_data: JSON.stringify(model.exportData()),
                             document_id: spreadsheetId,
+                            spreadsheet_data: JSON.stringify(model.exportData()),
                             excel_files: excel,
                         },
-                    ],
+                    ]),
                 });
                 return "localhost:8069/share/url/132465";
             }

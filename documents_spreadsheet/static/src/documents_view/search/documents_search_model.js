@@ -24,7 +24,7 @@ patch(DocumentsSearchModel.prototype, {
             })
         );
         return {
-            spreadsheet_shares: spreadsheetShares,
+            spreadsheet_shares: JSON.stringify(spreadsheetShares),
         };
     },
 });

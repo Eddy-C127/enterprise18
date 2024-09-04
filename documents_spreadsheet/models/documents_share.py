@@ -1,7 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import ast
 import base64
+import json
+
 from odoo import api, Command, models, fields
 
 class DocumentShare(models.Model):
@@ -16,7 +17,7 @@ class DocumentShare(models.Model):
 
     def _inverse_spreadsheet_shares(self):
         for share in self:
-            create_commands = self._create_spreadsheet_share_commands(ast.literal_eval(share.spreadsheet_shares))
+            create_commands = self._create_spreadsheet_share_commands(json.loads(share.spreadsheet_shares))
             share.write({"freezed_spreadsheet_ids": create_commands})
 
     def _get_documents_and_check_access(self, access_token, document_ids=None, operation="write"):
