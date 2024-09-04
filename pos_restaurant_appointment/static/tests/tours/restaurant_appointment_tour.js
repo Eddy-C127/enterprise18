@@ -10,7 +10,6 @@ const ProductScreen = { ...ProductScreenPos, ...ProductScreenResto };
 
 registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
     test: true,
-    url: "/pos/ui",
     steps: () =>
         [
             Dialog.confirm("Open session"),

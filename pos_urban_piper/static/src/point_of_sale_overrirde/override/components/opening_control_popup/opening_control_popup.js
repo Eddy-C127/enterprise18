@@ -1,7 +1,7 @@
 import { patch } from "@web/core/utils/patch";
-import { CashOpeningPopup } from "@point_of_sale/app/store/cash_opening_popup/cash_opening_popup";
+import { OpeningControlPopup } from "@point_of_sale/app/store/opening_control_popup/opening_control_popup";
 
-patch(CashOpeningPopup.prototype, {
+patch(OpeningControlPopup.prototype, {
     /**
      * @override
      */
