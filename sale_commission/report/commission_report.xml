@@ -20,6 +20,18 @@
         </field>
     </record>
 
+    <record id="sale_commission_report_view_graph" model="ir.ui.view">
+        <field name="name">sale.commission.report.view.graph</field>
+        <field name="model">sale.commission.report</field>
+        <field name="arch" type="xml">
+            <graph>
+                <field name="target_id" type="col"/>
+                <field name="plan_id"/>
+                <field name="commission" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
     <record id="sale_commission_report_view_pivot" model="ir.ui.view">
         <field name="name">sale.commission.report.view.pivot</field>
         <field name="model">sale.commission.report</field>
@@ -31,18 +43,6 @@
                 <field name="commission" type="measure"/>
                 <field name="achieved" type="measure"/>
             </pivot>
-        </field>
-    </record>
-
-    <record id="sale_commission_report_view_graph" model="ir.ui.view">
-        <field name="name">sale.commission.report.view.graph</field>
-        <field name="model">sale.commission.report</field>
-        <field name="arch" type="xml">
-            <graph>
-                <field name="target_id" type="col"/>
-                <field name="plan_id"/>
-                <field name="commission" type="measure"/>
-            </graph>
         </field>
     </record>
 

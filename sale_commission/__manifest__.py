@@ -16,6 +16,7 @@
         'views/sale_commission_plan_view.xml',
         'views/sale_commission_achievement_view.xml',
         'views/sale_commission_forecast_view.xml',
+        'views/crm_team_views.xml',
         'report/commission_report.xml',
         'report/achievement_report.xml',
         'views/sale_commission_menu.xml',
