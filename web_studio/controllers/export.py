@@ -37,7 +37,7 @@ FIELDS_TO_EXPORT = {
     'base.automation': [
         'action_server_ids', 'active', 'filter_domain', 'filter_pre_domain',
         'last_run', 'on_change_field_ids', 'trg_date_id', 'trg_date_range',
-        'trg_date_range_type', 'trigger'
+        'trg_date_range_type', 'trigger', 'model_id', 'name',
     ],
     'ir.actions.act_window': [
         'binding_model_id', 'binding_type', 'binding_view_types',

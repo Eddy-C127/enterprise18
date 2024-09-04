@@ -68,3 +68,37 @@ class TestExport(HttpCase):
         # on one of the hardcoded currency field names.
         # For this test though, on res.partner, the actual field will crash
         self.assertEqual(monetary_field.find("./field[@name='currency_field']").get("eval"), "False")
+
+    def test_export_automation(self):
+        self.env["base.automation"].with_context(studio=True).create({
+            "name": "Cron BaseAuto",
+            "trigger": "on_time",
+            "model_id": self.env.ref('base.model_res_users').id,
+        })
+        data = self.env['ir.model.data'].search([('studio', '=', True)])
+
+        studio_module = self.env['ir.module.module'].get_studio_module()
+        content_iter = iter(export.generate_module(studio_module, data))
+        file_name = content = None
+        while file_name != "data/base_automation.xml":
+            file_name, content = next(content_iter)
+
+        arch = etree.fromstring(content)
+        records = arch.findall("record")
+        self.assertEqual(len(records), 1)
+        record = records[0]
+        field_names = {field.get("name") for field in record.findall("./field")}
+        self.assertEqual(field_names, {
+            "action_server_ids",
+            "active",
+            "filter_domain",
+            "filter_pre_domain",
+            "last_run",
+            "model_id",
+            "name",
+            "on_change_field_ids",
+            "trg_date_id",
+            "trg_date_range",
+            "trg_date_range_type",
+            "trigger"
+        })
