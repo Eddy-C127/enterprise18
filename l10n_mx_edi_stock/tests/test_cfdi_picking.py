@@ -1,8 +1,11 @@
 from dateutil.relativedelta import relativedelta
 
+import base64
+
 from odoo import Command
 from odoo.addons.l10n_mx_edi.tests.common import EXTERNAL_MODE
 from odoo.tests import tagged
+from odoo.tools import misc
 from .common import TestMXEdiStockCommon
 
 
@@ -87,28 +90,38 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
             self._assert_picking_cfdi(picking, 'test_delivery_guide_comex_incoming')
 
     def test_delivery_guide_company_branch(self):
-        self.env.company.write({
-            'child_ids': [Command.create({
-                'name': "Branch A",
-                'street': 'Campobasso Norte 3260 - 9000',
-                'street2': self.env.company.street2,
-                'zip': self.env.company.zip,
-                'city': self.env.company.city,
-                'country_id': self.env.company.country_id.id,
-                'state_id': self.env.company.state_id.id,
-            })],
-        })
-        self.cr.precommit.run()  # load the CoA
-
-        branch = self.env.company.child_ids
-        branch.partner_id.write({
-            'street_name': self.env.company.partner_id.street_name,
-            'street_number': self.env.company.partner_id.street_number,
-            'street_number2': self.env.company.partner_id.street_number2,
-            'city_id': self.env.company.partner_id.city_id.id,
-        })
-        self.product.company_id = branch
         with self.mx_external_setup(self.frozen_today - relativedelta(hours=1)):
+            self.env.company.write({
+                'child_ids': [Command.create({
+                    'name': "Branch A",
+                    'street': 'Campobasso Norte 3260 - 9000',
+                    'street2': self.env.company.street2,
+                    'zip': self.env.company.zip,
+                    'city': self.env.company.city,
+                    'country_id': self.env.company.country_id.id,
+                    'state_id': self.env.company.state_id.id,
+                })],
+            })
+            self.cr.precommit.run()  # load the CoA
+            branch = self.env.company.child_ids
+            key = self.env['certificate.key'].create({
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
+                'password': '12345678a',
+                'company_id': branch.id,
+            })
+            certificate = self.env['certificate.certificate'].create({
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
+                'private_key_id': key.id,
+                'company_id': branch.id,
+            })
+            branch.l10n_mx_edi_certificate_ids = certificate
+            branch.partner_id.write({
+                'street_name': self.env.company.partner_id.street_name,
+                'street_number': self.env.company.partner_id.street_number,
+                'street_number2': self.env.company.partner_id.street_number2,
+                'city_id': self.env.company.partner_id.city_id.id,
+            })
+            self.product.company_id = branch
             warehouse = self._create_warehouse(company_id=branch.id, partner_id=branch.partner_id.id)
             picking = self._create_picking(warehouse)
 

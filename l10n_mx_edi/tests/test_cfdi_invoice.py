@@ -6,6 +6,8 @@ from odoo.tests import tagged
 from odoo.tools import misc
 from odoo.tools.misc import file_open
 
+import base64
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from lxml import etree
@@ -551,17 +553,29 @@ class TestCFDIInvoice(TestMxEdiCommon):
             }])
 
     def test_invoice_company_branch(self):
-        self.env.company.write({
-            'child_ids': [Command.create({
-                'name': 'Branch A',
-                'zip': '85120',
-            })],
-        })
-        self.cr.precommit.run()  # load the CoA
-
-        branch = self.env.company.child_ids
-        self.product.company_id = branch
         with self.mx_external_setup(self.frozen_today - relativedelta(hours=1)):
+            self.env.company.write({
+                'child_ids': [Command.create({
+                    'name': 'Branch A',
+                    'zip': '85120',
+                })],
+            })
+            branch = self.env.company.child_ids
+            key = self.env['certificate.key'].create({
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
+                'password': '12345678a',
+                'company_id': branch.id,
+            })
+            certificate = self.env['certificate.certificate'].create({
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
+                'private_key_id': key.id,
+                'company_id': branch.id,
+            })
+            branch.l10n_mx_edi_certificate_ids = certificate
+            self.cr.precommit.run()  # load the CoA
+
+            branch = self.env.company.child_ids
+            self.product.company_id = branch
             invoice = self._create_invoice(company_id=branch.id)
             with self.with_mocked_pac_sign_success():
                 invoice._l10n_mx_edi_cfdi_invoice_try_send()
