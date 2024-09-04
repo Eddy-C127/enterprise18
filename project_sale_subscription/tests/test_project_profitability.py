@@ -87,20 +87,12 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         self.assertIn('subscriptions', sequence_per_invoice_type)
         subscription_sequence = sequence_per_invoice_type['subscriptions']
         new_amount_expected = subscription_foreign.recurring_monthly * subscription_foreign.sale_order_template_id.duration_value * 0.2
-        sale_items = [{
-            'id': subscription_foreign.order_line[0].id, 'name': 'Product 1', 'product_uom_qty': 1.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription_foreign.order_line[0].product_id.id, 'BaseTestProduct'), 'order_id': (subscription_foreign.id, subscription_foreign.name),
-        }, {
-            'id': subscription_foreign.order_line[1].id, 'name': 'Product 2', 'product_uom_qty': 2.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription_foreign.order_line[1].product_id.id, 'BaseTestProduct'), 'order_id': (subscription_foreign.id, subscription_foreign.name),
-        }]
         self.assertDictEqual(
             self.project._get_profitability_items(False),
             {
                 'revenues': {
                     'data': [{
                         'id': 'subscriptions', 'sequence': subscription_sequence, 'to_invoice': new_amount_expected, 'invoiced': 0.0,
-                        'sale_items': sale_items, 'displayLoadMore': False, 'isFolded': True,
                     }],
                     'total': {'to_invoice': new_amount_expected, 'invoiced': 0.0},
                 },
@@ -117,25 +109,12 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         subscription_main_with_foreign_template.order_line.price_unit = 100
         subscription_main_with_foreign_template.action_confirm()
         new_amount_expected += subscription_main_with_foreign_template.recurring_monthly * subscription_main_with_foreign_template.sale_order_template_id.duration_value
-        sale_items_2 = [{
-            'id': subscription_main_with_foreign_template.order_line[0].id, 'name': 'Product 1',
-            'product_uom_qty': 1.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription_main_with_foreign_template.order_line[0].product_id.id, 'BaseTestProduct'),
-            'order_id': (subscription_main_with_foreign_template.id, subscription_main_with_foreign_template.name),
-        }, {
-            'id': subscription_main_with_foreign_template.order_line[1].id, 'name': 'Product 2',
-            'product_uom_qty': 2.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription_main_with_foreign_template.order_line[1].product_id.id, 'BaseTestProduct'),
-            'order_id': (subscription_main_with_foreign_template.id, subscription_main_with_foreign_template.name),
-        }]
-        sale_items_2.extend(sale_items)
         self.assertDictEqual(
             self.project._get_profitability_items(False),
             {
                 'revenues': {
                     'data': [{
                         'id': 'subscriptions', 'sequence': subscription_sequence, 'to_invoice': new_amount_expected, 'invoiced': 0.0,
-                        'sale_items': sale_items_2, 'displayLoadMore': False, 'isFolded': True,
                     }],
                     'total': {'to_invoice': new_amount_expected, 'invoiced': 0.0},
                 },
@@ -150,14 +129,6 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         subscription = self.subscription.copy(project_vals)
         subscription.action_confirm()
         new_amount_expected += subscription.recurring_monthly * subscription.sale_order_template_id.duration_value
-        sale_items_3 = [{
-            'id': subscription.order_line[0].id, 'name': 'Product 1', 'product_uom_qty': 1.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription.order_line[0].product_id.id, 'BaseTestProduct'), 'order_id': (subscription.id, subscription.name),
-        }, {
-            'id': subscription.order_line[1].id, 'name': 'Product 2', 'product_uom_qty': 1.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription.order_line[1].product_id.id, 'TestProduct2'), 'order_id': (subscription.id, subscription.name),
-        }]
-        sale_items_3.extend(sale_items_2)
         # There are more than 5 sale lines, the allSubscriptionIds arg is now expected
         all_ids = subscription.order_line.ids
         all_ids.extend(subscription_main_with_foreign_template.order_line.ids)
@@ -167,8 +138,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
             {
                 'revenues': {
                     'data': [{
-                        'id': 'subscriptions', 'sequence': subscription_sequence, 'to_invoice': new_amount_expected, 'invoiced': 0.0, 'displayLoadMore': True, 'isFolded': True,
-                        'sale_items': sale_items_3[:5], 'allSubscriptionIds': all_ids,
+                        'id': 'subscriptions', 'sequence': subscription_sequence, 'to_invoice': new_amount_expected, 'invoiced': 0.0,
                     }],
                     'total': {'to_invoice': new_amount_expected, 'invoiced': 0.0},
                 },
@@ -200,17 +170,6 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         self.assertEqual(subscription_foreign.subscription_state, '3_progress')
         self.assertEqual(len(subscription_foreign.order_line), 2)
         self.assertFalse(subscription_foreign.sale_order_template_id, 'No template should be set in this subscription.')
-        sale_items = [{
-            'id': subscription_foreign.order_line[0].id, 'name': 'Product 1', 'product_uom_qty': 1.0,
-            'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription_foreign.order_line[0].product_id.id, 'BaseTestProduct'),
-            'order_id': (subscription_foreign.id, subscription_foreign.name),
-        }, {
-            'id': subscription_foreign.order_line[1].id, 'name': 'Product 2', 'product_uom_qty': 2.0,
-            'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription_foreign.order_line[1].product_id.id, 'BaseTestProduct'),
-            'order_id': (subscription_foreign.id, subscription_foreign.name),
-        }]
         self.assertDictEqual(
             self.project._get_profitability_items(False),
             {
@@ -219,8 +178,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
                         'id': 'subscriptions',
                         'sequence': self.project._get_profitability_sequence_per_invoice_type()['subscriptions'],
                         'to_invoice': subscription_foreign.recurring_monthly * 0.2,
-                        'invoiced': 0.0, 'displayLoadMore': False, 'isFolded': True,
-                        'sale_items': sale_items,
+                        'invoiced': 0.0,
                     }],
                     'total': {'to_invoice': subscription_foreign.recurring_monthly * 0.2, 'invoiced': 0.0},
                 },
@@ -238,18 +196,6 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         self.assertEqual(subscription.subscription_state, '3_progress')
         self.assertEqual(len(subscription.order_line), 2)
         self.assertFalse(subscription.sale_order_template_id, 'No template should be set in this subscription.')
-        sale_items_2 = [{
-            'id': subscription.order_line[0].id, 'name': 'Product 1',
-            'product_uom_qty': 1.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription.order_line[0].product_id.id, 'BaseTestProduct'),
-            'order_id': (subscription.id, subscription.name),
-        }, {
-            'id': subscription.order_line[1].id, 'name': 'Product 2',
-            'product_uom_qty': 1.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (subscription.order_line[1].product_id.id, 'TestProduct2'),
-            'order_id': (subscription.id, subscription.name),
-        }]
-        sale_items_2.extend(sale_items)
         self.assertDictEqual(
             self.project._get_profitability_items(False),
             {
@@ -258,8 +204,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
                         'id': 'subscriptions',
                         'sequence': self.project._get_profitability_sequence_per_invoice_type()['subscriptions'],
                         'to_invoice': subscription_foreign.recurring_monthly * 0.2 + subscription.recurring_monthly,
-                        'invoiced': 0.0, 'displayLoadMore': False, 'isFolded': True,
-                        'sale_items': sale_items_2,
+                        'invoiced': 0.0,
                     }],
                     'total': {'to_invoice': subscription_foreign.recurring_monthly * 0.2 + subscription.recurring_monthly, 'invoiced': 0.0},
                 },
@@ -304,12 +249,6 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         sale_order_foreign.currency_id = self.foreign_currency
         sale_order_foreign.action_confirm()
         # there should be only a subscription section, not the fixed/prepaid services section
-        sale_items = [{
-            'id': sale_order_foreign.order_line[0].id, 'name': sale_order_foreign.order_line[0].product_id.name,
-            'product_uom_qty': 10.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (sale_order_foreign.order_line[0].product_id.id, sale_order_foreign.order_line[0].product_id.name),
-            'order_id': (sale_order_foreign.id, sale_order_foreign.name),
-        }]
         self.assertDictEqual(
             self.project._get_profitability_items(False)['revenues'],
             {
@@ -317,8 +256,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
                     'id': 'subscriptions',
                     'sequence': self.project._get_profitability_sequence_per_invoice_type()['subscriptions'],
                     'to_invoice': sale_order_foreign.recurring_monthly * 0.2,
-                    'invoiced': 0.0, 'displayLoadMore': False, 'isFolded': True,
-                    'sale_items': sale_items,
+                    'invoiced': 0.0,
                 }],
                 'total': {'to_invoice': sale_order_foreign.recurring_monthly * 0.2, 'invoiced': 0.0},
             },
@@ -339,13 +277,6 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
         })
         sale_order.action_confirm()
         # there should be only a subscription section, not the fixed/prepaid services section
-        sale_items_2 = [{
-            'id': sale_order.order_line[0].id, 'name': sale_order.order_line[0].product_id.name,
-            'product_uom_qty': 10.0, 'qty_delivered': 0.0, 'qty_invoiced': 0.0, 'product_uom': (1, 'Units'),
-            'product_id': (sale_order.order_line[0].product_id.id, sale_order.order_line[0].product_id.name),
-            'order_id': (sale_order.id, sale_order.name),
-        }]
-        sale_items_2.extend(sale_items)
         self.assertDictEqual(
             self.project._get_profitability_items(False)['revenues'],
             {
@@ -353,8 +284,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
                     'id': 'subscriptions',
                     'sequence': self.project._get_profitability_sequence_per_invoice_type()['subscriptions'],
                     'to_invoice': sale_order.recurring_monthly + sale_order_foreign.recurring_monthly * 0.2,
-                    'invoiced': 0.0, 'displayLoadMore': False, 'isFolded': True,
-                    'sale_items': sale_items_2,
+                    'invoiced': 0.0,
                 }],
                 'total': {'to_invoice': sale_order.recurring_monthly + sale_order_foreign.recurring_monthly * 0.2, 'invoiced': 0.0},
             },
@@ -403,11 +333,7 @@ class TestSaleSubscriptionProjectProfitability(TestProjectProfitabilityCommon, T
                         'id': 'subscriptions',
                         'sequence': 8,
                         'invoiced': 1.0,
-                        'to_invoice': 0.0, 'displayLoadMore': False, 'isFolded': True,
-                        'sale_items': [{
-                            'id': sale_order.order_line[0].id, 'name': 'Test Product', 'product_uom_qty': 1.0, 'qty_delivered': 0.0, 'qty_invoiced': 1.0, 'product_uom': (1, 'Units'),
-                            'product_id': (sale_order.order_line[0].product_id.id, 'Test Product'), 'order_id': (sale_order.id, sale_order.name),
-                        }],
+                        'to_invoice': 0.0,
                     }],
                     'total': {'invoiced': 1.0, 'to_invoice': 0.0},
                 },

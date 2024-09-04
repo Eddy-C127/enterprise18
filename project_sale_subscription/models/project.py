@@ -127,23 +127,7 @@ class Project(models.Model):
             'sequence': self._get_profitability_sequence_per_invoice_type()[section_id],
             'invoiced': amount_invoiced,
             'to_invoice': amount_to_invoice,
-            'isFolded': True,
-            'sale_items': [],
         }
-
-        display_subscriptions_lines = all_subscriptions_lines = self.env['sale.order.line'].search([('order_id', 'in', all_subscription_ids)])
-        if len(all_subscriptions_lines) <= 5:
-            subscription_revenue['displayLoadMore'] = False
-        else:
-            display_subscriptions_lines = all_subscriptions_lines[:5]
-            subscription_revenue['displayLoadMore'] = True
-            subscription_revenue['allSubscriptionIds'] = all_subscriptions_lines.ids
-        action_id = self.env.ref('sale_subscription.sale_subscription_action').id
-        for subscription_line in display_subscriptions_lines.with_context(with_price_unit=True)._read_format(['name', 'product_uom_qty', 'qty_delivered', 'qty_invoiced', 'product_uom', 'product_id', 'order_id']):
-            action_dict = {}
-            if with_action and self.env.user.has_group('sales_team.group_sale_salesman'):
-                action_dict = {'action': {'name': action_id, 'resId': subscription_line['order_id'][0]}}
-            subscription_revenue['sale_items'].append({**subscription_line, **action_dict})
 
         if with_action and all_subscription_ids and self.env.user.has_group('sales_team.group_sale_salesman'):
             args = [section_id, [('id', 'in', all_subscription_ids)]]
@@ -156,8 +140,18 @@ class Project(models.Model):
         revenues['total']['to_invoice'] += amount_to_invoice
         return profitability_items
 
-    def get_subscription_items_data(self, offset, limit, ids):
-        subscriptions_lines = self.env['sale.order.line'].search(offset=offset, limit=limit, domain=[('id', 'in', ids)])
+    def get_subscription_items_data(self, offset, limit):
+        all_subscription_ids = self.env['sale.order']._search([
+            ('project_id.account_id', 'in', self.account_id.ids),
+            ('subscription_state', 'not in', ['1_draft', '5_renewed']),
+            ('is_subscription', '=', True),
+        ])
+        display_load_more = False
+        subscriptions_lines = self.env['sale.order.line'].search(offset=offset, limit=limit + 1, domain=[('order_id', 'in', all_subscription_ids)])
+        if len(subscriptions_lines) > limit:
+            subscriptions_lines = subscriptions_lines - subscriptions_lines[limit]
+            display_load_more = True
+
         action_id = self.env.ref('sale_subscription.sale_subscription_action').id
         new_items = []
         for subscription_line in subscriptions_lines.with_context(with_price_unit=True)._read_format(['name', 'product_uom_qty', 'qty_delivered', 'qty_invoiced', 'product_uom', 'product_id', 'order_id']):
@@ -165,7 +159,13 @@ class Project(models.Model):
             if self.env.user.has_group('sales_team.group_sale_salesman'):
                 action_dict = {'action': {'name': action_id, 'resId': subscription_line['order_id'][0]}}
             new_items.append({**subscription_line, **action_dict})
-        return new_items
+        return {'sol_items': new_items, 'displayLoadMore': display_load_more}
+
+    def _get_foldable_section(self):
+        foldable_section = super()._get_foldable_section()
+        return foldable_section + [
+            'subscriptions',
+        ]
 
     def _get_profitability_sale_order_items_domain(self, domain=None):
         return expression.AND([
