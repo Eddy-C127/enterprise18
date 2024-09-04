@@ -587,7 +587,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
                 'listID': "ISO 4217 Alpha"
             },
             'line_count_numeric': len(vals['vals']['line_vals']),
-            'order_reference': False,
+            'sales_order_id': False,
             'payment_exchange_rate_vals': self._get_invoice_payment_exchange_rate_vals(invoice),
             'withholding_tax_total_vals_list': self._dian_tax_totals(invoice.company_id.currency_id, vals['taxes_vals'], withholding=True),
         })
