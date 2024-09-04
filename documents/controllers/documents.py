@@ -145,7 +145,12 @@ class ShareRoute(http.Controller):
         return request.make_json_response(result)
 
     @http.route('/documents/upload_traceback', type='http', methods=['POST'], auth="user")
-    def upload_traceback(self, folder_id, ufile):
+    def upload_traceback(self, ufile):
+        model = request.env['documents.document']
+        folder = model.env.ref('documents.documents_support_folder', raise_if_not_found=False)
+        if not folder:
+            folder = request.env['documents.folder'].search([], limit=1, order="sequence asc")
+        folder_id = folder.id
         response = self.upload_document(folder_id, ufile, [])
         result = {
             'success': _("Traceback file uploaded"),

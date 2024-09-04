@@ -1,11 +1,10 @@
+import { CopyButton } from "@web/core/copy_button/copy_button";
 import { ErrorDialog } from "@web/core/errors/error_dialogs";
 import { _t } from "@web/core/l10n/translation";
 import { x2ManyCommands } from "@web/core/orm_service";
+import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
-import { CopyButton } from "@web/core/copy_button/copy_button";
-
 import { patch } from "@web/core/utils/patch";
-import { onWillStart } from "@odoo/owl";
 
 patch(ErrorDialog.components, {
     CopyButton,
@@ -21,7 +20,7 @@ patch(ErrorDialog.prototype, {
         this.state.shareUrl = null;
         this.state.shared = false;
         this.copiedText = _t("Copied");
-        this.folderId = false;
+        this.isAdmin = user.isAdmin;
         useBus(this.fileUpload.bus, "FILE_UPLOAD_LOADED", async (ev) => {
             const response = JSON.parse(ev.detail.upload.xhr.response);
             const record = {
@@ -40,9 +39,6 @@ patch(ErrorDialog.prototype, {
                 type: "success",
             });
         });
-        onWillStart(async () => {
-            this.folderId = await this.orm.call("documents.document", "get_support_folder_id");
-        });
     },
     shareTraceback() {
         if (!this.state.shared) {
@@ -58,11 +54,7 @@ patch(ErrorDialog.prototype, {
                 )}.txt`,
                 { type: "text/plain" }
             );
-            this.fileUpload.upload("/documents/upload_traceback", [file], {
-                buildFormData: (formData) => {
-                    formData.append("folder_id", this.folderId);
-                },
-            });
+            this.fileUpload.upload("/documents/upload_traceback", [file]);
         }
     },
 });

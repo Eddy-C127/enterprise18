@@ -36,7 +36,6 @@ test("Shareable error dialog", async () => {
     });
 
     await mountWithCleanup(MainComponentsContainer);
-    onRpc("get_support_folder_id", () => 1);
     onRpc("/documents/upload_traceback", () => {
         expect.step("Upload traceback");
     });
