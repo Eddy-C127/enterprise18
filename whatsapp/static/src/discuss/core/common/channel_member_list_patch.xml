@@ -4,7 +4,7 @@
     <t t-name="whatsapp.ChannelMemberList" t-inherit="discuss.ChannelMemberList" t-inherit-mode="extension">
         <xpath expr="//t[@name='offlineMembers']" position="after">
             <t t-if="props.thread.whatsappMember">
-                <h6 class="mx-3 text-700">
+                <h6 class="mx-3 text-muted">
                     WhatsApp User
                 </h6>
                 <t t-set="member" t-value="props.thread.whatsappMember" />

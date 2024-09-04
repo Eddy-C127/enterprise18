@@ -20,7 +20,7 @@ registry
             },
             {
                 content: "Click on expand button to open channel in Discuss",
-                trigger: '.o-dropdown-item[title="Open in Discuss"]',
+                trigger: '.o-dropdown-item:contains("Open in Discuss")',
                 run: "click",
             },
             {

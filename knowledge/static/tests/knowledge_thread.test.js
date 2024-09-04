@@ -48,8 +48,9 @@ test("Expand article.thread opens linked article", async () => {
     await start();
     await click(".o-mail-DiscussSystray-class .fa-comments");
     await click(".o-mail-NotificationItem");
-    await contains(".o-mail-ChatWindow-header");
-    await click(".o-mail-ChatWindow-command[title='Open Form View']");
+    await contains(".o-mail-ChatWindow");
+    await click("[title='Open Actions Menu']");
+    await click(".o-dropdown-item", { text: "Open Form View" });
     await assertSteps(["knowledge_action_called"]);
-    await contains(".o-mail-ChatWindow-header", { count: 0 });
+    await contains(".o-mail-ChatWindow", { count: 0 });
 });

@@ -25,7 +25,7 @@ test("Basic topbar rendering for whatsapp channels", async () => {
     await openDiscuss(channelId);
     await contains(".o-mail-Discuss-header .o-mail-ThreadIcon .fa-whatsapp");
     await contains(".o-mail-Discuss-threadName", { value: "WhatsApp 1" });
-    await contains(".o-mail-Discuss-header button[title='Add Users']");
+    await contains(".o-mail-Discuss-header button[title='Invite People']");
     await contains(".o-mail-Discuss-header button[name='member-list']");
     await contains(".o-mail-Discuss-header button[name='call']", { count: 0 });
     await contains(".o-mail-Discuss-header button[name='settings']", { count: 0 });
@@ -41,7 +41,7 @@ test("Invite users into whatsapp channel", async () => {
     pyEnv["res.users"].create({ partner_id: partnerId });
     await start();
     await openDiscuss(channelId);
-    await click(".o-mail-Discuss-header button[title='Add Users']");
+    await click(".o-mail-Discuss-header button[title='Invite People']");
     await click(".o-discuss-ChannelInvitation-selectable");
     await click("button[title='Invite']:enabled");
     await contains(".o_mail_notification", { text: "invited WhatsApp User to the channel" });
