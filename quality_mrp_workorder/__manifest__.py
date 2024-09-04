@@ -24,6 +24,9 @@ Adds Quality Control to workorders.
             'quality_mrp_workorder/static/src/**/*.xml',
             'quality_mrp_workorder/static/src/**/*.js',
         ],
+        'web.assets_tests': [
+            'quality_mrp_workorder/static/tests/tours/**/*',
+        ],
     },
     'auto_install': True,
     'license': 'OEEL-1',

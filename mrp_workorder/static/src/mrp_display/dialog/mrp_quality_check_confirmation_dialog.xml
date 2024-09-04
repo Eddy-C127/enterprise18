@@ -75,7 +75,7 @@
                                 t-on-click="openWorksheet">
                             <i class="fa fa-pencil me-2"/>Fill in worksheet
                         </button>
-                        <button t-if="recordData.test_type !== 'passfail' || recordData.quality_state !== 'none'"
+                        <button t-if="shouldDisplayValidateButton"
                                 t-att-disabled="state.disabled"
                                 class="btn btn-primary me-2" t-on-click="validate" t-esc="confirmLabel"
                                 t-att-barcode_trigger="recordData.test_type == 'print_label' ? 'PRPL' : 'NEXT'"/>

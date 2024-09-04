@@ -57,6 +57,11 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         return _t("Validate");
     }
 
+
+    get shouldDisplayValidateButton() {
+        return this.recordData.test_type !== 'passfail' || this.recordData.quality_state !== 'none'
+    }
+
     async validate() {
         this.state.disabled = true;
         if (this.recordData.test_type === "print_label") {

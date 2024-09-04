@@ -23,7 +23,7 @@ export class QualityCheckSpreadsheetAction extends QualitySpreadsheetTemplateAct
     }
 
     async writeToQualityCheck() {
-        const method = this.isCheckPassed() ? "do_pass" : "do_fail"
+        const method = this.isCheckPassed() ? this.params.pass_action ?? "do_pass" : this.params.fail_action ?? "do_fail"
         if (this.qualityCheckWizardId) {
             // we are part of the quality check wizard flow
             this.writeToQualityCheckWizard(method);
