@@ -1784,3 +1784,20 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
 
         # Does not contain studio arch
         assertViewArchEqual(self, studioView.arch, False)
+
+    def test_approval_button_xml_id(self):
+        self.testView.arch = """<form>
+            <header>
+                <button type="action" name="base.action_model_data" string="MyButton" />
+            </header>
+        </form>
+        """
+        self.start_tour("/odoo?debug=tests", "web_studio_test_approval_button_xml_id", login="admin")
+        tree = self.testView._get_combined_arch()
+        button = tree.xpath("//button")[0]
+        self.assertEqual(button.get("studio_approval"), "True")
+
+        approvals = self.env["studio.approval.rule"].get_approval_spec([{"action_id": "base.action_model_data", "model": "res.partner", "res_id": False}])
+        partner_approvals = dict(approvals["res.partner"])
+
+        self.assertTrue(partner_approvals[(False, False, "base.action_model_data")]["rules"])

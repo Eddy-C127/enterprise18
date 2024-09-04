@@ -974,14 +974,17 @@ Are you sure you want to remove the selection values of those records?""", len(r
         base_arch = etree.fromstring(raw_base_arch, parser=parser)
 
         # if no rule is found, create one on the fly
-        is_method = btn_type == 'object'
-        method = is_method and btn_name
-        action = not is_method and int(btn_name)
-        rule_domain = request.env['studio.approval.rule']._get_rule_domain(model, method, action)
+        method = action_id = False
+        if btn_type == 'object':
+            method = btn_name
+        else:
+            action_id = request.env['studio.approval.rule']._parse_action_from_button(btn_name)
+
+        rule_domain = request.env['studio.approval.rule']._get_rule_domain(model, method, action_id)
         existing_rules = request.env['studio.approval.rule'].search(rule_domain)
         enabling_rules = operation.get("enable")
         if enabling_rules and not existing_rules:
-            request.env['studio.approval.rule'].create_rule(model, method, action, btn_string)
+            request.env['studio.approval.rule'].create_rule(model, method, action_id, btn_string)
         if not enabling_rules and existing_rules:
             existing_rules.write({"active": False})
 

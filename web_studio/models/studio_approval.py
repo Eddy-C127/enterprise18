@@ -18,6 +18,15 @@ class StudioApprovalRule(models.Model):
     _description = "Studio Approval Rule"
     _inherit = ["studio.mixin"]
 
+    @api.model
+    def _parse_action_from_button(self, str_action):
+        if not str_action:
+            return False
+        try:
+            return int(str_action)
+        except ValueError:
+            return self.env.ref(str_action).id
+
     def _default_group_id(self):
         return self.env.ref('base.group_user')
 
@@ -278,7 +287,7 @@ class StudioApprovalRule(models.Model):
         return self.create({
             'model_id': model.id,
             'method': method,
-            'action_id': action_id and int(action_id),
+            'action_id': self._parse_action_from_button(action_id),
             'name': _('%(rule_string)s (%(model_name)s)', rule_string=rule_string, model_name=model.name or model.id),
         })
 
@@ -446,7 +455,7 @@ class StudioApprovalRule(models.Model):
     def _get_rule_domain(self, model, method, action_id):
         # just in case someone didn't cast it properly client side, would be
         # a shame to be able to skip this 'security' because of a missing parseInt 😜
-        action_id = action_id and int(action_id)
+        action_id = self._parse_action_from_button(action_id)
         domain = [('model_name', '=', model)]
         if method:
             domain = expression.AND([domain, [('method', '=', method)]])
@@ -497,6 +506,9 @@ class StudioApprovalRule(models.Model):
         records = self.env[model]
         records.check_access_rights('read')
 
+        def m2o_to_id(t_uple):
+            return t_uple and t_uple[0]
+
         # Harvest all res_ids, method names, and action_ids
         # to be able to pass one batching search query
         all_res_ids = set()
@@ -536,7 +548,7 @@ class StudioApprovalRule(models.Model):
         for rule in rules_data:
             map_rules[rule["id"]] = rule
 
-            res_ids_for_rule = spec[(rule["method"], rule["action_id"])]
+            res_ids_for_rule = spec[(rule["method"], m2o_to_id(rule["action_id"]))]
             records_for_rule = records.browse([_id for _id in res_ids_for_rule if _id]).with_prefetch(records.ids or None)
             # in JS, an empty array will be truthy and I don't want to start using JSON parsing
             # instead, empty domains are replace by False here
@@ -563,7 +575,7 @@ class StudioApprovalRule(models.Model):
             for res_id in record_ids_for_result:
                 if res_id:  # Don't push "False": we don't want to pass a useless search query
                     res_ids_for_entries.add(res_id)
-                res_key = (res_id, rule["method"], rule["action_id"])
+                res_key = (res_id, rule["method"], m2o_to_id(rule["action_id"]))
                 results[res_key] = results.get(res_key, {"rules": [], "entries": []})
                 results[res_key]["rules"].append(rule["id"])
 
@@ -579,7 +591,7 @@ class StudioApprovalRule(models.Model):
             # (res_id, method, action_id) with the matching entries.
             for entry in entries_data:
                 rule = map_rules[entry["rule_id"][0]]
-                key = (entry["res_id"], rule["method"], rule["action_id"])
+                key = (entry["res_id"], rule["method"], m2o_to_id(rule["action_id"]))
                 results[key]["entries"].append(entry)
 
         return model, map_rules, results
@@ -640,10 +652,12 @@ class StudioApprovalRule(models.Model):
         #   ...
         # }
         grouped_model = dict()
+        actions_map = dict()
         for args in args_list:
             method = args.get("method") or False
-            action_id = args.get("action_id") or False
-            action_id = action_id and int(action_id)
+            action_id_origin = args.get("action_id") or False
+            action_id = self._parse_action_from_button(action_id_origin)
+            actions_map[action_id] = action_id_origin
             model = args["model"]
             model_group = grouped_model[model] = grouped_model.get(model, defaultdict(set))
             if method and action_id:
@@ -659,10 +673,14 @@ class StudioApprovalRule(models.Model):
         # we return a list of tuples for each model to be compatible with
         # a JSON serialization.
         result = {"all_rules": {}}
+
         for model, spec in grouped_model.items():
             model, rules, results = self._get_approval_spec(model, spec)
             result["all_rules"].update(rules)
-            result[model] = list(results.items())
+            tuple_list = []
+            for (res_id, method, action_id), val in results.items():
+                tuple_list.append(((res_id, method, actions_map.get(action_id, action_id)), val))
+            result[model] = tuple_list
 
         return result
 

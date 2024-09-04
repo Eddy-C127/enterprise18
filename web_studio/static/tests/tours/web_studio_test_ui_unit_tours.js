@@ -1649,3 +1649,34 @@ registry.category("web_tour.tours").add("web_studio_add_one2many_no_related_many
         },
     ],
 });
+
+registry.category("web_tour.tours").add("web_studio_test_approval_button_xml_id", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+            run: "click",
+        },
+        {
+            trigger: ".o_form_view",
+        },
+        {
+            trigger: ".o_web_studio_navbar_item button:enabled",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_form_view_editor button[name='base.action_model_data']",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_sidebar #studio_approval",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_view_renderer .o_web_studio_approval_avatar"
+        },
+        {
+            trigger: ".o_web_studio_sidebar .o_approval_group #group_id"
+        },
+    ]
+})
