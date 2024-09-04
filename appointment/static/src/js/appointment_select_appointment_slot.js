@@ -69,9 +69,9 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
      */
     _renderNoAvailabilityForMonth: function (monthEl) {
         const firstAvailabilityDate = this.firstEl.getAttribute("id");
-        const staffUserName = this.el.querySelector(
-            "#slots_form select[name='staff_user_id'] option[selected='selected']"
-        )?.textContent;
+        const staffUserEl = this.el.querySelector("#slots_form select[name='staff_user_id']");
+        const staffUserNameSelectedOption = staffUserEl?.options[staffUserEl.selectedIndex];
+        const staffUserName = staffUserNameSelectedOption?.textContent;
         monthEl.querySelectorAll("table").forEach((tableEl) => tableEl.classList.add("d-none"));
         monthEl.append(
             renderToElement("Appointment.appointment_info_no_slot_month", {
@@ -102,9 +102,11 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
                     .forEach((slotEl) => slotEl.replaceChildren());
                 this.el.querySelector(".o_appointment_timezone_selection")?.classList.add("d-none");
 
-                const staffUserName = this.el.querySelector(
-                    "#slots_form select[name='staff_user_id'] option[selected='selected']"
-                )?.textContent;
+                const staffUserEl = this.el.querySelector(
+                    "#slots_form select[name='staff_user_id']"
+                );
+                const staffUserNameSelectedOption = staffUserEl?.options[staffUserEl.selectedIndex];
+                const staffUserName = staffUserNameSelectedOption?.textContent;
                 const hideSelectDropdown = !!this.el.querySelector(
                     "input[name='hide_select_dropdown']"
                 ).value;
@@ -198,10 +200,13 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
         ev.currentTarget.classList.add("o_slot_selected", "active");
 
         // Do not display slots until user has actively selected the capacity
-        const resourceCapacityEl = this.el.querySelector(
-            "select[name='resourceCapacity'] option[selected='selected']"
-        );
-        if (resourceCapacityEl && resourceCapacityEl.dataset.placeholderOption) {
+        const resourceCapacityEl = this.el.querySelector("select[name='resourceCapacity']");
+        const resourceCapacitySelectedOption =
+            resourceCapacityEl?.options[resourceCapacityEl.selectedIndex];
+        if (
+            resourceCapacitySelectedOption &&
+            resourceCapacitySelectedOption.dataset.placeholderOption
+        ) {
             return;
         }
         const slotDate = ev.currentTarget.dataset.slotDate;
@@ -395,12 +400,15 @@ publicWidget.registry.appointmentSlotSelect = publicWidget.Widget.extend({
                     el.classList.add("o_appointment_disable_calendar");
                 });
             this.resourceSelectionEl?.replaceChildren();
-            const resourceCapacityEl = this.el.querySelector(
-                "select[name='resourceCapacity'] option[selected='selected']"
-            );
+            const resourceCapacityEl = this.el.querySelector("select[name='resourceCapacity']");
+            const resourceCapacitySelectedOption =
+                resourceCapacityEl?.options[resourceCapacityEl.selectedIndex];
             if (
                 daySlotSelected &&
-                !(resourceCapacityEl && resourceCapacityEl.dataset.placeholderOption)
+                !(
+                    resourceCapacitySelectedOption &&
+                    resourceCapacitySelectedOption.dataset.placeholderOption
+                )
             ) {
                 this.el
                     .querySelector(".o_appointment_slot_list_loading")
