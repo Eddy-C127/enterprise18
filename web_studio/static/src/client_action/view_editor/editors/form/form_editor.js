@@ -38,9 +38,12 @@ Model.Record = class RecordNoEdit extends formView.Model.Record {
     get isInEdition() {
         return false;
     }
+    _save() {
+        return true
+    }
 };
 
-const formEditor = {
+export const formEditor = {
     ...formView,
     ArchParser: EditorArchParser,
     Compiler: FormEditorCompiler,

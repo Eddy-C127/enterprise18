@@ -1,4 +1,5 @@
 import { expect, test } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
 import { queryAll } from "@odoo/hoot-dom";
 import { Component, onMounted, xml } from "@odoo/owl";
 
@@ -19,6 +20,7 @@ import {
     mountViewEditor,
     createMockViewResult,
 } from "@web_studio/../tests/view_editor_tests_utils";
+import { formEditor } from "@web_studio/client_action/view_editor/editors/form/form_editor";
 
 class Coucou extends models.Model {
     display_name = fields.Char();
@@ -746,4 +748,45 @@ test("edit options and attributes on a widget node", async () => {
     await contains(".o_widget_test_widget").click();
     await contains("input[id=color]").edit("primary");
     expect(".o_widget_test_widget div").toHaveClass("bg-primary");
+});
+
+test("never save record -- hiding tab", async () => {
+    const steps = [];
+    onRpc("web_save", () => {
+        steps.push("web_save");
+    });
+    patchWithCleanup(formEditor, {
+        props() {
+            const props = super.props(...arguments);
+            class TestModel extends props.Model {};
+            TestModel.Record = class extends TestModel.Record {
+                _save() {
+                    steps.push("_save");
+                    return super._save(...arguments);
+                }
+            }
+            props.Model = TestModel;
+            return props;
+        }
+    })
+    const arch = `<form><field name="display_name"/></form>`;
+    await mountViewEditor({
+        type: "form",
+        resModel: "coucou",
+        arch,
+    });
+
+    const visibilityStateProp = Object.getOwnPropertyDescriptor(Document.prototype, "visibilityState");
+    const prevVisibilitySate = document.visibilityState;
+    Object.defineProperty(document, "visibilityState", {
+        value: "hidden",
+        configurable: true,
+        writable: true,
+    });
+
+    document.dispatchEvent(new Event("visibilitychange"));
+    await animationFrame();
+    expect(steps).toEqual(["_save"]) ;
+    Object.defineProperty(document, "visibilityState", visibilityStateProp);
+    expect(document.visibilityState).toBe(prevVisibilitySate);
 });
