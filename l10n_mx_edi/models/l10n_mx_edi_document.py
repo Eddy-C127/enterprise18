@@ -516,7 +516,7 @@ class L10nMxEdiDocument(models.Model):
             * root_company:     The company used to interact with the SAT.
             * issued_address:   The company's address.
         """
-        root_company = company.sudo().parent_ids[::-1].filtered('l10n_mx_edi_certificate_ids')[:1] or company
+        root_company = company.sudo().parent_ids[::-1].filtered('partner_id.vat')[:1] or company
 
         cfdi_values = {
             'company': company,
@@ -540,13 +540,18 @@ class L10nMxEdiDocument(models.Model):
 
         :param cfdi_values: The current CFDI values.
         """
+        company = cfdi_values['company']
         root_company = cfdi_values['root_company']
-        certificate = root_company.l10n_mx_edi_certificate_ids._get_valid_certificate()
+        certificate = company.l10n_mx_edi_certificate_ids._get_valid_certificate()
+        if not certificate and company != root_company:
+            certificate = root_company.l10n_mx_edi_certificate_ids._get_valid_certificate()
         if not certificate:
             cfdi_values['errors'] = [_("No valid certificate found")]
             return
 
         supplier = root_company.partner_id.commercial_partner_id.with_user(self.env.user)
+        fiscal_regime = company.l10n_mx_edi_fiscal_regime or root_company.l10n_mx_edi_fiscal_regime
+
         cfdi_values.update({
             'certificate': certificate,
             'no_certificado': certificate.serial_number,
@@ -555,7 +560,7 @@ class L10nMxEdiDocument(models.Model):
                 'supplier': supplier,
                 'rfc': supplier.vat,
                 'nombre': self._cfdi_sanitize_to_legal_name(root_company.name),
-                'regimen_fiscal': root_company.l10n_mx_edi_fiscal_regime,
+                'regimen_fiscal': fiscal_regime,
                 'domicilio_fiscal_receptor': supplier.zip,
             },
         })

@@ -39,6 +39,7 @@ class TestCFDIPickingXml(TestMXEdiStockCommon):
                 'city': self.env.company.city,
                 'country_id': self.env.company.country_id.id,
                 'state_id': self.env.company.state_id.id,
+                'l10n_mx_edi_certificate_ids': [Command.set(self.certificate.ids)],
             })],
         })
         self.cr.precommit.run()  # load the CoA

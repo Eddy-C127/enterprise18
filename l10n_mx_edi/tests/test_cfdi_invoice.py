@@ -548,6 +548,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
             'child_ids': [Command.create({
                 'name': 'Branch A',
                 'zip': '85120',
+                'l10n_mx_edi_certificate_ids': [Command.set(self.certificate.ids)],
             })],
         })
         self.cr.precommit.run()  # load the CoA
