@@ -50,8 +50,8 @@ class AppointmentCalendarController(CalendarController):
         :param access_token: the access_token of the event linked to the appointment
         :param partner_id: id of the partner who booked the appointment
         :param state: allow to display an info message, possible values:
-            - new: Info message displayed when the appointment has been correctly created
-            - no-cancel: Info message displayed when an appointment can no longer be canceled
+            - 'new': Info message displayed when the appointment has been correctly created
+            - other values: see _get_prevent_cancel_status
         """
         partner_id = int(partner_id)
         event = request.env['calendar.event'].with_context(active_test=False).sudo().search([('access_token', '=', access_token)], limit=1)
@@ -90,6 +90,7 @@ class AppointmentCalendarController(CalendarController):
         google_url = 'https://www.google.com/calendar/render?' + encoded_params
 
         return request.render("appointment.appointment_validated", {
+            'cancel_responsible': event.user_id if event.user_id.active and event.user_id._is_internal() else False,
             'event': event,
             'datetime_start': date_start,
             'google_url': google_url,
@@ -134,8 +135,8 @@ class AppointmentCalendarController(CalendarController):
         appointment_invite = event.appointment_invite_id
         if not event:
             return request.not_found()
-        if fields.Datetime.from_string(event.allday and event.start_date or event.start) < datetime.now() + timedelta(hours=event.appointment_type_id.min_cancellation_hours):
-            return request.redirect(f'/calendar/view/{access_token}?state=no-cancel&partner_id={partner_id}')
+        if cancel_status := self._get_prevent_cancel_status(event):
+            return request.redirect(f'/calendar/view/{access_token}?state={cancel_status}&partner_id={partner_id}')
         event.with_context(mail_notify_author=True).sudo().action_cancel_meeting([int(partner_id)])
         if appointment_invite:
             redirect_url = appointment_invite.redirect_url + '&state=cancel'
@@ -148,6 +149,16 @@ class AppointmentCalendarController(CalendarController):
                 })
             redirect_url = f'/appointment/{appointment_type.id}?{keep_query("*", **reset_params)}'
         return request.redirect(redirect_url)
+
+    def _get_prevent_cancel_status(self, event):
+        """
+            This method returns status corresponding to any reason preventing event cancelling.
+            It can be overriden to add other cancelling condition checks and return their status value.
+        """
+        if (fields.Datetime.from_string(event.allday and event.start_date or event.start)
+            < datetime.now() + timedelta(hours=event.appointment_type_id.min_cancellation_hours)):
+            return 'no_time_left'
+        return False
 
     @route(['/calendar/ics/<string:access_token>.ics'], type='http', auth="public", website=True)
     def appointment_get_ics_file(self, access_token, **kwargs):
