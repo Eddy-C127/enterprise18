@@ -76,3 +76,9 @@ class AddIotBox(models.TransientModel):
                     }
                 },
             }
+
+    # TODO: Dead code to remove
+    # Since https://github.com/odoo/enterprise/pull/68394 we don't need to reload the page anymore
+    # For clients that did not upgrade, we keep this method as their old views still call it
+    def reload_page(self):
+        return self.env["ir.actions.actions"]._for_xml_id("iot.iot_box_action")
