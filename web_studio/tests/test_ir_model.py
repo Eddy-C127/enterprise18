@@ -498,3 +498,17 @@ class TestStudioIrModelHardcoded(TransactionCase):
 
         for model, field in XML_FIELDS:
             self.assertIn(field, self.env[model]._fields)
+
+    def test_24_export_all_required_fields(self):
+        """Test that all required fields are exported"""
+
+        for model, fields in FIELDS_TO_EXPORT.items():
+            required_fields = [
+                field_name
+                for field_name, field_obj
+                in self.env[model]._fields.items()
+                if field_obj.required
+                and field_obj.default is None
+            ]
+            for field in required_fields:
+                self.assertIn(field, fields, f"required field {field} is not exported for model {model}")
