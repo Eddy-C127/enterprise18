@@ -16,7 +16,7 @@ class AppointmentType(models.Model):
 
     is_published = fields.Boolean(
         compute='_compute_is_published', default=None,  # force None to avoid default computation from mixin
-        readonly=False, store=True)
+        readonly=False, store=True, tracking=True)
 
     @api.depends('category')
     def _compute_is_published(self):

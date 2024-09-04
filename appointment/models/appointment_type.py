@@ -21,8 +21,9 @@ from odoo.addons.base.models.res_partner import _tz_get
 class AppointmentType(models.Model):
     _name = "appointment.type"
     _description = "Appointment Type"
-    _inherit = ['image.mixin', 'mail.thread']
+    _inherit = ['image.mixin', 'mail.thread', 'mail.activity.mixin']
     _order = "sequence, id"
+    _mail_post_access = 'read'
 
     @api.model
     def default_get(self, default_fields):
@@ -139,13 +140,13 @@ class AppointmentType(models.Model):
         'appointment_type_res_users_rel',
         domain="[('share', '=', False)]",
         string="Users", default=lambda self: self.env.user,
-        compute="_compute_staff_user_ids", store=True, readonly=False)
+        compute="_compute_staff_user_ids", store=True, readonly=False, tracking=True)
     staff_user_count = fields.Integer('# Staff Users', compute='_compute_staff_user_count')
 
     # Resources Management
-    resource_ids = fields.Many2many('appointment.resource', string="Appointment Resources",
+    resource_ids = fields.Many2many('appointment.resource', string="Resources",
         relation="appointment_type_appointment_resource_rel",
-        compute="_compute_resource_ids", store=True, readonly=False)
+        compute="_compute_resource_ids", store=True, readonly=False, tracking=True)
     resource_count = fields.Integer('# Resources', compute='_compute_resource_info')
     resource_manual_confirmation = fields.Boolean("Manual Confirmation",
         compute="_compute_resource_manual_confirmation", store=True, readonly=False,

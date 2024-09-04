@@ -9,14 +9,14 @@ class AppointmentType(models.Model):
 
     has_payment_step = fields.Boolean("Up-front Payment", help="Require visitors to pay to confirm their booking")
     product_id = fields.Many2one(
-        'product.product', string="Product",
+        'product.product', string="Booking Product",
         compute="_compute_product_id",
         domain=[
             ('type', '=', 'service'),
             ('sale_ok', '=', True),
             ('service_tracking', '=', 'no'),
         ],
-        readonly=False, store=True)
+        readonly=False, store=True, tracking=True)
 
     _sql_constraints = [
         ('check_product_and_payment_step',
