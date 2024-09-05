@@ -56,6 +56,7 @@ class AccountChartTemplate(models.AbstractModel):
             self._l10n_ec_configure_ecuadorian_withhold_taxpayer_type(company)
             self._l10n_ec_setup_profit_withhold_taxes(company)
             self._l10n_ec_copy_taxsupport_codes_from_templates(company)
+            self._l10n_ec_setup_edi_purchase_journal_account(company)
         return res
 
     def _l10n_ec_configure_ecuadorian_withhold_taxpayer_type(self, companies):
@@ -159,3 +160,12 @@ class AccountChartTemplate(models.AbstractModel):
                 tax = Template.ref(xml_id, raise_if_not_found=False)
                 if tax and 'l10n_ec_code_taxsupport' in tax_data:
                     tax.l10n_ec_code_taxsupport = tax_data['l10n_ec_code_taxsupport']
+
+    def _l10n_ec_setup_edi_purchase_journal_account(self, companies):
+        journals = dict(self.env['account.journal']._read_group(domain=[('company_id', 'in', companies.ids), ('code', '=', 'LIQCO')], groupby=['company_id', 'id']))
+        for company in companies:
+            Template = self.env['account.chart.template'].with_company(company)
+            template_code = company.chart_template
+            template_data = Template._get_chart_template_data(template_code).pop('template_data')
+            if (journal := journals.get(company)) and (expense_account_ref := template_data.get('journal_account_expense_categ_id')):
+                journal.default_account_id = Template.ref(expense_account_ref, raise_if_not_found=False)
