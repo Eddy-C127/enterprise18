@@ -75,13 +75,8 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
 
     async continueProduction() {
         this.state.disabled = true;
-        const workorderId = this.props.record.data.workorder_id[0];
-        const workorderValues = { current_quality_check_id: this.props.record.resId };
-        await this.props.record.model.orm.write("mrp.workorder", [workorderId], workorderValues);
-        const qualityCheckId = this.props.record.resId;
-        const qualityCheckValues = { lot_id: this.props.record.data.lot_id[0], qty_done: this.props.record.data.qty_done };
-        await this.props.record.model.orm.write("quality.check", [qualityCheckId], qualityCheckValues);
-        this.doActionAndClose("action_continue", false, true);
+        const skipSave = ["instructions", "passfail"].includes(this.recordData.test_type);
+        this.doActionAndClose("action_continue", !skipSave, true);
     }
 
     async openWorksheet(){
@@ -134,7 +129,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
                 "|", ["company_id", "=", false], ["company_id", "=", this.recordData.company_id[0]],
             ]);
             if (lot.length) {
-                this.recordData.lot_id = [lot[0], barcode];
+                this.props.record.update({ lot_id: [lot[0], barcode] });
                 this.state.disabled = false;
                 this.render();
             }
