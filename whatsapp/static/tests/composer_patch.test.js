@@ -1,7 +1,6 @@
 import { Composer } from "@mail/core/common/composer";
 import {
     contains,
-    createFile,
     dragenterFiles,
     dropFiles,
     inputFiles,
@@ -41,17 +40,10 @@ test("Allow only single attachment in every message", async () => {
     await start();
     await openDiscuss(channelId);
     const [file1, file2] = [
-        await createFile({
-            content: "hello, world",
-            contentType: "text/plain",
-            name: "text.txt",
-        }),
-        await createFile({
-            content: "hello, world",
-            contentType: "text/plain",
-            name: "text2.txt",
-        }),
+        new File(["hello, world"], "text.txt", { type: "text/plain" }),
+        new File(["hello, world"], "text2.txt", { type: "text/plain" }),
     ];
+
     await contains(".o-mail-Composer");
     await contains("button[title='Attach files']");
 
@@ -76,16 +68,8 @@ test("Can not add attachment after copy pasting an attachment", async () => {
     await start();
     await openDiscuss(channelId);
     const [file1, file2] = [
-        await createFile({
-            content: "hello, world",
-            contentType: "text/plain",
-            name: "text.txt",
-        }),
-        await createFile({
-            content: "hello, world",
-            contentType: "text/plain",
-            name: "text2.txt",
-        }),
+        new File(["hello, world"], "text.txt", { type: "text/plain" }),
+        new File(["hello, world"], "text2.txt", { type: "text/plain" }),
     ];
     await pasteFiles(".o-mail-Composer-input", [file1]);
     await contains("button[title='Attach files']:disabled");
@@ -108,16 +92,8 @@ test("Can not add attachment after drag dropping an attachment", async () => {
     await start();
     await openDiscuss(channelId);
     const [file1, file2] = [
-        await createFile({
-            content: "hello, world",
-            contentType: "text/plain",
-            name: "text.txt",
-        }),
-        await createFile({
-            content: "hello, world",
-            contentType: "text/plain",
-            name: "text2.txt",
-        }),
+        new File(["hello, world"], "text.txt", { type: "text/plain" }),
+        new File(["hello, world"], "text2.txt", { type: "text/plain" }),
     ];
     await dragenterFiles(".o-mail-Composer-input", [file1]);
     await dropFiles(".o-mail-Dropzone", [file1]);

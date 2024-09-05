@@ -2,7 +2,6 @@ import {
     assertSteps,
     click,
     contains,
-    createFile,
     dragenterFiles,
     dropFiles,
     inputFiles,
@@ -44,7 +43,7 @@ test("Should not have attachment preview for still uploading attachment", async 
     });
     await start();
     await openFormView("mail.test.simple.main.attachment", recordId);
-    const files = [await createFile({ name: "invoice.pdf", contentType: "application/pdf" })];
+    const files = [new File([new Uint8Array(1)], "invoice.pdf", { type: "application/pdf" })];
     await dragenterFiles(".o-mail-Chatter", files);
     await dropFiles(".o-mail-Dropzone", files);
     await contains("iframe[data-src*='/web/static/lib/pdfjs/web/viewer.html']");
@@ -62,6 +61,7 @@ test("Should not have attachment preview for still uploading attachment", async 
 test("Attachment on side", async () => {
     const pyEnv = await startServer();
     const recordId = pyEnv["mail.test.simple.main.attachment"].create({});
+    const file = new File([new Uint8Array(1)], "invoice.pdf", { type: "application/pdf" });
     const attachmentId = pyEnv["ir.attachment"].create({
         mimetype: "image/jpeg",
         res_id: recordId,
@@ -98,9 +98,7 @@ test("Attachment on side", async () => {
     // send a message with attached PDF file
     await click("button", { text: "Send message" });
     await assertSteps(["/mail/thread/data", "register_as_main_attachment"]);
-    await inputFiles(".o-mail-Composer-coreMain .o_input_file", [
-        await createFile({ name: "invoice.pdf", contentType: "application/pdf" }),
-    ]);
+    await inputFiles(".o-mail-Composer-coreMain .o_input_file", [file]);
     await click(".o-mail-Composer-send:enabled");
     await contains(".arrow", { count: 2 });
     await assertSteps(["/mail/thread/data"]);

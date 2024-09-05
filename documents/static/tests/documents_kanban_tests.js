@@ -38,7 +38,6 @@ import { router } from "@web/core/browser/router";
 import {
     click,
     contains,
-    createFile,
     dragoverFiles,
     dropFiles,
     inputFiles,
@@ -4587,11 +4586,7 @@ QUnit.module("documents", {}, function () {
             QUnit.module("Upload");
 
             QUnit.test("documents: upload with default tags", async function (assert) {
-                const file = await createFile({
-                    name: "text.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
+                const file = new File(["hello world"], "text.txt", { type: "text/plain" });
 
                 const mockedXHRs = [];
                 this.patchDocumentXHR(mockedXHRs, (data) => {
@@ -4618,11 +4613,7 @@ QUnit.module("documents", {}, function () {
             });
 
             QUnit.test("documents: upload with context", async function (assert) {
-                const file = await createFile({
-                    name: "text.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
+                const file = new File(["hello world"], "text.txt", { type: "text/plain" });
 
                 const mockedXHRs = [];
                 this.patchDocumentXHR(mockedXHRs, (data) => {
@@ -4651,11 +4642,7 @@ QUnit.module("documents", {}, function () {
             });
 
             QUnit.test("documents: upload progress bars", async function (assert) {
-                const file = await createFile({
-                    name: "text.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
+                const file = new File(["hello world"], "text.txt", { type: "text/plain" });
 
                 const mockedXHRs = [];
                 this.patchDocumentXHR(mockedXHRs, () => assert.step("xhrSend"));
@@ -4704,11 +4691,7 @@ QUnit.module("documents", {}, function () {
             });
 
             QUnit.test("documents: max upload limit", async function (assert) {
-                const file = await createFile({
-                    name: "text.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
+                const file = new File(["hello world"], "text.txt", { type: "text/plain" });
                 Object.defineProperty(file, "size", {
                     get: () => 67000001,
                 });
@@ -4749,11 +4732,7 @@ QUnit.module("documents", {}, function () {
                     type: "empty",
                 });
 
-                const file = await createFile({
-                    name: "text.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
+                const file = new File(["hello world"], "text.txt", { type: "text/plain" });
 
                 this.patchDocumentXHR([], () => assert.step("xhrSend"));
 
@@ -4792,21 +4771,9 @@ QUnit.module("documents", {}, function () {
             });
 
             QUnit.test("documents: upload multiple progress bars", async function (assert) {
-                const file1 = await createFile({
-                    name: "text1.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
-                const file2 = await createFile({
-                    name: "text2.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
-                const file3 = await createFile({
-                    name: "text3.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
+                const file1 = new File(["hello world"], "text1.txt", { type: "text/plain" });
+                const file2 = new File(["hello world"], "text2.txt", { type: "text/plain" });
+                const file3 = new File(["hello world"], "text3.txt", { type: "text/plain" });
 
                 const mockedXHRs = [];
                 this.patchDocumentXHR(mockedXHRs, () => assert.step("xhrSend"));
@@ -4853,11 +4820,7 @@ QUnit.module("documents", {}, function () {
             });
 
             QUnit.test("documents: notifies server side errors", async function (assert) {
-                const file = await createFile({
-                    name: "text.txt",
-                    content: "hello, world",
-                    contentType: "text/plain",
-                });
+                const file = new File(["hello world"], "text.txt", { type: "text/plain" });
 
                 const mockedXHRs = [];
                 this.patchDocumentXHR(mockedXHRs);
@@ -5454,6 +5417,7 @@ QUnit.module("documents", {}, function () {
                             type: "empty",
                         },
                     ]);
+                    const text = new File(["hello world"], "text.txt", { type: "text/plain" });
                     this.patchDocumentXHR([], (data) => {
                         const datas = Object.fromEntries(data.entries());
                         assert.strictEqual(
@@ -5476,13 +5440,7 @@ QUnit.module("documents", {}, function () {
                     const fileInput = target.querySelector(".o_inspector_replace_input");
                     // legacyClick on the 2nd document to upload
                     fileInput.setAttribute("data-index", 1);
-                    await inputFiles(".o_inspector_replace_input", [
-                        await createFile({
-                            name: "text.txt",
-                            content: "hello, world",
-                            contentType: "text/plain",
-                        }),
-                    ]);
+                    await inputFiles(".o_inspector_replace_input", [text]);
                     assert.verifySteps(["xhrSend"]);
                 }
             );
