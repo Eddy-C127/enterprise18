@@ -332,13 +332,6 @@ class TestPeEdiCommon(AccountEdiTestCommon):
                         <CommodityClassification>
                             <ItemClassificationCode>01010101</ItemClassificationCode>
                         </CommodityClassification>
-                        <ClassifiedTaxCategory>
-                            <ID>S</ID>
-                            <Percent>18.0</Percent>
-                            <TaxScheme>
-                                <ID>VAT</ID>
-                            </TaxScheme>
-                        </ClassifiedTaxCategory>
                     </Item>
                     <Price>
                         <PriceAmount currencyID="USD">1600.0</PriceAmount>
@@ -545,13 +538,6 @@ class TestPeEdiCommon(AccountEdiTestCommon):
                         <CommodityClassification>
                             <ItemClassificationCode>01010101</ItemClassificationCode>
                         </CommodityClassification>
-                        <ClassifiedTaxCategory>
-                            <ID>S</ID>
-                            <Percent>18.0</Percent>
-                            <TaxScheme>
-                                <ID>VAT</ID>
-                            </TaxScheme>
-                        </ClassifiedTaxCategory>
                     </Item>
                     <Price>
                         <PriceAmount currencyID="USD">1600.0</PriceAmount>
@@ -761,13 +747,6 @@ class TestPeEdiCommon(AccountEdiTestCommon):
                         <CommodityClassification>
                             <ItemClassificationCode>01010101</ItemClassificationCode>
                         </CommodityClassification>
-                        <ClassifiedTaxCategory>
-                            <ID>S</ID>
-                            <Percent>18.0</Percent>
-                            <TaxScheme>
-                                <ID>VAT</ID>
-                            </TaxScheme>
-                        </ClassifiedTaxCategory>
                     </Item>
                     <Price>
                         <PriceAmount currencyID="USD">1600.0</PriceAmount>
