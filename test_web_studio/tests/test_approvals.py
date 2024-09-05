@@ -360,6 +360,126 @@ class TestStudioApprovals(TransactionCase):
         self.assertEqual(len(spec["entries"]), 1)
         self.assertEqual(spec["entries"][0]["rule_id"][0], rules[0].id)
 
+    def test_notify_higher_1(self):
+        IrModel = self.env["ir.model"]
+
+        model_action = self.env["test.studio.model_action"].create({
+            "name": "test 2"
+        })
+        rules = self.env["studio.approval.rule"].create([
+            {
+                "name": "rule 1",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 1 - bis",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 2",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "notification_order": "2",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+        ])
+        with self.with_user("demo"):
+            self.env["studio.approval.rule"].browse(rules[0].id).set_approval(model_action.id, True)
+        self.assertEqual(len(model_action.activity_ids), 0)
+
+        with self.with_user("demo"):
+            self.env["studio.approval.rule"].browse(rules[1].id).set_approval(model_action.id, True)
+
+        self.assertEqual(len(model_action.activity_ids), 1)
+        self.assertEqual(self.env["studio.approval.request"].search([("rule_id", "=", rules[2].id)]).mail_activity_id, model_action.activity_ids)
+
+    def test_notify_higher_2(self):
+        IrModel = self.env["ir.model"]
+
+        model_action = self.env["test.studio.model_action"].create({
+            "name": "test 2"
+        })
+        rules = self.env["studio.approval.rule"].create([
+            {
+                "name": "rule 1",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 1 - bis",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 2",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "notification_order": "2",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+        ])
+        with self.with_user("demo"):
+            self.env["studio.approval.rule"].browse(rules[0].id).set_approval(model_action.id, False)
+        self.assertEqual(len(model_action.activity_ids), 0)
+
+        with self.with_user("demo"):
+            self.env["studio.approval.rule"].browse(rules[1].id).set_approval(model_action.id, True)
+
+        self.assertEqual(len(model_action.activity_ids), 0)
+        self.assertEqual(self.env["studio.approval.request"].search([("rule_id", "=", rules[2].id)]).mail_activity_id, model_action.activity_ids)
+
+    def test_notify_higher_3(self):
+        IrModel = self.env["ir.model"]
+
+        model_action = self.env["test.studio.model_action"].create({
+            "name": "test 2"
+        })
+        rules = self.env["studio.approval.rule"].create([
+            {
+                "name": "rule 1",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 1 - bis",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+            {
+                "name": "rule 2",
+                "model_id": IrModel._get("test.studio.model_action").id,
+                "method": "action_confirm",
+                "notification_order": "2",
+                "responsible_id": self.admin_user.id,
+                "users_to_notify": [Command.link(2)],
+            },
+        ])
+        with self.with_user("demo"):
+            self.env["studio.approval.rule"].browse(rules[0].id).set_approval(model_action.id, True)
+        self.assertEqual(len(model_action.activity_ids), 0)
+
+        with self.with_user("demo"):
+            self.env["studio.approval.rule"].browse(rules[1].id).set_approval(model_action.id, False)
+
+        self.assertEqual(len(model_action.activity_ids), 0)
+        self.assertEqual(self.env["studio.approval.request"].search([("rule_id", "=", rules[2].id)]).mail_activity_id, model_action.activity_ids)
+
 
 @tagged("-at_install", "post_install")
 class TestStudioApprovalsUIUnit(HttpCase):

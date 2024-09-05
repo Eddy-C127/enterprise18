@@ -426,7 +426,7 @@ class StudioApprovalRule(models.Model):
         if not self.env.context.get('prevent_approval_request_unlink'):
             ruleSudo._unlink_request(res_id)
 
-        if ruleSudo.notification_order != '9':
+        if approved and ruleSudo.notification_order != '9':
             same_level_rules = []
             higher_level_rules = []
             # approval rules for higher levels can be requested if no rules with the current level are set
@@ -447,7 +447,17 @@ class StudioApprovalRule(models.Model):
                 else:
                     higher_level_rules.append(rule["id"])
 
-            if not same_level_rules:
+            should_notify_higher = not same_level_rules
+            if same_level_rules:
+                approved_entries = ruleSudo.env["studio.approval.entry"].search_read([
+                    ("rule_id", "in", same_level_rules), ("res_id", "=", record.id), ("approved", "=", True)
+                ], ["rule_id"])
+                if approved_entries:
+                    entry_rule_ids = {entry["rule_id"][0] for entry in approved_entries}
+                    should_notify_higher = all(same_level_id in entry_rule_ids for same_level_id in same_level_rules)
+                else:
+                    should_notify_higher = False
+            if should_notify_higher:
                 for rule in ruleSudo.browse(higher_level_rules):
                     rule._create_request(res_id)
         return result
