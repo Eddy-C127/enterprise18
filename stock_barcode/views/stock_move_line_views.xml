@@ -134,21 +134,13 @@
     <field name="priority">1000</field>
     <field name="arch" type="xml">
         <kanban draggable="0" can_open="0">
-            <field name="product_id"/>
-            <field name="quantity"/>
             <templates>
-                <t t-name="kanban-box">
+                <t t-name="kanban-card">
+                    <field name="product_id" class="fw-bold"/>
+                    <field name="lot_id" groups="stock.group_production_lot" class="d-block" invisible="not lot_id"/>
                     <div>
-                        <field name="product_id" class="fw-bold"/>
-                        <div class="row">
-                            <div class="col-6">
-                                <field name="lot_id" groups="stock.group_production_lot" class="d-block" invisible="not lot_id"/>
-                                <div>
-                                    <field name="quantity" string="Quantity Done"/>
-                                    <field name="product_uom_id" string="Unit of Measure" groups="uom.group_uom" class="ms-1"/>
-                                </div>
-                            </div>
-                        </div>
+                        <field name="quantity" string="Quantity Done"/>
+                        <field name="product_uom_id" string="Unit of Measure" groups="uom.group_uom" class="ms-1"/>
                     </div>
                 </t>
             </templates>
@@ -163,23 +155,17 @@
     <field name="arch" type="xml">
         <kanban class="o_kanban_mobile">
             <templates>
-                <t t-name="kanban-box">
-                    <div t-attf-class="oe_kanban_global_click">
-                        <div class="mb4">
-                            <strong><field name="location_id"/></strong>
-                        </div>
-                        <div class="mb4">
-                            <field name="quantity"/> <field name="product_uom_id" groups="uom.group_uom"/>
-                            <span class="ms-4" invisible="not lot_id" groups="stock.group_production_lot">
-                                <field name="lot_id"/>
-                            </span>
-                        </div>
-                        <div class="mb4" invisible="not package_id" groups="stock.group_tracking_lot">
-                            <i class="fa fa-lg fa-archive" title="Package"/><field name="package_id"/>
-                        </div>
-                        <div class="mb4" invisible="not owner_id" groups="stock.group_tracking_owner">
-                            <i class="fa fa-lg fa-user-o" title="Owner"/><field name="owner_id"/>
-                        </div>
+                <t t-name="kanban-card">
+                    <field name="location_id" class="fw-bolder"/>
+                    <div class="mb4">
+                        <field name="quantity"/> <field name="product_uom_id" groups="uom.group_uom"/>
+                        <field name="lot_id" class="ms-4" invisible="not lot_id" groups="stock.group_production_lot"/>
+                    </div>
+                    <div class="mb4" invisible="not package_id" groups="stock.group_tracking_lot">
+                        <i class="fa fa-lg fa-archive" title="Package"/><field name="package_id"/>
+                    </div>
+                    <div class="mb4" invisible="not owner_id" groups="stock.group_tracking_owner">
+                        <i class="fa fa-lg fa-user-o" title="Owner"/><field name="owner_id"/>
                     </div>
                 </t>
             </templates>

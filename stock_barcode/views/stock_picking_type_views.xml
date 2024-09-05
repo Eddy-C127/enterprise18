@@ -8,28 +8,23 @@
         <field name="mode">primary</field>
         <field name="priority">20</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_mobile o_stock_barcode_operations_kanban_view" create="0" sample="1" action="get_action_picking_tree_ready_kanban" type="object" group_create="false">
-                <field name="display_name"/>
+            <kanban highlight_color="color" class="o_kanban_mobile o_stock_barcode_operations_kanban_view" create="0" sample="1" action="get_action_picking_tree_ready_kanban" type="object" group_create="false">
                 <field name="color"/>
-                <field name="count_picking_ready"/>
                 <field name="code"/>
-                <field name="is_barcode_picking_type" invisible="1"/>
+                <field name="is_barcode_picking_type"/>
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="kanban-card" class="o_barcode_picking_type">
                         <div t-if="record.is_barcode_picking_type"
-                             class="o_barcode_picking_type oe_kanban_card d-flex justify-content-between py-3"
-                             t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}">
-                            <div class="o_primary o_kanban_record_title">
+                             class="d-flex justify-content-between py-3">
+                            <div class="fw-bold fs-5 o_kanban_record_title">
                                 <field name="name" class="text-uppercase"/>
-                                <t groups="stock.group_stock_multi_warehouses">
-                                    <br/>
-                                    <field name="warehouse_id" readonly="1" class="text-muted"/>
-                                </t>
+                                <br/>
+                                <field name="warehouse_id" readonly="1" class="text-muted" groups="stock.group_stock_multi_warehouses"/>
                             </div>
                             <div class="badge rounded-pill bg-secondary float-end align-self-center p-1 px-2 fs-6"
                                  t-attf-class="{{ record.count_picking_ready.value == 0 ? 'text-muted' : 'fw-bold' }}"
                                  name="get_action_picking_tree_ready_kanban" type="object">
-                                <span name="pickings_count" t-esc="record.count_picking_ready.value"/>
+                                <span name="pickings_count"><field name="count_picking_ready"/></span> 
                             </div>
                         </div>
                     </t>

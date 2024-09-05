@@ -4,17 +4,14 @@
         <field name="model">stock.picking.type</field>
         <field name="inherit_id" ref="stock_barcode.stock_picking_type_kanban"/>
         <field name="arch" type="xml">
-            <field name="count_picking_ready" position="after">
-                <field name="count_mo_confirmed" />
-            </field>
             <div name="get_action_picking_tree_ready_kanban" position="attributes">
                 <attribute name="t-attf-class">
                     {{ record.count_picking_ready.value == 0 and record.count_mo_confirmed.value == 0 ? 'text-muted' : 'fw-bold' }}
                 </attribute>
             </div>
             <span name="pickings_count" position="replace">
-                <span t-if="record.code.raw_value == 'mrp_operation'" name="manufacturing_count" t-esc="record.count_mo_confirmed.value"/>
-                <span t-else="" name="pickings_count" t-esc="record.count_picking_ready.value"/>
+                <field t-if="record.code.raw_value == 'mrp_operation'" name="count_mo_confirmed"/>
+                <field t-else="" name="count_picking_ready"/>
             </span>
         </field>
     </record>

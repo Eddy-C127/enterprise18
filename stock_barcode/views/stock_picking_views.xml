@@ -57,25 +57,11 @@
                     <field name="move_ids" readonly="1" invisible="not move_ids">
                         <kanban>
                             <templates>
-                                <t t-name="kanban-box">
-                                    <div class="oe_kanban_global_click">
-                                        <div class="row">
-                                            <div class="col-6 o_kanban_record_title">
-                                                <field name="product_id" readonly="state == 'done'"/>
-                                            </div>
-                                            <div class="col-6 text-end">
-                                                <field name="product_uom_qty" readonly="state == 'done'"/>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <field name="description_picking"/>
-                                            </div>
-                                            <div class="col-6 text-end">
-                                                <field name="state"/>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <t t-name="kanban-card" class="row g-0">
+                                    <field name="product_id" class="col-6 fw-bolder fs-5" readonly="state == 'done'"/>
+                                    <field name="product_uom_qty" readonly="state == 'done'" class="col-6 text-end"/>
+                                    <field name="description_picking" class="col-6"/>
+                                    <field name="state" class="col-6 text-end"/>
                                 </t>
                             </templates>
                         </kanban>

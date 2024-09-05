@@ -680,10 +680,8 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "type": "kanban",
             "arch": '''<kanban>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_details">
-                            <field name="display_name"/>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="display_name"/>
                     </t>
                 </templates>
             </kanban>
@@ -1050,7 +1048,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "type": "kanban",
             "arch": '''
                 <kanban>
-                    <t t-name="kanban-box">
+                    <t t-name="kanban-card">
                         <field name="function" />
                         <field name="name" />
                     </t>

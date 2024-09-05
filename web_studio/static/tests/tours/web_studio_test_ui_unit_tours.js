@@ -1122,14 +1122,14 @@ registry.category("web_tour.tours").add("web_studio_field_group_studio_no_fetch"
             run() {
                 assertEqual(
                     this.anchor.querySelectorAll(
-                        ".o_kanban_record:not(.o_kanban_demo):not(.o_kanban_ghost) [data-field-name]"
+                        ".o_kanban_record:not(.o_kanban_demo):not(.o_kanban_ghost) .o-web-studio-editor--element-clickable"
                     ).length,
                     1
                 );
                 assertEqual(
                     this.anchor
                         .querySelectorAll(
-                            ".o_kanban_record:not(.o_kanban_demo):not(.o_kanban_ghost) [data-field-name]"
+                            ".o_kanban_record:not(.o_kanban_demo):not(.o_kanban_ghost) .o-web-studio-editor--element-clickable"
                         )[0]
                         .getAttribute("studioxpath"),
                     "/kanban[1]/t[1]/field[2]"

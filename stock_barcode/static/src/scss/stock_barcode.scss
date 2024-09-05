@@ -141,7 +141,7 @@
     }
 
     @for $size from 2 through length($o-colors) { // Starts at 2 because first index = no color.
-        .o_barcode_picking_type.oe_kanban_card.oe_kanban_color_#{$size - 1} {
+        .o_barcode_picking_type.o_kanban_color_#{$size - 1} {
             $-color: rgba(nth($o-colors, $size), 0.5);
             $-color-contrast: color-contrast($-color);
 
@@ -158,10 +158,10 @@
         }
     }
 
-    .o_barcode_picking_type.oe_kanban_card {
+    .o_barcode_picking_type {
         &:after {
             // Hide the left colored bar.
-            background-color: transparent;
+            border-color: transparent !important;
         }
     }
 }
