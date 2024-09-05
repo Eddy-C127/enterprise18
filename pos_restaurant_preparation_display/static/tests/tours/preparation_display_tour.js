@@ -1,6 +1,7 @@
 import * as Order from "@point_of_sale/../tests/tours/utils/generic_components/order_widget_util";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/utils/payment_screen_util";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/utils/receipt_screen_util";
+import * as Chrome from "@point_of_sale/../tests/tours/utils/chrome_util";
 import * as FloorScreen from "@pos_restaurant/../tests/tours/utils/floor_screen_util";
 import * as ProductScreenPos from "@point_of_sale/../tests/tours/utils/product_screen_util";
 import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
@@ -12,7 +13,8 @@ registry.category("web_tour.tours").add("PreparationDisplayTourResto", {
     test: true,
     steps: () =>
         [
-            Dialog.confirm("Open session"),
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
 
             // Create first order
             FloorScreen.clickTable("5"),
@@ -70,7 +72,8 @@ registry.category("web_tour.tours").add("PreparationDisplayTourInternalNotes", {
     test: true,
     steps: () =>
         [
-            Dialog.confirm("Open session"),
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
             FloorScreen.clickTable("5"),
             ProductScreen.clickDisplayedProduct("Coca-Cola"),
             ProductScreen.orderlineIsToOrder("Coca-Cola"),

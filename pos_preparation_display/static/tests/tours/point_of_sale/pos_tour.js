@@ -1,3 +1,4 @@
+import * as Chrome from "@point_of_sale/../tests/tours/utils/chrome_util";
 import * as ProductScreen from "@point_of_sale/../tests/tours/utils/product_screen_util";
 import * as PaymentScreen from "@point_of_sale/../tests/tours/utils/payment_screen_util";
 import * as ReceiptScreen from "@point_of_sale/../tests/tours/utils/receipt_screen_util";
@@ -10,7 +11,8 @@ registry.category("web_tour.tours").add("PreparationDisplayTour", {
         [
             // First order should send these orderlines to preparation:
             // - Letter Tray x10
-            Dialog.confirm("Open session"),
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
 
             ProductScreen.addOrderline("Letter Tray", "10"),
             ProductScreen.selectedOrderlineHas("Letter Tray", "10.0"),
@@ -47,7 +49,8 @@ registry.category("web_tour.tours").add("PreparationDisplayPrinterTour", {
     test: true,
     steps: () =>
         [
-            Dialog.confirm("Open session"),
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
             ProductScreen.addOrderline("Letter Tray"),
             ProductScreen.clickPayButton(),
             PaymentScreen.clickPaymentMethod("Bank"),
@@ -61,7 +64,8 @@ registry.category("web_tour.tours").add("PreparationDisplayTourConfigurableProdu
     test: true,
     steps: () =>
         [
-            Dialog.confirm("Open session"),
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
             ProductScreen.clickDisplayedProduct("Configurable Chair"),
             Dialog.confirm(),
             ProductScreen.totalAmountIs("11.0"),

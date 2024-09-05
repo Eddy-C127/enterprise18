@@ -10,7 +10,8 @@ registry.category("web_tour.tours").add("pos_settle_account_due", {
     test: true,
     steps: () =>
         [
-            Dialog.confirm("Open session"),
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
             ProductScreen.clickPartnerButton(),
             PartnerList.clickPartnerOptions("Partner Test 1"),
             {
@@ -35,6 +36,7 @@ registry.category("web_tour.tours").add("SettleDueButtonPresent", {
     test: true,
     steps: () =>
         [
+            Chrome.startPoS(),
             ProductScreen.clickPartnerButton(),
             PartnerList.clickPartnerOptions("A Partner"),
             PartnerList.checkDropDownItemText("Deposit money"),

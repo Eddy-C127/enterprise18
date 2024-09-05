@@ -12,7 +12,8 @@ registry.category("web_tour.tours").add("RestaurantAppointmentTour", {
     test: true,
     steps: () =>
         [
-            Dialog.confirm("Open session"),
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
 
             // Make sure there is a currently active order.
             FloorScreen.clickTable("4"),

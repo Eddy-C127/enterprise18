@@ -24,35 +24,36 @@ class PosScaleDummy {
 registry.category("web_tour.tours").add("pos_iot_scale_tour", {
     url: "/odoo",
     test: true,
-    steps: () => [
-        stepUtils.showAppsMenuItem(),
-        {
-            trigger: '.o_app[data-menu-xmlid="point_of_sale.menu_point_root"]',
-            run: "click",
-        },
-        {
-            trigger: ".o_pos_kanban button.oe_kanban_action_button",
-            run: "click",
-        },
-        Dialog.confirm("Open session"),
-        {
-            trigger: ".pos .pos-content",
-            run: function () {
-                posmodel.hardwareProxy.deviceControllers.scale = new PosScaleDummy();
+    steps: () =>
+        [
+            stepUtils.showAppsMenuItem(),
+            {
+                trigger: '.o_app[data-menu-xmlid="point_of_sale.menu_point_root"]',
+                run: "click",
             },
-        },
-        {
-            trigger: '.product:contains("Whiteboard Pen")',
-            run: "click",
-        },
-        {
-            trigger: '.js-weight:contains("2.35")',
-            run: "click",
-        },
-        {
-            trigger: ".buy-product",
-            run: "click",
-        },
-        ...Order.hasLine({ quantity: "2.35" }),
-    ],
+            {
+                trigger: ".o_pos_kanban button.oe_kanban_action_button",
+                run: "click",
+            },
+            Dialog.confirm("Open Register"),
+            {
+                trigger: ".pos .pos-content",
+                run: function () {
+                    posmodel.hardwareProxy.deviceControllers.scale = new PosScaleDummy();
+                },
+            },
+            {
+                trigger: '.product:contains("Whiteboard Pen")',
+                run: "click",
+            },
+            {
+                trigger: '.js-weight:contains("2.35")',
+                run: "click",
+            },
+            {
+                trigger: ".buy-product",
+                run: "click",
+            },
+            ...Order.hasLine({ quantity: "2.35" }),
+        ].flat(),
 });

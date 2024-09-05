@@ -1,5 +1,5 @@
 import { _t } from "@web/core/l10n/translation";
-import { LoginScreen } from "@pos_hr/app/login_screen/login_screen";
+import { LoginScreen } from "@point_of_sale/app/screens/login_screen/login_screen";
 import { patch } from "@web/core/utils/patch";
 import { scanBarcode } from "@web/core/barcode/barcode_dialog";
 import { isBarcodeScannerSupported } from "@web/core/barcode/barcode_video_scanner";

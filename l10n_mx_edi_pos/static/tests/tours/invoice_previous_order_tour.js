@@ -16,7 +16,7 @@ registry.category("web_tour.tours").add("l10n_mx_edi_pos.tour_invoice_previous_o
                 trigger: "button[name='open_ui']",
                 run: "click",
             },
-            Dialog.confirm("Open session"),
+            Dialog.confirm("Open Register"),
             {
                 content: "Select a product",
                 trigger: "div.product-content:contains('product_mx')",
@@ -103,7 +103,7 @@ registry
                     trigger: "button[name='open_ui']",
                     run: "click",
                 },
-                Dialog.confirm("Open session"),
+                Dialog.confirm("Open Register"),
                 {
                     content: "Select a product",
                     trigger: "div.product-content:contains('product_mx')",
