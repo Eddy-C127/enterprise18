@@ -236,31 +236,14 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
     def _l10n_de_datev_find_partner_account(self, account, partner):
         len_param = self._l10n_de_datev_get_account_length() + 1
-        if (account.account_type in ('asset_receivable', 'liability_payable') and partner):
-            # Check if we have a property as receivable/payable on the partner
-            # We use the property because in datev and in germany, partner can be of 2 types
-            # important partner which have a specific account number or a virtual partner
-            # Which has only a number. To differentiate between the two, if a partner in Odoo
-            # explicitely has a receivable/payable account set, we use that account, otherwise
-            # we assume it is not an important partner and his datev virtual id will be the
-            # l10n_de_datev_identifier set or the id + the start count parameter.
-            account = partner.property_account_receivable_id if account.account_type == 'asset_receivable' else partner.property_account_payable_id
-            fname = "property_account_receivable_id"         if account.account_type == 'asset_receivable' else "property_account_payable_id"
-            prop = self.env['ir.property']._get(fname, "res.partner", partner.id)
-            force_datev_id = self.env['ir.config_parameter'].sudo().get_param('l10n_de.force_datev_id', False)
-            if not force_datev_id and prop == account:
-                return str(account.code).ljust(len_param - 1, '0') if account else ''
-            return self._l10n_de_datev_get_account_identifier(account, partner)
-        return str(account.code).ljust(len_param - 1, '0') if account else ''
-
-    def _l10n_de_datev_get_account_identifier(self, account, partner):
-        len_param = self._l10n_de_datev_get_account_length() + 1
-        if account.account_type == 'asset_receivable':
-            # for customers
-            return partner.l10n_de_datev_identifier_customer or int('1'.ljust(len_param, '0')) + partner.id
+        codes = {
+            'asset_receivable': (partner.l10n_de_datev_identifier_customer or int('1'.ljust(len_param, '0')) + partner.id),
+            'liability_payable': (partner.l10n_de_datev_identifier or int('7'.ljust(len_param, '0')) + partner.id)
+        }
+        if account.account_type in codes and partner:
+            return codes[account.account_type]
         else:
-            # for vendors
-            return partner.l10n_de_datev_identifier or int('7'.ljust(len_param, '0')) + partner.id
+            return str(account.code).ljust(len_param - 1, '0') if account else ''
 
     # Source: http://www.datev.de/dnlexom/client/app/index.html#/document/1036228/D103622800029
     def _l10n_de_datev_get_csv(self, options, moves):
