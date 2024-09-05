@@ -70,11 +70,8 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     async continueProduction() {
-        await this.props.record.model.orm.write(
-            "quality.check",
-            [this.props.record.resId],
-            { lot_id: this.props.record.data.lot_id[0], qty_done: this.props.record.data.qty_done });
-        this.doActionAndClose("action_continue", false, true);
+        const skipSave = ["instructions", "passfail"].includes(this.recordData.test_type);
+        this.doActionAndClose("action_continue", !skipSave, true);
     }
 
     async openWorksheet(){
@@ -124,7 +121,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
                 "|", ["company_id", "=", false], ["company_id", "=", this.recordData.company_id[0]],
             ]);
             if (lot.length) {
-                this.recordData.lot_id = [lot[0], barcode];
+                this.props.record.update({ lot_id: [lot[0], barcode] });
                 this.render();
             }
         }
