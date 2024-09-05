@@ -581,10 +581,21 @@ export class ReportEditorWysiwyg extends Component {
         await this.fieldPopover.open(popoverAnchor, {
             ...props,
             showOnlyX2ManyFields: false,
-            validate: (qwebVar, fieldNameChain, defaultValue = "", is_image) => {
+            validate: (
+                qwebVar,
+                fieldNameChain,
+                defaultValue = "",
+                is_image,
+                relation,
+                fieldString
+            ) => {
                 const doc = this.editor.document;
 
                 const span = doc.createElement("span");
+                span.setAttribute(
+                    "oe-expression-readable",
+                    fieldString || `field: "${qwebVar}.${fieldNameChain}"`
+                );
                 span.textContent = defaultValue;
                 span.setAttribute("t-field", `${qwebVar}.${fieldNameChain}`);
 
