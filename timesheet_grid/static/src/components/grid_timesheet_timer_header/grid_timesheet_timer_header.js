@@ -54,10 +54,14 @@ export class GridTimesheetTimerHeader extends Component {
 
     getFieldInfo(fieldName) {
         const field = this.fields[fieldName];
+        let fieldType = field.type;
+        if (fieldName === "task_id") {
+            fieldType = 'task_with_hours';
+        }
         const fieldInfo = getPropertyFieldInfo({
             field: field,
             name: fieldName,
-            type: field.type,
+            type: fieldType,
             domain: field.domain || "[]",
             required: "False",
         });

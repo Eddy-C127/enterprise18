@@ -88,6 +88,8 @@ onRpc(({ args, kwargs, method, model }) => {
         return [];
     } else if (method == "get_running_timer") {
         return { step_timer: 15 };
+    } else if (method == "get_create_edit_project_ids") {
+        return [];
     }
 });
 

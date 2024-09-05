@@ -140,6 +140,8 @@ QUnit.module("Views", (hooks) => {
                         return {};
                     case "get_server_time":
                         return serializeDateTime(DateTime.now());
+                    case "get_create_edit_project_ids":
+                        return [];
                     default:
                         return timesheetGridSetup.mockTimesheetGridRPC(...arguments);
                 }
