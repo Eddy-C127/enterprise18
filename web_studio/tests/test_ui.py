@@ -1773,3 +1773,23 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
               </xpath>
             </data>
         """ % reified_fname)
+
+    def test_approval_button_xml_id(self):
+        self.testView.arch = """<form>
+            <header>
+                <button type="action" name="base.action_model_data" string="MyButton" />
+            </header>
+        </form>
+        """
+        self.start_tour("/web?debug=tests", "web_studio_test_approval_button_xml_id", login="admin")
+        tree = self.testView._get_combined_arch()
+        button = tree.xpath("//button")[0]
+        self.assertEqual(button.get("studio_approval"), "True")
+
+        approvals = self.env["studio.approval.rule"].get_approval_spec("res.partner", False, "base.action_model_data", False)
+        self.assertEqual(len(approvals["rules"]), 1)
+        rule = self.env["studio.approval.rule"].browse(approvals["rules"][0]["id"])
+
+        # actions have different record set, but the api of ir.actions.actions
+        # guarantees that the ids match across the two models.
+        self.assertEqual(rule.action_id.id, self.env.ref("base.action_model_data").id)

@@ -18,6 +18,15 @@ class StudioApprovalRule(models.Model):
     _description = "Studio Approval Rule"
     _inherit = ["studio.mixin"]
 
+    @api.model
+    def _parse_action_from_button(self, str_action):
+        if not str_action:
+            return False
+        try:
+            return int(str_action)
+        except ValueError:
+            return self.env.ref(str_action).id
+
     def _default_group_id(self):
         return self.env.ref('base.group_user')
 
@@ -267,7 +276,7 @@ class StudioApprovalRule(models.Model):
         return self.create({
             'model_id': model.id,
             'method': method,
-            'action_id': action_id and int(action_id),
+            'action_id': self._parse_action_from_button(action_id),
             'name': _('%(rule_string)s (%(model_name)s)', rule_string=rule_string, model_name=model.name or model.id),
         })
 
@@ -445,7 +454,7 @@ class StudioApprovalRule(models.Model):
     def _get_rule_domain(self, model, method, action_id):
         # just in case someone didn't cast it properly client side, would be
         # a shame to be able to skip this 'security' because of a missing parseInt 😜
-        action_id = action_id and int(action_id)
+        action_id = self._parse_action_from_button(action_id)
         domain = [('model_name', '=', model)]
         if method:
             domain = expression.AND([domain, [('method', '=', method)]])

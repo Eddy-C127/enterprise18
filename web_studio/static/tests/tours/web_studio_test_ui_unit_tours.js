@@ -1296,3 +1296,37 @@ registry.category("web_tour.tours").add("web_studio_test_edit_reified_field", {
         },
     ]
 });
+
+registry.category("web_tour.tours").add("web_studio_test_approval_button_xml_id", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "a[data-menu-xmlid='web_studio.studio_test_partner_menu']",
+            run: "click",
+        },
+        {
+            trigger: ".o_form_view",
+            run() {},
+        },
+        {
+            trigger: ".o_web_studio_navbar_item button:enabled",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_form_view_editor button[name='base.action_model_data']",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_sidebar #studio_approval",
+            run: "click",
+        },
+        {
+            trigger: ".o_web_studio_view_renderer .o_web_studio_approval_avatar",
+            run() {},
+        },
+        {
+            trigger: ".o_web_studio_sidebar .o_approval_group #group_id",
+            run() {},
+        },
+    ],
+});
