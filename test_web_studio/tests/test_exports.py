@@ -4,7 +4,7 @@ from itertools import starmap
 from lxml import etree as ET
 
 from odoo import Command
-from odoo.addons.web_studio.controllers.export import xmlid_getter, generate_module
+from odoo.addons.web_studio.controllers.export import xmlid_getter, generate_module, _clean_dependencies
 from odoo.addons.website.tools import MockRequest
 from odoo.osv import expression
 from odoo.tests.common import TransactionCase, tagged
@@ -148,8 +148,11 @@ class StudioExportAssertor:
         exported = self.get_exported("__manifest__.py")
         for key in expected:
             if key == "depends":
-                for d in expected["depends"]:
-                    self.export_case.assertIn(d, exported["depends"])
+                with MockRequest(self.export_case.env):
+                    self.export_case.assertEqual(
+                        _clean_dependencies(set(exported["depends"] + expected["depends"])),
+                        exported["depends"],
+                    )
             else:
                 self.export_case.assertEqual(exported[key], expected[key])
 
