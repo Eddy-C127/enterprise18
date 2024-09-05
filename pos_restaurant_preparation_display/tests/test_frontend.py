@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.addons.pos_restaurant.tests.test_frontend import TestFrontend
+from odoo.addons.pos_restaurant.tests import test_frontend
 from odoo import Command
 import odoo.tests
 
 
 @odoo.tests.tagged('post_install', '-at_install')
-class TestUi(TestFrontend):
+class TestUi(test_frontend.TestFrontendCommon):
     def test_01_preparation_display_resto(self):
         self.env['pos_preparation_display.display'].create({
             'name': 'Preparation Display',
