@@ -205,7 +205,7 @@ def _serialize_model(module, model, records, data, fields_to_export, no_update):
         skipped_records.extend(record_skipped)
 
     # SPECIFIC: replace website pages arch if needed
-    if model == 'ir.ui.view':
+    if model == 'ir.ui.view' and _has_website():
         website_views = filter(lambda r: r['website_id'] and r['key'].startswith('website.') and r['create_uid'].id == 1, records_to_export)
         for view in website_views:
             exportid = _get_xmlid(view, data)
@@ -281,7 +281,7 @@ def _serialize_field(record, field, data):
         return
 
     # SPECIFIC: make a unique key for ir.ui.view.key in case of website_id
-    if field.name == 'key' and record._name == 'ir.ui.view' and record.website_id:
+    if _has_website() and field.name == 'key' and record._name == 'ir.ui.view' and record.website_id:
         value = f"studio_customization.{value}"
 
     if field.type in ('boolean', 'properties_definition', 'properties'):
@@ -502,6 +502,10 @@ def _prepare_records_to_export(module, model, records, data, fields_to_export):
     records = topological_sort(record_deps)
 
     return records, depends, binary_files
+
+
+def _has_website():
+    return request.env['ir.module.module'].search_count([('state', '=', 'installed'), ('name', '=', 'website')]) == 1
 
 
 _xmlid_cache = {}
