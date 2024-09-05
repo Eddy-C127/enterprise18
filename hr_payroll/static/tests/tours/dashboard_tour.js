@@ -63,7 +63,14 @@ registry.category("web_tour.tours").add('payroll_dashboard_ui_tour', {
     {
         content: "Set a name",
         trigger: 'li.o_hr_payroll_todo_tab input',
-        run: "text_blur Dashboard Todo List"
+        run: "text Dashboard Todo List"
+    },
+    {
+        content: "Blur the tab input",
+        trigger: 'li.o_hr_payroll_todo_tab input',
+        run: function() {
+            this.$anchor[0].dispatchEvent(new Event("blur", { bubbles: true, cancelable: true }));
+        }
     },
     {
         content: "Edit the note in dashboard view",
