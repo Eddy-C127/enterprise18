@@ -121,9 +121,11 @@ export class KnowledgeArticleFormController extends FormController {
      */
     async beforeUnload(ev) {
         if (this.model.root.resId) {
-            this.ensureArticleName();
+            await this.ensureArticleName();
+            if (await this.model.root.isDirty()) {
+                await super.beforeUnload(ev); // triggers an urgent save
+            }
         }
-        await super.beforeUnload(ev);
     }
 
     /**
