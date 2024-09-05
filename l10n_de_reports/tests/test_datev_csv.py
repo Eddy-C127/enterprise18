@@ -489,7 +489,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         data = [[x[0], x[1], x[2], x[6], x[7], x[9], x[10], x[13]] for x in reader][2:]
         self.addCleanup(zf.close)
         self.assertEqual(2, len(data), "csv should have 2 lines")
-        self.assertIn(['100,00', 'H', 'EUR', '16000000', '49800000', '112', move.name, move.name], data)
+        self.assertIn(['100,00', 'H', 'EUR', str(700000000 + self.partner_a.id), '49800000', '112', move.name, move.name], data)
         self.assertIn(['100,00', 'H', 'EUR', '15000000', '49800000', '112', move.name, move.name], data)
 
     def test_datev_all_aml_present(self):
