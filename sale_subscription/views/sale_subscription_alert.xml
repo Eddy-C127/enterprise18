@@ -178,8 +178,8 @@
                 <attribute name="readonly">is_sale_order_alert</attribute>
             </xpath>
             <xpath expr="//field[@name='action_server_ids']" position="before">
-                <p>
-                    <em class="text-muted" invisible="not is_sale_order_alert">
+                <p invisible="not is_sale_order_alert">
+                    <em class="text-muted">
                         Action data can not be updated to avoid unexpected behaviors. Create a new automation rule instead.
                     </em>
                 </p>
