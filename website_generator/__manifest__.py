@@ -7,7 +7,7 @@
     'description': """
         Generates a new website in Odoo, with the goal of recreating an external website as close as possible.
     """,
-    'depends': ['website'],
+    'depends': ['website', 'website_enterprise'],
     'data': [
         'security/ir.model.access.csv',
         'cron/cron.xml',

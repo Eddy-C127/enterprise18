@@ -1,6 +1,8 @@
 /** @odoo-module **/
 
+import { _t } from "@web/core/l10n/translation";
 import {registry} from "@web/core/registry";
+import { user } from "@web/core/user";
 import {Component, useState, onWillStart, onWillUnmount} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
 import {session} from "@web/session";
@@ -10,6 +12,7 @@ export class GeneratorRequest extends Component {
     static props = {};
     setup() {
         this.actionService = useService("action");
+        this.notification = useService("notification");
         this.orm = useService("orm");
         this.state = useState({
             globeExtraClasses: "",
@@ -20,6 +23,21 @@ export class GeneratorRequest extends Component {
             this.interval = setInterval(() => {
                 this.checkRequestStatus();
             }, 60000);
+            const searchParams = new URLSearchParams(window.location.search);
+
+            if (searchParams.get("showWebsiteGeneratorNotification")) {
+                // TODO: find a better way to show this notification
+                const users = await this.orm.read("res.partner", [user.partnerId], ["email"]);
+                const userEmail = users[0].email;
+                this.notification.add(
+                    _t("We will notify %(email)s when everything is ready.", { email: userEmail }),
+                    {
+                        title: _t("The import of your website has started!"),
+                        type: "info",
+                        sticky: true,
+                    },
+                );
+            }
         });
         onWillUnmount(() => {
             clearInterval(this.interval);

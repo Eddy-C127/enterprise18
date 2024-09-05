@@ -17,6 +17,9 @@ This module overrides community website features and introduces enterprise look 
     'auto_install': True,
     'license': 'OEEL-1',
     'assets': {
+        'web.assets_backend': [
+            'website_enterprise/static/src/client_actions/*/*',
+        ],
         'website.assets_editor': [
             'website_enterprise/static/src/js/systray_items/*.js',
             'website_enterprise/static/src/services/color_scheme_service_patch.js',

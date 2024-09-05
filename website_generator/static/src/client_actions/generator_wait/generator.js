@@ -7,7 +7,8 @@ import {
     onWillStart,
     onWillUnmount,
 } from "@odoo/owl";
-import {useService} from "@web/core/utils/hooks";
+import { _t } from "@web/core/l10n/translation";
+import { useBus, useService } from "@web/core/utils/hooks";
 import {redirect} from "@web/core/utils/urls";
 import { standardActionServiceProps } from "@web/webclient/actions/action_service";
 
@@ -17,6 +18,8 @@ class WebsiteGenerator extends Component {
     setup() {
         this.orm = useService("orm");
         this.dialog = useService("dialog");
+        this.website = useService("website");
+
         this.canCallGetResultWaitingRequests = true;
         this.state = useState({
             error: "",
@@ -34,6 +37,12 @@ class WebsiteGenerator extends Component {
         });
         onWillUnmount(() => {
             clearInterval(this.interval);
+        });
+
+        useBus(this.website.bus, "HIDE-WEBSITE-LOADER", () => {
+            if (!this.state.error) {
+                redirect("/odoo?showWebsiteGeneratorNotification=1");
+            }
         });
     }
     async _checkRequestStatus() {
@@ -62,6 +71,7 @@ class WebsiteGenerator extends Component {
                     this.canCallGetResultWaitingRequests = true;
                 });
             }
+            this._showWebsiteLoader();
             return;
         }
         // At this point, either the request is in real error or succeeded:
@@ -75,10 +85,23 @@ class WebsiteGenerator extends Component {
         if (lastScrapRequest.status.includes("error")) {
             this.state.error = lastScrapRequest.status_message;
             clearInterval(this.interval);
+            this.website.hideLoader();
             return;
         }
+
+        this.website.prepareOutLoader();
+
         // If it succeeded, redirect to the website
         window.location.href = `/website/force/${lastScrapRequest.website_id[0]}`;
+    }
+
+    _showWebsiteLoader() {
+        this.website.showLoader({
+            title: _t("Importing your website."),
+            bottomMessageTemplate: "website_generator.request_website_loader_bottom_message",
+            showLoader: false,
+            showCloseButton: true,
+        });
     }
 }
 
