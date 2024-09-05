@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 import uuid
 
+from werkzeug.urls import url_quote_plus
+
 from odoo import _, api, fields, models
 from odoo.tools.sql import column_exists, create_column
 
@@ -182,6 +184,13 @@ class Picking(models.Model):
         if cfdi_values['destino']['domicilio']['pais']:
             cfdi_values['destino']['domicilio']['pais'] += f" - {destination_partner.country_id.name}"
 
+        # Generate QR code of the URL to access the service regarding the current guide document (legal requirement)
+        barcode_value = url_quote_plus(f"https://verificacfdi.facturaelectronica.sat.gob.mx/verificaccp/default.aspx?"
+                                       f"IdCCP={cfdi_values['idccp']}&"
+                                       f"FechaOrig={cfdi_values['cfdi_date']}&"
+                                       f"FechaTimb={cfdi_values['scheduled_date']}")
+        barcode_src = f'/report/barcode/?barcode_type=QR&value={barcode_value}&width=180&height=180'
+
         return {
             'idccp': cfdi_values['idccp'] or "-",
             'transp_internac': "Sí" if self.l10n_mx_edi_external_trade else "No",
@@ -224,6 +233,7 @@ class Picking(models.Model):
                 }
                 for figure in self.l10n_mx_edi_vehicle_id.figure_ids.sorted('type')
             ],
+            'barcode_src': barcode_src,
         }
 
     @api.model
