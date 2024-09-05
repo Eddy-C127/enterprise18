@@ -8,5 +8,5 @@ class IndianTaxReportCustomHandler(models.AbstractModel):
 
     def _get_invalid_no_hsn_line_domain(self):
         domain = super()._get_invalid_no_hsn_line_domain()
-        domain += [('move_id.l10n_in_pos_session_ids', '=', False)]
+        domain += [('move_id.pos_session_ids', '=', False)]
         return domain
