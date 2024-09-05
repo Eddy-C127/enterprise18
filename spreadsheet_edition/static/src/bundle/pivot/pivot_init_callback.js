@@ -108,6 +108,7 @@ export function insertPivot(pivotData) {
                 row: 0,
                 pivotId,
                 table: table.export(),
+                pivotMode: "static",
             })
         );
 

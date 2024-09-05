@@ -3,7 +3,10 @@
 import { _t } from "@web/core/l10n/translation";
 import { registries, stores } from "@odoo/o-spreadsheet";
 import { REINSERT_LIST_CHILDREN } from "../list/list_actions";
-import { REINSERT_PIVOT_CHILDREN } from "../pivot/pivot_actions";
+import {
+    REINSERT_DYNAMIC_PIVOT_CHILDREN,
+    REINSERT_STATIC_PIVOT_CHILDREN,
+} from "../pivot/pivot_actions";
 import { getListHighlights } from "../list/list_highlight_helpers";
 const { topbarMenuRegistry } = registries;
 const { HighlightStore } = stores;
@@ -115,11 +118,19 @@ topbarMenuRegistry.addChild("data_sources_data", ["data"], (env) => {
     ]);
 });
 
-const reinsertPivotMenu = {
-    id: "reinsert_pivot",
-    name: _t("Re-insert pivot"),
+const reinsertDynamicPivotMenu = {
+    id: "reinsert_dynamic_pivot",
+    name: _t("Re-insert dynamic pivot"),
     sequence: 1020,
-    children: [REINSERT_PIVOT_CHILDREN],
+    children: [REINSERT_DYNAMIC_PIVOT_CHILDREN],
+    isVisible: (env) => env.model.getters.getPivotIds().length,
+    icon: "o-spreadsheet-Icon.INSERT_PIVOT",
+};
+const reinsertStaticPivotMenu = {
+    id: "reinsert_static_pivot",
+    name: _t("Re-insert static pivot"),
+    sequence: 1021,
+    children: [REINSERT_STATIC_PIVOT_CHILDREN],
     isVisible: (env) => env.model.getters.getPivotIds().length,
     icon: "o-spreadsheet-Icon.INSERT_PIVOT",
 };
@@ -143,6 +154,9 @@ const printMenu = {
 
 topbarMenuRegistry.addChild("print", ["file"], printMenu);
 topbarMenuRegistry.addChild("reinsert_list", ["data"], reInsertListMenu);
-topbarMenuRegistry.addChild("reinsert_pivot", ["data"], reinsertPivotMenu, {
+topbarMenuRegistry.addChild("reinsert_dynamic_pivot", ["data"], reinsertDynamicPivotMenu, {
+    force: true,
+});
+topbarMenuRegistry.addChild("reinsert_static_pivot", ["data"], reinsertStaticPivotMenu, {
     force: true,
 });

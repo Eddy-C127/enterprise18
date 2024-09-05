@@ -28,7 +28,7 @@ test("Re-insert a pivot with a global filter should re-insert the full pivot", a
         defaultValue: [41],
     });
     selectCell(model, "A6");
-    const reinsertPivotPath = ["data", "reinsert_pivot", "reinsert_pivot_1"];
+    const reinsertPivotPath = ["data", "reinsert_static_pivot", "reinsert_static_pivot_1"];
     await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
     await animationFrame();
     expect(getCellValue(model, "B6")).toBe(getCellValue(model, "B1"));

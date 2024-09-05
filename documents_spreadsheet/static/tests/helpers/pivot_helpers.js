@@ -5,7 +5,6 @@ import { onMounted } from "@odoo/owl";
 import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
 import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
-import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";
 import {
     getSpreadsheetActionEnv,
     getSpreadsheetActionModel,
@@ -19,9 +18,6 @@ import {
 } from "@web/../tests/web_test_helpers";
 import { Deferred } from "@web/core/utils/concurrency";
 import { WebClient } from "@web/webclient/webclient";
-import { registries } from "@odoo/o-spreadsheet";
-
-const { cellMenuRegistry } = registries;
 
 /**
  * @typedef {import("@spreadsheet/o_spreadsheet/o_spreadsheet").Model} Model
@@ -117,7 +113,6 @@ export async function createSpreadsheetFromPivotView(params = {}) {
     const pivotId = model.getters.getPivotIds()[0];
     await waitForDataLoaded(model);
     const env = getSpreadsheetActionEnv(spreadsheetAction);
-    doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
     return {
         webClient,
         env,

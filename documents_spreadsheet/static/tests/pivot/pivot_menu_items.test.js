@@ -41,19 +41,32 @@ describe.current.tags("desktop");
 
 let target;
 
-const reinsertPivotPath = ["data", "reinsert_pivot", "reinsert_pivot_1"];
+const reinsertDynamicPivotPath = ["data", "reinsert_dynamic_pivot", "reinsert_dynamic_pivot_1"];
+const reinsertStaticPivotPath = ["data", "reinsert_static_pivot", "reinsert_static_pivot_1"];
 
 beforeEach(() => {
     target = getFixture();
 });
 
-test("Reinsert a pivot", async function () {
+test("Reinsert a dynamic pivot", async function () {
     const { model, env } = await createSpreadsheetWithPivot();
     selectCell(model, "D8");
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await doMenuAction(topbarMenuRegistry, reinsertDynamicPivotPath, env);
     expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT(1)`, {
         message: "It should be part of a pivot formula",
     });
+});
+
+test("Reinsert a static pivot", async function () {
+    const { model, env } = await createSpreadsheetWithPivot();
+    selectCell(model, "D8");
+    await doMenuAction(topbarMenuRegistry, reinsertStaticPivotPath, env);
+    expect(getCellFormula(model, "E10")).toBe(
+        `=PIVOT.VALUE(1,"probability:avg","bar",FALSE,"foo",1)`,
+        {
+            message: "It should contain a pivot formula",
+        }
+    );
 });
 
 test("Reinsert a pivot with a contextual search domain", async function () {
@@ -71,9 +84,7 @@ test("Reinsert a pivot with a contextual search domain", async function () {
     });
 
     selectCell(model, "D8");
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    await animationFrame(); // wait for data to be loaded
-    await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
+    await doMenuAction(topbarMenuRegistry, reinsertStaticPivotPath, env);
     expect(getCellFormula(model, "E10")).toBe(
         `=PIVOT.VALUE(1,"probability:avg","bar",FALSE,"foo",${uid})`,
         { message: "It should contain a pivot formula" }
@@ -89,7 +100,7 @@ test("Reinsert a pivot in a too small sheet", async function () {
         sheetIdTo: "111",
     });
     selectCell(model, "A1");
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await doMenuAction(topbarMenuRegistry, reinsertDynamicPivotPath, env);
     expect(model.getters.getNumberCols("111")).toBe(6);
     expect(model.getters.getNumberRows("111")).toBe(5);
     expect(getCorrespondingCellFormula(model, "B3")).toBe(`=PIVOT(1)`, {
@@ -112,9 +123,7 @@ test("Reinsert a pivot with new data", async function () {
         tag_ids: [],
     });
     selectCell(model, "D8");
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    await animationFrame(); // wait for data to be loaded
-    await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
+    await doMenuAction(topbarMenuRegistry, reinsertStaticPivotPath, env);
     expect(getCellFormula(model, "I8")).toBe(`=PIVOT.HEADER(1,"foo",25)`);
     expect(getCellFormula(model, "I10")).toBe(
         `=PIVOT.VALUE(1,"probability:avg","bar",FALSE,"foo",25)`
@@ -132,7 +141,7 @@ test("Reinsert a pivot with an updated record", async function () {
     Partner._records[0].probability = 88;
     Partner._records[1].probability = 77;
     selectCell(model, "A10");
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await doMenuAction(topbarMenuRegistry, reinsertDynamicPivotPath, env);
     await animationFrame();
     expect(getCellValue(model, "D10")).toBe(99, {
         message: "The header should have been updated",
@@ -175,9 +184,7 @@ test("Reinsert an Odoo pivot which has no formula on the sheet (meaning the data
         serverData,
         spreadsheetId: 45,
     });
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
-    await animationFrame(); // wait for data to be loaded
-    await doMenuAction(cellMenuRegistry, ["pivot_fix_formulas"], env);
+    await doMenuAction(topbarMenuRegistry, reinsertStaticPivotPath, env);
     expect(getCellFormula(model, "C1")).toBe(`=PIVOT.HEADER(1,"foo",2)`);
     expect(getCellFormula(model, "C2")).toBe(`=PIVOT.HEADER(1,"foo",2,"measure","probability")`);
     expect(getCellFormula(model, "C3")).toBe(`=PIVOT.VALUE(1,"probability","bar",FALSE,"foo",2)`);
@@ -224,7 +231,7 @@ test("Keep applying filter when pivot is re-inserted", async function () {
     expect(getCellValue(model, "C3")).toBe("", {
         message: "The value should have been filtered",
     });
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await doMenuAction(topbarMenuRegistry, reinsertDynamicPivotPath, env);
     await animationFrame();
     expect(getCellValue(model, "B3")).toBe("", {
         message: "The value should still be filtered",
@@ -237,7 +244,7 @@ test("Keep applying filter when pivot is re-inserted", async function () {
 test("undo pivot reinsert", async function () {
     const { model, env } = await createSpreadsheetWithPivot();
     selectCell(model, "D8");
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await doMenuAction(topbarMenuRegistry, reinsertDynamicPivotPath, env);
     expect(getCorrespondingCellFormula(model, "E10")).toBe(`=PIVOT(1)`, {
         message: "It should contain a pivot formula",
     });
@@ -267,7 +274,7 @@ test("reinsert pivot with anchor on merge but not top left", async function () {
     selectCell(model, "A2"); // A1 and A2 are merged; select A2
     const { col, row } = toCartesian("A2");
     expect(model.getters.isInMerge({ sheetId, col, row })).toBe(true);
-    await doMenuAction(topbarMenuRegistry, reinsertPivotPath, env);
+    await doMenuAction(topbarMenuRegistry, reinsertDynamicPivotPath, env);
     expect(getCellFormula(model, "B2")).toBe(
         `=PIVOT.HEADER(1,"foo",1,"measure","probability:avg")`,
         {
@@ -317,7 +324,8 @@ test("Verify presence of pivots in top menu bar in a spreadsheet with a pivot", 
     expect(childrenNames.find((name) => name === "(#2) Partner Pivot")).not.toBe(undefined);
     // bottom children
     expect(childrenNames.find((name) => name === "Refresh all data")).not.toBe(undefined);
-    expect(childrenNames.find((name) => name === "Re-insert pivot")).not.toBe(undefined);
+    expect(childrenNames.find((name) => name === "Re-insert dynamic pivot")).not.toBe(undefined);
+    expect(childrenNames.find((name) => name === "Re-insert static pivot")).not.toBe(undefined);
     expect(childrenNames.find((name) => name === "Re-insert list")).not.toBe(undefined);
 });
 
