@@ -223,7 +223,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         stock_2 = self.env['stock.location'].create({
             'name': "Stock 2",
             'location_id': self.stock_location.location_id.id,
-            'barcode': 'WH-STOCK-2',
+            'barcode': 'WHSTOCK-2',
         })
         receipt_picking = self.env['stock.picking'].create({
             'location_id': self.supplier_location.id,
@@ -369,7 +369,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.env['stock.location'].create({
             'name': "Stock 2",
             'location_id': self.stock_location.location_id.id,
-            'barcode': 'WH-STOCK-2',
+            'barcode': 'WHSTOCK-2',
         })
 
         move1 = self.env['stock.move'].create({
@@ -2614,7 +2614,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             'name': "LOT03",
             'product_id': self.productlot1.id,
         })
-        # all 3 products are available in WH-STOCK
+        # all 3 products are available in WHSTOCK
         self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 5, lot_id=lot01)
         self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, 5, lot_id=lot02)
         self.env['stock.quant']._update_available_quantity(self.product1, self.stock_location, 5)

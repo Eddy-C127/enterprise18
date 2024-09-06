@@ -852,11 +852,10 @@ export default class BarcodeModel extends EventBus {
             barcode,
             match: false,
         };
-        // First, simply checks if the barcode is an action.
         if (this.commands[barcode]) {
             result.action = this.commands[barcode];
             result.match = true;
-            return result; // Simple barcode, no more information to retrieve.
+            return result;
         }
         try {
             const parsedBarcode = this.parser.parse_barcode(barcode);
@@ -890,6 +889,11 @@ export default class BarcodeModel extends EventBus {
                 // The scanned barcode should match a product but was either an
                 // alias, either converted from UPC-A to EAN-13 (or vice versa.)
                 barcode = parsedBarcode.code;
+                if (this.commands[barcode]) {
+                    result.action = this.commands[barcode];
+                    result.match = true;
+                    return result; // Simple barcode, no more information to retrieve.
+                }
             }
         } catch (err) {
             // The barcode can't be parsed but the error is caught to fallback

@@ -483,7 +483,7 @@ registry.category("web_tour.tours").add('test_receipt_reserved_1', {test: true, 
     },
 
     // Try to scan WH/Stock 2 as the destination -> Should display an error notification.
-    { trigger: '.o_barcode_line.o_selected.o_line_completed', run: 'scan WH-STOCK-2' },
+    { trigger: '.o_barcode_line.o_selected.o_line_completed', run: 'scan WHSTOCK-2' },
     {
         trigger: '.o_notification_bar.bg-danger',
         run: () => {
@@ -1603,7 +1603,7 @@ registry.category("web_tour.tours").add('test_receipt_from_scratch_with_lots_1',
 
     { trigger: '.o_scan_message.o_scan_validate', run: 'scan productserial1' },
     { trigger: '.o_scan_message.o_scan_serial', run: 'scan lot3' },
-    { trigger: '.o_scan_message.o_scan_product_or_dest', run: 'scan WH-STOCK-2' },
+    { trigger: '.o_scan_message.o_scan_product_or_dest', run: 'scan WHSTOCK-2' },
     {
         trigger: '.o_scan_message.o_scan_validate',
         run: () => {
