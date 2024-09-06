@@ -8,6 +8,9 @@ from odoo.addons.iap import InsufficientCreditError
 
 _logger = logging.getLogger(__name__)
 
+TEST_ENDPOINT = "https://l10n-uy-uruware.test.odoo.com/"
+PROD_ENDPOINT = "https://l10n-uy-uruware.api.odoo.com/"
+
 
 class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
@@ -41,8 +44,7 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(_('Please configure your company RUT first'))
         try:
             res = iap_tools.iap_jsonrpc(
-                "https://iap-services%s.odoo.com/api/l10n_uy_reg_proxy/1/create_account" % (
-                    "-test" if self.l10n_uy_edi_ucfe_env == "testing" else ""),
+                (TEST_ENDPOINT if self.l10n_uy_edi_ucfe_env == "testing" else PROD_ENDPOINT) + "api/l10n_uy_reg_proxy/1/create_account",
                 params={
                     "db_uuid": self.env["ir.config_parameter"].sudo().get_param("database.uuid", "FAKETESTID"),
                     "company": self.company_id.id,
