@@ -63,7 +63,7 @@ patch(TicketScreen.prototype, {
             await this.pos.syncAllOrders({ throw: true });
         } catch {
             this.pos.notification.add(_t("Error occurred while trying to sync orders."), {
-                type: "error",
+                type: "danger",
                 sticky: true,
             });
         }
@@ -103,7 +103,7 @@ patch(TicketScreen.prototype, {
             await this.pos.syncAllOrders();
         } catch {
             this.pos.notification.add(_t("Error occurred while trying to sync orders."), {
-                type: "error",
+                type: "danger",
                 sticky: true,
             });
         }
@@ -173,7 +173,7 @@ patch(TicketScreen.prototype, {
                 await this.pos.syncAllOrders({ throw: true });
             } catch {
                 this.pos.notification.add(_t("Error occurred while trying to sync orders."), {
-                    type: "error",
+                    type: "danger",
                     sticky: true,
                 });
             }

@@ -1,4 +1,5 @@
 import logging
+import uuid
 
 from odoo import http, Command
 from odoo.http import request
@@ -209,7 +210,8 @@ class PosUrbanPiperController(http.Controller):
             'price_extra': price_extra,
             'price_unit': float(self._currency_convert(int(line_data['price'])) + price_extra),
             'tax_ids': [Command.link(parent_tax.id)] if parent_tax.id else None,
-            'note': line_data.get('instructions')
+            'note': line_data.get('instructions'),
+            'uuid': str(uuid.uuid4()),
         })
         if line_data.get('charges'):
             package_product = self.config.env['product.template'].search([('name', '=', 'Restaurant Packaging Charges')], limit=1)
@@ -222,6 +224,7 @@ class PosUrbanPiperController(http.Controller):
                 'price_unit': line_data.get('charges') and line_data.get('charges')[0].get('value') or 0.0,
                 'note': "Packaging charges for %s" % main_product.name,
                 'tax_ids': package_product.taxes_id,
+                'uuid': str(uuid.uuid4()),
             })
         return lines
 
