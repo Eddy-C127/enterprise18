@@ -26,5 +26,38 @@
                 'restrict_scan_dest_location': 'no',
             }"/>
         </function>
+
+        <record id="scale_up_alias_1" model="barcode.rule">
+            <field name="name">Scale Up Receipt</field>
+            <field name="type">alias</field>
+            <field name="pattern">WH-RECEIPTS</field>
+            <field name="alias">WHIN</field>
+            <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+            <field name="sequence">0</field>
+        </record>
+        <record id="scale_up_alias_2" model="barcode.rule">
+            <field name="name">Scale Up Validate</field>
+            <field name="type">alias</field>
+            <field name="pattern">O-BTN.validate</field>
+            <field name="alias">OBTVALI</field>
+            <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+            <field name="sequence">0</field>
+        </record>
+        <record id="scale_up_alias_3" model="barcode.rule">
+            <field name="name">Scale Up Pack</field>
+            <field name="type">alias</field>
+            <field name="pattern">O-BTN.pack</field>
+            <field name="alias">OBTPACK</field>
+            <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+            <field name="sequence">0</field>
+        </record>
+        <record id="scale_up_alias_4" model="barcode.rule">
+            <field name="name">Scale Up Location</field>
+            <field name="type">alias</field>
+            <field name="pattern">WH-STOCK</field>
+            <field name="alias">WHSTOCK</field>
+            <field name="barcode_nomenclature_id" ref="barcodes.default_barcode_nomenclature"/>
+            <field name="sequence">0</field>
+        </record>
     </data>
 </odoo>
