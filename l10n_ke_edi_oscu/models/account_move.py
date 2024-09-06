@@ -566,7 +566,7 @@ class AccountMove(models.Model):
     @api.model
     def _is_vendor_bill_json(self, file_content):
         """ Determine whether the given file content is a vendor bill JSON retrieved from eTIMS. """
-        with contextlib.suppress(json.JSONDecodeError):
+        with contextlib.suppress(json.JSONDecodeError, UnicodeDecodeError):
             content = json.loads(file_content)
             return all(key in content for key in ('spplrTin', 'spplrNm', 'spplrBhfId', 'spplrInvcNo'))
 
