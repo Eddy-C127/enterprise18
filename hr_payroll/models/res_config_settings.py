@@ -11,7 +11,7 @@ class ResConfigSettings(models.TransientModel):
     module_l10n_be_hr_payroll = fields.Boolean(string='Belgium Payroll')
     module_l10n_in_hr_payroll = fields.Boolean(string='Indian Payroll')
     module_hr_payroll_account = fields.Boolean(string='Payroll with Accounting')
-    module_hr_payroll_account_sepa = fields.Boolean(string='Payroll with SEPA payment')
+    module_hr_payroll_account_iso20022 = fields.Boolean(string='Payroll with SEPA payment')
     group_payslip_display = fields.Boolean(implied_group="hr_payroll.group_payslip_display")
     ytd_reset_day = fields.Integer(related="company_id.ytd_reset_day", readonly=False)
     ytd_reset_month = fields.Selection(related="company_id.ytd_reset_month", readonly=False)

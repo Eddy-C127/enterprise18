@@ -16,7 +16,7 @@
         'l10n_be_hr_payroll_ucm',
         'l10n_be_hr_payroll_partena',
         'account_accountant',
-        'hr_payroll_account_sepa',
+        'hr_payroll_account_iso20022',
         'documents_hr_payroll',
         'documents_hr_recruitment',
         'documents_hr_contract',

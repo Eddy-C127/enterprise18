@@ -14,7 +14,7 @@ class TestSEPAFile(AccountTestInvoicingCommon):
     @AccountTestInvoicingCommon.setup_country('be')
     def setUpClass(cls):
         super().setUpClass()
-        cls.company_data['company'].sepa_orgid_id = "123456789"
+        cls.company_data['company'].iso20022_orgid_id = "123456789"
 
         cls.env.user.groups_id |= cls.env.ref('account.group_validate_bank_account')
 
