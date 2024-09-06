@@ -17,8 +17,9 @@
         <field name="inherit_id" ref="account.view_account_payment_form"/>
         <field name="arch" type="xml">
             <field name="partner_bank_id" position="after">
+                <field name="payment_method_code" invisible="1"/>
                 <field name="sepa_pain_version" invisible="1"/>
-                <field name="sepa_uetr" invisible="sepa_pain_version != 'pain.001.001.09'"/>
+                <field name="sepa_uetr" groups="base.group_no_one" invisible="sepa_pain_version != 'pain.001.001.09' or payment_method_code != 'sepa_ct'"/>
             </field>
         </field>
     </record>
