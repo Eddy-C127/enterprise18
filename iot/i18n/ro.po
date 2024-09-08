@@ -3,7 +3,6 @@
 # 	* iot
 # 
 # Translators:
-# Lyall Kindmurr, 2024
 # Hongu Cosmin <cosmin513@gmail.com>, 2024
 # Emanuel Bruda, 2024
 # Cozmin Candea <office@terrabit.ro>, 2024
@@ -13,6 +12,7 @@
 # Betty Keresztesi, 2024
 # Alin Miclea, 2024
 # Wil Odoo, 2024
+# Lyall Kindmurr, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Lyall Kindmurr, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,12 +40,20 @@ msgid ""
 "                    2. Enter the code below and click on \"Pair\".<br/>\n"
 "                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
 msgstr ""
+".\n"
+"\n"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Opțiune A. Cod Împerechere</strong><br/>\n"
+"                    1. Citiți codul de împerechere de pe un display sau imprimantă termică conectată la IoT Box; sau de pe pagina principală Iot Box.<br/>\n"
+"                    2. Introduceți codul în câmpul de mai jos și apasați \"Pair\".<br/>\n"
+"                    3. La scurt timp, caseta IoT ar trebui să apară în lista de device-uri conectate<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
 "0. Power on the IoT Box and connect it to the internet through ethernet"
-msgstr ""
+msgstr "0. Porniți IoT Box si connectați-l la internet prin cablu"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -57,6 +65,12 @@ msgid ""
 "                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
 "                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
 msgstr ""
+"<br/>\n"
+"                    1. Copiați tokenul de mai jos<br/>\n"
+"                    2. Deschideți un browser web pe network, și accesați adresa IP a IoT Box-ului<br/>\n"
+"                    3. În secțiunea \"Server\", alegeți \"Configure\"<br/>\n"
+"                    4. Puneți tokenul copiat în secțiunea \"Server token\" și apasați \"Connect\"<br/>\n"
+"                    5. La scurt timp, caseta IoT ar trebui să apară în lista de device-uri conectate<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -71,7 +85,7 @@ msgstr "<span class=\"badge text-bg-success\">Conectat</span>"
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
 msgid "Add IoT Box wizard"
-msgstr "Adăugați expertul IoT Box"
+msgstr "Adăugați wizard IoT Box"
 
 #. module: iot
 #. odoo-javascript
@@ -85,7 +99,7 @@ msgstr "Sigur doriți să reporniți caseta IoT?"
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 #, python-format
 msgid "Are you sure you want to restart Odoo on the IoT box?"
-msgstr "Sigur doriți să reporniți Odoo pe cutia IoT?"
+msgstr "Sigur doriți să reporniți Odoo pe caseta IoT?"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__drivers_auto_update
@@ -110,7 +124,7 @@ msgstr "Bluetooth"
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__camera
 msgid "Camera"
-msgstr "Aparat Foto"
+msgstr "Cameră"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
@@ -122,20 +136,20 @@ msgstr "Anulează"
 #: code:addons/iot/static/src/views/iot_device_form.js:0
 #, python-format
 msgid "Check if the device is still connected"
-msgstr "Verificați dacă dispozitivul este încă conectat"
+msgstr "Verificați dacă dispozitivul încă este conectat"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Check the IoT connection. Try restarting if needed."
-msgstr ""
+msgstr "Verificați conexiunea la Iot Box. Dacă este necesar, restartați-l"
 
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
 #: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
 msgid "Clear Selected Devices"
-msgstr "Ștergeți Selecție"
+msgstr "Ștergeți dispozitivele selectate"
 
 #. module: iot
 #. odoo-javascript
@@ -149,7 +163,7 @@ msgstr "Ștergeți rapoartele automate"
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 #, python-format
 msgid "Click here to open your IoT Homepage"
-msgstr "Faceți clic aici pentru a vă deschide pagina de pornire IoT"
+msgstr "Clic aici pentru a deschide pagina de pornire IoT"
 
 #. module: iot
 #. odoo-javascript
@@ -234,7 +248,7 @@ msgstr "Conexiunea la dispozitiv a eșuat"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Connection to printer failed "
-msgstr ""
+msgstr "Conexiunea la imprimantă a eșuat"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__create_uid
@@ -254,7 +268,7 @@ msgstr "Creat de"
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__create_date
 #: model:ir.model.fields,field_description:iot.field_select_printers_wizard__create_date
 msgid "Created on"
-msgstr "Creat în"
+msgstr "Creat pe"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_select_printers_wizard__device_ids
@@ -415,7 +429,7 @@ msgstr "IoT"
 #: model:ir.model.fields,field_description:iot.field_iot_device__iot_id
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "IoT Box"
-msgstr "Box IoT"
+msgstr "IoT Box"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__ip_url
@@ -426,7 +440,7 @@ msgstr "Pagina principală IoT Box"
 #: model:ir.actions.act_window,name:iot.iot_box_action
 #: model:ir.ui.menu,name:iot.iot_box_menu_action
 msgid "IoT Boxes"
-msgstr "Cutii IoT"
+msgstr "Casete IoT"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
@@ -452,7 +466,7 @@ msgstr "Tastatură"
 #: model:ir.model,name:iot.model_iot_keyboard_layout
 #: model:ir.model.fields,field_description:iot.field_iot_device__keyboard_layout
 msgid "Keyboard Layout"
-msgstr "Aspect tastatură"
+msgstr "Keyboard Layout"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_form
@@ -489,7 +503,7 @@ msgstr "Ultimul proces de repornire nu s-a terminat încă"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__layout
 msgid "Layout"
-msgstr "Aspect"
+msgstr "Layout"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__manual_measurement
@@ -558,11 +572,13 @@ msgid ""
 "One of the printer used to print document have been removed. Please retry "
 "the operation to choose new printers to print."
 msgstr ""
+"Una din imprimantele folosite pentru printarea de documente a fost "
+"deconectată. Vă rugam să repetați operația pentru a alege imprimante noi."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "Option B. Connection Token"
-msgstr ""
+msgstr "Option B. Connection Token"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -630,7 +646,7 @@ msgstr "Imprimante"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Printing operation completed on printer %s"
-msgstr ""
+msgstr "Operațiune completată pe imprimanta %s"
 
 #. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
@@ -702,7 +718,7 @@ msgstr "Selecția imprimantelor"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Sending to printer %s..."
-msgstr ""
+msgstr "Se trimite la imprimanta %s..."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -770,7 +786,7 @@ msgstr "A expirat"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__token
 msgid "Token"
-msgstr "Jeton"
+msgstr "Token"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__type
@@ -780,12 +796,12 @@ msgstr "Tip"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__connection
 msgid "Type of connection."
-msgstr "Tipul de conexiune"
+msgstr "Tip de conexiune."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__type
 msgid "Type of device."
-msgstr "Tipul de dizpozitiv"
+msgstr "Tip de dizpozitiv."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__display_url
@@ -839,7 +855,7 @@ msgstr "Conectare"
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "or wifi"
-msgstr ""
+msgstr "sau WiFi"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

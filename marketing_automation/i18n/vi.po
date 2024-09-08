@@ -5,8 +5,8 @@
 # Translators:
 # Vo Thanh Thuy, 2023
 # Dao Nguyen <trucdao.uel@gmail.com>, 2023
-# Thi Huong Nguyen, 2024
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -209,7 +209,7 @@ msgstr "Chiến dịch thử nghiệm A/B đã hoàn thành"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_participant__trace_ids
 msgid "Actions"
-msgstr "Hành động"
+msgstr "Tác vụ"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__active
@@ -337,8 +337,8 @@ msgid ""
 "Are you sure you want to create a new participant for each matching record "
 "that has not been used yet?"
 msgstr ""
-"Bạn có chắc chắn muốn tạo người tham gia mới cho mỗi tập dữ liệu trùng khớp "
-"chưa được sử dụng không?"
+"Bạn có chắc chắn muốn tạo người tham gia mới cho mỗi bản ghi trùng khớp chưa"
+" được sử dụng không?"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
@@ -703,7 +703,7 @@ msgstr "Ngoại lệ trong gửi thư hàng loạt: %s"
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 #, python-format
 msgid "Exception in server action: %s"
-msgstr "Ngoại lệ trong hành động máy chủ: %s"
+msgstr "Ngoại lệ trong tác vụ máy chủ: %s"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_search
@@ -787,7 +787,7 @@ msgstr "Chiến dịch gửi thư được kích hoạt"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "It will be generated automatically once you save this record."
-msgstr "Nó sẽ được tạo tự động khi bạn lưu tập dữ liệu này."
+msgstr "Nó sẽ được tạo tự động khi bạn lưu bản ghi này."
 
 #. module: marketing_automation
 #. odoo-python
@@ -1276,7 +1276,7 @@ msgstr "Chọn một mẫu"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Pick a record..."
-msgstr "Chọn một tập dữ liệu..."
+msgstr "Chọn một bản ghi..."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
@@ -1309,20 +1309,20 @@ msgstr "Bản ghi"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign_test__res_id
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_participant__res_id
 msgid "Record ID"
-msgstr "ID tập dữ liệu"
+msgstr "ID bản ghi"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_participant.py:0
 #, python-format
 msgid "Record deleted"
-msgstr "Đã xoá tập dữ liệu"
+msgstr "Đã xoá bản ghi"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign_test__model_name
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_participant__model_name
 msgid "Record model"
-msgstr "Mô hình tập dữ liệu"
+msgstr "Mô hình bản ghi"
 
 #. module: marketing_automation
 #. odoo-python
@@ -1359,7 +1359,7 @@ msgstr "Đã xoá"
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_participant__state
 msgid "Removed means the related record does not exist anymore."
-msgstr "Loại bỏ có nghĩa là tập dữ liệu liên quan không tồn tại nữa."
+msgstr "Loại bỏ có nghĩa là bản ghi liên quan không tồn tại nữa."
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1521,7 +1521,7 @@ msgstr "Đã gửi"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__server_action_id
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__activity_type__action
 msgid "Server Action"
-msgstr "Hành động phía máy chủ"
+msgstr "Tác vụ phía máy chủ"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_posts_count
@@ -1798,7 +1798,7 @@ msgstr ""
 "Được sử dụng để tránh trùng lặp dựa trên trường mô hình.\n"
 "ví dụ\n"
 "Đối với mô hình 'Customers', chọn trường email nếu bạn không muốn\n"
-"xử lý các tập dữ liệu nếu có email trùng nhau"
+"xử lý các bản ghi nếu có email trùng nhau"
 
 #. module: marketing_automation
 #: model:res.groups,name:marketing_automation.group_marketing_automation_user

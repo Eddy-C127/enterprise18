@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Martin Trigaux, 2023
-# Vo Thanh Thuy, 2023
 # Wil Odoo, 2024
 # Thi Huong Nguyen, 2024
 # 
@@ -1043,17 +1042,17 @@ msgstr "Biến động ARR (bình thường hoá)"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Action"
-msgstr "Hành động"
+msgstr "Tác vụ"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Action Name"
-msgstr "Tên hành động"
+msgstr "Tên tác vụ"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_needaction
 msgid "Action Needed"
-msgstr "Hành động cần thiết"
+msgstr "Tác vụ cần thiết"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__action
@@ -1063,7 +1062,7 @@ msgstr "Cần thực hiện"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__action_server_ids
 msgid "Actions"
-msgstr "Hành động"
+msgstr "Tác vụ"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__active
@@ -2911,7 +2910,7 @@ msgstr "Số"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Số lượng hành động"
+msgstr "Số lượng tác vụ"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_has_error_counter
@@ -3367,7 +3366,7 @@ msgstr "Lý do"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__record_getter
 msgid "Record Getter"
-msgstr "Trình thu nhận tập dữ liệu"
+msgstr "Trình thu nhận bản ghi"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__is_subscription
@@ -3789,7 +3788,7 @@ msgstr "Trình tự"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__action_id
 msgid "Server Action"
-msgstr "Hành động phía máy chủ"
+msgstr "Tác vụ phía máy chủ"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__action__set_health_value
@@ -3828,8 +3827,7 @@ msgstr "Hiển thị Đăng ký trên trang chủ"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
 msgid "Show all records which has next action date is before today"
-msgstr ""
-"Hiển thị tất cả tập dữ liệu có ngày xử lý tiếp theo trước ngày hôm nay"
+msgstr "Hiển thị tất cả bản ghi có ngày xử lý tiếp theo trước ngày hôm nay"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__health
@@ -3962,7 +3960,7 @@ msgstr "Gói đăng ký %s đã được mở lại. Ngày kết thúc đã bị
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__subscription_action
 msgid "Subscription Action"
-msgstr "Hành động đăng ký"
+msgstr "Tác vụ đăng ký"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_subscription_report
@@ -4201,7 +4199,7 @@ msgstr "Tổng doanh thu định kỳ hằng năm"
 #. module: sale_subscription
 #: model:base.automation,name:sale_subscription.subscription_alert_percent_revenue_base_automation
 msgid "Take action on less satisfied clients"
-msgstr "Hành động cần thực hiện đối với khách hàng kém hài lòng"
+msgstr "Tác vụ cần thực hiện đối với khách hàng kém hài lòng"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__team_user_id
@@ -4380,8 +4378,8 @@ msgid ""
 "The scheduled action for alerts has been deleted. Update the Subscriptions "
 "module to re-create it."
 msgstr ""
-"Hành động đã lên lịch cho cảnh báo đã bị xóa. Cập nhật phân hệ Đăng ký để "
-"tạo lại nó."
+"Tác vụ đã lên lịch cho cảnh báo đã bị xóa. Cập nhật phân hệ Đăng ký để tạo "
+"lại nó."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__start_date
@@ -4445,7 +4443,7 @@ msgid ""
 "This code will be run to find on which record the automation rule should be "
 "run."
 msgstr ""
-"Mã này sẽ được chạy để tìm xem quy tắc tự động sẽ chạy trên tập dữ liệu nào."
+"Mã này sẽ được chạy để tìm xem quy tắc tự động sẽ chạy trên bản ghi nào."
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
@@ -4492,8 +4490,8 @@ msgid ""
 "This will trigger the action on all linked subsccriptions, regardless of "
 "possible timed conditions. Are you sure you want to proceed?"
 msgstr ""
-"Điều này sẽ kích hoạt hành động trên tất cả các gói đăng ký liên kết, bất kể"
-" các điều kiện về thời gian có thể xảy ra. Bạn có chắc chắn muốn tiếp tục?"
+"Điều này sẽ kích hoạt tác vụ trên tất cả các gói đăng ký liên kết, bất kể "
+"các điều kiện về thời gian có thể xảy ra. Bạn có chắc chắn muốn tiếp tục?"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_alert__trigger_condition__on_time
@@ -4657,7 +4655,7 @@ msgid ""
 "Unpaid subscription after the due date majored by this number of days will be automatically closed by the subscriptions expiration scheduled action. \n"
 "If the chosen payment method has failed to renew the subscription after this time, the subscription is automatically closed."
 msgstr ""
-"Gói đăng ký chưa thanh toán sau ngày đến hạn tính theo số ngày này sẽ tự động bị đóng dựa trên hành động hết hạn đăng ký đã lên lịch.\n"
+"Gói đăng ký chưa thanh toán sau ngày đến hạn tính theo số ngày này sẽ tự động bị đóng dựa trên tác vụ hết hạn đăng ký đã lên lịch.\n"
 "Nếu không thể sử dụng phương thức thanh toán đã chọn để gia hạn đăng ký sau thời gian này, gói đăng ký sẽ tự động bị đóng."
 
 #. module: sale_subscription

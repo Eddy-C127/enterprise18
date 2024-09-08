@@ -37,6 +37,15 @@ msgid ""
 "    </tbody></table>\n"
 "                "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
+"        <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
+"            Gerb. <t t-esc=\"object.name\"></t>, jums prieinamas naujas deklaracijos failas.<br><br>\n"
+"            PDF failą rasite savo darbuotojų portale.<br><br>\n"
+"            Gražios dienos,<br>\n"
+"            HR komanda\n"
+"        </td></tr>\n"
+"    </tbody></table>\n"
+"                "
 
 #. module: documents_hr_payroll
 #: model:ir.model,name:documents_hr_payroll.model_res_company
@@ -180,4 +189,4 @@ msgstr "Būsena"
 #. module: documents_hr_payroll
 #: model:mail.template,subject:documents_hr_payroll.mail_template_new_declaration
 msgid "{{ object.name }}, a new declaration file is available for you"
-msgstr ""
+msgstr "{{ object.name }}, jums prieinamas naujas deklaracijos failas"

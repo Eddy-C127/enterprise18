@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Nancy Momoland <thanh.np2502@gmail.com>, 2024
-# Thi Huong Nguyen, 2024
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -299,8 +299,8 @@ msgid ""
 "A follow-up action name must be unique. This name is already set to another "
 "action."
 msgstr ""
-"Tên hành động tiếp theo phải là duy nhất. Tên này đã được đặt cho một hành "
-"động khác."
+"Tên tác vụ tiếp theo phải là duy nhất. Tên này đã được đặt cho một tác vụ "
+"khác."
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__account_followup_followup_line__activity_default_responsible_type__account_manager
@@ -316,7 +316,7 @@ msgstr "Account Report Followup; Execute followup"
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
 msgid "Actions"
-msgstr "Hành động"
+msgstr "Tác vụ"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
@@ -470,7 +470,7 @@ msgid ""
 "Date where the next action should be taken for a receivable item. Usually, "
 "automatically set when sending reminders through the customer statement."
 msgstr ""
-"Ngày hành động tiếp theo nên được thực hiện cho một khoản phải thu. Thông "
+"Ngày tác vụ tiếp theo nên được thực hiện cho một khoản phải thu. Thông "
 "thường, tự động được thiết lập khi gửi lời nhắc thông qua bảng sao kê khách "
 "hàng."
 
@@ -524,7 +524,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_line_definition_form
 msgid "Define follow-up levels and their related actions"
 msgstr ""
-"Định nghĩa các mức độ theo dõi và các hành động tương ứng cho từng mức độ"
+"Định nghĩa các mức độ theo dõi và các tác vụ tương ứng cho từng mức độ"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
@@ -690,7 +690,7 @@ msgid ""
 "            possible to use print and e-mail templates to send specific messages to\n"
 "            the customer."
 msgstr ""
-"Đối với mỗi bước, chỉ định các hành động được thực hiện và trì hoãn theo ngày. Nó là\n"
+"Đối với mỗi bước, chỉ định các tác vụ được thực hiện và trì hoãn theo ngày. Nó là\n"
 "             có thể sử dụng các mẫu in và e-mail để gửi các tin nhắn cụ thể tới\n"
 "             khách hàng."
 
@@ -801,7 +801,7 @@ msgstr "Tên"
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_move_line__next_action_date
 msgid "Next Action Date"
-msgstr "Ngày Hành động Kế tiếp"
+msgstr "Ngày Tác vụ Kế tiếp"
 
 #. module: account_followup
 #. odoo-python
@@ -931,7 +931,7 @@ msgstr "Kết xuất mô hình"
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_ir_actions_report
 msgid "Report Action"
-msgstr "Báo cáo hành động"
+msgstr "Báo cáo tác vụ"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_form_view
@@ -1049,7 +1049,7 @@ msgid ""
 "                - if no next level AND no previous level -> next date set in {current level delay} days\n"
 "                - if no level defined at all -> next date never automatically set"
 msgstr ""
-"Ngày mà trước đó bạn không nên thực hiện hành động follow-up nào.\n"
+"Ngày mà trước đó bạn không nên thực hiện tác vụ follow-up nào.\n"
 "                 Bạn có thể đặt thủ công, nếu muốn, nhưng nó sẽ được đặt tự động khi follow-up diễn ra.\n"
 "                 Ngày được tính theo quy tắc sau (tùy theo cấp độ follow-up):\n"
 "                 - mặc định -> ngày tiếp theo được đặt trong {độ trễ cấp độ tiếp theo - độ trễ cấp độ hiện tại} ngày\n"
@@ -1140,8 +1140,8 @@ msgid ""
 "We were not able to process some of the automated follow-up actions due to "
 "missing information on the partners."
 msgstr ""
-"Chúng tôi không thể xử lý một số hành động follow-up tự động do thiếu thông "
-"tin về đối tác."
+"Chúng tôi không thể xử lý một số tác vụ follow-up tự động do thiếu thông tin"
+" về đối tác."
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__with_overdue_invoices

@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Thi Huong Nguyen, 2024
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,9 +41,9 @@ msgid ""
 msgstr ""
 "\n"
 "                <p class=\"o_view_nocontent_smiling_face\">\n"
-"                    Đây là hành động mới của bạn.\n"
+"                    Đây là tác vụ mới của bạn.\n"
 "                </p>\n"
-"                <p>Theo mặc định, hành động này chứa một chế độ xem biểu mẫu và danh sách\n"
+"                <p>Theo mặc định, tác vụ này chứa một chế độ xem biểu mẫu và danh sách\n"
 "                    và có thể là các loại chế độ xem khác tùy thuộc vào các tùy chọn bạn đã chọn cho mô hình của mình.\n"
 "                </p>\n"
 "                <p>\n"
@@ -148,20 +148,19 @@ msgstr "Trường có cùng tên đã tồn tại."
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_entry_uniq_combination
 msgid "A rule can only be approved/rejected once per record."
-msgstr ""
-"Quy tắc chỉ có thể được phê duyệt/từ chối một lần cho mỗi tập dữ liệu."
+msgstr "Quy tắc chỉ có thể được phê duyệt/từ chối một lần cho mỗi bản ghi."
 
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_rule_method_or_action_together
 msgid "A rule must apply to an action or a method (but not both)."
 msgstr ""
-"Quy tắc phải áp dụng cho một hành động hoặc một phương pháp (không phải cả "
+"Quy tắc phải áp dụng cho một tác vụ hoặc một phương pháp (không phải cả "
 "hai)."
 
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_approval_rule_method_or_action_not_null
 msgid "A rule must apply to an action or a method."
-msgstr "Quy tắc phải áp dụng cho một hành động hoặc một phương pháp."
+msgstr "Quy tắc phải áp dụng cho một tác vụ hoặc một phương pháp."
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_ir_model__abstract
@@ -192,14 +191,14 @@ msgstr "Nhóm truy cập"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/pivot/pivot_editor_sidebar.xml:0
 #, python-format
 msgid "Access records from cell"
-msgstr "Truy cập tập dữ liệu từ ô"
+msgstr "Truy cập bản ghi từ ô"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor_sidebar.xml:0
 #, python-format
 msgid "Access records from graph"
-msgstr "Truy cập tập dữ liệu từ biểu đồ"
+msgstr "Truy cập bản ghi từ biểu đồ"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_mail_activity_type__category
@@ -208,24 +207,24 @@ msgstr "Truy cập tập dữ liệu từ biểu đồ"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_entry_search_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_search_view
 msgid "Action"
-msgstr "Hành động"
+msgstr "Tác vụ"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_actions_act_window
 msgid "Action Window"
-msgstr "Cửa sổ hành động"
+msgstr "Cửa sổ tác vụ"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_actions_act_window_view
 msgid "Action Window View"
-msgstr "Chế độ xem cửa sổ hành động"
+msgstr "Chế độ xem cửa sổ tác vụ"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #, python-format
 msgid "Action to approve:"
-msgstr "Hành động cần phê duyệt:"
+msgstr "Tác vụ cần phê duyệt:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -239,7 +238,7 @@ msgstr "Hành động cần chạy"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #, python-format
 msgid "Action's title"
-msgstr "Tiêu đề hành động"
+msgstr "Tiêu đề tác vụ"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
@@ -247,8 +246,8 @@ msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
 "automatically mark as done when a document is uploaded"
 msgstr ""
-"Hành động có thể kích hoạt thao tác cụ thể như mở chế độ xem lịch hoặc tự "
-"động đánh dấu là hoàn thành khi tài liệu được tải lên"
+"Tác vụ có thể kích hoạt thao tác cụ thể như mở chế độ xem lịch hoặc tự động "
+"đánh dấu là hoàn thành khi tài liệu được tải lên"
 
 #. module: web_studio
 #. odoo-javascript
@@ -365,8 +364,7 @@ msgstr "Thêm hình đại diện"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Add details to your records with an embedded list view"
-msgstr ""
-"Thêm chi tiết vào tập dữ liệu của bạn với chế độ xem danh sách được nhúng"
+msgstr "Thêm chi tiết vào bản ghi của bạn với chế độ xem danh sách được nhúng"
 
 #. module: web_studio
 #. odoo-javascript
@@ -380,14 +378,14 @@ msgstr "Thêm giá trị mới"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Add record at the bottom"
-msgstr "Thêm tập dữ liệu ở dưới cùng"
+msgstr "Thêm bản ghi ở dưới cùng"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 #, python-format
 msgid "Add record on top"
-msgstr "Thêm tập dữ liệu ở trên cùng"
+msgstr "Thêm bản ghi ở trên cùng"
 
 #. module: web_studio
 #. odoo-javascript
@@ -490,8 +488,8 @@ msgstr "Phê duyệt"
 #, python-format
 msgid "Approvals can only be done on a method or an action, not both."
 msgstr ""
-"Phê duyệt chỉ có thể được thực hiện trên một phương pháp hoặc một hành động,"
-" không phải cả hai."
+"Phê duyệt chỉ có thể được thực hiện trên một phương pháp hoặc một tác vụ, "
+"không phải cả hai."
 
 #. module: web_studio
 #. odoo-python
@@ -535,7 +533,7 @@ msgstr "Được phê duyệt/từ chối bởi"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Archive deprecated records"
-msgstr "Lưu trữ các tập dữ liệu không dùng nữa"
+msgstr "Lưu trữ các bản ghi không dùng nữa"
 
 #. module: web_studio
 #. odoo-python
@@ -599,21 +597,21 @@ msgstr "Tăng dần"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Assign a responsible to each record"
-msgstr "Phân công người chịu trách nhiệm cho từng tập dữ liệu"
+msgstr "Phân công người chịu trách nhiệm cho từng bản ghi"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Assign dates and visualize records in a calendar"
-msgstr "Gán ngày tháng và trực quan hóa các tập dữ liệu trong lịch"
+msgstr "Gán ngày tháng và trực quan hóa các bản ghi trong lịch"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Attach a picture to a record"
-msgstr "Đính kèm ảnh vào tập dữ liệu"
+msgstr "Đính kèm ảnh vào bản ghi"
 
 #. module: web_studio
 #. odoo-javascript
@@ -792,7 +790,7 @@ msgstr "Hủy"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Categorize records with custom tags"
-msgstr "Phân loại tập dữ liệu bằng các thẻ tùy chỉnh"
+msgstr "Phân loại bản ghi bằng các thẻ tùy chỉnh"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1295,8 +1293,8 @@ msgstr "Chế độ xem mặc định"
 #, python-format
 msgid "Define start/end dates and visualize records in a Gantt chart"
 msgstr ""
-"Xác định ngày bắt đầu/ngày kết thúc và trực quan hóa các tập dữ liệu trong "
-"biểu đồ Gantt"
+"Xác định ngày bắt đầu/ngày kết thúc và trực quan hóa các bản ghi trong biểu "
+"đồ Gantt"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1793,7 +1791,7 @@ msgstr "Tạo %s chế độ xem"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Get contact, phone and email fields on records"
-msgstr "Nhận các trường liên hệ, điện thoại và email trong tập dữ liệu"
+msgstr "Nhận các trường liên hệ, điện thoại và email trong bản ghi"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1972,8 +1970,7 @@ msgstr "Biểu tượng"
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
 msgid "If set, the rule will only apply on records that match the domain."
-msgstr ""
-"Nếu được đặt, quy tắc sẽ chỉ áp dụng cho các tập dữ liệu khớp với miền."
+msgstr "Nếu được đặt, quy tắc sẽ chỉ áp dụng cho các bản ghi khớp với miền."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__exclusive_user
@@ -1982,7 +1979,7 @@ msgid ""
 "rules for the same record"
 msgstr ""
 "Nếu được đặt, người dùng phê duyệt quy tắc này sẽ không thể phê duyệt các "
-"quy tắc khác cho cùng một tập dữ liệu"
+"quy tắc khác cho cùng một bản ghi"
 
 #. module: web_studio
 #. odoo-python
@@ -2209,7 +2206,7 @@ msgstr "Danh sách"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Manually sort records in the list view"
-msgstr "Sắp xếp tập dữ liệu theo cách thủ công trong chế độ xem danh sách"
+msgstr "Sắp xếp bản ghi theo cách thủ công trong chế độ xem danh sách"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2409,7 +2406,7 @@ msgstr "Văn bản nhiều dòng"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 #, python-format
 msgid "Multiple records views"
-msgstr "Chế độ xem đa tập dữ liệu"
+msgstr "Chế độ xem đa bản ghi"
 
 #. module: web_studio
 #. odoo-python
@@ -2557,8 +2554,7 @@ msgstr "Không có tổng hợp"
 #, python-format
 msgid "No approval found for this rule, record and user combination."
 msgstr ""
-"Không tìm thấy phê duyệt nào cho quy tắc, tập dữ liệu và kết hợp người dùng "
-"này."
+"Không tìm thấy phê duyệt nào cho quy tắc, bản ghi và kết hợp người dùng này."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2879,7 +2875,7 @@ msgstr "Bản ghi"
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__res_id
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_request__res_id
 msgid "Record ID"
-msgstr "ID tập dữ liệu"
+msgstr "ID bản ghi"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2957,7 +2953,7 @@ msgstr "Gỡ bỏ lựa chọn"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_actions_report
 msgid "Report Action"
-msgstr "Báo cáo hành động"
+msgstr "Báo cáo tác vụ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3070,7 +3066,7 @@ msgstr "Khôi phục chế độ xem mặc định"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Restrict a record to a specific company"
-msgstr "Giới hạn tập dữ liệu cho một công ty cụ thể"
+msgstr "Giới hạn bản ghi cho một công ty cụ thể"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3228,8 +3224,7 @@ msgstr "Chọn một trường liên quan."
 msgid ""
 "Select the contact field to use to get the coordinates of your records."
 msgstr ""
-"Chọn trường liên hệ cần sử dụng để có được cách sắp xếp các tập dữ liệu của "
-"bạn."
+"Chọn trường liên hệ cần sử dụng để có được cách sắp xếp các bản ghi của bạn."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3285,7 +3280,7 @@ msgstr "Trình tự"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_actions_server
 msgid "Server Action"
-msgstr "Hành động phía máy chủ"
+msgstr "Tác vụ phía máy chủ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3306,7 +3301,7 @@ msgstr "Đặt ảnh bìa"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Set a price or cost on records"
-msgstr "Thiết lập giá hoặc chi phí trên tập dữ liệu"
+msgstr "Thiết lập giá hoặc chi phí trên bản ghi"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3365,8 +3360,7 @@ msgid ""
 "Some records were skipped because approvals were missing to"
 "                                    proceed with your request: "
 msgstr ""
-"Một số tập dữ liệu đã bị bỏ qua vì thiếu phê duyệt để tiếp tục yêu cầu của "
-"bạn:"
+"Một số bản ghi đã bị bỏ qua vì thiếu phê duyệt để tiếp tục yêu cầu của bạn:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3423,7 +3417,7 @@ msgstr "Tên giai đoạn"
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 #, python-format
 msgid "Stage and visualize records in a custom pipeline"
-msgstr "Sắp xếp và trực quan hóa tập dữ liệu trong một chu trình tùy chỉnh"
+msgstr "Sắp xếp và trực quan hóa bản ghi trong một chu trình tùy chỉnh"
 
 #. module: web_studio
 #. odoo-python
@@ -3707,7 +3701,7 @@ msgid ""
 "the same record."
 msgstr ""
 "Người dùng phê duyệt quy tắc này sẽ không thể phê duyệt các quy tắc khác cho"
-" cùng một tập dữ liệu."
+" cùng một bản ghi."
 
 #. module: web_studio
 #. odoo-python
@@ -3717,8 +3711,8 @@ msgid ""
 "There are %s records using selection values not listed in those you are trying to save.\n"
 "Are you sure you want to remove the selection values of those records?"
 msgstr ""
-"Có %s tập dữ liệu sử dụng giá trị lựa chọn không được liệt kê trong những tập dữ liệu bạn đang cố gắng lưu.\n"
-"Bạn có chắc chắn muốn xóa các giá trị lựa chọn của những tập dữ liệu đó không?"
+"Có %s bản ghi sử dụng giá trị lựa chọn không được liệt kê trong những bản ghi bạn đang cố gắng lưu.\n"
+"Bạn có chắc chắn muốn xóa các giá trị lựa chọn của những bản ghi đó không?"
 
 #. module: web_studio
 #. odoo-python
@@ -3735,15 +3729,15 @@ msgid ""
 "There is no record on which this report can be previewed. Create at least "
 "one record to preview the report."
 msgstr ""
-"Không thể xem trước báo cáo này trên tập dữ liệu nào. Tạo ít nhất một tập dữ"
-" liệu để xem trước báo cáo."
+"Không thể xem trước báo cáo này trên bản ghi nào. Tạo ít nhất một bản ghi để"
+" xem trước báo cáo."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #, python-format
 msgid "There is no record to preview"
-msgstr "Không có tập dữ liệu nào để xem trước"
+msgstr "Không có bản ghi nào để xem trước"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3771,7 +3765,7 @@ msgstr "Trạng thái thứ ba"
 #: code:addons/web_studio/static/src/studio_service.js:0
 #, python-format
 msgid "This action is not editable by Studio"
-msgstr "Không thể chỉnh sửa hành động này bằng Studio"
+msgstr "Không thể chỉnh sửa tác vụ này bằng Studio"
 
 #. module: web_studio
 #. odoo-python
@@ -3781,8 +3775,8 @@ msgid ""
 "This approval or the one you already submitted limits you to a single approval on this action.\n"
 "Another user is required to further approve this action."
 msgstr ""
-"Phê duyệt này hoặc phê duyệt bạn đã gửi giới hạn bạn trong một phê duyệt duy nhất đối với hành động này.\n"
-"Một người dùng khác được yêu cầu phê duyệt thêm hành động này."
+"Phê duyệt này hoặc phê duyệt bạn đã gửi giới hạn bạn trong một phê duyệt duy nhất đối với tác vụ này.\n"
+"Một người dùng khác được yêu cầu phê duyệt thêm tác vụ này."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3792,7 +3786,7 @@ msgid ""
 "This could also be due to the absence of a real record to render the report "
 "with."
 msgstr ""
-"Điều này cũng có thể là do không có tập dữ liệu thực tế để kết xuất báo cáo."
+"Điều này cũng có thể là do không có bản ghi thực tế để kết xuất báo cáo."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3833,8 +3827,7 @@ msgstr "Quy tắc này đã được chấp thuận/bị từ chối."
 #, python-format
 msgid "This rule limits this user to a single approval for this action."
 msgstr ""
-"Quy tắc này giới hạn người dùng này ở một phê duyệt duy nhất cho hành động "
-"này."
+"Quy tắc này giới hạn người dùng này ở một phê duyệt duy nhất cho tác vụ này."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4042,7 +4035,7 @@ msgstr "Nút này nên làm gì"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 #, python-format
 msgid "When Creating Record"
-msgstr "Khi tạo tập dữ liệu"
+msgstr "Khi tạo bản ghi"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__can_validate
@@ -4118,7 +4111,7 @@ msgstr "Bạn thích phá vỡ mọi thứ, phải không?"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 #, python-format
 msgid "action"
-msgstr "hành động"
+msgstr "tác vụ"
 
 #. module: web_studio
 #. odoo-javascript

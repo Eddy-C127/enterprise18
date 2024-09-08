@@ -3,8 +3,8 @@
 # 	* documents
 # 
 # Translators:
-# Thi Huong Nguyen, 2024
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -615,8 +615,8 @@ msgid ""
 "A Python dictionary that will be evaluated to provide default values when "
 "creating new records for this alias."
 msgstr ""
-"Một từ điển Python sẽ được đánh giá để cung cấp giá trị mặc định khi tạo tập"
-" dữ liệu mới cho bí danh này. "
+"Một từ điển Python sẽ được đánh giá để cung cấp giá trị mặc định khi tạo bản"
+" ghi mới cho bí danh này. "
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_workflow_rule
@@ -624,8 +624,8 @@ msgid ""
 "A set of condition and actions which will be available to all attachments "
 "matching the conditions"
 msgstr ""
-"Một tập hợp điều kiện và hành động khả dụng cho tất cả tệp đính kèm phù hợp "
-"với điều kiện."
+"Một tập hợp điều kiện và tác vụ khả dụng cho tất cả tệp đính kèm phù hợp với"
+" điều kiện."
 
 #. module: documents
 #. odoo-python
@@ -676,7 +676,7 @@ msgstr "Token truy cập"
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_action__action
 #, python-format
 msgid "Action"
-msgstr "Hành động"
+msgstr "Tác vụ"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__name
@@ -691,13 +691,13 @@ msgstr "Action Count"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
 msgid "Action Name"
-msgstr "Tên hành động"
+msgstr "Tên tác vụ"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_needaction
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_needaction
 msgid "Action Needed"
-msgstr "Hành động cần thiết"
+msgstr "Tác vụ cần thiết"
 
 #. module: documents
 #. odoo-javascript
@@ -708,7 +708,7 @@ msgstr "Hành động cần thiết"
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
 #, python-format
 msgid "Actions"
-msgstr "Hành động"
+msgstr "Tác vụ"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__active
@@ -1398,7 +1398,7 @@ msgstr "Tên hiển thị"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
 #, python-format
 msgid "Do you really want to unlink this record?"
-msgstr "Bạn có thực sự muốn hủy liên kết tập dữ liệu này không?"
+msgstr "Bạn có thực sự muốn hủy liên kết bản ghi này không?"
 
 #. module: documents
 #. odoo-javascript
@@ -1618,7 +1618,7 @@ msgstr "Chỉnh sửa"
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
 #, python-format
 msgid "Edit the linked record"
-msgstr "Sửa tập dữ liệu được liên kết"
+msgstr "Sửa bản ghi được liên kết"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_email
@@ -1901,8 +1901,7 @@ msgid ""
 "ID of the parent record holding the alias (example: project holding the task"
 " creation alias)"
 msgstr ""
-"ID của tập dữ liệu chính chứa bí danh (ví dụ: dự án chứa bí danh tạo nhiệm "
-"vụ)"
+"ID của bản ghi chính chứa bí danh (ví dụ: dự án chứa bí danh tạo nhiệm vụ)"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_exception_icon
@@ -2446,7 +2445,7 @@ msgstr "Ghi chú"
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_needaction_counter
 #: model:ir.model.fields,field_description:documents.field_documents_share__message_needaction_counter
 msgid "Number of Actions"
-msgstr "Số lượng hành động"
+msgstr "Số lượng tác vụ"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__links_count
@@ -2500,9 +2499,9 @@ msgid ""
 "attached, even if they did not reply to it. If set, this will disable the "
 "creation of new records completely."
 msgstr ""
-"ID tùy chọn của một luồng (tập dữ liệu) tập hợp tất cả tin nhắn nhận được, "
-"thậm chí nếu đó là tin nhắn không có phản hồi. Nếu cài đặt, điều này sẽ tắt "
-"hoàn toàn việc tạo các tập dữ liệu mới. "
+"ID tùy chọn của một luồng (bản ghi) tập hợp tất cả tin nhắn nhận được, thậm "
+"chí nếu đó là tin nhắn không có phản hồi. Nếu cài đặt, điều này sẽ tắt hoàn "
+"toàn việc tạo các bản ghi mới. "
 
 #. module: documents
 #. odoo-javascript
@@ -2567,7 +2566,7 @@ msgstr "Tuyến chính"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_parent_thread_id
 msgid "Parent Record Thread ID"
-msgstr "ID luồng tập dữ liệu chính"
+msgstr "ID luồng bản ghi chính"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__parent_folder_id
@@ -2651,7 +2650,7 @@ msgstr "Bản ghi"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__alias_force_thread_id
 msgid "Record Thread ID"
-msgstr "ID luồng tập dữ liệu"
+msgstr "ID luồng bản ghi"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_workflow_rule__domain_folder_id
@@ -3035,8 +3034,7 @@ msgstr "Shares & Emails"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Show all records which has next action date is before today"
-msgstr ""
-"Hiển thị tất cả tập dữ liệu có ngày xử lý tiếp theo trước ngày hôm nay"
+msgstr "Hiển thị tất cả bản ghi có ngày xử lý tiếp theo trước ngày hôm nay"
 
 #. module: documents
 #. odoo-javascript
@@ -3215,8 +3213,8 @@ msgid ""
 "a new record of this model (e.g. a Project Task)"
 msgstr ""
 "Mô hình (Loại tài liệu Odoo) mà bí danh này tương tác. Mọi email đến mà "
-"không phải là email trả lời một tập dữ liệu hiện có sẽ tạo ra một tập dữ "
-"liệu mới trong mô hình này. (ví dụ: Nhiệm vụ dự án) "
+"không phải là email trả lời một bản ghi hiện có sẽ tạo ra một bản ghi mới "
+"trong mô hình này. (ví dụ: Nhiệm vụ dự án) "
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_share__alias_name
@@ -3378,7 +3376,7 @@ msgstr "Loại"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Loại hoạt động ngoại lệ trong tập dữ liệu."
+msgstr "Loại hoạt động ngoại lệ trong bản ghi."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url
@@ -3581,7 +3579,7 @@ msgstr "Write Groups"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.workflow_rule_form_view
 msgid "Write a tooltip for the action here"
-msgstr "Viết một tooltip cho hành động"
+msgstr "Viết một tooltip cho tác vụ"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__attachment_type

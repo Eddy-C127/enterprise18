@@ -1775,17 +1775,17 @@ msgstr "汎用EC販売リスト"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler
 msgid "Generic Tax Report Custom Handler"
-msgstr "汎用税務申告カスタムハンドラ"
+msgstr "汎用税レポートカスタムハンドラ"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler_account_tax
 msgid "Generic Tax Report Custom Handler (Account -> Tax)"
-msgstr "汎用税務申告カスタムハンドラ (会計 -> 税務)"
+msgstr "汎用税レポートカスタムハンドラ (会計 -> 税)"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler_tax_account
 msgid "Generic Tax Report Custom Handler (Tax -> Account)"
-msgstr "汎用税務申告カスタムハンドラ (税務 -> 会計)"
+msgstr "汎用税レポートカスタムハンドラ (税務 -> 会計)"
 
 #. module: account_reports
 #. odoo-python
@@ -2120,7 +2120,7 @@ msgstr "無効な方法 %r"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Invalid subformula in expression %r of line %r: %s"
-msgstr " 式%r中の明細 %r: %sの無効な部分式"
+msgstr " 式%r中の明細 %r: %sの無効なサブ計算式"
 
 #. module: account_reports
 #. odoo-python
@@ -3263,14 +3263,14 @@ msgstr "受取税額調整"
 #: model:mail.activity.type,summary:account_reports.tax_closing_activity_type
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "Tax Report"
-msgstr "税務申告"
+msgstr "税レポート"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_report_control_error
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_report_control_error
 #: model:ir.model.fields,field_description:account_reports.field_account_payment__tax_report_control_error
 msgid "Tax Report Control Error"
-msgstr "税務申告エラーコントロール"
+msgstr "税レポートコントロールエラー"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.setup_financial_year_opening_form
@@ -3588,7 +3588,7 @@ msgstr "このレポートはアクティブな会社のデータのみ表示し
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This subformula references an unknown expression: %s"
-msgstr "この部分式は未知の式を参照しています: %s"
+msgstr "このサブ計算式は未知の式を参照しています: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3899,7 +3899,7 @@ msgstr "カスタム為替レートは使用中です。"
 #: code:addons/account_reports/models/account_move.py:0
 #, python-format
 msgid "You can't open a tax report from a move without a VAT closing date."
-msgstr "VAT締切日のない仕訳から会計報告書を開くことはできません。"
+msgstr "VAT締切日のない仕訳から税レポートを開くことはできません。"
 
 #. module: account_reports
 #. odoo-python
