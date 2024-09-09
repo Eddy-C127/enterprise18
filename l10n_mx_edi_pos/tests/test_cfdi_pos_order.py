@@ -146,7 +146,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
 
             # Sign it.
             invoice = order.account_move
-            self.env['account.move.send'] \
+            self.env['account.move.send.wizard'] \
                 .with_context(active_model=invoice._name, active_ids=invoice.ids) \
                 .create({}) \
                 .action_send_and_print()
@@ -337,7 +337,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
 
             # Create the CFDI and sign it.
             with self.with_mocked_pac_sign_success():
-                self.env['account.move.send'] \
+                self.env['account.move.send.wizard'] \
                     .with_context(active_model=refund._name, active_ids=refund.ids) \
                     .create({})\
                     .action_send_and_print()
@@ -389,7 +389,7 @@ class TestCFDIPosOrder(TestMxEdiPosCommon, TestPointOfSaleHttpCommon):
                 # Sign it.
                 invoice = order.account_move
                 with self.with_mocked_pac_sign_success():
-                    self.env['account.move.send'] \
+                    self.env['account.move.send.wizard'] \
                         .with_context(active_model=invoice._name, active_ids=invoice.ids) \
                         .create({}) \
                         .action_send_and_print()

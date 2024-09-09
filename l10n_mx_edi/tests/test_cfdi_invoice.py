@@ -538,7 +538,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
                     .with_context(invoice.l10n_mx_edi_action_create_global_invoice()['context']) \
                     .create({})
             with self.with_mocked_pac_sign_success():
-                self.env['account.move.send']\
+                self.env['account.move.send.wizard']\
                     .with_context(active_model=refund._name, active_ids=refund.ids)\
                     .create({})\
                     .action_send_and_print()
@@ -572,10 +572,10 @@ class TestCFDIInvoice(TestMxEdiCommon):
         with self.mx_external_setup(self.frozen_today):
             invoice = self._create_invoice(l10n_mx_edi_cfdi_to_public=True)
             with self.with_mocked_pac_sign_success():
-                self.env['account.move.send']\
+                wizard = self.env['account.move.send.wizard']\
                     .with_context(active_model=invoice._name, active_ids=invoice.ids)\
-                    .create({})\
-                    .action_send_and_print()
+                    .create({})
+                wizard.action_send_and_print()
             self._assert_invoice_cfdi(invoice, 'test_invoice_then_refund_1')
 
             # You are no longer able to create a global invoice.
@@ -604,7 +604,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
             # Create the CFDI and sign it.
             with self.with_mocked_pac_sign_success():
-                self.env['account.move.send']\
+                self.env['account.move.send.wizard']\
                     .with_context(active_model=refund._name, active_ids=refund.ids)\
                     .create({})\
                     .action_send_and_print()
@@ -625,10 +625,10 @@ class TestCFDIInvoice(TestMxEdiCommon):
             self._assert_global_invoice_cfdi_from_invoices(invoice, 'test_global_invoice_then_refund_1')
 
             # You are not able to create an invoice for it.
-            wizard = self.env['account.move.send']\
+            wizard = self.env['account.move.send.wizard']\
                 .with_context(active_model=invoice._name, active_ids=invoice.ids)\
                 .create({})
-            self.assertRecordValues(wizard, [{'l10n_mx_edi_enable_cfdi': False}])
+            self.assertFalse(wizard.extra_edi_checkboxes and wizard.extra_edi_checkboxes.get('mx_cfdi'))
 
             # Refund the invoice.
             results = self.env['account.move.reversal']\
@@ -650,7 +650,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
 
             # Sign the refund.
             with self.with_mocked_pac_sign_success():
-                self.env['account.move.send']\
+                self.env['account.move.send.wizard']\
                     .with_context(active_model=refund._name, active_ids=refund.ids)\
                     .create({})\
                     .action_send_and_print()
@@ -670,8 +670,7 @@ class TestCFDIInvoice(TestMxEdiCommon):
                     }),
                 ],
             )
-            template = self.env.ref(invoice._get_mail_template())
-            invoice.with_context(skip_invoice_sync=True)._generate_pdf_and_send_invoice(template, force_synchronous=True, allow_fallback_pdf=True)
+            invoice.with_context(skip_invoice_sync=True)._generate_and_send(allow_fallback_pdf=True)
             self.assertFalse(invoice.invoice_pdf_report_id, "invoice_pdf_report_id shouldn't be set with the proforma PDF.")
 
     def test_import_invoice(self):

@@ -1855,7 +1855,6 @@ class SaleOrder(models.Model):
         :param invoices: one or more account.move recordset
         :param tx: single payment.transaction
         """
-        template = self.env.ref('sale_subscription.email_payment_success').sudo()
         current_date = fields.Date.today()
         subscription_ids = []
         for invoice in invoices:
@@ -1887,8 +1886,12 @@ class SaleOrder(models.Model):
                              'date_end': subscription.end_date}
             _logger.debug("Sending Payment Confirmation Mail to %s for subscription %s", subscription.partner_id.email, subscription.id)
 
-            linked_invoices.is_move_sent = True
-            linked_invoices.with_context(email_context)._generate_pdf_and_send_invoice(template)
+            if linked_invoices:
+                self.env['account.move.send'].with_context(email_context)._generate_and_send_invoices(
+                    linked_invoices,
+                    allow_raising=False,
+                    allow_fallback=True
+                )
 
     @api.model
     def _process_invoices_to_send(self, account_moves):
@@ -1912,8 +1915,12 @@ class SaleOrder(models.Model):
             self.env.cr.commit()
         if self.plan_id.invoice_mail_template_id:
             _logger.debug("Sending Invoice Mail to %s for subscription %s", self.partner_id.mapped('email'), self.ids)
-            send_options = self.env['account.move.send']._get_wizard_vals_restrict_to({'checkbox_send_mail': True})
-            invoice.with_context(email_context)._generate_pdf_and_send_invoice(self.plan_id.invoice_mail_template_id, **send_options)
+            self.env['account.move.send'].with_context(email_context)._generate_and_send_invoices(
+                invoice,
+                allow_raising=False,
+                allow_fallback_pdf=True,
+                mail_template=self.plan_id.invoice_mail_template_id,
+            )
 
     def _assign_token(self, tx):
         """ Callback method to assign a token after the validation of a transaction.

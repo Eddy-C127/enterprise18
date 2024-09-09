@@ -112,7 +112,8 @@ class TestKeEdiStock(TestKeEdiCommon):
         # Step 4: send invoice
         self.assertFalse(invoice.l10n_ke_validation_message)
         invoice.action_post()
-        send_and_print = self.create_send_and_print(invoice, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(invoice)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.set_invoice_number(invoice), self.patch_cron_trigger() as mocked_trigger:
             send_and_print.action_send_and_print()
 
@@ -135,7 +136,8 @@ class TestKeEdiStock(TestKeEdiCommon):
         credit_note.action_post()
 
         # Step 8: send credit note
-        send_and_print = self.create_send_and_print(credit_note, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(credit_note)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.set_invoice_number(credit_note), self.patch_cron_trigger() as mocked_trigger:
             send_and_print.action_send_and_print()
 
@@ -189,7 +191,8 @@ class TestKeEdiStock(TestKeEdiCommon):
 
         # Step 3: Send invoice 2.
         invoice_2.action_post()
-        send_and_print = self.create_send_and_print(invoice_2, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(invoice_2)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.set_invoice_number(invoice_2), self.patch_cron_trigger() as mocked_trigger:
             send_and_print.action_send_and_print()
 
@@ -202,7 +205,8 @@ class TestKeEdiStock(TestKeEdiCommon):
 
         # Step 5: Send invoice 1.
         invoice_1.action_post()
-        send_and_print = self.create_send_and_print(invoice_1, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(invoice_1)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.set_invoice_number(invoice_1), self.patch_cron_trigger() as mocked_trigger:
             send_and_print.action_send_and_print()
 

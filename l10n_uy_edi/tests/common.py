@@ -179,7 +179,7 @@ class TestUyEdi(AccountTestInvoicingCommon):
         return error_msg
 
     def _send_and_print(self, invoice):
-        self.env["account.move.send"] \
+        self.env["account.move.send.wizard"] \
             .with_context(active_model=invoice._name, active_ids=invoice.ids) \
             .create({}) \
             .action_send_and_print()

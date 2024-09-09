@@ -229,7 +229,8 @@ class TestDianFlows(TestCoDianCommon):
             invoice_date=datetime.today(),
             journal_id=self.support_document_journal.id,
         )
-        self._mock_send_and_print(move=bill, response_file='SendBillSync_warnings.xml')
+        with patch(f'{self.utils_path}._build_and_send_request', return_value=self._mocked_response('SendBillSync_warnings.xml', 200)):
+            bill.l10n_co_dian_action_send_bill_support_document()
 
         self.assertTrue(bill.l10n_co_dian_attachment_id)
         self.assertRecordValues(bill.l10n_co_dian_document_ids, [{

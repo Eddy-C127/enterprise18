@@ -1,6 +1,7 @@
 from . import account_journal
 from . import account_edi_xml_ubl_dian
 from . import certificate
+from . import account_move_send
 from . import l10n_co_dian_document
 from . import l10n_co_dian_operation_mode
 from . import res_company

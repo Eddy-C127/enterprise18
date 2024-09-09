@@ -565,7 +565,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         # Mock method that is used to send the invoice
         # (simply used to registerto how many time it's called)
         send_invoice_mock = self.startPatcher(
-            patch.object(self.env.registry["account.move"], '_generate_pdf_and_send_invoice', autospec=True)
+            patch.object(self.env.registry["account.move.send"], '_generate_and_send_invoices', autospec=True)
         )
 
         self.amount = self.subscription.amount_total
@@ -577,9 +577,13 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         self.assertEqual(len(self.subscription.invoice_ids), 1)
         self.assertEqual(self.subscription.invoice_ids.state, 'posted')
         send_invoice_mock.assert_called_once_with(
+            self.env['account.move.send'],
             self.subscription.invoice_ids,
-            self.env.ref('sale_subscription.email_payment_success'),
+            allow_raising=False,
+            allow_fallback=True,
         )
+        template = self.env.ref('sale_subscription.email_payment_success')
+        self.assertTrue(all(template == self.env['account.move.send']._get_default_mail_template_id(move) for move in self.subscription.invoice_ids))
 
     def test_manually_captured_payment_providers_not_allowed(self):
         self.provider.capture_manually = True

@@ -38,7 +38,6 @@ Known issues / Roadmap
         "views/res_company_views.xml",
         "views/report_invoice.xml",
         "views/cfe_template.xml",
-        "wizards/account_move_send_views.xml",
         "data/ir_cron.xml",
         "data/res_currency_data.xml",
         "security/ir.model.access.csv",

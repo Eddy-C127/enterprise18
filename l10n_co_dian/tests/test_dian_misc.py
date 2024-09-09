@@ -88,7 +88,7 @@ class TestDianMisc(TestCoDianCommon):
             return response
 
         with patch('requests.post', side_effect=post), self._mock_uuid_generation():
-            self.env['account.move.send'] \
+            self.env['account.move.send.wizard'] \
                 .with_context(active_model=self.invoice._name, active_ids=self.invoice.ids) \
                 .create({}) \
                 .action_send_and_print()

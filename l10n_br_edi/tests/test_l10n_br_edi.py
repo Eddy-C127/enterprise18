@@ -5,6 +5,7 @@ from contextlib import contextmanager
 from unittest.mock import patch, DEFAULT
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
+from odoo.addons.account.tests.test_account_move_send import TestAccountMoveSendCommon
 from odoo.addons.iap import InsufficientCreditError
 from odoo.addons.l10n_br_edi.tests.data_invoice_1 import (
     invoice_1_request,
@@ -20,7 +21,7 @@ from odoo.tests import tagged
 
 
 @tagged("post_install_l10n", "post_install", "-at_install")
-class TestL10nBREDICommon(AccountTestInvoicingCommon):
+class TestL10nBREDICommon(TestAccountMoveSendCommon):
     @classmethod
     @AccountTestInvoicingCommon.setup_country('br')
     def setUpClass(cls):
@@ -103,7 +104,9 @@ class TestL10nBREDICommon(AccountTestInvoicingCommon):
                 ],
             }
         )
-        cls.wizard = cls.env["account.move.send"].create({"move_ids": cls.invoice.ids})
+        cls.invoice.is_tax_computed_externally = False  # FIXME hack to fix the fact the invoice was not posted before
+        cls.invoice.action_post()
+        cls.invoice.is_tax_computed_externally = True
 
     @contextmanager
     def with_patched_account_move(self, method_name, mocked_response=None):
@@ -118,18 +121,35 @@ class TestL10nBREDICommon(AccountTestInvoicingCommon):
 
 @tagged("post_install_l10n", "post_install", "-at_install")
 class TestL10nBREDI(TestL10nBREDICommon):
-    def test_l10n_br_edi_is_enabled_checkbox(self):
-        self.wizard.l10n_br_edi_is_enabled = False
-        self.wizard.checkbox_download = False
+
+    def test_l10n_br_edi_generate_and_send_single_wizard(self):
+        single_wizard = self.env['account.move.send.wizard'].create({'move_id': self.invoice.id})
+        self.assertTrue('manual' in single_wizard.sending_methods)
+        self.assertEqual(single_wizard.invoice_edi_format, False)
+        self.assertTrue('br_edi' in single_wizard.extra_edis)
+        with self.with_patched_account_move("_l10n_br_iap_request", invoice_1_submit_success_response):
+            single_wizard.action_send_and_print()
+
+    def test_l10n_br_edi_generate_and_send_batch_wizard(self):
+        self.partner_customer.invoice_sending_method = 'manual'
+        batch_wizard = self.env['account.move.send.batch.wizard'].create({'move_ids': self.invoice.ids})
+        self.assertTrue(batch_wizard.summary_data)
+        with self.with_patched_account_move("_l10n_br_iap_request", invoice_1_submit_success_response):
+            batch_wizard.action_send_and_print()
+
+    def test_l10n_br_edi_is_disabled(self):
+        single_wizard = self.env['account.move.send.wizard'].create({'move_id': self.invoice.id, 'extra_edis': []})
+        self.assertFalse(single_wizard.extra_edis)
 
         with self.with_patched_account_move("_l10n_br_iap_request") as patched_submit:
-            self.wizard.action_send_and_print()
+            single_wizard.action_send_and_print()
 
         self.assertFalse(patched_submit.called, "EDI should not have been called when the checkbox isn't checked.")
 
     def test_invoice_1_success(self):
+        single_wizard = self.env['account.move.send.wizard'].create({'move_id': self.invoice.id})
         with self.with_patched_account_move("_l10n_br_iap_request", invoice_1_submit_success_response):
-            self.wizard.action_send_and_print()
+            single_wizard.action_send_and_print()
 
         self.assertEqual(self.invoice.l10n_br_last_edi_status, "accepted", "The EDI document should be accepted.")
         self.assertEqual(
@@ -150,10 +170,11 @@ class TestL10nBREDI(TestL10nBREDICommon):
         self.assertFalse(self.invoice.l10n_br_edi_avatax_data, "Saved Avatax tax data should have been removed.")
 
     def test_invoice_1_fail(self):
+        single_wizard = self.env['account.move.send.wizard'].create({'move_id': self.invoice.id})
         with self.with_patched_account_move(
             "_l10n_br_iap_request", invoice_1_submit_fail_response
         ), self.assertRaisesRegex(UserError, re.escape(invoice_1_submit_fail_response["error"]["message"])):
-            self.wizard.action_send_and_print()
+            single_wizard.action_send_and_print()
 
         self.assertEqual(self.invoice.l10n_br_last_edi_status, "error", "The EDI document should be in error.")
         self.assertFalse(
@@ -177,13 +198,13 @@ class TestL10nBREDI(TestL10nBREDICommon):
                 "odoo.addons.l10n_br_avatax.models.account_external_tax_mixin.iap_jsonrpc", side_effect=exception
             ), self.assertRaisesRegex(UserError, "Errors when submitting the e-invoice:"):
                 yield
-
+        single_wizard = self.env['account.move.send.wizard'].create({'move_id': self.invoice.id})
         for Exc in (UserError, AccessError, InsufficientCreditError):
             with wrap_iap(Exc("test")):
                 try:
-                    self.wizard.action_send_and_print()
+                    single_wizard.action_send_and_print()
                 finally:
-                    self.wizard.move_ids.l10n_br_last_edi_status = False
+                    self.invoice.l10n_br_last_edi_status = False
 
     def test_prepare_tax_data(self):
         to_include, header = self.invoice._l10n_br_edi_get_tax_data()
@@ -195,6 +216,7 @@ class TestL10nBREDI(TestL10nBREDICommon):
         self.assertEqual(header["goods"]["class"], "TEST CLASS VALUE", "Test class value should be included in header.")
 
     def test_update_cancel(self):
+        self.invoice.button_draft()  # FIXME this test only works with a draft invoice, is it intended ?
         wizard = self.env["l10n_br_edi.invoice.update"].create(
             {"move_id": self.invoice.id, "mode": "cancel", "reason": "test reason"}
         )
@@ -270,8 +292,9 @@ class TestL10nBREDIServices(TestL10nBREDICommon):
         payload = self.invoice._l10n_br_prepare_invoice_payload()
         self.assertTrue("informative" not in str(payload).lower())
 
+        single_wizard = self.env['account.move.send.wizard'].create({'move_id': self.invoice.id})
         with self.with_patched_account_move("_l10n_br_iap_request", invoice_1_submit_success_response):
-            self.wizard.action_send_and_print()
+            single_wizard.action_send_and_print()
 
         informative_taxes = """Informative taxes:.*\
 subtotalTaxable: 435, tax: 58.51, taxType: aproxtribFed.*\

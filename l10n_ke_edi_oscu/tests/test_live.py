@@ -56,7 +56,8 @@ class TestKeEdi(TestKeEdiCommon):
         self.assertFalse(invoice.l10n_ke_validation_message)
 
         invoice.action_post()
-        send_and_print = self.create_send_and_print(invoice, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(invoice)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.set_invoice_number(invoice):
             send_and_print.action_send_and_print()
 
@@ -67,7 +68,8 @@ class TestKeEdi(TestKeEdiCommon):
         credit_note = self.create_reversal(invoice)
         self.assertFalse(credit_note.l10n_ke_validation_message)
         credit_note.action_post()
-        send_and_print = self.create_send_and_print(credit_note, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(credit_note)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.set_invoice_number(credit_note):
             send_and_print.action_send_and_print()
 
@@ -106,7 +108,8 @@ class TestKeEdi(TestKeEdiCommon):
         self.assertFalse(invoice.l10n_ke_validation_message)
 
         invoice.action_post()
-        send_and_print = self.create_send_and_print(invoice, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(invoice)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.set_invoice_number(invoice):
             send_and_print.action_send_and_print()
 

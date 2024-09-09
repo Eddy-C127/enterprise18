@@ -1,17 +1,13 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-from odoo import api, models
+from odoo import models
 
 
-class AccountMoveSend(models.TransientModel):
+class AccountMoveSend(models.AbstractModel):
     _inherit = 'account.move.send'
 
-    @api.model
-    def _process_send_and_print(self, moves, wizard=None, allow_fallback_pdf=False, **kwargs):
-        # extends account to create the pdf attachment
+    def _generate_and_send_invoices(self, moves, from_cron=False, allow_raising=True, allow_fallback_pdf=False, **custom_settings):
+        # EXTENDS 'account' - to create the pdf attachment
         # in the matching inter-company move
-        res = super()._process_send_and_print(moves, wizard=wizard, allow_fallback_pdf=allow_fallback_pdf, **kwargs)
+        res = super()._generate_and_send_invoices(moves, from_cron=from_cron, allow_raising=allow_raising, allow_fallback_pdf=allow_fallback_pdf, **custom_settings)
 
         partner_companies = self.env['res.company'].sudo().search([]).partner_id.ids
 
@@ -30,7 +26,7 @@ class AccountMoveSend(models.TransientModel):
         for ico_move in ico_moves:
             original_move = ico_move.auto_invoice_id
             move_attachment = original_move.message_main_attachment_id
-            if not move_attachment: # shouldn't happen but just in case
+            if not move_attachment:  # shouldn't happen but just in case
                 continue
 
             ico_move.message_main_attachment_id = self.env['ir.attachment']\

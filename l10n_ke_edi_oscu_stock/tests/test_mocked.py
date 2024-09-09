@@ -106,7 +106,8 @@ class TestKeEdiStockMocked(TestKeEdiStock):
         invoice.invoice_line_ids[0].discount = 10
         invoice.action_post()
 
-        send_and_print = self.create_send_and_print(invoice, l10n_ke_checkbox_oscu=True)
+        send_and_print = self.create_send_and_print(invoice)
+        self.assertTrue(send_and_print.extra_edi_checkboxes.get('ke_oscu', {}).get('checked'))
         with self.assertRaises(UserError):
             send_and_print.action_send_and_print()
 

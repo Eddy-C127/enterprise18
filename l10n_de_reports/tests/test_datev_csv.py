@@ -734,7 +734,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
             ]
         }])
         move.action_post()
-        self.env['account.move.send'] \
+        self.env['account.move.send.wizard'] \
             .with_context(active_model='account.move', active_ids=move.ids) \
             .create({}).action_send_and_print()
         move.line_ids.flush_recordset()

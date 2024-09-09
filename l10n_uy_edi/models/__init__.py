@@ -1,6 +1,7 @@
 from . import account_journal
 from . import account_move
 from . import account_move_line
+from . import account_move_send
 from . import l10n_uy_edi_addenda
 from . import l10n_uy_edi_document
 from . import res_company

@@ -31,7 +31,6 @@
         'views/l10n_ke_edi_oscu_notice_views.xml',
         'views/menuitems.xml',
         'security/ir.model.access.csv',
-        'wizard/account_move_send_views.xml',
         'wizard/account_move_reversal_view.xml',
     ],
     'demo': [
