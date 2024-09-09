@@ -31,6 +31,7 @@ class L10nKeOSCUNotice(models.Model):
                 _logger.info("No new KRA notices fetched from eTIMS.")
                 return
             _logger.error("eTIMS Request Error [%s]: %s", error['code'], error['message'])
+            return
 
         notice_map = {notice['noticeNo']: notice for notice in data['noticeList']}
         pre_existing_notices = self.search([('number', 'in', list(notice_map.keys()))])
