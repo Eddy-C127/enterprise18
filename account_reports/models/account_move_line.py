@@ -23,6 +23,17 @@ class AccountMoveLine(models.Model):
             if aml.move_id.tax_closing_report_id and (aml.tax_ids or aml.tax_tag_ids):
                 raise UserError(_("You cannot add taxes on a tax closing move line."))
 
+    @api.depends('product_id', 'product_uom_id', 'move_id.tax_closing_report_id')
+    def _compute_tax_ids(self):
+        """ Some special cases may see accounts used in tax closing having default taxes.
+        They would trigger the constrains above, which we don't want. Instead, we don't trigger
+        the tax computation in this case.
+        """
+        # EXTEND account
+        lines_to_compute = self.filtered(lambda line: not line.move_id.tax_closing_report_id)
+        (self - lines_to_compute).tax_ids = False
+        super(AccountMoveLine, lines_to_compute)._compute_tax_ids()
+
     @api.model
     def _prepare_aml_shadowing_for_report(self, change_equivalence_dict):
         """ Prepares the fields lists for creating a temporary table shadowing the account_move_line one.
