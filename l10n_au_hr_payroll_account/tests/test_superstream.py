@@ -65,7 +65,6 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             'l10n_au_tfn': '123456789',
             'l10n_au_training_loan': True,
             'l10n_au_nat_3093_amount': 150,
-            'l10n_au_child_support_garnishee': 'percentage',
             'l10n_au_child_support_garnishee_amount': 0.1,
             'l10n_au_child_support_deduction': 150,
             'l10n_au_payroll_id': 'odoo_f47ac10b_001',

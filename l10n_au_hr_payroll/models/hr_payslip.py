@@ -702,25 +702,36 @@ class HrPayslip(models.Model):
         withholding += self._l10n_au_calculate_annual_leave_withholding(l10n_au_leave_withholding, leaves["annual"], basic_amount)
         return withholding
 
-    def _l10n_au_compute_child_support(self, net_earnings):
+    def _get_pea_amount(self):
+        # Computed differently than the salary amounts
+        # https://www.servicesaustralia.gov.au/protected-earnings-amount-when-deducting-child-support?context=23156#a1
         self.ensure_one()
         pea = self._rule_parameter("l10n_au_pea")
+        schedule_pay = self.l10n_au_schedule_pay
+        if schedule_pay == "monthly":
+            pea = pea / 7 * 30.4375
+        if schedule_pay == "bi-weekly":
+            pea = pea * 2
+        if schedule_pay == "daily":
+            pea = pea / 7
+        return ceil(pea * 100) / 100  # Round up 2 decimal places
+
+    def _l10n_au_compute_child_support(self, net_earnings):
+        """
+        net_earnings: Net salary after tax withhold and garnishee child support.
+        Compute the child support amount deducted from the net salary after tax withhold.
+        The child support has two components:
+            - A garnishee child support:
+                This can be a periodic % or fixed amount, or a one time lump sum. Deducted with
+                CHILD.SUPPORT.GARNISHEE rule.
+            - A child support deduction:
+                Amount set by ATO, this can only be withheld, if the remaining
+                net earnings are above the Protected Earnings Amount.
+        """
+        self.ensure_one()
+        pea = self._get_pea_amount()
         employee_id = self.employee_id
-
-        # garnishee child support does not apply the pea, first apply the lumpsum deductions
-        # then the regular deductions
-        lumpsum_child_support = sum(self.input_line_ids.sudo().filtered(lambda inpt: inpt.input_type_id.code == 'CHILD_SUPPORT').mapped('amount'))
-        lumpsum_child_support = min(net_earnings, lumpsum_child_support)
-        withhold = lumpsum_child_support
-        net_earnings -= withhold
-
-        if net_earnings:
-            if employee_id.l10n_au_child_support_garnishee == "fixed":
-                withhold += min(net_earnings, employee_id.l10n_au_child_support_garnishee_amount)
-            elif employee_id.l10n_au_child_support_garnishee == "percentage":
-                withhold += net_earnings * employee_id.l10n_au_child_support_garnishee_amount
-            net_earnings -= withhold
-
+        withhold = 0.0
         if net_earnings > pea:
             net_over_pea = net_earnings - pea
             withhold += min(net_over_pea, employee_id.l10n_au_child_support_deduction)

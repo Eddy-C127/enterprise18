@@ -64,6 +64,11 @@
     </record>
 
     <!-- Child Support -->
+    <record id="rule_category_child_support_garnishee" model="hr.salary.rule.category">
+        <field name="name">Child Support</field>
+        <field name="code">CHILD.SUPPORT.GARNISHEE</field>
+        <field name="parent_id" eval="False"/>
+    </record>
     <record id="rule_category_child_support" model="hr.salary.rule.category">
         <field name="name">Child Support</field>
         <field name="code">CHILD.SUPPORT</field>

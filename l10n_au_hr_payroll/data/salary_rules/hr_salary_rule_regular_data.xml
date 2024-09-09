@@ -478,18 +478,40 @@ result = categories['WITHHOLD'] + min(-categories['WITHHOLD'], categories["WITHH
     <!-- Attachment of Salary, Sequence 174 -->
     <!-- Assignment of Salary, Sequence 174 -->
     <!-- Child Support (Standard), Sequence 174 -->
-
-    <record id="l10n_au_child_support_structure_1" model="hr.salary.rule">
-        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_child_support"/>
-        <field name="name">Child Support</field>
-        <field name="code">CHILD.SUPPORT</field>
-        <field name="sequence">185</field>
+    <record id="l10n_au_child_support_garnishee_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_child_support_garnishee"/>
+        <field name="name">Child Support Garnishee</field>
+        <field name="code">CHILD.SUPPORT.GARNISHEE</field>
+        <field name="sequence">183</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = employee.l10n_au_child_support_deduction or employee.l10n_au_child_support_garnishee</field>
+        <field name="condition_python">
+result = employee.l10n_au_child_support_garnishee_amount or 'CHILD_SUPPORT_GARNISHEE' in inputs
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 net_salary = categories['BASIC'] + categories['ALW'] + categories['DED'] + categories['RTW'] + categories['EXTRA']
-result = -payslip._l10n_au_compute_child_support(net_salary)
+lumpsum_child_support = 'CHILD_SUPPORT_GARNISHEE' in inputs and inputs['CHILD_SUPPORT_GARNISHEE'].amount
+net_earnings = net_salary - lumpsum_child_support
+lumpsum_child_support += net_earnings * employee.l10n_au_child_support_garnishee_amount
+result = -round(min(net_salary, lumpsum_child_support), 2)
+        </field>
+        <field name="appears_on_payslip" eval="False"/>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
+    </record>
+
+    <record id="l10n_au_child_support_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_child_support"/>
+        <field name="name">Child Support Total</field>
+        <field name="code">CHILD.SUPPORT</field>
+        <field name="sequence">185</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">
+result = employee.l10n_au_child_support_deduction or employee.l10n_au_child_support_garnishee_amount or 'CHILD_SUPPORT_GARNISHEE' in inputs
+        </field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+net_salary = categories['BASIC'] + categories['ALW'] + categories['DED'] + categories['RTW'] + categories['EXTRA']
+result = -payslip._l10n_au_compute_child_support(net_salary) + result_rules['CHILD.SUPPORT.GARNISHEE']['total']
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>

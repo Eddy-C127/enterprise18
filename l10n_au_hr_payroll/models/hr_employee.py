@@ -78,14 +78,14 @@ class HrEmployee(models.Model):
             ("0", "Spouse Only"),
             ("1", "1 Child"),
             ("2", "2 Children"),
-            ("3", "3 Childern"),
-            ("4", "4 Childern"),
-            ("5", "5 Childern"),
-            ("6", "6 Childern"),
-            ("7", "7 Childern"),
-            ("8", "8 Childern"),
-            ("9", "9 Childern"),
-            ("A", "10+ Childern"),
+            ("3", "3 Children"),
+            ("4", "4 Children"),
+            ("5", "5 Children"),
+            ("6", "6 Children"),
+            ("7", "7 Children"),
+            ("8", "8 Children"),
+            ("9", "9 Children"),
+            ("A", "10+ Children"),
         ],
         string="Medicare levy reduction",
         compute="_compute_l10n_au_medicare_reduction",
@@ -106,18 +106,8 @@ class HrEmployee(models.Model):
         string="Child Support Deduction",
         groups="hr.group_hr_user",
         help="Amount that has to be deducted every pay period, subject to Protected Earnings Amount (PEA)")
-    l10n_au_child_support_garnishee = fields.Selection(
-        selection=[
-            ("fixed", "Fixed Amount"),
-            ("percentage", "Percentage")],
-        string="Child Support Garnishee",
-        groups="hr.group_hr_user",
-        help="""This amount is not subject to PEA and can be deducted in 3 different ways:
-        as a fixed amount: same amount every pay period
-        as a percentage: percentage of the employee's net pay
-        as a lump sum: create a payslip input of type 'Child Support' instead""")
     l10n_au_child_support_garnishee_amount = fields.Float(
-        string="Child Support Garnishee Amount",
+        string="Child Support Garnishee Amount %",
         groups="hr.group_hr_user")
     super_account_warning = fields.Text(compute="_compute_proportion_warnings", groups="hr.group_hr_user")
     l10n_au_other_names = fields.Char("Other Given Names", groups="hr.group_hr_user")
@@ -213,6 +203,11 @@ class HrEmployee(models.Model):
         groups="hr.group_hr_user",
         help="Additional amount will be withheld from the employee's salary after PAYG withholding. (Schedule 14)")
 
+    _sql_constraints = [
+        ("l10n_au_child_support_garnishee_amount_span",
+        "CHECK(l10n_au_child_support_garnishee_amount >= 0 AND l10n_au_child_support_garnishee_amount <= 1)",
+        "Child Support Garnishee is a percentage and should have a value between 0 and 100."),
+    ]
     # == CRUD Methods ==
 
     def write(self, vals):
