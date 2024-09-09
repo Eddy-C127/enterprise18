@@ -4992,12 +4992,19 @@ class AccountReport(models.Model):
         # Convert all_column_groups_expression_totals to a json-friendly form (its keys are records)
         json_friendly_column_group_totals = self._get_json_friendly_column_group_totals(all_column_groups_expression_totals)
 
+        if self.custom_handler_model_name:
+            custom_display_config = self.env[self.custom_handler_model_name]._get_custom_display_config()
+        elif self.root_report_id and self.root_report_id.custom_handler_model_name:
+            custom_display_config = self.env[self.root_report_id.custom_handler_model_name]._get_custom_display_config()
+        else:
+            custom_display_config = {}
+
         return {
             'caret_options': self._get_caret_options(),
             'column_headers_render_data': self._get_column_headers_render_data(options),
             'column_groups_totals': json_friendly_column_group_totals,
             'context': self.env.context,
-            'custom_display': self.env[self.custom_handler_model_name]._get_custom_display_config() if self.custom_handler_model_name else {},
+            'custom_display': custom_display_config,
             'filters': {
                 'show_all': self.filter_unfold_all,
                 'show_analytic': options.get('display_analytic', False),
