@@ -73,6 +73,14 @@
         </wcf:GetStatusZip>
     </template>
 
+    <template id="get_numbering_range">
+        <wcf:GetNumberingRange xmlns:wcf="http://wcf.dian.colombia">
+            <wcf:accountCode t-out="account_code"/>
+            <wcf:accountCodeT t-out="account_code_t"/>
+            <wcf:softwareCode t-out="software_code"/>
+        </wcf:GetNumberingRange>
+    </template>
+
     <template id="ubl_extension_dian">
         <ext:UBLExtensions
             xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2"

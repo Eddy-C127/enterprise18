@@ -10,6 +10,15 @@
                 <field name="l10n_co_dian_provider" invisible="1"/>
                 <field name="l10n_co_dian_technical_key" invisible="l10n_co_dian_provider == 'carvajal'"/>
             </field>
+            <field name="l10n_co_edi_dian_authorization_number" position="before">
+                <button name="button_l10n_co_dian_fetch_numbering_range"
+                        icon="fa-refresh"
+                        class="btn btn-secondary"
+                        type="object"
+                        string="Reload DIAN configuration"
+                        help="Using the company VAT and software code, fetch the resolution number, resolution
+                        date, sequence prefix, sequence numbers and technical control key"/>
+            </field>
         </field>
     </record>
 </odoo>
