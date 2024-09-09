@@ -6,17 +6,11 @@
         <field name="inherit_id" ref="hr.hr_department_view_kanban"/>
         <field name="arch" type="xml">
             <data>
-                <xpath expr="//templates" position="before">
-                    <field name="appraisals_to_process_count"/>
-                </xpath>
-
-                <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
-                    <div t-if="record.appraisals_to_process_count.raw_value > 0" class="row ml16">
-                        <div class="col">
-                            <a name="%(hr_appraisal_action_from_department)d" type="action">
-                                <t t-esc="record.appraisals_to_process_count.raw_value"/> Appraisals
-                            </a>
-                        </div>
+                <xpath expr="//div[@name='o_kanban_primary_right']" position="inside">
+                    <div groups="hr_appraisal.group_hr_appraisal_user" t-if="record.appraisals_to_process_count.raw_value > 0" class="row g-0 ml32">
+                        <a name="%(hr_appraisal_action_from_department)d" class="col" type="action">
+                            <field name="appraisals_to_process_count"/> Appraisals
+                        </a>
                     </div>
                 </xpath>
 
