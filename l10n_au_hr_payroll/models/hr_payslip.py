@@ -326,30 +326,49 @@ class HrPayslip(models.Model):
             period_amount = round(period_amount)
         return period_amount
 
-    def _l10n_au_compute_medicare_adjustment(self, period_earning, period, params):
+    def _l10n_au_compute_medicare_adjustment(self, period_earning, period, params: dict):
+        """ Compute the Medicare adjustment for the given period.
+        Medicare has 3 components:
+            - Medicare Levy Exemption: This can be half or full exemption. The standard rate is 2% 'ML' key in rule params.
+                This is positive amount that reduces total withhold.
+            - Medicare Levy Reduction: This is a reduction in the Medicare levy based on the family situation. This reduces
+                the total withhold.
+            - Medicare Levy Surcharge: This is a surcharge for high-income earners without private health insurance. This
+                increases the total withhold.
+        """
         self.ensure_one()
-        params = params.copy()
-        employee_id = self.employee_id
-        if employee_id.children and employee_id.marital in ["cohabitant", "married"]:
-            params["MLFT"] += employee_id.children * params["ADDC"]
+        # Medicare Exemption
+        exemption = 0
+        if self.employee_id.l10n_au_medicare_exemption != "X":
+            exemption = period_earning * params["ML"]
 
-        params["MLFT"] = round(params["MLFT"] / params["WFTD"], 2)
-        params["SOP"] = round(params["MLFT"] * params["SOPM"] / params["SOPD"])
-        weekly_earning = self._l10n_au_compute_weekly_earning(period_earning, period)
+        # Medicare Surcharge
+        surcharge = 0
+        if self.employee_id.l10n_au_medicare_surcharge != "X":
+            rate = {"1": 0.01, "2": 0.0125, "3": 0.015}
+            surcharge = period_earning * rate[self.employee_id.l10n_au_medicare_surcharge]
 
-        adjustment = 0.0
-        if weekly_earning < params["WEST"]:
-            adjustment = (weekly_earning - params["WLA"]) * params["SOPM"]
-        elif weekly_earning < params["MLFT"]:
-            adjustment = weekly_earning * params["ML"]
-        elif weekly_earning < params["SOP"]:
-            adjustment = (params["MLFT"] * params["ML"]) - ((weekly_earning - params["MLFT"]) * params["SOPD"])
+        # Medicare reduction
+        adjustment = 0
+        if self.employee_id.l10n_au_tax_free_threshold and self.employee_id.l10n_au_medicare_reduction != "X":
+            weekly_earning = self._l10n_au_compute_weekly_earning(period_earning, period)
+            child_reduction = params["ADDC"] * int(self.employee_id.l10n_au_medicare_reduction)
+            weekly_family_threshold = (child_reduction + self.contract_id.l10n_au_yearly_wage) / 52
 
-        amount = round(adjustment)
-        period_amount = self._l10n_au_convert_amount(amount, "weekly", period)
-        if period in ["daily", "monthly"]:
-            period_amount = round(period_amount)
-        return period_amount
+            shading_out_point = floor(weekly_family_threshold * params["SOPD"] / params["SOPM"])
+            weekly_levy_adjustment = 0
+            if weekly_earning < params["WEST"]:
+                weekly_levy_adjustment = (weekly_earning - params["WLA"]) * params["SOPM"]
+            elif weekly_earning >= params["WEST"] and weekly_earning < weekly_family_threshold:
+                weekly_levy_adjustment = weekly_earning * params["ML"]
+            elif weekly_earning >= weekly_family_threshold and weekly_earning < shading_out_point:
+                weekly_levy_adjustment = (weekly_family_threshold * params["ML"]) - ((weekly_earning - weekly_family_threshold) * params["SOPD"])
+            amount = round(weekly_levy_adjustment)
+            adjustment = self._l10n_au_convert_amount(amount, "weekly", period)
+            if period in ["daily", "monthly"]:
+                adjustment = round(adjustment)
+
+        return adjustment + exemption - surcharge
 
     def _l10n_au_compute_lumpsum_withhold(self, lumpsum):
         '''

@@ -278,11 +278,18 @@ class HrEmployee(models.Model):
         "l10n_au_tax_treatment_category",
         "l10n_au_medicare_surcharge",
         "l10n_au_medicare_exemption",
-        "l10n_au_medicare_reduction")
+        "l10n_au_medicare_reduction",
+        "l10n_au_tfn_declaration",
+        "l10n_au_tax_free_threshold")
     def _check_l10n_au_loan_and_medicare(self):
         for rec in self:
             if rec.l10n_au_medicare_surcharge != "X" and (rec.l10n_au_medicare_reduction != 'X' or rec.l10n_au_medicare_exemption != 'X'):
                 raise ValidationError(_("Employees cannot claim both a surcharge and exemption/reduction for Medicare levy"))
+            if rec.l10n_au_medicare_exemption == 'F' and rec.l10n_au_medicare_reduction != 'X':
+                raise ValidationError(_("Medicare levy reduction is not possible if full exemption is claimed!"))
+            if rec.l10n_au_medicare_reduction != 'X' and not rec.l10n_au_tax_free_threshold and rec.l10n_au_tfn_declaration != "000000000":
+                raise ValidationError(_("Medicare levy reduction is only allowed for employees who have claimed tax-free threshold "
+                    "and have not provided a TFN."))
             if rec.l10n_au_tax_treatment_category not in ["R", "S"]:
                 if rec.l10n_au_tax_treatment_category != "F" and rec.l10n_au_training_loan:
                     raise ValidationError(_("Training loan is only available for Regular and Seniors & Pensioners and Foreign Residents"))
@@ -416,6 +423,7 @@ class HrEmployee(models.Model):
     @api.depends("marital", "children", "l10n_au_tax_free_threshold")
     def _compute_l10n_au_medicare_reduction(self):
         for employee in self:
+            employee.l10n_au_medicare_reduction = "X"
             if employee.marital in ["married", "cohabitant"] and employee.l10n_au_tax_free_threshold:
                 if not employee.children:
                     employee.l10n_au_medicare_reduction = "0"
@@ -423,8 +431,6 @@ class HrEmployee(models.Model):
                     employee.l10n_au_medicare_reduction = str(employee.children)
                 else:
                     employee.l10n_au_medicare_reduction = "A"
-            else:
-                employee.l10n_au_medicare_reduction = "X"
 
     def _get_active_super_accounts(self):
         """Get all available super accounts active during a payment cycle with some

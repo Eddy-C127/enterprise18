@@ -427,7 +427,7 @@ rates = payslip._rule_parameter("l10n_au_withholding_schedule_1")['medicare']
 if employee.l10n_au_medicare_exemption == "H":
     params = rates['half-exemption']
     result = payslip._l10n_au_compute_medicare_adjustment(categories['GROSS'], contract.schedule_pay, params)
-if employee.l10n_au_tax_free_threshold:
+elif employee.l10n_au_tax_free_threshold:
     params = rates['tax-free']
     result = payslip._l10n_au_compute_medicare_adjustment(categories['GROSS'], contract.schedule_pay, params)
         </field>
