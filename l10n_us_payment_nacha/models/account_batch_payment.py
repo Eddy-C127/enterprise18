@@ -49,9 +49,14 @@ class AccountBatchPayment(models.Model):
     def _get_total_cents(self, payments):
         return sum(round(payment.amount * 100) for payment in payments)
 
+    def _get_nr_nacha_files(self):
+        return self.search_count([("id", "!=", self.id), ("date", "=", self.date),
+                ('payment_method_id', '=', self.env.ref('l10n_us_payment_nacha.account_payment_method_nacha').id),
+                ('state', '=', 'sent')])
+
     def _generate_nacha_header(self):
         now_in_client_tz = fields.Datetime.context_timestamp(self, fields.Datetime.now())
-        nr = self.search_count([("id", "!=", self.id), ("date", "=", self.date)])
+        nr = self._get_nr_nacha_files()
 
         return "".join((
             "1",  # Record Type Code

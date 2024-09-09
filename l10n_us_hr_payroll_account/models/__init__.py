@@ -3,3 +3,6 @@
 
 from . import account_chart_template
 from . import l10n_us_w2
+from . import hr_payslip_run
+from . import hr_payslip
+from . import account_batch_payment
