@@ -737,14 +737,28 @@ class HrPayslip(models.Model):
             backpay (float): Backpay amount
             salary_withhold (float): Withholding amount for the salary
         """
-        if self.employee_id.l10n_au_tax_treatment_category != "H":
+        if self.employee_id.l10n_au_tax_treatment_category == "H":
             return 0
+        backpay_per_period = round(backpay / PERIODS_PER_YEAR[self.contract_id.schedule_pay])
         coefficients = self._l10n_au_tax_schedule_parameters()
-        total_withhold = self._l10n_au_compute_withholding_amount(net_salary, self.contract_id.schedule_pay, coefficients)
+        total_withhold = self._l10n_au_compute_withholding_amount(net_salary + backpay_per_period, self.contract_id.schedule_pay, coefficients)
 
-        backpay_withhold = total_withhold - salary_withhold
+        backpay_withhold = total_withhold - abs(salary_withhold)
         backpay_withhold *= PERIODS_PER_YEAR[self.contract_id.schedule_pay]
-        return min(backpay_withhold, backpay * self._rule_parameter('l10n_au_withholding_backpay') / 100)
+        backpay_withhold = -min(backpay_withhold, backpay * self._rule_parameter('l10n_au_withholding_backpay') / 100)
+
+        # Backpay HELP Withholding
+        coefficients = self._rule_parameter("l10n_au_stsl")[
+            "tax-free"
+            if self.employee_id.l10n_au_tax_free_threshold
+            or self.employee_id.is_non_resident
+            else "no-tax-free"
+        ]
+        backpay_stsl_per_period = -self._l10n_au_compute_loan_withhold(net_salary + backpay_per_period, self.contract_id.schedule_pay, coefficients)
+        salary_stsl = -self._l10n_au_compute_loan_withhold(net_salary, self.contract_id.schedule_pay, coefficients)
+        backpay_stsl = (backpay_stsl_per_period - salary_stsl) * PERIODS_PER_YEAR[self.contract_id.schedule_pay]
+
+        return backpay_withhold, backpay_stsl
 
     def _l10n_au_tax_schedule_parameters(self) -> float | list[tuple[float]]:
         self.ensure_one()

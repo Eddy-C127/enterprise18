@@ -269,7 +269,7 @@ elif employee.l10n_au_tax_treatment_category in ["W", "H", "V"]:
     gross = categories['GROSS']
     result = -payslip._l10n_au_compute_withholding_amount(categories['GROSS'], contract.schedule_pay, coefficients)
 else:
-    gross = categories['GROSS'] - categories['RTW']
+    gross = categories['GROSS'] - categories['RTW'] - result_rules['BACKPAY']['total']
     result = -payslip._l10n_au_compute_withholding_amount(gross, contract.schedule_pay, coefficients)
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
@@ -299,9 +299,8 @@ result = -employee.l10n_au_additional_withholding_amount
         <field name="condition_python">result = 'BBC' in inputs</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-<!-- Inlcudes Backpay -->
-net_salary = categories['BASIC'] + categories['ALW'] + categories['DED'] + categories['RTW'] + categories['EXTRA']
-result = payslip._l10n_au_compute_backpay_withhold(net_salary, BACKPAY, WITHHOLD)
+net_salary = categories['BASIC'] + categories['ALW'] + categories['DED'] + categories['RTW'] + categories['EXTRA'] - result_rules['BACKPAY']['total']
+result, backpay_stsl = payslip._l10n_au_compute_backpay_withhold(net_salary, result_rules['BACKPAY']['total'], WITHHOLD)
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
@@ -385,8 +384,10 @@ result = employee.l10n_au_training_loan and tax_treatment
         <field name="amount_python_compute">
 if employee.l10n_au_tax_treatment_category in ['R', 'S', 'F'] and employee.l10n_au_medicare_reduction == 'X' and employee.l10n_au_employment_basis_code != 'C':
     coefficients = payslip._rule_parameter("l10n_au_stsl")["tax-free" if employee.l10n_au_tax_free_threshold or employee.is_non_resident else "no-tax-free"]
-    gross = categories['GROSS']
+    gross = categories['GROSS'] - result_rules['BACKPAY']['total']
     result = -payslip._l10n_au_compute_loan_withhold(gross, contract.schedule_pay, coefficients)
+if "BBC" in inputs:
+    result += backpay_stsl
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
         <field name="appears_on_payroll_report">False</field>
