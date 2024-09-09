@@ -5,7 +5,6 @@ import tourUtils from "@website_sale/js/tours/tour_utils";
 
 registry.category("web_tour.tours").add("test_checkout_id_nit", {
     test: true,
-    stepDelay: 250,
     url: "/shop",
     steps: () => [
         ...tourUtils.addToCart({ productName: "Test Product" }),
@@ -51,7 +50,6 @@ registry.category("web_tour.tours").add("test_checkout_id_nit", {
 
 registry.category("web_tour.tours").add("test_checkout_other_id", {
     test: true,
-    stepDelay: 250,
     url: "/shop",
     steps: () => [
         ...tourUtils.addToCart({ productName: "Test Product" }),
