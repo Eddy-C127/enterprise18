@@ -59,15 +59,13 @@ QUnit.module("Views", (hooks) => {
             `<kanban js_class="timesheet_timer_kanban">
                 <templates>
                     <field name="name"/>
-                    <t t-name="kanban-box">
-                        <div>
-                            <field name="employee_id"/>
-                            <field name="project_id"/>
-                            <field name="task_id"/>
-                            <field name="date"/>
-                            <field name="display_timer"/>
-                            <field name="unit_amount"/>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="employee_id"/>
+                        <field name="project_id"/>
+                        <field name="task_id"/>
+                        <field name="date"/>
+                        <field name="display_timer"/>
+                        <field name="unit_amount"/>
                     </t>
                 </templates>
             </kanban>`;
@@ -114,15 +112,13 @@ QUnit.module("Views", (hooks) => {
             `<kanban js_class="timesheet_timer_kanban">
                 <templates>
                     <field name="name"/>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <field name="employee_id"/>
-                            <field name="project_id"/>
-                            <field name="task_id"/>
-                            <field name="date"/>
-                            <field name="display_timer"/>
-                            <field name="unit_amount"/>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="employee_id"/>
+                        <field name="project_id"/>
+                        <field name="task_id"/>
+                        <field name="date"/>
+                        <field name="display_timer"/>
+                        <field name="unit_amount"/>
                     </t>
                 </templates>
             </kanban>`;

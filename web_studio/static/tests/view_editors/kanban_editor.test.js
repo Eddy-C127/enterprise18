@@ -60,7 +60,7 @@ test("template without t-name='kanban-card' load the legacy kanban editor", asyn
         arch: `<kanban>
         <templates>
             <t t-name="kanban-box">
-                <div class="oe_kanban_global_click">
+                <div>
                     <field name="char_field"/>
                 </div>
             </t>
@@ -96,9 +96,7 @@ test("templates without a main node are wrapped in a main node by the editor", a
         arch: `<kanban>
         <templates>
             <t t-name="kanban-card">
-                <div class="d-flex mb-1 h5">
-                    <field name="char_field"/>
-                </div>
+                <field name="char_field"/>
             </t>
         </templates>
     </kanban>

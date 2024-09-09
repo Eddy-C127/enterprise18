@@ -33,10 +33,8 @@ class Partner extends models.Model {
         "kanban,false": `
             <kanban>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div>
-                            <field name="name"/>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name"/>
                     </t>
                 </templates>
             </kanban>

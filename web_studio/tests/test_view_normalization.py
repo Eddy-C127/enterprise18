@@ -82,25 +82,14 @@ class TestViewNormalization(TransactionCase):
                             <field name="child_ids" mode="kanban" context="{'default_parent_id': id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id}">
                                 <kanban>
                                     <field name="color"/>
-                                    <field name="name"/>
                                     <field name="title"/>
-                                    <field name="type"/>
                                     <field name="email"/>
-                                    <field name="parent_id"/>
-                                    <field name="is_company"/>
                                     <field name="function"/>
                                     <field name="phone"/>
-                                    <field name="street"/>
-                                    <field name="street2"/>
-                                    <field name="zip"/>
-                                    <field name="city"/>
-                                    <field name="country_id"/>
                                     <field name="mobile"/>
-                                    <field name="state_id"/>
-                                    <field name="image_1920"/>
                                     <templates>
-                                        <t t-name="kanban-box">
-                                            <div class="oe_kanban_details">
+                                        <t t-name="kanban-card">
+                                            <div>
                                                 <field name="name"/>
                                             </div>
                                         </t>
@@ -720,7 +709,7 @@ class TestViewNormalization(TransactionCase):
                             <div class="dropdown-menu" role="menu">
                                 <t t-if="widget.editable"><a type="edit" class="dropdown-item">Edit</a></t>
                                 <t t-if="widget.deletable"><a type="delete" class="dropdown-item">Delete</a></t>
-                                <ul class="oe_kanban_colorpicker" data-field="lang"/>
+                                <field name="lang" widget="kanban_color_picker"/>
                             </div>
                         </div>
               </xpath>
@@ -730,7 +719,7 @@ class TestViewNormalization(TransactionCase):
             </data>
         """, """
             <data>
-              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='child_ids']/kanban[1]/field[@name='image_1920']" position="after">
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='child_ids']/kanban[1]/field[@name='mobile']" position="after">
                 <field name="lang"/>
               </xpath>
               <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='child_ids']/kanban[1]/templates[1]/t[1]/div[1]" position="attributes">
@@ -748,7 +737,7 @@ class TestViewNormalization(TransactionCase):
                     <t t-if="widget.deletable">
                       <a type="delete" class="dropdown-item">Delete</a>
                     </t>
-                    <ul class="oe_kanban_colorpicker" data-field="lang"/>
+                    <field name="lang" widget="kanban_color_picker"/>
                   </div>
                 </div>
               </xpath>
