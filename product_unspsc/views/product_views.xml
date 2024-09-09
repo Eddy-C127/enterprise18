@@ -38,13 +38,13 @@
         </record>
 
         <record model="ir.ui.view" id="view_product_uom_categ_tree_unspsc">
-            <field name="name">view.uom.categ.unspsc.tree</field>
+            <field name="name">view.uom.categ.unspsc.list</field>
             <field name="model">product.unspsc.code</field>
             <field name="arch" type="xml">
-                <tree string="UNSPSC Category">
+                <list string="UNSPSC Category">
                     <field name="code"/>
                     <field name="name"/>
-                </tree>
+                </list>
             </field>
         </record>
 

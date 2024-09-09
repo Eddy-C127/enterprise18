@@ -9,10 +9,10 @@
                 <div name="disallowed_expense_rate_history">
                     <label for="rate_ids">Disallowed Expenses Rate</label>
                     <field name="rate_ids" nolabel='1' colspan="2">
-                        <tree editable="bottom">
+                        <list editable="bottom">
                             <field name="date_from"/>
                             <field name="rate"/>
-                        </tree>
+                        </list>
                     </field>
                 </div>
             </group>

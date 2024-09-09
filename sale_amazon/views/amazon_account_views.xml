@@ -2,16 +2,16 @@
 <odoo>
 
     <record id="amazon_account_view_tree" model="ir.ui.view">
-        <field name="name">amazon.account.tree</field>
+        <field name="name">amazon.account.list</field>
         <field name="model">amazon.account</field>
         <field name="arch" type="xml">
-            <tree string="Amazon Accounts" delete="false">
+            <list string="Amazon Accounts" delete="false">
                 <field name="name"/>
                 <field name="active_marketplace_ids" widget="many2many_tags"/>
                 <field name="user_id"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="last_orders_sync" groups="base.group_no_one"/>
-            </tree>
+            </list>
         </field>
     </record>
 

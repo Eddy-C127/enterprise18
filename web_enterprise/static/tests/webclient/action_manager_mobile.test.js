@@ -41,7 +41,7 @@ class Partner extends models.Model {
                 </templates>
             </kanban>
         `,
-        "list,false": `<tree><field name="name"/></tree>`,
+        "list,false": `<list><field name="name"/></list>`,
         "search,false": `<search/>`,
     };
 }

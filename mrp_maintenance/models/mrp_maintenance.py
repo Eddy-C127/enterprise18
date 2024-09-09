@@ -256,7 +256,7 @@ class MrpProduction(models.Model):
         self.ensure_one()
         action = {
             'name': _('Maintenance Requests'),
-            'view_mode': 'kanban,tree,form,pivot,graph,calendar',
+            'view_mode': 'kanban,list,form,pivot,graph,calendar',
             'res_model': 'maintenance.request',
             'type': 'ir.actions.act_window',
             'context': {

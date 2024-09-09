@@ -46,22 +46,22 @@
     </record>
 
     <record id="l10n_ch_monthly_summary_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ch.monthly.summary.view.tree</field>
+        <field name="name">l10n.ch.monthly.summary.view.list</field>
         <field name="model">l10n.ch.monthly.summary</field>
         <field name="arch" type="xml">
-            <tree string="Monthly Summary">
+            <list string="Monthly Summary">
                 <field name="month"/>
                 <field name="year"/>
                 <field name="date_start" invisible="1"/>
                 <field name="date_end" invisible="1"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_ch_monthly_summary_action" model="ir.actions.act_window">
         <field name="name">Monthly Summary</field>
         <field name="res_model">l10n.ch.monthly.summary</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 </odoo>

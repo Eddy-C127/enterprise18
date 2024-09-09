@@ -3,7 +3,7 @@
     <record id="vehicle_list_action" model="ir.actions.act_window">
         <field name="name">vehicles</field>
         <field name="res_model">l10n_pe_edi.vehicle</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create the first vehicle</p>
         </field>
@@ -45,15 +45,15 @@
     </record>
 
     <record model="ir.ui.view" id="vehicle_tree_view">
-        <field name="name">vehicle.tree</field>
+        <field name="name">vehicle.list</field>
         <field name="model">l10n_pe_edi.vehicle</field>
         <field name="arch" type="xml">
-            <tree string="Vehicles (PE)">
+            <list string="Vehicles (PE)">
                 <field name="name"/>
                 <field name="license_plate"/>
                 <field name="operator_id"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 

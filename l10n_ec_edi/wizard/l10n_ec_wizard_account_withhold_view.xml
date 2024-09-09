@@ -30,8 +30,8 @@
                 </group>
                 <notebook>
                     <page id="withhold_lines_tab" string="Withhold Lines" name="page_withhold_lines">
-                        <field name="withhold_line_ids" force_save="1" mode="tree">
-                            <tree editable="bottom">
+                        <field name="withhold_line_ids" force_save="1" mode="list">
+                            <list editable="bottom">
                                 <field name="company_id" column_invisible="True"/>
                                 <field name="sequence" widget="handle"/>
                                 <field name="invoice_id"
@@ -46,7 +46,7 @@
                                        "/>
                                 <field name="base"/>
                                 <field name="amount" readonly="1"/> <!-- No functionality yet to adapt the calculated amount for rounding, but it could be done -->
-                            </tree>
+                            </list>
                         </field>
                         <group class="oe_subtotal_footer">
                             <field name="withhold_subtotals" widget="account-tax-totals-field-for-withhold" nolabel="1"/>

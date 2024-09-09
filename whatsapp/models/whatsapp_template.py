@@ -806,7 +806,7 @@ class WhatsAppTemplate(models.Model):
         self.ensure_one()
         return {
             'name': _("Message Statistics Of %(template_name)s", template_name=self.name),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'whatsapp.message',
             'domain': [('wa_template_id', '=', self.id)],
             'type': 'ir.actions.act_window',

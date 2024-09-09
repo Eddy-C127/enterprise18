@@ -53,10 +53,10 @@
         </record>
 
         <record id="hr_referral_report_view_tree" model="ir.ui.view">
-            <field name="name">hr.referral.report.view.tree</field>
+            <field name="name">hr.referral.report.view.list</field>
             <field name="model">hr.referral.report</field>
             <field name="arch" type="xml">
-                <tree string="Employees Analysis">
+                <list string="Employees Analysis">
                     <field name="applicant_id"/>
                     <field name="job_id" optional="show"/>
                     <field name="department_id" optional="show"/>
@@ -64,7 +64,7 @@
                     <field name="medium_id" optional="show"/>
                     <field name="referral_state" optional="show"/>
                     <field name="company_id" groups="base.group_multi_company"/>
-                </tree>
+                </list>
             </field>
         </record>
 

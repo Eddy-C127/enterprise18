@@ -8,7 +8,7 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Budgets">
                     <field name="budget_line_ids" widget="one2many">
-                        <tree create="0" delete="0" editable="bottom">
+                        <list create="0" delete="0" editable="bottom">
                             <field name="currency_id" column_invisible="True"/>
                             <field name="budget_analytic_id" readonly="1" optional="show"/>
                             <field name="account_id" groups="analytic.group_analytic_accounting" optional="show" readonly="1"/>
@@ -19,7 +19,7 @@
                             <field name="committed_amount" readonly="1"/>
                             <field name="achieved_amount" readonly="1"/>
                             <field name="budget_analytic_state" optional="show"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

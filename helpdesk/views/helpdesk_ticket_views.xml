@@ -198,10 +198,10 @@
     </record>
 
     <record id="helpdesk_tickets_view_tree" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.tree</field>
+        <field name="name">helpdesk.ticket.list</field>
         <field name="model">helpdesk.ticket</field>
         <field name="arch" type="xml">
-            <tree string="Tickets" multi_edit="1" sample="1" default_order="priority desc, sla_deadline, id" js_class="helpdesk_ticket_list">
+            <list string="Tickets" multi_edit="1" sample="1" default_order="priority desc, sla_deadline, id" js_class="helpdesk_ticket_list">
                 <field name="company_id" column_invisible="True"/>
                 <field name="use_sla" column_invisible="True"/>
                 <field name="fold" column_invisible="True"/>
@@ -231,20 +231,20 @@
                     class="fw-bold" widget="badge" optional="hide"/>
                 <field name="kanban_state" nolabel="1" width="20px" optional="show" widget="state_selection"/>
                 <field name="stage_id" optional="show" readonly="not context.get('default_team_id', False)"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <!-- helpdesk ticket list view group_by stage_id -->
     <record id="ticket_list_view_group_stage" model="ir.ui.view">
-            <field name="name">helpdesk.ticket.tree.group.stage</field>
+            <field name="name">helpdesk.ticket.list.group.stage</field>
             <field name="model">helpdesk.ticket</field>
             <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
             <field name="mode">primary</field>
             <field name="arch" type="xml">
-                <tree position="attributes">
+                <list position="attributes">
                     <attribute name="default_group_by">stage_id</attribute>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -478,7 +478,7 @@
         <field name="name">My Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
         <field name="path">my-tickets</field>
-        <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
+        <field name="view_mode">list,kanban,form,activity,pivot,graph,cohort</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
         <field name="context">{
             'search_default_my_ticket': True,
@@ -517,7 +517,7 @@
         <field name="name">All Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
         <field name="path">all-tickets</field>
-        <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
+        <field name="view_mode">list,kanban,form,activity,pivot,graph,cohort</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
         <field name="context">{'search_default_is_open': True}</field>
         <field name="help" type="html">
@@ -546,7 +546,7 @@
 
     <record id="helpdesk_ticket_action_main_tree_view" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="helpdesk_tickets_view_tree"/>
         <field name="act_window_id" ref="helpdesk_ticket_action_main_tree"/>
     </record>
@@ -584,7 +584,7 @@
 
     <record id="helpdesk_ticket_action_main_my_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="act_window_id" ref="helpdesk_ticket_action_main_my"/>
     </record>
     <record id="helpdesk_ticket_action_main_my_kanban" model="ir.actions.act_window.view">
@@ -626,7 +626,7 @@
     <record id="helpdesk_my_ticket_action_no_create" model="ir.actions.act_window">
         <field name="name">Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
+        <field name="view_mode">list,kanban,form,activity,pivot,graph,cohort</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
         <field name="context">{'create': False, 'search_default_is_open': True, 'search_default_my_ticket': True}</field>
         <field name="help" type="html">
@@ -641,7 +641,7 @@
     <record id="helpdesk_ticket_action_sla" model="ir.actions.act_window">
         <field name="name">Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
+        <field name="view_mode">list,kanban,form,activity,pivot,graph,cohort</field>
         <field name="domain">[]</field>
         <field name="context">{'create': False, 'search_default_is_open': True, 'search_default_my_ticket': True, 'search_default_sla_failed': True}</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
@@ -669,7 +669,7 @@
     <record id="helpdesk_ticket_action_close_analysis" model="ir.actions.act_window">
         <field name="name">Closed Tickets Analysis</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
         <field name="domain" eval="[('close_date', '>=', (DateTime.today() - relativedelta(hours=12)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
         <field name="context">{
@@ -686,7 +686,7 @@
     </record>
     <record id="helpdesk_ticket_action_close_analysis_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="helpdesk_tickets_view_tree"/>
         <field name="act_window_id" ref="helpdesk_ticket_action_close_analysis"/>
     </record>
@@ -705,7 +705,7 @@
 
     <record id="helpdesk_my_ticket_action_no_create_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="act_window_id" ref="helpdesk_my_ticket_action_no_create"/>
     </record>
     <record id="helpdesk_my_ticket_action_no_create_kanban" model="ir.actions.act_window.view">
@@ -732,7 +732,7 @@
 
     <record id="helpdesk_ticket_action_sla_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="act_window_id" ref="helpdesk_ticket_action_sla"/>
     </record>
     <record id="helpdesk_ticket_action_sla_kanban" model="ir.actions.act_window.view">
@@ -788,7 +788,7 @@
     <record id="helpdesk_ticket_action_7days_tickets" model="ir.actions.act_window">
         <field name="name">Closed Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
+        <field name="view_mode">list,kanban,form,activity,pivot,graph,cohort</field>
         <field name="domain" eval="[('close_date', '>=', (DateTime.today() - relativedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
         <field name="context">{
             'search_default_my_ticket': True,
@@ -805,7 +805,7 @@
 
     <record id="helpdesk_ticket_action_7days_tickets_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="10"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="act_window_id" ref="helpdesk_ticket_action_7days_tickets"/>
     </record>
 
@@ -845,7 +845,7 @@
     <record id="helpdesk_ticket_action_team" model="ir.actions.act_window">
         <field name="name">Tickets</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">kanban,tree,form,activity,pivot,graph,cohort</field>
+        <field name="view_mode">kanban,list,form,activity,pivot,graph,cohort</field>
         <field name="domain">[('team_id', '=', active_id)]</field>
         <field name="context">{'default_team_id': active_id}</field>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
@@ -866,7 +866,7 @@
 
     <record id="open_view_ticket_group_stage_tree_view" model="ir.actions.act_window.view">
         <field name="sequence" eval="10"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="act_window_id" ref="helpdesk_ticket_action_team"/>
         <field name="view_id" ref="ticket_list_view_group_stage"/>
     </record>
@@ -982,7 +982,7 @@
     <record id="helpdesk_ticket_action_success" model="ir.actions.act_window">
         <field name="name">Success Rate Analysis</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">tree,form,pivot,graph</field>
+        <field name="view_mode">list,form,pivot,graph</field>
         <field name="domain" eval="[('close_date', '>=', (DateTime.today() - relativedelta(hours=12)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
         <field name="search_view_id" ref="helpdesk_tickets_view_search"/>
         <field name="context">{
@@ -1001,7 +1001,7 @@
     </record>
     <record id="helpdesk_ticket_action_success_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="16"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="helpdesk_tickets_view_tree"/>
         <field name="act_window_id" ref="helpdesk_ticket_action_success"/>
     </record>
@@ -1030,7 +1030,7 @@
     <record id="helpdesk_ticket_action_7days_success" model="ir.actions.act_window">
         <field name="name">Success Rate</field>
         <field name="res_model">helpdesk.ticket</field>
-        <field name="view_mode">tree,kanban,form,activity,pivot,graph,cohort</field>
+        <field name="view_mode">list,kanban,form,activity,pivot,graph,cohort</field>
         <field name="domain" eval="[('close_date', '>=', (DateTime.today() - relativedelta(days=7)).strftime('%Y-%m-%d %H:%M:%S'))]"/>
         <field name="context">{
             'search_default_my_ticket': True,
@@ -1048,7 +1048,7 @@
 
     <record id="helpdesk_ticket_action_7days_success_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="11"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="helpdesk_tickets_view_tree"/>
         <field name="act_window_id" ref="helpdesk_ticket_action_7days_success"/>
     </record>
@@ -1082,12 +1082,12 @@
     </record>
 
     <record id="helpdesk_tickets_view_tree_res_partner" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.tree</field>
+        <field name="name">helpdesk.ticket.list</field>
         <field name="model">helpdesk.ticket</field>
         <field name="inherit_id" ref="helpdesk_tickets_view_tree"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
+            <xpath expr="//list" position="attributes">
                 <attribute name="default_order">ticket_ref desc</attribute>
             </xpath>
         </field>

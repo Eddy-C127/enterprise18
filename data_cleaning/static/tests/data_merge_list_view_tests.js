@@ -66,7 +66,7 @@ QUnit.module("data_merge", (hooks) => {
             resModel: "data_merge.record",
             serverData,
             groupBy: ["group_id"],
-            arch: '<tree expand="true" js_class="data_merge_list"><field name="name"/></tree>',
+            arch: '<list expand="true" js_class="data_merge_list"><field name="name"/></list>',
             mockRPC: async (_, { method, args }) => {
                 if (method === "merge_multiple_records") {
                     assert.deepEqual(args[0], {

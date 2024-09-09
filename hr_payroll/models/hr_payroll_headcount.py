@@ -102,7 +102,7 @@ class HrPayrollHeadcount(models.Model):
             'name': _("Headcount's employees"),
             'type': 'ir.actions.act_window',
             'res_model': 'hr.payroll.headcount.line',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'domain': [('headcount_id', '=', self.id)],
             'target': 'current',
             'context': {

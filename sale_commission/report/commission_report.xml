@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="sale_commission_report_view_tree" model="ir.ui.view">
-        <field name="name">sale.commission.report.view.tree</field>
+        <field name="name">sale.commission.report.view.list</field>
         <field name="model">sale.commission.report</field>
         <field name="arch" type="xml">
-            <tree create="0" delete="0" action="action_achievement_detail" type="object">
+            <list create="0" delete="0" action="action_achievement_detail" type="object">
                 <field name="user_id"/>
                 <field name="team_id"/>
                 <field name="plan_id"/>
@@ -14,7 +14,7 @@
                 <field name="achieved_rate" widget="percentage" optional="hide" invisible="target_amount == 0"/>
                 <field name="commission"/>
                 <field name="currency_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -72,7 +72,7 @@
     <record id="sale_commission_action_report" model="ir.actions.act_window">
         <field name="name">Commissions</field>
         <field name="res_model">sale.commission.report</field>
-        <field name="view_mode">tree,pivot,graph</field>
+        <field name="view_mode">list,pivot,graph</field>
         <field name="context">{}</field>
         <field name="search_view_id" eval='sale_commission_report_view_search'/>
         <field name="help" type="html">
@@ -88,7 +88,7 @@
     <record id="sale_commission_action_my_report" model="ir.actions.act_window">
         <field name="name">My Commissions</field>
         <field name="res_model">sale.commission.report</field>
-        <field name="view_mode">tree,pivot,graph</field>
+        <field name="view_mode">list,pivot,graph</field>
         <field name="context">{'commission_user_ids': uid}</field>
         <field name="domain">[('user_id', '=', uid)]</field>
         <field name="search_view_id" eval='sale_commission_report_view_search'/>

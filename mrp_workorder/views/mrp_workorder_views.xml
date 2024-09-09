@@ -14,7 +14,7 @@
             <page name='time_tracking' position="before">
                 <page string="Instructions" name="finished_steps" invisible="not done_check_ids">
                     <field name="done_check_ids" readonly="1" context="{'form_view_ref': 'mrp_workorder.quality_check_workorder_form'}">
-                        <tree default_order="control_date">
+                        <list default_order="control_date">
                             <field name="quality_state"/>
                             <field name="test_type" column_invisible="True"/>
                             <field name="title"/>
@@ -22,7 +22,7 @@
                             <field name="user_id" string="Operator"/>
                             <field name="finished_lot_id" string="Finished Lot/Serial Number" column_invisible="parent.product_tracking == 'none'"/>
                             <field name="result"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </page>
@@ -30,16 +30,16 @@
                 <field name="allowed_employees" invisible="1"/>
                 <field name="all_employees_allowed" invisible="1"/>
             </field>
-            <xpath expr="//field[@name='time_ids']/tree/field[@name='user_id']" position="after">
+            <xpath expr="//field[@name='time_ids']/list/field[@name='user_id']" position="after">
                 <field name="employee_id" domain="['|',(parent.all_employees_allowed , '=', True),('id', 'in', parent.allowed_employees)]"/>
             </xpath>
-            <xpath expr="//field[@name='time_ids']/tree/field[@name='user_id']" position="attributes">
+            <xpath expr="//field[@name='time_ids']/list/field[@name='user_id']" position="attributes">
                 <attribute name="column_invisible">True</attribute>
             </xpath>
-            <xpath expr="//field[@name='done_check_ids']/tree/field[@name='user_id']" position="after">
+            <xpath expr="//field[@name='done_check_ids']/list/field[@name='user_id']" position="after">
                 <field name="employee_id" />
             </xpath>
-            <xpath expr="//field[@name='done_check_ids']/tree/field[@name='user_id']" position="attributes">
+            <xpath expr="//field[@name='done_check_ids']/list/field[@name='user_id']" position="attributes">
                 <attribute name="column_invisible">True</attribute>
             </xpath>
             <xpath expr="//field[@name='workcenter_id']" position="after">
@@ -53,7 +53,7 @@
     </record>
 
     <record id="mrp_production_workorder_tree_editable_view_inherit_workorder" model="ir.ui.view">
-        <field name="name">mrp.production.work.order.tree.editable.inherit.mrp.workorder</field>
+        <field name="name">mrp.production.work.order.list.editable.inherit.mrp.workorder</field>
         <field name="model">mrp.workorder</field>
         <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view"/>
         <field name="arch" type="xml">
@@ -295,10 +295,10 @@
     <record model="ir.actions.act_window" id="mrp_workorder_action_tablet">
         <field name="name">Work Orders</field>
         <field name="res_model">mrp.workorder</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'kanban', 'view_id': ref('mrp.workcenter_line_kanban')}),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('mrp.mrp_production_workorder_tree_editable_view')}) ]"/>
+            (0, 0, {'view_mode': 'list', 'view_id': ref('mrp.mrp_production_workorder_tree_editable_view')}) ]"/>
         <field name="target">fullscreen</field>
         <field name="context">{'search_default_workcenter_id': active_id}</field>
         <field name="help" type="html">
@@ -316,7 +316,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="mrp.mrp_workorder_todo">
-        <field name="view_mode">tree,kanban,form,calendar,pivot,graph,gantt</field>
+        <field name="view_mode">list,kanban,form,calendar,pivot,graph,gantt</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
             No work orders to do!
@@ -334,11 +334,11 @@
 
 
     <record model="ir.actions.act_window" id="mrp.action_mrp_routing_time" >
-        <field name="view_mode">graph,pivot,tree,form,gantt,calendar</field>
+        <field name="view_mode">graph,pivot,list,form,gantt,calendar</field>
     </record>
 
     <record model="ir.actions.act_window" id="mrp.action_mrp_workorder_production_specific">
-        <field name="view_mode">tree,form,gantt,calendar,pivot,graph</field>
+        <field name="view_mode">list,form,gantt,calendar,pivot,graph</field>
          <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
             No work orders to do!
@@ -354,7 +354,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="mrp.action_mrp_workorder_workcenter">
-        <field name="view_mode">gantt,tree,form,calendar,pivot,graph</field>
+        <field name="view_mode">gantt,list,form,calendar,pivot,graph</field>
         <field name="view_id" ref="mrp_workorder_view_gantt"/>
          <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
@@ -371,7 +371,7 @@
     </record>
 
     <record model="ir.actions.act_window" id="mrp.action_mrp_workorder_production">
-        <field name="view_mode">gantt,tree,form,calendar,pivot,graph</field>
+        <field name="view_mode">gantt,list,form,calendar,pivot,graph</field>
         <field name="view_id" ref="workcenter_line_gantt_production"/>
          <field name="help" type="html">
           <p class="o_view_nocontent_workorder">
@@ -415,7 +415,7 @@
         <field name="name">Steps</field>
         <field name="res_model">quality.point</field>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree'}),
+            (0, 0, {'view_mode': 'list'}),
             (0, 0, {'view_mode': 'kanban'}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('step_view_form')})]"/>
         <field name="search_view_id" ref="view_routing_steps_search"/>
@@ -457,7 +457,7 @@
     <record id="action_open_employee_list" model="ir.actions.act_window">
         <field name="name">Select Employee</field>
         <field name="res_model">hr.employee</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="search_view_id" ref="mrp_view_employee_filter"/>
         <field name="view_id" ref="mrp_workorder.view_employee_tree_workorder"/>
         <field name="target">new</field>

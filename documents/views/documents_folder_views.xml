@@ -18,7 +18,7 @@
         <field name="name">Workspace tree</field>
         <field name="model">documents.folder</field>
         <field name="arch" type="xml">
-            <tree string="Workspaces" js_class="folder_list">
+            <list string="Workspaces" js_class="folder_list">
                 <field name="sequence" widget="handle"/>
                 <field name="display_name" string="Workspace"/>
                 <field name="active" column_invisible="True"/>
@@ -26,7 +26,7 @@
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
                 <field name="group_ids" widget="many2many_tags" optional="hide"/>
                 <field name="read_group_ids" widget="many2many_tags" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -71,7 +71,7 @@
                                 'default_folder_id' : id,
                                 'simple_name': True
                             }">
-                                <tree>
+                                <list>
                                     <field name="sequence" widget="handle"/>
                                     <field name="name" string="Category"/>
                                     <field name="tag_ids"
@@ -80,7 +80,7 @@
                                            context="{'default_facet_id' : id}"
                                            options="{'no_create_edit': True}"
                                            widget="many2many_tags"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Access Rights" name="access_rights">
@@ -132,9 +132,9 @@
     <record id="folder_action" model="ir.actions.act_window">
             <field name="name">Workspaces</field>
             <field name="res_model">documents.folder</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
           <field name="view_ids" eval="[(5, 0, 0),
-              (0, 0, {'view_mode': 'tree', 'view_id': ref('documents.folder_view_tree')}),
+              (0, 0, {'view_mode': 'list', 'view_id': ref('documents.folder_view_tree')}),
               (0, 0, {'view_mode': 'form', 'view_id': ref('documents.folder_view_form')})]"/>
       </record>
 

@@ -53,11 +53,11 @@ const openPreparedView = async (size) => {
     await openListView("account.move.line", {
         context: { group_by: ["move_id"] },
         arch: `
-        <tree editable='bottom' js_class='account_move_line_list'>
+        <list editable='bottom' js_class='account_move_line_list'>
             <field name='id'/>
             <field name='name'/>
             <field name='move_id'/>
-        </tree>`,
+        </list>`,
     });
 };
 

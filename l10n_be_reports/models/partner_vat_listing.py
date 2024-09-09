@@ -84,7 +84,7 @@ class PartnerVATListingCustomHandler(models.AbstractModel):
         return {
             'name': params['name'],
             'res_model': 'res.partner',
-            'views': [(view_id, 'tree')],
+            'views': [(view_id, 'list')],
             'domain': [('id', 'in', params['ids'])],
             'type': 'ir.actions.act_window',
             'context': params.get('context', {}),

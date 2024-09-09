@@ -65,7 +65,7 @@ class HrApplicant(models.Model):
             })
         else:
             action_vals.update({
-                "views": [[False, "tree"], [False, "form"]],
+                "views": [[False, "list"], [False, "form"]],
             })
         return action_vals
 

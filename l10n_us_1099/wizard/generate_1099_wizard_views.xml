@@ -11,7 +11,7 @@
                 </group>
                 <group>
                     <field name="lines_to_export" nolabel="1" context="{'search_default_date_between': True, 'date_from': start_date, 'date_to': end_date}">
-                        <tree>
+                        <list>
                             <field name="date"/>
                             <field name="partner_id"/>
                             <field name="journal_id" optional="show"/>
@@ -20,7 +20,7 @@
                             <field name="name" optional="show"/>
                             <field name="debit"/>
                             <field name="credit"/>
-                        </tree>
+                        </list>
                     </field>
                 </group>
                 <footer>

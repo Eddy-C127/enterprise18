@@ -5,11 +5,11 @@
         <field name="name">pricer_tag.list</field>
         <field name="model">pricer.tag</field>
         <field name="arch" type="xml">
-            <tree string="Pricer tag" create="1" delete="1" editable="bottom">
+            <list string="Pricer tag" create="1" delete="1" editable="bottom">
                 <field name="name"/>
                 <field name="product_id"/>
                 <field name="pricer_store_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -32,6 +32,6 @@
     <record model="ir.actions.act_window" id="action_open_pricer_tags">
         <field name="name">Pricer Tags</field>
         <field name="res_model">pricer.tag</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

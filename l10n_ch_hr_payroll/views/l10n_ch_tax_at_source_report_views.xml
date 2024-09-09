@@ -25,11 +25,11 @@
                         <field name="currency_id" invisible="1"/>
                     </group>
                     <field name="report_line_ids">
-                        <tree edit="false" create="false" no_open="true">
+                        <list edit="false" create="false" no_open="true">
                             <field name="canton"/>
                             <field name="pdf_filename" column_invisible="1"/>
                             <field name="pdf_file" filename="pdf_filename" widget="binary"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -37,22 +37,22 @@
     </record>
 
     <record id="l10n_ch_is_report_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ch.is.report.tree</field>
+        <field name="name">l10n.ch.is.report.list</field>
         <field name="model">l10n.ch.is.report</field>
         <field name="arch" type="xml">
-            <tree string="Insurance Reports">
+            <list string="Insurance Reports">
                 <field name="name"/>
                 <field name="year"/>
                 <field name="month"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_ch_is_report_action" model="ir.actions.act_window">
         <field name="name">Monthly IS Report</field>
         <field name="res_model">l10n.ch.is.report</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 </odoo>

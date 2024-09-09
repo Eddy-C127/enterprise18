@@ -237,7 +237,7 @@
         <field name="model">documents.document</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree create="false"
+            <list create="false"
                   decoration-info="type == 'empty'"
                   sample="1">
                 <field name="id" optional="hide"/>
@@ -250,7 +250,7 @@
                 <field name="type" optional="show"/>
                 <field name="create_date" optional="show"/>
                 <field name="file_extension" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -260,7 +260,7 @@
         <field name="inherit_id" ref="documents_view_list_main"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
+            <xpath expr="//list" position="attributes">
                 <attribute name="js_class">documents_list</attribute>
             </xpath>
             <field name="create_date" position="after">
@@ -301,11 +301,11 @@
         <field name="name">Documents</field>
         <field name="path">documents</field>
         <field name="res_model">documents.document</field>
-        <field name="view_mode">kanban,tree,activity</field>
+        <field name="view_mode">kanban,list,activity</field>
         <field name="domain">[]</field>
         <field name="view_ids" eval="[(5, 0, 0),
             (0, 0, {'view_mode': 'kanban', 'view_id': ref('documents.document_view_kanban')}),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('documents.documents_view_list')}),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('documents.documents_view_list')}),
             (0, 0, {'view_mode': 'activity', 'view_id': ref('documents.documents_view_activity')})]"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Upload <span class="fw-normal">a file or</span> drag <span class="fw-normal">it here.</span></p>

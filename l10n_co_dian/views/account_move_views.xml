@@ -18,7 +18,7 @@
                       string="DIAN"
                       invisible="not l10n_co_dian_document_ids">
                     <field name="l10n_co_dian_document_ids">
-                        <tree create="false" delete="false" edit="false" no_open="1">
+                        <list create="false" delete="false" edit="false" no_open="1">
                             <!-- Invisible fields -->
                             <field name="attachment_id" column_invisible="1"/>
                             <field name="message" column_invisible="1"/>
@@ -39,7 +39,7 @@
                                     type="object"
                                     string="Download"
                                     invisible="not attachment_id"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

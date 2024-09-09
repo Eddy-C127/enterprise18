@@ -46,6 +46,6 @@ GROUP BY
             "type": "ir.actions.act_window",
             "res_model": "ir.attachment",
             "name": _('Storage Detail: %(name)s', name=self.name),
-            "views": [[self.env.ref('data_cleaning.view_data_storage_attachment_tree').id, "tree"]],
+            "views": [[self.env.ref('data_cleaning.view_data_storage_attachment_tree').id, "list"]],
             "domain": [('id', '>', 0), ('res_id', '=', self.res_id), ('res_model', '=', self.res_model)],
         }

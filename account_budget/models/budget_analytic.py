@@ -95,7 +95,7 @@ class BudgetAnalytic(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Budget Lines'),
             'res_model': 'budget.line',
-            'view_mode': 'tree,pivot,graph',
+            'view_mode': 'list,pivot,graph',
             'domain': [('budget_analytic_id', 'in', self.ids)],
         }
 

@@ -89,13 +89,13 @@
                                    context="{'default_year':first_contract_year_n1, 'default_employee_id': id}"
                                    domain="[('year', '=', first_contract_year_n1)]"
                                    nolabel="1" force_save="1">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="months_count"/>
                                     <field name="amount"/>
                                     <field name="occupation_rate"/>
                                     <field name="employee_id" column_invisible="True"/>
                                     <field name="year" column_invisible="True"/>
-                                </tree>
+                                </list>
                             </field>
                         </group>
                     </page>
@@ -131,13 +131,13 @@
                                    context="{'default_year':first_contract_year, 'default_employee_id': id}"
                                    domain="[('year', '=', first_contract_year)]"
                                    nolabel="1">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="months_count"/>
                                     <field name="amount"/>
                                     <field name="occupation_rate"/>
                                     <field name="employee_id" column_invisible="True"/>
                                     <field name="year" column_invisible="True"/>
-                                </tree>
+                                </list>
                             </field>
                         </group>
                     </page>

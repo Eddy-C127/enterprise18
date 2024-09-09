@@ -17,13 +17,13 @@
         </record>
 
         <record id="l10n_br_operation_type_tree" model="ir.ui.view">
-            <field name="name">l10n_br.operation.type.tree</field>
+            <field name="name">l10n_br.operation.type.list</field>
             <field name="model">l10n_br.operation.type</field>
             <field name="arch" type="xml">
-                <tree editable="bottom">
+                <list editable="bottom">
                     <field name="name" readonly="True"/>
                     <field name="active" widget="boolean_toggle"/>
-                </tree>
+                </list>
             </field>
         </record>
 

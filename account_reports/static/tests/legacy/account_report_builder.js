@@ -14,14 +14,14 @@ QUnit.module("Account Reports Builder", ({ beforeEach }) => {
         arch = `
             <form>
                 <field class="w-100" name="line_ids" widget="account_report_lines_list_x2many">
-                    <tree>
+                    <list>
                         <field name="id" column_invisible="1"/>
                         <field name="sequence" column_invisible="1"/>
                         <field name="parent_id" column_invisible="1"/>
                         <field name="hierarchy_level" column_invisible="1"/>
                         <field name="name"/>
                         <field name="code" optional="hide"/>
-                    </tree>
+                    </list>
                 </field>
             </form>
         `;

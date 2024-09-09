@@ -136,7 +136,7 @@ class Task(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Pick Up Material'),
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'domain': [('id', 'in', stock_move_ids.ids)],
             'res_model': 'stock.move',
             'views': [(self.env.ref('industry_fsm_stock.view_move_tree_picking_redirect').id, 'list')],

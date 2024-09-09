@@ -2,12 +2,12 @@
 <odoo>
 
     <record id="amazon_marketplace_view_tree" model="ir.ui.view">
-        <field name="name">amazon.marketplace.tree</field>
+        <field name="name">amazon.marketplace.list</field>
         <field name="model">amazon.marketplace</field>
         <field name="arch" type="xml">
-            <tree string="Amazon Marketplaces" delete="false">
+            <list string="Amazon Marketplaces" delete="false">
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
 

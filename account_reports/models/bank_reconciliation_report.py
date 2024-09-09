@@ -539,11 +539,11 @@ class BankReconciliationReportCustomHandler(models.AbstractModel):
 
     def open_bank_miscellaneous_move_lines(self, options):
         """
-            An action opening the account.move.line tree view affecting the bank account balance but not linked to
+            An action opening the account.move.line list view affecting the bank account balance but not linked to
             a bank statement line.
             :param options: The report options.
             :param params:  -Not used-.
-            :return:        An action redirecting to the tree view of journal items.
+            :return:        An action redirecting to the list view of journal items.
         """
         journal = self.env['account.journal'].browse(options['bank_reconciliation_report_journal_id'])
 

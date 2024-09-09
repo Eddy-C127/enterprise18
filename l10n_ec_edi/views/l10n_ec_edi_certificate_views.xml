@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="sri_key_type_tree_view" model="ir.ui.view">
-        <field name="name">l10n.ec.certificate.tree</field>
+        <field name="name">l10n.ec.certificate.list</field>
         <field name="model">l10n_ec_edi.certificate</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="subject_common_name"/>
                 <field name="company_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -66,7 +66,7 @@
         <field name="name">Digital Certificates</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">l10n_ec_edi.certificate</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="sri_key_type_tree_view"/>
         <field name="search_view_id" ref="sri_key_type_search_view"/>
     </record>

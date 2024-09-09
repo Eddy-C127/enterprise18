@@ -33,10 +33,10 @@
     </record>
 
     <record id="view_sale_order_log_growth_tree" model="ir.ui.view">
-        <field name="name">sale.order.log.report.tree</field>
+        <field name="name">sale.order.log.report.list</field>
         <field name="model">sale.order.log.report</field>
         <field name="arch" type="xml">
-            <tree string="Subscription Log Analysis" create="0" delete="0"
+            <list string="Subscription Log Analysis" create="0" delete="0"
                   decoration-muted="event_type == '3_transfer'"
                   default_order="id desc"
                   action="action_open_sale_order" type="object">
@@ -58,14 +58,14 @@
                 <field name="recurring_monthly" string="New MRR" optional="show"/>
                 <field name="log_currency_id" optional="show" string="Currency"/>
                 <field name="subscription_state" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="sale_order_log_growth_action" model="ir.actions.act_window">
         <field name="name">MRR Breakdown</field>
         <field name="res_model">sale.order.log.report</field>
-        <field name="view_mode">graph,tree,pivot</field>
+        <field name="view_mode">graph,list,pivot</field>
         <field name="context">{
             'search_default_group_by_event_date': 1,
             'search_default_group_by_event_type': 1,
@@ -94,7 +94,7 @@
     <record id="sale_order_log_analysis_action" model="ir.actions.act_window">
         <field name="name">MRR Analysis</field>
         <field name="res_model">sale.order.log.report</field>
-        <field name="view_mode">graph,tree,pivot</field>
+        <field name="view_mode">graph,list,pivot</field>
         <field name="context">{}</field>
     </record>
 

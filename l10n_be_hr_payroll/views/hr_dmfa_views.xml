@@ -43,13 +43,13 @@
     <record id="l10n_be_hr_payroll_action_work_address_codes" model="ir.actions.act_window">
         <field name="name">Work address DMFA codes</field>
         <field name="res_model">l10n_be.dmfa.location.unit</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="hr_payslip_report_action_dmfa" model="ir.actions.act_window">
         <field name="name">DMFA</field>
         <field name="res_model">l10n_be.dmfa</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem
@@ -73,11 +73,11 @@
         <field name="name">l10n_be.dmfa.location.unit</field>
         <field name="model">l10n_be.dmfa.location.unit</field>
         <field name="arch" type="xml">
-            <tree string="Work address DMFA codes">
+            <list string="Work address DMFA codes">
                 <field name="code" options="{'format': false}"/>
                 <field name="partner_id"/>
                 <field name="company_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -85,12 +85,12 @@
         <field name="name">l10n_be.dmfa</field>
         <field name="model">l10n_be.dmfa</field>
         <field name="arch" type="xml">
-            <tree string="DMFA Reports">
+            <list string="DMFA Reports">
                 <field name="reference"/>
                 <field name="year"/>
                 <field name="quarter"/>
                 <field name="validation_state" widget="state_selection" options="{'hide_label': False}"/>
-            </tree>
+            </list>
         </field>
     </record>
 

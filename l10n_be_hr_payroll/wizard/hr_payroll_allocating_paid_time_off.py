@@ -213,7 +213,7 @@ class HrPayrollAllocPaidLeave(models.TransientModel):
             'domain': [('id', 'in', allocations.ids)],
             'res_model': 'hr.leave.allocation',
             'view_id': False,
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'type': 'ir.actions.act_window',
         }
 

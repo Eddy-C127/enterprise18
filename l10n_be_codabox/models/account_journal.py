@@ -34,7 +34,7 @@ class AccountJournal(models.Model):
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.move",
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
             "domain": [("journal_id", "=", self.id), ("state", "=", "draft")],
             "target": "current",
         }
@@ -232,8 +232,8 @@ class AccountJournal(models.Model):
         return {
             "type": "ir.actions.act_window",
             "res_model": "account.move",
-            "view_mode": "tree,form",
-            "views": [(False, "tree"), (False, "form")],
+            "view_mode": "list,form",
+            "views": [(False, "list"), (False, "form")],
             "domain": [("id", "in", moves.ids)],
         }
 

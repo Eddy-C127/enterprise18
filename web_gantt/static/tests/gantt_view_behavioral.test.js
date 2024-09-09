@@ -653,7 +653,7 @@ test("create dialog with timezone", async () => {
 
 test("open a dialog to plan a task", async () => {
     Tasks._views = {
-        list: '<tree><field name="name"/></tree>',
+        list: '<list><field name="name"/></list>',
         search: '<search><field name="name"/></search>',
     };
     Tasks._records.push(
@@ -696,7 +696,7 @@ test("open a dialog to plan a task", async () => {
 
 test("open a dialog to plan a task (multi-level)", async () => {
     Tasks._views = {
-        list: '<tree><field name="name"/></tree>',
+        list: '<list><field name="name"/></list>',
         search: '<search><field name="name"/></search>',
     };
     Tasks._records.push({ id: 41, name: "Task 41" });

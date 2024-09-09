@@ -27,8 +27,8 @@ class HrJob(models.Model):
             'name': _('Job Position'),
             'type': 'ir.actions.act_window',
             'res_model': 'hr.job',
-            'views': [(view.id, 'tree'), (False, 'form')],
+            'views': [(view.id, 'list'), (False, 'form')],
             'view_id': view.id,
-            'view_mode': 'tree',
+            'view_mode': 'list',
         }
         return action

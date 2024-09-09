@@ -23,7 +23,7 @@ class Project(models.Model):
         if self.partner_id.commercial_partner_id:
             action_context['default_partner_id'] = self.partner_id.commercial_partner_id.id
         action.update({
-            'views': [[False, 'tree'], [False, 'kanban'], [False, 'form'], [False, 'pivot'], [False, 'graph'], [False, 'cohort']],
+            'views': [[False, 'list'], [False, 'kanban'], [False, 'form'], [False, 'pivot'], [False, 'graph'], [False, 'cohort']],
             'context': action_context,
             'domain': domain or [('id', 'in', subscription_ids)]
         })

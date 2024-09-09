@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="avatax_category_tree" model="ir.ui.view">
-        <field name="name">product.avatax.category.tree</field>
+        <field name="name">product.avatax.category.list</field>
         <field name="model">product.avatax.category</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="code"/>
                 <field name="description"/>
-            </tree>
+            </list>
         </field>
     </record>
 

@@ -1468,7 +1468,7 @@ class L10nInGSTReturnPeriod(models.Model):
             "type": "ir.actions.act_window",
             'context': {'create': False, "search_default_gstr2b_status": True},
             "domain": domain,
-            "view_mode": "tree,form",
+            "view_mode": "list,form",
         }
 
     def action_get_gstr2b_data(self):

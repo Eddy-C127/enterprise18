@@ -58,6 +58,6 @@ class SlideChannel(models.Model):
         else:
             action_window.update({
                 "domain": [('id', 'in', self.helpdesk_team_ids.ids)],
-                "views": [(False, 'tree'), (False, 'form'), (False, 'kanban')],
+                "views": [(False, 'list'), (False, 'form'), (False, 'kanban')],
             })
         return action_window

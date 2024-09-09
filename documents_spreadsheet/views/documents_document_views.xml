@@ -32,7 +32,7 @@
         <field name="model">documents.document</field>
         <field name="inherit_id" ref="documents.documents_view_list"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
+            <xpath expr="//list" position="inside">
                 <field name="handler" column_invisible="True"/>
             </xpath>
         </field>

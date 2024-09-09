@@ -62,6 +62,6 @@ class ResPartner(models.Model):
             action['res_id'] = subscription_ids[0]['id']
             action['views'] = [(self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
         else:
-            action['views'] = [(self.env.ref('sale_subscription.sale_subscription_view_tree').id, 'tree'), (self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
+            action['views'] = [(self.env.ref('sale_subscription.sale_subscription_view_tree').id, 'list'), (self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
             action['search_view_id'] = [self.env.ref('sale_subscription.sale_subscription_view_search').id]
         return action

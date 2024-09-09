@@ -272,6 +272,6 @@ class L10nBeHrPayrollScheduleChange(models.TransientModel):
                 'domain': [('id', 'in', (new_contracts | self.contract_id).ids)],
                 'res_model': 'hr.contract',
                 'view_id': False,
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'type': 'ir.actions.act_window',
             }

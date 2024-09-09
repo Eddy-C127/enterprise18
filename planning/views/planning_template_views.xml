@@ -40,14 +40,14 @@
         </record>
 
         <record id="planning_slot_template_view_tree" model="ir.ui.view">
-            <field name="name">planning.slot.template.tree</field>
+            <field name="name">planning.slot.template.list</field>
             <field name="model">planning.slot.template</field>
             <field name="arch" type="xml">
-                <tree string="Shift Template List" sample="1">
+                <list string="Shift Template List" sample="1">
                     <field name="sequence" widget="handle"/>
                     <field name="name" />
                     <field name="role_id" optional="show"/>
-                </tree>
+                </list>
             </field>
         </record>
 

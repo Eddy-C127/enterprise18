@@ -29,7 +29,7 @@ class ProductTemplate(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Offers'),
             'res_model': 'amazon.offer',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'context': {'create': False},
             'domain': [('product_id.product_tmpl_id', '=', self.id)],
         }

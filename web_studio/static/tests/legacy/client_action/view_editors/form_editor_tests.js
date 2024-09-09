@@ -148,7 +148,7 @@ function getFormEditorServerData() {
             },
         },
         views: {
-            "ir.model.fields,false,list": `<tree><field name="display_name"/></tree>`,
+            "ir.model.fields,false,list": `<list><field name="display_name"/></list>`,
             "ir.model.fields,false,search": `<search><field name="display_name"/></search>`,
         },
     };
@@ -2886,9 +2886,9 @@ QUnit.module("View Editors", (hooks) => {
                 <form>
                     <field name="display_name"/>
                     <field name="partner_ids" >
-                        <tree>
+                        <list>
                             <field name="some_field" />
-                        </tree>
+                        </list>
                     </field>
                 </form>`,
         });
@@ -2990,7 +2990,7 @@ QUnit.module("View Editors", (hooks) => {
                         </div>
                         <field name="display_name" />
                     </form>
-                    <tree><field name="display_name" /></tree>
+                    <list><field name="display_name" /></list>
                 </field>
             </form>`,
             resModel: "coucou",
@@ -3147,7 +3147,7 @@ QUnit.module("View Editors", (hooks) => {
             type: "ir.actions.act_window",
             views: [[false, "list"]],
         };
-        serverData.views["coucou,false,list"] = `<tree></tree>`;
+        serverData.views["coucou,false,list"] = `<list></list>`;
         serverData.views["coucou,false,search"] = `<search></search>`;
         registerStudioDependencies();
     });
@@ -3178,8 +3178,8 @@ QUnit.module("View Editors", (hooks) => {
                </form>`;
 
             Object.assign(serverData.views, {
-                "product,2,list": "<tree><field name='display_name'/></tree>",
-                "partner,3,list": "<tree><field name='display_name'/></tree>",
+                "product,2,list": "<list><field name='display_name'/></list>",
+                "partner,3,list": "<list><field name='display_name'/></list>",
             });
 
             const webClient = await createEnterpriseWebClient({
@@ -3272,7 +3272,7 @@ QUnit.module("View Editors", (hooks) => {
                 </sheet>
             </form>`;
         serverData.views["coucou,false,search"] = `<search></search>`;
-        serverData.views["product,2,list"] = `<tree><field name="toughness"/></tree>`;
+        serverData.views["product,2,list"] = `<list><field name="toughness"/></list>`;
 
         const mockRPC = (route, args) => {
             if (route === "/web_studio/create_inline_view") {
@@ -3341,7 +3341,7 @@ QUnit.module("View Editors", (hooks) => {
                 <sheet>
                     <field name='display_name'/>
                     <field name='product_ids'>
-                        <tree><field name='display_name'/></tree>
+                        <list><field name='display_name'/></list>
                     </field>
                 </sheet>
             </form>`;
@@ -3389,7 +3389,7 @@ QUnit.module("View Editors", (hooks) => {
                         <sheet>
                             <field name='display_name'/>
                             <field name='product_ids'>
-                                <tree><field name='coucou_id'/><field name='display_name'/></tree>
+                                <list><field name='coucou_id'/><field name='display_name'/></list>
                             </field>
                         </sheet>
                     </form>`;
@@ -3511,7 +3511,7 @@ QUnit.module("View Editors", (hooks) => {
             <sheet>
                 <field name='display_name'/>
                 <field name='product_ids'>
-                    <tree><field name='display_name' widget="withDependencies"/></tree>
+                    <list><field name='display_name' widget="withDependencies"/></list>
                 </field>
             </sheet>
         </form>`;
@@ -3570,7 +3570,7 @@ QUnit.module("View Editors", (hooks) => {
             <sheet>
                 <field name='display_name'/>
                 <field name='product_ids'>
-                    <tree><widget name="myWidget"/></tree>
+                    <list><widget name="myWidget"/></list>
                 </field>
             </sheet>
         </form>`;
@@ -3590,7 +3590,7 @@ QUnit.module("View Editors", (hooks) => {
         assert.containsOnce(target, ".myWidget");
     });
 
-    QUnit.test("edit one2many list view with tree_view_ref context key", async function (assert) {
+    QUnit.test("edit one2many list view with list_view_ref context key", async function (assert) {
         const action = serverData.actions["studio.coucou_action"];
         action.views = [[1, "form"]];
         action.res_model = "coucou";
@@ -3598,22 +3598,22 @@ QUnit.module("View Editors", (hooks) => {
             <form>
                 <sheet>
                     <field name='display_name'/>
-                    <field name='product_ids' widget="one2many" context="{'tree_view_ref': 'module.tree_view_ref'}" />
+                    <field name='product_ids' widget="one2many" context="{'list_view_ref': 'module.list_view_ref'}" />
                 </sheet>
             </form>`;
 
         serverData.views["coucou,false,search"] = `<search></search>`;
         serverData.views[
-            "product,module.tree_view_ref,list"
-        ] = /*xml */ `<tree><field name="display_name"/></tree>`;
+            "product,module.list_view_ref,list"
+        ] = /*xml */ `<list><field name="display_name"/></list>`;
 
         const mockRPC = (route, args) => {
             if (route === "/web_studio/create_inline_view") {
                 assert.step("create_inline_view");
                 assert.equal(
-                    args.context.tree_view_ref,
-                    "module.tree_view_ref",
-                    "context tree_view_ref should be propagated for inline view creation"
+                    args.context.list_view_ref,
+                    "module.list_view_ref",
+                    "context list_view_ref should be propagated for inline view creation"
                 );
 
                 const { model, field_name, subview_type, subview_xpath, view_id } = args;
@@ -3628,10 +3628,10 @@ QUnit.module("View Editors", (hooks) => {
                     <form>
                         <sheet>
                             <field name='display_name'/>
-                            <field name='product_ids'>${serverData.views["product,module.tree_view_ref,list"]}</field>
+                            <field name='product_ids'>${serverData.views["product,module.list_view_ref,list"]}</field>
                         </sheet>
                     </form>`;
-                return serverData.views["product,module.tree_view_ref,list"];
+                return serverData.views["product,module.list_view_ref,list"];
             }
         };
 
@@ -3690,8 +3690,8 @@ QUnit.module("View Editors", (hooks) => {
             </form>`;
 
             Object.assign(serverData.views, {
-                "product,2,list": "<tree><field name='display_name'/></tree>",
-                "partner,3,list": "<tree><field name='display_name'/></tree>",
+                "product,2,list": "<list><field name='display_name'/></list>",
+                "partner,3,list": "<list><field name='display_name'/></list>",
             });
 
             serverData.views["coucou,false,search"] = `<search></search>`;
@@ -3851,7 +3851,7 @@ QUnit.module("View Editors", (hooks) => {
             </form>`;
 
             Object.assign(serverData.views, {
-                "product,2,list": "<tree><field name='display_name'/></tree>",
+                "product,2,list": "<list><field name='display_name'/></list>",
             });
 
             serverData.views["coucou,false,search"] = `<search></search>`;
@@ -3925,10 +3925,10 @@ QUnit.module("View Editors", (hooks) => {
                 <sheet>
                     <field name='display_name'/>
                     <field name='product_ids'>
-                        <tree>
+                        <list>
                             <field name='m2o'/>
                             <field name='coucou_id'/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>`;
@@ -4020,9 +4020,9 @@ QUnit.module("View Editors", (hooks) => {
         serverData.views["coucou,1,form"] = /*xml */ `
         <form>
             <field name='product_ids'>
-                <tree>
+                <list>
                     <field name="display_name" column_invisible="not parent.id" />
-                </tree>
+                </list>
             </field>
         </form>`;
 
@@ -4088,7 +4088,7 @@ QUnit.module("View Editors", (hooks) => {
            </form>`;
 
             serverData.views["coucou,false,search"] = `<search></search>`;
-            serverData.views["product,2,list"] = `<tree><field name="display_name" /></tree>`;
+            serverData.views["product,2,list"] = `<list><field name="display_name" /></list>`;
 
             const mockRPC = async (route, args) => {
                 if (args.method === "onchange" && args.model === "product") {
@@ -4136,8 +4136,8 @@ QUnit.module("View Editors", (hooks) => {
            </form>`;
 
         serverData.views["coucou,false,search"] = `<search></search>`;
-        serverData.views["product,2,list"] = `<tree><field name="display_name" /></tree>`;
-        serverData.views["partner,false,list"] = `<tree><field name="display_name" /></tree>`;
+        serverData.views["product,2,list"] = `<list><field name="display_name" /></list>`;
+        serverData.views["partner,false,list"] = `<list><field name="display_name" /></list>`;
 
         const webClient = await createEnterpriseWebClient({ serverData });
         await doAction(webClient, "studio.coucou_action");
@@ -4183,8 +4183,8 @@ QUnit.module("View Editors", (hooks) => {
            </form>`;
 
         serverData.views["coucou,false,search"] = `<search></search>`;
-        serverData.views["product,2,list"] = `<tree><field name="display_name" /></tree>`;
-        serverData.views["partner,false,list"] = `<tree><field name="display_name" /></tree>`;
+        serverData.views["product,2,list"] = `<list><field name="display_name" /></list>`;
+        serverData.views["partner,false,list"] = `<list><field name="display_name" /></list>`;
 
         const webClient = await createEnterpriseWebClient({ serverData });
         await doAction(webClient, "studio.coucou_action");
@@ -4224,8 +4224,8 @@ QUnit.module("View Editors", (hooks) => {
            </form>`;
 
             serverData.views["coucou,false,search"] = `<search></search>`;
-            serverData.views["product,2,list"] = `<tree><field name="display_name" /></tree>`;
-            serverData.views["partner,false,list"] = `<tree><field name="display_name" /></tree>`;
+            serverData.views["product,2,list"] = `<list><field name="display_name" /></list>`;
+            serverData.views["partner,false,list"] = `<list><field name="display_name" /></list>`;
 
             const webClient = await createEnterpriseWebClient({ serverData });
             await doAction(webClient, "studio.coucou_action");
@@ -4269,8 +4269,8 @@ QUnit.module("View Editors", (hooks) => {
            </form>`;
 
             serverData.views["coucou,false,search"] = `<search></search>`;
-            serverData.views["product,2,list"] = `<tree><field name="display_name" /></tree>`;
-            serverData.views["partner,false,list"] = `<tree><field name="display_name" /></tree>`;
+            serverData.views["product,2,list"] = `<list><field name="display_name" /></list>`;
+            serverData.views["partner,false,list"] = `<list><field name="display_name" /></list>`;
 
             const webClient = await createEnterpriseWebClient({ serverData });
             await doAction(webClient, "studio.coucou_action");
@@ -4314,8 +4314,8 @@ QUnit.module("View Editors", (hooks) => {
            </form>`;
 
             serverData.views["coucou,false,search"] = `<search></search>`;
-            serverData.views["product,2,list"] = `<tree><field name="display_name" /></tree>`;
-            serverData.views["partner,false,list"] = `<tree><field name="display_name" /></tree>`;
+            serverData.views["product,2,list"] = `<list><field name="display_name" /></list>`;
+            serverData.views["partner,false,list"] = `<list><field name="display_name" /></list>`;
 
             const webClient = await createEnterpriseWebClient({ serverData });
             await doAction(webClient, "studio.coucou_action");
@@ -4352,16 +4352,16 @@ QUnit.module("View Editors", (hooks) => {
             serverData.views["coucou,1,form"] = /*xml */ `
            <form>
                 <field name='product_ids'>
-                    <tree>
+                    <list>
                         <field name="display_name" />
                         <field name="m2o" context="{'context_key': 'value', 'parent': parent.id}" />
-                    </tree>
+                    </list>
                </field>
            </form>`;
 
             serverData.views["coucou,false,search"] = `<search></search>`;
-            serverData.views["product,2,list"] = `<tree><field name="display_name" /></tree>`;
-            serverData.views["partner,false,list"] = `<tree><field name="display_name" /></tree>`;
+            serverData.views["product,2,list"] = `<list><field name="display_name" /></list>`;
+            serverData.views["partner,false,list"] = `<list><field name="display_name" /></list>`;
 
             const webClient = await createEnterpriseWebClient({ serverData });
             await doAction(webClient, "studio.coucou_action");

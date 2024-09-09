@@ -554,7 +554,7 @@ for record in records:
         return {
             'name': 'marketing_automation_templates_action',
             'type': 'ir.actions.act_window',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_id': campaign.id,
             'res_model': 'marketing.campaign',
             'views': [[False, 'form']]

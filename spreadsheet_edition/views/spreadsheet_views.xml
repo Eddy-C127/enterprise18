@@ -4,7 +4,7 @@
     <record id="spreadsheet_revision_action" model="ir.actions.act_window">
         <field name="name">Revisions</field>
         <field name="res_model">spreadsheet.revision</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="spreadsheet_revision_view_search" model="ir.ui.view">
@@ -22,13 +22,13 @@
         <field name="name">spreadsheet.revision list view</field>
         <field name="model">spreadsheet.revision</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="create_date"/>
                 <field name="name"/>
                 <field name="revision_uuid"/>
                 <field name="res_model"/>
                 <field name="res_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 

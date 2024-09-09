@@ -33,10 +33,10 @@ test("Test group label for empty SLA Deadline in tree", async () => {
         type: "list",
         groupBy: ["sla_deadline"],
         arch: `
-            <tree js_class="helpdesk_ticket_list">
+            <list js_class="helpdesk_ticket_list">
                 <field name="sla_deadline" widget="remaining_days"/>
                 <field name="name"/>
-            </tree>
+            </list>
         `,
     });
     expect(".o_group_name").toHaveText("Deadline reached (3)");

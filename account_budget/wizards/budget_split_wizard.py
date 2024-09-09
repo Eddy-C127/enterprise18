@@ -57,7 +57,7 @@ class BudgetSplitWizard(models.TransientModel):
         budgets = self.env['budget.analytic'].create(budget_vals)
         return {
             'name': _('Budgets'),
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'budget.line',
             'type': 'ir.actions.act_window',
             'domain': [('id', 'in', budgets.budget_line_ids.ids)],

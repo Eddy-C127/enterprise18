@@ -31,12 +31,12 @@
             <xpath expr="//notebook" position="inside">
                 <page string="IoT Triggers" name="iot_triggers">
                     <field name="trigger_ids">
-                        <tree editable="top">
+                        <list editable="top">
                             <field name="sequence" widget="handle"/>
                             <field name="device_id"/>
                             <field name="key"/>
                             <field name="action"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
@@ -51,11 +51,11 @@
             <xpath expr="//notebook" position="inside">
                 <page string="IoT Triggers" name="iot_triggers" invisible="type != 'keyboard'">
                     <field name="trigger_ids">
-                        <tree>
+                        <list>
                             <field name="workcenter_id"/>
                             <field name="key"/>
                             <field name="action"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

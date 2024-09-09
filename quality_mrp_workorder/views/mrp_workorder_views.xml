@@ -2,11 +2,11 @@
 <odoo>
     <!-- MRP.WORKORDER SIMPLIFIED VIEW -->
     <record model="ir.ui.view" id="mrp_production_workorder_tree_editable_view_inherit_quality">
-        <field name="name">mrp.production.work.order.tree.editable.inherit.quality</field>
+        <field name="name">mrp.production.work.order.list.editable.inherit.quality</field>
         <field name="model">mrp.workorder</field>
         <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree/button[@name='button_start']" position="before">
+            <xpath expr="//list/button[@name='button_start']" position="before">
                 <field name="quality_state" column_invisible="1"/>
                 <field name="test_type" column_invisible="1"/>
             </xpath>

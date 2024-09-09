@@ -331,6 +331,6 @@ class HrPayslipEmployeeDepartureHoliday(models.TransientModel):
             'domain': [('id', 'in', [termination_payslip_n.id, termination_payslip_n1.id])],
             'res_model': 'hr.payslip',
             'view_id': False,
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'type': 'ir.actions.act_window',
         }

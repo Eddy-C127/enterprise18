@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="l10n_ch_compensation_fund_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ch.compensation.fund.view.tree</field>
+        <field name="name">l10n.ch.compensation.fund.view.list</field>
         <field name="model">l10n.ch.compensation.fund</field>
         <field name="arch" type="xml">
-            <tree string="Family Allowances">
+            <list string="Family Allowances">
                 <field name="name"/>
                 <field name="insurance_company"/>
                 <field name="member_number"/>
                 <field name="member_subnumber"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -33,12 +33,12 @@
                     </group>
                     <group string="Employee Rates" colspan="2">
                         <field name="caf_line_ids" nolabel="1">
-                            <tree editable="top">
+                            <list editable="top">
                                 <field name="date_from"/>
                                 <field name="date_to"/>
                                 <field name="employee_rate"/>
                                 <field name="company_rate"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>
@@ -49,6 +49,6 @@
     <record id="action_l10n_ch_compensation_fund" model="ir.actions.act_window">
         <field name="name">CP Family</field>
         <field name="res_model">l10n.ch.compensation.fund</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

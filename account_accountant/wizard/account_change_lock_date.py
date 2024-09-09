@@ -304,7 +304,7 @@ class AccountChangeLockDate(models.TransientModel):
     def action_show_draft_moves_in_locked_period(self):
         self.ensure_one()
         return {
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'name': _('Draft Entries'),
             'res_model': 'account.move',
             'type': 'ir.actions.act_window',

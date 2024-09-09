@@ -21,13 +21,13 @@
                     invisible="not routing_change_ids_on_quality_point"
                     help="Quality Changes made on the quality point.">
                     <field name="routing_change_ids_on_quality_point">
-                        <tree decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
+                        <list decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
                             <field name="change_type"/>
                             <field name="operation_name"/>
                             <field name="workcenter_id"/>
                             <field name="title"/>
                             <button name="action_open_routing_change_quality_point" type="object" icon="fa-external-link" class="oe_edit_only" title="Open Quality Point"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

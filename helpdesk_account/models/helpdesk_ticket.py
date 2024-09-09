@@ -21,7 +21,7 @@ class HelpdeskTicket(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Credit Notes'),
             'res_model': 'account.move',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.invoice_ids.ids)],
             'context': dict(self._context, default_partner_id=self.partner_id.id, default_move_type='out_refund', create=False)
         }

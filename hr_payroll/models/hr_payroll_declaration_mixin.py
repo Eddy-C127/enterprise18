@@ -58,7 +58,7 @@ class HrPayrollDeclarationMixin(models.AbstractModel):
             'res_model': 'hr.payroll.employee.declaration',
             'type': 'ir.actions.act_window',
             'views': [(False, 'list'), (False, 'form')],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('res_id', '=', self.id), ('res_model', '=', self._name)],
             'context': {'default_res_model': self._name, 'default_res_id': self.id},
         }

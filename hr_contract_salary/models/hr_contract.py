@@ -325,7 +325,7 @@ class HrContract(models.Model):
         return {
             "type": "ir.actions.act_window",
             "res_model": "hr.contract",
-            "views": [[False, "tree"], [False, "form"]],
+            "views": [[False, "list"], [False, "form"]],
             "domain": [["origin_contract_id", "=", self.id], '|', ["active", "=", False], ["active", "=", True]],
             "name": "Contracts Reviews",
         }

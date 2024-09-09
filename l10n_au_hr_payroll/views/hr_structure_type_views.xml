@@ -10,11 +10,11 @@
                 <notebook>
                     <page name="l10n_au" string=" Default Other Inputs" invisible="country_code != 'AU'">
                         <field name="l10n_au_default_input_type_ids">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="name" readonly="1"/>
                                 <field name="code" readonly="1"/>
                                 <field name="l10n_au_default_amount"/>
-                            </tree>
+                            </list>
                         </field>
                     </page>
                 </notebook>

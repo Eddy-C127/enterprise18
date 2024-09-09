@@ -2,10 +2,10 @@
 <odoo>
 
     <record id="helpdesk_sla_view_tree" model="ir.ui.view">
-        <field name="name">helpdesk.sla.tree</field>
+        <field name="name">helpdesk.sla.list</field>
         <field name="model">helpdesk.sla</field>
         <field name="arch" type="xml">
-            <tree string="SLA Policies" multi_edit="1" sample="1" default_order="team_id">
+            <list string="SLA Policies" multi_edit="1" sample="1" default_order="team_id">
                 <field name="company_id" column_invisible="True"/>
                 <field name="name"/>
                 <field name="team_id" optional="show" readonly="1"/>
@@ -15,7 +15,7 @@
                 <field name="stage_id" optional="show" string="Reach Stage" readonly="1"/>
                 <field name="time" optional="show" widget="float_time"/>
                 <field name="exclude_stage_ids" widget="many2many_tags" optional="hide" readonly="1"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -110,7 +110,7 @@
     <record id="helpdesk_sla_action_main" model="ir.actions.act_window">
         <field name="name">SLA Policies</field>
         <field name="res_model">helpdesk.sla</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
                 No SLA policies found. Let's create one!

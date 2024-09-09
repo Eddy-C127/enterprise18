@@ -133,12 +133,12 @@
     </record>
 
     <record id="hr_contract_view_tree" model="ir.ui.view">
-        <field name="name">hr.contract.view.tree</field>
+        <field name="name">hr.contract.view.list</field>
         <field name="model">hr.contract</field>
         <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
+            <xpath expr="//list" position="inside">
                 <header>
                    <button name="%(hr_payroll.action_hr_payroll_index)d" type="action" string="Index Contracts" groups="hr_contract.group_hr_contract_manager" display="always"/>
                 </header>
@@ -151,18 +151,18 @@
 
     <record id="hr_contract.action_hr_contract" model="ir.actions.act_window">
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'sequence': 2, 'view_id': ref('hr_payroll.hr_contract_view_tree')})]"/>
+            (0, 0, {'view_mode': 'list', 'sequence': 2, 'view_id': ref('hr_payroll.hr_contract_view_tree')})]"/>
     </record>
 
     <record id="action_hr_contract_repository" model="ir.actions.act_window">
         <field name="name">Contracts</field>
         <field name="res_model">hr.contract</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="view_mode">kanban,list,form,activity</field>
         <field name="domain">[('employee_id', '!=', False)]</field>
         <field name="context">{'search_default_running': 1, 'search_default_to_renew': 1}</field>
         <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'sequence': 2, 'view_id': ref('hr_payroll.hr_contract_view_tree')})]"/>
+            (0, 0, {'view_mode': 'list', 'sequence': 2, 'view_id': ref('hr_payroll.hr_contract_view_tree')})]"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
             Create a new contract

@@ -49,11 +49,11 @@ class HrAppraisal(models.Model):
         view_id = self.env.ref('hr_appraisal_survey.hr_appraisal_survey_user_input_view_tree', raise_if_not_found=False)
         return {
             'type': 'ir.actions.act_window',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'survey.user_input',
             'target': 'current',
             'name': _('Feedback Surveys'),
-            'views': [[view_id.id, 'tree']],
+            'views': [[view_id.id, 'list']],
             'domain': [('appraisal_id', '=', self.id)]
         }
 

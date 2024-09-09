@@ -35,7 +35,7 @@
                 </div>
                 <group class="o_label_nowrap mb-4" string="Payslip current year">
                     <field name="payslip_n_ids" nolabel="1" colspan="2">
-                        <tree>
+                        <list>
                             <field name="number" readonly="state not in ['draft', 'verify']"/>
                             <field name="payslip_run_id" readonly="state not in ['draft', 'verify']"/>
                             <field name="date_from" readonly="state in ['cancel', 'done', 'paid']"/>
@@ -45,7 +45,7 @@
                             <field name="gross_wage" sum="Total gross wage"/>
                             <field name="net_wage" sum="Total net wage"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                     <group>
                         <field name="net_n"/>
@@ -53,7 +53,7 @@
                 </group>
                 <group class="o_label_nowrap" string="Payslip previous year">
                     <field name="payslip_n1_ids" nolabel="1" colspan="2">
-                        <tree>
+                        <list>
                             <field name="number" readonly="state not in ['draft', 'verify']"/>
                             <field name="payslip_run_id" readonly="state not in ['draft', 'verify']"/>
                             <field name="date_from" readonly="state in ['cancel', 'done', 'paid']"/>
@@ -63,7 +63,7 @@
                             <field name="gross_wage" sum="Total gross wage"/>
                             <field name="net_wage" sum="Total net wage"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                     <group>
                         <field name="net_n1"/>
@@ -71,12 +71,12 @@
                 </group>
                 <group class="o_label_nowrap" string="Allocation Time Off">
                     <field name="time_off_allocation_n_ids" nolabel="1" colspan="2">
-                        <tree>
+                        <list>
                             <field name="holiday_status_id" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
                             <field name="name"/>
                             <field name="number_of_days" sum="Total allocated days"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                     <group>
                         <field name="time_off_allocated"/>
@@ -84,13 +84,13 @@
                 </group>
                 <group class="o_label_nowrap" string="Time Off">
                     <field name="time_off_n_ids" nolabel="1" colspan="2">
-                        <tree>
+                        <list>
                             <field name="name"/>
                             <field name="date_from" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
                             <field name="date_to" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
                             <field name="number_of_days" sum="Total time off days"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                     <group>
                         <field name="time_off_taken"/>

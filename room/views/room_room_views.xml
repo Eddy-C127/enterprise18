@@ -72,13 +72,13 @@
         <field name="name">room.room.view.list</field>
         <field name="model">room.room</field>
         <field name="arch" type="xml">
-            <tree sample="1">
+            <list sample="1">
                 <field name="name"/>
                 <field name="office_id"/>
                 <field name="is_available" string="Is Currently Available"/>
                 <field name="next_booking_start"/>
                 <field name="room_properties"/>
-            </tree>
+            </list>
         </field>
     </record>
 

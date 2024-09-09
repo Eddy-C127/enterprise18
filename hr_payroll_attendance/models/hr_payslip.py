@@ -61,7 +61,7 @@ class HrPayslip(models.Model):
             "type": "ir.actions.act_window",
             "name": _("Attendances"),
             "res_model": "hr.attendance",
-            "views": [[False, "tree"]],
+            "views": [[False, "list"]],
             "context": {
                 "create": 0
             },

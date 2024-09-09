@@ -531,7 +531,7 @@ class HrPayslip(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Salary Attachments'),
             'res_model': 'hr.salary.attachment',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.salary_attachment_ids.ids)],
         }
 
@@ -556,13 +556,13 @@ class HrPayslip(models.Model):
         treeview_ref = self.env.ref('hr_payroll.view_hr_payslip_tree', False)
         return {
             'name': ("Refund Payslip"),
-            'view_mode': 'tree, form',
+            'view_mode': 'list, form',
             'view_id': False,
             'res_model': 'hr.payslip',
             'type': 'ir.actions.act_window',
             'target': 'current',
             'domain': [('id', 'in', copied_payslips.ids)],
-            'views': [(treeview_ref and treeview_ref.id or False, 'tree'), (formview_ref and formview_ref.id or False, 'form')],
+            'views': [(treeview_ref and treeview_ref.id or False, 'list'), (formview_ref and formview_ref.id or False, 'form')],
             'context': {}
         }
 
@@ -1440,7 +1440,7 @@ class HrPayslip(models.Model):
             'context': {**self.env.context, **additional_context},
             'domain': [('id', 'in', res_ids)],
             'views': [[False, 'list'], [False, 'kanban'], [False, 'form']],
-            'view_mode': 'tree,kanban,form',
+            'view_mode': 'list,kanban,form',
         }
 
     @api.model

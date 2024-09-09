@@ -36,12 +36,12 @@ class AppointmentQuestion(models.Model):
     def action_view_question_answer_inputs(self):
         """ Allow analyzing the answers to a question on an appointment in a convenient way:
         - A graph view showing counts of each suggested answers for multiple-choice questions:
-        select / radio / checkbox. (Along with secondary pivot and tree views)
-        - A tree view showing textual answers values for char / text_box questions"""
+        select / radio / checkbox. (Along with secondary pivot and list views)
+        - A list view showing textual answers values for char / text_box questions"""
         self.ensure_one()
         action = self.env["ir.actions.actions"]._for_xml_id("appointment.appointment_answer_input_action_from_question")
         if self.question_type in ['select', 'radio', 'checkbox']:
-            action['views'] = [(False, 'pivot'), (False, 'graph'), (False, 'tree'), (False, 'form')]
+            action['views'] = [(False, 'pivot'), (False, 'graph'), (False, 'list'), (False, 'form')]
         elif self.question_type in ['char', 'text_box']:
-            action['views'] = [(False, 'tree'), (False, 'form')]
+            action['views'] = [(False, 'list'), (False, 'form')]
         return action

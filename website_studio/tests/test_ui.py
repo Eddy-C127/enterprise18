@@ -82,19 +82,19 @@ class TestUi(odoo.tests.HttpCase):
             "model": "x_test_model",
             "type": "tree",
             "arch": '''
-                <tree>
+                <list>
                     <field name="x_name" />
                     <field name="x_studio_currency_id"/>
                     <field name="x_studio_monetary"/>
                     <field name="x_studio_tag_ids"/>
-                </tree>
+                </list>
             '''
         })
 
         self.newAction = self.env["ir.actions.act_window"].create({
             "name": "simple model",
             "res_model": "x_test_model",
-            "view_ids": [Command.create({"view_id": self.listView.id, "view_mode": "tree"}), Command.create({"view_id": self.formView.id, "view_mode": "form"})],
+            "view_ids": [Command.create({"view_id": self.listView.id, "view_mode": "list"}), Command.create({"view_id": self.formView.id, "view_mode": "form"})],
         })
 
         self.newActionXmlId = self.env["ir.model.data"].create({

@@ -106,31 +106,31 @@
                 <!-- This part saves the `qty_done` calculated in `qty_producing` onchange,
                     any move lines deleted where not saved when fields are invisible, so d-none was used -->
                 <field name="move_raw_ids" class="d-none" readonly="state in ['cancel', 'done']">
-                    <tree>
+                    <list>
                         <field name="state" />
                         <field name="bom_line_id"  />
                         <field name="product_id" readonly="state == 'done'" domain="[('id', '!=', parent.product_id)]"/>
                         <field name="product_uom_qty"  readonly="state == 'done'"/>
                         <field name="move_line_ids" >
-                            <tree>
+                            <list>
                                 <field name="product_id" />
                                 <field name="qty_done" />
-                            </tree>
+                            </list>
                         </field>
-                    </tree>
+                    </list>
                 </field>
                 <field name="move_byproduct_ids" invisible="1">
-                    <tree>
+                    <list>
                         <field name="state" />
                         <field name="product_id" readonly="state == 'done'" domain="[('id', '!=', parent.product_id)]"/>
                         <field name="product_uom_qty"  readonly="state == 'done'"/>
                         <field name="move_line_ids" >
-                            <tree>
+                            <list>
                                 <field name="product_id" />
                                 <field name="qty_done" />
-                            </tree>
+                            </list>
                         </field>
-                    </tree>
+                    </list>
                 </field>
                 <field name="state" invisible="1" />
                 <field name="company_id" force_save="1" invisible="1"/>

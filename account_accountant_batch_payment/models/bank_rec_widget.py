@@ -93,7 +93,7 @@ class BankRecWidget(models.Model):
 
         context = {
             'search_view_ref': 'account_accountant_batch_payment.view_account_batch_payment_search_bank_rec_widget',
-            'tree_view_ref': 'account_accountant_batch_payment.view_account_batch_payment_list_bank_rec_widget',
+            'list_view_ref': 'account_accountant_batch_payment.view_account_batch_payment_list_bank_rec_widget',
         }
 
         dynamic_filters = []

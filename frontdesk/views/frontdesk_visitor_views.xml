@@ -13,10 +13,10 @@
     </record>
 
     <record id="frontdesk_visitor_view_tree" model="ir.ui.view">
-        <field name="name">frontdesk.visitor.view.tree</field>
+        <field name="name">frontdesk.visitor.view.list</field>
         <field name="model">frontdesk.visitor</field>
         <field name="arch" type="xml">
-            <tree
+            <list
                 decoration-danger="state=='planned' and check_in&lt;datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')"
                 decoration-muted="state=='checked_out'">
                 <field name="served" column_invisible="True"/>
@@ -44,7 +44,7 @@
                     invisible="served or not drink_ids"/>
                 <button name="%(frontdesk_visitor_print_badge)d" string="Print Badge" class="btn btn-link" type="action"
                     invisible="state != 'planned'"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -214,7 +214,7 @@
     <record id="action_frontdesk_visitor" model="ir.actions.act_window">
         <field name="name">Visitors</field>
         <field name="res_model">frontdesk.visitor</field>
-        <field name="view_mode">tree,form,kanban,graph,pivot,calendar,gantt</field>
+        <field name="view_mode">list,form,kanban,graph,pivot,calendar,gantt</field>
         <field name="context">{
             "search_default_state_is_planned": 1,
             "search_default_state_is_checked_in": 1,
@@ -232,7 +232,7 @@
     <record id="action_open_station_visitor" model="ir.actions.act_window">
         <field name="name">Station Visitors</field>
         <field name="res_model">frontdesk.visitor</field>
-        <field name="view_mode">tree,form,kanban,graph,pivot,calendar,gantt</field>
+        <field name="view_mode">list,form,kanban,graph,pivot,calendar,gantt</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -246,7 +246,7 @@
     <record id="action_open_guest_on_site_visitor" model="ir.actions.act_window">
         <field name="name">Guest On Site</field>
         <field name="res_model">frontdesk.visitor</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
         <field name="context">{"search_default_state_is_checked_in": 1}</field>
         <field name="help" type="html">
@@ -261,7 +261,7 @@
     <record id="action_open_planned_visitor" model="ir.actions.act_window">
         <field name="name">Planned</field>
         <field name="res_model">frontdesk.visitor</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
         <field name="context">{"search_default_state_is_planned": 1}</field>
         <field name="help" type="html">
@@ -276,7 +276,7 @@
     <record id="action_open_drink_to_serve_visitor" model="ir.actions.act_window">
         <field name="name">Drinks to Serve</field>
         <field name="res_model">frontdesk.visitor</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[("station_id", "=", active_id)]</field>
         <field name="context">{"search_default_drink_to_serve": 1}</field>
         <field name="help" type="html">

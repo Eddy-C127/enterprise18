@@ -16,21 +16,21 @@
     <record id="hr_contract_salary_resume_action" model="ir.actions.act_window">
         <field name="name">Resume</field>
         <field name="res_model">hr.contract.salary.resume</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="hr_contract_salary_resume_view_search"/>
     </record>
 
     <record id="hr_contract_salary_resume_view_tree" model="ir.ui.view">
-        <field name="name">hr.contract.salary.resume.view.tree</field>
+        <field name="name">hr.contract.salary.resume.view.list</field>
         <field name="model">hr.contract.salary.resume</field>
         <field name="arch" type="xml">
-            <tree string="Salary Package Personal Info" expand='1'>
+            <list string="Salary Package Personal Info" expand='1'>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="code"/>
                 <field name="value_type"/>
                 <field name="structure_type_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 

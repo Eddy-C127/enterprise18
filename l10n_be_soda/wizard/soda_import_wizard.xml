@@ -11,12 +11,12 @@
                     be used for accounts that are not mapped or whose mapping is not found.
                 </div>
                 <field name="soda_account_mapping_ids" nolabel="1" options="{'unlink': false}">
-                    <tree editable="bottom">
+                    <list editable="bottom">
                         <field name="display_name" string="SODA Account" readonly="1"/>
                         <field name="account_id" required="0"/>
                         <field name="company_id" column_invisible="True"/>
                         <button name="action_unlink" title="Delete" icon="fa-trash" type="object" invisible="parent.soda_files"/>
-                    </tree>
+                    </list>
                 </field>
                 <footer>
                     <button string="Save" type="object"

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo><data>
     <record id="view_stock_move_line_detailed_operation_tree_inherit_stock_barcode" model="ir.ui.view">
-        <field name="name">stock.move.line.operations.tree.inherit</field>
+        <field name="name">stock.move.line.operations.list.inherit</field>
         <field name="model">stock.move.line</field>
         <field name="inherit_id" ref="stock.view_stock_move_line_detailed_operation_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
+            <xpath expr="//list" position="inside">
                 <field name="product_barcode" column_invisible="True"/>
                 <field name="location_processed" column_invisible="True"/>
             </xpath>

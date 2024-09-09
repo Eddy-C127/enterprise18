@@ -24,13 +24,13 @@
             </field>
         </record>
 
-        <!-- Tree view on batch payment to be injected inside the form (view_bank_rec_widget_form) -->
+        <!-- List view on batch payment to be injected inside the form (view_bank_rec_widget_form) -->
         <record id="view_account_batch_payment_list_bank_rec_widget" model="ir.ui.view">
             <field name="name">account.batch.payment.list.bank_rec_widget</field>
             <field name="model">account.batch.payment</field>
             <field name="priority">999</field>
             <field name="arch" type="xml">
-                <tree string="Suggestions"
+                <list string="Suggestions"
                       create="false"
                       edit="false"
                       limit="40"
@@ -55,7 +55,7 @@
                             type="object"
                             string="View"
                             class="btn btn-sm btn-secondary"/>
-                </tree>
+                </list>
             </field>
         </record>
 

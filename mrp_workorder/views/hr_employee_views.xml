@@ -12,15 +12,15 @@
             </field>
         </record>
         <record model="ir.ui.view" id="view_employee_tree_workorder">
-            <field name="name">mrp_workorder.hr_employee.tree</field>
+            <field name="name">mrp_workorder.hr_employee.list</field>
             <field name="model">hr.employee</field>
             <field name="priority" eval="100"/>
             <field name="arch" type="xml">
-                <tree multi_edit="0" create="0" js_class="mrp_employee_tree">
+                <list multi_edit="0" create="0" js_class="mrp_employee_tree">
                     <field name="id" column_invisible="1"/>
                     <field name="avatar_128" widget="image" class="o_avatar o_m2o_avatar"/>
                     <field name="name" readonly="1"/>
-                </tree>
+                </list>
             </field>
         </record>
 

@@ -64,10 +64,10 @@ test("add custom field button with other optional columns - studio not installed
         type: "list",
         resModel: "foo",
         arch: /* xml */ `
-            <tree>
+            <list>
                 <field name="foo"/>
                 <field name="bar" optional="hide"/>
-            </tree>
+            </list>
         `,
         config: getDefaultConfig(),
     });
@@ -121,10 +121,10 @@ test("add custom field button without other optional columns - studio not instal
         resModel: "foo",
         config: getDefaultConfig(),
         arch: /* xml */ `
-            <tree>
+            <list>
                 <field name="foo"/>
                 <field name="bar"/>
-            </tree>
+            </list>
         `,
     });
 
@@ -164,10 +164,10 @@ test("add custom field button not shown to non-system users (with opt. col.)", a
         resModel: "foo",
         config: getDefaultConfig(),
         arch: /* xml */ `
-            <tree>
+            <list>
                 <field name="foo"/>
                 <field name="bar" optional="hide"/>
-            </tree>
+            </list>
         `,
     });
 
@@ -188,10 +188,10 @@ test("add custom field button not shown to non-system users (wo opt. col.)", asy
         resModel: "foo",
         config: getDefaultConfig(),
         arch: /* xml */ `
-            <tree>
+            <list>
                 <field name="foo"/>
                 <field name="bar"/>
-            </tree>
+            </list>
         `,
     });
 
@@ -208,10 +208,10 @@ test("add custom field button not shown with invalid action", async () => {
         resModel: "foo",
         config: { ...getDefaultConfig(), actionId: null },
         arch: /* xml */ `
-            <tree>
+            <list>
                 <field name="foo"/>
                 <field name="bar"/>
-            </tree>
+            </list>
         `,
     });
 
@@ -231,9 +231,9 @@ test("x2many should not be editable", async () => {
                 <notebook>
                     <page>
                         <field name="o2m">
-                            <tree>
+                            <list>
                                 <field name="display_name"/>
-                            </tree>
+                            </list>
                         </field>
                     </page>
                     <page><div class="test_empty_page" /></page>
@@ -255,7 +255,7 @@ test("upsell studio feature is not polluted by another view", async () => {
         name = fields.Char();
 
         _views = {
-            "list,false": `<tree><field name="display_name" /> <field name="name" optional="1" /></tree>`,
+            "list,false": `<list><field name="display_name" /> <field name="name" optional="1" /></list>`,
             "search,false": `<search />`,
         };
     }

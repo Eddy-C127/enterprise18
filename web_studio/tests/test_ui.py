@@ -79,7 +79,7 @@ class TestUi(odoo.tests.HttpCase):
         # First field is on the main model: not below another field
         # The second one is in a subview
         self.assertEqual(root.getpath(fields_of_interest[0]), "/form/sheet/group/group[1]/field")
-        self.assertEqual(root.getpath(fields_of_interest[1]), "/form/sheet/field[2]/tree/field[1]")
+        self.assertEqual(root.getpath(fields_of_interest[1]), "/form/sheet/field[2]/list/field[1]")
 
         # The tour in its final steps is putting invisible on the field in the subview
         self.assertEqual(fields_of_interest[0].get("invisible"), None)
@@ -381,9 +381,9 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "model": "res.users",
             "type": "tree",
             "arch": '''
-                <tree class="test-user-list">
+                <list class="test-user-list">
                     <field name="display_name" />
-                </tree>
+                </list>
             '''
         })
 
@@ -394,7 +394,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "res_id": userView.id,
         })
 
-        self.testView.arch = '''<form><field name="user_ids" context="{'tree_view_ref': '%s'}" /></form>''' % userViewXmlId.complete_name
+        self.testView.arch = '''<form><field name="user_ids" context="{'list_view_ref': '%s'}" /></form>''' % userViewXmlId.complete_name
         studioView = _get_studio_view(self.testView)
         self.assertFalse(studioView.exists())
 
@@ -404,10 +404,10 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         assertViewArchEqual(self, studioView.arch, """
             <data>
                <xpath expr="//field[@name='user_ids']" position="inside">
-                 <tree class="test-user-list">
+                 <list class="test-user-list">
                    <field name="display_name" />
                    <field name="log_ids" optional="show" />
-                 </tree>
+                 </list>
                </xpath>
              </data>
             """)
@@ -418,9 +418,9 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "model": "res.users",
             "type": "tree",
             "arch": '''
-                <tree class="test-user-list">
+                <list class="test-user-list">
                     <field name="display_name" />
-                </tree>
+                </list>
             '''
         })
 
@@ -432,11 +432,11 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         })
 
         self.testView.arch = '''<form>
-            <field name="user_ids" context="{'tree_view_ref': '%s'}"/>
+            <field name="user_ids" context="{'list_view_ref': '%s'}"/>
             <sheet>
                 <notebook>
                     <page>
-                        <field name="user_ids" context="{'tree_view_ref': '%s'}" />
+                        <field name="user_ids" context="{'list_view_ref': '%s'}" />
                     </page>
                 </notebook> 
             </sheet>
@@ -451,10 +451,10 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         assertViewArchEqual(self, studio_view.arch, """
             <data>
                <xpath expr="//form[1]/sheet[1]/notebook[1]/page[1]/field[@name='user_ids']" position="inside">
-                 <tree class="test-user-list">
+                 <list class="test-user-list">
                    <field name="display_name" />
                    <field name="log_ids" optional="show" />
-                 </tree>
+                 </list>
                </xpath>
              </data>
             """)
@@ -478,16 +478,16 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         self.testView.write({
             "type": "tree",
             "arch": '''
-                <tree>
+                <list>
                     <field name="display_name" />
                     <field name="employee" groups="{doesnothavegroup}" />
                     <field name="function" />
                     <field name="lang" />
-                </tree>
+                </list>
             '''.format(doesnothavegroup=doesNotHaveGroupXmlId.complete_name)
         })
         self.testAction.write({
-            "view_ids": [Command.clear(), Command.create({"view_id": self.testView.id, "view_mode": "tree"})]
+            "view_ids": [Command.clear(), Command.create({"view_id": self.testView.id, "view_mode": "list"})]
         })
 
         self.start_tour("/odoo?debug=tests", 'web_studio_field_with_group', login="admin", timeout=200)
@@ -722,12 +722,12 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             <form>
                 <field name="name"/>
                 <field name="child_ids">
-                    <tree groups="{hasgroup}">
+                    <list groups="{hasgroup}">
                         <field name="type"/>
-                    </tree>
-                    <tree groups="{doesnothavegroup}">
+                    </list>
+                    <list groups="{doesnothavegroup}">
                         <field name="name"/>
-                    </tree>
+                    </list>
                 </field>
             </form>
         '''.format(doesnothavegroup=doesNotHaveGroupXmlId.complete_name, hasgroup=hasGroupXmlId.complete_name)
@@ -766,12 +766,12 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
               <form>
                   <field name="name"/>
                   <field name="child_ids">
-                      <tree groups="{doesnothavegroup}" class="test-subview-list">
+                      <list groups="{doesnothavegroup}" class="test-subview-list">
                           <field name="name"/>
-                      </tree>
-                      <tree groups="{hasgroup}" class="test-subview-list">
+                      </list>
+                      <list groups="{hasgroup}" class="test-subview-list">
                           <field name="name"/>
-                      </tree>
+                      </list>
                   </field>
               </form>
         '''.format(doesnothavegroup=doesNotHaveGroupXmlId.complete_name, hasgroup=hasGroupXmlId.complete_name)
@@ -780,7 +780,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         studioView = _get_studio_view(self.testView)
         assertViewArchEqual(self, studioView.arch, """
             <data>
-               <xpath expr="//form[1]/field[@name='child_ids']/tree[2]/field[@name='name']" position="before">
+               <xpath expr="//form[1]/field[@name='child_ids']/list[2]/field[@name='name']" position="before">
                  <field name="active" optional="show"/>
                </xpath>
             </data>
@@ -867,10 +867,10 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "model": "res.partner",
             "type": "tree",
             "arch": '''
-                <tree>
+                <list>
                     <field name="display_name"/>
                     <field name="title" groups="{doesnothavegroup}" />
-                </tree>
+                </list>
             '''.format(doesnothavegroup=doesNotHaveGroupXmlId.complete_name)
         })
         arch = self.env[view.model].with_context(studio=True).get_view(view.id, view.type)["arch"]
@@ -884,10 +884,10 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         xml_temp = E.field(name="title", groups=doesNotHaveGroupXmlId.complete_name, column_invisible="True", studio_groups=studio_groups)
 
         expected = '''
-            <tree>
+            <list>
                <field name="display_name"/>
                {xml_stringified}
-             </tree>
+             </list>
         '''.format(xml_stringified=etree.tostring(xml_temp).decode("utf-8"))
 
         assertViewArchEqual(self, arch, expected)
@@ -898,25 +898,25 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "model": "res.partner",
             "type": "tree",
             "arch": '''
-                <tree>
+                <list>
                     <field name="display_name" />
                     <field name="title" />
-                </tree>
+                </list>
             '''
         })
         self.testAction.write({
             "view_ids": [
                 Command.clear(),
-                Command.create({"view_id": self.testViewList.id, "view_mode": "tree"}),
+                Command.create({"view_id": self.testViewList.id, "view_mode": "list"}),
             ]
         })
         self.start_tour("/odoo?debug=tests", 'web_studio_set_tree_node_conditional_invisibility', login="admin", timeout=200)
         arch = self.env[self.testViewList.model].with_context(studio=True).get_view(self.testViewList.id, self.testViewList.type)["arch"]
         expected = '''
-            <tree>
+            <list>
                 <field name="display_name"/>
                 <field name="title" invisible="{title_modifiers}"/>
-             </tree>
+             </list>
         '''.format(title_modifiers="display_name == &quot;Robert&quot;")
 
         assertViewArchEqual(self, arch, expected)
@@ -1038,10 +1038,10 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "model": "res.partner",
             "type": "tree",
             "arch": '''
-                <tree>
+                <list>
                     <field name="function" />
                     <field name="name" />
-                </tree>
+                </list>
             '''
         })
         self.testViewKanban = self.env["ir.ui.view"].create({
@@ -1061,7 +1061,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "view_ids": [
                 Command.clear(),
                 Command.create({"view_id": self.testViewForm.id, "view_mode": "form"}),
-                Command.create({"view_id": self.testViewList.id, "view_mode": "tree"}),
+                Command.create({"view_id": self.testViewList.id, "view_mode": "list"}),
                 Command.create({"view_id": self.testViewKanban.id, "view_mode": "kanban"}),
             ]
         })

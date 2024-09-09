@@ -156,13 +156,13 @@
                        invisible="subscription_state != '6_churn'"
                        readonly="True"/>
             </field>
-            <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='name']" position='after'>
+            <xpath expr="//notebook/page[@name='order_lines']/field/list/field[@name='name']" position='after'>
                 <field name="recurring_invoice" column_invisible="True"/>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_subtotal']" position='attributes'>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_subtotal']" position='attributes'>
                 <attribute name="decoration-info">recurring_invoice</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']/tree/field[@name='price_total']" position='attributes'>
+            <xpath expr="//field[@name='order_line']/list/field[@name='price_total']" position='attributes'>
                 <attribute name="decoration-info">recurring_invoice</attribute>
             </xpath>
             <page name="customer_signature" position="after">
@@ -199,11 +199,11 @@
     </record>
 
     <record id="view_order_tree" model="ir.ui.view">
-        <field name="name">sale.order.tree</field>
+        <field name="name">sale.order.list</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
+            <xpath expr="//list" position="attributes">
                 <attribute name="decoration-warning">subscription_state == '4_paused'</attribute>
             </xpath>
             <field name="state" position="after">
@@ -222,7 +222,7 @@
     </record>
 
     <record id="view_quotation_tree_subscription" model="ir.ui.view">
-        <field name="name">sale.order.tree</field>
+        <field name="name">sale.order.list</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_quotation_tree"/>
         <field name="arch" type="xml">

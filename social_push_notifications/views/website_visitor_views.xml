@@ -18,11 +18,11 @@
     </record>
 
     <record id="website_visitor_view_tree" model="ir.ui.view">
-        <field name="name">website.visitor.view.tree.inherit.social.push.notifications</field>
+        <field name="name">website.visitor.view.list.inherit.social.push.notifications</field>
         <field name="model">website.visitor</field>
         <field name="inherit_id" ref="website.website_visitor_view_tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
+            <xpath expr="//list" position="inside">
                 <field name="has_push_notifications" column_invisible="True"/>
                 <button name="action_send_push_notification" string="Send Push Notification" type="object" icon="fa-bell"
                    invisible="not has_push_notifications"/>

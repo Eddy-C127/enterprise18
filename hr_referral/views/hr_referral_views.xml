@@ -19,10 +19,10 @@
     </record>
 
     <record model="ir.ui.view" id="view_hr_referral_points_tree">
-        <field name="name">hr.referral.points.tree</field>
+        <field name="name">hr.referral.points.list</field>
         <field name="model">hr.referral.points</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="ref_user_id" widget="many2one_avatar_user"/>
                 <field name="applicant_id" column_invisible="True"/>
                 <field name="applicant_name" optional="show"/>
@@ -31,20 +31,20 @@
                 <field name="write_date" optional="show"/>
                 <field name="hr_referral_reward_id" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record model="ir.ui.view" id="view_hr_referral_gift_tree">
-        <field name="name">hr.referral.points.tree</field>
+        <field name="name">hr.referral.points.list</field>
         <field name="model">hr.referral.points</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="ref_user_id" widget="many2one_avatar_user"/>
                 <field name="points"/>
                 <field name="hr_referral_reward_id"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -75,7 +75,7 @@
     <record id="action_hr_referral_points" model="ir.actions.act_window">
         <field name="name">Points</field>
         <field name="res_model">hr.referral.points</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_hr_referral_points_tree"/>
         <field name="groups_id" eval="[(4, ref('hr_recruitment.group_hr_recruitment_manager'))]"/>
         <field name="context">{'search_default_group_by_user_id': 1}</field>

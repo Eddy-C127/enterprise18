@@ -163,7 +163,7 @@ QUnit.module(
                 serverData,
                 resModel: "coucou",
                 type: "list",
-                arch: "<tree/>",
+                arch: "<list/>",
                 mockRPC: {
                     "/web/dataset/call_kw/coucou/web_search_read": () => {
                         return {
@@ -209,7 +209,7 @@ QUnit.module(
                 type: "list",
                 serverData: serverData,
                 resModel: "coucou",
-                arch: "<tree/>",
+                arch: "<list/>",
                 mockRPC: defaultMockRpc,
             });
 
@@ -247,7 +247,7 @@ QUnit.module(
                 serverData,
                 resModel: "coucou",
                 type: "list",
-                arch: "<tree/>",
+                arch: "<list/>",
                 mockRPC: {
                     "/web/dataset/call_kw/coucou/web_search_read": () => ({
                         records: [],
@@ -293,7 +293,7 @@ QUnit.module(
                 serverData,
                 resModel: "coucou",
                 type: "list",
-                arch: "<tree><field name='display_name'/></tree>",
+                arch: "<list><field name='display_name'/></list>",
                 mockRPC: defaultMockRpc,
             });
 
@@ -340,7 +340,7 @@ QUnit.module(
                 serverData,
                 resModel: "coucou",
                 type: "list",
-                arch: "<tree><field name='display_name' optional='show'/></tree>",
+                arch: "<list><field name='display_name' optional='show'/></list>",
                 mockRPC: defaultMockRpc,
             });
 
@@ -366,7 +366,7 @@ QUnit.module(
                 serverData,
                 resModel: "coucou",
                 type: "list",
-                arch: '<tree><field name="display_name"/></tree>',
+                arch: '<list><field name="display_name"/></list>',
                 mockRPC: defaultMockRpc,
             });
 
@@ -383,7 +383,7 @@ QUnit.module(
             async function (assert) {
                 assert.expect(1);
 
-                const arch = "<tree><field name='display_name'/></tree>";
+                const arch = "<list><field name='display_name'/></list>";
                 await createViewEditor({
                     serverData,
                     resModel: "coucou",
@@ -415,11 +415,11 @@ QUnit.module(
             assert.expect(3);
 
             const arch = `
-                <tree>
+                <list>
                     <button name="action_1" type="object"/>
                     <button name="action_2" type="object"/>
                     <field name='display_name'/>
-                </tree>
+                </list>
             `;
             await createViewEditor({
                 serverData,
@@ -462,11 +462,11 @@ QUnit.module(
         QUnit.test("new field after a button_group", async function (assert) {
             assert.expect(3);
 
-            const arch = `<tree>
+            const arch = `<list>
                 <field name='display_name'/>
                 <button name="action_1" type="object"/>
                 <button name="action_2" type="object"/>
-            </tree>`;
+            </list>`;
 
             await createViewEditor({
                 serverData,
@@ -527,10 +527,10 @@ QUnit.module(
                 resModel: "coucou",
                 type: "list",
                 arch: `
-                    <tree>
+                    <list>
                         <field name='display_name'/>
                         <button name="action_1" type="object"/>
-                    </tree>
+                    </list>
                 `,
                 mockRPC: defaultMockRpc,
             });
@@ -542,7 +542,7 @@ QUnit.module(
         QUnit.test("invisible field in list editor", async function (assert) {
             assert.expect(3);
 
-            const arch = '<tree><field invisible="1" name="display_name"/></tree>';
+            const arch = '<list><field invisible="1" name="display_name"/></list>';
 
             await createViewEditor({
                 serverData,
@@ -568,7 +568,7 @@ QUnit.module(
         QUnit.test("column invisible field in list editor", async function (assert) {
             assert.expect(3);
 
-            const arch = '<tree><field column_invisible="1" name="display_name"/></tree>';
+            const arch = '<list><field column_invisible="1" name="display_name"/></list>';
 
             await createViewEditor({
                 serverData,
@@ -618,11 +618,11 @@ QUnit.module(
                 },
             ];
 
-            const archReturn = '<tree><field name="display_name" /></tree>';
+            const archReturn = '<list><field name="display_name" /></list>';
 
             await createViewEditor({
                 serverData,
-                arch: '<tree><field column_invisible="1" name="display_name"/></tree>',
+                arch: '<list><field column_invisible="1" name="display_name"/></list>',
                 resModel: "coucou",
                 type: "list",
                 mockRPC: {
@@ -681,7 +681,7 @@ QUnit.module(
                     serverData,
                     type: "list",
                     resModel: "coucou",
-                    arch: "<tree><field name='display_name'/></tree>",
+                    arch: "<list><field name='display_name'/></list>",
                 });
 
                 await click(target, "thead th[data-studio-xpath]");
@@ -734,7 +734,7 @@ QUnit.module(
                     serverData,
                     type: "list",
                     resModel: "coucou",
-                    arch: "<tree><field name='display_name'/></tree>",
+                    arch: "<list><field name='display_name'/></list>",
                 });
 
                 await click(target, "thead th[data-studio-xpath]");
@@ -755,13 +755,13 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: '<tree><field name="display_name"/></tree>',
+                arch: '<list><field name="display_name"/></list>',
                 async mockRPC(route, args) {
                     if (route === "/web_studio/edit_view") {
                         const arch = `
-                            <tree editable='bottom'>
+                            <list editable='bottom'>
                                 <field name='display_name'/>
-                            </tree>`;
+                            </list>`;
                         changeArch(args.view_id, arch);
                     }
                     if (route === "/web/dataset/call_kw/coucou/web_search_read") {
@@ -800,10 +800,10 @@ QUnit.module(
             serverData.models.coucou.fields.char_field.store = true;
 
             const arch = `
-                <tree default_order='char_field desc, display_name asc'>
+                <list default_order='char_field desc, display_name asc'>
                     <field name='display_name'/>
                     <field name='char_field'/>
-                </tree>`;
+                </list>`;
 
             await createViewEditor({
                 serverData,
@@ -822,22 +822,22 @@ QUnit.module(
                         let newArch = arch;
                         if (editViewCount === 1) {
                             newArch = `
-                                <tree default_order='display_name asc'>
+                                <list default_order='display_name asc'>
                                     <field name='display_name'/>
                                     <field name='char_field'/>
-                                </tree>`;
+                                </list>`;
                         } else if (editViewCount === 2) {
                             newArch = `
-                                <tree default_order='display_name desc'>
+                                <list default_order='display_name desc'>
                                     <field name='display_name'/>
                                     <field name='char_field'/>
-                                </tree>`;
+                                </list>`;
                         } else if (editViewCount === 3) {
                             newArch = `
-                                <tree>
+                                <list>
                                     <field name='display_name'/>
                                     <field name='char_field'/>
-                                </tree>`;
+                                </list>`;
                         }
                         changeArch(args.view_id, newArch);
                     }
@@ -925,14 +925,14 @@ QUnit.module(
                 type: "list",
                 resModel: "coucou",
                 arch: `
-                    <tree>
+                    <list>
                         <field name="id"/>
                         <field name="display_name"/>
                         <field name="m2o"/>
                         <field name="product_ids"/>
                         <field name="m2m_field"/>
                         <field name="binary_field"/>
-                    </tree>
+                    </list>
                 `,
             });
 
@@ -968,7 +968,7 @@ QUnit.module(
                     serverData,
                     type: "list",
                     resModel: "coucou",
-                    arch: "<tree><field name='display_name' widget='widgetWithoutDescription'/></tree>",
+                    arch: "<list><field name='display_name' widget='widgetWithoutDescription'/></list>",
                     mockRPC: (route, args) => {
                         if (route === "/web/dataset/call_kw/res.users/has_group") {
                             return true;
@@ -1013,7 +1013,7 @@ QUnit.module(
                     serverData,
                     type: "list",
                     resModel: "coucou",
-                    arch: "<tree><field name='display_name' widget='widgetWithoutTypes'/></tree>",
+                    arch: "<list><field name='display_name' widget='widgetWithoutTypes'/></list>",
                     mockRPC: (route, args) => {
                         if (route === "/web/dataset/call_kw/res.users/has_group") {
                             return true;
@@ -1059,7 +1059,7 @@ QUnit.module(
                     serverData,
                     resModel: "coucou",
                     type: "list",
-                    arch: "<tree><field name='display_name' widget='widgetWithoutDescription'/></tree>",
+                    arch: "<list><field name='display_name' widget='widgetWithoutDescription'/></list>",
                 });
 
                 await click(target.querySelector("thead th[data-studio-xpath]"));
@@ -1101,7 +1101,7 @@ QUnit.module(
                     serverData,
                     resModel: "coucou",
                     type: "list",
-                    arch: "<tree><field name='display_name' widget='widgetWithoutTypes'/></tree>",
+                    arch: "<list><field name='display_name' widget='widgetWithoutTypes'/></list>",
                 });
 
                 await click(target.querySelector("thead th[data-studio-xpath]"));
@@ -1126,9 +1126,9 @@ QUnit.module(
             const arch = `
                 <form>
                     <group>
-                        <field name="product_ids"><tree>
+                        <field name="product_ids"><list>
                             <field name="toughness"/>
-                        </tree></field>
+                        </list></field>
                     </group>
                 </form>`;
             await createViewEditor({
@@ -1268,7 +1268,7 @@ QUnit.module(
 
             // Inline edition of selection values is only available in non debug mode
             patchWithCleanup(odoo, { debug: false });
-            const arch = "<tree><field name='display_name'/></tree>";
+            const arch = "<list><field name='display_name'/></list>";
             await createViewEditor({
                 serverData,
                 type: "list",
@@ -1362,7 +1362,7 @@ QUnit.module(
 
             // Advanced edition of selection values is only available in debug mode
             patchWithCleanup(odoo, { debug: true });
-            const arch = "<tree><field name='display_name'/></tree>";
+            const arch = "<list><field name='display_name'/></list>";
             await createViewEditor({
                 serverData,
                 type: "list",
@@ -1515,7 +1515,7 @@ QUnit.module(
         QUnit.test("add a selection field with widget priority", async function (assert) {
             assert.expect(5);
 
-            const arch = "<tree><field name='display_name'/></tree>";
+            const arch = "<list><field name='display_name'/></list>";
             await createViewEditor({
                 serverData,
                 type: "list",
@@ -1570,7 +1570,7 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: "<tree><field name='display_name' column_invisible='1'/></tree>",
+                arch: "<list><field name='display_name' column_invisible='1'/></list>",
             });
 
             assert.containsNone(
@@ -1608,13 +1608,13 @@ QUnit.module(
                 type: "list",
                 resModel: "coucou",
                 arch: `
-                    <tree string='List'>
+                    <list string='List'>
                         <header>
                             <button name="action_do_something" type="object" string="The Button"/>
                         </header>
                         <field name='name' class="my_super_name_class" />
                         <field name='char_field' class="my_super_description_class" invisible="True"/>
-                    </tree>
+                    </list>
                 `,
             });
 
@@ -1647,10 +1647,10 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: `<tree string='List'>
+                arch: `<list string='List'>
                         <field name='name' class="my_super_name_class" />
                         <field name='char_field' class="my_super_description_class" invisible="True"/>
-                    </tree>`,
+                    </list>`,
             });
 
             await showViewTab();
@@ -1681,7 +1681,7 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: "<tree><control><create string='Add a line'/></control></tree>",
+                arch: "<list><control><create string='Add a line'/></control></list>",
             });
 
             assert.containsNone(
@@ -1708,15 +1708,15 @@ QUnit.module(
             });
 
             const changeArch = makeArchChanger();
-            const archReturn = `<tree><field name='display_name'/><field name="char_field" /></tree>`;
+            const archReturn = `<list><field name='display_name'/><field name="char_field" /></list>`;
 
             await createViewEditor({
                 type: "list",
                 serverData,
                 resModel: "coucou",
-                arch: `<tree><field name='display_name'/>
+                arch: `<list><field name='display_name'/>
                     <field name='char_field' column_invisible='1'/>
-                </tree>`,
+                </list>`,
                 mockRPC: function (route, args) {
                     if (route === "/web_studio/edit_view") {
                         assert.step("edit_view");
@@ -1752,20 +1752,20 @@ QUnit.module(
         });
 
         QUnit.test("list editor invisible to visible on field readonly", async function (assert) {
-            const archReturn = `<tree>
+            const archReturn = `<list>
                 <field name='display_name'/>
                 <field name="char_field" column_invisible="True" readonly="True" />
-            </tree>`;
+            </list>`;
 
             const changeArch = makeArchChanger();
             await createViewEditor({
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: `<tree>
+                arch: `<list>
                     <field name='display_name'/>
                     <field name='char_field' readonly="True"/>
-                </tree>`,
+                </list>`,
                 mockRPC: function (route, args) {
                     if (route === "/web_studio/edit_view") {
                         assert.step("edit_view");
@@ -1799,7 +1799,7 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: "<tree><field name='display_name'/></tree>",
+                arch: "<list><field name='display_name'/></list>",
             });
 
             // click on the field
@@ -1845,7 +1845,7 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: "<tree><field name='display_name'/></tree>",
+                arch: "<list><field name='display_name'/></list>",
                 mockRPC: function (route, args) {
                     if (route === "/web_studio/edit_view") {
                         assert.step("edit_view");
@@ -1878,9 +1878,9 @@ QUnit.module(
                         );
                         // the server sends the arch in string but it's post-processed
                         // by the ViewEditorManager
-                        const arch = `<tree>
+                        const arch = `<list>
                             <field name='display_name' studio_groups='[{&quot;id&quot;:4, &quot;name&quot;: &quot;Admin&quot;}]'/>
-                        </tree>`;
+                        </list>`;
                         changeArch(args.view_id, arch);
                     }
                 },
@@ -1916,10 +1916,10 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "product",
-                arch: `<tree editable='true'>
+                arch: `<list editable='true'>
                     <field name='id' widget='handle'/>
                     <field name='display_name'/>
-                </tree>`,
+                </list>`,
             });
 
             assert.containsN(
@@ -1954,7 +1954,7 @@ QUnit.module(
             ];
 
             serverData.views = {
-                "coucou,false,list": `<tree><field name='croissant' sum='Total Croissant'/></tree>`,
+                "coucou,false,list": `<list><field name='croissant' sum='Total Croissant'/></list>`,
                 "coucou,false,search": `<search><filter string="Priority" name="priority" domain="[]" context="{'group_by':'priority'}"/></search>`,
             };
             registry.category("services").add("enterprise_subscription", {
@@ -1988,11 +1988,11 @@ QUnit.module(
         });
 
         QUnit.test("move a field in list", async function (assert) {
-            const arch = `<tree>
+            const arch = `<list>
                 <field name='display_name'/>
                 <field name='char_field'/>
                 <field name='m2o'/>
-            </tree>`;
+            </list>`;
 
             disableHookAnimation(target);
             const changeArch = makeArchChanger();
@@ -2042,11 +2042,11 @@ QUnit.module(
                         );
                         // the server sends the arch in string but it's post-processed
                         // by the ViewEditorManager
-                        const arch = `<tree>
+                        const arch = `<list>
                             <field name='m2o'/>
                             <field name='display_name'/>
                             <field name='char_field'/>
-                        </tree>`;
+                        </list>`;
                         changeArch(args.view_id, arch);
                     }
                 },
@@ -2095,11 +2095,11 @@ QUnit.module(
             ];
 
             const arch =
-                '<tree><field name="display_name"/><field name="float_field"/><field name="money_field"/><field name="croissant"/></tree>';
+                '<list><field name="display_name"/><field name="float_field"/><field name="money_field"/><field name="croissant"/></list>';
             const sumArchReturn =
-                '<tree><field name="display_name"/><field name="float_field"/><field name="money_field"/><field name="croissant" sum="Sum of Croissant"/></tree>';
+                '<list><field name="display_name"/><field name="float_field"/><field name="money_field"/><field name="croissant" sum="Sum of Croissant"/></list>';
             const avgArchReturn =
-                '<tree><field name="display_name"/><field name="float_field"/><field name="money_field"/><field name="croissant" avg="Average of Croissant"/></tree>';
+                '<list><field name="display_name"/><field name="float_field"/><field name="money_field"/><field name="croissant" avg="Average of Croissant"/></list>';
 
             await createViewEditor({
                 type: "list",
@@ -2243,8 +2243,8 @@ QUnit.module(
                 },
             });
 
-            const errorArch = "<tree />";
-            const arch = "<tree><field name='id'/></tree>";
+            const errorArch = "<list />";
+            const arch = "<list><field name='id'/></list>";
 
             const changeArch = makeArchChanger();
 
@@ -2313,7 +2313,7 @@ QUnit.module(
                 type: "list",
                 serverData,
                 resModel: "coucou",
-                arch: "<tree><field name='id'/></tree>",
+                arch: "<list><field name='id'/></list>",
                 mockRPC: function (route, args) {
                     if (route === "/web_studio/edit_view") {
                         assert.step("edit_view");
@@ -2368,10 +2368,10 @@ QUnit.module(
             serverData.models.coucou.fields.char_field.store = true;
 
             const arch = `
-                <tree>
+                <list>
                     <field name='display_name'/>
                     <field name='char_field'/>
-                </tree>`;
+                </list>`;
 
             await createViewEditor({
                 serverData,
@@ -2387,10 +2387,10 @@ QUnit.module(
                         editViewCount++;
                         if (editViewCount === 1) {
                             newArch = `
-                                <tree default_group_by='display_name'>
+                                <list default_group_by='display_name'>
                                     <field name='display_name'/>
                                     <field name='char_field'/>
-                                </tree>
+                                </list>
                             `;
                         }
                         changeArch(args.view_id, newArch);
@@ -2464,7 +2464,7 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: `<tree><field name="display_name"/><field name="m2o" widget="many2one"/></tree>`,
+                arch: `<list><field name="display_name"/><field name="m2o" widget="many2one"/></list>`,
             });
 
             await click(target, "[name='m2o'] a");
@@ -2495,7 +2495,7 @@ QUnit.module(
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: '<tree><field name="product_ids" invisible="True" /><field name="m2o" invisible="True" /></tree>',
+                arch: '<list><field name="product_ids" invisible="True" /><field name="m2o" invisible="True" /></list>',
                 mockRPC,
             });
 
@@ -2513,7 +2513,7 @@ QUnit.module(
             assert.expect(2);
             const changeArch = makeArchChanger();
 
-            const arch = '<tree><field name="display_name"/></tree>';
+            const arch = '<list><field name="display_name"/></list>';
             await createViewEditor({
                 serverData,
                 type: "list",
@@ -2541,7 +2541,7 @@ QUnit.module(
 
             await createViewEditor({
                 serverData,
-                arch: '<tree><field column_invisible="1" name="display_name"/></tree>',
+                arch: '<list><field column_invisible="1" name="display_name"/></list>',
                 resModel: "coucou",
                 type: "list",
                 mockRPC: {
@@ -2550,12 +2550,12 @@ QUnit.module(
                         if (count === 1) {
                             assert.strictEqual(args.operations[0].new_attrs.editable, "bottom");
                             const newArch =
-                                '<tree editable="bottom"><field column_invisible="1" name="display_name"/></tree>';
+                                '<list editable="bottom"><field column_invisible="1" name="display_name"/></list>';
                             return createMockViewResult(serverData, "list", newArch, "coucou");
                         } else {
                             assert.strictEqual(args.operations[1].new_attrs.open_form_view, true);
                             const newArch =
-                                '<tree editable="bottom" open_form_view="true"><field column_invisible="1" name="display_name"/></tree>';
+                                '<list editable="bottom" open_form_view="true"><field column_invisible="1" name="display_name"/></list>';
                             return createMockViewResult(serverData, "list", newArch, "coucou");
                         }
                     },
@@ -2612,12 +2612,12 @@ QUnit.module(
         });
 
         QUnit.test("groupby fields should not be included", async function (assert) {
-            const arch = `<tree>
+            const arch = `<list>
                 <field name="display_name"/>
                 <groupby name="m2o">
                     <field name="toughness" invisible="1"/>
                 </groupby>
-            </tree>`;
+            </list>`;
             await createViewEditor({
                 serverData,
                 type: "list",

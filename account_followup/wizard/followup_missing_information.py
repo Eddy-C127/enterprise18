@@ -13,8 +13,8 @@ class FollowupMissingInformation(models.TransientModel):
         return {
             'name': _('Missing information'),
             'res_model': 'res.partner',
-            'view_mode': 'tree',
-            'views': [(view_id, 'tree')],
+            'view_mode': 'list',
+            'views': [(view_id, 'list')],
             'domain': [('id', 'in', self.env.context.get('default_partner_ids', []))],
             'type': 'ir.actions.act_window',
         }

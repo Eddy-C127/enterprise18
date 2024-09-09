@@ -5,7 +5,7 @@
         <field name="name">pricer_store.list</field>
         <field name="model">pricer.store</field>
         <field name="arch" type="xml">
-            <tree string="Pricer Store">
+            <list string="Pricer Store">
                 <header>
                     <!-- Button used to manually update the necessary pricer tags -->
                     <!-- The update is only applied to the selected pricer stores -->
@@ -40,7 +40,7 @@
                 <!-- Last Update Time and status only visible on List View -->
                 <field name="last_update_datetime"/>
                 <field name="last_update_status_message"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -78,6 +78,6 @@
     <record model="ir.actions.act_window" id="action_open_pricer_stores">
         <field name="name">Pricer Stores</field>
         <field name="res_model">pricer.store</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

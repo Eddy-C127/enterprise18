@@ -26,7 +26,7 @@ class Project(models.Model):
         contracts = self.env['hr.contract'].search([('analytic_account_id', '!=', False), ('analytic_account_id', 'in', self.account_id.ids)])
         action = self.env["ir.actions.actions"]._for_xml_id("hr_payroll.action_hr_contract_repository")
         action.update({
-            'views': [[False, 'tree'], [False, 'form'], [False, 'kanban']],
+            'views': [[False, 'list'], [False, 'form'], [False, 'kanban']],
             'context': {'default_analytic_account_id': self.account_id.id},
             'domain': [('id', 'in', contracts.ids)]
         })

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- default participant form/tree/search -->
+    <!-- default participant form/list/search -->
     <record id="marketing_participant_view_form" model="ir.ui.view">
         <field name="name">marketing.participant.view.form</field>
         <field name="model">marketing.participant</field>
@@ -134,16 +134,16 @@
     </record>
 
     <record id="marketing_participant_view_tree" model="ir.ui.view">
-        <field name="name">marketing.participant.view.tree</field>
+        <field name="name">marketing.participant.view.list</field>
         <field name="model">marketing.participant</field>
         <field name="arch" type="xml">
-            <tree string="Participant" create="false">
+            <list string="Participant" create="false">
                 <field name="resource_ref" string="Participant Name" readonly="True"/>
                 <field name="campaign_id" readonly="True" optional="hide"/>
                 <field name="model_id" string="Target Model"/>
                 <field name="state" readonly="True" widget="badge" decoration-info="state == 'running'" decoration-success="state == 'completed'" decoration-danger="state == 'unlinked'"/>
                 <field name="is_test" column_invisible="True"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -196,7 +196,7 @@
     <record id="marketing_participants_action_reporting" model="ir.actions.act_window">
         <field name="name">Participants</field>
         <field name="res_model">marketing.participant</field>
-        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="view_mode">graph,pivot,list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No data yet!
@@ -210,14 +210,14 @@
     <record id="marketing_participants_action_mail" model="ir.actions.act_window">
         <field name="name">Participants</field>
         <field name="res_model">marketing.participant</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- Participant from a campaign action -->
     <record id="marketing_participant_action_campaign" model="ir.actions.act_window">
         <field name="name">Participants</field>
         <field name="res_model">marketing.participant</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{
             'search_default_campaign_id': active_id,
             'default_campaign_id': active_id,
@@ -229,7 +229,7 @@
     <record id="marketing_participant_action_campaign_test" model="ir.actions.act_window">
         <field name="name">Participants</field>
         <field name="res_model">marketing.participant</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{
             'search_default_campaign_id': active_id,
             'default_campaign_id': active_id,

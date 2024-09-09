@@ -791,8 +791,8 @@ class MrpEco(models.Model):
             return {
                 'name': _('Eco'),
                 'type': 'ir.actions.act_window',
-                'view_mode': 'tree, form',
-                'views': [[False, 'tree'], [False, 'form']],
+                'view_mode': 'list, form',
+                'views': [[False, 'list'], [False, 'form']],
                 'res_model': 'mrp.eco',
                 'target': 'current',
                 'domain': [('id', 'in', eco_need_action.ids)],
@@ -822,7 +822,7 @@ class MrpEco(models.Model):
             'type': 'ir.actions.act_window',
             'view_id': attachment_view.id,
             'views': [(attachment_view.id, 'kanban'), (False, 'form')],
-            'view_mode': 'kanban,tree,form',
+            'view_mode': 'kanban,list,form',
             'help': _('''<p class="o_view_nocontent_smiling_face">
                         Upload files to your ECO, that will be applied to the product later
                     </p><p>

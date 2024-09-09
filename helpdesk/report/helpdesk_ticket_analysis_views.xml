@@ -87,7 +87,7 @@
         <field name="name">helpdesk.ticket.report.analysis.list</field>
         <field name="model">helpdesk.ticket.report.analysis</field>
         <field name="arch" type="xml">
-            <tree string="Tickets" multi_edit="1" sample="1">
+            <list string="Tickets" multi_edit="1" sample="1">
                 <field name="ticket_id" string="Name" readonly="1"/>
                 <field name="team_id" optional="show" readonly="1" column_invisible="context.get('default_team_id', False)"/>
                 <field name="team_id" optional="hide" readonly="1" column_invisible="not context.get('default_team_id', False)"/>
@@ -98,7 +98,7 @@
                 <field name="sla_deadline" optional="show" widget="remaining_days"/>
                 <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1" column_invisible="context.get('default_team_id', False)"/>
                 <field name="company_id" groups="base.group_multi_company" optional="hide" readonly="1" column_invisible="not context.get('default_team_id', False)"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -158,16 +158,16 @@
     </record>
 
     <record id="helpdesk_ticket_report_analysis_view_tree" model="ir.ui.view">
-        <field name="name">helpdesk.ticket.report.analysis.tree</field>
+        <field name="name">helpdesk.ticket.report.analysis.list</field>
         <field name="model">helpdesk.ticket.report.analysis</field>
         <field name="arch" type="xml">
-            <tree string="Tickets Analysis">
+            <list string="Tickets Analysis">
                 <field name="ticket_id"/>
                 <field name="priority" optional="show" widget="priority"/>
                 <field name="team_id" optional="show"/>
                 <field name="partner_id" widget="res_partner_many2one" optional="show"/>
                 <field name="stage_id" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
 

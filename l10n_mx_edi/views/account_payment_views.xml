@@ -50,7 +50,7 @@
 
                     <field name="l10n_mx_edi_payment_document_ids"
                            invisible="not l10n_mx_edi_payment_document_ids">
-                        <tree create="false" delete="false" edit="false" no_open="1">
+                        <list create="false" delete="false" edit="false" no_open="1">
                             <!-- Invisible fields -->
                             <field name="attachment_id" column_invisible="True"/>
                             <field name="cancel_button_needed" column_invisible="True"/>
@@ -73,7 +73,7 @@
                                     type="object"
                                     string="Cancel"
                                     invisible="not cancel_button_needed"/>
-                        </tree>
+                        </list>
                     </field>
                 </group>
             </group>
@@ -81,7 +81,7 @@
     </record>
 
     <record id="view_account_payment_tree_inherit_l10n_mx_edi" model="ir.ui.view">
-        <field name="name">account.payment.tree.inherit.l10n_mx_edi</field>
+        <field name="name">account.payment.list.inherit.l10n_mx_edi</field>
         <field name="model">account.payment</field>
         <field name="inherit_id" ref="account.view_account_payment_tree"/>
         <field name="arch" type="xml">

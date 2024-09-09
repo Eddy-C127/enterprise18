@@ -80,13 +80,13 @@
             <xpath expr="//notebook" position="inside">
                 <page name="super_accounts" string="Super Accounts" invisible="company_country_code != 'AU'" groups="hr.group_hr_user">
                     <field name="l10n_au_super_account_ids">
-                        <tree>
+                        <list>
                             <field name="fund_id"/>
                             <field name="fund_type"/>
                             <field name="date_from"/>
                             <field name="account_active" widget="boolean_toggle"/>
                             <field name="proportion" widget="percentage" optional="hide"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_hr_bank_advice_tree" model="ir.ui.view">
-        <field name="name">hr.payroll.advice.tree</field>
+        <field name="name">hr.payroll.advice.list</field>
         <field name="model">hr.payroll.advice</field>
         <field name="arch" type="xml">
-            <tree string="Bank Advice">
+            <list string="Bank Advice">
                 <field name="name" readonly="state != 'draft'"/>
                 <field name="bank_id" readonly="state != 'draft'"/>
                 <field name="date" readonly="state != 'draft'"/>
@@ -12,7 +12,7 @@
                 <field name="state" widget="badge"
                     decoration-info="state == 'draft'" decoration-warning="state == 'close'" decoration-success="state == 'confirm'"/>
                 <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}" readonly="state != 'draft'"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -44,14 +44,14 @@
                     <notebook colspan="4">
                         <page string="Payment Lines" name="payment_lines">
                             <field name="line_ids" nolabel="1" readonly="state != 'draft'">
-                                <tree string="Payment Lines" editable="bottom">
+                                <list string="Payment Lines" editable="bottom">
                                     <field name="employee_id"/>
                                     <field name="name"/>
                                     <field name="ifsc" column_invisible="True"/>
                                     <field name="ifsc_code" invisible="not ifsc" />
                                     <field name="bysal"/>
                                     <field name="debit_credit"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Other Information" name="other_info">
@@ -124,7 +124,7 @@
     <record id="action_view_hr_bank_advice_tree" model="ir.actions.act_window">
         <field name="name">Payment Advices</field>
         <field name="res_model">hr.payroll.advice</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="view_hr_bank_advice_tree"/>
         <field name="search_view_id" ref="view_hr_payroll_advice_filter"/>
     </record>

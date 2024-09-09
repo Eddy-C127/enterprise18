@@ -36,8 +36,8 @@ class Uom(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'uom.uom',
             'domain': [('id', 'in', self.ids)],
-            'view_mode': 'tree',
-            'views': [(self.env.ref('l10n_ke_edi_oscu.product_uom_l10n_ke_tree').id, 'tree'), (False, 'form')],
+            'view_mode': 'list',
+            'views': [(self.env.ref('l10n_ke_edi_oscu.product_uom_l10n_ke_tree').id, 'list'), (False, 'form')],
             'context': {'create': False, 'delete': False},
         }
         return res

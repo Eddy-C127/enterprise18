@@ -102,13 +102,13 @@ class Line extends models.Model {
                 </group>
             </form>`,
         list: `
-            <tree>
+            <list>
                 <field name="date" />
                 <field name="project_id" />
                 <field name="task_id" />
                 <field name="selection_field" />
                 <field name="unit_amount" />
-            </tree>`,
+            </list>`,
         grid: `
             <grid>
                 <field name="project_id" type="row"/>

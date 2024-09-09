@@ -66,13 +66,13 @@
         <field name="name">room.booking.view.list</field>
         <field name="model">room.booking</field>
         <field name="arch" type="xml">
-            <tree duplicate="0" sample="1">
+            <list duplicate="0" sample="1">
                 <field name="start_datetime"/>
                 <field name="stop_datetime"/>
                 <field name="name" string="Name"/>
                 <field name="room_id"/>
                 <field name="organizer_id" widget="many2one_avatar_user"/>
-            </tree>
+            </list>
         </field>
     </record>
 

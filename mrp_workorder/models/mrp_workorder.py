@@ -568,7 +568,7 @@ class MrpProductionWorkcenterLine(models.Model):
             self._set_default_time_log(loss_id)
             if action is not True:
                 return action
-        # workorder tree view action should redirect to the same view instead of workorder kanban view when WO mark as done.
+        # workorder list view action should redirect to the same view instead of workorder kanban view when WO mark as done.
         return self.action_back()
 
     def get_workorder_data(self):

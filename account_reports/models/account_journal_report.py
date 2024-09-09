@@ -1205,7 +1205,7 @@ class JournalReportCustomHandler(models.AbstractModel):
     ##########################################################################
 
     def journal_report_tax_tag_template_open_aml(self, options, params=None):
-        """ returns an action to open a tree view of the account.move.line having the selected tax tag """
+        """ returns an action to open a list view of the account.move.line having the selected tax tag """
         tag_ids = params.get('tag_ids')
         domain = (
             self.env['account.report'].browse(options['report_id'])._get_options_domain(options, 'strict_range')
@@ -1264,7 +1264,7 @@ class JournalReportCustomHandler(models.AbstractModel):
 
         return {
             'name': params.get('name'),
-            'view_mode': 'tree,pivot,graph,kanban',
+            'view_mode': 'list,pivot,graph,kanban',
             'res_model': 'account.move.line',
             'views': [(self.env.ref('account.view_move_line_tree').id, 'list')],
             'type': 'ir.actions.act_window',
@@ -1274,7 +1274,7 @@ class JournalReportCustomHandler(models.AbstractModel):
 
     def journal_report_action_open_account_move_lines_by_account(self, options, params):
         """
-        Open a tree view of the journal account move lines
+        Open a list view of the journal account move lines
         corresponding to the date filter and the current account line clicked
         :param options: The current options of the report
         :param params: The params given from the report UI (journal_id, account_id, date)
@@ -1294,7 +1294,7 @@ class JournalReportCustomHandler(models.AbstractModel):
             'type': 'ir.actions.act_window',
             'name': _("%(journal)s - %(account)s", journal=journal.name, account=account.name),
             'res_model': 'account.move.line',
-            'views': [[False, 'tree']],
+            'views': [[False, 'list']],
             'domain': domain
         }
 

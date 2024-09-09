@@ -47,7 +47,7 @@ QUnit.module("ActionEditor", (hooks) => {
         };
 
         const views = {
-            "kikou,1,list": `<tree><field name="display_name" /></tree>`,
+            "kikou,1,list": `<list><field name="display_name" /></list>`,
             "kikou,2,form": `<form><field name="display_name" /></form>`,
             "kikou,false,search": `<search />`,
         };
@@ -166,7 +166,7 @@ QUnit.module("ActionEditor", (hooks) => {
         };
 
         const views = {
-            "kikou,1,list": `<tree><field name="display_name"/></tree>`,
+            "kikou,1,list": `<list><field name="display_name"/></list>`,
             "kikou,1,search": `<search></search>`,
             "kikou,2,form": `<form><field name="display_name"/></form>`,
         };

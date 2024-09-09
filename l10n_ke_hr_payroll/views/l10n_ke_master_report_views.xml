@@ -70,24 +70,24 @@
     </record>
 
     <record id="hr_payroll_headover_view_tree" model="ir.ui.view">
-        <field name="name">l10n_ke.master.report.view.tree</field>
+        <field name="name">l10n_ke.master.report.view.list</field>
         <field name="model">l10n_ke.master.report</field>
         <field name="arch" type="xml">
-            <tree string="Headover">
+            <list string="Headover">
                 <field name="reference_year"/>
                 <field name="reference_month"/>
                 <field name="pdf_file_name" column_invisible="1"/>
                 <field name="pdf_file" widget="binary" filename="pdf_file_name"/>
                 <field name="xlsx_file_name" column_invisible="1"/>
                 <field name="xlsx_file" widget="binary" filename="xlsx_file_name"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="action_open_l10n_ke_master_report" model="ir.actions.act_window">
         <field name="name">Master Report</field>
         <field name="res_model">l10n_ke.master.report</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 </odoo>

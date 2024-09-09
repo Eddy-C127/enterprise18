@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="l10n_ke_edi_customs_import_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ke.edi.oscu.stock.customs.import.tree</field>
+        <field name="name">l10n.ke.edi.oscu.stock.customs.import.list</field>
         <field name="model">l10n_ke_edi.customs.import</field>
         <field name="arch" type="xml">
-            <tree string="Customs Imports">
+            <list string="Customs Imports">
                 <field name="declaration_number"/>
                 <field name="declaration_date"/>
                 <field name="task_code"/>
@@ -15,7 +15,7 @@
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="product_id"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -116,7 +116,7 @@
     <record id="action_l10n_ke_edi_oscu_customs_import" model="ir.actions.act_window">
         <field name="name">Customs Import</field>
         <field name="res_model">l10n_ke_edi.customs.import</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
             The Customs Imports will be fetched automatically from the government.

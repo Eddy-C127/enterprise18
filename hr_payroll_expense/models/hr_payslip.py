@@ -159,7 +159,7 @@ class HrPayslip(models.Model):
         }
         if len(self.expense_sheet_ids.ids) > 1:
             return_action.update({
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'domain': [('id', 'in', self.expense_sheet_ids.ids)],
             })
         else:

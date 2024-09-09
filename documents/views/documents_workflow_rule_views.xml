@@ -15,11 +15,11 @@
         <field name="name">action tree</field>
         <field name="model">documents.workflow.rule</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="domain_folder_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -70,7 +70,7 @@
                             <field name="user_id"/>
                             <field name="link_model" invisible="create_model != 'link.to.record'"/>
                             <field name="tag_action_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="action"/>
                                     <field name="facet_id"
                                            domain="['|',
@@ -82,7 +82,7 @@
                                            context="{'simple_name': True}"
                                            domain="[('facet_id','=',facet_id)]"
                                            options='{"no_open": True}'/>
-                                </tree>
+                                </list>
                             </field>
                         </group>
                     </group>
@@ -118,6 +118,6 @@
     <record id="workflow_rule_action" model="ir.actions.act_window">
         <field name="name">Workflow Actions</field>
         <field name="res_model">documents.workflow.rule</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

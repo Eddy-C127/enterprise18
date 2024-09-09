@@ -62,9 +62,9 @@ const marketingCampaignViews = {
         </kanban>
     `,
     list: `
-        <tree string="Campaigns" js_class="marketing_campaign_list_view">
+        <list string="Campaigns" js_class="marketing_campaign_list_view">
             <field name="name"/>
-        </tree>
+        </list>
     `,
     form: `
         <form js_class="marketing_campaign_form_view">

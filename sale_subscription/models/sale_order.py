@@ -864,7 +864,7 @@ class SaleOrder(models.Model):
         return {
             "type": "ir.actions.act_window",
             "res_model": "sale.order",
-            "views": [[self.env.ref('sale_subscription.sale_subscription_view_tree').id, "tree"],
+            "views": [[self.env.ref('sale_subscription.sale_subscription_view_tree').id, "list"],
                       [self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, "form"],
                       [False, "kanban"], [False, "calendar"], [False, "pivot"], [False, "graph"]],
         }
@@ -874,7 +874,7 @@ class SaleOrder(models.Model):
         action = {
             "type": "ir.actions.act_window",
             "res_model": "sale.order",
-            "views": [[self.env.ref('sale_subscription.sale_subscription_quotation_tree_view').id, "tree"],
+            "views": [[self.env.ref('sale_subscription.sale_subscription_quotation_tree_view').id, "list"],
                       [self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, "form"]]
         }
         origin_order_id = self.origin_order_id.id or self.id
@@ -896,7 +896,7 @@ class SaleOrder(models.Model):
             action['views'] = [(self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
         else:
             action['domain'] = [('subscription_id', '=', self.id), ('subscription_state', '=', '2_renewal'), ('state', 'in', ['draft', 'sent'])]
-            action['views'] = [(self.env.ref('sale.view_quotation_tree').id, 'tree'),
+            action['views'] = [(self.env.ref('sale.view_quotation_tree').id, 'list'),
                                (self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
 
         action['context'] = {
@@ -915,7 +915,7 @@ class SaleOrder(models.Model):
             action['views'] = [(self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
         else:
             action['domain'] = [('subscription_id', '=', self.id), ('subscription_state', '=', '7_upsell'), ('state', 'in', ['draft', 'sent'])]
-            action['views'] = [(self.env.ref('sale.view_quotation_tree').id, 'tree'),
+            action['views'] = [(self.env.ref('sale.view_quotation_tree').id, 'list'),
                                (self.env.ref('sale_subscription.sale_subscription_primary_form_view').id, 'form')]
         action['context'] = {
             **action.get('context', {}),

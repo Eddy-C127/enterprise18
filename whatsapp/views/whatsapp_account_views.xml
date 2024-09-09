@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="whatsapp_account_view_tree" model="ir.ui.view">
-        <field name="name">whatsapp.account.view.tree</field>
+        <field name="name">whatsapp.account.view.list</field>
         <field name="model">whatsapp.account</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="phone_uid"/>
                 <field name="account_uid"/>
                 <field name="app_uid"/>
                 <field name="allowed_company_ids" widget="many2many_tags" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="whatsapp_account_view_form" model="ir.ui.view">
@@ -100,7 +100,7 @@
     <record id="whatsapp_account_action" model="ir.actions.act_window">
         <field name="name">WhatsApp Business Account</field>
         <field name="res_model">whatsapp.account</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No Account Configured yet!

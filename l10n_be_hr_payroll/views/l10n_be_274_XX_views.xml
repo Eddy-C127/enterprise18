@@ -54,14 +54,14 @@
                             <field name="capped_amount_34"/>
                         </group>
                         <field name="line_ids" readonly="1">
-                            <tree>
+                            <list>
                                 <field name="employee_id" widget="many2one_avatar_user"/>
                                 <field name="certificate"/>
                                 <field name="taxable_amount"/>
                                 <field name="amount" options="{'currency_field': 'currency_id'}"/>
                                 <field name="company_id" column_invisible="True"/>
                                 <field name="currency_id" column_invisible="True"/>
-                            </tree>
+                            </list>
                         </field>
                         <div invisible="state not in ('waiting', 'done')">
                             <h2 invisible="not sheet_274_10 and not xml_file and not xls_file">Generation Complete</h2>
@@ -87,20 +87,20 @@
     <record id="l10n_be_274_XX_action" model="ir.actions.act_window">
         <field name="name">274.XX Sheets</field>
         <field name="res_model">l10n_be.274_xx</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 
     <record id="l10n_be_274_XX_view_tree" model="ir.ui.view">
-        <field name="name">l10n_be.274_xx.view.tree</field>
+        <field name="name">l10n_be.274_xx.view.list</field>
         <field name="model">l10n_be.274_xx</field>
         <field name="arch" type="xml">
-            <tree string="274.XX Sheets">
+            <list string="274.XX Sheets">
                 <field name="month"/>
                 <field name="year"/>
                 <field name="date_start" column_invisible="True"/>
                 <field name="date_end" column_invisible="True"/>
-            </tree>
+            </list>
         </field>
     </record>
 

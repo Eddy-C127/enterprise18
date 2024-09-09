@@ -32,19 +32,19 @@
     </record>
 
     <record id="l10n_hk_ir56e_view_tree" model="ir.ui.view">
-        <field name="name">l10n_hk.ir56e.view.tree</field>
+        <field name="name">l10n_hk.ir56e.view.list</field>
         <field name="model">l10n_hk.ir56e</field>
         <field name="arch" type="xml">
-            <tree string="IR56E Sheets">
+            <list string="IR56E Sheets">
                 <field name="display_name" string="Name" />
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_hk_ir56e_action" model="ir.actions.act_window">
         <field name="name">IR56E Sheet</field>
         <field name="res_model">l10n_hk.ir56e</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 </odoo>

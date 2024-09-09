@@ -43,8 +43,8 @@
                 <page string="Timesheets" name="timesheets"
                     invisible="not project_id or not use_helpdesk_timesheet"
                     groups="hr_timesheet.group_hr_timesheet_user">
-                    <field name='timesheet_ids' mode="tree,kanban" context="{'default_project_id': project_id}">
-                        <tree editable="bottom" string="Timesheet Activities" default_order="date" decoration-muted="readonly_timesheet == True">
+                    <field name='timesheet_ids' mode="list,kanban" context="{'default_project_id': project_id}">
+                        <list editable="bottom" string="Timesheet Activities" default_order="date" decoration-muted="readonly_timesheet == True">
                             <field name="readonly_timesheet" column_invisible="True"/>
                             <field name="date" readonly="readonly_timesheet"/>
                             <field name="user_id" column_invisible="True"/>
@@ -54,7 +54,7 @@
                             <field name="project_id" column_invisible="True"/>
                             <field name="task_id" column_invisible="True"/>
                             <field name="company_id" column_invisible="True"/>
-                        </tree>
+                        </list>
                         <kanban class="o_kanban_mobile">
                             <field name="date"/>
                             <field name="user_id"/>
@@ -119,7 +119,7 @@
     </record>
 
     <record id="helpdesk_ticket_view_tree_inherit_helpdesk_timesheet" model="ir.ui.view">
-        <field name='name'>helpdesk.ticket.tree.inherit.timesheet</field>
+        <field name='name'>helpdesk.ticket.list.inherit.timesheet</field>
         <field name="model">helpdesk.ticket</field>
         <field name="priority">70</field>
         <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>

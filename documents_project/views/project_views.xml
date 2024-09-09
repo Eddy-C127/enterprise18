@@ -39,7 +39,7 @@
     <record id="action_view_documents_project_task" model="ir.actions.act_window">
         <field name="name">Documents</field>
         <field name="res_model">documents.document</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('res_model', '=', 'project.task'), ('res_id', '=', active_id)]</field>
         <field name="context">{'default_res_model': 'project.task', 'default_res_id': active_id, 'limit_folders_to_project': True}</field>
         <field name="help" type="html">
@@ -52,7 +52,7 @@
     <record id="action_view_documents_project_project" model="ir.actions.act_window">
         <field name="name">Documents</field>
         <field name="res_model">documents.document</field>
-        <field name="view_mode">kanban,tree</field>
+        <field name="view_mode">kanban,list</field>
         <field name="domain">[('project_id', '=', active_id)]</field>
         <field name="context">{'limit_folders_to_project': True}</field>
         <field name="help" type="html">

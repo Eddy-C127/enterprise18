@@ -20,7 +20,7 @@ class HelpdeskTicket(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Coupons'),
             'res_model': 'loyalty.card',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.coupon_ids.ids)],
             'context': dict(self._context, create=False, edit=False, default_company_id=self.company_id.id),
         }

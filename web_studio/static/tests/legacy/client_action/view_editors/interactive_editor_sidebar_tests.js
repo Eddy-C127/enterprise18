@@ -732,7 +732,7 @@ QUnit.module(
                 <sheet>
                     <field name='display_name'/>
                     <field name='product_ids'>
-                        <tree><field name='display_name'/></tree>
+                        <list><field name='display_name'/></list>
                     </field>
                 </sheet>
             </form>`;

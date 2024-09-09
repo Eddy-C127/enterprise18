@@ -53,9 +53,9 @@ class ProjectTaskConvertWizard(models.TransientModel):
             }
         return {
             'name': _('Converted Tickets'),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'helpdesk.ticket',
-            'views': [(False, 'tree'), (False, 'form')],
+            'views': [(False, 'list'), (False, 'form')],
             'type': 'ir.actions.act_window',
             'domain': [('id', 'in', created_tickets.ids)],
         }

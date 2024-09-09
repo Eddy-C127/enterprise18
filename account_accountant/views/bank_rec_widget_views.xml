@@ -181,10 +181,10 @@
         </record>
 
         <record id="view_bank_statement_line_tree_bank_rec_widget" model="ir.ui.view">
-            <field name="name">account.bank.statement.line.tree.bank_rec_widget</field>
+            <field name="name">account.bank.statement.line.list.bank_rec_widget</field>
             <field name="model">account.bank.statement.line</field>
             <field name="arch" type="xml">
-                <tree editable="top"
+                <list editable="top"
                       multi_edit="1"
                       js_class="bank_rec_list"
                       decoration-muted="state == 'draft'"
@@ -245,7 +245,7 @@
                     <field name="id"
                            widget="bank_rec_list_view_switcher"
                            invisible="not id"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -410,13 +410,13 @@
             </field>
         </record>
 
-        <!-- Tree view on aml to be injected inside the form (view_bank_rec_widget_form) -->
+        <!-- List view on aml to be injected inside the form (view_bank_rec_widget_form) -->
         <record id="view_account_move_line_list_bank_rec_widget" model="ir.ui.view">
             <field name="name">account.move.line.list.bank_rec_widget</field>
             <field name="model">account.move.line</field>
             <field name="priority">999</field>
             <field name="arch" type="xml">
-                <tree string="Suggestions"
+                <list string="Suggestions"
                       create="false"
                       edit="false"
                       limit="40"
@@ -460,19 +460,19 @@
                             type="object"
                             string="View"
                             class="btn btn-sm btn-secondary"/>
-                </tree>
+                </list>
             </field>
         </record>
 
         <!-- Add bank recon widget to the statements list view -->
         <record id="view_bank_statement_tree" model="ir.ui.view">
-            <field name="name">account.bank.statement.tree</field>
+            <field name="name">account.bank.statement.list</field>
             <field name="model">account.bank.statement</field>
             <field name="inherit_id" ref="account.view_bank_statement_tree"/>
             <field name="arch" type="xml">
-                <tree position="inside">
+                <list position="inside">
                     <button name="action_open_bank_reconcile_widget" string="Transactions" type="object"/>
-                </tree>
+                </list>
             </field>
         </record>
 

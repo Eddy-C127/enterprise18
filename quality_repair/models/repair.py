@@ -93,7 +93,7 @@ class Repair(models.Model):
             'default_repair_id': self.id,
         }
         action['domain'] = [('repair_id', '=', self.id)]
-        action['views'] = [(False, 'tree'), (False, 'form')]
+        action['views'] = [(False, 'list'), (False, 'form')]
         if self.quality_alert_count == 1:
             action['views'] = [(False, 'form')]
             action['res_id'] = self.quality_alert_ids.id

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="l10n_ch_accident_insurance_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ch.accident.insurance.view.tree</field>
+        <field name="name">l10n.ch.accident.insurance.view.list</field>
         <field name="model">l10n.ch.accident.insurance</field>
         <field name="arch" type="xml">
-            <tree string="Accident Insurances">
+            <list string="Accident Insurances">
                 <field name="name"/>
                 <field name="insurance_company"/>
                 <field name="customer_number"/>
                 <field name="contract_number"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -34,12 +34,12 @@
                     </group>
                     <group string="LAA Solution" colspan="2">
                         <field name="line_ids" nolabel="1">
-                            <tree>
+                            <list>
                                 <field name="solution_name"/>
                                 <field name="solution_type"/>
                                 <field name="solution_number"/>
                                 <field name="rate_ids"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>
@@ -59,13 +59,13 @@
                         <field name="solution_number"/>
                     </group>
                     <field name="rate_ids" nolabel="1" colspan="2">
-                        <tree>
+                        <list>
                             <field name="date_from"/>
                             <field name="date_to"/>
                             <field name="threshold"/>
                             <field name="employer_occupational_part"/>
                             <field name="employer_non_occupational_part"/>
-                        </tree>
+                        </list>
                         <form>
                             <group>
                                 <group>
@@ -100,6 +100,6 @@
     <record id="action_l10n_ch_accident_insurance" model="ir.actions.act_window">
         <field name="name">AAP/AANP Insurances</field>
         <field name="res_model">l10n.ch.accident.insurance</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

@@ -2,12 +2,12 @@
 <odoo>
 
     <record id="hr_timesheet_tip_view_tree" model="ir.ui.view">
-        <field name="name">hr.timesheet.tip.tree</field>
+        <field name="name">hr.timesheet.tip.list</field>
         <field name="model">hr.timesheet.tip</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" string="Tips" sample="1">
+            <list editable="bottom" string="Tips" sample="1">
                 <field name="name" placeholder="e.g. Make it a habit to record timesheets every day."/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -26,7 +26,7 @@
     <record id="hr_timesheet_tip_action" model="ir.actions.act_window">
         <field name="name">Tips</field>
         <field name="res_model">hr.timesheet.tip</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No tips found. Let's create one!

@@ -299,7 +299,7 @@ class AmazonAccount(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Offers'),
             'res_model': 'amazon.offer',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'domain': [('account_id', '=', self.id)],
             'context': {'default_account_id': self.id},
         }
@@ -313,7 +313,7 @@ class AmazonAccount(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Orders'),
             'res_model': 'sale.order',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', order_lines.order_id.ids)],
             'context': {'create': False},
         }

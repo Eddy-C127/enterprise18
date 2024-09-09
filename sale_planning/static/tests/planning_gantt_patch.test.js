@@ -220,7 +220,7 @@ test("Show shift form dialog only when shifts to plan", async function () {
     });
     PlanningSlot._views = {
         form: `<form js_class="planning_form"><field name="name"/></form>`,
-        list: `<tree><field name="name"/></tree>`,
+        list: `<list><field name="name"/></list>`,
     };
 
     onRpc("gantt_resource_work_interval", () => [
@@ -269,7 +269,7 @@ test("Open a dialog to schedule a plan using Open Shift", async function () {
         sale_line_id: 1,
     });
     PlanningSlot._views = {
-        list: `<tree><field name="sale_line_id"/></tree>`,
+        list: `<list><field name="sale_line_id"/></list>`,
         form: `
             <form>
                 <field name="resource_id"/>

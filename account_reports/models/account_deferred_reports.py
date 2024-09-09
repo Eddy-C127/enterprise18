@@ -270,7 +270,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             'name': _('Deferred Entries'),
             'res_model': 'account.move.line',
             'domain': [('id', 'in', line_ids)],
-            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'tree')],
+            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'list')],
             # Most filters are set here to allow auditing flexibility to the user
             'context': {
                 'search_default_pl_accounts': True,
@@ -317,7 +317,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             'name': _("Deferred Entries"),
             'res_model': 'account.move.line',
             'domain': domain,
-            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'tree')],
+            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'list')],
             'context': {
                 'search_default_group_by_move': True,
                 'expand': True,
@@ -395,7 +395,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
         return {
             'name': _('Deferred Entries'),
             'type': 'ir.actions.act_window',
-            'views': [(False, "tree"), (False, "form")],
+            'views': [(False, "list"), (False, "form")],
             'domain': [('id', 'in', new_deferred_moves.ids)],
             'res_model': 'account.move',
             'context': {

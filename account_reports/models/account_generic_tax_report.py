@@ -451,14 +451,14 @@ class AccountTaxReportHandler(models.AbstractModel):
     @api.model
     def _redirect_to_misconfigured_tax_groups(self, company, countries):
         """ Raises a RedirectWarning informing the user his tax groups are missing configuration
-        for a given company, redirecting him to the tree view of account.tax.group, filtered
+        for a given company, redirecting him to the list view of account.tax.group, filtered
         accordingly to the provided countries.
         """
         need_config_action = {
             'type': 'ir.actions.act_window',
             'name': 'Tax groups',
             'res_model': 'account.tax.group',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'views': [[False, 'list']],
             'domain': ['|', ('country_id', 'in', countries.ids), ('country_id', '=', False)]
         }

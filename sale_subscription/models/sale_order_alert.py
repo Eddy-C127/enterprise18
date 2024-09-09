@@ -282,7 +282,7 @@ class SaleOrderAlert(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Subscriptions'),
             'res_model': 'sale.order',
-            'view_mode': 'kanban,tree,form,pivot,graph,cohort,activity',
+            'view_mode': 'kanban,list,form,pivot,graph,cohort,activity',
             'domain': domain,
             'context': {'create': False},
         }

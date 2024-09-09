@@ -5,7 +5,7 @@
         <field name="name">Maintenance Requests</field>
         <field name="res_model">maintenance.request</field>
         <field name="binding_model_id" ref="mrp.model_mrp_workcenter"/>
-        <field name="view_mode">kanban,tree,form,pivot,graph,calendar</field>
+        <field name="view_mode">kanban,list,form,pivot,graph,calendar</field>
         <field name="context">{
             'default_maintenance_for': 'workcenter',
             'default_workcenter_id': active_id,
@@ -30,14 +30,14 @@
             <xpath expr="//notebook" position="inside">
                 <page string="Equipment" name="equipment">
                     <field name="equipment_ids" widget="many2many">
-                        <tree string="Equipment">
+                        <list string="Equipment">
                             <field name="name"/>
                             <field name="technician_user_id"/>
                             <field name="category_id"/>
                             <field name="mtbf"/>
                             <field name="mttr"/>
                             <field name="estimated_next_failure" string="Est. Next Failure"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

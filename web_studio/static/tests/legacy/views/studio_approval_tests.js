@@ -399,7 +399,7 @@ QUnit.module("Studio Approval", (hooks) => {
             <form>
                 <button type="object=" name="someMethod" string="Apply Method" studio_approval="True"/>
             </form>`,
-            "partner,false,list": '<tree><field name="display_name"/></tree>',
+            "partner,false,list": '<list><field name="display_name"/></list>',
             "partner,false,search": "<search></search>",
         };
 

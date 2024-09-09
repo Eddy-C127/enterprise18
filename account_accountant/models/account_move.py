@@ -359,7 +359,7 @@ class AccountMove(models.Model):
             'name': _("Deferred Entries"),
             'res_model': 'account.move.line',
             'domain': [('id', 'in', self.deferred_move_ids.line_ids.ids)],
-            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'tree')],
+            'views': [(self.env.ref('account_accountant.view_deferred_entries_tree').id, 'list')],
             'context': {
                 'search_default_group_by_move': True,
                 'expand': True,
@@ -373,7 +373,7 @@ class AccountMove(models.Model):
             'name': _("Original Deferred Entries"),
             'res_model': 'account.move.line',
             'domain': [('id', 'in', self.deferred_original_move_ids.line_ids.ids)],
-            'views': [(False, 'tree'), (False, 'form')],
+            'views': [(False, 'list'), (False, 'form')],
             'context': {
                 'search_default_group_by_move': True,
                 'expand': True,
@@ -644,7 +644,7 @@ class AccountMoveLine(models.Model):
 
     def action_reconcile(self):
         """ This function is called by the 'Reconcile' button of account.move.line's
-        tree view. It performs reconciliation between the selected lines.
+        list view. It performs reconciliation between the selected lines.
         - If the reconciliation can be done directly we do it silently
         - Else, if a write-off is required we open the wizard to let the client enter required information
         """

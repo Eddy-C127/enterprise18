@@ -285,10 +285,10 @@ class WorksheetTemplate(models.Model):
             'name': 'tree_view_' + self.name.replace(' ', '_'),
             'model': model.model,
             'arch': tree_arch_func and tree_arch_func() or """
-                <tree default_order="create_date DESC">
+                <list default_order="create_date DESC">
                     <field name="create_date"/>
                     <field name="x_name"/>
-                </tree>
+                </list>
             """
         }
 

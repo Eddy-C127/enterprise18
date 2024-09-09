@@ -232,7 +232,7 @@ test("move a pill in multi-level group row after collapse and expand grouped row
 test("plan dialog initial domain has the action domain as its only base", async () => {
     Tasks._views = {
         gantt: `<gantt date_start="start" date_stop="stop"/>`,
-        list: `<tree><field name="name"/></tree>`,
+        list: `<list><field name="name"/></list>`,
         search: `
             <search>
                 <filter name="project_one" string="Project 1" domain="[('project_id', '=', 1)]"/>

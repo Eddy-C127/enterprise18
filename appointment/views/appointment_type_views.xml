@@ -136,10 +136,10 @@
     </record>
 
     <record id="appointment_type_view_tree" model="ir.ui.view">
-        <field name="name">appointment.type.tree</field>
+        <field name="name">appointment.type.list</field>
         <field name="model">appointment.type</field>
         <field name="arch" type="xml">
-            <tree string="Appointment Type" class="o_appointment_type_view_list" js_class="appointment_type_list" multi_edit="1">
+            <list string="Appointment Type" class="o_appointment_type_view_list" js_class="appointment_type_list" multi_edit="1">
                 <header>
                     <button name="action_share_invite" type="object" string="Share"/>
                 </header>
@@ -151,16 +151,16 @@
                 <field name="staff_user_ids" widget="many2many_avatar_user" optional="hide"/>
                 <field name="resource_ids" string="Resources" widget="many2many_tags_avatar" optional="hide"/>
                 <field name="country_ids" widget="many2many_tags" groups="base.group_no_one" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="appointment_type_view_tree_invitation" model="ir.ui.view">
-        <field name="name">appointment.type.tree.invitation</field>
+        <field name="name">appointment.type.list.invitation</field>
         <field name="model">appointment.type</field>
         <field name="priority">20</field>
         <field name="arch" type="xml">
-            <tree string="Appointment Invitations" multi_edit="1" sample="1">
+            <list string="Appointment Invitations" multi_edit="1" sample="1">
                 <field name="sequence" widget="handle"/>
                 <field name="name" readonly="1"/>
                 <field name="appointment_tz"/>
@@ -170,7 +170,7 @@
                 <field name="resource_ids" string="Resources" widget="many2many_tags" optional="hide"
                     invisible="schedule_based_on == 'users'"/>
                 <field name="category" groups="base.group_no_one"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -276,7 +276,7 @@
                         <page string="Schedule" name="slots">
                             <field name="category" invisible="1"/>
                             <field name="slot_ids">
-                                <tree editable="bottom" class="o_appointment_slots_list">
+                                <list editable="bottom" class="o_appointment_slots_list">
                                     <field name="weekday" string="Every"
                                         column_invisible="parent.category == 'custom'"/>
                                     <field name="start_hour" string="From" widget="float_time"
@@ -293,7 +293,7 @@
                                     <field name="restrict_to_resource_ids" widget="many2many_tags_avatar" domain="[('id', 'in', parent.resource_ids)]"
                                         column_invisible="parent.schedule_based_on == 'users' or parent.category in ['custom', 'anytime']"
                                         options="{'no_create': True}" optional="hide"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Options" name="options">
@@ -333,14 +333,14 @@
                         </page>
                         <page string="Questions" name="questions">
                             <field name="question_ids">
-                                <tree>
+                                <list>
                                     <field name="sequence" widget="handle"/>
                                     <field name="name"/>
                                     <field name="question_type"/>
                                     <field name="answer_ids" widget="many2many_tags"/>
                                     <field name="question_required"/>
                                     <button name="action_view_question_answer_inputs" type="object" class="fa fa-bar-chart p-0" title="Answer Breakdown" />
-                                </tree>
+                                </list>
                                 <form string="Questions" name="question_form">
                                     <sheet>
                                         <group>
@@ -357,12 +357,12 @@
                                         <notebook invisible="question_type in ('char', 'text')">
                                             <page string="Answers" name="answers">
                                                 <field name="answer_ids">
-                                                    <tree editable="bottom">
+                                                    <list editable="bottom">
                                                         <!-- 'display_name' is necessary for the many2many_tags to work on the appointment view -->
                                                         <field name="display_name" column_invisible="True"/>
                                                         <field name="sequence" widget="handle"/>
                                                         <field name="name"/>
-                                                    </tree>
+                                                    </list>
                                                 </field>
                                             </page>
                                         </notebook>
@@ -434,7 +434,7 @@
         <field name="name">Appointments</field>
         <field name="path">appointments</field>
         <field name="res_model">appointment.type</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('category', '!=', 'custom')]</field>
         <field name="context">{'search_default_filter_category_recurring': 1}</field>
     </record>
@@ -442,7 +442,7 @@
     <record id="appointment_type_action_custom" model="ir.actions.act_window">
         <field name="name">Invitations</field>
         <field name="res_model">appointment.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="view_id" ref="appointment_type_view_tree_invitation"/>
         <field name="domain">[('category', '=', 'custom')]</field>
         <field name="context">{

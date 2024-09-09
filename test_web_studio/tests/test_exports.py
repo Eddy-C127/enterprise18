@@ -220,7 +220,7 @@ class TestStudioExports(StudioExportCase):
             "ir.actions.act_window",
             name="Furnaces",
             res_model="x_furnace_types",
-            view_mode="tree,form,kanban",
+            view_mode="list,form,kanban",
             help="<p>This is your new action.</p>",
         )
         custom_menu_1 = self.create_customization(
@@ -304,7 +304,7 @@ class TestStudioExports(StudioExportCase):
                 <field name="help"><![CDATA[<p>This is your new action.</p>]]></field>
                 <field name="name">Furnaces</field>
                 <field name="res_model">x_furnace_types</field>
-                <field name="view_mode">tree,form,kanban</field>
+                <field name="view_mode">list,form,kanban</field>
             </record>""",
         )
         export.assertRecords(

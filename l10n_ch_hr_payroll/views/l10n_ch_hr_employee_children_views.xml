@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="l10n_ch_hr_employee_children_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ch.hr.employee.children.view.tree</field>
+        <field name="name">l10n.ch.hr.employee.children.view.list</field>
         <field name="model">l10n.ch.hr.employee.children</field>
         <field name="arch" type="xml">
-            <tree string="Children" editable="bottom">
+            <list string="Children" editable="bottom">
                 <field name="name"/>
                 <field name="birthdate"/>
                 <field name="deduction_start"/>
-            </tree>
+            </list>
         </field>
     </record>
 

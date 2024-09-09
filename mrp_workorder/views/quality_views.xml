@@ -188,7 +188,7 @@
     </record>
 
     <record id="quality_alert_view_tree" model="ir.ui.view">
-        <field name="name">quality.alert.view.tree.inherit.mrp.workorder</field>
+        <field name="name">quality.alert.view.list.inherit.mrp.workorder</field>
         <field name="model">quality.alert</field>
         <field name="inherit_id" ref="quality.quality_alert_view_tree"/>
         <field name="arch" type="xml">
@@ -199,7 +199,7 @@
     </record>
 
     <record id="quality_point_view_tree" model="ir.ui.view">
-        <field name="name">quality.point.view.tree.inherit.mrp.workorder</field>
+        <field name="name">quality.point.view.list.inherit.mrp.workorder</field>
         <field name="model">quality.point</field>
         <field name="inherit_id" ref="quality.quality_point_view_tree"/>
         <field name="arch" type="xml">

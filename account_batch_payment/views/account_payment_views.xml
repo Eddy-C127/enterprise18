@@ -36,7 +36,7 @@
         </record>
 
         <record id="view_account_payment_tree_inherit_account_batch_payment" model="ir.ui.view">
-            <field name="name">account.payment.tree.inherit.account_batch_payment</field>
+            <field name="name">account.payment.list.inherit.account_batch_payment</field>
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_tree" />
             <field name="arch" type="xml">
@@ -72,7 +72,7 @@
         </record>
 
         <record id="view_account_payment_tree_popup_inherit_account_batch_payment" model="ir.ui.view">
-            <field name="name">account.payment.tree.popup.inherit.account_batch_payment</field>
+            <field name="name">account.payment.list.popup.inherit.account_batch_payment</field>
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_tree"/>
             <field name="mode">primary</field>

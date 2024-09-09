@@ -35,16 +35,16 @@
     </record>
 
     <record id="view_hr_payroll_alloc_employee_view_tree" model="ir.ui.view">
-        <field name="name">hr.payroll.alloc.employee.view.tree</field>
+        <field name="name">hr.payroll.alloc.employee.view.list</field>
         <field name="model">hr.payroll.alloc.employee</field>
         <field name="arch" type="xml">
-            <tree string="Employee" editable="bottom" create="false" delete="true">
+            <list string="Employee" editable="bottom" create="false" delete="true">
                 <field name="employee_id"/>
                 <field name="paid_time_off" string="For The Period"/>
                 <field name="contract_next_year_id" column_invisible="True" />
                 <field name="resource_calendar_id"/>
                 <field name="paid_time_off_to_allocate" string="To Allocate"/>
-            </tree>
+            </list>
         </field>
     </record>
 

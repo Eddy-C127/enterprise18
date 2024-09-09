@@ -44,7 +44,7 @@
 
     <record id="view_picking_edi_tree" model="ir.ui.view">
         <field name="model">stock.picking</field>
-        <field name="name">stock.picking.edi.tree</field>
+        <field name="name">stock.picking.edi.list</field>
         <field name="inherit_id" ref="stock.vpicktree" />
         <field name="arch" type="xml">
             <field name="json_popover" position="after">

@@ -132,10 +132,10 @@ QUnit.module("M2OAvatarResourceWidgetTests", {
     QUnit.test("many2one_avatar_resource widget in list view with time-off idle", async function (assert) {
         this.serverData.views = {
             "planning.slot,false,list": `
-                    <tree>
+                    <list>
                         <field name="display_name"/>
                         <field name="resource_id" widget="many2one_avatar_resource"/>
-                    </tree>`,
+                    </list>`,
         };
         const { openView } = await start({ serverData: this.serverData });
         await openView({

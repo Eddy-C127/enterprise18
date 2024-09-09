@@ -139,15 +139,15 @@
     </record>
 
     <record id="sale_subscription_alert_view_tree" model="ir.ui.view">
-        <field name="name">sale.subscription.alert.view.tree</field>
+        <field name="name">sale.subscription.alert.view.list</field>
         <field name="model">sale.order.alert</field>
         <field name="arch" type="xml">
-            <tree string="Automation Rules">
+            <list string="Automation Rules">
                 <field name="name" string="Name"/>
                 <field name="action"/>
                 <field name="trigger_condition"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -155,7 +155,7 @@
         <field name="name">Automation Rules</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">sale.order.alert</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
               Create a new subscription alert

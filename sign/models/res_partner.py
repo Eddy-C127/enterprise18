@@ -20,7 +20,7 @@ class ResPartner(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Signature(s)'),
-            'view_mode': 'kanban,tree,form',
+            'view_mode': 'kanban,list,form',
             'res_model': 'sign.request',
             'domain': [('id', 'in', request_ids.ids)],
             'context': {

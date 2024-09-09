@@ -270,8 +270,8 @@ class ProductProduct(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'product.product',
             'domain': [('id', 'in', self.ids)],
-            'view_mode': 'tree',
-            'views': [(self.env.ref('l10n_ke_edi_oscu.l10n_ke_kra_product_tree').id, 'tree'), (False, 'form')],
+            'view_mode': 'list',
+            'views': [(self.env.ref('l10n_ke_edi_oscu.l10n_ke_kra_product_tree').id, 'list'), (False, 'form')],
             'context': {'create': False, 'delete': False},
         }
         return res

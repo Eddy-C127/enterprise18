@@ -11,12 +11,12 @@
             <xpath expr="//page[@name='reports']" position="before">
                 <page string="Quality Control Points" name="quality_control_points">
                     <field name="quality_point_ids" widget="many2many" domain="[('test_type', '=', qcp_test_type)]">
-                        <tree>
+                        <list>
                             <field name="name"/>
                             <field name="title"/>
                             <field name="product_ids" widget="many2many_tags"/>
                             <field name="picking_type_ids" widget="many2many_tags"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>
@@ -35,7 +35,7 @@
     </record>
 
     <record id="quality_point_view_tree" model="ir.ui.view">
-        <field name="name">quality.point.view.tree.inherit.quality.iot</field>
+        <field name="name">quality.point.view.list.inherit.quality.iot</field>
         <field name="model">quality.point</field>
         <field name="inherit_id" ref="quality.quality_point_view_tree"/>
         <field name="priority">20</field>

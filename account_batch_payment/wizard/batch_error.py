@@ -55,7 +55,7 @@ class BatchErrorWizardLine(models.TransientModel):
         return {
             'name': _('Payments in Error'),
             'type': 'ir.actions.act_window',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'account.payment',
             'domain': [('id', 'in', self.payment_ids.ids)],
         }

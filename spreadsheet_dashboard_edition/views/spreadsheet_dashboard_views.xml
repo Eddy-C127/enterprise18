@@ -6,7 +6,7 @@
         <field name="model">spreadsheet.dashboard</field>
         <field name="inherit_id" ref="spreadsheet_dashboard.spreadsheet_dashboard_view_list"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position='attributes'>
+            <xpath expr="//list" position='attributes'>
                 <attribute name="create">1</attribute>
             </xpath>
             <xpath expr="//field[@name='is_published']" position='after'>

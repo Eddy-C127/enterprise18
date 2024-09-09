@@ -418,7 +418,7 @@ class WebStudioController(http.Controller):
         action_id = request.env[action_type].browse(action_id)
         if action_id:
             if 'view_mode' in args:
-                args['view_mode'] = args['view_mode'].replace('list', 'tree')  # list is stored as tree in db
+                args['view_mode'] = args['view_mode'].replace('list', 'list')  # list is stored as tree in db
 
                 # As view_id and view_ids have precedence on view_mode, we need to correctly set them
                 if action_id.view_id or action_id.view_ids:
@@ -1047,7 +1047,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             button_action = request.env['ir.actions.act_window'].with_context(studio=True).create({
                 'name': button_name,
                 'res_model': field.model,
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'domain': button_action_domain,
                 'context': button_action_context,
             })
@@ -1144,7 +1144,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             xpath_node.append(buttonbox_node)
 
     def _operation_add_button_action(self, arch, operation, model=None):
-        """Add action button for form or tree view"""
+        """Add action button for form or list view"""
 
         label = operation.get("label")
         button_type = operation.get("button_type")

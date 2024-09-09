@@ -18,14 +18,14 @@
     </record>
 
     <record id="knowledge_article_member_view_tree" model="ir.ui.view">
-        <field name="name">knowledge.article.member.view.tree</field>
+        <field name="name">knowledge.article.member.view.list</field>
         <field name="model">knowledge.article.member</field>
         <field name="arch" type="xml">
-            <tree string="Members" sample="1" create="0" edit="0">
+            <list string="Members" sample="1" create="0" edit="0">
                 <field name="article_id"/>
                 <field name="partner_id" widget="many2one_avatar"/>
                 <field name="permission"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -49,7 +49,7 @@
     <record id="knowledge_article_member_action" model="ir.actions.act_window">
         <field name="name">Members</field>
         <field name="res_model">knowledge.article.member</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('article_id.is_template', '=', False)]</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

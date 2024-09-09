@@ -20,13 +20,13 @@
     </record>
 
     <record id="account_asset_missing_l10n_ro_saft_account_asset_category" model="ir.ui.view">
-        <field name="name">account.asset.tree.missing.l10n_ro_saft.asset.category</field>
+        <field name="name">account.asset.list.missing.l10n_ro_saft.asset.category</field>
         <field name="model">account.asset</field>
         <field name="arch" type="xml">
-            <tree string="Assets" multi_edit="1" duplicate="false" editable="bottom" open_form_view="true">
+            <list string="Assets" multi_edit="1" duplicate="false" editable="bottom" open_form_view="true">
                 <field name="name" readonly="1"/>
                 <field name="l10n_ro_saft_account_asset_category_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 

@@ -35,10 +35,10 @@
     </record>
 
     <record id="hr_payroll_structure_type_view_tree" model="ir.ui.view">
-        <field name="name">hr.payroll.structure.type.tree</field>
+        <field name="name">hr.payroll.structure.type.list</field>
         <field name="model">hr.payroll.structure.type</field>
         <field name="arch" type="xml">
-            <tree string="Structure Type">
+            <list string="Structure Type">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="default_schedule_pay"/>
@@ -48,7 +48,7 @@
                 <field name="wage_type"/>
                 <field name="default_struct_id" domain="[('id', 'in', struct_ids)]"/>
                 <field name="struct_ids" column_invisible="True"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -65,7 +65,7 @@
     <record id="action_hr_payroll_structure_type" model="ir.actions.act_window">
         <field name="name">Structure Types</field>
         <field name="res_model">hr.payroll.structure.type</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" ref="hr_payroll_structure_type_view_search"/>
         <field name="context">{'payroll_check_country': 1}</field>
     </record>

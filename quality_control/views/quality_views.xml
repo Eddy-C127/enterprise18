@@ -120,7 +120,7 @@
     </record>
 
     <record id="quality_alert_view_tree" model="ir.ui.view">
-        <field name="name">quality.alert.view.tree.inherit.quality.control</field>
+        <field name="name">quality.alert.view.list.inherit.quality.control</field>
         <field name="model">quality.alert</field>
         <field name="inherit_id" ref="quality.quality_alert_view_tree"/>
         <field name="arch" type="xml">
@@ -179,7 +179,7 @@
     <record id="quality_alert_action_team" model="ir.actions.act_window">
         <field name="name">Quality Alerts</field>
         <field name="res_model">quality.alert</field>
-        <field name="view_mode">kanban,tree,form,pivot,graph,calendar</field>
+        <field name="view_mode">kanban,list,form,pivot,graph,calendar</field>
         <field name="domain">[('team_id', '=', active_id)]</field>
         <field name="context">{'default_team_id': active_id,
                                'search_default_team_id': [active_id]}</field>
@@ -188,7 +188,7 @@
     <record id="quality_alert_action_check" model="ir.actions.act_window">
         <field name="name">Quality Alerts</field>
         <field name="res_model">quality.alert</field>
-        <field name="view_mode">kanban,tree,form,pivot,graph,calendar,activity</field>
+        <field name="view_mode">kanban,list,form,pivot,graph,calendar,activity</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
               Create a new quality alert
@@ -199,7 +199,7 @@
     <record id="quality_alert_action_report" model="ir.actions.act_window">
         <field name="name">Quality Alerts</field>
         <field name="res_model">quality.alert</field>
-        <field name="view_mode">graph,pivot,kanban,tree,form,calendar</field>
+        <field name="view_mode">graph,pivot,kanban,list,form,calendar</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 No quality alert
@@ -330,10 +330,10 @@
     </record>
 
     <record id="quality_check_view_tree" model="ir.ui.view">
-        <field name="name">quality.check.view.tree</field>
+        <field name="name">quality.check.view.list</field>
         <field name="model">quality.check</field>
         <field name="arch" type="xml">
-            <tree default_order="id desc" sample="1" decoration-info="quality_state == 'none'">
+            <list default_order="id desc" sample="1" decoration-info="quality_state == 'none'">
                 <field name="name" decoration-bf="1"/>
                 <field name="measure_on" optional="hide"/>
                 <field name='product_id' optional="show"/>
@@ -346,7 +346,7 @@
                 <field name="team_id" optional="hide"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="quality_state" optional="show" widget='badge' decoration-success="quality_state == 'pass'" decoration-info="quality_state == 'none'" decoration-danger="quality_state == 'fail'"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -411,7 +411,7 @@
     <record id="quality_check_action_team" model="ir.actions.act_window">
         <field name="name">Quality Checks</field>
         <field name="res_model">quality.check</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="domain">[('team_id', '=', active_id)]</field>
         <field name="context">{
             'default_team_id': active_id,
@@ -431,14 +431,14 @@
     <record id="quality_check_action_picking" model="ir.actions.act_window">
         <field name="name">Quality Checks</field>
         <field name="res_model">quality.check</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{}</field>
     </record>
 
     <record id="quality_check_action_production_lot" model="ir.actions.act_window">
         <field name="name">Quality Checks</field>
         <field name="res_model">quality.check</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{
             'search_default_lot_id': [active_id],
             'default_lot_id': active_id,
@@ -449,7 +449,7 @@
     <record id="quality_check_action_main" model="ir.actions.act_window">
         <field name="name">Quality Checks</field>
         <field name="res_model">quality.check</field>
-        <field name="view_mode">tree,kanban,form,pivot,graph,activity</field>
+        <field name="view_mode">list,kanban,form,pivot,graph,activity</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
               No quality check found
@@ -463,7 +463,7 @@
     <record model="ir.actions.act_window" id="quality_check_action_report">
         <field name="name">Quality Checks</field>
         <field name="res_model">quality.check</field>
-        <field name="view_mode">graph,pivot,kanban,tree,form</field>
+        <field name="view_mode">graph,pivot,kanban,list,form</field>
         <field name="context">{'search_default_state': 1}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -611,14 +611,14 @@
     </record>
 
     <record id="quality_alert_team_view_tree" model="ir.ui.view">
-        <field name="name">quality.alert.team.view.tree</field>
+        <field name="name">quality.alert.team.view.list</field>
         <field name="model">quality.alert.team</field>
         <field name="arch" type="xml">
-            <tree string="Teams">
+            <list string="Teams">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -660,9 +660,9 @@
     <record id="quality_alert_team_action_config" model="ir.actions.act_window">
         <field name="name">Quality Teams</field>
         <field name="res_model">quality.alert.team</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('quality_alert_team_view_tree')}),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('quality_alert_team_view_tree')}),
             (0, 0, {'view_mode': 'kanban', 'view_id': ref('quality_alert_team_view_kanban')}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('quality_alert_team_view_form')})]"/>
     </record>
@@ -678,18 +678,18 @@
         </field>
     </record>
     <record id="quality_tag_view_tree" model="ir.ui.view">
-        <field name="name">quality.tag.view.tree</field>
+        <field name="name">quality.tag.view.list</field>
         <field name="model">quality.tag</field>
         <field name="arch" type="xml">
-            <tree string="Tags" editable="bottom">
+            <list string="Tags" editable="bottom">
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="quality_tag_action" model="ir.actions.act_window">
         <field name="name">Quality Tags</field>
         <field name="res_model">quality.tag</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
             Add a new tag
@@ -699,16 +699,16 @@
 
     <!-- QUALITY.ALERT.STAGE -->
     <record id="quality_alert_stage_view_tree" model="ir.ui.view">
-        <field name="name">quality.alert.stage.tree</field>
+        <field name="name">quality.alert.stage.list</field>
         <field name="model">quality.alert.stage</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="sequence" widget="handle"/>
                 <field name="name" string="Stage Name"/>
                 <field name="folded"/>
                 <field name="done"/>
                 <field name="team_ids" widget="many2many_tags"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -734,7 +734,7 @@
     <record id="quality_alert_stage_action" model="ir.actions.act_window">
         <field name="name">Quality Alert Stages</field>
         <field name="res_model">quality.alert.stage</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new quality alert stage
@@ -746,7 +746,7 @@
 
     <!-- QUALITY.POINT -->
     <record id="quality_point_view_tree" model="ir.ui.view">
-        <field name="name">quality.point.view.tree.inherit.quality.control</field>
+        <field name="name">quality.point.view.list.inherit.quality.control</field>
         <field name="model">quality.point</field>
         <field name="inherit_id" ref="quality.quality_point_view_tree"/>
         <field name="priority">10</field>
@@ -869,7 +869,7 @@
     <record model="ir.actions.act_window" id="quality_point_action">
         <field name="name">Quality Control Points</field>
         <field name="res_model">quality.point</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="search_view_id" ref="quality_point_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

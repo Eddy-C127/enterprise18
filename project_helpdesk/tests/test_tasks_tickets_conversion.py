@@ -59,9 +59,9 @@ class TestTasksTicketsConversion(TestProjectCommon, HelpdeskCommon):
         self.assertEqual(len(tickets), 2, "2 tickets should have been created")
         self.assertEqual(tickets.team_id, self.test_team, "Created tickets should be in the selected team")
         self.assertEqual(tickets.stage_id, self.stage_progress, "Created tickets should be in the selected stage")
-        self.assertEqual(view['view_mode'], 'tree,form', "Wizard should redirect to a tree view")
+        self.assertEqual(view['view_mode'], 'tree,form', "Wizard should redirect to a list view")
         self.assertEqual(view['res_model'], 'helpdesk.ticket', "Wizard should redirect to a helpdesk.ticket view")
-        self.assertCountEqual(view['domain'][0][2], tickets.ids, "Wizard should redirect to a tree view of the created tickets")
+        self.assertCountEqual(view['domain'][0][2], tickets.ids, "Wizard should redirect to a list view of the created tickets")
 
     def test_convert_task_to_ticket_no_rights(self):
         user = new_test_user(self.env, 'project', 'project.group_project_user')
@@ -102,9 +102,9 @@ class TestTasksTicketsConversion(TestProjectCommon, HelpdeskCommon):
         self.assertEqual(len(tasks), 2, "2 tasks should have been created")
         self.assertEqual(tasks.project_id, self.project_goats, "Created tasks should be in the selected project")
         self.assertEqual(tasks.stage_id, self.task_stage, "Created tasks should be in the selected stage")
-        self.assertEqual(view['view_mode'], 'tree,form', "Wizard should redirect to a tree view")
+        self.assertEqual(view['view_mode'], 'tree,form', "Wizard should redirect to a list view")
         self.assertEqual(view['res_model'], 'project.task', "Wizard should redirect to a project.task view")
-        self.assertCountEqual(view['domain'][0][2], tasks.ids, "Wizard should redirect to a tree view of the created tasks")
+        self.assertCountEqual(view['domain'][0][2], tasks.ids, "Wizard should redirect to a list view of the created tasks")
 
     def test_convert_ticket_to_task_no_rights(self):
         user = new_test_user(self.env, 'helpdesk', 'helpdesk.group_helpdesk_user')

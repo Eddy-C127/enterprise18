@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="l10n_ch_location_unit_view_tree" model="ir.ui.view">
-        <field name="name">l10n.ch.location.unit.view.tree</field>
+        <field name="name">l10n.ch.location.unit.view.list</field>
         <field name="model">l10n.ch.location.unit</field>
         <field name="arch" type="xml">
-            <tree string="Work addresses">
+            <list string="Work addresses">
                 <field name="partner_id"/>
                 <field name="bur_ree_number"/>
                 <field name="canton"/>
@@ -13,7 +13,7 @@
                 <field name="weekly_hours"/>
                 <field name="weekly_lessons"/>
                 <field name="company_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -41,6 +41,6 @@
     <record id="action_l10n_ch_location_unit" model="ir.actions.act_window">
         <field name="name">Work addresses</field>
         <field name="res_model">l10n.ch.location.unit</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

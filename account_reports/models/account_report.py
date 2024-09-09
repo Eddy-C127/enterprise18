@@ -4209,7 +4209,7 @@ class AccountReport(models.Model):
 
         'account_codes' engine's D and C formulas can't be handled by a domain: we make the choice to display
         everything for them (so, audit shows all the lines that are considered by the formula). To avoid confusion from the user
-        when auditing such lines, a default group by account can be used in the tree view.
+        when auditing such lines, a default group by account can be used in the list view.
         """
         if expression_to_audit.engine == 'account_codes':
             formula = expression_to_audit.formula.replace(' ', '')
@@ -4351,7 +4351,7 @@ class AccountReport(models.Model):
 
         return {
             'name': self._get_action_name(params, record_model, record_id),
-            'view_mode': 'tree,pivot,graph,kanban',
+            'view_mode': 'list,pivot,graph,kanban',
             'res_model': 'account.move.line',
             'views': [(view_id, 'list')],
             'type': 'ir.actions.act_window',
@@ -4399,7 +4399,7 @@ class AccountReport(models.Model):
             'name': _('Deferred Entries'),
             'res_model': 'account.move.line',
             'domain': [('id', 'in', deferral_line_ids)],
-            'views': [(False, 'tree'), (False, 'form')],
+            'views': [(False, 'list'), (False, 'form')],
             'context': {
                 'search_default_group_by_move': True,
                 'expand': True,
@@ -4608,12 +4608,12 @@ class AccountReport(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _("Enable Sections"),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'account.report',
             'domain': [('section_main_report_ids', 'in', options['sections_source_id']), ('active', '=', False)],
             'views': [(False, 'list'), (False, 'form')],
             'context': {
-                'tree_view_ref': 'account_reports.account_report_add_sections_tree',
+                'list_view_ref': 'account_reports.account_report_add_sections_tree',
                 'active_test': False,
             },
         }

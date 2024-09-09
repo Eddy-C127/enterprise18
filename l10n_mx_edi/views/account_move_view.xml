@@ -69,7 +69,7 @@
                           name="page_cfdi"
                           invisible="not l10n_mx_edi_document_ids">
                         <field name="l10n_mx_edi_document_ids">
-                            <tree create="false" delete="false" edit="false" no_open="1">
+                            <list create="false" delete="false" edit="false" no_open="1">
                                 <!-- Invisible fields -->
                                 <field name="attachment_id" column_invisible="1"/>
                                 <field name="cancel_button_needed" column_invisible="1"/>
@@ -106,7 +106,7 @@
                                         type="object"
                                         string="Cancel"
                                         invisible="not cancel_button_needed"/>
-                            </tree>
+                            </list>
                         </field>
                     </page>
                 </xpath>
@@ -114,7 +114,7 @@
         </record>
 
         <record id="view_out_invoice_tree_inherit_l10n_mx_edi" model="ir.ui.view">
-            <field name="name">account.move.tree.inherit.l10n_mx_edi</field>
+            <field name="name">account.move.list.inherit.l10n_mx_edi</field>
             <field name="model">account.move</field>
             <field name="inherit_id" ref="account.view_out_invoice_tree"/>
             <field name="arch" type="xml">

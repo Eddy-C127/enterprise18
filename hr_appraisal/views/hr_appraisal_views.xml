@@ -161,10 +161,10 @@
     </record>
 
     <record model="ir.ui.view" id="view_hr_appraisal_tree">
-        <field name="name">hr.appraisal.tree</field>
+        <field name="name">hr.appraisal.list</field>
         <field name="model">hr.appraisal</field>
         <field name="arch" type="xml">
-            <tree string="Appraisal" multi_edit="1" sample="1" js_class="appraisal_list_view">
+            <list string="Appraisal" multi_edit="1" sample="1" js_class="appraisal_list_view">
                 <field name="active" column_invisible="True"/>
                 <field name="employee_id" string="Name" readonly="1" widget="many2one_avatar_user"/>
                 <field name="department_id"/>
@@ -178,20 +178,20 @@
                     decoration-warning="state == 'new'" decoration-info="state == 'pending'" decoration-success="state == 'done'"/>
                 <field name="company_id" readonly="1" optional="hide"/>
                 <field name="activity_exception_decoration" widget="activity_exception"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="hr_appraisal_view_tree_orderby_create_date" model="ir.ui.view">
-        <field name="name">hr.appraisal.tree</field>
+        <field name="name">hr.appraisal.list</field>
         <field name="model">hr.appraisal</field>
         <field name="inherit_id" ref="view_hr_appraisal_tree"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <attribute name="default_order">date_close desc</attribute>
                 <attribute name="expand">1</attribute>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -379,7 +379,7 @@
         <field name="name">Appraisals</field>
         <field name="path">appraisals</field>
         <field name="res_model">hr.appraisal</field>
-        <field name="view_mode">kanban,tree,gantt,calendar,form,activity</field>
+        <field name="view_mode">kanban,list,gantt,calendar,form,activity</field>
         <field name="context">{
             'search_default_todo_appraisals': 1,
             'search_default_groupby_date_close': 3,
@@ -396,14 +396,14 @@
     <record model="ir.actions.act_window" id="open_view_hr_appraisal_tree2">
         <field name="name">Appraisal</field>
         <field name="res_model">hr.appraisal</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="view_mode">kanban,list,form,activity</field>
         <field name="context">{"search_default_employee_id": [active_id], "default_employee_id": active_id}</field>
     </record>
 
     <record model="ir.actions.act_window" id="hr_appraisal_action">
         <field name="name">Appraisal</field>
         <field name="res_model">hr.appraisal</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="view_mode">kanban,list,form,activity</field>
         <field name="domain">[('employee_id.user_id', '=', uid)]</field>
         <field name="context">{'search_default_todo_appraisals': 1}</field>
     </record>
@@ -411,14 +411,14 @@
     <record model="ir.actions.act_window" id="hr_appraisal_action_my">
         <field name="name">My Appraisals</field>
         <field name="res_model">hr.appraisal</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="view_mode">kanban,list,form,activity</field>
         <field name="context">{'search_default_my_appraisals': 1}</field>
     </record>
 
     <record id="hr_appraisal_action_from_department" model="ir.actions.act_window">
             <field name="name">Appraisal to start</field>
             <field name="res_model">hr.appraisal</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="search_view_id" ref="hr_appraisal_search"/>
             <field name="context">{
                 'searchpanel_default_department_id': active_id,

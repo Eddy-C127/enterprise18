@@ -35,12 +35,12 @@
                     <notebook>
                         <page string="Devices" name="devices">
                             <field name="device_ids" readonly="False">
-                                <tree>
+                                <list>
                                     <field name="name"/>
                                     <field name="identifier"/>
                                     <field name="type"/>
                                     <field name="connection"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Technical Information" groups="base.group_no_one">
@@ -94,13 +94,13 @@
         <field name="name">iot.box.view.list</field>
         <field name="model">iot.box</field>
         <field name="arch" type="xml">
-            <tree create="false">
+            <list create="false">
                 <header>
                     <button name="%(iot.action_add_iot_box)d" type="action" string="Connect" class="btn-primary o_list_button_save" display="always"/>
                 </header>
                 <field name="name"/>
                 <field name="identifier"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="iot_box_action" model="ir.actions.act_window">
@@ -150,7 +150,7 @@
                     </group>
                     <notebook>
                         <page string="Printer Reports" name="reports" invisible="type != 'printer'">
-                            <field name="report_ids" widget="many2many" context="{'tree_view_ref': 'iot.act_report_xml_view_tree_iot'}"/>
+                            <field name="report_ids" widget="many2many" context="{'list_view_ref': 'iot.act_report_xml_view_tree_iot'}"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -194,11 +194,11 @@
         <field name="name">iot.device.view.list</field>
         <field name="model">iot.device</field>
         <field name="arch" type="xml">
-            <tree create="false">
+            <list create="false">
                 <field name="name"/>
                 <field name="iot_id"/>
                 <field name="identifier"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="iot_device_search" model="ir.ui.view">
@@ -276,15 +276,15 @@
     </record>
 
     <record id="act_report_xml_view_tree_iot" model="ir.ui.view">
-        <field name="name">ir.actions.report.tree.iot</field>
+        <field name="name">ir.actions.report.list.iot</field>
         <field name="model">ir.actions.report</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree string="Report xml">
+            <list string="Report xml">
                 <field name="name"/>
                 <field name="model"/>
                 <field name="report_type"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

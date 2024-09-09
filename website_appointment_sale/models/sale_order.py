@@ -27,7 +27,7 @@ class SaleOrder(models.Model):
     def action_view_calendar_events(self):
         action = self.env['ir.actions.act_window']._for_xml_id('calendar.action_calendar_event')
         action['domain'] = [('id', 'in', self.order_line.calendar_event_id.ids)]
-        action['views'] = [(False, 'tree'), (False, 'form')]
+        action['views'] = [(False, 'list'), (False, 'form')]
         action['context'] = {'active_test': False}
         return action
 

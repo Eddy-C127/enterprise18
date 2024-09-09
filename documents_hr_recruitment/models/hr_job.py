@@ -22,7 +22,7 @@ class HrJob(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'documents.document',
             'name': _('Documents'),
-            'view_mode': 'kanban,tree,form',
+            'view_mode': 'kanban,list,form',
             'domain': ['|',
                 '&', ('res_model', '=', 'hr.job'), ('res_id', 'in', self.ids),
                 '&', ('res_model', '=', 'hr.applicant'), ('res_id', 'in', self.application_ids.ids),

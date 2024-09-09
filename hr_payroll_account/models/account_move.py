@@ -33,7 +33,7 @@ class AccountMove(models.Model):
         }
         if self.payslip_count > 1:
             return_action.update({
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'domain': [('id', 'in', self.payslip_ids.ids)],
             })
         else:

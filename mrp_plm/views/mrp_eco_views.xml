@@ -4,7 +4,7 @@
     <record id="mrp_eco_action" model="ir.actions.act_window">
         <field name="name">Engineering Change Orders</field>
         <field name="res_model">mrp.eco</field>
-        <field name="view_mode">kanban,tree,calendar,pivot,graph,form,activity</field>
+        <field name="view_mode">kanban,list,calendar,pivot,graph,form,activity</field>
         <field name="domain">[('type_id', '=',active_id)]</field>
         <field name="context">{'search_default_type_id': [active_id], 'default_type_ids': active_ids, 'default_type_id': active_id}</field>
         <field name="help" type="html">
@@ -21,7 +21,7 @@
     <record id="mrp_eco_action_approval_my" model="ir.actions.act_window">
         <field name="name">Engineering Change Orders</field>
         <field name="res_model">mrp.eco</field>
-        <field name="view_mode">kanban,tree,calendar,pivot,graph,form,activity</field>
+        <field name="view_mode">kanban,list,calendar,pivot,graph,form,activity</field>
         <field name="context">{'search_default_type_id': [active_id], 'default_type_ids': active_ids, 'default_type_id': active_id, 'search_default_toapprove_my': True}</field>
         <field name="domain">[('type_id', '=',active_id)]</field>
         <field name="help" type="html">
@@ -38,7 +38,7 @@
     <record id="mrp_eco_action_approval" model="ir.actions.act_window">
         <field name="name">Engineering Change Orders</field>
         <field name="res_model">mrp.eco</field>
-        <field name="view_mode">kanban,tree,calendar,pivot,graph,form,activity</field>
+        <field name="view_mode">kanban,list,calendar,pivot,graph,form,activity</field>
         <field name="context">{'search_default_type_id': [active_id], 'default_type_ids': active_ids, 'default_type_id': active_id, 'search_default_toapprove': True}</field>
         <field name="domain">[('type_id', '=',active_id)]</field>
         <field name="help" type="html">
@@ -55,7 +55,7 @@
     <record id="mrp_eco_action_late" model="ir.actions.act_window">
         <field name="name">Engineering Change Orders</field>
         <field name="res_model">mrp.eco</field>
-        <field name="view_mode">kanban,tree,calendar,pivot,graph,form,activity</field>
+        <field name="view_mode">kanban,list,calendar,pivot,graph,form,activity</field>
         <field name="context">{'search_default_type_id': [active_id], 'default_type_ids': active_ids, 'default_type_id': active_id, 'search_default_changetoapply': True}</field>
         <field name="domain">[('type_id', '=',active_id)]</field>
         <field name="help" type="html">
@@ -71,13 +71,13 @@
 
     <!-- MRP.ECO.TYPE -->
     <record id="mrp_eco_type_view_tree" model="ir.ui.view">
-        <field name="name">mrp.eco.type.view.tree</field>
+        <field name="name">mrp.eco.type.view.list</field>
         <field name="model">mrp.eco.type</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -225,9 +225,9 @@
     <record id="mrp_eco_type_action_form" model="ir.actions.act_window">
         <field name="name">ECO Types</field>
         <field name="res_model">mrp.eco.type</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('mrp_eco_type_view_tree')}),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('mrp_eco_type_view_tree')}),
             (0, 0, {'view_mode': 'kanban', 'view_id': ref('mrp_eco_type_view_kanban')})]"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -239,10 +239,10 @@
 
     <!-- MRP.ECO -->
     <record id="mrp_eco_view_tree" model="ir.ui.view">
-        <field name="name">mrp.eco.view.tree</field>
+        <field name="name">mrp.eco.view.list</field>
         <field name="model">mrp.eco</field>
         <field name="arch" type="xml">
-            <tree sample="1">
+            <list sample="1">
                 <header>
                     <button name="action_apply" type="object" string="Apply Changes"/>
                 </header>
@@ -257,7 +257,7 @@
                 <field name="effectivity_date"/>
                 <field name="company_id" groups="base.group_multi_company"/>
                 <field name="activity_exception_decoration" widget="activity_exception"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -458,60 +458,60 @@
                             invisible="state == 'confirmed' or type in ('product', 'routing') or not bom_change_ids_on_line"
                             help="Changes made on the new revision bill of materials">
                             <field name="bom_change_ids_on_line">
-                                <tree decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
+                                <list decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
                                     <field name="change_type"/>
                                     <field name="product_id"/>
                                     <field name="upd_product_qty" widget="plm_upd_qty"/>
                                     <field name="uom_change" groups="uom.group_uom"/>
                                     <field name="operation_change" groups="mrp.group_mrp_routings"/>
                                     <button name="action_open_component_change" type="object" icon="fa-external-link" class="oe_edit_only" title="Open Component"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="By-Product Changes" name="byproduct_changes"
                             invisible="state == 'confirmed' or type in ('product', 'routing') or not bom_change_ids_on_byproduct"
                             help="Changes made on the new revision bill of materials">
                             <field name="bom_change_ids_on_byproduct">
-                                <tree decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
+                                <list decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
                                     <field name="change_type"/>
                                     <field name="product_id"/>
                                     <field name="upd_product_qty" widget="plm_upd_qty"/>
                                     <field name="operation_change" string="Produced in Operation" groups="mrp.group_mrp_routings"/>
                                     <button name="action_open_byproduct_change" type="object" icon="fa-external-link" class="oe_edit_only" title="Open Component"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Component Rebase" name="bom_rebase" invisible="not bom_rebase_ids">
                             <field name="bom_rebase_ids" readonly="1" help="Changes made on old bill of materials">
-                                <tree decoration-danger="conflict">
+                                <list decoration-danger="conflict">
                                     <field name="change_type"/>
                                     <field name="product_id"/>
                                     <field name="upd_product_qty" widget="plm_upd_qty"/>
                                     <field name="uom_change" groups="uom.group_uom"/>
                                     <field name="operation_change" groups="mrp.group_mrp_routings"/>
                                     <field name="conflict" column_invisible="True"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Previous Eco Component Changes" name="previous_eco_bom_changes"
                             help="Changes made in previous eco"
                             invisible="not previous_change_ids">
                             <field name="previous_change_ids" readonly="1">
-                                <tree decoration-danger="conflict">
+                                <list decoration-danger="conflict">
                                     <field name="change_type"/>
                                     <field name="product_id"/>
                                     <field name="upd_product_qty" widget="plm_upd_qty"/>
                                     <field name="uom_change" groups="uom.group_uom"/>
                                     <field name="operation_change" groups="mrp.group_mrp_routings"/>
                                     <field name="conflict" column_invisible="True"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Operation Changes" name="operation_changes"
                             invisible="not routing_change_ids"
                             help="Changes made on the operation.">
                             <field name="routing_change_ids">
-                                <tree decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
+                                <list decoration-danger="change_type=='remove'" decoration-info="change_type=='add'" create="false" delete="false" no_open="true">
                                     <field name="change_type"/>
                                     <field name="operation_name"/>
                                     <field name="workcenter_id"/>
@@ -519,12 +519,12 @@
                                     <field name="upd_time_mode_batch" widget="plm_upd_qty" invisible="upd_time_mode in ('manual', 'auto -> manual') or upd_time_mode_batch == 0" optional="hide"/>
                                     <field name="upd_time_cycle_manual" widget="plm_upd_qty" invisible="upd_time_mode in ('auto', 'manual -> auto') or upd_time_cycle_manual == 0"/>
                                     <button name="action_open_routing_change_operation" type="object" icon="fa-external-link" class="oe_edit_only" title="Open Operation"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Approvals" name="approvals">
                             <field name="approval_ids" nolabel="1" readonly="1" help="Define the approval roles on the ECO stages.">
-                                <tree decoration-danger="template_stage_id == eco_stage_id and status == 'rejected' and not is_closed"
+                                <list decoration-danger="template_stage_id == eco_stage_id and status == 'rejected' and not is_closed"
                                   decoration-info="template_stage_id == eco_stage_id and status == 'none' and not is_closed"
                                   decoration-success="template_stage_id == eco_stage_id and status in ('approved', 'commented') and not is_closed"
                                   decoration-muted="template_stage_id != eco_stage_id">
@@ -536,7 +536,7 @@
                                     <field name="required_user_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                     <field name="eco_stage_id" column_invisible="True"/>
                                     <field name="is_closed" column_invisible="True"/>
-                                </tree>
+                                </list>
                                 <form>
                                     <group>
                                         <group>
@@ -605,7 +605,7 @@
     <record id="mrp_eco_action_main" model="ir.actions.act_window">
         <field name="name">Engineering Change Orders</field>
         <field name="res_model">mrp.eco</field>
-        <field name="view_mode">kanban,tree,calendar,pivot,graph,form,activity</field>
+        <field name="view_mode">kanban,list,calendar,pivot,graph,form,activity</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
               No engineering change order found
@@ -634,16 +634,16 @@
 
     <!-- MRP.ECO.STAGE -->
     <record id="mrp_eco_stage_view_tree" model="ir.ui.view">
-        <field name="name">mrp.eco.stage.view.tree</field>
+        <field name="name">mrp.eco.stage.view.list</field>
         <field name="model">mrp.eco.stage</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="approval_roles"/>
                 <field name="folded"/>
                 <field name="type_ids" widget="many2many_tags"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -685,12 +685,12 @@
                     </group>
                     <group name="approvals" string="Approvals">
                         <field name="approval_template_ids" nolabel="1">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="sequence" widget="handle"/>
                                 <field name="name" placeholder="e.g. Engineering Department"/>
                                 <field name="user_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                                 <field name="approval_type"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                     <group name="stage_state_config" string="Stage Description and Tooltips">
@@ -724,7 +724,7 @@
     <record id="mrp_eco_stage_action" model="ir.actions.act_window">
         <field name="name">ECO Stages</field>
         <field name="res_model">mrp.eco.stage</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new ECO stage
@@ -746,19 +746,19 @@
     </record>
 
     <record id="mrp_eco_tag_view_tree" model="ir.ui.view">
-        <field name="name">mrp.eco.tag.view.tree</field>
+        <field name="name">mrp.eco.tag.view.list</field>
         <field name="model">mrp.eco.tag</field>
         <field name="arch" type="xml">
-            <tree string="Tags" editable="bottom">
+            <list string="Tags" editable="bottom">
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="mrp_eco_tag_action" model="ir.actions.act_window">
         <field name="name">ECO Tags</field>
         <field name="res_model">mrp.eco.tag</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
             Add a new tag

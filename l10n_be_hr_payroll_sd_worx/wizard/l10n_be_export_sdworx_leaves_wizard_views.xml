@@ -14,7 +14,7 @@
                 </group>
                 <group>
                     <field name="leave_ids">
-                        <tree>
+                        <list>
                             <field name="employee_id" widget="many2one_avatar_user" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
                             <field name="holiday_status_id" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
                             <field name="name" optional="hide"/>
@@ -22,7 +22,7 @@
                             <field name="date_to" optional="show" readonly="state in ['cancel', 'refuse', 'validate', 'validate1']"/>
                             <field name="number_of_days"/>
                             <field name="state" column_invisible="True"/>
-                        </tree>
+                        </list>
                     </field>
                     <group invisible="not export_file">
                         <field name="export_file" readonly="1" filename="export_filename"/>

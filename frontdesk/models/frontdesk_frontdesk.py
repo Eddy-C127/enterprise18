@@ -116,7 +116,7 @@ class Frontdesk(models.Model):
             'type': 'ir.actions.act_window',
             'name': _("Visitors"),
             'res_model': 'frontdesk.visitor',
-            'view_mode': 'tree,form,kanban,graph,pivot,calendar,gantt',
+            'view_mode': 'list,form,kanban,graph,pivot,calendar,gantt',
             'context': {
                 "search_default_state_is_planned": 1,
                 "search_default_state_is_checked_in": 1,

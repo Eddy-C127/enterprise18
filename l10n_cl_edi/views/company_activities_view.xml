@@ -30,21 +30,21 @@
     </record>
 
     <record id="view_partner_activities_tree" model="ir.ui.view">
-        <field name="name">l10n_cl.company.activities.tree</field>
+        <field name="name">l10n_cl.company.activities.list</field>
         <field name="model">l10n_cl.company.activities</field>
         <field name="arch" type="xml">
-            <tree string="SII Economic Activities">
+            <list string="SII Economic Activities">
                 <field name="code"/>
                 <field name="name"/>
                 <field name="tax_category"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record model="ir.actions.act_window" id="act_partner_activities">
         <field name="name">SII Partner Activities</field>
         <field name="res_model">l10n_cl.company.activities</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem name="SII Partner Activities"

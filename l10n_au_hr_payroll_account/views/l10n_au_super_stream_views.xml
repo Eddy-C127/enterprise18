@@ -53,13 +53,13 @@
     </record>
 
     <record id="l10n_au_super_stream_view_tree" model="ir.ui.view">
-        <field name="name">l10n_au.super.stream.view.tree</field>
+        <field name="name">l10n_au.super.stream.view.list</field>
         <field name="model">l10n_au.super.stream</field>
         <field name="arch" type="xml">
-            <tree string="SuperStream">
+            <list string="SuperStream">
                 <field name="display_name" />
                 <field name="company_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -139,24 +139,24 @@
     </record>
 
     <record id="l10n_au_super_stream_line_view_tree" model="ir.ui.view">
-        <field name="name">l10n_au.super.stream.line.view.tree</field>
+        <field name="name">l10n_au.super.stream.line.view.list</field>
         <field name="model">l10n_au.super.stream.line</field>
         <field name="arch" type="xml">
-            <tree string="SuperStream Lines" default_order="payslip_id asc, proportion desc">
+            <list string="SuperStream Lines" default_order="payslip_id asc, proportion desc">
                 <field name="payslip_id" column_invisible="True"/>
                 <field name="name"/>
                 <field name="employer_id"/>
                 <field name="payee_id"/>
                 <field name="employee_id"/>
                 <field name="proportion" widget="percentage" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_au_super_stream_action" model="ir.actions.act_window">
         <field name="name">SuperStream</field>
         <field name="res_model">l10n_au.super.stream</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <menuitem

@@ -40,10 +40,10 @@
     </record>
 
     <record id="project_timesheet_forecast_report_analysis_view_tree" model="ir.ui.view">
-         <field name="name">project.timesheet.forecast.report.analysis.view.tree</field>
+         <field name="name">project.timesheet.forecast.report.analysis.view.list</field>
          <field name="model">project.timesheet.forecast.report.analysis</field>
          <field name="arch" type="xml">
-            <tree string="Timesheets and Planning Analysis">
+            <list string="Timesheets and Planning Analysis">
                 <field name="entry_date"/>
                 <field name="project_id" optional="show"/>
                 <field name="employee_id" optional="show" widget="many2one_avatar_employee"/>
@@ -51,7 +51,7 @@
                 <field name="planned_hours" optional="show" sum="Sum of Planned Hours"/>
                 <field name="effective_hours" optional="show" sum="Sum of Effective Hours"/>
                 <field name="difference" optional="show" sum="Sum of Difference"/>
-            </tree>
+            </list>
          </field>
     </record>
 

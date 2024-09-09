@@ -19,7 +19,7 @@ class HrPayrollDeclarationMixin(models.AbstractModel):
             'res_model': 'documents.document',
             'type': 'ir.actions.act_window',
             'views': [(False, 'kanban'), (False, 'list'), (False, 'form')],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'context': {'searchpanel_default_folder_id': self.company_id.documents_payroll_folder_id.id}
         }
 

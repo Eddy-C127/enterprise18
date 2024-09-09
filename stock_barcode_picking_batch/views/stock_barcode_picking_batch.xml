@@ -19,7 +19,7 @@
                     <field name="state" readonly="1"/>
                     <field name="company_id" readonly="1" groups="base.group_multi_company"/>
                     <field name="picking_ids" widget="many2many" invisible="not picking_ids" readonly="state not in ['draft', 'in_progress']">
-                        <tree decoration-danger="state != 'assigned'">
+                        <list decoration-danger="state != 'assigned'">
                             <button name="action_unbatch"
                                 title="Unbatch Transfer" string="Unbatch Transfer"
                                 icon="fa-chain-broken" type="object"
@@ -28,15 +28,15 @@
                             <field name="scheduled_date" readonly="state in ['cancel', 'done']"/>
                             <field name="location_id" readonly="state == 'done'"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                     <field name="move_ids" readonly="1" invisible="not move_ids">
-                        <tree>
+                        <list>
                             <field name="product_id" readonly="state == 'done'"/>
                             <field name="description_picking" string="Description"/>
                             <field name="product_uom_qty" readonly="state == 'done'"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                 </group>
                 <div class="o_barcode_control d-flex justify-content-between p-2 gap-2">

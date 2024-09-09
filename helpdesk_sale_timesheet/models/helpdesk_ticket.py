@@ -174,7 +174,7 @@ class HelpdeskTicket(models.Model):
             "type": "ir.actions.act_window",
             "res_model": "account.move",
             "name": _("Invoices"),
-            "views": [[False, 'form']] if len(invoices) == 1 else [[False, "tree"], [False, "form"]],
+            "views": [[False, 'form']] if len(invoices) == 1 else [[False, "list"], [False, "form"]],
             "context": {"create": False},
             "domain": [('id', 'in', invoices.ids)],
             "res_id": invoices.id if len(invoices) == 1 else False,

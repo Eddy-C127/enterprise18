@@ -58,10 +58,10 @@
     </record>
 
     <record id="quality_alert_view_tree" model="ir.ui.view">
-        <field name="name">quality.alert.view.tree</field>
+        <field name="name">quality.alert.view.list</field>
         <field name="model">quality.alert</field>
         <field name="arch" type="xml">
-            <tree sample="1">
+            <list sample="1">
                 <field name="name" decoration-bf="1"/>
                 <field name="product_tmpl_id" optional="show"/>
                 <field name="product_id" optional="hide"/>
@@ -73,7 +73,7 @@
                 <field name="priority" optional="hide"/>
                 <field name="date_assign" optional="show"/>
                 <field name="partner_id" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -115,10 +115,10 @@
     </record>
 
     <record id="quality_point_view_tree" model="ir.ui.view">
-        <field name="name">quality.point.view.tree</field>
+        <field name="name">quality.point.view.list</field>
         <field name="model">quality.point</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name" decoration-bf="1"/>
                 <field name="title" optional="show"/>
@@ -129,7 +129,7 @@
                 <field name="team_id" optional="show"/>
                 <field name="user_id" optional="hide" widget='many2one_avatar_user'/>
                 <field name="company_id" groups="base.group_multi_company" optional="show"/>
-            </tree>
+            </list>
         </field>
     </record>
 

@@ -44,10 +44,10 @@ class HrEmployeeBase(models.AbstractModel):
             }
         else:
             return {
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'name': _('New and Pending Appraisals'),
                 'res_model': 'hr.appraisal',
-                "views": [[self.env.ref('hr_appraisal.view_hr_appraisal_tree').id, "tree"], [False, "form"]],
+                "views": [[self.env.ref('hr_appraisal.view_hr_appraisal_tree').id, "list"], [False, "form"]],
                 'type': 'ir.actions.act_window',
                 'target': 'current',
                 'domain': [('id', 'in', relevant_appraisals.ids)],

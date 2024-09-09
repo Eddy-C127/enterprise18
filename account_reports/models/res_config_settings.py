@@ -24,7 +24,7 @@ class ResConfigSettings(models.TransientModel):
             'type': 'ir.actions.act_window',
             'name': 'Tax groups',
             'res_model': 'account.tax.group',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'context': {
                 'default_country_id': self.account_fiscal_country_id.id,
                 'search_default_country_id': self.account_fiscal_country_id.id,

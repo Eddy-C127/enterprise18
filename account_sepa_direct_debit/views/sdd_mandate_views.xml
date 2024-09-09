@@ -61,10 +61,10 @@
         </record>
 
         <record model="ir.ui.view" id="account_sepa_direct_debit_mandate_tree">
-            <field name="name">sdd.mandate.tree</field>
+            <field name="name">sdd.mandate.list</field>
             <field name="model">sdd.mandate</field>
             <field name="arch" type="xml">
-                <tree decoration-info="state == 'draft'" decoration-muted="state == 'closed'" decoration-danger="state == 'revoked'" default_order="start_date desc">
+                <list decoration-info="state == 'draft'" decoration-muted="state == 'closed'" decoration-danger="state == 'revoked'" default_order="start_date desc">
                     <field name="partner_id" readonly="state != 'draft'"/>
                     <field name="name" readonly="state != 'draft'"/>
                     <field name="start_date" readonly="state != 'draft'"/>
@@ -72,7 +72,7 @@
                     <field name="state"/>
                     <field name="sdd_scheme"/>
                     <field name="company_id" groups="base.group_multi_company"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -94,7 +94,7 @@
         <record id="account_sepa_direct_debit_mandate_tree_act" model="ir.actions.act_window">
             <field name="name">Direct Debit Mandates</field>
             <field name="res_model">sdd.mandate</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="context">{'search_default_account_sdd_mandate_active_filter':1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">

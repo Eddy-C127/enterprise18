@@ -30,7 +30,7 @@ beforeEach(() => {
 });
 
 test("create attribute", async () => {
-    Tasks._views.list = `<tree><field name="name"/></tree>`;
+    Tasks._views.list = `<list><field name="name"/></list>`;
     Tasks._views.search = `<search><field name="name"/></search>`;
     onRpc("has_group", () => true);
     await mountGanttView({

@@ -31,11 +31,11 @@
                         </p>
                     </div>
                     <field name="line_ids">
-                        <tree no_open="1" editable="bottom">
+                        <list no_open="1" editable="bottom">
                             <field name="employee_id" widget="many2one_avatar_user"/>
                             <field name="surcharge_percentage" widget="percentage" />
                             <field name="amount_surcharge" />
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -43,21 +43,21 @@
     </record>
 
     <record id="l10n_hk_manulife_mpf_view_tree" model="ir.ui.view">
-        <field name="name">l10n_hk.manulife.mpf.view.tree</field>
+        <field name="name">l10n_hk.manulife.mpf.view.list</field>
         <field name="model">l10n_hk.manulife.mpf</field>
         <field name="arch" type="xml">
-            <tree string="Manulife MPF Sheets">
+            <list string="Manulife MPF Sheets">
                 <field name="display_name" string="Name" />
                 <field name="month" />
                 <field name="year" />
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_hk_manulife_mpf_action" model="ir.actions.act_window">
         <field name="name">Manulife MPF Sheet</field>
         <field name="res_model">l10n_hk.manulife.mpf</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 </odoo>

@@ -40,21 +40,21 @@
     </record>
 
     <record id="l10n_be_273S_view_tree" model="ir.ui.view">
-        <field name="name">l10n_be.273s.view.tree</field>
+        <field name="name">l10n_be.273s.view.list</field>
         <field name="model">l10n_be.273s</field>
         <field name="arch" type="xml">
-            <tree string="273S Sheets">
+            <list string="273S Sheets">
                 <field name="month"/>
                 <field name="year"/>
                 <field name="period" column_invisible="True"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_be_273S_action" model="ir.actions.act_window">
         <field name="name">273S Sheet</field>
         <field name="res_model">l10n_be.273s</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 

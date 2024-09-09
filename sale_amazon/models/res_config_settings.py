@@ -17,7 +17,7 @@ class ResConfigSettings(models.TransientModel):
             'type': 'ir.actions.act_window',
             'name': _('Default Products'),
             'res_model': 'product.product',
-            'view_mode': 'kanban,tree,form',
+            'view_mode': 'kanban,list,form',
             'domain': [('id', 'in', (default_product + shipping_product).ids)],
             'context': {'create': False, 'delete': False, 'active_test': False},
         }

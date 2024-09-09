@@ -103,7 +103,7 @@
     <record id="action_fsm_worksheets" model="ir.actions.act_window">
         <field name="name">Worksheet Templates</field>
         <field name="res_model">worksheet.template</field>
-        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="view_mode">list,form,graph,pivot</field>
         <field name="search_view_id"/>
         <field name="domain">[('res_model', '=', 'project.task')]</field>
         <field name="context">
@@ -231,10 +231,10 @@
                         </div>
                 </button>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/tree/field[@name='project_id']" position="after">
+            <xpath expr="//field[@name='child_ids']/list/field[@name='project_id']" position="after">
                 <field name="worksheet_template_id" optional="hide"/>
             </xpath>
-            <xpath expr="//field[@name='depend_on_ids']/tree/field[@name='project_id']" position="after">
+            <xpath expr="//field[@name='depend_on_ids']/list/field[@name='project_id']" position="after">
                 <field name="worksheet_template_id" optional="hide"/>
             </xpath>
         </field>
@@ -298,7 +298,7 @@
     <record id="fsm_worksheets_action_settings" model="ir.actions.act_window" >
         <field name="name">Worksheet Templates</field>
         <field name="res_model">worksheet.template</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('res_model', '=', 'project.task')]</field>
         <field name="context">
             {
@@ -389,7 +389,7 @@
     <record id="project_task_action_fsm_planning_groupby_worksheet" model="ir.actions.act_window">
         <field name="name">Planning by Worksheet Template</field>
         <field name="res_model">project.task</field>
-        <field name="view_mode">calendar,map,tree,kanban,pivot,graph,activity</field>
+        <field name="view_mode">calendar,map,list,kanban,pivot,graph,activity</field>
         <field name="mobile_view_mode">calendar</field>
         <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
         <field name="domain">[('is_fsm', '=', True), ('project_id', '!=', False), ('display_in_project', '=', True)]</field>
@@ -419,7 +419,7 @@
 
     <record id="project_task_action_planning_groupby_worksheet_fsm_view_list" model="ir.actions.act_window.view">
         <field name="sequence" eval="30"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
         <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
     </record>
@@ -463,7 +463,7 @@
     <record id="project_task_action_fsm_planning_groupby_worksheet2" model="ir.actions.act_window">
         <field name="name">Planning by Worksheet Template</field>
         <field name="res_model">project.task</field>
-        <field name="view_mode">kanban,tree,calendar,map,pivot,graph,activity</field>
+        <field name="view_mode">kanban,list,calendar,map,pivot,graph,activity</field>
         <field name="mobile_view_mode">calendar</field>
         <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
         <field name="domain">[('is_fsm', '=', True), ('project_id', '!=', False), ('display_in_project', '=', True)]</field>
@@ -493,7 +493,7 @@
 
     <record id="project_task_action_planning_groupby_worksheet_fsm2_view_list" model="ir.actions.act_window.view">
         <field name="sequence" eval="10"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
         <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet2"/>
     </record>
@@ -534,7 +534,7 @@
     </record>
 
     <record model="ir.ui.view" id="view_task_tree2_inherited">
-        <field name="name">project.task.tree.inherited</field>
+        <field name="name">project.task.list.inherited</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.project_task_view_tree_base"/>
         <field name="arch" type="xml">
@@ -545,7 +545,7 @@
     </record>
 
     <record id="project_task_view_list_fsm_inherit" model="ir.ui.view">
-        <field name="name">project.task.tree.fsm.inherit</field>
+        <field name="name">project.task.list.fsm.inherit</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
         <field name="arch" type="xml">

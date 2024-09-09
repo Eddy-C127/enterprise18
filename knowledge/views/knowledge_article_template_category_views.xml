@@ -15,19 +15,19 @@
     </record>
 
     <record id="knowledge_article_template_category_view_tree" model="ir.ui.view">
-        <field name="name">knowledge.article.template.category.view.tree</field>
+        <field name="name">knowledge.article.template.category.view.list</field>
         <field name="model">knowledge.article.template.category</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="knowledge_article_template_category_action" model="ir.actions.act_window">
         <field name="name">Template Categories</field>
         <field name="res_model">knowledge.article.template.category</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 </odoo>

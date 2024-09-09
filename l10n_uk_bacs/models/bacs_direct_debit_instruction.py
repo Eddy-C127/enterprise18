@@ -190,7 +190,7 @@ class BACSDirectDebitInstruction(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Payments to Collect'),
             'res_model': 'account.payment',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.mapped('payment_ids').ids), ('state', '=', 'posted')],
         }
 
@@ -199,6 +199,6 @@ class BACSDirectDebitInstruction(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Paid Invoices'),
             'res_model': 'account.move',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.mapped('paid_invoice_ids').ids)],
         }

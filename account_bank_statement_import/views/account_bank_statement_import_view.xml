@@ -15,13 +15,13 @@
     </record>
 
     <record id="view_bank_statement_tree" model="ir.ui.view">
-        <field name="name">account.bank.statement.tree</field>
+        <field name="name">account.bank.statement.list</field>
         <field name="model">account.bank.statement</field>
         <field name="inherit_id" ref="account.view_bank_statement_tree"/>
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <attribute name="js_class">account_tree</attribute>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

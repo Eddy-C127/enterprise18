@@ -78,7 +78,7 @@ QUnit.module("View Editors", () => {
         });
 
         QUnit.test("add a monetary field without currency in the model", async function (assert) {
-            const arch = "<tree><field name='display_name'/></tree>";
+            const arch = "<list><field name='display_name'/></list>";
             const changeArch = makeArchChanger();
             await createViewEditor({
                 type: "list",
@@ -111,7 +111,7 @@ QUnit.module("View Editors", () => {
                         };
 
                         const newArch =
-                            "<tree><field name='display_name'/><field name='x_currency_id'/><field name='monetary_field'/></tree>";
+                            "<list><field name='display_name'/><field name='x_currency_id'/><field name='monetary_field'/></list>";
                         changeArch(args.view_id, newArch);
                     }
                 },
@@ -134,7 +134,7 @@ QUnit.module("View Editors", () => {
         });
 
         QUnit.test("add a monetary field with currency in the model", async function (assert) {
-            const arch = "<tree><field name='display_name'/></tree>";
+            const arch = "<list><field name='display_name'/></list>";
             serverData.models.coucou.fields.x_currency_id = {
                 string: "Currency",
                 type: "many2one",
@@ -171,7 +171,7 @@ QUnit.module("View Editors", () => {
         });
 
         QUnit.test("add a monetary field with currency in the view", async function (assert) {
-            const arch = "<tree><field name='display_name'/><field name='x_currency_id'/></tree>";
+            const arch = "<list><field name='display_name'/><field name='x_currency_id'/></list>";
             serverData.models.coucou.fields.x_currency_id = {
                 string: "Currency",
                 type: "many2one",
@@ -209,7 +209,7 @@ QUnit.module("View Editors", () => {
 
         QUnit.test("edit the currency of a monetary field", async function (assert) {
             const arch =
-                "<tree><field name='display_name'/><field name='monetary_field'/><field name='x_currency_id'/></tree>";
+                "<list><field name='display_name'/><field name='monetary_field'/><field name='x_currency_id'/></list>";
             serverData.models.coucou.fields.x_currency_id = {
                 string: "Currency",
                 type: "many2one",
@@ -270,7 +270,7 @@ QUnit.module("View Editors", () => {
 
             const changeArch = makeArchChanger();
             let nbEdit = 0;
-            const arch = "<tree><field name='display_name'/></tree>";
+            const arch = "<list><field name='display_name'/></list>";
             await createViewEditor({
                 type: "list",
                 serverData,
@@ -302,7 +302,7 @@ QUnit.module("View Editors", () => {
                                 "store arg should be correct"
                             );
                             newArch =
-                                "<tree><field name='display_name'/><field name='related_field'/></tree>";
+                                "<list><field name='display_name'/><field name='related_field'/></list>";
                         } else if (nbEdit === 1) {
                             assert.strictEqual(
                                 args.operations[1].node.field_description.related,
@@ -737,13 +737,13 @@ QUnit.module("View Editors", () => {
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: "<tree><field name='id'/><field name='display_name'/></tree>",
+                arch: "<list><field name='id'/><field name='display_name'/></list>",
                 mockRPC: function (route, args) {
                     if (route === "/web_studio/edit_view") {
                         assert.step("edit_view");
                         // the server sends the arch in string but it's post-processed
                         // by the ViewEditorManager
-                        const newArch = "<tree><field name='display_name'/></tree>";
+                        const newArch = "<list><field name='display_name'/></list>";
                         changeArch(args.view_id, newArch);
                     }
                 },
@@ -1006,12 +1006,12 @@ QUnit.module("View Editors", () => {
                 serverData,
                 type: "list",
                 resModel: "coucou",
-                arch: "<tree><field name='display_name'/></tree>",
+                arch: "<list><field name='display_name'/></list>",
                 mockRPC: function (route, args) {
                     assert.step(route);
                     if (route === "/web_studio/edit_view") {
                         const fieldName = args.operations[0].node.field_description.name;
-                        const newArch = `<tree><field name='${fieldName}'/><field name='display_name'/></tree>`;
+                        const newArch = `<list><field name='${fieldName}'/><field name='display_name'/></list>`;
                         serverData.models.coucou.fields[fieldName] = {
                             string: "Coucou",
                             type: "char",
@@ -1084,7 +1084,7 @@ QUnit.module("View Editors", () => {
             registry.category("services").add("ui", blockUIServ);
 
             const changeArch = makeArchChanger();
-            const arch = "<tree><field name='display_name'/></tree>";
+            const arch = "<list><field name='display_name'/></list>";
             await createViewEditor({
                 type: "list",
                 serverData,
@@ -1094,7 +1094,7 @@ QUnit.module("View Editors", () => {
                     if (route === "/web_studio/edit_view") {
                         assert.step(route);
                         const fieldName = args.operations[0].node.field_description.name;
-                        const newArch = `<tree><field name='${fieldName}'/><field name='display_name'/></tree>`;
+                        const newArch = `<list><field name='${fieldName}'/><field name='display_name'/></list>`;
                         serverData.models.coucou.fields[fieldName] = {
                             string: "Coucou",
                             type: "char",

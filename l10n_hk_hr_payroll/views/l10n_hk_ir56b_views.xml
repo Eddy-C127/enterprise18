@@ -57,21 +57,21 @@
     </record>
 
     <record id="l10n_hk_ir56b_view_tree" model="ir.ui.view">
-        <field name="name">l10n_hk.ir56b.view.tree</field>
+        <field name="name">l10n_hk.ir56b.view.list</field>
         <field name="model">l10n_hk.ir56b</field>
         <field name="arch" type="xml">
-            <tree string="IR56B Sheets">
+            <list string="IR56B Sheets">
                 <field name="display_name" string="Name" />
                 <field name="type_of_form" />
                 <field name="submission_date" />
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_hk_ir56b_action" model="ir.actions.act_window">
         <field name="name">IR56B Sheet</field>
         <field name="res_model">l10n_hk.ir56b</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 </odoo>

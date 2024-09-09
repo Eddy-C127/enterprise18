@@ -358,7 +358,7 @@ class L10nMxEdiDocument(models.Model):
                 'name': _("Global Invoice"),
                 'type': 'ir.actions.act_window',
                 'res_model': self.invoice_ids._name,
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'domain': [('id', 'in', self.invoice_ids.ids)],
                 'context': {'create': False},
             }

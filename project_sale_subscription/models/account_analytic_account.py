@@ -22,7 +22,7 @@ class AccountAnalyticAccount(models.Model):
         result = {
             "type": "ir.actions.act_window",
             "res_model": "sale.order",
-            "views": [[False, "tree"], [False, "form"]],
+            "views": [[False, "list"], [False, "form"]],
             "domain": [["id", "in", subscription_ids]],
             "context": {"create": False},
             "name": "Subscriptions",

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="sale_commission_achievement_view_tree" model="ir.ui.view">
-        <field name="name">sale.commission.achievement.view.tree</field>
+        <field name="name">sale.commission.achievement.view.list</field>
         <field name="model">sale.commission.achievement</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="plan_id"/>
                 <field name="user_id"/>
                 <field name="team_id"/>
@@ -12,7 +12,7 @@
                 <field name="currency_id"/>
                 <field name="date"/>
                 <field name="note"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -32,7 +32,7 @@
     <record id="sale_commission_action_achievement" model="ir.actions.act_window">
         <field name="name">Adjustments</field>
         <field name="res_model">sale.commission.achievement</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="context">{}</field>
         <field name="search_view_id" eval='sale_commission_achievement_view_search'/>
         <field name="help" type="html">

@@ -15,10 +15,10 @@
     </record>
 
     <record id="appointment_invite_view_tree" model="ir.ui.view">
-        <field name="name">appointment.invite.view.tree</field>
+        <field name="name">appointment.invite.view.list</field>
         <field name="model">appointment.invite</field>
         <field name="arch" type="xml">
-            <tree string="Invitation Links" edit="0" duplicate="0" sample="1" js_class="appointment_share_link_list">
+            <list string="Invitation Links" edit="0" duplicate="0" sample="1" js_class="appointment_share_link_list">
                 <field name="create_date" optional="hide"/>
                 <field name="create_uid" widget="many2one_avatar_user" optional="hide"/>
                 <field name="appointment_type_count" column_invisible="True"/>
@@ -35,7 +35,7 @@
                     domain="[('id','in',suggested_resource_ids)]" options="{'no_create': True}" optional="hide"/>
                 <field name="book_url" readonly="1" widget="CopyClipboardChar"/>
                 <field name="calendar_event_count"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -124,7 +124,7 @@
     <record id="appointment_invite_action" model="ir.actions.act_window">
         <field name="name">Share Links</field>
         <field name="res_model">appointment.invite</field>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="context">{'search_default_my_book_urls': 1,}</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">

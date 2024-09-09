@@ -74,10 +74,10 @@
         </record>
 
         <record id="hr_recruitment_report_view_tree" model="ir.ui.view">
-            <field name="name">hr.recruitment.report.view.tree</field>
+            <field name="name">hr.recruitment.report.view.list</field>
             <field name="model">hr.recruitment.report</field>
             <field name="arch" type="xml">
-                <tree
+                <list
                     string="Recruitment Analysis"
                     action="action_open_applicant"
                     type="object"
@@ -88,7 +88,7 @@
                     <field name="medium_id" optional="show"/>
                     <field name="create_date" optional="show"/>
                     <field name="stage_id" optional="show"/>
-                </tree>
+                </list>
             </field>
         </record>
 

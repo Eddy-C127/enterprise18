@@ -6,17 +6,17 @@
         <field name="model">project.task</field>
         <field name="inherit_id" ref="sale_timesheet.project_sharing_inherit_project_task_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='child_ids']/tree/field[@name='effective_hours']" position="attributes">
+            <xpath expr="//field[@name='child_ids']/list/field[@name='effective_hours']" position="attributes">
                 <attribute name="name">portal_effective_hours</attribute>
                 <attribute name="string">Time Spent</attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/tree/field[@name='remaining_hours']" position="attributes">
+            <xpath expr="//field[@name='child_ids']/list/field[@name='remaining_hours']" position="attributes">
                 <attribute name="name">portal_remaining_hours</attribute>
                 <attribute name="string">Time Remaining</attribute>
                 <attribute name="decoration-danger">portal_progress &gt;= 1</attribute>
                 <attribute name="decoration-warning">portal_progress &lt;= 1</attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/tree/field[@name='progress']" position="attributes">
+            <xpath expr="//field[@name='child_ids']/list/field[@name='progress']" position="attributes">
                 <attribute name="name">portal_progress</attribute>
                 <attribute name="string">Progress</attribute>
             </xpath>
@@ -97,7 +97,7 @@
     </record>
 
     <record id="project_sharing_inherit_project_task_view_tree" model="ir.ui.view">
-        <field name="name">sale_timesheet_enterprise.project.task.view.tree.inherit</field>
+        <field name="name">sale_timesheet_enterprise.project.task.view.list.inherit</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.project_sharing_project_task_view_tree"/>
         <field name="arch" type="xml">

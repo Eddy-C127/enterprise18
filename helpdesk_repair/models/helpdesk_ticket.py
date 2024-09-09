@@ -22,7 +22,7 @@ class HelpdeskTicket(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Repairs'),
             'res_model': 'repair.order',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.repair_ids.ids)],
         }
         action['context'] = self._prepare_repairs_default_value()

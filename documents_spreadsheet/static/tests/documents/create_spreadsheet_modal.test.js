@@ -124,7 +124,7 @@ test("Create spreadsheet from list view opens a modal", async function () {
     await mountView({
         resModel: "documents.document",
         type: "list",
-        arch: `<tree js_class="documents_list"></tree>`,
+        arch: `<list js_class="documents_list"></list>`,
         searchViewArch: getEnrichedSearchArch(),
     });
     const menu = target.querySelector(".o_control_panel .btn-group");

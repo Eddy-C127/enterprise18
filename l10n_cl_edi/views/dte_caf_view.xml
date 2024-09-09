@@ -37,14 +37,14 @@
             <field name="name">CAF</field>
             <field name="model">l10n_cl.dte.caf</field>
             <field name="arch" type="xml">
-                <tree string="CAF Files">
+                <list string="CAF Files">
                     <field name="filename"/>
                     <field name="l10n_latam_document_type_id"/>
                     <field name="start_nb" />
                     <field name="final_nb" />
                     <field name="company_id" />
                     <field name="status" />
-                </tree>
+                </list>
             </field>
         </record>
 

@@ -28,9 +28,9 @@
         </field>
     </record>
 
-    <!-- fsm timesheet tree view -->
+    <!-- fsm timesheet list view -->
     <record id="timesheet_view_tree_user_inherit" model="ir.ui.view">
-        <field name="name">account.analytic.line.view.tree.with.user.inherit.industry.fsm</field>
+        <field name="name">account.analytic.line.view.list.with.user.inherit.industry.fsm</field>
         <field name="model">account.analytic.line</field>
         <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
         <field name="mode">primary</field>

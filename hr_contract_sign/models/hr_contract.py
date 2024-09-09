@@ -40,7 +40,7 @@ class HrContract(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': 'Signature Requests',
-            'view_mode': 'kanban,tree',
+            'view_mode': 'kanban,list',
             'res_model': 'sign.request',
             'domain': [('id', 'in', self.sign_request_ids.ids)]
         }

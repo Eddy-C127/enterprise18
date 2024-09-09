@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <record model="ir.ui.view" id="view_move_line_tree_grouped_inherit_intrastat_fields">
-            <field name="name">account.move.line.tree.grouped.inherit.intrastat.fields</field>
+            <field name="name">account.move.line.list.grouped.inherit.intrastat.fields</field>
             <field name="model">account.move.line</field>
             <field name="inherit_id" ref="account.view_move_line_tree"/>
             <field name="arch" type="xml">
@@ -14,7 +14,7 @@
         </record>
 
         <record model="ir.ui.view" id="view_deferred_entries_tree_intrastat">
-            <field name="name">account.move.line.deferral.entries.tree.intrastat</field>
+            <field name="name">account.move.line.deferral.entries.list.intrastat</field>
             <field name="model">account.move.line</field>
             <field name="inherit_id" ref="account_accountant.view_deferred_entries_tree"/>
             <field name="arch" type="xml">
@@ -33,12 +33,12 @@
             the lines are configured incorrectly or incompletely.
         -->
         <record id="account_move_line_tree_view_account_intrastat_transaction_codes" model="ir.ui.view">
-            <field name="name">account.move.line.tree.account.intrastat</field>
+            <field name="name">account.move.line.list.account.intrastat</field>
             <field name="model">account.move.line</field>
             <field name="mode">primary</field>
             <field eval="110" name="priority"/>
             <field name="arch" type="xml">
-                <tree string="Account move line" multi_edit="1" duplicate="false" editable="bottom" expand="context.get('expand', False)">
+                <list string="Account move line" multi_edit="1" duplicate="false" editable="bottom" expand="context.get('expand', False)">
                     <field name="move_id" readonly="1"/>
                     <field name="product_id" readonly="1"/>
                     <field name="partner_id" readonly="1"/>
@@ -56,51 +56,51 @@
                                ('start_date', '&lt;=', date or context_today().strftime('%Y-%m-%d')),
                                ('start_date', '=', None)
                            ]"/>
-                </tree>
+                </list>
             </field>
         </record>
 
         <record id="account_move_line_tree_view_account_intrastat_product_origin_country_id" model="ir.ui.view">
-            <field name="name">account.move.line.tree.account.intrastat.product.origin.country.id</field>
+            <field name="name">account.move.line.list.account.intrastat.product.origin.country.id</field>
             <field name="model">account.move.line</field>
             <field name="mode">primary</field>
             <field name="arch" type="xml">
-                <tree string="Invoice Lines" multi_edit="1" duplicate="false" editable="bottom" expand="context.get('expand', False)">
+                <list string="Invoice Lines" multi_edit="1" duplicate="false" editable="bottom" expand="context.get('expand', False)">
                     <field name="move_id" readonly="1"/>
                     <field name="product_id" readonly="1"/>
                     <field name="partner_id" readonly="1"/>
                     <field name="price_subtotal" readonly="1"/>
                     <field name="intrastat_product_origin_country_id"/>
-                </tree>
+                </list>
             </field>
         </record>
         
         <record id="account_intrastat_aml_missing_product_tree" model="ir.ui.view">
-            <field name="name">account.intrastat.aml.missing.product.tree</field>
+            <field name="name">account.intrastat.aml.missing.product.list</field>
             <field name="model">account.move.line</field>
             <field name="arch" type="xml">
-                <tree multi_edit="1" editable="bottom">
+                <list multi_edit="1" editable="bottom">
                     <field name="move_id"/>
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="price_subtotal"/>
-                </tree>
+                </list>
             </field>
         </record>
 
         <record id="account_move_tree_view_account_intrastat_transport_codes" model="ir.ui.view">
-            <field name="name">account.move.tree.account.intrastat.transport.code</field>
+            <field name="name">account.move.list.account.intrastat.transport.code</field>
             <field name="model">account.move</field>
             <field name="mode">primary</field>
             <field name="arch" type="xml">
-                <tree string="Journal Entries" multi_edit="1" duplicate="false" editable="bottom" expand="context.get('expand', False)">
+                <list string="Journal Entries" multi_edit="1" duplicate="false" editable="bottom" expand="context.get('expand', False)">
                     <field name="id" column_invisible="True"/>
                     <field name="display_name" readonly="1"/>
                     <field name="partner_id" readonly="1"/>
                     <field name="amount_total" readonly="1"/>
                     <field name="date" readonly="1"/>
                     <field name="intrastat_transport_mode_id"/>
-                </tree>
+                </list>
             </field>
         </record>
     </data>

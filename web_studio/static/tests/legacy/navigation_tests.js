@@ -734,7 +734,7 @@ QUnit.module("Studio", (hooks) => {
             assert.expect(2);
 
             serverData.models.pony.records = [];
-            serverData.views["pony,false,list"] = `<tree sample="1"><field name="name"/></tree>`;
+            serverData.views["pony,false,list"] = `<list sample="1"><field name="name"/></list>`;
 
             await createEnterpriseWebClient({
                 serverData,
@@ -1100,7 +1100,7 @@ QUnit.module("Studio", (hooks) => {
 
         serverData.views[
             "base.automation,false,list"
-        ] = `<tree><field name="display_name" /></tree>`;
+        ] = `<list><field name="display_name" /></list>`;
         serverData.views["base.automation,false,search"] = `<search/>`;
 
         serverData.views[

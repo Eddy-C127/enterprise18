@@ -4,16 +4,16 @@
     <record id="social_post_template_action" model="ir.actions.act_window">
         <field name="name">Social Post Templates</field>
         <field name="res_model">social.post.template</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="social_post_template_view_tree" model="ir.ui.view">
-        <field name="name">social.post.template.view.tree</field>
+        <field name="name">social.post.template.view.list</field>
         <field name="model">social.post.template</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="message"/>
-            </tree>
+            </list>
         </field>
     </record>
 

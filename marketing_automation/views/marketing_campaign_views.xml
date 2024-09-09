@@ -98,7 +98,7 @@
                                     <field name="model_id"
                                         readonly="state != 'draft'"
                                         options="{'no_create': True, 'no_open': True}"
-                                        context="{'tree_view_ref': 'marketing_automation.ir_model_view_tree_marketing'}"/>
+                                        context="{'list_view_ref': 'marketing_automation.ir_model_view_tree_marketing'}"/>
                                 </div>
                                 <div class="col-xs-12 col-md-9 o_td_label">
                                     <field name="mailing_filter_id"
@@ -319,17 +319,17 @@
     </record>
 
     <record id="marketing_campaign_view_tree" model="ir.ui.view">
-        <field name="name">marketing.campaign.view.tree</field>
+        <field name="name">marketing.campaign.view.list</field>
         <field name="model">marketing.campaign</field>
         <field name="arch" type="xml">
-            <tree js_class="marketing_campaign_list_view" string="Campaign" sample="1">
+            <list js_class="marketing_campaign_list_view" string="Campaign" sample="1">
                 <field name="name" />
                 <field name="model_id" string="Target" readonly="state != 'draft'"/>
                 <field name="mass_mailing_count" string="Mailings"/>
                 <field name="link_tracker_click_count" string="Clicks"/>
                 <field name="total_participant_count" string="Participants"/>
                 <field name="state" readonly="True" decoration-info="state == 'draft'" decoration-success="state == 'running'" decoration-muted="state == 'stopped'" widget="badge"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -356,7 +356,7 @@
         <field name="name">Campaigns</field>
         <field name="path">marketing-automation</field>
         <field name="res_model">marketing.campaign</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="help" type="html">
             <div class="o_view_nocontent o_ma_campaign_container">
                 <div class="container">

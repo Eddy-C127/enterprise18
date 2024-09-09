@@ -39,16 +39,16 @@
         </record>
 
         <record model="ir.ui.view" id="batch_error_wizard_line_tree">
-            <field name="name">account.batch.error.wizard.line.tree</field>
+            <field name="name">account.batch.error.wizard.line.list</field>
             <field name="model">account.batch.error.wizard.line</field>
             <field name="arch" type="xml">
-                <tree create="0" delete="0" editable="bottom">
+                <list create="0" delete="0" editable="bottom">
                     <field name="show_remove_button" column_invisible="True"/>
                     <field name="description" readonly="1"/>
                     <field name="help_message" readonly="1"/>
                     <button string="Show" name="open_payments" type="object" class="btn-link"/>
                     <button string="Exclude Payments" name="remove_payments_from_batch" type="object" invisible="not show_remove_button" class="oe_highlight"/>
-                </tree>
+                </list>
             </field>
         </record>
 

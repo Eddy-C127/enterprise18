@@ -83,7 +83,7 @@ class DisallowedExpensesCustomHandler(models.AbstractModel):
 
         return {
             'name': 'Journal Items',
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'account.move.line',
             'views': [(False, 'list')],
             'type': 'ir.actions.act_window',

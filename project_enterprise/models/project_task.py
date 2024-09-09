@@ -1374,12 +1374,12 @@ class Task(models.Model):
 
     def action_dependent_tasks(self):
         action = super().action_dependent_tasks()
-        action['view_mode'] = 'tree,form,kanban,calendar,pivot,graph,gantt,activity,map'
+        action['view_mode'] = 'list,form,kanban,calendar,pivot,graph,gantt,activity,map'
         return action
 
     def action_recurring_tasks(self):
         action = super().action_recurring_tasks()
-        action['view_mode'] = 'tree,form,kanban,calendar,pivot,graph,gantt,activity,map'
+        action['view_mode'] = 'list,form,kanban,calendar,pivot,graph,gantt,activity,map'
         return action
 
     def _gantt_progress_bar_user_ids(self, res_ids, start, stop):

@@ -181,7 +181,7 @@ class ExtractMixin(models.AbstractModel):
             'name': _('Documents sent for digitization'),
             'type': 'ir.actions.act_window',
             'res_model': self._name,
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'target': 'current',
             'domain': [('id', 'in', documents_to_send.ids)],
         }

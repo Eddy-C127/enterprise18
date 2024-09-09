@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="frontdesk_drink_view_tree" model="ir.ui.view">
-        <field name="name">frontdesk.drink.view.tree</field>
+        <field name="name">frontdesk.drink.view.list</field>
         <field name="model">frontdesk.drink</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="notify_user_ids" widget="many2many_avatar_user"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -72,7 +72,7 @@
     <record id="action_frontdesk_drink" model="ir.actions.act_window">
         <field name="name">Drinks</field>
         <field name="res_model">frontdesk.drink</field>
-        <field name="view_mode">kanban,form,tree,search</field>
+        <field name="view_mode">kanban,form,list,search</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">No drinks to offer to visitors. Let's add one!</p>
         </field>

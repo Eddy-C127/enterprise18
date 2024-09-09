@@ -14,7 +14,7 @@
     </record>
 
     <record id="project_task_view_tree" model="ir.ui.view">
-        <field name="name">project.task.view.tree.inherit.project.enterprise</field>
+        <field name="name">project.task.view.list.inherit.project.enterprise</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="project.project_task_view_tree_base"/>
         <field name="arch" type="xml">
@@ -31,12 +31,12 @@
     </record>
 
     <record id="view_ebterprise_task_tree2" model="ir.ui.view">
-            <field name="name">project.task.tree</field>
+            <field name="name">project.task.list</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_tree2"/>
             <field name="priority">2</field>
             <field name="arch" type="xml">
-                <xpath expr="//tree" position="attributes">
+                <xpath expr="//list" position="attributes">
                     <attribute name="js_class">project_enterprise_task_list</attribute>
                 </xpath>
             </field>
@@ -78,18 +78,18 @@
             <xpath expr="//field[@name='date_deadline']" position="after">
                 <field name="planned_date_begin" invisible="1"/>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/tree//field[@name='date_deadline']" position="attributes">
+            <xpath expr="//field[@name='child_ids']/list//field[@name='date_deadline']" position="attributes">
                 <attribute name="widget">daterange</attribute>
                 <attribute name="options">{'start_date_field': 'planned_date_begin'}</attribute>
             </xpath>
-            <xpath expr="//field[@name='child_ids']/tree//field[@name='date_deadline']" position="after">
+            <xpath expr="//field[@name='child_ids']/list//field[@name='date_deadline']" position="after">
                 <field name="planned_date_begin" column_invisible="True"/>
             </xpath>
-            <xpath expr="//field[@name='depend_on_ids']/tree//field[@name='date_deadline']" position="attributes">
+            <xpath expr="//field[@name='depend_on_ids']/list//field[@name='date_deadline']" position="attributes">
                 <attribute name="widget">daterange</attribute>
                 <attribute name="options">{'start_date_field': 'planned_date_begin'}</attribute>
             </xpath>
-            <xpath expr="//field[@name='depend_on_ids']/tree//field[@name='date_deadline']" position="after">
+            <xpath expr="//field[@name='depend_on_ids']/list//field[@name='date_deadline']" position="after">
                 <field name="planned_date_begin" column_invisible="True"/>
             </xpath>
         </field>
@@ -285,12 +285,12 @@
     <!-- All Task action with map view -->
     <record id="project.action_view_task" model="ir.actions.act_window">
         <field name="res_model">project.task</field>
-        <field name="view_mode">kanban,tree,form,calendar,pivot,graph,gantt,activity,map</field>
+        <field name="view_mode">kanban,list,form,calendar,pivot,graph,gantt,activity,map</field>
     </record>
 
     <record id="project.action_view_my_task" model="ir.actions.act_window">
         <field name="res_model">project.task</field>
-        <field name="view_mode">kanban,tree,form,gantt,calendar,map,pivot,graph,activity</field>
+        <field name="view_mode">kanban,list,form,gantt,calendar,map,pivot,graph,activity</field>
     </record>
 
     <record id="open_view_my_task_list_gantt" model="ir.actions.act_window.view">
@@ -302,7 +302,7 @@
 
     <record id="project.action_view_all_task" model="ir.actions.act_window">
         <field name="res_model">project.task</field>
-        <field name="view_mode">kanban,tree,form,gantt,calendar,map,pivot,graph,activity</field>
+        <field name="view_mode">kanban,list,form,gantt,calendar,map,pivot,graph,activity</field>
     </record>
 
     <record id="open_view_all_task_list_gantt" model="ir.actions.act_window.view">
@@ -341,7 +341,7 @@
     </record>
 
     <record id="project.action_view_task_from_milestone" model="ir.actions.act_window">
-        <field name="view_mode">kanban,tree,gantt,calendar,map,pivot,graph,activity,form</field>
+        <field name="view_mode">kanban,list,gantt,calendar,map,pivot,graph,activity,form</field>
     </record>
 
     <record id="action_view_task_from_milestone_kanban_view" model="ir.actions.act_window.view">
@@ -351,7 +351,7 @@
     </record>
     <record id="action_view_task_from_milestone_tree_view" model="ir.actions.act_window.view">
         <field name="sequence" eval="10"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="act_window_id" ref="project.action_view_task_from_milestone"/>
     </record>
 
@@ -377,13 +377,13 @@
 
     <record id="project.project_task_action_sub_task" model="ir.actions.act_window">
         <field name="res_model">project.task</field>
-        <field name="view_mode">tree,kanban,form,calendar,gantt,map,pivot,graph,activity</field>
+        <field name="view_mode">list,kanban,form,calendar,gantt,map,pivot,graph,activity</field>
     </record>
 
     <!-- Views for 'Tasks' stat button via Contact form -->
     <record id="project.project_task_action_from_partner" model="ir.actions.act_window">
         <field name="res_model">project.task</field>
-        <field name="view_mode">kanban,tree,form,gantt,calendar,map,pivot,graph,activity</field>
+        <field name="view_mode">kanban,list,form,gantt,calendar,map,pivot,graph,activity</field>
     </record>
 
     <record id="project_task_view_form_in_gantt_res_partner" model="ir.ui.view">

@@ -19,7 +19,7 @@ class Contract(models.Model):
             {
                 'domain': [('contract_id', '=', self.id), ('code', 'in', ('GROSS', 'PPH21'))],
                 'context': "{'search_default_category_id': 1}",
-                'views': [(self.env.ref('l10n_id_hr_payroll.hr_payslip_line_view_tree_id_history').id, 'tree'), (False, 'form')]
+                'views': [(self.env.ref('l10n_id_hr_payroll.hr_payslip_line_view_tree_id_history').id, 'list'), (False, 'form')]
             }
         )
         return action

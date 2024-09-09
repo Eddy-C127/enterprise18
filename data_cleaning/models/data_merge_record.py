@@ -603,7 +603,7 @@ AND NOT EXISTS (
         view = self.env.ref('data_cleaning.data_merge_record_view_search_merge_action')
         action = {
             'name': _('Deduplicate'),
-            'view_mode': 'tree',
+            'view_mode': 'list',
             'res_model': 'data_merge.record',
             'type': 'ir.actions.act_window',
             'search_view_id': [view.id, 'search'],

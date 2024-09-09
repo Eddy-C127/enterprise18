@@ -4,11 +4,11 @@
         <field name="name">action tree</field>
         <field name="model">documents.workflow.action</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="action"/>
                 <field name="facet_id" options="{'no_quick_create': True}"/>
                 <field name="tag_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 

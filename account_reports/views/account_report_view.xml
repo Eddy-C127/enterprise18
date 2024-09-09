@@ -3,28 +3,28 @@
     <data>
 
         <record id="account_report_tree" model="ir.ui.view">
-            <field name="name">account.report.tree</field>
+            <field name="name">account.report.list</field>
             <field name="model">account.report</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="country_id"/>
                     <field name="root_report_id"/>
-                </tree>
+                </list>
             </field>
         </record>
 
         <record id="account_report_add_sections_tree" model="ir.ui.view">
-            <field name="name">account.report.add.sections.tree</field>
+            <field name="name">account.report.add.sections.list</field>
             <field name="model">account.report</field>
             <field name="arch" type="xml">
-                <tree editable="bottom" create="1" delete="1" decoration-muted="not active" open_form_view="True">
+                <list editable="bottom" create="1" delete="1" decoration-muted="not active" open_form_view="True">
                     <field name="sequence" widget="handle"/>
                     <field name="name" readonly="1"/>
                     <field name="country_id" readonly="1"/>
                     <field name="active" widget="boolean_toggle"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -49,7 +49,7 @@
             <field name="name">account.view.coa</field>
             <field name="model">account.account</field>
             <field name="arch" type="xml">
-                <tree editable="top" create="1" delete="1" open_form_view="True">
+                <list editable="top" create="1" delete="1" open_form_view="True">
                     <field name="code"/>
                     <field name="name"/>
                     <field name="company_ids" column_invisible="True"/>
@@ -58,7 +58,7 @@
                     <field name="tax_ids" optional="hide" widget="many2many_tags"/>
                     <field name="tag_ids" optional="hide" widget="many2many_tags"/>
                     <field name="allowed_journal_ids" optional="hide" widget="many2many_tags"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -102,7 +102,7 @@
                         <notebook>
                             <page string="Lines" name="page_lines" invisible="use_sections">
                                 <field class="w-100" name="line_ids" no_label="1" widget="account_report_lines_list_x2many">
-                                    <tree limit="2000">
+                                    <list limit="2000">
                                         <field name="id" column_invisible="1"/>
                                         <field name="sequence" column_invisible="1"/>
                                         <field name="parent_id" column_invisible="1"/>
@@ -114,7 +114,7 @@
                                         <field name="hide_if_zero" optional="hide"/>
                                         <field name="user_groupby" optional="hide"/>
                                         <field name="foldable" optional="hide"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
 
@@ -124,20 +124,20 @@
                                     no_label="1"
                                     options="{'no_create': True, 'no_quick_create': True}"
                                     domain="[('section_report_ids', '=', False)]"
-                                    context="{'tree_view_ref': 'account_reports.account_report_add_sections_tree', 'active_test': False}"
+                                    context="{'list_view_ref': 'account_reports.account_report_add_sections_tree', 'active_test': False}"
                                 />
                             </page>
 
                             <page string="Columns" name="page_columns" invisible="use_sections">
                                 <field name="column_ids">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="sequence" widget="handle"/>
                                         <field name="name"/>
                                         <field name="expression_label"/>
                                         <field  name="figure_type"/>
                                         <field name="sortable"/>
                                         <field name="blank_if_zero"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
 
@@ -212,13 +212,13 @@
                         </group>
 
                         <field name="expression_ids">
-                            <tree>
+                            <list>
                                 <field name="label"/>
                                 <field name="engine"/>
                                 <field name="formula"/>
                                 <field name="subformula"/>
                                 <field name="date_scope" optional="hide"/>
-                            </tree>
+                            </list>
                         </field>
                     </sheet>
                 </form>
@@ -289,10 +289,10 @@
                                     <field name="domain" widget="domain" options="{'model': 'res_model_name'}"/>
                                 </group>
                             </form>
-                            <tree>
+                            <list>
                                 <field name="field_name"/>
                                 <field name="domain"/>
-                            </tree>
+                            </list>
                         </field>
                     </sheet>
                 </form>
@@ -300,21 +300,21 @@
         </record>
 
         <record id="account_report_horizontal_group_tree" model="ir.ui.view">
-            <field name="name">account.report.horizontal.group.tree</field>
+            <field name="name">account.report.horizontal.group.list</field>
             <field name="model">account.report.horizontal.group</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="name"/>
                     <field name="report_ids" widget="many2many_tags"/>
-                </tree>
+                </list>
             </field>
         </record>
 
         <record id="account_report_external_value_tree" model="ir.ui.view">
-            <field name="name">account.report.external.value.tree</field>
+            <field name="name">account.report.external.value.list</field>
             <field name="model">account.report.external.value</field>
             <field name="arch" type="xml">
-                <tree create="0">
+                <list create="0">
                     <field name="report_country_id" column_invisible="True"/>
                     <field name="name"/>
                     <field name="date"/>
@@ -325,19 +325,19 @@
                     <field name="target_report_expression_label" optional="hide"/>
                     <field name="foreign_vat_fiscal_position_id" optional="hide"/>
                     <field name="company_id" optional="hide" groups="base.group_multi_company"/>
-                </tree>
+                </list>
             </field>
         </record>
 
         <record id="account_report_budget_tree" model="ir.ui.view">
-            <field name="name">account.report.budget.tree</field>
+            <field name="name">account.report.budget.list</field>
             <field name="model">account.report.budget</field>
             <field name="arch" type="xml">
-                <tree>
+                <list>
                     <field name="sequence" widget="handle"/>
                     <field name="name"/>
                     <field name="company_id"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -356,11 +356,11 @@
                         <notebook>
                             <page string="Budget Items" name="budget_items">
                                 <field name="item_ids" nolabel="1">
-                                    <tree editable="bottom">
+                                    <list editable="bottom">
                                         <field name="account_id" width="40%"/>
                                         <field name="date" string="Months" options="{'min_precision': 'months'}" width="30%"/>
                                         <field name="amount" width="30%"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </page>
                         </notebook>

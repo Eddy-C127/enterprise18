@@ -8,7 +8,7 @@
             <field name="schedule_pay" position="after">
                 <field name="journal_id"/>
             </field>
-            <xpath expr="//field[@name='rule_ids']/tree" position="inside">
+            <xpath expr="//field[@name='rule_ids']/list" position="inside">
                 <field name="account_debit" optional="hidden"/>
                 <field name="account_credit" optional="hidden"/>
                 <field

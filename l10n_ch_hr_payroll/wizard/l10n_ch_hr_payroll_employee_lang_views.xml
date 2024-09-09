@@ -14,10 +14,10 @@
                     <br/>
                     <field name="slip_ids" invisible="1" force_save="1"/>
                     <field name="line_ids">
-                        <tree create="false" delete="false" editable="bottom">
+                        <list create="false" delete="false" editable="bottom">
                             <field name="employee_id" widget="many2one_avatar" options="{'no_open': True}"/>
                             <field name="lang"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
                 <footer>

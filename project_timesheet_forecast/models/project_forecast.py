@@ -127,10 +127,10 @@ class Forecast(models.Model):
         action.update({
             'name': _('Timesheets'),
             'domain': self._get_timesheet_domain(),
-            'view_mode': 'tree,grid,kanban,pivot,graph,form',
+            'view_mode': 'list,grid,kanban,pivot,graph,form',
             'mobile_view_mode': 'grid',
             'views': [
-                [self.env.ref('hr_timesheet.timesheet_view_tree_user').id, 'tree'],
+                [self.env.ref('hr_timesheet.timesheet_view_tree_user').id, 'list'],
                 [self.env.ref('timesheet_grid.timesheet_view_grid_by_employee').id, 'grid'],
                 [self.env.ref('hr_timesheet.view_kanban_account_analytic_line').id, 'kanban'],
                 [self.env.ref('hr_timesheet.view_hr_timesheet_line_pivot').id, 'pivot'],

@@ -15,10 +15,10 @@
     </record>
 
     <record id="missing_information_view_tree" model="ir.ui.view">
-        <field name="name">missing.information.view.tree</field>
+        <field name="name">missing.information.view.list</field>
         <field name="model">res.partner</field>
         <field name="arch" type="xml">
-            <tree create="false" editable="bottom">
+            <list create="false" editable="bottom">
                 <field name="name" readonly="True"/>
                 <field name="email"/>
                 <field name="mobile"/>
@@ -27,7 +27,7 @@
                 <field name="city"/>
                 <field name="zip"/>
                 <field name="country_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 </odoo>

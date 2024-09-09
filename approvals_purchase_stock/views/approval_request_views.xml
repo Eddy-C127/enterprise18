@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='product_line_ids']" position="attributes">
                 <attribute name="context">{
-                    'tree_view_ref': 'approvals.approval_product_line_view_tree',
+                    'list_view_ref': 'approvals.approval_product_line_view_tree',
                     'default_company_id': company_id,
                 }</attribute>
             </xpath>

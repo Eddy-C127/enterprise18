@@ -139,7 +139,7 @@ CREATE INDEX IF NOT EXISTS account_move_invoice_user_id_date_idx ON account_move
             "type": "ir.actions.act_window",
             "res_model": "sale.commission.report",
             "name": _("Related commissions"),
-            "views": [[self.env.ref('sale_commission.sale_commission_report_view_tree').id, "tree"]],
+            "views": [[self.env.ref('sale_commission.sale_commission_report_view_tree').id, "list"]],
             "domain": [('plan_id', '=', self.id)],
         }
 

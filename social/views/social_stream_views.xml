@@ -4,7 +4,7 @@
     <record id="action_social_stream" model="ir.actions.act_window">
         <field name="name">Social Streams</field>
         <field name="res_model">social.stream</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
           <p class="o_view_nocontent_smiling_face">
             No Social Streams yet!
@@ -20,16 +20,16 @@
     </record>
 
     <record id="social_stream_view_tree" model="ir.ui.view">
-        <field name="name">social.stream.view.tree</field>
+        <field name="name">social.stream.view.list</field>
         <field name="model">social.stream</field>
         <field name="arch" type="xml">
-            <tree create="0">
+            <list create="0">
                 <field name="media_id" />
                 <field name="name" />
                 <field name="stream_type_id" />
                 <field name="create_uid" widget="many2one_avatar_user"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 

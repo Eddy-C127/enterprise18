@@ -30,14 +30,14 @@
                         </group>
                     </div>
                     <separator string="Employees"/>
-                    <field name="employee_ids" nolabel="1" widget="employee_line_many2many" context="{'tree_view_ref' : 'hr_payroll.hr_payroll_employee_tree_inherit'}">
-                        <tree>
+                    <field name="employee_ids" nolabel="1" widget="employee_line_many2many" context="{'list_view_ref' : 'hr_payroll.hr_payroll_employee_tree_inherit'}">
+                        <list>
                             <field name="name"/>
                             <field name="work_email"/>
                             <field name="department_id"/>
                             <field name="job_id"/>
                             <field name="structure_type_id"/>
-                        </tree>
+                        </list>
                     </field>
                     <footer>
                         <button string="Generate" name="compute_sheet" type="object" class="oe_highlight" data-hotkey="q" invisible="not employee_ids"/>
@@ -49,7 +49,7 @@
         </record>
 
         <record id="hr_payroll_employee_tree_inherit" model="ir.ui.view">
-            <field name="name">hr.payroll.employee.tree.inherit</field>
+            <field name="name">hr.payroll.employee.list.inherit</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
             <field name="mode">primary</field>
@@ -81,7 +81,7 @@
         <record id="action_hr_payslip_by_employees" model="ir.actions.act_window">
             <field name="name">Generate Payslips</field>
             <field name="res_model">hr.payslip.employees</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="view_id" ref="view_hr_payslip_by_employees"/>
             <field name="target">new</field>
         </record>

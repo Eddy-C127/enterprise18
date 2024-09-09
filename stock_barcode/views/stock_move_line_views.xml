@@ -114,7 +114,7 @@
                 <div class="col-12 my-2 d-flex">
                     <field name="product_stock_quant_ids" context="{
                             'kanban_view_ref': 'stock_barcode.stock_quant_barcode_kanban_2',
-                            'tree_view_ref': 'stock_barcode.view_stock_quant_tree'}"/>
+                            'list_view_ref': 'stock_barcode.view_stock_quant_tree'}"/>
                 </div>
             </div>
             <div class="fixed-bottom">
@@ -188,7 +188,7 @@
 </record>
 
 <record id="view_stock_quant_tree" model="ir.ui.view">
-    <field name="name">stock_barcode.quant.tree.inherit</field>
+    <field name="name">stock_barcode.quant.list.inherit</field>
     <field name="model">stock.quant</field>
     <field name="inherit_id" ref="stock.view_stock_quant_tree"/>
     <field name="mode">primary</field>

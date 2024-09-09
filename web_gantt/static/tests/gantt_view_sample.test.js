@@ -87,7 +87,7 @@ test("empty gantt with sample data and default_group_by", async () => {
 test("empty gantt with sample data and default_group_by (switch view)", async () => {
     Tasks._views = {
         gantt: `<gantt date_start="start" date_stop="stop" sample="1" default_group_by="project_id"/>`,
-        list: `<tree/>`,
+        list: `<list/>`,
         search: `<search/>`,
     };
 

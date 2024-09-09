@@ -88,7 +88,7 @@ class WorkflowActionRuleAccount(models.Model):
                 'res_model': 'account.move',
                 'name': "Invoices",
                 'view_id': False,
-                'view_mode': 'tree',
+                'view_mode': 'list',
                 'views': [(False, "list"), (False, "form")],
                 'domain': [('id', 'in', invoice_ids)],
                 'context': context,

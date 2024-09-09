@@ -79,7 +79,7 @@ class Task extends models.Model {
         },
     ];
     _views = {
-        list: '<tree><field name="name"/></tree>',
+        list: '<list><field name="name"/></list>',
     };
 }
 
@@ -247,7 +247,7 @@ test("progress bar has the correct unit", async () => {
 
 test("open a dialog to schedule task", async () => {
     Task._views = {
-        list: '<tree><field name="name"/></tree>',
+        list: '<list><field name="name"/></list>',
     };
     Task._records.push({
         id: 51,

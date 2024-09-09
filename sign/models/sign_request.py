@@ -317,7 +317,7 @@ class SignRequest(models.Model):
             "name": _("Activity Logs"),
             "type": "ir.actions.act_window",
             "res_model": "sign.log",
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('sign_request_id', '=', self.id)],
         }
 

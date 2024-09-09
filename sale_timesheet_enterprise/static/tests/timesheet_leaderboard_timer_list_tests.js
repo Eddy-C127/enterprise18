@@ -18,7 +18,7 @@ async function initAndOpenView(showIndicators = true, showLeaderboard = true) {
                 },
             },
         },
-        arch: '<tree js_class="timesheet_timer_list"><field name="foo"/></tree>',
+        arch: '<list js_class="timesheet_timer_list"><field name="foo"/></list>',
         async mockRPC(route, args) {
             if (args.method === "get_running_timer") {
                 return {

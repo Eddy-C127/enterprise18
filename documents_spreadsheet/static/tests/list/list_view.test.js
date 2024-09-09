@@ -64,10 +64,10 @@ test("List export with a invisible field", async () => {
             models: getBasicData(),
             views: {
                 "partner,false,list": `
-                        <tree string="Partners">
+                        <list string="Partners">
                             <field name="foo" column_invisible="1"/>
                             <field name="bar"/>
-                        </tree>`,
+                        </list>`,
                 "partner,false,search": "<search/>",
             },
         },
@@ -81,10 +81,10 @@ test("List export with a widget handle", async () => {
             models: getBasicData(),
             views: {
                 "partner,false,list": `
-                            <tree string="Partners">
+                            <list string="Partners">
                                 <field name="foo" widget="handle"/>
                                 <field name="bar"/>
-                            </tree>`,
+                            </list>`,
                 "partner,false,search": "<search/>",
             },
         },
@@ -125,11 +125,11 @@ test("property fields are not exported", async () => {
             models: data,
             views: {
                 "partner,false,list": /*xml*/ `
-                        <tree>
+                        <list>
                             <field name="product_id"/>
                             <field name="bar"/>
                             <field name="partner_properties"/>
-                        </tree>`,
+                        </list>`,
                 "partner,false,search": "<search/>",
             },
         },
@@ -144,10 +144,10 @@ test("json fields are not exported", async () => {
             models: getBasicData(),
             views: {
                 "partner,false,list": `
-                        <tree string="Partners">
+                        <list string="Partners">
                             <field name="jsonField"/>
                             <field name="bar"/>
-                        </tree>`,
+                        </list>`,
                 "partner,false,search": "<search/>",
             },
         },
@@ -396,10 +396,10 @@ test("user related context is not saved in the spreadsheet", async function () {
         resModel: "partner",
         context,
         arch: `
-                <tree string="Partners">
+                <list string="Partners">
                     <field name="bar"/>
                     <field name="product_id"/>
-                </tree>
+                </list>
             `,
         config: {
             actionType: "ir.actions.act_window",
@@ -427,9 +427,9 @@ test("Selected records from current page are inserted correctly", async function
         models: getBasicData(),
         views: {
             "partner,false,list": `
-                    <tree limit="2">
+                    <list limit="2">
                         <field name="foo"/>
-                    </tree>`,
+                    </list>`,
             "partner,false,search": "<search/>",
         },
     };
@@ -474,9 +474,9 @@ test("Selected all records from current page are inserted correctly", async func
         models: getBasicData(),
         views: {
             "partner,false,list": `
-                    <tree limit="2">
+                    <list limit="2">
                         <field name="foo"/>
-                    </tree>`,
+                    </list>`,
             "partner,false,search": "<search/>",
         },
     };
@@ -691,9 +691,9 @@ test("list with a contextual domain", async () => {
             </search>
         `;
     serverData.views["partner,false,list"] = /* xml */ `
-            <tree>
+            <list>
                 <field name="foo"/>
-            </tree>
+            </list>
         `;
     const { model } = await createSpreadsheetFromListView({
         serverData,

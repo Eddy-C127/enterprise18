@@ -86,7 +86,7 @@ class SaleSubscriptionPlan(models.Model):
     def action_open_active_sub(self):
         return {
             'name': _('Subscriptions'),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('plan_id', 'in', self.ids), ('is_subscription', '=', True), ('subscription_state', 'in', ['3_progress', '4_paused'])],
             'res_model': 'sale.order',
             'type': 'ir.actions.act_window',

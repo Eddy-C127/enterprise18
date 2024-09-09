@@ -41,18 +41,18 @@
                         </group>
                     </page>
                 </xpath>
-                <xpath expr="//field[@name='invoice_line_ids']//tree/field[@name='tax_ids']" position="after">
+                <xpath expr="//field[@name='invoice_line_ids']//list/field[@name='tax_ids']" position="after">
                     <field name="l10n_pe_edi_affectation_reason"
                            optional="show"
                            column_invisible="not parent.l10n_pe_edi_is_required"/>
                 </xpath>
-                <xpath expr="//field[@name='invoice_line_ids']//tree/field[@name='discount']" position="after">
+                <xpath expr="//field[@name='invoice_line_ids']//list/field[@name='discount']" position="after">
                     <field name="l10n_pe_edi_allowance_charge_reason_code"
                            string="Disc. Code"
                            optional="show"
                            column_invisible="not parent.l10n_pe_edi_is_required"/>
                 </xpath>
-                <xpath expr="//field[@name='line_ids']//tree/field[@name='tax_ids']" position="after">
+                <xpath expr="//field[@name='line_ids']//list/field[@name='tax_ids']" position="after">
                     <field name="l10n_pe_edi_affectation_reason" column_invisible="True"/>
                 </xpath>
             </field>

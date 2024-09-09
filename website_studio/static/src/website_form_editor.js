@@ -133,7 +133,7 @@ options.registry.WebsiteFormEditor.include({
                     multiSelect: false,
                     resModel: "ir.model",
                     context: {
-                        "tree_view_ref": "website_studio.select_simple_ir_model",
+                        "list_view_ref": "website_studio.select_simple_ir_model",
                     },
                     domain: ["&", ["abstract", "=", false], ["transient", "=", false]],
                     onSelected: (resIds) => resolve(resIds[0]),

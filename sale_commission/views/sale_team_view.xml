@@ -9,11 +9,11 @@
             <group name="left" position="after">
                 <group string="Commission Plans">
                     <field name="commission_plan_ids" nolabel="1">
-                        <tree>
+                        <list>
                             <field name="name"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
-                        </tree>
+                        </list>
                     </field>
                 </group>
             </group>
@@ -29,11 +29,11 @@
         <field name="arch" type="xml">
             <group name="member_partner_info" position="inside">
                 <fields name="filtered_commission_plan_users_ids"/>
-<!--                    <tree>-->
+<!--                    <list>-->
 <!--                        <field name="plan_id"/>-->
 <!--                        <field name="date_from"/>-->
 <!--                        <field name="date_to"/>-->
-<!--                    </tree>-->
+<!--                    </list>-->
 <!--                </fields>-->
             </group>
         </field>

@@ -216,7 +216,7 @@ class HrSalaryAttachment(models.Model):
                 'type': 'ir.actions.act_window',
                 'name': _('Salary Attachments'),
                 'res_model': 'hr.salary.attachment',
-                'view_mode': 'tree,form',
+                'view_mode': 'list,form',
                 'context': {'search_default_description': description},
             }
         self.write({
@@ -244,7 +244,7 @@ class HrSalaryAttachment(models.Model):
             'type': 'ir.actions.act_window',
             'name': _('Payslips'),
             'res_model': 'hr.payslip',
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'domain': [('id', 'in', self.payslip_ids.ids)],
         }
 

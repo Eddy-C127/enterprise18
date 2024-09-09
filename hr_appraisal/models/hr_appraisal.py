@@ -573,8 +573,8 @@ class HrAppraisal(models.Model):
         return {
             'name': _('Previous Appraisals'),
             'res_model': 'hr.appraisal',
-            'view_mode': 'tree,kanban,form,gantt,calendar,activity',
-            'views': [(view_id, 'tree'), (False, 'kanban'), (False, 'form'), (False, 'gantt'), (False, 'calendar'), (False, 'activity')],
+            'view_mode': 'list,kanban,form,gantt,calendar,activity',
+            'views': [(view_id, 'list'), (False, 'kanban'), (False, 'form'), (False, 'gantt'), (False, 'calendar'), (False, 'activity')],
             'domain': [('employee_id', '=', self.employee_id.id)],
             'type': 'ir.actions.act_window',
             'target': 'current',
@@ -587,7 +587,7 @@ class HrAppraisal(models.Model):
         self.ensure_one()
         return {
             'name': _("%s's Goals", self.employee_id.name),
-            'view_mode': 'kanban,tree,form,graph',
+            'view_mode': 'kanban,list,form,graph',
             'res_model': 'hr.appraisal.goal',
             'type': 'ir.actions.act_window',
             'target': 'current',

@@ -60,7 +60,7 @@
         <field name="mode">primary</field>
         <field name="priority">50</field>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="attributes">
+            <xpath expr="//list" position="attributes">
                 <attribute name="js_class">resource_list_view</attribute>
                 <attribute name="editable">bottom</attribute>
                 <attribute name="sample">1</attribute>
@@ -163,12 +163,12 @@
     <record id="planning_action_resources" model="ir.actions.act_window">
         <field name="name">Materials</field>
         <field name="res_model">resource.resource</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('resource_type', '=', 'material')]</field>
         <field name="context">{'default_resource_type': 'material', 'from_planning': True}</field>
         <field name="search_view_id" ref="resource_resource_search_view_inherit"/>
         <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('resource_resource_tree_view_inherit')}),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('resource_resource_tree_view_inherit')}),
                 (0, 0, {'view_mode': 'kanban'}),
                 (0, 0, {'view_mode': 'form', 'view_id': ref('resource_resource_form_view_inherit')}),
             ]"/>

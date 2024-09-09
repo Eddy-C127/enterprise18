@@ -6,7 +6,7 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//field[@name='order_line']//tree" position="inside">
+                <xpath expr="//field[@name='order_line']//list" position="inside">
                     <field string="Related Task" name="task_id" optional="hidden"/>
                 </xpath>
             </field>

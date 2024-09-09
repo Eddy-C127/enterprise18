@@ -4,20 +4,20 @@
         <field name="name">Benefits</field>
         <field name="res_model">hr.contract.salary.benefit</field>
         <field name="context">{'search_default_groupby_structure_type': 1}</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="hr_contract_benefit_view_tree" model="ir.ui.view">
-        <field name="name">hr.contract.salary.benefit.view.tree</field>
+        <field name="name">hr.contract.salary.benefit.view.list</field>
         <field name="model">hr.contract.salary.benefit</field>
         <field name="arch" type="xml">
-            <tree string="Salary Package Benefit">
+            <list string="Salary Package Benefit">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="res_field_id"/>
                 <field name="field" column_invisible="True"/>
                 <field name="structure_type_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -91,7 +91,7 @@
                                     <field name="uom" required="1"/>
                                     <field name="display_type" required="1"/>
                                     <field name="value_ids" invisible="display_type != 'dropdown-group'">
-                                        <tree editable="bottom">
+                                        <list editable="bottom">
                                             <control>
                                                 <create name="add_line_control" string="Add a line"/>
                                                 <create name="add_section_control" string="Add a section" context="{'default_display_type': 'section'}"/>
@@ -102,10 +102,10 @@
                                             <field name="value"
                                                 invisible="display_type == 'section'"
                                                 required="display_type != 'section'"/>
-                                        </tree>
+                                        </list>
                                     </field>
                                     <field name="value_ids" invisible="display_type not in ['dropdown', 'radio']">
-                                        <tree editable="bottom">
+                                        <list editable="bottom">
                                             <control>
                                                 <create name="add_line_control" string="Add a line"/>
                                             </control>
@@ -122,7 +122,7 @@
                                             <field name="always_show_description"
                                                 invisible="display_type == 'section' or benefit_display_type == 'dropdown'"
                                                 column_invisible="parent.display_type == 'dropdown'"/>
-                                        </tree>
+                                        </list>
                                     </field>
                                     <field name="manual_res_field_id" invisible="display_type != 'manual'" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
                                     <field name="manual_field" invisible="1"/>

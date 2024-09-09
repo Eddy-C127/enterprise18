@@ -128,7 +128,7 @@ class WhatsAppAccount(models.Model):
         self.ensure_one()
         return {
             'name': _("Templates Of %(account_name)s", account_name=self.name),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'whatsapp.template',
             'domain': [('wa_account_id', '=', self.id)],
             'type': 'ir.actions.act_window',

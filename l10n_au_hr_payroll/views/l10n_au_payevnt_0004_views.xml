@@ -37,11 +37,11 @@
                         </p>
                     </div>
                     <field name="payslip_ids">
-                        <tree no_open="1" editable="bottom">
+                        <list no_open="1" editable="bottom">
                             <field name="company_id" invisible="1"/>
                             <field name="name"/>
                             <field name="employee_id"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -49,22 +49,22 @@
     </record>
 
     <record id="l10n_au_payevent0004_action_view_tree" model="ir.ui.view">
-        <field name="name">l10n_au.payevent0004.tree</field>
+        <field name="name">l10n_au.payevent0004.list</field>
         <field name="model">l10n_au.payevnt.0004</field>
         <field name="arch" type="xml">
-            <tree string="payevent0004 Forms">
+            <list string="payevent0004 Forms">
                 <field name="payevent_type"/>
                 <field name="name"/>
                 <field name="payslip_batch_id"/>
                 <field name="currency_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_au_payevent0004_action" model="ir.actions.act_window">
         <field name="name">Create payevent 0004 Form</field>
         <field name="res_model">l10n_au.payevnt.0004</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 

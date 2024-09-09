@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="hr_salary_attachment_view_tree" model="ir.ui.view">
-        <field name="name">hr.salary.attachment.tree</field>
+        <field name="name">hr.salary.attachment.list</field>
         <field name="model">hr.salary.attachment</field>
         <field name="arch" type="xml">
-            <tree string="Salary Attachments" multi_edit="1">
+            <list string="Salary Attachments" multi_edit="1">
                 <field name="currency_id" column_invisible="True"/>
                 <field name="employee_ids" widget="many2many_avatar_employee" readonly="has_done_payslip"/>
                 <field name="description" readonly="has_done_payslip"/>
@@ -20,7 +20,7 @@
                 <field name="state" widget="badge" decoration-success="state == 'open'" decoration-info="state == 'close'" decoration-danger="state == 'cancel'" invisible="state == 'open' and employee_count &gt; 1"/>
                 <field name="has_done_payslip" column_invisible="1"/>
                 <button string="Related Payslips" type="object" name="action_open_payslips" invisible="payslip_count == 0"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -131,13 +131,13 @@
     <record id="hr_salary_attachment_action" model="ir.actions.act_window">
         <field name="name">Salary Attachment</field>
         <field name="res_model">hr.salary.attachment</field>
-        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_mode">list,form,pivot</field>
     </record>
 
     <record id="hr_salary_attachment_action_view_employee" model="ir.actions.act_window">
         <field name="name">Salary Attachment</field>
         <field name="res_model">hr.salary.attachment</field>
-        <field name="view_mode">tree,form,pivot</field>
+        <field name="view_mode">list,form,pivot</field>
         <field name="context">{"search_default_employee_ids": [active_id]}</field>
     </record>
 </odoo>

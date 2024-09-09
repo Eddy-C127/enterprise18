@@ -54,7 +54,7 @@
                       name="page_cfdi"
                       invisible="not l10n_mx_edi_document_ids">
                     <field name="l10n_mx_edi_document_ids">
-                        <tree create="false" delete="false" edit="false" no_open="1">
+                        <list create="false" delete="false" edit="false" no_open="1">
                             <!-- Invisible fields -->
                             <field name="attachment_id" column_invisible="True"/>
                             <field name="message" column_invisible="True"/>
@@ -73,7 +73,7 @@
                                     type="object"
                                     string="Retry"
                                     invisible="not retry_button_needed"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
             </xpath>

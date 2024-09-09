@@ -202,7 +202,7 @@ class ProjectProject(models.Model):
                 '&',
                 ('res_model', '=', 'project.task'), ('res_id', 'in', self.tasks.ids),
             ],
-            'view_mode': 'kanban,tree,form',
+            'view_mode': 'kanban,list,form',
             'context': {'default_res_model': 'project.project', 'default_res_id': self.id, 'limit_folders_to_project': True, 'default_tag_ids': self.documents_tag_ids.ids},
         }
 

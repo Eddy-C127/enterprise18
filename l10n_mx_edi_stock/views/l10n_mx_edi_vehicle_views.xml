@@ -3,7 +3,7 @@
     <record id="vehicle_list_action" model="ir.actions.act_window">
         <field name="name">vehicles</field>
         <field name="res_model">l10n_mx_edi.vehicle</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create the first vehicle</p>
         </field>
@@ -31,17 +31,17 @@
                     </group>
                     <group col="2">
                         <field name="figure_ids">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="type" required="1"/>
                                 <field name="operator_id"/>
                                 <field name="part_ids" widget="many2many_tags" options="{'no_create': True}" invisible="type == '01'"/>
-                            </tree>
+                            </list>
                         </field>
                         <field name="trailer_ids" invisible="vehicle_config in ('C2', 'C3', 'OTROSG', 'GPLUTA', 'GPLUTB', 'GPLUTC', 'GPLUTD', 'GPLATA', 'GPLATB', 'GPLATC', 'GPLATD')">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="name"/>
                                 <field name="sub_type"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </sheet>
@@ -67,10 +67,10 @@
     </record>
 
     <record model="ir.ui.view" id="vehicle_tree_view">
-        <field name="name">l10n_mx_edi.vehicle.tree</field>
+        <field name="name">l10n_mx_edi.vehicle.list</field>
         <field name="model">l10n_mx_edi.vehicle</field>
         <field name="arch" type="xml">
-            <tree string="vehicle Tree">
+            <list string="vehicle Tree">
                 <field name="vehicle_licence"/>
                 <field name="name"/>
                 <field name="transport_insurer"/>
@@ -78,7 +78,7 @@
                 <field name="transport_perm_sct"/>
                 <field name="vehicle_model"/>
                 <field name="vehicle_config"/>
-            </tree>
+            </list>
         </field>
     </record>
 

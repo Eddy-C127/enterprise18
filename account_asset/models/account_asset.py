@@ -798,10 +798,10 @@ class AccountAsset(models.Model):
     def open_entries(self):
         return {
             'name': _('Journal Entries'),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'account.move',
             'search_view_id': [self.env.ref('account.view_account_move_filter').id, 'search'],
-            'views': [(self.env.ref('account.view_move_tree').id, 'tree'), (False, 'form')],
+            'views': [(self.env.ref('account.view_move_tree').id, 'list'), (False, 'form')],
             'type': 'ir.actions.act_window',
             'domain': [('id', 'in', self.depreciation_move_ids.ids)],
             'context': dict(self._context, create=False),
@@ -810,7 +810,7 @@ class AccountAsset(models.Model):
     def open_related_entries(self):
         return {
             'name': _('Journal Items'),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'account.move.line',
             'view_id': False,
             'type': 'ir.actions.act_window',
@@ -820,13 +820,13 @@ class AccountAsset(models.Model):
     def open_increase(self):
         result = {
             'name': _('Gross Increase'),
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'res_model': 'account.asset',
             'context': {**self.env.context, 'create': False},
             'view_id': False,
             'type': 'ir.actions.act_window',
             'domain': [('id', 'in', self.children_ids.ids)],
-            'views': [(False, 'tree'), (False, 'form')],
+            'views': [(False, 'list'), (False, 'form')],
         }
         if len(self.children_ids) == 1:
             result['views'] = [(False, 'form')]

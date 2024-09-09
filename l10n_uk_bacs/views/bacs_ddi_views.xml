@@ -58,16 +58,16 @@
         </record>
 
         <record model="ir.ui.view" id="account_bacs_direct_debit_instruction_tree">
-            <field name="name">bacs.ddi.tree</field>
+            <field name="name">bacs.ddi.list</field>
             <field name="model">bacs.ddi</field>
             <field name="arch" type="xml">
-                <tree decoration-info="state == 'draft'" decoration-muted="state == 'closed'" decoration-danger="state == 'revoked'" default_order="start_date desc">
+                <list decoration-info="state == 'draft'" decoration-muted="state == 'closed'" decoration-danger="state == 'revoked'" default_order="start_date desc">
                     <field name="partner_id"/>
                     <field name="name"/>
                     <field name="start_date"/>
                     <field name="state"/>
                     <field name="company_id" groups="base.group_multi_company"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -89,7 +89,7 @@
         <record id="account_bacs_direct_debit_instruction_tree_act" model="ir.actions.act_window">
             <field name="name">BACS Direct Debit Instruction</field>
             <field name="res_model">bacs.ddi</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="context">{'search_default_account_bacs_ddi_active_filter':1}</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">

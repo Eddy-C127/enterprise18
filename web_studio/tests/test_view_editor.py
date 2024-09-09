@@ -382,17 +382,17 @@ class TestEditView(TestStudioController):
             'type': 'tree',
             'model': 'ir.actions.server',
             'arch': """
-                <tree>
+                <list>
                     <field name="name"/>
                     <field name="state" groups="base.group_no_one"/>
                     <field name="code" groups="base.group_no_one"/>
-                </tree>"""
+                </list>"""
         })
         with self.debug_mode():
             arch = self.env['ir.actions.server'].with_context(studio=True).get_view(view.id)['arch']
             tree = etree.fromstring(arch)
             children = list(tree.iterdescendants())
-            self.assertEqual(len(children), 3, 'The tree view must have only 3 descendants in total, the 3 fields')
+            self.assertEqual(len(children), 3, 'The list view must have only 3 descendants in total, the 3 fields')
             name, state, code = children
             self.assertFalse(name.get('studio_groups'))
             self.assertTrue(state.get('studio_groups'))
@@ -427,9 +427,9 @@ class TestEditView(TestStudioController):
                 <form>
                     <field name="x_test_field_x"/>
                 </form>
-                <tree>
+                <list>
                     <field name="x_test_field_x"/>
-                </tree>
+                </list>
             </field>
         </form>"""
 
@@ -473,9 +473,9 @@ class TestEditView(TestStudioController):
                 <form>
                     <field name="x_test_field_x"/>
                 </form>
-                <tree>
+                <list>
                     <field name="x_test_field_x" options="{&quot;no_create&quot;: true}"/>
-                </tree>
+                </list>
             </field>
         </form>"""
         self.assertViewArchEqual(base_view.get_combined_arch(), expected_arch)
@@ -490,34 +490,34 @@ class TestEditView(TestStudioController):
         })
         for view_type, arch, expected_modifiers in [
             ('tree', """
-                <tree>
+                <list>
                     <field name="name" groups="base.test_group"/>
-                </tree>
+                </list>
             """, {'column_invisible': 'True', 'invisible': None}),
             ('tree', """
-                <tree>
+                <list>
                     <header>
                         <button name="name" groups="base.test_group"/>
                     </header>
-                </tree>
+                </list>
             """, {'invisible': 'True', 'column_invisible': None}),
             ('form', """
                 <form>
                     <field name="child_ids">
-                        <tree>
+                        <list>
                             <field name="name" groups="base.test_group"/>
-                        </tree>
+                        </list>
                     </field>
                 </form>
             """, {'column_invisible': 'True', 'invisible': None}),
             ('tree', """
-                <tree>
+                <list>
                     <field name="child_ids">
                         <form>
                             <field name="name" groups="base.test_group"/>
                         </form>
                     </field>
-                </tree>
+                </list>
             """, {'invisible': 'True', 'column_invisible': None}),
         ]:
             view = self.env['ir.ui.view'].create({

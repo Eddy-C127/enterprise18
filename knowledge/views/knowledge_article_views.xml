@@ -3,7 +3,7 @@
     <record id="knowledge_article_action_trashed" model="ir.actions.act_window">
         <field name="name">Trash</field>
         <field name="res_model">knowledge.article</field>
-        <field name="view_mode">tree,form,kanban</field>
+        <field name="view_mode">list,form,kanban</field>
         <field name="domain">[('is_template', '=', False)]</field>
         <field name="context">{'search_default_filter_trashed':1}</field>
     </record>
@@ -173,10 +173,10 @@
     </record>
 
     <record id="knowledge_article_view_tree" model="ir.ui.view">
-        <field name="name">knowledge.article.view.tree</field>
+        <field name="name">knowledge.article.view.list</field>
         <field name="model">knowledge.article</field>
         <field name="arch" type="xml">
-            <tree default_order="is_user_favorite desc, favorite_count desc"
+            <list default_order="is_user_favorite desc, favorite_count desc"
                   js_class="knowledge_article_view_tree">
                 <header>
                     <button string="Send to Trash" icon="fa-trash" type="object" name="action_send_to_trash" class="btn"/>
@@ -197,16 +197,16 @@
                 <field name="root_article_id" optional="hide"/>
                 <field name="last_edition_uid" widget="many2one_avatar_user" optional="hide"/>
                 <field name="last_edition_date" string="Last Edit Date" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="knowledge_article_view_tree_trash" model="ir.ui.view">
-        <field name="name">knowledge.article.view.tree.trash</field>
+        <field name="name">knowledge.article.view.list.trash</field>
         <field name="model">knowledge.article</field>
         <field name="priority">100</field>
         <field name="arch" type="xml">
-            <tree create="0" default_order="write_date desc"
+            <list create="0" default_order="write_date desc"
                   js_class="knowledge_article_view_tree">
                 <header>
                     <button string="Restore" icon="oi-unarchive" type="object" name="action_unarchive" class="btn"/>
@@ -226,7 +226,7 @@
                 <field name="last_edition_uid" widget="many2one_avatar_user"/>
                 <field name="last_edition_date" string="Last Edit Date"/>
                 <field name="deletion_date"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -245,11 +245,11 @@
     </record>
 
     <record id="knowledge_article_view_tree_items" model="ir.ui.view">
-        <field name="name">knowledge.article.view.tree.embedded</field>
+        <field name="name">knowledge.article.view.list.embedded</field>
         <field name="model">knowledge.article</field>
         <field name="priority">32</field>
         <field name="arch" type="xml">
-            <tree create="1" js_class="knowledge_article_view_tree_embedded" default_order="sequence asc, write_date desc, id desc">
+            <list create="1" js_class="knowledge_article_view_tree_embedded" default_order="sequence asc, write_date desc, id desc">
                 <header>
                     <button string="Trash" icon="fa-trash" type="object" name="action_send_to_trash" class="btn"/>
                 </header>
@@ -271,7 +271,7 @@
                 <field name="last_edition_date" string="Last Edit Date" optional="hide"/>
                 <field name="parent_id" column_invisible="True"/>
                 <field name="article_properties"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -463,7 +463,7 @@
         <field name="name">Articles</field>
         <field name="res_model">knowledge.article</field>
         <field name="path">articles</field>
-        <field name="view_mode">tree,kanban,hierarchy,form</field>
+        <field name="view_mode">list,kanban,hierarchy,form</field>
         <field name="context">{'search_default_filter_not_is_article_item': 1}</field>
         <field name="domain">[('is_template', '=', False)]</field>
         <field name="help" type="html">
@@ -496,7 +496,7 @@
     <record id="knowledge_article_item_action" model="ir.actions.act_window">
         <field name="name">Article Items</field>
         <field name="res_model">knowledge.article</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="domain">[('parent_id', '=', active_id), ('is_article_item', '=', True)]</field>
         <field name="search_view_id" ref="knowledge_article_view_search_items"/>
         <field name="help" type="html">
@@ -518,7 +518,7 @@
 
     <record id="knowledge_article_view_items_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="2"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="knowledge_article_view_tree_items"/>
         <field name="act_window_id" ref="knowledge_article_item_action"/>
     </record>
@@ -552,7 +552,7 @@
     <record id="knowledge_article_item_action_stages" model="ir.actions.act_window">
         <field name="name">Article Items</field>
         <field name="res_model">knowledge.article</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="domain">[('parent_id', '=', active_id), ('is_article_item', '=', True)]</field>
         <field name="search_view_id" ref="knowledge_article_view_search_items"/>
         <field name="help" type="html">
@@ -574,14 +574,14 @@
 
     <record id="knowledge_article_view_items_tree_stages" model="ir.actions.act_window.view">
         <field name="sequence" eval="2"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="knowledge_article_view_tree_items"/>
         <field name="act_window_id" ref="knowledge_article_item_action_stages"/>
     </record>
 
     <record id="knowledge_article_action_trashed_tree" model="ir.actions.act_window.view">
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="knowledge_article_view_tree_trash"/>
         <field name="act_window_id" ref="knowledge_article_action_trashed"/>
     </record>
@@ -606,15 +606,15 @@
     </record>
 
     <record id="knowledge_article_template_view_tree" model="ir.ui.view">
-        <field name="name">knowledge.article.template.view.tree</field>
+        <field name="name">knowledge.article.template.view.list</field>
         <field name="model">knowledge.article</field>
         <field name="priority">999</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="display_name" string="Name"/>
                 <field name="parent_id"/>
                 <field name="template_category_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -643,7 +643,7 @@
     <record id="knowledge_article_template_action" model="ir.actions.act_window">
         <field name="name">Article Templates</field>
         <field name="res_model">knowledge.article</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="context">{
             'search_default_filter_not_is_article_item': 1,
             'default_is_template': True
@@ -653,7 +653,7 @@
     </record>
 
     <record id="knowledge_article_template_action_view_tree" model="ir.actions.act_window.view">
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="knowledge_article_template_view_tree"/>
         <field name="act_window_id" ref="knowledge_article_template_action"/>
     </record>

@@ -361,20 +361,20 @@ test.tags("desktop")("when clicked on cell redirects to the correct list/form vi
         cohort: `
                 <cohort string="Subscriptions" date_start="start" date_stop="stop" measure="__count" interval="week" />`,
         "list,my_list_view": `
-                <tree>
+                <list>
                     <field name="start"/>
                     <field name="stop"/>
-                </tree>`,
+                </list>`,
         "form,my_form_view": `
                 <form>
                     <field name="start"/>
                     <field name="stop"/>
                 </form>`,
         list: `
-                <tree>
+                <list>
                     <field name="recurring"/>
                     <field name="start"/>
-                </tree>`,
+                </list>`,
         form: `
                 <form>
                     <field name="recurring"/>
@@ -478,20 +478,20 @@ test.tags("desktop")(
             cohort: `
                 <cohort string="Subscriptions" date_start="start" date_stop="stop" measure="__count" interval="week" />`,
             "list,my_list_view": `
-                <tree>
+                <list>
                     <field name="start"/>
                     <field name="stop"/>
-                </tree>`,
+                </list>`,
             "form,my_form_view": `
                 <form>
                     <field name="start"/>
                     <field name="stop"/>
                 </form>`,
             list: `
-                <tree>
+                <list>
                     <field name="recurring"/>
                     <field name="start"/>
-                </tree>`,
+                </list>`,
             form: `
                 <form>
                     <field name="recurring"/>

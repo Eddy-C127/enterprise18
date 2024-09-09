@@ -1313,11 +1313,11 @@ class TestViewNormalization(TransactionCase):
             '''
               <data>
                 <xpath expr="//group" position="inside">
-                    <tree>
+                    <list>
                         <button name="first_in_tree"/>
                         <button name="middle"/>
                         <button name="last_in_tree"/>
-                    </tree>
+                    </list>
                     <form>
                         <button name="first_in_form"/>
                         <button name="middle"/>
@@ -1329,11 +1329,11 @@ class TestViewNormalization(TransactionCase):
             '''
               <data>
                 <xpath expr="//group[@name='o2m_field']" position="inside">
-                  <tree>
+                  <list>
                     <button name="first_in_tree"/>
                     <button name="middle"/>
                     <button name="last_in_tree"/>
-                  </tree>
+                  </list>
                   <form>
                     <button name="first_in_form"/>
                     <button name="middle"/>

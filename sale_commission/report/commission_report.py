@@ -28,7 +28,7 @@ class SaleCommissionReport(models.Model):
             "type": "ir.actions.act_window",
             "res_model": "sale.commission.achievement.report",
             "name": _('Commission Detail: %(name)s', name=self.target_id.name),
-            "views": [[self.env.ref('sale_commission.sale_achievement_report_view_tree').id, "tree"]],
+            "views": [[self.env.ref('sale_commission.sale_achievement_report_view_tree').id, "list"]],
             "context": {'commission_user_ids': self.user_id.ids, 'commission_team_ids': self.team_id.ids},
             "domain": [('target_id', '=', self.target_id.id), ('user_id', '=', self.user_id.id), ('team_id', '=', self.team_id.id)],
         }

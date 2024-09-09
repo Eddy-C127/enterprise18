@@ -2,14 +2,14 @@
 <odoo>
 
     <record id="customs_document_type_tree_view" model="ir.ui.view">
-        <field name="name">l10n_mx_edi_stock.customs.document.type.tree</field>
+        <field name="name">l10n_mx_edi_stock.customs.document.type.list</field>
         <field name="model">l10n_mx_edi.customs.document.type</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="code"/>
                 <field name="name"/>
                 <field name="goods_direction"/>
-            </tree>
+            </list>
         </field>
     </record>
 

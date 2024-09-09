@@ -22,10 +22,10 @@
 
     <!-- Manufacturing Order for Planing view -->
     <record id="mrp_production_tree_view_planning" model="ir.ui.view">
-        <field name="name">mrp.production.tree.inherit.planning</field>
+        <field name="name">mrp.production.list.inherit.planning</field>
         <field name="model">mrp.production</field>
         <field name="arch" type="xml">
-            <tree create="false" default_order="date_start asc" decoration-info="state=='confirmed'" decoration-danger="date_start&lt;current_date and state not in ('done','cancel')" decoration-muted="state in ('done','cancel')" string="Manufacturing Orders" name="Production">
+            <list create="false" default_order="date_start asc" decoration-info="state=='confirmed'" decoration-danger="date_start&lt;current_date and state not in ('done','cancel')" decoration-muted="state in ('done','cancel')" string="Manufacturing Orders" name="Production">
                 <field name="message_needaction" column_invisible="True"/>
                 <field name="name"/>
                 <field name="date_start"/>
@@ -35,7 +35,7 @@
                 <field name="reservation_state" string="Availability"/>
                 <field name="origin" readonly="state in ['cancel', 'done']"/>
                 <field name="state"/>
-            </tree>
+            </list>
         </field>
     </record>
 

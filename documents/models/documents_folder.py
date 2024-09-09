@@ -260,7 +260,7 @@ class DocumentFolder(models.Model):
             'res_model': 'documents.workflow.rule',
             'type': 'ir.actions.act_window',
             'views': [(False, 'list'), (False, 'form')],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'context': {
                 'default_domain_folder_id': self.id,
                 'search_default_domain_folder_id': self.id,
@@ -285,7 +285,7 @@ class DocumentFolder(models.Model):
             'res_model': 'documents.document',
             'type': 'ir.actions.act_window',
             'views': [(False, 'list'), (False, 'form')],
-            'view_mode': 'tree,form',
+            'view_mode': 'list,form',
             'context': {'searchpanel_default_folder_id': self.id}
         }
 

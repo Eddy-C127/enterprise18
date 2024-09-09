@@ -44,7 +44,7 @@ class Project(models.Model):
             ]),
             'context': {'create': False, 'edit': False},
             "name": _("Budget Items"),
-            'view_mode': 'tree',
+            'view_mode': 'list',
         }
 
     # ----------------------------

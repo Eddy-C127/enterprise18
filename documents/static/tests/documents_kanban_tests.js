@@ -4942,13 +4942,13 @@ QUnit.module("documents", {}, function () {
                     type: "list",
                     resModel: "documents.document",
                     arch: `
-                <tree js_class="documents_list">
+                <list js_class="documents_list">
                     <field name="type" invisible="1"/>
                     <field name="name"/>
                     <field name="partner_id"/>
                     <field name="owner_id"/>
                     <field name="type"/>
-                </tree>`,
+                </list>`,
                 });
 
                 await legacyClick(target.querySelector(".o_data_row:nth-of-type(2)"));
@@ -4991,13 +4991,13 @@ QUnit.module("documents", {}, function () {
                     type: "list",
                     resModel: "documents.document",
                     arch: `
-            <tree js_class="documents_list">
+            <list js_class="documents_list">
                 <field name="type" invisible="1"/>
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="owner_id"/>
                 <field name="type"/>
-            </tree>`,
+            </list>`,
                 });
 
                 let recordSelector = target.querySelector(
@@ -5314,13 +5314,13 @@ QUnit.module("documents", {}, function () {
                         type: "list",
                         resModel: "documents.document",
                         arch: `
-            <tree js_class="documents_list">
+            <list js_class="documents_list">
                 <field name="type" invisible="1"/>
                 <field name="name"/>
                 <field name="partner_id"/>
                 <field name="owner_id"/>
                 <field name="type"/>
-            </tree>`,
+            </list>`,
                     });
 
                     const firstRecord = target.querySelector(".o_data_row");
@@ -5467,9 +5467,9 @@ QUnit.module("documents", {}, function () {
                     await createDocumentsView({
                         type: "list",
                         resModel: "documents.document",
-                        arch: `<tree js_class="documents_list">
+                        arch: `<list js_class="documents_list">
                             <field name="name"/>
-                        </tree>`,
+                        </list>`,
                     });
                     // select 3 requested documents
                     await legacyClick(target, ".o_list_record_selector.o_list_controller");

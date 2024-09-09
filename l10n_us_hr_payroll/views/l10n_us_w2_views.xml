@@ -26,13 +26,13 @@
                         Download the CSV file: <field name="csv_file" filename="csv_filename"/>
                     </p>
                     <field name="payslip_ids">
-                        <tree create="False">
+                        <list create="False">
                             <field name="payslip_run_id"/>
                             <field name="date_from"/>
                             <field name="date_to"/>
                             <field name="employee_id"/>
                             <field name="state"/>
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -40,20 +40,20 @@
     </record>
 
     <record id="l10n_us_w2_view_tree" model="ir.ui.view">
-        <field name="name">l10n.us.w2.view.tree</field>
+        <field name="name">l10n.us.w2.view.list</field>
         <field name="model">l10n.us.w2</field>
         <field name="arch" type="xml">
-            <tree string="W2 Forms">
+            <list string="W2 Forms">
                 <field name="date_start"/>
                 <field name="date_end"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="l10n_us_w2_action" model="ir.actions.act_window">
         <field name="name">Create W2 Form</field>
         <field name="res_model">l10n.us.w2</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="target">current</field>
     </record>
 </odoo>

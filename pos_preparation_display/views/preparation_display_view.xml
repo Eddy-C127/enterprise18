@@ -3,7 +3,7 @@
         <field name="name">Preparation Display</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">pos_preparation_display.display</field>
-        <field name="view_mode">kanban,tree,form</field><field name="help" type="html">
+        <field name="view_mode">kanban,list,form</field><field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Need a touchscreen interface to manage order ?
             </p>
@@ -27,7 +27,7 @@
         <field name="name">Preparation Display</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">pos_preparation_display.display</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="context">{'search_default_filter_bar_restaurant': True}</field>
     </record>
 
@@ -59,12 +59,12 @@
                     <notebook>
                         <page name="stages" string="Stages">
                             <field name="stage_ids">
-                                <tree string="Offer" editable="bottom">
+                                <list string="Offer" editable="bottom">
                                     <field name="sequence" widget="handle"/>
                                     <field name="name" />
                                     <field name="color" widget="color" />
                                     <field name="alert_timer" />
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -74,15 +74,15 @@
     </record>
 
     <record id="preparation_display_view_tree" model="ir.ui.view">
-        <field name="name">preparation.display.tree.view</field>
+        <field name="name">preparation.display.list.view</field>
         <field name="model">pos_preparation_display.display</field>
         <field name="arch" type="xml">
-            <tree string="Preparation Display" create="1" delete="1">
+            <list string="Preparation Display" create="1" delete="1">
                 <field name="name" />
                 <field name="pos_config_ids" widget="many2many_tags" />
                 <field name="category_ids" widget="many2many_tags" />
                 <field name="stage_ids" widget="many2many_tags" options="{'color_field':'color'}" />
-            </tree>
+            </list>
         </field>
     </record>
 

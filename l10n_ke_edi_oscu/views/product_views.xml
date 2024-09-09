@@ -43,12 +43,12 @@
             </field>
         </record>
 
-        <!-- Product variant tree view -->
+        <!-- Product variant list view -->
         <record id="l10n_ke_kra_product_tree" model="ir.ui.view">
-            <field name="name">product.product.tree.l10n.ke.edi.oscu</field>
+            <field name="name">product.product.list.l10n.ke.edi.oscu</field>
             <field name="model">product.product</field>
             <field name="arch" type="xml">
-                <tree editable="top" multi_edit="1">
+                <list editable="top" multi_edit="1">
                     <field name="display_name"/>
                     <field name="standard_price"/>
                     <field name="l10n_ke_packaging_unit_id" readonly="l10n_ke_item_code"/>
@@ -57,11 +57,11 @@
                     <field name="l10n_ke_product_type_code" optional="show"/>
                     <field name="unspsc_code_id"/>
                     <field name="l10n_ke_item_code" optional="hide"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="product_template_tree_view_inherit_l10n_ke_edi_oscu" model="ir.ui.view">
-            <field name="name">product.template.tree.inherit.l10n.ke.edi.oscu</field>
+            <field name="name">product.template.list.inherit.l10n.ke.edi.oscu</field>
             <field name="model">product.template</field>
             <field name="inherit_id" ref="product.product_template_tree_view"/>
             <field name="arch" type="xml">

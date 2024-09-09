@@ -16,13 +16,13 @@
                         <field name="date_to"/>
                         <field name="struct_id" string="Salary Structure"/>
                         <separator string="Employees" />
-                        <field name="employee_ids" nolabel="1" colspan="2" context="{'tree_view_ref' : 'l10n_in_hr_payroll.hr_employee_tree_inherit'}">
-                            <tree no_open="True" create="False">
+                        <field name="employee_ids" nolabel="1" colspan="2" context="{'list_view_ref' : 'l10n_in_hr_payroll.hr_employee_tree_inherit'}">
+                            <list no_open="True" create="False">
                                 <field name="name" string="Employee Name"/>
                                 <field name="registration_number" string="Employee Code"/>
                                 <field name="department_id" string="Department"/>
                                 <field name="job_id" string="Job Position"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                 </form>
@@ -37,7 +37,7 @@
         </record>
 
         <record id="hr_employee_tree_inherit" model="ir.ui.view">
-            <field name="name">hr.employee.tree.inherit</field>
+            <field name="name">hr.employee.list.inherit</field>
             <field name="model">hr.employee</field>
             <field name="inherit_id" ref="hr.view_employee_tree"/>
             <field name="mode">primary</field>

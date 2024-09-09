@@ -298,9 +298,9 @@ QUnit.module("documents", {}, function () {
                     ]);
                     const views = {
                         "documents.document,false,list": `
-                        <tree js_class="documents_list">
+                        <list js_class="documents_list">
                             <field name="name"/>
-                        </tree>`,
+                        </list>`,
                     };
                     const { openView } = await createDocumentsViewWithMessaging({
                         serverData: { views },
@@ -404,9 +404,9 @@ QUnit.module("documents", {}, function () {
                         { folder_id: documentsFolderId1 },
                     ]);
                     const views = {
-                        "documents.document,false,list": `<tree js_class="documents_list">
+                        "documents.document,false,list": `<list js_class="documents_list">
                     <field name="name"/>
-                </tree>`,
+                </list>`,
                     };
                     const { openView } = await createDocumentsViewWithMessaging({
                         touchScreen: true,

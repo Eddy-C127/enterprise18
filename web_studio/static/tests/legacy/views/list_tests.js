@@ -26,10 +26,10 @@ QUnit.module("Studio", (hooks) => {
 
     QUnit.test("add custom field button with other optional columns", async function (assert) {
         serverData.views["partner,false,list"] = `
-            <tree>
+            <list>
                 <field name="foo"/>
                 <field name="bar" optional="hide"/>
-            </tree>`;
+            </list>`;
 
         const webClient = await createEnterpriseWebClient({ serverData });
         await doAction(webClient, 3);
@@ -71,7 +71,7 @@ QUnit.module("Studio", (hooks) => {
     QUnit.test("should render the no content helper of studio actions", async function (assert) {
         serverData.views["base.automation,false,kanban"] =
             '<kanban><t t-name="kanban-box"><field name="name"/></t></kanban>';
-        serverData.views["base.automation,false,list"] = '<tree><field name="name"/></tree>';
+        serverData.views["base.automation,false,list"] = '<list><field name="name"/></list>';
         serverData.views["base.automation,false,form"] = '<form><field name="name"/></form>';
         serverData.views["base.automation,false,search"] = "<search></search>";
         serverData.models["base.automation"] = {

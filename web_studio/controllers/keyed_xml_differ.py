@@ -532,7 +532,7 @@ class KeyedXmlDiffer:
         <form> (this is a subtree)
             <div>
                 <field> (this is a subtree)
-                    <tree> (this is a subtree)
+                    <list> (this is a subtree)
 
         and its ancestors (excluding the subtree) in opposite order from the document's (ie bottom-up)
         """

@@ -26,7 +26,7 @@ class GermanTaxReportCustomHandler(models.AbstractModel):
     @api.model
     def _redirect_to_misconfigured_company_number(self, message):
         """ Raises a RedirectWarning informing the user his company is missing configuration, redirecting him to the
-         tree view of res.company
+         list view of res.company
         """
         action = self.env.ref('base.action_res_company_form')
 

@@ -5,7 +5,7 @@
 
     <record id="action_sale_order_lines" model="ir.actions.act_window">
         <field name="name">Sale Order Lines</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="res_model">sale.order.line</field>
     </record>
 
@@ -80,7 +80,7 @@
         <field name="name">Subscriptions</field>
         <field name="path">subscriptions</field>
         <field name="res_model">sale.order</field>
-        <field name="view_mode">tree,kanban,form,pivot,graph,cohort,activity</field>
+        <field name="view_mode">list,kanban,form,pivot,graph,cohort,activity</field>
         <field name="context">{
             'default_subscription_state': '1_draft',
             'search_default_progress': 1,
@@ -100,7 +100,7 @@
     <record id="sale_subscription_action_filtered" model="ir.actions.act_window">
         <field name="name">Subscriptions</field>
         <field name="res_model">sale.order</field>
-        <field name="view_mode">tree,form,kanban,pivot,graph,activity</field>
+        <field name="view_mode">list,form,kanban,pivot,graph,activity</field>
         <field name="context">{
             'search_default_sale_order_template_id': [active_id],
             'default_sale_order_template_id': active_id,
@@ -120,7 +120,7 @@
     <record id="sale_subscription_action_pending" model="ir.actions.act_window">
         <field name="name">To Renew</field>
         <field name="res_model">sale.order</field>
-        <field name="view_mode">tree,form,pivot,graph,kanban,cohort,activity</field>
+        <field name="view_mode">list,form,pivot,graph,kanban,cohort,activity</field>
         <field name="context">{
             'search_default_my_subscription':1,
             'search_default_to_renew':1,
@@ -142,27 +142,27 @@
 
 
     <record id="sale_subscription_upsell_primary_view_tree" model="ir.ui.view">
-      <field name="name">sale.subscription.order.tree</field>
+      <field name="name">sale.subscription.order.list</field>
       <field name="model">sale.order</field>
       <field name="inherit_id" ref="sale.view_quotation_tree"/>
       <field name="mode">primary</field>
       <field name="priority">999</field>
       <field name="arch" type="xml">
-          <tree position="attributes">
+          <list position="attributes">
                 <!-- use the default order defined on the model -->
               <attribute name="default_order">id desc</attribute>
-          </tree>
+          </list>
       </field>
     </record>
 
     <record id="sale_subscription_action_upsell" model="ir.actions.act_window">
         <field name="name">Upsells</field>
         <field name="res_model">sale.order</field>
-        <field name="view_mode">tree,form,pivot,graph,kanban,cohort,activity</field>
+        <field name="view_mode">list,form,pivot,graph,kanban,cohort,activity</field>
         <field name="domain">[('subscription_state', '=', '7_upsell')]</field>
         <field name="context">{'create': False}</field>
         <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('sale_subscription_upsell_primary_view_tree'), 'sequence': 1}),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('sale_subscription_upsell_primary_view_tree'), 'sequence': 1}),
                 (0, 0, {'view_mode': 'kanban', 'sequence': 2}),
                 (0, 0, {'view_mode': 'form'}),
             ]"/>
@@ -251,10 +251,10 @@
 
     <!-- Tree from subscription App -->
     <record id="sale_subscription_view_tree" model="ir.ui.view">
-      <field name="name">sale.subscription.order.tree</field>
+      <field name="name">sale.subscription.order.list</field>
       <field name="model">sale.order</field>
       <field name="arch" type="xml">
-        <tree sample="1" multi_edit="1" default_order="next_invoice_date asc, end_date asc"
+        <list sample="1" multi_edit="1" default_order="next_invoice_date asc, end_date asc"
               decoration-warning="subscription_state == '4_paused'"
               decoration-muted="state == 'cancel'">
             <field name="name" string="Number" readonly="1" decoration-bf="1"/>
@@ -296,35 +296,35 @@
             <field name="pricelist_id" readonly="1" column_invisible="True"/>
             <field name="currency_id" readonly="1" column_invisible="True"/>
             <field name="invoice_status" column_invisible="True"/>
-        </tree>
+        </list>
       </field>
     </record>
 
     <record id="sale_subscription_tree" model="ir.actions.act_window.view" >
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="sale_subscription_view_tree"/>
         <field name="act_window_id" ref="sale_subscription_action"/>
     </record>
 
     <record id="sale_subscription_tree_pending" model="ir.actions.act_window.view" >
         <field name="sequence" eval="1"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="sale_subscription_view_tree"/>
         <field name="act_window_id" ref="sale_subscription_action_pending"/>
     </record>
 
     <record id="sale_subscription_quotation_tree_view" model="ir.ui.view">
-        <field name="name">sale.subscription.quotation.tree</field>
+        <field name="name">sale.subscription.quotation.list</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale_subscription.sale_subscription_view_tree"/>
         <field name="mode">primary</field>
         <field name="priority">999</field>
         <field name="arch" type="xml">
-            <tree position="attributes">
+            <list position="attributes">
                 <!-- use the default order defined on the model -->
               <attribute name="default_order">id desc</attribute>
-            </tree>
+            </list>
             <field name="amount_total" position="attributes">
                 <attribute name="optional">show</attribute>
             </field>
@@ -340,7 +340,7 @@
     <record id="sale_subscription_action_quotes" model="ir.actions.act_window">
         <field name="name">Quotations</field>
         <field name="res_model">sale.order</field>
-        <field name="view_mode">tree,kanban,form,pivot,graph,cohort,activity</field>
+        <field name="view_mode">list,kanban,form,pivot,graph,cohort,activity</field>
         <field name="context">{
             'search_default_my_subscriptions': 1,
             'default_subscription_state': '1_draft',
@@ -348,7 +348,7 @@
         <!-- All kind of subscription except upsell -->
         <field name="domain">[('subscription_state', 'in', ['1_draft', '2_renewal', '3_progress', '4_paused', '5_renewed', '6_churn'])]</field>
         <field name="view_ids" eval="[(5, 0, 0),
-                (0, 0, {'view_mode': 'tree', 'view_id': ref('sale_subscription.sale_subscription_quotation_tree_view'), 'sequence': 1}),
+                (0, 0, {'view_mode': 'list', 'view_id': ref('sale_subscription.sale_subscription_quotation_tree_view'), 'sequence': 1}),
                 (0, 0, {'view_mode': 'kanban', 'sequence': 2}),
                 (0, 0, {'view_mode': 'form'}),
             ]"/>
@@ -418,7 +418,7 @@
         <field name="mode">primary</field>
         <field name="priority">999</field>
         <field name="arch" type="xml">
-            <xpath expr="//page[@name='order_lines']/field/tree/field[@name='product_id']" position="attributes">
+            <xpath expr="//page[@name='order_lines']/field/list/field[@name='product_id']" position="attributes">
                 <attribute name="context">
                     {
                     'partner_id': parent.partner_id,
@@ -432,7 +432,7 @@
                     }
                 </attribute>
             </xpath>
-            <xpath expr="//page[@name='order_lines']/field/tree/field[@name='product_template_id']" position="attributes">
+            <xpath expr="//page[@name='order_lines']/field/list/field[@name='product_template_id']" position="attributes">
                 <attribute name="context">
                     {
                     'partner_id': parent.partner_id,
@@ -484,18 +484,18 @@
         <field name="name">sale.subscription.reason.list</field>
         <field name="model">sale.order.close.reason</field>
         <field name="arch" type="xml">
-            <tree string="Close Reasons">
+            <list string="Close Reasons">
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="visible_in_portal"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record id="sale_subscription_close_reason_action" model="ir.actions.act_window">
         <field name="name">Close Reasons</field>
         <field name="res_model">sale.order.close.reason</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <record id="sale_subscription_close_reason_view_form" model="ir.ui.view">
@@ -565,7 +565,7 @@ if records:
     <record id="sale_subscription_plan_action" model="ir.actions.act_window">
         <field name="name">Recurring Plans</field>
         <field name="res_model">sale.subscription.plan</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="search_view_id" eval='sale_subscription_plan_search'/>
         <field name="context">
             { 'search_default_subscription_plan': 1 }

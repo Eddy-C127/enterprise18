@@ -2,10 +2,10 @@
 <odoo>
     <data>
         <record id="form_325_view_tree" model="ir.ui.view">
-            <field name="name">l10n_be.form.325.view.tree</field>
+            <field name="name">l10n_be.form.325.view.list</field>
             <field name="model">l10n_be.form.325</field>
             <field name="arch" type="xml">
-                <tree string="325 Forms" create="0" js_class="account_325_form_tree">
+                <list string="325 Forms" create="0" js_class="account_325_form_tree">
                     <field name="sender_id" readonly="state == 'generated'"/>
                     <field name="debtor_id"/>
                     <field name="reference_year" options="{'format': False}"/>
@@ -14,7 +14,7 @@
                     <field name="treatment_type" readonly="state == 'generated'"/>
                     <field name="state"/>
                     <field name="form_281_50_count"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -59,8 +59,8 @@
                                 <field name="form_281_50_total_amount"/>
                             </group>
                         </group>
-                        <field name="form_281_50_ids" nolabel="1" widget="one2many" mode="tree" string="281.50 Forms" invisible="form_281_50_count == 0">
-                            <tree create="0" delete="0" edit="1" editable="bottom">
+                        <field name="form_281_50_ids" nolabel="1" widget="one2many" mode="list" string="281.50 Forms" invisible="form_281_50_count == 0">
+                            <list create="0" delete="0" edit="1" editable="bottom">
                                 <field name="official_id"/>
                                 <field name="partner_name" readonly="state == 'generated'"/>
                                 <field name="commissions"/>
@@ -71,7 +71,7 @@
                                 <field name="paid_amount"/>
                                 <button name="action_open_281_50_view_form" string="Open" type="object" class="btn-secondary"/>
                                 <field name="state" column_invisible="True"/>
-                            </tree>
+                            </list>
                         </field>
                     </sheet>
                     <!-- Chatter -->
@@ -126,7 +126,7 @@
         <record model="ir.actions.act_window" id="action_open_325_tree_view">
             <field name="name">325 forms</field>
             <field name="res_model">l10n_be.form.325</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
         </record>
 
         <menuitem

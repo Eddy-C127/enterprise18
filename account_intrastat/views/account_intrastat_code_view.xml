@@ -2,10 +2,10 @@
 <odoo>
     <data>
         <record id="view_report_intrastat_code_tree" model="ir.ui.view">
-            <field name="name">account.intrastat.code.tree</field>
+            <field name="name">account.intrastat.code.list</field>
             <field name="model">account.intrastat.code</field>
             <field name="arch" type="xml">
-                <tree string="Intrastat code">
+                <list string="Intrastat code">
                     <field name="name"/>
                     <field name="code"/>
                     <field name="description"/>
@@ -13,7 +13,7 @@
                     <field name="supplementary_unit"/>
                     <field name="start_date" optional="hide"/>
                     <field name="expiry_date" optional="hide"/>
-                </tree>
+                </list>
             </field>
         </record>
         <record id="view_intrastat_code_search" model="ir.ui.view">
@@ -112,7 +112,7 @@
             <field name="name">Intrastat Code</field>
             <field name="res_model">account.intrastat.code</field>
             <field name="context">{'search_default_group_by_type': 1, 'search_default_in_use':1}</field>
-            <field name="view_mode">tree,form,kanban</field>
+            <field name="view_mode">list,form,kanban</field>
         </record>
 
         <menuitem action="action_report_intrastat_code_tree" id="menu_report_intrastat_code"

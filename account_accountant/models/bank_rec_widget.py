@@ -1229,7 +1229,7 @@ class BankRecWidget(models.Model):
 
         context = {
             'search_view_ref': 'account_accountant.view_account_move_line_search_bank_rec_widget',
-            'tree_view_ref': 'account_accountant.view_account_move_line_list_bank_rec_widget',
+            'list_view_ref': 'account_accountant.view_account_move_line_list_bank_rec_widget',
         }
 
         if self.partner_id:

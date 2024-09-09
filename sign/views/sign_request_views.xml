@@ -78,10 +78,10 @@
     </record>
 
     <record id="sign_request_view_tree" model="ir.ui.view">
-        <field name="name">sign.request.tree</field>
+        <field name="name">sign.request.list</field>
         <field name="model">sign.request</field>
         <field name="arch" type="xml">
-            <tree multi_edit="1" sample="1" js_class="sign_list" decoration-info="state in ('shared', 'sent')" decoration-muted="state == 'canceled'">
+            <list multi_edit="1" sample="1" js_class="sign_list" decoration-info="state in ('shared', 'sent')" decoration-muted="state == 'canceled'">
                 <header>
                     <button type="object" name="send_signature_accesses" class="btn btn-secondary" string="Resend"/>
                     <button type="object" name="get_completed_document" class="btn btn-secondary" string="Download"/>
@@ -101,7 +101,7 @@
                 <button name="go_to_signable_document" string="sign" type="object" invisible="not need_my_signature or state != 'sent'"/>
                 <button name="send_signature_accesses" string="Resend" type="object" groups="sign.group_sign_user" invisible="state != 'sent' or create_uid != uid"/>
                 <button name="send_signature_accesses" string="Resend" type="object" groups="sign.group_sign_manager" invisible="state != 'sent' or create_uid == uid"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -151,15 +151,15 @@
                       </page>
                       <page string="Contacts in copy" name="cc_contacts">
                         <field name="cc_partner_ids">
-                            <tree>
+                            <list>
                                 <field name="name" string="Contacts in copy"/>
                                 <field name="email"/>
-                            </tree>
+                            </list>
                         </field>
                       </page>
                       <page string="Activity Logs" name="activity_logs" groups="sign.group_sign_manager">
                         <field name="sign_log_ids" readonly="1">
-                          <tree>
+                          <list>
                             <field name="action"/>
                             <field name="log_date"/>
                             <field name="request_state" nolabel="1"/>
@@ -167,7 +167,7 @@
                             <field name="latitude" optional="hide"/>
                             <field name="longitude" optional="hide"/>
                             <field name="ip" string="IP Address"/>
-                          </tree>
+                          </list>
                         </field>
                       </page>
                     </notebook>
@@ -223,7 +223,7 @@
         <field name="name">Documents</field>
         <field name="res_model">sign.request</field>
         <field name="path">sign-documents</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="view_mode">kanban,list,form,activity</field>
         <field name="search_view_id" ref="sign_request_view_search"/>
         <field name="context">{'search_default_my_docs': 1, 'search_default_my_sign_request': 1}</field>
         <field name="help" type="html">
@@ -240,7 +240,7 @@
         <field name="name">All Documents</field>
         <field name="res_model">sign.request</field>
         <field name="path">sign-all-documents</field>
-        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="view_mode">kanban,list,form,activity</field>
         <field name="search_view_id" ref="sign_request_view_search"/>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
@@ -272,10 +272,10 @@
 
     <!-- Signature Request Item Views -->
     <record id="sign_request_item_view_tree" model="ir.ui.view">
-        <field name="name">sign.request.item.tree</field>
+        <field name="name">sign.request.item.list</field>
         <field name="model">sign.request.item</field>
         <field name="arch" type="xml">
-            <tree editable="bottom" create="false" delete="false">
+            <list editable="bottom" create="false" delete="false">
                 <field name="change_authorized" column_invisible="True"/>
                 <field name="partner_id" readonly="not change_authorized or state in ['completed']"/>
                 <field name="signer_email"/>
@@ -284,7 +284,7 @@
                 <field name="is_mail_sent" column_invisible="True"/>
                 <button name="send_signature_accesses" string="Send" type="object" icon="fa-square-o pe-2" invisible="not signer_email or state != 'sent' or is_mail_sent"/>
                 <button name="send_signature_accesses" string="Resend" type="object" icon="fa-check-square-o pe-2" invisible="not signer_email or state != 'sent' or not is_mail_sent"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -320,7 +320,7 @@
     <record id="sign_request_item_action" model="ir.actions.act_window">
         <field name="name">Signature Request Items</field>
         <field name="res_model">sign.request.item</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
     </record>
 
     <!-- After installation of the module, open the related menu -->

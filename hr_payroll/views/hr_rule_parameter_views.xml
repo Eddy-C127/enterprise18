@@ -15,10 +15,10 @@
                             <div>
                                 <span>Versions</span>
                                 <field name="parameter_version_ids" nolabel="1">
-                                    <tree>
+                                    <list>
                                         <field name="date_from"/>
                                         <field name="parameter_value"/>
-                                    </tree>
+                                    </list>
                                 </field>
                             </div>
                         </group>
@@ -29,10 +29,10 @@
                     <group string="Versions" invisible="not id">
                         <field name="parameter_version_ids" nolabel="1"
                                 context="{'default_rule_parameter_id': id}">
-                            <tree editable="bottom">
+                            <list editable="bottom">
                                 <field name="date_from"/>
                                 <field name="parameter_value"/>
-                            </tree>
+                            </list>
                         </field>
                     </group>
                     <notebook>
@@ -48,13 +48,13 @@
     </record>
 
     <record id="hr_rule_parameter_view_tree" model="ir.ui.view">
-        <field name="name">hr.rule.parameter.tree</field>
+        <field name="name">hr.rule.parameter.list</field>
         <field name="model">hr.rule.parameter</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="code"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -71,7 +71,7 @@
     <record id="hr_rule_parameter_action" model="ir.actions.act_window">
         <field name="name">Salary Rule Parameters</field>
         <field name="res_model">hr.rule.parameter</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new salary rule parameter

@@ -2,10 +2,10 @@
 <odoo>
 
     <record id="amazon_offer_view_tree" model="ir.ui.view">
-        <field name="name">amazon.offer.tree</field>
+        <field name="name">amazon.offer.list</field>
         <field name="model">amazon.offer</field>
         <field name="arch" type="xml">
-            <tree string="Amazon Offers" editable="top">
+            <list string="Amazon Offers" editable="top">
                 <field name="account_id" column_invisible="True"/>
                 <field name="active_marketplace_ids" column_invisible="True"/>
                 <field name="marketplace_id" options="{'no_create_edit': True, 'no_open': True}"/>
@@ -23,7 +23,7 @@
                        optional="hide"
                 />
                 <field name="amazon_feed_ref" optional="hide" groups="base.group_no_one"/>
-            </tree>
+            </list>
         </field>
     </record>
 

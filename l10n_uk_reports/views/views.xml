@@ -5,13 +5,13 @@
         <field name="name">HMRC MTD VAT Obigations</field>
         <field name="model">l10n_uk.vat.obligation</field>
         <field name="arch" type="xml">
-            <tree string="Obligations" create="false">
+            <list string="Obligations" create="false">
                 <field name="date_start"/>
                 <field name="date_end"/>
                 <field name="date_due"/>
                 <field name="status"/>
                 <field name="date_received"/>
-            </tree>
+            </list>
         </field>
     </record>
 

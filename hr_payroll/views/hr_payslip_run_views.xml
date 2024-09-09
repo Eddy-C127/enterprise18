@@ -17,17 +17,17 @@
     </record>
 
     <record id="hr_payslip_run_tree" model="ir.ui.view">
-        <field name="name">hr.payslip.run.tree</field>
+        <field name="name">hr.payslip.run.list</field>
         <field name="model">hr.payslip.run</field>
         <field name="arch" type="xml">
-            <tree string="Payslips Batches" sample="1">
+            <list string="Payslips Batches" sample="1">
                 <field name="name" readonly="state != 'draft'"/>
                 <field name="date_start" readonly="state != 'draft'"/>
                 <field name="date_end" readonly="state != 'draft'"/>
                 <field name="state"/>
                 <field name="payslip_count" string="Payslips Count"/>
                 <field name="company_id" groups="base.group_multi_company"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -114,7 +114,7 @@
     <record id="action_hr_payslip_run_tree" model="ir.actions.act_window">
         <field name="name">Payslips Batches</field>
         <field name="res_model">hr.payslip.run</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="search_view_id" ref="hr_payslip_run_filter"/>
     </record>
 

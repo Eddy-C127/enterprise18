@@ -40,7 +40,7 @@ class ApprovalRequest(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'documents.document',
             'name': _('Documents'),
-            'view_mode': 'kanban,tree,form',
+            'view_mode': 'kanban,list,form',
             'domain': [('res_model', '=', 'approval.request'), ('res_id', 'in', self.ids)],
             'context': {
                 'searchpanel_default_folder_id': self._get_document_folder().id,

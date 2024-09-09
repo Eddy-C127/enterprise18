@@ -2,14 +2,14 @@
 <odoo>
     <data>
         <record id="sdd_account_payment_with_mandates_tree" model="ir.ui.view">
-            <field name="name">sdd.account.payment.mandate.tree</field>
+            <field name="name">sdd.account.payment.mandate.list</field>
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_tree"/>
             <field name="mode">primary</field>
             <field name="arch" type="xml">
-                <tree position="inside">
+                <list position="inside">
                     <field name="sdd_mandate_id" string="Originating SEPA mandate"/>
-                </tree>
+                </list>
             </field>
         </record>
 
@@ -50,7 +50,7 @@
         </record>
 
         <record id="view_account_payment_tree" model="ir.ui.view">
-            <field name="name">sdd.account.payment.tree</field>
+            <field name="name">sdd.account.payment.list</field>
             <field name="model">account.payment</field>
             <field name="inherit_id" ref="account.view_account_payment_tree"/>
             <field name="arch" type="xml">

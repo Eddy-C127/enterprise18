@@ -74,8 +74,8 @@ class HrReferralReward(models.Model):
         return {
             'type': 'ir.actions.act_window',
             'name': _('Awarded Employees'),
-            "views": [[self.env.ref('hr_referral.view_hr_referral_gift_tree').id, "tree"], [False, "form"]],
-            'view_mode': 'tree',
+            "views": [[self.env.ref('hr_referral.view_hr_referral_gift_tree').id, "list"], [False, "form"]],
+            'view_mode': 'list',
             'res_model': 'hr.referral.points',
             'domain': [('id', 'in', points_ids)]
         }

@@ -25,7 +25,7 @@
             
             <notebook>
                 <page string="Cross Reference Documents" name="cross_reference_docs" invisible="move_type not in ['in_invoice', 'in_refund', 'out_invoice', 'out_refund'] or country_code != 'CL'">
-                    <field name="l10n_cl_reference_ids" mode="tree" readonly="state != 'draft'">
+                    <field name="l10n_cl_reference_ids" mode="list" readonly="state != 'draft'">
                         <form>
                             <group>
                                 <field name="origin_doc_number" required="True"/>
@@ -36,13 +36,13 @@
                                 <field name="date"/>
                             </group>
                         </form>
-                        <tree>
+                        <list>
                             <field name="origin_doc_number" required="True"/>
                             <field name="l10n_cl_reference_doc_type_id" required="parent.move_type in ['out_invoice', 'out_refund']"/>
                             <field name="reference_doc_code"/>
                             <field name="reason"/>
                             <field name="date"/>
-                        </tree>
+                        </list>
                     </field>
                 </page>
                 <page string="Electronic Invoice" name="electronic_invoice" invisible="not l10n_cl_dte_status or country_code != 'CL'">

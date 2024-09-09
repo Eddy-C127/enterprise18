@@ -2,11 +2,11 @@
 <odoo>
 
     <record id="project_task_view_list_fsm_sale_inherit" model="ir.ui.view">
-        <field name="name">project.task.tree.fsm.sale.inherit</field>
+        <field name="name">project.task.list.fsm.sale.inherit</field>
         <field name="model">project.task</field>
         <field name="inherit_id" ref="industry_fsm.project_task_view_list_fsm"/>
         <field name="arch" type="xml">
-            <xpath expr="//tree" position="inside">
+            <xpath expr="//list" position="inside">
                 <header>
                     <button name="action_create_invoice" string="Create Invoice" type="object"
                             groups="sales_team.group_sale_salesman,account.group_account_invoice"
@@ -38,7 +38,7 @@
     <record id="project_task_action_to_invoice_fsm" model="ir.actions.act_window">
         <field name="name">To Invoice</field>
         <field name="res_model">project.task</field>
-        <field name="view_mode">tree,kanban,map,calendar,gantt,pivot,graph,form,activity</field>
+        <field name="view_mode">list,kanban,map,calendar,gantt,pivot,graph,form,activity</field>
         <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
         <field name="domain">[('is_fsm', '=', True), ('project_id', '!=', False), ('display_in_project', '=', True)]</field>
         <field name="context">{
@@ -70,7 +70,7 @@
 
     <record id="project_task_action_to_invoice_fsm_view_list" model="ir.actions.act_window.view">
         <field name="sequence" eval="5"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
         <field name="act_window_id" ref="project_task_action_to_invoice_fsm"/>
     </record>
@@ -120,7 +120,7 @@
     <record id="project_task_action_to_invoice_fsm2" model="ir.actions.act_window">
         <field name="name">To Invoice</field>
         <field name="res_model">project.task</field>
-        <field name="view_mode">tree,kanban,map,calendar,gantt,pivot,graph,form,activity</field>
+        <field name="view_mode">list,kanban,map,calendar,gantt,pivot,graph,form,activity</field>
         <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
         <field name="domain">[('is_fsm', '=', True), ('project_id', '!=', False), ('display_in_project', '=', True)]</field>
         <field name="context">{
@@ -138,7 +138,7 @@
 
     <record id="project_task_action_to_invoice_fsm2_view_list" model="ir.actions.act_window.view">
         <field name="sequence" eval="5"/>
-        <field name="view_mode">tree</field>
+        <field name="view_mode">list</field>
         <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
         <field name="act_window_id" ref="project_task_action_to_invoice_fsm2"/>
     </record>
@@ -197,7 +197,7 @@
     <record id="product_action_fsm" model="ir.actions.act_window" >
         <field name="name">Products</field>
         <field name="res_model">product.template</field>
-        <field name="view_mode">kanban,tree,activity,form</field>
+        <field name="view_mode">kanban,list,activity,form</field>
         <field name="domain">[('sale_ok', '=', True)]</field>
         <field name="context">{
             'fsm_mode': True,
@@ -293,12 +293,12 @@
                 <attribute name="invisible">not allow_billable and not is_fsm</attribute>
                 <attribute name="required">is_fsm</attribute>
             </field>
-            <xpath expr="//field[@name='child_ids']/tree/field[@name='partner_id']" position="attributes">
+            <xpath expr="//field[@name='child_ids']/list/field[@name='partner_id']" position="attributes">
                 <attribute name="column_invisible">parent.is_fsm and not parent.partner_id or not parent.allow_billable and not parent.is_fsm</attribute>
                 <attribute name="invisible">not allow_billable and not is_fsm</attribute>
                 <attribute name="required">is_fsm and parent.partner_id</attribute>
             </xpath>
-            <xpath expr="//field[@name='depend_on_ids']/tree/field[@name='partner_id']" position="attributes">
+            <xpath expr="//field[@name='depend_on_ids']/list/field[@name='partner_id']" position="attributes">
                 <attribute name="column_invisible">not parent.allow_billable and not parent.is_fsm</attribute>
                 <attribute name="invisible">not allow_billable and not is_fsm</attribute>
                 <attribute name="required">is_fsm</attribute>

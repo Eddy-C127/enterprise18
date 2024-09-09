@@ -109,15 +109,15 @@
         </record>
 
         <record id="mod347_manual_partner_data_tree" model="ir.ui.view">
-            <field name="name">l10n_es_reports.aeat.boe.mod347.manual.partner.data.tree</field>
+            <field name="name">l10n_es_reports.aeat.boe.mod347.manual.partner.data.list</field>
             <field name="model">l10n_es_reports.aeat.mod347.manual.partner.data</field>
             <field name="arch" type="xml">
-                <tree editable="bottom">
+                <list editable="bottom">
                     <field name="partner_id"/>
                     <field name="perceived_amount"/>
                     <field name="operation_class"/>
                     <field name="operation_key"/>
-                </tree>
+                </list>
             </field>
         </record>
 

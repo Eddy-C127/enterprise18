@@ -278,13 +278,13 @@ export class TimesheetGridSetupHelper {
                             </group>
                         </form>`,
                 "analytic.line,false,list": `
-                        <tree>
+                        <list>
                             <field name="date" />
                             <field name="project_id" />
                             <field name="task_id" />
                             <field name="selection_field" />
                             <field name="unit_amount" />
-                        </tree>`,
+                        </list>`,
                 "analytic.line,false,grid": `
                         <grid js_class="timesheet_grid" barchart_total="1" create_inline="1">
                             <field name="employee_id" type="row" widget="timesheet_many2one_avatar_employee"/>

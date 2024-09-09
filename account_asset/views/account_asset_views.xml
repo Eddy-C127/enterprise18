@@ -218,8 +218,8 @@
                             </group>
                         </page>
                         <page string="Depreciation Board" name="depreciation_board" invisible="total_depreciation_entries_count == 0">
-                            <field name="depreciation_move_ids" mode="tree" options="{'reload_whole_on_button': true}" readonly="state not in ['draft', 'open', 'paused']">
-                                <tree string="Depreciation Lines" decoration-info="state == 'draft'" create="0"  default_order="date asc, id asc" editable="top">
+                            <field name="depreciation_move_ids" mode="list" options="{'reload_whole_on_button': true}" readonly="state not in ['draft', 'open', 'paused']">
+                                <list string="Depreciation Lines" decoration-info="state == 'draft'" create="0"  default_order="date asc, id asc" editable="top">
                                     <field name="currency_id" column_invisible="True" readonly="state in ['cancel', 'posted']"/>
                                     <field name="date" string="Depreciation Date" readonly="state in ['cancel', 'posted']"/>
                                     <field name="ref" invisible="0"/>
@@ -229,7 +229,7 @@
                                     <field name="asset_remaining_value" readonly="1" widget="monetary" force_save="1" options="{'currency_field': 'currency_id'}"/>
                                     <field name="name" readonly="1" string="Journal Entry"/>
                                     <field name="state" column_invisible="True"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                         <page string="Bills" name="related_items">
@@ -244,8 +244,8 @@
                                     ('move_id.asset_id', '=', False),
                                 ]"
                                 class="original_move_line_ids_field"
-                                context="{'disable_preview': 1, 'tree_view_ref': 'account_asset.view_move_line_tree_asset'}">
-                                <tree create="0" no_open="1">
+                                context="{'disable_preview': 1, 'list_view_ref': 'account_asset.view_move_line_tree_asset'}">
+                                <list create="0" no_open="1">
                                     <field name="date"/>
                                     <field name="move_name" string="Journal Entry" widget="open_move_widget"/>
                                     <field name="account_id"/>
@@ -253,7 +253,7 @@
                                     <field name="debit" widget="monetary"/>
                                     <field name="credit" widget="monetary"/>
                                     <field name="company_currency_id" column_invisible="True"/>
-                                </tree>
+                                </list>
                             </field>
                         </page>
                     </notebook>
@@ -316,10 +316,10 @@
     </record>
 
     <record model="ir.ui.view" id="view_account_asset_tree">
-        <field name="name">account.asset.tree</field>
+        <field name="name">account.asset.list</field>
         <field name="model">account.asset</field>
         <field name="arch" type="xml">
-            <tree string="Assets" decoration-info="(state == 'draft')" decoration-muted="(state in ['close', 'cancelled'])" decoration-warning="(state == 'close' and value_residual != 0)" sample="1">
+            <list string="Assets" decoration-info="(state == 'draft')" decoration-muted="(state in ['close', 'cancelled'])" decoration-warning="(state == 'close' and value_residual != 0)" sample="1">
                 <field name="name"/>
                 <field name="parent_id" optional="hide"/>
                 <field name="acquisition_date" readonly="state != 'draft'"/>
@@ -337,15 +337,15 @@
                 <field name="state"/>
                 <field name="activity_exception_decoration" widget="activity_exception"/>
                 <field name="activity_ids" widget="list_activity" optional="hide"/>
-            </tree>
+            </list>
         </field>
     </record>
 
     <record model="ir.ui.view" id="view_account_asset_model_tree">
-        <field name="name">account.asset.model.tree</field>
+        <field name="name">account.asset.model.list</field>
         <field name="model">account.asset</field>
         <field name="arch" type="xml">
-            <tree string="Asset Models">
+            <list string="Asset Models">
                 <field name="name"/>
                 <field name="account_asset_id" readonly="state == 'close'"/>
                 <field name="account_depreciation_id" readonly="state == 'close'"/>
@@ -354,7 +354,7 @@
                 <field name="method_period" string="Period length" readonly="state not in ['draft', 'model']"/>
                 <field name="company_id" column_invisible="True" readonly="state != 'draft'"/>
                 <field name="state" column_invisible="True"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -410,7 +410,7 @@
         <field name="name">Assets</field>
         <field name="res_model">account.asset</field>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_account_asset_tree')}),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_account_asset_tree')}),
             (0, 0, {'view_mode': 'kanban'}),
             (0, 0, {'view_mode': 'activity'}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_asset_form')})]"/>
@@ -425,9 +425,9 @@
     <record model="ir.actions.act_window" id="action_account_asset_model_form">
         <field name="name">Asset Models</field>
         <field name="res_model">account.asset</field>
-        <field name="view_mode">tree,kanban,form</field>
+        <field name="view_mode">list,kanban,form</field>
         <field name="view_ids" eval="[(5, 0, 0),
-            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_account_asset_model_tree')}),
+            (0, 0, {'view_mode': 'list', 'view_id': ref('view_account_asset_model_tree')}),
             (0, 0, {'view_mode': 'kanban'}),
             (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_asset_form')})]"/>
         <field name="search_view_id" ref="view_account_asset_model_search"/>
@@ -460,7 +460,7 @@ if records:
         <field name="groups_id" eval="[(4, ref('account.group_account_user'))]"/>
         <field name="model_id" ref="account_asset.model_account_asset"/>
         <field name="binding_model_id" ref="account_asset.model_account_asset" />
-        <field name="binding_view_types">tree</field>
+        <field name="binding_view_types">list</field>
         <field name="state">code</field>
         <field name="code">
 if records:
@@ -472,10 +472,10 @@ if records:
 
     <menuitem id="menu_finance_config_assets" name="Assets and Revenues" parent="account.menu_finance_configuration" sequence="25"/>
 
-    <!-- Override of move line tree view. Avoid the assets taking a random tree view, and make sure to only display relevant fields by default. -->
+    <!-- Override of move line list view. Avoid the assets taking a random tree view, and make sure to only display relevant fields by default. -->
 
     <record id="view_move_line_tree_asset" model="ir.ui.view">
-        <field name="name">account.move.line.tree.asset</field>
+        <field name="name">account.move.line.list.asset</field>
         <field name="model">account.move.line</field>
         <field name="mode">primary</field>
         <field name="inherit_id" ref="account.view_move_line_tree"/>

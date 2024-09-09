@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
     <record id="whatsapp_template_variable_view_tree" model="ir.ui.view">
-        <field name="name">whatsapp.template.variable.view.tree</field>
+        <field name="name">whatsapp.template.variable.view.list</field>
         <field name="model">whatsapp.template.variable</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="wa_template_id"/>
                 <field name="model"/>
@@ -12,7 +12,7 @@
                 <field name="field_type"/>
                 <field name="field_name"/>
                 <field name="demo_value"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="whatsapp_template_variable_view_form" model="ir.ui.view">
