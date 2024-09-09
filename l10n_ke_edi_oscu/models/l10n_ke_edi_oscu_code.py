@@ -126,6 +126,7 @@ class L10nKeOSCUCode(models.Model):
                 _logger.info("No new KRA standard codes fetched from the OSCU.")
                 return
             _logger.error("eTIMS Request Error [%s]: %s", error['code'], error['message'])
+            return
         created, updated = self.sudo()._create_or_update_from_vals(self._get_vals_from_json(data))
         _logger.info("Fetched KRA standard codes from the OSCU, created %i and updated %i.", len(created), len(updated))
         self.env['ir.config_parameter'].sudo().set_param('l10n_ke_oscu.last_code_request_date', format_etims_datetime(fields.Datetime.now()))
