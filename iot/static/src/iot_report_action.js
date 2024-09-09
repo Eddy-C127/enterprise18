@@ -61,7 +61,7 @@ async function longpolling(env, orm, args, stored_device_ids) {
         env.services.notification.add(_t("Sending to printer %s...", name), { type: "info" });
 
         const iotDevice = new DeviceController(env.services.iot_longpolling, { iot_ip: ip, identifier });
-        await iotDevice.action({ document }, longpollingHasFallback);
+        await iotDevice.action({ document, print_id: uuid }, longpollingHasFallback);
     }
 }
 
