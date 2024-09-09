@@ -34,7 +34,7 @@ class AccountMove(models.Model):
         default_journal = self.env['account.journal'].search([
             ('type', '=', 'purchase'),
             ('company_id', '=', self.env.company.id)], limit=1)
-        bill_action = self.env.ref('account.action_move_in_invoice_type').read()[0]
+        bill_action = self.env.ref('account.action_move_in_invoice_type')._get_action_dict()
         bill_action.update({
             'views': [[False, "form"]],
             'context': {
