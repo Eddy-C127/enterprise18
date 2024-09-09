@@ -149,28 +149,6 @@ class StudioExportAssertor:
             else:
                 self.export_case.assertEqual(exported[key], expected[key])
 
-    def assertRecords(self, path, *record_strings):
-        root = self.get_exported(path)
-        record_nodes = [
-            ET.fromstring(record, parser=XMLPARSER) for record in record_strings
-        ]
-
-        actual = len(root.findall("./record"))
-        self.export_case.assertEqual(actual, len(record_nodes), msg=f"Wrong records count, expected {len(record_nodes)} but got {actual}")
-
-        for r_node in record_nodes:
-            exported_record = root.find(
-                f"./record[@id='{r_node.attrib['id']}']"
-            )
-            are_equal = nodes_equal(r_node, exported_record)
-            message = "Both records are equal"
-            if not are_equal:
-                tostring_opts = {"encoding": "unicode", "pretty_print": True}
-                expected = ET.tostring(r_node, **tostring_opts)
-                actual = ET.tostring(exported_record, **tostring_opts)
-                message = "\nExpected:\n%s\nActual:\n%s" % (expected, actual)
-            self.export_case.assertTrue(are_equal, message)
-
     def assertXML(self, path, expected):
         root = self.get_exported(path)
         # parse expected then compare with nodes_equal
@@ -258,17 +236,20 @@ class TestStudioExports(StudioExportCase):
             "data/ir_actions_act_window.xml",
             "data/ir_ui_menu.xml",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/ir_model.xml",
-            f"""<record id="{self.get_xmlid(custom_model)}" model="ir.model" context="{{'studio': True}}">
+            f"""<odoo>
+            <record id="{self.get_xmlid(custom_model)}" model="ir.model" context="{{'studio': True}}">
                 {IR_MODEL_INFO_FIELD}
                 <field name="model">x_furnace_types</field>
                 <field name="name">Furnace Types</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/ir_model_fields.xml",
-            f"""<record id="{self.get_xmlid(custom_field)}" model="ir.model.fields" context="{{'studio': True}}">
+            f"""<odoo>
+            <record id="{self.get_xmlid(custom_field)}" model="ir.model.fields" context="{{'studio': True}}">
                 <field name="complete_name">Max temperature</field>
                 <field name="ttype">integer</field>
                 <field name="copied" eval="True"/>
@@ -277,11 +258,13 @@ class TestStudioExports(StudioExportCase):
                 <field name="model_id" ref="{self.get_xmlid(custom_model)}"/>
                 <field name="name">x_studio_max_temp</field>
                 <field name="on_delete" eval="False"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/ir_ui_view.xml",
-            f"""<record id="{self.get_xmlid(custom_view)}" model="ir.ui.view" context="{{'studio': True}}">
+            f"""<odoo>
+            <record id="{self.get_xmlid(custom_view)}" model="ir.ui.view" context="{{'studio': True}}">
                 <field name="arch" type="xml">
                         <kanban>
                             <templates>
@@ -296,27 +279,32 @@ class TestStudioExports(StudioExportCase):
                 <field name="model">x_furnace_types</field>
                 <field name="name">Kanban view for x_furnace_types</field>
                 <field name="type">kanban</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/ir_actions_act_window.xml",
-            f"""<record id="{self.get_xmlid(custom_action)}" model="ir.actions.act_window" context="{{'studio': True}}">
+            f"""<odoo>
+            <record id="{self.get_xmlid(custom_action)}" model="ir.actions.act_window" context="{{'studio': True}}">
                 <field name="help"><![CDATA[<p>This is your new action.</p>]]></field>
                 <field name="name">Furnaces</field>
                 <field name="res_model">x_furnace_types</field>
                 <field name="view_mode">list,form,kanban</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/ir_ui_menu.xml",
-            f"""<record id="{self.get_xmlid(custom_menu_1)}" model="ir.ui.menu" context="{{'studio': True}}">
+            f"""<odoo>
+            <record id="{self.get_xmlid(custom_menu_1)}" model="ir.ui.menu" context="{{'studio': True}}">
                 <field name="name">My Furnaces</field>
-            </record>""",
-            f"""<record id="{self.get_xmlid(custom_menu_2)}" model="ir.ui.menu" context="{{'studio': True}}">
+            </record>
+            <record id="{self.get_xmlid(custom_menu_2)}" model="ir.ui.menu" context="{{'studio': True}}">
                 <field name="action" ref="{self.get_xmlid(custom_action)}" />
                 <field name="name">Furnaces Types</field>
                 <field name="parent_id" ref="{self.get_xmlid(custom_menu_1)}" />
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_customizations_with_export_model(self):
@@ -347,12 +335,14 @@ class TestStudioExports(StudioExportCase):
             "data/ir_model_fields.xml",
             "data/x_furnace_types.xml",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/x_furnace_types.xml",
-            f"""<record id="{self.get_xmlid(furnace_type)}" model="x_furnace_types">
+            f"""<odoo>
+            <record id="{self.get_xmlid(furnace_type)}" model="x_furnace_types">
                 <field name="x_studio_max_temp">1200</field>
                 <field name="x_name">Austenitization</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_simple_export_model(self):
@@ -418,14 +408,16 @@ class TestStudioExports(StudioExportCase):
         self.create_export_model(self.TestModel._name, is_demo_data=True)
         export = self.studio_export()
         export.assertFileList("demo/test_studio_export_model1.xml")
-        export.assertRecords(
+        export.assertXML(
             "demo/test_studio_export_model1.xml",
-            f"""<record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
+            f"""<odoo>
+            <record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
                 <field name="name">Some record</field>
-            </record>""",
-            f"""<record id="{self.get_xmlid(other_record)}" model="test.studio_export.model1">
+            </record>
+            <record id="{self.get_xmlid(other_record)}" model="test.studio_export.model1">
                 <field name="name">Some other record</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_model_with_binary_field(self):
@@ -443,12 +435,14 @@ class TestStudioExports(StudioExportCase):
             "data/test_studio_export_model1.xml",
             f"static/src/binary/test_studio_export_model1/{some_record.id}-binary_data",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model1.xml",
-            f"""<record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
+            f"""<odoo>
+            <record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
                 <field name="name">Some record</field>
                 <field name="binary_data" type="base64" file="studio_customization/static/src/binary/test_studio_export_model1/{some_record.id}-binary_data"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
         # With include_attachment we have the same export result
@@ -458,12 +452,14 @@ class TestStudioExports(StudioExportCase):
             "data/test_studio_export_model1.xml",
             f"static/src/binary/test_studio_export_model1/{some_record.id}-binary_data",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model1.xml",
-            f"""<record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
+            f"""<odoo>
+            <record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
                 <field name="name">Some record</field>
                 <field name="binary_data" type="base64" file="studio_customization/static/src/binary/test_studio_export_model1/{some_record.id}-binary_data"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_model_with_many2one_attachment(self):
@@ -489,19 +485,23 @@ class TestStudioExports(StudioExportCase):
             depends=["test_web_studio"],
             data=["data/ir_attachment_pre.xml", "data/test_studio_export_model1.xml"],
         )
-        export.assertRecords(
+        export.assertXML(
             "data/ir_attachment_pre.xml",
-            f"""<record id="{self.get_xmlid(attachment)}" model="ir.attachment">
+            f"""<odoo noupdate="1">
+            <record id="{self.get_xmlid(attachment)}" model="ir.attachment">
                 <field name="name">Some attachment</field>
                 <field name="datas" type="base64" file="studio_customization/static/src/binary/ir_attachment/{attachment.id}-Someattachment"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model1.xml",
-            f"""<record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
+            f"""<odoo>
+            <record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
                 <field name="name">Some record</field>
                 <field name="attachment_id" ref="{self.get_xmlid(attachment)}"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_model_with_one2many_attachment(self):
@@ -537,28 +537,32 @@ class TestStudioExports(StudioExportCase):
             depends=["test_web_studio"],
             data=["data/test_studio_export_model1.xml", "data/ir_attachment_post.xml"],
         )
-        export.assertRecords(
+        export.assertXML(
             "data/ir_attachment_post.xml",
-            f"""<record id="{self.get_xmlid(attachment1)}" model="ir.attachment">
-                <field name="name">Some attachment</field>
-                <field name="datas" type="base64" file="studio_customization/static/src/binary/ir_attachment/{attachment1.id}-Someattachment" />
-                <field name="res_id" ref="{self.get_xmlid(some_record)}" />
-                <field name="res_model">test.studio_export.model1</field>
-                <field name="res_field">attachment_ids</field>
-            </record>""",
-            f"""<record id="{self.get_xmlid(attachment2)}" model="ir.attachment">
+            f"""<odoo noupdate="1">
+            <record id="{self.get_xmlid(attachment2)}" model="ir.attachment">
                 <field name="name">Another attachment</field>
                 <field name="datas" type="base64" file="studio_customization/static/src/binary/ir_attachment/{attachment2.id}-Anotherattachment" />
                 <field name="res_id" ref="{self.get_xmlid(some_record)}" />
                 <field name="res_model">test.studio_export.model1</field>
                 <field name="res_field">attachment_ids</field>
-            </record>""",
+            </record>
+            <record id="{self.get_xmlid(attachment1)}" model="ir.attachment">
+                <field name="name">Some attachment</field>
+                <field name="datas" type="base64" file="studio_customization/static/src/binary/ir_attachment/{attachment1.id}-Someattachment" />
+                <field name="res_id" ref="{self.get_xmlid(some_record)}" />
+                <field name="res_model">test.studio_export.model1</field>
+                <field name="res_field">attachment_ids</field>
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model1.xml",
-            f"""<record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
+            f"""<odoo>
+            <record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
                 <field name="name">Some record</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_records_filter(self):
@@ -596,14 +600,16 @@ class TestStudioExports(StudioExportCase):
 
         export = self.studio_export()
         export.assertFileList("data/test_studio_export_model1.xml")
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model1.xml",
-            f"""<record id="{self.get_xmlid(user_created_record)}" model="test.studio_export.model1">
-                <field name="name">Normal user record</field>
-            </record>""",
-            """<record id="test_web_studio.bar" model="test.studio_export.model1" forcecreate="1">
+            f"""<odoo>
+            <record id="test_web_studio.bar" model="test.studio_export.model1" forcecreate="1">
                 <field name="name">Bar Updated</field>
-            </record>""",
+            </record>
+            <record id="{self.get_xmlid(user_created_record)}" model="test.studio_export.model1">
+                <field name="name">Normal user record</field>
+            </record>
+            </odoo>""",
         )
 
     def test_empty_models_and_fields(self):
@@ -631,14 +637,16 @@ class TestStudioExports(StudioExportCase):
             "data/test_studio_export_model2.xml",
         )
 
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model2.xml",
-            f"""<record id="{self.get_xmlid(model2_record1)}" model="test.studio_export.model2">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model2_record1)}" model="test.studio_export.model2">
                 <field name="name">Some Record</field>
-            </record>""",
-            f"""<record id="{self.get_xmlid(model2_record2)}" model="test.studio_export.model2">
+            </record>
+            <record id="{self.get_xmlid(model2_record2)}" model="test.studio_export.model2">
                 <field name="model2_id" ref="{self.get_xmlid(model2_record1)}"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_data_related_to_demo(self):
@@ -661,23 +669,29 @@ class TestStudioExports(StudioExportCase):
             "demo/test_studio_export_model2.xml",
             "demo/test_studio_export_model3.xml",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model2.xml",
-            f"""<record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
                 <field name="name">Some other record</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "demo/test_studio_export_model3.xml",
-            f"""<record id="{self.get_xmlid(model3_record)}" model="test.studio_export.model3">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model3_record)}" model="test.studio_export.model3">
                 <field name="name">Some record</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "demo/test_studio_export_model2.xml",
-            f"""<record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
                 <field name="model3_id" ref="{self.get_xmlid(model3_record)}"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_dependencies_order(self):
@@ -708,23 +722,27 @@ class TestStudioExports(StudioExportCase):
             "data/test_studio_export_model3.xml",
             "data/test_studio_export_model2.xml",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model3.xml",
-            f"""<record id="{self.get_xmlid(model3_record)}" model="test.studio_export.model3">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model3_record)}" model="test.studio_export.model3">
                 <field name="name">Some record</field>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model2.xml",
-            f"""<record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
                 <field name="name">Some other record</field>
                 <field name="model3_id" ref="{self.get_xmlid(model3_record)}"/>
-            </record>""",
-            f"""<record id="{self.get_xmlid(model2b_record)}" model="test.studio_export.model2">
+            </record>
+            <record id="{self.get_xmlid(model2b_record)}" model="test.studio_export.model2">
                 <field name="name">Some other record</field>
                 <field name="model2_id" ref="{self.get_xmlid(model2_record)}"/>
                 <field name="model3_id" ref="{self.get_xmlid(model3_record)}"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
     def test_export_handles_circular_dependencies(self):
@@ -755,26 +773,32 @@ class TestStudioExports(StudioExportCase):
             "data/test_studio_export_model3.xml",
         )
 
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model1.xml",
-            f"""<record id="{self.get_xmlid(model1_record)}" model="test.studio_export.model1">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model1_record)}" model="test.studio_export.model1">
                 <field name="name">Record 1</field>
                 <field name="model2_id" ref="{self.get_xmlid(model2_record)}"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model2.xml",
-            f"""<record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model2_record)}" model="test.studio_export.model2">
                 <field name="name">Record 2</field>
                 <field name="model3_id" ref="{self.get_xmlid(model3_record)}"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
-        export.assertRecords(
+        export.assertXML(
             "data/test_studio_export_model3.xml",
-            f"""<record id="{self.get_xmlid(model3_record)}" model="test.studio_export.model3">
+            f"""<odoo>
+            <record id="{self.get_xmlid(model3_record)}" model="test.studio_export.model3">
                 <field name="name">Record 3</field>
                 <field name="model1_id" ref="{self.get_xmlid(model1_record)}"/>
-            </record>""",
+            </record>
+            </odoo>""",
         )
 
         export.assertFileContains(
