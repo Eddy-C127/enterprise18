@@ -778,6 +778,14 @@ class WebStudioReportController(main.WebStudioController):
         views = request.env["ir.ui.view"].with_context(no_primary_children=True, __views_get_original_hierarchy=[], no_cow=True).get_related_views(report.report_name, bundles=False)
         if not include_web_layout:
             views = views.filtered(lambda v: not v.key.startswith("web.") or "layout" not in v.key)
+
+        # The external layout template chooses the layout as a function
+        # of the company. This is represented as dynamic t-call (="{{ template.key }}")
+        # and is not caught by the get_related_views
+        if "web.external_layout" in views.mapped("key"):
+            views = views.filtered(lambda v: v.key != "web.external_layout_standard")
+            views |= request.env.company.external_report_layout_id
+
         views.reset_arch(mode="hard")
 
         studio_keys = [STUDIO_VIEW_DIFF_KEY_TEMPLATE.format(key=v.key) for v in views]
