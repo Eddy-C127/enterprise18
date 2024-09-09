@@ -4756,7 +4756,7 @@ class AccountReport(models.Model):
                 ('date_to', '>=', options['date']['date_to']),
             ], limit=1, field_names=['date_from'])
             if fiscal_year:
-                return fiscal_year.date_from
+                return datetime.datetime.combine(fiscal_year.date_from, datetime.time.min)
 
             period_date_from, _ = date_utils.get_fiscal_year(
                 datetime.datetime.strptime(options['date']['date_to'], '%Y-%m-%d'),
