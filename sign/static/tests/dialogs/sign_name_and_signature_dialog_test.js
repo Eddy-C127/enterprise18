@@ -1,6 +1,6 @@
 /** @odoo-module **/
 
-import { click, getFixture, mount } from "@web/../tests/helpers/utils";
+import { click, getFixture, mount, nextTick } from "@web/../tests/helpers/utils";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import {
     makeFakeUserService,
@@ -142,6 +142,7 @@ QUnit.module("Sign Name and Signature Dialog", function (hooks) {
                 "Buttons should not be disabled on auto when Full name and Signature are filled"
             );
 
+            await nextTick();
             await click(target, ".o_web_sign_draw_button");
             assert.hasAttrValue(
                 buttons,
