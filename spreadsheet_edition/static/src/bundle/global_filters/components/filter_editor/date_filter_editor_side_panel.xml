@@ -70,7 +70,7 @@
                 </select>
             </div>
         </div>
-        <div class="o_side_panel_section">
+        <div class="o_side_panel_section" t-if="dateState.type === 'fixedPeriod'">
             <div class="o_side_panel_title">Value options</div>
             <t t-set="monthLabel">Months</t>
             <div class="d-flex flex-row gap-3">

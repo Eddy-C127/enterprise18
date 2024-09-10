@@ -1994,5 +1994,30 @@ QUnit.module(
                 assert.deepEqual(options, ["this_year", "this_quarter"]);
             }
         );
+
+        QUnit.test(
+            "Disabled period section is not present for non fixedPeriod date filters",
+            async function (assert) {
+                const { model } = await createSpreadsheetFromPivotView();
+                const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+                    id: "43",
+                    type: "date",
+                    label: "Date Filter",
+                    rangeType: "fixedPeriod",
+                });
+                await addGlobalFilter(model, filter);
+                await openGlobalFilterSidePanel();
+                await click(target, "i.o_side_panel_filter_icon.fa-cog");
+
+                assert.ok(target.querySelector("input[name='month']"));
+
+                const range = target.querySelector(".o_input:nth-child(2)");
+                await editSelect(range, null, "from_to");
+                assert.equal(target.querySelector("input[name='month']", null));
+
+                await editSelect(range, null, "relative");
+                assert.equal(target.querySelector("input[name='month']", null));
+            }
+        );
     }
 );
