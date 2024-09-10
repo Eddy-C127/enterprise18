@@ -12,6 +12,8 @@ United Arab Emirates Payroll and End of Service rules.
     'depends': ['hr_payroll'],
     'data': [
         'security/ir.model.access.csv',
+        'views/hr_payroll_report.xml',
+        'views/report_payslip_templates.xml',
         'data/hr_payroll_structure_type_data.xml',
         'data/hr_payroll_structure_data.xml',
         'data/hr_payslip_input_type_data.xml',
