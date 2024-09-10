@@ -385,6 +385,7 @@ registry.category("web_tour.tours").add("web_studio.test_basic_report_edition_er
                 const telse = editor.document.createElement("t");
                 telse.setAttribute("t-else", "");
                 editor.shared.domInsert(telse);
+                editor.dispatch("ADD_STEP");
             },
         },
         {
