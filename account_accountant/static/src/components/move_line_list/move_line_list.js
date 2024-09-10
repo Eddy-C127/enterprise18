@@ -1,4 +1,4 @@
-import { AttachmentView } from "@mail/core/common/attachment_view";
+import { AttachmentViewMoveLine } from "./attachment_view_move_line";
 
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
@@ -6,14 +6,14 @@ import { listView } from "@web/views/list/list_view";
 import { ListRenderer } from "@web/views/list/list_renderer";
 import { ListController } from "@web/views/list/list_controller";
 import { SIZES } from "@web/core/ui/ui_service";
-import { useState } from "@odoo/owl";
+import { useChildSubEnv, useState } from "@odoo/owl";
 import { makeActiveField } from "@web/model/relational_model/utils";
 
 export class AccountMoveLineListController extends ListController {
     static template = "account_accountant.MoveLineListView";
     static components = {
         ...ListController.components,
-        AttachmentView,
+        AttachmentViewMoveLine,
     };
     setup() {
         super.setup();
@@ -26,6 +26,11 @@ export class AccountMoveLineListController extends ListController {
                 localStorage.getItem("account.move_line_pdf_previewer_hidden") !== "false",
             selectedRecord: false,
             thread: null,
+        });
+        this.popout = useState({ active: false });
+
+        useChildSubEnv({
+            setPopout: this.setPopout.bind(this),
         });
 
         // We need to override the openRecord from ListController since it does things we do not want like opening the default form view
@@ -60,6 +65,17 @@ export class AccountMoveLineListController extends ListController {
             "account.move_line_pdf_previewer_hidden",
             this.attachmentPreviewState.displayAttachment
         );
+    }
+
+    setPopout(value) {
+        /**
+         * This function will set the popout value to false or true depending on the situation.
+         * We set popout to True when clicking on a line that has an attachment and then clicking on the popout button.
+         * Once the external page is closed, the popout is set to false again.
+         */
+        if (this.attachmentPreviewState.thread?.attachmentsInWebClientView.length) {
+            this.popout.active = value;
+        }
     }
 
     setSelectedRecord(accountMoveLineData) {
