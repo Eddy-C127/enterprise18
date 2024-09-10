@@ -38,6 +38,7 @@ import { nodeSize } from "@html_editor/utils/position";
 import { closestElement } from "@html_editor/utils/dom_traversal";
 import { QWebTablePlugin } from "./qweb_table_plugin";
 import { visitNode } from "../utils";
+import { TablePlugin } from "@html_editor/main/table/table_plugin";
 
 class __Record extends _Record.components._Record {
     setup() {
@@ -184,7 +185,24 @@ const CUSTOM_BRANDING_ATTR = [
     "o-diff-key",
 ];
 
-const REPORT_EDITOR_PLUGINS = [...MAIN_PLUGINS, QWebPlugin, QWebTablePlugin];
+class _TablePlugin extends TablePlugin {
+    static name = TablePlugin.name;
+    _insertTable() {
+        const table = super._insertTable(...arguments);
+        if (closestElement(table, "[t-call='web.external_layout']")) {
+            table.removeAttribute("class");
+            table.classList.add("table", "o_table", "table-borderless");
+        }
+        return table;
+    }
+}
+
+const REPORT_EDITOR_PLUGINS_MAP = Object.fromEntries(MAIN_PLUGINS.map((cls) => [cls.name, cls]));
+Object.assign(REPORT_EDITOR_PLUGINS_MAP, {
+    [QWebPlugin.name]: QWebPlugin,
+    [QWebTablePlugin.name]: QWebTablePlugin,
+    [TablePlugin.name]: _TablePlugin,
+});
 
 export class ReportEditorWysiwyg extends Component {
     static components = {
@@ -271,7 +289,7 @@ export class ReportEditorWysiwyg extends Component {
 
         const editor = new Editor(
             {
-                Plugins: REPORT_EDITOR_PLUGINS,
+                Plugins: Object.values(REPORT_EDITOR_PLUGINS_MAP),
                 onChange: onEditorChange,
                 getRecordInfo: () => {
                     const { anchorNode } = this.editor.shared.getEditableSelection();
