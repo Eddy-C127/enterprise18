@@ -5,6 +5,7 @@ import { localization } from "@web/core/l10n/localization";
 import { registry } from "@web/core/registry";
 
 import { Component, useState } from "@odoo/owl";
+import { useStudioServiceAsReactive } from "@web_studio/studio_service";
 const editorTabRegistry = registry.category("web_studio.editor_tabs");
 
 class Breadcrumbs extends Component {
@@ -42,7 +43,7 @@ export class EditorMenu extends Component {
     static components = { Breadcrumbs };
     setup() {
         this.l10n = localization;
-        this.studio = useService("studio");
+        this.studio = useStudioServiceAsReactive();
         this.rpc = useService("rpc");
         this.editionFlow = useState(this.env.editionFlow);
     }
