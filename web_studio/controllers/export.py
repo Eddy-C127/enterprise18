@@ -38,7 +38,8 @@ def generate_module(module, export_info):
         Yields:
             tuple: A tuple containing the filename and content.
     """
-    _xmlid_cache.clear()
+    get_xmlid = xmlid_getter()
+    has_website = _has_website()
     # Generate xml files and yield them
     filenames = []          # filenames to include in the module to export
     # depends contains module dependencies of the module to export, as a result
@@ -50,7 +51,7 @@ def generate_module(module, export_info):
     # Generate xml files for the data to export
     data, export, circular_dependencies = export_info
     for model, filepath, records, fields, no_update in export:
-        (xml, binary_files, new_dependencies, skipped) = _serialize_model(module, model, records, data, fields, no_update)
+        (xml, binary_files, new_dependencies, skipped) = _serialize_model(module, model, records, data, fields, no_update, has_website, get_xmlid)
         if xml is not None:
             yield from binary_files
             yield (filepath, xml)
@@ -63,7 +64,7 @@ def generate_module(module, export_info):
         filepath = 'demo/sale_order_confirm.xml'
         sale_orders_data = data.filtered(lambda d: d.model == "sale.order")
         sale_orders = request.env["sale.order"].browse(sale_orders_data.mapped("res_id"))
-        xmlids = [_get_xmlid(so, sale_orders_data) for so in sale_orders if so.state not in ('cancel', 'draft')]
+        xmlids = [get_xmlid(so, sale_orders_data) for so in sale_orders if so.state not in ('cancel', 'draft')]
         nodes = []
 
         # Update sale order stages
@@ -173,12 +174,11 @@ def generate_module(module, export_info):
     manifest = manifest.encode('utf-8')
     yield ('__manifest__.py', manifest)
     yield ('__init__.py', b'')
-    _xmlid_cache.clear()
 
 
 # ============================== Serialization ==================================
-def _serialize_model(module, model, records, data, fields_to_export, no_update):
-    records_to_export, depends, binary_files = _prepare_records_to_export(module, model, records, data, fields_to_export)
+def _serialize_model(module, model, records, data, fields_to_export, no_update, has_website, get_xmlid):
+    records_to_export, depends, binary_files = _prepare_records_to_export(module, model, records, data, fields_to_export, get_xmlid)
 
     # create the XML containing the generated record nodes
     nodes = []
@@ -199,16 +199,16 @@ def _serialize_model(module, model, records, data, fields_to_export, no_update):
 
     skipped_records = []
     for record in records_to_export:
-        record_node, record_skipped = _serialize_record(module, model, record, data, fields_to_export)
+        record_node, record_skipped = _serialize_record(module, model, record, data, fields_to_export, has_website, get_xmlid)
         if record_node is not None:
             nodes.append(record_node)
         skipped_records.extend(record_skipped)
 
     # SPECIFIC: replace website pages arch if needed
-    if model == 'ir.ui.view' and _has_website():
+    if model == 'ir.ui.view' and has_website:
         website_views = filter(lambda r: r['website_id'] and r['key'].startswith('website.') and r['create_uid'].id == 1, records_to_export)
         for view in website_views:
-            exportid = _get_xmlid(view, data)
+            exportid = get_xmlid(view, data)
             nodes.append(
                 E.function(
                     E.value(
@@ -232,12 +232,12 @@ def _serialize_model(module, model, records, data, fields_to_export, no_update):
     return xml, binary_files, depends, skipped_records
 
 
-def _serialize_record(module, model, record, data, fields_to_export):
+def _serialize_record(module, model, record, data, fields_to_export, has_website, get_xmlid):
     """ Return an etree Element for the given record, together with a list of
         skipped field values (field value references a record without external id).
     """
     record_data = data.filtered(lambda r: r.res_id == record.id and r.model == model)
-    exportid = _get_xmlid(record, record_data)
+    exportid = get_xmlid(record, record_data)
     skipped = []
 
     # Create the record node
@@ -262,7 +262,7 @@ def _serialize_record(module, model, record, data, fields_to_export):
         field = record._fields[name]
         field_element = None
         try:
-            field_element = _serialize_field(record, field, data)
+            field_element = _serialize_field(record, field, data, has_website, get_xmlid)
         except MissingXMLID:
             # the field value contains a record without an xml_id; skip it
             skipped.append((exportid, field, record[name]))
@@ -273,7 +273,7 @@ def _serialize_record(module, model, record, data, fields_to_export):
     return E.record(*fields_nodes, **kwargs) if fields_nodes else None, skipped
 
 
-def _serialize_field(record, field, data):
+def _serialize_field(record, field, data, has_website, get_xmlid):
     """ Serialize the value of ``field`` on ``record`` as an etree Element. """
     default_value = record.default_get([field.name]).get(field.name)
     value = record[field.name]
@@ -281,7 +281,7 @@ def _serialize_field(record, field, data):
         return
 
     # SPECIFIC: make a unique key for ir.ui.view.key in case of website_id
-    if _has_website() and field.name == 'key' and record._name == 'ir.ui.view' and record.website_id:
+    if has_website and field.name == 'key' and record._name == 'ir.ui.view' and record.website_id:
         value = f"studio_customization.{value}"
 
     if field.type in ('boolean', 'properties_definition', 'properties'):
@@ -289,13 +289,13 @@ def _serialize_field(record, field, data):
     elif field.type == 'many2one_reference':
         reference_model = record[field.model_field]
         reference_value = reference_model and record.env[reference_model].browse(value) or False
-        xmlid = _get_xmlid(reference_value, data)
+        xmlid = get_xmlid(reference_value, data)
         if reference_value:
             return E.field(name=field.name, ref=xmlid)
         else:
             return E.field(name=field.name, eval="False")
     elif field.type in ('many2many', 'one2many'):
-        xmlids = [_get_xmlid(v, data) for v in value]
+        xmlids = [get_xmlid(v, data) for v in value]
         return E.field(
             name=field.name,
             eval='[(6, 0, [%s])]' % ', '.join("ref('%s')" % xmlid for xmlid in xmlids),
@@ -312,7 +312,7 @@ def _serialize_field(record, field, data):
     elif field.type == 'datetime':
         return E.field(field.to_string(value), name=field.name)
     elif field.type in ('many2one', 'reference'):
-        xmlid = _get_xmlid(value, data)
+        xmlid = get_xmlid(value, data)
         return E.field(name=field.name, ref=xmlid)
     elif field.type in ('html', 'text'):
         # Wrap value in <![CDATA[]] to preserve it to be interpreted as XML markup, if any
@@ -324,55 +324,37 @@ def _serialize_field(record, field, data):
 
 
 # ===================================== Utils ===================================
-def _clean_dependencies(depends):
+def _clean_dependencies(input_deps):
     """Return the minimal set of modules that ``depends`` depends on."""
-    get_module_info = request.env["ir.module.module"].get_module_info
-    all_dependencies = request.env["ir.module.module.dependency"].all_dependencies
+    all_deps = request.env["ir.module.module.dependency"].all_dependencies(input_deps)
+    deep_deps = dict()
 
-    all_deps = all_dependencies(depends)
-    mods_deps = {item for sublist in zip(*all_deps.values()) for item in sublist}
-    all_terps = {name: get_module_info(name) for name in set({"base"} | all_deps.keys())}
-    auto_installs = {
-        name: get_module_info(name)["auto_install"]
-        for name, terp in all_terps.items()
-        if isinstance(terp["auto_install"], set)
-    }
-
-    def get_all_installed(module_name):
+    def get_deep_depends(module_name):
         """Return a set of all modules that ``module_name`` will install."""
-        # initial case: module_name in solution
-        result = {module_name}
+        nonlocal deep_deps
+        if module_name in deep_deps:
+            return deep_deps[module_name]
+
+        # initial case
+        deep_deps[module_name] = set()
 
         # recursive case
-        for dep in all_terps[module_name]["depends"]:
-            result |= get_all_installed(dep)
+        for dep in all_deps.get(module_name, []):
+            deep_deps[module_name] |= {dep, *get_deep_depends(dep)}
 
-        # also check for auto-installed modules
-        while True:
-            will_auto_install = set()
-            for mod, auto_install in auto_installs.items():
-                if mod in result:
-                    # module will already be installed
-                    continue
-                if not (auto_install - result):
-                    # all dependencies are already installed
-                    # so this module will be installed too
-                    will_auto_install.add(mod)
-            if not will_auto_install:
-                break
-            result |= will_auto_install
+        return deep_deps[module_name]
 
-        return result
+    for name in all_deps:
+        get_deep_depends(name)
 
-    all_installed = {name: sorted(get_all_installed(name)) for name in all_terps}
+    # mods_deps = {item for sublist in zip(*all_deps.values()) for item in sublist}
+    output_deps = set(input_deps)
+    for mod, deps in deep_deps.items():
+        if mod in input_deps:
+            to_remove = deps - {mod}
+            output_deps -= to_remove
 
-    result_deps = set(depends - mods_deps)
-    for mod, installed in all_installed.items():
-        if mod in depends:
-            to_remove = set(installed) - {mod}
-            result_deps -= to_remove
-
-    return sorted(result_deps)
+    return sorted(output_deps)
 
 
 def _get_binary_field_file_name(field, record):
@@ -435,7 +417,7 @@ def _get_relations(record, field):
         return record.env['ir.model']._get(record.model)
 
 
-def _prepare_records_to_export(module, model, records, data, fields_to_export):
+def _prepare_records_to_export(module, model, records, data, fields_to_export, get_xmlid):
     """Returns
         - A sorted list of records that satisfies inter-record dependencies
         - Additional module dependencies
@@ -454,7 +436,7 @@ def _prepare_records_to_export(module, model, records, data, fields_to_export):
     record_deps = OrderedDict.fromkeys(records, records.browse())
     for record in records:
         record_data = data.filtered(lambda r: r.res_id == record.id and r.model == model)
-        exportid = _get_xmlid(record, record_data)
+        exportid = get_xmlid(record, record_data)
         module_name = _get_module_name(exportid)
 
         # data depends on a record from another module
@@ -478,7 +460,7 @@ def _prepare_records_to_export(module, model, records, data, fields_to_export):
 
             for rel_record in rel_records:
                 try:
-                    rel_xmlid = _get_xmlid(rel_record, data)
+                    rel_xmlid = get_xmlid(rel_record, data)
                 except MissingXMLID:
                     # skip records that don't have an xmlid,
                     # as they won't be exported and will
@@ -494,7 +476,7 @@ def _prepare_records_to_export(module, model, records, data, fields_to_export):
             # add a dependency on the currency field
             rel_record = record._get(record.model, 'currency_id') or record._get(record.model, 'x_currency_id')
             if rel_record:
-                rel_xmlid = _get_xmlid(rel_record, data)
+                rel_xmlid = get_xmlid(rel_record, data)
                 add_dependency(_get_module_name(rel_xmlid))
                 record_deps[record] |= rel_record
 
@@ -508,33 +490,36 @@ def _has_website():
     return request.env['ir.module.module'].search_count([('state', '=', 'installed'), ('name', '=', 'website')]) == 1
 
 
-_xmlid_cache = {}
+def xmlid_getter():
+    """ Returns a function that returns the xml_id of a given record """
+    cache = {}
 
-
-def _get_xmlid(record, data=None):
-    """ Return the xml_id of ``record``.
-        Raise a ``MissingXMLID`` if xml_id does not exist.
-    """
-    if data:
-        record_data = data.filtered(lambda r: r.res_id == record.id and r.model == record._name)
-        res = record_data.xmlid
-
-    if not res:
-        if record in _xmlid_cache:
-            res = _xmlid_cache[record]
-        else:
-            # prefetch when possible
-            records = record.browse(record._prefetch_ids)
-            for rid, val in records.get_external_id().items():
-                _xmlid_cache[record.browse(rid)] = val
-            res = _xmlid_cache[record]
+    def get(record, data=None):
+        """ Return the xml_id of ``record``.
+            Raise a ``MissingXMLID`` if xml_id does not exist.
+        """
+        if data:
+            record_data = data.filtered(lambda r: r.res_id == record.id and r.model == record._name)
+            res = record_data.xmlid
 
         if not res:
-            raise MissingXMLID(record)
+            if record in cache:
+                res = cache[record]
+            else:
+                # prefetch when possible
+                records = record.browse(record._prefetch_ids)
+                for rid, val in records.get_external_id().items():
+                    cache[record.browse(rid)] = val
+                res = cache[record]
 
-    res = res.replace('__export__.', 'studio_customization.')
-    res = res.replace('__new__.', 'studio_customization.')
-    return res
+            if not res:
+                raise MissingXMLID(record)
+
+        res = res.replace('__export__.', 'studio_customization.')
+        res = res.replace('__new__.', 'studio_customization.')
+        return res
+
+    return get
 
 
 class MissingXMLID(Exception):

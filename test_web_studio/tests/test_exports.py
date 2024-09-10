@@ -4,7 +4,7 @@ from itertools import starmap
 from lxml import etree as ET
 
 from odoo import Command, SUPERUSER_ID
-from odoo.addons.web_studio.controllers.export import _get_xmlid, generate_module
+from odoo.addons.web_studio.controllers.export import xmlid_getter, generate_module
 from odoo.addons.website.tools import MockRequest
 from odoo.osv import expression
 from odoo.tests.common import TransactionCase, tagged
@@ -50,6 +50,7 @@ def nodes_equal(n1, n2):
 class StudioExportCase(TransactionCase):
     def setUp(self):
         super().setUp()
+        self._get_xmlid = xmlid_getter()
         self._customizations = []
         self._additional_models = self.env["studio.export.model"]
         self.TestModel = self.env["test.studio_export.model1"]
@@ -75,8 +76,8 @@ class StudioExportCase(TransactionCase):
         if self._current_wizard:
             all_data = self._current_wizard.default_export_data | self._current_wizard.additional_export_data
             record_data = all_data.filtered(lambda r: r.res_id == record.id and r.model == record._name)
-            return _get_xmlid(record, record_data)
-        return _get_xmlid(record)
+            return self._get_xmlid(record, record_data)
+        return self._get_xmlid(record)
 
     def studio_export(self):
         # Get all customization data
