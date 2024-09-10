@@ -964,8 +964,11 @@ class AccountMove(models.Model):
                 # of the default field when the OCR has been used and no partner was detected
                 node_with_placeholder = copy.deepcopy(node)
                 placeholder_condition = "(extract_state == 'waiting_validation' and not partner_id)"
-                node.set('invisible', f"{placeholder_condition} or ({node.attrib.pop('invisible')})")
-                node_with_placeholder.set('invisible', f"not {placeholder_condition} or ({node_with_placeholder.attrib.pop('invisible')})")
+                if node.get("invisible"):
+                    node.set('invisible', f"{placeholder_condition} or ({node.attrib.pop('invisible')})")
+                else:
+                    node.set('invisible', placeholder_condition)
+                node_with_placeholder.set('invisible', f"not {node.get('invisible')}")
                 node_with_placeholder.set('placeholder', "Click here and select the vendor on the bill to create it")
                 node.addnext(node_with_placeholder)
         return arch, view
