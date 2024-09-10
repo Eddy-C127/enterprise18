@@ -59,14 +59,6 @@ patch(TicketScreen.prototype, {
     },
 
     async _updateScreenState(order, filterState, upState = "") {
-        try {
-            await this.pos.syncAllOrders({ throw: true });
-        } catch {
-            this.pos.notification.add(_t("Error occurred while trying to sync orders."), {
-                type: "danger",
-                sticky: true,
-            });
-        }
         const stateOverride = {
             search: {
                 fieldName: "DELIVERYPROVIDER",
@@ -93,20 +85,7 @@ patch(TicketScreen.prototype, {
         return response;
     },
 
-    async _editOrder(order) {
-        this.onClickOrder(order);
-        await this._setOrder(order);
-    },
-
     async _acceptOrder(order) {
-        try {
-            await this.pos.syncAllOrders();
-        } catch {
-            this.pos.notification.add(_t("Error occurred while trying to sync orders."), {
-                type: "danger",
-                sticky: true,
-            });
-        }
         const syncedOrder = this.pos.models["pos.order"].get(order.id);
         const response = await this._updateOrderStatus(syncedOrder, "Acknowledged");
         const status = await this._handleResponse(response, syncedOrder, "acknowledged");
@@ -169,15 +148,13 @@ patch(TicketScreen.prototype, {
         const status = await this._handleResponse(response, order, "food_ready", "");
         if (status) {
             await this._updateScreenState(order, "SYNCED", "DONE");
-            try {
-                await this.pos.syncAllOrders({ throw: true });
-            } catch {
-                this.pos.notification.add(_t("Error occurred while trying to sync orders."), {
-                    type: "danger",
-                    sticky: true,
-                });
-            }
         }
+        await this.pos.data.searchRead("pos.order", [["id", "=", order.id]]);
+
+        // make sure the order is identified as paid.
+        order = this.pos.models["pos.order"].get(order.id);
+        order.set_screen_data({ name: "" });
+        order.uiState.locked = true;
     },
 
     async _onInfoOrder(order) {

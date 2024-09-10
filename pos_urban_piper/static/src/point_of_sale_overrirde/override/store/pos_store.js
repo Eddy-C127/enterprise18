@@ -30,15 +30,16 @@ patch(PosStore.prototype, {
 
     async getServerOrders() {
         if (this.config.module_pos_urban_piper && this.config.urbanpiper_store_identifier) {
-            await this.loadServerOrders([
+            return await this.loadServerOrders([
                 ["company_id", "=", this.config.company_id.id],
                 ["state", "=", "draft"],
                 "|",
                 ["pos_reference", "ilike", "Zomato"],
                 ["pos_reference", "ilike", "Swiggy"],
             ]);
+        } else {
+            return await super.getServerOrders(...arguments);
         }
-        return await super.getServerOrders(...arguments);
     },
 
     async _fetchUrbanpiperOrderCount(order_id) {

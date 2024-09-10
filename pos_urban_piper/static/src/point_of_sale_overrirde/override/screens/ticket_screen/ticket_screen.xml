@@ -46,7 +46,7 @@
                     <div class="row">
                         <div class="col-sm container">
                             <div class="row">
-                                <button class="button validation h-50 w-100 btn btn-info rounded fw-bolder py-3 col-sm" t-on-click="() => this._editOrder(order)">
+                                <button class="button validation h-50 w-100 btn btn-info rounded fw-bolder py-3 col-sm" t-on-click="() => this._setOrder(order)">
                                     <span class="fs-1 d-block">Edit</span>
                                 </button>
                                 <button t-if="order.delivery_status != 'completed'or order.delivery_status != 'food_ready'" class="button validation h-50 w-100 btn btn-light rounded ms-2 fw-bolder py-3 col-sm" t-on-click="() => this._rejectOrder(order)">

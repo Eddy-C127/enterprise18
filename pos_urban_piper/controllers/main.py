@@ -168,6 +168,7 @@ class PosUrbanPiperController(http.Controller):
             'prep_time': get_prep_time(details),
             'delivery_json': json.dumps(data),
             'user_id':  pos_config_sudo.current_session_id.user_id.id,
+            'uuid': str(uuid.uuid4()),
         })
         pos_config_sudo.current_session_id.sequence_number += 1
         pos_config_sudo._send_delivery_order_count(delivery_order.id)
