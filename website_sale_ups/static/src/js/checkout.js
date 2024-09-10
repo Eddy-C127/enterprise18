@@ -1,9 +1,9 @@
 /** @odoo-module **/
 
-import websiteSaleCheckout from '@website_sale/js/checkout'
+import WebsiteSaleCheckout from '@website_sale/js/checkout'
 
-websiteSaleCheckout.include({
-    events: Object.assign({}, websiteSaleCheckout.prototype.events || {}, {
+WebsiteSaleCheckout.include({
+    events: Object.assign({}, WebsiteSaleCheckout.prototype.events || {}, {
         'click [name="ups_bill_my_account"]': '_onClickBillMyAccount',
     }),
 
