@@ -123,7 +123,8 @@ const reinsertDynamicPivotMenu = {
     name: _t("Re-insert dynamic pivot"),
     sequence: 1020,
     children: [REINSERT_DYNAMIC_PIVOT_CHILDREN],
-    isVisible: (env) => env.model.getters.getPivotIds().length,
+    isVisible: (env) =>
+        env.model.getters.getPivotIds().some((id) => env.model.getters.getPivot(id).isValid()),
     icon: "o-spreadsheet-Icon.INSERT_PIVOT",
 };
 const reinsertStaticPivotMenu = {
@@ -131,7 +132,8 @@ const reinsertStaticPivotMenu = {
     name: _t("Re-insert static pivot"),
     sequence: 1021,
     children: [REINSERT_STATIC_PIVOT_CHILDREN],
-    isVisible: (env) => env.model.getters.getPivotIds().length,
+    isVisible: (env) =>
+        env.model.getters.getPivotIds().some((id) => env.model.getters.getPivot(id).isValid()),
     icon: "o-spreadsheet-Icon.INSERT_PIVOT",
 };
 

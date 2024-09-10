@@ -91,6 +91,27 @@ test("Reinsert a pivot with a contextual search domain", async function () {
     );
 });
 
+test("Reinsert pivot menu item should be hidden if the pivot is invalid", async function () {
+    const { model, env } = await createSpreadsheet();
+    setCellContent(model, "A1", "Customer");
+    selectCell(model, "A1");
+    const pivot = topbarMenuRegistry
+        .getMenuItems()
+        .find((item) => item.id === "insert")
+        .children(env)
+        .find((item) => item.id === "insert_pivot");
+    await pivot.execute(env);
+
+    const reinsertDynamicPivot = topbarMenuRegistry
+        .getMenuItems()
+        .find((item) => item.id === "data")
+        .children(env)
+        .find((item) => item.id === "reinsert_dynamic_pivot");
+    expect(reinsertDynamicPivot.isVisible(env)).toBe(true);
+    setCellContent(model, "A1", "", "Sheet1");
+    expect(reinsertDynamicPivot.isVisible(env)).toBe(false);
+});
+
 test("Reinsert a pivot in a too small sheet", async function () {
     const { model, env } = await createSpreadsheetWithPivot();
     const sheetId = model.getters.getActiveSheetId();
