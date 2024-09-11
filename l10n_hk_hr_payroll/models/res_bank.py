@@ -8,8 +8,6 @@ from odoo.exceptions import ValidationError
 class ResBank(models.Model):
     _inherit = 'res.bank'
 
-    # TODO: move this field to hr_payroll in master
-    country_code = fields.Char(related='country.code', string='Country Code')
     l10n_hk_bank_code = fields.Char(string='Bank Code', size=3)
 
     @api.constrains('country', 'l10n_hk_bank_code')
