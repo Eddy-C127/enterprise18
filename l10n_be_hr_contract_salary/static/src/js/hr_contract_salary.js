@@ -45,7 +45,10 @@ hrContractSalary.include({
             wishlistModalEl.innerHTML = "";
             wishlistModalEl.appendChild(modal_body);
         }
-        document.querySelector("button#hr_cs_submit").disabled = !!data["configurator_warning"];
+        const $submit_button = $("button#hr_cs_submit");
+        if ($submit_button.length) {
+            $submit_button.prop('disabled', !!data["configurator_warning"]);
+        }
     },
 
     onchangeCompanyCar: function(event) {
