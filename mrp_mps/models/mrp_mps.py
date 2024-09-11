@@ -705,6 +705,13 @@ class MrpProductionSchedule(models.Model):
     def _filter_rfq(self, rfq_by_date_planned, date_start, date_stop):
         return self.env['purchase.order.line'].concat(*[pl[0] for pl in rfq_by_date_planned if pl[1] >= date_start and pl[1] <= date_stop])
 
+    @api.model
+    def get_import_templates(self):
+        return [{
+            'label': _('Import Template for Master Production Schedule'),
+            'template': '/mrp_mps/static/xls/mps_import_template.xlsx',
+        }]
+
     def _get_procurement_extra_values(self, forecast_values):
         """ Extra values that could be added in the vals for procurement.
 
