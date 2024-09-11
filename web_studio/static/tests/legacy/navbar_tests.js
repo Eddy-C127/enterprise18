@@ -180,8 +180,6 @@ QUnit.module("Studio > Navbar", (hooks) => {
         assert.containsOnce(target, ".o_studio_navbar");
         assert.containsOnce(target, ".o_web_studio_home_studio_menu");
 
-        await click(target.querySelector(".o_web_studio_home_studio_menu .dropdown-toggle"));
-
         assert.containsOnce(target, ".o_web_studio_change_background");
         assert.strictEqual(
             target.querySelector(".o_web_studio_change_background input").accept,

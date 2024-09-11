@@ -1,8 +1,6 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { Dropdown } from "@web/core/dropdown/dropdown";
-import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { rpc } from "@web/core/network/rpc";
 import { user } from "@web/core/user";
 import { useService } from "@web/core/utils/hooks";
@@ -15,7 +13,7 @@ import { Component } from "@odoo/owl";
 export class HomeMenuCustomizer extends Component {
     static template = "web_studio.HomeMenuCustomizer";
     static props = {};
-    static components = { Dropdown, DropdownItem, FileInput };
+    static components = { FileInput };
 
     setup() {
         this.ui = useService("ui");

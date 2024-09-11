@@ -635,10 +635,6 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: ".o_menu_toggle:not(.o_menu_toggle_back)",
         },
         {
-            trigger: ".o_web_studio_home_studio_menu .dropdown-toggle",
-            run: "click",
-        },
-        {
             // export all modifications
             trigger: ".o_web_studio_export",
             run: "click",
@@ -1442,11 +1438,6 @@ registry.category("web_tour.tours").add("web_studio_custom_background_tour", {
             content: "class for custom background must be enabled (in studio)",
             trigger: ".o_home_menu_background_custom.o_home_menu_background.o_in_studio",
             run: () => null,
-        },
-        {
-            content: "click on Customizations button",
-            trigger: ".o_web_studio_home_studio_menu button",
-            run: "click",
         },
         {
             content: "reset the background",
