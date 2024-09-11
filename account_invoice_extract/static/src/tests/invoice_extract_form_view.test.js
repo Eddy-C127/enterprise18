@@ -57,6 +57,9 @@ test("basic", async () => {
     onRpc("account.move", "get_boxes", () => {
         return Promise.resolve(createBoxesData());
     });
+    onRpc("account.move", "get_partner_create_data", () => {
+        return Promise.resolve({});
+    });
     onRpc("account.move", "set_user_selected_box", (args) => {
         const boxId = args.args[1];
         switch (boxId) {

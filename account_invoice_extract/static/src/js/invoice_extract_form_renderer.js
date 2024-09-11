@@ -232,12 +232,16 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
         this.boxLayerApps = [];
     }
 
-    openCreatePartnerDialog(context) {
+    async openCreatePartnerDialog(context) {
+        const ctx_from_db = await this.orm.call('account.move', 'get_partner_create_data', [this.props.record.resId]);
         this.dialog.add(
             FormViewDialog,
             {
                 resModel: 'res.partner',
-                context: context,
+                context: Object.assign(
+                    ctx_from_db,
+                    Object.fromEntries(Object.entries(context).filter(([k, v]) => v !== undefined))
+                ),
                 title: _t("Create"),
                 onRecordSaved: (record) => {
                     this.props.record.update({ partner_id: [record.resId] });
@@ -249,35 +253,21 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
     /**
      * Updates the field's value according to @newFieldValue.
      */
-    handleFieldChanged(fieldName, newFieldValue, boxText) {
+    async handleFieldChanged(fieldName, newFieldValue) {
         let changes = {};
         switch (fieldName) {
             case 'date':
                 changes = { invoice_date: registry.category("parsers").get("date")(newFieldValue.split(' ')[0]) };
                 break;
             case 'supplier':
-                if (Number.isFinite(newFieldValue) && newFieldValue !== 0) {
-                    changes = { partner_id: [newFieldValue] };
-                }
-                else {
-                    const context = {'default_name': boxText};
-                    if (this.selectedBoxes['VAT_Number']) {
-                        context['default_vat'] = this.selectedBoxes['VAT_Number'].text;
-                    }
-                    this.openCreatePartnerDialog(context);
-                    return;
-                }
-                break;
             case 'VAT_Number':
                 if (Number.isFinite(newFieldValue) && newFieldValue !== 0) {
                     changes = { partner_id: [newFieldValue] };
-                }
-                else {
-                    const context = {'default_vat': boxText};
-                    if (this.selectedBoxes['supplier']) {
-                        context['default_name'] = this.selectedBoxes['supplier'].text;
-                    }
-                    this.openCreatePartnerDialog(context);
+                } else {
+                    await this.openCreatePartnerDialog({
+                        default_name: this.selectedBoxes['supplier']?.text,
+                        default_vat: this.selectedBoxes['VAT_Number']?.text
+                    });
                     return;
                 }
                 break;
@@ -348,7 +338,7 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
         )
 
         // Update the field's value
-        this.handleFieldChanged(fieldName, newFieldValue, box.text);
+        await this.handleFieldChanged(fieldName, newFieldValue);
 
         if (['date', 'due_date'].includes(box.feature)) {
             // For the date fields, we want to hide the calendar tooltip

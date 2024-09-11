@@ -3,6 +3,7 @@ import json
 import logging
 import re
 from difflib import SequenceMatcher
+from stdnum.eu.vat import guess_country
 
 from odoo import api, fields, models, Command, _, _lt
 from odoo.addons.iap.tools import iap_tools
@@ -60,6 +61,7 @@ class AccountMove(models.Model):
                 )
             )
 
+    extract_prefill_data = fields.Json()
     extract_word_ids = fields.One2many("account.invoice_extract.words", inverse_name="invoice_id", copy=False)
     extract_attachment_id = fields.Many2one('ir.attachment', readonly=True, ondelete='set null', copy=False, index='btree_not_null')
     extract_can_show_banners = fields.Boolean("Can show the ocr banners", compute=_compute_show_banners)
@@ -263,7 +265,10 @@ class AccountMove(models.Model):
     @api.model
     def _cron_validate(self):
         validated = super()._cron_validate()
-        validated.mapped('extract_word_ids').unlink()  # We don't need word data anymore, we can delete them
+        # We don't need word or prefill data anymore, we can delete them
+        validated.mapped('extract_word_ids').unlink()
+        for record in validated:
+            record.extract_prefill_data = None
         return validated
 
     def _post(self, soft=True):
@@ -286,6 +291,9 @@ class AccountMove(models.Model):
             "box_width": data.word_box_width,
             "box_height": data.word_box_height,
             "box_angle": data.word_box_angle} for data in self.extract_word_ids]
+
+    def get_partner_create_data(self):
+        return self.extract_prefill_data
 
     def set_user_selected_box(self, id):
         """Set the selected box for a feature. The id of the box indicates the concerned feature.
@@ -660,6 +668,57 @@ class AccountMove(models.Model):
             self.action_switch_move_type()
 
         self._save_form(ocr_results)
+
+        def get_bank_accounts():
+            iban_text = self._get_ocr_selected_value(ocr_results, 'iban', "")
+            if not iban_text:
+                return None
+
+            iban_found = self.env['res.partner.bank'].search([
+                *self.env['res.partner.bank']._check_company_domain(self.company_id),
+                ('acc_number', '=ilike', iban_text),
+            ], limit=1).id
+
+            if iban_found:
+                return [iban_found]
+
+            vals = {'acc_number': iban_text}
+            SWIFT_code_ocr = json.loads(self._get_ocr_selected_value(ocr_results, 'SWIFT_code', "{}"))
+            country_id = self.env['res.country'].search([('code', '=', SWIFT_code_ocr.get('country_code'))], limit=1)
+            bank_id = self.env['res.bank'].search([], limit=1).id
+            if bank_id:
+                vals['bank_id'] = bank_id
+            elif SWIFT_code_ocr['verified_bic'] and country_id:
+                vals['bank_id'] = self.env['res.bank'].create({
+                    'name': SWIFT_code_ocr['name'],
+                    'country': country_id.id,
+                    'city': SWIFT_code_ocr['city'],
+                    'bic': SWIFT_code_ocr['bic']}
+                ).id
+            return [vals]
+
+        def get_first_value_without(feature, not_allowed):
+            return next((
+                candidate['content']
+                for candidate in ocr_results.get(feature, {}).get('candidates', [])
+                if candidate['content'] not in not_allowed
+            ), None)
+
+        country_code = self._get_ocr_selected_value(ocr_results, 'country', "")
+        self.extract_prefill_data = {
+            'default_country_id': self.env['res.country'].search([('code', '=', country_code)], limit=1).id,
+            'default_bank_ids': get_bank_accounts(),
+            'default_email': get_first_value_without('email', (self.company_id.email,)),
+            'default_website': get_first_value_without('website', (self.company_id.website,)),
+            'default_phone': get_first_value_without('phone', (self.company_id.phone,)),
+            'default_mobile': get_first_value_without('mobile', (self.company_id.mobile,)),
+            'default_vat': next((
+                    candidate['content']
+                    for candidate in ocr_results.get('VAT_Number', {}).get('candidates', [])
+                    if guess_country(candidate['content'])[0].lower() == country_code.lower()
+                ), next(iter(ocr_results.get('VAT_Number', {}).get('candidates', [])), {}).get('content')),
+        }
+        self.extract_prefill_data = {k: v for k, v in self.extract_prefill_data.items() if v is not None}
 
         if self.extract_word_ids:  # We don't want to recreate the boxes when the user clicks on "Reload AI data"
             return
