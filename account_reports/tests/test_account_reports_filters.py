@@ -64,6 +64,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_month',
                 'date_from': '2017-12-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-12-01_2017-12-31',
             },
         )
 
@@ -78,6 +79,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': -1,
                 'date_from': '2017-11-01',
                 'date_to': '2017-11-30',
+                'currency_table_period_key': '2017-11-01_2017-11-30',
             },
         )
 
@@ -92,6 +94,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': 1,
                 'date_from': '2018-01-01',
                 'date_to': '2018-01-31',
+                'currency_table_period_key': '2018-01-01_2018-01-31',
             },
         )
 
@@ -105,6 +108,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2017-11-01',
                     'date_to': '2017-11-30',
+                    'currency_table_period_key': '2017-11-01_2017-11-30',
                 },
                 {
                     'string': 'Oct 2017',
@@ -112,6 +116,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2017-10-01',
                     'date_to': '2017-10-31',
+                    'currency_table_period_key': '2017-10-01_2017-10-31',
                 },
             ],
         )
@@ -126,6 +131,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-12-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-12-01_2016-12-31',
                 },
                 {
                     'string': 'Dec 2015',
@@ -133,6 +139,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-12-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': '2015-12-01_2015-12-31',
                 },
             ],
         )
@@ -147,6 +154,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-12-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-12-01_2016-12-31',
                 },
             ],
         )
@@ -164,6 +172,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_quarter',
                 'date_from': '2017-10-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-10-01_2017-12-31',
             },
         )
 
@@ -178,6 +187,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': -1,
                 'date_from': '2017-07-01',
                 'date_to': '2017-09-30',
+                'currency_table_period_key': '2017-07-01_2017-09-30',
             },
         )
 
@@ -192,6 +202,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': 1,
                 'date_from': '2018-01-01',
                 'date_to': '2018-03-31',
+                'currency_table_period_key': '2018-01-01_2018-03-31',
             },
         )
 
@@ -205,6 +216,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2017-07-01',
                     'date_to': '2017-09-30',
+                    'currency_table_period_key': '2017-07-01_2017-09-30',
                 },
                 {
                     'string': 'Q2\N{NO-BREAK SPACE}2017',
@@ -212,6 +224,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2017-04-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': '2017-04-01_2017-06-30',
                 },
             ],
         )
@@ -226,6 +239,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-10-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-10-01_2016-12-31',
                 },
                 {
                     'string': 'Q4\N{NO-BREAK SPACE}2015',
@@ -233,6 +247,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-10-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': '2015-10-01_2015-12-31',
                 },
             ],
         )
@@ -247,6 +262,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-10-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-10-01_2016-12-31',
                 },
             ],
         )
@@ -264,6 +280,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_year',
                 'date_from': '2017-01-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-01-01_2017-12-31',
             },
         )
 
@@ -278,6 +295,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': -1,
                 'date_from': '2016-01-01',
                 'date_to': '2016-12-31',
+                'currency_table_period_key': '2016-01-01_2016-12-31',
             },
         )
 
@@ -292,6 +310,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': 1,
                 'date_from': '2018-01-01',
                 'date_to': '2018-12-31',
+                'currency_table_period_key': '2018-01-01_2018-12-31',
             },
         )
 
@@ -305,6 +324,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-01-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-01-01_2016-12-31',
                 },
                 {
                     'string': '2015',
@@ -312,6 +332,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-01-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': '2015-01-01_2015-12-31',
                 },
             ],
         )
@@ -326,6 +347,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-01-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-01-01_2016-12-31',
                 },
                 {
                     'string': '2015',
@@ -333,6 +355,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-01-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': '2015-01-01_2015-12-31',
                 },
             ],
         )
@@ -347,6 +370,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-01-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-01-01_2016-12-31',
                 },
             ],
         )
@@ -367,6 +391,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_year',
                 'date_from': '2017-07-01',
                 'date_to': '2018-06-30',
+                'currency_table_period_key': '2017-07-01_2018-06-30',
             },
         )
 
@@ -381,6 +406,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': -1,
                 'date_from': '2016-07-01',
                 'date_to': '2017-06-30',
+                'currency_table_period_key': '2016-07-01_2017-06-30',
             },
         )
 
@@ -395,6 +421,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': 1,
                 'date_from': '2018-07-01',
                 'date_to': '2019-06-30',
+                'currency_table_period_key': '2018-07-01_2019-06-30',
             },
         )
 
@@ -408,6 +435,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-07-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': '2016-07-01_2017-06-30',
                 },
                 {
                     'string': '2015 - 2016',
@@ -415,6 +443,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-07-01',
                     'date_to': '2016-06-30',
+                    'currency_table_period_key': '2015-07-01_2016-06-30',
                 },
             ],
         )
@@ -429,6 +458,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-07-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': '2016-07-01_2017-06-30',
                 },
                 {
                     'string': '2015 - 2016',
@@ -436,6 +466,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-07-01',
                     'date_to': '2016-06-30',
+                    'currency_table_period_key': '2015-07-01_2016-06-30',
                 },
             ],
         )
@@ -450,6 +481,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-07-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': '2016-07-01_2017-06-30',
                 },
             ],
         )
@@ -487,6 +519,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': 1,
                 'date_from': '2018-01-01',
                 'date_to': '2018-03-31',
+                'currency_table_period_key': '2018-01-01_2018-03-31',
             },
         )
 
@@ -500,6 +533,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_year',
                 'date_from': '2017-10-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-10-01_2017-12-31',
             },
         )
 
@@ -514,6 +548,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'period': -1,
                 'date_from': '2017-07-01',
                 'date_to': '2017-09-30',
+                'currency_table_period_key': '2017-07-01_2017-09-30',
             },
         )
 
@@ -527,6 +562,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2017-07-01',
                     'date_to': '2017-09-30',
+                    'currency_table_period_key': '2017-07-01_2017-09-30',
                 },
                 {
                     'string': 'custom 2',
@@ -534,6 +570,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2017-04-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': '2017-04-01_2017-06-30',
                 },
             ],
         )
@@ -548,6 +585,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-10-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-10-01_2016-12-31',
                 },
                 {
                     'string': 'custom 8',
@@ -555,6 +593,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-10-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': '2015-10-01_2015-12-31',
                 },
             ],
         )
@@ -569,6 +608,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2017-07-01',
                     'date_to': '2017-09-30',
+                    'currency_table_period_key': '2017-07-01_2017-09-30',
                 },
             ],
         )
@@ -586,6 +626,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2017-01-01',
                 'date_to': '2017-01-15',
+                'currency_table_period_key': '2017-01-01_2017-01-15',
             },
         )
 
@@ -602,6 +643,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-12-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': '2016-12-01_2016-12-31',
                 },
                 {
                     'string': 'Nov 2016',
@@ -609,6 +651,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-11-01',
                     'date_to': '2016-11-30',
+                    'currency_table_period_key': '2016-11-01_2016-11-30',
                 },
             ],
         )
@@ -626,6 +669,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2016-01-01',
                     'date_to': '2016-01-15',
+                    'currency_table_period_key': '2016-01-01_2016-01-15',
                 },
                 {
                     'string': 'From %s\nto  %s' % (format_date(self.env, '2015-01-01'), format_date(self.env, '2015-01-15')),
@@ -633,6 +677,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'range',
                     'date_from': '2015-01-01',
                     'date_to': '2015-01-15',
+                    'currency_table_period_key': '2015-01-01_2015-01-15',
                 },
             ],
         )
@@ -652,6 +697,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2017-12-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-12-01_2017-12-31',
             },
         )
 
@@ -665,6 +711,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2017-10-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-10-01_2017-12-31',
             },
         )
 
@@ -678,6 +725,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2017-01-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-01-01_2017-12-31',
             },
         )
 
@@ -693,6 +741,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2016-07-01',
                 'date_to': '2017-06-30',
+                'currency_table_period_key': '2016-07-01_2017-06-30',
             },
         )
 
@@ -712,6 +761,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2017-10-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': '2017-10-01_2017-12-31',
             },
         )
 
@@ -732,6 +782,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'today',
                 'date_from': '2017-01-01',
                 'date_to': '2017-12-30',
+                'currency_table_period_key': 'None_2017-12-30',
             },
         )
 
@@ -745,6 +796,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-01-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': 'None_2016-12-31',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2015-12-31'),
@@ -752,6 +804,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-01-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': 'None_2015-12-31',
                 },
             ],
         )
@@ -766,6 +819,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-01-01',
                     'date_to': '2016-12-30',
+                    'currency_table_period_key': 'None_2016-12-30',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2015-12-30'),
@@ -773,6 +827,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-01-01',
                     'date_to': '2015-12-30',
+                    'currency_table_period_key': 'None_2015-12-30',
                 },
             ],
         )
@@ -787,6 +842,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': False,
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': 'None_2016-12-31',
                 },
             ],
         )
@@ -804,6 +860,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_month',
                 'date_from': '2017-12-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': 'None_2017-12-31',
             },
         )
 
@@ -817,6 +874,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-11-01',
                     'date_to': '2017-11-30',
+                    'currency_table_period_key': 'None_2017-11-30',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2017-10-31'),
@@ -824,6 +882,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-10-01',
                     'date_to': '2017-10-31',
+                    'currency_table_period_key': 'None_2017-10-31',
                 },
             ],
         )
@@ -838,6 +897,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-12-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': 'None_2016-12-31',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2015-12-31'),
@@ -845,6 +905,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-12-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': 'None_2015-12-31',
                 },
             ],
         )
@@ -862,6 +923,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_quarter',
                 'date_from': '2017-10-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': 'None_2017-12-31',
             },
         )
 
@@ -875,6 +937,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-07-01',
                     'date_to': '2017-09-30',
+                    'currency_table_period_key': 'None_2017-09-30',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2017-06-30'),
@@ -882,6 +945,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-04-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': 'None_2017-06-30',
                 },
             ],
         )
@@ -896,6 +960,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-10-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': 'None_2016-12-31',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2015-12-31'),
@@ -903,6 +968,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-10-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': 'None_2015-12-31',
                 },
             ],
         )
@@ -920,6 +986,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_year',
                 'date_from': '2017-01-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': 'None_2017-12-31',
             },
         )
 
@@ -933,6 +1000,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-01-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': 'None_2016-12-31',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2015-12-31'),
@@ -940,6 +1008,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-01-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': 'None_2015-12-31',
                 },
             ],
         )
@@ -954,6 +1023,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-01-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': 'None_2016-12-31',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2015-12-31'),
@@ -961,6 +1031,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-01-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': 'None_2015-12-31',
                 },
             ],
         )
@@ -981,6 +1052,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_year',
                 'date_from': '2017-07-01',
                 'date_to': '2018-06-30',
+                'currency_table_period_key': 'None_2018-06-30',
             },
         )
 
@@ -994,6 +1066,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-07-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': 'None_2017-06-30',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2016-06-30'),
@@ -1001,6 +1074,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-07-01',
                     'date_to': '2016-06-30',
+                    'currency_table_period_key': 'None_2016-06-30',
                 },
             ],
         )
@@ -1015,6 +1089,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-07-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': 'None_2017-06-30',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2016-06-30'),
@@ -1022,6 +1097,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-07-01',
                     'date_to': '2016-06-30',
+                    'currency_table_period_key': 'None_2016-06-30',
                 },
             ],
         )
@@ -1050,6 +1126,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'this_year',
                 'date_from': '2017-10-01',
                 'date_to': '2017-12-31',
+                'currency_table_period_key': 'None_2017-12-31',
             },
         )
 
@@ -1063,6 +1140,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-07-01',
                     'date_to': '2017-09-30',
+                    'currency_table_period_key': 'None_2017-09-30',
                 },
                 {
                     'string': 'custom 2',
@@ -1070,6 +1148,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-04-01',
                     'date_to': '2017-06-30',
+                    'currency_table_period_key': 'None_2017-06-30',
                 },
             ],
         )
@@ -1084,6 +1163,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-10-01',
                     'date_to': '2016-12-31',
+                    'currency_table_period_key': 'None_2016-12-31',
                 },
                 {
                     'string': 'custom 8',
@@ -1091,6 +1171,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2015-10-01',
                     'date_to': '2015-12-31',
+                    'currency_table_period_key': 'None_2015-12-31',
                 },
             ],
         )
@@ -1108,6 +1189,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2018-01-01',
                 'date_to': '2018-01-15',
+                'currency_table_period_key': 'None_2018-01-15',
             },
         )
 
@@ -1121,6 +1203,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-12-01',
                     'date_to': '2017-12-31',
+                    'currency_table_period_key': 'None_2017-12-31',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2017-11-30'),
@@ -1128,6 +1211,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-11-01',
                     'date_to': '2017-11-30',
+                    'currency_table_period_key': 'None_2017-11-30',
                 },
             ],
         )
@@ -1142,6 +1226,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2017-01-01',
                     'date_to': '2017-01-15',
+                    'currency_table_period_key': 'None_2017-01-15',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2016-01-15'),
@@ -1149,6 +1234,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2016-01-01',
                     'date_to': '2016-01-15',
+                    'currency_table_period_key': 'None_2016-01-15',
                 },
             ],
         )
@@ -1165,6 +1251,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'date_from': '2021-09-01',
                     'date_to': '2019-07-18',
                     'filter': 'custom',
+                    'currency_table_period_key': 'None_2019-07-18',
                 }
             },
             {
@@ -1174,6 +1261,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                 'filter': 'custom',
                 'date_from': '2019-07-01',
                 'date_to': '2019-07-18',
+                'currency_table_period_key': 'None_2019-07-18',
             },
         )
 
@@ -1187,6 +1275,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2019-06-01',
                     'date_to': '2019-06-30',
+                    'currency_table_period_key': 'None_2019-06-30',
                 },
                 {
                     'string': 'As of %s' % format_date(self.env, '2019-05-31'),
@@ -1194,6 +1283,7 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
                     'mode': 'single',
                     'date_from': '2019-05-01',
                     'date_to': '2019-05-31',
+                    'currency_table_period_key': 'None_2019-05-31',
                 },
             ],
         )
@@ -1451,13 +1541,13 @@ class TestAccountReportsFilters(TestAccountReportsCommon, odoo.tests.HttpCase):
             {
                 'name': '2017',
                  'forced_options': {
-                    'date': {'string': '2017', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2017-01-01', 'date_to': '2017-12-31', 'filter': 'this_year'}
+                    'date': {'string': '2017', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2017-01-01', 'date_to': '2017-12-31', 'filter': 'this_year', 'currency_table_period_key': '2017-01-01_2017-12-31'}
                  }
             },
             {
                 'name': '2016',
                 'forced_options': {
-                    'date': {'string': '2016', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2016-01-01', 'date_to': '2016-12-31'}
+                    'date': {'string': '2016', 'period_type': 'fiscalyear', 'mode': 'range', 'date_from': '2016-01-01', 'date_to': '2016-12-31', 'currency_table_period_key': '2016-01-01_2016-12-31'}
                 }
             },
         ]

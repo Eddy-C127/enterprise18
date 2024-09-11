@@ -8,6 +8,7 @@
         <field name="filter_journals" eval="True"/>
         <field name="filter_multi_company">selector</field>
         <field name="default_opening_date_filter">today</field>
+        <field name="custom_handler_model_id" ref="model_account_balance_sheet_report_handler"/>
         <field name="column_ids">
             <record id="balance_sheet_balance" model="account.report.column">
                 <field name="name">Balance</field>

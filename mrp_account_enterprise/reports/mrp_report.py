@@ -97,15 +97,15 @@ class MrpReport(models.Model):
                 prod_qty.product_qty   AS qty_produced,
                 prod_qty.qty_demanded  AS qty_demanded,
                 prod_qty.product_qty / prod_qty.qty_demanded * 100                                                                      AS yield_rate,
-                comp_cost.total * currency_table.rate                                                                                   AS component_cost,
-                op_cost.total * currency_table.rate                                                                                     AS operation_cost,
-                ({self._select_total_cost()}) * currency_table.rate                                                                     AS total_cost,
+                comp_cost.total * account_currency_table.rate                                                                                   AS component_cost,
+                op_cost.total * account_currency_table.rate                                                                                     AS operation_cost,
+                ({self._select_total_cost()}) * account_currency_table.rate                                                                     AS total_cost,
                 op_cost.total_duration                                                                                                  AS duration,
-                comp_cost.total * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * currency_table.rate                    AS unit_component_cost,
-                op_cost.total * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * currency_table.rate                      AS unit_operation_cost,
-                ({self._select_total_cost()}) * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * currency_table.rate      AS unit_cost,
+                comp_cost.total * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * account_currency_table.rate                    AS unit_component_cost,
+                op_cost.total * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * account_currency_table.rate                      AS unit_operation_cost,
+                ({self._select_total_cost()}) * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * account_currency_table.rate      AS unit_cost,
                 op_cost.total_duration / prod_qty.product_qty                                                                           AS unit_duration,
-                ({self._select_total_cost()}) * cost_share.byproduct_cost_share * currency_table.rate                                   AS byproduct_cost,
+                ({self._select_total_cost()}) * cost_share.byproduct_cost_share * account_currency_table.rate                                   AS byproduct_cost,
                 AVG(
                     COALESCE(product_standard_price.value,0)
                         / prod_qty.product_qty
@@ -133,7 +133,7 @@ class MrpReport(models.Model):
         Subqueries will return 0.0 as value whenever value IS NULL to prevent SELECT calculations from being nulled (e.g. there is no cost then
         it is mathematically 0 anyways).
         """
-        currency_table_sql = self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today())
+        currency_table = self.env['res.currency']._get_simple_currency_table(self.env.companies)
         from_str = """
             FROM mrp_production AS mo
             JOIN res_company AS rc ON rc.id = {company_id}
@@ -141,11 +141,11 @@ class MrpReport(models.Model):
             {op_cost}
             {byproducts_cost}
             {total_produced}
-            LEFT JOIN {currency_table} ON currency_table.company_id = mo.company_id
+            LEFT JOIN {currency_table} ON account_currency_table.company_id = mo.company_id
             {exp_comp_cost_unit}
             {exp_oper_cost_unit}
         """.format(
-            currency_table=self.env.cr.mogrify(currency_table_sql).decode(self.env.cr.connection.encoding),
+            currency_table=self.env.cr.mogrify(currency_table).decode(self.env.cr.connection.encoding),
             company_id=int(self.env.company.id),
             comp_cost=self._join_component_cost(),
             op_cost=self._join_operations_cost(),
@@ -375,7 +375,7 @@ class MrpReport(models.Model):
                 op_cost.total_duration,
                 prod_qty.product_qty,
                 prod_qty.qty_demanded,
-                currency_table.rate
+                account_currency_table.rate
         """
 
         return group_by_str

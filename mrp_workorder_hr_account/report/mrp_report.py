@@ -19,8 +19,8 @@ class MrpReport(models.Model):
 
     def _select(self):
         extra_select = """
-                    , op_cost.total_emp * currency_table.rate                                                                   AS employee_cost,
-                    op_cost.total_emp * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * currency_table.rate      AS unit_employee_cost
+                    , op_cost.total_emp * account_currency_table.rate                                                                   AS employee_cost,
+                    op_cost.total_emp * (1 - cost_share.byproduct_cost_share) / prod_qty.product_qty * account_currency_table.rate      AS unit_employee_cost
                 """
         return super()._select() + extra_select
 

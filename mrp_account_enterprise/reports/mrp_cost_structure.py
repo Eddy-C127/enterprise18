@@ -3,7 +3,7 @@
 
 from collections import defaultdict
 
-from odoo import api, fields, models
+from odoo import api, models
 from odoo.tools import float_round, SQL
 
 
@@ -15,7 +15,7 @@ class MrpCostStructure(models.AbstractModel):
         ProductProduct = self.env['product.product']
         StockMove = self.env['stock.move']
         res = []
-        currency_table = self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today())
+        currency_table = self.env['res.currency']._get_simple_currency_table(self.env.companies)
         for product in productions.mapped('product_id'):
             mos = productions.filtered(lambda m: m.product_id == product)
             # variables to calc cost share (i.e. between products/byproducts) since MOs can have varying distributions
@@ -38,13 +38,13 @@ class MrpCostStructure(models.AbstractModel):
                                 mo.id,
                                 abs(SUM(svl.quantity)),
                                 abs(SUM(svl.value)),
-                                currency_table.rate
+                                account_currency_table.rate
                              FROM stock_move AS sm
                        INNER JOIN stock_valuation_layer AS svl ON svl.stock_move_id = sm.id
                        LEFT JOIN mrp_production AS mo on sm.raw_material_production_id = mo.id
-                       LEFT JOIN %(currency_table)s ON currency_table.company_id = mo.company_id
+                       LEFT JOIN %(currency_table)s ON account_currency_table.company_id = mo.company_id
                             WHERE sm.raw_material_production_id in %(mos_ids)s AND sm.state != 'cancel' AND sm.product_qty != 0 AND scrapped != 't'
-                         GROUP BY sm.product_id, mo.id, currency_table.rate""",
+                         GROUP BY sm.product_id, mo.id, account_currency_table.rate""",
                         currency_table=currency_table,
                         mos_ids=tuple(mos.ids))
             self.env.cr.execute(query)
@@ -135,14 +135,14 @@ class MrpCostStructure(models.AbstractModel):
                         wc.name,
                         wo.duration,
                         CASE WHEN wo.costs_hour = 0.0 THEN wc.costs_hour ELSE wo.costs_hour END AS costs_hour,
-                        currency_table.rate
+                        account_currency_table.rate
                     FROM mrp_workcenter_productivity t
                     LEFT JOIN mrp_workorder wo ON (wo.id = t.workorder_id)
                     LEFT JOIN mrp_workcenter wc ON (wc.id = t.workcenter_id)
                     LEFT JOIN mrp_routing_workcenter op ON (wo.operation_id = op.id)
-                    LEFT JOIN %(currency_table)s ON currency_table.company_id = t.company_id
+                    LEFT JOIN %(currency_table)s ON account_currency_table.company_id = t.company_id
                     WHERE t.workorder_id IS NOT NULL AND t.workorder_id IN %(workorder_ids)s
-                    GROUP BY wo.production_id, wo.id, op.id, wo.name, wc.costs_hour, wc.name, currency_table.rate
+                    GROUP BY wo.production_id, wo.id, op.id, wo.name, wc.costs_hour, wc.name, account_currency_table.rate
                     ORDER BY wo.name, wc.name
                     """,
                     currency_table=currency_table,

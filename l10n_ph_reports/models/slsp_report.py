@@ -115,7 +115,6 @@ class SlspCustomHandler(models.AbstractModel):
                 domain.append(('partner_id.vat', '!=', False))
             query = report._get_report_query(column_group_options, "strict_range", domain=domain)
             tail_query = report._get_engine_query_tail(offset, limit)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
             queries.append(SQL(
                 """
@@ -127,7 +126,7 @@ class SlspCustomHandler(models.AbstractModel):
                          p.last_name || ' ' || p.first_name || ' ' || p.middle_name                             AS formatted_partner_name,
                          p.is_company                                                                           AS is_company,
                          REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                      AS tag_name,
-                         SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
+                         SUM(%(balance_select)s
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                          )                                                                                      AS balance
@@ -136,16 +135,16 @@ class SlspCustomHandler(models.AbstractModel):
                     JOIN res_partner cp ON cp.id = p.commercial_partner_id
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN %(currency_table_query)s
-                      ON currency_table.company_id = account_move_line.company_id
+                    %(currency_table_join)s
                    WHERE %(search_condition)s
                 GROUP BY p.id, cp.id, %(account_tag_name)s
                 %(tail_query)s
                 """,
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 column_group_key=column_group_key,
                 account_tag_name=account_tag_name,
                 table_references=query.from_clause,
-                currency_table_query=currency_table_query,
+                currency_table_join=report._currency_table_aml_join(column_group_options),
                 search_condition=query.where_clause,
                 tail_query=tail_query,
             ))
@@ -226,31 +225,30 @@ class SlspCustomHandler(models.AbstractModel):
                 ('move_id.partner_id', '=', partner_id),
             ])
             tail_query = report._get_engine_query_tail(offset, limit)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             account_tag_name = self.env['account.account.tag']._field_to_sql('account_tag', 'name')
             queries.append(SQL(
                 """
-                  SELECT %(column_group_key)s                                                                               AS column_group_key,
-                         account_move_line__move_id.id                                                                      AS move_id,
-                         account_move_line__move_id.name                                                                    AS move_name,
-                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                                  AS tag_name,
-                         SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
+                  SELECT %(column_group_key)s                                                                   AS column_group_key,
+                         account_move_line__move_id.id                                                          AS move_id,
+                         account_move_line__move_id.name                                                        AS move_name,
+                         REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                      AS tag_name,
+                         SUM(%(balance_select)s
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
-                         )                                                                                                  AS balance
+                         )                                                                                      AS balance
                     FROM %(table_references)s
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN %(currency_table_query)s
-                      ON currency_table.company_id = account_move_line.company_id
+                    %(currency_table_join)s
                    WHERE %(search_condition)s
                 GROUP BY account_move_line__move_id.id, %(account_tag_name)s
                 %(tail_query)s
                 """,
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 column_group_key=column_group_key,
                 account_tag_name=account_tag_name,
                 table_references=query.from_clause,
-                currency_table_query=currency_table_query,
+                currency_table_join=report._currency_table_aml_join(column_group_options),
                 search_condition=query.where_clause,
                 tail_query=tail_query,
             ))

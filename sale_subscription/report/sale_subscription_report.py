@@ -56,7 +56,7 @@ class SaleSubscriptionReport(models.Model):
              END
             / ssp.billing_period_value
             / {self._case_value_or_one('s.currency_rate') }
-            * {self._case_value_or_one('currency_table.rate') } 
+            * {self._case_value_or_one('account_currency_table.rate') }
         """
         res['recurring_yearly'] = f"""sum(l.price_subtotal)
             / CASE
@@ -68,12 +68,12 @@ class SaleSubscriptionReport(models.Model):
             / ssp.billing_period_value
             * 12
             / {self._case_value_or_one('s.currency_rate') }
-            * {self._case_value_or_one('currency_table.rate') }
+            * {self._case_value_or_one('account_currency_table.rate') }
         """
         res['recurring_total'] = f"""
                 s.recurring_total
                 / {self._case_value_or_one('s.currency_rate') }
-                * {self._case_value_or_one('currency_table.rate') }  
+                * {self._case_value_or_one('account_currency_table.rate') }
         """
         return res
 

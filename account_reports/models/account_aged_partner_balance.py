@@ -164,8 +164,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         account_alias = query.left_join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
         account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
 
-        currency_table = report._get_query_currency_table(options)
-        always_present_groupby = SQL("period_table.period_index, currency_table.rate, currency_table.precision")
+        always_present_groupby = SQL("period_table.period_index")
         if current_groupby:
             select_from_groupby = SQL("%s AS grouping_key,", SQL.identifier("account_move_line", current_groupby))
             groupby_clause = SQL("%s, %s", SQL.identifier("account_move_line", current_groupby), always_present_groupby)
@@ -176,16 +175,15 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
         select_period_query = SQL(',').join(
             SQL("""
                 CASE WHEN period_table.period_index = %(period_index)s
-                THEN %(multiplicator)s * (
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision))
-                    - COALESCE(SUM(ROUND(part_debit.amount * currency_table.rate, currency_table.precision)), 0)
-                    + COALESCE(SUM(ROUND(part_credit.amount * currency_table.rate, currency_table.precision)), 0)
-                )
+                THEN %(multiplicator)s * SUM(%(balance_select)s)
                 ELSE 0 END AS %(column_name)s
                 """,
                 period_index=i,
                 multiplicator=multiplicator,
                 column_name=SQL.identifier(f"period{i}"),
+                balance_select=report._currency_table_apply_rate(SQL(
+                    "account_move_line.balance - COALESCE(part_debit.amount, 0) + COALESCE(part_credit.amount, 0)"
+                )),
             )
             for i in range(len(periods))
         )
@@ -218,7 +216,7 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
 
             JOIN account_journal journal ON journal.id = account_move_line.journal_id
             JOIN account_move move ON move.id = account_move_line.move_id
-            JOIN %(currency_table)s ON currency_table.company_id = account_move_line.company_id
+            %(currency_table_join)s
 
             LEFT JOIN LATERAL (
                 SELECT
@@ -256,15 +254,8 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             GROUP BY %(groupby_clause)s
 
             HAVING
-                (
-                    SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))
-                    - COALESCE(SUM(ROUND(part_debit.amount * currency_table.rate, currency_table.precision)), 0)
-                ) != 0
-                OR
-                (
-                    SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))
-                    - COALESCE(SUM(ROUND(part_credit.amount * currency_table.rate, currency_table.precision)), 0)
-                ) != 0
+                ROUND(SUM(%(having_debit)s), %(currency_precision)s) != 0
+                OR ROUND(SUM(%(having_credit)s), %(currency_precision)s) != 0
             %(tail_query)s
             """,
             account_code=account_code,
@@ -274,10 +265,13 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
             multiplicator=multiplicator,
             aging_date_field=aging_date_field,
             table_references=query.from_clause,
-            currency_table=currency_table,
+            currency_table_join=report._currency_table_aml_join(options),
             date_to=date_to,
             search_condition=query.where_clause,
             groupby_clause=groupby_clause,
+            having_debit=report._currency_table_apply_rate(SQL("account_move_line.debit - COALESCE(part_debit.amount, 0)")),
+            having_credit=report._currency_table_apply_rate(SQL("account_move_line.credit - COALESCE(part_credit.amount, 0)")),
+            currency_precision=self.env.company.currency_id.decimal_places,
             tail_query=tail_query,
         )
 

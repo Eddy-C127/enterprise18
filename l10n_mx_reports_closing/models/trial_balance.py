@@ -41,11 +41,9 @@ class L10nMXTrialBalanceCustomHandler(models.AbstractModel):
         # Retrieve the options dictionaries corresponding to each column group.
         initial_col_group_key = options['columns'][0]['column_group_key']
         current_col_group_key = options['columns'][2]['column_group_key']
-        end_col_group_key = options['columns'][4]['column_group_key']
 
         initial_col_group_data = options['column_groups'][initial_col_group_key]
         current_col_group_data = options['column_groups'][current_col_group_key]
-        end_col_group_data = options['column_groups'][end_col_group_key]
 
         # Set the options dict for the initial balance col group.
         # We need to stretch the period all the way to the end of the report period,
@@ -62,10 +60,6 @@ class L10nMXTrialBalanceCustomHandler(models.AbstractModel):
         current_col_group_data['forced_options']['date']['date_from'] = last_day_of_fiscalyear_str
         current_col_group_data['forced_options']['date']['date_to'] = last_day_of_fiscalyear_str
         current_col_group_data['forced_domain'] += [('move_id.l10n_mx_closing_move', '=', True)]
-
-        # Set the options dict for the end period col group.
-        end_col_group_data['forced_options']['date']['date_from'] = last_day_of_fiscalyear_str
-        end_col_group_data['forced_options']['date']['date_to'] = last_day_of_fiscalyear_str
 
     def _l10n_mx_set_options_non_month_13(self, options):
         ''' Configure the options dict if the 'Month 13' option is inactive.

@@ -258,7 +258,6 @@ class ECSalesReportCustomHandler(models.AbstractModel):
         '''
         queries = []
         # Create the currency table.
-        ct_query = report._get_query_currency_table(options)
         allowed_ids = self._get_tag_ids_filtered(options)
 
         # In the case of the generic report, we don't have a country defined. So no reliable tax report whose
@@ -286,12 +285,12 @@ class ECSalesReportCustomHandler(models.AbstractModel):
                     account_move_line.partner_id    AS groupby,
                     res_partner.vat                 AS vat_number,
                     res_country.code                AS country_code,
-                    -SUM(account_move_line.balance) AS balance,
+                    -SUM(%(balance_select)s)        AS balance,
                     %(tax_elem_table_name)s         AS sales_type_code,
                     %(tax_elem_table)s.id           AS tax_element_id,
                     (comp_partner.country_id = res_partner.country_id) AS same_country
                 FROM %(table_references)s
-                JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 JOIN %(aml_rel_table)s ON %(aml_rel_table)s.account_move_line_id = account_move_line.id
                 JOIN %(tax_elem_table)s ON %(aml_rel_table)s.%(tax_elem_table_id)s = %(tax_elem_table)s.id
                 JOIN res_partner ON account_move_line.partner_id = res_partner.id
@@ -306,7 +305,8 @@ class ECSalesReportCustomHandler(models.AbstractModel):
                 tax_elem_table_name=tax_elem_table_name,
                 tax_elem_table=tax_elem_table,
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
+                currency_table_join=report._currency_table_aml_join(column_group_options),
                 aml_rel_table=aml_rel_table,
                 tax_elem_table_id=tax_elem_table_id,
                 search_condition=query.where_clause,

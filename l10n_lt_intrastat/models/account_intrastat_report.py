@@ -74,6 +74,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         in_vals = []
         out_vals = []
 
+        report._init_currency_table(options)
         expressions = report.line_ids.expression_ids
         results = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'id', None)
         for index, line_result in enumerate(results):

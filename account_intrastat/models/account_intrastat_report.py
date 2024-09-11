@@ -254,7 +254,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 -- We double sign the balance to make sure that we keep consistency between invoice/bill and the intrastat report
                 -- Example: An invoice selling 10 items (but one is free 10 - 1), in the intrastat report we'll have 2 lines
                 -- One for 10 items minus one for the free item
-                SUM(SIGN(account_move_line.quantity) * SIGN(account_move_line.price_unit) * ABS(account_move_line.balance)) AS value,
+                SUM(SIGN(account_move_line.quantity) * SIGN(account_move_line.price_unit) * ABS(%(balance_select)s)) AS value,
                 CASE WHEN product_country.code = 'GB' THEN 'XU' ELSE COALESCE(product_country.code, %(unknown_country_code)s) END AS intrastat_product_origin_country_code,
                 %(product_country_name)s AS intrastat_product_origin_country_name,
                 CASE WHEN partner.vat IS NOT NULL THEN partner.vat
@@ -267,6 +267,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 COUNT(account_move_line.id) AS amls_count
             FROM
                 %(table_references)s
+                %(currency_table_join)s
                 JOIN account_move ON account_move.id = account_move_line.move_id
                 LEFT JOIN account_intrastat_code transaction ON account_move_line.intrastat_transaction_id = transaction.id
                 LEFT JOIN res_company company ON account_move.company_id = company.id
@@ -302,11 +303,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                     import_merchandise_code=import_merchandise_code,
                     export_merchandise_code=export_merchandise_code,
                     country_name=country_name,
+                    balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                     unknown_country_code=unknown_country_code,
                     product_country_name=product_country_name,
                     unknown_individual_vat=unknown_individual_vat,
                     select_from_groupby=select_from_groupby or '',
                     table_references=query.from_clause,
+                    currency_table_join=report._currency_table_aml_join(options),
                     weight_category_id=weight_category_id,
                     search_condition=query.where_clause,
                     vat_condition=SQL("AND partner.vat IS NOT NULL") if options['intrastat_with_vat'] else SQL(),

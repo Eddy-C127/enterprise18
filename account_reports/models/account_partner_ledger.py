@@ -253,25 +253,27 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         report = self.env.ref('account_reports.partner_ledger_report')
 
         # Create the currency table.
-        ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             query = report._get_report_query(column_group_options, 'from_beginning')
             queries.append(SQL(
                 """
                 SELECT
-                    account_move_line.partner_id                                                          AS groupby,
-                    %(column_group_key)s                                                                  AS column_group_key,
-                    SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
-                    SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                    account_move_line.partner_id  AS groupby,
+                    %(column_group_key)s          AS column_group_key,
+                    SUM(%(debit_select)s)         AS debit,
+                    SUM(%(credit_select)s)        AS credit,
+                    SUM(%(balance_select)s)       AS balance
                 FROM %(table_references)s
-                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 WHERE %(search_condition)s
                 GROUP BY account_move_line.partner_id
                 """,
                 column_group_key=column_group_key,
+                debit_select=report._currency_table_apply_rate(SQL("account_move_line.debit")),
+                credit_select=report._currency_table_apply_rate(SQL("account_move_line.credit")),
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                currency_table_join=report._currency_table_aml_join(column_group_options),
                 search_condition=query.where_clause,
             ))
 
@@ -280,7 +282,6 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
     def _get_initial_balance_values(self, partner_ids, options):
         queries = []
         report = self.env.ref('account_reports.partner_ledger_report')
-        ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             # Get sums for the initial balance.
             # period: [('date' <= options['date_from'] - 1)]
@@ -290,18 +291,21 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                 """
                 SELECT
                     account_move_line.partner_id,
-                    %(column_group_key)s                                                                  AS column_group_key,
-                    SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
-                    SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                    %(column_group_key)s          AS column_group_key,
+                    SUM(%(debit_select)s)         AS debit,
+                    SUM(%(credit_select)s)        AS credit,
+                    SUM(%(balance_select)s)       AS balance
                 FROM %(table_references)s
-                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 WHERE %(search_condition)s
                 GROUP BY account_move_line.partner_id
                 """,
                 column_group_key=column_group_key,
+                debit_select=report._currency_table_apply_rate(SQL("account_move_line.debit")),
+                credit_select=report._currency_table_apply_rate(SQL("account_move_line.credit")),
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                currency_table_join=report._currency_table_aml_join(column_group_options),
                 search_condition=query.where_clause,
             ))
 
@@ -333,34 +337,33 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         invoice/bill and they have to be accounted in the partner balance."""
         queries = []
         report = self.env.ref('account_reports.partner_ledger_report')
-        ct_query = report._get_query_currency_table(options)
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             query = report._get_report_query(column_group_options, 'from_beginning')
             queries.append(SQL(
                 """
                 SELECT
-                    %(column_group_key)s                                                                                  AS column_group_key,
-                    aml_with_partner.partner_id                                                                           AS groupby,
-                    COALESCE(SUM(CASE WHEN aml_with_partner.balance > 0 THEN 0 ELSE ROUND(
-                            partial.amount * currency_table.rate, currency_table.precision) END), 0)                      AS debit,
-                    COALESCE(SUM(CASE WHEN aml_with_partner.balance < 0 THEN 0 ELSE ROUND(
-                            partial.amount * currency_table.rate, currency_table.precision) END), 0)                      AS credit,
-                    COALESCE(SUM(- sign(aml_with_partner.balance) * ROUND(
-                            partial.amount * currency_table.rate, currency_table.precision)), 0)                          AS balance
+                    %(column_group_key)s        AS column_group_key,
+                    aml_with_partner.partner_id AS groupby,
+                    SUM(%(debit_select)s)       AS debit,
+                    SUM(%(credit_select)s)      AS credit,
+                    SUM(%(balance_select)s)     AS balance
                 FROM %(table_references)s
                 JOIN account_partial_reconcile partial
                     ON account_move_line.id = partial.debit_move_id OR account_move_line.id = partial.credit_move_id
                 JOIN account_move_line aml_with_partner ON
                     (aml_with_partner.id = partial.debit_move_id OR aml_with_partner.id = partial.credit_move_id)
                     AND aml_with_partner.partner_id IS NOT NULL
-                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 WHERE partial.max_date <= %(date_to)s AND %(search_condition)s
                     AND account_move_line.partner_id IS NULL
                 GROUP BY aml_with_partner.partner_id
                 """,
                 column_group_key=column_group_key,
+                debit_select=report._currency_table_apply_rate(SQL("CASE WHEN aml_with_partner.balance > 0 THEN 0 ELSE partial.amount END")),
+                credit_select=report._currency_table_apply_rate(SQL("CASE WHEN aml_with_partner.balance < 0 THEN 0 ELSE partial.amount END")),
+                balance_select=report._currency_table_apply_rate(SQL("-SIGN(aml_with_partner.balance) * partial.amount")),
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                currency_table_join=report._currency_table_aml_join(column_group_options, aml_alias=SQL("aml_with_partner")),
                 date_to=column_group_options['date']['date_to'],
                 search_condition=query.where_clause,
             ))
@@ -443,7 +446,6 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
             indirectly_linked_aml_partner_clause = SQL('aml_with_partner.partner_id IN %s', tuple(partner_ids_wo_none))
         directly_linked_aml_partner_clause = SQL('(%s)', SQL(' OR ').join(directly_linked_aml_partner_clauses))
 
-        ct_query = self.env['account.report']._get_query_currency_table(options)
         queries = []
         journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
         report = self.env.ref('account_reports.partner_ledger_report')
@@ -469,34 +471,37 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     account_move_line.currency_id,
                     account_move_line.amount_currency,
                     account_move_line.matching_number,
-                    COALESCE(account_move_line.invoice_date, account_move_line.date)                 AS invoice_date,
-                    ROUND(account_move_line.debit * currency_table.rate, currency_table.precision)   AS debit,
-                    ROUND(account_move_line.credit * currency_table.rate, currency_table.precision)  AS credit,
-                    ROUND(account_move_line.balance * currency_table.rate, currency_table.precision) AS balance,
-                    account_move.name                                                                AS move_name,
-                    account_move.move_type                                                           AS move_type,
-                    %(account_code)s                                                                 AS account_code,
-                    %(account_name)s                                                                 AS account_name,
-                    journal.code                                                                     AS journal_code,
-                    %(journal_name)s                                                                 AS journal_name,
-                    %(column_group_key)s                                                             AS column_group_key,
-                    'directly_linked_aml'                                                            AS key,
-                    0                                                                                AS partial_id
+                    COALESCE(account_move_line.invoice_date, account_move_line.date) AS invoice_date,
+                    %(debit_select)s                                                 AS debit,
+                    %(credit_select)s                                                AS credit,
+                    %(balance_select)s                                               AS balance,
+                    account_move.name                                                AS move_name,
+                    account_move.move_type                                           AS move_type,
+                    %(account_code)s                                                 AS account_code,
+                    %(account_name)s                                                 AS account_name,
+                    journal.code                                                     AS journal_code,
+                    %(journal_name)s                                                 AS journal_name,
+                    %(column_group_key)s                                             AS column_group_key,
+                    'directly_linked_aml'                                            AS key,
+                    0                                                                AS partial_id
                 FROM %(table_references)s
                 JOIN account_move ON account_move.id = account_move_line.move_id
-                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 LEFT JOIN res_company company               ON company.id = account_move_line.company_id
                 LEFT JOIN res_partner partner               ON partner.id = account_move_line.partner_id
                 LEFT JOIN account_journal journal           ON journal.id = account_move_line.journal_id
                 WHERE %(search_condition)s AND %(directly_linked_aml_partner_clause)s
                 ORDER BY account_move_line.date, account_move_line.id
                 ''',
+                debit_select=report._currency_table_apply_rate(SQL("account_move_line.debit")),
+                credit_select=report._currency_table_apply_rate(SQL("account_move_line.credit")),
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 account_code=account_code,
                 account_name=account_name,
                 journal_name=journal_name,
                 column_group_key=column_group_key,
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                currency_table_join=report._currency_table_aml_join(group_options),
                 search_condition=query.where_clause,
                 directly_linked_aml_partner_clause=directly_linked_aml_partner_clause,
             ))
@@ -516,27 +521,21 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     account_move_line.currency_id,
                     account_move_line.amount_currency,
                     account_move_line.matching_number,
-                    COALESCE(account_move_line.invoice_date, account_move_line.date)                    AS invoice_date,
-                    CASE WHEN aml_with_partner.balance > 0 THEN 0 ELSE ROUND(
-                        partial.amount * currency_table.rate, currency_table.precision
-                    ) END                                                                               AS debit,
-                    CASE WHEN aml_with_partner.balance < 0 THEN 0 ELSE ROUND(
-                        partial.amount * currency_table.rate, currency_table.precision
-                    ) END                                                                               AS credit,
-                    - sign(aml_with_partner.balance) * ROUND(
-                        partial.amount * currency_table.rate, currency_table.precision
-                    )                                                                                   AS balance,
-                    account_move.name                                                                   AS move_name,
-                    account_move.move_type                                                              AS move_type,
-                    %(account_code)s                                                                    AS account_code,
-                    %(account_name)s                                                                    AS account_name,
-                    journal.code                                                                        AS journal_code,
-                    %(journal_name)s                                                                    AS journal_name,
-                    %(column_group_key)s                                                                AS column_group_key,
-                    'indirectly_linked_aml'                                                             AS key,
-                    partial.id                                                                          AS partial_id
+                    COALESCE(account_move_line.invoice_date, account_move_line.date) AS invoice_date,
+                    %(debit_select)s                                                 AS debit,
+                    %(credit_select)s                                                AS credit,
+                    %(balance_select)s                                               AS balance,
+                    account_move.name                                                AS move_name,
+                    account_move.move_type                                           AS move_type,
+                    %(account_code)s                                                 AS account_code,
+                    %(account_name)s                                                 AS account_name,
+                    journal.code                                                     AS journal_code,
+                    %(journal_name)s                                                 AS journal_name,
+                    %(column_group_key)s                                             AS column_group_key,
+                    'indirectly_linked_aml'                                          AS key,
+                    partial.id                                                       AS partial_id
                 FROM %(table_references)s
-                    LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id,
+                    %(currency_table_join)s,
                     account_partial_reconcile partial,
                     account_move,
                     account_move_line aml_with_partner,
@@ -553,12 +552,15 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     AND partial.max_date BETWEEN %(date_from)s AND %(date_to)s
                 ORDER BY account_move_line.date, account_move_line.id
                 ''',
+                debit_select=report._currency_table_apply_rate(SQL("CASE WHEN aml_with_partner.balance > 0 THEN 0 ELSE partial.amount END")),
+                credit_select=report._currency_table_apply_rate(SQL("CASE WHEN aml_with_partner.balance < 0 THEN 0 ELSE partial.amount END")),
+                balance_select=report._currency_table_apply_rate(SQL("-SIGN(aml_with_partner.balance) * partial.amount")),
                 account_code=account_code,
                 account_name=account_name,
                 journal_name=journal_name,
                 column_group_key=column_group_key,
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                currency_table_join=report._currency_table_aml_join(group_options),
                 indirectly_linked_aml_partner_clause=indirectly_linked_aml_partner_clause,
                 account_alias=SQL.identifier(account_alias),
                 search_condition=query.where_clause,

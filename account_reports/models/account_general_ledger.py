@@ -247,10 +247,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
 
         queries = []
 
-        # Create the currency table.
-        # As the currency table is the same whatever the comparisons, create it only once.
-        ct_query = report._get_query_currency_table(options)
-
         # ============================================
         # 1) Get sums for all accounts.
         # ============================================
@@ -286,17 +282,20 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     MAX(account_move_line.date)                             AS max_date,
                     %(column_group_key)s                                    AS column_group_key,
                     COALESCE(SUM(account_move_line.amount_currency), 0.0)   AS amount_currency,
-                    SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
-                    SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                    SUM(%(debit_select)s)   AS debit,
+                    SUM(%(credit_select)s)  AS credit,
+                    SUM(%(balance_select)s) AS balance
                 FROM %(table_references)s
-                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 WHERE %(search_condition)s
                 GROUP BY account_move_line.account_id
                 """,
                 column_group_key=column_group_key,
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                debit_select=report._currency_table_apply_rate(SQL("account_move_line.debit")),
+                credit_select=report._currency_table_apply_rate(SQL("account_move_line.credit")),
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
+                currency_table_join=report._currency_table_aml_join(options_group),
                 search_condition=query.where_clause,
             ))
 
@@ -322,17 +321,20 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                         NULL                                                    AS max_date,
                         %(column_group_key)s                                    AS column_group_key,
                         COALESCE(SUM(account_move_line.amount_currency), 0.0)   AS amount_currency,
-                        SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
-                        SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
-                        SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                        SUM(%(debit_select)s)                                   AS debit,
+                        SUM(%(credit_select)s)                                  AS credit,
+                        SUM(%(balance_select)s) AS balance
                     FROM %(table_references)s
-                    LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                    %(currency_table_join)s
                     WHERE %(search_condition)s
                     GROUP BY account_move_line.company_id
                     """,
                     column_group_key=column_group_key,
                     table_references=query.from_clause,
-                    ct_query=ct_query,
+                    debit_select=report._currency_table_apply_rate(SQL("account_move_line.debit")),
+                    credit_select=report._currency_table_apply_rate(SQL("account_move_line.credit")),
+                    balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
+                    currency_table_join=report._currency_table_aml_join(options_group),
                     search_condition=query.where_clause,
                 ))
 
@@ -357,10 +359,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         # Trial balance uses the options key, general ledger does not
         new_date_to = fields.Date.from_string(new_options['date']['date_to']) if options.get('include_current_year_in_unaff_earnings') else fiscalyear_dates['date_from'] - timedelta(days=1)
 
-        new_options['date'] = {
-            'mode': 'single',
-            'date_to': fields.Date.to_string(new_date_to),
-        }
+        new_options['date'] = self.env['account.report']._get_dates_period(None, new_date_to, 'single')
 
         return new_options
 
@@ -426,7 +425,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
             account_type = self.env['account.account']._field_to_sql(account_alias, 'account_type')
 
-            ct_query = report._get_query_currency_table(group_options)
             query = SQL(
                 '''
                 SELECT
@@ -441,10 +439,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     account_move_line.partner_id,
                     account_move_line.currency_id,
                     account_move_line.amount_currency,
-                    COALESCE(account_move_line.invoice_date, account_move_line.date)                 AS invoice_date,
-                    ROUND(account_move_line.debit * currency_table.rate, currency_table.precision)   AS debit,
-                    ROUND(account_move_line.credit * currency_table.rate, currency_table.precision)  AS credit,
-                    ROUND(account_move_line.balance * currency_table.rate, currency_table.precision) AS balance,
+                    COALESCE(account_move_line.invoice_date, account_move_line.date) AS invoice_date,
+                    %(debit_select)s                        AS debit,
+                    %(credit_select)s                       AS credit,
+                    %(balance_select)s                      AS balance,
                     move.name                               AS move_name,
                     company.currency_id                     AS company_currency_id,
                     partner.name                            AS partner_name,
@@ -458,7 +456,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     %(column_group_key)s                    AS column_group_key
                 FROM %(table_references)s
                 JOIN account_move move                      ON move.id = account_move_line.move_id
-                LEFT JOIN %(ct_query)s                      ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 LEFT JOIN res_company company               ON company.id = account_move_line.company_id
                 LEFT JOIN res_partner partner               ON partner.id = account_move_line.partner_id
                 LEFT JOIN account_journal journal           ON journal.id = account_move_line.journal_id
@@ -472,7 +470,10 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 journal_name=journal_name,
                 column_group_key=column_group_key,
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                currency_table_join=report._currency_table_aml_join(group_options),
+                debit_select=report._currency_table_apply_rate(SQL("account_move_line.debit")),
+                credit_select=report._currency_table_apply_rate(SQL("account_move_line.credit")),
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 search_condition=query.where_clause,
             )
             queries.append(query)
@@ -493,7 +494,6 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         queries = []
         for column_group_key, options_group in report._split_options_per_column_group(options).items():
             new_options = self._get_options_initial_balance(options_group)
-            ct_query = report._get_query_currency_table(new_options)
             domain = [
                 ('account_id', 'in', account_ids),
             ]
@@ -509,22 +509,25 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             queries.append(SQL(
                 """
                 SELECT
-                    account_move_line.account_id                                                          AS groupby,
-                    'initial_balance'                                                                     AS key,
-                    NULL                                                                                  AS max_date,
-                    %(column_group_key)s                                                                  AS column_group_key,
-                    COALESCE(SUM(account_move_line.amount_currency), 0.0)                                 AS amount_currency,
-                    SUM(ROUND(account_move_line.debit * currency_table.rate, currency_table.precision))   AS debit,
-                    SUM(ROUND(account_move_line.credit * currency_table.rate, currency_table.precision))  AS credit,
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                    account_move_line.account_id                          AS groupby,
+                    'initial_balance'                                     AS key,
+                    NULL                                                  AS max_date,
+                    %(column_group_key)s                                  AS column_group_key,
+                    COALESCE(SUM(account_move_line.amount_currency), 0.0) AS amount_currency,
+                    SUM(%(debit_select)s)                                 AS debit,
+                    SUM(%(credit_select)s)                                AS credit,
+                    SUM(%(balance_select)s)                               AS balance
                 FROM %(table_references)s
-                LEFT JOIN %(ct_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 WHERE %(search_condition)s
                 GROUP BY account_move_line.account_id
                 """,
                 column_group_key=column_group_key,
                 table_references=query.from_clause,
-                ct_query=ct_query,
+                debit_select=report._currency_table_apply_rate(SQL("account_move_line.debit")),
+                credit_select=report._currency_table_apply_rate(SQL("account_move_line.credit")),
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
+                currency_table_join=report._currency_table_aml_join(options_group),
                 search_condition=query.where_clause,
             ))
 
@@ -581,11 +584,11 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             new_date_from = current_fiscalyear_dates['date_from']
             include_current_year_in_unaff_earnings = False
 
-        new_options['date'] = {
-            'mode': 'range',
-            'date_from': fields.Date.to_string(new_date_from),
-            'date_to': fields.Date.to_string(new_date_to),
-        }
+        new_options['date'] = self.env['account.report']._get_dates_period(
+            new_date_from,
+            new_date_to,
+            'range',
+        )
         new_options['include_current_year_in_unaff_earnings'] = include_current_year_in_unaff_earnings
 
         return new_options
@@ -599,13 +602,13 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             current_fiscalyear_dates = self.env.company.compute_fiscalyear_dates(date_from)
             new_date_from = current_fiscalyear_dates['date_from']
 
-            new_date_to = new_options['date']['date_to']
+            new_date_to = fields.Date.from_string(new_options['date']['date_to'])
 
-            new_options['date'] = {
-                'mode': 'range',
-                'date_from': fields.Date.to_string(new_date_from),
-                'date_to': new_date_to,
-            }
+            new_options['date'] = self.env['account.report']._get_dates_period(
+                new_date_from,
+                new_date_to,
+                'range',
+            )
 
         return new_options
 
@@ -615,7 +618,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
     def _get_account_title_line(self, report, options, account, has_lines, eval_dict):
         line_columns = []
         for column in options['columns']:
-            col_value = eval_dict[column['column_group_key']].get(column['expression_label'])
+            col_value = eval_dict.get(column['column_group_key'], {}).get(column['expression_label'])
             col_expr_label = column['expression_label']
 
             value = None if col_value is None or (col_expr_label == 'amount_currency' and not account.currency_id) else col_value

@@ -39,27 +39,26 @@ class CashFlowReportCustomHandler(models.AbstractModel):
         payment_account_ids = self._get_account_ids(report, options)
         if not payment_account_ids:
             return report_data
-        currency_table_query = report._get_query_currency_table(options)
 
         # Compute 'Cash and cash equivalents, beginning of period'
-        for aml_data in self._compute_liquidity_balance(report, options, currency_table_query, payment_account_ids, 'to_beginning_of_period'):
+        for aml_data in self._compute_liquidity_balance(report, options, payment_account_ids, 'to_beginning_of_period'):
             self._add_report_data('opening_balance', aml_data, layout_data, report_data)
             self._add_report_data('closing_balance', aml_data, layout_data, report_data)
 
         # Compute 'Cash and cash equivalents, closing balance'
-        for aml_data in self._compute_liquidity_balance(report, options, currency_table_query, payment_account_ids, 'strict_range'):
+        for aml_data in self._compute_liquidity_balance(report, options, payment_account_ids, 'strict_range'):
             self._add_report_data('closing_balance', aml_data, layout_data, report_data)
 
         tags_ids = self._get_tags_ids()
         cashflow_tag_ids = self._get_cashflow_tag_ids()
 
         # Process liquidity moves
-        for aml_groupby_account in self._get_liquidity_moves(report, options, currency_table_query, payment_account_ids, cashflow_tag_ids):
+        for aml_groupby_account in self._get_liquidity_moves(report, options, payment_account_ids, cashflow_tag_ids):
             for aml_data in aml_groupby_account.values():
                 self._dispatch_aml_data(tags_ids, aml_data, layout_data, report_data)
 
         # Process reconciled moves
-        for aml_groupby_account in self._get_reconciled_moves(report, options, currency_table_query, payment_account_ids, cashflow_tag_ids):
+        for aml_groupby_account in self._get_reconciled_moves(report, options, payment_account_ids, cashflow_tag_ids):
             for aml_data in aml_groupby_account.values():
                 self._dispatch_aml_data(tags_ids, aml_data, layout_data, report_data)
 
@@ -214,12 +213,11 @@ class CashFlowReportCustomHandler(models.AbstractModel):
             search_condition=query.where_clause,
         )
 
-    def _compute_liquidity_balance(self, report, options, currency_table_query, payment_account_ids, date_scope):
+    def _compute_liquidity_balance(self, report, options, payment_account_ids, date_scope):
         ''' Compute the balance of all liquidity accounts to populate the following sections:
             'Cash and cash equivalents, beginning of period' and 'Cash and cash equivalents, closing balance'.
 
         :param options:                 The report options.
-        :param currency_table_query:    The custom query containing the multi-companies rates, as an SQL object.
         :param payment_account_ids:     A tuple containing all account.account's ids being used in a liquidity journal.
         :return:                        A list of tuple (account_id, account_code, account_name, balance).
         '''
@@ -238,10 +236,9 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     account_move_line.account_id,
                     %(account_code)s AS account_code,
                     %(account_name)s AS account_name,
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                    SUM(%(balance_select)s) AS balance
                 FROM %(table_references)s
-                LEFT JOIN %(currency_table_query)s
-                    ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 WHERE %(search_condition)s
                 GROUP BY account_move_line.account_id, account_code, account_name
                 ''',
@@ -249,7 +246,8 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 account_code=account_code,
                 account_name=account_name,
                 table_references=query.from_clause,
-                currency_table_query=currency_table_query,
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
+                currency_table_join=report._currency_table_aml_join(column_group_options),
                 search_condition=query.where_clause,
             ))
 
@@ -257,12 +255,11 @@ class CashFlowReportCustomHandler(models.AbstractModel):
 
         return self._cr.dictfetchall()
 
-    def _get_liquidity_moves(self, report, options, currency_table_query, payment_account_ids, cash_flow_tag_ids):
+    def _get_liquidity_moves(self, report, options, payment_account_ids, cash_flow_tag_ids):
         ''' Fetch all information needed to compute lines from liquidity moves.
         The difficulty is to represent only the not-reconciled part of balance.
 
         :param options:                 The report options.
-        :param currency_table_query:    The floating query to handle a multi-company/multi-currency environment, as an SQL object.
         :param payment_account_ids:     A tuple containing all account.account's ids being used in a liquidity journal.
         :return:                        A list of tuple (account_id, account_code, account_name, account_type, amount).
         '''
@@ -290,10 +287,9 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(account_name)s AS account_name,
                     %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
-                    SUM(ROUND(account_partial_reconcile.amount * currency_table.rate, currency_table.precision)) AS balance
+                    SUM(%(partial_amount_select)s) AS balance
                 FROM %(from_clause)s
-                LEFT JOIN %(currency_table_query)s
-                    ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 LEFT JOIN account_partial_reconcile
                     ON account_partial_reconcile.credit_move_id = account_move_line.id
                 LEFT JOIN account_account_account_tag
@@ -302,7 +298,7 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 WHERE account_move_line.move_id IN (SELECT unnest(payment_move_ids.move_id) FROM payment_move_ids)
                     AND account_move_line.account_id NOT IN %(payment_account_ids)s
                     AND account_partial_reconcile.max_date BETWEEN %(date_from)s AND %(date_to)s
-                GROUP BY account_move_line.company_id, account_move_line.account_id, account_code, account_name, account_type, account_account_account_tag.account_account_tag_id
+                GROUP BY account_move_line.company_id, account_move_line.account_id, account_code, account_name, account_account_type, account_account_account_tag.account_account_tag_id
 
                 UNION ALL
 
@@ -314,10 +310,9 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(account_name)s AS account_name,
                     %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
-                    -SUM(ROUND(account_partial_reconcile.amount * currency_table.rate, currency_table.precision)) AS balance
+                    -SUM(%(partial_amount_select)s) AS balance
                 FROM %(from_clause)s
-                LEFT JOIN %(currency_table_query)s
-                    ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 LEFT JOIN account_partial_reconcile
                     ON account_partial_reconcile.debit_move_id = account_move_line.id
                 LEFT JOIN account_account_account_tag
@@ -338,10 +333,9 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(account_name)s AS account_name,
                     %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                    SUM(%(aml_balance_select)s) AS balance
                 FROM %(from_clause)s
-                LEFT JOIN %(currency_table_query)s
-                    ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 LEFT JOIN account_account_account_tag
                     ON account_account_account_tag.account_account_id = account_move_line.account_id
                     AND account_account_account_tag.account_account_tag_id IN %(cash_flow_tag_ids)s
@@ -355,7 +349,9 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 account_name=account_name,
                 account_type=account_type,
                 from_clause=query.from_clause,
-                currency_table_query=currency_table_query,
+                currency_table_join=report._currency_table_aml_join(column_group_options),
+                partial_amount_select=report._currency_table_apply_rate(SQL("account_partial_reconcile.amount")),
+                aml_balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 cash_flow_tag_ids=tuple(cash_flow_tag_ids),
                 payment_account_ids=payment_account_ids,
                 date_from=column_group_options['date']['date_from'],
@@ -380,19 +376,19 @@ class CashFlowReportCustomHandler(models.AbstractModel):
 
         return list(reconciled_aml_groupby_account.values())
 
-    def _get_reconciled_moves(self, report, options, currency_table_query, payment_account_ids, cash_flow_tag_ids):
+    def _get_reconciled_moves(self, report, options, payment_account_ids, cash_flow_tag_ids):
         ''' Retrieve all moves being not a liquidity move to be shown in the cash flow statement.
         Each amount must be valued at the percentage of what is actually paid.
         E.g. An invoice of 1000 being paid at 50% must be valued at 500.
 
         :param options:                 The report options.
-        :param currency_table_query:    The floating query to handle a multi-company/multi-currency environment, as an SQL object.
         :param payment_account_ids:     A tuple containing all account.account's ids being used in a liquidity journal.
         :return:                        A list of tuple (account_id, account_code, account_name, account_type, amount).
         '''
 
         reconciled_account_ids = {column_group_key: set() for column_group_key in options['column_groups']}
         reconciled_percentage_per_move = {column_group_key: {} for column_group_key in options['column_groups']}
+        currency_table = report._get_currency_table(options)
 
         queries = []
 
@@ -406,10 +402,13 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(column_group_key)s AS column_group_key,
                     debit_line.move_id,
                     debit_line.account_id,
-                    SUM(account_partial_reconcile.amount) AS balance
+                    SUM(%(partial_amount)s) AS balance
                 FROM account_move_line AS credit_line
                 LEFT JOIN account_partial_reconcile
                     ON account_partial_reconcile.credit_move_id = credit_line.id
+                JOIN %(currency_table)s
+                    ON account_currency_table.company_id = account_partial_reconcile.company_id
+                    AND account_currency_table.rate_type = 'current' -- For payable/receivable accounts it'll always be 'current' anyway
                 INNER JOIN account_move_line AS debit_line
                     ON debit_line.id = account_partial_reconcile.debit_move_id
                 WHERE credit_line.move_id IN (SELECT unnest(payment_move_ids.move_id) FROM payment_move_ids)
@@ -425,10 +424,13 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(column_group_key)s AS column_group_key,
                     credit_line.move_id,
                     credit_line.account_id,
-                    -SUM(account_partial_reconcile.amount) AS balance
+                    -SUM(%(partial_amount)s) AS balance
                 FROM account_move_line AS debit_line
                 LEFT JOIN account_partial_reconcile
                     ON account_partial_reconcile.debit_move_id = debit_line.id
+                JOIN %(currency_table)s
+                    ON account_currency_table.company_id = account_partial_reconcile.company_id
+                    AND account_currency_table.rate_type = 'current' -- For payable/receivable accounts it'll always be 'current' anyway
                 INNER JOIN account_move_line AS credit_line
                     ON credit_line.id = account_partial_reconcile.credit_move_id
                 WHERE debit_line.move_id IN (SELECT unnest(payment_move_ids.move_id) FROM payment_move_ids)
@@ -443,6 +445,8 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 payment_account_ids=payment_account_ids,
                 date_from=column_group_options['date']['date_from'],
                 date_to=column_group_options['date']['date_to'],
+                currency_table=currency_table,
+                partial_amount=report._currency_table_apply_rate(SQL("account_partial_reconcile.amount")),
             ))
 
         self._cr.execute(SQL(' UNION ALL ').join(queries))
@@ -466,16 +470,18 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(column_group_key)s AS column_group_key,
                     account_move_line.move_id,
                     account_move_line.account_id,
-                    SUM(account_move_line.balance) AS balance
+                    SUM(%(balance_select)s) AS balance
                 FROM account_move_line
-                JOIN %(currency_table_query)s
-                    ON currency_table.company_id = account_move_line.company_id
+                JOIN %(currency_table)s
+                    ON account_currency_table.company_id = account_move_line.company_id
+                    AND account_currency_table.rate_type = 'current' -- For payable/receivable accounts it'll always be 'current' anyway
                 WHERE account_move_line.move_id IN %(move_ids)s
                     AND account_move_line.account_id IN %(account_ids)s
                 GROUP BY account_move_line.move_id, account_move_line.account_id
                 ''',
                 column_group_key=column['column_group_key'],
-                currency_table_query=currency_table_query,
+                currency_table=currency_table,
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 move_ids=tuple(reconciled_percentage_per_move[column['column_group_key']].keys()) or (None,),
                 account_ids=tuple(reconciled_account_ids[column['column_group_key']]) or (None,)
             ))
@@ -507,10 +513,9 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                     %(account_name)s AS account_name,
                     %(account_type)s AS account_account_type,
                     account_account_account_tag.account_account_tag_id AS account_tag_id,
-                    SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS balance
+                    SUM(%(balance_select)s) AS balance
                 FROM %(from_clause)s
-                LEFT JOIN %(currency_table_query)s
-                    ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 LEFT JOIN account_account_account_tag
                     ON account_account_account_tag.account_account_id = account_move_line.account_id
                     AND account_account_account_tag.account_account_tag_id IN %(cash_flow_tag_ids)s
@@ -522,7 +527,8 @@ class CashFlowReportCustomHandler(models.AbstractModel):
                 account_name=account_name,
                 account_type=account_type,
                 from_clause=query.from_clause,
-                currency_table_query=currency_table_query,
+                currency_table_join=report._currency_table_aml_join(options),
+                balance_select=report._currency_table_apply_rate(SQL("account_move_line.balance")),
                 cash_flow_tag_ids=tuple(cash_flow_tag_ids),
                 move_ids=tuple(reconciled_percentage_per_move[column['column_group_key']].keys()) or (None,)
             ))

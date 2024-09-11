@@ -108,6 +108,9 @@ class ResPartner(models.Model):
                 'multi_currency': True,
             }
         )
+        # We don't call _get_lines on the report, so we need to create the currency table by hand
+        report._init_currency_table(options)
+
         # 1. Get the initial balance using the partner ledger.
         initial_balances = self._get_initial_balances(options, report)
         # 2. Get the other lines

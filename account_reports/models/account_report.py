@@ -467,6 +467,7 @@ class AccountReport(models.Model):
         return {
             'string': string,
             'period_type': period_type,
+            'currency_table_period_key': f"{date_from if mode == 'range' else 'None'}_{date_to}",
             'mode': mode,
             'date_from': date_from and fields.Date.to_string(date_from) or False,
             'date_to': fields.Date.to_string(date_to),
@@ -1244,6 +1245,111 @@ class AccountReport(models.Model):
         )
 
     ####################################################
+    # OPTIONS: CURRENCY TABLE
+    ####################################################
+    def _init_options_currency_table(self, options, previous_options):
+        companies = self.env['res.company'].browse(self.get_report_company_ids(options))
+        table_type = 'monocurrency' if self.env['res.currency']._check_currency_table_monocurrency(companies) else self.currency_translation
+
+        periods = {}
+        for col_group in options['column_groups'].values():
+            col_group_date = col_group['forced_options'].get('date', options['date'])
+
+            col_group_date_from = col_group_date['date_from'] if col_group_date['mode'] == 'range' else None
+            col_group_date_to = col_group_date['date_to']
+            period_key = col_group_date['currency_table_period_key']
+
+            already_present_period = periods.get(period_key)
+            if already_present_period:
+                # This can happen for custom reports, needing to enforce the same rates on multiple column groups with
+                # different dates (e.g. Trial Balance). In that case, the date_from and date_to of the currency table period must respectively
+                # be the lowest and highest among those groups.
+                if col_group_date_from and already_present_period['from'] > col_group_date_from:
+                    already_present_period['from'] = col_group_date_from
+
+                if already_present_period['to'] < col_group_date_to:
+                    already_present_period['to'] = col_group_date_to
+            else:
+                periods[period_key] = {
+                    'from': col_group_date_from,
+                    'to': col_group_date_to,
+                }
+
+        options['currency_table'] = {'type': table_type, 'periods': periods}
+
+    @api.model
+    def _currency_table_apply_rate(self, value: SQL) -> SQL:
+        """ Returns an SQL term to use in a SELECT statement converting the value passed as parameter into the current company's currency, using the
+        currency table (which must be joined in the query as well ; using _currency_table_aml_join for account.move.line, or _get_currency_table for
+        other more specific uses).
+        """
+        return SQL("(%(value)s) * COALESCE(account_currency_table.rate, 1)", value=value)
+
+    @api.model
+    def _currency_table_aml_join(self, options, aml_alias=SQL('account_move_line')) -> SQL:
+        """ Returns the JOIN condition to the currency table in a query needing to use it to convert aml balances from one currency to another.
+        """
+        if options['currency_table']['type'] == 'cta':
+            return SQL(
+                """
+                    JOIN account_account aml_ct_account
+                        ON aml_ct_account.id = %(aml_table)s.account_id
+                    LEFT JOIN %(currency_table)s
+                        ON %(aml_table)s.company_id = account_currency_table.company_id
+                        AND (
+                            account_currency_table.rate_type = CASE
+                                WHEN aml_ct_account.account_type LIKE %(equity_prefix)s THEN 'historical'
+                                WHEN aml_ct_account.account_type LIKE ANY (ARRAY[%(income_prefix)s, %(expense_prefix)s, 'equity_unaffected']) THEN 'average'
+                                ELSE 'current'
+                            END
+                        )
+                        AND (account_currency_table.date_from IS NULL OR account_currency_table.date_from <= %(aml_table)s.date)
+                        AND (account_currency_table.date_next IS NULL OR account_currency_table.date_next > %(aml_table)s.date)
+                        AND (account_currency_table.period_key = %(period_key)s OR account_currency_table.period_key IS NULL)
+                """,
+                aml_table=aml_alias,
+                equity_prefix='equity%',
+                income_prefix='income%',
+                expense_prefix='expense%',
+                currency_table=self._get_currency_table(options),
+                period_key=options['date']['currency_table_period_key'],
+            )
+
+        return SQL(
+            """
+                JOIN %(currency_table)s
+                    ON %(aml_table)s.company_id = account_currency_table.company_id
+                    AND (account_currency_table.period_key = %(period_key)s OR account_currency_table.period_key IS NULL)
+            """,
+            aml_table=aml_alias,
+            currency_table=self._get_currency_table(options),
+            period_key=options['date']['currency_table_period_key'],
+        )
+
+    @api.model
+    def _get_currency_table(self, options) -> SQL:
+        """ Returns the currency table table definition to be injected in the JOIN condition of an SQL query needing to use it.
+        """
+        if options['currency_table']['type'] == 'monocurrency':
+            companies = self.env['res.company'].browse(self.get_report_company_ids(options))
+            return self.env['res.currency']._get_monocurrency_currency_table_sql(companies, use_cta_rates=options['currency_table']['type'] == 'cta')
+
+        return SQL('account_currency_table')
+
+    def _init_currency_table(self, options):
+        """ Creates the currency table temporary table if necessary, using the provided options to compute its periods.
+        This function should always be called before any query invovlving the currency table is run.
+        """
+        if options['currency_table']['type'] != 'monocurrency':
+            companies = self.env['res.company'].browse(self.get_report_company_ids(options))
+
+            self.env['res.currency']._create_currency_table(
+                companies,
+                [(period_key, period['from'], period['to']) for period_key, period in options['currency_table']['periods'].items()],
+                use_cta_rates=options['currency_table']['type'] == 'cta',
+            )
+
+    ####################################################
     # OPTIONS: ROUNDING UNIT
     ####################################################
     def _init_options_rounding_unit(self, options, previous_options):
@@ -1784,6 +1890,7 @@ class AccountReport(models.Model):
             self._init_options_hierarchy: 1030,
             self._init_options_prefix_groups_threshold: 1040,
             self._init_options_custom: 1050,
+            self._init_options_currency_table: 1055,
             self._init_options_section_buttons: 1060,
         }
 
@@ -2255,9 +2362,6 @@ class AccountReport(models.Model):
     def _get_lines(self, options, all_column_groups_expression_totals=None, warnings=None):
         self.ensure_one()
 
-        if warnings is not None:
-            self._generate_common_warnings(options, warnings)
-
         if options['report_id'] != self.id:
             # Should never happen; just there to prevent BIG issues and directly spot them
             raise UserError(_("Inconsistent report_id in options dictionary. Options says %(options_report)s; report is %(report)s.", options_report=options['report_id'], report=self.id))
@@ -2265,8 +2369,12 @@ class AccountReport(models.Model):
         # Necessary to ensure consistency of the data if some of them haven't been written in database yet
         self.env.flush_all()
 
+        if warnings is not None:
+            self._generate_common_warnings(options, warnings)
+
         # Merge static and dynamic lines in a common list
         if all_column_groups_expression_totals is None:
+            self._init_currency_table(options)
             all_column_groups_expression_totals = self._compute_expression_totals_for_each_column_group(
                 self.line_ids.expression_ids,
                 options,
@@ -2364,8 +2472,11 @@ class AccountReport(models.Model):
 
         if self.custom_handler_model_id:
             lines = self.env[self.custom_handler_model_name]._custom_line_postprocessor(self, options, lines)
-            if warnings is not None:
-                self.env[self.custom_handler_model_name]._customize_warnings(self, options, all_column_groups_expression_totals, warnings)
+
+        if warnings is not None:
+            custom_handler_name = self.custom_handler_model_name or self.root_report_id.custom_handler_model_name
+            if custom_handler_name:
+                self.env[custom_handler_name]._customize_warnings(self, options, all_column_groups_expression_totals, warnings)
 
         # Format values in columns of lines that will be displayed
         self._format_column_values(options, lines)
@@ -3352,7 +3463,6 @@ class AccountReport(models.Model):
             all_expressions |= expressions
         tags = all_expressions._get_matching_tags()
 
-        currency_table_query = self._get_query_currency_table(options)
         groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
         query = self._get_report_query(options, date_scope)
         tail_query = self._get_engine_query_tail(offset, limit)
@@ -3362,7 +3472,7 @@ class AccountReport(models.Model):
             """
             SELECT
                 SUBSTRING(%(acc_tag_name)s, 2, LENGTH(%(acc_tag_name)s) - 1) AS formula,
-                SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
+                SUM(%(balance_select)s
                     * CASE WHEN acc_tag.tax_negate THEN -1 ELSE 1 END
                     * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                 ) AS balance,
@@ -3376,8 +3486,7 @@ class AccountReport(models.Model):
             JOIN account_account_tag acc_tag
                 ON aml_tag.account_account_tag_id = acc_tag.id
                 AND acc_tag.id IN %(tag_ids)s
-            JOIN %(currency_table_query)s
-                ON currency_table.company_id = account_move_line.company_id
+            %(currency_table_join)s
 
             WHERE %(search_condition)s
 
@@ -3390,7 +3499,8 @@ class AccountReport(models.Model):
             select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(),
             table_references=query.from_clause,
             tag_ids=tuple(tags.ids),
-            currency_table_query=currency_table_query,
+            balance_select=self._currency_table_apply_rate(SQL("account_move_line.balance")),
+            currency_table_join=self._currency_table_aml_join(options),
             search_condition=query.where_clause,
             groupby_sql=SQL(', %s', groupby_sql) if groupby_sql else SQL(),
             tail_query=tail_query,
@@ -3446,7 +3556,6 @@ class AccountReport(models.Model):
         self._check_groupby_fields((next_groupby.split(',') if next_groupby else []) + ([current_groupby] if current_groupby else []))
 
         groupby_sql = SQL.identifier('account_move_line', current_groupby) if current_groupby else None
-        ct_query = self._get_query_currency_table(options)
 
         rslt = {}
 
@@ -3466,11 +3575,11 @@ class AccountReport(models.Model):
             query = SQL(
                 """
                 SELECT
-                    COALESCE(SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)), 0.0) AS sum,
+                    COALESCE(SUM(%(balance_select)s), 0.0) AS sum,
                     COUNT(DISTINCT account_move_line.%(select_count_field)s) AS count_rows
                     %(select_groupby_sql)s
                 FROM %(table_references)s
-                JOIN %(currency_table_query)s ON currency_table.company_id = account_move_line.company_id
+                %(currency_table_join)s
                 WHERE %(search_condition)s
                 %(group_by_groupby_sql)s
                 %(tail_query)s
@@ -3478,7 +3587,8 @@ class AccountReport(models.Model):
                 select_count_field=SQL.identifier(next_groupby.split(',')[0] if next_groupby else 'id'),
                 select_groupby_sql=SQL(', %s AS grouping_key', groupby_sql) if groupby_sql else SQL(),
                 table_references=query.from_clause,
-                currency_table_query=ct_query,
+                balance_select=self._currency_table_apply_rate(SQL("account_move_line.balance")),
+                currency_table_join=self._currency_table_aml_join(options),
                 search_condition=query.where_clause,
                 group_by_groupby_sql=SQL('GROUP BY %s', groupby_sql) if groupby_sql else SQL(),
                 tail_query=tail_query,
@@ -3631,7 +3741,6 @@ class AccountReport(models.Model):
         # Run main query
         query = self._get_report_query(options, date_scope)
 
-        currency_table_query = self._get_query_currency_table(options)
         extra_groupby_sql = SQL(", %s", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL()
         extra_select_sql = SQL(", %s AS grouping_key", SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL()
         tail_query = self._get_engine_query_tail(offset, limit)
@@ -3640,18 +3749,19 @@ class AccountReport(models.Model):
             """
             SELECT
                 account_move_line.account_id AS account_id,
-                SUM(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS sum,
+                SUM(%(balance_select)s) AS sum,
                 COUNT(account_move_line.id) AS aml_count
                 %(extra_select_sql)s
             FROM %(table_references)s
-            JOIN %(currency_table_query)s ON currency_table.company_id = account_move_line.company_id
+            %(currency_table_join)s
             WHERE %(search_condition)s
             GROUP BY account_move_line.account_id%(extra_groupby_sql)s
             %(tail_query)s
             """,
             extra_select_sql=extra_select_sql,
             table_references=query.from_clause,
-            currency_table_query=currency_table_query,
+            balance_select=self._currency_table_apply_rate(SQL("account_move_line.balance")),
+            currency_table_join=self._currency_table_aml_join(options),
             search_condition=query.where_clause,
             extra_groupby_sql=extra_groupby_sql,
             tail_query=tail_query,
@@ -3733,7 +3843,6 @@ class AccountReport(models.Model):
 
         # Do the computation
         where_clause = self.env['account.report.external.value']._where_calc(external_value_domain).where_clause
-        currency_table_query = self._get_query_currency_table(options)
 
         # We have to execute two separate queries, one for text values and one for numeric values
         num_queries = []
@@ -3757,9 +3866,9 @@ class AccountReport(models.Model):
             monetary_query = """
                 SELECT
                     %(expression_id)s,
-                    COALESCE(SUM(COALESCE(ROUND(CAST(value AS numeric) * currency_table.rate, currency_table.precision), 0)), 0)
+                    COALESCE(SUM(COALESCE(%(balance_select)s, 0)), 0)
                 FROM account_report_external_value
-                    JOIN %(currency_table_query)s ON currency_table.company_id = account_report_external_value.company_id
+                    %(currency_table_join)s
                 WHERE %(where_clause)s AND target_report_expression_id = %(expression_id)s
                 %(query_end)s
             """
@@ -3781,7 +3890,15 @@ class AccountReport(models.Model):
                     monetary_queries.append(SQL(
                         monetary_query,
                         expression_id=expression.id,
-                        currency_table_query=currency_table_query,
+                        balance_select=self._currency_table_apply_rate(SQL("CAST(value AS numeric)")),
+                        currency_table_join=SQL(
+                            """
+                                JOIN %(currency_table)s
+                                ON account_currency_table.company_id = account_report_external_value.company_id
+                                AND account_currency_table.rate_type = 'current'
+                            """,
+                            currency_table=self._get_currency_table(options),
+                        ),
                         where_clause=where_clause,
                         query_end=query_end,
                     ))
@@ -4828,6 +4945,7 @@ class AccountReport(models.Model):
         self.ensure_one()
 
         warnings = {}
+        self._init_currency_table(options)
         all_column_groups_expression_totals = self._compute_expression_totals_for_each_column_group(self.line_ids.expression_ids, options, warnings=warnings)
 
         # Convert all_column_groups_expression_totals to a json-friendly form (its keys are records)
@@ -4949,6 +5067,9 @@ class AccountReport(models.Model):
         return lines
 
     def get_expanded_lines(self, options, line_dict_id, groupby, expand_function_name, progress, offset, horizontal_split_side):
+        self.env.flush_all()
+        self._init_currency_table(options)
+
         lines = self._expand_unfoldable_line(expand_function_name, line_dict_id, groupby, options, progress, offset, horizontal_split_side)
         lines = self._fully_unfold_lines_if_needed(lines, options)
 
@@ -5884,12 +6005,6 @@ class AccountReport(models.Model):
         render this report, following the provided options.
         """
         return [comp_data['id'] for comp_data in options['companies']]
-
-    @api.model
-    def _get_query_currency_table(self, options) -> SQL:
-        company_ids = self.get_report_company_ids(options)
-        conversion_date = options['date']['date_to']
-        return self.env['res.currency']._get_query_currency_table(company_ids, conversion_date)
 
     def _get_partner_and_general_ledger_initial_balance_line(self, options, parent_line_id, eval_dict, account_currency=None, level_shift=0):
         """ Helper to generate dynamic 'initial balance' lines, used by general ledger and partner ledger.
@@ -6850,9 +6965,11 @@ class AccountReportCustomHandler(models.AbstractModel):
         return {}
 
     def _customize_warnings(self, report, options, all_column_groups_expression_totals, warnings):
-        """ To be overridden to add report-specific warnings
-        in the warnings dictionary.
-        Should only be used when necessary, _dynamic_lines_generator is preferred
+        """ To be overridden to add report-specific warnings in the warnings dictionary.
+        When a root report defines something in this function, its variants without any custom handler will also call the root report's
+        _customize_warnings function. This can hence be used to share warnings between all variants.
+
+        Should only be used when necessary, _dynamic_lines_generator is preferred.
         """
 
     def _enable_export_buttons_for_common_vat_groups_in_branches(self, options):

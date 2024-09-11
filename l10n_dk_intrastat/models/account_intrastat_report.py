@@ -150,6 +150,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         The first row is the column titles
         """
         expressions = report.line_ids.expression_ids
+        report._init_currency_table(options)
         lines = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'id', None)
         for index, line_result in enumerate(lines):
             lines[index] = line_result[1]

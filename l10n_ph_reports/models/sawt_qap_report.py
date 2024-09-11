@@ -93,7 +93,6 @@ class SawtQapCustomHandler(models.AbstractModel):
             ]
             query = report._get_report_query(column_group_options, date_scope="strict_range", domain=domain)
             tail_query = report._get_engine_query_tail(offset, limit)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
                 account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
@@ -108,7 +107,7 @@ class SawtQapCustomHandler(models.AbstractModel):
                          case when p.is_company = false then p.name else '' end                                             AS partner_name,
                          p.last_name || ' ' || p.first_name || ' ' || p.middle_name                                         AS formatted_partner_name,
                          REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                                  AS tag_name,
-                         SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
+                         SUM(%(balance_select)s
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                          )                                                                                                  AS balance
@@ -117,16 +116,16 @@ class SawtQapCustomHandler(models.AbstractModel):
                     JOIN res_partner cp ON cp.id = p.commercial_partner_id
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN %(currency_table_query)s
-                      ON currency_table.company_id = account_move_line.company_id
+                    %(currency_table_join)s
                    WHERE %(search_condition)s
                 GROUP BY p.id, cp.id, %(account_tag_name)s
                 ORDER BY p.id
                 %(tail_query)s
                 """,
+                balance_select=report._currency_table_apply_rate(SQL('account_move_line.balance')),
                 column_group_key=column_group_key,
                 account_tag_name=account_tag_name,
-                currency_table_query=currency_table_query,
+                currency_table_join=report._currency_table_aml_join(options),
                 table_references=query.from_clause,
                 search_condition=query.where_clause,
                 tail_query=tail_query,
@@ -209,7 +208,6 @@ class SawtQapCustomHandler(models.AbstractModel):
             ]
             query = report._get_report_query(column_group_options, date_scope="strict_range", domain=domain)
             tail_query = report._get_engine_query_tail(offset, limit)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
                 account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
@@ -221,23 +219,23 @@ class SawtQapCustomHandler(models.AbstractModel):
                          REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                                  AS tag_name,
                          account_move_line__move_id.id                                                                      AS move_id,
                          account_move_line__move_id.name                                                                    AS move_name,
-                         SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
+                         SUM(%(balance_select)s
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                          )                                                                                                  AS balance
                     FROM %(table_references)s
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
-                    JOIN %(currency_table_query)s
-                      ON currency_table.company_id = account_move_line.company_id
+                    %(currency_table_join)s
                     WHERE %(search_condition)s
                 GROUP BY account_move_line__move_id.id, %(account_tag_name)s
                 ORDER BY account_move_line__move_id.id
                 %(tail_query)s
                 """,
+                balance_select=report._currency_table_apply_rate(SQL('account_move_line.balance')),
                 column_group_key=column_group_key,
                 account_tag_name=account_tag_name,
-                currency_table_query=currency_table_query,
+                currency_table_join=report._currency_table_aml_join(options),
                 table_references=query.from_clause,
                 search_condition=query.where_clause,
                 tail_query=tail_query,
@@ -298,7 +296,6 @@ class SawtQapCustomHandler(models.AbstractModel):
         for column_group_key, column_group_options in report._split_options_per_column_group(options).items():
             query = report._get_report_query(column_group_options, date_scope="strict_range", domain=[('move_id', '=', move_id)])
             tail_query = report._get_engine_query_tail(offset, limit)
-            currency_table_query = self.env['account.report']._get_query_currency_table(column_group_options)
             lang = self.env.user.lang or get_lang(self.env).code
             if self.pool['account.account.tag'].name.translate:
                 account_tag_name = SQL("COALESCE(account_tag.name->>%(lang)s, account_tag.name->>'en_US')", lang=lang)
@@ -319,7 +316,7 @@ class SawtQapCustomHandler(models.AbstractModel):
                          account_tax.amount                                                                                 AS tax_rate,
                          REGEXP_REPLACE(%(account_tag_name)s, '^[+-]', '')                                                  AS tag_name,
                          account_move_line.tax_base_amount                                                                  AS tax_base_amount,
-                         SUM(ROUND(COALESCE(account_move_line.balance, 0) * currency_table.rate, currency_table.precision)
+                         SUM(%(balance_select)s
                              * CASE WHEN account_tag.tax_negate THEN -1 ELSE 1 END
                              * CASE WHEN account_move_line.tax_tag_invert THEN -1 ELSE 1 END
                          )                                                                                                  AS balance
@@ -327,17 +324,17 @@ class SawtQapCustomHandler(models.AbstractModel):
                     JOIN account_account_tag_account_move_line_rel account_tag_rel ON account_tag_rel.account_move_line_id = account_move_line.id
                     JOIN account_account_tag account_tag ON account_tag.id = account_tag_rel.account_account_tag_id
                     JOIN account_tax account_tax ON account_tax.id = account_move_line.tax_line_id
-                    JOIN %(currency_table_query)s
-                      ON currency_table.company_id = account_move_line.company_id
+                    %(currency_table_join)s
                    WHERE %(search_condition)s AND account_tax.l10n_ph_atc IS NOT NULL
                 GROUP BY account_move_line__move_id.id, %(account_tag_name)s, account_move_line.id, account_tax.id
                 ORDER BY account_tax.id
                 %(tail_query)s
                 """,
+                balance_select=report._currency_table_apply_rate(SQL('account_move_line.balance')),
                 column_group_key=column_group_key,
                 account_tax_description=account_tax_description,
                 account_tag_name=account_tag_name,
-                currency_table_query=currency_table_query,
+                currency_table_join=report._currency_table_aml_join(options),
                 table_references=query.from_clause,
                 search_condition=query.where_clause,
                 tail_query=tail_query,

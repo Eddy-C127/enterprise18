@@ -394,6 +394,8 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         if len(options["column_groups"]) > 1:
             raise UserError(_("SAF-T is only compatible with one column group."))
 
+        report._init_currency_table(options)
+
         company = self.env.company
         options["single_column_group"] = tuple(options["column_groups"].keys())[0]
 

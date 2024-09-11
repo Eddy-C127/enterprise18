@@ -190,7 +190,6 @@ class XmlPolizasExportWizard(models.TransientModel):
         """
         query = ledger._get_report_query(options, domain=False, date_scope='strict_range')
         account_alias = query.join(lhs_alias='account_move_line', lhs_column='account_id', rhs_table='account_account', rhs_column='id', link='account_id')
-        ct_query = self.env['account.report']._get_query_currency_table(options)
         account_code = self.env['account.account']._field_to_sql(account_alias, 'code', query)
         account_name = self.env['account.account']._field_to_sql(account_alias, 'name')
         journal_name = self.env['account.journal']._field_to_sql('journal', 'name')
@@ -204,9 +203,9 @@ class XmlPolizasExportWizard(models.TransientModel):
                 account_move_line.product_id,
                 account_move_line.currency_id,
                 account_move_line.amount_currency,
-                ROUND(account_move_line.debit * currency_table.rate, currency_table.precision)   AS debit,
-                ROUND(account_move_line.credit * currency_table.rate, currency_table.precision)  AS credit,
-                ROUND(account_move_line.balance * currency_table.rate, currency_table.precision) AS balance,
+                %(debit_select)s              AS debit,
+                %(credit_select)s             AS credit,
+                %(balance_select)s            AS balance,
                 company.currency_id           AS company_currency_id,
                 %(account_code)s              AS account_code,
                 %(account_name)s              AS account_name,
@@ -220,8 +219,8 @@ class XmlPolizasExportWizard(models.TransientModel):
                 %(product_name)s              AS product_name,
                 country.code                  AS country_code
             FROM %(table_references)s
+            %(currency_table_join)s
             LEFT JOIN account_move move          ON move.id = account_move_line.move_id
-            LEFT JOIN %(ct_query)s                 ON currency_table.company_id = account_move_line.company_id
             LEFT JOIN res_company company        ON company.id = account_move_line.company_id
             LEFT JOIN account_journal journal    ON journal.id = account_move_line.journal_id
             LEFT JOIN res_currency currency      ON currency.id = account_move_line.currency_id
@@ -232,12 +231,15 @@ class XmlPolizasExportWizard(models.TransientModel):
             WHERE %(search_condition)s
             ORDER BY account_move_line.date, account_move_line.id
             ''',
+            debit_select=ledger._currency_table_apply_rate(SQL("account_move_line.debit")),
+            credit_select=ledger._currency_table_apply_rate(SQL("account_move_line.credit")),
+            balance_select=ledger._currency_table_apply_rate(SQL("account_move_line.balance")),
             account_code=account_code,
             account_name=account_name,
             journal_name=journal_name,
             product_name=product_name,
             table_references=query.from_clause,
-            ct_query=ct_query,
+            currency_table_join=ledger._currency_table_aml_join(options),
             search_condition=query.where_clause,
         )
         self.env['account.move.line'].flush_model()
@@ -311,19 +313,18 @@ class XmlPolizasExportWizard(models.TransientModel):
 
         # Options ---------------------------------
         # Ensure that the date range is enforced
-        options = self._options.copy()
+        options = ledger.with_context(allowed_company_ids=self.env.company.ids).get_options({
+            **self._options,
+            'unfold_all': True,
+            'export_mode': 'file',
+        })
 
         # If the filter is on a date range, exclude initial balances
         if options.get('date', {}).get('mode', '') == 'range':
             options['general_ledger_strict_range'] = True
 
-        # Unfold all lines from the ledger
-        options['unfold_all'] = True
-
-        # We don't need all companies
-        options['companies'] = [{'name': self.env.company.name, 'id': self.env.company.id}]
-
         # Retrieve --------------------------------
+        ledger._init_currency_table(options)
         accounts_results = self._do_query(ledger, options)
 
         # Group data for (year, month / move)

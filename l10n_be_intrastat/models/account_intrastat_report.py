@@ -64,6 +64,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         in_vals = []
         out_vals = []
         expressions = report.line_ids.expression_ids
+        report._init_currency_table(options)
         results = self._report_custom_engine_intrastat(expressions, options, expressions[0].date_scope, 'intrastat_grouping', None)
         for index, line_result in enumerate(results):
             results[index] = line_result[1]

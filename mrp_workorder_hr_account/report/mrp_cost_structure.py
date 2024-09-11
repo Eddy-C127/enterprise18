@@ -12,7 +12,7 @@ class MrpCostStructure(models.AbstractModel):
 
     def get_lines(self, productions):
         lines = super().get_lines(productions)
-        currency_table = self.env['res.currency']._get_query_currency_table(self.env.companies.ids, fields.Date.today())
+        currency_table = self.env['res.currency']._get_simple_currency_table(self.env.companies)
         employee_times = self.env['mrp.workcenter.productivity'].search([
             ('production_id', 'in', productions.ids),
             ('employee_id', '!=', False),
@@ -25,14 +25,14 @@ class MrpCostStructure(models.AbstractModel):
                                 op.id,
                                 wo.name,
                                 sum(t.duration),
-                                currency_table.rate
+                                account_currency_table.rate
                             FROM mrp_workcenter_productivity t
                             LEFT JOIN mrp_workorder wo ON (wo.id = t.workorder_id)
                             LEFT JOIN mrp_routing_workcenter op ON (wo.operation_id = op.id)
-                            LEFT JOIN %(currency_table)s ON currency_table.company_id = t.company_id
+                            LEFT JOIN %(currency_table)s ON account_currency_table.company_id = t.company_id
                             LEFT JOIN hr_employee emp ON t.employee_id = emp.id
                             WHERE t.workorder_id IS NOT NULL AND t.employee_id IS NOT NULL AND wo.production_id IN %(production_ids)s
-                            GROUP BY product_id, emp.id, op.id, wo.name, t.employee_cost, currency_table.rate
+                            GROUP BY product_id, emp.id, op.id, wo.name, t.employee_cost, account_currency_table.rate
                             ORDER BY emp.name
                         """,
                         currency_table=currency_table,
@@ -59,16 +59,16 @@ class MrpCostStructure(models.AbstractModel):
                         wc.name,
                         wo.duration,
                         CASE WHEN wo.costs_hour = 0.0 THEN wc.costs_hour ELSE wo.costs_hour END AS costs_hour,
-                        currency_table.rate,
+                        account_currency_table.rate,
                         SUM(t.duration/60.0 * emp.hourly_cost) as employee_total_cost
                     FROM mrp_workcenter_productivity t
                     LEFT JOIN mrp_workorder wo ON (wo.id = t.workorder_id)
                     LEFT JOIN hr_employee emp ON (emp.id = t.employee_id)
                     LEFT JOIN mrp_workcenter wc ON (wc.id = t.workcenter_id)
                     LEFT JOIN mrp_routing_workcenter op ON (wo.operation_id = op.id)
-                    LEFT JOIN %(currency_table)s ON currency_table.company_id = t.company_id
+                    LEFT JOIN %(currency_table)s ON account_currency_table.company_id = t.company_id
                     WHERE t.workorder_id IS NOT NULL AND t.workorder_id IN %(workorder_ids)s
-                    GROUP BY wo.production_id, wo.id, op.id, wo.name, wc.costs_hour, wc.name, currency_table.rate
+                    GROUP BY wo.production_id, wo.id, op.id, wo.name, wc.costs_hour, wc.name, account_currency_table.rate
                     ORDER BY wo.name, wc.name
                     """,
                     currency_table=currency_table,
