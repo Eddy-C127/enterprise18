@@ -1,5 +1,5 @@
 {
-    'name': 'POS Restaurnat Urban Piper',
+    'name': 'POS Restaurant Urban Piper',
     'category': 'Sales/Point of Sale',
     'description': """
 This module integrates with UrbanPiper to receive and manage orders from various food delivery platforms such as Swiggy and Zomato.
