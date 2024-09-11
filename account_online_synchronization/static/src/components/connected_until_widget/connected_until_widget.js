@@ -7,21 +7,28 @@ import { Component, useState } from "@odoo/owl";
 
 class ConnectedUntil extends Component {
     static template = "account_online_synchronization.ConnectedUntil";
-    static props = { ...standardWidgetProps, };
+    static props = { ...standardWidgetProps };
 
     setup() {
         this.state = useState({
             isHovered: false,
+            displayReconnectButton: false,
         });
-        this.style = "text-nowrap w-100";
-        if (this.props.record.data.expiring_synchronization_due_day <= 7) {
-            this.style +=
-                this.props.record.data.expiring_synchronization_due_day <= 3
-                    ? " text-danger"
-                    : " text-warning";
+
+        if (this.isConnectionExpiredIn(0)) {
+            this.state.displayReconnectButton = true;
         }
+
         this.action = useService("action");
         this.orm = useService("orm");
+    }
+
+    get cssClasses() {
+        let cssClasses = "text-nowrap w-100";
+        if (this.isConnectionExpiredIn(7)) {
+            cssClasses += this.isConnectionExpiredIn(3) ? " text-danger" : " text-warning";
+        }
+        return cssClasses;
     }
 
     onMouseEnter() {
@@ -32,8 +39,17 @@ class ConnectedUntil extends Component {
         this.state.isHovered = false;
     }
 
+    isConnectionExpiredIn(nbDays) {
+        return this.props.record.data.expiring_synchronization_due_day <= nbDays;
+    }
+
     async extendConnection() {
-        const action = await this.orm.call('account.journal', 'action_extend_consent', [this.props.record.resId], {});
+        const action = await this.orm.call(
+            "account.journal",
+            "action_extend_consent",
+            [this.props.record.resId],
+            {}
+        );
         this.action.doAction(action);
     }
 }
