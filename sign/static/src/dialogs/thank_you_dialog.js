@@ -102,19 +102,21 @@ export class ThankYouDialog extends Component {
                 },
             });
         } else {
-            this.state.buttons.push({
-                name: _t("Close"),
-                click: () => {
-                    if (session.is_frontend) {
-                        window.location.assign("/");
-                    } else {
-                        this.props.close();
-                        this.env.services.action.doAction("sign.sign_template_action", {
-                            clearBreadcrumbs: true,
-                        });
-                    }
-                },
-            });
+            if (!this.redirectURL) {
+                this.state.buttons.push({
+                    name: _t("Close"),
+                    click: () => {
+                        if (session.is_frontend) {
+                            window.location.assign("/");
+                        } else {
+                            this.props.close();
+                            this.env.services.action.doAction("sign.sign_template_action", {
+                                clearBreadcrumbs: true,
+                            });
+                        }
+                    },
+                });
+            }
             if (this.state.nextDocuments.length > 0) {
                 this.state.buttons.push({
                     name: _t("Sign Next Document"),
