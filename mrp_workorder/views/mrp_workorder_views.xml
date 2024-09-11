@@ -394,7 +394,7 @@
         <field name="inherit_id" ref="mrp.workcenter_line_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//t[@name='user_avatar']" position="after">
-                <t t-if="record.employee_ids.raw_value"><field name="employee_ids" widget="list.many2many_avatar_user"/></t>
+                <field t-if="record.employee_ids.raw_value" name="employee_ids" widget="list.many2many_avatar_user" class="ms-1 mt-1"/>
             </xpath>
             <xpath expr="//t[@name='user_avatar']" position='attributes'>
                 <attribute name="t-if">false</attribute>
