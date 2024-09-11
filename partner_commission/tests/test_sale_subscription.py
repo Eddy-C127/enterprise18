@@ -97,11 +97,10 @@ class TestSaleSubscription(TestCommissionsSetup):
             line.product_id = self.worker
             line.product_uom_qty = 1
 
+        form.end_date = fields.Date.today()
         so = form.save()
         so.action_confirm()
-        # Order must be invoiced before it can be renewed
-        so._create_invoices(final=True).action_post()
-        so.end_date = fields.Date.today()
+        so.next_invoice_date += relativedelta(months=1)  # prevent validation error
         res = so.prepare_renewal_order()
         res_id = res['res_id']
         renewal_so = self.env['sale.order'].browse(res_id)

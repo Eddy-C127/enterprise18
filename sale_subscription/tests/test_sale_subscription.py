@@ -1199,7 +1199,6 @@ class TestSubscription(TestSubscriptionCommon):
             sub.order_line.product_uom_qty = 1
             (free_sub | sub).end_date = datetime.date(2022, 1, 1)
             (free_sub | sub | future_sub).action_confirm()
-            (free_sub | sub)._create_invoices(final=True).action_post()
             self.flush_tracking()
             self.assertEqual(sub.recurring_monthly, 21, "20 + 1 for both lines")
             self.assertEqual(sub.subscription_state, "3_progress")
@@ -2232,8 +2231,7 @@ class TestSubscription(TestSubscriptionCommon):
             self.assertEqual(self.subscription.invoice_count, 2, "locked state don't prevent invoices anymore")
 
     def test_create_alternative(self):
-        self.subscription.action_confirm()
-        self.subscription._create_invoices().action_post()
+        self.subscription.next_invoice_date = fields.Date.today() + relativedelta(months=1)
         action = self.subscription.prepare_renewal_order()
         renewal_so = self.env['sale.order'].browse(action['res_id'])
         copy_so = renewal_so.copy()
@@ -3455,7 +3453,7 @@ class TestSubscription(TestSubscriptionCommon):
             all_subs.write({'start_date': False, 'next_invoice_date': False})
             all_subs.action_confirm()
             self.flush_tracking()
-            all_subs._create_invoices(final=True).action_post()
+            all_subs.next_invoice_date = datetime.datetime(2023, 2, 1)
             self.flush_tracking()
         with freeze_time("2023-02-01"):
             sub_negative_recurring.order_line.product_uom_qty = 6 # update quantity
@@ -3482,7 +3480,7 @@ class TestSubscription(TestSubscriptionCommon):
             self.flush_tracking()
         with freeze_time("2023-04-01"):
             self.flush_tracking()
-            self.assertEqual(renewal_so2.invoice_ids, sub_negative_recurring.invoice_ids, "no new invoice should have been created")
+            self.assertFalse(renewal_so2.invoice_ids, "no invoice should have been created")
             close_reason_id = self.env.ref('sale_subscription.close_reason_1').id
             renewal_so2.set_close(close_reason_id=close_reason_id)
             self.flush_tracking()
