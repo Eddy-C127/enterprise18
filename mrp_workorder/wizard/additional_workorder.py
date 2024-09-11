@@ -51,10 +51,6 @@ class MrpWorkorderAdditionalWorkorder(models.TransientModel):
             for next_wo in self.blocked_by_workorder_id.needed_by_workorder_ids:
                 if next_wo.id != wo.id:
                     next_wo.blocked_by_workorder_ids = [Command.link(wo.id)]
-            # Rewrite the sequences for consistency
-            starting_index = self.production_id.workorder_ids.ids.index(wo.id)
-            for workorder in self.production_id.workorder_ids[starting_index:]:
-                workorder.sequence += 1
         elif self.production_id.workorder_ids - wo:
             # If new WO is placed at the beginning, make sure it blocks the now second workorder
             self.production_id.workorder_ids.sorted()[1].blocked_by_workorder_ids = [Command.link(wo.id)]

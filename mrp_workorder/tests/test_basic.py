@@ -1979,7 +1979,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         wizard.workcenter_id = self.workcenter_1
         wizard.save().add_workorder()
         self.assertEqual(len(mo1.workorder_ids), 2)
-        self.assertListEqual(mo1.workorder_ids.mapped('sequence'), [1, 2])
+        self.assertListEqual(mo1.workorder_ids.mapped('sequence'), [0, 1])
         self.assertEqual(mo1.workorder_ids[-1].name, 'Send gift-wrapped machine to the Moon')
 
         action = mo1.action_add_workorder()
@@ -1990,7 +1990,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         wizard.workcenter_id = self.workcenter_2
         wizard.save().add_workorder()
         self.assertEqual(len(mo1.workorder_ids), 3)
-        self.assertListEqual(mo1.workorder_ids.mapped('sequence'), [1, 2, 3])
+        self.assertListEqual(mo1.workorder_ids.mapped('sequence'), [0, 1, 2])
         self.assertEqual(mo1.workorder_ids[-1].blocked_by_workorder_ids, mo1.workorder_ids[:2], 'The last WO should be blocked by the first 2 WO')
 
         # Create the second MO
