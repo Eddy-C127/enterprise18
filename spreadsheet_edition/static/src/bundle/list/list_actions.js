@@ -15,7 +15,7 @@ export const REINSERT_LIST_CHILDREN = (env) =>
                     type: dataSource.getField(name).type,
                 }));
                 env.getLinesNumber((linesNumber) => {
-                    env.model.dispatch("RE_INSERT_ODOO_LIST", {
+                    env.model.dispatch("RE_INSERT_ODOO_LIST_WITH_TABLE", {
                         sheetId: env.model.getters.getActiveSheetId(),
                         col: zone.left,
                         row: zone.top,

@@ -92,6 +92,13 @@ test("List export with a widget handle", async () => {
     expect(model.getters.getListDefinition("1").columns).toEqual(["bar"]);
 });
 
+test("Lists are inserted with a table in the webclient", async () => {
+    const { model } = await createSpreadsheetFromListView();
+    const sheetId = model.getters.getActiveSheetId();
+    const table = model.getters.getTable({ sheetId, col: 2, row: 2 });
+    expect(table.range.zone).toEqual(toZone("A1:D11"));
+});
+
 test("property fields are not exported", async () => {
     const data = getBasicData();
     const propertyDefinition = {
@@ -341,6 +348,24 @@ test("Re-insert a list with a selected number of records", async function () {
     await contains(".modal-content > .modal-footer > .btn-primary").click();
 
     expect(model.getters.getNumberRows(model.getters.getActiveSheetId())).toBe(2001);
+});
+
+test("Re-insert a list also applies a table", async function () {
+    const { model, env } = await createSpreadsheetFromListView();
+    const sheetId = model.getters.getActiveSheetId();
+    let table = model.getters.getTable({ sheetId, col: 0, row: 49 });
+    expect(table).toBe(undefined);
+
+    selectCell(model, "A50");
+
+    await doMenuAction(topbarMenuRegistry, ["data", "reinsert_list", "reinsert_list_1"], env);
+    await animationFrame();
+
+    await contains(".modal-body input").edit("10");
+    await contains(".modal-content > .modal-footer > .btn-primary").click();
+
+    table = model.getters.getTable({ sheetId, col: 0, row: 49 });
+    expect(table.range.zone).toEqual(toZone("A50:D60"));
 });
 
 test("user related context is not saved in the spreadsheet", async function () {

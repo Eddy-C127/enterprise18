@@ -64,7 +64,7 @@ export function insertList({ list, threshold, fields, name }) {
         const defWithoutFields = JSON.parse(JSON.stringify(definition));
         defWithoutFields.metaData.fields = undefined;
         const sheetId = model.getters.getActiveSheetId();
-        const result = model.dispatch("INSERT_ODOO_LIST", {
+        const result = model.dispatch("INSERT_ODOO_LIST_WITH_TABLE", {
             sheetId,
             col: 0,
             row: 0,
