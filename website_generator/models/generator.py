@@ -92,13 +92,15 @@ class WebsiteGeneratorRequest(models.Model):
 
     def _get_call_params(self):
         ICP = self.env['ir.config_parameter'].sudo()
-        return {
+        params = {
             'url': self.target_url,
             'additional_urls': self.additional_urls,
-            'page_count': self.page_count,
             'token': ICP.get_param('website_generator.token', None),
             'dbuuid': ICP.get_param('database.uuid'),
         }
+        if self.page_count:
+            params['page_count'] = self.page_count
+        return params
 
     @api.model
     def get_result_waiting_requests(self):
@@ -290,7 +292,6 @@ class WebsiteGeneratorRequest(models.Model):
 
             attributes = {
                 'src': customized_attachments_url_src[ws_id].image_src,
-                'class': customization.get('className', ''),
                 'data-original-id': attachments_url_src[url].id,
                 'data-original-src': attachments_url_src[url].image_src,
                 'data-mimetype': data_mimetype,
@@ -302,6 +303,7 @@ class WebsiteGeneratorRequest(models.Model):
             if cropping_dimensions:
                 attributes.update({
                     'data-x': cropping_dimensions['x'],
+                    'data-y': cropping_dimensions['y'],
                     'data-width': cropping_dimensions['width'],
                     'data-height': cropping_dimensions['height'],
                     'data-scale-x': 1,
@@ -319,7 +321,8 @@ class WebsiteGeneratorRequest(models.Model):
 
             if url and (cropping_dimensions or color_filter) and ws_id:
                 pattern = rf'<img[^>]*data-ws_id\s*=\s*["\']?{ws_id}["\']?[^>]*>'
-                customized_img_string = f'<img {" ".join([f"{k}={v!r}" for k, v in attributes.items()])}>'
+                # The 'style="" class=""' is needed and will be replaced by the class and style attributes of the original image.
+                customized_img_string = f'<img style="" class="" {" ".join([f"{k}={v!r}" for k, v in attributes.items()])}>'
                 customized_image_mappings[pattern] = customized_img_string
             return customized_image_mappings
 
@@ -432,8 +435,24 @@ class WebsiteGeneratorRequest(models.Model):
         # Since we need to have a mapping of the regex to the replacement
         # and not a mapping of the matched string to the replacement,
         # we have to do the sub on each iteration, rather than one group sub.
+        re_class_patern = re.compile(r'class="[^"]*"')
+        re_style_patern = re.compile(r'style="[^"]*"')
         for pattern, replacement in regex_replacement_mapping.items():
-            page_html = re.sub(pattern, replacement, page_html)
+            def replace_but_keep_class_and_style(match):
+                # Replaces the matched string but keeps the original class and style attribute (if found).
+                result = match.group(0)
+                class_match = re_class_patern.search(result)
+                if class_match:
+                    prev_class = class_match.group(0)
+                    result = re_class_patern.sub(prev_class, replacement, count=1)
+
+                style_match = re_style_patern.search(match.group(0))
+                if style_match:
+                    prev_style = style_match.group(0)
+                    result = re_style_patern.sub(prev_style, result, count=1)
+                return result
+
+            page_html = re.sub(pattern, replace_but_keep_class_and_style, page_html)
         return page_html
 
     @staticmethod
