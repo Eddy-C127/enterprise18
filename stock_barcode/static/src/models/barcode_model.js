@@ -519,7 +519,7 @@ export default class BarcodeModel extends EventBus {
             }
             line.package_id = package_id;
         }
-        if (args.lot_name) {
+        if (args.lot_name && line.product_id.tracking !== "none") {
             await this.updateLotName(line, args.lot_name);
         }
         this._updateLineQty(line, args);
