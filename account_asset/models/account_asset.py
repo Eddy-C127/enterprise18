@@ -748,7 +748,7 @@ class AccountAsset(models.Model):
     # -------------------------------------------------------------------------
 
     def action_open_linked_assets(self):
-        action = self.linked_assets_ids.open_asset(['tree', 'form'])
+        action = self.linked_assets_ids.open_asset(['list', 'form'])
         action.get('context', {}).update({
             'from_linked_assets': 0,
         })
