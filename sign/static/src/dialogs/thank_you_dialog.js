@@ -131,7 +131,7 @@ export class ThankYouDialog extends Component {
                     );
                 },
             });
-        } else {
+        } else if (!this.redirectURL) {
             this.state.buttons.push({
                 name: this.closeLabel,
                 click: () => {
