@@ -1,4 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from datetime import date
 
 from odoo import fields, Command
 from odoo.tests import tagged
@@ -46,6 +47,8 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
 
     create_leaves = getattr(TestPayrollUnusedLeaves, 'create_leaves')
 
+    # ==================== HELPERS ====================
+
     def _prepare_payslip_run(self):
         payslip_run = self.env["hr.payslip.run"].create(
             {
@@ -70,7 +73,17 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
         payslip_run.slip_ids.write({"input_line_ids": [(0, 0, {
             'input_type_id': self.env.ref('l10n_au_hr_payroll.input_laundry_1').id,
             'amount': 100,
-        })]})
+            }), (0, 0, {
+            'input_type_id': self.env.ref('l10n_au_hr_payroll.input_laundry_2').id,
+            'amount': 100,
+            }), (0, 0, {
+            'input_type_id': self.env.ref('l10n_au_hr_payroll.input_gross_director_fee').id,
+            'amount': 100,
+            }), (0, 0, {
+            'input_type_id': self.env.ref('l10n_au_hr_payroll.input_bonus_commissions_overtime_prior').id,
+            'amount': 100,
+            })
+        ]})
         payslip_run.action_validate()
         return payslip_run
 
@@ -91,6 +104,9 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
         self.assertEqual(stp.state, "sent", "The STP record should be in sent state")
 
     def test_stp(self):
+        self.employee_1.l10n_au_child_support_garnishee_amount = 0.15
+        self.employee_1.l10n_au_child_support_deduction = 120
+        self.contract_1.l10n_au_salary_sacrifice_superannuation = 100
         batch = self._prepare_payslip_run()
 
         self.assertTrue(
@@ -101,6 +117,43 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
         stp = self.env["l10n_au.stp"].search([("payslip_batch_id", "=", batch.id)])
         self._submit_stp(stp)
 
+    def create_ytd_opening_balances(self, employee, values: dict):
+        """
+        Args:
+            employee (hr.employee)
+            values (list): List with (code, amount) tuples
+        """
+        vals_to_create = []
+        for code, value in values.items():
+            vals_to_create.append({
+                "employee_id": employee.id,
+                "struct_id": self.default_payroll_structure.id,
+                "rule_id": self.env["hr.salary.rule"].search([
+                    ("struct_id", "=", self.default_payroll_structure.id),
+                    ("code", "=", code)
+                ]).id,
+                "start_value": value,
+                "finalised": False,
+                "start_date": date(2024, 7, 1),
+            })
+        self.env["l10n_au.payslip.ytd"].create(vals_to_create)
+
+    def create_payslips(self, employee, num_slips, start_date):
+        for i in range(num_slips):
+            slip_month = start_date.month + i if (start_date.month + i) <= 12 else 1
+            slip = self.env["hr.payslip"].create({
+                "employee_id": employee.id,
+                "contract_id": employee.contract_id.id,
+                "date_from": start_date.replace(month=slip_month),
+                "date_to": start_date.replace(day=31, month=slip_month),
+                "name": f"January Payslip {i + 1}",
+                "struct_id": self.default_payroll_structure.id,
+            })
+            slip.compute_sheet()
+            slip.action_payslip_done()
+        return slip
+
+    # ==================== TESTS ====================
 
     def test_out_of_cycle_termination(self):
         self.contract_1.write({"l10n_au_salary_sacrifice_superannuation": 100})
@@ -130,7 +183,7 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
         payslip.compute_sheet()
         payslip.action_payslip_done()
         stp = self.env["l10n_au.stp"].search([("payslip_ids", "in", payslip.id)])
-        rendering_data = stp._get_rendering_data(payslip)
+        rendering_data = stp._get_rendering_data()
         termination_tuple = rendering_data[1][0]["Remuneration"][0]["EmploymentTerminationPaymentCollection"]
         self.assertDictEqual(
             termination_tuple[0],
@@ -153,3 +206,37 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
         )
         self.assertEqual(rendering_data[1][0]["EmploymentEndD"], fields.Date.from_string("2024-05-31"))
         self._submit_stp(stp)
+
+    def test_payslip_ytd_multiple_fiscal_years(self):
+        self.contract_1.date_end = False
+        self.tax_treatment_category = 'R'
+
+        # 5 months in the first fiscal year
+        self.create_ytd_opening_balances(
+            self.employee_1,
+            dict(
+                ("BASIC", 25000),
+                ("OTE", 25000),
+                ("WORKPLACE.GIVING", -500),
+                ("GROSS", 23500),
+                ("WITHHOLD", -4140),
+                ("MEDICARE", 0),
+                ("WITHHOLD.TOTAL", -4140),
+                ("NET", 19360.0),
+                ("SUPER.CONTRIBUTION", 500),
+                ("SUPER", 2750)
+            ),
+        )
+
+        expected_lines = [
+            {"code": "BASIC", "ytd": 60000.0},
+            {"code": "OTE", "ytd": 60000.0},
+            {"code": "GROSS", "ytd": 57000.0},
+            {"code": "WITHHOLD", "ytd": -10144.0},
+            {"code": "MEDICARE", "ytd": 0.0},
+            {"code": "WITHHOLD.TOTAL", "ytd": -10144.0},
+            {"code": "NET", "ytd": 46856.0},
+            {"code": "SUPER", "ytd": 6600.0},
+        ]
+
+        last_slip = self.create_payslips(self.employee_1, 7, start_date=date(2024, 12, 1))

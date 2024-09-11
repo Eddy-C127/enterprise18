@@ -15,6 +15,7 @@ class HrPayslip(models.Model):
         ("sent", "Submitted"),
         ("error", "Error"),
     ], string="STP Status", compute="_compute_stp_status")
+    l10n_au_finalised = fields.Boolean("Finalised", default=False, readonly=True, copy=False)
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -57,7 +58,7 @@ class HrPayslip(models.Model):
 
     def action_payslip_draft(self):
         self._clear_super_stream_lines()
-        if any(state == 'sent' for state in self.state):
+        if not self.env.context.get("allow_ffr") and any(state == 'sent' for state in self.mapped("l10n_au_stp_status")):
             raise UserError(_("A payslip cannot be reset to draft after submitting to ATO."))
         return super().action_payslip_draft()
 
@@ -164,33 +165,25 @@ class HrPayslip(models.Model):
             },
         }
 
-    def _l10n_au_get_year_to_date_totals(self, include_ytd_balances=True):
-        totals = super()._l10n_au_get_year_to_date_totals()
+    def _l10n_au_get_year_to_date_totals(self, fields_to_compute=None, l10n_au_include_current_slip=False, include_ytd_balances=True):
+        totals = super()._l10n_au_get_year_to_date_totals(fields_to_compute=fields_to_compute, l10n_au_include_current_slip=l10n_au_include_current_slip)
         if include_ytd_balances:
             ytd_balances = self.env["l10n_au.payslip.ytd"].search([("employee_id", "in", self.employee_id.ids)])
             for ytd_balance in ytd_balances:
-                totals["slip_lines"][ytd_balance.rule_id.category_id.name]["total"] += ytd_balance.start_value
-                totals["slip_lines"][ytd_balance.rule_id.category_id.name][ytd_balance.rule_id.code] += ytd_balance.start_value
+                totals["slip_lines"][ytd_balance.rule_id.category_id.name]["total"] += ytd_balance.ytd_amount
+                totals["slip_lines"][ytd_balance.rule_id.category_id.name][ytd_balance.rule_id.code] += ytd_balance.ytd_amount
+            for work_entry_line in ytd_balances.l10n_au_payslip_ytd_input_ids.filtered(lambda l: l.res_model == "hr.work.entry.type"):
+                totals["worked_days"][work_entry_line.work_entry_type]["amount"] += work_entry_line.ytd_amount
+
         return totals
 
-    def _get_payslip_lines(self):
-        lines = super()._get_payslip_lines()
-        ytd_balances = self.env["l10n_au.payslip.ytd"].search_read(
-            [("employee_id", "in", self.employee_id.ids), ("finalised", "=", False)],
-            ["employee_id", "rule_id", "start_value"],
-            load=""
-        )
-        ytd_balances = {(balance["employee_id"], balance["rule_id"]): balance["start_value"] for balance in ytd_balances}
-        for line in lines:
-            line['ytd'] += ytd_balances.get((line['employee_id'], line['salary_rule_id']), 0)
+    def _l10n_au_get_ytd_inputs(self, l10n_au_include_current_slip=False, include_ytd_balances=True):
+        totals = super()._l10n_au_get_ytd_inputs(l10n_au_include_current_slip=l10n_au_include_current_slip)
+        if not include_ytd_balances:
+            return totals
 
-        return lines
+        ytd_balances = self.env["l10n_au.payslip.ytd"].search([("employee_id", "in", self.employee_id.ids)])
+        for input_line in ytd_balances.l10n_au_payslip_ytd_input_ids.filtered(lambda l: l.res_model == "hr.payslip.input.type"):
+            totals[input_line.input_type]["amount"] += input_line.ytd_amount
 
-    def _get_ytd_super(self):
-        """Computes YTD of Super RESC and Non-RESC for a payslip"""
-        self.ensure_one()
-        ytd_slips = self.with_context(l10n_au_include_current_slip=True)._l10n_au_get_year_to_date_slips()
-        return {
-            'RESC': sum(slip.l10n_au_extra_negotiated_super + slip.contract_id.l10n_au_salary_sacrifice_superannuation for slip in ytd_slips),
-            'NON_RESC': self._get_line_values(["SUPER"], ["ytd"])["SUPER"][self.id]['ytd'] + sum(ytd_slips.mapped('l10n_au_extra_compulsory_super')),
-        }
+        return totals

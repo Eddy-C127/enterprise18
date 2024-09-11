@@ -20,18 +20,28 @@
                     <field name="state" widget="statusbar"/>
                     <button name="l10n_au_hr_payroll_account.l10n_au_action_submit_stp" string="Submit to ATO" type="action"
                         class="btn-primary" invisible="state in ['sent']"/>
+                    <button name="action_replace_file" string="Replace File" type="object"
+                        class="btn-primary" invisible="state != 'sent' or not ffr or file_replacement_message"/>
                 </header>
                 <sheet>
+                    <div
+                        class="alert alert-warning mb-2" role="alert"
+                        invisible="not is_finalisation">
+                        <span>This report is a finalisation report. Please proceed with caution.</span>
+                    </div>
                     <div class="alert alert-warning" role="alert" invisible="not warning_message">
                         <field name="warning_message" style="white-space: pre-wrap;"/>
+                    </div>
+                    <div class="oe_title">
+                        <h2><field name="name" /></h2>
                     </div>
                     <group>
                         <group>
                             <field name="payevent_type" readonly="state == 'sent'"/>
-                            <field name="previous_report_id" invisible="payevent_type == 'submit'"
-                                required="payevent_type == 'update'" readonly="state == 'sent'"/>
-                            <field name="ffr" invisible="payevent_type == 'submit'" readonly="state == 'sent'"/>
-                            <field name="payslip_batch_id" readonly="state == 'sent'"/>
+                            <field name="submit_date" required="payevent_type == 'update'" readonly="state == 'sent'"/>
+                            <field name="payslip_batch_id" readonly="state == 'sent'" invisible="is_finalisation"/>
+                            <field name="previous_report_id" invisible="not ffr" required="ffr" readonly="state == 'sent'"/>
+                            <field name="ffr" invisible="payevent_type == 'adjust' or not ffr" readonly="True"/>
                         </group>
                         <group>
                             <field name="company_id" readonly="state != 'draft'"/>
@@ -45,21 +55,39 @@
                             <field name="error_message" invisible="xml_validation_state != 'invalid'" nolabel="1"/>
                         </p>
                     </div>
-                    <field name="payslip_ids" readonly="state == 'sent'" invisible="payevent_type == 'adjust'">
-                        <list no_create="1">
-                            <field name="company_id" column_invisible="1"/>
-                            <field name="number"/>
-                            <field name="name"/>
-                            <field name="date_from"/>
-                            <field name="date_to"/>
-                            <field name="employee_id"/>
-                            <field name="state"/>
-                            <field name="l10n_au_stp_status" optional="show" widget="badge"
-                                decoration-success="l10n_au_stp_status == 'sent'"
-                                decoration-info="l10n_au_stp_status == 'ready'"
-                                decoration-warning="l10n_au_stp_status == 'error'" />
-                        </list>
-                    </field>
+                    <notebook>
+                        <page name="payslips" string="Payslips" invisible="payevent_type == 'adjust' or is_finalisation">
+                            <field name="payslip_ids" readonly="state == 'sent'">
+                                <list no_create="1">
+                                    <field name="company_id" column_invisible="1"/>
+                                    <field name="number"/>
+                                    <field name="name"/>
+                                    <field name="date_from"/>
+                                    <field name="date_to"/>
+                                    <field name="employee_id"/>
+                                    <field name="state"/>
+                                    <field name="l10n_au_stp_status" optional="show" widget="badge"
+                                        decoration-success="l10n_au_stp_status == 'sent'"
+                                        decoration-info="l10n_au_stp_status == 'ready'"
+                                        decoration-warning="l10n_au_stp_status == 'error'" />
+                                </list>
+                            </field>
+                        </page>
+                        <page name="employees" string="Employees to Finalize" invisible="not is_finalisation">
+                            <field name="l10n_au_stp_emp" readonly="True" >
+                                <list editable="bottom" open_form_view="True">
+                                    <field name="employee_id" />
+                                    <field name="currency_id" column_invisible="1"/>
+                                    <field name="ytd_gross" sum="Total Gross"/>
+                                    <field name="ytd_tax" sum="Total Tax"/>
+                                    <field name="ytd_super" sum="Total Super"/>
+                                    <field name="ytd_rfba" sum="Total RFBA"/>
+                                    <field name="ytd_rfbae" sum="Total RFBA-E"/>
+                                    <!-- <button name="action_open_emp" string="Open" type="object" class="btn-primary"/> -->
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
                 <chatter/>
             </form>
@@ -99,6 +127,38 @@
                     <filter name="filter_payevent_type" string="Pay Event Type" context="{'group_by': 'payevent_type'}"/>
                 </group>
             </search>
+        </field>
+    </record>
+
+    <record id="l10n_au_stp_emp_view_form" model="ir.ui.view">
+        <field name="name">l10n_au.stp.emp.form</field>
+        <field name="model">l10n_au.stp.emp</field>
+        <field name="arch" type="xml">
+            <form string="Employee Finalisation">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="employee_id" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="ytd_gross"/>
+                            <field name="ytd_tax"/>
+                            <field name="ytd_super"/>
+                            <field name="ytd_rfba"/>
+                            <field name="ytd_rfbae"/>
+                        </group>
+                    </group>
+                        <notebook>
+                            <page name="slips" string="Payslips">
+                                <field name="payslip_ids" widget="many2many_list" readonly="1"/>
+                            </page>
+                            <page name="ytd_balance" string="Opening Balances">
+                                <field name="ytd_balance_ids" widget="many2many_list" readonly="1"/>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
         </field>
     </record>
 

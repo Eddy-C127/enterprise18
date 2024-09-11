@@ -182,7 +182,7 @@
                         </tns:SuperannuationContributionCollection>
                         <!-- TODO ( Fringe benefits reporting is voluntarily reported in stp, can be done last ) -->
                         <tns:IncomeFringeBenefitsReportableCollection t-if="employee['IncomeFringeBenefitsReportableCollection']">
-                            <t t-foreach="employee['SuperannuationContributionCollection']" t-as="benefit">
+                            <t t-foreach="employee['IncomeFringeBenefitsReportableCollection']" t-as="benefit">
                                 <tns:IncomeFringeBenefitsReportable>
                                     <tns:FringeBenefitsReportableExemptionC t-esc="benefit['FringeBenefitsReportableExemptionC']"/>
                                     <tns:A t-esc="benefit['A']"/>

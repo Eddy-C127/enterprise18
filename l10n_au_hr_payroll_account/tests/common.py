@@ -28,6 +28,7 @@ class L10nPayrollAccountCommon(AccountTestInvoicingCommon):
             "partner_id": cls.company.partner_id.id,
         })
         schedule = cls.env.ref("l10n_au_hr_payroll.structure_type_schedule_1")
+        cls.default_payroll_structure = cls.env.ref('l10n_au_hr_payroll.hr_payroll_structure_au_regular')
         bank_journal = cls.company_data['default_journal_bank']
         bank_journal.write({
             'bank_account_id': cls.company_bank_account.id,
@@ -148,3 +149,4 @@ class L10nPayrollAccountCommon(AccountTestInvoicingCommon):
         })
         cls.company.l10n_au_hr_super_responsible_id = cls.employee_1
         cls.company.l10n_au_stp_responsible_id = cls.employee_1
+        cls.company.ytd_reset_month = "7"

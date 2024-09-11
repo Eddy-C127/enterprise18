@@ -5,7 +5,7 @@ from datetime import datetime, date
 from math import floor, ceil
 from dateutil.relativedelta import relativedelta
 
-from odoo import api, Command, fields, models, _
+from odoo import api, fields, models, _
 from odoo.exceptions import AccessError, UserError, ValidationError
 
 
@@ -197,7 +197,7 @@ class HrPayslip(models.Model):
         self.sudo()._add_unused_leaves_to_payslip()
         super().action_refresh_from_work_entries()
 
-    def _l10n_au_get_year_to_date_slips(self):
+    def _l10n_au_get_year_to_date_slips(self, l10n_au_include_current_slip=False):
         start_year = self.contract_id._l10n_au_get_financial_year_start(self.date_from)
         year_slips = self.env["hr.payslip"].search([
             ("employee_id", "=", self.employee_id.id),
@@ -206,27 +206,33 @@ class HrPayslip(models.Model):
             ("date_from", ">=", start_year),
             ("date_from", "<=", self.date_from),
         ], order="date_from")
-        if self.env.context.get('l10n_au_include_current_slip'):
+        # To include the current slip while its not done
+        if l10n_au_include_current_slip:
             year_slips |= self
         return year_slips
 
-    def _l10n_au_get_year_to_date_totals(self):
-        year_slips = self._l10n_au_get_year_to_date_slips()
+    def _l10n_au_get_year_to_date_totals(self, fields_to_compute=None, l10n_au_include_current_slip=False):
+        if fields_to_compute is None:
+            fields_to_compute = []
+        year_slips = self._l10n_au_get_year_to_date_slips(l10n_au_include_current_slip=l10n_au_include_current_slip)
         totals = {
             "slip_lines": defaultdict(lambda: defaultdict(float)),
             "worked_days": defaultdict(lambda: defaultdict(float)),
             "periods": len(year_slips),
+            "fields": defaultdict(float),
         }
         for line in year_slips.line_ids:
-            totals["slip_lines"][line.category_id.name]["total"] += line.total
-            totals["slip_lines"][line.category_id.name][line.code] += line.total
+            totals["slip_lines"][line.category_id.code]["total"] += line.total
+            totals["slip_lines"][line.category_id.code][line.code] += line.total
         for line in year_slips.worked_days_line_ids:
             totals["worked_days"][line.work_entry_type_id]["amount"] += line.amount
+        for field in fields_to_compute:
+            totals["fields"][field] += sum(year_slips.mapped(field))
         return totals
 
-    def _l10n_au_get_ytd_inputs(self):
+    def _l10n_au_get_ytd_inputs(self, l10n_au_include_current_slip=False):
         inputs = defaultdict(lambda: defaultdict(float))
-        year_slips = self._l10n_au_get_year_to_date_slips()
+        year_slips = self._l10n_au_get_year_to_date_slips(l10n_au_include_current_slip=l10n_au_include_current_slip)
         for line in year_slips.input_line_ids:
             inputs[line.input_type_id]["amount"] += line.amount
         return inputs

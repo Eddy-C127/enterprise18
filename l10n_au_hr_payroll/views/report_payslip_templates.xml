@@ -69,7 +69,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <t t-set="year_to_date_totals" t-value="o.with_context(l10n_au_include_current_slip=True)._l10n_au_get_year_to_date_totals()"/>
+                        <t t-set="year_to_date_totals" t-value="o._l10n_au_get_year_to_date_totals(l10n_au_include_current_slip=True)"/>
                         <t t-set="unused_leaves" t-value="o._l10n_au_get_unused_leave_hours()"/>
                         <t t-set="total_hours" t-value="0.0"/>
                         <!-- show the detail of the worked lines -->
@@ -120,7 +120,7 @@
                                 <t t-esc="line.total" t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>
                             <td class="text-end align-middle">
-                                <t t-esc="year_to_date_totals['slip_lines'][line.category_id.name]['total']"
+                                <t t-esc="year_to_date_totals['slip_lines'][line.category_id.code]['total']"
                                     t-options="{'widget': 'monetary', 'display_currency': o.company_id.currency_id}"/>
                             </td>
                         </tr>

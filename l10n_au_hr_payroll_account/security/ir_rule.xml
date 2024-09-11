@@ -15,4 +15,9 @@
         <field name="model_id" ref="model_l10n_au_super_stream_line"/>
         <field name="domain_force">[('company_id', 'in', company_ids)]</field>
     </record>
+    <record id="ir_rule_l10n_au_payslip_ytd_multi_company" model="ir.rule">
+        <field name="name">HR Payroll AU YTD Balances: Multi Company</field>
+        <field name="model_id" ref="model_l10n_au_payslip_ytd"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
 </odoo>
