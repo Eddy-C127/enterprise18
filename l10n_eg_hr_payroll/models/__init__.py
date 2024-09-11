@@ -2,3 +2,5 @@
 
 from . import hr_contract
 from . import hr_payslip
+from . import hr_payroll_master_report
+from . import ir_ui_menu
