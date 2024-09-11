@@ -22,7 +22,7 @@ registry.category("web_tour.tours").add('timesheet_tour', {
     trigger: 'div[name=name] input',
     content: markup(_t('Describe your activity <i>(e.g. sent an e-mail, meeting with the customer...)</i>.')),
     tooltipPosition: 'bottom',
-    run: "click",
+    run: "edit My Activity",
 }, {
     trigger: 'div[name=project_id] .o_field_many2one_selection',
     content: markup(_t('Select the <b>project</b> on which you are working.')),
@@ -39,14 +39,10 @@ registry.category("web_tour.tours").add('timesheet_tour', {
     tooltipPosition: 'right',
     run: "click",
 }, {
-    trigger: '.o_grid_view .o_grid_row:not(.o_grid_section).o_grid_cell_today',
+    trigger: '.o_grid_view .o_grid_row:not(.o_grid_section).o_grid_cell_today, .o_grid_component_timesheet_uom',
     content: _t("Click on the cell to set the number of hours you spent on this project."),
     tooltipPosition: 'bottom',
     run: "click",
-},
-{
-    isActive: ["auto"],
-    trigger: ".o_grid_view .o_grid_row:not(.o_grid_section).o_grid_cell_today",
 },
 {
     trigger: '.o_grid_view .o_grid_cell',
@@ -57,5 +53,5 @@ registry.category("web_tour.tours").add('timesheet_tour', {
     trigger: '.o_grid_view .o_grid_cell',
     content: markup(_t('Set the number of hours you spent on this project (e.g. 1:30 or 1.5). <i>Tip: use the tab keys to easily navigate from one cell to another.</i>')),
     tooltipPosition: 'bottom',
-    run: "click",
+    run: "edit 1:30",
 }]});
