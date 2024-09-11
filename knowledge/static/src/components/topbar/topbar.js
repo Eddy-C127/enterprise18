@@ -85,7 +85,8 @@ class KnowledgeTopbar extends Component {
                 shareBtn.addEventListener(
                     // Prevent hiding the dropdown when the invite modal is shown
                     'hide.bs.dropdown', (ev) => {
-                        if (this.uiService.activeElement !== document) {
+                        const { activeElement } = this.uiService;
+                        if (activeElement && activeElement.classList.contains("modal")) {
                             ev.preventDefault();
                         }
                 });
