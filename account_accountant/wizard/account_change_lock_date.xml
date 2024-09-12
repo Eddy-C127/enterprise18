@@ -26,25 +26,49 @@
                                 <i>Lock transactions up to specific dates, inclusive</i>
                             </div>
                             <field name="company_id" invisible="True"/>
-                            <field name="min_sale_lock_date_exception" invisible="True"/>
-                            <field name="min_purchase_lock_date_exception" invisible="True"/>
-                            <field name="min_tax_lock_date_exception" invisible="True"/>
-                            <field name="min_fiscalyear_lock_date_exception" invisible="True"/>
+                            <field name="min_sale_lock_date_exception_for_me_id" invisible="True"/>
+                            <field name="min_purchase_lock_date_exception_for_me_id" invisible="True"/>
+                            <field name="min_tax_lock_date_exception_for_me_id" invisible="True"/>
+                            <field name="min_fiscalyear_lock_date_exception_for_me_id" invisible="True"/>
+                            <field name="min_sale_lock_date_exception_for_everyone_id" invisible="True"/>
+                            <field name="min_purchase_lock_date_exception_for_everyone_id" invisible="True"/>
+                            <field name="min_tax_lock_date_exception_for_everyone_id" invisible="True"/>
+                            <field name="min_fiscalyear_lock_date_exception_for_everyone_id" invisible="True"/>
                             <label for="sale_lock_date"/>
                             <div class="d-flex">
                                 <field name="sale_lock_date" placeholder="Not locked"
                                        class="oe_inline"
                                        options="{'warn_future': true}"/>
-                                <span class="text-muted mx-2" invisible="min_sale_lock_date_exception">
+                                <span class="text-muted"
+                                      invisible="min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id">
                                     <i>to lock invoices</i>
                                 </span>
                                 <span class="text-muted o_form_label"
-                                      invisible="not min_sale_lock_date_exception">
-                                        <a type="object"
-                                           class="oe_link fw-bold mx-2"
-                                           name="action_revoke_min_sale_lock_date_exception">
-                                            Revoke
-                                        </a>
+                                      invisible="not min_sale_lock_date_exception_for_me_id">
+                                    For me:
+                                    <field name="sale_lock_date_for_me" nolabel="1" class="oe_inline"
+                                           invisible="not sale_lock_date_for_me"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_sale_lock_date_exception_for_me">
+                                        Revoke
+                                    </a>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_sale_lock_date_exception_for_me_id
+                                                 or not min_sale_lock_date_exception_for_everyone_id">
+                                      <span style="white-space: pre">; </span>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_sale_lock_date_exception_for_everyone_id">
+                                    For everyone:
+                                    <field name="sale_lock_date_for_everyone" nolabel="1" class="oe_inline"
+                                           invisible="not sale_lock_date_for_everyone"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_sale_lock_date_exception_for_everyone">
+                                        Revoke
+                                    </a>
                                 </span>
                             </div>
                             <label for="purchase_lock_date"/>
@@ -52,16 +76,36 @@
                                 <field name="purchase_lock_date" placeholder="Not locked"
                                        class="oe_inline"
                                        options="{'warn_future': true}"/>
-                                <span class="text-muted mx-2" invisible="min_purchase_lock_date_exception">
+                                <span class="text-muted"
+                                      invisible="min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id">
                                     <i>to lock bills</i>
                                 </span>
                                 <span class="text-muted o_form_label"
-                                      invisible="not min_purchase_lock_date_exception">
-                                        <a type="object"
-                                           class="oe_link fw-bold mx-2"
-                                           name="action_revoke_min_purchase_lock_date_exception">
-                                            Revoke
-                                        </a>
+                                      invisible="not min_purchase_lock_date_exception_for_me_id">
+                                    For me:
+                                    <field name="purchase_lock_date_for_me" nolabel="1" class="oe_inline"
+                                           invisible="not purchase_lock_date_for_me"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_purchase_lock_date_exception_for_me">
+                                        Revoke
+                                    </a>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_purchase_lock_date_exception_for_me_id
+                                                 or not min_purchase_lock_date_exception_for_everyone_id">
+                                      <span style="white-space: pre">; </span>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_purchase_lock_date_exception_for_everyone_id">
+                                    For everyone:
+                                    <field name="purchase_lock_date_for_everyone" nolabel="1" class="oe_inline"
+                                           invisible="not purchase_lock_date_for_everyone"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_purchase_lock_date_exception_for_everyone">
+                                        Revoke
+                                    </a>
                                 </span>
                             </div>
                             <label for="tax_lock_date"/>
@@ -69,16 +113,36 @@
                                 <field name="tax_lock_date" placeholder="Not locked"
                                        class="oe_inline"
                                        options="{'warn_future': true}"/>
-                                <span class="text-muted mx-2" invisible="min_tax_lock_date_exception">
+                                <span class="text-muted"
+                                      invisible="min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id">
                                     <i>after a tax closing</i>
                                 </span>
                                 <span class="text-muted o_form_label"
-                                      invisible="not min_tax_lock_date_exception">
-                                        <a type="object"
-                                           class="oe_link fw-bold mx-2"
-                                           name="action_revoke_min_tax_lock_date_exception">
-                                            Revoke
-                                        </a>
+                                      invisible="not min_tax_lock_date_exception_for_me_id">
+                                    For me:
+                                    <field name="tax_lock_date_for_me" nolabel="1" class="oe_inline"
+                                           invisible="not tax_lock_date_for_me"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_tax_lock_date_exception_for_me">
+                                        Revoke
+                                    </a>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_tax_lock_date_exception_for_me_id
+                                                 or not min_tax_lock_date_exception_for_everyone_id">
+                                      <span style="white-space: pre">; </span>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_tax_lock_date_exception_for_everyone_id">
+                                    For everyone:
+                                    <field name="tax_lock_date_for_everyone" nolabel="1" class="oe_inline"
+                                           invisible="not tax_lock_date_for_everyone"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_tax_lock_date_exception_for_everyone">
+                                        Revoke
+                                    </a>
                                 </span>
                             </div>
                             <label for="fiscalyear_lock_date"/>
@@ -86,16 +150,36 @@
                                 <field name="fiscalyear_lock_date" placeholder="Not locked"
                                        class="oe_inline"
                                        options="{'warn_future': true}"/>
-                                <span class="text-muted mx-2" invisible="min_fiscalyear_lock_date_exception">
+                                <span class="text-muted"
+                                      invisible="min_fiscalyear_lock_date_exception_for_me_id or min_fiscalyear_lock_date_exception_for_everyone_id">
                                     <i>but allow exceptions</i>
                                 </span>
                                 <span class="text-muted o_form_label"
-                                      invisible="not min_fiscalyear_lock_date_exception">
-                                        <a type="object"
-                                           class="oe_link fw-bold mx-2"
-                                           name="action_revoke_min_fiscalyear_lock_date_exception">
-                                            Revoke
-                                        </a>
+                                      invisible="not min_fiscalyear_lock_date_exception_for_me_id">
+                                    For me:
+                                    <field name="fiscalyear_lock_date_for_me" nolabel="1" class="oe_inline"
+                                           invisible="not fiscalyear_lock_date_for_me"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_fiscalyear_lock_date_exception_for_me">
+                                        Revoke
+                                    </a>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_fiscalyear_lock_date_exception_for_me_id
+                                                 or not min_fiscalyear_lock_date_exception_for_everyone_id">
+                                      <span style="white-space: pre">; </span>
+                                </span>
+                                <span class="text-muted o_form_label"
+                                      invisible="not min_fiscalyear_lock_date_exception_for_everyone_id">
+                                    For everyone:
+                                    <field name="fiscalyear_lock_date_for_everyone" nolabel="1" class="oe_inline"
+                                           invisible="not fiscalyear_lock_date_for_everyone"/>
+                                    <a type="object"
+                                       class="oe_link fw-bold"
+                                       name="action_revoke_min_fiscalyear_lock_date_exception_for_everyone">
+                                        Revoke
+                                    </a>
                                 </span>
                             </div>
                             <label for="hard_lock_date"/>
@@ -103,7 +187,7 @@
                                 <field name="hard_lock_date" placeholder="Not locked"
                                        class="oe_inline"
                                        options="{'warn_future': true}"/>
-                                <span class="text-muted mx-2" invisible="hard_lock_date != current_hard_lock_date">
+                                <span class="text-muted" invisible="hard_lock_date != current_hard_lock_date">
                                     <i>to ensure inalterability</i>
                                 </span>
                                 <span class="text-danger o_form_label" invisible="hard_lock_date == current_hard_lock_date">

@@ -28,7 +28,19 @@ class AccountChangeLockDate(models.TransientModel):
         help='Prevents Journal Entry creation or modification up to the defined date inclusive for all users. '
              'As a closed period, all accounting operations are prohibited.',
     )
-    min_fiscalyear_lock_date_exception = fields.Many2one(
+    fiscalyear_lock_date_for_me = fields.Date(
+        string='Lock Everyone For Me',
+        compute='_compute_lock_date_exceptions',
+    )
+    fiscalyear_lock_date_for_everyone = fields.Date(
+        string='Lock Everyone For Everyone',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_fiscalyear_lock_date_exception_for_me_id = fields.Many2one(
+        comodel_name='account.lock_exception',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_fiscalyear_lock_date_exception_for_everyone_id = fields.Many2one(
         comodel_name='account.lock_exception',
         compute='_compute_lock_date_exceptions',
     )
@@ -39,7 +51,19 @@ class AccountChangeLockDate(models.TransientModel):
         help='Prevents Tax Returns modification up to the defined date inclusive (Journal Entries involving taxes). '
              'The Tax Return Lock Date is automatically set when the corresponding Journal Entry is posted.',
     )
-    min_tax_lock_date_exception = fields.Many2one(
+    tax_lock_date_for_me = fields.Date(
+        string='Lock Tax Return For Me',
+        compute='_compute_lock_date_exceptions',
+    )
+    tax_lock_date_for_everyone = fields.Date(
+        string='Lock Tax Return For Everyone',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_tax_lock_date_exception_for_me_id = fields.Many2one(
+        comodel_name='account.lock_exception',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_tax_lock_date_exception_for_everyone_id = fields.Many2one(
         comodel_name='account.lock_exception',
         compute='_compute_lock_date_exceptions',
     )
@@ -49,7 +73,19 @@ class AccountChangeLockDate(models.TransientModel):
         default=lambda self: self.env.company.sale_lock_date,
         help='Prevents creation and modification of entries in sales journals up to the defined date inclusive',
     )
-    min_sale_lock_date_exception = fields.Many2one(
+    sale_lock_date_for_me = fields.Date(
+        string='Lock Sales For Me',
+        compute='_compute_lock_date_exceptions',
+    )
+    sale_lock_date_for_everyone = fields.Date(
+        string='Lock Sales For Everyone',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_sale_lock_date_exception_for_me_id = fields.Many2one(
+        comodel_name='account.lock_exception',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_sale_lock_date_exception_for_everyone_id = fields.Many2one(
         comodel_name='account.lock_exception',
         compute='_compute_lock_date_exceptions',
     )
@@ -59,7 +95,19 @@ class AccountChangeLockDate(models.TransientModel):
         default=lambda self: self.env.company.purchase_lock_date,
         help='Prevents creation and modification of entries in purchase journals up to the defined date inclusive',
     )
-    min_purchase_lock_date_exception = fields.Many2one(
+    purchase_lock_date_for_me = fields.Date(
+        string='Lock Purchases For Me',
+        compute='_compute_lock_date_exceptions',
+    )
+    purchase_lock_date_for_everyone = fields.Date(
+        string='Lock Purchases For Everyone',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_purchase_lock_date_exception_for_me_id = fields.Many2one(
+        comodel_name='account.lock_exception',
+        compute='_compute_lock_date_exceptions',
+    )
+    min_purchase_lock_date_exception_for_everyone_id = fields.Many2one(
         comodel_name='account.lock_exception',
         compute='_compute_lock_date_exceptions',
     )
@@ -117,9 +165,15 @@ class AccountChangeLockDate(models.TransientModel):
                 self.env['account.lock_exception']._get_active_exceptions_domain(wizard.company_id, SOFT_LOCK_DATE_FIELDS)
             )
             for field in SOFT_LOCK_DATE_FIELDS:
-                field_exceptions = exceptions.filtered(lambda e: e.lock_date_field == field and (e.user_id == self.env.user or not e.user_id))
-                min_exception = min(field_exceptions, key=lambda e: e[field] or date.min) if field_exceptions else False
-                wizard[f"min_{field}_exception"] = min_exception
+                field_exceptions = exceptions.filtered(lambda e: e.lock_date_field == field)
+                field_exceptions_for_me = field_exceptions.filtered(lambda e: e.user_id.id == self.env.user.id)
+                field_exceptions_for_everyone = field_exceptions.filtered(lambda e: not e.user_id.id)
+                min_exception_for_me = min(field_exceptions_for_me, key=lambda e: e[field] or date.min) if field_exceptions_for_me else False
+                min_exception_for_everyone = min(field_exceptions_for_everyone, key=lambda e: e[field] or date.min) if field_exceptions_for_everyone else False
+                wizard[f"min_{field}_exception_for_me_id"] = min_exception_for_me
+                wizard[f"min_{field}_exception_for_everyone_id"] = min_exception_for_everyone
+                wizard[f"{field}_for_me"] = min_exception_for_me.lock_date if min_exception_for_me else False
+                wizard[f"{field}_for_everyone"] = min_exception_for_everyone.lock_date if min_exception_for_everyone else False
 
     def _get_draft_moves_in_locked_period_domain(self):
         self.ensure_one()
@@ -326,14 +380,26 @@ class AccountChangeLockDate(models.TransientModel):
             self._compute_lock_date_exceptions()
         return self.action_reopen_wizard()
 
-    def action_revoke_min_sale_lock_date_exception(self):
-        return self._action_revoke_min_exception('min_sale_lock_date_exception')
+    def action_revoke_min_sale_lock_date_exception_for_me(self):
+        return self._action_revoke_min_exception('min_sale_lock_date_exception_for_me_id')
 
-    def action_revoke_min_purchase_lock_date_exception(self):
-        return self._action_revoke_min_exception('min_purchase_lock_date_exception')
+    def action_revoke_min_purchase_lock_date_exception_for_me(self):
+        return self._action_revoke_min_exception('min_purchase_lock_date_exception_for_me_id')
 
-    def action_revoke_min_tax_lock_date_exception(self):
-        return self._action_revoke_min_exception('min_tax_lock_date_exception')
+    def action_revoke_min_tax_lock_date_exception_for_me(self):
+        return self._action_revoke_min_exception('min_tax_lock_date_exception_for_me_id')
 
-    def action_revoke_min_fiscalyear_lock_date_exception(self):
-        return self._action_revoke_min_exception('min_fiscalyear_lock_date_exception')
+    def action_revoke_min_fiscalyear_lock_date_exception_for_me(self):
+        return self._action_revoke_min_exception('min_fiscalyear_lock_date_exception_for_me_id')
+
+    def action_revoke_min_sale_lock_date_exception_for_everyone(self):
+        return self._action_revoke_min_exception('min_sale_lock_date_exception_for_everyone_id')
+
+    def action_revoke_min_purchase_lock_date_exception_for_everyone(self):
+        return self._action_revoke_min_exception('min_purchase_lock_date_exception_for_everyone_id')
+
+    def action_revoke_min_tax_lock_date_exception_for_everyone(self):
+        return self._action_revoke_min_exception('min_tax_lock_date_exception_for_everyone_id')
+
+    def action_revoke_min_fiscalyear_lock_date_exception_for_everyone(self):
+        return self._action_revoke_min_exception('min_fiscalyear_lock_date_exception_for_everyone_id')
