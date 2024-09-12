@@ -88,3 +88,36 @@ class AccountSalesReportTest(AccountSalesReportCommon):
             ],
             options,
         )
+
+    @freeze_time('2019-12-31')
+    def test_ec_sales_report_with_northern_irish_customer(self):
+        """
+        Ensure that Northern Irish companies are included in the EC sales report.
+        """
+        northern_ireland = self.env.ref('account_intrastat.xi', raise_if_not_found=False)
+
+        if not northern_ireland:
+            self.skipTest("`account_intrastat` module not installed")
+
+        self.partner_a.write({
+            'country_id': northern_ireland.id,
+            'vat': 'IE1234567FA',
+        })
+        self.tax_sale_a.amount = 0
+
+        self._create_invoices([
+            (self.partner_a, self.tax_sale_a, 100),
+        ])
+        report = self.env.ref('account_reports.generic_ec_sales_report')
+        options = self._generate_options(report, '2019-12-01', '2019-12-31')
+
+        self.assertLinesValues(
+            report._get_lines(options),
+            #   Partner,                country code,             VAT Number,               Amount
+            [   0,                      1,                        2,                        3],
+            [
+                (self.partner_a.name,   self.partner_a.vat[:2],   self.partner_a.vat[2:],   f'${NON_BREAKING_SPACE}100.00'),
+                ('Total',               '',                       '',                       f'${NON_BREAKING_SPACE}100.00'),
+            ],
+            options,
+        )
