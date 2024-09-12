@@ -1,5 +1,4 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-import ast
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError, ValidationError
@@ -260,13 +259,6 @@ class ApprovalRequest(models.Model):
     def action_cancel(self):
         self.sudo()._get_user_approval_activities(user=self.env.user).unlink()
         self.mapped('approver_ids').write({'status': 'cancel'})
-
-    def _action_open_automation_rules_kanban_view(self):
-        action = self.env['ir.actions.act_window']._for_xml_id('base_automation.base_automation_act')
-        context = action.get('context', {}) and ast.literal_eval(action['context'])
-        context['search_default_model_id'] = self.env["ir.model"]._get("approval.request").id
-        action['context'] = context
-        return action
 
     @api.depends_context('uid')
     @api.depends('approver_ids.status')
