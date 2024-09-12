@@ -3,6 +3,10 @@
 
     <record id="base.demo_company_be" model="res.company">
         <field name="sepa_orgid_id">123456789</field>
+        <field name="group_s_code">800000</field>
+        <field name="ucm_code">800000</field>
+        <field name="ucm_company_code">Y8080</field>
+        <field name="partena_code">800000</field>
     </record>
 
     <function model="hr.contract" name="write">
@@ -126,6 +130,14 @@
     </record>
 
     <!-- Work Entries for Laurie -->
+
+    <record id="l10n_be_hr_contract_salary.hr_contract_cdi_laurie_poiret" model="hr.contract">
+        <field name="group_s_code">000017</field>
+    </record>
+
+    <record id="l10n_be_hr_contract_salary.hr_contract_cdi_laurie_poiret_previous" model="hr.contract">
+        <field name="group_s_code">000018</field>
+    </record>
 
     <function model="hr.contract" name="generate_work_entries">
         <value eval="[ref('l10n_be_hr_contract_salary.hr_contract_cdi_laurie_poiret')]"/>
@@ -734,10 +746,14 @@
     <!--Employees-->
     <record id="l10n_be_hr_contract_salary.employee_max" model="hr.employee">
         <field name="sdworx_code">0000023</field>
+        <field name="ucm_code">1</field>
+        <field name="partena_code">000001</field>
     </record>
 
     <record id="l10n_be_hr_contract_salary.hr_employee_laurie_poiret" model="hr.employee">
         <field name="sdworx_code">0000024</field>
+        <field name="ucm_code">2</field>
+        <field name="partena_code">000002</field>
     </record>
 
     <record id="res_partner_employee_admin" model="res.partner">
@@ -779,6 +795,8 @@
         <field name="gender">male</field>
         <field name="certificate">civil_engineer</field>
         <field name="sdworx_code">0000001</field>
+        <field name="ucm_code">3</field>
+        <field name="partena_code">000003</field>
     </record>
 
     <record id="res_partner_employee_al" model="res.partner">
@@ -817,6 +835,8 @@
         <field name="gender">female</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000002</field>
+        <field name="ucm_code">4</field>
+        <field name="partena_code">000004</field>
     </record>
 
     <record id="res_partner_employee_mit" model="res.partner">
@@ -857,6 +877,8 @@
         <field name="gender">female</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000003</field>
+        <field name="ucm_code">5</field>
+        <field name="partena_code">000005</field>
     </record>
 
     <record id="res_partner_employee_niv" model="res.partner">
@@ -896,6 +918,8 @@
         <field name="gender">female</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000004</field>
+        <field name="ucm_code">6</field>
+        <field name="partena_code">000006</field>
     </record>
 
     <record id="res_partner_employee_stw" model="res.partner">
@@ -935,6 +959,8 @@
         <field name="gender">male</field>
         <field name="certificate">doctor</field>
         <field name="sdworx_code">0000005</field>
+        <field name="ucm_code">7</field>
+        <field name="partena_code">000007</field>
     </record>
 
     <record id="res_partner_employee_chs" model="res.partner">
@@ -974,6 +1000,8 @@
         <field name="gender">male</field>
         <field name="certificate">doctor</field>
         <field name="sdworx_code">0000006</field>
+        <field name="ucm_code">8</field>
+        <field name="partena_code">000008</field>
     </record>
 
     <record id="res_partner_employee_qdp" model="res.partner">
@@ -1015,6 +1043,8 @@
         <field name="gender">male</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000007</field>
+        <field name="ucm_code">9</field>
+        <field name="partena_code">000009</field>
     </record>
 
     <record id="res_partner_employee_fme" model="res.partner">
@@ -1054,6 +1084,8 @@
         <field name="gender">male</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000008</field>
+        <field name="ucm_code">10</field>
+        <field name="partena_code">000010</field>
     </record>
 
     <record id="res_partner_employee_fpi" model="res.partner">
@@ -1093,6 +1125,8 @@
         <field name="gender">female</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000009</field>
+        <field name="ucm_code">11</field>
+        <field name="partena_code">000011</field>
     </record>
 
     <record id="res_partner_employee_jth" model="res.partner">
@@ -1132,6 +1166,8 @@
         <field name="gender">male</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000010</field>
+        <field name="ucm_code">12</field>
+        <field name="partena_code">000012</field>
     </record>
 
     <record id="res_partner_employee_ngh" model="res.partner">
@@ -1171,6 +1207,8 @@
         <field name="gender">female</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000011</field>
+        <field name="ucm_code">13</field>
+        <field name="partena_code">000013</field>
     </record>
 
     <record id="res_partner_employee_vad" model="res.partner">
@@ -1210,6 +1248,8 @@
         <field name="gender">female</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000012</field>
+        <field name="ucm_code">14</field>
+        <field name="partena_code">000014</field>
     </record>
 
     <record id="res_partner_employee_han" model="res.partner">
@@ -1247,6 +1287,8 @@
         <field name="gender">male</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000013</field>
+        <field name="ucm_code">15</field>
+        <field name="partena_code">000015</field>
     </record>
 
     <record id="res_partner_employee_jve" model="res.partner">
@@ -1284,6 +1326,8 @@
         <field name="gender">male</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000014</field>
+        <field name="ucm_code">16</field>
+        <field name="partena_code">000016</field>
     </record>
 
     <record id="res_partner_employee_jep" model="res.partner">
@@ -1321,6 +1365,8 @@
         <field name="gender">male</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000015</field>
+        <field name="ucm_code">17</field>
+        <field name="partena_code">000017</field>
     </record>
 
     <record id="res_partner_employee_jod" model="res.partner">
@@ -1358,6 +1404,8 @@
         <field name="gender">female</field>
         <field name="certificate">bachelor</field>
         <field name="sdworx_code">0000016</field>
+        <field name="ucm_code">18</field>
+        <field name="partena_code">000018</field>
     </record>
 
     <record id="res_partner_employee_jog" model="res.partner">
@@ -1395,6 +1443,8 @@
         <field name="gender">male</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000017</field>
+        <field name="ucm_code">19</field>
+        <field name="partena_code">000019</field>
     </record>
 
     <record id="res_partner_employee_jgo" model="res.partner">
@@ -1432,6 +1482,8 @@
         <field name="gender">male</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000018</field>
+        <field name="ucm_code">20</field>
+        <field name="partena_code">000020</field>
     </record>
 
     <record id="res_partner_employee_lur" model="res.partner">
@@ -1469,6 +1521,8 @@
         <field name="gender">male</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000019</field>
+        <field name="ucm_code">21</field>
+        <field name="partena_code">000021</field>
     </record>
 
     <record id="res_partner_employee_hne" model="res.partner">
@@ -1506,6 +1560,8 @@
         <field name="gender">male</field>
         <field name="certificate">master</field>
         <field name="sdworx_code">0000020</field>
+        <field name="ucm_code">22</field>
+        <field name="partena_code">000022</field>
     </record>
 
     <record id="hr_contract_admin" model="hr.contract">
@@ -2147,6 +2203,8 @@
         <field name="company_id" ref="base.demo_company_be"/>
         <field name="gender">male</field>
         <field name="sdworx_code">0000021</field>
+        <field name="ucm_code">23</field>
+        <field name="partena_code">000023</field>
     </record>
 
     <record id="fleet_vehicle_golf_8_joseph_noluck" model="fleet.vehicle">
@@ -2724,6 +2782,8 @@
         <field name="image_1920" type="base64" file="test_l10n_be_hr_payroll_account/static/img/employee_student-image.jpg"/>
         <field name="company_id" ref="base.demo_company_be"/>
         <field name="sdworx_code">0000022</field>
+        <field name="ucm_code">24</field>
+        <field name="partena_code">000024</field>
     </record>
 
     <record id="hr_job_student" model="hr.job">

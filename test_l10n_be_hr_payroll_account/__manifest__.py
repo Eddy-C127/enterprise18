@@ -13,6 +13,8 @@
         'l10n_be',
         'l10n_be_hr_payroll_sd_worx',
         'l10n_be_hr_payroll_group_s',
+        'l10n_be_hr_payroll_ucm',
+        'l10n_be_hr_payroll_partena',
         'account_accountant',
         'hr_payroll_account_sepa',
         'documents_hr_payroll',
