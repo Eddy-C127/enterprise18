@@ -1,4 +1,4 @@
-import { describe, expect, test } from "@odoo/hoot";
+import { describe, destroy, expect, test } from "@odoo/hoot";
 import { click } from "@odoo/hoot-dom";
 
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
@@ -23,7 +23,8 @@ const ganttViewArch = `
     <gantt date_start="start" date_stop="stop" js_class="appointment_booking_gantt"
            default_group_by="partner_ids">
 
-        <field name="appointment_attended"/>
+        <field name="active"/>
+        <field name="appointment_status"/>
         <field name="appointment_type_id"/>
         <field name="partner_id"/>
         <field name="partner_ids"/>
@@ -200,7 +201,56 @@ function testGroupPillColorsCheckColors() {
     for (const pill of otherPartnerEventPills) {
         expect(pill).toHaveClass("o_appointment_booking_gantt_color_grey");
     }
-    expect(almostPastEventPill).toHaveClass("o_gantt_color_8");
-    expect(futureEventPill).toHaveClass("o_gantt_color_8");
-    expect(pastEventPill).toHaveClass("o_gantt_color_1");
+    expect(almostPastEventPill).toHaveClass("o_gantt_color_4");
+    expect(futureEventPill).toHaveClass("o_gantt_color_4");
+    expect(pastEventPill).toHaveClass("o_gantt_color_2");
 }
+
+test("appointment status pill colors", async () => {
+    mockDate("2022-01-12 11:10:00", 0);
+    const statusExpectedColors = {
+        'request': { 'late': 2, 'current': 2, 'future': 8 }, // orange if late, blue if not (has info-decoration)
+        'booked': { 'late': 2, 'current': 2, 'future': 4 }, // orange if late, light blue if not
+        'attended': { 'late': 10, 'current': 10, 'future': 10 }, // green
+        'no_show': { 'late': 1, 'current': 1, 'future': 1 }, // red
+    };
+    Object.assign(CalendarEvent._records[0], {
+        appointment_type_id: 1,
+        start: "2022-01-12 10:00:00", // Late
+        stop: "2022-01-12 10:30:00",
+    });
+    Object.assign(CalendarEvent._records[1], {
+        appointment_type_id: 1,
+        start: "2022-01-12 11:00:00", // Current
+        stop: "2022-01-12 11:30:00",
+    });
+    Object.assign(CalendarEvent._records[2], {
+        appointment_type_id: 1,
+        start: "2022-01-12 12:00:00", // Future
+        stop: "2022-01-12 12:30:00",
+        partner_ids: [100, 214],
+    });
+    for (const status in statusExpectedColors) {
+        CalendarEvent._records[0]['appointment_status'] = status;
+        CalendarEvent._records[1]['appointment_status'] = status;
+        CalendarEvent._records[2]['appointment_status'] = status;
+        const ganttView = await mountGanttView({ resModel: "calendar.event", arch: ganttViewArch });
+        await selectRange("Today");
+        const latePill = getPill("Event 1", { nth: 1 });
+        const currentPill = getPill("Event 2", { nth: 1 });
+        const futurePill = getPill("Event 3", { nth: 1 });
+        const otherPills = [
+            getPill("Event 1", { nth: 2 }),
+            getPill("Event 2", { nth: 2 }),
+            getPill("Event 3", { nth: 2 }),
+        ];
+        for (const pill of otherPills) {
+            expect(pill).toHaveClass("o_appointment_booking_gantt_color_grey");
+        }
+        const colors = statusExpectedColors[status];
+        expect(latePill).toHaveClass(`o_gantt_color_${colors['late']}`);
+        expect(currentPill).toHaveClass(`o_gantt_color_${colors['current']}`);
+        expect(futurePill).toHaveClass(`o_gantt_color_${colors['future']}`);
+        destroy(ganttView);
+    }
+});

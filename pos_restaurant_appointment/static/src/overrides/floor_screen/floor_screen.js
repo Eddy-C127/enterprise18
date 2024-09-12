@@ -92,7 +92,9 @@ patch(FloorScreen.prototype, {
     isCustomerLate(table) {
         const dateNow = DateTime.now();
         const dateStart = deserializeDateTime(this.getFirstAppointment(table)?.start).ts;
-        return dateNow > dateStart && !this.getFirstAppointment(table).appointment_attended;
+        return (
+            dateNow > dateStart && this.getFirstAppointment(table).appointment_status === "booked"
+        );
     },
     appointmentStarted(table) {
         return (

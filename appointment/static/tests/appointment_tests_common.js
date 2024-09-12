@@ -5,6 +5,7 @@ export class CalendarEvent extends models.Model {
     _name = "calendar.event";
 
     id = fields.Integer({ string: "ID" });
+    active = fields.Boolean({ string: "Active" });
     name = fields.Char({ string: "Name" });
     user_id = fields.Many2one({ string: "User", relation: "res.users" });
     partner_id = fields.Many2one({
@@ -19,7 +20,16 @@ export class CalendarEvent extends models.Model {
     allday = fields.Boolean({ string: "Allday" });
     partner_ids = fields.Many2many({ string: "Attendees", relation: "res.partner" });
     resource_ids = fields.Many2many({ string: "Resources", relation: "appointment.resource" });
-    appointment_attended = fields.Boolean({ string: "Attended" });
+    appointment_status = fields.Selection({
+        selection: [
+            ['cancelled', 'Cancelled'],
+            ['request', 'Request'],
+            ['booked', 'Booked'],
+            ['attended', 'Checked-In'],
+            ['no_show', 'No Show'],
+        ],
+        string: "Appointment Status",
+    });
     appointment_type_id = fields.Many2one({
         string: "Appointment Type",
         relation: "appointment.type",
@@ -28,35 +38,38 @@ export class CalendarEvent extends models.Model {
     _records = [
         {
             id: 1,
+            active: true,
             user_id: 100,
             partner_id: 100,
             name: "Event 1",
             start: "2022-01-12 10:00:00",
             stop: "2022-01-12 11:00:00",
             allday: false,
-            appointment_attended: false,
+            appointment_status: 'booked',
             partner_ids: [100, 214],
         },
         {
             id: 2,
+            active: true,
             user_id: 214,
             partner_id: 214,
             name: "Event 2",
             start: "2022-01-05 10:00:00",
             stop: "2022-01-05 11:00:00",
             allday: false,
-            appointment_attended: false,
+            appointment_status: 'booked',
             partner_ids: [214, 216],
         },
         {
             id: 3,
+            active: true,
             user_id: 216,
             partner_id: 216,
             name: "Event 3",
             start: "2022-01-05 10:00:00",
             stop: "2022-01-05 11:00:00",
             allday: false,
-            appointment_attended: false,
+            appointment_status: 'booked',
             partner_ids: [216, 100, 214, 217],
         },
     ];

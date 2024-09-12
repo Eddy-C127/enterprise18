@@ -26,7 +26,7 @@ class CalendarEvent(models.Model):
 
     @api.model
     def _fields_for_restaurant_table(self):
-        return ['id', 'start', 'duration', 'stop', 'name', 'appointment_type_id', 'appointment_attended', 'appointment_resource_ids', 'resource_total_capacity_reserved']
+        return ['id', 'start', 'duration', 'stop', 'name', 'appointment_type_id', 'appointment_status', 'appointment_resource_ids', 'resource_total_capacity_reserved']
 
     @api.model
     def _send_table_notifications(self, events, command):

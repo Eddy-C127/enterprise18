@@ -33,7 +33,7 @@
                         </h2>
                     </t>
                     <t t-else="" role="status">
-                        <h2 t-if="attendee_status == 'accepted'">
+                        <h2 t-if="event.appointment_status == 'booked'">
                             <i class="fa fa-check-circle text-success me-3"/>Appointment Scheduled!
                         </h2>
                         <span t-else="">

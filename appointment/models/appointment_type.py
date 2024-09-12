@@ -13,6 +13,7 @@ from werkzeug.urls import url_encode, url_join
 
 from odoo import api, fields, models, _, Command
 from odoo.exceptions import ValidationError
+from odoo.osv import expression
 from odoo.tools import float_compare, frozendict
 from odoo.tools.misc import babel_locale_parse, get_lang
 from odoo.addons.base.models.res_partner import _tz_get
@@ -51,6 +52,9 @@ class AppointmentType(models.Model):
     appointment_duration_formatted = fields.Char(
         'Appointment Duration Formatted ', compute='_compute_appointment_duration_formatted', readonly=True,
         help='Appointment Duration formatted in words')
+    appointment_manual_confirmation = fields.Boolean("Manual Confirmation",
+        help="""Do not automatically accept meetings created from the appointment.
+            The appointment is still considered as reserved for the slots availability.""")
     appointment_tz = fields.Selection(
         _tz_get, string='Timezone', required=True, default=lambda self: self.env.user.tz,
         help="Timezone where appointment take place")
@@ -148,20 +152,16 @@ class AppointmentType(models.Model):
         relation="appointment_type_appointment_resource_rel",
         compute="_compute_resource_ids", store=True, readonly=False, tracking=True)
     resource_count = fields.Integer('# Resources', compute='_compute_resource_info')
-    resource_manual_confirmation = fields.Boolean("Manual Confirmation",
-        compute="_compute_resource_manual_confirmation", store=True, readonly=False,
-        help="""Do not automatically accept meetings created from the appointment once the total capacity
-            reserved for a slot exceeds the percentage chosen. The appointment is still considered as reserved for
-            the slots availability.""")
-    resource_manual_confirmation_percentage = fields.Float("Capacity Percentage")
+    resource_manual_confirmation_percentage = fields.Float("Capacity Percentage",
+        help="""Activate manual confirmation only if the resource total capacity reserved exceeds this percentage.""")
     resource_manage_capacity = fields.Boolean("Manage Capacities", compute="_compute_resource_manage_capacity", store=True, readonly=False,
         help="""Manage the maximum amount of people a resource can handle (e.g. Table for 6 persons, ...)""")
     resource_total_capacity = fields.Integer('Total Capacity', compute="_compute_resource_info")
 
     # Statistics / Technical / Misc
-    appointment_count = fields.Integer('# Appointments', compute='_compute_appointment_count')
-    appointment_count_upcoming = fields.Integer(
-        '# Upcoming Appointments', compute='_compute_appointment_count_upcoming')
+    appointment_count = fields.Integer('# Appointments', compute='_compute_appointment_counts')
+    appointment_count_request = fields.Integer('# Appointments To Confirm', compute="_compute_appointment_counts")
+    appointment_count_upcoming = fields.Integer('# Upcoming Appointments', compute='_compute_appointment_counts')
     appointment_invite_ids = fields.Many2many('appointment.invite', string='Invitation Links')
     appointment_invite_count = fields.Integer('# Invitation Links', compute='_compute_appointment_invite_count')
     meeting_ids = fields.One2many('calendar.event', 'appointment_type_id', string="Appointment Meetings")
@@ -182,21 +182,27 @@ class AppointmentType(models.Model):
     ]
 
     @api.depends('meeting_ids')
-    def _compute_appointment_count(self):
-        meeting_data = self.env['calendar.event']._read_group([('appointment_type_id', 'in', self.ids)], ['appointment_type_id'], ['__count'])
-        mapped_data = {appointment_type.id: count for appointment_type, count in meeting_data}
-        for appointment_type in self:
-            appointment_type.appointment_count = mapped_data.get(appointment_type.id, 0)
+    def _compute_appointment_counts(self):
+        mapped_status_data = {}
+        status_data = self.env['calendar.event']._read_group(
+            [('appointment_type_id', 'in', self.ids)],
+            ['appointment_type_id', 'appointment_status'], ['__count']
+        )
+        for appointment_type, status, count in status_data:
+            if appointment_type.id not in mapped_status_data:
+                mapped_status_data[appointment_type.id] = {}
+            mapped_status_data[appointment_type.id][status] = count
 
-    @api.depends('meeting_ids')
-    def _compute_appointment_count_upcoming(self):
-        meeting_data = self.env['calendar.event']._read_group(
-            [('appointment_type_id', 'in', self.ids), ('start', '>', datetime.now())],
-            ['appointment_type_id'], ['__count'])
-        mapped_data = {appointment_type.id: count for appointment_type, count in meeting_data}
-
+        mapped_upcoming_data = {
+            appointment_type.id: count for appointment_type, count in self.env['calendar.event']._read_group(
+                [('appointment_type_id', 'in', self.ids), ('start', '>', datetime.now())],
+                ['appointment_type_id'], ['__count'])
+        }
         for appointment_type in self:
-            appointment_type.appointment_count_upcoming = mapped_data.get(appointment_type.id, 0)
+            appointment_status_data = mapped_status_data.get(appointment_type.id, {'booked': 0})
+            appointment_type.appointment_count = sum(appointment_status_data.values())
+            appointment_type.appointment_count_request = appointment_status_data.get('request', 0)
+            appointment_type.appointment_count_upcoming = mapped_upcoming_data.get(appointment_type.id, 0)
 
     @api.depends('appointment_duration')
     def _compute_appointment_duration_formatted(self):
@@ -309,12 +315,6 @@ class AppointmentType(models.Model):
             if appointment_type.schedule_based_on == 'users':
                 appointment_type.resource_manage_capacity = False
 
-    @api.depends('schedule_based_on')
-    def _compute_resource_manual_confirmation(self):
-        for appointment_type in self:
-            if appointment_type.schedule_based_on == 'users':
-                appointment_type.resource_manual_confirmation = False
-
     @api.depends('staff_user_ids')
     def _compute_staff_user_count(self):
         for record in self:
@@ -375,6 +375,14 @@ class AppointmentType(models.Model):
             action["context"] = {'schedule_based_on': self.schedule_based_on}
         return action
 
+    def action_calendar_event_view_request(self):
+        action = self.action_calendar_meetings(calendar_event_domain=[('appointment_status', '=', 'request')])
+        action['context'].update({
+            'search_default_filter_appointment_status_request': True,
+            'default_start_date': action['context']['initial_date'],
+        })
+        return action
+
     def action_calendar_events_reporting(self):
         self.ensure_one()
         action = self.env["ir.actions.act_window"]._for_xml_id("appointment.calendar_event_action_appointment_reporting")
@@ -385,15 +393,16 @@ class AppointmentType(models.Model):
         }
         return action
 
-    def action_calendar_meetings(self):
+    def action_calendar_meetings(self, calendar_event_domain=False):
         self.ensure_one()
         if self.schedule_based_on == 'users':
             action = self.env["ir.actions.actions"]._for_xml_id("appointment.calendar_event_action_view_bookings_users")
         else:
             action = self.env["ir.actions.actions"]._for_xml_id("appointment.calendar_event_action_view_bookings_resources")
-        appointments = self.meeting_ids.filtered_domain([
-            ('start', '>=', datetime.today())
-        ])
+        domain = [('start', '>=', datetime.today())]
+        if calendar_event_domain:
+            domain = expression.AND([domain, calendar_event_domain])
+        appointments = self.meeting_ids.filtered_domain(domain)
         nbr_appointments_week_later = appointments.filtered_domain([
             ('start', '>=', datetime.today() + timedelta(weeks=1))
         ])
@@ -410,6 +419,7 @@ class AppointmentType(models.Model):
             'search_default_appointment_type_id': self.id,
             'default_mode': "month" if nbr_appointments_week_later else "week",
             'initial_date': appointments[0].start if appointments else datetime.today(),
+            'default_start_date': datetime.today(),  # gantt view
         })
         return action
 
@@ -555,16 +565,15 @@ class AppointmentType(models.Model):
             'hours_range': hours_range,
         }
 
-    def _get_default_appointment_attendee_status(self, start_dt, stop_dt, capacity_reserved):
-        """ Get the status of attendee linked to the appointment based on manual confirmation if configured.
-        If not we consider the status of each attendee as accepted.
+    def _get_default_appointment_status(self, start_dt, stop_dt, capacity_reserved):
+        """ Get the status of the appointment based on users/resources and the manual confirmation option.
         :param datetime start_dt: start datetime of appointment (in naive UTC)
         :param datetime stop_dt: stop datetime of appointment (in naive UTC)
         :param int capacity_reserved: capacity reserved by the customer for the appointment
         """
         self.ensure_one()
-        default_state = 'accepted'
-        if self.schedule_based_on == 'resources' and self.resource_manual_confirmation:
+        default_state = 'booked'
+        if self.appointment_manual_confirmation and self.schedule_based_on == 'resources':
             bookings_data = self.env['appointment.booking.line'].sudo()._read_group([
                 ('appointment_type_id', '=', self.id),
                 ('event_start', '<', datetime.combine(stop_dt, time.max)),
@@ -574,7 +583,9 @@ class AppointmentType(models.Model):
             resource_total_capacity_used = capacity_already_used + capacity_reserved
 
             if float_compare(resource_total_capacity_used / self.resource_total_capacity, self.resource_manual_confirmation_percentage, 2) >= 0:
-                default_state = 'needsAction'
+                default_state = 'request'
+        elif self.appointment_manual_confirmation:
+            default_state = 'request'
         return default_state
 
     def _slots_generate(self, first_day, last_day, timezone, reference_date=None):
@@ -989,14 +1000,15 @@ class AppointmentType(models.Model):
         self.ensure_one()
         partners = (staff_user.partner_id | customer) if staff_user else customer
         guests = guests or self.env['res.partner']
-        attendee_status = self._get_default_appointment_attendee_status(start, stop, asked_capacity)
-        attendee_values = [Command.create({'partner_id': pid, 'state': attendee_status}) for pid in partners.ids] + \
+        appointment_status = self._get_default_appointment_status(start, stop, asked_capacity)
+        attendee_values = [Command.create({'partner_id': pid, 'state': 'accepted'}) for pid in partners.ids] + \
             [Command.create({'partner_id': guest.id}) for guest in guests - partners if guest]
         return {
             'alarm_ids': [Command.set(self.reminder_ids.ids)],
             'allday': False,
             'appointment_booker_id': customer.id,
             'appointment_invite_id': appointment_invite.id,
+            'appointment_status': appointment_status,
             'appointment_type_id': self.id,
             'attendee_ids': attendee_values,
             'booking_line_ids': [Command.create(vals) for vals in booking_line_values],

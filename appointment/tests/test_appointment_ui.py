@@ -193,6 +193,7 @@ class AppointmentUITest(AppointmentUICommon):
             'search_default_appointment_type_id': appointment_types[0].id,
             'default_mode': 'week',
             'default_partner_ids': [],
+            'default_start_date': now,
             'initial_date': now,
         }, {
             'appointment_booking_gantt_domain': [('appointment_resource_ids', '!=', False)],
@@ -204,6 +205,7 @@ class AppointmentUITest(AppointmentUICommon):
             'default_mode': 'month',
             'default_partner_ids': [],
             'default_resource_total_capacity_reserved': 1,
+            'default_start_date': now,
             'initial_date': datetime(2022, 3, 1),
         }]
         for (appointment_type, expected_views_order,
@@ -294,7 +296,7 @@ class AppointmentUITest(AppointmentUICommon):
             "name": "Resource",
         }])
         self.apt_type_resource.sudo().write({
-            "resource_manual_confirmation": True,
+            "appointment_manual_confirmation": True,
             "resource_manual_confirmation_percentage": 0.5,  # Set Manual Confirmation at 50%
         })
         appointment_data = {
@@ -314,7 +316,8 @@ class AppointmentUITest(AppointmentUICommon):
 
         meeting = self.env["calendar.event"].search([("appointment_type_id", "=", self.apt_type_resource.id)])
         self.assertTrue(meeting)
-        self.assertEqual(meeting.attendee_ids.state, "needsAction",
+        self.assertEqual(meeting.appointment_status, "request")
+        self.assertEqual(meeting.attendee_ids.state, "accepted",
             "Crossing over the manual confirmation percentage should confirm the attendees immediately.")
         self.assertEqual(meeting.resource_total_capacity_reserved, 4)
 
@@ -350,6 +353,36 @@ class AppointmentUITest(AppointmentUICommon):
         self.assertEqual(res.status_code, 200, "Response should = OK")
         event = CalendarEvent.search([('appointment_type_id', '=', appointment.id)])
         self.assertIn('<p>&lt;b&gt;cool&lt;/b&gt;</p>', event.description)
+
+    @freeze_time('2022-02-14')
+    @users('apt_manager')
+    def test_appointment_staff_user_manual_confirmation(self):
+        """ Check that appointment and attendee status are correctly
+        set based on the appointment_manual_confirmation field"""
+        self.authenticate(self.env.user.login, self.env.user.login)
+        event_values = {
+            'csrf_token': http.Request.csrf_token(self),
+            'datetime_str': '2022-02-14 11:00:00',
+            'duration_str': '1.0',
+            'email': 'test1@test.example.com',
+            'name': 'Meeting Test',
+            'phone': '2025550999',
+            'staff_user_id': self.staff_user_bxls.id,
+        }
+        self.assertFalse(self.apt_type_bxls_2days.appointment_manual_confirmation)
+        res = self.url_open(f"/appointment/{self.apt_type_bxls_2days.id}/submit", event_values)
+        self.assertEqual(res.status_code, 200, "Response should be OK")
+        self.assertEqual(len(self.apt_type_bxls_2days.meeting_ids), 1)
+        self.assertEqual(self.apt_type_bxls_2days.meeting_ids[0].appointment_status, "booked")
+        self.assertTrue(all(attendee.state == 'accepted' for attendee in self.apt_type_bxls_2days.meeting_ids.attendee_ids))
+
+        self.apt_type_bxls_2days.appointment_manual_confirmation = True
+        event_values['datetime_str'] = '2022-02-14 12:00:00'
+        res = self.url_open(f"/appointment/{self.apt_type_bxls_2days.id}/submit", event_values)
+        self.assertEqual(res.status_code, 200, "Response should be OK")
+        self.assertEqual(len(self.apt_type_bxls_2days.meeting_ids), 2)
+        self.assertEqual(self.apt_type_bxls_2days.meeting_ids[0].appointment_status, "request")
+        self.assertTrue(all(attendee.state == 'accepted' for attendee in self.apt_type_bxls_2days.meeting_ids.attendee_ids))
 
     @freeze_time('2022-02-14T7:00:00')
     def test_get_appointment_type_page_view(self):

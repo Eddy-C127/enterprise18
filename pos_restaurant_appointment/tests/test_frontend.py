@@ -16,14 +16,14 @@ class TestUi(TestFrontend):
         super().setUpClass()
 
         cls.appointment_type = cls.env['appointment.type'].create({
-            'name': 'Table Booking Test',
-            'schedule_based_on': 'resources',
-            'assign_method': 'time_auto_assign',
-            'resource_manage_capacity': True,
+            'appointment_manual_confirmation': True,
             'appointment_tz': 'US/Eastern',
-            'resource_manual_confirmation': True,
-            'resource_manual_confirmation_percentage': 0.8,
+            'assign_method': 'time_auto_assign',
             'event_videocall_source': False,
+            'name': 'Table Booking Test',
+            'resource_manage_capacity': True,
+            'resource_manual_confirmation_percentage': 0.8,
+            'schedule_based_on': 'resources',
         })
 
         cls.pos_config.write({

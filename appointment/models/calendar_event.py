@@ -59,7 +59,13 @@ class CalendarEvent(models.Model):
     access_token = fields.Char('Access Token', default=_default_access_token, readonly=True)
     alarm_ids = fields.Many2many(compute='_compute_alarm_ids', store=True, readonly=False)
     appointment_answer_input_ids = fields.One2many('appointment.answer.input', 'calendar_event_id', string="Appointment Answers")
-    appointment_attended = fields.Boolean('Attendees Arrived')
+    appointment_status = fields.Selection([
+        ('request', 'Request'),
+        ('booked', 'Booked'),
+        ('attended', 'Checked-In'),
+        ('no_show', 'No Show'),
+        ('cancelled', 'Cancelled'),
+    ], string="Appointment Status", compute='_compute_appointment_status', store=True, readonly=False, tracking=True)
     appointment_type_id = fields.Many2one('appointment.type', 'Appointment', tracking=True)
     appointment_type_schedule_based_on = fields.Selection(related="appointment_type_id.schedule_based_on")
     appointment_type_manage_capacity = fields.Boolean(related="appointment_type_id.resource_manage_capacity")
@@ -90,11 +96,25 @@ class CalendarEvent(models.Model):
             if event.appointment_resource_ids and not event.appointment_type_id:
                 raise ValidationError(_("The event %s cannot book resources without an appointment type.", event.name))
 
+    @api.constrains('appointment_type_id', 'appointment_status')
+    def _check_status_and_appointment_type(self):
+        for event in self:
+            if event.appointment_status and not event.appointment_type_id:
+                raise ValidationError(_("The event %s cannot have an appointment status without being linked to an appointment type.", event.name))
+
     @api.depends('appointment_type_id')
     def _compute_alarm_ids(self):
         for event in self.filtered('appointment_type_id'):
             if not event.alarm_ids:
                 event.alarm_ids = event.appointment_type_id.reminder_ids
+
+    @api.depends('appointment_type_id')
+    def _compute_appointment_status(self):
+        for event in self:
+            if not event.appointment_type_id:
+                event.appointment_status = False
+            elif not event.appointment_status:
+                event.appointment_status = 'booked'
 
     @api.depends('booking_line_ids', 'booking_line_ids.appointment_resource_id')
     def _compute_resource_ids(self):
@@ -178,6 +198,24 @@ class CalendarEvent(models.Model):
             for event in self:
                 if event.appointment_type_id.id == appointment_type_id:
                     event.is_highlighted = True
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('appointment_type_id'):
+                if 'active' not in vals and vals.get('appointment_status') == 'cancelled':
+                    vals['active'] = False
+                elif 'appointment_status' not in vals and vals.get('active') is False:
+                    vals['appointment_status'] = 'cancelled'
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if any(event.appointment_type_id for event in self) or vals.get('appointment_type_id'):
+            if 'active' in vals and 'appointment_status' not in vals:
+                vals['appointment_status'] = 'booked' if vals['active'] else 'cancelled'
+            if 'active' not in vals and 'appointment_status' in vals:
+                vals['active'] = vals['appointment_status'] != 'cancelled'
+        return super().write(vals)
 
     def _init_column(self, column_name):
         """ Initialize the value of the given column for existing rows.

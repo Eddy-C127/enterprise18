@@ -48,15 +48,21 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
         if (!record.appointment_type_id) {
             return enrichedPill;
         }
-        const now = DateTime.now()
+        const now = DateTime.now();
         // see o-colors-complete for array of colors to index into
         let color = false;
-        if (!record.appointment_attended && now.diff(record.start, ['minutes']).minutes > 15){
-            color = 1  // red
-        } else if (record.appointment_attended) {
-            color = 10  // green
+        if (!record.active) {
+            color = false;
+        } else if (record.appointment_status === 'booked') {
+            color = now.diff(record.start, ['minutes']).minutes > 15 ? 2 : 4;  // orange if late ; light blue if not
+        } else if (record.appointment_status === 'attended') {
+            color = 10;  // green
+        } else if (record.appointment_status === 'no_show') {
+            color = 1;  // red
+        } else if (record.appointment_status === 'request' && record.start < now) {
+            color = 2;  // orange (request state has info-decoration)
         } else {
-            color = 8  // blue
+            color = 8;  // blue
         }
         if (color) {
             enrichedPill.className += ` o_gantt_color_${color}`;
@@ -173,29 +179,36 @@ export class AppointmentBookingGanttRenderer extends GanttRenderer {
                 phone: '',
             }];
         Object.assign(popoverProps, {
-            title: popoverValues[0].name || this.getDisplayName(pill),
+            buttons: this.getPopoverButtons(record),
             context: {
                 ...popoverProps.context,
-                gantt_pill_contact_name: popoverValues[0].name,
+                can_edit: this.model.metaData.canEdit,
                 gantt_pill_contact_email: popoverValues[0].email,
+                gantt_pill_contact_name: popoverValues[0].name,
                 gantt_pill_contact_phone: popoverValues[0].phone,
-            }
+            },
+            title: popoverValues[0].name || this.getDisplayName(pill),
         });
-        if (record.appointment_type_id) {
-            const attendedState = record.appointment_attended;
-            popoverProps.buttons[0].class = "btn btn-sm btn-secondary";
-            popoverProps.buttons.unshift({
-                text: attendedState ? _t("Unconfirm Check-In") : _t("Confirm Check-In"),
-                class: "btn btn-sm btn-primary",
-                onClick: () => this.orm.call(
-                        "calendar.event",
-                        "write",
-                        [record.id, {
-                            appointment_attended: !attendedState,
-                        }],
-                    ).then(() => this.model.fetchData()),
-            })
-        }
         return popoverProps;
+    }
+
+    getPopoverButtons(record) {
+        return [{
+            class: "o_appointment_booking_confirm_status btn btn-sm btn-primary",
+            onClick: () => {
+                if (this.model.metaData.canEdit && record.appointment_status) {
+                    const newAppointmentStatus = document.querySelector('.o_appointment_booking_status').selectedOptions[0].value;
+                    this.orm.write("calendar.event", [record.id], {
+                        active: newAppointmentStatus !== 'cancelled',
+                        appointment_status: newAppointmentStatus,
+                    }).then(() => this.model.fetchData());
+                }
+            },
+            text: this.model.metaData.canEdit && record.appointment_status ? _t("Save & Close") : _t('Close'),
+        }, {
+            class: "btn btn-sm btn-secondary",
+            onClick: () => this.model.mutex.exec(() => this.props.openDialog({ resId: record.id })),
+            text: this.model.metaData.canEdit ? _t("Edit") : _t("View"),
+        }];
     }
 }
