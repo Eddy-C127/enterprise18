@@ -31,3 +31,7 @@ class AppointmentType(models.Model):
         ) if todo else self.env['product.product']
         if len(product_booking_fees) == 1:
             todo.product_id = product_booking_fees[0]
+
+    def _has_payment_flow(self):
+        res = super()._has_payment_flow()
+        return (self.product_id.lst_price and self.has_payment_step) or res

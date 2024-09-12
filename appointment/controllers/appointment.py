@@ -17,13 +17,12 @@ from werkzeug.urls import url_encode
 from odoo import Command, exceptions, http, fields, _
 from odoo.http import request, route
 from odoo.osv import expression
-from odoo.tools import plaintext2html, DEFAULT_SERVER_DATETIME_FORMAT as dtf
+from odoo.tools import email_normalize, plaintext2html, DEFAULT_SERVER_DATETIME_FORMAT as dtf
 from odoo.tools.mail import is_html_empty
 from odoo.tools.misc import babel_locale_parse, get_lang
 from odoo.addons.base.models.ir_qweb import keep_query
 from odoo.addons.base.models.res_partner import _tz_get
 from odoo.addons.http_routing.models.ir_http import unslug
-from odoo.exceptions import UserError
 
 
 def _formated_weekdays(locale):
@@ -680,17 +679,18 @@ class AppointmentController(http.Controller):
             if guest_emails_str:
                 guests = request.env['calendar.event'].sudo()._find_or_create_partners(guest_emails_str)
 
-        customer = self._get_customer_partner() or request.env['res.partner'].sudo().search([('email', '=like', email)], limit=1)
+        customer = self._get_customer_partner()
         if customer:
-            if customer.user_ids:
-                if request.env.user._is_public() or request.env.user not in customer.user_ids:
-                    raise UserError(_('Please connect to book the appointment'))
-            if not customer.mobile:
-                customer.write({'mobile': phone})
+            if not customer.phone:
+                customer.write({'phone': phone})
             if not customer.email:
                 customer.write({'email': email})
-        else:
-            customer = customer.create({
+        if not customer and not appointment_type._has_payment_flow():
+            if email_normalized := email_normalize(email):
+                customer = request.env['res.partner'].sudo().search([('email_normalized', '=', email_normalized)], limit=1)
+
+        if not customer:
+            customer = customer.sudo().create({
                 'name': name,
                 'phone': customer._phone_format(number=phone, country=self._get_customer_country()) or phone,
                 'email': email,

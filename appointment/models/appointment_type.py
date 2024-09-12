@@ -452,6 +452,10 @@ class AppointmentType(models.Model):
         for record in self:
             record.is_published = not record.is_published
 
+    def _has_payment_flow(self):
+        self.ensure_one()
+        return False
+
     # --------------------------------------
     # View Utils
     # --------------------------------------
