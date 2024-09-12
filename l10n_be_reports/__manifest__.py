@@ -9,7 +9,9 @@
 Accounting reports for Belgium
     """,
     'depends': [
-        'l10n_be', 'account_reports'
+        'l10n_be',
+        'account_reports',
+        'account_loans',
     ],
     'data': [
         'views/account_325_forms_views.xml',
