@@ -109,26 +109,15 @@ class AccountChangeLockDate(models.TransientModel):
         compute='_compute_show_draft_entries_warning',
     )
 
-    def _get_active_exceptions_domain(self, soft_lock_date_fields):
-        self.ensure_one()
-        return [
-            '|',
-                ('user_id', '=', None),
-                ('user_id', '=', self.env.user.id),
-            *expression.OR([(field, '<', self.env.company[field])] for field in soft_lock_date_fields if self.env.company[field]),
-            ('company_id', '=', self.env.company.id),
-            ('state', '=', 'active'),  # checks the datetime
-        ]
-
     @api.depends('company_id')
     @api.depends_context('user', 'company')
     def _compute_lock_date_exceptions(self):
         for wizard in self:
             exceptions = self.env['account.lock_exception'].search(
-                self._get_active_exceptions_domain(SOFT_LOCK_DATE_FIELDS)
+                self.env['account.lock_exception']._get_active_exceptions_domain(wizard.company_id, SOFT_LOCK_DATE_FIELDS)
             )
             for field in SOFT_LOCK_DATE_FIELDS:
-                field_exceptions = exceptions.filtered(lambda e: e.lock_date_field == field)
+                field_exceptions = exceptions.filtered(lambda e: e.lock_date_field == field and (e.user_id == self.env.user or not e.user_id))
                 min_exception = min(field_exceptions, key=lambda e: e[field] or date.min) if field_exceptions else False
                 wizard[f"min_{field}_exception"] = min_exception
 
