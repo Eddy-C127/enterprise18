@@ -9,7 +9,7 @@ class BritishGenericTaxReportCustomHandler(models.AbstractModel):
     _description = 'British Tax Report Custom Handler'
 
     def _custom_options_initializer(self, report, options, previous_options=None):
-        super()._custom_options_initializer(report, options)
+        super()._custom_options_initializer(report, options, previous_options=previous_options)
         # If token, but no refresh_token, check if you got the refresh_token on the server first
         # That way, you can see immediately if your login was successful after logging in
         # and the label of the button will be correct
