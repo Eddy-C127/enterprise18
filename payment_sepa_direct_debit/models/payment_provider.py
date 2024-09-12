@@ -132,7 +132,6 @@ class PaymentProvider(models.Model):
                 'partner_id': commercial_partner_id,
                 'partner_bank_id': partner_bank.id,
                 'start_date': datetime.now(),
-                'payment_journal_id': self.journal_id.id,
                 'state': 'draft',
             })
         return mandate

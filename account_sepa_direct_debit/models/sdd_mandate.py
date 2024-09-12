@@ -2,10 +2,9 @@
 
 from datetime import datetime
 
-from odoo import api, fields, models, _
+from odoo import Command, api, fields, models, _
+from odoo.exceptions import RedirectWarning, UserError
 from odoo.tools import SQL
-
-from odoo.exceptions import UserError
 
 
 class SDDMandate(models.Model):
@@ -17,18 +16,31 @@ class SDDMandate(models.Model):
     _inherit = ['mail.thread.main.attachment', 'mail.activity.mixin']
     _description = 'SDD Mandate'
     _check_company_auto = True
+    _order = 'start_date, id'
 
     _sql_constraints = [('name_unique', 'unique(name)', "Mandate identifier must be unique! Please choose another one.")]
 
-    state = fields.Selection([('draft', 'Draft'), ('active', 'Active'), ('revoked', 'Revoked'), ('closed', 'Closed')],
-                            string="State",
-                            readonly=True,
-                            default='draft',
-                            help="The state this mandate is in. \n"
-                            "- 'draft' means that this mandate still needs to be confirmed before being usable. \n"
-                            "- 'active' means that this mandate can be used to pay invoices. \n"
-                            "- 'closed' designates a mandate that has been marked as not to use anymore without invalidating the previous transactions done with it."
-                            "- 'revoked' means the mandate has been signaled as fraudulent by the customer. It cannot be used anymore, and should not ever have been. You will probably need to refund the related invoices, if any.\n")
+    def _get_default_start_date(self):
+        return fields.Date.context_today(self)
+
+    state = fields.Selection(
+        selection=[
+            ('draft', 'Draft'),
+            ('active', 'Active'),
+            ('cancelled', 'Cancelled'),
+            ('revoked', 'Revoked'),
+            ('closed', 'Closed'),
+        ],
+        readonly=True,
+        default='draft',
+        tracking=True,
+        help="Draft: Validate before use.\n"
+            "Active: Valid mandates to collect payments.\n"
+            "Cancelled: Mandates never validated.\n"
+            "Closed: Expired or manually closed mandates. Previous transactions remain valid.\n"
+            "Revoked: Fraudulent mandates. Previous invoices might need reimbursement.\n"
+    )
+    is_sent = fields.Boolean(string="Sent to the customer", default=False)
 
     # one-off mandates are fully supported, but hidden to the user for now. Let's see if they need it.
     one_off = fields.Boolean(string='One-off Mandate',
@@ -51,15 +63,24 @@ class SDDMandate(models.Model):
         check_company=True,
         help="Account of the customer to collect payments from.",
     )
-    start_date = fields.Date(string="Start Date", required=True, help="Date from which the mandate can be used (inclusive).")
-    end_date = fields.Date(string="End Date", help="Date until which the mandate can be used. It will automatically be closed after this date.")
-    payment_journal_id = fields.Many2one(
-        string='Journal',
-        comodel_name='account.journal',
+    start_date = fields.Date(
+        string="Start Date",
         required=True,
-        check_company=True,
-        domain="[('id', 'in', suitable_journal_ids)]",
-        help='Journal to use to receive SEPA Direct Debit payments from this mandate.',
+        default=_get_default_start_date,
+        help="Date from which the mandate can be used (inclusive).",
+    )
+    end_date = fields.Date(string="End Date", help="Date until which the mandate can be used. It will automatically be closed after this date.")
+    expiration_warning_already_sent = fields.Boolean(
+        string="Expiration warning sent",
+        default=False,
+        readonly=True,
+        required=True,
+        copy=False,
+    )
+    pre_notification_period = fields.Integer(
+        string="Pre-notification",
+        default=2, required=True,
+        help="The minimum notice period in days, used to inform the customer prior to collection.",
     )
     sdd_scheme = fields.Selection(string="SDD Scheme", selection=[('CORE', 'CORE'), ('B2B', 'B2B')],
         required=True, default='CORE', help='The B2B scheme is an optional scheme,\noffered exclusively to business payers.\n'
@@ -79,56 +100,36 @@ class SDDMandate(models.Model):
         help="Number of Direct Debit payments to be collected for this mandate, that is, the number of payments that "
              "have been generated and posted thanks to this mandate and still needs their XML file to be generated and "
              "sent to the bank to debit the customer's account.")
-    suitable_journal_ids = fields.Many2many('account.journal', compute='_compute_suitable_journal_ids')
-
-    @api.depends('company_id')
-    def _compute_suitable_journal_ids(self):
-        for m in self:
-            company_id = m.company_id.id or self.env.company.id
-            domain = [
-                *self.env['account.journal']._check_company_domain(company_id),
-                ('type', '=', 'bank'),
-            ]
-            payment_method = self.env.ref('account_sepa_direct_debit.payment_method_sdd')
-
-            # Get all journals which have the payment method sdd
-            m.suitable_journal_ids = self.env['account.journal'].search(domain).filtered(
-                lambda j: payment_method in j.inbound_payment_method_line_ids.mapped('payment_method_id')
-            )
+    mandate_pdf_file = fields.Binary(
+        string="Mandate Form PDF",
+        attachment=True,
+        copy=False,
+        groups='account.group_account_readonly',
+        readonly=True,
+    )
 
     @api.ondelete(at_uninstall=False)
     def _unlink_if_draft(self):
         if self.filtered(lambda x: x.state != 'draft'):
-            raise UserError(_("Only mandates in draft state can be deleted from database when cancelled."))
+            raise UserError(_("Only mandates in draft state can be deleted."))
 
     @api.model
     def _sdd_get_usable_mandate(self, company_id, partner_id, date):
         """ returns the first mandate found that can be used, accordingly to given parameters
         or none if there is no such mandate.
         """
-        self.flush_model(['state', 'start_date', 'end_date', 'company_id', 'partner_id', 'one_off'])
+        mandates = self.env['sdd.mandate'].search([
+                ('state', '=', 'active'),
+                ('start_date', '<=', date),
+                '|', ('end_date', '=', False), ('end_date', '>=', date),
+                ('company_id', '=', company_id),
+                ('partner_id', '=', partner_id),
+            ],
+            limit=1,
+            order='start_date,id',
+        )
+        return mandates
 
-        query = self._where_calc([
-            ('state', 'not in', ['draft', 'revoked']),
-            ('start_date', '<=', date),
-            '|', ('end_date', '>=', date), ('end_date', '=', None),
-            ('company_id', '=', company_id),
-            ('partner_id', '=', partner_id),
-        ])
-        query.add_where(SQL("""(
-                (
-                    SELECT COUNT(payment.id)
-                    FROM account_payment payment
-                    JOIN account_move move ON move.id = payment.move_id
-                    WHERE move.sdd_mandate_id = sdd_mandate.id
-                )  = 0
-                OR
-                sdd_mandate.one_off IS FALSE
-            )"""))
-        query.limit = 1
-        return self.env['sdd.mandate'].browse(query)
-
-    @api.depends()
     def _compute_from_moves(self):
         ''' Retrieve the invoices reconciled to the payments through the reconciliation (account.partial.reconcile). '''
         stored_mandates = self.filtered('id')
@@ -138,63 +139,143 @@ class SDDMandate(models.Model):
             self.paid_invoice_ids = False
             self.payment_ids = False
             return
-        self.env['account.move'].flush_model(['sdd_mandate_id', 'move_type'])
 
-        query_res = dict(self.env.execute_query(SQL('''
-            SELECT
-                move.sdd_mandate_id,
-                ARRAY_AGG(move.id) AS invoice_ids
-            FROM account_move move
-            WHERE move.sdd_mandate_id IS NOT NULL
-            AND move.move_type IN ('out_invoice', 'out_refund', 'in_invoice', 'in_refund')
-            GROUP BY move.sdd_mandate_id
-        ''')))
+        results = dict(
+            self.env['account.move']._read_group([
+                ('sdd_mandate_id', 'in', self.ids),
+                ('move_type', 'in', ('out_invoice', 'out_refund', 'in_invoice', 'in_refund'))
+            ], groupby=['sdd_mandate_id'], aggregates=['id:array_agg'])
+        )
 
         for mandate in self:
-            invoice_ids = query_res.get(mandate.id, [])
-            mandate.paid_invoice_ids = [(6, 0, invoice_ids)]
+            invoice_ids = results.get(mandate, [])
+            mandate.paid_invoice_ids = [Command.set(invoice_ids)]
             mandate.paid_invoices_nber = len(invoice_ids)
 
-        query_res = dict(self.env.execute_query(SQL('''
-            SELECT
-                move.sdd_mandate_id,
-                ARRAY_AGG(payment.id) AS payment_ids
-            FROM account_payment payment
-            JOIN account_payment_method method ON method.id = payment.payment_method_id
-            JOIN account_move move ON move.id = payment.move_id
-            WHERE move.sdd_mandate_id IS NOT NULL
-            AND move.state = 'posted'
-            AND method.code IN %s
-            GROUP BY move.sdd_mandate_id
-        ''', tuple(self.payment_ids.payment_method_id._get_sdd_payment_method_code()))))
+        results = dict(
+            self.env['account.payment']._read_group([
+                ('sdd_mandate_id', 'in', self.ids),
+                ('payment_method_code', 'in', self.env['account.payment.method']._get_sdd_payment_method_code()),
+                ('move_id.state', '=', 'posted'),
+            ], groupby=['sdd_mandate_id'], aggregates=['id:array_agg'])
+        )
 
         for mandate in self:
-            payment_ids = query_res.get(mandate.id, [])
-            mandate.payment_ids = [(6, 0, payment_ids)]
+            payment_ids = results.get(mandate, [])
+            mandate.payment_ids = [Command.set(payment_ids)]
             mandate.payments_to_collect_nber = len(payment_ids)
+
+    def _update_and_partition_state_by_validity(self):
+        """
+            Helper method to check whether a mandate can still be used or not (and if we're nearing its expiration date, to warn users)
+            This also close mandates that are past their validity date
+            :return: tuple containing the mandates recordsets split by their validity (valid, valid but expiring soon, invalid)
+            :rtype: dict
+        """
+        today = fields.Date.context_today(self)
+        expiry_date_per_mandate = self._get_expiry_date_per_mandate()
+        active_mandates = self.filtered(lambda mandate: mandate.state == 'active')
+
+        valid_mandates = self.env['sdd.mandate']
+        expiring_mandates = self.env['sdd.mandate']
+        invalid_mandates = self - active_mandates
+
+        to_close = self.env['sdd.mandate']
+        for mandate in active_mandates:
+            expiry_date = expiry_date_per_mandate[mandate]
+            if mandate.start_date <= today <= expiry_date:
+                if today + fields.date_utils.relativedelta(days=30) >= expiry_date:
+                    expiring_mandates += mandate  # Used to send warnings
+                else:
+                    valid_mandates += mandate
+            else:
+                to_close += mandate
+                invalid_mandates += mandate
+
+        # Closing invalid mandates that haven't been closed yet
+        to_close.state = 'closed'
+        return {
+            'valid': valid_mandates.with_prefetch(),
+            'expiring': expiring_mandates.with_prefetch(),
+            'invalid': invalid_mandates.with_prefetch(),
+        }
+
+    def _get_expiry_date_per_mandate(self):
+        """
+        "The mandate expires 36 months after the last initiated collection."
+        - SEPA regulation
+        """
+        expiry_date_per_mandate = {}
+        delay_36_months = fields.date_utils.relativedelta(months=36)
+        payments_collected_per_mandate = dict(self.env['account.payment']._read_group([
+                ('sdd_mandate_id', 'in', self.ids),
+                ('payment_method_code', 'in', self.env['account.payment.method']._get_sdd_payment_method_code()),
+                ('state', '=', 'posted'),
+                ('move_id.state', '=', 'posted'),
+            ],
+            groupby=['sdd_mandate_id'],
+            aggregates=['id:recordset'],
+        ))
+        for mandate in self:
+            payments_collected = payments_collected_per_mandate.get(mandate, self.env['account.payment']).filtered(
+                lambda payment: (payment.move_id.currency_id.is_zero(payment.move_id.amount_residual))
+            )
+
+            dates = [mandate.end_date] if mandate.end_date else []
+            dates.append(max(payments_collected.mapped('date'), default=mandate.start_date) + delay_36_months)
+            expiry_date_per_mandate[mandate] = min(dates)  # Todo use records
+
+        return expiry_date_per_mandate
+
+    def _send_expiry_reminder(self):
+        self.ensure_one()
+        template = self.env.ref('account_sepa_direct_debit.email_template_sdd_mandate_expiring')
+        self.message_post_with_source(
+            source_ref=template,
+            subtype_id=self.env['ir.model.data']._xmlid_to_res_id('mail.mt_note'),
+        )
+        self.expiration_warning_already_sent = True
+
+    def action_send_and_print(self):
+        self.ensure_one()
+        self._ensure_required_data()
+        template = self.env.ref('account_sepa_direct_debit.email_template_sdd_new_mandate', raise_if_not_found=False)
+
+        return {
+            'name': _("Send"),
+            'type': 'ir.actions.act_window',
+            'view_mode': 'form',
+            'res_model': 'sdd.mandate.send',
+            'target': 'new',
+            'context': {
+                'default_mandate_id': self.id,
+                'default_template_id': template and template.id or False,
+            },
+        }
 
     def action_validate_mandate(self):
         """ Called by the 'validate' button of the form view.
         """
-        for record in self:
-            if record.state == 'draft':
-                if not record.partner_bank_id:
-                    raise UserError(_("A debtor account is required to validate a SEPA Direct Debit mandate."))
-                if record.partner_bank_id.acc_type != 'iban':
-                    raise UserError(_("SEPA Direct Debit scheme only accepts IBAN account numbers. Please select an IBAN-compliant debtor account for this mandate."))
+        self._ensure_required_data()
 
-                record.state = 'active'
-
-    def action_cancel_draft_mandate(self):
-        """ Cancels (i.e. deletes) a mandate in draft state.
-        """
-        self.unlink()
+        for mandate in self:
+            if not mandate.partner_bank_id:
+                raise UserError(_("A customer account is required to validate a SEPA Direct Debit mandate."))
+            if mandate.partner_bank_id.acc_type != 'iban':
+                raise UserError(_(
+                    "SEPA Direct Debit scheme only accepts IBAN account numbers. "
+                    "Please select an IBAN-compliant debtor account for this mandate."
+                ))
+            if mandate.state == 'draft':
+                mandate.state = 'active'
 
     def action_revoke_mandate(self):
         """ Called by the 'revoke' button of the form view.
         """
-        for record in self:
-            record.state = 'revoked'
+        self.state = 'revoked'
+
+    def action_cancel_mandate(self):
+        self.state = 'cancelled'
 
     def action_close_mandate(self):
         """ Called by the 'close' button of the form view.
@@ -224,16 +305,10 @@ class SDDMandate(models.Model):
         }
 
     @api.constrains('end_date', 'start_date')
-    def validate_end_date(self):
+    def _validate_end_date(self):
         for record in self:
             if record.end_date and record.start_date and record.end_date < record.start_date:
                 raise UserError(_("The end date of the mandate must be posterior or equal to its start date."))
-
-    @api.constrains('payment_journal_id')
-    def _validate_account_journal_id(self):
-        for record in self:
-            if record.payment_journal_id.bank_account_id.acc_type != 'iban':
-                raise UserError(_("Only IBAN account numbers can receive SEPA Direct Debit payments. Please select a journal associated to one."))
 
     @api.constrains('debtor_id_code')
     def _validate_debtor_id_code(self):
@@ -241,17 +316,53 @@ class SDDMandate(models.Model):
             if record.debtor_id_code and len(record.debtor_id_code) > 35:  # Arbitrary limitation given by SEPA regulation for the <id> element used for this field when generating the XML
                 raise UserError(_("The debtor identifier you specified exceeds the limitation of 35 characters imposed by SEPA regulation"))
 
-    @api.constrains('partner_id')
-    def _validate_partner_id(self):
+    @api.constrains('pre_notification_period')
+    def _validate_pre_notification_period(self):
         for mandate in self:
-            for pay in mandate.payment_ids:
-                if mandate.partner_id != pay.partner_id.commercial_partner_id:
-                    raise UserError(_("Trying to register a payment on a mandate belonging to a different partner."))
+            if mandate.pre_notification_period < 2:  # Minimum required for collection
+                raise UserError(_(
+                    "SEPA regulations set the minimum pre-notification period to a minimum of 2 days "
+                    "to allow enough time for the customer to check that their account is adequately funded."
+                ))
+
+    def _ensure_required_data(self):
+        """ Helper to make sure we don't send/validate a mandate missing the required data """
+        for mandate in self:
+            if mandate.sdd_scheme == 'B2B' and not mandate.partner_id.is_company:
+                raise UserError(_("Under B2B SDD Scheme, the customer must be a company."))
+            stateless_partners = self.partner_id.filtered(lambda partner: not partner.country_id)
+            if stateless_partners:
+                msg = _("The customer must have a country")
+                if len(stateless_partners) == 1:
+                    raise RedirectWarning(
+                        msg,
+                        action={
+                            'name': _("SEPA direct debit stateless customer"),
+                            'type': 'ir.actions.act_window',
+                            'res_model': 'res.partner',
+                            'views': [(False, 'form'), (False, 'list')],
+                            'res_id': self.partner_id.id
+                        },
+                        button_text=_("Open customer"),
+                    )
+                else:
+                    raise RedirectWarning(
+                        msg,
+                        action={
+                            'name': _("SEPA direct debit stateless customer"),
+                            'type': 'ir.actions.act_window',
+                            'res_model': 'res.partner',
+                            'views': [(False, 'list'), (False, 'form')],
+                            'domain': [('id', 'in', self.partner_id.ids)],
+                        },
+                        button_text=_("Open customers"),
+                    )
 
     @api.model
     def cron_update_mandates_states(self):
-        current_company = self.env.company
-        today = fields.Date.today()
-        for mandate in self.search([('company_id', '=', current_company.id), ('state', '=', 'active'), ('end_date', '!=', False)]):
-            if mandate.end_date < today:
-                mandate.state = 'closed'
+        mandates = self.search([('state', '=', 'active')])
+        mandates_per_validity = mandates._update_and_partition_state_by_validity()
+        mandates_per_validity['valid'].expiration_warning_already_sent = False  # Reset the field if a new payment came, resetting the period
+        for mandate in mandates_per_validity['expiring'].filtered(lambda sddm: not sddm.expiration_warning_already_sent):
+            # Warning 30 days before expiration
+            mandate._send_expiry_reminder()

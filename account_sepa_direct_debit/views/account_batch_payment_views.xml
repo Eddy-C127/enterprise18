@@ -10,7 +10,7 @@
                 <xpath expr="//field[@name='name']" position="after">
                     <field name="sdd_required_collection_date" invisible="payment_method_code not in ('sdd', 'sepa_direct_debit')" readonly="state != 'draft'" required="payment_method_code in ('sdd', 'sepa_direct_debit')"/>
                     <field name="sdd_batch_booking" string="Batch Booking" invisible="payment_method_code not in ('sdd', 'sepa_direct_debit')"/>
-                    <field name="sdd_scheme" invisible="payment_method_code not in ('sdd', 'sepa_direct_debit')" readonly="state != 'draft'" required="payment_method_code in ('sdd', 'sepa_direct_debit')"/>
+                    <field name="sdd_scheme" invisible="payment_method_code not in ('sdd', 'sepa_direct_debit')" readonly="state != 'draft' or payment_ids" required="payment_method_code in ('sdd', 'sepa_direct_debit')"/>
                 </xpath>
                 <field name="payment_method_name" position="after">
                     <field name="sdd_mandate_scheme" optional="hide"/>

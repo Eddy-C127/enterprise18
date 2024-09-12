@@ -8,5 +8,11 @@
             <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
         </record>
 
+        <record model="ir.rule" id="sdd_mandate_portal_rule">
+            <field name="name">SDD Mandate portal-user creation</field>
+            <field name="model_id" ref="model_sdd_mandate"/>
+            <field name="domain_force">[('partner_id', '=', user.partner_id.id), ('state', '=', 'draft')]</field>
+            <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        </record>
     </data>
 </odoo>

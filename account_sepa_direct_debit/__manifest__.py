@@ -46,6 +46,7 @@ try to use this method on an invoice for whose payment no mandate can be used.
         'data/account_data.xml',
         'data/sdd_payment_method.xml',
         'data/sdd_mandate_state_cron.xml',
+        'data/email_templates.xml',
         'views/sdd_mandate_views.xml',
         'views/account_payment_view.xml',
         'views/account_journal_dashboard_view.xml',
@@ -55,6 +56,8 @@ try to use this method on an invoice for whose payment no mandate can be used.
         'views/account_batch_payment_views.xml',
         'views/account_move_view.xml',
         'views/account_journal_views.xml',
+        'wizard/account_payment_register_view.xml',
+        'wizard/sdd_mandate_send_views.xml',
     ],
     'license': 'OEEL-1',
 }

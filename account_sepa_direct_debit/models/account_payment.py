@@ -21,6 +21,33 @@ class AccountPayment(models.Model):
     # used to inform the end user there is a SDD mandate that could be used to register that payment
     sdd_mandate_usable = fields.Boolean(string="Could a SDD mandate be used?",
         compute='_compute_usable_mandate')
+    sdd_mandate_id = fields.Many2one(
+        name="SDD Mandate",
+        comodel_name='sdd.mandate',
+        copy=False,
+        check_company=True,
+        compute='_compute_sdd_mandate_id',
+        store=True,
+        readonly=False,
+        help="Once this invoice has been paid with Direct Debit, contains the mandate that allowed the payment.")
+
+    @api.depends('payment_method_line_id', 'partner_id', 'date')
+    def _compute_sdd_mandate_id(self):
+        sepa_codes = self.env['account.payment.method']._get_sdd_payment_method_code()
+        for payment in self:
+            payment.sdd_mandate_id = payment.get_usable_mandate() if payment.payment_method_line_id.code in sepa_codes else False
+
+    @api.onchange('partner_id')
+    def _onchange_partner_id(self):
+        sepa_codes = self.env['account.payment.method']._get_sdd_payment_method_code()
+        for payment in self:
+            mandate = payment.get_usable_mandate()
+            if not mandate or payment.payment_method_line_id.code not in sepa_codes:
+                payment.sdd_mandate_id = False
+            # If we have a usable mandate and the already linked mandate doesn't belong to the new partner (or there isn't one)
+            elif mandate and not payment.sdd_mandate_id.filtered(lambda _mandate: _mandate.partner_id == payment.partner_id):
+                payment.payment_method_line_id = payment.available_payment_method_line_ids.filtered(lambda l: l.code == 'sdd')[0]
+                payment.sdd_mandate_id = mandate
 
     @api.model
     def split_node(self, string_node, max_size):
@@ -88,12 +115,7 @@ class AccountPayment(models.Model):
         return etree.tostring(document, pretty_print=True, xml_declaration=True, encoding='utf-8')
 
     def get_usable_mandate(self):
-        """ Returns the sdd mandate that can be used to generate this payment, or
-        None if there is none.
-        """
-        if self.sdd_mandate_id:
-            return self.sdd_mandate_id
-
+        """ Returns the sdd mandate that can be used to generate this payment """
         return self.env['sdd.mandate']._sdd_get_usable_mandate(
             self.company_id.id or self.env.company.id,
             self.partner_id.commercial_partner_id.id,

@@ -10,8 +10,10 @@ class AccountMove(models.Model):
 
     sdd_mandate_scheme = fields.Selection(related='sdd_mandate_id.sdd_scheme', readonly=True)
     sdd_mandate_id = fields.Many2one(
+        name="SDD Mandate",
         comodel_name='sdd.mandate',
         copy=False,
+        check_company=True,
         help="Once this invoice has been paid with Direct Debit, contains the mandate that allowed the payment.")
     sdd_has_usable_mandate = fields.Boolean(compute='_compute_sdd_has_usable_mandate', search='_search_sdd_has_usable_mandate')
 
@@ -45,7 +47,7 @@ class AccountMove(models.Model):
         else:
             domain_operator = 'not in'
 
-        query = '''
+        query = """
         SELECT
             move.id
         FROM
@@ -55,10 +57,10 @@ class AccountMove(models.Model):
             move.commercial_partner_id = mandate.partner_id
         WHERE
             move.move_type IN ('out_invoice', 'in_refund') AND
-            mandate.state NOT IN ('draft', 'revoked') AND
+            mandate.state = 'active' AND
             mandate.start_date <= move.invoice_date AND
             (mandate.end_date IS NULL OR mandate.end_date > move.invoice_date)
-        '''
+        """
 
         self._cr.execute(query)
 
@@ -98,4 +100,5 @@ class AccountMoveLine(models.Model):
                 pay.move_id._get_reconciled_invoices().filtered(lambda m: m.sdd_mandate_id != pay.sdd_mandate_id).sdd_mandate_id = pay.sdd_mandate_id
 
                 if pay.sdd_mandate_id.one_off:
-                    pay.sdd_mandate_id.action_close_mandate()
+                    # one_off mandates are not used, but this sudo make sure it would work from the payment_sepa_direct_debit flow
+                    pay.sdd_mandate_id.sudo().action_close_mandate()

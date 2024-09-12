@@ -45,10 +45,8 @@ class PaymentTransaction(models.Model):
         if not mandate:
             raise UserError("SEPA: " + _("The token is not linked to a mandate."))
 
-        if (
-            mandate.state != 'active'
-            or (mandate.end_date and mandate.end_date > fields.Datetime.now())
-        ):
+        mandate._update_and_partition_state_by_validity()
+        if mandate.state != 'active':
             raise UserError("SEPA: " + _("The mandate is invalid."))
 
         # There is no provider to send a payment request to, but we handle empty notification data
@@ -95,7 +93,6 @@ class PaymentTransaction(models.Model):
 
         if self.operation in ('online_token', 'offline'):
             self._set_done()  # SEPA transactions are confirmed as soon as the mandate is valid.
-            self._sdd_notify_debit(self.token_id)
 
     def _set_done(self, **kwargs):
         """ Override of `payment` to create the token and validate the mandate of confirmed SEPA
@@ -114,32 +111,6 @@ class PaymentTransaction(models.Model):
             tx.token_id = tx.provider_id._sdd_create_token_for_mandate(tx.partner_id, tx.mandate_id)
             tx.mandate_id._confirm()
         return confirmed_txs
-
-    def _sdd_notify_debit(self, token):
-        """ Notify the customer that a debit has been made from his account.
-
-        This is required as per the SEPA Direct Debit rulebook.
-        The notice must include:
-            - the last 4 digits of the debtor’s bank account
-            - the mandate reference
-            - the amount to be debited
-            - your SEPA creditor identifier
-            - your contact information
-        Notifications should be sent at least 14 calendar days before the payment is created unless
-        specified otherwise.
-
-        :param recordset token: The token linked to the mandate from which the debit has been made,
-                                as a `payment.token` record
-        :return: None
-        """
-        ctx = self.env.context.copy()
-        ctx.update({
-            'iban_last_4': token.payment_details[:4],
-            'mandate_ref': token.sdd_mandate_id.name,
-            'creditor_identifier': self.env.company.sdd_creditor_identifier,
-        })
-        template = self.env.ref('payment_sepa_direct_debit.mail_template_sepa_notify_debit')
-        template.with_context(ctx).send_mail(self.id)
 
     def _create_payment(self, **extra_create_values):
         """ Override of `payment` to pass the correct payment method line id and the SDD mandate id

@@ -1,6 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields
+from odoo import Command, fields
 
 from odoo.addons.account_payment.tests.common import AccountPaymentCommon
 from odoo.addons.payment_custom.tests.common import PaymentCustomCommon
@@ -34,13 +34,12 @@ class SepaDirectDebitCommon(AccountPaymentCommon, PaymentCustomCommon):
             'partner_id': cls.partner.id,
             'company_id': cls.company.id,
         })
-
+        cls.user.groups_id = [Command.link(cls.env.ref('account.group_validate_bank_account').id)]  # Required to create a sdd.mandate
         cls.mandate = cls.env['sdd.mandate'].create({
             'partner_id': cls.partner.id,
             'company_id': cls.company.id,
             'partner_bank_id': cls.partner_bank.id,
             'start_date': fields.Date.today(),
-            'payment_journal_id': cls.sepa_journal.id,
             'state': 'active',
         })
 

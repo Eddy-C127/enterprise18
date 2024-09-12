@@ -38,6 +38,7 @@ class ResCompany(models.Model):
             else:
                 raise ValidationError(_("Invalid creditor identifier. Wrong format."))
 
+    @api.model
     def _convert_sdd_test_str(self, test_str):
         """ Returns a version of the string passed in parameters where all the letters
         have been replaced by numbers.

@@ -1,104 +1,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import fields
-from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.exceptions import UserError
-from odoo.tests import tagged
-from odoo.tests.common import test_xsd
-from odoo.tools.misc import file_open, file_path
+import datetime
 
-from lxml import etree
+from odoo import Command, fields
+from odoo.exceptions import RedirectWarning, UserError, ValidationError
+from odoo.tests import freeze_time, tagged
 
-
-class SDDTestCommon(AccountTestInvoicingCommon):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.env.ref('base.EUR').active = True
-
-        cls.env.user.email = "ruben.rybnik@sorcerersfortress.com"
-
-        cls.country_belgium, cls.country_china, cls.country_germany = cls.env['res.country'].search([('code', 'in', ['BE', 'CN', 'DE'])], limit=3, order='name ASC')
-
-        # We setup our test company
-        cls.sdd_company = cls.env.company
-        cls.sdd_company.country_id = cls.country_belgium
-        cls.sdd_company.city = 'Company 1 City'
-        cls.sdd_company.sdd_creditor_identifier = 'BE30ZZZ300D000000042'
-        cls.sdd_company_bank_journal = cls.company_data['default_journal_bank']
-        cls.sdd_company_bank_journal.bank_acc_number = 'CH9300762011623852957'
-        cls.bank_ing = cls.env['res.bank'].create({'name': 'ING', 'bic': 'BBRUBEBB'})
-        cls.bank_bnp = cls.env['res.bank'].create({'name': 'BNP Paribas', 'bic': 'GEBABEBB'})
-        cls.bank_no_bic = cls.env['res.bank'].create({'name': 'NO BIC BANK'})
-        cls.sdd_company_bank_journal.bank_account_id.bank_id = cls.bank_ing
-
-        # Then we setup the banking data and mandates of two customers (one with a one-off mandate, the other with a recurrent one)
-        cls.partner_agrolait = cls.env['res.partner'].create({'name': 'Agrolait', 'city': 'Agrolait Town', 'country_id': cls.country_germany.id})
-        cls.partner_bank_agrolait = cls.create_account('DE44500105175407324931', cls.partner_agrolait, cls.bank_ing)
-        cls.mandate_agrolait = cls.create_mandate(cls.partner_agrolait, cls.partner_bank_agrolait, False, cls.sdd_company, cls.sdd_company_bank_journal)
-        cls.mandate_agrolait.action_validate_mandate()
-
-        cls.partner_china_export = cls.env['res.partner'].create({'name': 'China Export', 'city': 'China Town', 'country_id': cls.country_china.id})
-        cls.partner_bank_china_export = cls.create_account('SA0380000000608010167519', cls.partner_china_export, cls.bank_bnp)
-        cls.mandate_china_export = cls.create_mandate(cls.partner_china_export, cls.partner_bank_china_export, True, cls.sdd_company, cls.sdd_company_bank_journal)
-        cls.mandate_china_export.action_validate_mandate()
-
-        cls.partner_no_bic = cls.env['res.partner'].create({'name': 'NO BIC Co', 'city': 'NO BIC City', 'country_id': cls.country_belgium.id})
-        cls.partner_bank_no_bic = cls.create_account('BE68844010370034', cls.partner_no_bic, cls.bank_no_bic)
-        cls.mandate_no_bic = cls.create_mandate(cls.partner_no_bic, cls.partner_bank_no_bic, True, cls.sdd_company, cls.sdd_company_bank_journal)
-        cls.mandate_no_bic.action_validate_mandate()
-
-        # Finally, we create one invoice for each of our test customers ...
-        cls.invoice_agrolait = cls.create_invoice(cls.partner_agrolait)
-        cls.invoice_china_export = cls.create_invoice(cls.partner_china_export)
-        cls.invoice_no_bic = cls.create_invoice(cls.partner_no_bic)
-
-        # Pay the invoices with mandates
-        cls.pay_with_mandate(cls.invoice_agrolait, cls.mandate_agrolait)
-        cls.pay_with_mandate(cls.invoice_china_export, cls.mandate_china_export)
-        cls.pay_with_mandate(cls.invoice_no_bic, cls.mandate_no_bic)
-
-    def create_account(self, number, partner, bank):
-        return self.env['res.partner.bank'].create({
-            'acc_number': number,
-            'partner_id': partner.id,
-            'bank_id': bank.id
-        })
-
-    def create_mandate(self, partner, partner_bank, one_off, company, payment_journal):
-        return self.env['sdd.mandate'].create({
-            'name': 'mandate ' + (partner.name or ''),
-            'partner_bank_id': partner_bank.id,
-            'one_off': one_off,
-            'start_date': fields.Date.today(),
-            'partner_id': partner.id,
-            'company_id': company.id,
-            'payment_journal_id': payment_journal.id
-        })
-
-    def create_invoice(self, partner):
-        invoice = self.env['account.move'].create({
-            'move_type': 'out_invoice',
-            'partner_id': partner.id,
-            'currency_id': self.env.ref('base.EUR').id,
-            'payment_reference': 'invoice to client',
-            'invoice_line_ids': [(0, 0, {
-                'product_id': self.env['product.product'].create({'name': 'A Test Product'}).id,
-                'quantity': 1,
-                'price_unit': 42,
-                'name': 'something',
-            })],
-        })
-        invoice.action_post()
-        return invoice
-
-    def pay_with_mandate(self, invoice, mandate):
-        sdd_method_line = mandate.payment_journal_id.inbound_payment_method_line_ids.filtered(lambda l: l.code == 'sdd')
-        self.env['account.payment.register'].with_context(active_model='account.move', active_ids=invoice.ids).create({
-            'payment_date': invoice.invoice_date_due or invoice.invoice_date,
-            'journal_id': mandate.payment_journal_id.id,
-            'payment_method_line_id': sdd_method_line.id,
-        })._create_payments()
+from odoo.addons.account_sepa_direct_debit.tests.common import SDDTestCommon
 
 
 @tagged('post_install', '-at_install')
@@ -126,11 +34,7 @@ class SDDTest(SDDTestCommon):
 
         payment = self.invoice_china_export.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id')
 
-        # Checks that an error is thrown if the country name or the city name is missing
-        self.partner_china_export.write({'city': 'China Town', 'country_id': False})
-        with self.assertRaises(UserError):
-            payment.generate_xml(self.sdd_company, fields.Date.today(), True)
-
+        # Checks that an error is thrown if the city name is missing
         self.partner_china_export.write({'city': False, 'country_id': self.country_china})
         with self.assertRaises(UserError):
             payment.generate_xml(self.sdd_company, fields.Date.today(), True)
@@ -139,39 +43,177 @@ class SDDTest(SDDTestCommon):
         self.partner_china_export.write({'city': 'China Town', 'country_id': self.country_china})
         payment.generate_xml(self.sdd_company, fields.Date.today(), True)
 
+    @freeze_time('2020-01-01')
+    def test_expiry(self):
+        self.mandate_agrolait.action_revoke_mandate()  # We will use a new one here
+        self.assertEqual(self.mandate_agrolait.state, 'revoked')
 
-@tagged('external_l10n', 'post_install', '-at_install', '-standard')
-class SDDTestXML(SDDTestCommon):
-    @test_xsd(path='account_sepa_direct_debit/schemas/pain.008.001.02.xsd')
-    def test_xml_pain_008_001_02_generation(self):
-        self.sdd_company_bank_journal.debit_sepa_pain_version = 'pain.008.001.02'
+        mandate = self.create_mandate(self.partner_agrolait, self.partner_bank_agrolait, False, self.sdd_company, 'CORE')
+        mandate.end_date = '2025-01-30'
+        self.assertEqual(mandate.state, 'draft')
+        mandate.action_validate_mandate()
+        mandate.cron_update_mandates_states()
+        self.assertEqual(mandate.state, 'active')
 
-        xml_files = []
-        for invoice in (self.invoice_agrolait, self.invoice_china_export, self.invoice_no_bic):
-            payment = invoice.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id')
-            xml_files.append(etree.fromstring(payment.generate_xml(self.sdd_company, fields.Date.today(), True)))
-        return xml_files
+        with freeze_time('2022-12-02'):  # In the 36-month without any use automatic close 30-days warning period (to be closed the 2023-01-01)
+            mandates_per_validity = mandate._update_and_partition_state_by_validity()
+            self.assertTrue(mandates_per_validity['expiring'], 'The mandate is expiring soon')
 
-    @test_xsd(path='account_sepa_direct_debit/schemas/EPC131-08_2019_V1.0_pain.008.001.02.xsd')
-    def test_xml_pain_008_001_02_b2b_generation(self):
-        self.sdd_company_bank_journal.debit_sepa_pain_version = 'pain.008.001.02'
-        self.mandate_agrolait.sdd_scheme = 'B2B'
-        self.mandate_china_export.sdd_scheme = 'B2B'
-        self.mandate_no_bic.sdd_scheme = 'B2B'
+            new_invoice = self.create_invoice(self.partner_agrolait)
+            _payment = self.pay_with_mandate(new_invoice)  # Should reset the 36-month up to 2025-12-2
+            mandates_per_validity = mandate._update_and_partition_state_by_validity()
+            self.assertTrue(mandates_per_validity['valid'], 'The mandate should not be expiring soon anymore, as we have reset the period')
+            new_expiry_date = next(iter(mandate._get_expiry_date_per_mandate().values())).isoformat()
+            self.assertEqual(new_expiry_date, '2025-01-30', 'The new expiry date is the end date, as the last collection + 36 month is after that date')
 
-        xml_files = []
-        for invoice in (self.invoice_agrolait, self.invoice_china_export, self.invoice_no_bic):
-            payment = invoice.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id')
-            xml_files.append(etree.fromstring(payment.generate_xml(self.sdd_company, fields.Date.today(), True)))
-        return xml_files
+        with freeze_time('2025-01-01'):  # Entered the 30-days before end date warning
+            mandates_per_validity = mandate._update_and_partition_state_by_validity()
+            self.assertTrue(mandates_per_validity['expiring'], 'The mandate is expiring soon')
 
-    @test_xsd(path='account_sepa_direct_debit/schemas/pain.008.001.08.xsd')
-    def test_xml_pain_008_001_08_generation(self):
-        self.sdd_company_bank_journal.debit_sepa_pain_version = 'pain.008.001.08'
+        with freeze_time('2025-01-31'):  # Passed the end_date, mandate must be closed
+            mandates_per_validity = mandate._update_and_partition_state_by_validity()
+            self.assertTrue(mandates_per_validity['invalid'], 'The mandate is expired')
+            self.assertEqual(mandate.state, 'closed')
 
-        xml_files = []
-        for invoice in (self.invoice_agrolait, self.invoice_china_export, self.invoice_no_bic):
-            payment = invoice.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id')
-            xml_files.append(etree.fromstring(payment.generate_xml(self.sdd_company, fields.Date.today(), True)))
+    def test_required_data(self):
+        stateless_partner = self.env['res.partner'].create({
+            'name': 'stateless partner',
+        })
+        stateless_iban_account = self.env['res.partner.bank'].create({
+            'acc_number': 'NL61INGB6008851617',
+            'partner_id': stateless_partner.id,
+        })
+        stateless_mandate = self.env['sdd.mandate'].create({
+            'partner_id': stateless_partner.id,
+            'partner_bank_id': stateless_iban_account.id,
+        })
 
-        return xml_files
+        bankless_partner = self.env['res.partner'].create({
+            'name': 'no bank partner',
+            'country_id': self.env.ref('base.nl').id,
+        })
+        not_iban_bank_account = self.env['res.partner.bank'].create({
+            'acc_number': '01',
+            'partner_id': bankless_partner.id,
+        })
+        bankless_mandate = self.env['sdd.mandate'].create({
+            'partner_id': bankless_partner.id,
+        })
+
+        # Check send and print action
+        with self.assertRaises(RedirectWarning, msg="The country of the partner should be set to go forward"):
+            stateless_mandate.action_send_and_print()
+        stateless_mandate.partner_id.country_id = self.env.ref('base.nl')
+        stateless_mandate.action_send_and_print()
+        bankless_mandate.action_send_and_print()  # You can send a mandate request without a bank, the customer should fill the field
+
+        # Check validation action
+        stateless_mandate.action_validate_mandate()
+        with self.assertRaises(UserError, msg="No partner bank should raise an error when going forward"):
+            bankless_mandate.action_validate_mandate()
+
+        bankless_mandate.partner_bank_id = not_iban_bank_account
+        with self.assertRaises(UserError, msg="The bank account isn't an iban bank account"):
+            bankless_mandate.action_validate_mandate()
+
+        bankless_mandate.partner_bank_id = self.env['res.partner.bank'].create({
+            'acc_number': 'NL43INGB9822994664',
+            'partner_id': bankless_partner.id,
+        })
+        bankless_mandate.action_validate_mandate()
+
+    @freeze_time('2024-01-01')
+    def test_collection_date(self):
+        """
+            Tests that the batch payment collection date doesn't fall inside the minimum period required for the customer and the bank to act
+            The basic idea is that these rule should all apply:
+            - the minimum period for the bank to react is,
+                - 5 days in the case of a new mandate (we check if a bank statement is matched to the payment as proof that they received it
+                - 2 days in all other cases
+            - the minimum period for the user to react (pre-notification period) is 14 days by SEPA default, overridden to 2 days in Odoo.
+              in these tests it's changed back to 14 days to test all periods separately
+        """
+        partner = self.env['res.partner'].create({
+            'name': 'partner',
+            'country_id': self.env.ref('base.nl').id,
+        })
+        iban_account = self.env['res.partner.bank'].create({
+            'acc_number': 'NL61INGB6008851617',
+            'partner_id': partner.id,
+        })
+
+        # Test minimal pre-notification period
+        with self.assertRaises(UserError, msg="Cannot have a pre-notification period under 2 days"):
+            self.env['sdd.mandate'].create({
+                'partner_id': partner.id,
+                'partner_bank_id': iban_account.id,
+                'pre_notification_period': 1,
+            })
+        mandate = self.env['sdd.mandate'].create({
+            'partner_id': partner.id,
+            'partner_bank_id': iban_account.id,
+            'pre_notification_period': 2,
+        })
+
+        mandate.pre_notification_period = 14  # Changed to 14 to simplify the following test
+        mandate.action_validate_mandate()
+
+        # Test minimal "new mandates" collection date
+        invoice = self.create_invoice(partner)
+        payment = self.pay_with_mandate(invoice)
+        unchanged_data = {
+            'payment_ids': [Command.set(payment.ids)],
+            'journal_id': payment.journal_id.id,
+        }
+        with self.assertRaises(ValidationError, msg="Collection date should not be in the 5 day period required for the bank to process"):
+            self.env['account.batch.payment'].create({
+                **unchanged_data,
+                'sdd_required_collection_date': fields.Date.context_today(mandate) + datetime.timedelta(days=4)
+            })
+
+        # Test minimal pre-notification period collection date
+        batch_payment = self.env['account.batch.payment'].create({
+            **unchanged_data,
+            'sdd_required_collection_date': fields.Date.context_today(mandate) + datetime.timedelta(days=5)
+        })
+        with self.assertRaises(UserError, msg="Collection date should not be in the pre-notification period required to allow the user to process the payment"):
+            batch_payment.validate_batch()
+        batch_payment.sdd_required_collection_date = fields.Date.context_today(mandate) + datetime.timedelta(days=14)
+        batch_payment.validate_batch()
+
+        # Test that after a mandate has been used once, the minimal period for the bank is 2 days,
+        # if the pre-notification is also 2 days it's now possible to have batches collected 2 days in the future
+        mandate.pre_notification_period = 2
+
+        # Reconcile the previous payment with a bank statement line
+        bank_statement_line = self.env['account.bank.statement.line'].create({
+            'amount': payment.amount,
+            'date': fields.Date.context_today(mandate),
+            'payment_ref': 'test',
+            'journal_id': self.company_data['default_journal_bank'].id,
+        })
+
+        st_suspense_lines = bank_statement_line._seek_for_lines()[1]
+        liquidity_line = payment._seek_for_lines()[0]
+        st_suspense_lines.account_id = liquidity_line.account_id
+        (st_suspense_lines + liquidity_line).reconcile()
+        self.assertTrue(payment.is_matched)
+
+        new_invoice = self.create_invoice(partner)
+        new_payment = self.pay_with_mandate(new_invoice)
+        unchanged_data['payment_ids'] = [Command.set(new_payment.ids)]
+        with self.assertRaises(
+                ValidationError,
+                msg="Collection date should not be in the 2 day period required for the bank to process if all the mandates are already used at least once"
+        ):
+            self.env['account.batch.payment'].create({
+                **unchanged_data,
+                'sdd_required_collection_date': fields.Date.context_today(mandate) + datetime.timedelta(days=1)
+            })
+
+        # Now, 2 days is ok
+        new_batch_payment = self.env['account.batch.payment'].create({
+            **unchanged_data,
+            'sdd_required_collection_date': fields.Date.context_today(mandate) + datetime.timedelta(days=2)
+        })
+        new_batch_payment.validate_batch()
