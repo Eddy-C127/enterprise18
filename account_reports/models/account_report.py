@@ -6188,7 +6188,10 @@ class AccountReport(models.Model):
                     self.availability_condition == 'always'
                 )
                 and
-                self.root_report_id in (self.env.ref('account_reports.profit_and_loss'), self.env.ref('account_reports.balance_sheet'))
+                self.root_report_id in (
+                    self.env.ref('account_reports.profit_and_loss', raise_if_not_found=False),
+                    self.env.ref('account_reports.balance_sheet', raise_if_not_found=False)
+                )
             )
 
     def action_download_xlsx_accounts_coverage_report(self):
