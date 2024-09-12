@@ -31,15 +31,23 @@ class HrPayrollStructure(models.Model):
         return vals
 
     def _get_domain_report(self):
-        return [
-            ('model', '=', 'hr.payslip'),
-            ('report_type', '=', 'qweb-pdf'),
-            '|',
-            ('report_name', 'ilike', 'l10n_' + self.env.company.country_code.lower()),
-            '&',
-            ('report_name', 'ilike', 'hr_payroll'),
-            ('report_name', 'not ilike', 'l10n')
-        ]
+        if self.env.company.country_code:
+            return [
+                ('model', '=', 'hr.payslip'),
+                ('report_type', '=', 'qweb-pdf'),
+                '|',
+                ('report_name', 'ilike', 'l10n_' + self.env.company.country_code.lower()),
+                '&',
+                ('report_name', 'ilike', 'hr_payroll'),
+                ('report_name', 'not ilike', 'l10n')
+            ]
+        else:
+            return [
+                ('model', '=', 'hr.payslip'),
+                ('report_type', '=', 'qweb-pdf'),
+                ('report_name', 'ilike', 'hr_payroll'),
+                ('report_name', 'not ilike', 'l10n')
+            ]
 
     name = fields.Char(required=True)
     code = fields.Char()
