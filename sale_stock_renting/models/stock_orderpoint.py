@@ -24,7 +24,9 @@ class StockWarehouseOrderpoint(models.Model):
             ('date', '<=', orderpoint.lead_days_date),
             '|',
                 ('location_id', 'in', rental_loc_ids),
-                ('location_dest_id', 'in', rental_loc_ids),
+                '|',
+                    ('location_dest_id', 'in', rental_loc_ids),
+                    ('location_final_id', 'in', rental_loc_ids),
             '|',
                 ('location_id.warehouse_id', '=', orderpoint.warehouse_id.id),
                 ('location_dest_id.warehouse_id', '=', orderpoint.warehouse_id.id)
