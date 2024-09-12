@@ -115,7 +115,7 @@ class AccountChangeLockDate(models.TransientModel):
             '|',
                 ('user_id', '=', None),
                 ('user_id', '=', self.env.user.id),
-            *expression.OR([(field, '<', self.env.company[field])] for field in soft_lock_date_fields),
+            *expression.OR([(field, '<', self.env.company[field])] for field in soft_lock_date_fields if self.env.company[field]),
             ('company_id', '=', self.env.company.id),
             ('state', '=', 'active'),  # checks the datetime
         ]
@@ -128,8 +128,8 @@ class AccountChangeLockDate(models.TransientModel):
                 self._get_active_exceptions_domain(SOFT_LOCK_DATE_FIELDS)
             )
             for field in SOFT_LOCK_DATE_FIELDS:
-                field_exceptions = exceptions.filtered(lambda e: e[field])
-                min_exception = min(field_exceptions, key=lambda e: e[field]) if field_exceptions else False
+                field_exceptions = exceptions.filtered(lambda e: e.lock_date_field == field)
+                min_exception = min(field_exceptions, key=lambda e: e[field] or date.min) if field_exceptions else False
                 wizard[f"min_{field}_exception"] = min_exception
 
     def _get_draft_moves_in_locked_period_domain(self):
@@ -172,7 +172,7 @@ class AccountChangeLockDate(models.TransientModel):
         for wizard in self:
             wizard.exception_needed = bool(wizard._get_changes_needing_exception())
 
-    def _prepare_lock_date_values(self, exception_values=None):
+    def _prepare_lock_date_values(self, exception_vals_list=None):
         """
         Return a dictionary (lock date field -> field value)
         It only contains lock dates which are changed and for which no exception is added
@@ -192,10 +192,11 @@ class AccountChangeLockDate(models.TransientModel):
                 raise UserError(_('You cannot set a Lock Date in the future.'))
 
         # We do not change fields for which we add an exception
-        if exception_values:
-            for field in LOCK_DATE_FIELDS:
-                if field in exception_values:
-                    lock_date_values.pop(field, None)
+        if exception_vals_list:
+            for exception_vals in exception_vals_list:
+                for field in LOCK_DATE_FIELDS:
+                    if field in exception_vals:
+                        lock_date_values.pop(field, None)
 
         return lock_date_values
 
@@ -210,14 +211,7 @@ class AccountChangeLockDate(models.TransientModel):
         if self.exception_applies_to == 'everyone' and self.exception_duration == 'forever':
             return False
 
-        exception_values = {
-            'company_id': self.env.company.id,
-            **changes_needing_exception
-        }
-
         exception_errors = []
-        if {field: value for field, value in changes_needing_exception.items() if not value}:
-            exception_errors.append(_('You cannot remove a lock date with an exception.'))
         if not self.exception_applies_to:
             exception_errors.append(_('You need to select who the exception applies to.'))
         if not self.exception_duration:
@@ -225,7 +219,11 @@ class AccountChangeLockDate(models.TransientModel):
         if exception_errors:
             raise UserError('\n'.join(exception_errors))
 
-        exception_values['user_id'] = {
+        exception_base_values = {
+            'company_id': self.env.company.id,
+        }
+
+        exception_base_values['user_id'] = {
             'me': self.env.user.id,
             'everyone': False,
         }[self.exception_applies_to]
@@ -238,12 +236,20 @@ class AccountChangeLockDate(models.TransientModel):
             'forever': False,
         }[self.exception_duration]
         if exception_timedelta:
-            exception_values['end_datetime'] = self.env.cr.now() + exception_timedelta
+            exception_base_values['end_datetime'] = self.env.cr.now() + exception_timedelta
 
         if self.exception_reason:
-            exception_values['reason'] = self.exception_reason
+            exception_base_values['reason'] = self.exception_reason
 
-        return exception_values
+        exception_vals_list = [
+            {
+                **exception_base_values,
+                field: value,
+             }
+            for field, value in changes_needing_exception.items()
+        ]
+
+        return exception_vals_list
 
     def _get_current_period_dates(self, lock_date_field):
         """ Gets the date_from - either the previous lock date or the start of the fiscal year.
@@ -290,11 +296,11 @@ class AccountChangeLockDate(models.TransientModel):
     def change_lock_date(self):
         self.ensure_one()
         if self.env.user.has_group('account.group_account_manager'):
-            exception_values = self._prepare_exception_values()
-            changed_lock_date_values = self._prepare_lock_date_values(exception_values=exception_values)
+            exception_vals_list = self._prepare_exception_values()
+            changed_lock_date_values = self._prepare_lock_date_values(exception_vals_list=exception_vals_list)
 
-            if exception_values:
-                self.env['account.lock_exception'].create(exception_values)
+            if exception_vals_list:
+                self.env['account.lock_exception'].create(exception_vals_list)
 
             self._change_lock_date(changed_lock_date_values)
         else:
