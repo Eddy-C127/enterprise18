@@ -18,7 +18,7 @@ class HelpdeskTicket(models.Model):
             self.env['sale.order.line']._domain_sale_line_service(),
             [
                 ('company_id', '=', unquote('company_id')),
-                ('order_partner_id', 'child_of', 'commercial_partner_id'),
+                ('order_partner_id', 'child_of', unquote('commercial_partner_id')),
             ],
         ])
         return str(domain)
