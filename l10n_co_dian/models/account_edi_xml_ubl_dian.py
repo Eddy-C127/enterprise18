@@ -347,7 +347,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         # EXTENDS account.edi.xml.ubl_20
         vals = super()._get_partner_party_vals(partner, role)
         vals['physical_location_vals'] = {'address_vals': vals.pop('postal_address_vals')}
-        vals['physical_location_vals']['address_vals']['country_vals']['name'] = COUNTRIES_ES[partner.country_code]
+        vals['physical_location_vals']['address_vals']['country_vals']['name'] = COUNTRIES_ES.get(partner.country_code)
         if partner.vat == FINAL_CONSUMER_VAT:
             vals.pop('physical_location_vals')
             vals.pop('party_legal_entity_vals')
@@ -650,7 +650,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         else:
             vals['main_template'] = 'l10n_co_dian.ubl_20_Invoice_dian'
 
-        cufe_cude_cuds_vals = "".join(self._dian_get_identifier_vals(invoice, vals).values())
+        cufe_cude_cuds_vals = "".join(str(res) for res in self._dian_get_identifier_vals(invoice, vals).values())
         vals['vals']['uuid'] = sha384(cufe_cude_cuds_vals.encode()).hexdigest()  # as stated in the "Anexo Tecnico" file, SHA384 must be used
         vals['vals']['note_vals'].append({'note': cufe_cude_cuds_vals})
         return vals
@@ -701,7 +701,7 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
                 f"dian_identification_type_{role}": self._check_required_fields(commercial_partner, 'l10n_latam_identification_type_id'),
                 f"dian_obligation_type_{role}": self._check_required_fields(commercial_partner, 'l10n_co_edi_obligation_type_ids'),
             })
-            if commercial_partner.l10n_latam_identification_type_id.l10n_co_document_code != 'rut' and '-' in commercial_partner.vat:
+            if commercial_partner.l10n_latam_identification_type_id.l10n_co_document_code != 'rut' and commercial_partner.vat and '-' in commercial_partner.vat:
                 constraints[f"dian_NIT_{role}"] = _("The identification number of %s contains '-' but is not a NIT.", commercial_partner.name)
             if vals[role].country_code == 'CO' and commercial_partner.vat != FINAL_CONSUMER_VAT:
                 constraints[f'dian_country_subentity_{role}'] = self._check_required_fields(vals[role], 'state_id')
