@@ -73,12 +73,12 @@
                 <field name="hierarchy_level">0</field>
                 <field name="children_ids">
                     <record id="account_financial_report_executivesummary_income0" model="account.report.line">
-                        <field name="name">Income</field>
+                        <field name="name">Revenue</field>
                         <field name="expression_ids">
                             <record id="account_financial_report_executivesummary_income0_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">INC.balance</field>
+                                <field name="formula">REV.balance</field>
                                 <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="auditable" eval="False"/>
@@ -119,7 +119,7 @@
                             <record id="account_financial_report_executivesummary_expenses0_balance" model="account.report.expression">
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">LEX.balance</field>
+                                <field name="formula">EXP.balance</field>
                                 <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                                 <field name="green_on_positive" eval="False"/>
@@ -218,7 +218,7 @@
                             <record id="account_financial_report_executivesummary_gpmargin0_opinc" model="account.report.expression">
                                 <field name="label">opinc</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">OPINC.balance</field>
+                                <field name="formula">REV.balance</field>
                                 <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>
@@ -302,7 +302,7 @@
                             <record id="account_financial_report_executivesummary_avdebt0_opinc" model="account.report.expression">
                                 <field name="label">opinc</field>
                                 <field name="engine">aggregation</field>
-                                <field name="formula">OPINC.balance</field>
+                                <field name="formula">REV.balance</field>
                                 <field name="date_scope">strict_range</field>
                                 <field name="subformula">cross_report</field>
                             </record>

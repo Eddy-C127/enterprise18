@@ -447,13 +447,13 @@ class TestAccountReports(TestAccountReportsCommon):
         )._create_payments()
 
         options = self._generate_options(report, '2023-07-01', '2023-07-31')
-        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_revenue0')['domain']
 
         expected_move_lines = moves.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
         self.assertEqual(moves.line_ids.search(audit_domain), expected_move_lines, "Revenue lines of both move should be returned")
 
         options['report_cash_basis'] = True
-        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_revenue0')['domain']
 
         expected_move_lines = invoice_1.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
         self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines,
@@ -464,7 +464,7 @@ class TestAccountReports(TestAccountReportsCommon):
         report = self.env.ref('account_reports.profit_and_loss')
         misc_without_receivable = self._create_misc_entry('2023-07-01', self.company_data['default_account_expense'].id, self.revenue_account_1.id)
         options = self._generate_options(report, '2023-07-01', '2023-07-31', default_options={'report_cash_basis': True})
-        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_revenue0')['domain']
         expected_move_lines = misc_without_receivable.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
         self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines,
                          "Misc entry lines should be returned, as the move has no receivable or payable line")
@@ -510,7 +510,7 @@ class TestAccountReports(TestAccountReportsCommon):
         self._create_misc_entry(invoice_date, self.receivable_account_1.id, self.revenue_account_1.id)
 
         options = self._generate_options(report, '2023-07-01', '2023-07-31', default_options={'report_cash_basis': True})
-        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_revenue0')['domain']
         self.assertEqual(self.env['account.move.line'].search(audit_domain), self.env['account.move.line'],
                          "No line should be returned, as the misc entry has a receivable line that is not reconciled")
 
@@ -546,7 +546,7 @@ class TestAccountReports(TestAccountReportsCommon):
         self._reconcile_on((misc + invoice).line_ids, tax_account)
 
         options = self._generate_options(report, '2023-07-01', '2023-07-31', default_options={'report_cash_basis': True})
-        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_income0')['domain']
+        audit_domain = self._audit_line(options, report, 'account_reports.account_financial_report_revenue0')['domain']
 
         expected_move_lines = misc.line_ids.filtered(lambda l: l.account_id == self.revenue_account_1)
         self.assertEqual(self.env['account.move.line'].search(audit_domain), expected_move_lines)

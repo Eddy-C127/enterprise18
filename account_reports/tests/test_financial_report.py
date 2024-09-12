@@ -846,7 +846,7 @@ class TestFinancialReport(TestAccountReportsCommon):
         move.action_post()
         move.line_ids.flush_recordset()
         profit_and_loss_report = self.env.ref('account_reports.profit_and_loss')
-        line_id = self._get_basic_line_dict_id_from_report_line_ref('account_reports.account_financial_report_income0')
+        line_id = self._get_basic_line_dict_id_from_report_line_ref('account_reports.account_financial_report_revenue0')
         options = self._generate_options(profit_and_loss_report, '2020-02-01', '2020-02-28')
         options['unfolded_lines'] = [line_id]
         options['hierarchy'] = True
@@ -859,9 +859,9 @@ class TestFinancialReport(TestAccountReportsCommon):
         self.assertEqual(
             unfolded_lines,
             [
-                {'level': 5, 'name': 'Operating Income'},
-                {'level': 6, 'name': '40-49 Sales'},
-                {'level': 7, 'name': '400000 Product Sales'},
+                {'level': 1, 'name': 'Revenue'},
+                {'level': 2, 'name': '40-49 Sales'},
+                {'level': 3, 'name': '400000 Product Sales'},
             ]
         )
 
@@ -885,7 +885,7 @@ class TestFinancialReport(TestAccountReportsCommon):
         move.action_post()
         move.line_ids.flush_recordset()
         profit_and_loss_report = self.env.ref('account_reports.profit_and_loss')
-        line_id = self._get_basic_line_dict_id_from_report_line_ref('account_reports.account_financial_report_income0')
+        line_id = self._get_basic_line_dict_id_from_report_line_ref('account_reports.account_financial_report_revenue0')
         options = self._generate_options(profit_and_loss_report, '2020-02-01', '2020-02-28')
         options['unfolded_lines'] = [line_id]
         options['hierarchy'] = True
@@ -896,18 +896,17 @@ class TestFinancialReport(TestAccountReportsCommon):
         self.assertEqual(
             lines_array,
             [
+                {'name': 'Revenue', 'level': 1},
+                {'name': '(No Group)', 'level': 2},
+                {'name': '400000 Product Sales', 'level': 3},
+                {'name': 'Less Costs of Revenue', 'level': 1},
+                {'name': 'Gross Profit', 'level': 0},
+                {'name': 'Less Operating Expenses', 'level': 1},
+                {'name': 'Operating Income (or Loss)', 'level': 0},
+                {'name': 'Plus Other Income', 'level': 1},
+                {'name': 'Less Other Expenses', 'level': 1},
                 {'name': 'Net Profit', 'level': 0},
-                {'name': 'Income', 'level': 0},
-                {'name': 'Gross Profit', 'level': 3},
-                {'name': 'Operating Income', 'level': 5},
-                {'name': '(No Group)', 'level': 6},
-                {'name': '400000 Product Sales', 'level': 7},
-                {'name': 'Cost of Revenue', 'level': 5},
-                {'name': 'Other Income', 'level': 3},
-                {'name': 'Expenses', 'level': 0},
-                {'name': 'Expenses', 'level': 3},
-                {'name': 'Depreciation', 'level': 3}
             ]
         )
 
-        self.assertEqual(lines[4]['id'], lines[3]['id'] + '|' + '~account.group~')
+        self.assertEqual(lines[1]['id'], lines[0]['id'] + '|' + '~account.group~')
