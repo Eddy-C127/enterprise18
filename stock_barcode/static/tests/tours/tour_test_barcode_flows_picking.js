@@ -2029,6 +2029,10 @@ registry.category("web_tour.tours").add('test_delivery_different_products_with_s
     },
 
     {
+        trigger: '.o_barcode_line:has(.o_product_label:contains(productlot1)) .qty-done:contains(2)',
+    },
+
+    {
         trigger: '.o_barcode_client_action',
         run: 'scan productlot2',
     },
@@ -2041,6 +2045,10 @@ registry.category("web_tour.tours").add('test_delivery_different_products_with_s
     {
         trigger: '.o_barcode_client_action',
         run: 'scan lot1',
+    },
+
+    {
+        trigger: '.o_barcode_line:has(.o_product_label:contains(productlot2)) .qty-done:contains(2)',
     },
     // Open the form view to trigger a save
     {
