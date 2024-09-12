@@ -37,7 +37,10 @@
                 <!-- <button string="Create Payment Report" name="action_payment_report" type="object" class="oe_highlight" invisible="state != 'close' or country_code != 'AU'"/> -->
             </button>
             <button name="action_paid" position="attributes">
-                <attribute name="invisible">l10n_au_stp_status != 'submitted' and country_code == 'AU'</attribute>
+                <attribute name="invisible" separator=" or " add="(l10n_au_stp_status != 'sent' and country_code == 'AU')"/>
+            </button>
+            <button name="action_payment_report" position="attributes">
+                <attribute name="invisible" separator=" or " add="(l10n_au_stp_status != 'sent' and country_code == 'AU')"/>
             </button>
             <field name="payment_report" position="after">
                 <field name="l10n_au_stp_status" readonly="1" groups="base.group_no_one"/>

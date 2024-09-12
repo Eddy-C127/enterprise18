@@ -37,6 +37,7 @@ Accounting Data for Australian Payroll Rules.
         "wizard/l10n_au_stp_submit.xml",
         "wizard/l10n_au_previous_payroll_transfer_views.xml",
         "wizard/l10n_au_payroll_finalisation_views.xml",
+        "wizard/l10n_au_stp_ffr_views.xml",
         "security/ir.model.access.csv",
         "security/ir_rule.xml",
     ],

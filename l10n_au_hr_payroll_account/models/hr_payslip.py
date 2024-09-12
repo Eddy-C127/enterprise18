@@ -3,6 +3,7 @@
 
 from odoo import api, Command, fields, models, _
 from odoo.exceptions import UserError
+from odoo.tools import format_list
 
 
 class HrPayslip(models.Model):
@@ -20,7 +21,9 @@ class HrPayslip(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         payslips = super().create(vals_list)
-        payslips._add_to_stp()
+        au_payslips = payslips.filtered(lambda p: p.country_code == 'AU')
+        if au_payslips:
+            au_payslips._add_to_stp()
         return payslips
 
     @api.depends('state')
@@ -37,7 +40,8 @@ class HrPayslip(models.Model):
             elif payslip.state not in ('done', 'paid'):
                 payslip.l10n_au_stp_status = 'draft'
             else:
-                stp = stp_records.filtered(lambda r: payslip in r.payslip_ids)
+                # Use latest STP record for the payslip for ffr
+                stp = stp_records.filtered(lambda r: payslip in r.payslip_ids)[:1]
                 payslip.l10n_au_stp_status = 'sent' if stp.state == 'sent' else 'ready'
 
     def action_payslip_done(self):
@@ -47,6 +51,55 @@ class HrPayslip(models.Model):
         """
         super().action_payslip_done()
         self.filtered(lambda p: p.country_code == 'AU')._add_payslip_to_superstream()
+        # If the payslip is part of a FFR STP, find a payment to reconcile
+        clearing_house = self.env.ref('l10n_au_hr_payroll_account.res_partner_clearing_house', raise_if_not_found=False)
+        if not clearing_house:
+            raise UserError(_("No clearing house record found for this company!"))
+        super_account = clearing_house.property_account_payable_id
+        failed_reconciliation = []
+        for payslip in self:
+            if payslip.country_code != 'AU':
+                continue
+            stp_reports = self.env['l10n_au.stp'].search([('payslip_ids', '=', payslip.id), ('ffr', '=', True)])
+            if not stp_reports.filtered(lambda r: payslip in r.payslip_ids):
+                continue
+            # Auto post and reconcile the existing payment
+            payslip.move_id._post(soft=False)
+            if payslip.payslip_run_id:
+                payments = payslip.payslip_run_id.l10n_au_payment_batch_id\
+                    .payment_ids.filtered(lambda p: p.partner_id == payslip.employee_id.work_contact_id and not p.is_reconciled)
+            else:
+                payments = self.env["account.payment"].search(
+                    [
+                        ("partner_id", "=", payslip.employee_id.work_contact_id.id),
+                        ("is_reconciled", "=", False),
+                        ("payment_type", "=", "outbound"),
+                        ("date", "=", payslip.paid_date),
+                    ]
+                )
+            if len(payments) == 1:
+                valid_accounts = self.env['account.payment']\
+                    .with_context(hr_payroll_payment_register=True)\
+                    ._get_valid_payment_account_types()
+                lines_to_reconcile = self.move_id.line_ids.filtered(
+                    lambda line: line.account_id != super_account
+                    and line.account_id.account_type in valid_accounts
+                    and not line.currency_id.is_zero(line.amount_residual_currency)
+                )
+                payment_lines = payments.line_ids.filtered_domain([
+                    ('parent_state', '=', 'posted'),
+                    ('account_type', 'in', valid_accounts),
+                    ('reconciled', '=', False),
+                ])
+                (lines_to_reconcile + payment_lines).reconcile()
+            else:
+                failed_reconciliation.append(payslip.name)
+        if failed_reconciliation:
+            return {'warning': {
+                'title': _("Warning"),
+                'message': _(
+                    "Failed to reconcile the following payslips with their payments: %s", format_list(self.env, failed_reconciliation))
+            }}
 
     def _clear_super_stream_lines(self):
         to_delete = self.env["l10n_au.super.stream.line"].search([('payslip_id', 'in', self.ids)])
@@ -58,7 +111,8 @@ class HrPayslip(models.Model):
 
     def action_payslip_draft(self):
         self._clear_super_stream_lines()
-        if not self.env.context.get("allow_ffr") and any(state == 'sent' for state in self.mapped("l10n_au_stp_status")):
+        au_slips = self.filtered(lambda p: p.country_code == 'AU')
+        if not self.env.context.get("allow_ffr") and any(state == 'sent' for state in au_slips.mapped("l10n_au_stp_status")):
             raise UserError(_("A payslip cannot be reset to draft after submitting to ATO."))
         return super().action_payslip_draft()
 

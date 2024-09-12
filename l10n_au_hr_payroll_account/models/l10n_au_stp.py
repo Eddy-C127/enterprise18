@@ -2,7 +2,7 @@
 
 import base64
 from lxml import etree
-from datetime import date
+from datetime import date, timedelta
 from collections import defaultdict
 import re
 import logging
@@ -58,6 +58,8 @@ class L10nAuSTP(models.Model):
     ffr = fields.Boolean(
         string="Full File Replacement",
         help="Indicates if this report should replace the previous report with the same transaction identifier")
+    is_replaced = fields.Boolean("Is Replaced")
+    file_replacement_message = fields.Char(readonly=True, compute="_compute_file_replacement_message")
     previous_report_id = fields.Many2one(
         "l10n_au.stp", string="Previous Report",
         help="Report which you are updating")
@@ -77,7 +79,7 @@ class L10nAuSTP(models.Model):
         ("done", "Valid"),
         ("invalid", "Invalid"),
     ], default="normal")
-    error_message = fields.Char("Error Message")
+    error_message = fields.Text("Error Message", readonly=True)
     warning_message = fields.Char(compute="_compute_warning_message")
     l10n_au_stp_emp = fields.One2many("l10n_au.stp.emp", "stp_id", string="Employees")
     is_finalisation = fields.Boolean(readonly=True)
@@ -116,6 +118,8 @@ class L10nAuSTP(models.Model):
             else:
                 period = self.payslip_ids and self.payslip_ids[0]._get_period_name({})
                 report.name = f"Out of Cycle Reporting - {period}"
+            if report.ffr:
+                report.name += " (FFR)"
 
     def _compute_warning_message(self):
         for report in self:
@@ -140,10 +144,10 @@ class L10nAuSTP(models.Model):
         for report in self:
             report.file_replacement_message = False
             replacement_report = self.search([("previous_report_id", "=", report.id), ("ffr", "=", True)])
-            if replacement_report and replacement_report.state == "sent":
-                report.file_replacement_message = _("This report is a Full File Replacement for %s.\n") % replacement_report.name
-            elif replacement_report:
-                report.file_replacement_message = _("This submission has been replaced by %s. Please submit the new report.", (replacement_report.name))
+            if report.ffr:
+                report.file_replacement_message = _("This report is a Full File Replacement for %s.\n", (report.previous_report_id.name))
+            elif replacement_report or (report.is_replaced and report.previous_report_id):
+                report.file_replacement_message = _("This submission has been replaced by %s. Please check the new report.", (replacement_report.name))
 
     def _get_fiscal_year_start(self):
         self.ensure_one()
@@ -184,7 +188,7 @@ class L10nAuSTP(models.Model):
 
             # Dont allow the same payslip or batch to be submitted twice
             if (
-                report.payevent_type == "submit"
+                report.payevent_type == "submit" and not report.ffr and self != report.previous_report_id
                 and self.search(
                     [
                         ("payslip_ids", "in", report.payslip_ids.ids),
@@ -201,9 +205,6 @@ class L10nAuSTP(models.Model):
 
     def _get_complex_rendering_data(self):
         payslips_ids = self.payslip_ids if self.payevent_type == 'submit' else self.l10n_au_stp_emp.payslip_ids
-        today = fields.Date.today()
-        financial_year = today.year if today.month > 6 else today.year - 1
-        start_financial_year = date(financial_year, 7, 1)
         employees = payslips_ids.employee_id
 
         # == Date and Run Date ==
@@ -211,10 +212,6 @@ class L10nAuSTP(models.Model):
             run_date = self.payslip_batch_id.payment_report_date or self.create_date
             submit_date = self.payslip_batch_id.payment_report_date or self.create_date
         elif self.payevent_type == "update":
-            # run_date = self.payslip_batch_id.payment_report_date or self.create_date
-            # submit_date = self.submit_date or self.create_date
-            # if self.submit_date < start_financial_year:
-            #     submit_date = start_financial_year
             submit_date = self.submit_date
             run_date = self.create_date
 
@@ -646,8 +643,16 @@ class L10nAuSTP(models.Model):
             ["l10n_au_hr_payroll_account.l10n_au_activity_submit_stp"],
             feedback=f"Submitted to ATO by {self.env.user.name}")
 
+        if self.ffr:
+            self.previous_report_id.message_post(
+                body=_("A replacement file has been submitted for this report. Please check the new report. %s", (self._get_html_link())
+            ))
+
     def action_replace_file(self):
         self.ensure_one()
+        if self.ffr and (self.create_date - fields.Datetime.now()) < timedelta(hours=24):
+            raise ValidationError(_("The replacement report has been submitted less than 24 hours ago. Please try again later."))
+
         if self.state != "sent" and not self.file_replacement_message:
             raise ValidationError(_("The report must be in the 'Submitted' state to replace the file. "
             "Please make any modifications before proceeding with submission."))

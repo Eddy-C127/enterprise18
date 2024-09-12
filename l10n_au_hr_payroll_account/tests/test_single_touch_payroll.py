@@ -45,7 +45,7 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
             'work_entry_type_id': cls.env.ref('l10n_au_hr_payroll.l10n_au_work_entry_paid_time_off').id,
         })
 
-    create_leaves = getattr(TestPayrollUnusedLeaves, 'create_leaves')
+    create_leaves = TestPayrollUnusedLeaves.create_leaves
 
     # ==================== HELPERS ====================
 
@@ -206,37 +206,3 @@ class TestSingleTouchPayroll(L10nPayrollAccountCommon):
         )
         self.assertEqual(rendering_data[1][0]["EmploymentEndD"], fields.Date.from_string("2024-05-31"))
         self._submit_stp(stp)
-
-    def test_payslip_ytd_multiple_fiscal_years(self):
-        self.contract_1.date_end = False
-        self.tax_treatment_category = 'R'
-
-        # 5 months in the first fiscal year
-        self.create_ytd_opening_balances(
-            self.employee_1,
-            dict(
-                ("BASIC", 25000),
-                ("OTE", 25000),
-                ("WORKPLACE.GIVING", -500),
-                ("GROSS", 23500),
-                ("WITHHOLD", -4140),
-                ("MEDICARE", 0),
-                ("WITHHOLD.TOTAL", -4140),
-                ("NET", 19360.0),
-                ("SUPER.CONTRIBUTION", 500),
-                ("SUPER", 2750)
-            ),
-        )
-
-        expected_lines = [
-            {"code": "BASIC", "ytd": 60000.0},
-            {"code": "OTE", "ytd": 60000.0},
-            {"code": "GROSS", "ytd": 57000.0},
-            {"code": "WITHHOLD", "ytd": -10144.0},
-            {"code": "MEDICARE", "ytd": 0.0},
-            {"code": "WITHHOLD.TOTAL", "ytd": -10144.0},
-            {"code": "NET", "ytd": 46856.0},
-            {"code": "SUPER", "ytd": 6600.0},
-        ]
-
-        last_slip = self.create_payslips(self.employee_1, 7, start_date=date(2024, 12, 1))

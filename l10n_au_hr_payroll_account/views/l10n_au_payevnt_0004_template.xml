@@ -98,7 +98,7 @@
                     <tns:PayrollPeriod>
                         <tns:StartD t-esc="employee['StartD']"/>
                         <tns:EndD t-esc="employee['EndD']"/>
-                        <tns:RemunerationPayrollEventFinalI t-esc="employee['RemunerationPayrollEventFinalI']"/>
+                        <tns:RemunerationPayrollEventFinalI t-out="employee['RemunerationPayrollEventFinalI']"/>
                         <tns:RemunerationCollection>
                         <t t-foreach="employee['Remuneration']" t-as="Remuneration">
                             <tns:Remuneration>
