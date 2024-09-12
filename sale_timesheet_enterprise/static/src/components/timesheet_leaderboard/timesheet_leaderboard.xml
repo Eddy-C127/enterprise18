@@ -30,7 +30,6 @@
                         <span>Total: </span>
                         <span t-att-class="{'text-danger': props.leaderboard.current_employee.total_valid_time &lt; props.leaderboard.total_time_target}">
                             <t t-esc="currentTotalTimeText"/>
-                            <t t-esc="totalTimeSuffix"/>
                         </span>
                     </t>
                     <t t-else="">

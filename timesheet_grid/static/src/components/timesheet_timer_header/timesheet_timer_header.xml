@@ -2,7 +2,7 @@
 <templates xml:space="preserve">
 
     <t t-name="timesheet_grid.TimesheetTimerHeader">
-        <div class="timesheet-timer flex-grow-1 d-md-flex align-items-center px-3 py-2"
+        <div class="timesheet-timer flex-grow-1 d-md-flex align-items-center ps-3 py-2"
             t-attf-style="height: {{this.isMobile ? 'auto' : '50px'}}"
             t-att-class="props.className"
             t-on-timer-started="props.onTimerStarted"

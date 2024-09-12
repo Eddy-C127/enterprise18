@@ -3,7 +3,7 @@
 
     <t t-name="timesheet_grid.TimesheetTimerListRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary">
         <xpath expr="//div[hasclass('o_list_renderer')]" position="before">
-            <div t-if="timesheetTimerRendererHook.showTimer" class="pinned_header d-md-flex justify-content-end align-items-center bg-view border-bottom">
+            <div t-if="timesheetTimerRendererHook.showTimer" class="pinned_header d-flex flex-wrap justify-content-end align-items-center bg-view border-bottom">
                 <div class="flex-grow-1" t-key="timesheetTimerRendererHook.timerState.timesheetId">
                     <TimesheetTimerHeader
                         timesheet="timesheetTimerRendererHook.timesheet"

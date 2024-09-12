@@ -71,17 +71,28 @@ export class TimesheetLeaderboard extends Component {
     }
 
     get currentTotalTimeText() {
-        return _t("%(totalTime)s ", {
+        if (this.timesheetUOMService.timesheetWidget === "float_toggle") {
+            if (this.isMobile) {
+                return _t("%(totalTime)s d", {
+                    totalTime: this.format(this.props.leaderboard.current_employee.total_time),
+                });
+            }
+            return _t("%(totalTime)s days", {
+                totalTime: this.format(this.props.leaderboard.current_employee.total_time),
+            });
+        }
+        if (this.isMobile) {
+            return _t("%(totalTime)s h", {
+                totalTime: this.format(this.props.leaderboard.current_employee.total_time),
+            });
+        }
+        return _t("%(totalTime)s hours", {
             totalTime: this.format(this.props.leaderboard.current_employee.total_time),
         });
     }
 
     get currentTargetTotalTimeText() {
         return this.format(this.props.leaderboard.current_employee.billable_time_target);
-    }
-
-    get totalTimeSuffix() {
-        return this.timesheetUOMService.timesheetWidget === "float_toggle" ? _t(" days") : _t(" hours");
     }
 
     format(value) {

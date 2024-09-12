@@ -16,9 +16,5 @@ export function patchRenderer(Renderer) {
                 this.showLeaderboardComponent = showLeaderboardComponent;
             });
         },
-
-        get isMobile() {
-            return this.env.isSmall;
-        },
     });
 }
