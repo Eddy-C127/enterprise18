@@ -121,6 +121,7 @@
                 <filter name="my_subscriptions" string="My Subscriptions" domain="[('user_id','=',uid)]"/>
                 <field name="close_reason_id"/>
                 <field name="template_id"/>
+                <field name="company_id" groups="base.group_multi_company"/>
                 <separator/>
                 <filter name="filter_new" string="New" domain="[('event_type','=','0_creation')]"/>
                 <filter name="filter_expansion" string="Expansion" domain="[('event_type','=','1_expansion')]"/>
