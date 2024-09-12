@@ -146,7 +146,7 @@
                                                     This appointment type has no availabilities because it does not have any opening hours configured
                                                 </t>
                                             </t>
-                                            <a t-attf-href="/odoo/{main_object._name}/{main_object.id}?menu_id={backend_menu_id}" class="d-block">
+                                            <a t-attf-href="/odoo/{{main_object._name}}/{{main_object.id}}?menu_id={{backend_menu_id}}" class="d-block">
                                                 <i class="oi oi-arrow-right me-2"/><em>Configure <t t-out="appointment_type.name"/></em>
                                             </a>
                                         </div>
