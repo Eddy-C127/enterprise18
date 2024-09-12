@@ -16,6 +16,7 @@ EVENT_TYPES = [
     'order_placed', 'order_status_update',
     'rider_status_update', 'item_state_toggle', 'store_action'
 ]
+UP_LANGUAGES = ['hi', 'ar', 'ja', 'pt', 'fr', 'es']
 
 
 class UrbanPiperClient:
@@ -125,7 +126,7 @@ class UrbanPiperClient:
             'flush_options': False,
             'options': self._prepare_option_data(pos_attribute_products),                     # pos attribute values
             'flush_taxes': False,
-            'taxes': self._prepare_taxes_data(pos_products)                                   # pos taxes
+            'taxes': self.config.prepare_taxes_data(pos_products)                             # pos taxes
         }
         # If we have multiple products, we should increase the timeout to 90 seconds.
         response_json = self._make_api_request(endpoint, method='POST', data=payload, timeout=90)
@@ -149,6 +150,16 @@ class UrbanPiperClient:
             self.config.urbanpiper_last_sync_date = datetime.now()
         return response_json
 
+    def _get_translations(self, field_translations, field):
+        translations = []
+        for translation in field_translations[0]:
+            lang = translation['lang'].split('_')[0]
+            translations.append({
+                'lang': lang,
+                field: translation['value']
+            }) if lang in UP_LANGUAGES else None
+        return translations
+
     def get_item_ref_id(self, product):
         return f'{product.id}-{self.db_uuid[0:5]}'
 
@@ -158,13 +169,16 @@ class UrbanPiperClient:
         """
         category_lst = []
         for category in pos_categories:
-            category_lst.append({
+            categ_dict = {
                 'ref_id': str(category.id),
                 'name': category.name,
                 'sort_order': category.sequence,
                 'active': True,
                 'img_url': self._get_public_image_url(category),
-            })
+            }
+            name_translations = category.get_field_translations('name')
+            categ_dict['translations'] = self._get_translations(name_translations, 'name')
+            category_lst.append(categ_dict)
         return category_lst
 
     def _prepare_items_data(self, pos_products):
@@ -174,22 +188,37 @@ class UrbanPiperClient:
         item_lst = []
         for product in pos_products:
             product_price = product.list_price if not self.config.urbanpiper_pricelist_id \
-                else self.config.urbanpiper_pricelist_id._get_product_price(
+                else self.config.urbanpiper_pricelist_id.sudo()._get_product_price(
                 product, 1.0, uom=product.uom_id
             )
-            item_lst.append({
+            item = {
                 'ref_id': self.get_item_ref_id(product),
                 'title': product.name,
                 'description': html2plaintext(product.public_description) if product.public_description else '',
                 'price': product.taxes_id.compute_all(
-                    product_price, product.currency_id, 1)['total_excluded'],
+                    product_price, product.currency_id, 1)[self.config._get_total_tax_tag()],
                 'weight': product.weight,
                 'food_type': product.urbanpiper_meal_type,
                 'category_ref_ids': [str(i) for i in product.pos_categ_ids.ids],
                 'recommended': product.is_recommended_on_urbanpiper,
                 'img_url': self._get_public_image_url(product),
                 'available': True,
-            })
+            }
+            name_translations = product.get_field_translations('name')
+            description_translations = product.get_field_translations('public_description')
+            translations = []
+            name_dict = {t['lang'].split('_')[0]: t['value'] for t in name_translations[0] if t['lang'].split('_')[0] in UP_LANGUAGES}
+            desc_dict = {t['lang'].split('_')[0]: t['value'] for t in description_translations[0] if t['lang'].split('_')[0] in UP_LANGUAGES}
+            for lang in UP_LANGUAGES:
+                if lang in name_dict or lang in desc_dict:
+                    translations.append({
+                        'language': lang,
+                        'title': name_dict.get(lang, ''),
+                        'description': desc_dict.get(lang, '')
+                    })
+            item['translations'] = translations
+            updated_item = self.config.update_items_disc(product, item)
+            item_lst.append(updated_item)
         return item_lst
 
     def _prepare_option_groups_data(self, pos_products):
@@ -210,6 +239,8 @@ class UrbanPiperClient:
                 if attr_line.attribute_id.display_type != 'multi':
                     group['min_selectable'] = 1
                     group['max_selectable'] = 1
+                name_translations = attr_line.attribute_id.get_field_translations('name')
+                group['translations'] = self._get_translations(name_translations, 'title')
                 attribute_lst.append(group)
         return attribute_lst
 
@@ -226,39 +257,17 @@ class UrbanPiperClient:
                         ('product_tmpl_id', '=', product.id),
                         ('product_attribute_value_id', '=', option.id)
                     ])
-                    value_lst.append({
+                    value_dict = {
                         'ref_id': f'{product.id}-{option.id}',
                         'title': option.name,
                         'available': True,
                         'opt_grp_ref_ids': [f'{product.id}-{i}' for i in option.attribute_id.ids],
                         'price': product_option.price_extra or option.default_extra_price
-                    })
+                    }
+                    name_translations = option.get_field_translations('name')
+                    value_dict['translations'] = self._get_translations(name_translations, 'title')
+                    value_lst.append(value_dict)
         return value_lst
-
-    def _prepare_taxes_data(self, pos_products):
-        """
-        Prepare taxes data for urban piper.
-        """
-        tax_lst = []
-        for tax in pos_products.taxes_id:
-            if tax.type_tax_use == 'sale' and tax.tax_group_id.name == 'GST':
-                product = pos_products.filtered(lambda p: tax.id in p.taxes_id.ids)
-                tax_lines = tax.flatten_taxes_hierarchy()
-                for tax in tax_lines:
-                    if tax.tax_group_id.name in ['SGST', 'CGST']:
-                        tax_lst.append(
-                            {
-                                'code': f'{tax.tax_group_id.name}_P',
-                                'title': tax.tax_group_id.name,
-                                'description': f'{tax.amount}% {tax.tax_group_id.name} on product price.',
-                                'active': True,
-                                'structure': {
-                                    'value': tax.amount
-                                },
-                                'item_ref_ids': [self.get_item_ref_id(p) for p in product]
-                            }
-                        )
-        return tax_lst
 
     def register_item_toggle(self, products, status):
         """
@@ -297,10 +306,10 @@ class UrbanPiperClient:
         """
         Change store status in urban piper.
         """
-        for platform in ['zomato', 'swiggy']:
+        for delivery_provider in self.config.urbanpiper_delivery_provider_ids:
             payload = {
                 'location_ref_id': self.config.urbanpiper_store_identifier,
-                'platforms': [platform],
+                'platforms': [delivery_provider.technical_name],
                 'action': status and 'enable' or 'disable',
             }
             response_json = self._make_api_request('hub/api/v1/location/', data=payload)

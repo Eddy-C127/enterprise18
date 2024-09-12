@@ -12,11 +12,11 @@
         </xpath>
         <xpath expr="//div[hasclass('order-row')]//div[8]" position="after">
             <div class="col p-2">
-                <t t-if="order.delivery_channel">
+                <t t-if="order.delivery_provider_id">
                     <t t-set="order_otp" t-value="fetchOrderOtp()"/>
                     <div class="d-flex">
-                        <t t-esc="order.delivery_channel"/> -
-                        <t t-if="order_otp" t-esc="order_otp"/>
+                        <t t-esc="order.delivery_provider_id.name"/>
+                        <t t-if="order_otp"> - <t t-esc="order_otp"/></t>
                     </div>
                 </t>
                 <t t-else="">

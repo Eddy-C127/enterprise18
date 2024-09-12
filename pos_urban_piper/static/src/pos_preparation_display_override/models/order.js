@@ -5,7 +5,7 @@ patch(Order.prototype, {
     setup(order) {
         super.setup(order);
         this.delivery_status = order.delivery_status;
-        this.delivery_channel = order.delivery_channel;
+        this.delivery_provider_id = order.delivery_provider_id;
         this.delivery_identifier = order.delivery_identifier;
         this.prep_time = order.prep_time;
         this.order_otp = order.order_otp;

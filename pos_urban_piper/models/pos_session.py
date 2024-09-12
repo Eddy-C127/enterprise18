@@ -1,8 +1,14 @@
-from odoo import models
+from odoo import models, api
 
 
 class PosSession(models.Model):
     _inherit = 'pos.session'
+
+    @api.model
+    def _load_pos_data_models(self, config_id):
+        data = super()._load_pos_data_models(config_id)
+        data += ['pos.delivery.provider']
+        return data
 
     def get_closing_control_data(self):
         data = super().get_closing_control_data()

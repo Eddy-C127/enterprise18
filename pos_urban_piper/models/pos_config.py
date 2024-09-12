@@ -1,7 +1,7 @@
 import secrets
 import psycopg2
 
-from odoo import fields, models, api, SUPERUSER_ID, _
+from odoo import fields, models, api, Command, SUPERUSER_ID, _
 from odoo.exceptions import ValidationError, UserError
 from odoo.modules.registry import Registry
 from odoo.tools import SQL
@@ -26,11 +26,20 @@ class PosConfig(models.Model):
         """
         return secrets.token_hex()
 
-    def _default_urbanpiper_pricelist_id(self):
-        return self.env.ref('pos_urban_piper.pos_product_pricelist_urbanpiper', False)
+    def _default_urbanpiper_pricelist(self):
+        return self.env['product.pricelist'].search([
+            ('name', 'ilike', 'Urbanpiper'),
+            ('currency_id', '=', self.env.company.currency_id.id),
+            ('company_id', '=', self.env.company.id)
+        ], limit=1)
 
-    def _default_urbanpiper_fiscal_position_id(self):
-        return self.env.ref('pos_urban_piper.pos_account_fiscal_position_urbanpiper', False)
+    def _default_urbanpiper_delivery_providers(self):
+        return self.env['pos.delivery.provider'].search([('available_country_ids', 'in', self.env.company.ids)])
+
+    def _default_urbanpiper_fiscal_position(self):
+        fiscal_position = self.env.ref('pos_urban_piper.pos_account_fiscal_position_urbanpiper', False)
+        if fiscal_position and fiscal_position.sudo().company_id.id == self.env.company.id:
+            return fiscal_position
 
     urbanpiper_store_identifier = fields.Char(
         string='Urban Piper POS ID',
@@ -42,13 +51,14 @@ class PosConfig(models.Model):
         'product.pricelist',
         string='Urban Piper Pricelist',
         help='Pricelist for Urban Piper sync menu.',
-        default=_default_urbanpiper_pricelist_id,
+        default=_default_urbanpiper_pricelist,
     )
     urbanpiper_fiscal_position_id = fields.Many2one(
         'account.fiscal.position',
+        check_company=True,
         string='Urban Piper Fiscal Position',
         help='Fiscal position for Urban Piper sync menu.',
-        default=_default_urbanpiper_fiscal_position_id,
+        default=_default_urbanpiper_fiscal_position,
     )
     urbanpiper_payment_methods_ids = fields.Many2many(
         'pos.payment.method',
@@ -60,6 +70,12 @@ class PosConfig(models.Model):
     urbanpiper_webhook_url = fields.Char(
         string='Register Urbanpiper Webhook URL',
         help='Store webhook url (base url) for security.'
+    )
+    urbanpiper_delivery_provider_ids = fields.Many2many(
+        'pos.delivery.provider',
+        string='Delivery Providers',
+        help='The delivery providers used for online delivery through UrbanPiper.',
+        default=_default_urbanpiper_delivery_providers,
     )
 
     _sql_constraints = [('urbanpiper_store_identifier_uniq',
@@ -102,7 +118,7 @@ class PosConfig(models.Model):
         res = super().write(vals)
         for config in self:
             if (config.module_pos_urban_piper or vals.get('module_pos_urban_piper')) and vals.get('urbanpiper_store_identifier'):
-                if not config.urbanpiper_payment_methods_ids:
+                if not config.urbanpiper_payment_methods_ids or vals.get('urbanpiper_delivery_provider_ids'):
                     config._setup_journals_and_payment_methods()
                 config._configure_fiscal_position_and_pricelist()
         return res
@@ -112,34 +128,31 @@ class PosConfig(models.Model):
         Fetch or create payment methods and enable option fiscal taxes.
         """
         self.ensure_one()
-        journals = [
-            {'name': 'Zomato', 'code': 'ZMT'},
-            {'name': 'Swiggy', 'code': 'SWY'},
-        ]
-        for journal_info in journals:
+        delivery_providers = self.urbanpiper_delivery_provider_ids
+        for delivery_provider in delivery_providers:
             journal = self.env['account.journal'].sudo().search([
-                ('code', '=', f"{journal_info['code']}{self.id}"),
+                ('code', '=', f"{delivery_provider.journal_code}{self.id}"),
                 ('company_id', '=', self.company_id.id),
             ], limit=1)
             if not journal:
                 journal = self.env['account.journal'].sudo().create({
-                    'name': f"{journal_info['name']} - {self.name}",
-                    'code': f"{journal_info['code']}{self.id}",
+                    'name': f"{delivery_provider.name} - {self.name}",
+                    'code': f"{delivery_provider.journal_code}{self.id}",
                     'type': 'bank',
                     'company_id': self.company_id.id,
                 })
             payment_method = self.env['pos.payment.method'].sudo().search([
                 ('journal_id', '=', journal.id),
                 ('is_delivery_payment', '=', True),
-                ('delivery_provider', '=', journal_info['name'].lower()),
+                ('delivery_provider_id', '=', delivery_provider.id),
             ], limit=1)
             if not payment_method:
                 payment_method = self.env['pos.payment.method'].sudo().create({
-                    'name': f"{journal_info['name']} - {self.name}",
+                    'name': f"{delivery_provider.name} - {self.name}",
                     'journal_id': journal.id,
                     'company_id': self.company_id.id,
                     'is_delivery_payment': True,
-                    'delivery_provider': journal_info['name'].lower()
+                    'delivery_provider_id': delivery_provider.id
                 })
             self.urbanpiper_payment_methods_ids |= payment_method
 
@@ -148,12 +161,30 @@ class PosConfig(models.Model):
         Set taxes in fiscal position for urban piper.
         """
         self.ensure_one()
-        fiscal_position = self.env.ref('pos_urban_piper.pos_account_fiscal_position_urbanpiper', False)
+        fiscal_position = self.urbanpiper_fiscal_position_id or self.env.ref('pos_urban_piper.pos_account_fiscal_position_urbanpiper', False)
+        if fiscal_position.sudo().company_id.id != self.company_id.id:
+            fiscal_position = self.env['account.fiscal.position'].create({
+                'name': 'UrbanPiper'
+            })
         if self.module_pos_urban_piper:
             if not self.urbanpiper_fiscal_position_id:
                 self.urbanpiper_fiscal_position_id = fiscal_position
             if not self.urbanpiper_pricelist_id:
-                self.urbanpiper_pricelist_id = self.env.ref('pos_urban_piper.pos_product_pricelist_urbanpiper', False)
+                pricelist = self.env['product.pricelist'].search([
+                    ('name', 'ilike', 'UrbanPiper'),
+                    ('currency_id', '=', self.company_id.currency_id.id),
+                    ('company_id', '=', self.company_id.id)
+                ])
+                if not pricelist:
+                    pricelist = self.env['product.pricelist'].create({
+                        'name': 'UrbanPiper',
+                        'currency_id': self.company_id.currency_id.id,
+                        'item_ids': [Command.create({
+                            'compute_price': 'percentage',
+                            'percent_price': -30,
+                        })]
+                    })
+                self.urbanpiper_pricelist_id = pricelist.id
         source_taxes = self.env['account.tax'].search([('type_tax_use', '=', 'sale'), ('company_id', '=', self.company_id.id)])
         if fiscal_position and fiscal_position.tax_ids.tax_src_id.ids != source_taxes.ids:
             lines = []
@@ -162,6 +193,18 @@ class PosConfig(models.Model):
                     'tax_src_id': tax.id,
                 }))
             fiscal_position.tax_ids = lines
+
+    def prepare_taxes_data(self, pos_products):
+        """
+        Prepare taxes data for urban piper for sync menu.
+        """
+        return []
+
+    def update_items_disc(self, product, item_dict):
+        """
+        Update tags in urban piper for sync menu.
+        """
+        return item_dict
 
     def update_store_status(self, status):
         """
@@ -194,7 +237,7 @@ class PosConfig(models.Model):
         Make payment for order of urban piper orders.
         """
         self.ensure_one()
-        payment_method = self.urbanpiper_payment_methods_ids.filtered(lambda pm: pm.delivery_provider == order.delivery_channel.lower())
+        payment_method = self.urbanpiper_payment_methods_ids.filtered(lambda pm: pm.delivery_provider_id.id == order.delivery_provider_id.id)
         if not payment_method:
             payment_method = self.urbanpiper_payment_methods_ids[0]
         context_payment = {
@@ -242,6 +285,10 @@ class PosConfig(models.Model):
         }
         return combined_data
 
+    def _get_total_tax_tag(self):
+        self.ensure_one()
+        return 'total_included'
+
     def _get_urbanpiper_order_count(self):
         """
         Updates order count whenever order status changes and when new order receives
@@ -252,16 +299,16 @@ class PosConfig(models.Model):
         session_id = self.current_session_id.id
         order_statuses = ['placed', 'acknowledged', 'food_ready', 'dispatched', 'completed']
         order_count_data = {}
-        for provider in ['Zomato', 'Swiggy']:
+        for provider in self.urbanpiper_delivery_provider_ids:
             order_counts = {
                 status: self.env['pos.order'].search_count([
                     ('delivery_status', '=', status),
-                    ('delivery_channel', '=', provider),
+                    ('delivery_provider_id', '=', provider.id),
                     ('session_id', '=', session_id),
                     ('state', '!=', 'cancel')
                 ]) for status in order_statuses
             }
-            order_count_data[provider] = {
+            order_count_data[provider.technical_name] = {
                 'awaiting': order_counts['placed'],
                 'preparing': order_counts['acknowledged'],
                 'done': order_counts['food_ready'] + order_counts['dispatched'] + order_counts['completed']
@@ -272,14 +319,13 @@ class PosConfig(models.Model):
         """
         Fetch delivery providers for pos ui
         """
-        providers = ['Zomato', 'Swiggy']
         urbanpiper_providers = []
-        for provider in providers:
+        for provider in self.urbanpiper_delivery_provider_ids or []:
             urbanpiper_providers.append({
-                'code': provider,
-                'name': provider,
-                'image': f'/pos_urban_piper/static/img/{provider}.svg',
-                'id': providers.index(provider) + 1
+                'code': provider.technical_name,
+                'name': provider.name,
+                'image': provider.image_128,
+                'id': provider.id
             })
         return urbanpiper_providers
 
@@ -316,11 +362,11 @@ class PosConfig(models.Model):
         user_name = self.env['ir.config_parameter'].sudo().get_param('pos_urban_piper.urbanpiper_username', False)
         api_key = self.env['ir.config_parameter'].sudo().get_param('pos_urban_piper.urbanpiper_apikey', False)
         if not user_name:
-            msg += _('Urban Piper Username is required.\n')
+            msg += _('UrbanPiper Username is required.\n')
         if not api_key:
-            msg += _('Urban Piper API Key is required.\n')
+            msg += _('UrbanPiper API Key is required.\n')
         if not self.urbanpiper_store_identifier and store_required:
-            msg += _('Urban Piper Store ID is required.\n')
+            msg += _('UrbanPiper Store ID is required.\n')
         if msg:
             raise UserError(msg)
 

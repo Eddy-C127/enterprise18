@@ -38,7 +38,7 @@ patch(TicketScreen.prototype, {
             DELIVERYPROVIDER: {
                 repr: (order) => order.get_delivery_provider_name(),
                 displayName: _t("Delivery Channel"),
-                modelField: "delivery_channel",
+                modelField: "delivery_provider_id.name",
             },
             ORDERSTATUS: {
                 repr: (order) => order.get_order_status(),
@@ -62,7 +62,7 @@ patch(TicketScreen.prototype, {
         const stateOverride = {
             search: {
                 fieldName: "DELIVERYPROVIDER",
-                searchTerm: order?.delivery_channel,
+                searchTerm: order?.delivery_provider_id?.name,
             },
             filter: filterState,
         };

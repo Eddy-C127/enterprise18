@@ -33,9 +33,11 @@ patch(PosStore.prototype, {
             return await this.loadServerOrders([
                 ["company_id", "=", this.config.company_id.id],
                 ["state", "=", "draft"],
-                "|",
-                ["pos_reference", "ilike", "Zomato"],
-                ["pos_reference", "ilike", "Swiggy"],
+                [
+                    "delivery_provider_id",
+                    "in",
+                    this.config.urbanpiper_delivery_provider_ids.map((provider) => provider.id),
+                ],
             ]);
         } else {
             return await super.getServerOrders(...arguments);
@@ -74,7 +76,7 @@ patch(PosStore.prototype, {
                             const stateOverride = {
                                 search: {
                                     fieldName: "DELIVERYPROVIDER",
-                                    searchTerm: deliveryOrder?.delivery_channel,
+                                    searchTerm: deliveryOrder?.delivery_provider_id.name,
                                 },
                                 filter: "ACTIVE_ORDERS",
                             };

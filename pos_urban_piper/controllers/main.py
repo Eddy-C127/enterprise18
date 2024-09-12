@@ -97,13 +97,6 @@ class PosUrbanPiperController(http.Controller):
             pos_config.log_xml("Payload - %s. Error - %s" % (data, error), 'urbanpiper_webhook_%s' % (event_type))
             _logger.warning("UrbanPiper: %r", error)
 
-    def _currency_convert(self, value):
-        return request.env.ref('base.INR')._convert(
-                value,
-                request.env.company.currency_id,
-                round=False,
-            )
-
     def _create_order(self, data):
         order = data['order']
         customer = data['customer']
@@ -146,7 +139,13 @@ class PosUrbanPiperController(http.Controller):
             if data:
                 return data.get('estimated') or data.get('max')
 
-        lines = [self._create_order_line(line) for line in order['items']]
+        pos_delivery_provider = request.env['pos.delivery.provider'].sudo().search([('technical_name', '=', details['channel'])], limit=1)
+        if not pos_delivery_provider:
+            _logger.warning("UrbanPiper: Delivery provider not found for %r", details['channel'])
+            pos_config_sudo.log_xml("UrbanPiper: - %s" % (data), 'urbanpiper_webhook_delivery_provider_not_found')
+            return exceptions.BadRequest()
+
+        lines = [self._create_order_line(line, pos_config_sudo) for line in order['items']]
         delivery_order = request.env["pos.order"].sudo().create({
             'name': order_reference,
             'partner_id': customer_sudo.id,
@@ -157,14 +156,14 @@ class PosUrbanPiperController(http.Controller):
             'company_id': pos_config_sudo.company_id.id,
             'fiscal_position_id': pos_config_sudo.urbanpiper_fiscal_position_id.id,
             'lines': lines,
-            'amount_paid': self._currency_convert(details['order_subtotal']),
-            'amount_total': self._currency_convert(details['order_subtotal']),
-            'amount_tax': self._currency_convert(details['total_taxes']),
+            'amount_paid': float(details['order_subtotal']),
+            'amount_total': float(details['order_subtotal']),
+            'amount_tax': float(details['total_taxes']),
             'amount_return': 0.0,
             'delivery_identifier': details['id'],
             'delivery_status': details['order_state'].lower(),
-            'delivery_channel': details['channel'].capitalize(),
             'general_note': details.get('instructions'),
+            'delivery_provider_id': pos_delivery_provider.id,
             'prep_time': get_prep_time(details),
             'delivery_json': json.dumps(data),
             'user_id':  pos_config_sudo.current_session_id.user_id.id,
@@ -173,7 +172,13 @@ class PosUrbanPiperController(http.Controller):
         pos_config_sudo.current_session_id.sequence_number += 1
         pos_config_sudo._send_delivery_order_count(delivery_order.id)
 
-    def _create_order_line(self, line_data):
+    def _get_tax_value(self, taxes):
+        """
+        Override in delivery provider modules.
+        """
+        return False
+
+    def _create_order_line(self, line_data, pos_config_sudo):
         value_ids_lst = []
         if line_data.get('options_to_add'):
             merchant_value_lst = [option.get('merchant_id') for option in line_data['options_to_add']]
@@ -193,24 +198,21 @@ class PosUrbanPiperController(http.Controller):
                         attribute_value_ids.append(product_option.id)
                     values_to_remove.append(value)
         variant_value_lst = [value for value in value_ids_lst if value not in values_to_remove]
-        tax_lst = []
-        for tax_line in line_data.get('taxes'):
-            tax = request.env['account.tax'].sudo().search([
-                ('tax_group_id.name', '=', tax_line.get('title')),
-                ('amount', '=', tax_line.get('rate'))
-            ], limit=1)
-            if tax:
-                tax_lst.append(tax.id)
-        parent_tax = request.env['account.tax'].sudo().search([('children_tax_ids', 'in', tax_lst)])
+        line_tax = self._get_tax_value(line_data.get('taxes', []))
         main_product = self._product_template_to_product_variant(int(line_data['merchant_id'].split('-')[0]), variant_value_lst)
+        price_unit = float(line_data['price'] + price_extra)
+        tax_ids_after_fiscal_position = pos_config_sudo.urbanpiper_fiscal_position_id.map_tax(line_tax)
+        taxes = tax_ids_after_fiscal_position.compute_all(price_unit, pos_config_sudo.company_id.currency_id, int(line_data['quantity']), product=main_product)
         lines = Command.create({
-            'product_id': main_product,
+            'product_id': main_product.id,
             'full_product_name': line_data['title'],
             'qty': int(line_data['quantity']),
             'attribute_value_ids': attribute_value_ids,
             'price_extra': price_extra,
-            'price_unit': float(self._currency_convert(int(line_data['price'])) + price_extra),
-            'tax_ids': [Command.link(parent_tax.id)] if parent_tax.id else None,
+            'price_unit': price_unit,
+            'price_subtotal': taxes['total_excluded'],
+            'price_subtotal_incl': taxes['total_included'],
+            'tax_ids': [Command.link(line_tax.id)] if line_tax else None,
             'note': line_data.get('instructions'),
             'uuid': str(uuid.uuid4()),
         })
@@ -233,13 +235,13 @@ class PosUrbanPiperController(http.Controller):
         products = request.env['product.product'].sudo().search([('product_tmpl_id', '=', tmpl_id)])
         if products:
             if not value_ids:
-                return products[0].id
+                return products[0]
             if len(products) == 1:
-                return products[0].id
+                return products[0]
             product = products.filtered(
                 lambda l: sorted(l.product_template_variant_value_ids.product_attribute_value_id.ids) == sorted(value_ids)
             )
-            return product.id
+            return product
 
     def _order_status_update(self, data):
         def _get_status_seq(status):

@@ -8,7 +8,7 @@ patch(PosOrder.prototype, {
     },
 
     get_delivery_provider_name() {
-        return this.delivery_channel ? this.delivery_channel : "";
+        return this.delivery_provider_id ? this.delivery_provider_id.name : "";
     },
 
     get_order_status() {
@@ -18,7 +18,7 @@ patch(PosOrder.prototype, {
     export_for_printing(baseUrl, headerData) {
         const data = super.export_for_printing(baseUrl, headerData);
         data.headerData.deliveryId = this.delivery_identifier;
-        data.headerData.deliveryChannel = this.delivery_channel;
+        data.headerData.deliveryChannel = this.delivery_provider_id?.name;
         return data;
     },
 });

@@ -65,7 +65,7 @@
                                 <div class="d-flex flex-column">
                                     <div class="text-muted fs-7">Channel</div>
                                     <div>
-                                        <t t-esc="order.delivery_channel"/> - <t t-esc="this.getOrderDetails().channelOtp"/>
+                                        <t t-esc="order.delivery_provider_id?.name"/> - <t t-esc="this.getOrderDetails().channelOtp"/>
                                     </div>
                                 </div>
                             </div>
@@ -73,20 +73,6 @@
                                 <div class="d-flex flex-column">
                                     <div class="text-muted fs-7">Outlet</div>
                                     <div><t t-esc="this.getOrderDetails().outletName"/></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <div class="col-md-6">
-                                <div class="d-flex flex-column">
-                                    <div class="text-muted fs-7">Order ID</div>
-                                    <div><t t-esc="order.delivery_identifier"/></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="d-flex flex-column">
-                                    <div class="text-muted fs-7">Order OTP</div>
-                                    <div><t t-esc="this.getOrderDetails().orderOtp"/></div>
                                 </div>
                             </div>
                         </div>
@@ -101,6 +87,20 @@
                                 <div class="d-flex flex-column">
                                     <div class="text-muted fs-7">Delivery Time/Time-Slot</div>
                                     <div><t t-esc="this.getTime(order.delivery_json?.order?.details?.delivery_datetime)"/></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <div class="d-flex flex-column">
+                                    <div class="text-muted fs-7">Order ID</div>
+                                    <div><t t-esc="order.delivery_identifier"/></div>
+                                </div>
+                            </div>
+                            <div t-if="this.getOrderDetails().orderOtp" class="col-md-6">
+                                <div class="d-flex flex-column">
+                                    <div class="text-muted fs-7">Order OTP</div>
+                                    <div><t t-esc="this.getOrderDetails().orderOtp"/></div>
                                 </div>
                             </div>
                         </div>

@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import fields, models, _
+from odoo.exceptions import UserError
 
 from .pos_urban_piper_request import UrbanPiperClient
 
@@ -52,12 +53,27 @@ class ResConfigSettings(models.TransientModel):
         help='Register webhook with Urbanpiper.',
         readonly=False
     )
+    pos_urbanpiper_delivery_provider_ids = fields.Many2many(
+        'pos.delivery.provider',
+        related='pos_config_id.urbanpiper_delivery_provider_ids',
+        string='Online Delivery Providers',
+        help='The delivery providers used for online delivery through UrbanPiper.'
+    )
 
     def urbanpiper_sync_menu(self):
         """
         Sync the menu with UrbanPiper. This will update the menu items and categories in UrbanPiper.
         """
         self.pos_config_id._check_required_request_params()
+        if not self.pos_config_id.urbanpiper_delivery_provider_ids:
+            raise UserError(_('UrbanPiper Delivery Providers are required.'))
+        for provider in self.pos_urbanpiper_delivery_provider_ids:
+            if self.pos_config_id.company_id.country_id not in provider.available_country_ids:
+                country_names = [country.name for country in provider.available_country_ids]
+                raise UserError(
+                    _('(%(provider_name)s) delivery is only available in the following countries: \n%(country_names)s',
+                    provider_name=provider.name, country_names=', '.join(country_names))
+                )
         up = UrbanPiperClient(self.pos_config_id)
         up.configure_webhook()
         response_json = up.request_sync_menu()

@@ -15,7 +15,7 @@ class PosPreparationDisplayOrder(models.Model):
                 order_otp = platform_data[0].get('extras', {}).get('order_otp', '')
             order.update({
                 'delivery_status': self.pos_order_id.delivery_status,
-                'delivery_channel': self.pos_order_id.delivery_channel,
+                'delivery_provider_id': self.pos_order_id.delivery_provider_id.id,
                 'delivery_identifier': self.pos_order_id.delivery_identifier,
                 'prep_time': self.pos_order_id.prep_time,
                 'order_otp': order_otp,

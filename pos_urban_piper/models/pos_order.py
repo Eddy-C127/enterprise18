@@ -11,9 +11,10 @@ class PosOrder(models.Model):
         ('dispatched', 'Dispatched'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled')], string='Delivery Status', help='Status of the order as provided by UrbanPiper.')
-    delivery_channel = fields.Text(
-        string='Delivery Channel',
-        help='Platform through which the order was created, e.g., Zomato, Swiggy.'
+    delivery_provider_id = fields.Many2one(
+        'pos.delivery.provider',
+        string='Delivery Provider',
+        help='Responsible delivery provider for online order, e.g., UberEats, Zomato.'
     )
     delivery_identifier = fields.Char(string='Delivery ID', help='Unique delivery ID provided by UrbanPiper.')
     delivery_json = fields.Json(string='Delivery JSON', help='JSON data of the order.', store=True)

@@ -24,10 +24,11 @@ class ProductTemplate(models.Model):
         string='Stores',
         help='Handle products with urban piper and pos config - Product is linked or not with appropriate store.'
     )
+    is_alcoholic_on_urbanpiper = fields.Boolean(string='Is Alchoholic', help='Indicates if the product contains alcohol.')
 
     def write(self, vals):
         field_list = ['name', 'description', 'list_price', 'weight', 'urbanpiper_meal_type', 'pos_categ_ids', 'image_1920',
-                    'product_template_attribute_value_ids', 'taxes_id', 'is_recommended_on_urbanpiper']
+                    'product_template_attribute_value_ids', 'taxes_id', 'is_recommended_on_urbanpiper', 'is_alcoholic_on_urbanpiper']
         if any(field in vals for field in field_list):
             urban_piper_statuses = self.urban_piper_status_ids.filtered(lambda s: s.is_product_linked)
             urban_piper_statuses.write({'is_product_linked': False})

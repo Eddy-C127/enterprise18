@@ -7,9 +7,11 @@
                 t-att-class="this.cardColor"
                 t-if="this.props.order.delivery_identifier">
                 <div class="o_pdis_staff w-100 text-truncate flex-shrink-1">
-                    <img class="me-1" t-attf-src="{{'/pos_urban_piper/static/img/' + this.props.order.delivery_channel + '.svg'}}" style="height: 28px"/>
+                    <img class="me-1" t-att-src="'/web/image?model=pos.delivery.provider&amp;field=image_128&amp;id=' + this.props.order.delivery_provider_id" style="height: 28px"/>
                     <span class="me-1" t-esc="this.props.order.delivery_provider_name"/>
-                    #<t t-esc="this.props.order.order_otp"/>
+                    <t t-if="this.props.order.order_otp">
+                        #<t t-esc="this.props.order.order_otp"/>
+                    </t>
                 </div>
                 <div>
                     <t t-esc="this.order_status[this.props.order.delivery_status]"/>
