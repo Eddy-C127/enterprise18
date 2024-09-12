@@ -78,7 +78,7 @@ patch(PosStore.prototype, {
                 const payment = newOrder.add_paymentline(selectedPaymentMethod);
                 payment.set_amount(totalDue);
                 newOrder.set_partner(partner);
-                this.showScreen("PaymentScreen");
+                this.showScreen("PaymentScreen", { orderUuid: this.selectedOrderUuid });
             },
         });
     },

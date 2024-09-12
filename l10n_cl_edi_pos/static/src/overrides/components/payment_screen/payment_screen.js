@@ -86,7 +86,7 @@ patch(PaymentScreen.prototype, {
     },
     shouldDownloadInvoice() {
         return this.pos.isChileanCompany()
-            ? this.pos.get_order().isFactura()
+            ? this.currentOrder.isFactura()
             : super.shouldDownloadInvoice();
     },
 });
