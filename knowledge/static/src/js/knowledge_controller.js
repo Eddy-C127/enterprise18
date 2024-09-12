@@ -192,14 +192,18 @@ export class KnowledgeArticleFormController extends FormController {
 
         // load the new record
         try {
-            await this.ensureArticleName();
-            if (!this.model.root.isNew && (await this.model.root.isDirty())) {
-                await this.model.root.save({
-                    onError: this.onSaveError.bind(this),
-                    nextId: resId,
-                });
-            } else {
+            if (this.model.root.isNew) {
                 await this.model.load({ resId });
+            } else {
+                await this.ensureArticleName();
+                if (await this.model.root.isDirty()) {
+                    await this.model.root.save({
+                        onError: this.onSaveError.bind(this),
+                        nextId: resId,
+                    });
+                } else {
+                    await this.model.load({ resId });
+                }
             }
         } catch {
             this.actionService.doAction(
