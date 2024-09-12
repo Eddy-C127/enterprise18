@@ -20,7 +20,7 @@ class TestPePurchase(TestAccountReportsCommon):
     def _get_purchase_taxes(cls):
         AccountChartTemplate = cls.env['account.chart.template']
         taxes = AccountChartTemplate.ref("purchase_tax_igv_18")
-        taxes += AccountChartTemplate.ref("purchase_tax_igv_18").copy({'name': '18 Included', 'price_include': True})
+        taxes += AccountChartTemplate.ref("purchase_tax_igv_18").copy({'name': '18 Included', 'price_include_override': 'tax_included'})
         for tax in ["exo", "ina", "gra"]:
             taxes += AccountChartTemplate.ref(f"purchase_tax_{tax}")
         return taxes

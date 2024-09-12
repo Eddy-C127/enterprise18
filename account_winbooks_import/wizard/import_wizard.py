@@ -681,7 +681,7 @@ class WinbooksImportWizard(models.TransientModel):
                     'company_id': self.env.company.id,
                     'amount': rec.get('RATE') if rec.get('TAXFORM') else 0.0,
                     'type_tax_use': 'sale' if rec.get('CODE')[0] == '2' else 'purchase',
-                    'price_include': False if rec.get('TAXFORM') or rec.get('BASFORM') == 'BAL' else True,
+                    'price_include_override': 'tax_excluded' if rec.get('TAXFORM') or rec.get('BASFORM') == 'BAL' else 'tax_included',
                     'refund_repartition_line_ids': [
                         (0, 0, {'repartition_type': 'base', 'tag_ids': get_tags(rec.get('BASE_CN')), 'company_id': self.env.company.id}),
                         (0, 0, {'repartition_type': 'tax', 'tag_ids': get_tags(rec.get('TAX_CN')), 'company_id': self.env.company.id, 'account_id': account_central.get(rec.get('ACCCN1'), False)}),

@@ -108,7 +108,7 @@ class TestEcEdiXmls(TestEcEdiCommon):
 
     def test_xml_tree_out_invoice_tax_included(self):
         """Checks the XML of the basic invoice when a tax is modified to be included in price."""
-        self._get_tax_by_xml_id('tax_vat_510_sup_01').price_include = True
+        self._get_tax_by_xml_id('tax_vat_510_sup_01').price_include_override = 'tax_included'
         self.test_xml_tree_out_invoice_basic(xpath="""
             <xpath expr="//totalSinImpuestos" position="replace">
                 <totalSinImpuestos>357.140000</totalSinImpuestos>

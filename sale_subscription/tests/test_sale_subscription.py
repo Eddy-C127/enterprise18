@@ -939,7 +939,7 @@ class TestSubscription(TestSubscriptionCommon, MockEmail):
         # FP must mapped an included tax of 21% to an excluded one of 0%
         tax_include_id = self.env['account.tax'].create({'name': "Include tax",
                                                          'amount': 21.0,
-                                                         'price_include': True,
+                                                         'price_include_override': 'tax_included',
                                                          'type_tax_use': 'sale'})
         tax_exclude_id = self.env['account.tax'].create({'name': "Exclude tax",
                                                          'amount': 0.0,
@@ -1565,7 +1565,7 @@ class TestSubscription(TestSubscriptionCommon, MockEmail):
             'amount': 20.0,
             'amount_type': 'percent',
             'type_tax_use': 'sale',
-            'price_include': True,
+            'price_include_override': 'tax_included',
             'tax_group_id': tax_group_1.id,
         })
         other_company_data = self.setup_other_company(name="Company 3")
@@ -1580,7 +1580,7 @@ class TestSubscription(TestSubscriptionCommon, MockEmail):
             'amount': 40.0,
             'amount_type': 'percent',
             'type_tax_use': 'sale',
-            'price_include': True,
+            'price_include_override': 'tax_included',
             'tax_group_id': tax_group_2.id,
             'company_id': other_company_data['company'].id,
         })

@@ -80,7 +80,7 @@ class TestKeEdiCommon(TestAccountMoveSendCommon):
             'amount': 30.0,
             'country_id': cls.company_data['company'].account_fiscal_country_id.id,
             'tax_exigibility': 'on_invoice',
-            'price_include': True,
+            'price_include_override': 'tax_included',
             'include_base_amount': True,
             'invoice_repartition_line_ids': [
                 Command.create({'repartition_type': 'base'}),

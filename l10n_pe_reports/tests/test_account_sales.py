@@ -23,7 +23,7 @@ class TestPeSales(TestAccountReportsCommon):
         AccountChartTemplate = cls.env['account.chart.template']
         AccountChartTemplate.ref("sale_tax_ics_0").amount = 10
         taxes = AccountChartTemplate.ref("sale_tax_igv_18")
-        taxes += AccountChartTemplate.ref("sale_tax_igv_18").copy({'name': '18 Included', 'price_include': True})
+        taxes += AccountChartTemplate.ref("sale_tax_igv_18").copy({'name': '18 Included', 'price_include_override': 'tax_included'})
         for tax in ["exo", "ina", "gra", "exp", "ics_0"]:
             taxes += AccountChartTemplate.ref(f"sale_tax_{tax}")
         return taxes

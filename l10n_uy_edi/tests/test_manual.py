@@ -96,9 +96,9 @@ class TestManual(common.TestUyEdi):
         self._check_cfe(invoice, "e-FCE", "60_e_invoice_another_currency")
 
     def test_70_tax_included(self):
-        tax_22_included = self.tax_22.copy({"price_include": True, "name": "22% VAT (included)"})
-        tax_10_included = self.tax_10.copy({"price_include": True, "name": "10% VAT (included)"})
-        tax_0_included = self.tax_0.copy({"price_include": True, "name": "0% VAT (included)"})
+        tax_22_included = self.tax_22.copy({"price_include_override": "tax_included", "name": "22% VAT (included)"})
+        tax_10_included = self.tax_10.copy({"price_include_override": "tax_included", "name": "10% VAT (included)"})
+        tax_0_included = self.tax_0.copy({"price_include_override": "tax_included", "name": "0% VAT (included)"})
         invoice = self._create_move(
             l10n_latam_document_type_id=self.env.ref("l10n_uy.dc_e_inv").id,
             invoice_line_ids=[

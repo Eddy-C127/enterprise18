@@ -438,7 +438,9 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                     'company_id': doc.company_id.id,
                 })
 
-            key = (tax_name, price_include, doc.company_id)
+            price_include_override = 'tax_included' if price_include else 'tax_excluded'
+
+            key = (tax_name, price_include_override, doc.company_id)
             if key not in tax_cache:
                 # It's possible for multiple taxes to have the needed l10n_br_avatax_code. E.g.:
                 # - existing customer install l10n_br_avatax
@@ -448,7 +450,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                 # most likely the one the user wants and will have the right accounts and tags.
                 tax_cache[key] = self.env['account.tax'].with_context(active_test=False).search([
                     ('l10n_br_avatax_code', '=', tax_name),
-                    ('price_include', '=', price_include),
+                    ('price_include_override', '=', price_include_override),
                     ('company_id', '=', doc.company_id.id)
                 ], limit=1, order='create_date desc')
 
@@ -461,7 +463,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
                         'l10n_br_avatax_code': tax_name,
                         'amount': 1,  # leaving it at the default 0 causes accounting to ignore these
                         'amount_type': 'percent',
-                        'price_include': price_include,
+                        'price_include_override': price_include_override,
                         'refund_repartition_line_ids': [
                             repartition_line('base'),
                             repartition_line('tax'),

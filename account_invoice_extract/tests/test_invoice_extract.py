@@ -181,7 +181,7 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
             'name': 'Tax 10% included',
             'amount': 10,
             'type_tax_use': 'purchase',
-            'price_include': True,
+            'price_include_override': 'tax_included',
         })
         self.company_data['default_account_expense'].write({
             'tax_ids': tax_10_included
@@ -206,7 +206,7 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
             'name': 'Tax 15% included',
             'amount': 15,
             'type_tax_use': 'purchase',
-            'price_include': True,
+            'price_include_override': 'tax_included',
         })
         self.company_data['default_account_expense'].write({
             'tax_ids': tax_15_included
@@ -576,7 +576,7 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
                                 {
                                     'amount': tax.amount,
                                     'type': tax.amount_type,
-                                    'price_include': tax.price_include
+                                    'price_include': tax.price_include,
                                 } for tax in il.tax_ids
                             ],
                             'subtotal': il.price_subtotal,
@@ -856,7 +856,7 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
             'amount': 12,
             'amount_type': 'percent',
             'type_tax_use': 'purchase',
-            'price_include': True,
+            'price_include_override': 'tax_included',
             'company_id': self.company_data['company'].id
         })
 
@@ -875,7 +875,8 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
             'amount': 12,
             'amount_type': 'percent',
             'type_tax_use': 'purchase',
-            'company_id': self.company_data['company'].id
+            'company_id': self.company_data['company'].id,
+            'price_include_override': 'tax_excluded',
         })
 
         invoice = self._create_invoice_with_tax()

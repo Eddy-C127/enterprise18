@@ -58,8 +58,8 @@ class TestRentalCommon(TransactionCase):
             pricing.update(product_template_id=cls.product_template_id.id)
             cls.env['product.pricing'].create(pricing)
 
-        cls.tax_included = cls.env['account.tax'].create({'name': 'Tax Incl', 'amount': 10, 'price_include': True})
-        cls.tax_excluded = cls.env['account.tax'].create({'name': 'Tax Excl', 'amount': 10, 'price_include': False})
+        cls.tax_included = cls.env['account.tax'].create({'name': 'Tax Incl', 'amount': 10, 'price_include_override': 'tax_included'})
+        cls.tax_excluded = cls.env['account.tax'].create({'name': 'Tax Excl', 'amount': 10, 'price_include_override': 'tax_excluded'})
 
     def test_pricing(self):
         # check pricing returned = expected

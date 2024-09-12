@@ -53,7 +53,7 @@ class TestWebsiteSaleRentingProductAttributeValueConfig(TestSaleProductAttribute
             'name': 'VAT 5 perc Incl',
             'amount_type': 'percent',
             'amount': tax_percent,
-            'price_include': False,
+            'price_include_override': 'tax_excluded',
         })
         self.computer.write({
             'taxes_id': [Command.set([tax_15_incl.id])],

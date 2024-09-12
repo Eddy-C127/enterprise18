@@ -28,7 +28,7 @@ class AccountSalesReportTest(AccountSalesReportCommon):
             'amount_type': 'percent',
             'amount': 0,
             'type_tax_use': 'sale',
-            'price_include': False,
+            'price_include_override': 'tax_excluded',
             'include_base_amount': False,
         })
         t_tax = self.env['account.tax'].create({
@@ -36,7 +36,7 @@ class AccountSalesReportTest(AccountSalesReportCommon):
             'amount_type': 'percent',
             'amount': 0,
             'type_tax_use': 'purchase',
-            'price_include': False,
+            'price_include_override': 'tax_excluded',
             'include_base_amount': False,
         })
         s_tax = self.env['account.tax'].create({
@@ -44,7 +44,7 @@ class AccountSalesReportTest(AccountSalesReportCommon):
             'amount_type': 'percent',
             'amount': 0,
             'type_tax_use': 'sale',
-            'price_include': False,
+            'price_include_override': 'tax_excluded',
             'include_base_amount': False,
         })
         bad_tax_1 = self.env['account.tax'].create({
@@ -52,7 +52,7 @@ class AccountSalesReportTest(AccountSalesReportCommon):
             'amount_type': 'fixed',
             'amount': 0,
             'type_tax_use': 'sale',
-            'price_include': False,
+            'price_include_override': 'tax_excluded',
             'include_base_amount': False,
         })
         bad_tax_2 = self.env['account.tax'].create({
@@ -60,7 +60,7 @@ class AccountSalesReportTest(AccountSalesReportCommon):
             'amount_type': 'percent',
             'amount': 10,
             'type_tax_use': 'sale',
-            'price_include': False,
+            'price_include_override': 'tax_excluded',
             'include_base_amount': False,
         })
         self._create_invoices([

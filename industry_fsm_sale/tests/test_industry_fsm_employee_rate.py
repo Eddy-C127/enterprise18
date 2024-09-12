@@ -218,12 +218,12 @@ class TestIndustryFsmEmployeeRate(TestFsmFlowSaleCommon):
             'name': "Include 10%",
             'amount': 10.00,
             'amount_type': 'percent',
-            'price_include': True,
+            'price_include_override': 'tax_included',
         }, {
             'name': "Exclude 10%",
             'amount': 10.00,
             'amount_type': 'percent',
-            'price_include': False,
+            'price_include_override': 'tax_excluded',
         }])
 
         fpos_incl_excl = self.env['account.fiscal.position'].create({

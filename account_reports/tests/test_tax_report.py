@@ -72,7 +72,7 @@ class TestTaxReport(TestAccountReportsCommon):
             'amount': 20.0,
             'amount_type': 'percent',
             'type_tax_use': 'sale',
-            'price_include': True,
+            'price_include_override': 'tax_included',
             'tax_group_id': cls.tax_group_1.id,
         })
 
@@ -131,7 +131,7 @@ class TestTaxReport(TestAccountReportsCommon):
             'amount': 20.0,
             'amount_type': 'percent',
             'type_tax_use': 'none',
-            'price_include': True,
+            'price_include_override': 'tax_included',
             'tax_group_id': cls.tax_group_2.id,
         })
 
