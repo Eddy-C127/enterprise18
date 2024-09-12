@@ -22,8 +22,7 @@ class AustrianECSalesReport(models.AbstractModel):
         super()._init_core_custom_options(report, options, previous_options)
         ec_operation_category = options.setdefault('sales_report_taxes', {})
 
-        goods = self.env.ref('l10n_at.tax_report_line_l10n_at_tva_line_3_zm_igl_tag')
-        goods |= self.env.ref('l10n_at.tax_report_line_l10n_at_tva_line_4_8_tag')
+        goods = self.env.ref('l10n_at.tax_report_line_l10n_at_tva_line_4_8_tag')
         goods |= self.env.ref('l10n_at.tax_report_line_l10n_at_tva_line_4_9_tag')
         triangular = self.env.ref('l10n_at.tax_report_line_l10n_at_tva_line_3_zm_igl3_tag')
         services = self.env.ref('l10n_at.tax_report_line_l10n_at_tva_line_3_zm_dl_tag')
