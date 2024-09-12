@@ -506,25 +506,25 @@ test.tags("desktop")(
         await mountWebClientEnterprise();
         await contains(".o_debug_manager .dropdown-toggle").click();
         expect(".dropdown-item:contains('globalItem')").toHaveCount(1);
-        expect(".dropdown-item:contains('Edit View: Kanban')").toHaveCount(0);
+        expect(".dropdown-item:contains('View: Kanban')").toHaveCount(0);
 
         await contains(".o_debug_manager .dropdown-toggle").click();
         await getService("action").doAction(1);
         await contains(".o_debug_manager .dropdown-toggle").click();
         expect(".dropdown-item:contains('globalItem')").toHaveCount(1);
-        expect(".dropdown-item:contains('Edit View: Kanban')").toHaveCount(1);
+        expect(".dropdown-item:contains('View: Kanban')").toHaveCount(1);
 
         await contains(".o_menu_toggle").click();
         await contains(".o_debug_manager .dropdown-toggle").click();
         expect(".dropdown-item:contains('globalItem')").toHaveCount(1);
-        expect(".dropdown-item:contains('Edit View: Kanban')").toHaveCount(0);
+        expect(".dropdown-item:contains('View: Kanban')").toHaveCount(0);
 
         await contains(".o_debug_manager .dropdown-toggle").click();
         await getService("action").doAction(3);
         await contains(".o_debug_manager .dropdown-toggle").click();
         expect(".dropdown-item:contains('globalItem')").toHaveCount(1);
-        expect(".dropdown-item:contains('Edit View: List')").toHaveCount(1);
-        expect(".dropdown-item:contains('Edit View: Kanban')").toHaveCount(0);
+        expect(".dropdown-item:contains('View: List')").toHaveCount(1);
+        expect(".dropdown-item:contains('View: Kanban')").toHaveCount(0);
     }
 );
 
