@@ -9,12 +9,10 @@
                 <field name="is_company_country_germany"/>
                 <field name="l10n_de_fiskaly_tss_id"/>
             </xpath>
-            <xpath expr="//div[hasclass('o_kanban_card_header_title')]" position="inside">
-                <t t-if="record.is_company_country_germany.raw_value &amp; !record.l10n_de_fiskaly_tss_id.raw_value">
-                    <div class="badge text-bg-info o_kanban_inline_block" title="In order to use it in a production environment, create a TSS in your POS settings.">
-                        Test
-                    </div>
-                </t>
+            <xpath expr="//div[@name='card_title']" position="inside">
+                <div t-if="record.is_company_country_germany.raw_value &amp; !record.l10n_de_fiskaly_tss_id.raw_value" class="badge text-bg-info d-inline-block" title="In order to use it in a production environment, create a TSS in your POS settings.">
+                    Test
+                </div>
             </xpath>
         </field>
     </record>
