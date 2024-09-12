@@ -29,6 +29,11 @@ class ProductTemplate(models.Model):
         string='Country of Origin',
         readonly=False,
     )
+    valid_intrastat_code_ids = fields.Many2many(
+        string="Intrastat Code IDs",
+        comodel_name='account.intrastat.code',
+        compute="_compute_valid_intrastat_code_ids",
+    )
 
     @api.depends('product_variant_ids')
     def _compute_intrastat_values(self):
@@ -38,6 +43,20 @@ class ProductTemplate(models.Model):
             product_template.intrastat_supplementary_unit = variant.intrastat_code_id.supplementary_unit
             product_template.intrastat_supplementary_unit_amount = variant.intrastat_supplementary_unit_amount
             product_template.intrastat_origin_country_id = variant.intrastat_origin_country_id
+
+    @api.depends('type')
+    def _compute_valid_intrastat_code_ids(self):
+        valid_intrastat_codes = dict(self.env['account.intrastat.code']._read_group(
+            domain=[('country_id', 'in', (self.env.company.account_fiscal_country_id.id, False))],
+            groupby=['type'],
+            aggregates=['id:recordset'],
+        ))
+        for product in self:
+            product.valid_intrastat_code_ids = product._get_valid_intrastat_code_ids(valid_intrastat_codes)
+
+    def _get_valid_intrastat_code_ids(self, valid_intrastat_codes):
+        # to be overridden
+        return valid_intrastat_codes['commodity']
 
     def _inverse_intrastat_code_id(self):
         for product_template in self:
@@ -59,7 +78,7 @@ class ProductTemplate(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    intrastat_code_id = fields.Many2one(comodel_name='account.intrastat.code', string='Commodity code', domain="[('type', '=', 'commodity')]")
+    intrastat_code_id = fields.Many2one(comodel_name='account.intrastat.code')
     # The supplementary unit of the current commodity code
     intrastat_supplementary_unit = fields.Selection(related='intrastat_code_id.supplementary_unit')
     # The ratio of product to the number of supplementary units

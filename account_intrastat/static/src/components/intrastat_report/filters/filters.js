@@ -4,13 +4,6 @@ import { patch } from "@web/core/utils/patch";
 import { AccountReportFilters } from "@account_reports/components/account_report/filters/filters";
 
 patch(AccountReportFilters.prototype, {
-    get hasIntrastatOptions() {
-        return (
-            "intrastat_type" in this.controller.options ||
-            "intrastat_extended" in this.controller.options ||
-            "intrastat_with_vat" in this.controller.options
-        );
-    },
 
     get selectedIntrastatOptions() {
         const intrastatSelectedType = this.controller.options.intrastat_type
