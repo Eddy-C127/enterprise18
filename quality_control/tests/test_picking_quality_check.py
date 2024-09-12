@@ -771,9 +771,8 @@ class TestQualityCheck(TestQualityCommon):
         for check in picking.check_ids:
             check.do_pass()
         # Validate the picking and create a backorder
-        backorder_wizard_dict = picking.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.with_user(user).process()
+        Form.from_action(self.env, picking.button_validate()).save()\
+            .with_user(user).process()
 
         # Check that the backorder is created and in assigned state
         self.assertEqual(picking.state, 'done')

@@ -67,9 +67,7 @@ class TestRentalKits(TestRentalCommon):
 
         outgoing_picking.move_ids[0].quantity = 1
         outgoing_picking.move_ids[1].quantity = 2
-        backorder_wizard_dict = outgoing_picking.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, outgoing_picking.button_validate()).save().process()
         self.assertEqual(rental_order_1.order_line.qty_delivered, 1)
 
         outgoing_picking_2 = rental_order_1.picking_ids.filtered(lambda p: p.state == 'assigned' and p.picking_type_code == 'outgoing')
@@ -82,16 +80,12 @@ class TestRentalKits(TestRentalCommon):
 
         outgoing_picking_2.move_ids[0].quantity = 1
         outgoing_picking_2.move_ids[1].quantity = 2
-        backorder_wizard_dict = outgoing_picking_2.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, outgoing_picking_2.button_validate()).save().process()
         self.assertEqual(rental_order_1.order_line.qty_delivered, 2)
 
         incoming_picking.move_ids[0].quantity = 1
         incoming_picking.move_ids[1].quantity = 2
-        backorder_wizard_dict = incoming_picking.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, incoming_picking.button_validate()).save().process()
         self.assertEqual(rental_order_1.order_line.qty_returned, 1)
 
         outgoing_picking_3 = rental_order_1.picking_ids.filtered(lambda p: p.state == 'assigned' and p.picking_type_code == 'outgoing')
@@ -116,9 +110,7 @@ class TestRentalKits(TestRentalCommon):
         incoming_picking = rental_order_1.picking_ids.filtered(lambda p: p.state == 'assigned')
         self.assertEqual(incoming_picking.scheduled_date.date(), rental_order_1.rental_return_date.date())
         incoming_picking.move_ids[0].picked = True
-        backorder_wizard_dict = incoming_picking.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, incoming_picking.button_validate()).save().process()
         self.assertEqual(rental_order_1.order_line.qty_returned, 0)
         self.assertEqual(len(rental_order_1.order_line), 1)
 

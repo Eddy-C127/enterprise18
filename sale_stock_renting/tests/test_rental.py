@@ -443,18 +443,14 @@ class TestRentalPicking(TestRentalCommon):
         incoming_picking = rental_order_1.picking_ids.filtered(lambda p: p.picking_type_code == 'incoming')
 
         outgoing_picking.move_ids.quantity = 2
-        backorder_wizard_dict = outgoing_picking.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, outgoing_picking.button_validate()).save().process()
         self.assertEqual(rental_order_1.order_line.qty_delivered, 2)
         self.assertEqual(rental_order_1.rental_status, 'pickup')
         self.assertEqual(len(rental_order_1.picking_ids), 3)
         self.assertEqual(incoming_picking.move_ids.quantity, 2)
 
         incoming_picking.move_ids.quantity = 1
-        backorder_wizard_dict = incoming_picking.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, incoming_picking.button_validate()).save().process()
         self.assertEqual(rental_order_1.order_line.qty_returned, 1)
         self.assertEqual(rental_order_1.rental_status, 'pickup')
         self.assertEqual(len(rental_order_1.picking_ids), 4)
@@ -471,9 +467,7 @@ class TestRentalPicking(TestRentalCommon):
         self.assertEqual(incoming_picking_2.move_ids.product_uom_qty, 4)
 
         outgoing_picking_2.move_ids.quantity = 1
-        backorder_wizard_dict = outgoing_picking_2.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, outgoing_picking_2.button_validate()).save().process()
         self.assertEqual(rental_order_1.order_line.qty_delivered, 3)
         self.assertEqual(rental_order_1.rental_status, 'pickup')
         self.assertEqual(len(rental_order_1.picking_ids), 5)

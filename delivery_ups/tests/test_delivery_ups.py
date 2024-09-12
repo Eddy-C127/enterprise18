@@ -51,11 +51,9 @@ class TestDeliveryUPS(TransactionCase):
         """
         wiz_action = picking.action_put_in_pack()
         self.assertEqual(wiz_action['res_model'], 'choose.delivery.package', 'Wrong wizard returned')
-        wiz = Form(self.env[wiz_action['res_model']].with_context(wiz_action['context']).create({
-            'delivery_package_type_id': picking.carrier_id.ups_default_package_type_id.id
-        }))
-        choose_delivery_carrier = wiz.save()
-        choose_delivery_carrier.action_put_in_pack()
+        wiz = Form.from_action(self.env, wiz_action)
+        wiz.delivery_package_type_id = picking.carrier_id.ups_default_package_type_id
+        wiz.save().action_put_in_pack()
 
     def test_01_ups_basic_flow(self):
         SaleOrder = self.env['sale.order']
@@ -220,8 +218,7 @@ class TestDeliveryUPS(TransactionCase):
         def process_picking(picking):
             action = picking.button_validate()
             if action is not True:
-                wizard = Form(self.env[action['res_model']].with_context(action['context']))
-                wizard.save().process()
+                Form.from_action(self.env, action).save().process()
 
         warehouse = self.env.user._get_default_warehouse_id()
         warehouse.delivery_steps = 'pick_ship'

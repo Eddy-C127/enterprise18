@@ -105,11 +105,9 @@ class TestDeliveryDHL(TransactionCase):
         """
         wiz_action = picking.action_put_in_pack()
         self.assertEqual(wiz_action['res_model'], 'choose.delivery.package', 'Wrong wizard returned')
-        wiz = Form(self.env[wiz_action['res_model']].with_context(wiz_action['context']).create({
-            'delivery_package_type_id': picking.carrier_id.dhl_default_package_type_id.id
-        }))
-        choose_delivery_carrier = wiz.save()
-        choose_delivery_carrier.action_put_in_pack()
+        wiz = Form.from_action(self.env, wiz_action)
+        wiz.delivery_package_type_id = picking.carrier_id.dhl_default_package_type_id
+        wiz.save().action_put_in_pack()
 
     def test_01_dhl_basic_be_domestic_flow(self):
         SaleOrder = self.env['sale.order']

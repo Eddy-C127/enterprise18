@@ -938,8 +938,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
 
         mo_custom_laptop.move_raw_ids.picked = True
         action = mo_custom_laptop.button_mark_done()
-        backorder = Form(self.env[action['res_model']].with_context(**action['context']))
-        backorder.save().action_backorder()
+        Form.from_action(self.env, action).save().action_backorder()
 
         # Check consumed move after produce 6 quantity of customized laptop.
         for move in mo_custom_laptop.move_raw_ids:
@@ -1973,7 +1972,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
 
         # Add a first workorder to mo1
         action = mo1.action_add_workorder()
-        wizard = Form(self.env[action['res_model']].with_context(action['context']))
+        wizard = Form.from_action(self.env, action)
         self.assertEqual(wizard.blocked_by_workorder_id, mo1.workorder_ids[0])
         wizard.name = 'Send gift-wrapped machine to the Moon'
         wizard.workcenter_id = self.workcenter_1
@@ -1983,7 +1982,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
         self.assertEqual(mo1.workorder_ids[-1].name, 'Send gift-wrapped machine to the Moon')
 
         action = mo1.action_add_workorder()
-        wizard = Form(self.env[action['res_model']].with_context(action['context']))
+        wizard = Form.from_action(self.env, action)
         self.assertEqual(wizard.blocked_by_workorder_id, mo1.workorder_ids[-1])
         wizard.blocked_by_workorder_id = mo1.workorder_ids[0]
         wizard.name = 'Strap machine to rocket'
@@ -2001,7 +2000,7 @@ class TestWorkOrderProcess(TestWorkOrderProcessCommon):
 
         # Add a workorder to mo2
         action = mo2.action_add_workorder()
-        wizard = Form(self.env[action['res_model']].with_context(action['context']))
+        wizard = Form.from_action(self.env, action)
         self.assertEqual(wizard.blocked_by_workorder_id.id, False)
         wizard.name = 'Lone workorder'
         wizard.workcenter_id = self.workcenter_3

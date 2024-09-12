@@ -178,9 +178,7 @@ class TestQualityCheckWorkorder(TestMrpCommon):
         self.assertEqual(partial_workorder.state, 'done')
         # MO qty_producing should become 1 since only 1 qty was fully produced
         self.assertEqual(mo.qty_producing, 1)
-        action = mo.button_mark_done()
-        backorder_form = Form(self.env[action['res_model']].with_context(**action['context']))
-        backorder_form.save().action_backorder()
+        Form.from_action(self.env, mo.button_mark_done()).save().action_backorder()
         backorder = mo.procurement_group_id.mrp_production_ids[1]
         # the backorder has 1 qty to produce and the full workorder done from before should be cancelled (its a copy)
         # and should not have any quality check to perform

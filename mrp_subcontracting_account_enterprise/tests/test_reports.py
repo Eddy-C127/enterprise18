@@ -67,9 +67,7 @@ class TestReportsMrpAccountSubcontracting(TestMrpSubcontractingCommon):
         self.picking.action_confirm()
         # valide only 4 units and create a backorder
         self.picking.move_ids_without_package.quantity = 4
-        res = self.picking.button_validate()
-        wizard = Form(self.env[res.get('res_model')].with_context(res['context'])).save()
-        wizard.process()
+        Form.from_action(self.env, self.picking.button_validate()).save().process()
         backorder_id = self.picking.search([('backorder_id', '=', self.picking.id)])
         backorder_id.move_ids_without_package.quantity = 6
         backorder_id.button_validate()

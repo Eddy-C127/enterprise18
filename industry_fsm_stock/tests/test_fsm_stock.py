@@ -440,9 +440,7 @@ class TestFsmFlowStock(TestFsmFlowSaleCommon):
         order_line_ids[0].move_ids[0].move_line_ids[0].write({'quantity': 3, 'lot_id': self.lot_id2.id})
 
         # When we validate the picking manually, we create a backorder.
-        backorder_wizard_dict = self.task.sale_order_id.picking_ids.button_validate()
-        backorder_wizard = Form(self.env[backorder_wizard_dict['res_model']].with_context(backorder_wizard_dict['context'])).save()
-        backorder_wizard.process()
+        Form.from_action(self.env, self.task.sale_order_id.picking_ids.button_validate()).save().process()
 
         wizard = self.product_lot.with_context({'fsm_task_id': self.task.id}).action_assign_serial()
         wizard_id = self.env['fsm.stock.tracking'].browse(wizard['res_id'])

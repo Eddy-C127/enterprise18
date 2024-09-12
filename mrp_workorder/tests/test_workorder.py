@@ -399,9 +399,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         process_workorder(mo.workorder_ids.sorted(), 2)
 
         # Marks the MO as done and creates a backorder.
-        action = mo.button_mark_done()
-        backorder_form = Form(self.env[action['res_model']].with_context(**action['context']))
-        backorder_form.save().action_backorder()
+        Form.from_action(self.env, mo.button_mark_done()).save().action_backorder()
 
         backorder = mo.procurement_group_id.mrp_production_ids[-1]
         self.assertEqual(mo.state, 'done')
@@ -448,7 +446,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
             mo_form.qty_producing = 1
 
         action = mo.button_mark_done()
-        backorder_form = Form(self.env[action['res_model']].with_context(**action['context']))
+        backorder_form = Form.from_action(self.env, action)
         backorder_form.save().action_backorder()
         backorder = mo.procurement_group_id.mrp_production_ids[1]
 
@@ -488,7 +486,7 @@ class TestWorkOrder(TestMrpWorkorderCommon):
         mo.action_confirm()
 
         action = mo.action_split()
-        wizard = Form(self.env[action['res_model']].with_context(action['context']))
+        wizard = Form.from_action(self.env, action)
         wizard.counter = 2
         action = wizard.save().action_split()
         # Should have 2 mos w/ 2 wos each

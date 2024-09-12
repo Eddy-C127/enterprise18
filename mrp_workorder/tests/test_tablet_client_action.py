@@ -74,18 +74,17 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         new_step_note = "Do extra magic"
 
         # add step with title + instructions
-        action = wo.action_add_step()
-        add_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        add_step_form = Form.from_action(self.env, wo.action_add_step())
         add_step_form.title = new_step_title
         add_step_form.note = new_step_note
         add_step = add_step_form.save()
         add_step.with_user(self.user_admin).add_check_in_chain()
 
         # add step with NO title or instructions
-        action = wo.action_add_step()
-        add_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
-        add_step = add_step_form.save()
-        add_step.with_user(self.user_admin).add_check_in_chain()
+        Form.from_action(self.env, wo.action_add_step())\
+            .save() \
+            .with_user(self.user_admin) \
+            .add_check_in_chain()
 
         messages = mo.bom_id.message_ids
         self.assertEqual(len(messages), 2, 'should be 2 messages created on the BoM')
@@ -112,14 +111,13 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
 
         # remove existing BoM step with a comment
         action = wo.action_propose_change('remove_step', wo.check_ids[0].id)
-        remove_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        remove_step_form = Form.from_action(self.env, action)
         remove_step_form.comment = remove_step_comment
         remove_step = remove_step_form.save()
         remove_step.with_user(self.user_admin).process()
 
         # add a temporary new step (via suggestion) => remove it
-        action = wo.action_add_step()
-        add_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        add_step_form = Form.from_action(self.env, wo.action_add_step())
         add_step_form.title = new_step_title
         add_step = add_step_form.save()
         add_step.with_user(self.user_admin).add_check_in_chain()
@@ -128,7 +126,7 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         # remove existing BoM step without a comment
         wo.current_quality_check_id = wo.check_ids[1]
         action = wo.action_propose_change('remove_step', wo.check_ids[1].id)
-        remove_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        remove_step_form = Form.from_action(self.env, action)
         remove_step = remove_step_form.save()
         remove_step.with_user(self.user_admin).process()
 
@@ -161,7 +159,7 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
 
         # update existing BoM step with NO title + NO instruction + NO comment
         action = wo.action_propose_change('update_step', wo.check_ids[0].id)
-        update_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        update_step_form = Form.from_action(self.env, action)
         update_step_form.title = ""
         update_step = update_step_form.save()
         update_step.with_user(self.user_admin).process()
@@ -169,7 +167,7 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
 
         # update existing BoM step with title + instruction + comment
         action = wo.action_propose_change('update_step', wo.check_ids[0].id)
-        update_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        update_step_form = Form.from_action(self.env, action)
         update_step_form.title = updated_title
         update_step_form.note = updated_note
         update_step_form.comment = update_comment
@@ -179,14 +177,13 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         self.assertEqual(wo.current_quality_check_id.note, Markup("<p>%s</p>" % updated_note), "Instruction didn't correctly update")
 
         # add a new step (via suggestion) => update it
-        action = wo.action_add_step()
-        add_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        add_step_form = Form.from_action(self.env, wo.action_add_step())
         add_step_form.title = new_step_title
         add_step = add_step_form.save()
         add_step.with_user(self.user_admin).add_check_in_chain()
         wo.current_quality_check_id = add_step
         action = wo.action_propose_change('update_step', add_step.id)
-        update_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        update_step_form = Form.from_action(self.env, action)
         update_step_form.title = ""
         update_step_form.note = new_step_note
         update_step = update_step_form.save()
@@ -221,7 +218,7 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
 
         # update existing BoM step containing only text instructions with only an image
         action = wo.action_propose_change('update_step', wo.check_ids[0].id)
-        update_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        update_step_form = Form.from_action(self.env, action)
         update_step_form.note = image
         update_step = update_step_form.save()
         update_step.with_user(self.user_admin).process()
@@ -230,7 +227,7 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
         # update existing BoM step containing text + image instructions with only text
         wo.current_quality_check_id = wo.check_ids[1]
         action = wo.action_propose_change('update_step', wo.check_ids[1].id)
-        update_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        update_step_form = Form.from_action(self.env, action)
         update_step_form.note = updated_note
         update_step = update_step_form.save()
         update_step.with_user(self.user_admin).process()
@@ -238,7 +235,7 @@ class TestPickingWorkorderClientActionSuggestImprovement(TestWorkorderClientActi
 
         # update existing BoM step containing text + image instructions with image + text
         action = wo.action_propose_change('update_step', wo.check_ids[1].id)
-        update_step_form = Form(self.env[action['res_model']].with_context(action['context']), view=action['views'][0][0])
+        update_step_form = Form.from_action(self.env, action)
         update_step_form.note = updated_image + Markup("<p>%s</p>" % updated_note)
         update_step = update_step_form.save()
         update_step.with_user(self.user_admin).process()
