@@ -46,6 +46,8 @@ class AccountMove(models.Model):
                 "name": "Depending Action",
                 "params": {
                     "depending_action": exception.args[0],
+                    "message": _("It seems there is some depending closing move to be posted"),
+                    "button_text": _("Depending moves"),
                 },
                 'context': {
                     'dialog_size': 'medium',
