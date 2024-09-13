@@ -325,6 +325,7 @@ class ExtractMixin(models.AbstractModel):
     def _check_ocr_status(self):
         """ Contact iap to get the actual status of the ocr request. """
         self.ensure_one()
+        self = self.with_context(skip_is_manually_modified=True)  # noqa: PLW0642
         result = self._contact_iap_extract('get_result', params={'document_token': self.extract_document_uuid})
         self.extract_status = result['status']
         if result['status'] == 'success':

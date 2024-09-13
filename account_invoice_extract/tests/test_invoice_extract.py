@@ -966,3 +966,41 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
         self.assertEqual(invoice.payment_reference, '+++123/1234/12345+++')
         self.assertEqual(invoice.ref, 'INV0001')
         self.assertEqual(invoice.invoice_line_ids.mapped('name'), ["Test 1", "Test 2", "Test 3"])
+
+    def test_autopost_bills_ocr(self):
+        # Test that when we validate 3 bills without modification from the OCR data, we show
+        # the user a wizard to automate the posting for that vendor
+
+        def create_bill_with_ocr():
+            move = self.env['account.move'].create({
+                'move_type': 'in_invoice',
+                'extract_state': 'waiting_extraction',
+                'extract_document_uuid': 'some_token',
+            })
+            with self._mock_iap_extract(
+                extract_response=self.get_result_success_response(),
+                partner_autocomplete_response=self.get_partner_autocomplete_response(),
+            ):
+                move._check_ocr_status()
+            return move
+
+        # Do it two times, no wizard should be shown
+        for _ in range(2):
+            bill = create_bill_with_ocr()
+            self.assertEqual(bill.state, "draft")
+            autopost_bills_wizard = bill.action_post()
+            self.assertFalse(autopost_bills_wizard)
+            self.assertFalse(bill.is_manually_modified)
+
+        # Create a third invoice, No modification for the third time, we should show the wizard
+        bill = create_bill_with_ocr()
+        self.assertEqual(bill.state, "draft")
+        post_result = bill.action_post()
+        self.assertEqual(post_result.get('res_model'), 'account.autopost.bills.wizard')
+        autopost_bills_wizard = self.env[post_result.get('res_model')].browse(post_result.get('res_id'))
+        self.assertTrue(autopost_bills_wizard)
+        autopost_bills_wizard.action_automate_partner()
+
+        # Now, next time the OCR is finished, we should autopost the bill
+        bill = create_bill_with_ocr()
+        self.assertEqual(bill.state, "posted")

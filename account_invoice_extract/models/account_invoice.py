@@ -760,6 +760,7 @@ class AccountMove(models.Model):
                     "word_box_angle": candidate['coords'][4],
                 }))
             self.write({'extract_word_ids': data})
+        self._autopost_bill()
 
     def _save_form(self, ocr_results):
         # Avoid marking is_manually_modified as True when posting an invoice
