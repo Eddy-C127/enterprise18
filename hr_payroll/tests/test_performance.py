@@ -82,6 +82,6 @@ class TestPayrollPerformance(TestPayslipBase):
             'date_from': date(2015, 10, 10),
             'parameter_value': 3
         })
-        with self.assertQueryCount(__system__=0, admin=0):  # already cached from warmup
+        with self.assertQueryCount(__system__=1, admin=3):
             self.env['hr.rule.parameter']._get_parameter_from_code('test_parameter_cache')
         parameter.unlink()

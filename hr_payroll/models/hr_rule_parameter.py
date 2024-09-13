@@ -33,6 +33,20 @@ class HrSalaryRuleParameterValue(models.Model):
             except Exception as e:
                 raise UserError(_('Wrong rule parameter value for %(rule_parameter_name)s at date %(date)s.\n%(error)s', rule_parameter_name=value.rule_parameter_name, date=format_date(self.env, value.date_from), error=str(e)))
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        self.env.registry.clear_cache()
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if 'date_from' in vals or 'parameter_value' in vals:
+            self.env.registry.clear_cache()
+        return super().write(vals)
+
+    def unlink(self):
+        self.env.registry.clear_cache()
+        return super().unlink()
+
 
 class HrSalaryRuleParameter(models.Model):
     _name = 'hr.rule.parameter'
