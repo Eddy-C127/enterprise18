@@ -1,6 +1,5 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
 import { useService } from "@web/core/utils/hooks";
 import { Record } from "@web/model/record";
 import {
@@ -110,9 +109,7 @@ export class SignTemplateTopBar extends Component {
     }
 
     async saveChanges(record, changes) {
-        const res = await this.orm.call("sign.template", "write", [[record.resId], changes]);
-        if (res) {
-            this.notification.add(_t("Saved"), { type: "success" });
-        }
+        const result = await this.orm.write("sign.template", [record.resId], changes);
+        return result;
     }
 }

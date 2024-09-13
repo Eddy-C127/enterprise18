@@ -46,6 +46,7 @@ export class SignTemplateBody extends Component {
                 this.saveTemplate();
                 this.iframe.unmount();
                 this.iframe = null;
+                this.notification.add(_t("Saved"), { type: "success" });
             }
         });
     }
@@ -121,7 +122,6 @@ export class SignTemplateBody extends Component {
         for (const [newId, itemId] of Object.entries(newId2ItemIdMap)) {
             Id2UpdatedItem[newId].id = itemId;
         }
-        this.notification.add(_t("Saved"), { type: "success" });
         return Id2UpdatedItem;
     }
 
