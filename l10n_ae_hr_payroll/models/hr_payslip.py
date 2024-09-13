@@ -29,7 +29,7 @@ class HrPayslip(models.Model):
             unpaid_leave_days = payslip.worked_days_line_ids.filtered(
                 lambda x: x.work_entry_type_id in payslip.struct_id.unpaid_work_entry_type_ids)
             unpaid_leave_day_count = sum(unpaid_leave_days.mapped('number_of_days'))
-            evp_inputs = [inputs_dict[code][payslip]['total'] for code in input_codes]
+            evp_inputs = [inputs_dict[code][payslip.id]['total'] for code in input_codes]
             total_evp = sum(evp_inputs)
 
             rows.append([
