@@ -6,10 +6,10 @@ import {
     start,
     startServer,
 } from "@mail/../tests/mail_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 
 describe.current.tags("desktop");
-defineVoipModels();
+setupVoipTests();
 
 test("Landline number is displayed in activity info.", async () => {
     const pyEnv = await startServer();

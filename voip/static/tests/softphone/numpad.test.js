@@ -8,10 +8,10 @@ import {
     startServer,
     triggerHotkey,
 } from "@mail/../tests/mail_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 
 describe.current.tags("desktop");
-defineVoipModels();
+setupVoipTests();
 
 test("Number input is focused when opening the numpad.", async () => {
     await start();

@@ -1,10 +1,10 @@
 import { describe, expect, test } from "@odoo/hoot";
 import { start, startServer } from "@mail/../tests/mail_test_helpers";
 import { getService, serverState } from "@web/../tests/web_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 
 describe.current.tags("desktop");
-defineVoipModels();
+setupVoipTests();
 
 test("“hasValidExternalDeviceNumber” is true when an external device number is configured.", async () => {
     const pyEnv = await startServer();

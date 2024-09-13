@@ -8,12 +8,12 @@ import {
     startServer,
     triggerHotkey,
 } from "@mail/../tests/mail_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 import { translatedTerms } from "@web/core/l10n/translation";
 import { patchWithCleanup, serverState } from "@web/../tests/web_test_helpers";
 
 describe.current.tags("desktop");
-defineVoipModels();
+setupVoipTests();
 
 test("Clicking on top bar when softphone is unfolded folds the softphone.", async () => {
     await start();

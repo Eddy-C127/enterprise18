@@ -2,12 +2,12 @@ import { describe, test } from "@odoo/hoot";
 import { advanceTime } from "@odoo/hoot-mock";
 import { Store } from "@mail/core/common/store_service";
 import { click, contains, start, startServer } from "@mail/../tests/mail_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 import { browser } from "@web/core/browser/browser";
 import { patchWithCleanup, serverState } from "@web/../tests/web_test_helpers";
 
 describe.current.tags("mobile");
-defineVoipModels();
+setupVoipTests();
 
 test("Switch audio input", async () => {
     patchWithCleanup(browser, {

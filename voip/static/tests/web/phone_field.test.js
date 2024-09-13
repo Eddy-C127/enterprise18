@@ -8,12 +8,12 @@ import {
     start,
     startServer,
 } from "@mail/../tests/mail_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 import { Fake } from "@voip/../tests/mock_server/mock_models/fake";
 import { defineModels } from "@web/../tests/web_test_helpers";
 
 describe.current.tags("desktop");
-defineVoipModels();
+setupVoipTests();
 defineModels({ Fake });
 
 beforeEach(() => {

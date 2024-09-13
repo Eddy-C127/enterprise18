@@ -1,10 +1,10 @@
 import { describe, expect, test } from "@odoo/hoot";
 import { tick } from "@odoo/hoot-mock";
 import { click, contains, patchUiSize, start } from "@mail/../tests/mail_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 
 describe.current.tags("mobile");
-defineVoipModels();
+setupVoipTests();
 
 test("Clicking on the top bar does not fold the softphone window on small devices.", async () => {
     patchUiSize({ width: 360, height: 800 });

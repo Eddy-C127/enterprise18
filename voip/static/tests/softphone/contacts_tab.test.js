@@ -1,9 +1,9 @@
 import { describe, test } from "@odoo/hoot";
 import { click, contains, insertText, start, startServer } from "@mail/../tests/mail_test_helpers";
-import { defineVoipModels } from "@voip/../tests/voip_test_helpers";
+import { setupVoipTests } from "@voip/../tests/voip_test_helpers";
 
 describe.current.tags("desktop");
-defineVoipModels();
+setupVoipTests();
 
 test("Partners with a phone number are displayed in Contacts tab", async () => {
     const pyEnv = await startServer();
