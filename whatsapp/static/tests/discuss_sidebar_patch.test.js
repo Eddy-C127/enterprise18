@@ -8,6 +8,8 @@ import {
 } from "@mail/../tests/mail_test_helpers";
 import { describe, test } from "@odoo/hoot";
 import { mockDate } from "@odoo/hoot-mock";
+import { deserializeDateTime } from "@web/core/l10n/dates";
+import { getOrigin } from "@web/core/utils/urls";
 import { Command, serverState } from "@web/../tests/web_test_helpers";
 import { defineWhatsAppModels } from "@whatsapp/../tests/whatsapp_test_helpers";
 
@@ -123,12 +125,18 @@ test("whatsapp are sorted by last activity time in the sidebar: most recent at t
     await start();
     await openDiscuss();
     await contains(".o-mail-DiscussSidebarChannel", { count: 2 });
-    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });
-    await click(":nth-child(2 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 1" });
+    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel-container)", {
+        text: "WhatsApp 2",
+    });
+    await click(".o-mail-DiscussSidebarChannel", { text: "WhatsApp 1" });
     await insertText(".o-mail-Composer-input", "Blabla");
     await click(".o-mail-Composer-send:enabled");
-    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 1" });
-    await contains(":nth-child(2 of .o-mail-DiscussSidebarChannel)", { text: "WhatsApp 2" });
+    await contains(":nth-child(1 of .o-mail-DiscussSidebarChannel-container)", {
+        text: "WhatsApp 1",
+    });
+    await contains(":nth-child(2 of .o-mail-DiscussSidebarChannel-container)", {
+        text: "WhatsApp 2",
+    });
 });
 
 test("Whatsapp - Sidebar channel icons should have the partner's avatar", async () => {
@@ -143,7 +151,12 @@ test("Whatsapp - Sidebar channel icons should have the partner's avatar", async 
         ],
         channel_type: "whatsapp",
     });
+    const [partner] = pyEnv["res.partner"].search_read([["id", "=", partnerId]]);
     await start();
-    await openDiscuss();    
-    await contains(`.o-mail-DiscussSidebar-item img[data-src*='/web/image/res.partner/${partnerId}/avatar_128']`);
+    await openDiscuss();
+    await contains(
+        `.o-mail-DiscussSidebar-item img[data-src='${getOrigin()}/web/image/res.partner/${partnerId}/avatar_128?unique=${
+            deserializeDateTime(partner.write_date).ts
+        }']`
+    );
 });

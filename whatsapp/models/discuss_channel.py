@@ -247,7 +247,7 @@ class DiscussChannel(models.Model):
     # OVERRIDE
     # ------------------------------------------------------------
 
-    def _action_unfollow(self, partner):
+    def _action_unfollow(self, partner=None, guest=None):
         if self.channel_type == 'whatsapp' \
                 and ((self.whatsapp_mail_message_id \
                 and self.whatsapp_mail_message_id.author_id == partner) \
@@ -255,7 +255,7 @@ class DiscussChannel(models.Model):
             msg = _("You can't leave this channel. As you are the owner of this WhatsApp channel, you can only delete it.")
             partner._bus_send_transient_message(self, msg)
             return
-        super()._action_unfollow(partner)
+        super()._action_unfollow(partner, guest)
 
     def _to_store(self, store: Store):
         super()._to_store(store)
