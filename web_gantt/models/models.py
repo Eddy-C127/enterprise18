@@ -86,8 +86,8 @@ class Base(models.AbstractModel):
             for record_id in one_group['__record_ids']
         ))
         # Do search_fetch to order records (model order can be no-trivial)
-        all_records = self.search_fetch([('id', 'in', all_record_ids)], read_specification.keys())
-        final_result['records'] = all_records.web_read(read_specification)
+        all_records = self.with_context(active_test=False).search_fetch([('id', 'in', all_record_ids)], read_specification.keys())
+        final_result['records'] = all_records.with_env(self.env).web_read(read_specification)
 
         ordered_set_ids = OrderedSet(all_records._ids)
         for group in final_result['groups']:

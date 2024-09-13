@@ -150,3 +150,34 @@ class TestUnityWebReadGroupGantt(TransactionCase):
                 ],
                 'length': 5,
             })
+
+    def test_get_gantt_data_with_inactive(self):
+        self.env.invalidate_all()
+        self.pills[0:2].active = False
+        # 1 SQL for read_group + 1 SQL for reading name of groups + 1 SQL reading records
+        with self.assertQueryCount(3):
+            result = self.env['test.web.gantt.pill'].get_gantt_data(
+                [('id', 'in', self.pills.ids), ('active', '=', False)], ['dependency_field'], {'display_name': {}},
+            )
+            self.assertEqual(result, {
+                'groups': [
+                    {
+                        'dependency_field': (self.dependency_pills[0].id, 'Tag 1'),
+                        '__record_ids': [
+                            self.pills[0].id,
+                            self.pills[1].id,
+                        ],
+                    },
+                    {
+                        'dependency_field': (self.dependency_pills[1].id, 'Tag 2'),
+                        '__record_ids': [
+                            self.pills[1].id,
+                        ],
+                    },
+                ],
+                'records': [
+                    {'id': self.pills[0].id, 'display_name': 'one'},
+                    {'id': self.pills[1].id, 'display_name': 'two'},
+                ],
+                'length': 2,
+            })
