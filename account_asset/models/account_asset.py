@@ -26,6 +26,7 @@ class AccountAsset(models.Model):
 
     name = fields.Char(string='Asset Name', compute='_compute_name', store=True, required=True, readonly=False, tracking=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
+    country_code = fields.Char(related='company_id.account_fiscal_country_id.code')
     currency_id = fields.Many2one('res.currency', related='company_id.currency_id', store=True)
     state = fields.Selection(
         selection=[('model', 'Model'),

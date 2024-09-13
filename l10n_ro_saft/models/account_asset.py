@@ -9,7 +9,6 @@ class AccountAsset(models.Model):
         string="Warning on account asset category",
         compute="_compute_l10n_ro_saft_account_asset_category_warning",
     )
-    company_country_code = fields.Char(related='company_id.country_code', depends=['company_id'], readonly=True)
 
     @api.depends('method_period', 'method_number', 'l10n_ro_saft_account_asset_category_id')
     def _compute_l10n_ro_saft_account_asset_category_warning(self):

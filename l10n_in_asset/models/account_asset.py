@@ -8,11 +8,6 @@ class AccountAsset(models.Model):
         compute='_compute_l10n_in_value_residual',
         export_string_translation=False,
     )
-    l10n_in_fiscal_code = fields.Char(
-        string='country code tracker',
-        export_string_translation=False,
-        related='company_id.account_fiscal_country_id.code',
-    )
 
     @api.depends('value_residual', 'salvage_value', 'already_depreciated_amount_import')
     def _compute_l10n_in_value_residual(self):

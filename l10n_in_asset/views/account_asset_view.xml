@@ -7,9 +7,9 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='value_residual']" position="replace">
                 <field name="value_residual" nolabel="1" force_save="1" widget="monetary"
-                    invisible="state == 'model' or l10n_in_fiscal_code == 'IN'" options="{'currency_field': 'currency_id'}"/>
+                    invisible="state == 'model' or country_code == 'IN'" options="{'currency_field': 'currency_id'}"/>
                 <field name="l10n_in_value_residual" nolabel="1" force_save="1" widget="monetary"
-                    invisible="state == 'model' or l10n_in_fiscal_code != 'IN'" options="{'currency_field': 'currency_id'}"/>
+                    invisible="state == 'model' or country_code != 'IN'" options="{'currency_field': 'currency_id'}"/>
                  depreciable)
             </xpath>
         </field>
