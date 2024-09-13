@@ -59,4 +59,32 @@ patch(PosStore.prototype, {
             return await super.addLineToCurrentOrder(vals, opt, configure);
         }
     },
+    async printReceipt() {
+        if (this.useBlackBoxSweden()) {
+            const order = this.props.order;
+
+            if (order) {
+                const isReprint = await this.data.call("pos.order", "is_already_reprint", [
+                    [this.validated_orders_name_server_id_map[order.name]],
+                ]);
+                if (isReprint) {
+                    this.dialog.add(AlertDialog, {
+                        title: _t("POS error"),
+                        body: _t("A duplicate has already been printed once."),
+                    });
+                } else {
+                    order.receipt_type = "kopia";
+                    await this.push_single_order(order);
+                    order.receipt_type = false;
+                    order.isReprint = true;
+                    await this.data.call("pos.order", "set_is_reprint", [
+                        [this.validated_orders_name_server_id_map[order.name]],
+                    ]);
+                    return super.printReceipt(...arguments);
+                }
+            }
+        } else {
+            return super.printReceipt(...arguments);
+        }
+    },
 });

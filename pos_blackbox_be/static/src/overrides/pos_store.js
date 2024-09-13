@@ -5,6 +5,19 @@ import { _t } from "@web/core/l10n/translation";
 import { NumberPopup } from "@point_of_sale/app/utils/input_popups/number_popup";
 
 patch(PosStore.prototype, {
+    async printReceipt() {
+        if (this.useBlackBoxBe()) {
+            await this.dialog.add(AlertDialog, {
+                title: _t("Fiscal Data Module Restriction"),
+                body: _t(
+                    "You are not allowed to reprint a ticket when using the fiscal data module."
+                ),
+            });
+            return;
+        }
+
+        await super.printReceipt();
+    },
     async addLineToCurrentOrder(vals, opt = {}, configure = true) {
         const product = vals.product_id;
         if (this.useBlackBoxBe() && product.get_price() < 0) {
