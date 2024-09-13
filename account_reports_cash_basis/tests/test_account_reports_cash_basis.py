@@ -201,8 +201,8 @@ class TestAccountReports(TestAccountReportsCommon):
             [   0,                                       4,              5,              6],
             [
                 # Accounts.
-                ('101403 Outstanding Receipts',        115,              0,            115),
                 ('121000 Account Receivable',            0,            115,           -115),
+                ('OSTR00 Outstanding Receipts',        115,              0,            115),
                 # Report Total.
                 ('Total',                              115,            115,             0),
             ],
@@ -218,10 +218,10 @@ class TestAccountReports(TestAccountReportsCommon):
             [   0,                                       4,              5,              6],
             [
                 # Accounts.
-                ('101403 Outstanding Receipts',        115,              0,            115),
                 ('121000 Account Receivable',          115,            115,              0),
                 ('251000 Tax Received',                  0,             15,            -15),
                 ('400000 Product Sales',                 0,            100,           -100),
+                ('OSTR00 Outstanding Receipts',        115,              0,            115),
                 # Report Total.
                 ('Total',                              230,            230,             0),
             ],
@@ -353,6 +353,7 @@ class TestAccountReports(TestAccountReportsCommon):
         )
 
     def test_cash_basis_general_ledger_load_more_lines(self):
+        self.env['account.account'].search([('code', '=', 'OSTR00')]).code = '101403'
         invoice_date = fields.Date.from_string('2023-01-01')
         invoice = self.init_invoice('out_invoice', amounts=[3000.0], taxes=[], partner=self.partner_a, invoice_date=invoice_date, post=True)
         for _ in range(3):

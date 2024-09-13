@@ -88,7 +88,7 @@
 
         <record id="email_template_sdd_pre_notification" model="mail.template">
             <field name="name">SEPA Direct Debit Customer Pre-Notification mail</field>
-            <field name="subject">Payment notification {{ object.ref }}</field>
+            <field name="subject">Payment notification {{ object.memo }}</field>
             <field name="description">Sent to the customer to indicate their account will be charged</field>
             <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
             <field name="email_to">{{ object.partner_id.email_formatted }}</field>

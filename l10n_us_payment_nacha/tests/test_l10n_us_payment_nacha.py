@@ -43,10 +43,10 @@ class TestNacha(AccountTestInvoicingCommon):
         # 2020-12-01 03:45:00 UTC is 2020-11-31 19:45:00 US/Pacific
         cls.env.user.tz = "America/Los_Angeles"
 
-        def create_payment(partner, amount, ref, days_from_now):
+        def create_payment(partner, amount, memo, days_from_now):
             payment = cls.env['account.payment'].create({
                 "partner_id": partner.id,
-                "ref": ref,
+                "memo": memo,
                 "amount": amount,
                 "payment_type": "outbound",
                 "date": fields.Date.context_today(cls.env.user) + relativedelta(days=days_from_now),

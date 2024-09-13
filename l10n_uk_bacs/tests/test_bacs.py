@@ -256,7 +256,7 @@ class TestBACS(AccountTestInvoicingCommon):
         ddi_boundagani.action_validate_ddi()
         invoice_boundagani = self.create_invoice(partner_boundagani)
         self.pay_with_mandate(invoice_boundagani, ddi_boundagani)
-        payment_boundagani = invoice_boundagani.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id')
+        payment_boundagani = invoice_boundagani.matched_payment_ids
         self.assertEqual(invoice_boundagani.payment_state, self.env['account.move']._get_invoice_in_payment_state(), 'This invoice should have been paid thanks to the mandate')
         self.assertEqual(invoice_boundagani.bacs_ddi_id, ddi_boundagani, 'The invoice should have the right mandate')
 

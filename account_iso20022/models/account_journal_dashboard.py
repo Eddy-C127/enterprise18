@@ -9,8 +9,8 @@ class account_journal(models.Model):
         dashboard_data = super()._get_journal_dashboard_data_batched()
         self._fill_dashboard_data_count(dashboard_data, 'account.payment', 'num_sepa_ct_to_send', [
             ('payment_method_line_id.code', '=', 'sepa_ct'),
-            ('state', '=', 'posted'),
-            ('is_move_sent', '=', False),
+            ('state', '=', 'in_process'),
+            ('is_sent', '=', False),
             ('is_matched', '=', False),
         ])
         return dashboard_data
@@ -25,8 +25,8 @@ class account_journal(models.Model):
             'res_model': 'account.payment',
             'domain': [
                 ('payment_method_line_id.code', '=', 'sepa_ct'),
-                ('state', '=', 'posted'),
-                ('is_move_sent', '=', False),
+                ('state', '=', 'in_process'),
+                ('is_sent', '=', False),
                 ('is_matched', '=', False),
             ],
             'views': [[list_view_id, 'list'], [False, 'form'], [False, 'graph']],

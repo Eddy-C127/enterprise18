@@ -21,6 +21,7 @@ class AccountPayment(models.Model):
     # used to inform the end user there is a SDD mandate that could be used to register that payment
     sdd_mandate_usable = fields.Boolean(string="Could a SDD mandate be used?",
         compute='_compute_usable_mandate')
+    sdd_mandate_scheme = fields.Selection(related='sdd_mandate_id.sdd_scheme', readonly=True)
     sdd_mandate_id = fields.Many2one(
         name="SDD Mandate",
         comodel_name='sdd.mandate',
@@ -48,6 +49,17 @@ class AccountPayment(models.Model):
             elif mandate and not payment.sdd_mandate_id.filtered(lambda _mandate: _mandate.partner_id == payment.partner_id):
                 payment.payment_method_line_id = payment.available_payment_method_line_ids.filtered(lambda l: l.code == 'sdd')[0]
                 payment.sdd_mandate_id = mandate
+
+    def write(self, vals):
+        unpaid = self.filtered(lambda p: p.state == 'draft')
+        res = super().write(vals)
+        for pay in unpaid.filtered(lambda p: p.state == 'in_process'):
+            if pay.sdd_mandate_id:
+                matched_invoices = pay.move_id._get_reconciled_invoices() + pay.invoice_ids
+                matched_invoices.filtered(lambda m: m.sdd_mandate_id != pay.sdd_mandate_id).sdd_mandate_id = pay.sdd_mandate_id
+                if pay.sdd_mandate_id.one_off:
+                    pay.sdd_mandate_id.sudo().action_close_mandate()
+        return res
 
     @api.model
     def split_node(self, string_node, max_size):
@@ -261,8 +273,8 @@ class AccountPayment(models.Model):
 
         create_xml_node_chain(DrctDbtTxInf, ['DbtrAcct', 'Id', 'IBAN'], self.sdd_mandate_id.partner_bank_id.sanitized_acc_number)
 
-        if self.ref:
-            create_xml_node_chain(DrctDbtTxInf, ['RmtInf', 'Ustrd'], self.split_node(self.ref, 140)[0])
+        if self.memo:
+            create_xml_node_chain(DrctDbtTxInf, ['RmtInf', 'Ustrd'], self.split_node(self.memo, 140)[0])
 
     def _group_payments_per_bank_journal(self):
         """ Groups the payments of this recordset per associated journal, in a dictionnary of recordsets.
@@ -274,13 +286,3 @@ class AccountPayment(models.Model):
             else:
                 rslt[payment.journal_id] = payment
         return rslt
-
-    @api.depends('is_internal_transfer')
-    def _compute_payment_method_line_fields(self):
-        return super(AccountPayment, self)._compute_payment_method_line_fields()
-
-    def _get_payment_method_codes_to_exclude(self):
-        res = super(AccountPayment, self)._get_payment_method_codes_to_exclude()
-        if self.is_internal_transfer:
-            res.append('sdd')
-        return res

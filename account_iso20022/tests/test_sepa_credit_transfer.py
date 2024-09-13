@@ -62,7 +62,7 @@ class TestSEPACreditTransferCommon(AccountTestInvoicingCommon):
         })
 
     @classmethod
-    def createPayment(cls, partner, amount, ref=None):
+    def createPayment(cls, partner, amount, memo=None):
         """ Create a SEPA credit transfer payment """
         return cls.env['account.payment'].create({
             'journal_id': cls.company_data['default_journal_bank'].id,
@@ -73,7 +73,7 @@ class TestSEPACreditTransferCommon(AccountTestInvoicingCommon):
             'amount': amount,
             'partner_id': partner.id,
             'partner_type': 'supplier',
-            'ref': ref,
+            'memo': memo,
         })
 
 
@@ -97,8 +97,8 @@ class TestSEPACreditTransfer(TestSEPACreditTransferCommon):
             wizard_action = batch.validate_batch()
             self.assertFalse(wizard_action, "Validation wizard should not have returned an action")
 
-            self.assertTrue(payment_1.is_move_sent)
-            self.assertTrue(payment_2.is_move_sent)
+            self.assertTrue(payment_1.is_sent)
+            self.assertTrue(payment_2.is_sent)
 
     def test_sepa_pain_version(self):
         # Test to make sure the initial version is 'Generic' since it is a belgian IBAN
@@ -130,7 +130,7 @@ class TestSEPACreditTransfer(TestSEPACreditTransferCommon):
         self.partner_a.country_id = self.env.ref('base.be')
 
         payment_1 = self.createPayment(self.partner_a, 500)
-        payment_1.ref = "Wynand & Olivier are great fun!"
+        payment_1.memo = "Wynand & Olivier are great fun!"
         payment_1.action_post()
         payment_2 = self.createPayment(self.partner_a, 700)
         payment_2.action_post()
@@ -185,7 +185,7 @@ class TestSEPACreditTransfer(TestSEPACreditTransferCommon):
         elif country_code == 'eu':
             self.assertEqual(strd_issr, 'ISO')
 
-        self.assertEqual(strd_ref, payment.ref)
+        self.assertEqual(strd_ref, payment.memo)
 
     def test_structured_reference_eu(self):
         payment = self.createPayment(self.partner_a, 500, 'RF18539007547034')

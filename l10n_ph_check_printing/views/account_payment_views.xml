@@ -7,14 +7,13 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <list position="attributes">
-                <attribute name="decoration-danger">is_matched == False and is_move_sent == True and date &lt;= datetime.datetime.now().strftime('%Y-%m-%d')</attribute>
+                <attribute name="decoration-danger">state == 'draft' and date &lt;= datetime.datetime.now().strftime('%Y-%m-%d')</attribute>
                 <attribute name="default_order">check_number ASC</attribute>
             </list>
             <field name="partner_id" position="attributes">
                 <attribute name="string">Vendor</attribute>
             </field>
             <field name="date" position="after">
-                <field name="is_move_sent" column_invisible="True"/>
                 <field name="is_matched" column_invisible="True"/>
                 <field name="check_number"/>
             </field>
@@ -28,7 +27,7 @@
         <field name="inherit_id" ref="account.view_account_payment_search"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <filter name="transfers_filter" position="after">
+            <filter name="outbound_filter" position="after">
                 <separator/>
                 <filter string="Checks"
                         name="checks_payments_filter"
@@ -36,11 +35,11 @@
                 <separator/>
                 <filter string="Not Matched"
                         name="checks_payments_not_matched_filter"
-                        domain="[('is_matched', '=', False), ('is_move_sent', '=', True)]"/>
+                        domain="[('is_matched', '=', False), ('is_sent', '=', True)]"/>
                 <separator/>
                 <filter string="Overdue"
                         name="checks_payments_overdue_filter"
-                        domain="[('is_matched', '=', False), ('is_move_sent', '=', True), ('date', '&lt;=', context_today().strftime('%Y-%m-%d'))]"/>
+                        domain="[('is_matched', '=', False), ('is_sent', '=', True), ('date', '&lt;=', context_today().strftime('%Y-%m-%d'))]"/>
                 <separator/>
             </filter>
         </field>

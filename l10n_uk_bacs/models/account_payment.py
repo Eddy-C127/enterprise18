@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from odoo.exceptions import ValidationError
+from odoo.exceptions import ValidationError, UserError
 
 
 class AccountPayment(models.Model):
@@ -15,6 +15,27 @@ class AccountPayment(models.Model):
         ('dd_sub_rep', 'Direct debit repeating collection in a series'),
         ('dd_sub_fin', 'Direct debit-final collection of a series'),
     ], string="BACS Payment Type", default='dd_regular', required=True)
+    bacs_ddi_id = fields.Many2one(
+        comodel_name='bacs.ddi',
+        copy=False,
+    )
+
+    def write(self, vals):
+        # OVERRIDE
+        # Register BACS Direct Debit payments on DDIs or trigger an error if no DDI is available.
+        draft_bacs = self.filtered(lambda p: p.payment_method_code == 'bacs_dd' and p.state == 'draft')
+        res = super().write(vals)
+        for pay in draft_bacs.filtered(lambda p: p.state == 'in_process'):
+            usable_ddi = pay.get_usable_ddi()
+            if not usable_ddi:
+                raise UserError(_(
+                    "Unable to post payment “%(payment)s” because there are no usable DDI that are available at date %(date)s for partner “%(partner)s”. Please create one before encoding a BACS Direct Debit payment.",
+                    payment=pay.name,
+                    date=pay.date,
+                    partner=pay.partner_id.name,
+                ))
+            pay.bacs_ddi_id = usable_ddi
+        return res
 
     @api.model
     def _get_method_codes_using_bank_account(self):

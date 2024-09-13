@@ -29,8 +29,9 @@ class TestAccountReportsTours(AccountTestInvoicingHttpCommon):
 
         cls.account_101404 = cls.env['account.account'].search([
             ('company_ids', '=', cls.company_data['company'].id),
-            ('code', '=', 101404)
+            ('code', '=', 'OSTR00')
         ])
+        cls.account_101404.code = '101404'
 
         cls.account_121000 = cls.env['account.account'].search([
             ('company_ids', '=', cls.company_data['company'].id),

@@ -11,9 +11,9 @@ class AccountJournalDashboard(models.Model):
         dashboard_data = super()._get_journal_dashboard_data_batched()
         self._fill_dashboard_data_count(dashboard_data, 'account.payment', 'num_aba_ct_to_send', [
             ('payment_method_id.code', '=', 'aba_ct'),
-            ('is_move_sent', '=', False),
+            ('is_sent', '=', False),
             ('is_matched', '=', False),
-            ('state', '=', 'posted'),
+            ('state', '=', 'in_process'),
         ])
         return dashboard_data
 

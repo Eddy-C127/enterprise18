@@ -48,6 +48,9 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             "company_id": cls.australian_company.id,
             "bank_account_id": bank_account.id,
         })
+        pay_method_line = cls.journal_id._get_available_payment_method_lines('outbound').filtered(
+            lambda x: x.code == 'manual')
+        pay_method_line.payment_account_id = cls.inbound_payment_method_line.payment_account_id
         cls.employee = cls.env['hr.employee'].create({
             'company_id': cls.australian_company.id,
             'resource_calendar_id': cls.australian_company.resource_calendar_id.id,
@@ -182,7 +185,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
 
         # Check reconciled
         domain = [('account_id', '=', self.account_21400.id)]
-        should_be_reconciled = (superstream.l10n_au_super_stream_lines.payslip_id.move_id.line_ids + superstream.payment_id.line_ids).filtered_domain(domain)
+        should_be_reconciled = (superstream.l10n_au_super_stream_lines.payslip_id.move_id.line_ids + superstream.payment_id.move_id.line_ids).filtered_domain(domain)
         self.assertTrue(should_be_reconciled.full_reconcile_id)
         self.assertRecordValues(should_be_reconciled,
                         [{'amount_residual': 0.0, 'amount_residual_currency': 0.0, 'reconciled': True}] * len(should_be_reconciled))

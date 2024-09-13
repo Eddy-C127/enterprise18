@@ -199,7 +199,7 @@ class HrPayrollPaymentReportWizard(models.TransientModel):
                 "partner_id": journal.company_id.partner_id.id,
                 "partner_bank_id": journal.bank_account_id.id,
                 "amount": sum(payment.amount for payment in payslip_payments),
-                "ref": "OFFSET",
+                "memo": "OFFSET",
             })
             self._validate_bank_for_nacha(offset_payment)
             offset_payments |= offset_payment

@@ -8,30 +8,8 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    sdd_mandate_scheme = fields.Selection(related='sdd_mandate_id.sdd_scheme', readonly=True)
-    sdd_mandate_id = fields.Many2one(
-        name="SDD Mandate",
-        comodel_name='sdd.mandate',
-        copy=False,
-        check_company=True,
-        help="Once this invoice has been paid with Direct Debit, contains the mandate that allowed the payment.")
+    sdd_mandate_id = fields.Many2one(related='origin_payment_id.sdd_mandate_id')
     sdd_has_usable_mandate = fields.Boolean(compute='_compute_sdd_has_usable_mandate', search='_search_sdd_has_usable_mandate')
-
-    def _post(self, soft=True):
-        # OVERRIDE
-        # Register SDD payments on mandates or trigger an error if no mandate is available.
-        for pay in self.payment_id.filtered(lambda p: p.payment_method_code in p.payment_method_id._get_sdd_payment_method_code()):
-            usable_mandate = pay.get_usable_mandate()
-            if not usable_mandate:
-                raise UserError(_(
-                    "Unable to post payment “%(payment)s” because there are no usable mandates that are available at date %(date)s for partner “%(partner)s”. Please create one before encoding a SEPA Direct Debit payment.",
-                    payment=pay.name,
-                    date=pay.date,
-                    partner=pay.partner_id.name,
-                ))
-            pay.sdd_mandate_id = usable_mandate
-
-        return super()._post(soft)
 
     @api.model
     def _search_sdd_has_usable_mandate(self, operator, value):
@@ -86,19 +64,3 @@ class AccountMove(models.Model):
         if 'state' in init_values and self.state in ('in_payment', 'paid') and self.move_type == 'out_invoice' and self.sdd_mandate_id:
             return self.env.ref('account_sepa_direct_debit.sdd_mt_invoice_paid_with_mandate')
         return super(AccountMove, self)._track_subtype(init_values)
-
-
-class AccountMoveLine(models.Model):
-    _inherit = 'account.move.line'
-
-    def _reconcile_post_hook(self, data):
-        # EXTENDS 'account'
-        super()._reconcile_post_hook(data)
-
-        for pay in self.payment_id:
-            if pay.sdd_mandate_id:
-                pay.move_id._get_reconciled_invoices().filtered(lambda m: m.sdd_mandate_id != pay.sdd_mandate_id).sdd_mandate_id = pay.sdd_mandate_id
-
-                if pay.sdd_mandate_id.one_off:
-                    # one_off mandates are not used, but this sudo make sure it would work from the payment_sepa_direct_debit flow
-                    pay.sdd_mandate_id.sudo().action_close_mandate()

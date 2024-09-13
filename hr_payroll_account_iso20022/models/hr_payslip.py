@@ -24,7 +24,7 @@ class HrPayslip(models.Model):
             'journal_id': journal_id.id,
             'currency_id': journal_id.currency_id.id,
             'payment_type': 'outbound',
-            'ref': self.number,
+            'memo': self.number,
             'partner_id': self.employee_id.work_contact_id.id,
             'partner_bank_id': self.employee_id.bank_account_id.id,
         }

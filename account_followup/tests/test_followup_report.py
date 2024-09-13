@@ -322,7 +322,6 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
         self.assertEqual(self.partner_a.followup_status, 'in_need_of_action')
 
         self.env['account.payment'].create({
-            'move_type': 'inbound',
             'partner_id': self.partner_a.id,
             'amount': 400,
         }).action_post()

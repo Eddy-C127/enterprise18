@@ -157,7 +157,6 @@ class TestJournalReport(TestAccountReportsCommon):
         cls.move_payment_0 = cls.env['account.payment'].create({
             'amount': 370,
             'partner_id': cls.partner_a.id,
-            'destination_journal_id': cls.default_bank_journal.id,
             'payment_reference': 'PBNK1/2017/00000001',
             'payment_type': 'inbound',
             'destination_account_id': cls.company_data['default_account_revenue'].id,
@@ -292,8 +291,8 @@ class TestJournalReport(TestAccountReportsCommon):
                 ('400000',         0,       7150,      -7150),
                 ('BNK1',         570,        570,         ''),
                 ('101401',       200,          0,        200),
-                ('101403',       370,          0,        370),
                 ('400000',         0,        570,       -570),
+                ('OSTR00',       370,          0,        370),
             ],
             options_show_payment,
         )

@@ -26,6 +26,8 @@ class SDDTestCommon(AccountTestInvoicingCommon):
         cls.bank_bnp = cls.env['res.bank'].create({'name': 'BNP Paribas', 'bic': 'GEBABEBB'})
         cls.bank_no_bic = cls.env['res.bank'].create({'name': 'NO BIC BANK'})
         cls.sdd_company_bank_journal.bank_account_id.bank_id = cls.bank_ing
+        sdd_method_line = cls.sdd_company_bank_journal.inbound_payment_method_line_ids.filtered(lambda l: l.code == 'sdd')
+        sdd_method_line.payment_account_id = cls.inbound_payment_method_line.payment_account_id
 
         # Then we setup the banking data and mandates of two customers (one with a one-off mandate, the other with a recurrent one)
         cls.partner_agrolait = cls.env['res.partner'].create({'name': 'Agrolait', 'city': 'Agrolait Town', 'country_id': cls.country_germany.id})

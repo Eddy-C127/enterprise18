@@ -111,7 +111,7 @@ class TestResPartner(AccountTestInvoicingCommon):
         })
         payment.action_post()
         bill_payable_move_lines = bill.line_ids.filtered(lambda x: x.account_type == 'liability_payable')
-        bill_payable_move_lines += payment.line_ids.filtered(lambda x: x.account_type == 'liability_payable')
+        bill_payable_move_lines += payment.move_id.line_ids.filtered(lambda x: x.account_type == 'liability_payable')
         bill_payable_move_lines.reconcile()
 
     def create_325_form(self, ref_year=2000, state='generated', test=False):
@@ -932,7 +932,7 @@ class TestResPartner(AccountTestInvoicingCommon):
 
         payments.action_post()
         bill_payable_move_lines = bill.line_ids.filtered(lambda x: x.account_type == 'liability_payable')
-        bill_payable_move_lines += payments.line_ids.filtered(lambda x: x.account_type == 'liability_payable')
+        bill_payable_move_lines += payments.move_id.line_ids.filtered(lambda x: x.account_type == 'liability_payable')
         bill_payable_move_lines.reconcile()
 
         form_325 = self.create_325_form(ref_year=2000)

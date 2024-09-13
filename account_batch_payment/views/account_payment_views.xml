@@ -11,7 +11,7 @@
             <field name="arch" type="xml">
 
                 <!-- Filter on batch payments -->
-                <filter name="transfers_filter" position="after">
+                <filter name="outbound_filter" position="after">
                     <separator/>
                     <filter string="Batch Payments"
                             name="batch_payments_filter"

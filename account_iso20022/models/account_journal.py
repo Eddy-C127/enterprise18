@@ -312,10 +312,10 @@ class AccountJournal(models.Model):
             else:
                 return None
 
-        if not payment['ref']:
+        if not payment['memo']:
             return False
         RmtInf = etree.Element('RmtInf')
-        ref = sr.sanitize_structured_reference(payment['ref'])
+        ref = sr.sanitize_structured_reference(payment['memo'])
         partner_country_code = payment.get('partner_country_code')
         reference_type = detect_reference_type(ref, partner_country_code)
         if reference_type:
@@ -323,7 +323,7 @@ class AccountJournal(models.Model):
         # Check whether we have a structured communication
         else:
             Ustrd = etree.SubElement(RmtInf, "Ustrd")
-            Ustrd.text = self._sepa_sanitize_communication(payment['ref'])
+            Ustrd.text = self._sepa_sanitize_communication(payment['memo'])
         return RmtInf
 
     def _get_company_PartyIdentification32(self, payment_method_code, postal_address=True, nm=True, issr=True, schme_nm=False):

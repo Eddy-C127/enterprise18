@@ -77,7 +77,7 @@ class TestMultiCurrenciesRevaluationReport(TestAccountReportsCommon):
         })
         payment.action_post()
         lines_to_reconcile = move.line_ids.filtered(lambda x: x.account_type == account_type)
-        lines_to_reconcile += payment.line_ids.filtered(lambda x: x.account_type == account_type)
+        lines_to_reconcile += payment.move_id.line_ids.filtered(lambda x: x.account_type == account_type)
         lines_to_reconcile.reconcile()
 
     @classmethod

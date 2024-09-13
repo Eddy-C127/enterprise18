@@ -12,20 +12,14 @@ class TestAccountBatchPayment(AccountTestInvoicingCommon):
         super().setUpClass()
 
         cls.other_currency = cls.setup_other_currency('EUR')
-        company_id = cls.company_data['default_journal_bank'].company_id
 
-        cls.payment_debit_account_id = cls.copy_account(company_id.account_journal_payment_debit_account_id)
-        cls.payment_credit_account_id = cls.copy_account(company_id.account_journal_payment_credit_account_id)
+        cls.payment_debit_account_id = cls.copy_account(cls.inbound_payment_method_line.payment_account_id)
+        cls.payment_credit_account_id = cls.copy_account(cls.outbound_payment_method_line.payment_account_id)
 
         cls.partner_bank_account = cls.env['res.partner.bank'].create({
             'acc_number': 'BE32707171912447',
             'partner_id': cls.partner_a.id,
             'acc_type': 'bank',
-        })
-
-        company_id.write({
-            'account_journal_payment_debit_account_id': cls.payment_debit_account_id.id,
-            'account_journal_payment_credit_account_id': cls.payment_credit_account_id.id
         })
 
         cls.partner_a.write({
@@ -78,7 +72,7 @@ class TestAccountBatchPayment(AccountTestInvoicingCommon):
 
         self.assertEqual(batch_payment.amount, 200)
 
-        payments[0].action_draft()
+        payments[0].move_id.button_draft()
 
         # Check that we still keep it
         self.assertEqual(batch_payment.amount, 200)
@@ -107,10 +101,14 @@ class TestAccountBatchPayment(AccountTestInvoicingCommon):
             }
         )
 
+        payments[0].move_id.button_draft()
+        payments[0].action_cancel()
         payments[0].action_draft()
 
-        with self.assertRaises(ValidationError, msg="Cannot validate a batch if payments are not posted"):
-            batch_payment.validate_batch()
+        self.assertNotIn(payments[0], batch_payment.payment_ids)
+
+        with self.assertRaisesRegex(ValidationError, "You cannot add payments that are not posted"):
+            batch_payment.payment_ids += payments[0]
 
         payments[0].action_post()
         batch_payment.validate_batch()

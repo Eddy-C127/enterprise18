@@ -21,9 +21,8 @@
                 <xpath expr="//field[@name='payment_method_line_id']" position="after">
                     <field name="sdd_mandate_id"
                            string="Originating SEPA mandate"
-                           domain="[('state', '=', 'active'), ('partner_id', '=', commercial_partner_id)]"
+                           domain="[('state', '=', 'active'), ('partner_id', '=', partner_id)]"
                            invisible="payment_method_code not in ('sdd', 'sepa_direct_debit')"/>
-                    
                 </xpath>
                 <xpath expr="//header" position="after">
                     <div class="alert alert-info text-center"

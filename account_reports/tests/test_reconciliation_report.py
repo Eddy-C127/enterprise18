@@ -101,13 +101,13 @@ class TestReconciliationReport(TestAccountReportsCommon):
         # ==== Reconciliation ====
 
         st_line = statement_2.line_ids.filtered(lambda line: line.payment_ref == 'line_1')
-        payment_line = payment_1.line_ids.filtered(lambda line: line.account_id == bank_journal.company_id.account_journal_payment_debit_account_id)
+        payment_line = payment_1.move_id.line_ids.filtered(lambda line: line.account_id == payment_1.payment_method_line_id.payment_account_id)
         wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
         wizard._action_add_new_amls(payment_line, allow_partial=False)
         wizard._action_validate()
 
         st_line = statement_2.line_ids.filtered(lambda line: line.payment_ref == 'line_3')
-        payment_line = payment_2.line_ids.filtered(lambda line: line.account_id == bank_journal.company_id.account_journal_payment_credit_account_id)
+        payment_line = payment_2.move_id.line_ids.filtered(lambda line: line.account_id == payment_2.payment_method_line_id.payment_account_id)
         wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
         wizard._action_add_new_amls(payment_line, allow_partial=False)
         wizard._action_validate()
@@ -128,7 +128,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
             #   Name                                            Date            Amount
             [0,                                                   1,                3],
             [
-                ('Balance of \'101405 Bank\'',                   '',           -200.0),
+                ('Balance of \'101403 Bank\'',                   '',           -200.0),
                 ('Last statement balance',                       '',           -200.0),
                 ('Including Unreconciled Receipts',              '',            200.0),
                 ('BNKKK/2015/00002',                   '01/02/2015',            200.0),
@@ -253,7 +253,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
                 #   Name                                                Date   Am. Cur.                  Cur.       Amount
                 [0,                                                       1,       3,                      4,           5],
                 [
-                    ('Balance of \'101405 Bank\'',                       '',      '',                     '',       200.0),
+                    ('Balance of \'101403 Bank\'',                       '',      '',                     '',       200.0),
                     ('Last statement balance',                           '',      '',                     '',       200.0),
                     ('Including Unreconciled Receipts',                  '',      '',                     '',       200.0),
                     ('BNKKK/2016/00002',                       '01/01/2016',  999.99,    choco_currency.name,       100.0),
@@ -389,6 +389,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
             'type': 'bank',
             'company_id': self.company_data['company'].id,
         })
+        bank_journal.inbound_payment_method_line_ids.payment_account_id = self.inbound_payment_method_line.payment_account_id
 
         # ==== Misc ====
         self.env['account.move'].create({
@@ -405,7 +406,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
                     'name': 'Destination',
                     'debit': 0,
                     'credit': 800,
-                    'account_id': bank_journal.company_id.account_journal_payment_credit_account_id.id,
+                    'account_id': self.inbound_payment_method_line.payment_account_id.id,
                 }),
             ]
         }).action_post()
@@ -424,7 +425,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
                     'name': 'Destination',
                     'debit': 0,
                     'credit': 500,
-                    'account_id': bank_journal.company_id.account_journal_payment_credit_account_id.id,
+                    'account_id': self.inbound_payment_method_line.payment_account_id.id,
                 }),
             ]
         }).action_post()
@@ -445,7 +446,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
             #   Name                                                  Date         Amount
             [0,                                                         1,             3],
             [
-                ('Balance of \'101405 Bank\'',                         '',           0.0),
+                ('Balance of \'101403 Bank\'',                         '',           0.0),
                 ('Last statement balance',                             '',           0.0),
                 ('Including Unreconciled Receipts',                    '',           0.0),
                 ('Including Unreconciled Payments',                    '',           0.0),
@@ -507,7 +508,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
             #   Name                                                  Date         Amount
             [0,                                                         1,             3],
             [
-                ('Balance of \'101405 Bank\'',                         '',         800.0),
+                ('Balance of \'101403 Bank\'',                         '',         800.0),
                 ('Last statement balance',                             '',           0.0),
                 ('Including Unreconciled Receipts',                    '',           0.0),
                 ('Including Unreconciled Payments',                    '',           0.0),
@@ -534,7 +535,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
             #   Name                                                  Date         Amount
             [0,                                                         1,             3],
             [
-                ('Balance of \'101405 Bank\'',                         '',           0.0),
+                ('Balance of \'101403 Bank\'',                         '',           0.0),
                 ('Last statement balance',                             '',           0.0),
                 ('Including Unreconciled Receipts',                    '',           0.0),
                 ('Including Unreconciled Payments',                    '',           0.0),
@@ -710,7 +711,7 @@ class TestReconciliationReport(TestAccountReportsCommon):
         })
         payment.action_post()
 
-        payment_line = payment.line_ids.filtered(lambda line: line.account_id == bank_journal.company_id.account_journal_payment_debit_account_id)
+        payment_line = payment.move_id.line_ids.filtered(lambda line: line.account_id == payment.payment_method_line_id.payment_account_id)
         wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=bank_statement_lines[1].id).new({})
         wizard._action_add_new_amls(payment_line, allow_partial=False)
         wizard._action_validate()

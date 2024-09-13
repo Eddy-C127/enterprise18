@@ -19,7 +19,7 @@ class AccountMove(models.Model):
         help='Payment method for Moroccan EDI. If left empty it will default to "Other" on the EDI declaration.'
     )
 
-    @api.depends('payment_id')
+    @api.depends('origin_payment_id')
     def _compute_l10n_ma_reports_payment_method(self):
         for move in self:
             payments = move.sudo()._get_reconciled_payments()

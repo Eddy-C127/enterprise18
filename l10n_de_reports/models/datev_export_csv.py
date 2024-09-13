@@ -383,7 +383,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
             # Since here we have to recompute the tax values for each line with tax, we need
             # to replicate the rounding fix logic adding the difference on the last tax line
             # to avoid creating a difference with the source payment move
-            if (m.payment_id or m.statement_line_id) and move_balance and counterpart_amount and last_tax_line_index:
+            if (m.origin_payment_id or m.statement_line_id) and move_balance and counterpart_amount and last_tax_line_index:
                 delta_balance = move_balance + counterpart_amount
                 if delta_balance:
                     lines[last_tax_line_index][0] = float_repr(abs(last_tax_line_amount - delta_balance), m.company_id.currency_id.decimal_places).replace('.', ',')

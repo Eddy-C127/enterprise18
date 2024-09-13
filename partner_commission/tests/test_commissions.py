@@ -105,7 +105,7 @@ class TestCommissions(TestCommissionsSetup):
             'amount': 10,
         })
         payment = payment_register._create_payments()
-        if payment.state != 'posted':
+        if payment.state != 'in_process':
             payment.action_post()
 
         self.assertEqual(inv.payment_state, 'partial')

@@ -588,7 +588,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
         ])
 
         # Remove it and again a new payment.
-        payment2.line_ids.remove_move_reconcile()
+        payment2.move_id.line_ids.remove_move_reconcile()
         payment3 = self.env['account.payment.register']\
             .with_context(active_model='account.move', active_ids=invoice.ids)\
             .create({})\
@@ -666,7 +666,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
             'currency_id': self.comp_curr.id,
         })
         payment.action_post()
-        payment1_rec_line = payment.line_ids.filtered(lambda x: x.account_type == 'asset_receivable')
+        payment1_rec_line = payment.move_id.line_ids.filtered(lambda x: x.account_type == 'asset_receivable')
         invoice1_rec_line = invoice1.line_ids.filtered(lambda x: x.account_type == 'asset_receivable')
         (payment1_rec_line + invoice1_rec_line).reconcile()
 
@@ -1869,7 +1869,7 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
         ])
 
         # Unreconcile the first payment
-        payment1.line_ids.remove_move_reconcile()
+        payment1.move_id.line_ids.remove_move_reconcile()
 
         # Create a new payment with a cfdi origin containing the uuid of the first payment
         payment2 = self.env['account.payment.register']\

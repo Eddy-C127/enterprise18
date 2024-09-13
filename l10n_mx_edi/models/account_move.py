@@ -241,7 +241,7 @@ class AccountMove(models.Model):
         :return: True if the account.move is a payment, False otherwise.
         """
         self.ensure_one()
-        return self.payment_id or self.statement_line_id
+        return self.origin_payment_id or self.statement_line_id
 
     def _l10n_mx_edi_cfdi_invoice_append_addenda(self, cfdi, addenda):
         ''' Append an additional block to the signed CFDI passed as parameter.
@@ -455,7 +455,7 @@ class AccountMove(models.Model):
             if move.country_code == 'MX':
                 move.amount_total_words = move._l10n_mx_edi_cfdi_amount_to_text()
 
-    @api.depends('move_type', 'company_currency_id', 'payment_id', 'statement_line_id')
+    @api.depends('move_type', 'company_currency_id', 'origin_payment_id', 'statement_line_id')
     def _compute_l10n_mx_edi_is_cfdi_needed(self):
         """ Check whatever or not the CFDI is needed on this invoice.
         """

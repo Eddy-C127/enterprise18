@@ -37,6 +37,7 @@ class L10nPayrollAccountCommon(AccountTestInvoicingCommon):
             "aba_user_number": "111111",
         })
         cls.aba_ct = bank_journal.outbound_payment_method_line_ids.filtered(lambda l: l.code == 'aba_ct')
+        cls.aba_ct.payment_account_id = cls.outbound_payment_method_line.payment_account_id
 
         # Employees Setup
         cls.employee_user_1 = new_test_user(cls.env, login='mel', groups='hr.group_hr_manager')

@@ -50,12 +50,12 @@ class TestCPA005(AccountTestInvoicingCommon):
             }
         )
 
-        def create_payment(partner, amount, ref, days_from_now, transaction_code):
+        def create_payment(partner, amount, memo, days_from_now, transaction_code):
             payment = cls.env["account.payment"].create(
                 {
                     "partner_id": partner.id,
                     "currency_id": cls.env.ref("base.CAD").id,
-                    "ref": ref,
+                    "memo": memo,
                     "amount": amount,
                     "payment_type": "outbound",
                     "date": datetime.datetime.today() + relativedelta(days=days_from_now),

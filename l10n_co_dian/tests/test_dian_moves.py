@@ -238,7 +238,7 @@ class TestDianMoves(TestCoDianCommon):
             'amount': 500,
             'date': '2024-01-30',
         })
-        outstanding = payment.line_ids.filtered(lambda x: x.account_type == 'asset_current')
+        outstanding = payment.move_id.line_ids.filtered(lambda x: x.account_type == 'asset_current')
         suspense = bank_stmt_line.line_ids.filtered(lambda x: x.account_type == 'asset_current')
         suspense.account_id = outstanding.account_id
         (outstanding + suspense).reconcile()

@@ -27,8 +27,8 @@ class AccountJournal(models.Model):
         dashboard_data = super()._get_journal_dashboard_data_batched()
         self._fill_dashboard_data_count(dashboard_data, 'account.payment', 'sdd_payments_to_send_number', [
             ('payment_method_code', 'in', self.env['account.payment.method']._get_sdd_payment_method_code()),
-            ('state', '=', 'posted'),
-            ('is_move_sent', '=', False),
+            ('state', '=', 'in_process'),
+            ('is_sent', '=', False),
             ('is_matched', '=', False),
         ])
         return dashboard_data

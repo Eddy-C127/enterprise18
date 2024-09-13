@@ -81,7 +81,7 @@ class AccountReconcileModel(models.Model):
             invoice_amls = invoices.line_ids.filtered_domain(aml_domain)
 
             matched_payments = invoices._get_reconciled_payments()
-            payments_amls = matched_payments.line_ids.filtered_domain(aml_domain)
+            payments_amls = matched_payments.move_id.line_ids.filtered_domain(aml_domain)
 
             amls = payments_amls | invoice_amls
             if not amls:

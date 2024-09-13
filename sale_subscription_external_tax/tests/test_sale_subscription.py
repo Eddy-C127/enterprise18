@@ -22,7 +22,6 @@ class TestSaleSubscriptionExternalCommon:
         # autospec to capture self in call_args_list (https://docs.python.org/3/library/unittest.mock-examples.html#mocking-unbound-methods)
         # patch out the _post because _create_recurring_invoice will auto-post the invoice which will also trigger tax computation, that's not what this test is about
         with patch('odoo.addons.account_external_tax.models.account_move.AccountMove._set_external_taxes', autospec=True) as mocked_set, \
-             patch('odoo.addons.account_external_tax.models.account_move.AccountMove._post', lambda self, *args, **kwargs: self), \
              patch('odoo.addons.account_external_tax.models.account_external_tax_mixin.AccountExternalTaxMixin._compute_is_tax_computed_externally', is_computed_externally):
             yield mocked_set
 

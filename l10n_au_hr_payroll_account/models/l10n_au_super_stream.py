@@ -126,7 +126,7 @@ class L10auSuperStream(models.Model):
             'payment_type': 'outbound',
             'partner_id': clearing_house_partner.id,
             'partner_type': 'supplier',
-            'ref': self.name,
+            'memo': self.name,
             'journal_id': self.journal_id.id,
             'currency_id': self.currency_id.id,
             'payment_method_line_id': pay_method_line.id,
@@ -140,7 +140,7 @@ class L10auSuperStream(models.Model):
                 "Please post them before registering payment."
             ))
 
-        (payslip_entries.line_ids + self.payment_id.line_ids)\
+        (payslip_entries.line_ids + self.payment_id.move_id.line_ids)\
             .filtered_domain([('account_id', '=', self.payment_id.destination_account_id.id), ('reconciled', '=', False)])\
             .reconcile()
         return self.action_open_payment()

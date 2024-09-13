@@ -80,7 +80,7 @@ class TestSEPACreditTransferUpdate(TestSEPACreditTransferUpdateCommon):
     def test_new_generic_sepa_version_001_001_09(self):
 
         self.batch.validate_batch()
-        self.assertTrue(self.payment.is_move_sent)
+        self.assertTrue(self.payment.is_sent)
         sct_doc = etree.fromstring(b64decode(self.batch.export_file))
 
         uetr = self.payment.iso20022_uetr

@@ -14,11 +14,11 @@ class SDDTest(SDDTestCommon):
     def test_sdd(self):
         # The invoices should have been paid thanks to the mandate
         self.assertEqual(self.invoice_agrolait.payment_state, self.env['account.move']._get_invoice_in_payment_state(), 'This invoice should have been paid thanks to the mandate')
-        self.assertEqual(self.invoice_agrolait.sdd_mandate_id, self.mandate_agrolait)
+        self.assertEqual(self.invoice_agrolait.matched_payment_ids.sdd_mandate_id, self.mandate_agrolait)
         self.assertEqual(self.invoice_china_export.payment_state, self.env['account.move']._get_invoice_in_payment_state(), 'This invoice should have been paid thanks to the mandate')
-        self.assertEqual(self.invoice_china_export.sdd_mandate_id, self.mandate_china_export)
+        self.assertEqual(self.invoice_china_export.matched_payment_ids.sdd_mandate_id, self.mandate_china_export)
         self.assertEqual(self.invoice_no_bic.payment_state, self.env['account.move']._get_invoice_in_payment_state(), 'This invoice should have been paid thanks to the mandate')
-        self.assertEqual(self.invoice_no_bic.sdd_mandate_id, self.mandate_no_bic)
+        self.assertEqual(self.invoice_no_bic.matched_payment_ids.sdd_mandate_id, self.mandate_no_bic)
 
         # The 'one-off' mandate should now be closed
         self.assertEqual(self.mandate_agrolait.state, 'active', 'A recurrent mandate should stay confirmed after accepting a payment')
@@ -29,10 +29,10 @@ class SDDTest(SDDTestCommon):
         self.sdd_company_bank_journal.debit_sepa_pain_version = 'pain.008.001.08'
 
         for invoice in (self.invoice_agrolait, self.invoice_no_bic):
-            payment = invoice.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id')
+            payment = invoice.matched_payment_ids
             payment.generate_xml(self.sdd_company, fields.Date.today(), True)
 
-        payment = self.invoice_china_export.line_ids.mapped('matched_credit_ids.credit_move_id.payment_id')
+        payment = self.invoice_china_export.matched_payment_ids
 
         # Checks that an error is thrown if the city name is missing
         self.partner_china_export.write({'city': False, 'country_id': self.country_china})

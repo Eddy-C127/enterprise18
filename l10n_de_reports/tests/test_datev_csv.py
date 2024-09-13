@@ -191,7 +191,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         self.env.flush_all()
 
-        debit_account_code = str(self.env.company.account_journal_payment_debit_account_id.code).ljust(8, '0')
+        debit_account_code = str(pay.payment_method_line_id.payment_account_id.code).ljust(8, '0')
 
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
         f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
@@ -202,7 +202,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         self.assertIn(['119,00', 'H', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
         self.assertIn(['119,00', 'H', 'EUR', str(move.partner_id.id + 100000000), debit_account_code, '', '312',
-                       pay.name, pay.line_ids[0].name], data)
+                       pay.name, pay.move_id.line_ids[0].name], data)
 
     def test_datev_out_invoice_payment_same_account_counteraccount(self):
         report = self.env.ref('account_reports.general_ledger_report')
@@ -245,7 +245,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         self.assertIn(['119,00', 'H', 'EUR', '49800000', str(move.partner_id.id + 100000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
         self.assertIn(['119,00', 'H', 'EUR', str(move.partner_id.id + 100000000), debit_account_code, '', '312',
-                       pay.name, pay.line_ids[0].name], data)
+                       pay.name, pay.move_id.line_ids[0].name], data)
 
     def test_datev_in_invoice_payment(self):
         report = self.env.ref('account_reports.general_ledger_report')
@@ -276,7 +276,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
 
         self.env.flush_all()
 
-        credit_account_code = str(self.env.company.account_journal_payment_credit_account_id.code).ljust(8, '0')
+        credit_account_code = str(pay.payment_method_line_id.payment_account_id.code).ljust(8, '0')
         zf = zipfile.ZipFile(BytesIO(self.env[report.custom_handler_model_name].l10n_de_datev_export_to_zip(options)['file_content']), 'r')
         f = TextIOWrapper(zf.open('EXTF_accounting_entries.csv'), "utf-8")
         reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
@@ -286,7 +286,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         self.assertIn(['119,00', 'S', 'EUR', '49800000', str(move.partner_id.id + 700000000),
                        self.tax_19.l10n_de_datev_code, '112', move.name, move.name], data)
         self.assertIn(['119,00', 'S', 'EUR', str(move.partner_id.id + 700000000), credit_account_code, '', '312',
-                       pay.name, pay.line_ids[0].name], data)
+                       pay.name, pay.move_id.line_ids[0].name], data)
 
     def test_datev_bank_statement(self):
         report = self.env.ref('account_reports.general_ledger_report')
@@ -629,14 +629,14 @@ class TestDatevCSV(AccountTestInvoicingCommon):
             'payment_date': fields.Date.to_date('2020-12-03'),
         })._create_payments()
 
-        debit_account_code = str(self.env.company.account_journal_payment_debit_account_id.code).ljust(8, '0')
+        debit_account_code = str(pay.payment_method_line_id.payment_account_id.code).ljust(8, '0')
 
         moves = move + pay.move_id
         f = StringIO(self.env[report.custom_handler_model_name]._l10n_de_datev_get_csv(options, moves))
         reader = csv.reader(f, delimiter=';', quotechar='"', quoting=2)
         data = [[x[0], x[1], x[2], x[6], x[7], x[8], x[9], x[10], x[13]] for x in reader][2:]
-        self.assertIn(['18,14', 'S', 'EUR', '21300000', debit_account_code, self.tax_19.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
-        self.assertIn(['2,13', 'S', 'EUR', '21300000', debit_account_code, self.tax_7.l10n_de_datev_code, '312', pay.name, pay.line_ids[2].name], data)
+        self.assertIn(['18,14', 'S', 'EUR', '21300000', debit_account_code, self.tax_19.l10n_de_datev_code, '312', pay.name, pay.move_id.line_ids[2].name], data)
+        self.assertIn(['2,13', 'S', 'EUR', '21300000', debit_account_code, self.tax_7.l10n_de_datev_code, '312', pay.name, pay.move_id.line_ids[2].name], data)
 
     def test_datev_out_bank_payment_epd_rounding(self):
         report = self.env.ref('account_reports.general_ledger_report')

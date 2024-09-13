@@ -97,12 +97,12 @@ class AccountBatchPayment(models.Model):
             available_payment_method_lines = batch.journal_id._get_available_payment_method_lines(batch.batch_type)
             batch.available_payment_method_ids = available_payment_method_lines.mapped('payment_method_id')
 
-    @api.depends('payment_ids.move_id.is_move_sent', 'payment_ids.is_matched')
+    @api.depends('payment_ids.is_sent', 'payment_ids.is_matched')
     def _compute_state(self):
         for batch in self:
-            if batch.payment_ids and all(pay.is_matched and pay.is_move_sent for pay in batch.payment_ids):
+            if batch.payment_ids and all(pay.is_matched and pay.is_sent for pay in batch.payment_ids):
                 batch.state = 'reconciled'
-            elif batch.payment_ids and all(pay.is_move_sent for pay in batch.payment_ids):
+            elif batch.payment_ids and all(pay.is_sent for pay in batch.payment_ids):
                 batch.state = 'sent'
             else:
                 batch.state = 'draft'
@@ -131,16 +131,27 @@ class AccountBatchPayment(models.Model):
             amount_residual = 0.0
             amount_residual_currency = 0.0
             for payment in batch.payment_ids:
-                liquidity_lines, _counterpart_lines, _writeoff_lines = payment._seek_for_lines()
-                for line in liquidity_lines:
-                    amount += line.currency_id._convert(
-                        from_amount=line.amount_currency,
+                if payment.move_id:
+                    liquidity_lines, _counterpart_lines, _writeoff_lines = payment._seek_for_lines()
+                    for line in liquidity_lines:
+                        amount += line.currency_id._convert(
+                            from_amount=line.amount_currency,
+                            to_currency=batch.currency_id,
+                            company=line.company_id,
+                            date=line.date,
+                        )
+                        amount_residual += line.amount_residual
+                        amount_residual_currency += line.amount_residual_currency
+                else:
+                    converted_amount = payment.currency_id._convert(
+                        from_amount=payment.amount,
                         to_currency=batch.currency_id,
-                        company=line.company_id,
-                        date=line.date,
+                        company=payment.company_id,
+                        date=payment.date,
                     )
-                    amount_residual += line.amount_residual
-                    amount_residual_currency += line.amount_residual_currency
+                    amount += converted_amount
+                    amount_residual += converted_amount
+                    amount_residual_currency += payment.amount
 
             batch.amount_residual = amount_residual
             batch.amount = amount
@@ -152,8 +163,7 @@ class AccountBatchPayment(models.Model):
             all_companies = set(record.payment_ids.mapped('company_id'))
             if len(all_companies) > 1:
                 raise ValidationError(_("All payments in the batch must belong to the same company."))
-            all_journals = set(record.payment_ids.mapped('journal_id'))
-            if len(all_journals) > 1 or (record.payment_ids and record.payment_ids[:1].journal_id != record.journal_id):
+            if record.payment_ids and record.journal_id != record.payment_ids.journal_id:
                 raise ValidationError(_("The journal of the batch payment and of the payments it contains must be the same."))
             all_types = set(record.payment_ids.mapped('payment_type'))
             if all_types and record.batch_type not in all_types:
@@ -166,8 +176,7 @@ class AccountBatchPayment(models.Model):
             payment_null = record.payment_ids.filtered(lambda p: p.amount == 0)
             if payment_null:
                 raise ValidationError(_('You cannot add payments with zero amount in a Batch Payment.'))
-            non_posted = record.payment_ids.filtered(lambda p: p.state != 'posted')
-            if non_posted:
+            if record.payment_ids.filtered(lambda p: p.state != 'in_process'):
                 raise ValidationError(_('You cannot add payments that are not posted.'))
 
     @api.model_create_multi
@@ -211,7 +220,7 @@ class AccountBatchPayment(models.Model):
         if not self.payment_ids:
             raise UserError(_("Cannot validate an empty batch. Please add some payments to it first."))
 
-        if self.payment_ids.filtered(lambda p: p.state != 'posted').ids:
+        if self.payment_ids.filtered(lambda p: p.state != 'in_process'):
             raise ValidationError(_("All payments must be posted to validate the batch."))
 
         errors = not self.export_file and self.check_payments_for_errors() or []  # We don't re-check for errors if we are regenerating the file (we know there aren't any)
@@ -277,13 +286,13 @@ class AccountBatchPayment(models.Model):
         #We first try to post all the draft batch payments
         rslt = self._check_and_post_draft_payments(self.payment_ids.filtered(lambda x: x.state == 'draft'))
 
-        wrong_state_payments = self.payment_ids.filtered(lambda x: x.state != 'posted')
+        wrong_state_payments = self.payment_ids.filtered(lambda x: x.state != 'in_process')
 
         if wrong_state_payments:
             rslt.append({
                 'title': _("Payments must be posted to be added to a batch."),
                 'records': wrong_state_payments,
-                'help': _("Set payments state to \"posted\".")
+                'help': _("Set payments state to \"In Process\".")
             })
 
         if self.batch_type == 'outbound':
@@ -296,7 +305,7 @@ class AccountBatchPayment(models.Model):
                     'help': _("Target another recipient account or allow sending money to the current one.")
                 })
 
-        sent_payments = self.payment_ids.filtered(lambda x: x.is_move_sent)
+        sent_payments = self.payment_ids.filtered(lambda x: x.is_sent)
         if sent_payments:
             rslt.append({
                 'title': _("Some payments have already been sent."),
@@ -305,12 +314,10 @@ class AccountBatchPayment(models.Model):
 
         if self.batch_type == 'inbound':
             pmls = self.journal_id.inbound_payment_method_line_ids
-            default_payment_account = self.journal_id.company_id.account_journal_payment_debit_account_id
         else:
             pmls = self.journal_id.outbound_payment_method_line_ids
-            default_payment_account = self.journal_id.company_id.account_journal_payment_credit_account_id
         pmls = pmls.filtered(lambda x: x.payment_method_id == self.payment_method_id)
-        no_statement_reconciliation = self.journal_id.default_account_id == (pmls.payment_account_id[:1] or default_payment_account)
+        no_statement_reconciliation = self.journal_id.default_account_id == pmls.payment_account_id[:1]
         bank_reconciled_payments = self.payment_ids.filtered(lambda x: x.is_matched)
         if bank_reconciled_payments and not no_statement_reconciliation:
             rslt.append({

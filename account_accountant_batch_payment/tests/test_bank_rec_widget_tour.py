@@ -23,6 +23,7 @@ class TestBankRecWidget(TestBankRecWidgetCommon, HttpCase):
 
         payment_method_line = self.company_data['default_journal_bank'].inbound_payment_method_line_ids\
             .filtered(lambda l: l.code == 'batch_payment')
+        payment_method_line.payment_account_id = self.inbound_payment_method_line.payment_account_id
 
         payments = self.env['account.payment'].create([
             {

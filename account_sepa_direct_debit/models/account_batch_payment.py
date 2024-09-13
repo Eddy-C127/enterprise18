@@ -233,7 +233,7 @@ class AccountBatchPayment(models.Model):
                 'iban_last_4': mandate.partner_bank_id.sanitized_acc_number[-4:],
                 'mandate_ref': mandate.name,
                 'collection_date': payment.batch_payment_id.sdd_required_collection_date,
-                'amount': payment.amount_total,
+                'amount': payment.amount,
                 'creditor_iban': payment.journal_id.bank_acc_number,
             }
             payment.with_context(ctx).message_post_with_source(source_ref=template, subtype_xmlid='mail.mt_note')

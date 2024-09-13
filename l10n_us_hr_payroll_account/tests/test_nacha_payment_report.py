@@ -202,7 +202,7 @@ class TestNacha(TransactionCase):
             "partner_id": journal.company_id.partner_id.id,
             "partner_bank_id": journal.bank_account_id.id,
             "amount": sum(payslip.net_wage for payslip in self.payslip_run_id.slip_ids),
-            "ref": "OFFSET",
+            "memo": "OFFSET",
         })
         entry_detail_records.append(self.generate_batch_entry_detail_record(payment_nr=len(self.payslip_run_id.slip_ids),
                                                                             payment=offset_payment,

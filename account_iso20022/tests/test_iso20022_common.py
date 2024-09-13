@@ -23,7 +23,7 @@ class TestISO20022CommonCreditTransfer(AccountTestInvoicingCommon):
         super().setUpClass()
 
     @classmethod
-    def create_payment(cls, bank_journal, partner, payment_method, amount, ref=None):
+    def create_payment(cls, bank_journal, partner, payment_method, amount, memo=None):
         """ Create a SEPA credit transfer payment """
         return cls.env['account.payment'].create({
             'journal_id': bank_journal.id,
@@ -33,7 +33,7 @@ class TestISO20022CommonCreditTransfer(AccountTestInvoicingCommon):
             'amount': amount,
             'partner_id': partner.id,
             'partner_type': 'supplier',
-            'ref': ref,
+            'memo': memo,
         })
 
     def generate_iso20022_batch_payment(self, partner):

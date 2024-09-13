@@ -713,7 +713,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                     'debit': 10,
                 }),
                 (0, 0, {
-                    'account_id': self.bank_journal.company_id.account_journal_payment_credit_account_id.id,
+                    'account_id': self.inbound_payment_method_line.payment_account_id.id,
                     'partner_id': partner.id,
                     'name': 'I\'m gonna cut you into little pieces',
                     'credit': 10,
@@ -721,7 +721,7 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
             ],
         })
 
-        payment_bnk_line = move.line_ids.filtered(lambda l: l.account_id == self.bank_journal.company_id.account_journal_payment_credit_account_id)
+        payment_bnk_line = move.line_ids.filtered(lambda l: l.account_id == self.inbound_payment_method_line.payment_account_id)
 
         move.action_post()
         move_reversed = move._reverse_moves()
@@ -968,12 +968,12 @@ class TestReconciliationMatchingRules(AccountTestInvoicingCommon):
                 'payment_type': 'inbound',
                 'partner_type': 'customer',
                 'partner_id': partner.id,
-                'ref': memo,
+                'memo': memo,
                 'destination_account_id': self.company_data['default_account_receivable'].id,
             })
             payment.action_post()
 
-            return payment.line_ids.filtered(lambda x: x.account_id.account_type not in {'asset_receivable', 'liability_payable'})
+            return payment.move_id.line_ids.filtered(lambda x: x.account_id.account_type not in {'asset_receivable', 'liability_payable'})
 
         payment_partner = self.env['res.partner'].create({
             'name': "Bernard Gagnant",

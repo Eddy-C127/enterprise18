@@ -1733,10 +1733,10 @@ class BankRecWidget(models.Model):
             'view_mode': 'form',
         }
 
-        if move.payment_id:
+        if move.origin_payment_id:
             action.update({
                 'res_model': 'account.payment',
-                'res_id': move.payment_id.id,
+                'res_id': move.origin_payment_id.id,
             })
         else:
             action.update({
