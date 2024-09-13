@@ -75,6 +75,9 @@ class AccountMoveLine(models.Model):
                 ('subscription_state', '=', '3_progress'),
                 ('origin_order_id', 'in', renewed_subscriptions_ids),
             ], order='id ASC')
+            # An AML in the mapping that is renewed but has no child orders indicates an invalid
+            # state -> remove it from the mapping before returning.
+            bad_aml_ids = []
             for aml_id, so in mapping_from_invoice.items():
                 if so.subscription_state == '5_renewed':
                     origin_order_id = so.origin_order_id.id or so.id
@@ -85,5 +88,7 @@ class AccountMoveLine(models.Model):
                     if min_child_order:
                         mapping_from_invoice[aml_id] = min_child_order
                     else:
-                        del mapping_from_invoice[aml_id]
+                        bad_aml_ids.append(aml_id)
+            for aml_id in bad_aml_ids:
+                del mapping_from_invoice[aml_id]
         return mapping_from_invoice
