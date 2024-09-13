@@ -77,7 +77,14 @@ class TIMInterface(Interface):
         if not self.manager:
             return {}
 
-        new_tid = helpers.read_file_first_line('odoo-six-payment-terminal.conf')
+        # As this code is fetched by the IoT Box from the DB, we can't be sure
+        # that the IoT Box has the new method `get_conf`.
+        # This try-except should be replaced by a simple call to `get_conf` in master
+        try:
+            new_tid = helpers.get_conf("six_payment_terminal")
+        except AttributeError:
+            _logger.warning("Failed to get the Six TID from the configuration file, trying to read it from the old file")
+            new_tid = helpers.read_file_first_line('odoo-six-payment-terminal.conf')
         devices = {}
 
         # If the Six TID setup has changed, reset the settings
