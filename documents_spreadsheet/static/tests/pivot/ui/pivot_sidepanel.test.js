@@ -117,7 +117,7 @@ test("Update the pivot domain from the side panel", async function () {
     expect(model.getters.getPivotCoreDefinition(pivotId).domain).toEqual([], {
         message: "update is deferred",
     });
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     expect(model.getters.getPivotCoreDefinition(pivotId).domain).toEqual([["id", "=", 1]]);
     expect(dsHelpers.getConditionText()).toBe("Id = 1");
 });
@@ -242,16 +242,15 @@ test("can drag a column dimension to row", async function () {
         ".pivot-dimensions div:nth-child(4)",
         { position: "bottom" }
     );
-    expect(".pivot-defer-update .btn").toHaveCount(2, {
-        message: "it should show the update/discard buttons",
-    });
     await animationFrame();
+    expect(".pivot-defer-update .fa-undo").toHaveCount(1);
+    expect(".pivot-defer-update .sp_apply_update").toHaveCount(1);
     // TODO use a snapshot
     definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     // update is not applied until the user clicks on the save button
     expect(definition.columns).toEqual([{ fieldName: "foo" }]);
     expect(definition.rows).toEqual([{ fieldName: "bar" }]);
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     expect(".pivot-defer-update .btn").toHaveCount(0, {
         message: "it should not show the update/discard buttons",
     });
@@ -310,7 +309,7 @@ test("remove pivot dimension", async function () {
     await contains(".pivot-defer-update input").click();
     await contains(".pivot-dimensions .fa-trash").click();
     await animationFrame();
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.columns).toEqual([]);
     expect(definition.rows).toEqual([{ fieldName: "bar" }]);
@@ -336,7 +335,7 @@ test("remove pivot date time dimension", async function () {
     await contains(".pivot-defer-update input").click();
     await contains(".pivot-dimensions .fa-trash").click();
     await animationFrame();
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.rows).toEqual([{ fieldName: "date", granularity: "month" }]);
 });
@@ -509,7 +508,7 @@ test("add and search dimension", async function () {
     await contains(".o-popover input").edit("fooba");
     expect(model.getters.getPivotCoreDefinition(pivotId).columns).toEqual([]);
     expect(model.getters.getPivotCoreDefinition(pivotId).rows).toEqual([]);
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     expect(
         JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId))).columns
     ).toEqual([{ fieldName: "foobar", order: "asc" }]);
@@ -536,7 +535,7 @@ test("remove pivot measure", async function () {
     await contains(".pivot-defer-update input").click();
     await contains(".pivot-dimensions .fa-trash:last").click();
     await animationFrame();
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.columns).toEqual([{ fieldName: "foo" }]);
     expect(definition.rows).toEqual([{ fieldName: "bar" }]);
@@ -593,7 +592,7 @@ test("change measure aggregator", async function () {
     expect(fixture.querySelector(".pivot-measure select")).toHaveValue("avg");
     await contains(".pivot-measure select").select("min");
     expect(".pivot-measure select option:checked").toHaveText("Minimum");
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     expect(fixture.querySelector(".pivot-measure select")).toHaveValue("min");
     const definition = model.getters.getPivotCoreDefinition(pivotId);
     expect(definition.measures).toEqual([
@@ -605,6 +604,7 @@ test("change measure aggregator", async function () {
             computedBy: undefined,
             format: undefined,
             isHidden: undefined,
+            display: undefined,
         },
     ]);
 });
@@ -661,13 +661,13 @@ test("change dimension order", async function () {
     expect(fixture.querySelector(".pivot-dimensions select")).toHaveValue("");
     await contains(".pivot-dimensions select").select("desc");
     expect(fixture.querySelector(".pivot-dimensions select")).toHaveValue("desc");
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     let definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.rows).toEqual([{ fieldName: "foo", order: "desc" }]);
 
     // reset to automatic
     await contains(".pivot-dimensions select").select("");
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.rows).toEqual([{ fieldName: "foo" }]);
 });
@@ -693,7 +693,7 @@ test("change date dimension granularity", async function () {
     expect(fixture.querySelectorAll(".pivot-dimensions select")[0]).toHaveValue("day");
     await contains(fixture.querySelectorAll(".pivot-dimensions select")[0]).select("week");
     expect(fixture.querySelectorAll(".pivot-dimensions select")[0]).toHaveValue("week");
-    await contains(".pivot-defer-update .btn-link").click();
+    await contains(".pivot-defer-update .o-button-link").click();
     const definition = JSON.parse(JSON.stringify(model.getters.getPivotCoreDefinition(pivotId)));
     expect(definition.rows).toEqual([{ fieldName: "date", granularity: "week" }]);
 });
@@ -741,4 +741,25 @@ test("Pivot cells are highlighted when their side panel is open", async function
     ]);
     await contains(".o-sidePanelClose").click();
     expect(getHighlightsFromStore(env)).toEqual([]);
+});
+
+test("Can change measure display as from the side panel", async function () {
+    const { model, env } = await createSpreadsheetFromPivotView();
+    const pivotId = model.getters.getPivotIds()[0];
+    env.openSidePanel("PivotSidePanel", { pivotId });
+    await animationFrame();
+
+    await contains(".pivot-measure .fa-cog").click();
+    await contains(".o-sidePanel select").select("%_of");
+
+    expect(model.getters.getPivotCoreDefinition(pivotId).measures[0]).toEqual({
+        id: "probability:avg",
+        fieldName: "probability",
+        aggregator: "avg",
+        display: {
+            type: "%_of",
+            fieldNameWithGranularity: "foo",
+            value: "(previous)",
+        },
+    });
 });
