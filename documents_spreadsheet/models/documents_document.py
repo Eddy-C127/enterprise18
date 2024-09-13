@@ -318,7 +318,8 @@ class Document(models.Model):
             ('handler', '=', 'spreadsheet'),
             ('create_date', '<', yesterday),
             ('spreadsheet_revision_ids', '=', False),
-            ('spreadsheet_snapshot', '=', False)
+            ('spreadsheet_snapshot', '=', False),
+            ('previous_attachment_ids', '=', False)
         ]
         self.search(domain).action_archive()
 

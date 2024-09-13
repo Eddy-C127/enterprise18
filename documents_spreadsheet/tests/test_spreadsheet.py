@@ -658,9 +658,10 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
     def test_autovacuum_remove_old_empty_spreadsheet(self):
         self.env["documents.document"].search([('handler', '=', 'spreadsheet')]).unlink()
 
-        self.create_spreadsheet(name="Spreadsheet", values={
+        spreadsheet = self.create_spreadsheet(name="Spreadsheet", values={
             "create_date": datetime(2023, 5, 15, 18)
         })
+        spreadsheet.previous_attachment_ids = False
         self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
 
         with freeze_time("2023-05-16 19:00"):
@@ -691,6 +692,23 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
 
         with freeze_time("2023-05-16 19:00"):
+            self.env["documents.document"]._gc_spreadsheet()
+        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+
+    def test_autovacuum_preserve_spreadsheet_with_attachment(self):
+        self.env["documents.document"].search([('handler', '=', 'spreadsheet')]).unlink()
+
+        spreadsheet = self.create_spreadsheet(name="Spreadsheet", values={
+            "create_date": datetime(2024, 8, 12, 18)
+        })
+        spreadsheet.previous_attachment_ids = self.env["ir.attachment"].create({
+            "name": "image.png",
+            "datas": b"test",
+            "res_model": "documents.document",
+            "res_id": spreadsheet.id,
+        })
+        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+        with freeze_time("2024-08-13 19:00"):
             self.env["documents.document"]._gc_spreadsheet()
         self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
 
