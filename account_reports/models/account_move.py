@@ -17,7 +17,6 @@ class AccountMove(models.Model):
 
     # used for VAT closing, containing the end date of the period this entry closes
     tax_closing_report_id = fields.Many2one(comodel_name='account.report')
-    tax_report_control_error = fields.Boolean() # DEPRECATED; will be removed in master
     # technical field used to know whether to show the tax closing alert or not
     tax_closing_alert = fields.Boolean(compute='_compute_tax_closing_alert')
 

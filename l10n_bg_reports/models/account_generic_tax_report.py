@@ -49,11 +49,9 @@ class BulgarianTaxReportCustomHandler(models.AbstractModel):
 
                 # The tax report has an error when the user is asking for a refund when there is nothing to be refunded
                 # or when the user didn't request the exact recoverable amount.
-                has_error = closing_move.currency_id.is_zero(vat_to_recover) or closing_move.currency_id.compare_amounts(vat_to_recover, vat_to_refund)
                 receivable_account = account_vat_to_pay if closing_move.currency_id.is_zero(vat_to_recover) else account_vat_to_recover
 
                 closing_move.write({
-                    'tax_report_control_error': has_error,
                     'line_ids': [
                         Command.create({
                             'name': _('Receivables tax amount'),
