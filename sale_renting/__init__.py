@@ -2,7 +2,6 @@
 
 from . import controllers
 from . import models
-from . import populate
 from . import wizard
 from . import report
 from odoo.tools.sql import column_exists
