@@ -82,7 +82,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     # add all moves attachments in zip file
                     slash_re = re.compile('[\\/]')
                     documents = []
-                    for move in moves.filtered(lambda m: m.attachment_ids):
+                    for move in moves.filtered(lambda m: m.message_main_attachment_id):
                         # '\' is not allowed in file name, replace by '-'
                         base_name = slash_re.sub('-', move.name)
                         attachment = move.message_main_attachment_id
@@ -383,7 +383,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 array[10] = receipt1[-36:]
                 array[11] = receipt2
                 array[13] = aml.name or ref
-                if m._get_mail_thread_data_attachments():
+                if m.message_main_attachment_id:
                     array[19] = f'"BEDI ""{m._l10n_de_datev_get_guid()}"""'
                 lines.append(array)
             # In case of epd we actively fix rounding issues by checking the base line and tax line
