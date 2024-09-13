@@ -8,6 +8,7 @@ class TestWebGanttPill(models.Model):
     _name = 'test.web.gantt.pill'
     _description = 'Test Web Gantt Pill'
 
+    active = fields.Boolean(default=True)
     name = fields.Char()
     dependency_field = fields.Many2many('test.web.gantt.pill', relation='web_gantt_test_pill_dep',
                                         column1='slave', column2='master', string='De')

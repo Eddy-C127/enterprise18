@@ -98,8 +98,8 @@ class Base(models.AbstractModel):
         ))
 
         # Do search_fetch to order records (model order can be no-trivial)
-        all_records = self.search_fetch([('id', 'in', all_record_ids)], read_specification.keys())
-        final_result['records'] = all_records.web_read(read_specification)
+        all_records = self.with_context(active_test=False).search_fetch([('id', 'in', all_record_ids)], read_specification.keys())
+        final_result['records'] = all_records.with_env(self.env).web_read(read_specification)
 
         if unavailability_fields is None:
             unavailability_fields = []
