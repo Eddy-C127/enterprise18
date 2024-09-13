@@ -715,7 +715,7 @@ class AccountMove(models.Model):
             'default_vat': next((
                     candidate['content']
                     for candidate in ocr_results.get('VAT_Number', {}).get('candidates', [])
-                    if guess_country(candidate['content'])[0].lower() == country_code.lower()
+                    if next(iter(guess_country(candidate['content'])), "").lower() == country_code.lower()
                 ), next(iter(ocr_results.get('VAT_Number', {}).get('candidates', [])), {}).get('content')),
         }
         self.extract_prefill_data = {k: v for k, v in self.extract_prefill_data.items() if v is not None}
