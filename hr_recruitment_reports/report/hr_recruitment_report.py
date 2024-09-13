@@ -58,7 +58,6 @@ class HrRecruitmentReport(models.Model):
         select_ = """
                 a.id as id,
                 a.user_id,
-                1 as count,
                 a.create_date,
                 a.create_uid,
                 a.date_closed,
@@ -75,8 +74,9 @@ class HrRecruitmentReport(models.Model):
                     ELSE 'in_progress'
                 END AS state,
                 c.partner_name as name,
-                CASE WHEN a.active IS FALSE THEN 1 ELSE 0 END as refused,
-                CASE WHEN a.date_closed IS NOT NULL THEN 1 ELSE 0 END as hired,
+                CASE WHEN a.refuse_reason_id IS NOT NULL OR a.active IS TRUE THEN 1 ELSE 0 END as count,
+                CASE WHEN a.refuse_reason_id IS NOT NULL THEN 1 ELSE 0 END as refused,
+                CASE WHEN a.refuse_reason_id IS NULL AND a.active IS TRUE AND a.date_closed IS NOT NULL THEN 1 ELSE 0 END as hired,
                 CASE WHEN a.date_closed IS NOT NULL THEN 100 ELSE 0 END as hiring_ratio,
                 CASE WHEN a.active IS NOT FALSE AND a.date_closed IS NULL THEN 1 ELSE 0 END as in_progress,
                 CASE WHEN a.date_closed IS NOT NULL THEN date_part('day', a.date_closed - a.create_date) ELSE NULL END as process_duration
