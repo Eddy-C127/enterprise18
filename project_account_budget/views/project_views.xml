@@ -11,7 +11,7 @@
                 <t t-if="record.account_id and record.total_budget_amount.raw_value">
                     <t t-set="budget_progress" t-value="record.total_budget_progress.raw_value"/>
                     <i role="img" aria-label="Budget"
-                        t-attf-class="fa fa-usd text-{{ budget_progress &gt;= 0.25 ? 'success' : budget_progress &gt;= 0 ? 'warning' : 'danger' }}"
+                        t-attf-class="ms-1 fa fa-usd text-{{ budget_progress &gt;= 0.25 ? 'success' : budget_progress &gt;= 0 ? 'warning' : 'danger' }}"
                         t-attf-title="Budget {{ budget_progress &gt;= 0.25 ? 'on track' : budget_progress &gt;= 0 ? 'soon overspent' : 'overspent' }}"
                     />
                 </t>

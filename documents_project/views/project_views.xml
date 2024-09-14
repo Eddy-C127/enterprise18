@@ -116,7 +116,7 @@
         <field name="inherit_id" ref="project.view_project_kanban"/>
         <field name="priority">27</field>
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('o_kanban_manage_view')]" position="inside">
+            <xpath expr="//div[@name='card_menu_view']" position="inside">
                 <field name="use_documents" invisible="1"/>
                 <div role="menuitem" groups="documents.group_documents_user" invisible="not use_documents">
                     <a name="action_view_documents_project" type="object">Documents</a>

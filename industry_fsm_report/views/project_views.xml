@@ -135,12 +135,9 @@
         <field name="model">project.project</field>
         <field name="inherit_id" ref="project.view_project_kanban"/>
         <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="worksheet_template_id" invisible="not context.get('fsm_mode', False)"/>
-            </field>
-            <xpath expr="//span[hasclass('o_text_overflow') and @t-if='record.partner_id.value']" position="before">
-                <span t-if="record.worksheet_template_id.value" class="text-muted o_text_overflow" invisible="not context.get('fsm_mode', False)">
-                    <span class="fa fa-pencil me-1" aria-label="Worksheet Template" title="Worksheet Template"/><t t-esc="record.worksheet_template_id.value"/>
+            <xpath expr="//span[@name='partner_name']" position="before">
+                <span t-if="record.worksheet_template_id.value" class="text-muted text-truncate" invisible="not context.get('fsm_mode', False)">
+                    <span class="fa fa-pencil me-1" aria-label="Worksheet Template" title="Worksheet Template"/><field name="worksheet_template_id"/>
                 </span>
             </xpath>
         </field>
