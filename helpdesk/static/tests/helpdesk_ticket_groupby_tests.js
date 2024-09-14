@@ -34,7 +34,10 @@ QUnit.module("helpdesk", (hooks) => {
                 id: { string: "ID", type: "integer" },
                 display_name: { string: "Name", type: "char" },
             },
-            records: [{ id: 1, display_name: "Team 1" }],
+            records: [
+                { id: 1, display_name: "Team 1" },
+                { id: 2, display_name: "Team 2", stage_ids: false },
+            ],
         };
         pyEnv.mockServer.models["helpdesk.ticket"] = {
             fields: {
@@ -190,6 +193,7 @@ QUnit.module("helpdesk", (hooks) => {
             views: [[false, "kanban"]],
             context: {
                 active_model: "helpdesk.team",
+                default_team_id: 1,
                 active_id: 1,
             },
         });
@@ -256,4 +260,32 @@ QUnit.module("helpdesk", (hooks) => {
         checkLabels(assert, graph, ["Deadline reached"]);
         checkLegend(assert, graph, ["Deadline reached"]);
     });
+
+    QUnit.test(
+        "Verify ghost column is visible when all task stages are deleted in Task Kanban view",
+        async function (assert) {
+            const { openView } = await start({
+                serverData,
+            });
+            await openView({
+                res_model: "helpdesk.ticket",
+                views: [[false, "kanban"]],
+                context: {
+                    active_model: "helpdesk.stage.delete.wizard", // simulate stage deletion wizard
+                    default_team_id: 2,
+                },
+                domain: [["team_id", "=", 2]],
+            });
+
+            // Assertions to check for ghost column visibility
+            assert.containsN(target, ".o_kanban_header", 1, "should have 1 column");
+            assert.containsOnce(target, ".o_column_quick_create");
+            assert.containsN(
+                target,
+                ".o_kanban_example_background_container",
+                1,
+                "Ghost column is visible"
+            );
+        }
+    );
 });

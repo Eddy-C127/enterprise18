@@ -10,6 +10,6 @@ export class HelpdeskTicketRenderer extends KanbanRenderer {
     };
 
     canCreateGroup() {
-        return super.canCreateGroup() && this.props.list.context.active_model === "helpdesk.team";
+        return super.canCreateGroup() && !!this.props.list.context.default_team_id;
     }
 }
