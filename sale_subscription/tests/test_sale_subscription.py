@@ -661,8 +661,8 @@ class TestSubscription(TestSubscriptionCommon):
             'company_id': self.company.id,
             'payment_token_id': self.payment_token.id,
         })
-        self.subscription.order_line[0].write({'price_unit': 1200})
-        self.subscription.order_line[1].write({'price_unit': 200})
+        self.subscription.order_line[0].write({'price_unit': 1200, 'technical_price_unit': 1200})
+        self.subscription.order_line[1].write({'price_unit': 200, 'technical_price_unit': 200})
         self.subscription.action_confirm()
         self.assertAlmostEqual(self.subscription.amount_untaxed, 1400, msg="unexpected price after setup")
         self.assertAlmostEqual(self.subscription.recurring_monthly, 700, msg="Half because invoice every two months")
