@@ -110,10 +110,7 @@
         <field name="name">frontdesk.frontdesk.view.kanban</field>
         <field name="model">frontdesk.frontdesk</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard" action="%(action_open_station_visitor)d" type="action">
-                <field name="guest_on_site"/>
-                <field name="pending"/>
-                <field name="drink_to_serve"/>
+            <kanban action="%(action_open_station_visitor)d" type="action">
                 <templates>
                     <t t-name="kanban-menu">
                         <a role="menuitem" class="dropdown-item" name="action_open_kiosk"
@@ -124,52 +121,32 @@
                             type="action">Statistics</a>
                         <a role="menuitem" type="edit" class="dropdown-item">Configuration</a>
                     </t>
-                    <t t-name="kanban-box">
-                        <div>
-                            <div class="o_kanban_card_content">
-                                <div class="o_kanban_card_header d-flex gap-1 align-items-baseline">
-                                    <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
-                                    <div class="o_kanban_card_header_title mb16">
-                                        <div class="o_primary">
-                                            <field name="name"/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6">
-                                        <button class="btn btn-primary" name="%(frontdesk_action_install_kiosk_pwa)d" type="action"
-                                        groups="frontdesk.frontdesk_group_user">Open Desk</button>
-                                    </div>
-                                    <div class="col-6">
-                                        <div t-if="record.guest_on_site.raw_value > 0">
-                                            <a name="%(action_open_guest_on_site_visitor)d" type="action"
-                                            class="oe_kanban_stock_picking_type_list">
-                                            <field name="guest_on_site"/> On Site</a>
-                                        </div>
-                                        <div t-if="record.pending.raw_value > 0">
-                                            <a name="%(action_open_planned_visitor)d" type="action"
-                                            class="oe_kanban_stock_picking_type_list">
-                                            <field name="pending"/> Planned</a>
-                                        </div>
-                                        <div t-if="record.drink_to_serve.raw_value > 0">
-                                            <a name="%(action_open_drink_to_serve_visitor)d" type="action"
-                                            class="oe_kanban_stock_picking_type_list">
-                                            <field name="drink_to_serve"/> Drinks to serve</a>
-                                        </div>
-                                    </div>
-                                </div>
+                    <t t-name="kanban-card">
+                        <div class="d-flex gap-1 align-items-baseline ms-2">
+                            <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
+                            <field name="name" class="fw-bold fs-4 mb16"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-primary ms-2" name="%(frontdesk_action_install_kiosk_pwa)d" type="action"
+                                groups="frontdesk.frontdesk_group_user">Open Desk</button>
                             </div>
-                            <div class="oe_kanban_footer">
-                                <div class="o_kanban_record_bottom mt-3">
-                                    <div class="oe_kanban_bottom_left">
-                                        <field name="latest_check_in"/>
-                                    </div>
-                                    <div class="oe_kanban_bottom_right">
-                                        <field name="responsible_ids" widget="many2many_avatar_user"/>
-                                    </div>
-                                </div>
+                            <div class="col-6">
+                                <a t-if="record.guest_on_site.raw_value > 0" name="%(action_open_guest_on_site_visitor)d" type="action"
+                                class="oe_kanban_stock_picking_type_list d-block">
+                                <field name="guest_on_site"/> On Site</a>
+                                <a t-if="record.pending.raw_value > 0" name="%(action_open_planned_visitor)d" type="action"
+                                class="oe_kanban_stock_picking_type_list d-block">
+                                <field name="pending"/> Planned</a>
+                                <a t-if="record.drink_to_serve.raw_value > 0" name="%(action_open_drink_to_serve_visitor)d" type="action"
+                                class="oe_kanban_stock_picking_type_list d-block">
+                                <field name="drink_to_serve"/> Drinks to serve</a>
                             </div>
                         </div>
+                        <footer class="mt-2">
+                            <field name="latest_check_in" class="ms-2 fs-6"/>
+                            <field class="ms-auto me-2" name="responsible_ids" widget="many2many_avatar_user"/>
+                        </footer>
                     </t>
                 </templates>
             </kanban>
