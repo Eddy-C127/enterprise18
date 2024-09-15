@@ -30,13 +30,10 @@
         <field name="name">appointment.type.kanban</field>
         <field name="model">appointment.type</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard o_appointment_kanban"
+            <kanban class="o_appointment_kanban"
                 js_class="appointment_type_kanban" type="object" action="action_calendar_meetings">
-                <field name="appointment_tz"/>
                 <field name="schedule_based_on"/>
-                <field name="resource_ids"/>
                 <field name="sequence" widget="handle" groups="appointment.group_appointment_manager"/>
-                <field name="staff_user_ids"/>
                 <templates>
                     <t t-name="kanban-menu">
                         <a role="menuitem" type="edit" class="dropdown-item">
@@ -52,23 +49,16 @@
                             <span class="fa fa-trash"/> Delete
                         </a>
                     </t>
-                    <div t-name="kanban-box" class="oe_kanban_global_click oe_kanban_card o_appointment_kanban_card">
+                    <div t-name="kanban-card" class="o_appointment_kanban_card">
                         <div class="o_appointment_kanban_card_ungrouped row">
-                            <div class="ribbon ribbon-top-right" invisible="active">
-                                <span class="text-bg-danger">Archived</span>
-                            </div>
+                            <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                             <div class="col-lg-2 col-sm-5 col-11 py-0 my-auto text-large text-truncate">
-                                <span class="fw-bold o_appointment_kanban_ungrouped_name"
-                                    t-att-title="record.name.value">
-                                    <field name="name"/>
-                                </span><br/>
-                                <field name="category"/>
+                                <field class="fw-bold ms-2 o_appointment_kanban_ungrouped_name" t-att-title="record.name.value" name="name"/><br/>
+                                <field name="category" class="ms-2"/>
                             </div>
                             <div class="col-lg-5 col-sm-7 col-12 py-0 mt-3 mb-2 my-lg-auto d-flex">
                                 <div class="align-self-center me-sm-0 me-3 text-large w-50 w-lg-25">
-                                    <span class="fw-normal">
-                                        <field name="appointment_duration_formatted"/>
-                                    </span><br/>
+                                    <field class="fw-normal" name="appointment_duration_formatted"/><br/>
                                     <span>Duration</span>
                                 </div>
                                 <div class="my-sm-auto w-50 w-lg-75">
@@ -92,34 +82,27 @@
                                 </span><br/>
                                 <span>Total</span>
                             </div>
-                            <field name="active" invisible="1"/>
                         </div>
-                        <div class="o_appointment_kanban_card_grouped oe_kanban_global_click">
-                            <div class="o_kanban_card_header">
-                                <div class="ribbon ribbon-top-right" invisible="active">
-                                    <span class="text-bg-danger">Archived</span>
-                                </div>
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary col-12 p-0 w-75 text-truncate" t-att-title="record.name.value">
-                                        <field name="name"/>
-                                    </div>
-                                </div>
+                        <div class="o_appointment_kanban_card_grouped">
+                            <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                            <div class="col-12 p-0 w-75 text-truncate" t-att-title="record.name.value">
+                                <field name="name" class="fw-bold ms-2 fs-4"/>
                             </div>
-                            <div class="container o_kanban_card_content mt-3">
+                            <div class="mt-3">
                                 <div class="row">
                                     <div class="col-5">
-                                        <button class="btn btn-primary me-2" name="action_calendar_meetings" type="object">
+                                        <button class="btn btn-primary ms-2 me-2" name="action_calendar_meetings" type="object">
                                             <field name="appointment_count"/> SCHEDULED
                                         </button>
                                     </div>
                                     <div class="col-7">
                                         <span t-if="record.appointment_tz.value" title="Timezone">
-                                            <i class="fa fa-clock-o small me-2"/><span t-esc="record.appointment_tz.value" class="align-middle"/>
+                                            <i class="fa fa-clock-o small me-2"/><field name="appointment_tz" class="align-middle"/>
                                         </span>
                                     </div>
                                 </div>
-                                <div class="row d-flex o_appointment_kanban_boxes">
-                                    <div class="o_appointment_kanban_box o_kanban_primary_bottom bottom_block d-flex position-relative justify-content-center px-0">
+                                <div class="row d-flex o_appointment_kanban_boxes mt-2 o_dashboard_bottom_grey mx-n2 mb-n2 py-2">
+                                    <div class="o_appointment_kanban_box d-flex position-relative justify-content-center px-0">
                                         <div class="col-6 ps-3"/>
                                         <div class="col-6">
                                             <button class="btn btn-link btn-sm py-0 fa fa-lg fa-link" name="action_share_invite" type="object" title="Share"

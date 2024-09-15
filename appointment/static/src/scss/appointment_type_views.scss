@@ -31,7 +31,7 @@
 
 /*                      Kanban view
  **********************************************************/
-.o_kanban_dashboard.o_appointment_kanban .o_kanban_renderer {
+.o_appointment_kanban .o_kanban_renderer {
     &.o_kanban_grouped {
         .o_appointment_kanban_card_ungrouped {
             display:none !important;
@@ -54,6 +54,7 @@
             display:none !important;
         }
         padding: 0;
+        margin-top: -0.25rem;
 
         .o_kanban_record {
             width: 100%;
@@ -113,6 +114,11 @@
 
     .o_appointment_kanban_boxes {
         flex-flow: row nowrap;
+
+        &.o_dashboard_bottom_grey {
+            border: 1px solid #d8dadd;
+            background-color: #e7e9ed;
+        }
 
         .o_appointment_kanban_box {
             flex: 1 1 auto;
