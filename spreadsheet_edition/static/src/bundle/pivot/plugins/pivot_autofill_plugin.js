@@ -652,7 +652,7 @@ export class PivotAutofillPlugin extends UIPlugin {
             const formattedValue = dataSource.getPivotHeaderFormattedValue(subDomain);
             return { value: formattedValue };
         } else {
-            return { value: _t("") };
+            return { value: "" };
         }
     }
 
