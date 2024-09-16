@@ -39,6 +39,12 @@
     <record id="uom.product_uom_meter" model="uom.uom">
         <field name="unspsc_code_id" ref="product_unspsc.unspsc_code_MTR"/>
     </record>
+    <record id="uom.uom_square_meter" model="uom.uom">
+        <field name="unspsc_code_id" ref="product_unspsc.unspsc_code_MTK"/>
+    </record>
+    <record id="uom.uom_square_foot" model="uom.uom">
+        <field name="unspsc_code_id" ref="product_unspsc.unspsc_code_FTK"/>
+    </record>
     <record id="uom.product_uom_mile" model="uom.uom">
         <field name="unspsc_code_id" ref="product_unspsc.unspsc_code_M52"/>
     </record>
