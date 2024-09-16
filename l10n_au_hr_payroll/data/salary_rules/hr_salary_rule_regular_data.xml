@@ -514,11 +514,14 @@ result = -payslip._l10n_au_compute_child_support(net_salary)
         <field name="sequence">220</field>
         <field name="condition_select">python</field>
         <field name="condition_python">
-result = contract.l10n_au_salary_sacrifice_superannuation or contract.l10n_au_extra_negotiated_super or contract.l10n_au_extra_compulsory_super
+result = contract.l10n_au_salary_sacrifice_superannuation or contract.l10n_au_extra_negotiated_super \
+    or contract.l10n_au_extra_compulsory_super or "SS.O" in inputs
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = contract.l10n_au_salary_sacrifice_superannuation + categories['OTE'] * (payslip.l10n_au_extra_negotiated_super + payslip.l10n_au_extra_compulsory_super)
+sacrifice = "SS.O" in inputs and inputs["SS.O"].amount or 0
+extra_super = categories['OTE'] * (payslip.l10n_au_extra_negotiated_super + payslip.l10n_au_extra_compulsory_super)
+result = contract.l10n_au_salary_sacrifice_superannuation + extra_super + sacrifice
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>

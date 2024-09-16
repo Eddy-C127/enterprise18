@@ -23,6 +23,7 @@ Accounting Data for Australian Payroll Rules.
         "data/hr_payroll_dashboard_warning_data.xml",
         "data/mail_activity_type_data.xml",
         "views/l10n_au_super_stream_views.xml",
+        "views/l10n_au_super_fund_views.xml",
         "views/hr_contract_views.xml",
         "views/hr_payslip_views.xml",
         "views/res_config_settings_views.xml",

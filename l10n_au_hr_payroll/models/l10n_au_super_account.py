@@ -23,6 +23,7 @@ class L10nAuSuperAccount(models.Model):
     proportion = fields.Float("Proportion", default=1)
     account_active = fields.Boolean("Active", default=True)
     super_account_warning = fields.Text(related="employee_id.super_account_warning")
+    company_id = fields.Many2one('res.company', related='employee_id.company_id', string='Company', store=True)
 
     _sql_constraints = [
         ('check_proportion',

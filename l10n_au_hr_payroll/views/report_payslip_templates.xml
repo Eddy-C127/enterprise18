@@ -40,7 +40,9 @@
                         <t t-foreach="o.employee_id._get_active_super_accounts()" t-as="super_account">
                                 <div class="row">
                                     <t t-esc="super_account.fund_id.display_name"/>
-                                    (<t t-out="super_account.proportion * 100"/>%)
+                                    <t t-if="super_account_size > 1">
+                                        (<t t-out="super_account.proportion * 100"/>%)
+                                    </t>
                                     <br/>
                                 </div>
                         </t>
@@ -130,12 +132,12 @@
         </t>
     </template>
 
-<template id="report_payslip_au_lang">
-    <t t-call="web.html_container">
-        <t t-foreach="docs" t-as="o">
-            <t t-set="o" t-value="o.with_context(lang=o.employee_id.sudo().lang or o.env.lang)"/>
-            <t t-call="l10n_au_hr_payroll.report_payslip_au" t-lang="o.env.lang"/>
+    <template id="report_payslip_au_lang">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context(lang=o.employee_id.sudo().lang or o.env.lang)"/>
+                <t t-call="l10n_au_hr_payroll.report_payslip_au" t-lang="o.env.lang"/>
+            </t>
         </t>
-    </t>
-</template>
+    </template>
 </odoo>

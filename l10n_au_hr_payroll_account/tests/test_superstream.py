@@ -4,9 +4,10 @@
 from datetime import date
 from dateutil.relativedelta import relativedelta
 from itertools import zip_longest
+from freezegun import freeze_time
 
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
-from odoo.tests import Form, tagged
+from odoo.tests import Form, tagged, new_test_user
 
 
 @tagged("post_install_l10n", "post_install", "-at_install", "superstream")
@@ -16,6 +17,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
     @AccountTestInvoicingCommon.setup_country('au')
     def setUpClass(cls):
         super().setUpClass()
+        cls.startClassPatcher(freeze_time(date(2023, 9, 1)))
         cls.account_21400 = cls.env['account.account'].search([
             ('company_ids', '=', cls.company_data['company'].id),
             ('code', '=', 21400)
@@ -49,10 +51,15 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         cls.employee = cls.env['hr.employee'].create({
             'company_id': cls.australian_company.id,
             'resource_calendar_id': cls.australian_company.resource_calendar_id.id,
-            'name': 'Roger',
+            'name': 'Roger Federer',
             'work_phone': '123456789',
             'private_street': 'Australian Street',
             'private_city': 'Sydney',
+            "private_state_id": cls.env.ref("base.state_au_2").id,
+            "private_zip": "2000",
+            "private_country_id": cls.env.ref("base.au").id,
+            'private_phone': '123456789',
+            'private_email': 'roger@gmail.com',
             'birthday':  date(1970, 3, 21),
             'l10n_au_tfn_declaration': 'provided',
             'l10n_au_tfn': '123456789',
@@ -61,6 +68,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             'l10n_au_child_support_garnishee': 'percentage',
             'l10n_au_child_support_garnishee_amount': 0.1,
             'l10n_au_child_support_deduction': 150,
+            'l10n_au_payroll_id': 'odoo_f47ac10b_001',
             'gender': 'male',
         })
         cls.env['hr.contract'].create({
@@ -85,6 +93,20 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             'abn': '2345678912',
             'address_id': cls.env['res.partner'].create({'name': "Fund A Partner"}).id,
         })
+        smsf_partner = cls.env['res.partner'].create({'name': "Fund B"})
+        cls.super_fund_smsf = cls.env['l10n_au.super.fund'].create({
+            'display_name': 'Fund B',
+            'abn': '2345678913',
+            'fund_type': 'SMSF',
+            'bank_account_id': cls.env['res.partner.bank'].create({
+                "acc_number": '12344322',
+                "acc_type": 'aba',
+                "aba_bsb": '123-457',
+                "company_id": cls.australian_company.id,
+                "partner_id": smsf_partner.id,
+            }).id,
+            'address_id': smsf_partner.id,
+        })
         cls.super_account_a = cls.env['l10n_au.super.account'].create({
             "date_from": date(2023, 6, 1),
             "employee_id": cls.employee.id,
@@ -106,14 +128,16 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             'date_to': date(2023, 9, 30),
             'input_line_ids': [(5, 0, 0), (0, 0, {'input_type_id': cls.env.ref('hr_payroll.input_child_support').id, 'amount': 200})],
         }])
+        cls.employee_user = new_test_user(cls.env, login='mel', groups='hr.group_hr_manager')
         cls.australian_company.l10n_au_hr_super_responsible_id = cls.env["hr.employee"].create({
-            "name": "Mel",
+            "name": "Mel Gibson",
             "resource_calendar_id": cls.australian_company.resource_calendar_id.id,
             "company_id": cls.australian_company.id,
             "private_street": "1 Test Street",
             "private_city": "Sydney",
             "private_country_id": cls.env.ref("base.au").id,
             "work_phone": "123456789",
+            "work_email": "mel@test.com",
             "birthday": date.today() - relativedelta(years=22),
             # fields modified in the tests
             "marital": "single",
@@ -128,6 +152,8 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             "l10n_au_medicare_surcharge": "X",
             "l10n_au_medicare_reduction": "X",
             "l10n_au_child_support_deduction": 0,
+            # "l10n_au_previous_payroll_id": "odoo_f47ac10b_001",
+            "user_id": cls.employee_user.id,
         })
 
     def _test_super_stream(self, superstream, expected_saff_lines: list, payment_total: float):
@@ -138,11 +164,14 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
             assert expected_line and saff_line, (
                     "%s payslip lines expected by the test, but %s were found in the payslip."
                     % (len(expected_line), len(saff_line.line_ids)))
-            for expected_val, saff_val in zip_longest(expected_line, saff_line):
-                self.assertEqual(expected_val, saff_val, "%s was expected but %s is found!" % (expected_val, saff_val))
+            self.assertEqual(len(expected_line), len(saff_line),
+                "Expected %s Columns but found %s in the payslip." % (len(expected_line), len(saff_line)))
+            for expected_val, saff_val, header in zip_longest(expected_line, saff_line, values[2]):
+                # print(f"{header}: {expected_val} - {saff_val}")
+                self.assertEqual(expected_val, saff_val, "%s was expected but %s is found at header %s!" % (expected_val, saff_val, header))
 
         # Post Payslip Journal Entries
-        superstream.l10n_au_super_stream_lines.payslip_id.move_id._post()
+        superstream.l10n_au_super_stream_lines.payslip_id.move_id._post(False)
 
         superstream.action_register_super_payment()
         payment_values = [{
@@ -170,10 +199,13 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         """
         lines = []
         for idx, value in enumerate(super_values):
-            lines.append([idx, "83 914 571 673", "abn", "", "", "", "My Superstream Australian Company", "", "Mel", "", "", "123456789", "83 914 571 673", "My Superstream Australian Company", "123-456", "12344321",
-            "My Superstream Australian Company", "2345678912", "", "Fund A", "", "", "", "", "", "", "", "", "", "83 914 571 673", "", "My Superstream Australian Company", "", "123456789", "", "",
-            "", "Roger", "", "1", "1970-03-21", "RES", "Australian Street", "", "", "", "Sydney", "", "", "", "", "123456789", "", "", "",
-            "", "", value.get('start_date'), value.get('end_date'), value.get('super_guarantee'), "", "", value.get('super_concessional'), "", "", "", "", "1975-01-01", True, "", value.get('annual_salary'), "", "", "", "", "", "", "", "", "", "", "", "", "",
+            total = value.get('super_concessional') + value.get('super_guarantee')
+            fund = self.super_fund_smsf if value.get('smsf_fund', False) else self.super_fund
+            lines.append([idx, "83914571673", "abn", "", "", "", "My Superstream Australian Company", "Gibson", "Mel", "", "mel@test.com", "123456789", "83914571673", "My Superstream Australian Company", "123-456", "12344321",
+            "My Superstream Australian Company", fund.abn, "", fund.display_name, "", "DirectDebit", "2023-09-01", "", "", total, fund.bank_account_id.aba_bsb or "", fund.bank_account_id.acc_number or "",
+            fund.bank_account_id.partner_id.name or "", "83914571673", "", "My Superstream Australian Company", "", "123456789", "", "",
+            "Federer", "Roger", "", "1", "1970-03-21", "RES", "Australian Street", "", "", "", "Sydney", "2000", "NSW", "AU", "roger@gmail.com", "123456789", "123456789", "", "odoo_f47ac10b_001",
+            "", "", value.get('start_date'), value.get('end_date'), value.get('super_guarantee'), "", "", value.get('super_concessional'), "", "", "", "", "1975-01-01", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
             "", "", "", "", "", "", "", "", ""])
         return lines
@@ -186,7 +218,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         superstream.action_confirm()
 
         values = superstream.prepare_rendering_data()
-        header = ["VERSION", "1.0", "Negatives Supported", "False", "File ID", "SAFF0000000001"]
+        header = ["", "1.0", "Negatives Supported", "False", "File ID", "SAFF0000000001"]
         categories = ["Line ID", "Header", "", "", "", "Sender", "", "", "", "", "", "", "Payer", "", "", "", "", "Payee/Receiver", "", "", "", "", "", "", "", "", "", "",
                   "", "Employer", "", "", "", "Super Fund Member Common", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                   "Super Fund Member Contributions", "", "", "", "", "", "", "", "", "", "Super Fund Member Registration", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
@@ -233,12 +265,10 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         expected_lines = self.get_expected_lines([
             {"super_guarantee": 550,
              "super_concessional": 20,
-             "annual_salary": 60000,
              "start_date": "2023-08-01",
              "end_date": "2023-08-31"},
             {"super_guarantee": 550,
              "super_concessional": 20,
-             "annual_salary": 60000,
              "start_date": "2023-09-01",
              "end_date": "2023-09-30"}
         ])
@@ -267,12 +297,10 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         expected_lines = self.get_expected_lines([
             {"super_guarantee": 550,
              "super_concessional": 20,
-             "annual_salary": 60000,
              "start_date": "2023-08-01",
              "end_date": "2023-08-31"},
             {"super_guarantee": 550,
              "super_concessional": 20,
-             "annual_salary": 60000,
              "start_date": "2023-09-01",
              "end_date": "2023-09-30"}
         ])
@@ -286,7 +314,7 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         self.env['l10n_au.super.account'].create({
             "date_from": date(2023, 6, 1),
             "employee_id": self.employee.id,
-            "fund_id": self.super_fund.id,
+            "fund_id": self.super_fund_smsf.id,
             "proportion": 0.6,
         })
 
@@ -297,24 +325,22 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         expected_lines = self.get_expected_lines([
             {"super_guarantee": 220,
              "super_concessional": 8,
-             "annual_salary": 60000,
              "start_date": "2023-08-01",
              "end_date": "2023-08-31"},
             {"super_guarantee": 330,
              "super_concessional": 12,
-             "annual_salary": 60000,
              "start_date": "2023-08-01",
-             "end_date": "2023-08-31"},
+             "end_date": "2023-08-31",
+             "smsf_fund": True},
             {"super_guarantee": 220,
              "super_concessional": 8,
-             "annual_salary": 60000,
              "start_date": "2023-09-01",
              "end_date": "2023-09-30"},
             {"super_guarantee": 330,
              "super_concessional": 12,
-             "annual_salary": 60000,
              "start_date": "2023-09-01",
-             "end_date": "2023-09-30"}
+             "end_date": "2023-09-30",
+             "smsf_fund": True}
         ])
 
         self._test_super_stream(superstream, expected_lines, 1140)
@@ -337,7 +363,6 @@ class TestPayrollSuperStream(AccountTestInvoicingCommon):
         expected_lines = self.get_expected_lines([
             {"super_guarantee": 550,
              "super_concessional": 20,
-             "annual_salary": 60000,
              "start_date": "2023-09-01",
              "end_date": "2023-09-30"}
         ])

@@ -55,9 +55,10 @@
                             </span>
                         </div>
                         <field name="l10n_au_training_loan"/>
-                        <field name="l10n_au_medicare_surcharge" invisible="l10n_au_employment_basis_code == 'C'"/>
-                        <field name="l10n_au_medicare_exemption" invisible="not l10n_au_tax_free_threshold or l10n_au_employment_basis_code == 'C'"/>
-                        <field name="l10n_au_medicare_reduction" invisible="l10n_au_employment_basis_code == 'C'"/>
+                        <field name="l10n_au_medicare_variation_form" filename="l10n_au_medicare_variation_form_filename" widget="binary" invisible="l10n_au_employment_basis_code == 'C'"/>
+                        <field name="l10n_au_medicare_surcharge" invisible="not l10n_au_medicare_variation_form or l10n_au_employment_basis_code == 'C'"/>
+                        <field name="l10n_au_medicare_exemption" invisible="not l10n_au_medicare_variation_form or not l10n_au_tax_free_threshold or l10n_au_employment_basis_code == 'C'"/>
+                        <field name="l10n_au_medicare_reduction" invisible="not l10n_au_medicare_variation_form or l10n_au_employment_basis_code == 'C'"/>
                         <field name="l10n_au_tax_treatment_code" groups="base.group_no_one"/>
                     </group>
                     <group name="l10n_au_deductions" string="Deductions, offsets and withholding" invisible="company_country_code != 'AU'">

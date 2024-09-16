@@ -51,6 +51,8 @@ class HrEmployee(models.Model):
         string="HELP / STSL",
         groups="hr.group_hr_user",
         help="Whether the employee is a Study Training Support Loan (STSL) recipient")
+    l10n_au_medicare_variation_form = fields.Binary(string="Medicare Variation Form", attachment=True, groups="hr.group_hr_user")
+    l10n_au_medicare_variation_form_filename = fields.Char(groups="hr.group_hr_user")
     l10n_au_medicare_exemption = fields.Selection(
         selection=[
             ("X", "None"),
@@ -457,7 +459,7 @@ class HrEmployee(models.Model):
         for emp in self:
             if proportions.get(emp.id) and float_compare(proportions.get(emp.id), 1, precision_digits=2) != 0:
                 emp.super_account_warning = _(
-                    "The proportions of super contributions for this employee do not amount to 100%% across their \
-                    active super accounts! Currently, it is at %d%%!",
+                    "The proportions of super contributions for this employee do not amount to 100%% across their "
+                    "active super accounts! Currently, it is at %d%%!",
                     proportions[emp.id] * 100,
                 )

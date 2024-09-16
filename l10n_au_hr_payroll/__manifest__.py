@@ -18,6 +18,7 @@ Australian Payroll Rules.
 """,
     "data": [
         "security/ir.model.access.csv",
+        "security/ir_rule.xml",
         "views/hr_contract_views.xml",
         "views/hr_employee_views.xml",
         "views/res_config_settings_views.xml",

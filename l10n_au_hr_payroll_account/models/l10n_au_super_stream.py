@@ -2,6 +2,7 @@
 import csv
 import io
 import base64
+import re
 from operator import itemgetter
 
 from odoo import api, fields, models, _
@@ -10,10 +11,10 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools.float_utils import float_compare
 
 
-
 class L10auSuperStream(models.Model):
     _name = "l10n_au.super.stream"
-    _description = "Super Stream"
+    _description = "Super Contributions"
+    _inherit = ["mail.thread", "mail.activity.mixin"]
 
     state = fields.Selection(
         selection=[
@@ -69,12 +70,7 @@ class L10auSuperStream(models.Model):
         "l10n_au_super_stream_lines.other_third_party_contributions_amount",
     )
     def _compute_amount_total(self):
-        fields = [
-            "superannuation_guarantee_amount", "award_or_productivity_amount",
-            "personal_contributions_amount", "salary_sacrificed_amount",
-            "voluntary_amount", "spouse_contributions_amount",
-            "child_contributions_amount", "other_third_party_contributions_amount",
-        ]
+        fields = self.env["l10n_au.super.stream.line"]._contribution_fields()
         amounts = self.env["l10n_au.super.stream.line"].read_group(
             [("l10n_au_super_stream_id", "in", self.ids)],
             fields,
@@ -94,6 +90,7 @@ class L10auSuperStream(models.Model):
             raise ValidationError(_("SuperStream cannot be validated without Bank Journal!"))
 
     def prepare_rendering_data(self):
+        self._check_mandatory_fields()
         header_line = self._get_header_line()
         categories_line = self._get_categories_line()
         details_line = self._get_details_line()
@@ -139,9 +136,9 @@ class L10auSuperStream(models.Model):
         payslip_entries = self.l10n_au_super_stream_lines.payslip_id.move_id
         if all(p.state != 'posted' for p in payslip_entries):
             raise UserError(_(
-                "Some Journal Entries for the related Payslips are not posted."
-                "Please post them before Registering payment.\n%s",
-                '\n'.join(payslip_entries.mapped('name'))))
+                "Some journal entries for the related payslips are not posted. "
+                "Please post them before registering payment."
+            ))
 
         (payslip_entries.line_ids + self.payment_id.line_ids)\
             .filtered_domain([('account_id', '=', self.payment_id.destination_account_id.id), ('reconciled', '=', False)])\
@@ -171,8 +168,10 @@ class L10auSuperStream(models.Model):
             }
         )
 
+        self.message_post(body="SuperStream file created on %s" % fields.Date.today(), attachment_ids=[self.super_stream_file.id])
+
     def _get_header_line(self):
-        return ["VERSION", self.file_version, "Negatives Supported", "False", "File ID", self.file_id]
+        return ["", self.file_version, "Negatives Supported", "False", "File ID", self.file_id]
 
     def _get_categories_line(self):
         line = [""] * 133
@@ -227,18 +226,6 @@ class L10auSuperStream(models.Model):
             lines.append(line._get_data_line(idx))
         return lines
 
-    def action_confirm(self):
-        if not self.journal_id:
-            raise UserError(_('Please select a payment journal before locking this document.'))
-        self._check_super_account_proportions()
-        self.write({'state': 'locked'})
-
-    def action_draft(self):
-        for rec in self:
-            if rec.state in ['processing', 'done']:
-                raise UserError(_("You cannot reset a SuperStream once in %s!", rec.state))
-            rec.state = 'draft'
-
     def _check_super_account_proportions(self):
         """Checks if each payslip has 100% proportion assigned.
         """
@@ -255,10 +242,47 @@ class L10auSuperStream(models.Model):
                 format_list(self.env, invalid.mapped("name")),
             ))
 
+    @api.model
+    def _get_error_message(self, fields, record, name):
+        errors = []
+        message = ""
+        for field in fields:
+            if not record[field]:
+                errors.append(record._fields[field]._description_string(record.env))
+        if errors:
+            message = _("Please configure the following fields on the %(name)s:\n %(fields)s\n", name=name, fields=format_list(record.env, errors))
+        return message or ""
+
+    def _check_mandatory_fields(self):
+        if not self.company_id.vat and not self.company_id.l10n_au_wpn_number:
+            raise ValidationError(_("Please configure the WPN number or ABN in the company settings."))
+
+        company_fields = ["name", "vat"]
+        message = self._get_error_message(company_fields, self.company_id, "Company")
+
+        message += self._get_error_message(["aba_bsb", "bank_account_id", "bank_acc_number"], self.journal_id, "Bank Journal")
+
+        message += self.l10n_au_super_stream_lines._get_employee_mandatory_fields()
+
+        if message:
+            raise ValidationError(message)
+
+    def action_confirm(self):
+        if not self.journal_id:
+            raise UserError(_('Please select a payment journal before locking this document.'))
+        self._check_super_account_proportions()
+        self.write({'state': 'locked'})
+
+    def action_draft(self):
+        for rec in self:
+            if rec.state in ['processing', 'done']:
+                raise UserError(_("You cannot reset a SuperStream once in %s!", rec.state))
+            rec.state = 'draft'
+
 
 class L10nauSuperStreamLine(models.Model):
     _name = "l10n_au.super.stream.line"
-    _description = "Super Stream Line"
+    _description = "Super Contribution Line"
 
     name = fields.Char(compute="_compute_name", default="Draft")
     l10n_au_super_stream_id = fields.Many2one("l10n_au.super.stream", ondelete='cascade')
@@ -282,23 +306,25 @@ class L10nauSuperStreamLine(models.Model):
     superannuation_guarantee_amount = fields.Monetary(
         compute="_compute_payslip_fields", precompute=True, store=True, readonly=False
     )
-    award_or_productivity_amount = fields.Monetary()
+    award_or_productivity_amount = fields.Monetary(
+        compute="_compute_payslip_fields", precompute=True, store=True, readonly=False
+    )
     personal_contributions_amount = fields.Monetary()
     salary_sacrificed_amount = fields.Monetary(
         compute="_compute_payslip_fields", precompute=True, store=True, readonly=False
     )
-    voluntary_amount = fields.Monetary()
+    voluntary_amount = fields.Monetary(
+        compute="_compute_payslip_fields", precompute=True, store=True, readonly=False
+    )
     spouse_contributions_amount = fields.Monetary()
     child_contributions_amount = fields.Monetary()
     other_third_party_contributions_amount = fields.Monetary()
+    amount_total = fields.Monetary("Total Contribution", compute="_compute_amount_total", currency_field='currency_id')
 
     # Registration
     employment_start_date = fields.Date(related="payslip_id.contract_id.date_start", store=True, readonly=False)
-    at_work_indicator = fields.Boolean(compute="_compute_payslip_fields", precompute=True, store=True, readonly=False)
     annual_salary_for_benefits_amount = fields.Monetary()
-    annual_salary_for_contributions_amount = fields.Monetary(
-        compute="_compute_payslip_fields", precompute=True, store=True, readonly=False
-    )
+    annual_salary_for_contributions_amount = fields.Monetary()
     annual_salary_for_contributions_effective_start_date = fields.Date()
     annual_salary_for_contributions_effective_end_date = fields.Date()
     annual_salary_for_insurance_amount = fields.Monetary()
@@ -329,14 +355,16 @@ class L10nauSuperStreamLine(models.Model):
 
     @api.depends("payslip_id", 'super_account_id', 'proportion')
     def _compute_payslip_fields(self):
-        super_lines_total = self.payslip_id._get_line_values(['SUPER', 'SUPER.CONTRIBUTION'], vals_list=['total'])
+        super_lines_total = self.payslip_id._get_line_values(['SUPER', 'OTE'], vals_list=['total'])
         for rec in self:
             if rec.state != 'draft':
                 continue
+            contract = rec.payslip_id.contract_id
             rec.superannuation_guarantee_amount = super_lines_total['SUPER'][rec.payslip_id.id]['total'] * rec.proportion
-            rec.salary_sacrificed_amount = super_lines_total['SUPER.CONTRIBUTION'][rec.payslip_id.id]['total'] * rec.proportion
-            rec.annual_salary_for_contributions_amount = rec.payslip_id.contract_id.l10n_au_yearly_wage
-            rec.at_work_indicator = rec.payslip_id.contract_id.state == "open"
+            rec.salary_sacrificed_amount = contract.l10n_au_salary_sacrifice_superannuation * rec.proportion
+            ote_amount = super_lines_total['OTE'][rec.payslip_id.id]['total']
+            rec.award_or_productivity_amount = (ote_amount * rec.payslip_id.l10n_au_extra_compulsory_super) * rec.proportion
+            rec.voluntary_amount = (ote_amount * rec.payslip_id.l10n_au_extra_negotiated_super) * rec.proportion
 
     @api.depends('employee_id')
     def _compute_allowed_super_account_ids(self):
@@ -345,7 +373,13 @@ class L10nauSuperStreamLine(models.Model):
             if rec.employee_id:
                 rec.allowed_super_account_ids = rec.employee_id._get_active_super_accounts()
 
-    def _get_data_line(self, idx):
+    @api.depends(lambda self: self._contribution_fields())
+    def _compute_amount_total(self):
+        fields = self._contribution_fields()
+        for rec in self:
+            rec.amount_total = sum(rec.mapped(itemgetter(*fields))[0])
+
+    def _get_data_line(self, idx) -> list[str]:
         if self.employee_id.gender == "male":
             gender = '1'
         elif self.employee_id.gender == "female":
@@ -354,17 +388,17 @@ class L10nauSuperStreamLine(models.Model):
             gender = '3'
         else:
             gender = '0'
-
+        is_smsf = self.payee_id.fund_type == "SMSF"
         line = [
             # name | excel columns ( inclusive ) | number of columns | 0-index of columns
             # header data [A:E] (5) (0 - 4)
             idx,
-            self.l10n_au_super_stream_id.source_entity_id or "",
+            self.l10n_au_super_stream_id.source_entity_id.replace(" ", "") or "",
             self.l10n_au_super_stream_id.source_entity_id_type or "",
             "", "",
 
             # sender data [F:L] (7) (5 - 11)
-            self.sender_id.l10n_au_abn or "",
+            self.sender_id.l10n_au_abn.replace(" ", "") if self.sender_id.l10n_au_abn else "",
             self.company_id.name or "",
             ' '.join(self.sender_id.name.split(' ')[1:]),
             self.sender_id.name.split(' ')[0],
@@ -373,34 +407,42 @@ class L10nauSuperStreamLine(models.Model):
             self.sender_id.work_phone or "",
 
             # payer data [M:Q] (5) (12 - 16)
-            self.employer_id.vat,
+            self.employer_id.vat.replace(" ", ""),
             self.employer_id.display_name,
             self.l10n_au_super_stream_id.journal_id.aba_bsb,
             self.l10n_au_super_stream_id.journal_id.bank_acc_number,
             self.l10n_au_super_stream_id.journal_id.bank_account_id.partner_id.name,
 
             # payee/receiver data [R:AC] (12) (17 - 28)
-            self.payee_id.abn or "",
+            self.payee_id.abn.replace(" ", "") or "",
             self.payee_id.usi or "",
             self.payee_id.display_name or "",
             self.payee_id.esa or "",
-            "", "", "", "", "", "", "", "",  # fields for the clearing house
+            "DirectDebit",
+            fields.Date.to_string(fields.Date.today()),
+            "", "",  # fields for the clearing house [X:Y]
+            self.amount_total or "0",
+            self.payee_id.bank_account_id.aba_bsb if is_smsf else "",
+            self.payee_id.bank_account_id.acc_number if is_smsf else "",
+            self.payee_id.bank_account_id.partner_id.name if is_smsf else "",
 
             # employer data [AD:AG] (4) (29 - 32)
-            self.employer_id.vat or "",
+            self.employer_id.vat.replace(" ", "") or "",
             "",
             self.employer_id.display_name or "",
-            self.employer_id.l10n_au_sfei or "",
+            "",  # self.employer_id.l10n_au_sfei or "",
 
             # super fund member common [AH:BE] (24) (33 - 56)
             self.employee_id.l10n_au_tfn,
-            "", "",
+            self.employee_id.work_contact_id.title.shortcut or "",
+            "",
             ' '.join(self.employee_id.name.split(' ')[1:]),
             self.employee_id.name.split(' ')[0],
-            "",  # Other given name
+            self.employee_id.l10n_au_other_names or "",  # Other given name
             gender,
             fields.Date.to_string(self.employee_id.birthday) or "",
-            "RES",
+            # contains "PO box", "P.O. Box", "PObox" ...
+            "POS" if "pobox" in re.sub(r'\W+', '', self.employee_id.private_street.lower()) else "RES",
             self.employee_id.private_street or "",
             self.employee_id.private_street2 or "",
             "", "",
@@ -408,10 +450,13 @@ class L10nauSuperStreamLine(models.Model):
             self.employee_id.private_zip or "",
             self.employee_id.private_state_id.code or "",
             self.employee_id.private_country_id.code or "",
-            self.employee_id.work_email or "",
-            self.employee_id.work_phone or "",
-            self.employee_id.mobile_phone or "",
-            "", "", "", "",
+            self.employee_id.private_email or "",
+            self.employee_id.private_phone or "",
+            self.employee_id.private_phone or "",
+            self.super_account_id.member_nbr or "",
+            self.employee_id.l10n_au_payroll_id or "",
+            self.employee_id.departure_date or "",
+            self.employee_id.departure_reason_id.name or "",
 
             # super fund member contributions [BF:BO] (10) (57 - 66)
             fields.Date.to_string(self.start_date),
@@ -427,7 +472,7 @@ class L10nauSuperStreamLine(models.Model):
 
             # super fund member registration [BP:CE] (16) (67 - 82)
             fields.Date.to_string(self.employment_start_date),
-            self.at_work_indicator or "",
+            "",
             self.annual_salary_for_benefits_amount or "",
             self.annual_salary_for_contributions_amount or "",
             fields.Date.to_string(self.annual_salary_for_contributions_effective_start_date) or "",
@@ -452,3 +497,23 @@ class L10nauSuperStreamLine(models.Model):
         ]
 
         return line
+
+    @api.model
+    def _contribution_fields(self):
+        return [
+            "superannuation_guarantee_amount", "award_or_productivity_amount",
+            "personal_contributions_amount", "salary_sacrificed_amount",
+            "voluntary_amount", "spouse_contributions_amount",
+            "child_contributions_amount", "other_third_party_contributions_amount",
+        ]
+
+    def _get_employee_mandatory_fields(self):
+        for rec in self:
+            employee_fields = ["private_city", "private_zip", "private_state_id", "private_country_id", "private_email",
+                "private_phone", "birthday"]
+            # Payslip Employee
+            message = self.env['l10n_au.super.stream']._get_error_message(employee_fields, rec.employee_id, f"Employee ({rec.employee_id.display_name})")
+            if len(rec.employee_id.name.split(' ')) <= 1:
+                message += _("Please provide First and Last Name for the Employee %s.\n", rec.employee_id.name)
+
+        return message
