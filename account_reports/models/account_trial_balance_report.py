@@ -15,6 +15,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
         def _update_column(line, column_key, new_value, blank_if_zero=False):
             line['columns'][column_key]['name'] = self.env['account.report']._format_value(options, new_value, figure_type='monetary', blank_if_zero=blank_if_zero)
             line['columns'][column_key]['no_format'] = new_value
+            line['columns'][column_key]['is_zero'] = self.env.company.currency_id.is_zero(new_value)
 
         def _update_balance_columns(line, debit_column_key, credit_column_key, total_diff_values_key):
             debit_value = line['columns'][debit_column_key]['no_format'] if debit_column_key is not None else False
