@@ -39,7 +39,7 @@ class Project(models.Model):
             "type": "ir.actions.act_window",
             "res_model": "budget.line",
             "domain": expression.AND([
-                [('account_id', '=', self.account_id.id), ('budget_analytic_id.state', 'not in', ['draft', 'cancel'])],
+                [('account_id', '=', self.account_id.id), ('budget_analytic_id.state', 'in', ['confirmed', 'done'])],
                 domain or [],
             ]),
             'context': {'create': False, 'edit': False},
@@ -72,7 +72,7 @@ class Project(models.Model):
             [
                 ('account_id', '=', self.account_id.id),
                 ('budget_analytic_id', '!=', False),
-                ('budget_analytic_id.state', 'not in', ['draft', 'cancel']),
+                ('budget_analytic_id.state', 'in', ['confirmed', 'done']),
             ],
             ['budget_analytic_id', 'company_id'],
             ['budget_amount:sum', 'achieved_amount:sum', 'id:array_agg'],
