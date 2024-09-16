@@ -638,6 +638,27 @@
             (0, 0, {'view_mode': 'form', 'view_id': ref('quality_alert_team_view_form')})]"/>
     </record>
 
+    <record id="quality_spreadsheet_template_action_config" model="ir.actions.act_window">
+        <field name="name">Quality Spreadsheet Templates</field>
+        <field name="res_model">quality.spreadsheet.template</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <record id="quality_spreadsheet_template_view_list" model="ir.ui.view">
+        <field name="name">quality.spreadsheet.template.list</field>
+        <field name="model">quality.spreadsheet.template</field>
+        <field name="arch" type="xml">
+            <list editable="bottom">
+                <field name="name"/>
+                <field name="check_cell"/>
+                <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                <field name="spreadsheet_file_name" column_invisible="True"/>
+                <field name="spreadsheet_binary_data" groups="base.group_no_one" widget="binary" filename="spreadsheet_file_name" string="Data" />
+                <button string="Edit" class="float-end" icon="fa-pencil" type="object" name="action_open_spreadsheet"/>
+            </list>
+        </field>
+    </record>
+
     <!-- QUALITY.TAG -->
     <record id="quality_tag_view_search" model="ir.ui.view">
         <field name="name">quality.tag.view.search</field>
@@ -923,6 +944,12 @@
         action="quality_tag_action"
         parent="menu_quality_configuration"
         sequence="25"/>
+    <menuitem
+        id="menu_config_quality_spreadsheet_template"
+        name="Quality Spreadsheet Templates"
+        action="quality_spreadsheet_template_action_config"
+        parent="menu_quality_configuration"
+        sequence="35"/>
 
     <menuitem
         id="menu_quality_reporting"
