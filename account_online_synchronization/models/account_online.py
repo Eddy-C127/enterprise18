@@ -865,7 +865,7 @@ class AccountOnlineLink(models.Model):
                         'activity_type_id': bank_sync_activity_type_id.id,
                     })
                 self.env['mail.activity'].create(new_activity_vals)
-        elif self.expiring_synchronization_date < fields.Date.context_today(self):
+        elif self.expiring_synchronization_date and self.expiring_synchronization_date < fields.Date.context_today(self):
             # Avoid an infinite "expired synchro" if the provider
             # doesn't send us a new consent expiring date
             self.expiring_synchronization_date = None
