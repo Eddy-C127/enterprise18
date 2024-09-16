@@ -14,7 +14,7 @@ class TestSpreadsheetDashboard(DashboardTestCommon, SpreadsheetTestCase):
                 "spreadsheet_data": "{}",
             }
         )
-        self.assertEqual(dashboard.file_name, "My Dashboard.osheet.json")
+        self.assertEqual(dashboard.spreadsheet_file_name, "My Dashboard.osheet.json")
 
     def test_join_published(self):
         dashboard = self.create_dashboard().with_user(self.user)

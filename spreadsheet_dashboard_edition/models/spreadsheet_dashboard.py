@@ -1,11 +1,9 @@
-from odoo import api, fields, models, _
+from odoo import api, models, _
 
 
 class SpreadsheetDashboard(models.Model):
     _name = 'spreadsheet.dashboard'
     _inherit = ['spreadsheet.dashboard', 'spreadsheet.mixin']
-
-    file_name = fields.Char(compute='_compute_file_name')
 
     def join_spreadsheet_session(self, *args, **kwargs):
         return dict(
@@ -38,11 +36,6 @@ class SpreadsheetDashboard(models.Model):
             "revisions": revisions,
             "default_currency": data["default_currency"],
         }
-
-    @api.depends("name")
-    def _compute_file_name(self):
-        for dashboard in self:
-            dashboard.file_name = f"{dashboard.name}.osheet.json"
 
     def action_open_spreadsheet(self):
         self.ensure_one()
