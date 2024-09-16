@@ -233,7 +233,7 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
     }
 
     async openCreatePartnerDialog(context) {
-        const ctx_from_db = await this.orm.call('account.move', 'get_partner_create_data', [this.props.record.resId]);
+        const ctx_from_db = await this.orm.call('account.move', 'get_partner_create_data', [[this.props.record.resId], context]);
         this.dialog.add(
             FormViewDialog,
             {
@@ -261,7 +261,10 @@ export class InvoiceExtractFormRenderer extends AccountMoveFormRenderer {
                 break;
             case 'supplier':
             case 'VAT_Number':
-                if (Number.isFinite(newFieldValue) && newFieldValue !== 0) {
+                if (Array.isArray(newFieldValue) && newFieldValue.length == 2){
+                    changes = { partner_id: [newFieldValue[0]], partner_bank_id: [newFieldValue[1]] };
+                }
+                else if (Number.isFinite(newFieldValue) && newFieldValue !== 0) {
                     changes = { partner_id: [newFieldValue] };
                 } else {
                     await this.openCreatePartnerDialog({

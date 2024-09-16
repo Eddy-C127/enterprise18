@@ -292,8 +292,11 @@ class AccountMove(models.Model):
             "box_height": data.word_box_height,
             "box_angle": data.word_box_angle} for data in self.extract_word_ids]
 
-    def get_partner_create_data(self):
-        return self.extract_prefill_data
+    def get_partner_create_data(self, context):
+        default_values = self.extract_prefill_data
+        if values := self._fetch_autocomplete_values(context.get('default_vat') or default_values.get('vat')):
+            default_values |= values
+        return {f'default_{k}': v for k, v in default_values.items()}
 
     def set_user_selected_box(self, id):
         """Set the selected box for a feature. The id of the box indicates the concerned feature.
@@ -326,7 +329,13 @@ class AccountMove(models.Model):
             else:
                 vat = word.word_text
                 partner = self._create_supplier_from_vat(vat)
-                return partner.id if partner else False
+                if partner and self.is_purchase_document():
+                    self.partner_id = partner
+                    bank_vals = (self.extract_prefill_data or {}).get('bank_ids', [{}])[0]
+                    if bank_vals:
+                        bank_vals['partner_id'] = partner.id
+                        self.partner_bank_id = self.with_context(clean_context(self.env.context)).env['res.partner.bank'].create(bank_vals)
+                return [partner.id, self.partner_bank_id.id] if partner else False
 
         if word.field == "supplier":
             return self._find_partner_id_with_name(word.word_text)
@@ -379,11 +388,14 @@ class AccountMove(models.Model):
                     break
         return partner_vat
 
-    def _create_supplier_from_vat(self, vat_number_ocr):
+    def _fetch_autocomplete_values(self, vat_number):
+        if not vat_number:
+            return None
+
         try:
             response, error = self.env['iap.autocomplete.api']._request_partner_autocomplete(
                 action='enrich',
-                params={'vat': vat_number_ocr},
+                params={'vat': vat_number},
             )
             if error:
                 raise Exception(error)
@@ -391,10 +403,10 @@ class AccountMove(models.Model):
                 _logger.warning("Credit error on partner_autocomplete call")
         except KeyError:
             _logger.warning("Partner autocomplete isn't installed, supplier creation from VAT is disabled")
-            return False
+            return None
         except Exception as exception:
             _logger.error('Check VAT error: %s' % str(exception))
-            return False
+            return None
 
         if response and response.get('company_data'):
             country_id = self.env['res.country'].search([('code', '=', response.get('company_data').get('country_code',''))])
@@ -411,10 +423,18 @@ class AccountMove(models.Model):
                 values['country_id'] = country_id.id
                 if state_id:
                     values['state_id'] = state_id.id
+            return values
+        return None
 
-            new_partner = self.env["res.partner"].with_context(clean_context(self.env.context)).create(values)
-            return new_partner
-        return False
+    def _create_supplier_from_vat(self, vat_number_ocr):
+        values = self._fetch_autocomplete_values(vat_number_ocr)
+        if not values:
+            return False
+
+        for field, val in (self.extract_prefill_data or {}).items():
+            if field not in values and field != 'bank_ids':
+                values[field] = val
+        return self.env["res.partner"].with_context(clean_context(self.env.context)).create(values)
 
     def _find_partner_id_with_name(self, partner_name):
         if not partner_name:
@@ -654,6 +674,23 @@ class AccountMove(models.Model):
 
         return invoice_lines_to_create
 
+    def _get_bank_account_vals(self, iban_ocr, SWIFT_code_ocr):
+        vals = {'acc_number': iban_ocr}
+        if SWIFT_code_ocr:
+            bank_id = self.env['res.bank'].search([('bic', '=', SWIFT_code_ocr['bic'])], limit=1)
+            if bank_id:
+                vals['bank_id'] = bank_id.id
+            if not bank_id and SWIFT_code_ocr['verified_bic']:
+                country_id = self.env['res.country'].search([('code', '=', SWIFT_code_ocr['country_code'])], limit=1)
+                if country_id:
+                    vals['bank_id'] = self.env['res.bank'].create({
+                        'name': SWIFT_code_ocr['name'],
+                        'country': country_id.id,
+                        'city': SWIFT_code_ocr['city'],
+                        'bic': SWIFT_code_ocr['bic'],
+                    }).id
+        return vals
+
     def _fill_document_with_results(self, ocr_results):
         self = self.with_context(skip_is_manually_modified=True)  # noqa: PLW0642
         if self.state != 'draft' or ocr_results is None:
@@ -667,36 +704,6 @@ class AccountMove(models.Model):
             # We assume that if the user has specifically created a credit note, it is indeed a credit note.
             self.action_switch_move_type()
 
-        self._save_form(ocr_results)
-
-        def get_bank_accounts():
-            iban_text = self._get_ocr_selected_value(ocr_results, 'iban', "")
-            if not iban_text:
-                return None
-
-            iban_found = self.env['res.partner.bank'].search([
-                *self.env['res.partner.bank']._check_company_domain(self.company_id),
-                ('acc_number', '=ilike', iban_text),
-            ], limit=1).id
-
-            if iban_found:
-                return [iban_found]
-
-            vals = {'acc_number': iban_text}
-            SWIFT_code_ocr = json.loads(self._get_ocr_selected_value(ocr_results, 'SWIFT_code', "{}"))
-            country_id = self.env['res.country'].search([('code', '=', SWIFT_code_ocr.get('country_code'))], limit=1)
-            bank_id = self.env['res.bank'].search([], limit=1).id
-            if bank_id:
-                vals['bank_id'] = bank_id
-            elif SWIFT_code_ocr['verified_bic'] and country_id:
-                vals['bank_id'] = self.env['res.bank'].create({
-                    'name': SWIFT_code_ocr['name'],
-                    'country': country_id.id,
-                    'city': SWIFT_code_ocr['city'],
-                    'bic': SWIFT_code_ocr['bic']}
-                ).id
-            return [vals]
-
         def get_first_value_without(feature, not_allowed):
             return next((
                 candidate['content']
@@ -705,20 +712,24 @@ class AccountMove(models.Model):
             ), None)
 
         country_code = self._get_ocr_selected_value(ocr_results, 'country', "")
+        iban_ocr = self._get_ocr_selected_value(ocr_results, 'iban', "")
+        SWIFT_code_ocr = json.loads(self._get_ocr_selected_value(ocr_results, 'SWIFT_code', "{}"))
         self.extract_prefill_data = {
-            'default_country_id': self.env['res.country'].search([('code', '=', country_code)], limit=1).id,
-            'default_bank_ids': get_bank_accounts(),
-            'default_email': get_first_value_without('email', (self.company_id.email,)),
-            'default_website': get_first_value_without('website', (self.company_id.website,)),
-            'default_phone': get_first_value_without('phone', (self.company_id.phone,)),
-            'default_mobile': get_first_value_without('mobile', (self.company_id.mobile,)),
-            'default_vat': next((
+            'country_id': self.env['res.country'].search([('code', '=', country_code)], limit=1).id,
+            'bank_ids': [self._get_bank_account_vals(iban_ocr, SWIFT_code_ocr)] if iban_ocr else None,
+            'email': get_first_value_without('email', (self.company_id.email,)),
+            'website': get_first_value_without('website', (self.company_id.website,)),
+            'phone': get_first_value_without('phone', (self.company_id.phone,)),
+            'mobile': get_first_value_without('mobile', (self.company_id.mobile,)),
+            'vat': next((
                     candidate['content']
                     for candidate in ocr_results.get('VAT_Number', {}).get('candidates', [])
                     if next(iter(guess_country(candidate['content'])), "").lower() == country_code.lower()
                 ), next(iter(ocr_results.get('VAT_Number', {}).get('candidates', [])), {}).get('content')),
         }
         self.extract_prefill_data = {k: v for k, v in self.extract_prefill_data.items() if v is not None}
+
+        self._save_form(ocr_results)
 
         if self.extract_word_ids:  # We don't want to recreate the boxes when the user clicks on "Reload AI data"
             return
@@ -783,19 +794,9 @@ class AccountMove(models.Model):
                             if bank_account.partner_id == move_form.partner_id.id:
                                 move_form.partner_bank_id = bank_account
                         else:
-                            vals = {
-                                'partner_id': move_form.partner_id.id,
-                                'acc_number': iban_ocr
-                            }
-                            if SWIFT_code_ocr:
-                                bank_id = self.env['res.bank'].search([('bic', '=', SWIFT_code_ocr['bic'])], limit=1)
-                                if bank_id:
-                                    vals['bank_id'] = bank_id.id
-                                if not bank_id and SWIFT_code_ocr['verified_bic']:
-                                    country_id = self.env['res.country'].search([('code', '=', SWIFT_code_ocr['country_code'])], limit=1)
-                                    if country_id:
-                                        vals['bank_id'] = self.env['res.bank'].create({'name': SWIFT_code_ocr['name'], 'country': country_id.id, 'city': SWIFT_code_ocr['city'], 'bic': SWIFT_code_ocr['bic']}).id
-                            move_form.partner_bank_id = self.with_context(clean_context(self.env.context)).env['res.partner.bank'].create(vals)
+                            bank_vals = self._get_bank_account_vals(iban_ocr, SWIFT_code_ocr)
+                            bank_vals['partner_id'] = move_form.partner_id.id
+                            move_form.partner_bank_id = self.with_context(clean_context(self.env.context)).env['res.partner.bank'].create(bank_vals)
 
             if qr_bill_ocr:
                 qr_content_list = qr_bill_ocr.splitlines()
