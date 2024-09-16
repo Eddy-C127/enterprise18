@@ -14,6 +14,7 @@
         'views/hr_expense_views.xml',
         'views/res_config_settings_views.xml',
         'data/crons.xml',
+        'data/expense_tour.xml',
         ],
     'auto_install': True,
     'license': 'OEEL-1',

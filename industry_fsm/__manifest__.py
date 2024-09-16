@@ -22,6 +22,7 @@ Adds the following options:
     'depends': ['project_enterprise', 'timesheet_grid', 'base_geolocalize'],
     'data': [
         'data/fsm_data.xml',
+        'data/industry_fsm_tour.xml',
         'security/fsm_security.xml',
         'security/ir.model.access.csv',
         'views/res_config_settings_views.xml',

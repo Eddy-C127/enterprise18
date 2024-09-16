@@ -41,6 +41,7 @@
         'data/ir_cron_data.xml',
         'data/ir_actions_server_data.xml',
         'data/note_data.xml',
+        'data/hr_payroll_tour.xml',
         'views/res_config_settings_views.xml',
         'views/report_contributionregister_templates.xml',
         'views/report_payslip_templates.xml',

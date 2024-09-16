@@ -7,9 +7,6 @@ import { markup } from "@odoo/owl";
 
 registry.category("web_tour.tours").add('payroll_tours', {
     url: "/odoo",
-    rainbowManMessage: () =>
-        markup(_t("<strong>Congrats, Your first payslip is now finished. It's time for you to explore the Payroll app by yourself.</strong>")),
-    sequence: 80,
     steps: () => [
     {
         trigger: `.o_app[data-menu-xmlid='hr_work_entry_contract_enterprise.menu_hr_payroll_root']`,
