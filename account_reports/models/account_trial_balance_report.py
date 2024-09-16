@@ -14,6 +14,7 @@ class TrialBalanceCustomHandler(models.AbstractModel):
     def _dynamic_lines_generator(self, report, options, all_column_groups_expression_totals, warnings=None):
         def _update_column(line, column_key, new_value):
             line['columns'][column_key]['no_format'] = new_value
+            line['columns'][column_key]['is_zero'] = self.env.company.currency_id.is_zero(new_value)
 
         def _update_balance_columns(line, debit_column_key, credit_column_key, total_diff_values_key):
             debit_value = line['columns'][debit_column_key]['no_format'] if debit_column_key is not None else False
