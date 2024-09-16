@@ -1855,7 +1855,29 @@ test("invalid fixed period automatic value is removed when changing disabledPeri
     await contains(".o-sidePanelBody input[name='month']").click();
     expect(automaticValueSelect.value).toBe("this_year");
     const options = [...automaticValueSelect.querySelectorAll("option")].map(
-        (option) => option.value,
+        (option) => option.value
     );
     expect(options).toEqual(["this_year", "this_quarter"]);
+});
+
+test("Disabled period section is not present for non fixedPeriod date filters", async function () {
+    const { model } = await createSpreadsheetFromPivotView();
+    const filter = /** @type {FixedPeriodDateGlobalFilter} */ ({
+        id: "43",
+        type: "date",
+        label: "Date Filter",
+        rangeType: "fixedPeriod",
+    });
+    await addGlobalFilter(model, filter);
+    await openGlobalFilterSidePanel();
+    await contains("i.o_side_panel_filter_icon.fa-cog").click();
+
+    expect("input[name='month']").toHaveCount(1);
+
+    const range = target.querySelector(".o-filter-range-type");
+    await contains(range).select("from_to");
+    expect("input[name='month']").toHaveCount(0);
+
+    await contains(range).select("relative");
+    expect("input[name='month']").toHaveCount(0);
 });

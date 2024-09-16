@@ -69,29 +69,22 @@
                 </select>
             </div>
         </div>
-        <div class="o_side_panel_section">
+        <div class="o_side_panel_section" t-if="dateState.type === 'fixedPeriod'">
             <div class="o_side_panel_title">Value options</div>
             <t t-set="monthLabel">Months</t>
             <div class="d-flex flex-row gap-3">
-                <label class="o-checkbox">
-                    <input
-                      type="checkbox"
-                      name="month"
-                      t-att-checked="!dateState.disabledPeriods.includes('month')"
-                      t-on-change="() => this.toggleAllowedPeriod('month')"
-                    />
-                    Months
-                </label>
-                <t t-set="quarterLabel">Quarters</t>
-                <label class="o-checkbox">
-                    <input
-                      type="checkbox"
-                      name="quarter"
-                      t-att-checked="!dateState.disabledPeriods.includes('quarter')"
-                      t-on-change="() => this.toggleAllowedPeriod('quarter')"
-                    />
-                    Quarters
-                </label>
+                <Checkbox
+                    name="'month'"
+                    label.translate="Months"
+                    value="!dateState.disabledPeriods.includes('month')"
+                    onChange="() => this.toggleAllowedPeriod('month')"
+                />
+                <Checkbox
+                    name="'quarter'"
+                    label.translate="Quarters"
+                    value="!dateState.disabledPeriods.includes('quarter')"
+                    onChange="() => this.toggleAllowedPeriod('quarter')"
+                />
             </div>
         </div>
         <t t-if="shouldDisplayFieldMatching()">
