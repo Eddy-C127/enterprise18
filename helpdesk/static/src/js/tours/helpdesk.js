@@ -15,7 +15,7 @@ registry.category("web_tour.tours").add("helpdesk_tour", {
         },
         {
             isActive: ["auto"],
-            trigger: ".o_kanban_primary_left",
+            trigger: ".o_helpdesk_ticket_btn",
         },
         {
     trigger: '.oe_kanban_action_button',

@@ -280,30 +280,20 @@
         <field name="model">helpdesk.team</field>
         <field name="priority">200</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard"
+            <kanban highlight_color="color"
                     group_create="0" create="0" js_class="helpdesk_team_kanban_view" sample="1"
                     action="action_view_ticket" type="object"
             >
-                <field name="name"/>
                 <field name="sequence" widget="handle"/>
-                <field name="color"/>
                 <field name="use_alias"/>
-                <field name="alias_email"/>
                 <field name="use_rating"/>
                 <field name="use_sla"/>
-                <field name="unassigned_tickets"/>
-                <field name="ticket_closed"/>
-                <field name="success_rate"/>
-                <field name="urgent_ticket"/>
-                <field name="open_ticket_count"/>
-                <field name="sla_failed"/>
                 <field name="rating_count"/>
-                <field name="rating_avg" />
                 <templates>
                     <t t-name="kanban-menu">
                         <div class="container">
                             <div class="row">
-                                <div class="col-6 o_kanban_card_manage_section o_kanban_manage_view">
+                                <div class="col-6">
                                     <h5 role="menuitem" class="o_kanban_card_manage_title">
                                         <span>View</span>
                                     </h5>
@@ -311,7 +301,7 @@
                                         <a name="action_view_ticket" type="object">Tickets</a>
                                     </div>
                                 </div>
-                                <div class="col-auto o_kanban_card_manage_section o_kanban_manage_reporting">
+                                <div class="col-auto">
                                     <h5 role="menuitem" class="o_kanban_card_manage_title">
                                         <span>Reporting</span>
                                     </h5>
@@ -325,89 +315,62 @@
                             </div>
                             <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
                                 <div role="menuitem" aria-haspopup="true" class="col-8">
-                                    <ul class="oe_kanban_colorpicker" data-field="color" role="menu"/>
+                                    <field name="color" widget="kanban_color_picker"/>
                                 </div>
                                 <div role="menuitem" class="col-4">
-                                    <a class="dropdown-item" role="menuitem" type="edit">Settings</a>
+                                    <a class="dropdown-item" role="menuitem" type="open">Settings</a>
                                 </div>
                             </div>
                         </div>
                     </t>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''} oe_kanban_global_click">
-                            <span class="oe_kanban_color_help" t-attf-title="In #{kanban_getcolorname(record.color.raw_value)}" role="img" t-attf-aria-label="In #{kanban_getcolorname(record.color.raw_value)}"/>
-                            <div class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary"><field name="display_name"/></div>
-                                    <small t-if="record.use_alias.value and record.alias_email.value">
-                                        <a t-att-href="'mailto:' + record.alias_email.value"><i class="fa fa-envelope-o" title="Domain alias" role="img" aria-label="Domain alias"></i>&amp;nbsp; <t t-out="record.alias_email.value"/></a>
-                                    </small>
-                                </div>
+                    <t t-name="kanban-card">
+                        <field name="display_name" class="fw-bold fs-4 ms-2"/>
+                        <small t-if="record.use_alias.value and record.alias_email.value" class="ms-2">
+                            <a t-att-href="'mailto:' + record.alias_email.value"><i class="fa fa-envelope-o" title="Domain alias" role="img" aria-label="Domain alias"></i>&amp;nbsp; <field name="alias_email"/></a>
+                        </small>
+                        <div class="row mt-3" t-if="!selection_mode">
+                            <div class="col ms-2">
+                                <button class="btn btn-primary o_helpdesk_ticket_btn" name="action_view_ticket" type="object" context="{'default_team_id': id}">Tickets</button>
                             </div>
-                            <div class="container o_kanban_card_content" t-if="!selection_mode">
-                                <div class="row">
-                                    <div class="col o_kanban_primary_left">
-                                        <button class="btn btn-primary o_helpdesk_ticket_btn" name="action_view_ticket" type="object" context="{'default_team_id': id}">Tickets</button>
-                                    </div>
-                                    <div class="col o_kanban_primary_right">
-                                        <div class="mb4">
-                                            <a name="action_view_closed_ticket" type="object" title="Number of tickets closed in the past 7 days." class="justify-content-between flex-nowrap d-inline-flex w-100">
-                                                <span>Tickets Closed</span>
-                                                <span class="ms-3">
-                                                    <field name="ticket_closed"/>
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div class="mb4" groups="helpdesk.group_use_sla" invisible="not use_sla or success_rate &lt; 0.0">
-                                            <a name="action_view_success_rate" type="object" title="Percentage of tickets whose SLAs have successfully been reached on time over the total number of tickets closed within the past 7 days." class="justify-content-between flex-nowrap d-inline-flex w-100">
-                                                <span>SLA Success Rate</span>
-                                                <span class="ms-3">
-                                                    <field name="success_rate"/> %
-                                                </span>
-                                            </a>
-                                        </div>
-                                        <div class="mb4" t-if="record.use_rating.raw_value and record.rating_count.raw_value &gt; 0" groups="helpdesk.group_use_rating">
-                                            <a name="action_view_customer_satisfaction" type="object" title="Average rating for the last 7 days" class="justify-content-between flex-nowrap d-inline-flex w-100">
-                                                <span>Average Rating</span>
-                                                <span class="ms-3">
-                                                    <b>
-                                                        <strong class="fa fa-fw mt4 fa-smile-o text-success fw-bolder" t-if="record.rating_avg.raw_value &gt;= 3.66" title="Average Rating: Satisfied" role="img" aria-label="Happy face"/>
-                                                        <strong class="fa fa-fw mt4 fa-meh-o text-warning fw-bolder" t-elif="record.rating_avg.raw_value &gt;= 2.33" title="Average Rating: Okay" role="img" aria-label="Neutral face"/>
-                                                        <strong class="fa fa-fw mt4 fa-frown-o text-danger fw-bolder" t-else="" title="Average Rating: Dissatisfied" role="img" aria-label="Sad face"/>
-                                                    </b>
-                                                    <field name="rating_avg" nolabel="1" widget="float" digits="[1, 1]"/> / 5
-                                                </span>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row pt-5">
-                                    <div class="col">
-                                        <a name="action_view_open_ticket" type="object" class="d-flex flex-column align-items-center">
-                                            <span class="fw-bold"><field name="open_ticket_count"/></span>
-                                            <span class="text-muted">Open</span>
-                                        </a>
-                                    </div>
-                                    <div class="col border-start">
-                                        <a name="%(helpdesk.helpdesk_ticket_action_unassigned)d" type="action" class="d-flex flex-column align-items-center">
-                                            <span class="fw-bold"><field name="unassigned_tickets"/></span>
-                                            <span class="text-muted">Unassigned</span>
-                                        </a>
-                                    </div>
-                                    <div class="col border-start">
-                                        <a name="action_view_urgent" type="object" class="d-flex flex-column align-items-center">
-                                            <span class="fw-bold"><field name="urgent_ticket"/></span>
-                                            <span class="text-muted">Urgent</span>
-                                        </a>
-                                    </div>
-                                    <div class="col border-start" groups="helpdesk.group_use_sla" invisible="not use_sla">
-                                        <a name="action_view_sla_failed" type="object" class="d-flex flex-column align-items-center" title="Number of open tickets with at least one SLA failed.">
-                                            <span class="fw-bold"><field name="sla_failed"/></span>
-                                            <span class="text-muted">Failed</span>
-                                        </a>
-                                    </div>
-                                </div>
+                            <div class="col me-2">
+                                <a name="action_view_closed_ticket" type="object" title="Number of tickets closed in the past 7 days." class="justify-content-between flex-nowrap d-inline-flex w-100 mb4">
+                                    <span>Tickets Closed</span>
+                                    <field name="ticket_closed" class="ms-3"/>
+                                </a>
+                                <a name="action_view_success_rate" type="object" groups="helpdesk.group_use_sla" invisible="not use_sla or success_rate &lt; 0.0" title="Percentage of tickets whose SLAs have successfully been reached on time over the total number of tickets closed within the past 7 days." class="justify-content-between flex-nowrap d-inline-flex w-100 mb4">
+                                    <span>SLA Success Rate</span>
+                                    <span class="ms-3">
+                                        <field name="success_rate"/> %
+                                    </span>
+                                </a>
+                                <a name="action_view_customer_satisfaction" type="object" t-if="record.use_rating.raw_value and record.rating_count.raw_value &gt; 0" groups="helpdesk.group_use_rating" title="Average rating for the last 7 days" class="justify-content-between flex-nowrap d-inline-flex w-100 mb4">
+                                    <span>Average Rating</span>
+                                    <span class="d-flex ms-3">
+                                        <strong class="fa fa-fw mt4 fa-smile-o text-success fw-bolder" t-if="record.rating_avg.raw_value &gt;= 3.66" title="Average Rating: Satisfied" role="img" aria-label="Happy face"/>
+                                        <strong class="fa fa-fw mt4 fa-meh-o text-warning fw-bolder" t-elif="record.rating_avg.raw_value &gt;= 2.33" title="Average Rating: Okay" role="img" aria-label="Neutral face"/>
+                                        <strong class="fa fa-fw mt4 fa-frown-o text-danger fw-bolder" t-else="" title="Average Rating: Dissatisfied" role="img" aria-label="Sad face"/>
+                                        <field name="rating_avg" nolabel="1" widget="float" digits="[1, 1]" class="me-1"/> / 5
+                                    </span>
+                                </a>
                             </div>
+                        </div>
+                        <div class="row pt-5 mt-auto">
+                            <a name="action_view_open_ticket" type="object" class="d-flex flex-column align-items-center col">
+                                <field name="open_ticket_count" class="fw-bold"/>
+                                <span class="text-muted">Open</span>
+                            </a>
+                            <a name="%(helpdesk.helpdesk_ticket_action_unassigned)d" type="action" class="d-flex flex-column align-items-center col border-start">
+                                <field name="unassigned_tickets" class="fw-bold"/>
+                                <span class="text-muted">Unassigned</span>
+                            </a>
+                            <a name="action_view_urgent" type="object" class="d-flex flex-column align-items-center col border-start">
+                                <field name="urgent_ticket" class="fw-bold"/>
+                                <span class="text-muted">Urgent</span>
+                            </a>
+                            <a name="action_view_sla_failed" type="object" class="d-flex flex-column align-items-center col border-start" groups="helpdesk.group_use_sla" invisible="not use_sla" title="Number of open tickets with at least one SLA failed.">
+                                <field name="sla_failed" class="fw-bold"/>
+                                <span class="text-muted">Failed</span>
+                            </a>
                         </div>
                     </t>
                 </templates>
