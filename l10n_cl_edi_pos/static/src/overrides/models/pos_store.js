@@ -4,6 +4,7 @@ import { PosStore } from "@point_of_sale/app/store/pos_store";
 import { Order } from "@point_of_sale/app/store/models";
 import { patch } from "@web/core/utils/patch";
 import { pick } from "@web/core/utils/objects";
+import { formatDateTime } from "@web/core/l10n/dates";
 
 patch(PosStore.prototype, {
     // @Override
@@ -45,7 +46,7 @@ patch(PosStore.prototype, {
         result.l10n_cl_sii_regional_office = order.l10n_cl_sii_regional_office;
         result.l10n_latam_document_type = order.l10n_latam_document_type;
         result.l10n_latam_document_number = order.l10n_latam_document_number;
-        result.date = order.receiptDate;
+        result.date = formatDateTime(order.date_order);
         result.partner = order.isFactura()
             ? pick(
                   order.partner_id,
