@@ -22,9 +22,6 @@ def _account_accountant_post_init(env):
 
         if country_code in sepa_zone_country_codes:
             module_list.extend(['account_iso20022', 'account_bank_statement_import_camt'])
-        # The customer statement is customary in Australia and New Zealand.
-        if country_code in ('AU', 'NZ'):
-            module_list.append('l10n_account_customer_statements')
 
         module_ids = env['ir.module.module'].search([('name', 'in', module_list), ('state', '=', 'uninstalled')])
         if module_ids:
