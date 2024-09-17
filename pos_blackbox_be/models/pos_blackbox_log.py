@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields
+from odoo import models, fields, api
+
 
 class PosBlackboxBeLog(models.Model):
     _name = "pos_blackbox_be.log"
@@ -18,16 +19,9 @@ class PosBlackboxBeLog(models.Model):
     record_name = fields.Char(readonly=True)
     description = fields.Char(readonly=True)
 
-    def create(self, values, action, model_name, record_name):
+    @api.model_create_multi
+    def create(self, vals_list):
         if not self.env.context.get("install_mode"):
-            log_values = {
-                "user": self.env.uid,
-                "action": action,
-                "model_name": model_name,
-                "record_name": record_name,
-                "description": str(values),
-            }
-
-            return super(PosBlackboxBeLog, self).create(log_values)
-
-        return None
+            for vals in vals_list:
+                vals['user'] = vals.get('user', self.env.uid)
+        return super().create(vals_list)

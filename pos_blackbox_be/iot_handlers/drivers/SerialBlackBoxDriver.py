@@ -69,8 +69,8 @@ class BlackBoxDriver(SerialDriver):
         """Initializes `self._actions`, a map of action keys sent by the frontend to backend action methods."""
 
         self._actions.update({
-            'registerReceipt': self._request_registerReceipt, # 'H'
-            'registerPIN': self._request_registerReceipt, # 'P'
+            'registerReceipt': self._request_registerReceipt,  # 'H'
+            'registerPIN': self._request_registerPIN,  # 'P'
         })
 
     @classmethod
@@ -90,7 +90,7 @@ class BlackBoxDriver(SerialDriver):
         except serial.serialutil.SerialTimeoutException:
             pass
         except Exception:
-            _logger.exception('Error while probing %s with protocol %s' % (device, protocol.name))
+            _logger.exception('Error while probing %s with protocol %s', device, protocol.name)
 
     @classmethod
     def _wrap_low_level_message_around(cls, high_level_message):
@@ -177,6 +177,13 @@ class BlackBoxDriver(SerialDriver):
 
         packet = self._wrap_low_level_message_around(self._wrap_high_level_message_around('H', data['high_level_message']))
         blackbox_response = self._send_to_blackbox(packet, 109, self._connection)
+        if blackbox_response:
+            self.data['value'] = self._parse_blackbox_response(blackbox_response)
+        event_manager.device_changed(self)
+
+    def _request_registerPIN(self, data):
+        packet = self._wrap_low_level_message_around("P040%s" % data['high_level_message'])
+        blackbox_response = self._send_to_blackbox(packet, 35, self._connection)
         if blackbox_response:
             self.data['value'] = self._parse_blackbox_response(blackbox_response)
         event_manager.device_changed(self)

@@ -2,13 +2,12 @@ import { ProductScreen } from "@point_of_sale/app/screens/product_screen/product
 import { patch } from "@web/core/utils/patch";
 
 patch(ProductScreen.prototype, {
-    _setValue(val) {
-        if (this.currentOrder.get_selected_orderline()) {
-            // Do not allow to sent line with a quantity of 5 numbers.
-            if (this.pos.useBlackBoxBe() && this.state.numpadMode === "quantity" && val > 9999) {
-                val = 9999;
-            }
+    getCategoriesAndSub() {
+        const result = super.getCategoriesAndSub(...arguments);
+        if (this.pos.useBlackBoxBe()) {
+            const fiscal_data_category = this.pos.config.work_in_product.pos_categ_ids[0];
+            return result.filter((category) => category.id !== fiscal_data_category.id);
         }
-        super._setValue(val);
+        return result;
     },
 });

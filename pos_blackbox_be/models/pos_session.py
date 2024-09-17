@@ -1,19 +1,14 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import UserError
-from odoo.tools.translate import _
 from itertools import groupby
+from collections import Counter
 
 
 class pos_session(models.Model):
     _inherit = "pos.session"
-
-    total_base_of_measure_tax_a = fields.Monetary(compute="_compute_total_tax")
-    total_base_of_measure_tax_b = fields.Monetary(compute="_compute_total_tax")
-    total_base_of_measure_tax_c = fields.Monetary(compute="_compute_total_tax")
-    total_base_of_measure_tax_d = fields.Monetary(compute="_compute_total_tax")
 
     cash_box_opening_number = fields.Integer(
         help="Count the number of cashbox opening during the session"
@@ -31,6 +26,18 @@ class pos_session(models.Model):
         help="This is a technical field used for tracking the status of the session for each employees.",
     )
 
+    pro_forma_sales_number = fields.Integer()
+    pro_forma_sales_amount = fields.Monetary()
+    pro_forma_refund_number = fields.Integer()
+    pro_forma_refund_amount = fields.Monetary()
+
+    correction_number = fields.Integer(
+        help="Count the number of corrections during the session"
+    )
+    correction_amount = fields.Monetary(
+        help="Sum of the amount of the corrections during the session"
+    )
+
     @api.model
     def _load_pos_data_fields(self, config_id):
         result = super()._load_pos_data_fields(config_id)
@@ -40,24 +47,21 @@ class pos_session(models.Model):
         return result
 
     def _load_pos_data(self, data):
-        data = super()._load_pos_data(data)
+        response = super()._load_pos_data(data)
         if self.config_id.iface_fiscal_data_module:
-            data["data"][0]["_product_product_work_in"] = self.env.ref("pos_blackbox_be.product_product_work_in").id
-            data["data"][0]["_product_product_work_out"] = self.env.ref("pos_blackbox_be.product_product_work_out").id
-        return data
+            response['data'][0]["_product_product_work_in"] = self.env.ref("pos_blackbox_be.product_product_work_in").id
+            response['data'][0]["_product_product_work_out"] = self.env.ref("pos_blackbox_be.product_product_work_out").id
+        return response
 
-    @api.depends("order_ids")
-    def _compute_total_tax(self):
-        for session in self:
-            session.total_base_of_measure_tax_a = 0
-            session.total_base_of_measure_tax_b = 0
-            session.total_base_of_measure_tax_c = 0
-            session.total_base_of_measure_tax_d = 0
-            for order in session.order_ids:
-                session.total_base_of_measure_tax_a += order.blackbox_tax_category_a
-                session.total_base_of_measure_tax_b += order.blackbox_tax_category_b
-                session.total_base_of_measure_tax_c += order.blackbox_tax_category_c
-                session.total_base_of_measure_tax_d += order.blackbox_tax_category_d
+    def load_data(self, models_to_load, only_data=False):
+        response = super().load_data(models_to_load, only_data)
+        if self.config_id.iface_fiscal_data_module and self.config_id.module_pos_hr:
+            employees = response['hr.employee']['data']
+            employee_ids = [employee['id'] for employee in employees]
+            employees_insz_or_bis_number = self.env['hr.employee'].sudo().browse(employee_ids).read(['insz_or_bis_number'])
+            insz_or_bis_number_per_employee_id = {employee['id']: employee['insz_or_bis_number'] for employee in employees_insz_or_bis_number}
+            response['pos.session']['data'][0]['_employee_insz_or_bis_number'] = insz_or_bis_number_per_employee_id
+        return response
 
     @api.depends("order_ids")
     def _compute_amount_of_vat_tickets(self):
@@ -65,16 +69,15 @@ class pos_session(models.Model):
             rec.amount_of_vat_tickets = len(rec.order_ids)
 
     def get_user_session_work_status(self, user_id):
-        if (
-            self.config_id.module_pos_hr and user_id in self.employees_clocked_ids.ids
-        ) or (
-            not self.config_id.module_pos_hr and user_id in self.users_clocked_ids.ids
-        ):
-            return True
-        return False
+        return ((self.config_id.module_pos_hr and user_id in self.employees_clocked_ids.ids) or
+            (not self.config_id.module_pos_hr and user_id in self.users_clocked_ids.ids))
 
     def increase_cash_box_opening_counter(self):
         self.cash_box_opening_number += 1
+
+    def increase_correction_counter(self, amount):
+        self.correction_number += 1
+        self.correction_amount += round(amount, self.currency_id.decimal_places)
 
     def set_user_session_work_status(self, user_id, status):
         context = (
@@ -101,14 +104,14 @@ class pos_session(models.Model):
         def sorted_key_insz(order):
             order.ensure_one()
             if order.employee_id:
-                insz = order.employee_id.insz_or_bis_number
+                insz = order.sudo().employee_id.insz_or_bis_number
             else:
                 insz = order.user_id.insz_or_bis_number
             return [insz, order.date_order]
 
         def groupby_key_insz(order):
             if order.employee_id:
-                insz = order.employee_id.insz_or_bis_number
+                insz = order.sudo().employee_id.insz_or_bis_number
             else:
                 insz = order.user_id.insz_or_bis_number
             return [insz]
@@ -127,12 +130,12 @@ class pos_session(models.Model):
             insz = k[0]
             data[insz] = []
             for order in g:
-                if order.lines[0].product_id.id == work_in:
+                if order.lines and order.lines[0].product_id.id == work_in:
                     data[insz].append({
                         'login': order.employee_id.name if order.employee_id else order.user_id.name,
-                        'insz_or_bis_number': order.employee_id.insz_or_bis_number if order.employee_id else order.user_id.insz_or_bis_number,
+                        'insz_or_bis_number': order.sudo().employee_id.insz_or_bis_number if order.employee_id else order.user_id.insz_or_bis_number,
                         'revenue': 0,
-                        'revenue_per_category': {},
+                        'revenue_per_category': Counter(),
                         'first_ticket_time': order.date_order,
                         'last_ticket_time': False,
                         'fdmIdentifier': order.config_id.certified_blackbox_identifier,
@@ -140,20 +143,23 @@ class pos_session(models.Model):
                     })
 
                 data[insz][i]['revenue'] += order.amount_paid
-                data[insz][i]['cash_rounding_applied'] += currency.round(order.amount_total - order.amount_paid)
+                data[insz][i]['cash_rounding_applied'] += round(order.amount_total - order.amount_paid, currency.decimal_places)
                 total_sold_per_category = {}
                 for line in order.lines:
                     category_names = line.product_id.pos_categ_ids.mapped('name') or ["None"]
                     for category_name in category_names:
                         if category_name not in total_sold_per_category:
                             total_sold_per_category[category_name] = 0
-                        total_sold_per_category[category_name] += line.price_subtotal_incl
+                        total_sold_per_category[category_name] += round(line.price_subtotal_incl, currency.decimal_places)
 
-                data[insz][i]['revenue_per_category'] = list(total_sold_per_category.items())
+                data[insz][i]['revenue_per_category'].update(Counter(total_sold_per_category))
 
-                if order.lines[0].product_id.id == work_out:
+                if order.lines and order.lines[0].product_id.id == work_out:
                     data[insz][i]['last_ticket_time'] = order.date_order
                     i = i + 1
+        for user in data.values():
+            for session in user:
+                session['revenue_per_category'] = list(session['revenue_per_category'].items())
         return data
 
     def action_report_journal_file(self):
@@ -167,22 +173,16 @@ class pos_session(models.Model):
             "target": "self",
         }
 
-    def _get_total_correction(self):
-        total_corrections = 0
-
-        for order in self.order_ids:
-            if order.amount_total > 0:
-                for line in order.lines:
-                    if line.price_subtotal_incl < 0:
-                        total_corrections += line.price_subtotal_incl
-
-        return total_corrections
-
-    def _get_total_proforma(self):
-        amount_total = 0
-        #todo for cert
-
-        return amount_total
+    def _update_pro_forma(self, order):
+        self.ensure_one()
+        if order['state'] == "draft":
+            amount_total = order['amount_total']
+            if amount_total < 0:
+                self.pro_forma_refund_number += 1
+                self.pro_forma_refund_amount += round(amount_total, self.currency_id.decimal_places)
+            else:
+                self.pro_forma_sales_number += 1
+                self.pro_forma_sales_amount += round(amount_total, self.currency_id.decimal_places)
 
     def get_total_discount_positive_negative(self, positive):
         order_ids = self.order_ids.ids
@@ -192,11 +192,17 @@ class pos_session(models.Model):
             [("order_id", "in", order_ids), ("price_subtotal_incl", price_operator, 0), ("discount", ">", 0)]
         )
 
-        tax_amounts = sum(line.qty * line.price_unit / 100 * line.tax_ids.amount for line in orderlines)
-
         amount = sum(
-            line.qty * line.price_unit - line.price_subtotal_incl + tax_amounts
+            line._get_discount_amount()
             for line in orderlines
         )
 
-        return amount
+        return round(amount, self.currency_id.decimal_places)
+
+    def check_everyone_is_clocked_out(self):
+        if (
+            self.config_id.module_pos_hr and len(self.employees_clocked_ids.ids) > 0
+        ) or (
+            not self.config_id.module_pos_hr and len(self.users_clocked_ids.ids) > 0
+        ):
+            raise UserError(_("You cannot close the POS with employees still clocked in. Please clock them out first."))

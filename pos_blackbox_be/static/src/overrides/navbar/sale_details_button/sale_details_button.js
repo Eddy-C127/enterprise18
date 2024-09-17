@@ -9,11 +9,11 @@ patch(SaleDetailsButton.prototype, {
             await this.dialog.add(AlertDialog, {
                 title: _t("Fiscal Data Module Restriction"),
                 body: _t(
-                    "You are not allowed to print a sales report details when using the fiscal data module."
+                    "You are not allowed to print a sales report details in the POS when using the fiscal data module."
                 ),
             });
             return;
         }
-        return super.onClick();
+        return await super.onClick();
     },
 });

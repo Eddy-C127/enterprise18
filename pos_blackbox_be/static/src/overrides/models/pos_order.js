@@ -8,7 +8,7 @@ patch(PosOrder.prototype, {
         return this.useBlackBoxBe() || super.doNotAllowRefundAndSales();
     },
     useBlackBoxBe() {
-        return this.config.iface_fiscal_data_module;
+        return Boolean(this.config.iface_fiscal_data_module);
     },
     checkIfUserClocked() {
         const cashierId = this.user.id;
@@ -17,17 +17,25 @@ patch(PosOrder.prototype, {
         }
         return this.session.users_clocked_ids.find((elem) => elem === cashierId);
     },
-    getSpecificTax(amount) {
-        const tax = this.get_tax_details().find((tax) => tax.tax.amount === amount);
+    getTaxAmountByPercent(tax_percentage, lines = false) {
+        if (!lines) {
+            lines = this.get_orderlines();
+        }
+        const tax = this.get_tax_details_of_lines(lines).find(
+            (tax) => tax.tax_percentage === tax_percentage
+        );
         return tax ? tax.amount : false;
     },
     wait_for_push_order() {
         const result = super.wait_for_push_order();
         return Boolean(this.useBlackBoxBe() || result);
     },
-    getPlu() {
+    getPlu(lines = null) {
+        if (lines === null) {
+            lines = this.lines;
+        }
         let order_str = "";
-        this.get_orderlines().forEach((line) => (order_str += line.generatePluLine()));
+        lines.forEach((line) => (order_str += line.generatePluLine()));
         const sha1 = Sha1.hash(order_str);
         return sha1.slice(sha1.length - 8);
     },
@@ -35,23 +43,23 @@ patch(PosOrder.prototype, {
         const result = super.export_for_printing(...arguments);
         result.useBlackboxBe = Boolean(this.useBlackBoxBe());
         if (this.useBlackBoxBe()) {
-            const order = this;
             result.blackboxBeData = {
-                pluHash: order.blackbox_plu_hash,
-                receipt_type: order.receipt_type,
+                original_order: this.originalSplittedOrder?.pos_reference,
+                pluHash: this.plu_hash,
+                receipt_type: this.uiState.receipt_type,
                 terminalId: this.config.id,
-                blackboxDate: order.blackbox_date,
-                blackboxTime: order.blackbox_time,
+                blackboxDate: this.blackbox_date,
+                blackboxTime: this.blackbox_time,
 
-                blackboxSignature: order.blackbox_signature,
-                versionId: this.config.server_version.server_version,
+                blackboxSignature: this.blackbox_signature,
+                versionId: this.session._server_version.server_version,
 
-                vscIdentificationNumber: order.blackbox_vsc_identification_number,
-                blackboxFdmNumber: order.blackbox_unique_fdm_production_number,
-                blackbox_ticket_counter: order.blackbox_ticket_counter,
-                blackbox_total_ticket_counter: order.blackbox_total_ticket_counter,
-                ticketCounter: order.blackbox_ticket_counters,
-                fdmIdentifier: order.config.certified_blackbox_identifier,
+                vscIdentificationNumber: this.blackbox_vsc_identification_number,
+                blackboxFdmNumber: this.blackbox_unique_fdm_production_number,
+                blackbox_ticket_counter: this.blackbox_ticket_counter,
+                blackbox_total_ticket_counter: this.blackbox_total_ticket_counter,
+                ticketCounter: this.blackbox_ticket_counters,
+                fdmIdentifier: this.config.certified_blackbox_identifier,
             };
         }
         return result;

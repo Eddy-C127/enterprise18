@@ -25,7 +25,7 @@ An obfuscated and certified version of the pos_blackbox_be may be provided on
 requests for on-premise installations.
 No modified version is certified and supported by Odoo SA.
     """,
-    'depends': ['pos_iot', 'l10n_be', 'web_enterprise', 'pos_hr', 'pos_restaurant'],
+    'depends': ['pos_iot', 'l10n_be', 'web_enterprise', 'pos_hr', 'pos_restaurant', 'pos_discount'],
     'data': [
         'data/data.xml',
         'security/ir.model.access.csv',
@@ -45,6 +45,6 @@ No modified version is certified and supported by Odoo SA.
         ],
     },
     'post_init_hook': '_set_tax_on_work_in_out',
-    'installable': False,
+    'installable': True,
     'license': 'OEEL-1',
 }
