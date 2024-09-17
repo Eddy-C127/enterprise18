@@ -2,6 +2,7 @@ from pytz import timezone
 from lxml import etree
 
 from collections import defaultdict
+import re
 
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
@@ -156,6 +157,16 @@ class AccountMove(models.Model):
             return self.env['account.edi.xml.ubl_21']
         return super()._get_ubl_cii_builder_from_xml_tree(tree)
 
+    @api.model
+    def _get_mail_template(self):
+        # EXTENDS 'account'
+        self.ensure_one()
+        mail_template = super()._get_mail_template()
+        if self.country_code == 'CO':
+            xmlid = 'l10n_co_dian.email_template_edi_credit_note' if self.move_type == 'out_refund' else 'l10n_co_dian.email_template_edi_invoice'
+            return self.env.ref(xmlid, raise_if_not_found=False) or mail_template
+        return mail_template
+
     # -------------------------------------------------------------------------
     # Helpers
     # -------------------------------------------------------------------------
@@ -277,6 +288,11 @@ class AccountMove(models.Model):
                 attachment_ids=document.attachment_id.copy().ids,
             )
         return document
+
+    def _l10n_co_dian_get_attached_document_filename(self):
+        self.ensure_one()
+        # remove every non-word char or underscore, keep only the alphanumeric characters
+        return re.sub(r'[\W_]', '', self.name)
 
 
 class AccountMoveLine(models.Model):

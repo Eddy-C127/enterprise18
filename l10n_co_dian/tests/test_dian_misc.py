@@ -87,7 +87,7 @@ class TestDianMisc(TestCoDianCommon):
             response.text = '<A><IsValid>true</IsValid></A>'
             return response
 
-        with patch('requests.post', side_effect=post), self._mock_uuid_generation():
+        with self._mock_get_status(), patch('requests.post', side_effect=post), self._mock_uuid_generation():
             self.env['account.move.send.wizard'] \
                 .with_context(active_model=self.invoice._name, active_ids=self.invoice.ids) \
                 .create({}) \
@@ -159,3 +159,22 @@ class TestDianMisc(TestCoDianCommon):
             root.find('.//{*}AccountingCustomerParty//{*}Address/{*}ID').text,
             '05001',
         )
+
+    def test_attached_document_invoice_flow(self):
+        self.invoice.partner_id.email = "tmp@odoo.com"  # so the email is sent by default when Send & Printing
+
+        # Send & Print to generate the zip (containing the AttachedDocument + the PDF)
+        with patch(f'{self.document_path}._get_status', return_value=self._mocked_response('GetStatus_invoice.xml', 200)):
+            self._mock_send_and_print(move=self.invoice, response_file='SendBillSync_warnings.xml')
+
+        attachments = self.env['ir.attachment'].search([
+            ('res_model', '=', self.invoice._name),
+            ('res_id', '=', self.invoice.id),
+        ])
+        self.assertIn("SETP202400001.zip", attachments.mapped('name'))
+
+        # regenerate the attached document
+        with patch(f'{self.document_path}._get_status', return_value=self._mocked_response('GetStatus_invoice.xml', 200)):
+            xml, error = self.invoice.l10n_co_dian_document_ids._get_attached_document()
+        self.assertEqual(error, "")
+        self._assert_document_dian(xml, "l10n_co_dian/tests/attachments/attached_document.xml")

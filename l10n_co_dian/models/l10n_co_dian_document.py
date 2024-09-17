@@ -1,12 +1,13 @@
 from lxml import etree
+from lxml.etree import CDATA
 from markupsafe import Markup
 
-from base64 import b64encode
+from base64 import b64encode, b64decode
 import io
 import zipfile
 
 from odoo import models, fields, api, _
-from odoo.tools import html_escape
+from odoo.tools import html_escape, cleanup_xml_node
 from odoo.addons.l10n_co_dian import xml_utils
 from odoo.exceptions import UserError
 
@@ -204,6 +205,95 @@ class L10nCoDianDocument(models.Model):
             raise UserError(_("The DIAN server returned an error (code %s)", response['status_code']))
         else:
             raise UserError(_("The DIAN server did not respond."))
+
+    def _get_status(self):
+        return xml_utils._build_and_send_request(
+            self,
+            payload={
+                'track_id': self.identifier,
+                'soap_body_template': "l10n_co_dian.get_status",
+            },
+            service="GetStatus",
+            company=self.move_id.company_id,
+        )
+
+    def _get_attached_document_values(self, original_xml_etree, application_response_etree):
+        return {
+            'profile_execution_id': original_xml_etree.findtext('./{*}ProfileExecutionID'),
+            'id': original_xml_etree.findtext('./{*}ID'),
+            'uuid': self.identifier,
+            'uuid_attrs': {
+                'scheme_name': self.move_id.l10n_co_dian_identifier_type.upper() + "-SHA384",
+            },
+            'issue_date': original_xml_etree.findtext('./{*}IssueDate'),
+            'issue_time': original_xml_etree.findtext('./{*}IssueTime'),
+            'document_type': "Contenedor de Factura Electrónica",
+            'parent_document_id': original_xml_etree.findtext('./{*}ID'),
+            'parent_document': {
+                'id': original_xml_etree.findtext('./{*}ID'),
+                'uuid': self.identifier,
+                'uuid_attrs': {
+                    'scheme_name': self.move_id.l10n_co_dian_identifier_type.upper() + "-SHA384",
+                },
+                'issue_date': application_response_etree.findtext('./{*}IssueDate'),
+                'issue_time': application_response_etree.findtext('./{*}IssueTime'),
+                'response_code': application_response_etree.findtext('.//{*}Response/{*}ResponseCode'),
+                'validation_date': application_response_etree.findtext('./{*}IssueDate'),
+                'validation_time': application_response_etree.findtext('./{*}IssueTime'),
+            },
+        }
+
+    def _get_attached_document(self):
+        """ Return a tuple: (the attached document xml, an error message) """
+        self.ensure_one()
+
+        # call to GetStatus to get the ApplicationResponse
+        status_response = self._get_status()
+        if status_response['status_code'] != 200:
+            return "", _(
+                "Error %(code)s when calling the DIAN server: %(response)s",
+                code=status_response['status_code'],
+                response=status_response['response'],
+            )
+        status_etree = etree.fromstring(status_response['response'])
+        application_response = b64decode(status_etree.findtext(".//{*}XmlBase64Bytes"))
+        original_xml_etree = etree.fromstring(self.attachment_id.raw)
+
+        # render the Attached Document
+        vals = self._get_attached_document_values(
+            original_xml_etree=original_xml_etree,
+            application_response_etree=etree.fromstring(application_response),
+        )
+        attached_document = self.env['ir.qweb']._render('l10n_co_dian.attached_document', vals)
+        attached_doc_etree = etree.fromstring(attached_document)
+
+        # copy the Sender and Receiver from the original xml
+        supplier_node = original_xml_etree.find('./{*}AccountingSupplierParty//{*}PartyTaxScheme')
+        customer_node = original_xml_etree.find('./{*}AccountingCustomerParty//{*}PartyTaxScheme')
+        attached_doc_etree.find('./{*}SenderParty').append(supplier_node)
+        attached_doc_etree.find('./{*}ReceiverParty').append(customer_node)
+
+        # Add the xmls (enclosed in CDATA)
+        attached_doc_etree.find('./{*}Attachment/{*}ExternalReference/{*}Description').text = CDATA(self.attachment_id.raw.decode())
+        attached_doc_etree.find('./{*}ParentDocumentLineReference//{*}Description').text = CDATA(application_response.decode())
+
+        return etree.tostring(cleanup_xml_node(attached_doc_etree), encoding="UTF-8", xml_declaration=True), ""
+
+    def action_get_attached_document(self):
+        self.ensure_one()
+        attached_document, error = self._get_attached_document()
+        if error:
+            raise UserError(error)
+        attachment = self.env['ir.attachment'].create({
+            'raw': attached_document,
+            'name': self.move_id._l10n_co_dian_get_attached_document_filename() + '_manual.xml',
+            'res_model': 'account.move',
+            'res_id': self.move_id.id,
+        })
+        return {
+            'type': 'ir.actions.act_url',
+            'url': f'/web/content/{attachment.id}?download=true',
+        }
 
     @api.model
     def _send_to_dian(self, xml, move):

@@ -187,8 +187,14 @@ class TestCoDianCommon(AccountTestInvoicingCommon):
             'status_code': status_code,
         }
 
+    def _mock_get_status(self):
+        return patch(f'{self.document_path}._get_status', return_value=self._mocked_response('GetStatus_invoice.xml', 200))
+
     def _mock_send_and_print(self, move, response_file, response_code=200):
-        with patch(f'{self.utils_path}._build_and_send_request', return_value=self._mocked_response(response_file, response_code)):
+        with (
+            self._mock_get_status(),
+            patch(f'{self.utils_path}._build_and_send_request', return_value=self._mocked_response(response_file, response_code)),
+        ):
             self.env['account.move.send.wizard'] \
                 .with_context(active_model=move._name, active_ids=move.ids) \
                 .create({}) \
