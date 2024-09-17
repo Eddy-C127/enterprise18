@@ -368,7 +368,8 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         # triangular use cases are handled by letting the intrastat_country_id editable on
         # invoices. Modifying or emptying it allow to alter the intrastat declaration
         # accordingly to specs (https://www.nbb.be/doc/dq/f_pdf_ex/intra2017fr.pdf (§ 4.x))
-        tables, where_clause, where_params = self.env['account.report'].browse(options['report_id'])._query_get(options, 'strict_range', domain=domain)
+        report = self.env['account.report'].browse(options['report_id'])
+        tables, where_clause, where_params = report._query_get(options, 'strict_range', domain=domain)
         tables = SQL(tables)
         where_clause = SQL(where_clause)
 
@@ -377,6 +378,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         unknown_individual_vat = 'QN999999999999' if self.env.company.country_id.code in _qn_unknown_individual_vat_country_codes else 'QV999999999999'
         unknown_country_code = _unknown_country_code.get(self.env.company.country_id.code, 'QV')
         weight_category_id = self.env['ir.model.data']._xmlid_to_res_id('uom.product_uom_categ_kgm')
+        currency_table_query = SQL(report._get_query_currency_table(options))
 
         select = SQL("""
             SELECT
@@ -430,7 +432,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 -- We double sign the balance to make sure that we keep consistency between invoice/bill and the intrastat report
                 -- Example: An invoice selling 10 items (but one is free 10 - 1), in the intrastat report we'll have 2 lines
                 -- One for 10 items minus one for the free item
-                SIGN(account_move_line.quantity) * SIGN(account_move_line.price_unit) * ABS(account_move_line.balance) AS value,
+                SIGN(account_move_line.quantity) * SIGN(account_move_line.price_unit) * ABS(ROUND(account_move_line.balance * currency_table.rate, currency_table.precision)) AS value,
                 CASE WHEN product_country.code = 'GB' THEN 'XU' ELSE COALESCE(product_country.code, %s) END AS intrastat_product_origin_country_code,
                 COALESCE(product_country.name->>{user_lang}, product_country.name->>'en_US') AS intrastat_product_origin_country_name,
                 CASE WHEN partner.vat IS NOT NULL THEN partner.vat
@@ -452,6 +454,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
         from_ = SQL("""
             FROM
                 {tables}
+                JOIN {currency_table_query} ON currency_table.company_id = account_move_line.company_id
                 JOIN account_move ON account_move.id = account_move_line.move_id
                 LEFT JOIN account_intrastat_code transaction ON account_move_line.intrastat_transaction_id = transaction.id
                 LEFT JOIN res_company company ON account_move.company_id = company.id
@@ -472,7 +475,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                 LEFT JOIN res_country product_country ON product_country.id = account_move_line.intrastat_product_origin_country_id
                 LEFT JOIN res_country partner_country ON partner.country_id = partner_country.id AND partner_country.intrastat IS TRUE
                 LEFT JOIN uom_uom ref_weight_uom on ref_weight_uom.category_id = %s and ref_weight_uom.uom_type = 'reference'
-        """).format(tables=tables)
+        """).format(tables=tables, currency_table_query=currency_table_query)
         where = SQL("""
             WHERE
                 {where_clause}
