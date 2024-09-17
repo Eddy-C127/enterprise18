@@ -849,8 +849,11 @@ class MrpProductionWorkcenterLine(models.Model):
         duration = self._intervals_duration([(t.date_start, t.date_end or now, t) for t in productive_times])
         return duration
 
-    def _cal_cost(self):
-        return super()._cal_cost() + sum(self.time_ids.mapped('total_cost'))
+    def _cal_cost(self, date=False):
+        if date:
+            return super()._cal_cost(date) + sum(self.time_ids.filtered(lambda t: t.date_end <= date).mapped('total_cost'))
+        else:
+            return super()._cal_cost(date) + sum(self.time_ids.mapped('total_cost'))
 
     def button_pending(self):
         for emp in self.employee_ids:
