@@ -419,12 +419,13 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                     THEN inv_line_uom.factor ELSE 1 END
                 ) AS quantity,
                 CASE WHEN code.supplementary_unit IS NOT NULL and prod.intrastat_supplementary_unit_amount != 0
-                    THEN prod.intrastat_supplementary_unit_amount * (
+                    THEN ROUND(CAST(
+                        prod.intrastat_supplementary_unit_amount * (
                         account_move_line.quantity / (
                             CASE WHEN inv_line_uom.category_id IS NULL OR inv_line_uom.category_id = prod_uom.category_id
                             THEN inv_line_uom.factor ELSE 1 END
-                        )
-                    ) ELSE NULL END AS supplementary_units,
+                        )) AS numeric), 2)
+                    ELSE NULL END AS supplementary_units,
                 account_move_line.quantity AS line_quantity,
                 -- We double sign the balance to make sure that we keep consistency between invoice/bill and the intrastat report
                 -- Example: An invoice selling 10 items (but one is free 10 - 1), in the intrastat report we'll have 2 lines
