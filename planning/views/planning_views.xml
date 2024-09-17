@@ -190,71 +190,56 @@
         <field name="name">planning.slot.kanban</field>
         <field name="model">planning.slot</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard" group_create="false" sample="1" js_class="planning_kanban">
-                <field name="name"/>
+            <kanban highlight_color="color" group_create="false" sample="1" js_class="planning_kanban">
                 <field name="employee_id"/>
-                <field name="resource_id"/>
                 <field name="resource_type"/>
                 <field name="resource_color"/>
-                <field name="role_id"/>
-                <field name="company_id" groups="base.group_multi_company"/>
-                <field name="start_datetime"/>
-                <field name="end_datetime"/>
-                <field name="color"/>
-                <field name="allocated_percentage"/>
                 <templates>
                     <t t-name="kanban-menu" groups="planning.group_planning_manager">
                         <t t-if="widget.editable"><a role="menuitem" type="edit" class="dropdown-item">Edit</a></t>
                         <t t-if="widget.deletable"><a role="menuitem" type="delete" class="dropdown-item">Delete</a></t>
                     </t>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-                            <div class="o_kanban_record_top">
-                                <div class="o_kanban_record_headings">
-                                    <div class="o_kanban_record_title">
-                                        <em>
-                                            <i class="me-1 fa fa-clock-o" role="img" aria-label="Date" title="Date"/>
-                                            <t t-if="record.start_datetime.raw_value and record.end_datetime.raw_value">
-                                                <field name="start_datetime"/>
-                                                -
-                                                <field name="end_datetime"/>
-                                            </t>
-                                            <span class="d-inline-block">
-                                                <t t-if="record.start_datetime.raw_value and record.end_datetime.raw_value">
-                                                    (<field name="allocated_hours" widget="float_time"/>)
-                                                </t>
-                                                <t t-else="">
-                                                    <field name="allocated_hours" widget="float_time" class="ms-1"/>
-                                                </t>
-                                                <t t-if="record.resource_type.raw_value == 'user'">
-                                                    (<field name="allocated_percentage"/>%)
-                                                </t>
-                                            </span>
-                                        </em>
-                                    </div>
-                                </div>
+                    <t t-name="kanban-card">
+                        <div name="card_top">
+                            <div class="d-flex fw-bold fs-5 fst-italic">
+                                <i class="me-1 mt-1 fa fa-clock-o" role="img" aria-label="Date" title="Date"/>
+                                <t t-if="record.start_datetime.raw_value and record.end_datetime.raw_value">
+                                    <field name="start_datetime"/>
+                                    -
+                                    <field name="end_datetime"/>
+                                </t>
                             </div>
-                            <div>
+                            <span class="d-flex fw-bold fs-5 fst-italic">
+                                <t t-if="record.start_datetime.raw_value and record.end_datetime.raw_value">
+                                    (<field name="allocated_hours" widget="float_time"/>)
+                                </t>
+                                <t t-else="">
+                                    <field name="allocated_hours" widget="float_time" class="ms-1"/>
+                                </t>
                                 <t t-if="record.resource_type.raw_value == 'user'">
-                                    <span name="role"><field name="role_id"/></span>
+                                    (<field name="allocated_percentage"/>%)
                                 </t>
-                                <t t-elif="record.resource_type.raw_value == 'material'">
-                                    <span name="resource"><field name="resource_id"/></span>
-                                </t>
-                                <t t-else="" name="role">
-                                    <span name="role"><field name="role_id"/></span>
-                                </t>
-                            </div>
-                            <field name="slot_properties" widget="properties"/>
-                            <div class="o_kanban_record_bottom">
-                                <div class="oe_kanban_bottom_left"/>
-                                <div class="oe_kanban_bottom_right">
-                                    <field name="state" widget="label_selection"
-                                        options="{'classes': {'draft': 'default', 'published': 'success'}}" groups="planning.group_planning_manager"/>
-                                    <field name="resource_id" widget="many2one_avatar_resource"/>
-                                </div>
-                            </div>
+                            </span>
                         </div>
+                        <div>
+                            <t t-if="record.resource_type.raw_value == 'user'">
+                                <span name="role"><field name="role_id"/></span>
+                            </t>
+                            <t t-elif="record.resource_type.raw_value == 'material'">
+                                <span name="resource"><field name="resource_id"/></span>
+                            </t>
+                            <t t-else="" name="role">
+                                <span name="role"><field name="role_id"/></span>
+                            </t>
+                        </div>
+                        <field name="slot_properties" widget="properties"/>
+                        <footer class="fs-6 pt-0">
+                            <div class="d-flex ms-auto align-items-center">
+                                <field name="state" widget="label_selection"
+                                    options="{'classes': {'draft': 'default', 'published': 'success'}}" groups="planning.group_planning_manager" class="me-1"/>
+                                <field name="resource_id" widget="many2one_avatar_resource"/>
+                            </div>
+                        </footer>
                     </t>
                 </templates>
             </kanban>
@@ -583,29 +568,18 @@
         <field name="name">planning.role.view.kanban</field>
         <field name="model">planning.role</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard">
-                <field name="color"/>
+            <kanban highlight_color="color">
                 <templates>
                     <t t-name="kanban-menu">
-                        <a t-if="widget.editable" role="menuitem" type="edit" class="dropdown-item">Edit</a>
+                        <a t-if="widget.editable" role="menuitem" type="open" class="dropdown-item">Edit</a>
                         <a t-if="widget.deletable" role="menuitem" type="delete" class="dropdown-item">Delete</a>
-                        <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                        <field name="color" widget="kanban_color_picker"/>
                     </t>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-                            <div class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary">
-                                        <field name="name" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col o_kanban_primary_left">
-                                        <field name="resource_ids" widget="many2many_tags"/>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bold fs-4 ms-1"/>
+                        <footer class="pt-0 mt-0">
+                            <field name="resource_ids" widget="many2many_tags"/>
+                        </footer>
                     </t>
                 </templates>
             </kanban>

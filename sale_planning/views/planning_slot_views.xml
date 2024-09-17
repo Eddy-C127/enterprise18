@@ -141,16 +141,16 @@
         <field name="priority">20</field>
         <field name="arch" type="xml">
             <xpath expr="//t[@name='role']" position="after">
-                <div><field name="sale_line_id"/></div>
+                <field name="sale_line_id" class="d-block"/>
             </xpath>
-            <xpath expr="//div[hasclass('o_kanban_record_top')]" position="attributes">
+            <xpath expr="//div[@name='card_top']" position="attributes">
                 <attribute name="invisible">not start_datetime</attribute>
             </xpath>
-            <xpath expr="//div[hasclass('oe_kanban_bottom_left')]" position="inside">
-                <em invisible="start_datetime">
+            <xpath expr="//footer/div" position="before">
+                <div class="d-flex fst-italic" invisible="start_datetime">
                     (<field name="allocated_hours" widget="float_time"/>)
                     (<field name="allocated_percentage"/>%)
-                </em>
+                </div>
             </xpath>
         </field>
     </record>

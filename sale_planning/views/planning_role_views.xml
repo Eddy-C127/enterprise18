@@ -17,10 +17,8 @@
         <field name="model">planning.role</field>
         <field name="inherit_id" ref="planning.planning_role_view_kanban"/>
         <field name="arch" type="xml">
-             <xpath expr="//div[hasclass('o_kanban_primary_left')]" position="after">
-                <div class="col o_kanban_primary_right">
-                    <field name="product_ids" widget="many2many_tags"/>
-                </div>
+             <xpath expr="//field[@name='resource_ids']" position="after">
+                <field name="product_ids" widget="many2many_tags" class="text-truncate"/>
             </xpath>
         </field>
     </record>

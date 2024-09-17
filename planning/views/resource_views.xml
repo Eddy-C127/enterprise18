@@ -135,25 +135,14 @@
     <record id="resource_resource_kanban_view" model="ir.ui.view">
         <field name="model">resource.resource</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard" sample="1">
-                <field name="color" invisible="1" />
+            <kanban highlight_color="color" sample="1">
                 <templates>
                     <t t-name="kanban-menu">
-                        <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                        <field name="color" widget="kanban_color_picker"/>
                     </t>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="#{kanban_color(record.color.raw_value)} oe_kanban_card oe_kanban_global_click">
-                            <div class="o_kanban_record_top">
-                                <div class="o_kanban_record_headings">
-                                    <div class="o_kanban_record_title">
-                                        <field name="name" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div t-if="record.role_ids.raw_value.length > 0">
-                                <field name="role_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                            </div>
-                        </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bold fs-5 ms-1"/>
+                        <field t-if="record.role_ids.raw_value.length > 0" name="role_ids" widget="many2many_tags" options="{'color_field': 'color'}" class="ms-1"/>
                     </t>
                 </templates>
             </kanban>
