@@ -634,7 +634,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         )
         return {
             'id': line_id,
-            'name': f'{account.code} {account.name}',
+            'name': account.display_name,
             'columns': line_columns,
             'level': 1,
             'unfoldable': has_lines,

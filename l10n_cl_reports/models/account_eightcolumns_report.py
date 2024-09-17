@@ -40,7 +40,7 @@ class ChileanReportCustomHandler(models.AbstractModel):
 
             lines_dict.setdefault(account_id, {})
 
-            lines_dict[account_id]['full_name'] = f"{result['code']} {result['name']}"
+            lines_dict[account_id]['full_name'] = f"{result['code']} {result['name']}" if result['code'] else result['name']
             lines_dict[account_id][column_group_key] = result
 
             for expression_label in subtotals_dict[column_group_key]:
