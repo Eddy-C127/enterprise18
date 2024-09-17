@@ -19,7 +19,7 @@ class ProductTemplate(models.Model):
         kenyan_products = self.env['product.template']
         if self.env.company.account_fiscal_country_id.code == 'KE':
             kenyan_products = self.filtered(lambda t: t.type == 'product' and
-                                                      (not t.company_id or t.company_id.account_fiscal_id.code == 'KE'))
+                                                      (not t.company_id or t.company_id.account_fiscal_country_id.code == 'KE'))
             kenyan_products.invoice_policy = 'delivery'
         super(ProductTemplate, self - kenyan_products)._compute_invoice_policy()
 
