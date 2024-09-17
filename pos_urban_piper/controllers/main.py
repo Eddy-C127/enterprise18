@@ -253,6 +253,8 @@ class PosUrbanPiperController(http.Controller):
             pos_config_sudo = request.env['pos.config'].sudo().search([
                 ('urbanpiper_store_identifier', '=', data['store_id'])
             ])
+            if current_order_id.delivery_status == 'food_ready':
+                pos_config_sudo._make_order_payment(current_order_id)
             pos_config_sudo._send_delivery_order_count()
 
     def _rider_status_update(self, data):
