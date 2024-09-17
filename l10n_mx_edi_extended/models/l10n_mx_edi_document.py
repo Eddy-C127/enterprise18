@@ -32,8 +32,8 @@ class L10nMxEdiDocument(models.Model):
             'ext_trade_certificate_source': external_trade_node.get('CertificadoOrigen', '').replace('0', 'No').replace('1', 'Si'),
             'ext_trade_nb_certificate_origin': external_trade_node.get('CertificadoOrigen', ''),
             'ext_trade_certificate_origin': external_trade_node.get('NumCertificadoOrigen', ''),
-            'ext_trade_operation_type': external_trade_node.get('TipoOperacion', '').replace('2', 'Exportación'),
-            'ext_trade_subdivision': external_trade_node.get('Subdivision', ''),
+            'ext_trade_operation_type': '',    # TODO: remove it in master
+            'ext_trade_subdivision': '',    # TODO: remove it in master
             'ext_trade_nb_reliable_exporter': external_trade_node.get('NumeroExportadorConfiable', ''),
             'ext_trade_incoterm': external_trade_node.get('Incoterm', ''),
             'ext_trade_rate_usd': external_trade_node.get('TipoCambioUSD', ''),
