@@ -955,11 +955,13 @@ class TestAccountAsset(TestAccountReportsCommon):
             'salvage_value': 3000,
             'date':  fields.Date.today() + relativedelta(months=-6, days=-1),
             "account_asset_counterpart_id": self.assert_counterpart_account_id,
+            "account_depreciation_id": self.company_data['default_account_assets'].id,
         }).modify()
         self.assertEqual(self.truck.value_residual, 3000)
         self.assertEqual(self.truck.salvage_value, 2500)
         self.assertEqual(self.truck.children_ids.value_residual, 1000)
         self.assertEqual(self.truck.children_ids.salvage_value, 500)
+        self.assertEqual(self.truck.account_depreciation_id.id, self.company_data['default_account_assets'].id)
 
     def test_asset_modify_value_01(self):
         "Decrease the residual value, decrease the salvage value"

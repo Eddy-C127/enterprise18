@@ -241,6 +241,9 @@ class AssetModify(models.TransientModel):
             'method_number': self.method_number,
             'method_period': self.method_period,
             'salvage_value': self.salvage_value,
+            'account_asset_id': self.account_asset_id,
+            'account_depreciation_id': self.account_depreciation_id,
+            'account_depreciation_expense_id': self.account_depreciation_expense_id,
         }
         if self.env.context.get('resume_after_pause'):
             date_before_pause = max(self.asset_id.depreciation_move_ids, key=lambda x: x.date).date if self.asset_id.depreciation_move_ids else self.asset_id.acquisition_date
