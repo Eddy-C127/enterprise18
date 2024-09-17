@@ -502,47 +502,32 @@
         <field name="name">quality.alert.team.view.kanban</field>
         <field name="model">quality.alert.team</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard o_quality_kanban" create="0" can_open="0">
-                <field name="name"/>
-                <field name="check_count"/>
-                <field name="alert_count"/>
+            <kanban highlight_color="color" class="o_quality_kanban" create="0" can_open="0">
                 <field name="alias_email"/>
-                <field name="color"/>
                 <templates>
                     <t t-name="kanban-menu">
                         <div t-if="widget.editable" role="menuitem">
-                            <a class="dropdown-item ps-0" type="edit">Configuration</a>
+                            <a class="dropdown-item ps-0" type="open">Configuration</a>
                         </div>
                         <div t-if="widget.editable" role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
-                            <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                            <field name="color" widget="kanban_color_picker"/>
                         </div>
                     </t>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="#{kanban_color(record.color.raw_value)}">
-                            <span class="oe_kanban_color_help" t-attf-title="In #{kanban_getcolorname(record.color.raw_value)}" role="img" t-attf-aria-label="In #{kanban_getcolorname(record.color.raw_value)}"/>
-                            <div t-attf-class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary"><field name="name"/></div>
-                                    <div t-if="record.alias_email.value">
-                                        <small><i class="fa fa-envelope-o" role="img" aria-label="Domain alias" title="Domain alias"></i>&amp;nbsp; <field name="alias_id"/></small>
-                                    </div>
-                                </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bold fs-4 ms-2"/>
+                        <div t-if="record.alias_email.value" class="small ms-2">
+                            <i class="fa fa-envelope-o" role="img" aria-label="Domain alias" title="Domain alias"></i>&amp;nbsp; <field name="alias_id"/>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <button class="btn btn-primary ms-2" name="%(quality_alert_action_team)d" type="action">
+                                    <span><field name="alert_count"/> Quality Alerts</span>
+                                </button>
                             </div>
-                            <div class="container o_kanban_card_content">
-                                <div class="row">
-                                    <div class="col-6 o_kanban_primary_left">
-                                        <button class="btn btn-primary" name="%(quality_alert_action_team)d" type="action">
-                                            <span><field name="alert_count"/> Quality Alerts</span>
-                                        </button>
-                                    </div>
-                                    <div class="col-6 o_kanban_primary_right">
-                                         <a class="oe_kanban_stock_picking_type_list" name="%(quality_check_action_team)d" type="action">
-                                            <field name="check_count"/>
-                                            Checks In Progress
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                            <a name="%(quality_check_action_team)d" type="action" class="col-6">
+                                <field name="check_count"/>
+                                Checks In Progress
+                            </a>
                         </div>
                     </t>
                 </templates>
