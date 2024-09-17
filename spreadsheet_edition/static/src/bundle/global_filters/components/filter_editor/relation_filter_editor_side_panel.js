@@ -5,8 +5,11 @@ import { AbstractFilterEditorSidePanel } from "./filter_editor_side_panel";
 import { FilterEditorFieldMatching } from "./filter_editor_field_matching";
 import { useService } from "@web/core/utils/hooks";
 import { MultiRecordSelector } from "@web/core/record_selectors/multi_record_selector";
+import { Domain } from "@web/core/domain";
+import { user } from "@web/core/user";
 
 import { useState } from "@odoo/owl";
+import { SidePanelDomain } from "../../../components/side_panel_domain/side_panel_domain";
 
 /**
  * @typedef {import("@spreadsheet").OdooField} OdooField
@@ -30,6 +33,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         ModelSelector,
         MultiRecordSelector,
         FilterEditorFieldMatching,
+        SidePanelDomain,
     };
     setup() {
         super.setup();
@@ -69,6 +73,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
             defaultValueDisplayNames: this.relationState.displayNames,
             modelName: this.relationState.relatedModel.technical,
             includeChildren: this.relationState.includeChildren,
+            domainOfAllowedValues: this.relationState.domainOfAllowedValues,
         };
     }
 
@@ -100,6 +105,8 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         this.relationState.defaultValue = globalFilter.defaultValue;
         this.relationState.relatedModel.technical = globalFilter.modelName;
         this.relationState.includeChildren = globalFilter.includeChildren;
+        this.relationState.restrictValuesToDomain = !!globalFilter.domainOfAllowedValues?.length;
+        this.relationState.domainOfAllowedValues = globalFilter.domainOfAllowedValues;
     }
 
     async onWillStart() {
@@ -137,6 +144,7 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
         }
         this.relationState.relatedModel.technical = technical;
         this.relationState.relatedModel.label = label;
+        this.relationState.domainOfAllowedValues = [];
 
         this.fieldMatchings.forEach((object, index) => {
             const field = this._findRelation(object.fields());
@@ -201,5 +209,22 @@ export class RelationFilterEditorSidePanel extends AbstractFilterEditorSidePanel
 
     toggleDefaultsToCurrentUser(ev) {
         this.relationState.defaultValue = ev.target.checked ? "current_user" : undefined;
+    }
+
+    toggleDomainRestriction(isChecked) {
+        this.relationState.restrictValuesToDomain = isChecked;
+        this.relationState.domainOfAllowedValues = [];
+    }
+
+    onDomainUpdate(domain) {
+        this.relationState.domainOfAllowedValues = domain;
+    }
+
+    getEvaluatedDomain() {
+        const domain = this.relationState.domainOfAllowedValues;
+        if (domain) {
+            return new Domain(domain).toList(user.context);
+        }
+        return [];
     }
 }

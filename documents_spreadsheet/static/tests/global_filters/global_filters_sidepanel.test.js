@@ -3,6 +3,7 @@ import { createSpreadsheetFromListView } from "@documents_spreadsheet/../tests/h
 import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
 import { createSpreadsheet } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
 import { beforeEach, describe, expect, getFixture, test } from "@odoo/hoot";
+import { queryFirst } from "@odoo/hoot-dom";
 import { animationFrame, mockDate } from "@odoo/hoot-mock";
 import { helpers } from "@odoo/o-spreadsheet";
 import { insertChartInSpreadsheet } from "@spreadsheet/../tests/helpers/chart";
@@ -34,8 +35,11 @@ import {
     defineModels,
     fields,
     models,
+    onRpc,
     serverState,
 } from "@web/../tests/web_test_helpers";
+import * as domainHelpers from "@web/../tests/core/tree_editor/condition_tree_editor_test_helpers";
+
 import { user } from "@web/core/user";
 import { monthsOptions } from "@spreadsheet/assets_backend/constants";
 import { QUARTER_OPTIONS } from "@web/search/utils/dates";
@@ -717,6 +721,23 @@ test("Create a new relational global filter with a chart", async function () {
     });
 });
 
+test("Create a new relational global filter with a domain", async function () {
+    onRpc("/web/domain/validate", () => true);
+    const { model } = await createSpreadsheetFromPivotView();
+    await animationFrame();
+    await openGlobalFilterSidePanel();
+    await clickCreateFilter("relation");
+    await selectModelForRelation("product");
+    expect(".o_edit_domain").toHaveCount(0);
+    await contains(".o-checkbox:contains(Restrict values with a domain)").click();
+    await contains(".o_edit_domain").click();
+    await domainHelpers.addNewRule();
+    await contains(".modal-footer .btn-primary").click();
+    await saveGlobalFilter();
+    const [globalFilter] = model.getters.getGlobalFilters();
+    expect(globalFilter.domainOfAllowedValues).toEqual([["id", "=", 1]]);
+});
+
 test("Create a new relational global filter of users will shows the checkbox", async function () {
     const serverData = getBasicServerData();
     const { model } = await createSpreadsheetFromPivotView({ serverData });
@@ -752,7 +773,7 @@ test("Create a new relational global filter with a parent/child model", async fu
     await openGlobalFilterSidePanel();
     await clickCreateFilter("relation");
     await selectModelForRelation("product");
-    const checkbox = target.querySelector(".o-checkbox");
+    const checkbox = queryFirst(".o-checkbox:contains(Include children)");
     expect(checkbox).toHaveText("Include children");
     expect(checkbox.querySelector("input").checked).toBe(true);
     await saveGlobalFilter();
@@ -774,7 +795,7 @@ test("edit a relational global filter to uncheck a parent/child model", async fu
     await animationFrame();
     await openGlobalFilterSidePanel();
     await contains(".fa-cog").click();
-    const checkbox = target.querySelector(".o-checkbox");
+    const checkbox = queryFirst(".o-checkbox:contains(Include children)");
     expect(checkbox.querySelector("input").checked).toBe(true);
     await contains(checkbox).click();
     await saveGlobalFilter();
@@ -802,19 +823,18 @@ test("switching relational model displays the children checkbox or not", async f
     });
     await animationFrame();
     await openGlobalFilterSidePanel();
-    const sidePanel = target.querySelector(".o-sidePanel");
     await clickCreateFilter("relation");
-    expect(".o-checkbox").toHaveCount(0);
+    expect(".o-checkbox:contains(Include children)").toHaveCount(0);
 
     await selectModelForRelation("res\\.currency");
-    expect(".o-checkbox").toHaveCount(0);
+    expect(".o-checkbox:contains(Include children)").toHaveCount(0);
 
     await selectModelForRelation("product");
-    expect(".o-checkbox").toHaveCount(1);
-    expect(sidePanel.querySelector(".o-checkbox input").checked).toBe(true);
+    expect(".o-checkbox:contains(Include children)").toHaveCount(1);
+    expect(queryFirst(".o-checkbox:contains(Include children) input").checked).toBe(true);
 
     await selectModelForRelation("res\\.currency");
-    expect(".o-checkbox").toHaveCount(0);
+    expect(".o-checkbox:contains(Include children)").toHaveCount(0);
 });
 
 test("Create a new relational global filter with a list snapshot", async function () {

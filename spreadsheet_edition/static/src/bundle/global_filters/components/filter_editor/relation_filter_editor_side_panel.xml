@@ -34,6 +34,7 @@
                     resIds="relationState.defaultValue || []"
                     t-key="relationState.relatedModel.technical"
                     placeholder="''"
+                    domain="getEvaluatedDomain()"
                     update.bind="onValuesSelected"
                 />
             </div>
@@ -48,6 +49,21 @@
                 <label for="user_automatic_filter">Automatically filter on the current user</label>
             </div>
         </div>
+        <Section t-if="relationState.relatedModel.technical">
+            <t t-set-slot="title">Possible values</t>
+            <Checkbox
+                className="'mb-1'"
+                label.translate="Restrict values with a domain"
+                onChange.bind="toggleDomainRestriction"
+                value="!!relationState.restrictValuesToDomain"
+            />
+            <SidePanelDomain
+                t-if="this.relationState.restrictValuesToDomain"
+                resModel="relationState.relatedModel.technical"
+                domain="relationState.domainOfAllowedValues or '[]'"
+                onUpdate.bind="onDomainUpdate"
+            />
+        </Section>
         <t t-if="shouldDisplayFieldMatching()">
             <SidePanelCollapsible collapsedAtInit="!isNewFilter">
                 <t t-set-slot="title">Field matching</t>
