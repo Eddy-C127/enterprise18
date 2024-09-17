@@ -3,12 +3,15 @@
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
 import * as BarcodeScanner from "@web/core/barcode/barcode_dialog";
 import { destroy, getFixture, patchWithCleanup } from "@web/../tests/helpers/utils";
+import { registry } from "@web/core/registry";
+import { mobileService } from "@web_mobile/js/mobile_service";
 
 QUnit.module('stock_mobile_barcode', {}, function () {
 
 QUnit.module('Barcode', {
     beforeEach: function () {
         var self = this;
+        registry.category("services").add("mobile", mobileService, { force: true});
 
         this.clientData = {
             action: {

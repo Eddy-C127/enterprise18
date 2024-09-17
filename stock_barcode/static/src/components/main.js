@@ -93,6 +93,8 @@ class MainComponent extends Component {
         });
         this.barcodeService = useService('barcode');
         useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this.onBarcodeScanned(ev.detail.barcode));
+        this.mobileService = useService("mobile");
+        useBus(this.mobileService.bus, "mobile_reader_scanned", (ev) => this._onMobileReaderScanned(ev.detail.data));
 
         useBus(this.env.model, 'flash', this.flashScreen.bind(this));
         useBus(this.env.model, "playSound", this.playSound.bind(this));
@@ -298,6 +300,10 @@ class MainComponent extends Component {
             const message = _t("Please, Scan again!");
             this.env.services.notification.add(message, { type: 'warning' });
         }
+    }
+
+    async _onMobileReaderScanned(data) {
+        await this.env.model.processBarcode(data.join("\n"));
     }
 
     onBarcodeSubmitted(barcode) {
