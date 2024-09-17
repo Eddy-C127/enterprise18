@@ -1,13 +1,11 @@
 /** @odoo-module */
 
-import { Domain } from "@web/core/domain";
-import { DomainSelector } from "@web/core/domain_selector/domain_selector";
-import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { components, helpers, stores, hooks } from "@odoo/o-spreadsheet";
 import { Component, onWillStart, onWillUpdateProps } from "@odoo/owl";
 import { OdooPivotLayoutConfigurator } from "./odoo_pivot_layout_configurator/odoo_pivot_layout_configurator";
+import { SidePanelDomain } from "../../components/side_panel_domain/side_panel_domain";
 
 const { Checkbox, Section, ValidationMessages, PivotTitleSection, PivotDeferUpdate } = components;
 const { useHighlights } = hooks;
@@ -17,13 +15,13 @@ const { getPivotHighlights } = helpers;
 export class PivotDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.PivotDetailsSidePanel";
     static components = {
-        DomainSelector,
         ValidationMessages,
         Checkbox,
         Section,
         OdooPivotLayoutConfigurator,
         PivotDeferUpdate,
         PivotTitleSection,
+        SidePanelDomain,
     };
     static props = {
         onCloseSidePanel: Function,
@@ -31,7 +29,6 @@ export class PivotDetailsSidePanel extends Component {
     };
 
     setup() {
-        this.dialog = useService("dialog");
         this.notification = useService("notification");
         /**@type {PivotSidePanelStore} */
         this.store = useLocalStore(PivotSidePanelStore, this.props.pivotId);
@@ -73,16 +70,8 @@ export class PivotDetailsSidePanel extends Component {
         return _t("never");
     }
 
-    openDomainEdition() {
-        const { model, domain } = this.pivot.definition;
-        this.dialog.add(DomainSelectorDialog, {
-            resModel: model,
-            domain: domain.toString(),
-            isDebugMode: !!this.env.debug,
-            onConfirm: (domain) => {
-                this.store.update({ domain: new Domain(domain).toJson() });
-            },
-        });
+    onDomainUpdate(domain) {
+        this.store.update({ domain });
     }
 
     get unusedPivotWarning() {

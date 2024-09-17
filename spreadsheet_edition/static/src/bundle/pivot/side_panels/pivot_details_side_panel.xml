@@ -18,13 +18,11 @@
                 onDimensionsUpdated.bind="onDimensionsUpdated"
                 pivotId="props.pivotId"
             />
-            <div class="o_side_panel_section">
-                <div class="o_side_panel_title">Domain</div>
-                <DomainSelector resModel="definition.model" domain="definition.domain.toString()" t-key="'pivot_' + props.pivotId"/>
-                <div class="btn btn-link o_edit_domain" t-on-click="openDomainEdition">
-                    <i class="oi oi-arrow-right me-1"/>Edit domain
-                </div>
-            </div>
+            <SidePanelDomain
+                resModel="definition.model"
+                domain="definition.domain"
+                onUpdate.bind="onDomainUpdate"
+            />
             <div class="o_side_panel_section" t-if="definition.sortedColumn">
                 <div class="o_side_panel_title">Sorting</div>
                 <div t-esc="formatSort()"/>

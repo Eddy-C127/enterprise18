@@ -25,13 +25,11 @@
                 <div t-esc="field.string" t-att-title="field.name"/>
             </div>
         </Section>
-        <div class="o_side_panel_section">
-            <div class="o_side_panel_title">Domain</div>
-            <DomainSelector resModel="def.model" domain="def.domain" t-key="'list_' + def.id"/>
-            <div class="btn btn-link o_edit_domain" t-on-click="openDomainEdition">
-                <i class="oi oi-arrow-right me-1"/>Edit domain
-            </div>
-        </div>
+        <SidePanelDomain
+            resModel="def.model"
+            domain="def.domain"
+            onUpdate.bind="onDomainUpdate"
+        />
         <EditListSortingSection
             resModel="def.model"
             orderBy="def.orderBy"

@@ -1,8 +1,6 @@
 /** @odoo-module */
 
 import { Domain } from "@web/core/domain";
-import { DomainSelector } from "@web/core/domain_selector/domain_selector";
-import { DomainSelectorDialog } from "@web/core/domain_selector_dialog/domain_selector_dialog";
 import { EditListSortingSection } from "./edit_list_sorting_section/edit_list_sorting_section";
 import { useService } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
@@ -10,6 +8,7 @@ import { Component, onWillStart } from "@odoo/owl";
 import { getListHighlights } from "../list_highlight_helpers";
 
 import { hooks, components } from "@odoo/o-spreadsheet";
+import { SidePanelDomain } from "../../components/side_panel_domain/side_panel_domain";
 
 const { useHighlights } = hooks;
 const { ValidationMessages, EditableName, CogWheelMenu, Section } = components;
@@ -17,11 +16,11 @@ const { ValidationMessages, EditableName, CogWheelMenu, Section } = components;
 export class ListDetailsSidePanel extends Component {
     static template = "spreadsheet_edition.ListDetailsSidePanel";
     static components = {
-        DomainSelector,
         EditableName,
         ValidationMessages,
         CogWheelMenu,
         Section,
+        SidePanelDomain,
         EditListSortingSection,
     };
     static props = {
@@ -31,7 +30,6 @@ export class ListDetailsSidePanel extends Component {
 
     setup() {
         this.getters = this.env.model.getters;
-        this.dialog = useService("dialog");
         this.notification = useService("notification");
         const loadData = async (listId) => {
             const dataSource = await this.env.model.getters.getAsyncListDataSource(listId);
@@ -96,23 +94,16 @@ export class ListDetailsSidePanel extends Component {
         });
     }
 
-    openDomainEdition() {
-        this.dialog.add(DomainSelectorDialog, {
-            resModel: this.listDefinition.model,
-            domain: this.listDefinition.domain,
-            isDebugMode: !!this.env.debug,
-            onConfirm: (domain) => {
-                const listDefinition = this.getters.getListModelDefinition(this.props.listId);
-                this.env.model.dispatch("UPDATE_ODOO_LIST", {
-                    listId: this.props.listId,
-                    list: {
-                        ...listDefinition,
-                        searchParams: {
-                            ...listDefinition.searchParams,
-                            domain: new Domain(domain).toJson(),
-                        },
-                    },
-                });
+    onDomainUpdate(domain) {
+        const listDefinition = this.getters.getListModelDefinition(this.props.listId);
+        this.env.model.dispatch("UPDATE_ODOO_LIST", {
+            listId: this.props.listId,
+            list: {
+                ...listDefinition,
+                searchParams: {
+                    ...listDefinition.searchParams,
+                    domain,
+                },
             },
         });
     }
