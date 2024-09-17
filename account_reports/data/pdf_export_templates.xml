@@ -282,7 +282,7 @@
             <t t-set="o_classes" t-value="'o_line_cell_value_number' + (' o_muted' if cell.get('is_zero') else '')"/>
         </t>
         <t t-else="">
-            <t t-set="o_classes" t-value="(' o_overflow_value' if len(cell.get('name', '')) > 65 else '')"/>
+            <t t-set="o_classes" t-value="'o_overflow_value'"/>
         </t>
 
         <span t-att-class="o_classes" t-out="cell.get('name')"/>
