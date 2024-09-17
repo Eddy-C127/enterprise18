@@ -103,58 +103,46 @@
         <field name="name">preparation.display.kanban.view</field>
         <field name="model">pos_preparation_display.display</field>
         <field name="arch" type="xml">
-            <kanban can_open="0" class="o_kanban_dashboard o_pos_kanban">
+            <kanban can_open="0" class="o_pos_kanban">
                 <templates>
                     <t t-name="kanban-menu">
                         <div class="container">
                             <div class="row">
-                                <div class="col-4 o_kanban_card_manage_section o_kanban_manage_view">
+                                <div class="col-4">
                                     <div groups="point_of_sale.group_pos_manager">
-                                        <a type="edit" class="oe_kanban_action oe_kanban_action_a">Configure</a>
+                                        <a type="open">Configure</a>
                                     </div>
                                     <div groups="base.group_no_one">
-                                        <a name="open_reset_wizard" type="object" class="oe_kanban_action oe_kanban_action_a">Reset all orders</a>
+                                        <a name="open_reset_wizard" type="object">Reset all orders</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </t>
-                    <t t-name="kanban-box">
-                        <div>
-                            <div class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title mb16">
-                                    <div class="o_primary">
-                                        <field name="name" />
-                                    </div>
-                                    <field name="stage_ids" widget="many2many_tags" />
-                                </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bold fs-4 ms-2"/>
+                        <field name="stage_ids" widget="many2many_tags" class="ms-2"/>
+                        <div class="row pb-4 mt-4">
+                            <div name="card_left" class="col-12 col-sm-7 d-flex flex-row">
+                                <button class="btn btn-primary ms-1 me-1" name="open_ui" type="object">
+                                    Preparation Screen
+                                </button>
                             </div>
-                            <div class="container o_kanban_card_content">
-                                <div class="row">
-                                    <div class="col-12 col-sm-7 o_kanban_primary_left d-flex flex-row">
-                                        <button class="btn btn-primary me-1" name="open_ui" type="object">
-                                            Preparation Screen
-                                        </button>
+                            <div class="col-12 col-sm-5">
+                                <div class="row g-0 text-end pe-1">
+                                    <div class="col-10">
+                                        <span>In progress</span>
                                     </div>
-                                    <div class="col-12 col-sm-5 o_kanban_primary_right">
-
-                                        <div class="row text-end">
-                                            <div class="col-10">
-                                                <span>In progress</span>
-                                            </div>
-                                            <div class="col-2">
-                                                <span><field name="order_count"/></span>
-                                            </div>
-                                        </div>
-
-                                        <div class="row text-end">
-                                            <div class="col-10">
-                                                <span>Average time</span>
-                                            </div>
-                                            <div class="col-2">
-                                                <span><field name="average_time" />'</span>
-                                            </div>
-                                        </div>
+                                    <div class="col-2">
+                                        <field name="order_count"/>
+                                    </div>
+                                </div>
+                                <div class="row g-0 text-end pe-1">
+                                    <div class="col-10">
+                                        <span>Average time</span>
+                                    </div>
+                                    <div class="col-2">
+                                        <span><field name="average_time" />'</span>
                                     </div>
                                 </div>
                             </div>
