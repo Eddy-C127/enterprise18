@@ -797,10 +797,3 @@ class StudioExportWizard(models.TransientModel):
 
         return {"data": new_fields_to_export, "demo": demo_fields_to_export}
 
-    def export_module(self):
-        self.ensure_one()
-        return {
-            "type": "ir.actions.act_url",
-            "url": "/web_studio/export/%s" % self.id,
-            "target": "download",
-        }

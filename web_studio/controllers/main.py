@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import logging
 import json
+import werkzeug.exceptions
 
 from ast import literal_eval
 from copy import deepcopy
@@ -14,6 +15,7 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.addons.web_studio.controllers import export
 from odoo.osv import expression
 from odoo.tools import sql, clean_context
+from odoo.tools.misc import html_escape
 from odoo.models import check_method_name
 
 _logger = logging.getLogger(__name__)
@@ -787,7 +789,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             studio_view = self._get_studio_view(view)
             return self._return_view(view, studio_view, context)
 
-    @http.route('/web_studio/export/<int:studio_export_wizard_id>', type='http', auth='user')
+    @http.route('/web_studio/export', type='http', auth='user')
     def export(self, **kw):
         """ Exports a zip file containing the 'studio_customization' module
             gathering all customizations done with Studio (customizations of
@@ -798,15 +800,26 @@ Are you sure you want to remove the selection values of those records?""", len(r
             return
 
         studio_module = request.env['ir.module.module'].get_studio_module()
-        wizard = request.env['studio.export.wizard'].browse(kw.get('studio_export_wizard_id'))
-        export_info = wizard._get_export_info()
-        content = export.generate_archive(studio_module, export_info)
-
-        return request.make_response(content, headers=[
-            ('Content-Disposition', content_disposition('customizations.zip')),
-            ('Content-Type', 'application/zip'),
-            ('Content-Length', len(content)),
-        ])
+        try:
+            wizard_id = int(kw.get('active_id'))
+            wizard = request.env['studio.export.wizard'].browse(wizard_id)
+            export_info = wizard._get_export_info()
+            content = export.generate_archive(studio_module, export_info)
+            return request.make_response(content, headers=[
+                ('Content-Disposition', content_disposition('customizations.zip')),
+                ('Content-Type', 'application/zip'),
+                ('Content-Length', len(content)),
+            ])
+        except Exception as e:
+            _logger.warning("Error while generating studio export %s", studio_module.name, exc_info=True)
+            se = http.serialize_exception(e)
+            error = {
+                'code': 200,
+                'message': "Odoo Server Error",
+                'data': se
+            }
+            res = request.make_response(html_escape(json.dumps(error)))
+            raise werkzeug.exceptions.InternalServerError(response=res) from e
 
     @http.route('/web_studio/create_default_view', type='json', auth='user')
     def create_default_view(self, model, view_type, attrs):

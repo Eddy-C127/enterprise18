@@ -46,7 +46,13 @@
                     </page>
                 </notebook>
                 <footer>
-                    <button name="export_module" string="Export" type="object" class="btn-danger" data-hotkey="q"/>
+                    <button
+                        string="Export"
+                        type="action"
+                        name="web_studio.studio_export_action"
+                        class="btn-primary"
+                        data-hotkey="q"
+                    />
                     <button special="cancel" data-hotkey="x" string="Cancel" class="btn-secondary"/>
                 </footer>
             </form>

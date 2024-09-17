@@ -59,6 +59,7 @@ Note: Only the admin user is allowed to make those customizations.
             'web_studio/static/src/client_action/app_creator/app_creator_shortcut.js',
             'web_studio/static/src/client_action/components/**/*.js',
             'web_studio/static/src/client_action/components/**/*.xml',
+            'web_studio/static/src/export/**/*.js',
             'web_studio/static/src/home_menu/**/*.js',
             'web_studio/static/src/views/**/*.js',
             ('remove', 'web_studio/static/src/views/kanban_report/**/*'),
