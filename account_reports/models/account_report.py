@@ -4484,6 +4484,7 @@ class AccountReport(models.Model):
         return lines
 
     def get_expanded_lines(self, options, line_dict_id, groupby, expand_function_name, progress, offset):
+        self.env.flush_all()
         lines = self._expand_unfoldable_line(expand_function_name, line_dict_id, groupby, options, progress, offset)
         lines = self._fully_unfold_lines_if_needed(lines, options)
 
