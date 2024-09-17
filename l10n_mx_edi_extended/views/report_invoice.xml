@@ -51,21 +51,16 @@
                         <table class="table table-sm text-center mt4 mb4" align="center" style="font-size:10px">
                             <thead>
                                 <tr style="background-color:grey; color:white;">
-                                    <th class="text-center">Operation Type</th>
                                     <th class="text-center">Certificate Key</th>
                                     <th class="text-center">Certificate Source</th>
                                     <th class="text-center"
                                         t-if="cfdi_values['ext_trade_nb_certificate_origin'] == '1'">Number
                                         Certificate Source
                                     </th>
-                                    <th class="text-center">Subdivision</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>
-                                        <span t-out="cfdi_values['ext_trade_operation_type']"/>
-                                    </td>
                                     <td>
                                         <span t-out="cfdi_values['ext_trade_certificate_key']"/>
                                     </td>
@@ -74,9 +69,6 @@
                                     </td>
                                     <td t-if="cfdi_values['ext_trade_nb_certificate_origin'] == '1'">
                                         <span t-out="cfdi_values['ext_trade_certificate_origin']"/>
-                                    </td>
-                                    <td>
-                                        <span t-out="cfdi_values['ext_trade_subdivision']"/>
                                     </td>
                                 </tr>
                             </tbody>
