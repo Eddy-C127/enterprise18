@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 import base64
 
-from dateutil.relativedelta import relativedelta
-
-from odoo import fields, Command
+from odoo import Command
 from odoo.addons.stock_account.tests.test_anglo_saxon_valuation_reconciliation_common import ValuationReconciliationTestCommon
 
 from odoo.tools import misc
@@ -54,14 +52,13 @@ class TestL10nClEdiStockCommon(ValuationReconciliationTestCommon):
             'l10n_cl_delivery_guide_price': 'sale_order',
         })
 
-        cls.certificate = cls.env['l10n_cl.certificate'].sudo().create({
-            'signature_filename': 'Test',
+        content = misc.file_open('certificate/tests/data/cert.pfx', mode='rb').read()
+        cls.certificate = cls.env['certificate.certificate'].create({
+            'name': 'CL Test certificate',
+            'content': base64.b64encode(content),
+            'pkcs12_password': 'example',
             'subject_serial_number': '23841194-7',
-            'signature_pass_phrase': 'asadadad',
-            'private_key': misc.file_open('l10n_cl_edi_stock/tests/private_key_test.key').read(),
-            'certificate': misc.file_open('l10n_cl_edi_stock/tests/cert_test.cert').read(),
-            'cert_expiration': fields.Datetime.now() + relativedelta(years=1),
-            'company_id': cls.env.company.id
+            'company_id': cls.company_data['company'].id,
         })
         cls.env.company.write({
             'l10n_cl_certificate_ids': [(4, cls.certificate.id)]

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo.tests import tagged
-from .common import TestPeEdiCommon
+from .common import TestPeEdiCommon, _get_pe_current_datetime
 
 from datetime import timedelta
 
@@ -14,7 +14,7 @@ class TestEdiSunat(TestPeEdiCommon):
         cls.company_data['company'].l10n_pe_edi_provider = 'sunat'
 
     def test_10_invoice_edi_flow(self):
-        yesterday = self.certificate._get_pe_current_datetime().date() - timedelta(1)
+        yesterday = _get_pe_current_datetime().date() - timedelta(1)
         move = self._create_invoice(invoice_date=yesterday, date=yesterday)
         move.action_post()
 
@@ -40,7 +40,7 @@ class TestEdiSunat(TestPeEdiCommon):
         self.assertRecordValues(move, [{'edi_state': 'cancelled'}])
 
     def test_20_refund_edi_flow(self):
-        today = self.certificate._get_pe_current_datetime().date()
+        today = _get_pe_current_datetime().date()
         move = self._create_refund(invoice_date=today, date=today)
         (move.reversed_entry_id + move).action_post()
 
@@ -69,7 +69,7 @@ class TestEdiSunat(TestPeEdiCommon):
         self.assertRecordValues(move, [{'edi_state': 'cancelled'}])
 
     def test_30_debit_note_edi_flow(self):
-        today = self.certificate._get_pe_current_datetime().date()
+        today = _get_pe_current_datetime().date()
         move = self._create_debit_note(invoice_date=today, date=today)
         (move.debit_origin_id + move).action_post()
 

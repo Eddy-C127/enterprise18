@@ -3,6 +3,7 @@ from odoo.exceptions import RedirectWarning, ValidationError
 from odoo.tools.misc import format_date
 from odoo.addons.l10n_nl_reports_sbr.wizard.l10n_nl_reports_sbr_tax_report_wizard import _create_soap_client
 
+import base64
 import json
 import os
 from dateutil.relativedelta import relativedelta
@@ -71,7 +72,8 @@ class L10nNlICPSBRWizard(models.TransientModel):
         report_file = xbrl_data['file_content']
 
         serv_root_cert = self.env.company._l10n_nl_get_server_root_certificate_bytes()
-        certificate, private_key = self.env.company._l10n_nl_get_certificate_and_key_bytes(bytes(self.password or '', 'utf-8') or None)
+        certificate = base64.b64decode(self.env.company.sudo().l10n_nl_reports_sbr_cert_id.pem_certificate)
+        private_key = base64.b64decode(self.env.company.sudo().l10n_nl_reports_sbr_cert_id.private_key_id.pem_key)
         try:
             with NamedTemporaryFile(delete=False) as f:
                 f.write(serv_root_cert)

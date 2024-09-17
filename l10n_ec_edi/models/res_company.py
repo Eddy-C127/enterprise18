@@ -14,8 +14,8 @@ class ResCompany(models.Model):
     )
     l10n_ec_edi_certificate_id = fields.Many2one(
         string="Certificate file for SRI",
-        comodel_name='l10n_ec_edi.certificate',
-        groups='base.group_system',
+        comodel_name='certificate.certificate',
+        domain=[('is_valid', '=', True)],
     )
     l10n_ec_special_taxpayer_number = fields.Char(
         string="Special Taxpayer Number",

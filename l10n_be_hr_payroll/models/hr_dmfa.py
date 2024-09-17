@@ -6,9 +6,6 @@ import base64
 from collections import defaultdict
 from datetime import date, datetime
 from dateutil.relativedelta import relativedelta
-from cryptography import x509
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.backends import default_backend
 from lxml import etree
 
 from odoo import api, fields, models, _
@@ -1037,6 +1034,7 @@ class HrDMFAReport(models.Model):
         # XML History: https://www.socialsecurity.be/lambda/portail/glossaires/dmfa.nsf/consult/fr/Xmlexport
         # PDF History: https://www.socialsecurity.be/lambda/portail/glossaires/dmfa.nsf/consult/fr/ImprPDF
         # Most related documentation: https://www.socialsecurity.be/lambda/portail/glossaires/dmfa.nsf/web/glossary_home_fr
+        # Signature Specification: https://www.socialsecurity.be/site_fr/general/helpcentre/digital_sign/aspects/types.htm
 
         # Declaration File
         # ================
@@ -1053,38 +1051,12 @@ class HrDMFAReport(models.Model):
 
         # Signature File
         # ==============
-        company_sudo = self.company_id.sudo()
+        certificate_sudo = self.company_id.sudo().onss_certificate_id
+        if not certificate_sudo:
+            raise UserError(_('No Certificate definer on the Payroll Configuration'))
 
-        # Load certificate
-        pem = company_sudo.onss_pem_certificate
-        passphrase = company_sudo.onss_pem_passphrase
-        if passphrase:
-            passphrase = passphrase.encode()
-        else:
-            passphrase = None
-        if not pem:
-            raise UserError(_('No PEM Certificate defined on the Payroll Configuration'))
-        pem = base64.b64decode(pem, validate=True)
+        sign = certificate_sudo._decode_certificate_for_be_dmfa_xml(self.dmfa_xml)
 
-        # Load key
-        ca_key = company_sudo.onss_key
-        if not ca_key:
-            raise UserError(_('No KEY file defined on the Payroll Configuration'))
-
-        # The PKCS7 signature builder can create both basic PKCS7 signed messages as well as
-        # S/MIME messages, which are commonly used in email. S/MIME has multiple versions,
-        # but this implements a subset of RFC 2632, also known as S/MIME Version 3.
-        # See: https://cryptography.io/en/3.4.8/hazmat/primitives/asymmetric/serialization.html#cryptography.hazmat.primitives.serialization.pkcs7.PKCS7SignatureBuilder
-        cert = x509.load_pem_x509_certificate(pem, backend=default_backend())
-        key = serialization.load_pem_private_key(pem, password=passphrase, backend=default_backend())
-        options = [serialization.pkcs7.PKCS7Options.DetachedSignature]
-        sign = serialization.pkcs7.PKCS7SignatureBuilder().set_data(
-            self.dmfa_xml
-        ).add_signer(
-            cert, key, hashes.SHA256()
-        ).sign(
-            serialization.Encoding.PEM, options
-        )
         # Remove -----BEGIN PKCS7-----, -----END PKCS7----- and final new line
         sign = (b'\n').join(sign.split(b'\n')[1:-2])
         self.dmfa_signature = sign

@@ -12,7 +12,8 @@ class TestMono(common.TestEdi):
         super().setUpClass()
         # Login in "Monotributista" Company
         cls.env.user.write({'company_id': cls.company_mono.id})
-        cls._create_afip_connections(cls, cls.company_mono, cls.afip_ws, 'test_cert2.crt')
+        cls.company_mono.write({'l10n_ar_afip_ws_crt_id': cls.ar_certificate_2})
+        cls._create_afip_connections(cls, cls.company_mono, cls.afip_ws)
 
 
 @tagged('fe', 'mono', 'external_l10n', '-at_install', 'post_install', '-standard', 'external')

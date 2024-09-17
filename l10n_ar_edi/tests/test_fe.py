@@ -156,7 +156,8 @@ class TestFe(common.TestEdi):
 
         # Login in "Monotributista" Company
         self.env.user.write({'company_id': self.company_mono.id})
-        self._create_afip_connections(self.company_mono, 'wscdc', 'test_cert2.crt')
+        self.company_mono.write({'l10n_ar_afip_ws_crt_id': self.ar_certificate_2})
+        self._create_afip_connections(self.company_mono, 'wscdc')
 
         # Create a vendor bill with the same values of "Responsable Inscripto"
         bill = self._create_invoice({

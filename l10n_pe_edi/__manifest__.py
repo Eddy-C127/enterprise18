@@ -26,6 +26,7 @@ We support sending and cancelling of customer invoices.
         'product_unspsc',
         'account_edi',
         'account_edi_ubl_cii',
+        'certificate',
     ],
     'auto_install': ['l10n_pe'],
     "data": [
@@ -41,7 +42,6 @@ We support sending and cancelling of customer invoices.
         'views/uom_uom_views.xml',
         'views/account_move_views.xml',
         'views/account_tax_views.xml',
-        'views/l10n_pe_edi_certificate_views.xml',
         'views/res_config_settings_views.xml',
         'views/report_invoice.xml',
         'views/account_menuitem.xml',

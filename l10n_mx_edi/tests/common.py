@@ -49,10 +49,15 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         # ==== Config ====
 
         with freeze_time(cls.frozen_today):
-            cls.certificate = cls.env['l10n_mx_edi.certificate'].create({
-                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
-                'key': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
+            cls.key = cls.env['certificate.key'].create({
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
                 'password': '12345678a',
+                'company_id': cls.company_data['company'].id,
+            })
+            cls.certificate = cls.env['certificate.certificate'].create({
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
+                'private_key_id': cls.key.id,
+                'company_id': cls.company_data['company'].id,
             })
         cls.certificate.write({
             'date_start': '2016-01-01',
@@ -79,11 +84,15 @@ class TestMxEdiCommon(AccountTestInvoicingCommon):
         })
 
         with freeze_time(cls.frozen_today):
-            cls.certificate = cls.env['l10n_mx_edi.certificate'].create({
-                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
-                'key': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
+            cls.private_key = cls.env['certificate.key'].create({
+                'name': 'Test key',
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
                 'password': '12345678a',
-                'company_id': cls.company_data['company'].id,
+            })
+            cls.certificate = cls.env['certificate.certificate'].create({
+                'name': 'Test certificate',
+                'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
+                'private_key_id': cls.private_key.id,
             })
         cls.certificate.write({
             'date_start': '2016-01-01 01:00:00',
@@ -431,11 +440,15 @@ class TestMxEdiCommonExternal(TestMxEdiCommon):
 
         try:
             with freeze_time(cls.frozen_today):
-                cls.certificate = cls.env['l10n_mx_edi.certificate'].create({
-                    'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
-                    'key': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
+                cls.private_key = cls.env['certificate.key'].create({
+                    'name': 'Test key',
+                    'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.key', 'rb').read()),
                     'password': '12345678a',
-                    'company_id': cls.env.company.id,
+                })
+                cls.certificate = cls.env['certificate.certificate'].create({
+                    'name': 'Test certificate',
+                    'content': base64.encodebytes(misc.file_open('l10n_mx_edi/demo/pac_credentials/certificate.cer', 'rb').read()),
+                    'private_key_id': cls.private_key.id,
                 })
         except ValidationError:
             raise SkipTest("CFDI certificate is invalid.")

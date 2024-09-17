@@ -4,7 +4,7 @@ from unittest.mock import patch
 
 from odoo.tools import misc
 from odoo.tests import tagged
-from odoo.addons.l10n_cl_edi.tests.common import TestL10nClEdiCommon, _check_with_xsd_patch
+from odoo.addons.l10n_cl_edi.tests.common import TestL10nClEdiCommon, _check_with_xsd_patch, _is_valid_certificate
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -17,6 +17,7 @@ class TestL10nClExportsDte(TestL10nClEdiCommon):
     """
 
     @freeze_time('2019-10-22T20:23:27', tz_offset=3)
+    @patch('odoo.addons.certificate.models.certificate.Certificate._compute_is_valid', _is_valid_certificate)
     def test_l10n_cl_dte_110(self):
         foreign_partner = self.env['res.partner'].create({
             'name': 'Mitchell Admin',

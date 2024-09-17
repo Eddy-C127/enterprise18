@@ -7,11 +7,12 @@ from unittest.mock import patch
 from odoo import Command
 from odoo.tools import misc
 from odoo.tests import tagged
-from .common import TestL10nClEdiCommon, _check_with_xsd_patch
+from .common import TestL10nClEdiCommon, _check_with_xsd_patch, _is_valid_certificate
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
 @patch('odoo.tools.xml_utils._check_with_xsd', _check_with_xsd_patch)
+@patch('odoo.addons.certificate.models.certificate.Certificate._compute_is_valid', _is_valid_certificate)
 class TestL10nClDte(TestL10nClEdiCommon):
     """
     Summary of the document types to test:

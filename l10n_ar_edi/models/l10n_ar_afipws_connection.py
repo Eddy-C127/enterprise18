@@ -1,13 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from odoo import fields, models, api, _
 from odoo.exceptions import UserError
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.serialization import Encoding, load_pem_private_key
-from cryptography.hazmat.primitives.serialization.pkcs7 import (
-    PKCS7Options,
-    PKCS7SignatureBuilder,
-)
-from cryptography.x509 import load_pem_x509_certificate
 from lxml import builder
 from lxml import etree
 from requests.adapters import HTTPAdapter
@@ -170,7 +163,9 @@ class L10nArAfipwsConnection(models.Model):
 
     def _l10n_ar_get_token_data(self, company, afip_ws):
         """ Call AFIP Authentication webservice to get token & sign data """
-        private_key, certificate = company.sudo()._get_key_and_certificate()
+        certificate_sudo = company.sudo().l10n_ar_afip_ws_crt_id
+        if not certificate_sudo.is_valid:
+            raise UserError(_('The AFIP certificate is expired, please renew in order to continue'))
         environment_type = company._get_environment_type()
         generation_time = fields.Datetime.now()
         expiration_time = fields.Datetime.add(generation_time, hours=12)
@@ -184,20 +179,13 @@ class L10nArAfipwsConnection(models.Model):
         request = etree.tostring(request_xml, pretty_print=True)
 
         # sign request
-        pkey = load_pem_private_key(private_key, None)
-        signcert = load_pem_x509_certificate(certificate)
-        signed_request = (
-            PKCS7SignatureBuilder()
-            .set_data(request)
-            .add_signer(signcert, pkey, hashes.SHA256())
-            .sign(Encoding.DER, [PKCS7Options.Binary])
-        )
+        signed_request = certificate_sudo._l10n_ar_pkcs7_sign(request)
 
         wsdl = {'production': "https://wsaa.afip.gov.ar/ws/services/LoginCms?WSDL",
                 'testing': "https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL"}.get(environment_type)
 
         try:
-            _logger.info('Connect to AFIP to get token: %s %s %s' % (afip_ws, company.l10n_ar_afip_ws_crt_fname, company.name))
+            _logger.info('Connect to AFIP to get token: %s %s %s', afip_ws, company.l10n_ar_afip_ws_crt_id.name, company.name)
             transport = ARTransport(operation_timeout=60, timeout=60)
             client = Client(wsdl, transport=transport)
             response = client.service.loginCms(base64.b64encode(signed_request).decode())

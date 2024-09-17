@@ -1,8 +1,6 @@
 import requests
-from cryptography.hazmat.primitives import serialization, hashes
 from lxml import etree
 
-from base64 import encodebytes, b64encode
 import re
 from unittest.mock import patch, Mock
 
@@ -133,22 +131,18 @@ class TestDianMisc(TestCoDianCommon):
         actual_digests = [node.text for node in root.findall(".//ds:DigestValue", root.nsmap)[:3]]
         self.assertEqual(expected_digests, actual_digests)
 
-        # Certificate
-        private_key = xml_utils._decode_private_key(self.certificate_demo)
-        cert_public = xml_utils._decode_certificate(self.certificate_demo)
-
         # Recompute the DigestValue for the X509 certificate
-        expected_x509_digest = b64encode(cert_public.fingerprint(hashes.SHA256())).decode()
+        expected_x509_digest = self.certificate_demo._get_fingerprint_bytes(formatting='base64').decode()
         self.assertEqual(expected_x509_digest, root.find(".//{*}CertDigest/{*}DigestValue").text)
 
         # Recompute the X509 certificate
-        obtained_x509 = encodebytes(cert_public.public_bytes(encoding=serialization.Encoding.DER)).decode()
+        obtained_x509 = self.certificate_demo._get_der_certificate_bytes().decode()
         self.assertEqual(obtained_x509, root.find(".//{*}X509Certificate").text)
 
         # Recompute the XAdES signature
         expected_sig_value = root.find('.//{*}SignatureValue').text
         root.find('.//{*}SignatureValue').text = ''
-        xml_utils._fill_signature(root.find(".//ds:Signature", root.nsmap), private_key)
+        xml_utils._fill_signature(root.find(".//ds:Signature", root.nsmap), self.certificate_demo)
         self.assertEqual(root.find('.//{*}SignatureValue').text, expected_sig_value)
 
     def test_state_and_city(self):

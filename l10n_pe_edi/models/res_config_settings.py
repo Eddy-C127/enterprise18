@@ -31,8 +31,6 @@ class ResConfigSettings(models.TransientModel):
         readonly=False,
         help="SUNAT Operaciones en Línea")
     l10n_pe_edi_certificate_id = fields.Many2one(
-        comodel_name='l10n_pe_edi.certificate',
-        string="Certificate (PE)",
         related="company_id.l10n_pe_edi_certificate_id",
         readonly=False,
-        domain="[('company_id', '=', company_id)]")
+        domain="[('company_id', '=', company_id), ('is_valid', '=', True)]")

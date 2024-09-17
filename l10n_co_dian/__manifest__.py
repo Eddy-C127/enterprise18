@@ -4,12 +4,15 @@
     'version': '0.1',
     'category': 'Accounting/Localizations/EDI',
     'summary': 'Colombian Localization for EDI documents',
-    'depends': ['account_edi_ubl_cii', 'l10n_co_edi'],
+    'depends': [
+        'account_edi_ubl_cii',
+        'l10n_co_edi',
+        'certificate',
+    ],
     'data': [
         'security/ir.model.access.csv',
         'views/account_journal_views.xml',
         'views/account_move_views.xml',
-        'views/l10n_co_dian_certificate_views.xml',
         'views/l10n_co_dian_operation_mode.xml',
         'views/report_invoice.xml',
         'views/res_config_settings_views.xml',

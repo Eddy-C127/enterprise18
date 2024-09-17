@@ -1,8 +1,6 @@
-from cryptography.hazmat.primitives import hashes, serialization
 from lxml import etree
 from pytz import timezone
 
-from base64 import encodebytes, b64encode
 from collections import defaultdict
 from datetime import timedelta
 import re
@@ -960,17 +958,13 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
 
     def _dian_sign_xml(self, xml, invoice):
         errors = []
-        certificates = invoice.company_id.sudo().l10n_co_dian_certificate_ids._get_certificate_chain()
-        cert_public = xml_utils._decode_certificate(certificates[-1])
-        cert_private = xml_utils._decode_private_key(certificates[-1])
+        certificates_sudo = invoice.company_id.sudo().l10n_co_dian_certificate_ids
         operation_mode = self._dian_get_operation_mode(invoice)
-
         x509_certificates = []
-        for cert in certificates:
-            cert_public = xml_utils._decode_certificate(cert)
+        for cert_sudo in certificates_sudo:
             x509_certificates.append({
-                'x509_issuer_description': cert_public.issuer.rfc4514_string(),
-                'x509_serial_number': cert_public.serial_number,
+                'x509_issuer_description': cert_sudo._get_issuer_string(),
+                'x509_serial_number': int(cert_sudo.serial_number),
             })
         root = etree.fromstring(xml)
         signature_vals = {
@@ -983,12 +977,12 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
             'qr_code_val': self._dian_get_qr_code_url(invoice, root.findtext('./cbc:UUID', namespaces=root.nsmap)),
             'document_id': "xmldsig-" + str(xml_utils._uuid1()),
             'key_info_id': "xmldsig-" + str(xml_utils._uuid1()) + "-keyinfo",
-            'x509_certificate': encodebytes(cert_public.public_bytes(encoding=serialization.Encoding.DER)).decode(),
+            'x509_certificate': cert_sudo._get_der_certificate_bytes().decode(),
             'x509_certificates': x509_certificates,
             'signature_value': 'to be filled later',
             # Colombia time (UTC-5): p.556 "Anexo-Tecnico-Resolucion[...].pdf"
             'signing_time': fields.datetime.now(tz=timezone('America/Bogota')).isoformat(timespec='milliseconds'),
-            'sigcertif_digest': b64encode(cert_public.fingerprint(hashes.SHA256())).decode(),
+            'sigcertif_digest': cert_sudo._get_fingerprint_bytes(formatting='base64').decode(),
             'claimed_role': "supplier",
         }
         extensions = self.env['ir.qweb']._render('l10n_co_dian.ubl_extension_dian', signature_vals)
@@ -997,5 +991,5 @@ class AccountEdiXmlUBLDian(models.AbstractModel):
         xml_utils._remove_tail_and_text_in_hierarchy(root)
         # Hash and sign
         xml_utils._reference_digests(extensions.find(".//ds:SignedInfo", {'ds': 'http://www.w3.org/2000/09/xmldsig#'}))
-        xml_utils._fill_signature(extensions.find(".//ds:Signature", {'ds': 'http://www.w3.org/2000/09/xmldsig#'}), cert_private)
+        xml_utils._fill_signature(extensions.find(".//ds:Signature", {'ds': 'http://www.w3.org/2000/09/xmldsig#'}), cert_sudo)
         return etree.tostring(root, encoding='UTF-8'), errors

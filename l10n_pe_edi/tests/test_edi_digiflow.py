@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from odoo.tests import tagged
-from .common import TestPeEdiCommon, CODE_98_ERROR_MSG, MAX_WAIT_ITER
+from .common import TestPeEdiCommon, CODE_98_ERROR_MSG, MAX_WAIT_ITER, _get_pe_current_datetime
 
 from datetime import timedelta
 from time import sleep
+
 
 @tagged('external_l10n', 'post_install', '-at_install', '-standard', 'external')
 class TestEdiDigiflow(TestPeEdiCommon):
@@ -15,7 +16,7 @@ class TestEdiDigiflow(TestPeEdiCommon):
         cls.company_data['company'].l10n_pe_edi_provider = 'digiflow'
 
     def test_10_invoice_edi_flow(self):
-        yesterday = self.certificate._get_pe_current_datetime().date() - timedelta(1)
+        yesterday = _get_pe_current_datetime().date() - timedelta(1)
         move = self._create_invoice(invoice_date=yesterday, date=yesterday)
         move.action_post()
 
@@ -49,7 +50,7 @@ class TestEdiDigiflow(TestPeEdiCommon):
         self.assertRecordValues(move, [{'edi_state': 'cancelled'}])
 
     def test_20_refund_edi_flow(self):
-        today = self.certificate._get_pe_current_datetime().date()
+        today = _get_pe_current_datetime().date()
         move = self._create_refund(invoice_date=today, date=today)
         (move.reversed_entry_id + move).action_post()
 
@@ -86,7 +87,7 @@ class TestEdiDigiflow(TestPeEdiCommon):
         self.assertRecordValues(move, [{'edi_state': 'cancelled'}])
 
     def test_30_debit_note_edi_flow(self):
-        today = self.certificate._get_pe_current_datetime().date()
+        today = _get_pe_current_datetime().date()
         move = self._create_debit_note(invoice_date=today, date=today)
         (move.debit_origin_id + move).action_post()
 
@@ -126,7 +127,7 @@ class TestEdiDigiflow(TestPeEdiCommon):
         Check that we correctly detect errors reported in the ResponseCode field of the CDR
         when cancelling an invoice.
         """
-        today = self.certificate._get_pe_current_datetime().date()
+        today = _get_pe_current_datetime().date()
         yesterday = today - timedelta(1)
         move = self._create_invoice(invoice_date=yesterday, date=yesterday, name='F FFI-%s4' % self.time_name)
         move.action_post()

@@ -17,6 +17,7 @@ Includes automations to easily predict the withholding tax to be applied to each
     "license": "OPL-1",
     "depends": [
         "account_edi",
+        "certificate",
         "l10n_ec",
     ],
     "data": [

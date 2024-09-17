@@ -3,11 +3,7 @@ import base64
 import logging
 import os
 
-from dateutil.relativedelta import relativedelta
-
 from odoo.addons.account_edi.tests.common import AccountEdiTestCommon
-
-from odoo import fields
 from odoo.tools import misc
 
 _logger = logging.getLogger(__name__)
@@ -15,6 +11,11 @@ _logger = logging.getLogger(__name__)
 
 def _check_with_xsd_patch(xml_to_validate, xsd_fname, env, prefix=None):
     return True
+
+
+def _is_valid_certificate(self):
+    for certificate in self:
+        certificate.is_valid = True
 
 
 class TestL10nClEdiCommon(AccountEdiTestCommon):
@@ -42,15 +43,15 @@ class TestL10nClEdiCommon(AccountEdiTestCommon):
             'vat': 'CL762012243',
             'l10n_cl_activity_description': 'activity_test',
         })
-        cls.certificate = cls.env['l10n_cl.certificate'].sudo().create({
-            'signature_filename': 'Test',
+        content = misc.file_open('certificate/tests/data/cert.pfx', mode="rb").read()
+        cls.certificate = cls.env['certificate.certificate'].create({
+            'name': 'CL Test certificate',
+            'content': base64.b64encode(content),
+            'pkcs12_password': 'example',
             'subject_serial_number': '23841194-7',
-            'signature_pass_phrase': 'asadadad',
-            'private_key': misc.file_open(os.path.join('l10n_cl_edi', 'tests', 'private_key_test.key')).read(),
-            'certificate': misc.file_open(os.path.join('l10n_cl_edi', 'tests', 'cert_test.cert')).read(),
-            'cert_expiration': fields.Datetime.now() + relativedelta(years=1),
-            'company_id': cls.company_data['company'].id
+            'company_id': cls.company_data['company'].id,
         })
+        cls.private_key_id = cls.certificate.private_key_id
         cls.company_data['company'].write({
             'l10n_cl_certificate_ids': [(4, cls.certificate.id)]
         })

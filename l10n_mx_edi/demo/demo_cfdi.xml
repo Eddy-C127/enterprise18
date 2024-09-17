@@ -51,19 +51,35 @@
         <field name="l10n_mx_edi_fiscal_regime">601</field>
     </record>
 
-    <record id="demo_certificate" model="l10n_mx_edi.certificate">
-        <field name="content" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate.cer"/>
-        <field name="key" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate.key"/>
-        <field name="password">12345678a</field>
-        <field name="company_id" ref="base.demo_company_mx"/>
-    </record>
+    <data noupdate="1">
+        <record id="demo_key" model="certificate.key">
+            <field name="name">MX demo key</field>
+            <field name="content" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate.key"/>
+            <field name="password">12345678a</field>
+            <field name="company_id" ref="base.demo_company_mx"/>
+        </record>
 
-    <record id="demo_certificate_zapa" model="l10n_mx_edi.certificate">
-        <field name="content" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate_zapa.cer"/>
-        <field name="key" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate_zapa.key"/>
-        <field name="password">12345678a</field>
-        <field name="company_id" ref="base.demo_company_2_mx"/>
-    </record>
+        <record id="demo_certificate" model="certificate.certificate">
+            <field name="name">MX demo certificate</field>
+            <field name="content" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate.cer"/>
+            <field name="private_key_id" ref="demo_key"/>
+            <field name="company_id" ref="base.demo_company_mx"/>
+        </record>
+
+        <record id="demo_key_zapa" model="certificate.key">
+            <field name="name">MX demo key (ZAPA)</field>
+            <field name="content" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate_zapa.key"/>
+            <field name="password">12345678a</field>
+            <field name="company_id" ref="base.demo_company_2_mx"/>
+        </record>
+
+        <record id="demo_certificate_zapa" model="certificate.certificate">
+            <field name="name">MX demo certificate (ZAPA)</field>
+            <field name="content" type="base64" file="l10n_mx_edi/demo/pac_credentials/certificate_zapa.cer"/>
+            <field name="private_key_id" ref="demo_key_zapa"/>
+            <field name="company_id" ref="base.demo_company_2_mx"/>
+        </record>
+    </data>
 
     <record id="product.product_product_25" model="product.product">
         <field name="unspsc_code_id" ref="product_unspsc.unspsc_code_56101900"/>

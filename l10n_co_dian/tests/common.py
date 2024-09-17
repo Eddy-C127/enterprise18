@@ -25,10 +25,16 @@ class TestCoDianCommon(AccountTestInvoicingCommon):
         cls.utils_path = 'odoo.addons.l10n_co_dian.xml_utils'
 
         with freeze_time(cls.frozen_today):
-            cls.certificate_demo = cls.env["l10n_co_dian.certificate"].sudo().create({
-                "certificate": b64encode(cls._read_file('l10n_co_dian/demo/demo_cert.crt', 'rb')),
-                "key": b64encode(cls._read_file('l10n_co_dian/demo/demo_key.pem', 'rb')),
-                'company_id': cls.company_data['company'].id,
+            cls.key_demo = cls.env["certificate.key"].create({
+                "name": "Test DIAN Key",
+                "content": b64encode(cls._read_file('l10n_co_dian/demo/demo_key.pem', 'rb')),
+                "company_id": cls.company_data['company'].id,
+            })
+            cls.certificate_demo = cls.env["certificate.certificate"].create({
+                "name": "Test DIAN certificate",
+                "content": b64encode(cls._read_file('l10n_co_dian/demo/demo_cert.crt', 'rb')),
+                "private_key_id": cls.key_demo.id,
+                "company_id": cls.company_data['company'].id,
             })
 
         city_bogota = cls.env.ref('l10n_co_edi.city_co_150')

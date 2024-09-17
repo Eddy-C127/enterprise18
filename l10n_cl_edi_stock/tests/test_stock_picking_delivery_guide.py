@@ -9,13 +9,14 @@ from odoo import Command
 from odoo.tests import tagged, Form
 from odoo.tools import misc
 from odoo.addons.l10n_cl_edi_stock.tests.common import TestL10nClEdiStockCommon
-from odoo.addons.l10n_cl_edi.tests.common import _check_with_xsd_patch
+from odoo.addons.l10n_cl_edi.tests.common import _check_with_xsd_patch, _is_valid_certificate
 
 _logger = logging.getLogger(__name__)
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
 @patch('odoo.tools.xml_utils._check_with_xsd', _check_with_xsd_patch)
+@patch('odoo.addons.certificate.models.certificate.Certificate._compute_is_valid', _is_valid_certificate)
 class TestL10nClEdiStock(TestL10nClEdiStockCommon):
 
     @freeze_time('2019-10-24T20:00:00', tz_offset=3)

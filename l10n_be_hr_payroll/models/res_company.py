@@ -22,14 +22,10 @@ class ResCompany(models.Model):
     onss_expeditor_number = fields.Char(
         string="ONSS Expeditor Number", groups="base.group_system",
         help="ONSS Expeditor Number provided when registering service on the technical user")
-    onss_pem_certificate = fields.Binary(
-        string="PEM Certificate", groups="base.group_system",
-        help="Certificate to allow access to batch declarations")
-    onss_key = fields.Binary(
-        string="KEY file", groups="base.group_system",
-        help="Key to allow access to batch declarations")
-    onss_pem_passphrase = fields.Char(
-        string="PEM Passphrase", groups="base.group_system",
+    onss_certificate_id = fields.Many2one(
+        string="ONSS Certificate",
+        comodel_name="certificate.certificate",
+        domain=[('is_valid', '=', True)],
         help="Certificate to allow access to batch declarations")
     accident_insurance_name = fields.Char()
     accident_insurance_number = fields.Char()

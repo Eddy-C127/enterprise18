@@ -8,11 +8,12 @@ from lxml import etree
 from odoo import fields
 from odoo.tests import Form, tagged
 from odoo.tools import misc
-from .common import TestL10nClEdiCommon, _check_with_xsd_patch
+from .common import TestL10nClEdiCommon, _check_with_xsd_patch, _is_valid_certificate
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
 @patch('odoo.tools.xml_utils._check_with_xsd', _check_with_xsd_patch)
+@patch('odoo.addons.certificate.models.certificate.Certificate._compute_is_valid', _is_valid_certificate)
 class TestFetchmailServer(TestL10nClEdiCommon):
     @classmethod
     def setUpClass(cls):

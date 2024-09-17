@@ -9,7 +9,7 @@ class ResCompany(models.Model):
 
     l10n_pe_edi_certificate_id = fields.Many2one(
         string="Certificate (PE)", store=True, readonly=False,
-        comodel_name='l10n_pe_edi.certificate',
+        comodel_name='certificate.certificate',
         compute="_compute_l10n_pe_edi_certificate")
     l10n_pe_edi_provider_username = fields.Char(
         string="SOL User",
@@ -39,7 +39,7 @@ class ResCompany(models.Model):
     def _compute_l10n_pe_edi_certificate(self):
         for company in self:
             if company.country_code == 'PE':
-                company.l10n_pe_edi_certificate_id = self.env['l10n_pe_edi.certificate'].search(
-                    [('company_id', '=', company.id)], order='date_end desc', limit=1)
+                company.l10n_pe_edi_certificate_id = self.env['certificate.certificate'].search(
+                    [('company_id', '=', company.id), ('is_valid', '=', True)], limit=1)
             else:
                 company.l10n_pe_edi_certificate_id = False

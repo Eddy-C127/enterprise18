@@ -6,7 +6,7 @@ from unittest.mock import patch
 
 from odoo.tools import misc
 from odoo.tests.common import tagged
-from .common import TestL10nClEdiCommon, _check_with_xsd_patch
+from .common import TestL10nClEdiCommon, _check_with_xsd_patch, _is_valid_certificate
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -104,6 +104,7 @@ class TestL10nClDte(TestL10nClEdiCommon):
         with self.assertRaises(Exception):
             self.env['l10n_cl.edi.util']._get_seed('SIITEST', '', '')
 
+    @patch('odoo.addons.certificate.models.certificate.Certificate._compute_is_valid', _is_valid_certificate)
     def test_get_token_ok(self):
         seed = '023071972740'
         xml_expected_dte = misc.file_open(os.path.join(

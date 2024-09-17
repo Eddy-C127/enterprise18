@@ -125,7 +125,7 @@ class TestNlSBR(TransactionCase):
         try:
             root_cert = self.env.company._l10n_nl_get_server_root_certificate_bytes()
             self.assertTrue(root_cert)
-            self.assertEqual(base64.b64encode(root_cert), self.env.company.l10n_nl_reports_sbr_server_root_cert)
+            self.assertEqual(base64.b64encode(root_cert), self.env.company.l10n_nl_reports_sbr_server_root_cert_id.pem_certificate)
         except UserError:
             raise AssertionError("The link to the root certificate is dead or unresponsive. Check https://cert.pkioverheid.nl/ to find the link to the 'Staat der Nederlanden Private Root CA - G1' certificate.")
 
@@ -152,12 +152,11 @@ class TestNlSBRFlow(TestAccountReportsCommon):
     def test_sbr_flow(self):
         # Load the certificate and key in the company
         config = self.env["res.config.settings"].create({
-            "l10n_nl_reports_sbr_cert": self.NL_SBR_CERT,
+            "l10n_nl_reports_sbr_cert_id": self.NL_SBR_CERT,
             "l10n_nl_reports_sbr_password": self.NL_SBR_PWD
         })
         config.execute()
-        self.assertTrue(config.l10n_nl_reports_sbr_cert)
-        self.assertTrue(config.l10n_nl_reports_sbr_key)
+        self.assertTrue(config.l10n_nl_reports_sbr_cert_id)
 
         date_from = fields.Date.from_string('2019-01-01')
         date_to = fields.Date.from_string('2019-12-31')

@@ -76,9 +76,10 @@ For Development information go to http://www.afip.gob.ar/fe/documentos/WSBFEv1%2
 """,
     'depends': [
         'l10n_ar',
+        'certificate',
     ],
     'external_dependencies': {
-        'python': ['pyOpenSSL', 'zeep']
+        'python': ['zeep']
     },
     'data': [
         'wizards/l10n_ar_afip_ws_consult_view.xml',

@@ -148,7 +148,7 @@ class AccountMove(models.Model):
     def _is_dummy_afip_validation(self):
         self.ensure_one()
         return self.company_id._get_environment_type() == 'testing' and \
-            not self.company_id.sudo().l10n_ar_afip_ws_crt or not self.company_id.sudo().l10n_ar_afip_ws_key
+            not self.company_id.sudo().l10n_ar_afip_ws_crt_id
 
     def _post(self, soft=True):
         """ After validate the invoice we then validate in AFIP. The last thing we do is request the cae because if an

@@ -9,8 +9,6 @@ import time
 import jwt
 import requests
 
-from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.backends import default_backend
 from datetime import timedelta
 from werkzeug.urls import url_quote
 
@@ -196,18 +194,9 @@ class HrContract(models.Model):
         expeditor_number = self.company_id.onss_expeditor_number
         if not expeditor_number:
             raise UserError(_('No expeditor number defined on the payroll settings.'))
-        pem = self.company_id.sudo().onss_pem_certificate
-        passphrase = self.company_id.sudo().onss_pem_passphrase
-        if passphrase:
-            passphrase = passphrase.encode('utf-8')
-        else:
-            passphrase = None
-        if not pem:
-            raise UserError(_('No PEM Certificate / Passphrase defined on the Payroll Configuration'))
-
-        pem = base64.b64decode(pem)
-        private_key = serialization.load_pem_private_key(
-            pem, password=passphrase, backend=default_backend())
+        certificate_sudo = self.company_id.sudo().onss_certificate_id
+        if not certificate_sudo:
+            raise UserError(_('No Certificate definer on the Payroll Configuration'))
         unique_id = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(20)])
         now = int(time.time())
         payload = {
@@ -227,7 +216,7 @@ class HrContract(models.Model):
             "iat": now,
         }
         try:
-            bearer_token = jwt.encode(payload, private_key, algorithm="RS256")
+            bearer_token = jwt.encode(payload, base64.b64decode(certificate_sudo.private_key_id.pem_key), algorithm="RS256")
         except ValueError as e:
             raise UserError(_('Error on authentication. Please contact an administrator. (%s)', e))
         return bearer_token

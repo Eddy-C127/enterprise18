@@ -9,7 +9,7 @@ class ResCompany(models.Model):
         comodel_name="l10n_co_dian.operation_mode",
         inverse_name="company_id",
     )
-    l10n_co_dian_certificate_ids = fields.One2many(comodel_name='l10n_co_dian.certificate', inverse_name='company_id')
+    l10n_co_dian_certificate_ids = fields.One2many(comodel_name='certificate.certificate', inverse_name='company_id')
     l10n_co_dian_test_environment = fields.Boolean(string="Test environment", default=True)
     l10n_co_dian_certification_process = fields.Boolean()
     l10n_co_dian_provider = fields.Selection(

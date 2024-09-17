@@ -3,6 +3,8 @@
 
 from datetime import datetime
 from functools import partial
+from uuid import uuid4
+
 from lxml import etree
 from markupsafe import Markup, escape
 
@@ -15,6 +17,13 @@ from pytz import timezone
 from requests.exceptions import ConnectionError as RConnectionError
 from odoo.tools.zeep import Client
 from odoo.tools.zeep.exceptions import Error as ZeepError
+from odoo.addons.l10n_ec_edi.models.xml_utils import (
+    NS_MAP,
+    calculate_references_digests,
+    cleanup_xml_signature,
+    fill_signature,
+)
+
 
 TEST_URL = {
     'reception': 'https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantesOffline?wsdl',
@@ -341,10 +350,48 @@ class AccountEdiFormat(models.Model):
         if move.company_id._l10n_ec_is_demo_environment():  # unless we're in a test environment without certificate
             xml_signed = etree.tostring(xml_content, encoding='unicode')
         else:
-            xml_signed = move.company_id.sudo().l10n_ec_edi_certificate_id._action_sign(xml_content)
+            xml_signed = self.sudo()._l10n_ec_generate_signed_xml(move.company_id, xml_content)
 
         xml_signed = '<?xml version="1.0" encoding="utf-8" standalone="no"?>' + xml_signed
         return xml_signed, errors
+
+    def _l10n_ec_generate_signed_xml(self, company_id, xml_node_or_string):
+        self.ensure_one()
+
+        certificate_sudo = company_id.sudo().l10n_ec_edi_certificate_id
+
+        # Signature rendering: prepare reference identifiers
+        signature_id = f"Signature{uuid4()}"
+        qweb_values = {
+            'signature_id': signature_id,
+            'signature_property_id': f'{signature_id}-SignedPropertiesID{uuid4()}',
+            'certificate_id': f'Certificate{uuid4()}',
+            'reference_uri': f'Reference-ID-{uuid4()}',
+            'signed_properties_id': f'SignedPropertiesID{uuid4()}',
+        }
+
+        # Signature rendering: prepare certificate values
+        e, n = certificate_sudo._get_public_key_numbers_bytes()
+        qweb_values.update({
+            'sig_certif_digest': certificate_sudo._get_fingerprint_bytes(hashing_algorithm='sha1', formatting='base64').decode(),
+            'x509_certificate': certificate_sudo._get_der_certificate_bytes().decode(),
+            'rsa_modulus': n.decode(),
+            'rsa_exponent': e.decode(),
+            'x509_issuer_description': certificate_sudo._l10n_ec_edi_get_issuer_rfc_string(),
+            'x509_serial_number': int(certificate_sudo.serial_number),
+        })
+
+        # Parse document, append rendered signature and process references
+        doc = cleanup_xml_node(xml_node_or_string)
+        signature_str = self.env['ir.qweb']._render('l10n_ec_edi.ec_edi_signature', qweb_values)
+        signature = cleanup_xml_signature(signature_str)
+        doc.append(signature)
+        calculate_references_digests(signature.find('SignedInfo', namespaces=NS_MAP), base_uri='#comprobante')
+
+        # Sign (writes into SignatureValue)
+        fill_signature(signature, certificate_sudo)
+
+        return etree.tostring(doc, encoding='unicode')
 
     def _l10n_ec_generate_demo_xml_attachment(self, move, xml_string):
         """

@@ -1,4 +1,3 @@
 -- disable l10n_l10n_be_hr_payroll_dimona
 UPDATE res_company
-   SET onss_expeditor_number = 'dummy',
-       onss_pem_passphrase = 'dummy';
+   SET onss_expeditor_number = 'dummy';

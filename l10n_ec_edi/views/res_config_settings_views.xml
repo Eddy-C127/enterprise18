@@ -33,8 +33,8 @@
                         <setting id="l10n_ec_edi_connection" string="SRI Connection">
                             <div>
                                 <label for="l10n_ec_edi_certificate_id" class="col-lg-4 o_light_label"/>
-                                <field name="l10n_ec_edi_certificate_id" options="{'no_create': True, 'no_create_edit':True}"/>
-                                <button type="action" name="%(sri_key_type_action)d" string="SRI Certificates" class="btn-link" icon="oi-arrow-right"/>
+                                <field name="l10n_ec_edi_certificate_id" options="{'no_create': True}" domain="[('company_id', '=', company_id), ('is_valid', '=', True)]"/>
+                                <button type="action" name="%(certificate.certificate_certificate_action_view_list)d" string="SRI Certificates" class="btn-link" icon="oi-arrow-right"/>
                             </div>
                             <div>
                                 <field name="l10n_ec_production_env"/>

@@ -2,6 +2,7 @@ from odoo import fields, models, api, _
 from odoo.exceptions import UserError, ValidationError, RedirectWarning
 from odoo.tools.misc import format_date
 
+import base64
 import json
 import os
 import re
@@ -258,7 +259,6 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
         help="BPL: if the taxpayer files a turnover tax return as an individual entrepreneur."
         "INT: if the turnover tax return is made by an intermediary.")
     tax_consultant_number = fields.Char(string="Tax Consultant Number", help="The tax consultant number of the office aware of the content of this report.")
-    password = fields.Char(string="Certificate or private key password", help="The password is not needed for just printing the XBRL file.")
     is_test = fields.Boolean(string="Is Test", help="Check this if you want the system to use the pre-production environment with test certificates.")
 
     @api.depends('date_to', 'date_from', 'is_test')
@@ -334,7 +334,8 @@ class L10nNlTaxReportSBRWizard(models.TransientModel):
         report_file = xbrl_data['file_content']
 
         serv_root_cert = self.env.company._l10n_nl_get_server_root_certificate_bytes()
-        certificate, private_key = self.env.company._l10n_nl_get_certificate_and_key_bytes(bytes(self.password or '', 'utf-8') or None)
+        certificate = base64.b64decode(self.env.company.sudo().l10n_nl_reports_sbr_cert_id.pem_certificate)
+        private_key = base64.b64decode(self.env.company.sudo().l10n_nl_reports_sbr_cert_id.private_key_id.pem_key)
         try:
             with NamedTemporaryFile(delete=False) as f:
                 f.write(serv_root_cert)

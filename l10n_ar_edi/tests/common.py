@@ -26,17 +26,44 @@ class TestEdi(TestAr):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        cls.ar_private_key = cls.env['certificate.key'].create({
+            'name': 'AR Test Private key 1',
+            'content': base64.b64encode(file_open("l10n_ar_edi/tests/private_key.pem", 'rb').read()),
+        })
+
+        cls.ar_certificate_1 = cls.env['certificate.certificate'].create({
+            'name': 'AR Test certificate 1',
+            'content': base64.b64encode(file_open("l10n_ar_edi/tests/test_cert1.crt", 'rb').read()),
+            'private_key_id': cls.ar_private_key.id,
+        })
+
+        cls.ar_certificate_2 = cls.env['certificate.certificate'].create({
+            'name': 'AR Test certificate 2',
+            'content': base64.b64encode(file_open("l10n_ar_edi/tests/test_cert2.crt", 'rb').read()),
+            'private_key_id': cls.ar_private_key.id,
+        })
+
+        cls.ar_certificate_3 = cls.env['certificate.certificate'].create({
+            'name': 'AR Test certificate 3',
+            'content': base64.b64encode(file_open("l10n_ar_edi/tests/test_cert3.crt", 'rb').read()),
+            'private_key_id': cls.ar_private_key.id,
+        })
+
         cls.company_ri.write({
             'l10n_ar_afip_ws_environment': 'testing',
+            'l10n_ar_afip_ws_crt_id': cls.ar_certificate_1,
+            'l10n_ar_afip_ws_key_id': cls.ar_private_key.id,
         })
         cls.company_mono.write({
             'l10n_ar_afip_ws_environment': 'testing',
+            'l10n_ar_afip_ws_key_id': cls.ar_private_key.id,
         })
-        cls._create_afip_connections(cls, cls.company_ri, cls.afip_ws, 'test_cert1.crt')
+
+        cls._create_afip_connections(cls, cls.company_ri, cls.afip_ws)
 
     # Initialition
 
-    def _create_afip_connections(self, company, afip_ws, cert_file):
+    def _create_afip_connections(self, company, afip_ws):
         """ Method used to create afip connections and commit then to re use this connections in all the test.
         If a connection can not be set because another instance is already using the certificate then we assign a
         random certificate and try again to create the connections. """
@@ -45,8 +72,6 @@ class TestEdi(TestAr):
         # can not be used and need to wait 10 minuts or change with another certificate.
         # To avoid this and always run the unit tests we randonly change the certificate and try to create the
         # connection until there is not token error.
-        company.l10n_ar_afip_ws_crt = base64.b64encode(file_open("l10n_ar_edi/tests/" + cert_file, 'rb').read())
-        company.l10n_ar_afip_ws_key = base64.b64encode(file_open("l10n_ar_edi/tests/private_key.pem", 'rb').read())
         _logger.log(25, 'Setting homologation private key to company %s', company.name)
         company = company.with_context(l10n_ar_invoice_skip_commit=True)
         checked_certificate_token = False
@@ -64,14 +89,14 @@ class TestEdi(TestAr):
                     raise error
 
                 # Set testing certificate
-                old = company.l10n_ar_afip_ws_crt_fname or 'NOT DEFINED'
+                old = company.l10n_ar_afip_ws_crt_id.name or 'NOT DEFINED'
                 current_cert_num = re.findall(r"OdootTestsCert(.)", old)
                 current_cert_num = current_cert_num and int(current_cert_num[0]) or 0
                 new_cert_number = 1 if current_cert_num == 3 else current_cert_num + 1
 
-                company.l10n_ar_afip_ws_crt = base64.b64encode(file_open("l10n_ar_edi/tests/test_cert%d.crt" % new_cert_number, 'rb').read())
+                company.l10n_ar_afip_ws_crt_id = self.env['certificate.certificate'].search([('name', '=', 'AR Test certificate %d' % new_cert_number)], limit=1)
                 _logger.log(25, 'Setting demo certificate from %s to %s in %s company' % (
-                    old, company.l10n_ar_afip_ws_crt_fname, company.name))
+                    old, company.l10n_ar_afip_ws_crt_id.name, company.name))
 
     def _prepare_multicurrency_values(self):
         super()._prepare_multicurrency_values()

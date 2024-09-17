@@ -27,6 +27,10 @@ def mocked_l10n_pe_edi_post_invoice_web_service(edi_format, invoice, edi_filenam
     }
 
 
+def _get_pe_current_datetime():
+    return datetime.now(tz=timezone('America/Lima'))
+
+
 class TestPeEdiCommon(AccountEdiTestCommon):
 
     @classmethod
@@ -45,14 +49,12 @@ class TestPeEdiCommon(AccountEdiTestCommon):
 
         # ==== Config ====
 
-        cls.certificate = cls.env['l10n_pe_edi.certificate'].create({
+        cls.certificate = cls.env['certificate.certificate'].create({
+            'name': 'PE test certificate',
             'content': base64.encodebytes(
                 misc.file_open('l10n_pe_edi/demo/certificates/certificate.pfx', 'rb').read()),
-            'password': '12345678a',
-        })
-        cls.certificate.write({
-            'date_start': '2016-01-01 01:00:00',
-            'date_end': '2018-01-01 01:00:00',
+            'pkcs12_password': '12345678a',
+            'company_id': cls.company_data['company'].id,
         })
 
         cls.company_data['company'].write({

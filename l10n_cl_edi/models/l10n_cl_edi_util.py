@@ -9,9 +9,6 @@ import requests
 import textwrap
 import urllib3
 
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.primitives.serialization import load_pem_private_key
 from functools import wraps
 
 from lxml import etree
@@ -63,6 +60,7 @@ TIMEOUT_REST = 5
 TIMEOUT = 30 # default timeout for all remote operations
 pool = urllib3.PoolManager(timeout=TIMEOUT)
 
+NS_MAP = {'': 'http://www.w3.org/2000/09/xmldsig#'}
 
 SERVER_URL = {
     'SIITEST': 'https://maullin.sii.cl/DTEWS/',
@@ -332,16 +330,6 @@ class L10nClEdiUtilMixin(models.AbstractModel):
 
         raise UnexpectedXMLResponse()
 
-    def _sign_message(self, message, private_key):
-        """
-        Sign the message using the given private key and sha1 message digest.
-        """
-        if isinstance(private_key, str):
-            private_key = private_key.encode()
-        private_key = load_pem_private_key(private_key, password=None)
-        signature = private_key.sign(re.sub(b'\n\\s*', b'', message), padding.PKCS1v15(), hashes.SHA1())
-        return base64.b64encode(signature).decode()
-
     def _sign_full_xml(self, message, digital_signature, uri, xml_type, is_doc_type_voucher=False):
         """
         Signed the xml following the SII documentation:
@@ -360,13 +348,13 @@ class L10nClEdiUtilMixin(models.AbstractModel):
         })
         signed_info_c14n = Markup(etree.tostring(etree.fromstring(signed_info), method='c14n', exclusive=False,
                                           with_comments=False, inclusive_ns_prefixes=None).decode())
+        e, n = digital_signature._get_public_key_numbers_bytes(formatting='base64')
         signature = self.env['ir.qweb']._render('l10n_cl_edi.signature_template', {
             'signed_info': signed_info_c14n,
-            'signature_value': self._sign_message(
-                signed_info_c14n.encode('utf-8'), digital_signature.private_key.encode('ascii')),
-            'modulus': digital_signature._get_private_key_modulus(),
-            'exponent': digital_signature._get_private_key_exponent(),
-            'certificate': '\n' + textwrap.fill(digital_signature.certificate, 64),
+            'signature_value': digital_signature._sign(re.sub(r'\n\s*', '', signed_info_c14n), hashing_algorithm='sha1', formatting='base64').decode(),
+            'modulus': n.decode(),
+            'exponent': e.decode(),
+            'certificate': '\n' + textwrap.fill(digital_signature._get_der_certificate_bytes(formatting='base64').decode(), 64),
         })
         full_doc = self._l10n_cl_append_sig(xml_type, signature, digest_value)
         return Markup('<?xml version="1.0" encoding="ISO-8859-1" ?>'

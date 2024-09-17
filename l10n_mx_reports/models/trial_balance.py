@@ -6,7 +6,7 @@ from lxml import etree
 from lxml.objectify import fromstring
 from collections import defaultdict
 
-from odoo import models, fields, _
+from odoo import _, fields, models, tools
 from odoo.exceptions import UserError, RedirectWarning
 
 CFDIBCE_XSLT_CADENA = 'l10n_mx_reports/data/xslt/1.3/BalanzaComprobacion_1_2.xslt'
@@ -41,14 +41,15 @@ class TrialBalanceCustomHandler(models.AbstractModel):
     def _l10n_mx_edi_add_digital_stamp(self, path_xslt, cfdi):
         """Add digital stamp certificate attributes in XML report"""
         tree = fromstring(cfdi)
-        certificate = self.env.company.sudo().l10n_mx_edi_certificate_ids._get_valid_certificate()
-        if not certificate:
+        certificate_sudo = self.env.company.sudo().l10n_mx_edi_certificate_ids.filtered('is_valid')[:1]
+        if not certificate_sudo:
             return tree
-        cadena = certificate._get_cadena_chain(tree, path_xslt)
-        sello = certificate.sudo()._get_encrypted_cadena(cadena)
-        tree.attrib['Sello'] = sello
-        tree.attrib['noCertificado'] = certificate.serial_number
-        tree.attrib['Certificado'] = certificate.sudo()._get_data()[0]
+
+        cadena_transformer = etree.parse(tools.file_open(path_xslt))
+        cadena = str(etree.XSLT(cadena_transformer)(tree))
+        tree.attrib['Sello'] = certificate_sudo._sign(cadena)
+        tree.attrib['noCertificado'] = certificate_sudo.serial_number
+        tree.attrib['Certificado'] = certificate_sudo.pem_certificate
         return tree
 
     def _l10n_mx_get_sat_values(self, options):

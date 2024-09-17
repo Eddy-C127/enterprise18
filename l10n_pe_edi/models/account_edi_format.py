@@ -4,12 +4,15 @@
 import base64
 import zipfile
 import io
+from hashlib import sha1
 from requests.exceptions import ConnectionError as ReqConnectionError, HTTPError, InvalidSchema, InvalidURL, ReadTimeout
 from odoo.tools.zeep.wsse.username import UsernameToken
 from odoo.tools.zeep import Client, Settings
 from lxml import etree
 from lxml import objectify
 from copy import deepcopy
+from pytz import timezone
+from datetime import datetime
 
 from odoo import api, models
 from odoo.addons.iap.tools.iap_tools import iap_jsonrpc
@@ -629,13 +632,43 @@ class AccountEdiFormat(models.Model):
         return self._l10n_pe_edi_sign_service_sunat_digiflow_common(
             invoice.company_id, edi_filename, edi_str, credentials, invoice.l10n_latam_document_type_id.code)
 
+    def _l10n_pe_sign(self, certificate, edi_tree):
+        namespaces = {'ds': 'http://www.w3.org/2000/09/xmldsig#'}
+
+        edi_tree_copy = deepcopy(edi_tree)
+        signature_element = edi_tree_copy.xpath('.//ds:Signature', namespaces=namespaces)[0]
+        signature_element.getparent().remove(signature_element)
+
+        edi_tree_c14n_str = etree.tostring(edi_tree_copy, method='c14n', exclusive=True, with_comments=False)
+        digest_b64 = base64.b64encode(sha1(edi_tree_c14n_str).digest())
+        signature_str = self.env['ir.qweb']._render(
+            'l10n_pe_edi.ubl_pe_21_signature_template',
+            {'digest_value': digest_b64.decode()}
+        )
+
+        # Eliminate all non useful spaces and new lines in the stream
+        signature_str = signature_str.replace('\n', '').replace('  ', '')
+
+        signature_tree = etree.fromstring(signature_str)
+        signed_info_element = signature_tree.xpath('.//ds:SignedInfo', namespaces=namespaces)[0]
+        signature = etree.tostring(signed_info_element, method='c14n', exclusive=True, with_comments=False)
+        signature_b64_hash = certificate._sign(signature, hashing_algorithm='sha1', formatting='base64')
+
+        signature_tree.xpath('.//ds:SignatureValue', namespaces=namespaces)[0].text = signature_b64_hash
+        signature_tree.xpath('.//ds:X509Certificate', namespaces=namespaces)[0].text = certificate._get_der_certificate_bytes(formatting='base64')
+        signed_edi_tree = deepcopy(edi_tree)
+        signature_element = signed_edi_tree.xpath('.//ds:Signature', namespaces=namespaces)[0]
+        for child_element in signature_tree:
+            signature_element.append(child_element)
+        return signed_edi_tree
+
     def _l10n_pe_edi_sign_service_sunat_digiflow_common(self, company, edi_filename, edi_str, credentials, latam_document_type):
-        if not company.l10n_pe_edi_certificate_id:
+        if not company.sudo().l10n_pe_edi_certificate_id:
             return {'error': _("No valid certificate found for %s company.", company.display_name)}
 
         # Sign the document.
         edi_tree = objectify.fromstring(edi_str)
-        edi_tree = company.l10n_pe_edi_certificate_id.sudo()._sign(edi_tree)
+        edi_tree = self._l10n_pe_sign(company.sudo().l10n_pe_edi_certificate_id, edi_tree)
         edi_str = etree.tostring(edi_tree, xml_declaration=True, encoding='ISO-8859-1')
 
         zip_edi_str = self._l10n_pe_edi_zip_edi_document([('%s.xml' % edi_filename, edi_str)])
@@ -731,7 +764,7 @@ class AccountEdiFormat(models.Model):
         self.ensure_one()
 
         void_tree = objectify.fromstring(void_str)
-        void_tree = company.l10n_pe_edi_certificate_id.sudo()._sign(void_tree)
+        void_tree = self._l10n_pe_sign(company.sudo().l10n_pe_edi_certificate_id, void_tree)
         void_str = etree.tostring(void_tree, xml_declaration=True, encoding='ISO-8859-1')
         zip_void_str = self._l10n_pe_edi_zip_edi_document([('%s.xml' % void_filename, void_str)])
 
@@ -951,7 +984,7 @@ class AccountEdiFormat(models.Model):
 
     def _l10n_pe_edi_cancel_invoice_edi_step_1(self, invoices):
         self.ensure_one()
-        certificate_date = self.env['l10n_pe_edi.certificate']._get_pe_current_datetime().date()
+        certificate_date = datetime.now(tz=timezone('America/Lima')).date()
         reference_date = invoices[0].invoice_date
         company = invoices[0].company_id # documents are always batched by company in account_edi.
         provider = company.l10n_pe_edi_provider

@@ -546,16 +546,16 @@ class L10nMxEdiDocument(models.Model):
         :param cfdi_values: The current CFDI values.
         """
         root_company = cfdi_values['root_company']
-        certificate = root_company.l10n_mx_edi_certificate_ids._get_valid_certificate()
-        if not certificate:
+        certificate_sudo = root_company.sudo().l10n_mx_edi_certificate_ids.filtered('is_valid')[:1]
+        if not certificate_sudo:
             cfdi_values['errors'] = [_("No valid certificate found")]
             return
 
         supplier = root_company.partner_id.commercial_partner_id.with_user(self.env.user)
         cfdi_values.update({
-            'certificate': certificate,
-            'no_certificado': certificate.serial_number,
-            'certificado': certificate._get_data()[0].decode('utf-8'),
+            'certificate': certificate_sudo,
+            'no_certificado': ('%x' % int(certificate_sudo.serial_number))[1::2],
+            'certificado': certificate_sudo._get_der_certificate_bytes(formatting='base64').decode(),
             'emisor': {
                 'supplier': supplier,
                 'rfc': supplier.vat,
@@ -1433,9 +1433,9 @@ class L10nMxEdiDocument(models.Model):
     @api.model
     def _finkok_cancel(self, cfdi_values, credentials, uuid, cancel_reason, cancel_uuid=None):
         company = cfdi_values['root_company']
-        certificate = cfdi_values['certificate']
-        cer_pem = certificate._get_pem_cer(certificate.content)
-        key_pem = certificate._get_pem_key(certificate.key, certificate.password)
+        certificate_sudo = cfdi_values['certificate'].sudo()
+        cer_pem = base64.b64decode(certificate_sudo.pem_certificate)
+        key_pem = base64.b64decode(certificate_sudo.private_key_id.pem_key)
         try:
             client = Client(credentials['cancel_url'], timeout=20)
             factory = client.type_factory('apps.services.soap.core.views')
@@ -1550,9 +1550,9 @@ class L10nMxEdiDocument(models.Model):
         uuid_param = f"{uuid}|{cancel_reason}|"
         if cancel_uuid:
             uuid_param += cancel_uuid
-        cer_pem = certificate._get_pem_cer(certificate.content)
-        key_pem = certificate._get_pem_key(certificate.key, certificate.password)
-        key_password = certificate.password
+        cer_pem = base64.b64decode(certificate.pem_certificate)
+        key_pem = base64.b64decode(certificate.private_key_id.pem_key)
+        key_password = certificate.private_key_id.password
 
         try:
             client = Client(credentials['url'], timeout=20)
@@ -1744,16 +1744,16 @@ Content-Disposition: form-data; name="xml"; filename="xml"
     @api.model
     def _sw_cancel(self, cfdi_values, credentials, uuid, cancel_reason, cancel_uuid=None):
         company = cfdi_values['root_company']
-        certificate = cfdi_values['certificate']
+        certificate_sudo = cfdi_values['certificate'].sudo()
         headers = {
             'Authorization': "bearer " + credentials['token'],
             'Content-Type': "application/json"
         }
         payload_dict = {
             'rfc': company.vat,
-            'b64Cer': certificate.content.decode('UTF-8'),
-            'b64Key': certificate.key.decode('UTF-8'),
-            'password': certificate.password,
+            'b64Cer': certificate_sudo.pem_certificate,
+            'b64Key': certificate_sudo.private_key_id.pem_key,
+            'password': certificate_sudo.private_key_id.password,
             'uuid': uuid,
             'motivo': cancel_reason,
         }
@@ -2070,7 +2070,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             return
 
         # == Generate the CFDI ==
-        certificate = cfdi_values['certificate']
+        certificate_sudo = cfdi_values['certificate'].sudo()
         self._clean_cfdi_values(cfdi_values)
         cfdi = self.env['ir.qweb']._render(qweb_template, cfdi_values)
 
@@ -2080,8 +2080,7 @@ Content-Disposition: form-data; name="xml"; filename="xml"
             cfdi = re.sub(r'([cC]arta[pP]orte)30', r'\g<1>31', str(cfdi))
 
         cfdi_infos = self.env['l10n_mx_edi.document']._decode_cfdi_attachment(cfdi)
-        cfdi_cadena_crypted = certificate._get_encrypted_cadena(cfdi_infos['cadena'])
-        cfdi_infos['cfdi_node'].attrib['Sello'] = cfdi_cadena_crypted
+        cfdi_infos['cfdi_node'].attrib['Sello'] = certificate_sudo._sign(cfdi_infos['cadena'], formatting='base64')
         cfdi_str = self.env['l10n_mx_edi.document']._convert_xml_to_attachment_data(cfdi_infos['cfdi_node'])
 
         # == Check credentials ==

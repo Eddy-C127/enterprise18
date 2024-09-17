@@ -58,6 +58,7 @@ For detailed guidance, refer to the [SII Guide](https://www.sii.cl/factura_elect
         'l10n_cl',
         'account_edi',
         'account_debit_note',
+        'certificate',
     ],
     'data': [
         'views/account_journal_view.xml',

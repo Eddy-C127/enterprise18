@@ -5,15 +5,13 @@ import hashlib
 import re
 from base64 import b64encode, encodebytes
 
-from cryptography.hazmat.primitives import hashes
-from cryptography.hazmat.primitives.asymmetric import padding
 from lxml import etree
 from odoo.tools.xml_utils import cleanup_xml_node
-
 
 # Utility Methods for Ecuador's XML-related stuff.
 
 NS_MAP = {'': 'http://www.w3.org/2000/09/xmldsig#'}  # default namespace matches signature's `ds:``
+
 
 def canonicalize_node(node):
     """
@@ -24,6 +22,7 @@ def canonicalize_node(node):
     """
     node = etree.fromstring(node) if isinstance(node, str) else node
     return etree.tostring(node, method='c14n', with_comments=False, exclusive=False)
+
 
 def cleanup_xml_signature(xml_sig):
     """
@@ -40,6 +39,7 @@ def cleanup_xml_signature(xml_sig):
             elem.text = ''  # keeps the signature in one line, prevents self-closing tags
         elem.tail = ''  # removes line feed and whitespace after the tag
     return sig_elem
+
 
 def get_uri(uri, reference, base_uri):
     """
@@ -74,6 +74,7 @@ def get_uri(uri, reference, base_uri):
 
     raise Exception(f"URI {uri!r} not found")
 
+
 def calculate_references_digests(node, base_uri=''):
     """
     Processes the references from node and computes their digest values as specified in
@@ -85,6 +86,7 @@ def calculate_references_digests(node, base_uri=''):
         hash_digest = hashlib.new('sha1', ref_node).digest()
         reference.find('DigestValue', namespaces=NS_MAP).text = b64encode(hash_digest)
 
+
 def fill_signature(node, private_key):
     """
     Uses private_key to sign the SignedInfo sub-node of `node`, as specified in:
@@ -94,19 +96,9 @@ def fill_signature(node, private_key):
     signed_info_xml = node.find('SignedInfo', namespaces=NS_MAP)
 
     # During signature generation, the digest is computed over the canonical form of the document
-    signature = private_key.sign(
-        canonicalize_node(signed_info_xml),
-        padding.PKCS1v15(),
-        hashes.SHA1()
-    )
-    node.find('SignatureValue', namespaces=NS_MAP).text =\
-        bytes_as_block(signature)
+    signature = private_key._sign(canonicalize_node(signed_info_xml), hashing_algorithm='sha1')
+    node.find('SignatureValue', namespaces=NS_MAP).text = signature
 
-def int_as_bytes(number):
-    """
-    Converts an integer to an ASCII/UTF-8 byte string (with no leading zeroes).
-    """
-    return number.to_bytes((number.bit_length() + 7) // 8, byteorder='big')
 
 def bytes_as_block(string):
     """

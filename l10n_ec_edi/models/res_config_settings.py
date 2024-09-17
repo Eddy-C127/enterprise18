@@ -19,7 +19,6 @@ class ResConfigSettings(models.TransientModel):
     l10n_ec_edi_certificate_id = fields.Many2one(
         related='company_id.l10n_ec_edi_certificate_id',
         readonly=False,
-        groups="base.group_system",
     )
     l10n_ec_forced_accounting = fields.Boolean(
         related='company_id.l10n_ec_forced_accounting',

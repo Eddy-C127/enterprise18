@@ -1,10 +1,7 @@
-from cryptography import x509
-from cryptography.hazmat.primitives import hashes, serialization
-from cryptography.hazmat.primitives.asymmetric import padding
 from lxml import etree
 import requests
 
-from base64 import b64encode, b64decode, encodebytes
+from base64 import b64encode
 from copy import deepcopy
 from datetime import timedelta
 import hashlib
@@ -21,16 +18,6 @@ NS_MAP = {'ds': "http://www.w3.org/2000/09/xmldsig#"}
 
 TEST_ENDPOINT = "https://vpfe-hab.dian.gov.co/WcfDianCustomerServices.svc?wsdl"
 ENDPOINT = "https://vpfe.dian.gov.co/WcfDianCustomerServices.svc?wsdl"
-
-
-def _decode_certificate(certif):
-    """ Returns the X509 certificate ('cryptography.hazmat.backends.openssl.x509._Certificate')"""
-    return x509.load_pem_x509_certificate(b64decode(certif.with_context(bin_size=False).certificate))
-
-
-def _decode_private_key(certif):
-    """ Returns the private key ('cryptography.hazmat.backends.openssl.rsa._RSAPrivateKey')"""
-    return serialization.load_pem_private_key(b64decode(certif.with_context(bin_size=False).key), password=None)
 
 
 def _canonicalize_node(node, **kwargs):
@@ -98,9 +85,9 @@ def _reference_digests(node, base_uri=""):
         reference.find("ds:DigestValue", namespaces=NS_MAP).text = b64encode(lib.digest())
 
 
-def _fill_signature(node, private_key):
+def _fill_signature(node, certificate):
     """
-    Uses private_key to sign the SignedInfo sub-node of `node`, as specified in:
+    Uses certificate to sign the SignedInfo sub-node of `node`, as specified in:
     https://www.w3.org/TR/xmldsig-core/#sec-SignatureValue
     https://www.w3.org/TR/xmldsig-core/#sec-SignedInfo
     """
@@ -113,12 +100,10 @@ def _fill_signature(node, private_key):
         if inclusive_ns_node is not None and inclusive_ns_node.attrib.get('PrefixList'):
             prefix_list = inclusive_ns_node.attrib.get('PrefixList').split(' ')
 
-    signature = private_key.sign(
+    signature = certificate._sign(
         _canonicalize_node(signed_info_xml, exclusive=exc_c14n, inclusive_ns_prefixes=prefix_list),
-        padding.PKCS1v15(),
-        hashes.SHA256(),
     )
-    node.find("ds:SignatureValue", namespaces=NS_MAP).text = encodebytes(signature).decode()
+    node.find("ds:SignatureValue", namespaces=NS_MAP).text = signature.decode()
 
 
 def _remove_tail_and_text_in_hierarchy(node):
@@ -135,15 +120,13 @@ def _uuid1():
 
 
 def _build_and_send_request(self, payload, service, company):
-    certificate = company.l10n_co_dian_certificate_ids._get_certificate_chain()[-1]
-    cert_public = _decode_certificate(certificate)
-    cert_private = _decode_private_key(certificate)
+    cert_sudo = company.sudo().l10n_co_dian_certificate_ids[-1]
     dt_now = fields.datetime.utcnow()
     vals = {
         'creation_time': dt_now.isoformat(timespec='milliseconds') + "Z",
         'expiration_time': (dt_now + timedelta(seconds=60000)).isoformat(timespec='milliseconds') + "Z",
         'binary_security_token_id': "X509-" + str(_uuid1()),
-        'binary_security_token': b64encode(cert_public.public_bytes(encoding=serialization.Encoding.DER)).decode(),
+        'binary_security_token': cert_sudo._get_der_certificate_bytes(formatting='base64').decode(),
         'wsa_node_id': "id-" + str(_uuid1()),
         'action': f"http://wcf.dian.colombia/IWcfDianCustomerServices/{service}",
         **payload,
@@ -152,7 +135,7 @@ def _build_and_send_request(self, payload, service, company):
     _remove_tail_and_text_in_hierarchy(envelope)
     # Hash and sign
     _reference_digests(envelope.find(".//ds:SignedInfo", {'ds': 'http://www.w3.org/2000/09/xmldsig#'}))
-    _fill_signature(envelope.find(".//ds:Signature", {'ds': 'http://www.w3.org/2000/09/xmldsig#'}), cert_private)
+    _fill_signature(envelope.find(".//ds:Signature", {'ds': 'http://www.w3.org/2000/09/xmldsig#'}), cert_sudo)
     # Send the request
     try:
         response = requests.post(

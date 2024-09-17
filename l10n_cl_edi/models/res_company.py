@@ -108,7 +108,7 @@ class ResCompany(models.Model):
              '3 - End consumer (only receipts)\n'
              '4 - Foreigner')
     l10n_cl_certificate_ids = fields.One2many(
-        'l10n_cl.certificate', 'company_id', string='Certificates (CL)')
+        'certificate.certificate', 'company_id', string='Certificates (CL)')
     l10n_cl_is_there_shared_certificate = fields.Boolean('Is There Shared Certificate?', compute='_compute_is_there_shared_cert')
 
     def _prepare_cl_demo_objects(self):
@@ -162,19 +162,19 @@ class ResCompany(models.Model):
         """
         if user_id is not None:
             user_certificates = self.l10n_cl_certificate_ids.filtered(
-                lambda x: x._is_valid_certificate() and x.user_id.id == user_id and
+                lambda x: x.is_valid and x.user_id.id == user_id and
                           x.company_id.id == self.id)
             if user_certificates:
                 return user_certificates[0]
         shared_certificates = self.l10n_cl_certificate_ids.filtered(
-            lambda x: x._is_valid_certificate() and not x.user_id and x.company_id.id == self.id)
+            lambda x: x.is_valid and not x.user_id and x.company_id.id == self.id)
         if not shared_certificates:
             raise UserError(_('There is not a valid certificate for the company: %s') % self.name)
         return shared_certificates[0]
 
     @api.depends('l10n_cl_dte_service_provider')
     def _compute_is_there_shared_cert(self):
-        cl_certificate = self.env['l10n_cl.certificate']
+        cl_certificate = self.env['certificate.certificate']
         for company in self:
             domain = [('user_id', '=', False), ('company_id', '=', company.id)]
             company.l10n_cl_is_there_shared_certificate = cl_certificate.search(domain, limit=1)

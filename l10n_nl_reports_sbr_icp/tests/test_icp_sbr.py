@@ -163,12 +163,11 @@ class TestNlSBRFlow(TestAccountReportsCommon):
     def test_sbr_flow(self):
         # Load the certificate and key in the company
         config = self.env["res.config.settings"].create({
-            "l10n_nl_reports_sbr_cert": self.NL_SBR_CERT,
+            "l10n_nl_reports_sbr_cert_id": self.NL_SBR_CERT,
             "l10n_nl_reports_sbr_password": self.NL_SBR_PWD
         })
         config.execute()
-        self.assertTrue(config.l10n_nl_reports_sbr_cert)
-        self.assertTrue(config.l10n_nl_reports_sbr_key)
+        self.assertTrue(config.l10n_nl_reports_sbr_cert_id)
 
         date_from = fields.Date.from_string('2019-01-01')
         date_to = fields.Date.from_string('2019-12-31')

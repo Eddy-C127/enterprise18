@@ -9,6 +9,8 @@ import urllib.parse
 from lxml import etree
 from json.decoder import JSONDecodeError
 from markupsafe import Markup
+from pytz import timezone
+from datetime import datetime
 
 from odoo import api, models, fields
 from odoo.exceptions import UserError
@@ -240,7 +242,7 @@ class Picking(models.Model):
         def format_float(val, digits=2):
             return '%.*f' % (digits, val)
 
-        date_pe = self.env['l10n_pe_edi.certificate']._get_pe_current_datetime().date()
+        date_pe = datetime.now(tz=timezone('America/Lima')).date()
         return {
             'date_issue': date_pe.strftime(DEFAULT_PE_DATE_FORMAT),
             'time_issue': date_pe.strftime("%H:%M:%S"),

@@ -11,11 +11,8 @@ class ResConfigSettings(models.TransientModel):
     l10n_ar_afip_verification_type = fields.Selection(related='company_id.l10n_ar_afip_verification_type', readonly=False)
 
     l10n_ar_afip_ws_environment = fields.Selection(related='company_id.l10n_ar_afip_ws_environment', readonly=False)
-    l10n_ar_afip_ws_key = fields.Binary(related='company_id.l10n_ar_afip_ws_key', readonly=False)
-    l10n_ar_afip_ws_crt = fields.Binary(related='company_id.l10n_ar_afip_ws_crt', readonly=False)
-
-    l10n_ar_afip_ws_key_fname = fields.Char('Private Key name', default='private_key.pem')
-    l10n_ar_afip_ws_crt_fname = fields.Char(related='company_id.l10n_ar_afip_ws_crt_fname')
+    l10n_ar_afip_ws_key_id = fields.Many2one(related='company_id.l10n_ar_afip_ws_key_id', readonly=False)
+    l10n_ar_afip_ws_crt_id = fields.Many2one(related='company_id.l10n_ar_afip_ws_crt_id', readonly=False)
 
     l10n_ar_fce_transmission_type = fields.Selection(related="company_id.l10n_ar_fce_transmission_type", readonly=False)
 
@@ -27,16 +24,14 @@ class ResConfigSettings(models.TransientModel):
             raise UserError(_('The company country must be defined before this action'))
         if not self.company_id.partner_id.l10n_ar_vat:
             raise UserError(_('The company CUIT must be defined before this action'))
-        if not self.company_id.l10n_ar_afip_ws_key:
-            self.company_id._generate_afip_private_key()
         return {'type': 'ir.actions.act_url', 'url': '/l10n_ar_edi/download_csr/' + str(self.company_id.id), 'target': 'new'}
 
     def l10n_ar_connection_test(self):
         self.ensure_one()
         errors = []
-        if not self.l10n_ar_afip_ws_crt:
+        if not self.l10n_ar_afip_ws_crt_id:
             errors.append(_("Please set a certificate in order to make the test"))
-        if not self.l10n_ar_afip_ws_key:
+        if not self.l10n_ar_afip_ws_key_id:
             errors.append(_("Please set a private key in order to make the test"))
         if errors:
             raise UserError("\n* ".join(errors))

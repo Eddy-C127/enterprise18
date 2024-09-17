@@ -11,7 +11,10 @@ SBR Dutch Localization
 ========================
 Submit your Tax Reports to the Dutch tax authorities
     """,
-    'depends': ['l10n_nl_reports'],
+    'depends': [
+        'l10n_nl_reports',
+        'certificate',
+    ],
     'external_dependencies': {
         'python': ['xmlsec', 'zeep', 'cryptography'],
     },

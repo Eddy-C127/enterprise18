@@ -838,7 +838,12 @@ services reception has been received as well.
             self.company_id.id, int(self.l10n_latam_document_number))
         ted = self.env['ir.qweb']._render('l10n_cl_edi.ted_template', {
             'dd': dd,
-            'frmt': self._sign_message(dd.encode('ISO-8859-1', 'replace'), caf_file.findtext('RSASK')),
+            'frmt': self.env['certificate.key']._sign_with_key(
+                re.sub(b'\n\\s*', b'', dd.encode('ISO-8859-1', 'replace')),
+                base64.b64encode(caf_file.findtext('RSASK').encode('utf-8')),
+                hashing_algorithm='sha1',
+                formatting='base64',
+            ).decode(),
             'stamp': self._get_cl_current_strftime(),
             '__keep_empty_lines': True,
         })

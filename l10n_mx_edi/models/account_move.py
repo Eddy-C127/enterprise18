@@ -148,7 +148,8 @@ class AccountMove(models.Model):
 
     # ==== CFDI certificate fields ====
     l10n_mx_edi_certificate_id = fields.Many2one(
-        comodel_name='l10n_mx_edi.certificate',
+        comodel_name='certificate.certificate',
+        domain=[('is_valid', "=", True)],
         string="Source Certificate")
     l10n_mx_edi_cer_source = fields.Char(
         string='Certificate Source',
@@ -769,8 +770,7 @@ class AccountMove(models.Model):
 
     def _post(self, soft=True):
         # OVERRIDE
-        mexico_tz = self.env['l10n_mx_edi.certificate'].sudo()._get_timezone()
-        certificate_date = datetime.now(mexico_tz)
+        certificate_date = datetime.now(timezone('America/Mexico_City'))
 
         for move in self.filtered('l10n_mx_edi_is_cfdi_needed'):
 

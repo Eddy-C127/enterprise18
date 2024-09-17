@@ -54,7 +54,7 @@ class ResCompany(models.Model):
         help='The password used to request the seal from the PAC',
         groups='base.group_system')
     l10n_mx_edi_certificate_ids = fields.One2many(
-        comodel_name='l10n_mx_edi.certificate',
+        comodel_name='certificate.certificate',
         inverse_name='company_id',
         string='Certificates (MX)',
     )
