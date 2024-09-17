@@ -6,7 +6,7 @@
         <field name="model">documents.document</field>
         <field name="inherit_id" ref="documents.document_view_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='name']" position="before">
+            <xpath expr="//templates" position="before">
                 <field name="has_embedded_pdf"/>
             </xpath>
         </field>

@@ -84,36 +84,38 @@
                                     <div t-else="!hasStoredThumbnail" class="o_image" t-att-data-mimetype="record.mimetype.value"/>
                                 </div>
                             </div>
-                            <div class="flex-grow-1 flex-shrink-1 flex-auto">
-                                    <div t-att-title="record.name.raw_value" class="fw-bolder w-100 d-flex">
-                                        <field name="is_favorited" nolabel="1" widget="boolean_favorite"/>
-                                        <field name="name" class="text-truncate w-75" required="True" string="Document"/>
-                                        <t t-if="record.lock_uid.raw_value">
-                                            <i class="ms-5 fa fa-lock mt-1" t-att-title="record.lock_uid.value"/>
-                                        </t>
-                                    </div>
-                                    <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
+                            <div class="flex-grow-1 flex-shrink-1 flex-auto p-2">
+                                <div t-att-title="record.name.raw_value" class="fw-bolder w-100 d-flex">
+                                    <field name="is_favorited" nolabel="1" widget="boolean_favorite"/>
+                                    <field name="name" class="text-truncate w-75" required="True" string="Document"/>
+                                    <t t-if="record.lock_uid.raw_value">
+                                        <i class="ms-5 fa fa-lock mt-1" t-att-title="record.lock_uid.value"/>
+                                    </t>
+                                </div>
+                                <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
+                                    <div class="d-flex smaller text-truncate">
                                         <field name="res_model_name" class="fw-bolder"/>
                                         <t t-if="record.res_name.raw_value">
-                                            <span t-att-title="record.res_name.raw_value">: <field name="res_name"/></span>
+                                            <span t-att-title="record.res_name.raw_value" class="text-truncate">: <field name="res_name"/></span>
                                         </t>
                                         <t t-elif="fileRequest">
                                             <span class="fw-bolder"> Request</span>
                                         </t>
-                                    </t>
-                                    <t t-elif="record.type.raw_value == 'url'" class="d-block">
-                                        <field name="url" class="text-nowrap text-truncate" widget="url"/>
-                                    </t>
-                                    <t t-elif="fileRequest">
-                                        <span class="fw-bolder">Requested Document</span>
-                                    </t>
-                                    <div t-else="" class="mb-3"/>
-                                    <field name="tag_ids" class="d-block text-wrap mb-1" widget="documents_many2many_tags"/>
-                                    <footer>
-                                        <field name="activity_ids" class="d-inline-block" widget="kanban_activity"/>
-                                        <field name="owner_id" class="float-end" widget="many2one_avatar_user"/>
-                                    </footer>
+                                    </div>
+                                </t>
+                                <t t-elif="record.type.raw_value == 'url'" class="d-block">
+                                    <field name="url" class="text-nowrap text-truncate" widget="url"/>
+                                </t>
+                                <t t-elif="fileRequest">
+                                    <span class="fw-bolder">Requested Document</span>
+                                </t>
+                                <t t-else="" class="mb-3"/>
+                                <field name="tag_ids" class="d-block text-wrap mb-1" widget="documents_many2many_tags"/>
                             </div>
+                            <footer class="d-flex mb-auto p-2">
+                                <field name="activity_ids" class="d-inline-block" widget="kanban_activity"/>
+                                <field name="owner_id" class="ms-auto" widget="many2one_avatar_user"/>
+                            </footer>
                         </div>
                         <t t-if="record.is_multipage.raw_value">
                             <div class="o_kanban_stack"/>
