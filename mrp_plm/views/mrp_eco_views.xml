@@ -125,77 +125,47 @@
         <field name="name">mrp.eco.type.view.kanban</field>
         <field name="model">mrp.eco.type</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard o_mrp_plm_kanban" create="0" can_open="0">
-                <field name="name"/>
-                <field name="alias_id"/>
+            <kanban highlight_color="color" class="o_mrp_plm_kanban" create="0" can_open="0">
                 <field name="alias_name"/>
                 <field name="alias_domain"/>
-                <field name="nb_validation"/>
-                <field name="nb_approvals"/>
-                <field name="nb_approvals_my"/>
-                <field name="nb_ecos"/>
-                <field name="color"/>
                 <templates>
                     <t t-name="kanban-menu">
                         <div t-if="widget.editable" role="menuitem">
-                            <a class="dropdown-item ps-0" type="edit">Configuration</a>
+                            <a class="dropdown-item ps-0" type="open">Configuration</a>
                         </div>
                         <div t-if="widget.editable" role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
-                            <ul class="oe_kanban_colorpicker" data-field="color" role="popup"/>
+                            <field name="color" widget="kanban_color_picker"/>
                         </div>
                     </t>
-                    <t t-name="kanban-box">
-                        <div t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}">
-                            <span class="oe_kanban_color_help" t-attf-title="In #{kanban_getcolorname(record.color.raw_value)}" role="img" t-attf-aria-label="In #{kanban_getcolorname(record.color.raw_value)}"/>
-                            <div t-attf-class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary"><field name="name"/></div>
-                                    <div t-if="record.alias_name.value and record.alias_domain.value">
-                                        <small><i class="fa fa-envelope-o" role="img" aria-label="Domain alias" title="Domain alias"></i>&amp;nbsp; <field name="alias_id"/></small>
-                                    </div>
-                                </div>
+                    <t t-name="kanban-card">
+                        <field name="name" class="fw-bold fs-4 ms-2"/>
+                        <div t-if="record.alias_name.value and record.alias_domain.value" class="small ms-2">
+                            <i class="fa fa-envelope-o" role="img" aria-label="Domain alias" title="Domain alias"></i>&amp;nbsp; <field name="alias_id"/>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <button class="btn btn-primary ms-2" name="%(mrp_eco_action)d" type="action">
+                                    <span><field name="nb_ecos"/> Engineering Changes</span>
+                                </button>
                             </div>
-                            <div class="container o_kanban_card_content">
-                                <div class="row">
-                                    <div class="col-6 o_kanban_primary_left">
-                                        <button class="btn btn-primary" name="%(mrp_eco_action)d" type="action">
-                                            <span><t t-esc="record.nb_ecos.value"/> Engineering Changes</span>
-                                        </button>
-                                    </div>
-                                    <div class="col-6 o_kanban_primary_right">
-                                        <div t-if="record.nb_approvals_my.raw_value > 0" class="row">
-                                            <div class="col-9">
-                                                <a class="oe_kanban_stock_picking_type_list" name="%(mrp_eco_action_approval_my)d" type="action">
-                                                    My Validations
-                                                </a>
-                                            </div>
-                                            <div class="col-3">
-                                                <field name="nb_approvals_my"/>
-                                            </div>
-                                        </div>
-
-                                        <div t-if="record.nb_approvals.raw_value > 0" class="row">
-                                            <div class="col-9">
-                                                <a class="oe_kanban_stock_picking_type_list" name="%(mrp_eco_action_approval)d" type="action">
-                                                    All Validations
-                                                </a>
-                                            </div>
-                                            <div class="col-3">
-                                                <field name="nb_approvals"/>
-                                            </div>
-                                        </div>
-                                        <div t-if="record.nb_validation.raw_value > 0" class="row">
-                                            <div class="col-9">
-                                                <a class="oe_kanban_stock_picking_type_list" name="%(mrp_eco_action_late)d" type="action">
-                                                    To Apply
-                                                </a>
-                                            </div>
-                                            <div class="col-3">
-                                                <field name="nb_validation"/>
-                                            </div>
-                                        </div>
-
-                                    </div>
+                            <div class="col-6">
+                                <div t-if="record.nb_approvals_my.raw_value > 0" class="row">
+                                    <a class="oe_kanban_stock_picking_type_list col-9" name="%(mrp_eco_action_approval_my)d" type="action">
+                                        My Validations
+                                    </a>
+                                    <field name="nb_approvals_my" class="col-3"/>
+                                </div>
+                                <div t-if="record.nb_approvals.raw_value > 0" class="row">
+                                    <a class="col-9" name="%(mrp_eco_action_approval)d" type="action">
+                                        All Validations
+                                    </a>
+                                    <field name="nb_approvals" class="col-3"/>
+                                </div>
+                                <div t-if="record.nb_validation.raw_value > 0" class="row">
+                                    <a class="col-9" name="%(mrp_eco_action_late)d" type="action">
+                                        To Apply
+                                    </a>
+                                    <field name="nb_validation" class="col-3"/>
                                 </div>
                             </div>
                         </div>
