@@ -8,11 +8,13 @@ import { Component, onWillStart } from "@odoo/owl";
 export class Digipad extends Component {
     setup() {
         this.orm = useService('orm');
+        const context = this.props.record.evalContext.context;
         const user = useService('user');
         this.buttons = [7, 8, 9, 4, 5, 6, 1, 2, 3, '.', '0', 'erase'].map((value, index) => {
             return { index, value };
         });
         this.value = String(this.props.record.data[this.props.quantityField]);
+        this.hasDemand = context.hasDemand ?? false;
         this.precision = 2;
         onWillStart(async () => {
             this.displayUOM = await user.hasGroup('uom.group_uom');
@@ -69,7 +71,7 @@ export class Digipad extends Component {
         const record = this.props.record.data;
         const demandQty = record.quantity;
         const domain = [['product_id', '=', record.product_id[0]]];
-        if (demandQty) { // Doesn't fetch packaging with a too high quantity.
+        if (this.hasDemand && demandQty) { // Doesn't fetch packaging with a too high quantity.
             domain.push(['qty', '<=', demandQty]);
         }
         this.packageButtons = await this.orm.searchRead(

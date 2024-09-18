@@ -864,6 +864,7 @@ export default class BarcodePickingModel extends BarcodeModel {
             default_qty_done: 1,
             display_default_code: false,
             hide_unlink_button: !this.selectedLine || this.selectedLine.reserved_uom_qty,
+            hasDemand: Boolean(this.selectedLine && this.selectedLine.reserved_uom_qty),
         };
     }
 
