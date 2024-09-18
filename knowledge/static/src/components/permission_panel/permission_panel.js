@@ -93,15 +93,15 @@ export class PermissionPanel extends Component {
      * @param {Event} event
      */
     _onChangeInternalPermission (event) {
-        const $select = $(event.target);
+        const select = event.target;
         const index = this.state.members.findIndex(current => {
             return current.partner_id === user.partnerId;
         });
-        const newPermission = $select.val();
+        const newPermission = select.value;
         const oldPermission = this.state.internal_permission;
         const willRestrict = this.state.based_on && permissionLevel[newPermission] < permissionLevel[oldPermission]
                                 && permissionLevel[newPermission] < permissionLevel[this.state.parent_permission];
-        const willLoseAccess = $select.val() === 'none' && (index >= 0 && this.state.members[index].permission === 'none');
+        const willLoseAccess = select.value === 'none' && (index >= 0 && this.state.members[index].permission === 'none');
         const confirm = async () => {
             const res = await rpc('/knowledge/article/set_internal_permission',
                 {
@@ -120,7 +120,7 @@ export class PermissionPanel extends Component {
         }
 
         const discard = () => {
-            $select.val(oldPermission);
+            select.value = oldPermission;
             this.loadPanel();
         };
         const loseAccessMessage = _t('Are you sure you want to set the internal permission to "none"? If you do, you will no longer have access to the article.');
@@ -139,8 +139,8 @@ export class PermissionPanel extends Component {
         if (index < 0) {
             return;
         }
-        const $select = $(event.target);
-        const newPermission = $select.val();
+        const select = event.target;
+        const newPermission = select.value;
         const oldPermission = member.permission;
         const willLoseAccess = this.isLoggedUser(member) && newPermission === 'none';
         const willRestrict = this.state.based_on && permissionLevel[newPermission] < permissionLevel[oldPermission];
@@ -171,7 +171,7 @@ export class PermissionPanel extends Component {
         }
 
         const discard = () => {
-            $select.val(this.state.members[index].permission);
+            select.value = this.state.members[index].permission;
             this.loadPanel();
         };
         const loseAccessMessage = _t('Are you sure you want to set your permission to "none"? If you do, you will no longer have access to the article.');
@@ -328,12 +328,12 @@ export class PermissionPanel extends Component {
     }
 
     async _onChangeVisibility (event) {
-        const $input = $(event.target);
+        const input = event.target;
         const articleId = this.props.record.resId;
         await this.orm.call(
             'knowledge.article',
             'set_is_article_visible_by_everyone',
-            [articleId, $input.val() === 'everyone']
+            [articleId, input.value === 'everyone']
         );
         if (await this.props.record.isDirty()) {
             await this.props.record.save();
