@@ -55,7 +55,7 @@ patch(PosStore.prototype, {
         result.date = order.receiptDate;
         result.partner = order.isFactura()
             ? pick(
-                  order.partner,
+                  order.partner_id,
                   "name",
                   "vat",
                   "street",
