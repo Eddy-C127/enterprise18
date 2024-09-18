@@ -214,140 +214,128 @@
         <field name="name">l10n_in.gst.return.period.kanban</field>
         <field name="model">l10n_in.gst.return.period</field>
         <field name="arch" type="xml">
-            <kanban class="o_kanban_dashboard">
+            <kanban>
                 <field name="name"/>
                 <field name="company_id"/>
                 <field name="gstr1_status"/>
                 <field name="gstr2b_status"/>
-                <field name="gstr3b_status"/>
-                <field name="gstr_reference"/>
                 <field name="gstr1_blocking_level"/>
                 <field name="gstr2b_blocking_level"/>
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_global_click">
-                            <div t-attf-class="o_kanban_card_header">
-                                <div class="o_kanban_card_header_title">
-                                    <div class="o_primary">
-                                        <field name="name"/>
-                                        <span style="font-size: 13px;">
-                                            (<field name="company_id"/>)
-                                        </span>
-                                    </div>
-                                </div>
+                    <t t-name="kanban-card">
+                        <div class="ms-2">
+                            <field name="name" class="fw-bold fs-4"/>
+                            <span class="fw-bold fs-sm">
+                                (<field name="company_id"/>)
+                            </span>
+                        </div>
+                        <div class="mt-2 pb-3 row">
+                            <div class="col-5 ms-2">
+                                <h2> GSTR-1 </h2>
+                                <t t-if="record.gstr1_status.raw_value == 'to_send'">
+                                    <t t-if="record.gstr1_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">To Send</span>
+                                    </t>
+                                    <t t-elif="record.gstr1_blocking_level.raw_value == 'warning'">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">To Send</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-muted fs-xs">To Send</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr1_status.raw_value == 'sending'">
+                                    <t t-if="record.gstr1_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Sending</span>
+                                    </t>
+                                    <t t-elif="record.gstr1_blocking_level.raw_value == 'warning'">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Sending</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-success fs-xs">Sending</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr1_status.raw_value == 'waiting_for_status'">
+                                    <t t-if="record.gstr1_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Waiting for Status</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Waiting for Status</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr1_status.raw_value == 'sent'">
+                                    <t t-if="record.gstr1_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Sent</span>
+                                    </t>
+                                    <t t-elif="record.gstr1_blocking_level.raw_value == 'warning'">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Sent</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-success fs-xs">Sent</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr1_status.raw_value == 'error_in_invoice'">
+                                    <t t-if="record.gstr1_blocking_level.raw_value == 'warning'">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Error in Invoice</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Error in Invoice</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr1_status.raw_value == 'filed'">
+                                    <span class="badge rounded-pill text-bg-success fs-xs">Filed</span>
+                                </t>
                             </div>
-                            <div class="o_kanban_card_content">
-                                <div class="mt-2">
-                                    <div class="row">
-                                        <div class = "col-5">
-                                            <strong><h2> GSTR-1 </h2></strong>
-                                            <t t-if="record.gstr1_status.value == 'To Send'">
-                                                <t t-if="record.gstr1_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">To Send</span>
-                                                </t>
-                                                <t t-elif="record.gstr1_blocking_level.value == 'Warning'">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">To Send</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-muted" style="font-size: 11px;">To Send</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr1_status.value == 'Sending'">
-                                                <t t-if="record.gstr1_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Sending</span>
-                                                </t>
-                                                <t t-elif="record.gstr1_blocking_level.value == 'Warning'">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Sending</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-success" style="font-size: 11px;">Sending</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr1_status.value == 'Waiting for Status'">
-                                                <t t-if="record.gstr1_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Waiting for Status</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Waiting for Status</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr1_status.value == 'Sent'">
-                                                <t t-if="record.gstr1_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Sent</span>
-                                                </t>
-                                                <t t-elif="record.gstr1_blocking_level.value == 'Warning'">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Sent</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-success" style="font-size: 11px;">Sent</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr1_status.value == 'Error in Invoice'">
-                                                <t t-if="record.gstr1_blocking_level.value == 'Warning'">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Error in Invoice</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Error in Invoice</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr1_status.value == 'Filed'">
-                                                    <span class="badge rounded-pill text-bg-success" style="font-size: 11px;">Filed</span>
-                                            </t>
-                                        </div>
-                                        <div class = "col-5">
-                                            <strong><h2> GSTR-2B </h2></strong>
-                                            <t t-if="record.gstr2b_status.value == 'Not Recived'">
-                                                <t t-if="record.gstr2b_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Not Recived</span>
-                                                </t>
-                                                <t t-elif="record.gstr2b_blocking_level.value == 'Warning'">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Not Recived</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-muted" style="font-size: 11px;">Not Recived</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr2b_status.value == 'Waiting for Status'">
-                                                <t t-if="record.gstr2b_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Waiting for Status</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Waiting for Status</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr2b_status.value == 'Being Processed'">
-                                                <t t-if="record.gstr2b_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Being Processed</span>
-                                                </t>
-                                                <t t-elif="record.gstr2b_blocking_level.value == 'Warning'">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Being Processed</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-success" style="font-size: 11px;">Being Processed</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr2b_status.value == 'Matched'">
-                                                <t t-if="record.gstr2b_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Matched</span>
-                                                </t>
-                                                <t t-elif="record.gstr2b_blocking_level.value == 'Warning'">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Matched</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-success" style="font-size: 11px;">Matched</span>
-                                                </t>
-                                            </t>
-                                            <t t-elif="record.gstr2b_status.value == 'Partially Matched'">
-                                                <t t-if="record.gstr2b_blocking_level.value == 'Error'">
-                                                    <span class="badge rounded-pill text-bg-danger" style="font-size: 11px;">Partially Matched</span>
-                                                </t>
-                                                <t t-else="">
-                                                    <span class="badge rounded-pill text-bg-warning" style="font-size: 11px;">Partially Matched</span>
-                                                </t>
-                                            </t>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="col-5">
+                                <h2> GSTR-2B </h2>
+                                <t t-if="record.gstr2b_status.raw_value == 'not_recived'">
+                                    <t t-if="record.gstr2b_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Not Received</span>
+                                    </t>
+                                    <t t-elif="record.gstr2b_blocking_level.raw_value == 'warning'">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Not Received</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-muted fs-xs">Not Received</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr2b_status.raw_value == 'waiting_reception'">
+                                    <t t-if="record.gstr2b_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Waiting Reception</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Waiting Reception</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr2b_status.raw_value == 'being_processed'">
+                                    <t t-if="record.gstr2b_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Being Processed</span>
+                                    </t>
+                                    <t t-elif="record.gstr2b_blocking_level.raw_value == 'warning'">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Being Processed</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-success fs-xs">Being Processed</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr2b_status.raw_value == 'fully_matched'">
+                                    <t t-if="record.gstr2b_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Matched</span>
+                                    </t>
+                                    <t t-elif="record.gstr2b_blocking_level.raw_value == 'warning'">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Matched</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-success fs-xs">Matched</span>
+                                    </t>
+                                </t>
+                                <t t-elif="record.gstr2b_status.raw_value == 'partially_matched'">
+                                    <t t-if="record.gstr2b_blocking_level.raw_value == 'error'">
+                                        <span class="badge rounded-pill text-bg-danger fs-xs">Partially Matched</span>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="badge rounded-pill text-bg-warning fs-xs">Partially Matched</span>
+                                    </t>
+                                </t>
                             </div>
                         </div>
                     </t>
