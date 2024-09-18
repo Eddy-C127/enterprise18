@@ -78,10 +78,11 @@ class HrPayslip(models.Model):
                     ]
                 )
             if len(payments) == 1:
+
                 valid_accounts = self.env['account.payment']\
                     .with_context(hr_payroll_payment_register=True)\
                     ._get_valid_payment_account_types()
-                lines_to_reconcile = self.move_id.line_ids.filtered(
+                lines_to_reconcile = payslip.move_id.line_ids.filtered(
                     lambda line: line.account_id != super_account
                     and line.account_id.account_type in valid_accounts
                     and not line.currency_id.is_zero(line.amount_residual_currency)
@@ -219,7 +220,17 @@ class HrPayslip(models.Model):
             },
         }
 
-    def _l10n_au_get_year_to_date_totals(self, fields_to_compute=None, l10n_au_include_current_slip=False, include_ytd_balances=True):
+    def _l10n_au_get_year_to_date_totals(self, fields_to_compute=None, l10n_au_include_current_slip=False, include_ytd_balances=True, zero_amount=False):
+        if zero_amount:
+            fields_to_compute = fields_to_compute or []
+            salary_rules = self.env["hr.salary.rule"].search([("struct_id", "=", self.struct_id.id)])
+            work_entries = self.env["hr.work.entry.type"].search([("l10n_au_work_stp_code", "!=", False)])
+            return {
+                "slip_lines": {rule.category_id.code: {rule.code: 0.0 for rule in salary_rules} for rule in salary_rules},
+                "worked_days": {work_entry: {"amount": 0.0} for work_entry in work_entries},
+                "periods": 0,
+                "fields": dict.fromkeys(fields_to_compute, 0.0),
+            }
         totals = super()._l10n_au_get_year_to_date_totals(fields_to_compute=fields_to_compute, l10n_au_include_current_slip=l10n_au_include_current_slip)
         if include_ytd_balances:
             ytd_balances = self.env["l10n_au.payslip.ytd"].search([("employee_id", "in", self.employee_id.ids)])
@@ -231,7 +242,16 @@ class HrPayslip(models.Model):
 
         return totals
 
-    def _l10n_au_get_ytd_inputs(self, l10n_au_include_current_slip=False, include_ytd_balances=True):
+    def _l10n_au_get_ytd_inputs(self, l10n_au_include_current_slip=False, include_ytd_balances=True, zero_amount=False):
+        """ Return the year to date amounts for inputs for the payslip.
+            include_ytd_balances: Include the YTD Opening balances for the payslip.
+            zero_amount: Return the all inputs with 0 amount for zeroing STP.
+        """
+        if zero_amount:
+            input_types = self.env["hr.payslip.input.type"].search([("country_code", "=", "AU"), ("l10n_au_payroll_code", "!=", False)])
+            totals = {input_type: {"amount": 0.0} for input_type in input_types}
+            return totals
+
         totals = super()._l10n_au_get_ytd_inputs(l10n_au_include_current_slip=l10n_au_include_current_slip)
         if not include_ytd_balances:
             return totals

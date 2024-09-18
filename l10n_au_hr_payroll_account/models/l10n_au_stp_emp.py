@@ -21,18 +21,21 @@ class L10nAuSTPEmp(models.Model):
     ytd_rfba = fields.Monetary("Total RFBA", compute="_compute_ytd")
     ytd_rfbae = fields.Monetary("Total RFBA-E", compute="_compute_ytd")
 
-    @api.depends("employee_id")
+    @api.depends("employee_id", "stp_id.start_date", "stp_id.end_date")
     def _compute_ytd(self):
         for emp in self:
-            emp.payslip_ids = emp.employee_id.slip_ids.filtered(lambda p: not p.l10n_au_finalised)
+            emp.payslip_ids = emp.employee_id.slip_ids.filtered(lambda p: p.date_from >= emp.stp_id.start_date and p.date_from <= emp.stp_id.end_date)
             emp.ytd_balance_ids = self.env['l10n_au.payslip.ytd'].search([
                 ('employee_id', '=', emp.employee_id.id),
-                ('finalised', '=', False)
+                ('start_date', '=', emp.stp_id.start_date),
             ])
             last_payslip = emp.payslip_ids.sorted("date_from", reverse=True)[:1]
             ytd_vals = last_payslip._get_line_values(["BASIC", "WITHHOLD.TOTAL", "SUPER", "RFBA"], vals_list=['ytd'])
+            input_vals = last_payslip._l10n_au_get_ytd_inputs()
             emp.ytd_gross = ytd_vals["BASIC"][last_payslip.id]["ytd"]
             emp.ytd_tax = ytd_vals["WITHHOLD.TOTAL"][last_payslip.id]["ytd"]
             emp.ytd_super = ytd_vals["SUPER"][last_payslip.id]["ytd"]
-            emp.ytd_rfba = ytd_vals["RFBA"][last_payslip.id]["ytd"]
-            emp.ytd_rfbae = 0
+            rfba_input = input_vals.get(self.env.ref("l10n_au_hr_payroll.input_fringe_benefits_amount"))
+            emp.ytd_rfba = rfba_input['amount'] if rfba_input else 0
+            rfba_input = input_vals.get(self.env.ref("l10n_au_hr_payroll.input_fringe_benefits_exempt_amount"))
+            emp.ytd_rfbae = rfba_input['amount'] if rfba_input else 0

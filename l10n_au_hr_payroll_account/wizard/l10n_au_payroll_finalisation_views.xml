@@ -18,7 +18,8 @@
                             <field name="abn" />
                             <field name="branch_code" />
                             <field name="bms_id" />
-                            <field name="declaration_type" />
+                            <field name="is_eofy" />
+                            <field name="finalisation" />
                         </group>
                         <group>
                             <field name="date_start" />
@@ -30,13 +31,14 @@
                     </group>
                     <notebook>
                         <page name="employees" string="Employee Finalisation">
-                            <field name="l10n_au_payroll_finalisation_emp_ids" widget="one2many_list">
+                            <field name="l10n_au_payroll_finalisation_emp_ids" widget="one2many_list" force_save="1">
                                 <list editable="bottom" open_form_view="True">
                                     <field name="employee_id" domain="[('company_id', '=', company_id)]" options="{'no_create': True}"/>
                                     <field name="contract_id" />
-                                    <field name="contract_active" />
+                                    <field name="contract_active" optional="hide"/>
                                     <field name="contract_start_date" />
                                     <field name="contract_end_date" />
+                                    <field name="payslip_ids" />
                                 </list>
                             </field>
                         </page>

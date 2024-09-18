@@ -31,7 +31,7 @@ class L10nAuStpFfrWizard(models.TransientModel):
         payslips_to_reset.sudo().action_payslip_cancel()
         payslips_to_reset.with_context(allow_ffr=True).action_payslip_draft()
         if payslips_to_reset.payslip_run_id:
-            payslips_to_reset.payslip_run_id.state = "draft"
+            payslips_to_reset.payslip_run_id.state = "verify"
         self.stp_id.is_replaced = True
         new_stp = self.env["l10n_au.stp"].create({
             "company_id": self.stp_id.company_id.id,

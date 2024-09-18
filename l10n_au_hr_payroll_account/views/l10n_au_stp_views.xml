@@ -21,7 +21,7 @@
                     <button name="l10n_au_hr_payroll_account.l10n_au_action_submit_stp" string="Submit to ATO" type="action"
                         class="btn-primary" invisible="state in ['sent']"/>
                     <button name="action_replace_file" string="Replace File" type="object"
-                        class="btn-primary" invisible="state != 'sent' or is_replaced"/>
+                        class="btn-primary" invisible="state != 'sent' or is_replaced or payevent_type == 'update' or not is_latest"/>
                 </header>
                 <div
                     class="alert alert-warning mb-0" role="alert"
@@ -31,8 +31,27 @@
                 <sheet>
                     <div
                         class="alert alert-warning mb-2" role="alert"
-                        invisible="not is_finalisation">
-                        <span>This report is a finalisation report. Please proceed with caution.</span>
+                        invisible="not is_finalisation or state == 'sent'">
+                        <span>You are about to submit a finalisation report. Please proceed with caution.</span>
+                    </div>
+                    <div
+                        class="alert alert-warning mb-2" role="alert"
+                        invisible="not is_unfinalisation or state == 'sent'">
+                        <span>
+                            You are about to amend the finalisation of your employee records for the indicated
+                            financial year. This will remove the finalisation indicator on your employees' income
+                            statements. Please proceed with caution.
+                        </span>
+                    </div>
+                    <div
+                        class="alert alert-warning mb-2" role="alert"
+                        invisible="not is_zeroing or state == 'sent'">
+                        <span>
+                            Submitting this update event will reset all YTD values for the following
+                            employees to zero. This should only be done if you plan to re-submit
+                            existing YTD values after amending your company's key identifiers (ABN,
+                            BMS ID, Branch ID) or those of your employees (TFN, Payroll ID).
+                        </span>
                     </div>
                     <div class="alert alert-warning" role="alert" invisible="not warning_message">
                         <field name="warning_message" style="white-space: pre-wrap;"/>
@@ -42,14 +61,17 @@
                     </div>
                     <group>
                         <group>
-                            <field name="payevent_type" readonly="state == 'sent'"/>
+                            <field name="payevent_type" readonly="state == 'sent' or is_finalisation or is_unfinalisation"/>
                             <field name="submit_date" required="payevent_type == 'update'" readonly="state == 'sent'"/>
-                            <field name="payslip_batch_id" readonly="state == 'sent'" invisible="is_finalisation"/>
+                            <field name="payslip_batch_id" readonly="state == 'sent' or ffr" invisible="payevent_type != 'submit'"/>
                             <field name="previous_report_id" invisible="not ffr" required="ffr" readonly="state == 'sent'"/>
-                            <field name="ffr" invisible="payevent_type == 'adjust' or not ffr" readonly="True"/>
+                            <field name="ffr" invisible="payevent_type != 'submit' or not ffr" readonly="True"/>
+                            <field name="is_zeroing" invisible="payevent_type != 'update' or is_finalisation or is_unfinalisation" readonly="state == 'sent'"/>
                         </group>
                         <group>
                             <field name="company_id" readonly="state != 'draft'"/>
+                            <field name="start_date" invisible="payevent_type != 'update'" readonly="state != 'draft' or is_finalisation" required="payevent_type == 'update'"/>
+                            <field name="end_date" invisible="payevent_type != 'update'" readonly="state != 'draft' or is_finalisation" required="payevent_type == 'update'"/>
                         </group>
                     </group>
                     <div invisible="state == 'draft'">
@@ -61,7 +83,7 @@
                         </p>
                     </div>
                     <notebook>
-                        <page name="payslips" string="Payslips" invisible="payevent_type == 'adjust' or is_finalisation">
+                        <page name="payslips" string="Payslips" invisible="payevent_type != 'submit'">
                             <field name="payslip_ids" readonly="state == 'sent'">
                                 <list no_create="1">
                                     <field name="company_id" column_invisible="1"/>
@@ -78,8 +100,8 @@
                                 </list>
                             </field>
                         </page>
-                        <page name="employees" string="Employees to Finalize" invisible="not is_finalisation">
-                            <field name="l10n_au_stp_emp" readonly="True" >
+                        <page name="employees" string="Employees to Update" invisible="payevent_type != 'update'">
+                            <field name="l10n_au_stp_emp" readonly="is_finalisation" >
                                 <list editable="bottom" open_form_view="True">
                                     <field name="employee_id" />
                                     <field name="currency_id" column_invisible="1"/>
@@ -123,7 +145,8 @@
         <field name="model">l10n_au.stp</field>
         <field name="arch" type="xml">
             <search string="Single Touch Payroll">
-                <field name="payslip_ids" string="Employee" filter_domain="[('payslip_ids.employee_id', 'ilike', self)]"/>
+                <field name="payslip_ids" string="Employee"
+                    filter_domain="['|', ('payslip_ids.employee_id', 'ilike', self), ('l10n_au_stp_emp.employee_id', 'ilike', self)]"/>
                 <field name="payslip_batch_id"/>
                 <field name="payslip_ids"
                     filter_domain="['|', ('payslip_ids.number', 'ilike', self), ('payslip_ids.name', 'ilike', self)]"/>

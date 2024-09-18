@@ -149,7 +149,6 @@ class HrPayslip(models.Model):
     def _check_input_lines(self):
         for payslip in self:
             employee = payslip.employee_id
-
             input_director_fees = self.env.ref("l10n_au_hr_payroll.input_gross_director_fee")
             if input_director_fees in payslip.input_line_ids.mapped("input_type_id") \
                 and employee.l10n_au_income_stream_type in ["OSP", "WHM", "LAB", "VOL", "SWP"]:
@@ -157,6 +156,9 @@ class HrPayslip(models.Model):
                     "Director fees are not allowed for income stream type '%s'.",
                     employee.l10n_au_income_stream_type,
                 ))
+            lump_sum_e = self.input_line_ids.filtered(lambda x: x.input_type_id == self.env.ref("l10n_au_hr_payroll.l10n_au_lumpsum_e"))
+            if lump_sum_e and not str(lump_sum_e.name).isnumeric() and len(str(lump_sum_e.name)) != 4:
+                raise ValidationError(_("The description of input Lump Sum E should be the financial year for payment."))
 
             if (payslip.contract_id.l10n_au_salary_sacrifice_superannuation or payslip.contract_id.l10n_au_salary_sacrifice_other)\
                 and employee.l10n_au_income_stream_type in ["OSP", "LAB", "VOL"]:
@@ -233,7 +235,12 @@ class HrPayslip(models.Model):
     def _l10n_au_get_ytd_inputs(self, l10n_au_include_current_slip=False):
         inputs = defaultdict(lambda: defaultdict(float))
         year_slips = self._l10n_au_get_year_to_date_slips(l10n_au_include_current_slip=l10n_au_include_current_slip)
+        lump_sum_e = self.env.ref("l10n_au_hr_payroll.l10n_au_lumpsum_e")
         for line in year_slips.input_line_ids:
+            if line.input_type_id == lump_sum_e:
+                if not line.name.isnumeric() and len(line.name) != 4:
+                    raise UserError(_("The description of input Lump Sum E should be the financial year."))
+                inputs[line.input_type_id]["financial_year"] = line.name
             inputs[line.input_type_id]["amount"] += line.amount
         return inputs
 

@@ -27,7 +27,7 @@
                             <tns:MessageTimestampGenerationDt t-esc="employer['MessageTimestampGenerationDt']"/>
                             <tns:InteractionTransactionId t-esc="employer['InteractionTransactionId']"/>
                             <tns:AmendmentI t-esc="employer['AmendmentI']"/>
-                            <tns:IncomeTaxAndRemuneration>
+                            <tns:IncomeTaxAndRemuneration t-if="stp_id.payevent_type != 'update'">
                                 <tns:PayAsYouGoWithholdingTaxWithheldA t-esc="employer['PayAsYouGoWithholdingTaxWithheldA']"/>
                                 <tns:TotalGrossPaymentsWithholdingA t-esc="employer['TotalGrossPaymentsWithholdingA']"/>
                                 <tns:ChildSupportGarnisheeA t-esc="employer['ChildSupportGarnisheeA']"/>

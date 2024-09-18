@@ -39,6 +39,7 @@ class AccountChartTemplate(models.AbstractModel):
             "21400",  # Superannuation
             "21420",  # PAYG Withholding
             "21200",  # Trade Creditors
+            "21800",  # Other Deductions
         ]
         default_account = "62430"
 
@@ -51,6 +52,7 @@ class AccountChartTemplate(models.AbstractModel):
         schedule_1_rule_super = self.env.ref("l10n_au_hr_payroll.l10n_au_super_contribution_structure_1")
         schedule_1_rule_super_concessional = self.env.ref("l10n_au_hr_payroll.l10n_au_salary_sacrifice_structure_1")
         schedule_1_rule_child_support = self.env.ref("l10n_au_hr_payroll.l10n_au_child_support_structure_1")
+        schedule_1_deductions = self.env.ref("l10n_au_hr_payroll.l10n_au_fees_and_deductions_structure_1")
         schedule_1_rule_expense_refund = self.env.ref("l10n_au_hr_payroll_account.l10n_au_salary_expense_refund_structure_1")
         schedule_1_rule_net = self.env['hr.salary.rule'].search([
             ('struct_id', '=', structure_schedule_1.id),
@@ -82,6 +84,10 @@ class AccountChartTemplate(models.AbstractModel):
                 "credit": "62460",
                 "debit": "21500",
                 "credit_tags": "+W1",
+            },
+            schedule_1_deductions: {
+                "debit": "21800",
+                "credit": "62430",
             },
             schedule_1_rule_expense_refund: {
                 "credit": "21300",

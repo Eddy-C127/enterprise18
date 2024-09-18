@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="input_leave_loading_lump" model="hr.payslip.input.type">
-        <field name="name">Leave loading lump sum</field>
+        <field name="name">Leave Loading Lump Sum</field>
         <field name="code">BBC</field>
         <field name="country_id" ref="base.au"/>
         <field name="l10n_au_payment_type">leave</field>
         <field name="l10n_au_superannuation_treatment">ote</field>
         <field name="l10n_au_payroll_code">O</field>
+    </record>
+
+    <record id="l10n_au_lumpsum_e" model="hr.payslip.input.type">
+        <field name="name">Lump Sum E</field>
+        <field name="code">BBC</field>
+        <field name="country_id" ref="base.au"/>
+        <field name="l10n_au_payment_type">lump_sum</field>
+        <field name="l10n_au_superannuation_treatment">ote</field>
+        <field name="l10n_au_paygw_treatment">no_paygw</field>
+        <field name="l10n_au_payroll_code">E</field>
     </record>
 
     <!-- Bonus/Commissions -->
@@ -60,7 +70,7 @@
     </record>
 
     <record id="input_fees" model="hr.payslip.input.type">
-        <field name="name">Fees</field>
+        <field name="name">Union and professional association fees</field>
         <field name="code">F</field>
         <field name="country_id" ref="base.au"/>
         <field name="l10n_au_payment_type">deduction</field>
@@ -659,7 +669,7 @@
     <record id="input_voluntary_reportable_employer_superannuation_contribution" model="hr.payslip.input.type">
         <field name="name">Voluntary Reportable Employer Superannuation Contribution</field>
         <field name="country_id" ref="base.au"/>
-        <field name="code">SS.O</field>
+        <field name="code">VSC</field>
         <field name="l10n_au_payment_type">other</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_paygw_treatment">no_paygw</field>
@@ -668,7 +678,7 @@
 
     <!-- Payment for TOIL Cashed Out in Service -->
     <record id="input_toil_cashed_out_in_service" model="hr.payslip.input.type">
-        <field name="name">Cashing out TOIL</field>
+        <field name="name">Cashing out time off in lieu (TOIL)</field>
         <field name="code">EXTRA</field>
         <field name="country_id" ref="base.au"/>
         <field name="l10n_au_payment_type">other</field>
@@ -679,7 +689,7 @@
 
     <!-- Payment for Leaves Cashed Out in Service -->
     <record id="input_leaves_cashed_out_in_service" model="hr.payslip.input.type">
-        <field name="name">Cashing out Leaves</field>
+        <field name="name">Cashing out leaves (annual, long service, personal or RDO)</field>
         <field name="code">EXTRA</field>
         <field name="country_id" ref="base.au"/>
         <field name="l10n_au_payment_type">leave</field>
@@ -696,6 +706,23 @@
         <field name="l10n_au_payment_type">other</field>
         <field name="l10n_au_superannuation_treatment">not_salary</field>
         <field name="l10n_au_payroll_code">R</field>
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Salary Sacrifice: Superannuation -->
+    <record id="input_salary_sacrifice_superannuation" model="hr.payslip.input.type">
+        <field name="name">Salary Sacrifice: Superannuation</field>
+        <field name="country_id" ref="base.au"/>
+        <field name="code">SS.S</field>
+        <field name="l10n_au_payment_type">other</field>
+        <field name="l10n_au_superannuation_treatment">not_salary</field>
+    </record>
+    <record id="input_salary_sacrifice_other" model="hr.payslip.input.type">
+        <field name="name">Salary Sacrifice: Other Benefits</field>
+        <field name="country_id" ref="base.au"/>
+        <field name="code">SS.O</field>
+        <field name="l10n_au_payment_type">other</field>
+        <field name="l10n_au_superannuation_treatment">not_salary</field>
     </record>
 
     <!-- Fringe Benefits Amount -->
@@ -705,6 +732,13 @@
         <field name="code">FBT</field>
         <field name="l10n_au_payment_type">other</field>
         <field name="l10n_au_payroll_code">T</field>
+    </record>
+    <record id="input_fringe_benefits_exempt_amount" model="hr.payslip.input.type">
+        <field name="name">Fringe Benefits Amount - Exempt</field>
+        <field name="country_id" ref="base.au"/>
+        <field name="code">FBT</field>
+        <field name="l10n_au_payment_type">other</field>
+        <field name="l10n_au_payroll_code">E</field>
     </record>
 
     <!-- Payroll code is added according to the period U, T, B, or R-->

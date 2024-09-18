@@ -35,6 +35,14 @@ class L10nAuSTP(models.Model):
     _order = "create_date desc"
     _inherit = ["mail.thread", "mail.activity.mixin"]
 
+    def _default_start_date(self):
+        start, _ = date_utils.get_fiscal_year(
+                fields.Date.today(),
+                self.env.company.fiscalyear_last_day,
+                int(self.env.company.fiscalyear_last_month),
+            )
+        return start
+
     name = fields.Char(string="Name", compute="_compute_name", store=True)
     payslip_batch_id = fields.Many2one("hr.payslip.run", string="Payslip Batch")
     payslip_ids = fields.Many2many("hr.payslip", string="Payslip")
@@ -46,13 +54,12 @@ class L10nAuSTP(models.Model):
         readonly=True,
     )
     payevent_type = fields.Selection(
-        [("submit", "Submit"), ("adjust", "Adjust"), ("update", "Update")],
+        [("submit", "Submit"), ("update", "Update")],
         string="Submission Type",
         required=True,
         default="submit",
         help="""Submission type of the report
                 Submit: Submit a new report
-                Adjust: Adjust an Employer Record
                 Update: Update an Employee Record from a past report""",
     )
     ffr = fields.Boolean(
@@ -60,11 +67,15 @@ class L10nAuSTP(models.Model):
         help="Indicates if this report should replace the previous report with the same transaction identifier")
     is_replaced = fields.Boolean("Is Replaced")
     file_replacement_message = fields.Char(readonly=True, compute="_compute_file_replacement_message")
+    is_latest = fields.Boolean("Is Latest", compute="_compute_is_latest", store=False)
     previous_report_id = fields.Many2one(
         "l10n_au.stp", string="Previous Report",
         help="Report which you are updating")
     submit_date = fields.Date(
         string="Submit Date",
+        compute="_compute_submit_date",
+        store=True,
+        readonly=False,
         help="Enter manual submit date if you want to submit the report at a particular date")
     submission_id = fields.Char(
         string="Submission ID",
@@ -83,6 +94,10 @@ class L10nAuSTP(models.Model):
     warning_message = fields.Char(compute="_compute_warning_message")
     l10n_au_stp_emp = fields.One2many("l10n_au.stp.emp", "stp_id", string="Employees")
     is_finalisation = fields.Boolean(readonly=True)
+    is_unfinalisation = fields.Boolean(readonly=True)
+    start_date = fields.Date("Start Date", inverse="_fiscal_start_date", default=_default_start_date)
+    end_date = fields.Date("End Date", compute="_compute_end_date", store=True, readonly=False)
+    is_zeroing = fields.Boolean("Zero Out YTD")
 
     # constraints ffr, cannot be true if type is update
     _sql_constraints = [
@@ -100,6 +115,24 @@ class L10nAuSTP(models.Model):
             )
         return res
 
+    def _fiscal_start_date(self):
+        for rec in self:
+            if rec.start_date and rec.payevent_type == "update":
+                fiscal_year_last_month = int(rec.company_id.fiscalyear_last_month)
+                start_year = rec.start_date.year
+                # Start is previous year
+                if rec.start_date.month <= fiscal_year_last_month:
+                    start_year -= 1
+                if fiscal_year_last_month == 12:
+                    fiscal_year_last_month = 0
+                rec.start_date = rec.start_date.replace(day=1, month=fiscal_year_last_month + 1, year=start_year)
+                rec.end_date = rec.start_date + timedelta(days=364)
+
+    @api.depends("start_date")
+    def _compute_end_date(self):
+        for rec in self:
+            rec.end_date = rec.start_date + timedelta(days=364)
+
     @api.depends("payslip_ids", "payslip_batch_id")
     def _compute_currency_id(self):
         for report in self:
@@ -108,18 +141,36 @@ class L10nAuSTP(models.Model):
             else:
                 report.currency_id = report.payslip_ids[:1].currency_id
 
-    @api.depends("payslip_batch_id", "payslip_ids", "payevent_type")
+    @api.depends("payslip_batch_id", "payslip_ids", "payevent_type", "is_zeroing", "is_finalisation")
     def _compute_name(self):
         for report in self:
             if report.is_finalisation:
                 report.name = report.name
+            elif report.is_zeroing:
+                report.name = _("Zeroing YTD - %s", report.company_id.name)
+            elif report.payevent_type == "update":
+                report.name = _("Update Event - %s", report.start_date)
             elif report.payslip_batch_id:
                 report.name = report.payslip_batch_id.name
             else:
                 period = self.payslip_ids and self.payslip_ids[0]._get_period_name({})
-                report.name = f"Out of Cycle Reporting - {period}"
+                report.name = _("Out of Cycle Reporting - %s", period)
             if report.ffr:
                 report.name += " (FFR)"
+
+    @api.depends("payevent_type", "l10n_au_stp_emp")
+    def _compute_submit_date(self):
+        for report in self:
+            if report.payevent_type == "submit":
+                if report.payslip_ids:
+                    report.submit_date = report.payslip_batch_id.date_end if report.payslip_batch_id else report.payslip_ids[0].date_to
+            elif report.payevent_type == "update":
+                if not report.l10n_au_stp_emp:
+                    report.submit_date = date.today()
+                elif report._is_for_current_fiscal_year():
+                    report.submit_date = fields.Date.today()
+                else:
+                    report.submit_date = report.l10n_au_stp_emp.payslip_ids.sorted("date_from")[-1].date_to
 
     def _compute_warning_message(self):
         for report in self:
@@ -149,6 +200,10 @@ class L10nAuSTP(models.Model):
             elif replacement_report or (report.is_replaced and report.previous_report_id):
                 report.file_replacement_message = _("This submission has been replaced by %s. Please check the new report.", (replacement_report.name))
 
+    def _compute_is_latest(self):
+        for report in self:
+            report.is_latest = self.search([("state", "=", "sent")], order="id desc", limit=1) == report
+
     def _get_fiscal_year_start(self):
         self.ensure_one()
         slips = self.payslip_ids if self.payevent_type == 'submit' else self.l10n_au_stp_emp.payslip_ids
@@ -162,7 +217,7 @@ class L10nAuSTP(models.Model):
     @api.constrains("submit_date", "payevent_type")
     def _check_submit_date(self):
         for report in self:
-            if report.payevent_type == "update" and report.submit_date:
+            if report.payevent_type == "update" and report.submit_date and report.l10n_au_stp_emp:
                 fiscal_start, fiscal_end = report._get_fiscal_year_start()
                 if report.submit_date < fiscal_start or report.submit_date > fiscal_end:
                     raise ValidationError(_("An update event must be submitted within the same fiscal year."))
@@ -210,7 +265,7 @@ class L10nAuSTP(models.Model):
         # == Date and Run Date ==
         if self.payevent_type == "submit":
             run_date = self.payslip_batch_id.payment_report_date or self.create_date
-            submit_date = self.payslip_batch_id.payment_report_date or self.create_date
+            submit_date = self.payslip_batch_id.payment_report_date or self.create_date.date()
         elif self.payevent_type == "update":
             submit_date = self.submit_date
             run_date = self.create_date
@@ -219,7 +274,7 @@ class L10nAuSTP(models.Model):
         line_codes = ["BASIC", "WITHHOLD.TOTAL", "CHILD.SUPPORT", "CHILD.SUPPORT.GARNISHEE", "SUPER", "SUPER.CONTRIBUTION", "OTE", "RFBA", "ETP.WITHHOLD", "ETP.TAXABLE", "ETP.TAXFREE"]
         all_line_values = payslips_ids._get_line_values(line_codes, vals_list=['total', 'ytd'], compute_sum=True)
         extra_data = {
-            "PaymentRecordTransactionD": submit_date.date(),
+            "PaymentRecordTransactionD": submit_date,
             "MessageTimestampGenerationDt": run_date.isoformat(),
         }
         if self.payevent_type == "submit":
@@ -235,6 +290,8 @@ class L10nAuSTP(models.Model):
         min_date = date(1950, 1, 1)
         for employee in employees:
             payslips = payslips_ids.filtered(lambda p: p.employee_id == employee)
+            if self.payevent_type == "update":
+                payslips = payslips.sorted("date_from", reverse=True)[:1]
             if len(payslips) > 1:
                 raise ValidationError(_("Employee %s has more than one payslip in the report.", (employee.name)))
             fields_to_compute = [
@@ -245,8 +302,8 @@ class L10nAuSTP(models.Model):
                 "l10n_au_extra_negotiated_super",
                 "l10n_au_extra_compulsory_super",
             ]
-            employee_ytd = payslips._l10n_au_get_year_to_date_totals(fields_to_compute=fields_to_compute)
-            employee_input_totals = payslips._l10n_au_get_ytd_inputs()
+            employee_ytd = payslips._l10n_au_get_year_to_date_totals(fields_to_compute=fields_to_compute, zero_amount=self.is_zeroing)
+            employee_input_totals = payslips._l10n_au_get_ytd_inputs(zero_amount=self.is_zeroing)
 
             start_date = max(min_date, employee.first_contract_date) or unknown_date
             remunerations = []
@@ -299,7 +356,7 @@ class L10nAuSTP(models.Model):
                 Remuneration["OvertimePaymentA"] = sum([line[1]['amount'] for line in overtime_lines] + [ot[1]['amount'] for ot in overtime_inputs])
 
                 # == Bonuses and commissions ==
-                bonus_commissions_lines = filter(lambda item: item[0].code == "BBC", employee_input_totals.items())
+                bonus_commissions_lines = filter(lambda item: item[0].l10n_au_payroll_code == "Bonus and Commissions", employee_input_totals.items())
                 Remuneration["GrossBonusesAndCommissionsA"] = sum(bonus[1]['amount'] for bonus in bonus_commissions_lines)
                 # == Directors fees ==
                 directors_fee_input_type = self.env.ref("l10n_au_hr_payroll.input_gross_director_fee")
@@ -328,6 +385,8 @@ class L10nAuSTP(models.Model):
                         "TypeC": input_type.l10n_au_payroll_code,
                         "PaymentsA": lump_sum['amount'],
                     })
+                    if input_type.l10n_au_payroll_code == "E":
+                        Remuneration["LumpSumCollection"][-1]["FinancialY"] = lump_sum.get("financial_year")
 
                 # == Termination Payments ==
                 Remuneration["EmploymentTerminationPaymentCollection"] = []
@@ -403,7 +462,7 @@ class L10nAuSTP(models.Model):
                 # == Super Contribution ==
                 contributions = []
                 # OTE Entitlement
-                ote = employee_ytd["slip_lines"]['OTE']['total']
+                ote = employee_ytd["slip_lines"]['OTE']['OTE']
                 if ote:
                     contributions.append({
                         "EntitlementTypeC": "O",
@@ -414,24 +473,24 @@ class L10nAuSTP(models.Model):
                 if super_liability:
                     contributions.append({
                         "EntitlementTypeC": "L",
-                        "EmployerContributionsYearToDateA": super_liability,
+                        "EmployerContributionsYearToDateA": round(super_liability, 2),
                     })
                 # RESC
                 super_contribution = employee_ytd["slip_lines"]["SALARY.SACRIFICE"]["SUPER.CONTRIBUTION"] - employee_ytd["fields"]["l10n_au_extra_compulsory_super"]
                 if super_contribution:
                     contributions.append({
                         "EntitlementTypeC": "R",
-                        "EmployerContributionsYearToDateA": super_contribution,
+                        "EmployerContributionsYearToDateA": round(super_contribution, 2),
                     })
 
                 # == Reportable Fringe Benefits ==
                 benefits = []
-                rfba = employee_ytd["slip_lines"]["BENEFITS"]["RFBA"]
-                rfba_input = self.env.ref("l10n_au_hr_payroll.input_fringe_benefits_amount")
-                if rfba:
+                # rfba = employee_ytd["slip_lines"]["BENEFITS"]["RFBA"]
+                rfba_input = filter(lambda item: item[0].code == 'FBT', employee_input_totals.items())
+                for input_type, rfba in rfba_input:
                     benefits.append({
-                        "FringeBenefitsReportableExemptionC": rfba_input.l10n_au_payroll_code,
-                        "A": rfba,
+                        "FringeBenefitsReportableExemptionC": input_type.l10n_au_payroll_code,
+                        "A": rfba['amount'],
                     })
 
             employee_data = {
@@ -581,7 +640,7 @@ class L10nAuSTP(models.Model):
         # The XML file is generated and validated in parts since the employer record and employee records are
         # delimiter separated and do not have a root tag and do not satisfy the XML standards.
         parent_delimiter = delimiter.format('1.1', 'PARENT', 'PAYEVNT', '').encode('utf-8')
-        parent_report = self.env['ir.qweb']._render('l10n_au_hr_payroll_account.payevent_0004_xml_report', {'employer': employer, 'intermediary': intermediary})
+        parent_report = self.env['ir.qweb']._render('l10n_au_hr_payroll_account.payevent_0004_xml_report', {'employer': employer, 'intermediary': intermediary, 'stp_id': self})
         parent_report, message = self._prettify_validate_xml(parent_report, 'l10n_au_payevnt_0004')
         report = parent_delimiter + parent_report
 

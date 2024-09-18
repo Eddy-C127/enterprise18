@@ -65,7 +65,7 @@
                         <field name="l10n_au_child_support_deduction"/>
                         <field name="l10n_au_child_support_garnishee_amount" widget="percentage"/>
                         <field name="l10n_au_nat_3093_amount"
-                            invisible="not (l10n_au_tax_treatment_category == 'R' and l10n_au_tax_free_threshold) or l10n_au_tax_treatment_category != 'S'" />
+                            invisible="(l10n_au_tax_treatment_category != 'R' or not l10n_au_tax_free_threshold) and l10n_au_tax_treatment_category != 'S'" />
                         <field name="l10n_au_extra_pay"/>
                         <label for="l10n_au_withholding_variation"/>
                         <div class="d-flex align-items-baseline">

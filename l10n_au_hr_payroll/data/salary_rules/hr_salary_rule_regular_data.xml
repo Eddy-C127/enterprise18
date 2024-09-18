@@ -53,9 +53,13 @@ result_name = inputs['EXTRA'].name
         <field name="code">SALARY.SACRIFICE.TOTAL</field>
         <field name="sequence">60</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer - contract.l10n_au_salary_sacrifice_superannuation</field>
+        <field name="condition_python">
+sacrifice_other = "SS.O" in inputs and inputs["SS.O"].amount or 0
+result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer - contract.l10n_au_salary_sacrifice_superannuation - sacrifice_other
+        </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
+sacrifice_other = "SS.O" in inputs and inputs["SS.O"].amount or 0
 result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer - contract.l10n_au_salary_sacrifice_superannuation
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
@@ -148,10 +152,11 @@ result_name = inputs['BBC'].name
         <field name="code">SALARY.SACRIFICE.OTHER</field>
         <field name="sequence">75</field>
         <field name="condition_select">python</field>
-        <field name="condition_python">result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer</field>
+        <field name="condition_python">result = (-contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer) or "SS.O" in inputs</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer
+sacrifice_other = "SS.O" in inputs and inputs["SS.O"].amount or 0
+result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_giving_employer - sacrifice_other
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
@@ -166,6 +171,19 @@ result = -contract.l10n_au_salary_sacrifice_other - contract.l10n_au_workplace_g
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = -contract.l10n_au_workplace_giving
+        </field>
+        <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
+    </record>
+    <record id="l10n_au_fees_and_deductions_structure_1" model="hr.salary.rule">
+        <field name="category_id" ref="l10n_au_hr_payroll.rule_category_deductible_expense"/>
+        <field name="name">Fees and Deductions</field>
+        <field name="code">FEES</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = "F" in inputs</field>
+        <field name="sequence">80</field>
+        <field name="amount_select">code</field>
+        <field name="amount_python_compute">
+result = -inputs['F'].amount
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
@@ -538,11 +556,12 @@ result = -payslip._l10n_au_compute_child_support(net_salary) + result_rules['CHI
         <field name="condition_select">python</field>
         <field name="condition_python">
 result = contract.l10n_au_salary_sacrifice_superannuation or contract.l10n_au_extra_negotiated_super \
-    or contract.l10n_au_extra_compulsory_super or "SS.O" in inputs
+    or contract.l10n_au_extra_compulsory_super or "SS.S" in inputs or "VSC" in inputs
         </field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-sacrifice = "SS.O" in inputs and inputs["SS.O"].amount or 0
+sacrifice = "SS.S" in inputs and inputs["SS.S"].amount or 0
+sacrifice += "VSC" in inputs and inputs["VSC"].amount or 0
 extra_super = categories['OTE'] * (payslip.l10n_au_extra_negotiated_super + payslip.l10n_au_extra_compulsory_super)
 result = contract.l10n_au_salary_sacrifice_superannuation + extra_super + sacrifice
         </field>
@@ -571,8 +590,7 @@ result = categories['OTE'] * rate/100
         <field name="condition_python">result = 'FBT' in inputs</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
-result = inputs['FBT'].amount
-result_name = inputs['FBT'].name
+result = sum(payslip.input_line_ids.filtered(lambda l: l.input_type_id.code == 'FBT').mapped('amount'))
         </field>
         <field name="struct_id" ref="l10n_au_hr_payroll.hr_payroll_structure_au_regular"/>
     </record>
