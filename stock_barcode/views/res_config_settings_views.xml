@@ -45,6 +45,14 @@
                 <setting id="count_entire_location" help="When scanning a location in inventory adjustments, you will be assigned to count all products from this location" invisible="group_stock_multi_locations == False">
                     <field name="group_barcode_count_entire_location"/>
                 </setting>
+                <setting id="mute_sound_notifications" groups="base.group_no_one"
+                         help="Disable sound effect while scanning a barcode.">
+                    <field name="stock_barcode_mute_sound_notifications"/>
+                </setting>
+                <setting id="max_time_between_keys_in_ms" groups="base.group_no_one"
+                         help="Set the maximum delay between each key in ms (100 ms by default.)">
+                    <field name="barcode_max_time_between_keys_in_ms"/>
+                </setting>
             </xpath>
         </field>
     </record>
