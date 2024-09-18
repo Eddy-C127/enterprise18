@@ -39,7 +39,7 @@
                     <div class="flex-grow-1 position-relative">
                         <div class="d-flex flex-column h-100">
                             <!-- Article header -->
-                            <div class="o_knowledge_header d-sm-flex flex-row justify-content-between border-bottom">
+                            <header class="o_knowledge_header d-sm-flex flex-row justify-content-between border-bottom">
                                 <div class="d-flex align-items-center p-3">
                                     <!-- Title -->
                                     <t t-if="article">
@@ -54,7 +54,7 @@
                                         <t t-set="_link_class" t-valuef="nav-link fw-bold"/>
                                     </t>
                                 </div>
-                            </div>
+                            </header>
                             <div class="p-3 text-center" t-if="not article">
                                 <p class="o_view_nocontent_empty_folder">
                                     <h2>Article not found</h2>
@@ -62,7 +62,7 @@
                                     <p>The article you are trying the read has either been removed or you do not have access to it.</p>
                                 </p>
                             </div>
-                            <div class="flex-grow-1 position-relative" t-else="">
+                            <main class="flex-grow-1 position-relative" t-else="">
                                 <div class="o_scroll_view">
                                     <!-- Article Cover -->
                                     <div t-if="article.cover_image_id" class="o_knowledge_cover">
@@ -77,7 +77,7 @@
                                         <t t-out="article.body" />
                                     </div>
                                 </div>
-                            </div>
+                            </main>
                         </div>
                         <div class="o_knowledge_article_form_resizer d-print-none d-none d-sm-block opacity-75 opacity-100-hover">
                             <span class="bg-300 pe-1"/>
