@@ -36,6 +36,7 @@ class TestSpreadsheetDashboard(DashboardTestCommon, SpreadsheetTestCase):
         self.assertEqual(locale_revision["serverRevisionId"], snapshot["revisionId"])
         self.assertEqual(locale_revision["commands"][0]["type"], "UPDATE_LOCALE")
         self.assertEqual(locale_revision["commands"][0]["locale"]["code"], "en_US")
+        self.assertEqual(locale_revision["commands"][0]["locale"]["weekStart"], 7)
 
         self.env.ref("base.lang_fr").active = True
         self.user.lang = "fr_FR"
@@ -51,6 +52,7 @@ class TestSpreadsheetDashboard(DashboardTestCommon, SpreadsheetTestCase):
         self.assertEqual(locale_revision["serverRevisionId"], snapshot["revisionId"])
         self.assertEqual(locale_revision["commands"][0]["type"], "UPDATE_LOCALE")
         self.assertEqual(locale_revision["commands"][0]["locale"]["code"], "fr_FR")
+        self.assertEqual(locale_revision["commands"][0]["locale"]["weekStart"], 1)
 
     def test_load_with_company_currency(self):
         dashboard = self.create_dashboard().with_user(self.user)

@@ -48,6 +48,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
                 "date_format": "%d-%m-%Y",
                 "time_format": "%H %M %S",
                 "active": True,
+                "week_start": "1",
             }
         )
         user = self.env['res.users'].create({
@@ -70,6 +71,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             "dateFormat": "dd-mm-yyyy",
             "timeFormat": "hh mm ss",
             "formulaArgSeparator": ";",
+            "weekStart": 1,
         }
         self.assertEqual(data["settings"]["locale"], expected_locale)
 
