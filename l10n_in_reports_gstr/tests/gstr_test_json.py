@@ -1,4 +1,5 @@
 from datetime import date
+from dateutil.relativedelta import relativedelta
 TEST_DATE = date(2023, 5, 20)
 gstr1_test_json = {
   'gstin': '24AAGCC7144L6ZE',
@@ -1004,6 +1005,158 @@ gstr2b_test_json = {
               }
             ]
           }
+        ]
+      }
+    }
+  }
+}
+
+gstr2b_late_reconciliation_data = {
+  "chksum": "ADFADRGA4GADFADGERER",
+  "data": {
+    "data": {
+      "gstin": "01AABCE2207R1Z5",
+      "rtnprd": TEST_DATE.strftime("%m%Y"),
+      "version": "1.0",
+      "gendt": TEST_DATE.strftime("%d-%m-%Y"),
+      "docdata": {
+        "b2b": [
+          {
+            "ctin": "27BBBFF5679L8ZR",
+            "trdnm": "Tiny Erp Private Limited",
+            "supfildt": TEST_DATE.strftime("%d-%m-%Y"),
+            "supprd": TEST_DATE.strftime("%m%Y"),
+            "inv": [
+              {
+                "inum": "BILL/001",
+                "typ": "R",
+                "dt": (TEST_DATE - relativedelta(months=1)).strftime("%d-%m-%Y"),
+                "val": 118.0,
+                "pos": "06",
+                "rev": "N",
+                "itcavl": "N",
+                "rsn": "P",
+                "diffprcnt": 1,
+                "items": [
+                  {
+                    "num": 1,
+                    "rt": 18,
+                    "txval": 100.0,
+                    "igst": 18.0,
+                    "cgst": 0,
+                    "sgst": 0,
+                    "cess": 0
+                  }
+                ]
+              },
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
+
+gstr2b_reconciliation_different_partner = {
+  "chksum": "ADFADRGA4GADFADGERER",
+  "data": {
+    "data": {
+      "gstin": "01AABCE2207R1Z5",
+      "rtnprd": TEST_DATE.strftime("%m%Y"),
+      "version": "1.0",
+      "gendt": TEST_DATE.strftime("%d-%m-%Y"),
+      "docdata": {
+        "b2b": [
+          {
+            "ctin": "24WXYZM1234E1ZE",
+            "trdnm": "Partner A",
+            "supfildt": TEST_DATE.strftime("%d-%m-%Y"),
+            "supprd": TEST_DATE.strftime("%m%Y"),
+            "inv": [
+              {
+                "inum": "BILL/001",
+                "typ": "R",
+                "dt": TEST_DATE.strftime("%d-%m-%Y"),
+                "val": 944.0,
+                "pos": "06",
+                "rev": "N",
+                "itcavl": "N",
+                "rsn": "P",
+                "diffprcnt": 1,
+                "items": [
+                  {
+                    "num": 1,
+                    "rt": 18,
+                    "txval": 800,
+                    "igst": 944,
+                    "cgst": 0,
+                    "sgst": 0,
+                    "cess": 0
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "ctin": "27BBBFF5679L8ZR",
+            "trdnm": "Partner B",
+            "supfildt": TEST_DATE.strftime("%d-%m-%Y"),
+            "supprd": TEST_DATE.strftime("%m%Y"),
+            "inv": [
+              {
+                "inum": "BILL/001",
+                "typ": "R",
+                "dt": TEST_DATE.strftime("%d-%m-%Y"),
+                "val": 944.0,
+                "pos": "06",
+                "rev": "N",
+                "itcavl": "N",
+                "rsn": "P",
+                "diffprcnt": 1,
+                "items": [
+                  {
+                    "num": 1,
+                    "rt": 18,
+                    "txval": 800,
+                    "igst": 944,
+                    "cgst": 0,
+                    "sgst": 0,
+                    "cess": 0
+                  }
+                ]
+              },
+            ]
+          },
+          {
+            "ctin": "33AAACZ4322M1AC",
+            "trdnm": "Partner C",
+            "supfildt": TEST_DATE.strftime("%d-%m-%Y"),
+            "supprd": TEST_DATE.strftime("%m%Y"),
+            "inv": [
+              {
+                "inum": "BILL/001",
+                "typ": "R",
+                "dt": TEST_DATE.strftime("%d-%m-%Y"),
+                "val": 105.0,
+                "pos": "06",
+                "rev": "N",
+                "itcavl": "N",
+                "rsn": "P",
+                "diffprcnt": 1,
+                "items": [
+                  {
+                    "num": 1,
+                    "rt": 5,
+                    "txval": 100,
+                    "igst": 5,
+                    "cgst": 0,
+                    "sgst": 0,
+                    "cess": 0
+                  }
+                ]
+              }
+            ]
+          },
         ]
       }
     }
