@@ -117,12 +117,6 @@ class MrpProductionSchedule(models.Model):
 
         return [('id', operator, ids)]
 
-    @api.constrains('batch_size')
-    def _ensure_batch_size_is_positive(self):
-        for record in self:
-            if record.batch_size <= 0:
-                raise ValidationError(_('Batch size must be positive.'))
-
     def action_open_actual_demand_details(self, date_str, date_start_str, date_stop_str):
         """ Open the picking list view for the actual demand for the current
         schedule.
@@ -725,7 +719,7 @@ class MrpProductionSchedule(models.Model):
             values['route_ids'] = self.route_id
         if self.supplier_id and self.show_vendor:
             values['supplierinfo_id'] = self.supplier_id
-        if self.enable_batch_size:
+        if self.enable_batch_size and self.batch_size > 0:
             values['batch_size'] = self.batch_size
         return values
 
