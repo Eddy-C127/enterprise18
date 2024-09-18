@@ -43,6 +43,10 @@ class Document(models.Model):
     _inherit = ["documents.document", "spreadsheet.mixin"]
 
     spreadsheet_binary_data = fields.Binary(compute='_compute_spreadsheet_binary_data', inverse='_inverse_spreadsheet_binary_data', default=None)
+    spreadsheet_thumbnail_checksum = fields.Char(
+        compute='_compute_spreadsheet_thumbnail_checksum',
+        export_string_translation=False
+    )
 
     handler = fields.Selection(
         [("spreadsheet", "Spreadsheet")], ondelete={"spreadsheet": "cascade"}
@@ -99,6 +103,22 @@ class Document(models.Model):
                     "datas": document.spreadsheet_binary_data,
                     "mimetype": "application/o-spreadsheet"
                 })
+
+    @api.depends("thumbnail")
+    def _compute_spreadsheet_thumbnail_checksum(self):
+        spreadsheets = self.filtered(lambda doc: doc.handler == "spreadsheet")
+        thumbnails = self.env["ir.attachment"].search([
+            ("res_model", "=", self._name),
+            ("res_field", "=", "thumbnail"),
+            ("res_id", "in", spreadsheets.ids),
+        ])
+        thumbnails_by_documents = thumbnails.grouped("res_id")
+        for document in self:
+            thumbnail = thumbnails_by_documents.get(document.id)
+            if thumbnail:
+                document.spreadsheet_thumbnail_checksum = thumbnail.checksum
+            else:
+                document.spreadsheet_thumbnail_checksum = False
 
     @api.depends("checksum", "handler")
     def _compute_thumbnail(self):

@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <xpath expr="//templates" position="before">
                 <field name="handler"/>
-                <field name="current_revision_uuid"/>
+                <field name="spreadsheet_thumbnail_checksum"/>
             </xpath>
             <xpath expr="//div[@name='document_preview']" position="before">
                 <t t-set="isSpreadsheet" t-value="record.handler.raw_value === 'spreadsheet'"/>
@@ -20,7 +20,7 @@
             </xpath>
             <xpath expr="(//div[@name='document_preview']/div)[last()]" position="before">
                 <div t-elif="isSpreadsheet" class="o_attachment_image o_documents_image">
-                    <t t-set="unique" t-value="record.current_revision_uuid.raw_value.slice(-8)"/>
+                    <t t-set="unique" t-value="record.spreadsheet_thumbnail_checksum.raw_value.slice(-8)"/>
                     <img t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;unique=#{unique}" alt="Spreadsheet Preview"/>
                 </div>
             </xpath>

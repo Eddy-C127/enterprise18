@@ -889,3 +889,25 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.assertTrue(image)
         spreadsheet.unlink()
         self.assertFalse(image.exists())
+
+    def test_spreadsheet_thumbnail_checksum(self):
+        spreadsheet = self.create_spreadsheet()
+        self.assertFalse(spreadsheet.spreadsheet_thumbnail_checksum)
+        spreadsheet.thumbnail = GIF
+        thumbnail_attachment = self.env["ir.attachment"].search([
+            ("res_model", "=", "documents.document"),
+            ("res_field", "=", "thumbnail"),
+            ("res_id", "=", spreadsheet.id),
+        ])
+        self.assertTrue(
+            spreadsheet.spreadsheet_thumbnail_checksum,
+            thumbnail_attachment.checksum
+        )
+
+    def test_spreadsheet_thumbnail_checksum_other_document(self):
+        document = self.env["documents.document"].create({
+            "datas": GIF,
+            "thumbnail": GIF,
+            "folder_id": self.folder.id,
+        })
+        self.assertFalse(document.spreadsheet_thumbnail_checksum)
