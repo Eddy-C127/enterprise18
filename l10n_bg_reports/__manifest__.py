@@ -14,7 +14,6 @@ Base module for Bulgarian reports
     'data': [
         'data/balance_sheet.xml',
         'data/profit_loss.xml',
-        'data/tax_report.xml',
     ],
     'auto_install': True,
     'installable': True,
