@@ -582,7 +582,7 @@ class SaleOrder(models.Model):
                 if subscription_user != current_partner_user:
                     partner_to_remove = current_partner_user.partner_id - order.partner_id
                     order.message_unsubscribe(partner_ids=partner_to_remove.ids)
-                    order.partner_id.user_id = subscription_user
+                    order.partner_id.sudo().user_id = subscription_user
         return res
 
     @api.ondelete(at_uninstall=False)

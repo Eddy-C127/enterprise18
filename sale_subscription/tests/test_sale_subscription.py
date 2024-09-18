@@ -3615,6 +3615,7 @@ class TestSubscription(TestSubscriptionCommon):
 
     def test_renew_simple_user(self):
         user_sales_salesman = self.company_data['default_user_salesman']
+        self.assertTrue(user_sales_salesman.has_group('sales_team.group_sale_salesman'))
         subscription = self.env['sale.order'].with_user(user_sales_salesman).create({
                 'partner_id': self.partner_a.id,
                 'company_id': self.company_data['company'].id,
