@@ -8,6 +8,11 @@
             <t t-set="no_footer" t-value="True"/>
             <t t-set="no_livechat" t-value="True"/>
         </xpath>
+        <xpath expr="//body" position="replace">
+            <body>
+                <t t-out="0"/>
+            </body>
+        </xpath>
     </template>
 
     <template id="website_knowledge.article_view_public" name="Knowledge Public">
