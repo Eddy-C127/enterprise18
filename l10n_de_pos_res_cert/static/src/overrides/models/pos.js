@@ -145,7 +145,6 @@ patch(PosStore.prototype, {
                 }
             }
             if (fiskalyError) {
-                this.data.setOffline();
                 fiskalyError.code = "fiskaly";
                 throw fiskalyError;
             }

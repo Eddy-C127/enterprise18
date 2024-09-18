@@ -86,6 +86,15 @@ class PosOrder(models.Model):
                         flag_change = True
                         category_ids.update(line.product_id.pos_categ_ids.ids)
 
+                        if not quantity_data.get(key_new):
+                            quantity_data[key_new] = {
+                                'attribute_value_ids': line.attribute_value_ids.ids,
+                                'note': note['new'] or '',
+                                'product_id': line.product_id.id,
+                                'display': 0,
+                                'order': 0,
+                            }
+
                         # Merge the two lines, so that if the quantity was changed it's also applied
                         old_quantity = quantity_data.pop(key, None)
                         quantity_data[key_new]["display"] += old_quantity["display"]
