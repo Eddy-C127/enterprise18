@@ -53,7 +53,7 @@
                         t-att-data-appointment-type-id="appointment_type.id"
                         t-att-data-event-access-token="event.access_token"
                         t-att-data-event-start="event.start">
-                        <div t-attf-class="col-12 {{'col-md-8 pe-md-4 pe-lg-5' if (staff_user and based_on_users) or (len(resources) == 1 and appointment_type.assign_method != 'time_auto_assign') else ''}} {{'text-decoration-line-through' if is_cancelled else ''}}">
+                        <div t-attf-class="col-12 col-md-8 pe-md-4 pe-lg-5 {{'text-decoration-line-through' if is_cancelled else ''}}">
                             <div class="row mb-4">
                                 <div class="col-3">
                                     <span class="text-muted">When</span>
@@ -79,6 +79,17 @@
                                 </div>
                                 <div class="col-9 col-lg-6">
                                     <t t-out="event.duration" t-options="{'widget': 'duration', 'unit': 'hour', 'round': 'minute'}"/>
+                                </div>
+                            </div>
+                            <div t-if="not based_on_users and (len(resources) > 1 or (len(resources) == 1 and appointment_type.avatars_display == 'hide'
+                                and is_html_empty(resources[0].description)))" class="row mb-4">
+                                <div class="col-3">
+                                    <span class="text-muted">Resources</span>
+                                </div>
+                                <div class="col-9 col-lg-6">
+                                    <div t-foreach="event.appointment_resource_ids" t-as="resource">
+                                        <t t-out="resource.name"/>
+                                    </div>
                                 </div>
                             </div>
                             <div t-if="based_on_users or appointment_type.location_id or event.location" class="row mb-4">
@@ -166,16 +177,6 @@
                                     </form>
                                 </div>
                             </div>
-                            <div t-elif="not based_on_users and appointment_type.assign_method != 'time_auto_assign'" class="row mb-4">
-                                <div class="col-3">
-                                    <span class="text-muted">Resources</span>
-                                </div>
-                                <div class="col-9 col-lg-6">
-                                    <div t-foreach="event.appointment_resource_ids" t-as="resource">
-                                        <t t-out="resource.name"/>
-                                    </div>
-                                </div>
-                            </div>
                             <div t-if="not is_html_empty(event.description)" class="row mb-4">
                                 <div class="col-3">
                                     <span class="text-muted">Details</span>
@@ -197,7 +198,7 @@
                                 <div class="fw-normal" t-out="appointment_type.message_confirmation"/>
                             </div>
                         </div>
-                        <div class="col-12 col-md-4">
+                        <div class="col-12 col-md-4 px-md-4">
                             <t t-call="appointment.appointment_validated_card"/>
                         </div>
                     </div>
@@ -208,22 +209,22 @@
     </template>
     <template id="appointment_validated_card" name="Appointment Validated: User / Resource Card">
         <div t-if="staff_user and based_on_users">
-            <article class="card o_appointment_user_short_card card" itemscope="itemscope" itemtype="http://schema.org/Employee">
-                <header t-if="appointment_type.avatars_display == 'show'" class="bg-secondary rounded-top o_appointment_avatar_container ratio ratio-4x3">
+            <article class="card o_appointment_user_short_card card border-0" itemscope="itemscope" itemtype="http://schema.org/Employee">
+                <header t-if="appointment_type.avatars_display == 'show'" class="bg-secondary rounded o_appointment_avatar_container ratio ratio-4x3">
                     <div t-attf-style="background-image: url('/appointment/#{appointment_type.id}/avatar?user_id=#{staff_user.id}');"
-                            class="o_appointment_avatar_background"/>
+                            class="o_appointment_avatar_background rounded"/>
                 </header>
-                <main class="card-body">
+                <main class="card-body px-0">
                     <h5 t-out="staff_user.name"/>
-                    <div class="o_appointment_card_user_fct mb-2 text-muted">
+                    <div class="o_appointment_card_user_fct mb-2 text-muted border-bottom">
                         <div t-field="staff_user.partner_id.function" placeholder="Add a function here..."/>
                     </div>
                     <div class="list-group list-group-flush">
-                        <div t-if="staff_user.email" class="list-group-item d-flex align-items-center">
+                        <div t-if="staff_user.email" class="list-group-item d-flex align-items-center ps-0 border-0">
                             <i class="fa fa-envelope fa-fw me-2 text-muted"/>
                             <span class="text-truncate"><t t-out="staff_user.email"/></span>
                         </div>
-                        <div t-if="staff_user.partner_id.phone" class="list-group-item d-flex align-items-center">
+                        <div t-if="staff_user.partner_id.phone" class="list-group-item d-flex align-items-center ps-0 border-0">
                             <i class="fa fa-phone fa-fw me-2 text-muted"/>
                             <t t-out="staff_user.partner_id.phone"/>
                         </div>
@@ -231,16 +232,16 @@
                 </main>
             </article>
         </div>
-        <div t-elif="len(resources) == 1 and appointment_type.assign_method != 'time_auto_assign'">
+        <div t-elif="len(resources) == 1 and (appointment_type.avatars_display == 'show' or not is_html_empty(resources[0].description))">
             <t t-set="resource" t-value="resources[0]"/>
-            <article class="card o_appointment_user_short_card card" itemscope="itemscope">
-                <header t-if="appointment_type.avatars_display == 'show'" class="bg-secondary rounded-top o_appointment_avatar_container ratio ratio-4x3">
+            <article class="card o_appointment_user_short_card card border-0" itemscope="itemscope">
+                <header t-if="appointment_type.avatars_display == 'show'" class="bg-secondary rounded o_appointment_avatar_container ratio ratio-4x3">
                     <div t-attf-style="background-image: url('/appointment/#{appointment_type.id}/resource_avatar?resource_id=#{resource.id}');"
-                            class="o_appointment_avatar_background"/>
+                            class="o_appointment_avatar_background rounded"/>
                 </header>
-                <main class="card-body">
-                    <h5 class="mb-0" t-out="resource.name"/>
-                    <div t-if="resource.description" class="o_wappointment_card_user_dsc mb-2 text-muted">
+                <main class="card-body px-0">
+                    <h5 class="mb-2" t-out="resource.name"/>
+                    <div t-if="not is_html_empty(resource.description)" class="o_wappointment_card_user_dsc mb-2 py-3 text-muted border-top">
                         <div t-field="resource.description" placeholder="Add a resource description here..."/>
                     </div>
                 </main>

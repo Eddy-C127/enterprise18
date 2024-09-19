@@ -29,7 +29,7 @@
                 </h4>
                 <div class="oe_structure"/>
                 <div class="o_appointment_validation_details row justify-content-between">
-                    <div t-attf-class="col-12 o_not_editable {{'col-md-8 pe-md-4 pe-lg-5' if (staff_user and based_on_users) or (len(resources) == 1 and appointment_type.assign_method != 'time_auto_assign') else ''}}">
+                    <div class="col-12 col-md-8 pe-md-4 pe-lg-5 o_not_editable">
                         <div class="row mb-4">
                             <div class="col-3">
                                 <label class="text-muted">When</label>
@@ -53,6 +53,17 @@
                             </div>
                             <div class="col-9 col-lg-6">
                                 <t t-out="total_capacity_reserved"/> people
+                            </div>
+                        </div>
+                        <div t-if="not based_on_users and (len(resources) > 1 or (len(resources) == 1 and appointment_type.avatars_display == 'hide'
+                                and is_html_empty(resources[0].description)))" class="row mb-4">
+                            <div class="col-3">
+                                <label class="text-muted">Resources</label>
+                            </div>
+                            <div class="col-9 col-lg-6">
+                                <div t-foreach="resources" t-as="resource">
+                                    <t t-out="resource.name"/>
+                                </div>
                             </div>
                         </div>
                         <div t-if="based_on_users or appointment_type.location_id" class="row mb-4">
@@ -80,16 +91,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div t-elif="appointment_type.assign_method != 'time_auto_assign'" class="row mb-4">
-                            <div class="col-3">
-                                <label class="text-muted">Resources</label>
-                            </div>
-                            <div class="col-9 col-lg-6">
-                                <div t-foreach="resources" t-as="resource">
-                                    <t t-out="resource.name"/>
-                                </div>
-                            </div>
-                        </div>
                         <div t-if="not is_html_empty(booking.description)" class="row mb-4">
                             <div class="col-3">
                                 <label class="text-muted">Details</label>
@@ -100,7 +101,7 @@
                         </div>
                         <div t-if="appointment_type" t-out="appointment_type.message_confirmation" class="mt-4"/>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-12 col-md-4 px-md-4">
                         <t t-call="appointment.appointment_validated_card"/>
                     </div>
                 </div>
