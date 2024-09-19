@@ -1,4 +1,6 @@
 import { describe, before, expect, test } from "@odoo/hoot";
+import { animationFrame } from "@odoo/hoot-mock";
+
 import { Model } from "@odoo/o-spreadsheet";
 
 import { x2ManyCommands } from "@web/core/orm_service";
@@ -16,7 +18,7 @@ import {
 } from "@spreadsheet/../tests/helpers/commands";
 import { getCellContent } from "@spreadsheet/../tests/helpers/getters";
 import { mailModels } from "@mail/../tests/mail_test_helpers";
-import { defineModels } from "@web/../tests/web_test_helpers";
+import { defineModels, onRpc } from "@web/../tests/web_test_helpers";
 import {
     addFieldSync,
     deleteFieldSyncs,
@@ -131,6 +133,52 @@ describe("field sync plugins", () => {
             ],
             errors: [],
         });
+    });
+
+    test("x2many commands with field sync position bigger than formula", async () => {
+        SaleOrderLine._records = [{ id: 42 }, { id: 43 }];
+        const model = await createSaleOrderSpreadsheetModel();
+        addFieldSync(model, "A1", "product_uom_qty", 0);
+        addFieldSync(model, "A2", "product_uom_qty", 1); // has a matching record but not loaded
+        addFieldSync(model, "A3", "product_uom_qty", 2); // doesn't have a matching record
+        setCellContent(model, "A1", "111");
+        setCellContent(model, "A2", "112");
+        setCellContent(model, "B1", '=ODOO.LIST(1, 1, "order_id")');
+        await animationFrame();
+        expect(await model.getters.getFieldSyncX2ManyCommands()).toEqual({
+            commands: [
+                x2ManyCommands.update(42, {
+                    product_uom_qty: 111,
+                }),
+                x2ManyCommands.update(43, {
+                    product_uom_qty: 112,
+                }),
+            ],
+            errors: [],
+        });
+    });
+
+    test("load order lines list only once", async () => {
+        onRpc("web_search_read", () => {
+            expect.step("web_search_read");
+        });
+        SaleOrderLine._records = [{ id: 42 }, { id: 43 }];
+        const model = await createSaleOrderSpreadsheetModel();
+        addFieldSync(model, "A1", "product_uom_qty", 0);
+        addFieldSync(model, "A2", "product_uom_qty", 1);
+        setCellContent(model, "A1", "111");
+        setCellContent(model, "A2", "112");
+        setCellContent(model, "B1", '=ODOO.LIST(1, 1, "order_id")');
+        setCellContent(model, "B1", '=ODOO.LIST(1, 2, "order_id")');
+        await animationFrame();
+        expect.verifySteps(["web_search_read"]);
+        await model.getters.getFieldSyncX2ManyCommands();
+        expect.verifySteps([]);
+
+        // add a field sync beyond the loaded records
+        addFieldSync(model, "A3", "product_uom_qty", 2);
+        await model.getters.getFieldSyncX2ManyCommands();
+        expect.verifySteps(["web_search_read"]);
     });
 
     test("x2many commands on 2 fields", async () => {

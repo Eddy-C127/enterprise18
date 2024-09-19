@@ -7,7 +7,7 @@ import { OdooUIPlugin } from "@spreadsheet/plugins";
 const { positionToZone } = helpers;
 
 export class FieldSyncUIPlugin extends OdooUIPlugin {
-    static getters = ["getFieldSyncX2ManyCommands", "getFieldSyncMaxPosition"];
+    static getters = ["getFieldSyncX2ManyCommands"];
     static layers = ["Triangle"];
 
     handle(cmd) {
@@ -39,7 +39,7 @@ export class FieldSyncUIPlugin extends OdooUIPlugin {
 
     getFieldSyncMaxPosition() {
         const fieldSyncs = [...this.getters.getAllFieldSyncs().values()];
-        return Math.max(...fieldSyncs.map((fieldSync) => fieldSync.indexInList)) + 1;
+        return Math.max(...fieldSyncs.map((fieldSync) => fieldSync.indexInList));
     }
 
     async getFieldSyncX2ManyCommands() {
@@ -48,8 +48,10 @@ export class FieldSyncUIPlugin extends OdooUIPlugin {
         const list = this.getters.getMainSaleOrderLineList();
         const listDataSource = this.getters.getListDataSource(list.id);
         const maxPosition = this.getFieldSyncMaxPosition();
-        listDataSource.increaseMaxPosition(maxPosition);
-        await listDataSource.load();
+        if (!listDataSource.isReady() || !listDataSource.getIdFromPosition(maxPosition)) {
+            listDataSource.increaseMaxPosition(maxPosition + 1);
+            await listDataSource.load({ reload: true });
+        }
         if (!listDataSource.isValid()) {
             return [];
         }
