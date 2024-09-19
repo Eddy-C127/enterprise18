@@ -62,7 +62,8 @@ class HrRecruitmentPostJobWizard(models.TransientModel):
                     'BoardName': {
                         # monsterId 1 is monster.com and 178 is jobsearch.demo.monster.com
                         'monsterId': 1
-                        if not consteq(self.job_id.company_id.sudo().hr_recruitment_monster_username, 'xrtpjobsx01')
+                        if not consteq(
+                            str(self.job_id.company_id.sudo().hr_recruitment_monster_username), 'xrtpjobsx01')
                         else 178
                     },
                     'Location': {
