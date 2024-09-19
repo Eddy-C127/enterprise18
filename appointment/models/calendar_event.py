@@ -9,6 +9,7 @@ from markupsafe import Markup
 from odoo import _, api, Command, fields, models, SUPERUSER_ID
 from odoo.exceptions import ValidationError
 from odoo.tools.mail import email_normalize, email_split_tuples, html_sanitize, is_html_empty, plaintext2html
+from odoo.osv import expression
 from odoo.addons.appointment.utils import invert_intervals
 from odoo.addons.resource.models.utils import Intervals, timezone_datetime
 from ..utils import interval_from_events, intervals_overlap
@@ -480,6 +481,21 @@ class CalendarEvent(models.Model):
                      appointment_name=self.appointment_type_id.name,
                      partner_name=self.partner_id.name or _('somebody'))
         return super()._get_customer_summary()
+
+    def _get_default_privacy_domain(self):
+        """
+        Resource related events need to be visible and accessible from the gantt view no matter their privacy.
+        The privacy of an event is related to the user settings but resource events aren't typically linked to any user
+        meaning their visiblity shouldn't depend on the privacy field.
+        Returns:
+            The read_group privacy domain adapted to include every events related to a resource appointment type.
+        """
+        domain = super()._get_default_privacy_domain()
+        return expression.OR([domain, [
+            '&',
+            ('appointment_type_id', '!=', False),
+            ('appointment_type_id.schedule_based_on', '=', 'resources')
+        ]])
 
     @api.model
     def _gantt_unavailability(self, field, res_ids, start, stop, scale):

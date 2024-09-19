@@ -281,3 +281,22 @@ class AppointmentGanttTest(AppointmentGanttTestCommon):
         self.assertIn(self.user_bob.partner_id.id, group_partner_ids)
         self.assertNotIn(self.user_john.partner_id.id, group_partner_ids)
         self.assertEqual(gantt_data['records'], [{'id': meeting.id}])
+
+    @users('apt_manager')
+    def test_gantt_read_group_resource_events_privacy(self):
+        """ Check that every resource events are correctly displayed in the gantt view.
+
+        Due to the events read_group privacy domain, resource events booked from the front-end
+        (meaning having OdooBot as user_id) weren't displayed in the gantt view.
+        Making sure every resource events are now visible and accessible no matter their privacy and user_id.
+
+        Using apt_manager to be sure the privacy part of the read_group domain is correctly added
+        as it is only included when we're not in super user.
+        """
+        meeting = self._create_meetings(
+            self.env.ref('base.user_root'),
+            [(self.reference_monday, self.reference_monday + timedelta(hours=1), False)],
+            self.apt_types[2].id,
+        )
+        gantt_data = self.env['calendar.event'].with_context(self.gantt_context).get_gantt_data(self.gantt_domain, ['partner_ids'], {})
+        self.assertEqual(gantt_data['records'], [{'id': meeting.id}], "Should correctly retrieve the resource related event.")
