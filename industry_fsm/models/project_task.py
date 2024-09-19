@@ -26,7 +26,7 @@ class Task(models.Model):
                 result['company_id'] = company_id
         return result
 
-    is_fsm = fields.Boolean(compute='_compute_is_fsm', search='_search_is_fsm')
+    is_fsm = fields.Boolean(compute='_compute_is_fsm', search='_search_is_fsm', compute_sudo=True)
     fsm_done = fields.Boolean("Task Done", compute='_compute_fsm_done', readonly=False, store=True, copy=False)
     # Use to count conditions between : time, worksheet and materials
     # If 2 over 3 are enabled for the project, the required count = 2
