@@ -509,7 +509,7 @@
                         <div t-if="widget.editable" role="menuitem">
                             <a class="dropdown-item ps-0" type="open">Configuration</a>
                         </div>
-                        <div t-if="widget.editable" role="menuitem" aria-haspopup="true" class="o_no_padding_kanban_colorpicker">
+                        <div t-if="widget.editable" role="menuitem" aria-haspopup="true">
                             <field name="color" widget="kanban_color_picker"/>
                         </div>
                     </t>
