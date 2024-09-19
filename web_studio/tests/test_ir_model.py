@@ -6,7 +6,7 @@ import odoo
 from odoo.tests import tagged
 from odoo.tests.common import TransactionCase
 from odoo.addons.web_studio.wizard.studio_export_wizard import DEFAULT_MODELS_TO_EXPORT, FIELDS_TO_EXPORT, MODELS_WITH_NOUPDATE, RELATIONS_NOT_TO_EXPORT
-from odoo.addons.web_studio.models.studio_export_model import AUTOFILL_MODELS, \
+from odoo.addons.web_studio.models.studio_export_model import PRESET_MODELS_DEFAULTS, \
     DEFAULT_FIELDS_TO_EXCLUDE, ABSTRACT_MODEL_FIELDS_TO_EXCLUDE, RELATED_MODELS_TO_EXCLUDE
 from odoo.addons.web_studio.controllers.export import XML_FIELDS
 from odoo.addons.web_studio.models.ir_model import OPTIONS_WL
@@ -466,7 +466,7 @@ class TestStudioIrModelHardcoded(TransactionCase):
             Note that all needed modules for hardcoded models should be installed.
         """
 
-        for model, defaults in AUTOFILL_MODELS:
+        for model, defaults in PRESET_MODELS_DEFAULTS:
             self.assertIn(model, self.env)
             for field in defaults:
                 self.assertIn(field, self.env["studio.export.model"]._fields)

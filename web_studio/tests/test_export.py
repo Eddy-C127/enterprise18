@@ -9,8 +9,9 @@ from odoo.addons.website.tools import MockRequest
 class TestExport(HttpCase):
     def test_export_currency_field(self):
         base_currency_field = self.env["res.partner"]._fields.get("currency_id")
+        IrModelFields = self.env["ir.model.fields"].with_context(studio=True)
         if not base_currency_field or not (base_currency_field.type == "many2one" and base_currency_field.comodel_name == "res.currency"):
-            self.env["ir.model.fields"].create({
+            IrModelFields.create({
                 "state": "base",
                 "name": "x_currency" if base_currency_field else "currency_id",
                 "model_id": self.env["ir.model"]._get("res.partner").id,
@@ -18,7 +19,6 @@ class TestExport(HttpCase):
                 "relation": "res.currency"
             })
 
-        IrModelFields = self.env["ir.model.fields"].with_context(studio=True)
         currency_field = IrModelFields.create({
             "name": "x_test_currency",
             "model_id": self.env["ir.model"]._get("res.partner").id,
@@ -84,12 +84,14 @@ class TestExport(HttpCase):
         self.assertEqual(monetary_field.find("./field[@name='currency_field']"), None)
 
     def test_export_automation(self):
-        self.env["base.automation"].with_context(studio=True).create({
+        ba = self.env["base.automation"].with_context(studio=True).create({
             "name": "Cron BaseAuto",
             "trigger": "on_time",
             "model_id": self.env.ref("base.model_res_users").id,
         })
-        data = self.env['ir.model.data'].search([('studio', '=', True)])
+        data = self.env['ir.model.data'].search([
+            ('studio', '=', True), ("model", "=", "base.automation"), ("res_id", "=", ba.id)
+        ])
 
         studio_module = self.env['ir.module.module'].get_studio_module()
         data = self.env["studio.export.wizard.data"].create(
@@ -97,7 +99,6 @@ class TestExport(HttpCase):
         )
         wizard = self.env['studio.export.wizard'].create({
             "default_export_data": [Command.set(data.ids)],
-            "additional_models": [],
         })
         export_info = wizard._get_export_info()
         content_iter = iter(export.generate_module(studio_module, export_info))

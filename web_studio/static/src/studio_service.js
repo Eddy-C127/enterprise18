@@ -228,7 +228,7 @@ export const studioService = {
             return _openStudio(mode, action);
         }
 
-        async function leave() {
+        async function leave(actionId) {
             if (!inStudio) {
                 throw new Error("leave when not in studio???");
             }
@@ -238,16 +238,17 @@ export const studioService = {
                 onActionReady: () => resetViewCompilerCache(),
                 stackPosition: "replacePreviousAction", // If target is menu, then replaceCurrent, see comment above why we cannot do this
             };
-            let actionId;
-            if (state.studioMode === MODES.EDITOR) {
-                actionId = state.editedAction.id;
-                options.additionalContext = state.editedAction.context;
-                options.viewType = state.editedViewType;
-                if (state.editedControllerState) {
-                    options.props = { resId: state.editedControllerState.resId };
+            if (!actionId) {
+                if (state.studioMode === MODES.EDITOR) {
+                    actionId = state.editedAction.id;
+                    options.additionalContext = state.editedAction.context;
+                    options.viewType = state.editedViewType;
+                    if (state.editedControllerState) {
+                        options.props = { resId: state.editedControllerState.resId };
+                    }
+                } else {
+                    actionId = "menu";
                 }
-            } else {
-                actionId = "menu";
             }
             await env.services.action.doAction(actionId, options);
             // force rendering of the main navbar to allow adaptation of the size
@@ -437,3 +438,10 @@ export function useStudioServiceAsReactive() {
     onWillUnmount(() => studio.bus.removeEventListener("UPDATE", onUpdate));
     return state;
 }
+
+function actionLeave(env, action) {
+    const actionId = action.context.action_id;
+    return env.services.studio.leave(actionId);
+}
+
+registry.category("actions").add("action_web_studio_leave_with", actionLeave);

@@ -3,7 +3,7 @@ import base64
 from itertools import starmap
 from lxml import etree as ET
 
-from odoo import Command, SUPERUSER_ID
+from odoo import Command
 from odoo.addons.web_studio.controllers.export import xmlid_getter, generate_module
 from odoo.addons.website.tools import MockRequest
 from odoo.osv import expression
@@ -53,9 +53,10 @@ class StudioExportCase(TransactionCase):
         self._get_xmlid = xmlid_getter()
         self._customizations = []
         self._additional_models = self.env["studio.export.model"]
-        self.TestModel = self.env["test.studio_export.model1"]
-        self.TestModel2 = self.env["test.studio_export.model2"]
-        self.TestModel3 = self.env["test.studio_export.model3"]
+        self._additional_models.search([]).unlink()
+        self.TestModel = self.env["test.studio_export.model1"].with_user(2)
+        self.TestModel2 = self.env["test.studio_export.model2"].with_user(2)
+        self.TestModel3 = self.env["test.studio_export.model3"].with_user(2)
 
     def create_customization(self, _model, **kwargs):
         Model = self.env[_model].with_context(studio=True)
@@ -100,6 +101,8 @@ class StudioExportCase(TransactionCase):
             {
                 "default_export_data": [Command.set(custo_data.ids)],
                 "additional_models": [Command.set(self._additional_models.ids)],
+                "include_additional_data": True,
+                "include_demo_data": True,
             }
         )
         export_info = self._current_wizard._get_export_info()
@@ -319,7 +322,7 @@ class TestStudioExports(StudioExportCase):
             ttype="integer",
             model_id=custom_model.id,
         )
-        CustomModel = self.env[custom_model.model]
+        CustomModel = self.env[custom_model.model].with_user(2).sudo()
         furnace_type = CustomModel.create(
             {"x_name": "Austenitization", "x_studio_max_temp": 1200}
         )
@@ -365,8 +368,8 @@ class TestStudioExports(StudioExportCase):
             </odoo>
         """)
 
-        # With no_update mode
-        export_model.no_update = True
+        # Without updatable mode
+        export_model.updatable = False
         export = self.studio_export()
         export.assertFileList("data/test_studio_export_model1.xml")
         export.assertXML("data/test_studio_export_model1.xml", f"""
@@ -377,8 +380,8 @@ class TestStudioExports(StudioExportCase):
             </odoo>
         """)
 
-        # With is_demo_data mode, without no_update
-        export_model.no_update = False
+        # With is_demo_data mode, with updatable
+        export_model.updatable = True
         export_model.is_demo_data = True
         export = self.studio_export()
         export.assertFileList("demo/test_studio_export_model1.xml")
@@ -390,8 +393,8 @@ class TestStudioExports(StudioExportCase):
             </odoo>
         """)
 
-        # With is_demo_data mode, with no_update
-        export_model.no_update = True
+        # With is_demo_data mode, without updatable
+        export_model.updatable = False
         export_model.is_demo_data = True
         export = self.studio_export()
         export.assertFileList("demo/test_studio_export_model1.xml")
@@ -562,53 +565,6 @@ class TestStudioExports(StudioExportCase):
             f"""<odoo>
             <record id="{self.get_xmlid(some_record)}" model="test.studio_export.model1">
                 <field name="name">Some record</field>
-            </record>
-            </odoo>""",
-        )
-
-    def test_export_records_filter(self):
-        # Test that only records created by the user are exported
-        # Create record with module and xmlid => not exported by default
-        def create_super_user_record(name):
-            record = self.env["test.studio_export.model1"].with_user(SUPERUSER_ID).create({
-                "name": name,
-            })
-
-            self.env.cr.execute("""
-                UPDATE
-                test_studio_export_model1
-                SET create_date = '2015-01-01 00:00:00'
-            """)
-            self.env['test.studio_export.model1'].invalidate_model(['create_date'])
-            self.env['ir.model.data'].create({
-                'name': name.lower(),
-                'module': "test_web_studio",
-                'model': record._name,
-                'res_id': record.id,
-            })
-            return record
-
-        create_super_user_record("Foo")
-        server_created_record = create_super_user_record("Bar")
-
-        # Update record with xmlid => exported
-        server_created_record.with_user(2).write({"name": "Bar Updated"})
-
-        # Create record without module or xmlid => exported
-        user_created_record = self.TestModel.sudo().create({"name": "Normal user record"})
-
-        self.create_export_model(self.TestModel._name)
-
-        export = self.studio_export()
-        export.assertFileList("data/test_studio_export_model1.xml")
-        export.assertXML(
-            "data/test_studio_export_model1.xml",
-            f"""<odoo>
-            <record id="test_web_studio.bar" model="test.studio_export.model1" forcecreate="1">
-                <field name="name">Bar Updated</field>
-            </record>
-            <record id="{self.get_xmlid(user_created_record)}" model="test.studio_export.model1">
-                <field name="name">Normal user record</field>
             </record>
             </odoo>""",
         )

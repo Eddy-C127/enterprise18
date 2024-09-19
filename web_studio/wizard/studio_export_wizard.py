@@ -4,7 +4,7 @@ from collections import Counter, OrderedDict, defaultdict
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.tools import topological_sort
+from odoo.tools import create_index, topological_sort
 from odoo.tools.misc import OrderedSet
 
 
@@ -354,6 +354,14 @@ class StudioExportWizardData(models.TransientModel):
         readonly=True,
     )
 
+    def init(self):
+        super().init()
+        create_index(
+            self.env.cr,
+            indexname="studio_export_wizard_data_model_res_id_index",
+            tablename=self._table,
+            expressions=["model", "res_id"])
+
     @api.depends("model")
     def _compute_model_name(self):
         models = self.mapped("model")
@@ -371,11 +379,15 @@ class StudioExportWizardData(models.TransientModel):
 
         names = defaultdict(dict)
         xmlids = defaultdict(dict)
+        deleted = defaultdict(list)
         for model, res_ids in models.items():
-            records = self.env[model].browse(res_ids)
-            names[model] = {r.id: r.display_name for r in records}
+            records = self.env[model].sudo().browse(res_ids)
+            existing = records.exists()
+            deleted[model] = [r.id for r in records - existing]
+            names[model] = {r.id: r.display_name for r in existing}
             xmlids[model] = records._get_external_ids()
 
+        vals_list = [vals for vals in vals_list if not vals["res_id"] in deleted[vals["model"]]]
         for vals in vals_list:
             model = vals["model"]
             res_id = vals["res_id"]
@@ -392,9 +404,6 @@ class StudioExportWizard(models.TransientModel):
     _name = "studio.export.wizard"
     _description = "Studio Export Wizard"
 
-    def _default_additional_models(self):
-        return self.env["studio.export.model"].search([])
-
     def _default_studio_export_data(self):
         data = self.env["ir.model.data"].search(
             [
@@ -409,68 +418,49 @@ class StudioExportWizard(models.TransientModel):
     default_export_data = fields.Many2many(
         "studio.export.wizard.data",
         default=_default_studio_export_data,
-        readonly=True,
-        store=True,
         relation="rel_studio_export_wizard_data",
     )
-    default_models = fields.Many2many(
-        "ir.model",
-        compute="_compute_default_models",
-        string="Models from Studio customizations",
-        help="Models that will be exported due to Studio customizations",
-        store=True,
-    )
+
+    include_additional_data = fields.Boolean(default=False, string="Include Data")
+    include_demo_data = fields.Boolean(default=False, string="Include Demo Data")
 
     additional_models = fields.Many2many(
         "studio.export.model",
-        default=_default_additional_models,
+        compute="_compute_additional_models",
         string="Additional models to export",
         help="Additional models you may choose to export in addition to the Studio customizations",
     )
     additional_export_data = fields.Many2many(
         "studio.export.wizard.data",
         compute="_compute_export_data",
-        readonly=False,
-        store=True,
         relation="rel_studio_export_wizard_additional_data",
     )
 
-    @api.constrains("default_export_data", "additional_export_data")
+    @api.constrains("default_export_data")
     def _check_export_data(self):
         for rec in self:
-            studio_customizations = rec.additional_export_data.filtered(lambda r: r.studio and r.model in DEFAULT_MODELS_TO_EXPORT)
-            if studio_customizations:
-                raise ValidationError(
-                    _("Additional export data should not contain Studio customizations.")
-                )
-
             data = rec.default_export_data | rec.additional_export_data
             for model, records in data.grouped("model").items():
                 if len(records) != len(set(records.mapped("res_id"))):
                     raise ValidationError(_("Model '%s' should not contain records with the same ID.", model))
 
-    @api.depends("default_export_data")
-    def _compute_default_models(self):
-        """
-        Compute the list of models that are exported by default due to Studio
-        customizations.
+    @api.depends("include_additional_data", "include_demo_data")
+    def _compute_additional_models(self):
+        to_update = self.filtered("include_additional_data")
+        (self - to_update).additional_models = False
+        for record in to_update:
+            domain = [("is_demo_data", "=", False)] if not record.include_demo_data else []
+            record.additional_models = self.env["studio.export.model"].search(domain)
 
-        The computed value is a Many2many field containing the models that are
-        referenced by the default export data.
-        """
-        for rec in self:
-            models = set(rec.default_export_data.mapped("model"))
-            rec.default_models = self.env["ir.model"].search(
-                [("model", "in", list(models))]
-            )
-
-    @api.depends("additional_models")
+    @api.depends("additional_models", "default_export_data")
     def _compute_export_data(self):
         """
         Compute the list of records that are exported in addition to the ones
         defined in the default export data. (a.k.a. "not from the studio customizations ones")
         """
-        for rec in self:
+        to_update = self.filtered("additional_models")
+        (self - to_update).additional_export_data = False
+        for rec in to_update:
             export_data_vals = []
 
             def add(export_model, model, records, pre=False, post=False):
@@ -607,6 +597,7 @@ class StudioExportWizard(models.TransientModel):
         """
         self.ensure_one()
         all_data = self.default_export_data | self.additional_export_data
+        no_update_models = MODELS_WITH_NOUPDATE + self.additional_models.filtered(lambda r: not r.updatable).mapped("model_name")
         pre_export = []
         export = []
         post_export = []
@@ -640,10 +631,7 @@ class StudioExportWizard(models.TransientModel):
                         "" if not path_count else f"_{path_count}",
                         suffix,
                     )
-                    additional_model = self.additional_models.filtered(lambda r: r.model_name == model)
-                    no_update = model in MODELS_WITH_NOUPDATE or (
-                        additional_model and additional_model.no_update
-                    )
+                    no_update = model in no_update_models
                     info.append((model, path, records, group_fields, no_update))
 
             pre_records = data.filtered("pre")
@@ -799,3 +787,12 @@ class StudioExportWizard(models.TransientModel):
 
         return {"data": new_fields_to_export, "demo": demo_fields_to_export}
 
+    @api.onchange("include_additional_data")
+    def _onchange_include_additional_data(self):
+        if not self.include_additional_data:
+            self.include_demo_data = False
+
+    @api.onchange("include_demo_data")
+    def _onchange_include_demo_data(self):
+        if self.include_demo_data:
+            self.include_additional_data = True

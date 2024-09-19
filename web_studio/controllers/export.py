@@ -249,7 +249,7 @@ def _serialize_record(module, model, record, data, fields_to_export, has_website
     if record._name == 'worksheet.template':
         context.update({'worksheet_no_generation': True})
     if exportid.startswith('website.configurator_'):
-        exportid = exportid.replace('website.configurator_', 'studio_customization.configurator_')
+        exportid = exportid.replace('website.configurator_', 'configurator_')
 
     kwargs = {"id": exportid, "model": record._name}
     if context:
@@ -369,6 +369,8 @@ def _get_module_name(xmlid):
     if xmlid.startswith('base.module_'):
         # len('base.module_') == 12
         return xmlid[12:]
+    if not '.' in xmlid:
+        return 'studio_customization'
     return xmlid.split('.', 1)[0]
 
 
@@ -498,25 +500,24 @@ def xmlid_getter():
         """ Return the xml_id of ``record``.
             Raise a ``MissingXMLID`` if xml_id does not exist.
         """
-        if data:
-            record_data = data.filtered(lambda r: r.res_id == record.id and r.model == record._name)
-            res = record_data.xmlid
+        if record not in cache or not cache[record]:
+            if data:
+                record_data = data.filtered(lambda r: r.res_id == record.id and r.model == record._name)
+                cache[record] = record_data.xmlid
 
-        if not res:
-            if record in cache:
-                res = cache[record]
-            else:
+            if not cache[record]:
                 # prefetch when possible
                 records = record.browse(record._prefetch_ids)
                 for rid, val in records.get_external_id().items():
                     cache[record.browse(rid)] = val
-                res = cache[record]
 
-            if not res:
-                raise MissingXMLID(record)
+        res = cache[record]
+        if not res:
+            raise MissingXMLID(record)
 
-        res = res.replace('__export__.', 'studio_customization.')
-        res = res.replace('__new__.', 'studio_customization.')
+        res = res.replace('__export__.', '')
+        res = res.replace('__new__.', '')
+        res = res.replace('studio_customization.', '')
         return res
 
     return get

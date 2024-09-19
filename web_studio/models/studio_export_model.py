@@ -1,58 +1,55 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import logging
 from ast import literal_eval
 
-from odoo import SUPERUSER_ID, Command, api, fields, models
-from odoo.exceptions import AccessDenied, AccessError
+from odoo import _, Command, api, fields, models
 from odoo.osv import expression
 
-_logger = logging.getLogger(__name__)
-
-# Data to autofill export models when the autofill action is triggered
-AUTOFILL_MODELS = [
-    ("res.partner", {"domain": "[('user_ids', '=', False)]", "is_demo_data": True, "no_update": True}),
+# List of preset models to export when the preset action is triggered.
+# This list may include specific defaults for each model.
+PRESET_MODELS_DEFAULTS = [
+    ("res.partner", {"domain": "[('user_ids', '=', False)]", "is_demo_data": True, "updatable": False}),
     ("hr.employee", {"is_demo_data": True}),
-    ("product.public.category", {"no_update": True}),
-    ("project.task.type", {"no_update": True}),
-    ("documents.folder", {"no_update": True}),
-    ("product.category", {"no_update": True}),
+    ("product.public.category", {"updatable": False}),
+    ("project.task.type", {"updatable": False}),
+    ("documents.folder", {"updatable": False}),
+    ("product.category", {"updatable": False}),
     ("worksheet.template", {}),
     ("account.analytic.plan", {"is_demo_data": True}),
     ("account.analytic.account", {"is_demo_data": True}),
-    ("project.project", {"no_update": True}),
-    ("uom.category", {"no_update": True}),
-    ("uom.uom", {"no_update": True}),
+    ("project.project", {"updatable": False}),
+    ("uom.category", {"updatable": False}),
+    ("uom.uom", {"updatable": False}),
     ("planning.role", {}),
-    ("product.template", {"no_update": True}),
-    ("crm.tag", {"is_demo_data": True, "no_update": True}),
+    ("product.template", {"updatable": False}),
+    ("crm.tag", {"is_demo_data": True, "updatable": False}),
     ("crm.team", {"is_demo_data": True}),
-    ("crm.stage", {"no_update": True}),
-    ("crm.lead", {"is_demo_data": True, "no_update": True}),
-    ("helpdesk.ticket", {"is_demo_data": True, "no_update": True}),
-    ("product.supplierinfo", {"is_demo_data": True, "no_update": True}),
-    ("sale.order", {"domain": "[('state', 'not in', ['draft', 'cancel'])]", "is_demo_data": True, "no_update": True}),
-    ("sale.order.line", {"is_demo_data": True, "no_update": True}),
-    ("project.task", {"is_demo_data": True, "no_update": True}),
+    ("crm.stage", {"updatable": False}),
+    ("crm.lead", {"is_demo_data": True, "updatable": False}),
+    ("helpdesk.ticket", {"is_demo_data": True, "updatable": False}),
+    ("product.supplierinfo", {"is_demo_data": True, "updatable": False}),
+    ("sale.order", {"domain": "[('state', 'not in', ['draft', 'cancel'])]", "is_demo_data": True, "updatable": False}),
+    ("sale.order.line", {"is_demo_data": True, "updatable": False}),
+    ("project.task", {"is_demo_data": True, "updatable": False}),
     ("project.project.stage", {}),
     ("product.attribute", {}),
-    ("product.attribute.value", {"no_update": True}),
-    ("product.pricelist", {"no_update": True}),
-    ("product.template.attribute.line", {"no_update": True}),
-    ("product.template.attribute.value", {"no_update": True}),
-    ("product.product", {"no_update": True}),
+    ("product.attribute.value", {"updatable": False}),
+    ("product.pricelist", {"updatable": False}),
+    ("product.template.attribute.line", {"updatable": False}),
+    ("product.template.attribute.value", {"updatable": False}),
+    ("product.product", {"updatable": False}),
     ("product.image", {}),
-    ("sale.order.template", {"no_update": True}),
-    ("sale.order.template.line", {"no_update": True}),
-    ("knowledge.cover", {"include_attachment": True, "no_update": True}),
+    ("sale.order.template", {"updatable": False}),
+    ("sale.order.template.line", {"updatable": False}),
+    ("knowledge.cover", {"include_attachment": True, "updatable": False}),
     ("knowledge.article", {"domain": "[('category', 'in', ['workspace', 'shared'])]"}),
-    ("website", {"is_demo_data": True, "no_update": True}),
-    ("website.page", {"is_demo_data": True, "no_update": True}),
-    ("website.menu", {"is_demo_data": True, "no_update": True}),
+    ("website", {"is_demo_data": True, "updatable": False, "domain": "[]"}),
+    ("website.page", {"is_demo_data": True, "updatable": False}),
+    ("website.menu", {"is_demo_data": True, "updatable": False}),
     ("stock.lot", {"is_demo_data": True}),
-    ("purchase.order", {"is_demo_data": True, "no_update": True}),
+    ("purchase.order", {"is_demo_data": True, "updatable": False}),
     ("purchase.order.line", {"is_demo_data": True}),
-    ("quality.point", {"no_update": True}),
+    ("quality.point", {"updatable": False}),
     ("quality.check", {"is_demo_data": True}),
     ("planning.slot.template", {"is_demo_data": True}),
     ("planning.recurrency", {"is_demo_data": True}),
@@ -61,6 +58,11 @@ AUTOFILL_MODELS = [
     ("survey.question", {}),
     ("survey.question.answer", {}),
 ]
+
+DEFAULTS_BY_PRESET_MODELS = {
+    m[0]: {**m[1], "sequence": index}
+    for index, m in enumerate(PRESET_MODELS_DEFAULTS)
+}
 
 # _compute_excluded_fields: default fields to exclude
 DEFAULT_FIELDS_TO_EXCLUDE = {
@@ -210,26 +212,6 @@ RELATED_MODELS_TO_EXCLUDE = [
 ]
 
 
-def _should_export_record(record, xmlids):
-    """ Checks if a record should be exported.
-        A record should not be exported if for instance it has not been
-        modified by a real user.
-
-        Note that the heuristic used here may not be perfect in all cases.
-    """
-    module_names = {xmlid.split(".")[0] for xmlid in xmlids}
-    return (
-        not module_names  # new record
-        or "studio_customization" in module_names  # from studio customization
-        or "__export__" in module_names  # from list export
-        or record.create_uid.id != SUPERUSER_ID  # created by a real user
-        or (  # modified by a real user
-            record.write_uid.id != SUPERUSER_ID
-            and record.create_date != record.write_date
-        )
-    )
-
-
 class StudioExportModel(models.Model):
     _name = "studio.export.model"
     _description = "Studio Export Models"
@@ -239,7 +221,12 @@ class StudioExportModel(models.Model):
     ]
 
     sequence = fields.Integer()
-    model_id = fields.Many2one("ir.model", required=True, ondelete="cascade")
+    model_id = fields.Many2one(
+        "ir.model",
+        required=True,
+        ondelete="cascade",
+        domain="[('transient', '!=', True), ('abstract', '!=', True)]",
+    )
     model_name = fields.Char(string="Model Name", related="model_id.model", store=True)
     excluded_fields = fields.Many2many(
         "ir.model.fields",
@@ -250,9 +237,26 @@ class StudioExportModel(models.Model):
         store=True,
     )
     domain = fields.Text(default="[]")
-    is_demo_data = fields.Boolean(default=False, string="Export as demo data")
-    no_update = fields.Boolean(default=False, string="Export with noupdate='1'")
-    include_attachment = fields.Boolean(default=False)
+    records_count = fields.Char(string="Records", compute="_compute_records_count")
+    is_demo_data = fields.Boolean(
+        default=False,
+        string="Demo",
+        help="If set, the exported records will be considered as demo data during the import.",
+    )
+    updatable = fields.Boolean(
+        default=True,
+        help="Defines if the records would be updated during a module update.",
+    )
+    include_attachment = fields.Boolean(
+        string="Attachments",
+        default=False,
+        help="If set, the attachments related to the exported records will be included in the export.",
+    )
+
+    @api.depends("model_id")
+    def _compute_display_name(self):
+        for record in self:
+            record.display_name = record.model_id.display_name
 
     @api.depends("model_id")
     def _compute_excluded_fields(self):
@@ -313,44 +317,56 @@ class StudioExportModel(models.Model):
             )
             record.excluded_fields = [Command.set(excluded_fields.ids)]
 
-    @api.model
-    def action_autofill(self, _=None):
-        curr_models = self.search([]).mapped("model_name")
-        fill_models = {
-            m[0]: index
-            for index, m in enumerate(AUTOFILL_MODELS)
-            if m[0] not in curr_models
-        }
-        autofill = self.env["ir.model"].search(
-            [("model", "in", list(fill_models.keys()))]
-        )
-        for model in autofill:
-            index = fill_models[model.model]
-            default_values = AUTOFILL_MODELS[index][1]
-            self.create(
-                {
-                    **default_values,
-                    "model_id": model.id,
-                    "sequence": index,
-                }
+    @api.depends("model_name", "domain")
+    def _compute_records_count(self):
+        for record in self:
+            records_count = (
+                self.env[record.model_name].sudo()
+                .search_count(literal_eval(record.domain or "[]"))
             )
+            record.records_count = _("%s record(s)", records_count)
+
+    def action_preset(self):
+        curr_models_names = [
+            r["model_name"] for r in self.search_read([], ["model_name"])
+        ]
+        preset_models = [
+            (model, DEFAULTS_BY_PRESET_MODELS.get(model["model"], {}))
+            # find all existing models from the preset list + custom ones
+            for model in self.env["ir.model"].search_read(
+                [
+                    ("transient", "=", False),
+                    ("abstract", "=", False),
+                ]
+                + expression.OR(
+                    [
+                        [("model", "in", list(DEFAULTS_BY_PRESET_MODELS.keys()))],
+                        [("model", "=like", r"x\_%")],
+                        [("state", "=", "manual")],
+                    ]
+                ),
+                ["model"],
+            )
+        ]
+        to_create = [
+            {**defaults, "model_id": model["id"]}
+            for model, defaults in preset_models
+            # filter out models that are already configured or do not have some records to export
+            if model["model"] not in curr_models_names
+            and (
+                not self.env[model["model"]]._log_access
+                or (
+                    self.env[model["model"]].sudo()
+                    .search_count(literal_eval(defaults.get("domain", "[]")))
+                )
+            )
+        ]
+
+        if to_create:
+            self.create(to_create)
 
     def _get_exportable_records(self):
         self.ensure_one()
-        model_domain = literal_eval(self.domain or "[]")
-        if self.model_name == "res.partner":
-            # Forced for security purpose: don't export partners linked to users
-            model_domain = expression.AND([model_domain, [("user_ids", "=", False)]])
-
-        try:
-            records = self.env[self.model_name].search(model_domain)
-        except (AccessError, AccessDenied) as e:
-            _logger.warning(
-                "Access Denied while exporting model(%s) data:\n%s",
-                self.model_name,
-                e,
-            )
-            return None
-
-        xmlids = records._get_external_ids()
-        return records.filtered(lambda r: _should_export_record(r, xmlids[r.id]))
+        domain = literal_eval(self.domain or "[]")
+        model = self.env[self.model_name].sudo()
+        return model.search(domain)
