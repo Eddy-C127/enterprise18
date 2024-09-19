@@ -2,7 +2,7 @@
 from .common import TestCoEdiCommon
 
 from odoo.tests import tagged
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 @tagged('post_install_l10n', 'post_install', '-at_install')
@@ -22,6 +22,8 @@ class TestEdiFlows(TestCoEdiCommon):
             self.invoice.button_cancel()
 
             self.assertFalse(self.invoice.edi_state)
+
+            self.assertRaises(ValidationError, self.company_data['default_journal_sale'].write, {'l10n_co_edi_debit_note': True})
 
     def test_invoice_flow_sent(self):
         with self.mock_carvajal():
