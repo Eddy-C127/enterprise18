@@ -155,6 +155,7 @@ FIELDS_TO_EXPORT = {
         "domain",
         "field_description",
         "groups",
+        "group_expand",
         "help",
         "index",
         "model",
@@ -196,6 +197,7 @@ FIELDS_TO_EXPORT = {
         "parent_id",
         "sequence",
         "web_icon",
+        "web_icon_data",
     ],
     "ir.ui.view": [
         "active",
