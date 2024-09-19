@@ -16,6 +16,11 @@
                     <field name="barcode_separator_regex" required="module_stock_barcode"/>
                     <p class="text-muted">This regex is used in the Barcode application to separate individual barcodes when an aggregate barcode (i.e. single barcode consisting of multiple barcode encodings) is scanned.</p>
                 </div>
+                <div class="content-group row mt16" invisible="not module_stock_barcode" groups="base.group_no_one">
+                    <label for="barcode_rfid_batch_time" class="col-lg-3 o_light_label"/>
+                    <field name="barcode_rfid_batch_time" required="module_stock_barcode"/>
+                    <p class="text-muted">Time before processing a batch. Used to group communication to the server and improve global performance at the cost of reactivity.</p>
+                </div>
                 <div class="content-group">
                     <div class="mt8" invisible="not module_stock_barcode">
                         <button class="btn-link" type="action" string="Configure Product Barcodes" name="%(stock_barcode.product_action_barcodes)d" icon="oi-arrow-right"/>

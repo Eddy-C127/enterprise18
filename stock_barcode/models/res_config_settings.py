@@ -17,6 +17,9 @@ class ResConfigSettings(models.TransientModel):
         default=100,
         config_parameter="barcode.max_time_between_keys_in_ms",
     )
+    barcode_rfid_batch_time = fields.Integer(
+        "RFID Timer", config_parameter="stock_barcode.barcode_rfid_batch_time"
+    )
     group_barcode_show_quantity_count = fields.Boolean('Show Quantity to Count', implied_group='stock_barcode.group_barcode_show_quantity_count')
     group_barcode_count_entire_location = fields.Boolean('Count Entire Locations', implied_group='stock_barcode.group_barcode_count_entire_location')
     barcode_separator_regex = fields.Char(

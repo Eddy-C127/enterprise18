@@ -91,10 +91,16 @@ class MainComponent extends Component {
             barcodesProcessed: 0,
             barcodesToProcess: 0,
         });
-        this.barcodeService = useService('barcode');
-        useBus(this.barcodeService.bus, "barcode_scanned", (ev) => this.onBarcodeScanned(ev.detail.barcode));
+        this.bufferedBarcodes = [];
+        this.bufferingTimeout = null;
+        this.barcodeService = useService("barcode");
+        useBus(this.barcodeService.bus, "barcode_scanned", (ev) =>
+            this.onBarcodeScanned(ev.detail.barcode)
+        );
         this.mobileService = useService("mobile");
-        useBus(this.mobileService.bus, "mobile_reader_scanned", (ev) => this._onMobileReaderScanned(ev.detail.data));
+        useBus(this.mobileService.bus, "mobile_reader_scanned", (ev) =>
+            this.onMobileReaderScanned(ev.detail.data)
+        );
 
         useBus(this.env.model, 'flash', this.flashScreen.bind(this));
         useBus(this.env.model, "playSound", this.playSound.bind(this));
@@ -302,8 +308,21 @@ class MainComponent extends Component {
         }
     }
 
-    async _onMobileReaderScanned(data) {
-        await this.env.model.processBarcode(data.join("\n"));
+    onMobileReaderScanned(data) {
+        if (!this.bufferingTimeout) {
+            this.bufferingTimeout = setTimeout(
+                this._onMobileReaderScanned.bind(this),
+                this.config.barcode_rfid_batch_time || 100
+            );
+        }
+        this.bufferedBarcodes = this.bufferedBarcodes.concat(data);
+    }
+
+    async _onMobileReaderScanned(ev) {
+        await this.env.model.processBarcode(this.bufferedBarcodes.join(","));
+        this.bufferedBarcodes = [];
+        clearTimeout(this.bufferingTimeout);
+        this.bufferingTimeout = null;
     }
 
     onBarcodeSubmitted(barcode) {

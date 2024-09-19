@@ -18,6 +18,11 @@
         <field name="value">[;,]</field>
     </record>
 
+    <record model="ir.config_parameter" id="barcode_rfid_batch_time" forcecreate="False">
+        <field name="key">stock_barcode.barcode_rfid_batch_time</field>
+        <field name="value">100</field>
+    </record>
+
     <record id="base.group_user" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('stock_barcode.group_barcode_show_quantity_count'))]"/>
     </record>
