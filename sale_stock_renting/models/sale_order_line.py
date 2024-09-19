@@ -31,7 +31,7 @@ class RentalOrderLine(models.Model):
         self.available_reserved_lots = True
         if not self.env.user.has_group('sale_stock_renting.group_rental_stock_picking'):
             return
-        lines_to_check = self.filtered(lambda l: l.reserved_lot_ids and l.product_template_id.tracking == 'serial')
+        lines_to_check = self.filtered(lambda l: l.is_rental and l.reserved_lot_ids and l.product_template_id.tracking == 'serial')
 
         partner_location_id = self.env.ref('stock.stock_location_locations_partner')
 
