@@ -1,6 +1,7 @@
 /** @odoo-module **/
 import { registry } from "@web/core/registry";
-import { AccountFileUploader, AccountDropZone } from "@account/components/bills_upload/bills_upload";
+import { AccountFileUploader } from "@account/components/account_file_uploader/account_file_uploader";
+import { UploadDropZone } from "@account/components/upload_drop_zone/upload_drop_zone";
 import { BankRecKanbanView, BankRecKanbanController, BankRecKanbanRenderer } from "@account_accountant/components/bank_reconciliation/kanban";
 import { useState } from "@odoo/owl";
 
@@ -15,7 +16,7 @@ export class BankRecUploadKanbanRenderer extends BankRecKanbanRenderer {
     static template = "account.BankRecKanbanUploadRenderer";
     static components = {
         ...BankRecKanbanRenderer.components,
-        AccountDropZone,
+        UploadDropZone,
     };
     setup() {
         super.setup();

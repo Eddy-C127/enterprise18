@@ -7,7 +7,7 @@
 
     <t t-name="account.BankRecListUploadRenderer" t-inherit="web.ListRenderer" t-inherit-mode="primary">
         <xpath expr="//div[@t-ref='root']" position="before">
-            <AccountDropZone
+            <UploadDropZone
                 visible="dropzoneState.visible"
                 hideZone="() => dropzoneState.visible = false"/>
         </xpath>

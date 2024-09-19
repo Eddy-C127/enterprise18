@@ -2,7 +2,8 @@
 
 import { registry } from "@web/core/registry";
 import { ListRenderer } from "@web/views/list/list_renderer";
-import { AccountFileUploader, AccountDropZone } from "@account/components/bills_upload/bills_upload";
+import { AccountFileUploader } from "@account/components/account_file_uploader/account_file_uploader";
+import { UploadDropZone } from "@account/components/upload_drop_zone/upload_drop_zone";
 import { bankRecListView, BankRecListController } from "@account_accountant/components/bank_reconciliation/list";
 import { useState } from "@odoo/owl";
 
@@ -17,7 +18,7 @@ export class BankRecListUploadRenderer extends ListRenderer {
     static template = "account.BankRecListUploadRenderer";
     static components = {
         ...ListRenderer.components,
-        AccountDropZone,
+        UploadDropZone,
     }
 
     setup() {
