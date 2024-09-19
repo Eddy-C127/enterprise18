@@ -13,6 +13,11 @@
         <field name="target">fullscreen</field>
     </record>
 
+    <record model="ir.config_parameter" id="barcode_separator_regex" forcecreate="False">
+        <field name="key">stock_barcode.barcode_separator_regex</field>
+        <field name="value">[;,]</field>
+    </record>
+
     <record id="base.group_user" model="res.groups">
         <field name="implied_ids" eval="[(4, ref('stock_barcode.group_barcode_show_quantity_count'))]"/>
     </record>
