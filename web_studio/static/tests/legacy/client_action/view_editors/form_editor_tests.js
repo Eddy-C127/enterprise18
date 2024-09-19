@@ -1382,7 +1382,7 @@ QUnit.module("View Editors", (hooks) => {
         assert.containsN(
             target,
             ".o_web_studio_property",
-            10,
+            11,
             "the sidebar should now display the field properties"
         );
 
