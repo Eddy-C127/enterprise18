@@ -124,3 +124,19 @@ class TestReports(L10nInTestAccountGstReportsCommon):
         # Expected: The warning should not be displayed since the credit note is created before the November 30th of invoice financial year.
         reversed_move_2 = self._create_credit_note(inv=invoice_1, line_vals={'quantity': 1}, credit_note_date=date(2023, 8, 1), post=False)
         self.assertFalse(reversed_move_2.l10n_in_reversed_entry_warning)
+
+    def test_gstr1_sez_zero_rated_tax(self):
+        b2b_invoice = self._init_inv(
+            partner=self.partner_a.copy({'l10n_in_gst_treatment': 'special_economic_zone'}),
+            taxes=self._get_company_tax('igst_sale_0'),
+            line_vals={'price_unit': 500, 'quantity': 2}
+        )
+        self._init_inv(
+            partner=self.partner_foreign,
+            taxes=self._get_company_tax('igst_sale_0'),
+            line_vals={'price_unit': 500, 'quantity': 2}
+        )
+        self._create_credit_note(inv=b2b_invoice, line_vals={'quantity': 1})  # Creates and posts credit note for the above invoice
+        gstr1_report = self._create_gstr_report()
+        gstr1_json = gstr1_report._get_gstr1_json()
+        self.assertDictEqual(gstr1_json, self._read_mock_json('gstr1_sez_zero_rated_expected_response.json'))

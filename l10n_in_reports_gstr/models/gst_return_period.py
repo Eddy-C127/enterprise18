@@ -1354,8 +1354,9 @@ class L10nInGSTReturnPeriod(models.Model):
         igst_tag_ids = [taxes_tag_ids['base_igst'], taxes_tag_ids['igst']]
         cess_tag_ids = [taxes_tag_ids['base_cess'], taxes_tag_ids['cess']]
         gst_tags = sgst_tag_ids + cgst_tag_ids + igst_tag_ids + cess_tag_ids
-        other_than_gst_tag = [taxes_tag_ids[key] for key in ['exempt', 'nil_rated', 'non_gst_supplies']]
-        export_tags = igst_tag_ids + [taxes_tag_ids['zero_rated']] + cess_tag_ids + other_than_gst_tag
+        nil_tags = [taxes_tag_ids[key] for key in ['exempt', 'nil_rated', 'non_gst_supplies']]
+        export_tags = igst_tag_ids + [taxes_tag_ids['zero_rated']] + cess_tag_ids + nil_tags
+        gst_with_other_tags = gst_tags + [taxes_tag_ids['zero_rated']] + nil_tags
         domain = self._get_base_account_domain() + [
             ("move_id.state", "=", "posted"),
             ("display_type", "not in", ('rounding', 'line_note', 'line_section'))
@@ -1372,7 +1373,7 @@ class L10nInGSTReturnPeriod(models.Model):
                         ("tax_tag_ids", "in", gst_tags),
                         '&',
                         ("move_id.l10n_in_gst_treatment", "=", "special_economic_zone"),
-                        ("tax_tag_ids", "in", gst_tags + other_than_gst_tag),
+                        ("tax_tag_ids", "in", gst_with_other_tags),
                     ]
                 )
             case "b2cl":
@@ -1415,7 +1416,7 @@ class L10nInGSTReturnPeriod(models.Model):
                         ("tax_tag_ids", "in", gst_tags),
                         '&',
                         ("move_id.l10n_in_gst_treatment", "=", "special_economic_zone"),
-                        ("tax_tag_ids", "in", gst_tags + other_than_gst_tag),
+                        ("tax_tag_ids", "in", gst_with_other_tags),
                     ]
                 )
             case "cdnur":
@@ -1453,7 +1454,7 @@ class L10nInGSTReturnPeriod(models.Model):
                     + [
                         ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
                         ("move_id.l10n_in_gst_treatment", "not in", ["overseas", "special_economic_zone"]),
-                        ("tax_tag_ids", "in", other_than_gst_tag),
+                        ("tax_tag_ids", "in", nil_tags),
                     ]
                 )
             case "hsn":
@@ -1461,7 +1462,7 @@ class L10nInGSTReturnPeriod(models.Model):
                     domain
                     + [
                         ("move_id.move_type", "in", ["out_invoice", "out_refund", "out_receipt"]),
-                        ("tax_tag_ids", "in", gst_tags + other_than_gst_tag),
+                        ("tax_tag_ids", "in", gst_with_other_tags),
                     ]
                 )
             case 'supeco_clttx':
