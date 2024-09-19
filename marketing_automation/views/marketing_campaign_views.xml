@@ -136,6 +136,7 @@
                                 <field name="total_click" />
                                 <field name="total_reply" />
                                 <field name="total_open" />
+                                <field name="parent_id" /><!--required for the widget to display relationships-->
                                 <templates>
                                     <div t-name="kanban-card">
                                         <div class="o_ma_body position-relative" t-att-data-record-id="record.id.raw_value">

@@ -44,6 +44,7 @@
                                 <field name="trigger_type"/>
                                 <field name="mailing_trace_status"/>
                                 <field name="links_click_datetime"/>
+                                <field name="parent_id"/><!--required for the widget to display relationships-->
                                 <templates>
                                     <div t-name="kanban-card">
                                         <div class="o_ma_body position-relative" t-att-data-record-id="record.id.raw_value">
