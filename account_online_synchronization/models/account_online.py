@@ -108,10 +108,13 @@ class AccountOnlineAccount(models.Model):
 
             # If currency of journal doesn't match the bank account's, look if the journal already has an entry in it.
             # If it doesn't, set the journal's currency to bank account's currency if the journal is still empty.
+            # If it doesn't because it is not set (currency_id is not a required field on account_journal), then
+            # check if the existing entries use the same currency as the bank account. If it's the case, write the currency
+            # on the journal.
             # Otherwise, prevent the assignment from happening.
             if self.currency_id.id != journal.currency_id.id:
                 existing_entries = self.env['account.bank.statement.line'].search([('journal_id', '=', journal.id)])
-                if not existing_entries:
+                if not existing_entries or (not journal.currency_id and self.currency_id == existing_entries.currency_id):
                     journal.currency_id = self.currency_id.id
                 else:
                     raise UserError(_("Journal %(journal_name)s has been set up with a different currency and already has existing entries. "
