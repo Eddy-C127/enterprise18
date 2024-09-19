@@ -57,10 +57,8 @@ QUnit.module("Studio clickbot", (hooks) => {
                     </list>`,
                 "foo,false,kanban": `
                 <kanban class="o_kanban_test">
-                    <templates><t t-name="kanban-box">
-                        <div>
-                            <field name="foo"/>
-                        </div>
+                    <templates><t t-name="kanban-card">
+                        <field name="foo"/>
                     </t></templates>
                 </kanban>`,
             },

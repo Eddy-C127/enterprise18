@@ -36,7 +36,7 @@
                 <field name="sequence" widget="handle" groups="appointment.group_appointment_manager"/>
                 <templates>
                     <t t-name="kanban-menu">
-                        <a role="menuitem" type="edit" class="dropdown-item">
+                        <a role="menuitem" type="open" class="dropdown-item">
                             <span class="fa fa-pencil"/> Edit
                         </a>
                         <a role="menuitem" type="object" name="action_customer_preview" class="dropdown-item">

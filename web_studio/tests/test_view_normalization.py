@@ -707,7 +707,7 @@ class TestViewNormalization(TransactionCase):
                                 <span class="fa fa-bars fa-lg" title="menu"/>
                             </a>
                             <div class="dropdown-menu" role="menu">
-                                <t t-if="widget.editable"><a type="edit" class="dropdown-item">Edit</a></t>
+                                <t t-if="widget.editable"><a type="open" class="dropdown-item">Edit</a></t>
                                 <t t-if="widget.deletable"><a type="delete" class="dropdown-item">Delete</a></t>
                                 <field name="lang" widget="kanban_color_picker"/>
                             </div>
@@ -732,7 +732,7 @@ class TestViewNormalization(TransactionCase):
                   </a>
                   <div class="dropdown-menu" role="menu" name="studio_div_4e2ccd">
                     <t t-if="widget.editable">
-                      <a type="edit" class="dropdown-item">Edit</a>
+                      <a type="open" class="dropdown-item">Edit</a>
                     </t>
                     <t t-if="widget.deletable">
                       <a type="delete" class="dropdown-item">Delete</a>

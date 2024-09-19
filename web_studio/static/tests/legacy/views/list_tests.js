@@ -70,7 +70,7 @@ QUnit.module("Studio", (hooks) => {
 
     QUnit.test("should render the no content helper of studio actions", async function (assert) {
         serverData.views["base.automation,false,kanban"] =
-            '<kanban><t t-name="kanban-box"><field name="name"/></t></kanban>';
+            '<kanban><t t-name="kanban-card"><field name="name"/></t></kanban>';
         serverData.views["base.automation,false,list"] = '<list><field name="name"/></list>';
         serverData.views["base.automation,false,form"] = '<form><field name="name"/></form>';
         serverData.views["base.automation,false,search"] = "<search></search>";

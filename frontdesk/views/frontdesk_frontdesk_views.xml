@@ -119,7 +119,7 @@
                             type="object">Visitors</a>
                         <a role="menuitem" class="dropdown-item" name="%(action_frontdesk_station_report)d"
                             type="action">Statistics</a>
-                        <a role="menuitem" type="edit" class="dropdown-item">Configuration</a>
+                        <a role="menuitem" type="open" class="dropdown-item">Configuration</a>
                     </t>
                     <t t-name="kanban-card">
                         <div class="d-flex gap-1 align-items-baseline ms-2">
@@ -132,14 +132,11 @@
                                 groups="frontdesk.frontdesk_group_user">Open Desk</button>
                             </div>
                             <div class="col-6">
-                                <a t-if="record.guest_on_site.raw_value > 0" name="%(action_open_guest_on_site_visitor)d" type="action"
-                                class="oe_kanban_stock_picking_type_list d-block">
+                                <a t-if="record.guest_on_site.raw_value > 0" name="%(action_open_guest_on_site_visitor)d" type="action" class="d-block">
                                 <field name="guest_on_site"/> On Site</a>
-                                <a t-if="record.pending.raw_value > 0" name="%(action_open_planned_visitor)d" type="action"
-                                class="oe_kanban_stock_picking_type_list d-block">
+                                <a t-if="record.pending.raw_value > 0" name="%(action_open_planned_visitor)d" type="action" class="d-block">
                                 <field name="pending"/> Planned</a>
-                                <a t-if="record.drink_to_serve.raw_value > 0" name="%(action_open_drink_to_serve_visitor)d" type="action"
-                                class="oe_kanban_stock_picking_type_list d-block">
+                                <a t-if="record.drink_to_serve.raw_value > 0" name="%(action_open_drink_to_serve_visitor)d" type="action" class="d-block">
                                 <field name="drink_to_serve"/> Drinks to serve</a>
                             </div>
                         </div>

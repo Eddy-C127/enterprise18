@@ -1254,7 +1254,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
         """ Insert a menu in a kanban view arch."""
         menu_node = etree.fromstring("""
             <t t-name="kanban-menu">
-                <t t-if="widget.editable"><a type="edit" class="dropdown-item">Edit</a></t>
+                <t t-if="widget.editable"><a type="open" class="dropdown-item">Edit</a></t>
                 <t t-if="widget.deletable"><a type="delete" class="dropdown-item">Delete</a></t>
             </t>
         """)

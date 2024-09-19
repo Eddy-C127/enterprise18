@@ -1124,10 +1124,8 @@ QUnit.module("View Editors", () => {
                 serverData,
                 arch: `<kanban class="my_custom_class my_custom_class2">
                     <templates>
-                        <t t-name='kanban-box'>
-                            <div class='oe_kanban_card'>
-                                <field name='display_name'/>
-                            </div>
+                        <t t-name='kanban-card'>
+                            <field name='display_name'/>
                         </t>
                     </templates>
                 </kanban>`,
