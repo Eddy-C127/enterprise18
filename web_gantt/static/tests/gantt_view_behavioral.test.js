@@ -2077,3 +2077,29 @@ test("Select scale with +/- buttons", async () => {
     expect(SELECTORS.plusButton).toBeEnabled();
     expect.verifySteps(["get_gantt_data"]);
 });
+
+test("make tooltip visible for a long pill", async () => {
+    mockDate("2024-03-01 00:00:00");
+    Tasks._records.length = 1;
+    Tasks._records[0].start = "2024-01-16 00:00:00";
+    Tasks._records[0].stop = "2024-11-16 00:00:00";
+    await mountGanttView({
+        resModel: "tasks",
+        arch: '<gantt default_scale="day" date_start="start" date_stop="stop" />',
+        context: {
+            default_start_date: "2024-01-01",
+            default_stop_date: "2024-12-31",
+        },
+    });
+    const { left: pillLeft, right: pillRight } = getPill("Task 1").getBoundingClientRect();
+    expect(pillLeft).toBeLessThan(0);
+    expect(pillRight).toBeGreaterThan(window.innerWidth);
+    expect(".o_popover").toHaveCount(0);
+
+    await contains(getPill("Task 1")).click();
+    expect(".o_popover").toHaveCount(1);
+    const popover = queryOne(".o_popover");
+    const { left: popoverLeft, right: popoverRight } = popover.getBoundingClientRect();
+    expect(popoverLeft).toBeWithin(0, window.innerWidth);
+    expect(popoverRight).toBeWithin(0, window.innerWidth);
+});
