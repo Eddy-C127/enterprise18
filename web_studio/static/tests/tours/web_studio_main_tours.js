@@ -1527,12 +1527,12 @@ registry.category("web_tour.tours").add("web_studio_create_app_with_pipeline_and
             trigger: ".o_web_studio_kanban_view_editor",
         },
         {
-            trigger: "img.oe_kanban_avatar",
+            trigger: ".o_avatar.o_m2o_avatar",
             run() {
-                const avatarImg = document.querySelector("img.oe_kanban_avatar");
-                if (!avatarImg.getAttribute("title") === "Unassigned") {
+                const avatarImg = document.querySelector(".o_avatar.o_m2o_avatar a");
+                if (!avatarImg.getAttribute("title") === "Assign") {
                     throw new Error(
-                        "The title of the new avatar should be set, even if there are no record"
+                        "It should be possible to assign a record, when no one is currently selected"
                     );
                 }
             },

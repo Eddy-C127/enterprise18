@@ -836,7 +836,7 @@ registry.category("web_tour.tours").add("web_studio_test_create_model_with_click
         },
         {
             trigger:
-                ".o_kanban_group:contains(In Progress) .o_kanban_record_details:contains(new record)",
+                ".o_kanban_group:contains(In Progress) div[name=studio_auto_kanban_header] span.h5:contains(new record)",
         },
     ],
 });

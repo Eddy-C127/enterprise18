@@ -455,69 +455,51 @@ class View(models.Model):
     def auto_kanban_view(self, res_model):
         model = self.env[res_model]
         pre_fields = list()  # fields not used in a t-field node but needed for display
-        content_div = E.div({'class': "o_kanban_record_details"})
-        title = E.strong({'class': 'o_kanban_record_title', 'name': 'studio_auto_kanban_title'})
-        title.append(E.field(name=model._rec_name_fallback()))
-        headers_div = E.div({'class': 'o_kanban_record_headings', 'name': 'studio_auto_kanban_headings'})
-        headers_div.append(E.field(name='x_studio_priority', widget='boolean_favorite', nolabel='1'))
-        headers_div.append(title)
         pre_fields.append(E.field(name='x_color'))
-        dropdown_div = E.div({'class': 'o_dropdown_kanban dropdown'})
-        dropdown_toggle = E.a({
-            'role': 'button',
-            'class': 'dropdown-toggle o-no-caret btn',
-            'data-bs-toggle': 'dropdown',
-            'data-display': 'static',
-            'href': '#',
-            'aria-label': _('Dropdown Menu'),
-            'title': _('Dropdown Menu'),
-            })
-        dropdown_toggle.append(E.span({'class': 'fa fa-ellipsis-v'}))
-        dropdown_menu = E.div({'class': 'dropdown-menu', 'role': 'menu'})
-        dropdown_menu.extend([
-            E.a({'t-if': 'widget.editable', 'role': 'menuitem', 'type': 'edit', 'class': 'dropdown-item'},_('Edit')),
-            E.a({'t-if': 'widget.deletable', 'role': 'menuitem', 'type': 'delete', 'class': 'dropdown-item'}, _('Delete')),
-            E.ul({'class': 'oe_kanban_colorpicker', 'data-field': 'x_color'})
-        ])
-        dropdown_div.extend([dropdown_toggle, dropdown_menu])
-        top_div = E.div({'class': 'o_kanban_record_top', 'name': 'studio_auto_kanban_top'})
-        top_div.extend([headers_div, dropdown_div])
-        body_div = E.div({'class': 'o_kanban_record_body', 'name': 'studio_auto_kanban_body'})
-        bottom_div = E.div({'class': 'o_kanban_record_bottom', 'name': 'studio_auto_kanban_bottom'})
-        bottom_left_div = E.div({'class': 'oe_kanban_bottom_left', 'name': 'studio_auto_kanban_bottom_left'})
-        bottom_right_div = E.div({'class': 'oe_kanban_bottom_right', 'name': 'studio_auto_kanban_bottom_right'})
-        bottom_div.extend([bottom_left_div, bottom_right_div])
-        bottom_right_div.append(E.field(name='x_studio_kanban_state', widget='state_selection'))
+        card_main = E.main()
+        card_header = E.div({'name': 'studio_auto_kanban_header', 'class': 'd-flex'})
+        card_header.append(E.field(name='x_studio_priority', widget='boolean_favorite', nolabel='1'))
+        card_header.append(E.field({'name': 'display_name', 'class': 'h5'}))
+        card_body = E.div({'name': 'studio_auto_kanban_body'})
+        card_footer = E.footer()
+        bottom_right_div = E.div({'class': "ms-auto d-flex align-items-center"})
+        card_main.extend([card_header, card_body, card_footer])
+        if 'x_studio_kanban_state' in model._fields:
+            status = E.field(name='x_studio_kanban_state', widget='state_selection')
+            bottom_right_div.append(status)
         if 'x_studio_user_id' in model._fields:
-            pre_fields.append(E.field(name='x_studio_user_id', widget="many2one_avatar_user"))
-            unassigned_var = E.t({'t-set': 'unassigned', 't-translation': 'on'})
-            unassigned_var.text = "Unassigned"
-            img = E.img({'t-att-src': "kanban_image('res.users', 'avatar_128', record.x_studio_user_id.raw_value)",
-                         't-att-title': "record.x_studio_user_id.value || unassigned",
-                         't-att-alt': "record.x_studio_user_id.value",
-                         'class': "oe_kanban_avatar o_image_24_cover float-right"})
-            bottom_right_div.append(unassigned_var)
+            img = E.field({
+                'class': 'ms-1',
+                'name': 'x_studio_user_id',
+                'widget': 'kanban.many2one_avatar_user',
+            })
             bottom_right_div.append(img)
-        content_div.extend([top_div, body_div, bottom_div])
-        card_div = E.div({'t-attf-class': "#{!selection_mode ? kanban_color(record.x_color.raw_value) : ''} oe_kanban_global_click"})
         if 'x_studio_value' and 'x_studio_currency_id' in model._fields:
             pre_fields.append(E.field(name='x_studio_currency_id'))
-            bottom_left_div.append(E.field(name='x_studio_value'))
+            card_footer.append(E.field(name='x_studio_value'))
         if 'x_studio_tag_ids' in model._fields:
-            body_div.append(E.field(name='x_studio_tag_ids', options="{'color_field': 'x_color'}"))
+            card_body.append(E.field(name='x_studio_tag_ids', options="{'color_field': 'x_color'}"))
+        kanban_card = E.t({'t-name': "kanban-card", 'class': "flex-row"})
         if 'x_studio_image' in model._fields:
             image_field = E.field({
-                'class': 'o_kanban_image',
                 'name': 'x_studio_image',
                 'widget': 'image',
                 'options': '{"zoom": true, "background": true, "preventClicks": false}'
             })
-            card_div.append(image_field)
-        card_div.append(content_div)
-        kanban_box = E.t(card_div, {'t-name': "kanban-box"})
-        templates = E.templates(kanban_box)
+            card_aside = E.aside()
+            card_aside.append(image_field)
+            kanban_card.append(card_aside)
+        card_footer.append(bottom_right_div)
+        kanban_card.append(card_main)
+        kanban_menu = E.t({'t-name': "kanban-menu"})
+        kanban_menu.extend([
+            E.a({'t-if': 'widget.editable', 'role': 'menuitem', 'type': 'open', 'class': 'dropdown-item'}, _('Edit')),
+            E.a({'t-if': 'widget.deletable', 'role': 'menuitem', 'type': 'delete', 'class': 'dropdown-item'}, _('Delete')),
+            E.field({'widget': 'kanban_color_picker', 'name': 'x_color'})
+        ])
+        templates = E.templates(kanban_menu, kanban_card)
         order = 'x_studio_priority desc, x_studio_sequence asc, id desc' if 'x_studio_sequence' in model._fields else 'x_studio_priority desc, id desc'
-        kanban = E.kanban(default_group_by='x_studio_stage_id', default_order=order)
+        kanban = E.kanban(default_group_by='x_studio_stage_id', default_order=order, highlight_color="x_color")
         kanban.extend(pre_fields)
         if 'x_studio_value' in model._fields:
             progressbar = E.progressbar(field='x_studio_kanban_state', colors='{"normal": "200", "done": "success", "blocked": "danger"}', sum_field='x_studio_value')
