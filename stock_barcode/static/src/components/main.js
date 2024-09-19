@@ -403,18 +403,6 @@ class MainComponent extends Component {
         await this.env.model.validate();
     }
 
-    /**
-     * Handler called when a barcode is scanned.
-     *
-     * @private
-     * @param {string} barcode
-     */
-    _onBarcodeScanned(barcode) {
-        if (this.state.view === "barcodeLines") {
-            this.env.model.processBarcode(barcode);
-        }
-    }
-
     _getHeaderHeight() {
         const header = document.querySelector('.o_barcode_header');
         const navbar = document.querySelector('.o_main_navbar');
