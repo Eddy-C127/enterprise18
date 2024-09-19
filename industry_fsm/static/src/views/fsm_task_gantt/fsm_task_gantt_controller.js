@@ -3,13 +3,7 @@ import { TaskGanttController } from "@project_enterprise/views/task_gantt/task_g
 export class FsmTaskGanttController extends TaskGanttController {
     create(context) {
         if (this.env.isSmall) {
-            this.actionService.doActionButton({
-                name: "action_fsm_task_mobile_view",
-                type: "object",
-                resModel: this.model.metaData.resModel,
-                resId: false,
-                context: context,
-            });
+            this.actionService.doAction("industry_fsm.project_task_fsm_mobile_server_action");
             return;
         }
         super.create(context);

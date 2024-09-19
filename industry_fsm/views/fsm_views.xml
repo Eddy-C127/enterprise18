@@ -475,6 +475,12 @@
     <!--
         FSM Actions
     -->
+    <record id="project_task_fsm_mobile_server_action" model="ir.actions.server">
+        <field name="name">My Tasks in mobile Server Action</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="state">code</field>
+        <field name="code">action = (record or model)._get_action_fsm_task_mobile_view()</field>
+    </record>
 
     <!-- My Tasks: kanban server action -->
     <record id="project_task_fsm_server_action" model="ir.actions.server">

@@ -149,8 +149,8 @@ class ProjectTask(models.Model):
         })
         return action
 
-    def action_fsm_task_mobile_view(self):
-        action = super().action_fsm_task_mobile_view()
+    def _get_action_fsm_task_mobile_view(self):
+        action = super()._get_action_fsm_task_mobile_view()
         action['context']['industry_fsm_has_same_worksheet_template'] = self.worksheet_template_id == self.project_id.sudo().worksheet_template_id
         return action
 

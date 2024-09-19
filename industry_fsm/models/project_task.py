@@ -250,7 +250,7 @@ class Task(models.Model):
             }
         }
 
-    def action_fsm_task_mobile_view(self):
+    def _get_action_fsm_task_mobile_view(self):
         action = self.env['ir.actions.act_window']._for_xml_id('industry_fsm.project_task_action_fsm')
         mobile_form_view = self.env.ref('industry_fsm.project_task_view_mobile_form', raise_if_not_found=False)
         if mobile_form_view:

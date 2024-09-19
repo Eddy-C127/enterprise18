@@ -9,14 +9,16 @@ export class FsmMyTaskKanbanRecord extends ProjectTaskKanbanRecord {
         }
         if (!ev.target.closest(CANCEL_GLOBAL_CLICK)) {
             const { record } = this.props;
-            this.action.doActionButton({
-                name: "action_fsm_task_mobile_view",
-                type: "object",
-                resModel: record.resModel,
-                resId: record.resId,
-                context: record.context,
-                onClose: async () => {
-                    await record.model.root.load();
+            const resIds = record.model.root.records.map((datapoint) => datapoint.resId);
+            this.action.doAction("industry_fsm.project_task_fsm_mobile_server_action", {
+                additionalContext: {
+                    active_id: record.resId,
+                    active_model: record.resModel,
+                },
+                props: {
+                    resIds,
+                    resModel: record.resModel,
+                    resId: record.resId,
                 },
             });
         }
