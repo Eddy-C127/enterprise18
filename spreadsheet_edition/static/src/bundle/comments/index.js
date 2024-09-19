@@ -138,4 +138,4 @@ sidePanelRegistry.add("Comments", {
 });
 
 // after the grid but before the highlights
-addRenderingLayer("Comments", 0.5);
+addRenderingLayer("Triangle", 0.5);

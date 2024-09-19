@@ -8,6 +8,7 @@ const { positionToZone } = helpers;
 
 export class FieldSyncUIPlugin extends OdooUIPlugin {
     static getters = ["getFieldSyncX2ManyCommands", "getFieldSyncMaxPosition"];
+    static layers = ["Triangle"];
 
     handle(cmd) {
         switch (cmd.type) {
@@ -179,6 +180,27 @@ export class FieldSyncUIPlugin extends OdooUIPlugin {
                     error: "",
                     castToServerValue: (cell) => cell.formattedValue,
                 };
+        }
+    }
+
+    drawLayer({ ctx }, layer) {
+        const activeSheetId = this.getters.getActiveSheetId();
+        for (const [{ col, row, sheetId }] of this.getters.getAllFieldSyncs()) {
+            if (sheetId !== activeSheetId) {
+                continue;
+            }
+            const zone = this.getters.expandZone(activeSheetId, positionToZone({ col, row }));
+            if (zone.left !== col || zone.top !== row) {
+                continue;
+            }
+            const { x, y, width } = this.getters.getVisibleRect(zone);
+            ctx.fillStyle = "#6C4E65";
+            ctx.beginPath();
+
+            ctx.moveTo(x + width - 5, y);
+            ctx.lineTo(x + width, y);
+            ctx.lineTo(x + width, y + 5);
+            ctx.fill();
         }
     }
 }

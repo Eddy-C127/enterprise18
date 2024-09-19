@@ -31,7 +31,7 @@ export class CommentsStore extends SpreadsheetStore {
     }
 
     get renderingLayers() {
-        return ["Comments"];
+        return ["Triangle"];
     }
 
     handleEvent(event) {
