@@ -1422,7 +1422,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
             'position': 'inside',
         }).append(
             etree.fromstring("""
-                <a data-type="set_cover" href="#" data-field="%s" class="dropdown-item oe_kanban_action oe_kanban_action_a" >
+                <a data-type="set_cover" href="#" data-field="%s" class="dropdown-item oe_kanban_action" >
                     Set Cover Image
                 </a>
             """ % (field_id.name))

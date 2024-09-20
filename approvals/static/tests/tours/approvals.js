@@ -12,7 +12,7 @@ registry.category("web_tour.tours").add("approvals_tour", {
             run: "click",
         },
         {
-            trigger: ".oe_kanban_action_button:first",
+            trigger: "button.oe_kanban_action:first",
             content: "create new request",
             run: "click",
         },

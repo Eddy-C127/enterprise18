@@ -32,7 +32,7 @@ registry.category("web_tour.tours").add("pos_iot_scale_tour", {
                 run: "click",
             },
             {
-                trigger: ".o_pos_kanban button.oe_kanban_action_button",
+                trigger: ".o_pos_kanban button.oe_kanban_action",
                 run: "click",
             },
             Dialog.confirm("Open Register"),

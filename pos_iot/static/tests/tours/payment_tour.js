@@ -68,7 +68,7 @@ registry.category("web_tour.tours").add("payment_terminals_tour", {
             },
             {
                 content: "Start session",
-                trigger: ".o_pos_kanban button.oe_kanban_action_button",
+                trigger: ".o_pos_kanban button.oe_kanban_action",
                 run: "click",
             },
             // PART 1: Pay exactly the price of order. Should automatically go to receipt screen.
