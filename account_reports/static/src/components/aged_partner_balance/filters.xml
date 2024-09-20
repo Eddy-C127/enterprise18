@@ -13,5 +13,9 @@
                 </div>
             </t>
         </xpath>
+
+        <xpath expr="//div[@id='filter_extra_options']" position="replace">
+            <t t-call="account_reports.AgedPartnerBalanceFilterExtraOptions"/>
+        </xpath>
     </t>
 </templates>

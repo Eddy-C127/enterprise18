@@ -56,6 +56,8 @@ class TestAccountReportsCommon(AccountTestInvoicingCommon):
                 'mode': 'range',
                 'filter': 'custom',
             },
+            'show_account': True,
+            'show_currency': True,
             **default_options,
         })
 

@@ -29,13 +29,21 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
 
     def _custom_options_initializer(self, report, options, previous_options):
         super()._custom_options_initializer(report, options, previous_options=previous_options)
-        if report.env.user.has_group('base.group_multi_currency'):
-            options['multi_currency'] = True
-        else:
-            options['columns'] = [
-                column for column in options['columns']
-                if column['expression_label'] not in {'amount_currency', 'currency'}
-            ]
+        hidden_columns = set()
+
+        options['multi_currency'] = report.env.user.has_group('base.group_multi_currency')
+        options['show_currency'] = options['multi_currency'] and (previous_options or {}).get('show_currency', False)
+        if not options['show_currency']:
+            hidden_columns.update(['amount_currency', 'currency'])
+
+        options['show_account'] = (previous_options or {}).get('show_account', False)
+        if not options['show_account']:
+            hidden_columns.add('account_name')
+
+        options['columns'] = [
+            column for column in options['columns']
+            if column['expression_label'] not in hidden_columns
+        ]
 
         default_order_column = {
             'expression_label': 'invoice_date',
