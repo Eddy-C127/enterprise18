@@ -483,7 +483,7 @@ class BankRecWidgetLine(models.Model):
 
     def _get_aml_values(self, **kwargs):
         self.ensure_one()
-        return {
+        create_dict = {
             'name': self.name,
             'account_id': self.account_id.id,
             'currency_id': self.currency_id.id,
@@ -497,3 +497,6 @@ class BankRecWidgetLine(models.Model):
             'group_tax_id': self.group_tax_id.id,
             **kwargs,
         }
+        if self.flag == 'early_payment':
+            create_dict['display_type'] = 'epd'
+        return create_dict
