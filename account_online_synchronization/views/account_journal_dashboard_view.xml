@@ -15,7 +15,7 @@
                     <field name="online_sync_fetching_status"/>
                 </field>
 
-                <xpath expr="//div[@name='setup_bank_btn']" position="attributes">
+                <xpath expr="//button[@name='action_configure_bank_journal']" position="attributes">
                     <attribute name="invisible">account_online_account_id</attribute>
                 </xpath>
 

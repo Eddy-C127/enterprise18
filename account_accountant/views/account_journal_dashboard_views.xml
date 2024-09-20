@@ -11,9 +11,7 @@
             </xpath>
             <!-- The following section handles the reconcile button -->
             <xpath expr="//div[@name='bank_cash_buttons']" position="inside">
-                <div name="recon_btn" t-if="dashboard.number_to_reconcile > 0" class="float-start me-1">
-                    <button type="object" name="action_open_reconcile" class="btn btn-secondary d-block text-nowrap" groups="account.group_account_basic"><t t-out="dashboard.number_to_reconcile"/> to reconcile</button>
-                </div>
+                <button t-if="dashboard.number_to_reconcile > 0" type="object" name="action_open_reconcile" class="btn btn-secondary d-block text-nowrap" groups="account.group_account_basic"><t t-out="dashboard.number_to_reconcile"/> to reconcile</button>
             </xpath>
 
             <xpath expr="//div[@name='latest_statement']//span" position="replace">
@@ -32,7 +30,7 @@
                             <a type="object" name="action_open_to_check"><t t-out="dashboard.number_to_check"/> to check</a>
                         </div>
                         <div class="col-auto text-end">
-                            <span class="o_kanban_monetary"><t t-out="dashboard.to_check_balance"/></span>
+                            <span dir="ltr"><t t-out="dashboard.to_check_balance"/></span>
                         </div>
                     </div>
                 </t>
