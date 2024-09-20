@@ -84,12 +84,12 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         this.doActionAndClose("action_continue", !skipSave, true);
     }
 
-    async openWorksheet(){
-        this.state.disabled = true;
+    async openWorksheet() {
         const res = await this.props.record.model.orm.call(
             this.props.record.resModel,
             "action_fill_sheet",
-            [this.props.record.resId]);
+            [this.props.record.resId]
+        );
         this.action.doAction(res);
     }
 
