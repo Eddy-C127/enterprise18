@@ -242,7 +242,24 @@
                 "I32:I34": 1,
                 "I38:I44": 1
             },
-            "borders": { "A7:I7": 1, "A8:I8": 2 },
+            "borders": {
+                "A7:I7": 1,
+                "A8:I8": 2,
+                "A24:D24": 3,
+                "A31:D31": 3,
+                "A37:D37": 3,
+                "A42:D42": 3,
+                "F24:I24": 3,
+                "F31:I31": 3,
+                "F37:I37": 3,
+                "A25:D25": 4,
+                "A32:D32": 4,
+                "A38:D38": 4,
+                "A43:D43": 4,
+                "F25:I25": 4,
+                "F32:I32": 4,
+                "F38:I38": 4
+            },
             "conditionalFormats": [
                 {
                     "rule": {
@@ -432,7 +449,7 @@
                 }
             ],
             "tables": [],
-            "areGridLinesVisible": true,
+            "areGridLinesVisible": false,
             "isVisible": true,
             "headerGroups": { "ROW": [], "COL": [] },
             "dataValidationRules": [],
@@ -927,9 +944,11 @@
     },
     "borders": {
         "1": { "bottom": { "style": "thin", "color": "#000" } },
-        "2": { "top": { "style": "thin", "color": "#000" } }
+        "2": { "top": { "style": "thin", "color": "#000" } },
+        "3": { "bottom": { "style": "thin", "color": "#CCCCCC" } },
+        "4": { "top": { "style": "thin", "color": "#CCCCCC" } }
     },
-    "revisionId": "7aa74b56-4c43-44c4-bcfd-85aed3a13d54",
+    "revisionId": "ba089b85-2ed5-49f0-bd59-4334993cfbb6",
     "uniqueFigureIds": true,
     "settings": {
         "locale": {
