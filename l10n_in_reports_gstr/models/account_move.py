@@ -143,7 +143,7 @@ class AccountMove(models.Model):
     @api.model
     def _is_l10n_in_irn_json(self, content):
         """ Determine whether the given file content is a vendor bill JSON retrieved from IRN. """
-        with contextlib.suppress(json.JSONDecodeError):
+        with contextlib.suppress(json.JSONDecodeError, UnicodeDecodeError):
             content = json.loads(content)
             return all(key in content for key in (
                 'Irn', 'AckNo', 'AckDt', 'SignedInvoice', 'Status',
