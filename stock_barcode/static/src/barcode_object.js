@@ -11,6 +11,7 @@ export class BarcodeObject {
         this.parsedData = {}; // Fetched data thanks to the barcode parsed value(s).
         this.isParsed = false; // Flag to know if barcode was already parsed.
         this.missingRecords = []; // Keep track of missing records (try to fetch them later.)
+        this.isURN = Boolean(this.rawValue.match(/^urn:.*$/));
 
         if (this.parser) {
             this.parsedBarcode = this.parser.parse_barcode(this.rawValue);

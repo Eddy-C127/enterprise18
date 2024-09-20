@@ -640,18 +640,29 @@ export default class BarcodeModel extends EventBus {
             }
             // Fetch all needed missing data and add them to the cache.
             await this.cache.getMissingRecords();
+
             // Link parsed barcodes with missing information to the corresponding record(s).
+            const validBarcodes = [];
             for (const barcodeObject of parsedBarcodes) {
                 if (barcodeObject.hasMissingRecords) {
                     await barcodeObject.setRecords();
+                    if (barcodeObject.isURN && barcodeObject.hasMissingRecords &&
+                        barcodeObject.missingRecords.find(mr => mr.type === "product")) {
+                        // This barcode is linked to a product we don't have => We ignore it.
+                        // TODO: what to do with those barcodes ? Missing product => Barcode Lookup ?
+                        // TODO: already scanned SN should be managed here too ?
+                        this.trigger("updateBarcodesCountProcessed");
+                        continue;
+                    }
+                    validBarcodes.push(barcodeObject);
                 }
             }
 
             this.actionMutex.exec(async () => {
-                for (const barcodePart of filteredBarcodes) {
-                    this.trigger("updateBarcodesCountProcessed");
+                for (const barcodeObject of validBarcodes) {
                     // TODO: use already parsed barcode in `_processBarcode` instead of parse it again.
-                    await this._processBarcode(barcodePart);
+                    await this._processBarcode(barcodeObject.rawValue);
+                    this.trigger("updateBarcodesCountProcessed");
                 }
                 delete this._currentBarcode;
             });
