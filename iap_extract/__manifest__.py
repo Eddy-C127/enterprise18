@@ -14,5 +14,9 @@
     ],
     'auto_install': True,
     'license': 'OEEL-1',
-    'assets': {}
+    'assets': {
+        'web.assets_backend': [
+            'iap_extract/static/src/components/**/*',
+        ]
+    }
 }

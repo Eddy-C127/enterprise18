@@ -122,6 +122,9 @@ class ExtractMixin(models.AbstractModel):
         records_to_validate.extract_state = 'done'
         return records_to_validate
 
+    def _get_extract_status_channel(self):
+        return f"extract.mixin.status#{self.extract_document_uuid}"
+
     @staticmethod
     def _get_ocr_selected_value(ocr_results, feature, default=None):
         return ocr_results.get(feature, {}).get('selected_value', {}).get('content', default)
@@ -193,6 +196,7 @@ class ExtractMixin(models.AbstractModel):
         This function is meant to be overridden, and called with a title.
         """
         self._upload_to_extract()
+        return self.extract_state, self.extract_error_message, self.extract_document_uuid
 
     def buy_credits(self):
         url = self.env['iap.account'].get_credits_url(base_url='', service_name='invoice_ocr')
@@ -336,6 +340,10 @@ class ExtractMixin(models.AbstractModel):
             self.extract_state = 'extract_not_ready'
         else:
             self.extract_state = 'error_status'
+        self.env["bus.bus"]._sendone(self._get_extract_status_channel(), "state_change", {
+            'status': self.extract_state,
+            'error_message': self.extract_error_message,
+        })
 
     def _fill_document_with_results(self, ocr_results):
         """ Fill the document with the results of the OCR. This method is meant to be overridden """
