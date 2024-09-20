@@ -96,8 +96,8 @@
         <field name="model">hr.job</field>
         <field name="inherit_id" ref="hr_recruitment.view_hr_job_kanban"/>
         <field name="arch" type="xml">
-            <xpath expr="//div[@name='o_kanban_job_reporting']" position="replace">
-                <div role="menuitem" name="o_kanban_job_reporting">
+            <xpath expr="//div[@name='kanban_job_reporting']" position="replace">
+                <div role="menuitem" name="kanban_job_reporting">
                     <a name="%(hr_recruitment_reports.recruitment_report_job_action)d" type="action">Analysis</a>
                 </div>
                 <div role="menuitem">
