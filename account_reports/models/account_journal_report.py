@@ -1257,8 +1257,8 @@ class JournalReportCustomHandler(models.AbstractModel):
                 'search_default_journal_id': [params['journal_id']],
             })
 
-        if options and options.get('journals') and 'search_default_journal_id' not in ctx:
-            selected_journals = [journal['id'] for journal in options['journals'] if journal.get('selected')]
+        if options and options.get('journals') and not ctx.get('search_default_journal_id'):
+            selected_journals = [journal['id'] for journal in options['journals'] if journal.get('selected') and journal['model'] == 'account.journal']
             if len(selected_journals) == 1:
                 ctx['search_default_journal_id'] = selected_journals
 
