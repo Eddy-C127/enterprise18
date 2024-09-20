@@ -169,6 +169,7 @@ export class SubscriptionManager {
 
 class ExpiredSubscriptionBlockUI extends Component {
     static props = {};
+    // TODO the "o_blockUI" div in there seems useless (it has 0 height and thus displays and does nothing)
     static template = xml`
         <t t-if="subscription.daysLeft &lt;= 0">
             <div class="o_blockUI"/>

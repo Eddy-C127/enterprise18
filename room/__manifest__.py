@@ -54,6 +54,7 @@
             'web/static/src/scss/base_frontend.scss',
             'web/static/src/core/utils/transitions.scss',
             'web/static/src/core/notifications/notification.scss',
+            'web/static/src/core/ui/block_ui.scss',
 
             # Room's specific assets
             'room/static/src/room_booking/**/*',
