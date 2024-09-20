@@ -44,11 +44,11 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             run: "edit 100 && click body",
         },
         {
-            trigger: ".modal-body div.alert-warning:contains('The running balance')",
+            trigger: ".alert-warning:contains('The running balance')",
         },
         {
             content: "Dialog displays warning, save anyway",
-            trigger: ".modal-dialog .btn-primary[special='save']",
+            trigger: ".breadcrumb-item.o_back_button:nth-of-type(2)",
             run: "click",
         },
         {
@@ -60,16 +60,22 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_stat
             run: "click",
         },
         {
-            content: "Delete the statement",
-            trigger: ".modal-dialog .btn-danger:contains('Delete')",
+            content: "Back in the form view",
+            trigger: ".alert-warning:contains('The running balance')",
+        },
+        {
+            content: "Click on Action",
+            trigger: ".o_cp_action_menus button",
             run: "click",
         },
         {
-            trigger: ".modal-dialog:contains('Confirmation')",
+            content: "Click on Delete",
+            trigger: ".o-dropdown--menu span:contains('Delete')",
+            run: "click",
         },
         {
             content: "Confirm Deletion",
-            trigger: ".btn-primary:contains('Ok')",
+            trigger: ".btn-primary:contains('Delete')",
             run: "click",
         },
         {

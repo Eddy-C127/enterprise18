@@ -1199,28 +1199,17 @@ export class BankRecKanbanRenderer extends KanbanRenderer {
     openStatementDialog(statementId) {
         const action = {
             type: "ir.actions.act_window",
-            name: _t("Edit Statement"),
             res_model: "account.bank.statement",
             res_id: statementId,
             views: [[false, "form"]],
-            target: "new",
+            target: "current",
             context: {
-                dialog_size: 'medium',
-                form_view_ref: 'account_accountant.view_bank_statement_form_with_buttons',
+                form_view_ref: "account_accountant.view_bank_statement_form_bank_rec_widget",
             },
-        }
-        const options = {
-            onClose: async () => {
-                this.env.methods.withNewState(async(newState) => {
-                    await this.props.list.model.root.load();
-                    await this.env.methods.updateJournalState(newState);
-                    newState.__kanbanNotify = true;
-                });
-            }
-        }
-        this.action.doAction(action, options);
-    }
+        };
 
+        this.action.doAction(action);
+    }
 
     // -----------------------------------------------------------------------------
     // QUICK CREATE CALLBACKS

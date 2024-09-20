@@ -35,28 +35,6 @@
             </field>
         </record>
 
-        <record id="view_bank_statement_form_with_buttons" model="ir.ui.view">
-            <field name="name">account.bank.statement.form.buttons</field>
-            <field name="model">account.bank.statement</field>
-            <field name="inherit_id" ref="account_accountant.view_bank_statement_form_bank_rec_widget"/>
-            <field name="mode">primary</field>
-            <field name="arch" type="xml">
-                <xpath expr="//sheet" position="after">
-                    <footer>
-                        <button string="Save" class="btn-primary" special="save"  data-hotkey="S"/>
-                        <button string="Discard" class="btn-secondary" special="cancel" data-hotkey="J"/>
-                        <button string="Print" class="btn-secondary" name="action_generate_attachment" type="object" data-hotkey="P"
-                                invisible="not id or attachment_ids"/>
-                        <button string="Delete" class="btn-danger ms-auto" name="unlink" type="object" data-hotkey="X"
-                                invisible="not id"
-                                confirm="Are you sure you want to delete this statement?"/>
-                    </footer>
-                </xpath>
-                <xpath expr="//div[hasclass('o_attachment_preview')]" position="replace"/>
-                <chatter position="replace"/>
-            </field>
-        </record>
-
         <record id="action_bank_statement_form_bank_rec_widget" model="ir.actions.act_window">
             <!-- Binding removed since the same can be achieved with multi-edit -->
             <field name="name">Create Statement</field>
