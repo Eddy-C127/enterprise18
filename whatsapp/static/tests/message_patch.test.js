@@ -117,8 +117,8 @@ test("Allow SeenIndicators in WhatsApp Channels", async () => {
     });
     await start();
     await openDiscuss(channelId);
-    await contains(".o-mail-MessageSeenIndicator:not(.o-all-seen)");
-    await contains(".o-mail-MessageSeenIndicator i");
+    await contains(".o-mail-MessageSeenIndicator[title='Sent']");
+    await contains(".o-mail-MessageSeenIndicator .fa-check", { count: 1 });
 
     const [channel] = pyEnv["discuss.channel"].search_read([["id", "=", channelId]]);
     // Simulate received channel seen notification
@@ -129,7 +129,8 @@ test("Allow SeenIndicators in WhatsApp Channels", async () => {
             seen_message_id: messageId,
         }).get_result()
     );
-    await contains(".o-mail-MessageSeenIndicator i", { count: 2 });
+    await contains(".o-mail-MessageSeenIndicator .fa-check", { count: 2 });
+    await contains(".o-mail-MessageSeenIndicator[title='Seen by WhatsApp User']");
 });
 
 test("No SeenIndicators if message has whatsapp error", async () => {
