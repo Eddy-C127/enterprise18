@@ -42,10 +42,6 @@ class WhatsAppTemplateVariable(models.Model):
     def _check_demo_values(self):
         if self.filtered(lambda var: var.field_type == 'free_text' and not var.demo_value):
             raise ValidationError(_('Free Text template variables must have a demo value.'))
-        for var in self.filtered('button_id'):
-            if not var.demo_value.startswith(var.button_id.website_url):
-                raise ValidationError(_('Dynamic values can only be added at the end of the link\n'
-                                        'e.g. "https://www.example.com/menu?id=20"'))
 
     @api.constrains("field_type", "field_name")
     def _check_field_name(self):

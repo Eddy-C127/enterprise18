@@ -213,7 +213,10 @@ class MarketingActivity(models.Model):
             for activity in self:
                 activity.update(activity_data[activity._origin.id])
 
-    @api.depends('mass_mailing_id', 'server_action_id', 'interval_number', 'interval_type', 'trigger_type', 'parent_id', 'validity_duration', 'validity_duration_number', 'validity_duration_type')
+    def _get_activity_summary_dependencies(self):
+        return ['activity_type', 'mass_mailing_id', 'server_action_id', 'interval_number', 'interval_type', 'trigger_type', 'parent_id', 'validity_duration', 'validity_duration_number', 'validity_duration_type']
+
+    @api.depends(lambda self: self._get_activity_summary_dependencies())
     def _compute_activity_summary(self):
         """ Compute activity summary based on selection made by user, which includes information about the
         activity's starting point, the linked Server Action or Mail/SMS Template, trigger type, and the expiry duration.
@@ -390,8 +393,8 @@ class MarketingActivity(models.Model):
 
         if traces_allowed:
             activity_method = getattr(self, '_execute_%s' % (self.activity_type))
-            activity_method(traces_allowed)
             new_traces += self._generate_children_traces(traces_allowed)
+            activity_method(traces_allowed)
             traces.mapped('participant_id').check_completed()
 
         if traces_rejected:

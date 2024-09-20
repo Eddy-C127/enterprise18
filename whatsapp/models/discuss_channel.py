@@ -82,6 +82,7 @@ class DiscussChannel(models.Model):
         return super()._get_notify_valid_parameters()
 
     def _notify_thread(self, message, msg_vals=False, **kwargs):
+        parent_msg_id = kwargs.pop('parent_msg_id') if 'parent_msg_id' in kwargs else False
         recipients_data = super()._notify_thread(message, msg_vals=msg_vals, **kwargs)
         if kwargs.get('whatsapp_inbound_msg_uid') and self.channel_type == 'whatsapp':
             self.env['whatsapp.message'].create({
@@ -89,9 +90,12 @@ class DiscussChannel(models.Model):
                 'message_type': 'inbound',
                 'mobile_number': f'+{self.whatsapp_number}',
                 'msg_uid': kwargs['whatsapp_inbound_msg_uid'],
+                'parent_id': parent_msg_id,
                 'state': 'received',
                 'wa_account_id': self.wa_account_id.id,
             })
+            if parent_msg_id:
+                self.env['whatsapp.message'].browse(parent_msg_id).state = 'replied'
         return recipients_data
 
     def message_post(self, *, message_type='notification', **kwargs):

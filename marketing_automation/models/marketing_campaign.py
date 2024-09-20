@@ -111,17 +111,16 @@ class MarketingCampaign(models.Model):
         for campaign in self:
             campaign.mass_mailing_count = len(campaign.mapped('marketing_activity_ids.mass_mailing_id').filtered(lambda mailing: mailing.mailing_type == 'mail'))
 
-    @api.depends('marketing_activity_ids.mass_mailing_id')
+    @api.depends('utm_campaign_id')
     def _compute_link_tracker_click_count(self):
         click_data = self.env['link.tracker.click'].sudo()._read_group(
-            [('mass_mailing_id', 'in', self.mapped('marketing_activity_ids.mass_mailing_id').ids)],
-            ['mass_mailing_id'],
+            [('campaign_id', 'in', self.utm_campaign_id.ids)],
+            ['campaign_id'],
             ['__count']
         )
-        mapped_data = {mass_mailing.id: count for mass_mailing, count in click_data}
+        mapped_data = {utm_campaign.id: count for utm_campaign, count in click_data}
         for campaign in self:
-            campaign.link_tracker_click_count = sum(mapped_data.get(mailing_id, 0)
-                                                    for mailing_id in campaign.mapped('marketing_activity_ids.mass_mailing_id').ids)
+            campaign.link_tracker_click_count = mapped_data.get(campaign.utm_campaign_id.id, 0)
 
     @api.depends('participant_ids.state')
     def _compute_participants(self):
@@ -322,9 +321,7 @@ class MarketingCampaign(models.Model):
 
     def action_view_tracker_statistics(self):
         action = self.env["ir.actions.actions"]._for_xml_id("marketing_automation.link_tracker_action_marketing_campaign")
-        action['domain'] = [
-            ('mass_mailing_id', 'in', self.mapped('marketing_activity_ids.mass_mailing_id').ids)
-        ]
+        action['domain'] = [('campaign_id', 'in', self.utm_campaign_id.ids)]
         return action
 
     def sync_participants(self):

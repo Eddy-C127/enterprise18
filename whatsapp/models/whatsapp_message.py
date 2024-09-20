@@ -11,6 +11,7 @@ from odoo import models, fields, api, _
 from odoo.addons.phone_validation.tools import phone_validation
 from odoo.addons.whatsapp.tools import phone_validation as wa_phone_validation
 from odoo.addons.whatsapp.tools.retryable_codes import WHATSAPP_RETRYABLE_ERROR_CODES
+from odoo.addons.whatsapp.tools.bounced_codes import BOUNCED_ERROR_CODES
 from odoo.addons.whatsapp.tools.whatsapp_api import WhatsAppApi
 from odoo.addons.whatsapp.tools.whatsapp_exception import WhatsAppError
 from odoo.exceptions import ValidationError, UserError
@@ -53,8 +54,10 @@ class WhatsAppMessage(models.Model):
         ('sent', 'Sent'),
         ('delivered', 'Delivered'),
         ('read', 'Read'),
+        ('replied', 'Replied'),  # used internally
         ('received', 'Received'),
         ('error', 'Failed'),
+        ('bounced', 'Bounced'),  # failure linked to number usage, different from pure whatsapp error
         ('cancel', 'Cancelled')], string="State", default='outgoing')
     failure_type = fields.Selection([
         ('account', 'Account Error'),
@@ -71,6 +74,7 @@ class WhatsAppMessage(models.Model):
     wa_template_id = fields.Many2one(comodel_name='whatsapp.template')
     msg_uid = fields.Char(string="WhatsApp Message ID")
     wa_account_id = fields.Many2one(comodel_name='whatsapp.account', string="WhatsApp Business Account")
+    parent_id = fields.Many2one('whatsapp.message', 'Response To', ondelete="set null")
 
     mail_message_id = fields.Many2one(comodel_name='mail.message', index=True)
     body = fields.Html(related='mail_message_id.body', string="Body", related_sudo=False)
@@ -129,7 +133,7 @@ class WhatsAppMessage(models.Model):
     @api.autovacuum
     def _gc_whatsapp_messages(self):
         """ To avoid bloating the database, we remove old whatsapp.messages that have been correctly
-        received / sent and are older than 15 days.
+        received / sent and are older than 15 days.'
 
         We use these messages mainly to tie a customer answer to a certain document channel, but
         only do so for the last 15 days (see '_find_active_channel').
@@ -145,12 +149,16 @@ class WhatsAppMessage(models.Model):
           - We could also loose the "right channel" in that case, and send the message to a another
           (or a new) discuss channel, but it is again unlikely to answer more than 15 days later. """
 
+        domain = self._get_whatsapp_gc_domain()
+        self.env['whatsapp.message'].search(domain).unlink()
+
+    def _get_whatsapp_gc_domain(self):
         date_threshold = fields.Datetime.now() - timedelta(
             days=self.env['whatsapp.message']._ACTIVE_THRESHOLD_DAYS)
-        self.env['whatsapp.message'].search([
+        return [
             ('create_date', '<', date_threshold),
             ('state', 'not in', ['outgoing', 'error', 'cancel'])
-        ]).unlink()
+        ]
 
     def _get_formatted_number(self, sanitized_number, country_code):
         """ Format a valid mobile number for whatsapp.
@@ -269,8 +277,7 @@ class WhatsAppMessage(models.Model):
                     # generate sending values, components and attachments
                     send_vals, attachment = whatsapp_message.wa_template_id._get_send_template_vals(
                         record=from_record,
-                        free_text_json=whatsapp_message.free_text_json,
-                        attachment=whatsapp_message.mail_message_id.attachment_ids,
+                        whatsapp_message=whatsapp_message,
                     )
                     if attachment and attachment not in whatsapp_message.mail_message_id.attachment_ids:
                         whatsapp_message.mail_message_id.attachment_ids = [(4, attachment.id)]
@@ -314,6 +321,7 @@ class WhatsAppMessage(models.Model):
     def _handle_error(self, failure_type=False, whatsapp_error_code=False, error_message=False):
         """ Format and write errors on the message. """
         self.ensure_one()
+        state = 'error'
         if whatsapp_error_code:
             if whatsapp_error_code in WHATSAPP_RETRYABLE_ERROR_CODES:
                 failure_type = 'whatsapp_recoverable'
@@ -321,10 +329,12 @@ class WhatsAppMessage(models.Model):
                 failure_type = 'whatsapp_unrecoverable'
         if not failure_type:
             failure_type = 'unknown'
+        if whatsapp_error_code in BOUNCED_ERROR_CODES:
+            state = 'bounced'
         self.write({
             'failure_type': failure_type,
             'failure_reason': error_message,
-            'state': 'error',
+            'state': state,
         })
 
     def _post_message_in_active_channel(self):
@@ -395,16 +405,20 @@ class WhatsAppMessage(models.Model):
     def _process_statuses(self, value):
         """ Process status of the message like 'send', 'delivered' and 'read'."""
         mapping = {'failed': 'error', 'cancelled': 'cancel'}
+        processed_message_ids = set()
+
         for statuses in value.get('statuses', []):
-            whatsapp_message_id = self.env['whatsapp.message'].sudo().search([('msg_uid', '=', statuses['id'])])
-            if whatsapp_message_id:
-                whatsapp_message_id.state = mapping.get(statuses['status'], statuses['status'])
-                whatsapp_message_id._update_message_fetched_seen()
+            whatsapp_message = self.env['whatsapp.message'].sudo().search([('msg_uid', '=', statuses['id'])])
+            if whatsapp_message:
+                whatsapp_message.state = mapping.get(statuses['status'], statuses['status'])
+                processed_message_ids.add(whatsapp_message.id)
+                whatsapp_message._update_message_fetched_seen()
                 if statuses['status'] == 'failed':
                     error = statuses['errors'][0] if statuses.get('errors') else None
                     if error:
-                        whatsapp_message_id._handle_error(whatsapp_error_code=error['code'],
+                        whatsapp_message._handle_error(whatsapp_error_code=error['code'],
                                                           error_message=f"{error['code']} : {error['title']}")
+        return self.env['whatsapp.message'].browse(sorted(processed_message_ids, reverse=True)).sudo()
 
     def _update_message_fetched_seen(self):
         """ Update message status for the whatsapp recipient. """

@@ -4,7 +4,6 @@ import logging
 import mimetypes
 import secrets
 import string
-from datetime import timedelta
 from markupsafe import Markup
 
 from odoo import api, fields, models, _
@@ -138,12 +137,9 @@ class WhatsAppAccount(models.Model):
     def _find_active_channel(self, sender_mobile_formatted, sender_name=False, create_if_not_found=False):
         """This method will find the active channel for the given sender mobile number."""
         self.ensure_one()
-        allowed_old_msg_date = fields.Datetime.now() - timedelta(
-            days=self.env['whatsapp.message']._ACTIVE_THRESHOLD_DAYS)
         whatsapp_message = self.env['whatsapp.message'].sudo().search(
             [
                 ('mobile_number_formatted', '=', sender_mobile_formatted),
-                ('create_date', '>', allowed_old_msg_date),
                 ('wa_account_id', '=', self.id),
                 ('wa_template_id', '!=', False),
                 ('state', 'not in', ['outgoing', 'error', 'cancel']),
@@ -175,6 +171,7 @@ class WhatsAppAccount(models.Model):
         wa_api = WhatsAppApi(self)
 
         for messages in value.get('messages', []):
+            parent_msg_id = False
             parent_id = False
             channel = False
             sender_name = value.get('contacts', [{}])[0].get('profile', {}).get('name')
@@ -183,6 +180,7 @@ class WhatsAppAccount(models.Model):
             if 'context' in messages and messages['context'].get('id'):
                 parent_whatsapp_message = self.env['whatsapp.message'].sudo().search([('msg_uid', '=', messages['context']['id'])])
                 if parent_whatsapp_message:
+                    parent_msg_id = parent_whatsapp_message.id
                     parent_id = parent_whatsapp_message.mail_message_id
                 if parent_id:
                     channel = self.env['discuss.channel'].sudo().search([('message_ids', 'in', parent_id.id)], limit=1)
@@ -192,6 +190,7 @@ class WhatsAppAccount(models.Model):
             kwargs = {
                 'message_type': 'whatsapp_message',
                 'author_id': channel.whatsapp_partner_id.id,
+                'parent_msg_id': parent_msg_id,
                 'subtype_xmlid': 'mail.mt_comment',
                 'parent_id': parent_id.id if parent_id else None
             }

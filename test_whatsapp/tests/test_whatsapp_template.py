@@ -36,3 +36,4 @@ class WhatsAppTemplate(WhatsAppFullCase):
                 # no number found -> no message produced
                 else:
                     self.assertFalse(self._new_wa_msg)
+                    self.assertFalse(self._new_wa_msg.mobile_number)
