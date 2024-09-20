@@ -80,7 +80,7 @@ class BudgetAnalytic(models.Model):
     def create_revised_budget(self):
         revised = self.browse()
         for budget in self:
-            revised_budget = budget.copy(default={'name': _('REV %s', budget.name), 'parent_id': budget.id})
+            revised_budget = budget.copy(default={'name': _('REV %s', budget.name), 'parent_id': budget.id, 'budget_type': budget.budget_type})
             revised += revised_budget
             budget.message_post(
                 body=Markup("%s: <a href='#' data-oe-model='budget.analytic' data-oe-id='%s'>%s</a>") % (
