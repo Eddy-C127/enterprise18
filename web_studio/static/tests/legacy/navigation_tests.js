@@ -801,9 +801,8 @@ QUnit.module("Studio", (hooks) => {
     QUnit.test("entering a kanban keeps the user's domain", async (assert) => {
         serverData.views["pony,false,kanban"] = `
             <kanban>
-                <field name="display_name" />
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <field name="display_name" />
                     </t>
                 </templates>

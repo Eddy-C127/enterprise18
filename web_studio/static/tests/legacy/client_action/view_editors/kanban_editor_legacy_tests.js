@@ -91,6 +91,17 @@ QUnit.module(
                 setTimeout: (fn) => fn(),
             });
 
+            // avoid "kanban-box" deprecation warnings in this suite, which
+            // defines legacy kanban on purpose
+            const originalConsoleWarn = console.warn;
+            patchWithCleanup(console, {
+                warn: (msg) => {
+                    if (msg !== "'kanban-box' is deprecated, use 'kanban-card' API instead") {
+                        originalConsoleWarn(msg);
+                    }
+                },
+            });
+
             target = getFixture();
         },
     },
@@ -1406,7 +1417,9 @@ QUnit.module(
             const _console = window.console;
             window.console = Object.assign(Object.create(_console), {
                 warn(msg) {
-                    assert.step(msg);
+                    if (msg !== "'kanban-box' is deprecated, use 'kanban-card' API instead") {
+                        assert.step(msg);
+                    }
                 },
             });
             registerCleanup(() => {

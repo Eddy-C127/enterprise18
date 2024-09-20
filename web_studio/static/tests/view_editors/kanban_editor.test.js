@@ -54,6 +54,16 @@ class Product extends models.Model {
 defineModels([Coucou, Product, Partner]);
 
 test("template without t-name='card' load the legacy kanban editor", async () => {
+    // avoid "kanban-box" deprecation warnings in this suite, which
+    // defines legacy kanban on purpose
+    const originalConsoleWarn = console.warn;
+    patchWithCleanup(console, {
+        warn: (msg) => {
+            if (msg !== "'kanban-box' is deprecated, use 'kanban-card' API instead") {
+                originalConsoleWarn(msg);
+            }
+        },
+    });
     await mountViewEditor({
         type: "kanban",
         resModel: "coucou",
