@@ -38,7 +38,7 @@ test("Check that FsmDateWidget is displaying information in the correct format",
                 <field name="date_deadline"/>
                 <field name="stage_id"/>
                 <template>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="planned_date_begin" widget="fsm_date"/>
                     </t>
                 </template>

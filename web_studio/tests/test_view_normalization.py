@@ -88,7 +88,7 @@ class TestViewNormalization(TransactionCase):
                                     <field name="phone"/>
                                     <field name="mobile"/>
                                     <templates>
-                                        <t t-name="kanban-card">
+                                        <t t-name="card">
                                             <div>
                                                 <field name="name"/>
                                             </div>

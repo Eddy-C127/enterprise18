@@ -192,7 +192,7 @@
                 <field name="start_date"/>
                 <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}' help="This bar allows to filter the opportunities based on scheduled activities."/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="d-flex fw-bolder">
                             <field name="partner_id" readonly="state in ['cancel', 'sale']"/>
                             <field name="recurring_total" class="ms-auto" widget="monetary"/>

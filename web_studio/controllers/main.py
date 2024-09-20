@@ -1187,16 +1187,16 @@ Are you sure you want to remove the selection values of those records?""", len(r
 
     def _operation_kanban_wrap_main(self, arch, operation, model):
         wrap_type = operation.get('wrap_type')
-        # we must copy the content of the kanban-card under the <main> node
-        main_node = etree.fromstring("<t t-name='kanban-card'><main>$0</main></t>")
+        # we must copy the content of the card under the <main> node
+        main_node = etree.fromstring("<t t-name='card'><main>$0</main></t>")
         etree.SubElement(arch, 'xpath', {
-            'expr': '//t[@t-name="kanban-card"]',
+            'expr': '//t[@t-name="card"]',
             'position': 'replace',
             'mode': 'outer'
         }).append(main_node)
         if wrap_type == "aside":
             xpath_node = etree.SubElement(arch, 'xpath', {
-                'expr': '//t[@t-name="kanban-card"]',
+                'expr': '//t[@t-name="card"]',
                 'position': 'attributes'
                 })
             attribute_node = etree.Element('attribute', name='class')
@@ -1209,10 +1209,10 @@ Are you sure you want to remove the selection values of those records?""", len(r
             attribute_node_main = etree.Element('attribute', name='class')
             attribute_node_main.text = "col-10"
             xpath_node_main.append(attribute_node_main)
-        # results in a t[@t-name="kanban-card"]/main/t[@t-name="kanban-card"] template
+        # results in a t[@t-name="card"]/main/t[@t-name="card"] template
         # we must remove the latest t-name value
         xpath_node = etree.SubElement(arch, 'xpath', {
-            'expr': '//main/t[@t-name="kanban-card"]',
+            'expr': '//main/t[@t-name="card"]',
             'position': 'attributes'
             })
         xpath_node.append(etree.Element('attribute', name='t-name'))
@@ -1246,20 +1246,20 @@ Are you sure you want to remove the selection values of those records?""", len(r
             }).append(etree.fromstring(f"<attribute name='highlight_color'>{color_field}</attribute>"))
 
         etree.SubElement(arch, 'xpath', {
-            'expr': './/t[@t-name="kanban-menu"]',
+            'expr': './/t[@t-name="menu"]',
             'position': 'inside',
         }).append(etree.fromstring(f"<field name='{color_field}' widget='kanban_color_picker'></field>"))
 
     def _operation_kanban_menu(self, arch, operation, model):
         """ Insert a menu in a kanban view arch."""
         menu_node = etree.fromstring("""
-            <t t-name="kanban-menu">
+            <t t-name="menu">
                 <t t-if="widget.editable"><a type="open" class="dropdown-item">Edit</a></t>
                 <t t-if="widget.deletable"><a type="delete" class="dropdown-item">Delete</a></t>
             </t>
         """)
         etree.SubElement(arch, 'xpath', {
-            'expr': '//t[@t-name="kanban-card"]',
+            'expr': '//t[@t-name="card"]',
             'position': 'before',
         }).append(menu_node)
 
@@ -1295,7 +1295,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
 
         # add the dropdown before the rest
         dropdown_node = etree.fromstring("""
-            <t t-name="kanban-menu">
+            <t t-name="menu">
                 <t t-if="widget.editable"><a type="edit" class="dropdown-item">Edit</a></t>
                 <t t-if="widget.deletable"><a type="delete" class="dropdown-item">Delete</a></t>
                 <ul class="oe_kanban_colorpicker" data-field="%(field)s"/>
@@ -1418,7 +1418,7 @@ Are you sure you want to remove the selection values of those records?""", len(r
 
         # add link inside the dropdown
         etree.SubElement(arch, 'xpath', {
-            'expr': '//t[@t-name="kanban-menu"]',
+            'expr': '//t[@t-name="menu"]',
             'position': 'inside',
         }).append(
             etree.fromstring("""

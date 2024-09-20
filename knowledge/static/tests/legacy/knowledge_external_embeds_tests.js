@@ -138,7 +138,7 @@ QUnit.module("Knowledge External Embeds Tests", (hooks) => {
                 "quick_create,1,kanban":
                     `<kanban on_create="quick_create" quick_create="1" default_group_by="state">
                         <templates>
-                            <t t-name="kanban-card">
+                            <t t-name="card">
                                 <field name="name"/>
                             </t>
                         </templates>

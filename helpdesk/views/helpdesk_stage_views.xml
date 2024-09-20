@@ -50,7 +50,7 @@
             <kanban>
                 <field name="sequence" widget="handle"/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder fs-5"/>
                         <field name="team_ids" options="{'color_field': 'color'}" widget="many2many_tags"/>
                     </t>

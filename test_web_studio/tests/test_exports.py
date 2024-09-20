@@ -189,7 +189,7 @@ class TestStudioExports(StudioExportCase):
             arch="""
                 <kanban>
                     <templates>
-                        <t t-name="kanban-card">
+                        <t t-name="card">
                             <field name="x_studio_max_temp" />
                         </t>
                     </templates>
@@ -270,7 +270,7 @@ class TestStudioExports(StudioExportCase):
                 <field name="arch" type="xml">
                         <kanban>
                             <templates>
-                                <t t-name="kanban-card">
+                                <t t-name="card">
                                     <field name="x_studio_max_temp" />
                                 </t>
                             </templates>

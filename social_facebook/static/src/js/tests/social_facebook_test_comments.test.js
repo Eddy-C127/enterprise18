@@ -37,7 +37,7 @@ return '<kanban class="o_social_stream_post_kanban"' +
     '    <field name="twitter_profile_image_url"/>' +
     '    <templates>' +
 
-'<t t-name="kanban-card" class="o_social_stream_post_kanban_global p-0 mb-3">' +
+'<t t-name="card" class="o_social_stream_post_kanban_global p-0 mb-3">' +
 '		<div class="o_social_stream_post_message py-2">' +
 '			<div class="d-flex justify-content-between mb-2 px-2">' +
 '				<t t-set="author_info">' +

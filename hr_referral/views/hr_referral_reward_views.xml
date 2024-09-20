@@ -11,7 +11,7 @@
                 <field name="awarded_employees"/>
                 <field name="description"/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder fs-5"/>
                         <span><field name="cost"/> Points</span>
                         <span><field name="awarded_employees"/> Awarded Employees</span>
@@ -29,7 +29,7 @@
             <kanban can_open="0" js_class="referral_kanban">
                 <field name="points_missing"/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="ratio ratio-16x9 overflow-hidden mb-3">
                             <div class="embed-responsive-item d-flex align-items-center">
                                 <field name="image" widget="image" class="w-100" alt="Product" options="{'img_class': 'w-100'}"/>

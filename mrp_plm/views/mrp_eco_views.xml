@@ -113,7 +113,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder"/>
                     </t>
                 </templates>
@@ -129,7 +129,7 @@
                 <field name="alias_name"/>
                 <field name="alias_domain"/>
                 <templates>
-                    <t t-name="kanban-menu">
+                    <t t-name="menu">
                         <div t-if="widget.editable" role="menuitem">
                             <a class="dropdown-item ps-0" type="open">Configuration</a>
                         </div>
@@ -137,7 +137,7 @@
                             <field name="color" widget="kanban_color_picker"/>
                         </div>
                     </t>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bold fs-4 ms-2"/>
                         <div t-if="record.alias_name.value and record.alias_domain.value" class="small ms-2">
                             <i class="fa fa-envelope-o" role="img" aria-label="Domain alias" title="Domain alias"></i>&amp;nbsp; <field name="alias_id"/>
@@ -283,13 +283,13 @@
                 <field name="legend_done"/>
                 <progressbar field="kanban_state" colors='{"done": "success", "blocked": "danger"}'/>
                 <templates>
-                    <t t-name="kanban-menu" groups="base.group_user">
+                    <t t-name="menu" groups="base.group_user">
                         <t t-if="widget.editable"><a type="set_cover" class="dropdown-item" role="menuitem" data-field="displayed_image_attachment_id">Set Cover Image</a></t>
                         <t t-if="widget.editable"><a type="open" class="dropdown-item" role="menuitem">Edit Task</a></t>
                         <t t-if="widget.deletable"><a type="delete" class="dropdown-item" role="menuitem">Delete</a></t>
                         <field name="color" widget="kanban_color_picker"/>
                     </t>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fs-5 fw-bolder"/>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         <field name="product_tmpl_id"/>
@@ -586,7 +586,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder"/>
                     </t>
                 </templates>

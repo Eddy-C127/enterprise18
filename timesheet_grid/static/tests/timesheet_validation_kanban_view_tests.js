@@ -27,7 +27,7 @@ QUnit.module("timesheet_grid", (hooks) => {
                     "account.analytic.line,false,kanban": `
                         <kanban js_class="timesheet_validation_kanban">
                             <templates>
-                                <t t-name="kanban-card">
+                                <t t-name="card">
                                     <field name="unit_amount"/>
                                 </t>
                             </templates>

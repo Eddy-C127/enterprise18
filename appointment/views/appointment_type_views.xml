@@ -35,7 +35,7 @@
                 <field name="schedule_based_on"/>
                 <field name="sequence" widget="handle" groups="appointment.group_appointment_manager"/>
                 <templates>
-                    <t t-name="kanban-menu">
+                    <t t-name="menu">
                         <a role="menuitem" type="open" class="dropdown-item">
                             <span class="fa fa-pencil"/> Edit
                         </a>
@@ -49,7 +49,7 @@
                             <span class="fa fa-trash"/> Delete
                         </a>
                     </t>
-                    <div t-name="kanban-card" class="o_appointment_kanban_card">
+                    <div t-name="card" class="o_appointment_kanban_card">
                         <div class="o_appointment_kanban_card_ungrouped row">
                             <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                             <div class="col-lg-2 col-sm-5 col-11 py-0 my-auto text-large text-truncate">

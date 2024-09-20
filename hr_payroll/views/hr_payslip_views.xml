@@ -33,7 +33,7 @@
             <kanban class="o_kanban_mobile" sample="1">
                 <field name="currency_id"/>
                 <templates>
-                    <t t-name="kanban-card" class="row g-0">
+                    <t t-name="card" class="row g-0">
                         <field name="employee_id" widget="many2one_avatar_user" options="{'display_avatar_name': True}" readonly="state not in ['draft', 'verify']" class="col-6 fw-bold mb-1"/>
                         <div class="col-6">
                             <field name="state" class="float-end badge text-bg-secondary"/>

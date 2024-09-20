@@ -140,14 +140,14 @@ async function addKanbanViewStructure(structure) {
                     },
                 },
                 target: this.env.viewEditorModel.getFullTarget(
-                    "//kanban/templates/t[@t-name='kanban-card']",
+                    "//kanban/templates/t[@t-name='card']",
                     { isXpathFullAbsolute: false }
                 ),
                 position: "inside",
             };
         }
         case "kanban_colorpicker": {
-            if (!this.viewEditorModel.xmlDoc.querySelector("t[t-name=kanban-menu]")) {
+            if (!this.viewEditorModel.xmlDoc.querySelector("t[t-name=menu]")) {
                 this.env.viewEditorModel.pushOperation({
                     type: "kanban_menu",
                 });

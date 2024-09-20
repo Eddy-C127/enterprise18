@@ -53,7 +53,7 @@ const marketingCampaignViews = {
     kanban: `
         <kanban string="Campaigns" js_class="marketing_campaign_kanban_view">
             <templates>
-                <t t-name="kanban-card">
+                <t t-name="card">
                     <field name="name"/>
                 </t>
             </templates>

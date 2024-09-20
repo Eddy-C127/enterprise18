@@ -19,7 +19,7 @@
         <field name="arch" type="xml">
             <kanban default_group_by="stage_id" class="o_kanban_small_column" sample='1'>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="tag_ids"/>
                         <field name="product_tmpl_id" class="fw-bolder"/>
                         <field name="display_name"/>
@@ -288,7 +288,7 @@
             <kanban class="o_kanban_small_column" sample="1">
                 <field name="quality_state"/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="row">
                             <field name="name" class="col-6 fw-bolder"/>
                             <div class="col-6">
@@ -505,7 +505,7 @@
             <kanban highlight_color="color" class="o_quality_kanban" create="0" can_open="0">
                 <field name="alias_email"/>
                 <templates>
-                    <t t-name="kanban-menu">
+                    <t t-name="menu">
                         <div t-if="widget.editable" role="menuitem">
                             <a class="dropdown-item ps-0" type="open">Configuration</a>
                         </div>
@@ -513,7 +513,7 @@
                             <field name="color" widget="kanban_color_picker"/>
                         </div>
                     </t>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bold fs-4 ms-2"/>
                         <div t-if="record.alias_email.value" class="small ms-2">
                             <i class="fa fa-envelope-o" role="img" aria-label="Domain alias" title="Domain alias"></i>&amp;nbsp; <field name="alias_id"/>
@@ -590,7 +590,7 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder"/>
                     </t>
                 </templates>
@@ -695,7 +695,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder"/>
                     </t>
                 </templates>
@@ -758,7 +758,7 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="d-flex">
                             <field name="name" class="fw-bolder me-2 flex-shrink-0"/>
                             <span t-if="record.title.value">-</span>

@@ -13,7 +13,7 @@
                 <field name="code"/>
                 <field name="is_barcode_picking_type"/>
                 <templates>
-                    <t t-name="kanban-card" class="o_barcode_picking_type">
+                    <t t-name="card" class="o_barcode_picking_type">
                         <div t-if="record.is_barcode_picking_type"
                              class="d-flex justify-content-between py-3">
                             <div class="fw-bold fs-5 o_kanban_record_title">

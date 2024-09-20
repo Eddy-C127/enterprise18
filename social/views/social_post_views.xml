@@ -34,7 +34,7 @@
                 <field name="account_ids"/>
                 <field name="live_posts_by_media"/>
                 <templates>
-                    <t t-name="kanban-card" class="p-0">
+                    <t t-name="card" class="p-0">
                         <div t-attf-class="#{record.has_post_errors.raw_value ? 'o_social_post_kanban_error' : ''} d-flex flex-column h-100">
                             <div class="d-flex justify-content-between border-bottom py-2 px-3">
                                 <div class="d-flex align-items-center">
@@ -247,7 +247,7 @@
                         <kanban>
                             <field name="live_post_link" />
                             <templates>
-                                <t t-name="kanban-card" class="o_social_live_post_kanban ms-0">
+                                <t t-name="card" class="o_social_live_post_kanban ms-0">
                                     <div class="row">
                                         <div class="col-md-8 fw-bolder">
                                             <field name="account_id"/>

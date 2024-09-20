@@ -54,8 +54,7 @@ export class KanbanEditorSidebar extends Component {
             t: {
                 name: _t("Menu"),
                 class: "o_web_studio_field_menu",
-                isVisible: (vem) =>
-                    !vem.controllerProps.arch.querySelector("t[t-name=kanban-menu]"),
+                isVisible: (vem) => !vem.controllerProps.arch.querySelector("t[t-name=menu]"),
             },
             ribbon: {
                 name: _t("Ribbon"),

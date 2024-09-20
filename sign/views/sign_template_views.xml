@@ -12,7 +12,7 @@
                 <field name="create_uid"/>
                 <field name="is_sharing"/>
                 <templates>
-                    <div t-name="kanban-menu">
+                    <div t-name="menu">
                         <a role="menuitem" type="object" name="go_to_custom_template" class="d-none d-md-block dropdown-item" context="{'sign_edit_call': 'sign_template_edit'}">Modify Template</a>
                         <a role="menuitem" type="object" name="open_requests" class="dropdown-item">Signed Documents</a>
                         <a role="menuitem" type="object" name="stop_sharing" class="dropdown-item" invisible="not is_sharing">Stop Sharing</a>
@@ -25,7 +25,7 @@
 
                         <field name="color" widget="kanban_color_picker"/>
                     </div>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="d-flex lh-1 mb-1">
                             <t t-if="record.favorited_ids.raw_value.indexOf(user_context.uid) &lt; 0">
                                 <a type="object" name="toggle_favorited" aria-label="Not in favorites, set it" title="Not in favorites, add it"

@@ -114,7 +114,7 @@
                     <field name="checked"/>
                     <field name="currency_id"/>
                     <templates>
-                        <t t-name="kanban-card">
+                        <t t-name="card">
                             <div t-if="!record.statement_id.raw_value"
                                  class="statement_separator text-center">
                                 <a role="button" class="btn btn-secondary btn-sm"

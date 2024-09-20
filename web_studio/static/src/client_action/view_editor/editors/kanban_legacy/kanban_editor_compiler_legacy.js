@@ -58,7 +58,7 @@ export class KanbanEditorCompilerLegacy extends KanbanCompiler {
                 this.addPriorityHook(compiled);
             }
 
-            const dropdown = this.templates["kanban-menu"];
+            const dropdown = this.templates["menu"];
             if (!dropdown) {
                 this.addDropdownHook(compiled);
             }

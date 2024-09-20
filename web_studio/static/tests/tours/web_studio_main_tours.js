@@ -528,7 +528,7 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             run: "click",
         },
         {
-            // add a kanban-menu
+            // add a menu
             trigger: ".o_web_studio_component.o_web_studio_field_menu",
             async run(helpers) {
                 const hook = ".o_web_studio_hook[data-structures='t,kanban_colorpicker']";

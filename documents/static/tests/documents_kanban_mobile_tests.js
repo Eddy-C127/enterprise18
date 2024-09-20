@@ -52,7 +52,7 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-card" class="flex-row">
+                        <t t-name="card" class="flex-row">
                             <i class="fa fa-circle mt-1 o_record_selector"/>
                             <field name="name"/>
                         </t>
@@ -165,7 +165,7 @@ QUnit.module("documents", {}, function () {
                     const views = {
                         "documents.document,false,kanban": `<kanban js_class="documents_kanban">
                     <templates>
-                        <t t-name="kanban-card" class="flex-row">
+                        <t t-name="card" class="flex-row">
                             <i class="fa fa-circle mt-1 o_record_selector"/>
                             <field name="name"/>
                         </t>

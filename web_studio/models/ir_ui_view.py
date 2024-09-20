@@ -479,7 +479,7 @@ class View(models.Model):
             card_footer.append(E.field(name='x_studio_value'))
         if 'x_studio_tag_ids' in model._fields:
             card_body.append(E.field(name='x_studio_tag_ids', options="{'color_field': 'x_color'}"))
-        kanban_card = E.t({'t-name': "kanban-card", 'class': "flex-row"})
+        kanban_card = E.t({'t-name': "card", 'class': "flex-row"})
         if 'x_studio_image' in model._fields:
             image_field = E.field({
                 'name': 'x_studio_image',
@@ -491,7 +491,7 @@ class View(models.Model):
             kanban_card.append(card_aside)
         card_footer.append(bottom_right_div)
         kanban_card.append(card_main)
-        kanban_menu = E.t({'t-name': "kanban-menu"})
+        kanban_menu = E.t({'t-name': "menu"})
         kanban_menu.extend([
             E.a({'t-if': 'widget.editable', 'role': 'menuitem', 'type': 'open', 'class': 'dropdown-item'}, _('Edit')),
             E.a({'t-if': 'widget.deletable', 'role': 'menuitem', 'type': 'delete', 'class': 'dropdown-item'}, _('Delete')),

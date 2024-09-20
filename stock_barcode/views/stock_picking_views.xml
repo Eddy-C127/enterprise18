@@ -57,7 +57,7 @@
                     <field name="move_ids" readonly="1" invisible="not move_ids">
                         <kanban>
                             <templates>
-                                <t t-name="kanban-card" class="row g-0">
+                                <t t-name="card" class="row g-0">
                                     <field name="product_id" class="col-6 fw-bolder fs-5" readonly="state == 'done'"/>
                                     <field name="product_uom_qty" readonly="state == 'done'" class="col-6 text-end"/>
                                     <field name="description_picking" class="col-6"/>

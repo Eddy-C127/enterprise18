@@ -59,7 +59,7 @@ QUnit.module("Views", (hooks) => {
             `<kanban js_class="timesheet_timer_kanban">
                 <templates>
                     <field name="name"/>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="employee_id"/>
                         <field name="project_id"/>
                         <field name="task_id"/>
@@ -112,7 +112,7 @@ QUnit.module("Views", (hooks) => {
             `<kanban js_class="timesheet_timer_kanban">
                 <templates>
                     <field name="name"/>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="employee_id"/>
                         <field name="project_id"/>
                         <field name="task_id"/>

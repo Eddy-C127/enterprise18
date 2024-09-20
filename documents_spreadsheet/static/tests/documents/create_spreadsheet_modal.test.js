@@ -13,7 +13,7 @@ defineDocumentSpreadsheetModels();
 const kanbanArch = /* xml */ `
     <kanban js_class="documents_kanban">
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <field name="name"/>
             </t>
         </templates>
@@ -247,7 +247,7 @@ test("Can create a blank spreadsheet from template dialog", async function () {
 test("Context is transmitted when creating spreadsheet", async function () {
     const serverData = await getDocumentBasicData({
         "documents.document,false,kanban": `
-                <kanban js_class="documents_kanban"><templates><t t-name="kanban-card">
+                <kanban js_class="documents_kanban"><templates><t t-name="card">
                 <field name="name"/>
                 </t></templates></kanban>
                 `,

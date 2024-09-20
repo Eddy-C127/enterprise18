@@ -680,7 +680,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "type": "kanban",
             "arch": '''<kanban>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="display_name"/>
                     </t>
                 </templates>
@@ -1048,7 +1048,7 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
             "type": "kanban",
             "arch": '''
                 <kanban>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="function" />
                         <field name="name" />
                     </t>

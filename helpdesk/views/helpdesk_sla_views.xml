@@ -25,7 +25,7 @@
         <field name="arch" type="xml">
             <kanban sample="1" default_order="team_id">
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder fs-5"/>
                         <field name="team_id"/>
                     </t>

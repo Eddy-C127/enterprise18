@@ -112,7 +112,7 @@
         <field name="arch" type="xml">
             <kanban action="%(action_open_station_visitor)d" type="action">
                 <templates>
-                    <t t-name="kanban-menu">
+                    <t t-name="menu">
                         <a role="menuitem" class="dropdown-item" name="action_open_kiosk"
                             type="object">Kiosk</a>
                         <a role="menuitem" class="dropdown-item" name="action_open_visitors"
@@ -121,7 +121,7 @@
                             type="action">Statistics</a>
                         <a role="menuitem" type="open" class="dropdown-item">Configuration</a>
                     </t>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="d-flex gap-1 align-items-baseline ms-2">
                             <field name="is_favorite" widget="boolean_favorite" nolabel="1"/>
                             <field name="name" class="fw-bold fs-4 mb16"/>

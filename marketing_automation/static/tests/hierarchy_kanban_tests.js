@@ -74,7 +74,7 @@ QUnit.module('Marketing Automation', (hooks) => {
                                 '<kanban>' +
                                     '<field name="parent_id"/>' +
                                     '<templates>' +
-                                        '<div t-name="kanban-card">' +
+                                        '<div t-name="card">' +
                                             '<div class="o_ma_body position-relative" t-att-data-record-id="record.id.raw_value">' +
                                                 '<field name="name" class="o_title"/>' +
                                             '</div>' +

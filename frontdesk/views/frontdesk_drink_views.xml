@@ -43,7 +43,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <templates>
-                    <t t-name='kanban-card' class="flex-row">
+                    <t t-name='card' class="flex-row">
                         <aside>
                             <field name="drink_image" widget="image" options="{'size': [64, 64]}"/>
                         </aside>

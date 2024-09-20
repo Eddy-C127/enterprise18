@@ -290,7 +290,7 @@
                 <field name="use_sla"/>
                 <field name="rating_count"/>
                 <templates>
-                    <t t-name="kanban-menu">
+                    <t t-name="menu">
                         <div class="container">
                             <div class="row">
                                 <div class="col-6">
@@ -323,7 +323,7 @@
                             </div>
                         </div>
                     </t>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="display_name" class="fw-bold fs-4 ms-2"/>
                         <small t-if="record.use_alias.value and record.alias_email.value" class="ms-2">
                             <a t-att-href="'mailto:' + record.alias_email.value"><i class="fa fa-envelope-o" title="Domain alias" role="img" aria-label="Domain alias"></i>&amp;nbsp; <field name="alias_email"/></a>
@@ -443,7 +443,7 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile" sample="1">
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder"/>
                     </t>
                 </templates>

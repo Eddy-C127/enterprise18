@@ -37,7 +37,7 @@
         <field name="inherit_id" ref="mrp.mrp_workcenter_view_kanban"/>
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//t[@t-name='kanban-card']" position="inside">
+            <xpath expr="//t[@t-name='card']" position="inside">
                 <footer class="fs-6">
                     <div class="badge text-bg-danger" t-if="!selection_mode and record.maintenance_open_count.raw_value" >
                         <field name="maintenance_open_count"/> Request

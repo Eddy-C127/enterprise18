@@ -46,7 +46,7 @@
                                 <field name="links_click_datetime"/>
                                 <field name="parent_id"/><!--required for the widget to display relationships-->
                                 <templates>
-                                    <div t-name="kanban-card">
+                                    <div t-name="card">
                                         <div class="o_ma_body position-relative" t-att-data-record-id="record.id.raw_value">
                                             <div class="o_ma_timeline text-center">
                                                 <field t-if="record.schedule_date.value" name="schedule_date" />

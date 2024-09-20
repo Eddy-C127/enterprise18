@@ -182,7 +182,7 @@
             <field name="employee_id" position="before">
                 <field name="sign_request_ids" groups="sign.group_sign_user"/>
             </field>
-            <xpath expr="//t[@t-name='kanban-card']" position="inside">
+            <xpath expr="//t[@t-name='card']" position="inside">
                 <t groups="sign.group_sign_user">
                     <t t-if="record.sign_request_ids.raw_value.length">
                         <i class="fa fa-pencil"> <field name="signatures_count"/></i>

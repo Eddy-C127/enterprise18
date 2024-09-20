@@ -53,7 +53,7 @@ class Product extends models.Model {
 
 defineModels([Coucou, Product, Partner]);
 
-test("template without t-name='kanban-card' load the legacy kanban editor", async () => {
+test("template without t-name='card' load the legacy kanban editor", async () => {
     await mountViewEditor({
         type: "kanban",
         resModel: "coucou",
@@ -80,7 +80,7 @@ test("empty kanban editor", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
             </t>
         </templates>
     </kanban>
@@ -95,7 +95,7 @@ test("templates without a main node are wrapped in a main node by the editor", a
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <field name="char_field"/>
             </t>
         </templates>
@@ -120,7 +120,7 @@ test("kanban structures display depends if element is present in the view", asyn
         const newArch = `
                 <kanban>
                     <templates>
-                        <t t-name="kanban-card">
+                        <t t-name="card">
                             <widget name="web_ribbon" title="Ribbon"/>
                             <aside>
                             </aside>
@@ -138,10 +138,10 @@ test("kanban structures display depends if element is present in the view", asyn
         resModel: "coucou",
         arch: `<kanban>
             <templates>
-                <t t-name="kanban-card">
+                <t t-name="card">
                     <field name="char_field"/>
                 </t>
-                <t t-name="kanban-menu">
+                <t t-name="menu">
                     <a>Item</a>
                 </t>
             </templates>
@@ -169,7 +169,7 @@ test("hooks are placed inline around fields displayed in a span", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <main>
                     <h3>Card</h3>
                     <div class="inline">
@@ -201,7 +201,7 @@ test("card without main should be able to add a footer", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <h3>Card</h3>
                 <div class="inline">
                     <field name="display_name"/>,
@@ -223,7 +223,7 @@ test("adding an aside element calls the right operation", async () => {
         const newArch = `
                 <kanban>
                     <templates>
-                        <t t-name="kanban-card">
+                        <t t-name="card">
                             <main>
                                 <t>
                                     <h3>Card</h3>
@@ -244,7 +244,7 @@ test("adding an aside element calls the right operation", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <h3>Card</h3>
             </t>
         </templates>
@@ -265,7 +265,7 @@ test("adding a footer element calls the right operation", async () => {
         const newArch = `
                 <kanban>
                     <templates>
-                        <t t-name="kanban-card">
+                        <t t-name="card">
                             <main>
                                 <t>
                                     <h3>Card</h3>
@@ -282,7 +282,7 @@ test("adding a footer element calls the right operation", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <h3>Card</h3>
             </t>
         </templates>
@@ -305,7 +305,7 @@ test("adding a menu element calls the right operation", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <h3>Card</h3>
             </t>
         </templates>
@@ -334,10 +334,10 @@ test("adding a colorpicker inside the menu", async () => {
         const newArch = `
                     <kanban>
                         <templates>
-                            <t t-name="kanban-card">
+                            <t t-name="card">
                                 <h3>Card</h3>
                             </t>
-                            <t t-name="kanban-menu">
+                            <t t-name="menu">
                                 <small>Menu</small>
                                 <field name="x_color" widget="kanban_color_picker" />
                             </t>
@@ -351,10 +351,10 @@ test("adding a colorpicker inside the menu", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <h3>Card</h3>
             </t>
-            <t t-name="kanban-menu">
+            <t t-name="menu">
                 <small>Menu</small>
             </t>
         </templates>
@@ -390,10 +390,10 @@ test("adding a colorpicker when menu is not present", async () => {
         const newArch = `
                     <kanban>
                         <templates>
-                            <t t-name="kanban-card">
+                            <t t-name="card">
                                 <h3>Card</h3>
                             </t>
-                            <t t-name="kanban-menu">
+                            <t t-name="menu">
                                 <field name="x_color" widget="kanban_color_picker" />
                             </t>
                         </templates>
@@ -406,7 +406,7 @@ test("adding a colorpicker when menu is not present", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <h3>Card</h3>
             </t>
         </templates>
@@ -438,7 +438,7 @@ test("can_open attribute can be edited from the sidebar", async () => {
         const newArch = `
             <kanban can_open="false">
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <h3>Card</h3>
                     </t>
                 </templates>
@@ -451,7 +451,7 @@ test("can_open attribute can be edited from the sidebar", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <h3>Card</h3>
             </t>
         </templates>
@@ -473,7 +473,7 @@ test("buttons can be edited when being selected", async () => {
         resModel: "coucou",
         arch: `<kanban>
         <templates>
-            <t t-name="kanban-card">
+            <t t-name="card">
                 <main>
                     Coucou
                     <footer>
@@ -509,7 +509,7 @@ test("grouped kanban editor", async () => {
         resModel: "coucou",
         arch: `<kanban default_group_by='display_name'>
                     <templates>
-                        <t t-name='kanban-card'>
+                        <t t-name='card'>
                             <field name='display_name'/>
                         </t>
                     </templates>
@@ -534,7 +534,7 @@ test("grouped kanban editor with record", async () => {
         resModel: "coucou",
         arch: `<kanban default_group_by='display_name'>
                     <templates>
-                        <t t-name='kanban-card'>
+                        <t t-name='card'>
                             <field name='display_name'/>
                         </t>
                     </templates>
@@ -560,7 +560,7 @@ test("kanban editor, grouped on date field, no record", async () => {
         resModel: "coucou",
         arch: `<kanban default_group_by='date'>
                 <templates>
-                    <t t-name='kanban-card'>
+                    <t t-name='card'>
                         <field name='display_name'/>
                     </t>
                 </templates>
@@ -584,7 +584,7 @@ test("kanban editor, grouped on date field granular, no record, progressbar", as
                 <progressbar colors="{}" field="priority"/>
                 <field name="priority" />
                 <templates>
-                    <t t-name='kanban-card'>
+                    <t t-name='card'>
                         <field name='display_name'/>
                     </t>
                 </templates>
@@ -630,7 +630,7 @@ test("grouped kanban editor cannot add columns or load more", async () => {
         resModel: "coucou",
         arch: `<kanban default_group_by='m2o'>
                 <templates>
-                    <t t-name='kanban-card'>
+                    <t t-name='card'>
                         <field name='display_name'/>
                     </t>
                 </templates>

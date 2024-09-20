@@ -18,11 +18,11 @@ registry.category("web_tour.tours").add('industry_fsm_sale_quantity_products_tou
     run: "click",
 }, {
     trigger: '.o_kanban_record:nth-child(2) .o_dropdown_kanban .dropdown-toggle',
-    content: 'Click the dropdown toggle in the second kanban-card',
+    content: 'Click the dropdown toggle in the second card',
     run: "click",
 }, {
     trigger: '.o-dropdown--menu .dropdown-item:contains("Edit")',
-    content: 'Click the "Edit" dropdown item in the second kanban-card',
+    content: 'Click the "Edit" dropdown item in the second card',
     run: "click",
 }, {
     trigger: '.breadcrumb-item.o_back_button:nth-of-type(3)',

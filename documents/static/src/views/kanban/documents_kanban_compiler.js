@@ -7,7 +7,7 @@ import { createElement } from "@web/core/utils/xml";
 export class DocumentsKanbanCompiler extends KanbanCompiler {
     setup() {
         super.setup();
-        this.compilers.push({ selector: "[t-name='kanban-card']", fn: this.compileCard });
+        this.compilers.push({ selector: "[t-name='card']", fn: this.compileCard });
         this.compilers.push({ selector: "div.o_documents_attachment", fn: this.compileDocumentsAttachment });
         this.compilers.push({ selector: "div.o_kanban_image_wrapper", fn: this.compileImageWrapper });
     }

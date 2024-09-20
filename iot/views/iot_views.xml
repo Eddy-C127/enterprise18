@@ -77,7 +77,7 @@
                     <button name="%(iot.action_add_iot_box)d" type="action" string="Connect" class="btn-primary o-kanban-button-new"  display="always"/>
                 </header>
                 <templates>
-                    <t t-name="kanban-card" class="p-0">
+                    <t t-name="card" class="p-0">
                         <div class="p-4 border-start">
                             <div class="text-truncate fw-bold" t-att-title="record.name.raw_value"><field name="name"/></div>
                             <field name="ip_url" widget="url"/>
@@ -166,7 +166,7 @@
                 <field name="connection"/>
                 <field name="connected"/>
                 <templates>
-                    <t t-name="kanban-card" class="row g-0 p-0">
+                    <t t-name="card" class="row g-0 p-0">
                         <aside class="col-3 text-center align-self-center">
                             <t t-set="types" t-value="{'camera': 'camera', 'printer': 'printer', 'device': 'rulers', 'payment': 'payment-terminal', 'scale': 'scales', 'keyboard': 'keyboard', 'scanner': 'barcode-scanner', 'display': 'desktop', 'fiscal_data_module': 'fdm'}"/>
                             <img t-attf-src="/iot/static/src/img/#{types[record.type.raw_value]}.svg" t-attf-alt="Device type is #{record.type.raw_value}"/>

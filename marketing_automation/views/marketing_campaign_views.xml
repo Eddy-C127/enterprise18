@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <kanban js_class="marketing_campaign_kanban_view" default_group_by="state" quick_create="false" sample="0">
                 <templates>
-                    <t t-name="kanban-card" class="o_marketing_automation_campaign_kanban">
+                    <t t-name="card" class="o_marketing_automation_campaign_kanban">
                         <span t-att-title="record.name.raw_value" class="o_ma_campaign_header text-primary text-truncate">
                             <field name="name"/>
                         </span>
@@ -138,7 +138,7 @@
                                 <field name="total_open" />
                                 <field name="parent_id" /><!--required for the widget to display relationships-->
                                 <templates>
-                                    <div t-name="kanban-card">
+                                    <div t-name="card">
                                         <div class="o_ma_body position-relative" t-att-data-record-id="record.id.raw_value">
                                             <div class="o_ma_timeline text-center">
                                                 <div t-if="record.trigger_type.raw_value == 'mail_open'" class="o_ma_text_processed text-success">

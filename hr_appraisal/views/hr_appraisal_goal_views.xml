@@ -67,11 +67,11 @@
         <field name="arch" type="xml">
             <kanban quick_create="false" class="o_hr_employee_kanban" sample="1">
                 <templates>
-                    <t t-name="kanban-menu">
+                    <t t-name="menu">
                         <t t-if="widget.deletable"><a type="delete" class="dropdown-item" role="menuitem">Delete</a></t>
                         <a type="object" name="action_confirm" class="dropdown-item" role="menuitem">Mark as Done</a>
                     </t>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <widget name="web_ribbon" title="Done" bg_color="text-bg-success" invisible="progression != '100'"/>
                         <div class="d-flex">
                             <field name="name" class="fs-4 mb-1"/>

@@ -55,7 +55,7 @@
                 <field name="is_multipage"/>
                 <field name="thumbnail_status"/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div draggable="true" class="d-flex flex-column o_kanban_attachment o_documents_attachment h-100"
                              t-attf-class="#{record.is_multipage.raw_value ? 'o_kanban_stack' : ''}" t-att-data-id="record.id.raw_value">
                             <t t-set="fileRequest" t-value="record.type.raw_value === 'empty'"/>

@@ -79,7 +79,7 @@ export class KanbanEditorCompiler extends KanbanCompiler {
             if (e.tagName === "widget") {
                 return e.getAttribute("name") !== "web_ribbon";
             }
-            if (e.tagName === "t" && e.getAttribute("t-name") === "kanban-menu") {
+            if (e.tagName === "t" && e.getAttribute("t-name") === "menu") {
                 return false;
             }
             return !["aside"].includes(e.tagName);
@@ -191,7 +191,7 @@ export class KanbanEditorCompiler extends KanbanCompiler {
 
     compileNode(node, params) {
         let compiled;
-        if (node.getAttribute?.("t-name") === "kanban-card") {
+        if (node.getAttribute?.("t-name") === "card") {
             compiled = this.compileCard(node);
         } else {
             compiled = super.compileNode(node, { ...params, compileInvisibleNodes: true });

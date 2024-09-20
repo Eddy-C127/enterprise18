@@ -32,7 +32,7 @@
                 <field name="office_id"/>
                 <field name="active"/>
                 <templates>
-                    <t t-name="kanban-card" class="flex-row">
+                    <t t-name="card" class="flex-row">
                         <aside invisible="not room_background_image" class="o_kanban_aside_full">
                             <field name="room_background_image" options="{'size': [150,100]}" widget="image"/>
                         </aside>

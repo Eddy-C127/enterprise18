@@ -12,7 +12,7 @@
                 <field name="state"/>
                 <progressbar field="activity_state" colors='{"planned": "success", "overdue": "danger", "today": "warning"}'/>
                 <templates>
-                    <div t-name="kanban-menu">
+                    <div t-name="menu">
                         <a role="menuitem" type="object" name="get_formview_action" class="dropdown-item">Details</a>
                         <a role="menuitem" type="object" name="open_template" class="dropdown-item">Template</a>
                         <a role="menuitem" type="object" name="cancel" class="dropdown-item" invisible="state in ('signed', 'canceled')">Cancel</a>
@@ -23,7 +23,7 @@
                         <a role="menuitem" type="delete" invisible="state != 'shared'" class="dropdown-item">Stop Sharing</a>
                         <field name="color" widget="kanban_color_picker"/>
                     </div>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="d-flex lh-1 mb-1">
                             <t t-if="record.favorited_ids.raw_value.indexOf(user_context.uid) &lt; 0">
                                 <a type="object" name="toggle_favorited" title="Not in favorites, add it" aria-label="Not in favorites, add it"

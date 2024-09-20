@@ -244,7 +244,7 @@
             <kanban class="o_kanban_mobile" sample="1">
                 <field name="sequence" widget="handle"/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name" class="fw-bolder fs-5"/>
                         <field name="company_id" widget="many2one" groups="base.group_multi_company"/>
                         <footer class="fs-6">

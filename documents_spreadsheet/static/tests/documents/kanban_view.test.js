@@ -22,7 +22,7 @@ let target;
 const basicDocumentKanbanArch = /* xml */ `
 <kanban js_class="documents_kanban">
     <templates>
-        <t t-name="kanban-card">
+        <t t-name="card">
             <div>
                 <div name="document_preview" class="o_kanban_image_wrapper">a thumbnail</div>
                 <i class="fa fa-circle o_record_selector" />
@@ -160,13 +160,15 @@ test("share a selected spreadsheet from the share button", async function () {
                 expect(shareVals.default_document_ids).toEqual([x2ManyCommands.set([1])]);
                 expect(shareVals.default_folder_id).toBe(1);
                 expect(shareVals.default_type).toBe("ids");
-                expect(shareVals.default_spreadsheet_shares).toEqual(JSON.stringify([
-                    {
-                        spreadsheet_data: JSON.stringify(model.exportData()),
-                        excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
-                        document_id: 1,
-                    },
-                ]));
+                expect(shareVals.default_spreadsheet_shares).toEqual(
+                    JSON.stringify([
+                        {
+                            spreadsheet_data: JSON.stringify(model.exportData()),
+                            excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
+                            document_id: 1,
+                        },
+                    ])
+                );
             }
         },
     });
@@ -205,13 +207,15 @@ test("share the full workspace from the share button", async function () {
                 expect(shareVals.default_folder_id).toBe(1);
                 expect(shareVals.default_type).toBe("domain");
                 expect(shareVals.default_domain).toEqual([["folder_id", "=", 1]]);
-                expect(shareVals.default_spreadsheet_shares).toEqual(JSON.stringify([
-                    {
-                        spreadsheet_data: JSON.stringify(model.exportData()),
-                        excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
-                        document_id: 1,
-                    },
-                ]));
+                expect(shareVals.default_spreadsheet_shares).toEqual(
+                    JSON.stringify([
+                        {
+                            spreadsheet_data: JSON.stringify(model.exportData()),
+                            excel_files: JSON.parse(JSON.stringify(model.exportXLSX().files)),
+                            document_id: 1,
+                        },
+                    ])
+                );
             }
         },
     });

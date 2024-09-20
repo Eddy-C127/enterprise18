@@ -204,7 +204,7 @@
                                 </list>
                                 <kanban class="o_kanban_mobile">
                                     <templates>
-                                        <t t-name="kanban-card" class="flex-row">
+                                        <t t-name="card" class="flex-row">
                                             <field name="user_id"/>
                                             <t t-if="record.status.raw_value">
                                                 <t t-set="classname" t-value="{'approved': 'text-bg-success', 'pending': 'text-bg-warning', 'refused': 'text-bg-danger'}[record.status.raw_value] || 'text-bg-light'"/>
@@ -241,7 +241,7 @@
                 <field name="request_status"/>
                 <field name="user_status"/>
                 <templates>
-                    <t t-name="kanban-menu">
+                    <t t-name="menu">
                         <a t-if="widget.editable" role="menuitem" type="open" class="dropdown-item">Edit Request</a>
                         <a t-if="widget.deletable" role="menuitem" type="delete" class="dropdown-item">Delete</a>
                         <a name="action_approve" type="object" invisible="user_status != 'pending'"
@@ -251,7 +251,7 @@
                         <a name="action_withdraw" type="object" invisible="request_status == 'new' or user_status in ['waiting', 'pending', 'cancel']"
                             role="menuitem" class="dropdown-item">Withdraw</a>
                     </t>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <div class="ribbon ribbon-top-right" invisible="user_status not in ['pending', 'approved', 'refused', 'cancel']">
                             <field name="user_status" t-if="record.user_status.raw_value == 'pending'" class="text-bg-info"/>
                             <field name="user_status" t-if="record.user_status.raw_value == 'approved'" class="text-bg-success"/>

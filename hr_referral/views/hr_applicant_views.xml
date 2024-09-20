@@ -47,7 +47,7 @@
                 <field name="referral_state"/>
                 <field name="friend_id"/>
                 <templates>
-                    <t t-name="kanban-card" class="px-3">
+                    <t t-name="card" class="px-3">
                         <widget name="web_ribbon" title="Ongoing" bg_color="text-bg-primary"/>
                         <widget name="web_ribbon" title="Hired" bg_color="text-bg-success" invisible="referral_state != 'hired'" class="z-1"/>
                         <widget name="web_ribbon" title="Not Hired" bg_color="text-bg-danger" invisible="referral_state != 'closed'"/>

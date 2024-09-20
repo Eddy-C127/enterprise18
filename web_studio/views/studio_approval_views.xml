@@ -91,7 +91,7 @@
                 <field name="can_validate"/>
                 <field name="kanban_color"/>
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field class="fs-4" name="message"/>
                         <span t-if="!record.message.raw_value" class="fs-4 text-muted">Step</span>
                         <field class="text-truncate" name="approval_group_id"/>

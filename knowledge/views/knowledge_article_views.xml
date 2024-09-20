@@ -282,7 +282,7 @@
             <kanban create="0" class="o_knowledge_article_kanban_view">
                 <field name="is_user_favorite"/>
                 <templates>
-                    <t t-name="kanban-card" class="o_knowledge_kanban_card h-100">
+                    <t t-name="card" class="o_knowledge_kanban_card h-100">
                         <div class="d-flex align-items-center">
                             <field name="display_name" class="flex-grow-1 lead text-truncate"/>
                             <!-- When the user does not have 'write' access on an article, the user will not be
@@ -322,7 +322,7 @@
                 <field name="cover_image_url"/>
                 <field name="parent_id"/>
                 <templates>
-                    <t t-name="kanban-card" class="flex-row">
+                    <t t-name="card" class="flex-row">
                         <aside t-if="record.cover_image_url.raw_value.length > 0" class="o_kanban_aside_full me-2">
                             <div t-attf-style="background-image: url(#{record.cover_image_url.raw_value}); background-size: cover; background-position: center;" role="img"/>
                         </aside>

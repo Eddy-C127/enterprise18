@@ -16,7 +16,7 @@ export class ProductProduct extends models.Model {
         "kanban,false": `
             <kanban records_draggable="0" js_class="fsm_product_kanban">
                 <templates>
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name"/>
                         <field name="default_code"/>
                         <div name="o_kanban_price"

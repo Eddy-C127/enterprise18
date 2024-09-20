@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <templates>
-                    <div t-name="kanban-card">
+                    <div t-name="card">
                         <field name="attachment_id"/>
                         <field name="create_date" class="fst-italic d-block"/>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>

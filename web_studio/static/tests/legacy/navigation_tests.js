@@ -769,7 +769,7 @@ QUnit.module("Studio", (hooks) => {
         serverData.models.pony.records = [];
         serverData.views["pony,false,kanban"] = `
                 <kanban sample="1" default_group_by="m2o">
-                    <t t-name="kanban-card">
+                    <t t-name="card">
                         <field name="name"/>
                         <field name="m2o" />
                     </t>

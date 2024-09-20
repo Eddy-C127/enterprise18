@@ -132,7 +132,7 @@
             <kanban create="false" can_open="0" class="o_modules_kanban" js_class="approvals_category_kanban">
                 <field name="active"/>
                 <templates>
-                    <t t-name="kanban-menu" groups="approvals.group_approval_user">
+                    <t t-name="menu" groups="approvals.group_approval_user">
                         <a t-if="widget.editable"
                             role="menuitem"
                             type="action"
@@ -147,7 +147,7 @@
                             type="unarchive"
                             class="dropdown-item">Unarchive</a>
                     </t>
-                    <t t-name="kanban-card" class="flex-row">
+                    <t t-name="card" class="flex-row">
                         <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                         <aside>
                             <field name="image" widget="image" class="mt-2"/>

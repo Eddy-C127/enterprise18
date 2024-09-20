@@ -27,7 +27,7 @@
                     <field name="origin_res_name" class="text-decoration-underline fst-italic"/>
                 </div>
             </xpath>
-            <xpath expr="//t[@t-name='kanban-card']" position="attributes">
+            <xpath expr="//t[@t-name='card']" position="attributes">
                 <attribute name="t-att-style">(!record.active.raw_value) &amp;&amp; "background: linear-gradient(45deg, white 25%, lightgrey 25%, lightgrey 50%, white 50%, white 75%, lightgrey 75%); background-size: 20px 20px;"</attribute>
             </xpath>
         </field>

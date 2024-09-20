@@ -276,7 +276,7 @@ class TestEditView(TestStudioController):
             'model': 'res.partner',
             'arch': """
                 <kanban>
-                    <templates><t t-name="kanban-card" /></templates>
+                    <templates><t t-name="card" /></templates>
                 </kanban>
             """
         })
@@ -286,7 +286,7 @@ class TestEditView(TestStudioController):
             base_view.get_combined_arch(),
             """
                 <kanban create="true">
-                    <templates><t t-name="kanban-card" /></templates>
+                    <templates><t t-name="card" /></templates>
                 </kanban>
             """
         )

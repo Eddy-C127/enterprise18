@@ -7,7 +7,7 @@
         <field name="arch" type="xml">
             <kanban default_group_by="state" quick_create="false">
                 <templates>
-                    <div t-name="kanban-card">
+                    <div t-name="card">
                         <field name="reference"/>
                         <footer class="d-flex fs-6">
                             <field name="create_date" class="fst-italic"/>
