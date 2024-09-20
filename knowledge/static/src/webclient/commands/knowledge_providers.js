@@ -2,11 +2,11 @@
 
 
 import { _t } from "@web/core/l10n/translation";
-import { memoize } from "@web/core/utils/functions";
 import { registry } from "@web/core/registry";
 import { HotkeyCommandItem } from "@web/core/commands/default_providers";
 import { DefaultCommandItem, splitCommandName } from "@web/core/commands/command_palette";
 import { markup } from "@odoo/owl";
+import { user } from "@web/core/user";
 
 // Articles command
 class KnowledgeCommand extends DefaultCommandItem {
@@ -47,13 +47,7 @@ const commandProviderRegistry = registry.category("command_provider");
 
 const fn = (hidden) => {
     // Check if the user has enough rights to create a new article
-    const canCreate = memoize(env => {
-        return env.services.orm.call(
-            "knowledge.article",
-            "has_access",
-            [[], "create"],
-        );
-    });
+    const canCreate = () => user.checkAccessRight("knowledge.article", "create");
     let articlesData;
     return async function provide(env, options) {
         articlesData = await env.services.orm.call(
@@ -69,7 +63,7 @@ const fn = (hidden) => {
             if (articlesData.length === 0) {
                 // Only display the "create article" command when the user can
                 // create an article and when the user inputs at least 3 characters
-                if (await canCreate(env) && options.searchValue.length > 2) {
+                if (options.searchValue.length > 2 && await canCreate()) {
                     return [{
                         Component: Knowledge404Command,
                         async action() {

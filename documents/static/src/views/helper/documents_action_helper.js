@@ -5,6 +5,7 @@ import { Domain } from "@web/core/domain";
 import { Component, markup, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
 import { escape } from "@web/core/utils/strings";
 import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
 
 export class DocumentsActionHelper extends Component {
     static template = "documents.DocumentsActionHelper";
@@ -61,11 +62,7 @@ export class DocumentsActionHelper extends Component {
         // make sure we have a mail.alias configured
         domain = Domain.and([domain, [["alias_name", "!=", false]]]).toList();
         if (this.hasShareReadAccessRights === undefined) {
-            this.hasShareReadAccessRights = await this.orm.call(
-                "documents.share",
-                "has_access",
-                [[], "read"]
-            );
+            this.hasShareReadAccessRights = await user.checkAccessRight("documents.share", "read");
         }
         if (!this.hasShareReadAccessRights) {
             return;
