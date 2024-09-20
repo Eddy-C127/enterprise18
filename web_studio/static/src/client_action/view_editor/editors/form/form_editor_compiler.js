@@ -99,6 +99,11 @@ export class FormEditorCompiler extends formView.Compiler {
             class: "d-flex justify-content-end my-2",
         });
         if (buttonBoxXml) {
+            for (const child of [...buttonBoxXml.children]) {
+                if (child.matches("span,field")) {
+                    buttonBoxXml.removeChild(child);
+                }
+            }
             buttonBox = this.compileNode(buttonBoxXml, params);
         } else {
             buttonBox = createElement("ButtonBox");
