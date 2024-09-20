@@ -126,6 +126,8 @@ class TestKeEdiStock(TestKeEdiCommon):
 
         # Step 6: create and validate return pickings
         wizard_return = self.env['stock.return.picking'].with_context(active_id=picking.id, active_model='stock.picking').create({})
+        for line in wizard_return.product_return_moves:
+            line.quantity = line.move_id.quantity
         action = wizard_return.action_create_returns()
         return_pickings = self.env['stock.picking'].browse(action['res_id'])
         return_pickings.button_validate()

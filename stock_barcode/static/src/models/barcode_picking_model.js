@@ -1666,12 +1666,6 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     async _returnProducts() {
-         if (!this.isDone) {
-            return this.notification(
-                _t("Returns can only be created for pickings that are done, please validate first."),
-                { type: 'danger'}
-            );
-        }
          const action = await this.orm.call(
              this.resModel,
              'action_create_return_picking',

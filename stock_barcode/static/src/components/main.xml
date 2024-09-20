@@ -129,6 +129,9 @@
                     <span class="fs-5 fw-bold text-center text-muted mt-1 px-2">Operations</span>
                     <hr class="flex-grow-1"/>
                 </div>
+                <button t-on-click="returnProducts" class="o_create_return btn btn-secondary w-100 fs-4 mb-2 py-2">
+                    Return Products
+                </button>
                 <button t-if="env.model.displaySignatureButton"
                         class="btn-lg btn btn-light text-uppercase o_sign"
                         t-on-click="() => this.env.model.openSignatureDialog()">

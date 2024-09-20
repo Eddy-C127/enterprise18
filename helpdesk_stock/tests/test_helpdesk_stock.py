@@ -48,6 +48,8 @@ class TestHelpdeskStock(common.HelpdeskCommon):
             'default_ticket_id': ticket.id
         }))
         stock_picking_form.picking_id = so.picking_ids[0]
+        with stock_picking_form.product_return_moves.edit(0) as line:
+            line.quantity = 1
         return_picking = stock_picking_form.save()
 
         self.assertEqual(len(return_picking.product_return_moves), 1,

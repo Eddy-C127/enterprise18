@@ -12,7 +12,7 @@ class ReturnPicking(models.TransientModel):
     sale_order_id = fields.Many2one('sale.order', string='Sales Order',
         domain="[('order_line.product_id.type', '!=', 'service'), ('picking_ids.state', '=', 'done'), ('id', 'in', suitable_sale_order_ids)]",
         compute='_compute_sale_order_id', readonly=False)
-    picking_id = fields.Many2one(domain="[('id', 'in', suitable_picking_ids)]", compute='_compute_picking_id', readonly=False, store=True)
+    picking_id = fields.Many2one(domain="[('id', 'in', suitable_picking_ids)]", compute='_compute_picking_id', precompute=True, readonly=False, store=True)
     suitable_picking_ids = fields.Many2many('stock.picking', compute='_compute_suitable_picking_ids')
     suitable_sale_order_ids = fields.Many2many('sale.order', compute='_compute_suitable_sale_orders')
 

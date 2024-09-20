@@ -2285,9 +2285,6 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
         # Creates the pick, pack, ship.
         picking_pick = create_picking(warehouse.pick_type_id)
-        picking_pack = create_picking(warehouse.pack_type_id)
-        picking_delivery = create_picking(self.picking_type_out)
-        picking_pack.location_dest_id = picking_delivery.location_id
 
         # Process each picking one by one.
         url = self._get_client_action_url(picking_receipt.id)
@@ -2299,13 +2296,13 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         url = self._get_client_action_url(picking_internal.id)
         self.start_tour(url, 'test_picking_type_mandatory_scan_complete_flux_internal', login='admin', timeout=180)
         self.assertEqual(picking_internal.state, 'done')
-
         picking_pick.action_confirm()
         picking_pick.action_assign()
         url = self._get_client_action_url(picking_pick.id)
         self.start_tour(url, 'test_picking_type_mandatory_scan_complete_flux_pick', login='admin', timeout=180)
         self.assertEqual(picking_pick.state, 'done')
 
+        picking_pack = self.env['stock.picking'].search([('location_id', '=', warehouse.pack_type_id.default_location_src_id.id)])
         picking_pack.action_confirm()
         picking_pack.action_assign()
         for move_line in picking_pack.move_line_ids:  # TODO: shouldn't have to do that, reusable packages shouldn't be set in `result_package_id` for the next move.
@@ -2314,6 +2311,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.start_tour(url, 'test_picking_type_mandatory_scan_complete_flux_pack', login='admin', timeout=180)
         self.assertEqual(picking_pack.state, 'done')
 
+        picking_delivery = self.env['stock.picking'].search([('location_id', '=', warehouse.out_type_id.default_location_src_id.id)])
         picking_delivery.action_confirm()
         picking_delivery.action_assign()
         url = self._get_client_action_url(picking_delivery.id)

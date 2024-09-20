@@ -119,6 +119,7 @@ class TestHelpdeskStockAccount(HelpdeskCommon):
         stock_picking_return = self.env['stock.return.picking'].create({
             'picking_id': sale_order.picking_ids.id,
         })
+        stock_picking_return.product_return_moves.quantity = qty
         return_picking = stock_picking_return._create_return()
         return_picking.move_ids.quantity = qty
         return_picking.button_validate()
