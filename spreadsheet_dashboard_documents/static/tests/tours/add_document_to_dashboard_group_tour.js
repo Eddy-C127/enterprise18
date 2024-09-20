@@ -70,6 +70,10 @@ registry.category("web_tour.tours").add(
             run: "click",
         },
         {
+            trigger: '.breadcrumb-item :contains("Sales")',
+            content: 'Go back to the dashboard group config'
+        },
+        {
             trigger: `.o_data_row`,
             content: "A spreadsheet was added as dashboard",
             run: () => assertNSheetsInGroup(startingNumberOfSheetsInGroup + 1),
@@ -88,6 +92,10 @@ registry.category("web_tour.tours").add(
             trigger: "img.o-sp-dialog-item-img",
             content: "Double click a spreadsheet",
             run: "dblclick",
+        },
+        {
+            trigger: '.breadcrumb-item :contains("Sales")',
+            content: 'Go back to the dashboard group config'
         },
         {
             trigger: `.o_data_row`,
