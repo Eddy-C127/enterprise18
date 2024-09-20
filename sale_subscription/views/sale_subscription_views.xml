@@ -217,9 +217,9 @@
                                     <span style="font-weight:bold;" class="fa fa-fw mt4 fa-frown-o text-danger" t-if="record.rating_last_value.value == 1" title="Latest Rating: Dissatisfied" role="img" aria-label="Sad face"/>
                                 </b>
                             </div>
-                            <div class="ms-auto">
+                            <div class="ms-auto d-flex align-items-center">
                                 <field name="health" widget="state_selection" readonly="1" invisible="health != 'bad'"/>
-                                <field name="user_id" widget="many2one_avatar_user"/>
+                                <field name="user_id" widget="many2one_avatar_user" class="ms-1"/>
                             </div>
                         </footer>
                     </t>
