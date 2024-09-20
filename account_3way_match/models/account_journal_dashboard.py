@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models, api
+from odoo.osv import expression
 
 class AccountJournal(models.Model):
     _inherit = 'account.journal'
@@ -26,6 +27,29 @@ class AccountJournal(models.Model):
         query = super()._get_open_bills_to_pay_query()
         self._patch_dashboard_query_3way_match(query)
         return query
+
+    def _get_draft_bills_query(self):
+        # OVERRIDE
+        domain_sale = [
+            ('journal_id', 'in', self.filtered(lambda j: j.type == 'sale').ids),
+            ('move_type', 'in', self.env['account.move'].get_sale_types(include_receipts=True))
+        ]
+
+        domain_purchase = [
+            ('journal_id', 'in', self.filtered(lambda j: j.type == 'purchase').ids),
+            ('move_type', 'in', self.env['account.move'].get_purchase_types(include_receipts=False)),
+            '|',
+            ('invoice_date_due', '<', fields.Date.today()),
+            ('release_to_pay', '=', 'yes')
+        ]
+        domain = expression.AND([
+            [('state', '=', 'draft'), ('payment_state', 'in', ('not_paid', 'partial'))],
+            expression.OR([domain_sale, domain_purchase])
+        ])
+        return self.env['account.move']._where_calc([
+            *self.env['account.move']._check_company_domain(self.env.companies),
+            *domain
+        ])
 
     def _get_late_bills_query(self):
         query = super()._get_late_bills_query()
