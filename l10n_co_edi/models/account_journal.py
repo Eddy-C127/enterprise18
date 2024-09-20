@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import api, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class AccountJournal(models.Model):
@@ -21,3 +22,9 @@ class AccountJournal(models.Model):
                 record.l10n_co_edi_is_support_document = True
             else:
                 record.l10n_co_edi_is_support_document = False
+
+    @api.constrains('l10n_co_edi_debit_note')
+    def _ensure_l10n_co_edi_no_journal_entries(self):
+        entries = self.env['account.move'].search_count([('journal_id', 'in', self.ids), ('state', '!=', 'draft')], limit=1)
+        if entries:
+            raise ValidationError(_("You cannot change Nota de Débito on a journal that already has posted or cancelled entries"))
