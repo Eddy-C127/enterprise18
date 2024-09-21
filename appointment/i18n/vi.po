@@ -61,7 +61,7 @@ msgstr "# Liên kết lời mời"
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_count
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_count
 msgid "# Resources"
-msgstr "# Cơ sở hạ tầng/vật chất"
+msgstr "# Tài nguyên"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_count
@@ -366,7 +366,7 @@ msgstr ""
 "                    Dành cho: <t t-out=\"object.event_id.resource_total_capacity_reserved\"></t> người\n"
 "                </li>\n"
 "                <li t-if=\"object.event_id.appointment_type_id.assign_method != 'time_auto_assign'\">\n"
-"                    Cơ sở hạ tầng/vật chất\n"
+"                    Tài nguyên\n"
 "                    <ul>\n"
 "                        <li t-foreach=\"object.event_id.appointment_resource_ids\" t-as=\"resource\">\n"
 "                            <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Bàn 1</span>\n"
@@ -549,7 +549,7 @@ msgstr ""
 "                        Dành cho: <t t-out=\"object.resource_total_capacity_reserved\"></t> người\n"
 "                    </li>\n"
 "                    <li t-if=\"object.appointment_type_id.assign_method != 'time_auto_assign'\">\n"
-"                        Cơ sở hạ tầng/vật chất\n"
+"                        Tài nguyên\n"
 "                        <ul>\n"
 "                            <li t-foreach=\"object.appointment_resource_ids\" t-as=\"resource\">\n"
 "                                <span style=\"margin-left:5px\" t-out=\"resource.name or ''\">Bàn 1</span>\n"
@@ -753,7 +753,7 @@ msgid ""
 msgstr ""
 "<i class=\"fa fa-warning me-2\"/>\n"
 "                    <span invisible=\"schedule_based_on != 'users'\">Không thể chia sẻ liên kết đối với loại cuộc hẹn chưa được phân công người dùng.</span>\n"
-"                    <span invisible=\"schedule_based_on != 'resources'\">Không thể chia sẻ liên kết đối với loại cuộc hẹn chưa được chỉ định cơ sở hạ tầng/vật chất.</span>"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Không thể chia sẻ liên kết đối với loại cuộc hẹn chưa được chỉ định tài nguyên.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -764,7 +764,7 @@ msgid ""
 msgstr ""
 "<i class=\"fa fa-warning me-2\"/>\n"
 "                    <span invisible=\"schedule_based_on != 'users'\">Bạn cần phải là một phần của loại cuộc hẹn để có thể chia sẻ liên kết cá nhân.</span>\n"
-"                    <span invisible=\"schedule_based_on != 'resources'\">Bạn không thể tạo liên kết cá nhân cho loại cuộc hẹn dựa trên cơ sở hạ tầng/vật chất.</span>"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Bạn không thể tạo liên kết cá nhân cho loại cuộc hẹn dựa trên tài nguyên.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
@@ -980,7 +980,7 @@ msgstr "Thêm một chức năng ở đây..."
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated_card
 msgid "Add a resource description here..."
-msgstr "Thêm mô tả về cơ sở hạ tầng/vật chất ở đây..."
+msgstr "Thêm mô tả về tài nguyên ở đây..."
 
 #. module: appointment
 #. odoo-javascript
@@ -1073,8 +1073,7 @@ msgstr "Cần một loại cuộc hẹn để lấy liên kết."
 #: model:ir.model.constraint,message:appointment.constraint_calendar_event_check_resource_and_appointment_type
 msgid "An event cannot book resources without an appointment type."
 msgstr ""
-"Không thể đặt trước cơ sở hạ tầng/vật chất cho sự kiện nếu không có loại "
-"cuộc hẹn."
+"Không thể đặt trước tài nguyên cho sự kiện nếu không có loại cuộc hẹn."
 
 #. module: appointment
 #. odoo-python
@@ -1120,7 +1119,7 @@ msgstr "Bất kể Thời gian "
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__all_assigned_resources
 msgid "Any User/Resource"
-msgstr "Bất kỳ người dùng/cơ sở hạ tầng/vật chất"
+msgstr "Bất kỳ người dùng/tài nguyên"
 
 #. module: appointment
 #. odoo-python
@@ -1256,14 +1255,14 @@ msgstr "Appointment Resource"
 #. module: appointment
 #: model:ir.actions.server,name:appointment.resource_calendar_leaves_action_show_appointment_resources
 msgid "Appointment Resource Leaves"
-msgstr "Lịch tạm ngừng sử dụng cơ sở hạ tầng/vật chất cuộc hẹn"
+msgstr "Lịch tạm ngừng sử dụng tài nguyên cuộc hẹn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_ids
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_resource_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_search
 msgid "Appointment Resources"
-msgstr "Cơ sở hạ tầng/vật chất của cuộc hẹn"
+msgstr "Tài nguyên của cuộc hẹn"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
@@ -1271,7 +1270,7 @@ msgid ""
 "Appointment Resources are the places or equipment people can book\n"
 "                (e.g. Tables, Tennis Courts, Meeting Rooms, ...)"
 msgstr ""
-"Cơ sở hạ tầng/vật chất của cuộc hẹn là địa điểm hoặc thiết bị mà người dùng có thể đặt trước\n"
+"Tài nguyên của cuộc hẹn là địa điểm hoặc thiết bị mà người dùng có thể đặt trước\n"
 "                 (VD: Bàn, Sân quần vợt, Phòng họp,...)"
 
 #. module: appointment
@@ -1579,8 +1578,7 @@ msgstr "Sức chứa người dùng đã đặt"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__capacity_used
 msgid "Capacity that will be used based on the capacity and resource selected"
-msgstr ""
-"Sức chứa sẽ được sử dụng dựa trên sức chứa và cơ sở hạ tầng/vật chất đã chọn"
+msgstr "Sức chứa sẽ được sử dụng dựa trên sức chứa và tài nguyên đã chọn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__category
@@ -1728,7 +1726,7 @@ msgstr "Tạo (các) ngày nghỉ"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
-msgstr "Tạo một cơ sở hạ tầng/vật chất của cuộc hẹn"
+msgstr "Tạo một tài nguyên của cuộc hẹn"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
@@ -1911,7 +1909,7 @@ msgstr "Tên hiển thị"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
 msgid "Display the Users'/Resources' picture on the Website."
-msgstr "Hiển thị hình ảnh cơ sở hạ tầng/vật chất trên trang web."
+msgstr "Hiển thị hình ảnh tài nguyên trên trang web."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__resource_manual_confirmation
@@ -2124,8 +2122,8 @@ msgid ""
 "How users and resources will be assigned to meetings customers book on your "
 "website."
 msgstr ""
-"Cách nhân viên và cơ sở hạ tầng/vật chất sẽ được phân công cho các cuộc họp "
-"mà khách hàng đã đặt trên trang web. "
+"Cách nhân viên và tài nguyên sẽ được phân công cho các cuộc họp mà khách "
+"hàng đã đặt trên trang web. "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__id
@@ -2163,8 +2161,8 @@ msgid ""
 "If empty, all resources are considered to be available.\n"
 "If set, only the selected resources will be taken into account for this slot."
 msgstr ""
-"Nếu trống, tất cả cơ sở hạ tầng/vật chất được coi là khả dụng.\n"
-"Nếu được cài đặt, chỉ những cơ sở hạ tầng/vật chất đã chọn mới khả dụng cho khung giờ này."
+"Nếu trống, tất cả tài nguyên được coi là khả dụng.\n"
+"Nếu được cài đặt, chỉ những tài nguyên đã chọn mới khả dụng cho khung giờ này."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__restrict_to_user_ids
@@ -2186,8 +2184,8 @@ msgid ""
 "If kept empty, the working schedule of the company set on the resource will "
 "be used"
 msgstr ""
-"Nếu để trống, lịch làm việc của công ty thiết lập trên cơ sở hạ tầng/vật "
-"chất sẽ được sử dụng"
+"Nếu để trống, lịch làm việc của công ty thiết lập trên tài nguyên sẽ được sử"
+" dụng"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__canceled_mail_template_id
@@ -2212,8 +2210,8 @@ msgid ""
 "If the active field is set to False, it will allow you to hide the resource "
 "record without removing it."
 msgstr ""
-"Nếu trường hoạt động được đặt là Sai, bạn sẽ được phép ẩn bản ghi cơ sở hạ "
-"tầng/vật chất mà không cần xóa bỏ. "
+"Nếu trường hoạt động được đặt là Sai, bạn sẽ được phép ẩn bản ghi tài nguyên"
+" mà không cần xóa bỏ. "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__active
@@ -2397,14 +2395,12 @@ msgstr "Liên kết được sao chép vào khay nhớ tạm!"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__linked_resource_ids
 msgid "Linked Resource"
-msgstr "Cơ sở hạ tầng/vật chất liên kết"
+msgstr "Tài nguyên liên kết"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__linked_resource_ids
 msgid "List of resources that can be combined to handle a bigger demand."
-msgstr ""
-"Danh sách cơ sở hạ tầng/vật chất có thể được kết hợp để đáp ứng nhu cầu lớn "
-"hơn."
+msgstr "Danh sách tài nguyên có thể được kết hợp để đáp ứng nhu cầu lớn hơn."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__location_id
@@ -2447,8 +2443,8 @@ msgid ""
 "Manage the maximum amount of people a resource can handle (e.g. Table for 6 "
 "persons, ...)"
 msgstr ""
-"Quản lý số lượng người tối đa mà một cơ sở hạ tầng/vật chất có thể tiếp nhận"
-" (VD: Bàn dành cho 6 người, ...)"
+"Quản lý số lượng người tối đa mà một tài nguyên có thể tiếp nhận (VD: Bàn "
+"dành cho 6 người, ...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manual_confirmation
@@ -2465,8 +2461,7 @@ msgstr "Tối đa"
 msgid ""
 "Maximum amount of people for this resource (e.g. Table for 6 persons, ...)"
 msgstr ""
-"Số lượng người tối đa cho cơ sở hạ tầng/vật chất này (VD: Bàn dành cho 6 "
-"người, ...)"
+"Số lượng người tối đa cho tài nguyên này (VD: Bàn dành cho 6 người, ...)"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__current_user
@@ -2571,7 +2566,7 @@ msgstr "Không có Cuộc hẹn được Cấu hình"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_users
 msgid "No Appointment or Resource were found."
-msgstr "Không tìm thấy Lịch hẹn hay Cơ sở hạ tầng/vật chất nào."
+msgstr "Không tìm thấy Lịch hẹn hay Tài nguyên nào."
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
@@ -2772,7 +2767,7 @@ msgstr "Điện thoại: %s"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__resource_time
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__user_assign_method__resource_time
 msgid "Pick User/Resource then Time"
-msgstr "Chọn Người dùng/Cơ sở hạ tầng/vật chất rồi đến Thời gian"
+msgstr "Chọn Người dùng/Tài nguyên rồi đến Thời gian"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
@@ -2806,7 +2801,7 @@ msgstr "Vui lòng chọn 1 ngày khác."
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_resource_ids
 msgid "Possible resources"
-msgstr "Cơ sở hạ tầng/vật chất khả dụng"
+msgstr "Tài nguyên khả dụng"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__suggested_staff_user_ids
@@ -2902,23 +2897,23 @@ msgstr "Câu trả lời Bắt buộc"
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__resource_id
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Resource"
-msgstr "Cơ sở hạ tầng/vật chất:"
+msgstr "Tài nguyên:"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_resources
 #: model:ir.actions.server,name:appointment.calendar_event_action_all_resources_bookings
 msgid "Resource Bookings"
-msgstr "Đặt lịch cơ sở hạ tầng/vật chất"
+msgstr "Đặt lịch tài nguyên"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__calendar_id
 msgid "Resource Calendar"
-msgstr "Lịch cơ sở hạ tầng/vật chất"
+msgstr "Lịch tài nguyên"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_resource_leaves
 msgid "Resource Leaves"
-msgstr "Lịch tạm ngừng sử dụng cơ sở hạ tầng/vật chất"
+msgstr "Lịch tạm ngừng sử dụng tài nguyên"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_resource_calendar
@@ -2938,17 +2933,17 @@ msgstr "Nguồn lực thời gian làm việc"
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Resources"
-msgstr "Cơ sở hạ tầng/vật chất:"
+msgstr "Tài nguyên:"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resource_booking
 msgid "Resources Bookings"
-msgstr "Đặt lịch cơ sở hạ tầng/vật chất"
+msgstr "Đặt lịch tài nguyên"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__resources_on_leave
 msgid "Resources intersecting with leave time"
-msgstr "Cơ sở hạ tầng/vật chất có thời gian tạm ngừng sử dụng"
+msgstr "Tài nguyên có thời gian tạm ngừng sử dụng"
 
 #. module: appointment
 #. odoo-python
@@ -2960,12 +2955,12 @@ msgstr "Người phụ trách"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to Resource"
-msgstr "Giới hạn trong cơ sở hạ tầng/vật chất"
+msgstr "Giới hạn trong tài nguyên"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_resource_ids
 msgid "Restrict to Resources"
-msgstr "Giới hạn trong những cơ sở hạ tầng/vật chất"
+msgstr "Giới hạn trong những tài nguyên"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
@@ -2980,7 +2975,7 @@ msgstr "Giới hạn trong các người dùng"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Restrict to specific Resources"
-msgstr "Giới hạn trong những cơ sở hạ tầng/vật chất nhất định"
+msgstr "Giới hạn trong những tài nguyên nhất định"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -3079,7 +3074,7 @@ msgstr "Chọn Ngày"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_resource
 msgid "Select Time then User/Resource"
-msgstr "Chọn Thời gian rồi đến Người dùng/Cơ sở hạ tầng/vật chất"
+msgstr "Chọn Thời gian rồi đến Người dùng/Tài nguyên"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__assign_method__time_auto_assign
@@ -3188,7 +3183,7 @@ msgid ""
 "a resource."
 msgstr ""
 "Chia sẻ liên kết lịch cho phép mọi người đặt trước cuộc họp với bạn hoặc một"
-" đội ngũ, hoặc cơ sở hạ tầng/vật chất. "
+" đội ngũ, hoặc tài nguyên. "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_onboarding_link_view_form
@@ -3197,7 +3192,7 @@ msgid ""
 "resource."
 msgstr ""
 "Chia sẻ liên kết này để mọi người có thể đặt trước cuộc họp với bạn hoặc một"
-" đội ngũ, hoặc cơ sở hạ tầng/vật chất. "
+" đội ngũ, hoặc tài nguyên. "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
@@ -3290,12 +3285,12 @@ msgstr "Kết hợp nguồn"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__appointment_resource_ids
 msgid "Specific Resources"
-msgstr "Cơ sở hạ tầng/vật chất nhất định"
+msgstr "Tài nguyên nhất định"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_invite__resources_choice__specific_resources
 msgid "Specific Users/Resources"
-msgstr "Người dùng/cơ sở hạ tầng/vật chất nhất định"
+msgstr "Người dùng/tài nguyên nhất định"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_users
@@ -3410,8 +3405,7 @@ msgstr "Thời gian kết thúc phải muộn hơn thời gian bắt đầu."
 #, python-format
 msgid "The event %s cannot book resources without an appointment type."
 msgstr ""
-"Không thể đặt trước cơ sở hạ tầng/vật chất cho sự kiện %s nếu không có loại "
-"cuộc hẹn."
+"Không thể đặt trước tài nguyên cho sự kiện %s nếu không có loại cuộc hẹn."
 
 #. module: appointment
 #. odoo-python
@@ -3425,7 +3419,7 @@ msgstr "Trường '%s' không tồn tại trong mô hình đích"
 #: code:addons/appointment/models/appointment_invite.py:0
 #, python-format
 msgid "The following appointment type(s) have no resource assigned: %s."
-msgstr "(Các) loại cuộc hẹn sau đây không có cơ sở hạ tầng/vật chất: %s."
+msgstr "(Các) loại cuộc hẹn sau đây không có tài nguyên: %s."
 
 #. module: appointment
 #. odoo-python
@@ -3455,7 +3449,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_resource_check_capacity
 msgid "The resource should have at least one capacity."
-msgstr "Cơ sở hạ tầng/vật chất phải có sức chứa ít nhất là một."
+msgstr "Tài nguyên phải có sức chứa ít nhất là một."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__sequence
@@ -3463,7 +3457,7 @@ msgid ""
 "The sequence dictates if the resource is going to be picked in higher priority against another resource\n"
 "        (e.g. for 2 tables of 4, the lowest sequence will be picked first)"
 msgstr ""
-"Số thứ tự cho biết liệu cơ sở hạ tầng/vật chất này có được chọn ở mức độ ưu tiên cao hơn so với cơ sở hạ tầng/vật chất khác hay không\n"
+"Số thứ tự cho biết liệu tài nguyên này có được chọn ở mức độ ưu tiên cao hơn so với tài nguyên khác hay không\n"
 "           (VD: đối với 2 trong 4 bàn, số thứ tự thấp nhất sẽ được chọn trước)"
 
 #. module: appointment
@@ -3489,8 +3483,8 @@ msgid ""
 "This allows to share the resource with multiple attendee for a same time "
 "slot (e.g. a bar counter)"
 msgstr ""
-"Điều này cho phép chia sẻ cơ sở hạ tầng/vật chất với nhiều người tham dự "
-"trong cùng một khung thời gian (VD: quầy bar)"
+"Điều này cho phép chia sẻ tài nguyên với nhiều người tham dự trong cùng một "
+"khung thời gian (VD: quầy bar)"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3507,8 +3501,8 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned"
 msgstr ""
-"Loại cuộc hẹn này không có khung giờ trống vì không có cơ sở hạ tầng/vật "
-"chất nào được chỉ định"
+"Loại cuộc hẹn này không có khung giờ trống vì không có tài nguyên nào được "
+"chỉ định"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3516,8 +3510,8 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned and does not have any opening hours configured"
 msgstr ""
-"Loại cuộc hẹn này không có khung giờ trống vì không có cơ sở hạ tầng/vật "
-"chất nào được chỉ định và giờ bắt đầu không được thiết lập "
+"Loại cuộc hẹn này không có khung giờ trống vì không có tài nguyên nào được "
+"chỉ định và giờ bắt đầu không được thiết lập "
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info

@@ -4,10 +4,10 @@
 # 
 # Translators:
 # Ahmet Altinisik <aaltinisik@altinkaya.com.tr>, 2023
-# Murat Durmuş <muratd@projetgrup.com>, 2023
-# İlknur Püskül <ilknurpuskull@gmail.com>, 2023
 # abc Def <hdogan1974@gmail.com>, 2023
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2023
+# Murat Durmuş <muratd@projetgrup.com>, 2023
+# İlknur Püskül <ilknurpuskull@gmail.com>, 2023
 # Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2023
 # Halil, 2023
 # İlknur Gözütok, 2023
@@ -22,6 +22,7 @@
 # Tugay Hatıl <tugayh@projetgrup.com>, 2024
 # Ozlem Cikrikci <ozlemc@eskayazilim.com.tr>, 2024
 # Malaz Abuidris <msea@odoo.com>, 2024
+# emre oktem, 2024
 # 
 msgid ""
 msgstr ""
@@ -29,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
+"Last-Translator: emre oktem, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -329,7 +330,7 @@ msgstr "Kapat"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Close Production"
-msgstr "Yakın Üretim "
+msgstr "Üretim Kapat"
 
 #. module: mrp_workorder
 #: model:product.attribute,name:mrp_workorder.product_attribute_color_radio
@@ -357,7 +358,7 @@ msgstr "Bileşen"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__component_qty_to_do
 msgid "Component Qty To Do"
-msgstr "Bileşen Miktarı"
+msgstr "İşlenecek Bileşen Miktarı"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_res_config_settings
@@ -457,7 +458,7 @@ msgstr "Oluşturulma"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 msgid "Creates a new serial/lot number"
-msgstr "Yeni bir seri/lot numarası oluştur"
+msgstr "Yeni bir seri/lot numarası oluşturur"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workcenter__currency_id
@@ -632,7 +633,7 @@ msgstr "Google doc URL"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__has_operation_note
 msgid "Has Description"
-msgstr ""
+msgstr "Tanım Mevcut"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__id
@@ -658,7 +659,7 @@ msgid ""
 " will be pre-filled in the shop floor."
 msgstr ""
 "Bu onay kutusu işaretlenirse, bu işlem türü için seri numaraları satırları "
-"atölye katında önceden doldurulacaktır. "
+"imalat ekranında önceden doldurulacaktır. "
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__worksheet_document
@@ -715,7 +716,7 @@ msgstr "Bileşen İzleniyor mu"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__is_last_unfinished_wo
 msgid "Is Last Work Order To Process"
-msgstr "İşlenecek Son İş Emri"
+msgstr "İşlenecek Son İş Emri mi"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__is_last_lot
@@ -725,12 +726,12 @@ msgstr "İlk Lot mu"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__is_first_started_wo
 msgid "Is The first Work Order"
-msgstr "İlk İş Emri"
+msgstr "İlk İş Emri mi"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__is_workorder_step
 msgid "Is Workorder Step"
-msgstr "İş Emri Adımı"
+msgstr "İş Emri Adımı mı"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__is_user_working
@@ -756,14 +757,14 @@ msgstr "Son Güncelleme"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Load Samples"
-msgstr "Yük Örnekleri "
+msgstr "Örnekleri Yükle"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/hooks/employee_hooks.js:0
 #, python-format
 msgid "Logged in!"
-msgstr "Giriş!"
+msgstr "Giriş Yapıldı!"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -792,17 +793,17 @@ msgstr "Üretim Siparişi Genel Bakış Raporu "
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_tablet_timer
 msgid "Manage Work Order timer on Shop Floor"
-msgstr "Atölyede İş Emri zamanlayıcısını yönetin "
+msgstr "İmalat Ekranında İş Emri zamanlayıcısını yönetin "
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.res_config_settings_view_form
 msgid "Manage your manufacturing orders from the shop floor app"
-msgstr "Üretim siparişlerinizi atölye uygulamasından yönetin "
+msgstr "Üretim siparişlerinizi imalat ekranı uygulamasından yönetin "
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_shop_floor
 msgid "Manage your manufacturing orders from the shop floor display app"
-msgstr "Üretim siparişlerinizi atölye ekran uygulamasından yönetin "
+msgstr "Üretim siparişlerinizi imalat ekranı uygulamasından yönetin "
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_tree_view_planning
@@ -849,12 +850,12 @@ msgstr "Menü"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
 msgid "Move to work center"
-msgstr "Çalışma merkezine taşın "
+msgstr "Çalışma merkezine taşı"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__move_line_ids
 msgid "Moves to Track"
-msgstr "İzleneceklere Taşı"
+msgstr "İzleneceklere Taşır"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_bom__my_activity_date_deadline
@@ -866,7 +867,7 @@ msgstr "Aktivite Zaman Sınırım"
 #: code:addons/mrp_workorder/static/src/mrp_display/control_panel.js:0
 #, python-format
 msgid "My WO"
-msgstr "İş Emirlerim "
+msgstr "İş Emrim"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_mrp_production_workorder_form_view_filter_my_work_orders
@@ -938,7 +939,7 @@ msgstr "Sonraki Kontrol"
 #: code:addons/mrp_workorder/static/src/components/working_employee_popup_wo_list.xml:0
 #, python-format
 msgid "No connected employees"
-msgstr "Bağlantılı çalışan yok "
+msgstr "Bağlanmış çalışan yok "
 
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.action_mrp_workorder_show_steps
@@ -958,8 +959,8 @@ msgid ""
 "No workcenters are available, please create one first to add it to the shop "
 "floor view"
 msgstr ""
-"Çalışma merkezi mevcut değil, lütfen atölye görünümüne eklemek için önce bir"
-" tane oluşturun "
+"Çalışma merkezi mevcut değil, lütfen imalat ekranına eklemek için önce bir "
+"tane oluşturun "
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -976,14 +977,14 @@ msgstr "Operasyonu tamamlamak için gereken çalışan sayısı."
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_inherit_workorder
 msgid "Open Shop Floor"
-msgstr "Üretim ekranını açın "
+msgstr "İmalat ekranını açın "
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
 msgid "Open backend MO"
-msgstr "Açık arka uç üretim siparişi "
+msgstr "Bağlı üretim siparişini aç"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_alert__workorder_id
@@ -1123,7 +1124,7 @@ msgstr "Lütfen bir resim yükleyin"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_stock_picking_type__prefill_lot_tablet
 msgid "Pre-fill Lot/Serial Numbers in Shop Floor"
-msgstr "Üretim ekranında Lot/Seri Numaralarını önceden doldurma "
+msgstr "İmalat ekranında Lot/Seri Numaralarını önceden doldurma "
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__previous_check_id
@@ -1151,7 +1152,7 @@ msgstr "Ürün Hareketleri (Stok Hareket Satırları)"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__component_id
 msgid "Product To Register"
-msgstr "Ürün Kaydı"
+msgstr "Kaydedilecek Ürün"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_uom_id
@@ -1190,7 +1191,7 @@ msgstr "Değişiklik Öner"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_propose_change
 msgid "Propose a change in the production"
-msgstr "Üretimde bir değişiklik önermek"
+msgstr "Üretimde bir değişiklik öner"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_quality_alert
@@ -1226,7 +1227,7 @@ msgstr "Kalite Kontrol Noktası"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_quality_point_test_type
 msgid "Quality Control Test Type"
-msgstr "Nitelik Denetim Sınaması Türü"
+msgstr "Kalite Kontrol Test Türü"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_routing_workcenter__quality_point_ids
@@ -1292,21 +1293,21 @@ msgstr "Üretim Kaydını İşle"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
 #, python-format
 msgid "Register %s"
-msgstr "Kayıt Olun %s "
+msgstr "Kaydet %s "
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Register Production"
-msgstr "Kayıt Üretimi "
+msgstr "Üretimi Kaydet"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
 #, python-format
 msgid "Register Production: %s"
-msgstr "Kayıt Üretimi: %s"
+msgstr "Üretimi Kaydet: %s"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__additional
@@ -1390,7 +1391,7 @@ msgstr "Bu istasyon için İş Merkezlerini Seçin "
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.js:0
 #, python-format
 msgid "Select a new work center"
-msgstr "Yeni bir çalışma merkezi seçin "
+msgstr "Yeni bir iş merkezi seçin "
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1423,14 +1424,14 @@ msgstr "Yeni bir resim ayarla"
 #: model:ir.ui.menu,name:mrp_workorder.menu_mrp_workorder_root
 #: model:ir.ui.menu,name:mrp_workorder.menu_shop_floor
 msgid "Shop Floor"
-msgstr "imalat ekranı  "
+msgstr "İmalat Ekranı  "
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.xml:0
 #, python-format
 msgid "Shop Floor Control Panel"
-msgstr "Üretim Ekranı Kontrol Paneli "
+msgstr "İmalat Ekranı Kontrol Paneli "
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_routing_workcenter_tree_view_inherited
@@ -1479,7 +1480,7 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Aktivite aşamalar\n"
+"Aktivitelere göre durum\n"
 "Zamanı Geçmiş: Tarihi geçmiş \n"
 "Bugün: Aktivite günü bugün\n"
 "Planlanan: Gelecek aktivite."
@@ -1498,7 +1499,7 @@ msgstr "Adım Belgesi"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_propose_change__step_id
 msgid "Step to change"
-msgstr "Değiştirmek için adım"
+msgstr "Değiştirilecek adım"
 
 #. module: mrp_workorder
 #: model:ir.actions.act_window,name:mrp_workorder.action_mrp_workorder_show_steps
@@ -1544,7 +1545,7 @@ msgstr "Bir Çalışma Sayfası iyileştirmesi önerin"
 #. module: mrp_workorder
 #: model:ir.actions.client,name:mrp_workorder.tablet_client_action
 msgid "Tablet Client Action"
-msgstr "Tablet İstemci İşlemi"
+msgstr "Tablet Kullanıcı İşlemi"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__test_type
@@ -1580,7 +1581,7 @@ msgstr "Oturum başkanı yok. Lütfen giriş yapınız. "
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_production_view_search_inherit_planning
 msgid "This Station"
-msgstr ""
+msgstr "Bu İstasyon"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1637,6 +1638,8 @@ msgid ""
 "Track work orders, show instructions and record manufacturing operations from here:\n"
 "                                    quality control, consumed quantities, lot/serial numbers, etc."
 msgstr ""
+"Buradan iş emirlerini takip et, talimatları göster ve üretim operasyonları kaydet:\n"
+"kalite kontrol, tüketilen miktarlar, lot/seri numaraları vb."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_tracking
@@ -1729,7 +1732,7 @@ msgstr "Geçerli Adımı Güncelle"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
 msgid "Update Instructions"
-msgstr "Güncelleme Talimatları"
+msgstr "Talimatları Güncelle"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_point_view_form_inherit_mrp
@@ -1753,8 +1756,8 @@ msgid ""
 "            The tablet provides worksheets for your workers and allow them to scrap products, track time,\n"
 "            launch a maintenance request, perform quality tests, etc."
 msgstr ""
-"Operasyonları atölye katında doğrudan kaydetmek için masa iş istasyonları "
-"kontrol panelini kullanın. Tablet, çalışanlarınız için çalışma sayfaları "
+"Operasyonları imalat ekranında doğrudan kaydetmek için tablo iş istasyonları"
+" kontrol panelini kullanın. Tablet, çalışanlarınız için çalışma sayfaları "
 "sağlar ve ürünleri ıskartaya çıkarmalarına, zamanı takip etmelerine, "
 "maintenance bakım talebinde bulunmalarına, kalite testleri "
 "gerçekleştirmelerine vb. olanak sağlar."
@@ -1852,7 +1855,7 @@ msgstr "İş Merkezi"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.stock_picking_type_view_kanban
 msgid "Workcenter Control Panel"
-msgstr "Workcenter Kontrol Paneli "
+msgstr "İş Merkezi Kontrol Paneli "
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter_productivity
@@ -1867,7 +1870,7 @@ msgstr "İş Merkezi Durumu"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__employee_ids
 msgid "Working employees"
-msgstr "Çalışan personel "
+msgstr "Çalışan personeller"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__workorder_id
@@ -1951,7 +1954,7 @@ msgid ""
 "You need to complete Quality Checks using the Shop Floor before marking Work"
 " Order as Done."
 msgstr ""
-"İş Emrini Bitti olarak işaretlemeden önce Atölye Katını kullanarak Kalite "
+"İş Emrini Bitti olarak işaretlemeden önce İmalat Ekranı kullanarak Kalite "
 "Kontrollerini tamamlamanız gerekir. "
 
 #. module: mrp_workorder
@@ -1991,7 +1994,7 @@ msgstr "Bu iş emrini işleme koymak için oturum açmanız gerekir. "
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 #, python-format
 msgid "You need to supply a Lot/Serial Number for the final product."
-msgstr ""
+msgstr "Final ürün için Lot/Seri numarası girmelisiniz."
 
 #. module: mrp_workorder
 #. odoo-python

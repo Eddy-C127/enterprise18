@@ -34,7 +34,7 @@ msgstr ""
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #, python-format
 msgid "%(user_name)s suggests to delete this instruction"
-msgstr ""
+msgstr "%(user_name)s anbefaler å slette denne instruksjonen"
 
 #. module: mrp_workorder
 #. odoo-python
@@ -215,7 +215,7 @@ msgstr "Lagerstatus"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_report_mrp_report_bom_structure
 msgid "BOM Overview Report"
-msgstr ""
+msgstr "Stykkliste oversiktsrapport"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -257,7 +257,7 @@ msgstr "Blokker"
 #: code:addons/mrp_workorder/wizard/propose_change.py:0
 #, python-format
 msgid "BoM feedback %s (%s)"
-msgstr ""
+msgstr "BoM tilbakemelding %s (%s)"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__bom_product_ids
@@ -775,7 +775,7 @@ msgstr "Lot/Serie"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_report_mrp_report_mo_overview
 msgid "MO Overview Report"
-msgstr ""
+msgstr "MO oversiktsrapport"
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_tablet_timer
@@ -1121,7 +1121,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_check_view_form_tablet
 #, python-format
 msgid "Print Labels"
-msgstr ""
+msgstr "Print etiketter"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder_additional_product__product_id
@@ -1131,7 +1131,7 @@ msgstr "Produkt"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr ""
+msgstr "Produktbevegelser (Lagerbevegelseslinje)"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__component_id
@@ -1159,7 +1159,7 @@ msgstr "Produksjonsordre"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 msgid "Production Workcenter"
-msgstr ""
+msgstr "Produksjons arbeidssenter"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__product_ids
@@ -1250,7 +1250,7 @@ msgstr "Antall"
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_register_production_dialog.xml:0
 #, python-format
 msgid "Quantity Produced"
-msgstr ""
+msgstr "Fullført antall"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1439,7 +1439,7 @@ msgstr ""
 #: code:addons/mrp_workorder/static/src/components/viewer.xml:0
 #, python-format
 msgid "Slides viewer"
-msgstr ""
+msgstr "Presentasjonsviser"
 
 #. module: mrp_workorder
 #: model:product.template,description_sale:mrp_workorder.product_template_stool
@@ -1584,7 +1584,7 @@ msgstr ""
 #: code:addons/mrp_workorder/models/mrp_workorder.py:0
 #, python-format
 msgid "Time Tracking: %(user)s"
-msgstr ""
+msgstr "Sporing av tid : %(user)s"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_res_config_settings__group_mrp_wo_tablet_timer
@@ -1653,7 +1653,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 #, python-format
 msgid "Unblock"
-msgstr ""
+msgstr "Avblokker"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1712,7 +1712,7 @@ msgstr ""
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_point_view_form_inherit_mrp
 msgid "Upload your PDF file."
-msgstr ""
+msgstr "Last opp din PDF"
 
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.action_mrp_workorder_show_steps
@@ -1798,7 +1798,7 @@ msgstr "Arbeidsordrer"
 #: model:ir.actions.server,name:mrp_workorder.action_mrp_workorder_dependencies_production
 #: model:ir.actions.server,name:mrp_workorder.action_mrp_workorder_dependencies_workcenter
 msgid "Work Orders Planning"
-msgstr ""
+msgstr "Arbeidsordre planlegging"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workcenter_view_kanban_inherit_workorder
@@ -1811,11 +1811,13 @@ msgid ""
 "Work orders are operations to do as part of a manufacturing order.\n"
 "            Operations are defined in the bill of materials or added in the manufacturing order directly."
 msgstr ""
+"Arbeidsordrer er operasjoner som skal utføres som en del av en produksjonsordre. \n"
+"              Operasjoner er definert i stykklisten eller lagt til i produksjonsordren direkte."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_production_additional_workorder__workcenter_id
 msgid "Workcenter"
-msgstr ""
+msgstr "Arbeidsstasjon"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.stock_picking_type_view_kanban
@@ -1825,12 +1827,12 @@ msgstr ""
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter_productivity
 msgid "Workcenter Productivity Log"
-msgstr ""
+msgstr "Arbeidsstasjonens produktivitetslogg"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__working_state
 msgid "Workcenter Status"
-msgstr ""
+msgstr "Arbeidsstasjonens status"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__employee_ids
@@ -1849,7 +1851,7 @@ msgstr ""
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_record_line/mrp_worksheet.xml:0
 #, python-format
 msgid "Worksheet"
-msgstr ""
+msgstr "Arbeidsdokument"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__worksheet_page

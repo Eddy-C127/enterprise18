@@ -31,6 +31,7 @@ msgstr ""
 #, python-format
 msgid "%s can't be inventoried. Only storable products can be inventoried."
 msgstr ""
+"%s nelze inventarizovat. Inventarizovat lze pouze skladovatelné produkty."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -129,7 +130,7 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode demo sheet"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Vytiskněte ukázkový list čárového kódu"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
@@ -144,6 +145,8 @@ msgid ""
 "A product tracked by serial numbers can't have multiple quantities for the "
 "same serial number."
 msgstr ""
+"Produkt sledovaný podle sériových čísel nemůže mít více kusů se stejným "
+"sériovým číslem."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -157,19 +160,19 @@ msgstr "Přidat produkt"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Add extra product?"
-msgstr ""
+msgstr "Přidat další produkt?"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__mandatory
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_dest_location__mandatory
 msgid "After each product"
-msgstr ""
+msgstr "Po každém produktu"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__optional
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_dest_location__optional
 msgid "After group of Products"
-msgstr ""
+msgstr "Po skupině produktů"
 
 #. module: stock_barcode
 #. odoo-python
@@ -183,7 +186,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "All products need to be packed"
-msgstr ""
+msgstr "Všechny produkty je třeba zabalit"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_barcode
@@ -330,7 +333,7 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
 msgid "Cancel operation"
-msgstr ""
+msgstr "Zrušení přesunu"
 
 #. module: stock_barcode
 #. odoo-python
@@ -433,7 +436,7 @@ msgstr "Cílový balíček"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Destination location must be scanned"
-msgstr ""
+msgstr "Cílové umístění musí být naskenováno"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -473,7 +476,7 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
 msgid "Don't cancel"
-msgstr ""
+msgstr "Nerušit"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -560,7 +563,7 @@ msgstr ""
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_put_in_pack
 msgid "Force put in pack?"
-msgstr ""
+msgstr "Vynutit vložení do balení?"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__hide_lot
@@ -585,6 +588,8 @@ msgid ""
 "If the source location must be scanned, then the destination location must "
 "either be scanned after each product or not scanned at all."
 msgstr ""
+"Pokud je nutné naskenovat zdrojové umístění, musí být cílové umístění buď "
+"naskenováno po každém produktu, nebo neskenováno vůbec."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -662,7 +667,7 @@ msgstr "Nechat jak je"
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_product
 msgid "Line's product must be scanned before the line can be edited"
-msgstr ""
+msgstr "Produkt v řádku musí být naskenován, než bude možné řádek upravit"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -685,21 +690,21 @@ msgstr "Šarže/sériové číslo"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Mandatory Destination Location"
-msgstr ""
+msgstr "Povinné cílové místo"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__mandatory
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_tracking_number__mandatory
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 msgid "Mandatory Scan"
-msgstr ""
+msgstr "Povinný sken"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Mandatory Source Location"
-msgstr ""
+msgstr "Povinné zdrojové umístnení"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__no
@@ -712,12 +717,12 @@ msgstr "Ne"
 #: code:addons/stock_barcode/models/stock_picking.py:0
 #, python-format
 msgid "No %(picking_type)s ready for this %(barcode_type)s"
-msgstr ""
+msgstr "Žádné %(picking_type)s připraveno pro %(barcode_type)s"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__no
 msgid "No Scan"
-msgstr ""
+msgstr "Žádny sken"
 
 #. module: stock_barcode
 #. odoo-python
@@ -733,13 +738,15 @@ msgstr "Žádný typ interní operace. Zkontrolujte, prosím, v nastavení sklad
 #, python-format
 msgid "No picking or location or product corresponding to barcode %(barcode)s"
 msgstr ""
+"Žádné pikování nebo umístění nebo produkt odpovídající čárovému kódu "
+"%(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
 #: code:addons/stock_barcode/controllers/stock_barcode.py:0
 #, python-format
 msgid "No picking or product corresponding to barcode %(barcode)s"
-msgstr ""
+msgstr "Žádné vyzvednutí nebo produkt odpovídající čárovému kódu %(barcode)s"
 
 #. module: stock_barcode
 #. odoo-python
@@ -763,7 +770,7 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.picking_view_kanban_inherit_barcode
 msgid "Open picking"
-msgstr ""
+msgstr "Otevřeno vyzvednutí"
 
 #. module: stock_barcode
 #. odoo-python
@@ -804,7 +811,7 @@ msgstr "Balení"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Package type %s was correctly applied to the package %s"
-msgstr ""
+msgstr "Typ balíčku %s byl správně aplikován na balíček %s"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_quant_package
@@ -856,7 +863,7 @@ msgstr "Typ skladové operace"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Please scan destination location for %s before scanning other product"
-msgstr ""
+msgstr "Před skenováním jiného produktu naskenujte cílové umístění pro %s"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -893,14 +900,14 @@ msgstr "Tisk dodacího listu"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Print Inventory"
-msgstr ""
+msgstr "Vytisknout inventář"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Print Packages"
-msgstr ""
+msgstr "Tisk balíčků"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -961,7 +968,7 @@ msgstr "Produktová varianta"
 #: code:addons/stock_barcode/static/src/components/main.xml:0
 #, python-format
 msgid "Put In Pack"
-msgstr ""
+msgstr "Vložit do balení"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
@@ -1024,14 +1031,14 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Scan a"
-msgstr ""
+msgstr "Skenovat"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan a location"
-msgstr ""
+msgstr "Naskenovat umístení"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1039,49 +1046,49 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a lot number"
-msgstr ""
+msgstr "Naskenovat číslo šarže"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a lot number or a packages then the destination location"
-msgstr ""
+msgstr "Naskenujte číslo šarže nebo balíky a poté cílové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a lot number then the destination location"
-msgstr ""
+msgstr "Naskenujte číslo šarže a poté cílové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package"
-msgstr ""
+msgstr "Naskenujte balík"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package or put in pack"
-msgstr ""
+msgstr "Naskenujte balík alebo ho vložte do balení"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package or the destination location"
-msgstr ""
+msgstr "Naskenujte balík nebo cílové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a package, the destination location or another product"
-msgstr ""
+msgstr "Naskenujte balík, cílové umístění nebo další produkt"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1096,7 +1103,7 @@ msgstr "Naskenujte produkt"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product before scanning a tracking number"
-msgstr ""
+msgstr "Před skenováním čísla zásilky naskenujte produkt"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1110,35 +1117,35 @@ msgstr "Naskenujte produkt z %s"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan a product in %s or scan another location"
-msgstr ""
+msgstr "Naskenujte produkt v %s nebo naskenujte další umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product or a package"
-msgstr ""
+msgstr "Naskenujte produkt nebo balík"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product or another package"
-msgstr ""
+msgstr "Naskenujte produkt nebo další balík"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product or the destination location."
-msgstr ""
+msgstr "Naskenujte produkt nebo cílové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product then the destination location"
-msgstr ""
+msgstr "Naskenujte produkt a poté naskenujte cílové umístění"
 
 #. module: stock_barcode
 #. odoo-python
@@ -1153,49 +1160,49 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product, a package or the destination location"
-msgstr ""
+msgstr "Naskenujte produkt, balík nebo cílové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a product, a package or the destination location."
-msgstr ""
+msgstr "Naskenujte produkt, balík nebo cílové umístění."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number"
-msgstr ""
+msgstr "Naskenujte sériové číslo"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number or a package"
-msgstr ""
+msgstr "Naskenujte sériové číslo nebo balík"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number or a package then the destination location"
-msgstr ""
+msgstr "Naskenujte sériové číslo nebo balík a poté cílové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan a serial number then the destination location"
-msgstr ""
+msgstr "Naskenujte sériové číslo a poté cílové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 #, python-format
 msgid "Scan a transfer or a product to filter your records"
-msgstr ""
+msgstr "Naskenujte pohyb nebo produkt pro filtrování záznamů"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1209,49 +1216,49 @@ msgstr "Naskenujte pohyb, produkt nebo balení pro filtrování záznamů"
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "Scan an"
-msgstr ""
+msgstr "Naskenujte"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan another serial number"
-msgstr ""
+msgstr "Naskenujte další sériové číslo"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan lot numbers for product %s to change their quantity"
-msgstr ""
+msgstr "Naskenujte čísla šarží pro produkt %s a změňte jejich množství"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan more lot numbers"
-msgstr ""
+msgstr "Naskenujte více čísel šarží"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan more lot numbers or a package"
-msgstr ""
+msgstr "Naskenujte více čísel šarží nebo balík"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan more products in %s or scan another location"
-msgstr ""
+msgstr "Naskenujte více produktů v %s nebo naskenujte jiné umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan more products or a package"
-msgstr ""
+msgstr "Naskenujte další produkty nebo balíček"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1265,7 +1272,7 @@ msgstr "Skenovat více produktů nebo skenovat nové umístění zdroje"
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Scan serial numbers for product %s to change their quantity"
-msgstr ""
+msgstr "Naskenujte sériová čísla produktu %s pro změnu jejich množství"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1293,7 +1300,7 @@ msgstr "Naskenovat umístění zdroje"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "Scan the source location or a package"
-msgstr ""
+msgstr "Naskenujte zdrojové umístění nebo balíček"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1303,6 +1310,8 @@ msgid ""
 "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible "
 "with the line's one (%s)."
 msgstr ""
+"Naskenované množství používá %s jako měrnou jednotku, ale tato MJ není "
+"kompatibilní s řádkovou jednotkou (%s)."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1313,6 +1322,8 @@ msgid ""
 "Scanned quantity uses %s as Unit of Measure, but this UoM is not compatible "
 "with the product's one (%s)."
 msgstr ""
+"Naskenované množství používá jako měrnou jednotku %s, ale tato MJ není "
+"kompatibilní s jednotkou produktu (%s)."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1343,12 +1354,12 @@ msgstr "Seriové číslo / šarže"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__show_barcode_nomenclature
 msgid "Show Barcode Nomenclature"
-msgstr ""
+msgstr "Zobrazit nomenklaturu čárových kódů"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__show_barcode_validation
 msgid "Show Barcode Validation"
-msgstr ""
+msgstr "Zobrazit ověření čárového kódu"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1415,14 +1426,14 @@ msgstr "Úprava zásob byla ověřena"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "The scanned location doesn't belong to this operation's destination"
-msgstr ""
+msgstr "Naskenované umístění nepatří mezi cíle této operace"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "The scanned location doesn't belong to this operation's location"
-msgstr ""
+msgstr "Naskenované umístění nepatří mezi umístění této operace"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1443,7 +1454,7 @@ msgstr "Převod byl zrušen"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "The transfer has been validated"
-msgstr ""
+msgstr "Převod byl validován"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1481,14 +1492,14 @@ msgstr "Toto vyzvednutí je již hotové"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "This picking is cancelled"
-msgstr ""
+msgstr "Toto vyzdvihování je zrušeno"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 #, python-format
 msgid "This serial number is already used."
-msgstr ""
+msgstr "Toto sériové číslo se již používá."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_picking_type_kanban
@@ -1507,7 +1518,7 @@ msgstr "K vyřízení"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "To use packages, enable 'Packages' in the settings"
-msgstr ""
+msgstr "Chcete-li používat balíčky, povolte v nastavení 'Balíčky'"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_picking
@@ -1518,7 +1529,7 @@ msgstr "Převod"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_barcode_cancel_operation__picking_name
 msgid "Transfer Name"
-msgstr ""
+msgstr "Název převodu"
 
 #. module: stock_barcode
 #: model_terms:ir.actions.act_window,help:stock_barcode.stock_picking_action_kanban
@@ -1593,7 +1604,7 @@ msgstr ""
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 #, python-format
 msgid "Wrong Unit of Measure"
-msgstr ""
+msgstr "Nesprávná měrná jednotka"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1627,7 +1638,7 @@ msgstr "Očakáva sa, že naskenujete jeden alebo viacero produktov."
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You are supposed to scan %s or another source location"
-msgstr ""
+msgstr "Měli byste skenovat %s nebo jiné zdrojové umístění"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1635,6 +1646,7 @@ msgstr ""
 #, python-format
 msgid "You can't apply a package type. First, scan product or select a line"
 msgstr ""
+"Nelze použít typ balíčku. Nejprve naskenujte produkt nebo vyberte řádek"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1657,21 +1669,21 @@ msgstr ""
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
 msgid "You have processed less products than the initial demand:"
-msgstr ""
+msgstr "Zpracovali jste méně produktů, než byla původní poptávka:"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You must scan a package or put in pack"
-msgstr ""
+msgstr "Balík musíte naskenovať alebo vložiť do balení"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #, python-format
 msgid "You must scan a product"
-msgstr ""
+msgstr "Musíte naskenovat produkt"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1725,19 +1737,19 @@ msgstr "produkt"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
 msgid "products were not processed at all."
-msgstr ""
+msgstr "produkty nebyly vůbec zpracovány."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.view_backorder_confirmation
 msgid "products were partially processed."
-msgstr ""
+msgstr "produkty byly částečně zpracovány."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "stock barcodes sheet"
-msgstr ""
+msgstr "list skladových čárových kódů"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1745,6 +1757,7 @@ msgstr ""
 #, python-format
 msgid "to check out what this module can do! You can also print the barcode"
 msgstr ""
+"abyste zjistili, co tento modul umí! Čárový kód můžete také vytisknout"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1765,14 +1778,14 @@ msgstr "k vytvoření nového převodu."
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "to know its content."
-msgstr ""
+msgstr "znát jeho obsah."
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu.xml:0
 #, python-format
 msgid "to open it."
-msgstr ""
+msgstr "otevřít."
 
 #. module: stock_barcode
 #. odoo-javascript

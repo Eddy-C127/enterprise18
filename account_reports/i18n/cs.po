@@ -5,7 +5,7 @@
 # Translators:
 # Ivana Bartonkova, 2023
 # Tomáš Píšek, 2023
-# Jiří Podhorecký, 2024
+# Jiří Podhorecký <jirka.p@volny.cz>, 2024
 # Jakub Smolka, 2024
 # Katerina Horylova, 2024
 # Rastislav Brencic <rastislav.brencic@azet.sk>, 2024
@@ -13,6 +13,7 @@
 # karolína schusterová <karolina.schusterova@vdp.sk>, 2024
 # Aleš Fiala <f.ales1@seznam.cz>, 2024
 # Wil Odoo, 2024
+# Tereza Mokrá, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tereza Mokrá, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -690,7 +691,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "Zůstatek banky"
 
 #. module: account_reports
 #. odoo-python
@@ -3233,6 +3234,11 @@ msgid "Tags"
 msgstr "Štítky"
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.company_information
+msgid "Tax ID:"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #. odoo-python
 #: code:addons/account_reports/models/account_general_ledger.py:0
@@ -3830,11 +3836,6 @@ msgstr "Nezrealizované kurzovní rozdíly"
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_vat
 msgid "VAT Number"
 msgstr "DIČ"
-
-#. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.company_information
-msgid "VAT:"
-msgstr "DPH:"
 
 #. module: account_reports
 #. odoo-javascript
