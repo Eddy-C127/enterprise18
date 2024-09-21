@@ -9,7 +9,7 @@
                 <field name="is_delivery_payment"/>
             </field>
             <field name="payment_method_type" position="after">
-                <field name="delivery_provider_id" invisible="not is_delivery_payment" required="is_delivery_payment" options="{'no_create': True}"/>
+                <field name="delivery_provider_id" invisible="not is_delivery_payment" required="is_delivery_payment" options="{'no_open': True, 'no_create': True}"/>
             </field>
         </field>
     </record>

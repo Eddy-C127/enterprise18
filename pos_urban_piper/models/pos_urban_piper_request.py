@@ -99,14 +99,6 @@ class UrbanPiperClient:
             self.config.id not in product.urban_piper_status_ids.config_id.ids or
             any(ups.config_id.id in self.config.ids and not ups.is_product_linked for ups in product.urban_piper_status_ids)
         ))
-        pos_packaging_product = self.config.env['product.template'].search([('name', '=', 'Restaurant Packaging Charges')], limit=1)
-        if not pos_packaging_product:
-            self.config.env['product.template'].create({
-                'name': 'Restaurant Packaging Charges',
-                'type': 'service',
-                'list_price': 0,
-                'available_in_pos': 1,
-            })
         pos_products_without_pos_categ_ids = pos_products.filtered(lambda p: not p.pos_categ_ids)
         pos_other_categ_id = self.config.env['pos.category'].search([('name', 'ilike', 'other')], limit=1)
         if not pos_other_categ_id:
@@ -126,7 +118,9 @@ class UrbanPiperClient:
             'flush_options': False,
             'options': self._prepare_option_data(pos_attribute_products),                     # pos attribute values
             'flush_taxes': False,
-            'taxes': self.config.prepare_taxes_data(pos_products)                             # pos taxes
+            'taxes': self.config.prepare_taxes_data(pos_products),                            # pos taxes
+            'flush_charges': False,
+            'charges': self._prepare_charges_data()                                           # pos charges
         }
         # If we have multiple products, we should increase the timeout to 90 seconds.
         response_json = self._make_api_request(endpoint, method='POST', data=payload, timeout=90)
@@ -217,7 +211,7 @@ class UrbanPiperClient:
                         'description': desc_dict.get(lang, '')
                     })
             item['translations'] = translations
-            updated_item = self.config.update_items_disc(product, item)
+            updated_item = self.config.update_items_dict(product, item)
             item_lst.append(updated_item)
         return item_lst
 
@@ -268,6 +262,31 @@ class UrbanPiperClient:
                     value_dict['translations'] = self._get_translations(name_translations, 'title')
                     value_lst.append(value_dict)
         return value_lst
+
+    def _prepare_charges_data(self):
+        """
+        Prepare charges data for urban piper.
+        """
+        product_packaging = self.config.env.ref('pos_urban_piper.product_packaging_charges', False)
+        product_delivery = self.config.env.ref('pos_urban_piper.product_delivery_charges', False)
+
+        def get_charge_data(product):
+            return {
+                'code': 'PC_F' if product == product_packaging else 'DC_F',
+                'title': product.name,
+                'active': True,
+               'structure': {
+                    'applicable_on': 'order.order_subtotal',
+                    'value': product.list_price
+                },
+                'item_ref_ids': ['all']
+            }
+
+        return [
+            get_charge_data(product)
+            for product in [product_packaging, product_delivery]
+            if product
+        ]
 
     def register_item_toggle(self, products, status):
         """

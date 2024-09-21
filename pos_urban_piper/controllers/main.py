@@ -146,6 +146,27 @@ class PosUrbanPiperController(http.Controller):
             return exceptions.BadRequest()
 
         lines = [self._create_order_line(line, pos_config_sudo) for line in order['items']]
+        for charge in details.get('charges', []):
+            charge_title = charge.get('title', '').lower()
+            charge_product = request.env.ref('pos_urban_piper.product_other_charges', False)
+            if 'delivery' in charge_title:
+                charge_product = request.env.ref('pos_urban_piper.product_delivery_charges', False)
+            elif 'packaging' in charge_title:
+                charge_product = request.env.ref('pos_urban_piper.product_packaging_charges', False)
+            if not charge_product:
+                _logger.warning("UrbanPiper: Charge product not found for %r", charge_title)
+                pos_config_sudo.log_xml("UrbanPiper: - %s" % (data), 'urbanpiper_charge_product_not_found')
+                continue
+            lines.append(Command.create({
+                'product_id': charge_product.sudo().id,
+                'full_product_name': charge.get('title', charge_product.sudo().name),
+                'qty': 1,
+                'price_unit': charge.get('value'),
+                'price_subtotal': charge.get('value'),
+                'price_subtotal_incl': charge.get('value'),
+                'note': charge_product.sudo().name,
+                'uuid': str(uuid.uuid4()),
+            }))
         delivery_order = request.env["pos.order"].sudo().create({
             'name': order_reference,
             'partner_id': customer_sudo.id,
@@ -156,8 +177,8 @@ class PosUrbanPiperController(http.Controller):
             'company_id': pos_config_sudo.company_id.id,
             'fiscal_position_id': pos_config_sudo.urbanpiper_fiscal_position_id.id,
             'lines': lines,
-            'amount_paid': float(details['order_subtotal']),
-            'amount_total': float(details['order_subtotal']),
+            'amount_paid': float(details['order_subtotal']) + float(details.get('order_level_total_charges')),
+            'amount_total': float(details['order_subtotal']) + float(details.get('order_level_total_charges')),
             'amount_tax': float(details['total_taxes']),
             'amount_return': 0.0,
             'delivery_identifier': details['id'],
@@ -172,11 +193,11 @@ class PosUrbanPiperController(http.Controller):
         pos_config_sudo.current_session_id.sequence_number += 1
         pos_config_sudo._send_delivery_order_count(delivery_order.id)
 
-    def _get_tax_value(self, taxes):
+    def _get_tax_value(self, taxes_data, pos_config):
         """
         Override in delivery provider modules.
         """
-        return False
+        return request.env['account.tax']
 
     def _create_order_line(self, line_data, pos_config_sudo):
         value_ids_lst = []
@@ -198,10 +219,10 @@ class PosUrbanPiperController(http.Controller):
                         attribute_value_ids.append(product_option.id)
                     values_to_remove.append(value)
         variant_value_lst = [value for value in value_ids_lst if value not in values_to_remove]
-        line_tax = self._get_tax_value(line_data.get('taxes', []))
+        line_taxes = self._get_tax_value(line_data.get('taxes', []), pos_config_sudo)
         main_product = self._product_template_to_product_variant(int(line_data['merchant_id'].split('-')[0]), variant_value_lst)
         price_unit = float(line_data['price'] + price_extra)
-        tax_ids_after_fiscal_position = pos_config_sudo.urbanpiper_fiscal_position_id.map_tax(line_tax)
+        tax_ids_after_fiscal_position = pos_config_sudo.urbanpiper_fiscal_position_id.map_tax(line_taxes)
         taxes = tax_ids_after_fiscal_position.compute_all(price_unit, pos_config_sudo.company_id.currency_id, int(line_data['quantity']), product=main_product)
         lines = Command.create({
             'product_id': main_product.id,
@@ -212,23 +233,10 @@ class PosUrbanPiperController(http.Controller):
             'price_unit': price_unit,
             'price_subtotal': taxes['total_excluded'],
             'price_subtotal_incl': taxes['total_included'],
-            'tax_ids': [Command.link(line_tax.id)] if line_tax else None,
+            'tax_ids': [Command.set(line_taxes.ids)] if line_taxes else None,
             'note': line_data.get('instructions'),
             'uuid': str(uuid.uuid4()),
         })
-        if line_data.get('charges'):
-            package_product = self.config.env['product.template'].search([('name', '=', 'Restaurant Packaging Charges')], limit=1)
-            if not package_product:
-                return lines
-            lines += Command.create({
-                'product_id': package_product.id,
-                'full_product_name': package_product.name,
-                'qty': 1,
-                'price_unit': line_data.get('charges') and line_data.get('charges')[0].get('value') or 0.0,
-                'note': "Packaging charges for %s" % main_product.name,
-                'tax_ids': package_product.taxes_id,
-                'uuid': str(uuid.uuid4()),
-            })
         return lines
 
     def _product_template_to_product_variant(self, tmpl_id, value_ids):
@@ -257,7 +265,7 @@ class PosUrbanPiperController(http.Controller):
             ])
             if current_order_id.delivery_status == 'food_ready':
                 pos_config_sudo._make_order_payment(current_order_id)
-            pos_config_sudo._send_delivery_order_count()
+            pos_config_sudo._send_delivery_order_count(current_order_id.id)
 
     def _rider_status_update(self, data):
         current_order_id = request.env['pos.order'].sudo().search([('delivery_identifier', '=', str(data['order_id']))])

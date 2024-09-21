@@ -200,7 +200,7 @@ class PosConfig(models.Model):
         """
         return []
 
-    def update_items_disc(self, product, item_dict):
+    def update_items_dict(self, product, item_dict):
         """
         Update tags in urban piper for sync menu.
         """

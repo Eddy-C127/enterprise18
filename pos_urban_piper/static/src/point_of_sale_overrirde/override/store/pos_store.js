@@ -63,7 +63,13 @@ patch(PosStore.prototype, {
         this.delivery_providers = response.delivery_providers;
         this.total_new_order = response.total_new_order || 0;
         this.delivery_providers_active = response.delivery_providers_active;
+        let deliveryOrder = false;
         if (order_id) {
+            deliveryOrder = this.models["pos.order"].get(order_id);
+        }
+        if (order_id && deliveryOrder?.delivery_status === "acknowledged") {
+            this.sendOrderInPreparationUpdateLastChange(deliveryOrder);
+        } else if (order_id && deliveryOrder?.delivery_status === "placed") {
             this.sound.play("notification");
             this.notification.add(_t("New online order received."), {
                 type: "success",
@@ -72,7 +78,6 @@ patch(PosStore.prototype, {
                     {
                         name: _t("Review Orders"),
                         onClick: () => {
-                            const deliveryOrder = this.models["pos.order"].get(order_id);
                             const stateOverride = {
                                 search: {
                                     fieldName: "DELIVERYPROVIDER",

@@ -2,11 +2,12 @@
     'name': 'Point of Sale - UrbanPiper',
     'category': 'Sales/Point of Sale',
     'description': """
-        This module integrates with UrbanPiper to receive and manage orders from various food delivery platforms.
+This module integrates with UrbanPiper to receive and manage orders from various food delivery platforms.
     """,
     'depends': ['pos_preparation_display'],
     'data': [
         'data/res_config_settings_data.xml',
+        'data/product_product_data.xml',
         'data/pos_account_fiscal_position_data.xml',
         'security/ir.model.access.csv',
         'views/res_config_settings_views.xml',

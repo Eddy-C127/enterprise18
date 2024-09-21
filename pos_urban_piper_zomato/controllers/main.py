@@ -4,17 +4,16 @@ from odoo.http import request
 
 class PosZomatoController(PosUrbanPiperController):
 
-    def _get_tax_value(self, taxes):
-        tax_id = super()._get_tax_value(taxes)
-        if tax_id:
-            return tax_id
-        tax_lst = []
-        for tax_line in taxes:
-            tax = request.env['account.tax'].sudo().search([
-                ('tax_group_id.name', '=', tax_line.get('title')),
-                ('amount', '=', tax_line.get('rate'))
-            ], limit=1)
-            if tax:
-                tax_lst.append(tax.id)
-        parent_tax = request.env['account.tax'].sudo().search([('children_tax_ids', 'in', tax_lst)])
-        return parent_tax
+    def _get_tax_value(self, taxes_data, pos_config):
+        taxes = super()._get_tax_value(taxes_data, pos_config)
+        if request.env.ref('pos_urban_piper_zomato.pos_delivery_provider_zomato', False) in pos_config.urbanpiper_delivery_provider_ids:
+            tax_lst = []
+            for tax_line in taxes_data:
+                tax = request.env['account.tax'].sudo().search([
+                    ('tax_group_id.name', '=', tax_line.get('title')),
+                    ('amount', '=', tax_line.get('rate')),
+                ], limit=1)
+                if tax:
+                    tax_lst.append(tax.id)
+            taxes = request.env['account.tax'].sudo().search([('children_tax_ids', 'in', tax_lst)])
+        return taxes
