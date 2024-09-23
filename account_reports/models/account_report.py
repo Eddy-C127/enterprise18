@@ -2004,6 +2004,10 @@ class AccountReport(models.Model):
         if self.only_tax_exigible:
             domain += self.env['account.move.line']._get_tax_exigible_domain()
 
+        if options.get('forced_domain'):
+            # That option key is set when splitting options between column groups
+            domain += options['forced_domain']
+
         return domain
 
     ####################################################
@@ -2013,10 +2017,6 @@ class AccountReport(models.Model):
     def _get_report_query(self, options, date_scope, domain=None) -> Query:
         """ Get a Query object that references the records needed for this report. """
         domain = self._get_options_domain(options, date_scope) + (domain or [])
-
-        if options.get('forced_domain'):
-            # That option key is set when splitting options between column groups
-            domain += options['forced_domain']
 
         self.env['account.move.line'].check_access('read')
 

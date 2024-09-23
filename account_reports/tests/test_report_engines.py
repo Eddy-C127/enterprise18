@@ -1742,3 +1742,44 @@ class TestReportEngines(TestAccountReportsCommon):
             ],
             options,
         )
+
+    def test_column_groups_audit(self):
+        account = self.company_data['default_account_assets']
+        move = self.env['account.move'].create({
+            'move_type': 'entry',
+            'date': '2024-01-01',
+            'line_ids': [
+                (0, 0, {'debit': 10.0,      'credit': 0.0,      'account_id': account.id,   'partner_id': self.partner_a.id}),
+                (0, 0, {'debit': 20.0,      'credit': 0.0,      'account_id': account.id,   'partner_id': self.partner_b.id}),
+                (0, 0, {'debit':  0.0,     'credit': 30.0,      'account_id': account.id}),
+            ],
+        })
+        move.action_post()
+
+        report = self._create_report([
+            self._prepare_test_report_line(
+                self._prepare_test_expression_domain([('account_id', '=', account.id)], 'sum'),
+                code='report_line',
+            ),
+        ], country_id=self.fake_country.id)
+
+        horizontal_group = self.env['account.report.horizontal.group'].create({
+            'name': 'Horizontal Group',
+            'report_ids': report.ids,
+            'rule_ids': [
+                Command.create({
+                    'field_name': 'partner_id',
+                    'domain': f"[('id', 'in', {(self.partner_a + self.partner_b).ids})]",
+                }),
+            ],
+        })
+
+        main_options = self._generate_options(report, '2024-01-01', '2024-01-01', default_options={'selected_horizontal_group_id': horizontal_group.id})
+        lines = report._get_lines(main_options)
+        for (col_group_key, col_group_options), expected_partner in zip(report._split_options_per_column_group(main_options).items(), [self.partner_a, self.partner_b]):
+            audit_params = self._get_audit_params_from_report_line(col_group_options, report.line_ids, lines[0], column_group_key=col_group_key)
+            action_dict = report.action_audit_cell(col_group_options, audit_params)
+
+            expected_amls = move.line_ids.filtered(lambda x: x.partner_id == expected_partner)
+            audit_result_amls = move.line_ids.filtered_domain(action_dict['domain'])
+            self.assertEqual(audit_result_amls, expected_amls, f"Wrong audit result for partner {expected_partner.name}: {audit_result_amls}")
