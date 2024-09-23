@@ -87,7 +87,7 @@
         <field name="name">studio.approval.kanban</field>
         <field name="model">studio.approval.rule</field>
         <field name="arch" type="xml">
-            <kanban quick_create_view="web_studio.studio_approval_rule_form_view_quick_create" highlight_color="kanban_color">
+            <kanban quick_create_view="web_studio.studio_approval_rule_form_view_quick_create" highlight_color="kanban_color" class="o-studio-approval-rule-kanban">
                 <field name="can_validate"/>
                 <field name="kanban_color"/>
                 <templates>
@@ -96,6 +96,7 @@
                         <span t-if="!record.message.raw_value" class="fs-4 text-muted">Step</span>
                         <field class="text-truncate" name="approval_group_id"/>
                         <footer>
+                            <a t-if="record.can_validate.raw_value" role="button" class="btn btn-link py-0" name="open_delegate_action" type="object" string="Delegate"/>
                             <field class="ms-auto" name="approver_ids" widget="many2many_avatar_user"/>
                         </footer>
                     </t>
