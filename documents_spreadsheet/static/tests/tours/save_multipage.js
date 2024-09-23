@@ -13,6 +13,11 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
             run: "click",
         },
         {
+            trigger: '.o_kanban_record:contains("Test folder")',
+            content: "Open the test folder",
+            run: "dblclick",
+        },
+        {
             trigger: ".o_cp_buttons:contains('New') .dropdown-toggle",
             content: "Open dropdown",
             run: "click",
@@ -42,11 +47,11 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
             run: "click",
         },
         {
-            trigger: ".o_kanban_renderer .o_kanban_record:first .o_kanban_stack ",
+            trigger: ".o_kanban_renderer .o_kanban_record .o_kanban_stack",
             content: "Check is rendered as multipage",
         },
         {
-            trigger: ".o_document_spreadsheet:first",
+            trigger: ".o_kanban_stack .o_documents_image",
             content: "Reopen the sheet",
             run: "click",
         },
@@ -54,6 +59,10 @@ registry.category("web_tour.tours").add("spreadsheet_save_multipage", {
             trigger: ".o-sheet .o-sheet-icon",
             content: "Open sheet dropdown",
             run() {
+                const sheets = document.querySelectorAll("div.o-sheet").length;
+                if (sheets !== 2) {
+                    console.error(`There should be 2 sheets, and ${sheets} has been found`);
+                }
                 document.querySelector("div.o-sheet[title=Sheet1] span.o-sheet-icon").click();
             },
         },

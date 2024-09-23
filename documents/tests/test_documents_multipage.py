@@ -10,8 +10,9 @@ class TestMultipage(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.folder_a = cls.env['documents.folder'].create({
+        cls.folder_a = cls.env['documents.document'].create({
             'name': 'folder A',
+            'type': 'folder',
         })
 
     def test_multipage_pdfs_documents(self):

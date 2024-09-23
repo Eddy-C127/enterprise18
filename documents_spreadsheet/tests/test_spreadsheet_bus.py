@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from .common import SpreadsheetTestCommon
@@ -20,9 +19,9 @@ class TestSpreadsheetBus(SpreadsheetTestCommon, MailCase):
         self.env.cr.precommit.run()  # trigger the creation of bus.bus records
         return self.env["bus.bus"]._poll(channels, last)
 
-    def poll_spreadsheet(self, spreadsheet_id, share_id=None, access_token=None):
-        if share_id and access_token:
-            external_channel = f"spreadsheet_collaborative_session:documents.document:{spreadsheet_id}:{share_id}:{access_token}"
+    def poll_spreadsheet(self, spreadsheet_id, access_token=None):
+        if access_token:
+            external_channel = f"spreadsheet_collaborative_session:documents.document:{spreadsheet_id}:{access_token}"
         else:
             external_channel = f"spreadsheet_collaborative_session:documents.document:{spreadsheet_id}"
         notifs = self.poll(external_channel)
@@ -94,15 +93,22 @@ class TestSpreadsheetBus(SpreadsheetTestCommon, MailCase):
         )
 
     def test_poll_access(self):
-        group = self.env["res.groups"].create({"name": "test group"})
         spreadsheet = self.create_spreadsheet()
         spreadsheet.join_spreadsheet_session()
         commands = self.new_revision_data(spreadsheet)
         spreadsheet.dispatch_spreadsheet_message(commands)
-        spreadsheet.folder_id.read_group_ids = group
+        spreadsheet.folder_id.access_via_link = 'none'
+        spreadsheet.folder_id.access_internal = 'none'
+        spreadsheet.access_via_link = 'none'
+        spreadsheet.access_internal = 'none'
         raoul = new_test_user(self.env, login="Raoul")
         new_test_user(self.env, login="John")
-        raoul.groups_id |= group
+        self.env['documents.access'].create({
+            'partner_id': raoul.partner_id.id,
+            'document_id': spreadsheet.id,
+            'role': 'edit',
+        })
+
         with self.with_user("John"):
             self.assertEqual(
                 self.poll_spreadsheet(spreadsheet.id),
@@ -118,7 +124,6 @@ class TestSpreadsheetBus(SpreadsheetTestCommon, MailCase):
 
     def test_read_shared_spreadsheet(self):
         spreadsheet = self.create_spreadsheet()
-        share = self.share_spreadsheet(spreadsheet)
         new_test_user(self.env, login="raoul", groups="base.group_public")
         revision = self.new_revision_data(spreadsheet)
         spreadsheet.dispatch_spreadsheet_message(revision)
@@ -133,14 +138,14 @@ class TestSpreadsheetBus(SpreadsheetTestCommon, MailCase):
         # with wrong token
         with self.with_user("raoul"):
             self.assertEqual(
-                self.poll_spreadsheet(spreadsheet.id, share.id, "wrong-token"),
+                self.poll_spreadsheet(spreadsheet.id, "wrong-token"),
                 [],
                 "He should not have received the revision"
             )
         # with token
         with self.with_user("raoul"):
             self.assertEqual(
-                self.poll_spreadsheet(spreadsheet.id, share.id, share.access_token),
+                self.poll_spreadsheet(spreadsheet.id, spreadsheet.access_token),
                 [revision],
                 "He should have received the revision"
             )

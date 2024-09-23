@@ -18,12 +18,14 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.folder_a = cls.env['documents.folder'].create({
+        cls.folder_a = cls.env['documents.document'].create({
             'name': 'folder A',
+            'type': 'folder',
         })
-        cls.folder_a_a = cls.env['documents.folder'].create({
+        cls.folder_a_a = cls.env['documents.document'].create({
             'name': 'folder A - A',
-            'parent_folder_id': cls.folder_a.id,
+            'folder_id': cls.folder_a.id,
+            'type': 'folder',
         })
         cls.document_txt = cls.env['documents.document'].create({
             'datas': TEXT,
@@ -36,12 +38,6 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
             'name': 'file.gif',
             'mimetype': 'image/gif',
             'folder_id': cls.folder_a.id,
-        })
-
-        cls.workflow_rule_vendor_bill = cls.env['documents.workflow.rule'].create({
-            'domain_folder_id': cls.folder_a.id,
-            'name': 'workflow rule create vendor bill on f_a',
-            'create_model': 'account.move.in_invoice',
         })
 
     def test_action_view_documents_account_move(self):
@@ -79,7 +75,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         self.assertEqual(action['context']['searchpanel_default_folder_id'], self.folder_a.id, "The 'folder A' should be the default.")
 
         # If both the documents have different folder, open the 'All' folder.
-        folder_test = self.env['documents.folder'].create({'name': 'folder_test'})
+        folder_test = self.env['documents.document'].create({'name': 'folder_test', 'type': 'folder'})
         document = self.env['documents.document'].search([('attachment_id', '=', attachments[0].id)])
         document.folder_id = folder_test.id
 
@@ -92,7 +88,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
 
         """
         self.assertEqual(self.document_txt.res_model, 'documents.document', "failed at default res model")
-        multi_return = self.workflow_rule_vendor_bill.apply_actions([self.document_txt.id, self.document_gif.id])
+        multi_return = (self.document_txt | self.document_gif).account_create_account_move('in_invoice')
         self.assertEqual(multi_return.get('type'), 'ir.actions.act_window',
                          'failed at invoice workflow return value type')
         self.assertEqual(multi_return.get('res_model'), 'account.move',
@@ -107,7 +103,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         vendor_bill_gif = self.env['account.move'].search([('id', '=', self.document_gif.res_id)])
         self.assertEqual(self.document_gif.res_id, vendor_bill_gif.id, "failed at workflow_bridge_dms_account res_id")
 
-        single_return = self.workflow_rule_vendor_bill.apply_actions([self.document_txt.id])
+        single_return = self.document_txt.account_create_account_move('in_invoice')
         self.assertEqual(single_return.get('res_model'), 'account.move',
                          'failed at invoice res_model action from workflow create model')
         invoice = self.env[single_return['res_model']].browse(single_return.get('res_id'))
@@ -119,7 +115,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         Makes sure the settings apply their values when an ir_attachment is set as message_main_attachment_id
         on invoices.
         """
-        folder_test = self.env['documents.folder'].create({'name': 'folder_test'})
+        folder_test = self.env['documents.document'].create({'name': 'folder_test', 'type': 'folder'})
         self.env.user.company_id.documents_account_settings = True
 
         for invoice_type in ['in_invoice', 'out_invoice', 'in_refund', 'out_refund']:
@@ -202,7 +198,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         is set as main attachment on the invoice when versioning is involved and only one document
         is being created and updated.
         """
-        folder_test = self.env["documents.folder"].create({"name": "folder_test"})
+        folder_test = self.env["documents.document"].create({"name": "folder_test", "type": "folder"})
         self.env.user.company_id.documents_account_settings = True
 
         invoice_test = (
@@ -314,7 +310,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         Makes sure the settings apply their values when an ir_attachment is set as message_main_attachment_id
         on invoices.
         """
-        folder_test = self.env['documents.folder'].create({'name': 'Bills'})
+        folder_test = self.env['documents.document'].create({'name': 'Bills', 'type': 'folder'})
         self.env.user.company_id.documents_account_settings = True
 
         invoice_test = self.env['account.move'].with_context(default_move_type='entry').create({
@@ -342,55 +338,13 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         self.assertEqual(len(documents), 2)
         setting.unlink()
 
-    def test_bridge_account_workflow_settings_on_write(self):
-        """
-        Tests that tags added by a workflow action are not completely overridden by the settings.
-        """
-        self.env.user.company_id.documents_account_settings = True
-        tag_category_a = self.env['documents.facet'].create({
-            'folder_id': self.folder_a.id,
-            'name': "categ_a",
-        })
-        tag_a = self.env['documents.tag'].create({
-            'facet_id': tag_category_a.id,
-            'name': "tag_a",
-        })
-        tag_b = self.env['documents.tag'].create({
-            'facet_id': tag_category_a.id,
-            'name': "tag_b",
-        })
-        tag_action_a = self.env['documents.workflow.action'].create({
-            'action': 'add',
-            'facet_id': tag_category_a.id,
-            'tag_id': tag_a.id,
-        })
-        self.workflow_rule_vendor_bill.tag_action_ids += tag_action_a
-
-        invoice_test = self.env['account.move'].with_context(default_move_type='in_invoice').create({
-            'name': 'invoice_test',
-            'move_type': 'in_invoice',
-        })
-        self.env['documents.account.folder.setting'].create({
-            'folder_id': self.folder_a.id,
-            'journal_id': invoice_test.journal_id.id,
-            'tag_ids': tag_b,
-        })
-        document_test = self.env['documents.document'].create({
-            'name': 'test reconciliation workflow',
-            'folder_id': self.folder_a.id,
-            'datas': TEXT,
-        })
-        self.workflow_rule_vendor_bill.apply_actions([document_test.id])
-        self.assertEqual(document_test.tag_ids, tag_a | tag_b,
-            "The document should have the workflow action's tag(s)")
-
     def test_bridge_account_sync_partner(self):
         """
         Tests that the partner is always synced on the document, regardless of settings
         """
         partner_1, partner_2 = self.env['res.partner'].create([{'name': 'partner_1'}, {'name': 'partner_2'}])
         self.document_txt.partner_id = partner_1
-        self.workflow_rule_vendor_bill.apply_actions([self.document_txt.id, self.document_gif.id])
+        (self.document_txt | self.document_gif).account_create_account_move('in_invoice')
         move = self.env['account.move'].browse(self.document_txt.res_id)
         self.assertEqual(move.partner_id, partner_1)
         move.partner_id = partner_2
@@ -420,7 +374,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
     def test_move_document_unlink(self):
         """Test that the document is sent to trash when the `account.move` is unlinked."""
         document1, document2 = self.document_txt, self.document_gif
-        self.workflow_rule_vendor_bill.apply_actions([document1.id, document2.id])
+        (document1 | document2).account_create_account_move('in_invoice')
         self.assertEqual(document1.res_model, "account.move")
         self.assertEqual(document2.res_model, "account.move")
         move1 = self.env["account.move"].browse(document1.res_id).exists()
@@ -445,8 +399,7 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         self.assertEqual(len(attachment2), 1)
 
         self.env.flush_all()
-        with self.assertQueryCount(62):
-            # Local: 48, runbot: 62
+        with self.assertQueryCount(66):
             (move1 | move2).unlink()
 
         self.assertTrue(attachment1.exists())
@@ -465,51 +418,27 @@ class TestCaseDocumentsBridgeAccount(AccountTestInvoicingCommon):
         self.assertFalse(attachment2.exists())
 
     def test_workflow_create_misc_entry(self):
-        misc_entry_rule = self.env.ref('documents_account.misc_entry_rule')
-        misc_entry_rule.journal_id = misc_entry_rule.suitable_journal_ids[0]
-        misc_entry_action = misc_entry_rule.apply_actions([self.document_txt.id, self.document_gif.id])
+        misc_entry_action = (self.document_txt | self.document_gif).account_create_account_move('entry')
         move = self.env['account.move'].browse(self.document_txt.res_id)
         self.assertEqual(misc_entry_action.get('res_model'), 'account.move')
         self.assertEqual(move.move_type, 'entry')
-        self.assertTrue(move.journal_id in misc_entry_rule.suitable_journal_ids)
 
     def test_workflow_create_bank_statement_raise(self):
         with self.assertRaises(UserError): # Could not make sense of the given file.
-            self.env.ref('documents_account.bank_statement_rule').apply_actions([self.document_txt.id, self.document_gif.id])
+            (self.document_txt | self.document_gif).account_create_account_bank_statement()
 
     def test_workflow_create_vendor_bill(self):
-        vendor_bill_entry_rule = self.env.ref('documents_account.vendor_bill_rule_financial')
-        vendor_bill_entry_action = vendor_bill_entry_rule.apply_actions([self.document_txt.id])
+        vendor_bill_entry_action = self.document_txt.account_create_account_move('in_invoice')
         move = self.env['account.move'].browse(self.document_txt.res_id)
         self.assertEqual(vendor_bill_entry_action.get('res_model'), 'account.move')
         self.assertEqual(move.move_type, 'in_invoice')
-        self.assertTrue(move.journal_id in vendor_bill_entry_rule.suitable_journal_ids)
 
     def test_workflow_create_vendor_receipt(self):
         # Activate the group for the vendor receipt
         self.env['res.config.settings'].create({'group_show_purchase_receipts': True}).execute()
         self.assertTrue(self.env.user.has_group('account.group_purchase_receipts'), 'The "purchase Receipt" feature should be enabled.')
-        vendor_receipt_rule = self.env.ref('documents_account.documents_vendor_receipt_rule')
-        vendor_receipt_action = vendor_receipt_rule.apply_actions([self.document_txt.id])
+
+        vendor_receipt_action = self.document_txt.account_create_account_move('in_receipt')
         move = self.env['account.move'].browse(self.document_txt.res_id)
         self.assertEqual(vendor_receipt_action.get('res_model'), 'account.move')
         self.assertEqual(move.move_type, 'in_receipt')
-        self.assertTrue(move.journal_id in vendor_receipt_rule.suitable_journal_ids)
-
-    def test_workflow_rule_form_journal(self):
-        rule_financial = self.env.ref('documents_account.vendor_bill_rule_financial')
-        rule_financial.journal_id = rule_financial.suitable_journal_ids[0]
-        with Form(rule_financial) as rule:
-            # our accounting action has a journal_id
-            self.assertTrue(rule.journal_id)
-
-            # switching it to non-accouting action resets its journal_id on write/create
-            rule.create_model = 'link.to.record'
-            rule.save()
-            self.assertFalse(rule.journal_id)
-
-            # switching back gives us the rigth journal_id on write/create
-            rule.create_model = 'account.move.out_invoice'
-            rule.save()
-            self.assertTrue(rule.journal_id.type == 'sale')
-            self.assertTrue(rule.journal_id in rule.suitable_journal_ids)

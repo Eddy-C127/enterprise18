@@ -2,7 +2,7 @@ import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreads
 import { getFixture } from "@odoo/hoot";
 import { animationFrame } from "@odoo/hoot-mock";
 import { onMounted } from "@odoo/owl";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     getSpreadsheetActionEnv,
@@ -34,7 +34,7 @@ import { WebClient } from "@web/webclient/webclient";
  */
 export async function spawnGraphViewForSpreadsheet(params = {}) {
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv(params);
+    await makeDocumentsSpreadsheetMockEnv(params);
     const webClient = await mountWithCleanup(WebClient);
 
     await getService("action").doAction(

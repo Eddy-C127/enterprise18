@@ -17,7 +17,7 @@ class IrWebsocket(models.AbstractModel):
         """Add collaborative bus channels for active spreadsheets.
 
         Listening to channel "spreadsheet_collaborative_session:{res_model}:{res_id}"
-        or "spreadsheet_collaborative_session:{res_model}:{res_id}:{share_id}:{access_token}"
+        or "spreadsheet_collaborative_session:{res_model}:{res_id}:{access_token}"
         tells the server the spreadsheet is active. But only users with read access
         can actually read the associate bus messages.
         We manually add the channel if the user has read access.
@@ -45,16 +45,12 @@ class IrWebsocket(models.AbstractModel):
         model_name = params[1]
         if model_name not in self.env:
             return
-        if len(params) == 5:
-            share_id = int(params[3])
-            access_token = params[4]
+        if len(params) == 4:
+            access_token = params[3]
         else:
-            share_id = None
             access_token = None
         record = self.env[model_name].browse(res_id)
-        access = record._check_collaborative_spreadsheet_access(
-            "read", share_id, access_token, raise_exception=False
-        )
+        access = record._check_collaborative_spreadsheet_access("read", access_token, raise_exception=False)
         if not access:
             return
         return record

@@ -1,6 +1,7 @@
 import {
     defineDocumentSpreadsheetModels,
     defineDocumentSpreadsheetTestAction,
+    DocumentsDocument,
 } from "@documents_spreadsheet/../tests/helpers/data";
 import {
     createSpreadsheetFromPivotView,
@@ -23,7 +24,7 @@ import {
     getCellValue,
     getEvaluatedCell,
 } from "@spreadsheet/../tests/helpers/getters";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { getZoneOfInsertedDataSource } from "@spreadsheet/../tests/helpers/pivot";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
@@ -97,7 +98,7 @@ test("Insert in spreadsheet is disabled when data is empty", async () => {
     const data = getBasicData();
     data.partner.records = [];
     data.product.records = [];
-    await makeSpreadsheetMockEnv({ serverData: { models: data } });
+    await makeDocumentsSpreadsheetMockEnv({ serverData: { models: data } });
 
     await mountView({
         type: "pivot",
@@ -485,7 +486,7 @@ test("Can save a pivot in a new spreadsheet", async () => {
         },
     };
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         serverData,
         mockRPC: function (route, args) {
             if (route.includes("get_spreadsheets_to_display")) {
@@ -527,7 +528,7 @@ test("Can save a pivot in existing spreadsheet", async () => {
         expect.step("write");
         return { id: 1, type: "ir.actions.act_window_close" };
     });
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         serverData,
         mockRPC: function (route, args) {
             if (route.includes("join_spreadsheet_session")) {
@@ -549,7 +550,7 @@ test("Can save a pivot in existing spreadsheet", async () => {
         views: [[false, "pivot"]],
     });
     await contains(".o_pivot_add_spreadsheet").click();
-    await contains(".o-spreadsheet-grid div[data-id='1']").click();
+    await contains(".o-spreadsheet-grid div[data-id='2']").click();
     await contains(".modal-content > .modal-footer > .btn-primary").click();
     expect(".o_spreadsheet_pivot_side_panel").toHaveCount(1);
     await getService("action").doAction(1); // leave the spreadsheet action
@@ -561,6 +562,7 @@ test("Add pivot sheet at the end of existing sheets", async () => {
     model.dispatch("CREATE_SHEET", { sheetId: "42", position: 1, name: "My Sheet" });
     const models = getBasicData();
     models["documents.document"].records = [
+        DocumentsDocument._records[0], // res_company.document_spreadsheet_folder_id
         {
             spreadsheet_data: JSON.stringify(model.exportData()),
             name: "a spreadsheet",
@@ -575,7 +577,7 @@ test("Add pivot sheet at the end of existing sheets", async () => {
         views: getBasicServerData().views,
     };
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv({ serverData });
+    await makeDocumentsSpreadsheetMockEnv({ serverData });
     await mountWithCleanup(WebClient);
     await getService("action").doAction({
         res_model: "partner",
@@ -603,6 +605,7 @@ test("Add pivot in spreadsheet with already the same sheet name", async () => {
     });
     const models = getBasicData();
     models["documents.document"].records = [
+        DocumentsDocument._records[0], // res_company.document_spreadsheet_folder_id
         {
             spreadsheet_data: JSON.stringify(model.exportData()),
             name: "a spreadsheet",
@@ -617,7 +620,7 @@ test("Add pivot in spreadsheet with already the same sheet name", async () => {
         views: getBasicServerData().views,
     };
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv({ serverData });
+    await makeDocumentsSpreadsheetMockEnv({ serverData });
     await mountWithCleanup(WebClient);
     await getService("action").doAction({
         res_model: "partner",

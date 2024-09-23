@@ -22,8 +22,8 @@
             <field name="allow_billable">True</field>
             <field name="stage_id" ref="project.project_project_stage_1"/>
             <field name="account_id" ref="analytic_renovation_architect"/>
-            <field name="documents_folder_id" ref="documents_folder"/>
-            <field name="documents_tag_ids" eval="[Command.link(ref('documents_folder_facet_1_tag_1'))]"/>
+            <field name="documents_folder_id" ref="documents_renovations_projects"/>
+            <field name="documents_tag_ids" eval="[Command.link(ref('documents_folder_tag_unsorted'))]"/>
         </record>
 
         <record id="project_task_visit_customer" model="project.task">
@@ -34,23 +34,23 @@
         <record id="project_project_renovation_architect_document_1" model="documents.document">
             <field name="name">plan.jpg</field>
             <field name="datas" type="base64" file="documents_project_sale/data/files/plan.jpg"/>
-            <field name="folder_id" model="documents.folder" eval="obj().search([('name', '=', 'Plans')], order='id desc', limit=1)"/>
+            <field name="folder_id" model="documents.document" eval="obj().search([('name', '=', 'Plans')], order='id desc', limit=1)"/>
             <field name="res_model">project.project</field>
             <field name="res_id" ref="project_project_renovation_architect"/>
             <field name="owner_id" ref="base.user_admin"/>
             <field name="partner_id" ref="base.res_partner_2"/>
-            <field name="tag_ids" eval="[Command.link(ref('documents_folder_facet_1_tag_2'))]"/>
+            <field name="tag_ids" eval="[Command.link(ref('documents_folder_tag_in_use'))]"/>
         </record>
 
         <record id="project_task_visit_customer_document_1" model="documents.document">
             <field name="name">welcome.jpg</field>
             <field name="datas" type="base64" file="documents_project_sale/data/files/welcome.jpg"/>
-            <field name="folder_id" ref="documents_folder"/>
+            <field name="folder_id" ref="documents_renovations_projects"/>
             <field name="res_model">project.task</field>
             <field name="res_id" ref="project_task_visit_customer"/>
             <field name="owner_id" ref="base.public_user"/>
             <field name="partner_id" ref="base.res_partner_2"/>
-            <field name="tag_ids" eval="[Command.link(ref('documents_folder_facet_1_tag_1'))]"/>
+            <field name="tag_ids" eval="[Command.link(ref('documents_folder_tag_unsorted'))]"/>
         </record>
 
         <record id="project_project_renovation_architect_follower_portal" model="mail.followers">
@@ -84,14 +84,5 @@
         </record>
     
         <function model="sale.order" name="action_confirm" eval="[[ref('sale_order_1')]]" context="{'action_no_send_mail': True}"/>
-
-        <!-- Share workspace so that its documents are accessible in the portal -->
-        <record id="sale_order_1_documents_share_link" model="documents.share">
-            <field name="name">Customer Share Link</field>
-            <field name="folder_id" model="documents.folder" eval="obj().search([('name', '=like', 'DOC%')], order='id desc', limit=1)"/>
-            <field name="type">domain</field>
-            <field name="allow_upload">True</field>
-            <field name="include_sub_folders">True</field>
-        </record>
     </data>
 </odoo>

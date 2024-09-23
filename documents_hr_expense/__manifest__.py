@@ -11,7 +11,7 @@ Expense documents will be automatically integrated to the Document app.
     """,
     'depends': ['documents', 'hr_expense_extract'],
     'data': [
-        'data/documents_workflow_rule_data.xml',
+        'data/ir_actions_server_data.xml',
         'views/hr_expense_views.xml',
     ],
     'demo': [

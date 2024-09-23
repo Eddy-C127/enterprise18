@@ -5,7 +5,6 @@ import { Domain } from "@web/core/domain";
 import { Component, markup, onWillStart, onWillUpdateProps, useState } from "@odoo/owl";
 import { escape } from "@web/core/utils/strings";
 import { _t } from "@web/core/l10n/translation";
-import { user } from "@web/core/user";
 
 export class DocumentsActionHelper extends Component {
     static template = "documents.DocumentsActionHelper";
@@ -36,13 +35,19 @@ export class DocumentsActionHelper extends Component {
      * otherwise a message depending on it being the "All" folder or the "Trash" folder
      */
     get noContentHelp() {
-        if (!this.selectedFolderId || this.selectedFolderId === "TRASH") {
+        if (!this.selectedFolderId || ["RECENT", "SHARED", "TRASH", "MY"].includes(this.selectedFolderId)) {
             return markup(
                 `<p class='o_view_nocontent_smiling_face'>
                     ${escape(
                         this.selectedFolderId === "TRASH"
                             ? _t("Documents moved to trash will show up here")
-                            : _t("Select a workspace to upload a document")
+                            : this.selectedFolderId === "RECENT" 
+                                ? _t("Recently accessed Documents will show up here")
+                                : this.selectedFolderId === "SHARED"
+                                ? _t("Documents shared with you will appear here")
+                                : this.selectedFolderId === "MY"
+                                    ? _t("Your personal space")
+                                    : _t("Select a folder to upload a document")
                     )}
                 </p>`
             );
@@ -60,18 +65,18 @@ export class DocumentsActionHelper extends Component {
             return;
         }
         // make sure we have a mail.alias configured
-        domain = Domain.and([domain, [["alias_name", "!=", false]]]).toList();
+        domain = Domain.and([domain, [["type", "=", "folder"]], [["alias_name", "!=", false]]]).toList();
         if (this.hasShareReadAccessRights === undefined) {
-            this.hasShareReadAccessRights = await user.checkAccessRight("documents.share", "read");
+            this.hasShareReadAccessRights = false;
         }
         if (!this.hasShareReadAccessRights) {
             return;
         }
-        const shares = await this.orm.searchRead("documents.share", domain, ["id", "alias_id"], {
+        const folders = await this.orm.searchRead("documents.document", domain, ["id", "alias_id"], {
             limit: 1,
         });
-        if (shares.length) {
-            this.state.mailTo = shares[0].alias_id[1];
+        if (folders.length) {
+            this.state.mailTo = folders[0].alias_id[1];
         }
     }
 }

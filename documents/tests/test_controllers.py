@@ -1,205 +1,830 @@
-# -*- coding: utf-8 -*-
-
-import io
 import zipfile
-import base64
+from base64 import b64decode, b64encode
+from datetime import timedelta
+from http import HTTPStatus
+from io import BytesIO
+from urllib.parse import urlencode
+
+from PIL import Image
+from freezegun import freeze_time
+from urllib3.util import parse_url
 
 from odoo import http, fields
+from odoo.tests.common import RecordCapturer
+from odoo.tools import file_open
+from odoo.tools.image import image_process
+
 from odoo.addons.base.tests.common import HttpCaseWithUserDemo
-from odoo.tools import mute_logger
+from odoo.addons.mail.tests.common import mail_new_test_user
 
 
-class TestDocumentsRoutes(HttpCaseWithUserDemo):
-    def setUp(self):
-        super().setUp()
-        self.folder_a, self.folder_b = self.env['documents.folder'].create([
-            {'name': 'folder A'},
-            {'name': 'folder B'},
-        ])
-        self.document_txt = self.env['documents.document'].create({
-            'raw': b'TEST',
-            'name': 'file.txt',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_a.id,
-        })
-        self.share_folder_b = self.env['documents.share'].create(
-            {
-                'folder_id': self.folder_b.id,
-                'type': 'domain',
-                'allow_upload': True,
-            }
+class TestDocumentsControllers(HttpCaseWithUserDemo):
+    def _assertPathEqual(self, first, second):
+        self.assertEqual(parse_url(first).path, parse_url(second).path)
+
+    def _assertPathIn(self, member, container):
+        self.assertIn(parse_url(member).path, {parse_url(expected_url).path for expected_url in container})
+
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+
+        cls.user_portal = mail_new_test_user(cls.env,
+            login='portal_test',
+            groups='base.group_portal',
+            company_id=cls.env.ref('base.main_company').id,
+            name='portal',
+            notification_type='email'
         )
 
-    def test_documents_content(self):
-        self.authenticate('admin', 'admin')
-        response = self.url_open('/documents/content/%s' % self.document_txt.id)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, b'TEST')
+        # make sure the admin user has an avatar
+        with file_open('base/static/img/partner_root-image.png', 'rb') as file:
+            cls.admin_avatar = file.read()
+            cls.admin_avatar_b64 = b64encode(cls.admin_avatar)
+            cls.user_admin.image_1920 = cls.admin_avatar_b64
 
-    def test_documents_zip(self):
-        self.authenticate('admin', 'admin')
-        response = self.url_open('/document/zip', data={
-            'file_ids': [self.document_txt.id],
-            'zip_name': 'testZip.zip',
-            'csrf_token': http.Request.csrf_token(self),
-        })
-        self.assertEqual(response.status_code, 200)
-        with io.BytesIO(response.content) as buffer, zipfile.ZipFile(buffer) as zipfile_obj:
-            self.assertEqual(zipfile_obj.read(self.document_txt.name), b'TEST')
+        # use the Document app icon as test file
+        with file_open('documents/static/description/icon.png', 'rb') as file:
+            cls.doc_icon = file.read()
+            cls.doc_icon_b64 = b64encode(cls.doc_icon)
 
-    def test_documents_zip_authentification(self):
+        Doc = cls.env['documents.document']
 
-        self.authenticate('admin', 'admin')
-
-        vals = {
-            "name": "private_folder",
-            "parent_folder_id": False,
-            "company_id": False,
-            "facet_ids": [],
-            "group_ids": [self.env.ref('base.group_system').id],
-            "user_specific_write": True,
-            "read_group_ids": [self.env.ref('base.group_system').id],
-            "user_specific": True,
-            "description": False
-        }
-        workspace_private = self.env['documents.folder'].create(vals)
-
-        vals = {
-            "name": "public_folder",
-        }
-        workspace_public = self.env['documents.folder'].create(vals)
-
-        rawpdf_base64 = 'JVBERi0xLjYNJeLjz9MNCjI0IDAgb2JqDTw8L0ZpbHRlci9GbGF0ZURlY29kZS9GaXJzdCA0L0xlbmd0aCAyMTYvTiAxL1R5cGUvT2JqU3RtPj5zdHJlYW0NCmjePI9RS8MwFIX/yn1bi9jepCQ6GYNpFBTEMsW97CVLbjWYNpImmz/fVsXXcw/f/c4SEFarepPTe4iFok8dU09DgtDBQx6TMwT74vaLTE7uSPDUdXM0Xe/73r1FnVwYYEtHR6d9WdY3kX4ipRMV6oojSmxQMoGyac5RLBAXf63p38aGA7XPorLewyvFcYaJile8rB+D/YcwiRdMMGScszO8/IW0MdhsaKKYGA46gXKTr/cUQVY4We/cYMNpnLVeXPJUXHs9fECr7kAFk+eZ5Xr9LcAAfKpQrA0KZW5kc3RyZWFtDWVuZG9iag0yNSAwIG9iag08PC9GaWx0ZXIvRmxhdGVEZWNvZGUvRmlyc3QgNC9MZW5ndGggNDkvTiAxL1R5cGUvT2JqU3RtPj5zdHJlYW0NCmjeslAwULCx0XfOL80rUTDU985MKY42NAIKBsXqh1QWpOoHJKanFtvZAQQYAN/6C60NCmVuZHN0cmVhbQ1lbmRvYmoNMjYgMCBvYmoNPDwvRmlsdGVyL0ZsYXRlRGVjb2RlL0ZpcnN0IDkvTGVuZ3RoIDQyL04gMi9UeXBlL09ialN0bT4+c3RyZWFtDQpo3jJTMFAwVzC0ULCx0fcrzS2OBnENFIJi7eyAIsH6LnZ2AAEGAI2FCDcNCmVuZHN0cmVhbQ1lbmRvYmoNMjcgMCBvYmoNPDwvRmlsdGVyL0ZsYXRlRGVjb2RlL0ZpcnN0IDUvTGVuZ3RoIDEyMC9OIDEvVHlwZS9PYmpTdG0+PnN0cmVhbQ0KaN4yNFIwULCx0XfOzytJzSspVjAyBgoE6TsX5Rc45VdEGwB5ZoZGCuaWRrH6vqkpmYkYogGJRUCdChZgfUGpxfmlRcmpxUAzA4ryk4NTS6L1A1zc9ENSK0pi7ez0g/JLEktSFQz0QyoLUoF601Pt7AACDADYoCeWDQplbmRzdHJlYW0NZW5kb2JqDTIgMCBvYmoNPDwvTGVuZ3RoIDM1MjUvU3VidHlwZS9YTUwvVHlwZS9NZXRhZGF0YT4+c3RyZWFtDQo8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/Pgo8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjQtYzAwNSA3OC4xNDczMjYsIDIwMTIvMDgvMjMtMTM6MDM6MDMgICAgICAgICI+CiAgIDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+CiAgICAgIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiCiAgICAgICAgICAgIHhtbG5zOnBkZj0iaHR0cDovL25zLmFkb2JlLmNvbS9wZGYvMS4zLyIKICAgICAgICAgICAgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIgogICAgICAgICAgICB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIKICAgICAgICAgICAgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIj4KICAgICAgICAgPHBkZjpQcm9kdWNlcj5BY3JvYmF0IERpc3RpbGxlciA2LjAgKFdpbmRvd3MpPC9wZGY6UHJvZHVjZXI+CiAgICAgICAgIDx4bXA6Q3JlYXRlRGF0ZT4yMDA2LTAzLTA2VDE1OjA2OjMzLTA1OjAwPC94bXA6Q3JlYXRlRGF0ZT4KICAgICAgICAgPHhtcDpDcmVhdG9yVG9vbD5BZG9iZVBTNS5kbGwgVmVyc2lvbiA1LjIuMjwveG1wOkNyZWF0b3JUb29sPgogICAgICAgICA8eG1wOk1vZGlmeURhdGU+MjAxNi0wNy0xNVQxMDoxMjoyMSswODowMDwveG1wOk1vZGlmeURhdGU+CiAgICAgICAgIDx4bXA6TWV0YWRhdGFEYXRlPjIwMTYtMDctMTVUMTA6MTI6MjErMDg6MDA8L3htcDpNZXRhZGF0YURhdGU+CiAgICAgICAgIDx4bXBNTTpEb2N1bWVudElEPnV1aWQ6ZmYzZGNmZDEtMjNmYS00NzZmLTgzOWEtM2U1Y2FlMmRhMmViPC94bXBNTTpEb2N1bWVudElEPgogICAgICAgICA8eG1wTU06SW5zdGFuY2VJRD51dWlkOjM1OTM1MGIzLWFmNDAtNGQ4YS05ZDZjLTAzMTg2YjRmZmIzNjwveG1wTU06SW5zdGFuY2VJRD4KICAgICAgICAgPGRjOmZvcm1hdD5hcHBsaWNhdGlvbi9wZGY8L2RjOmZvcm1hdD4KICAgICAgICAgPGRjOnRpdGxlPgogICAgICAgICAgICA8cmRmOkFsdD4KICAgICAgICAgICAgICAgPHJkZjpsaSB4bWw6bGFuZz0ieC1kZWZhdWx0Ij5CbGFuayBQREYgRG9jdW1lbnQ8L3JkZjpsaT4KICAgICAgICAgICAgPC9yZGY6QWx0PgogICAgICAgICA8L2RjOnRpdGxlPgogICAgICAgICA8ZGM6Y3JlYXRvcj4KICAgICAgICAgICAgPHJkZjpTZXE+CiAgICAgICAgICAgICAgIDxyZGY6bGk+RGVwYXJ0bWVudCBvZiBKdXN0aWNlIChFeGVjdXRpdmUgT2ZmaWNlIG9mIEltbWlncmF0aW9uIFJldmlldyk8L3JkZjpsaT4KICAgICAgICAgICAgPC9yZGY6U2VxPgogICAgICAgICA8L2RjOmNyZWF0b3I+CiAgICAgIDwvcmRmOkRlc2NyaXB0aW9uPgogICA8L3JkZjpSREY+CjwveDp4bXBtZXRhPgog' + 682*'ICAg' + 'Cjw/eHBhY2tldCBlbmQ9InciPz4NCmVuZHN0cmVhbQ1lbmRvYmoNMTEgMCBvYmoNPDwvTWV0YWRhdGEgMiAwIFIvUGFnZUxhYmVscyA2IDAgUi9QYWdlcyA4IDAgUi9UeXBlL0NhdGFsb2c+Pg1lbmRvYmoNMjMgMCBvYmoNPDwvRmlsdGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAxMD4+c3RyZWFtDQpIiQIIMAAAAAABDQplbmRzdHJlYW0NZW5kb2JqDTI4IDAgb2JqDTw8L0RlY29kZVBhcm1zPDwvQ29sdW1ucyA0L1ByZWRpY3RvciAxMj4+L0ZpbHRlci9GbGF0ZURlY29kZS9JRFs8REI3Nzc1Q0NFMjI3RjZCMzBDNDQwREY0MjIxREMzOTA+PEJGQ0NDRjNGNTdGNjEzNEFCRDNDMDRBOUU0Q0ExMDZFPl0vSW5mbyA5IDAgUi9MZW5ndGggODAvUm9vdCAxMSAwIFIvU2l6ZSAyOS9UeXBlL1hSZWYvV1sxIDIgMV0+PnN0cmVhbQ0KaN5iYgACJjDByGzIwPT/73koF0wwMUiBWYxA4v9/EMHA9I/hBVCxoDOQeH8DxH2KrIMIglFwIpD1vh5IMJqBxPpArHYgwd/KABBgAP8bEC0NCmVuZHN0cmVhbQ1lbmRvYmoNc3RhcnR4cmVmDQo0NTc2DQolJUVPRg0K'
-        rawpdf = base64.b64decode(rawpdf_base64.encode())
-
-        private_doc = self.env['documents.document'].create({
-            'raw': rawpdf,
-            'name': 'private_file.pdf',
-            'mimetype': 'application/pdf',
-            'folder_id': workspace_private.id,
+        cls.test_activity_type = cls.env['mail.activity.type'].create({
+            'name': 'Test Activity Type'
         })
 
-        document_group_id_manager = self.env.ref('documents.group_documents_manager')
-        document_group_id_user = self.env.ref('documents.group_documents_user')
+        cls.internal_folder = Doc.create({
+            'type': 'folder',
+            'name': "internal folder",
+            'access_internal': 'edit',
+            'access_via_link': 'none',
+            'owner_id': cls.user_admin.id,
 
-        user = self.env.user.create({'name': 'test_doc', 'login': 'test_doc', 'password': 'test_doc'})   # User with explicitely removed manager right and given user right on the document app
-        user.groups_id -= document_group_id_manager
-        user.groups_id += document_group_id_user
-
-        self.assertNotIn(private_doc, self.env['documents.document'].with_user(user.id).search([]))   # Our new user should not be able to find the private doc
-
-        document_public = self.env['documents.document'].create({
-            'raw': rawpdf,
-            'name': 'public.pdf',
-            'mimetype': 'application/pdf',
-            'folder_id': workspace_public.id,
+            'create_activity_option': False,
+            'create_activity_type_id': cls.test_activity_type.id,
+            'create_activity_summary': 'test summary',
+            'create_activity_note': 'test note',
+            'create_activity_user_id': cls.user_admin.id,
+            'create_activity_date_deadline_range_type': 'days',
+            'create_activity_date_deadline_range': 5,
         })
-
-        self.assertIn(document_public, self.env['documents.document'].with_user(user.id).search([])) # but he should see the public document
-
-        self.authenticate('test_doc', 'test_doc')
-
-        with mute_logger('odoo.http'):
-            response = self.url_open('/document/zip', data={
-                'file_ids': f'{private_doc.id},{document_public.id}',
-                'zip_name': 'testZip.zip',
-                'csrf_token': http.Request.csrf_token(self),
-            })
-            self.assertNotEqual(response.status_code, 200)
-
-        with mute_logger('odoo.http'):
-            response = self.url_open('/document/zip', data={
-                'file_ids': f'{document_public.id},{private_doc.id}',
-                'zip_name': 'testZip.zip',
-                'csrf_token': http.Request.csrf_token(self),
-            })
-            self.assertNotEqual(response.status_code, 200)
-
-    def test_documents_from_web(self):
-        self.authenticate('admin', 'admin')
-        raw_gif = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
-        document_gif = self.env['documents.document'].create({
-            'raw': raw_gif,
-            'name': 'file.gif',
-            'mimetype': 'image/gif',
-            'folder_id': self.folder_a.id,
+        cls.internal_file = Doc.create({
+            'type': 'binary',
+            'name': "internal-file.png",
+            'access_internal': 'edit',
+            'access_via_link': 'none',
+            'is_access_via_link_hidden': True,
+            'owner_id': cls.user_admin.id,
+            'folder_id': cls.internal_folder.id,
+            'raw': cls.doc_icon,
         })
-        response = self.url_open('/web/image/%s?model=documents.document' % document_gif.id)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.content, raw_gif)
-
-    def test_documents_share_expired_link(self):
-        self.authenticate('admin', 'admin')
-        # Test on available link
-        tomorrow = fields.Date.from_string(fields.Date.add(fields.Date.today(), days=1))
-        vals = {
-            'document_ids': [(6, 0, [self.document_txt.id])],
-            'folder_id': self.folder_a.id,
-            'date_deadline': tomorrow,
-            'type': 'ids',
-        }
-        self.result_share_documents_act = self.env['documents.share'].create(vals)
-        response = self.url_open(self.result_share_documents_act.full_url)
-        self.assertEqual(response.status_code, 200)
-        self.assertIn(b'is sharing content with you', response.content, "Failed route test on available link")
-
-        # Test on expired link
-        vals = {
-            'document_ids': [(6, 0, [self.document_txt.id])],
-            'folder_id': self.folder_a.id,
-            'date_deadline': '2001-11-05',
-            'type': 'ids',
-        }
-        self.result_share_documents_act = self.env['documents.share'].create(vals)
-        response = self.url_open(self.result_share_documents_act.full_url)
-        self.assertEqual(response.status_code, 200)
-        self.assertTrue(b'Sorry, this link is no longer valid.' in response.content, "Failed route test on expired link")
-
-    def test_download_all_documents_with_url(self):
-        document_url = self.env['documents.document'].create({
-            'name': 'file.txt',
+        cls.internal_hidden = Doc.create({
+            'type': 'binary',
+            'name': "internal-hidden.png",
+            'access_internal': 'none',
+            'access_via_link': 'none',
+            'owner_id': cls.user_admin.id,
+            'folder_id': cls.internal_folder.id,
+            'raw': cls.doc_icon,
+        })
+        cls.internal_request = Doc.create({
+            'type': 'binary',
+            'name': "internal-request.png",
+            'access_internal': 'edit',
+            'access_via_link': 'none',
+            'owner_id': cls.user_admin.id,
+            'folder_id': cls.internal_folder.id,
+        })
+        cls.internal_url = Doc.create({
             'type': 'url',
-            'folder_id': self.folder_a.id,
+            'name': "internal url",
+            'access_internal': 'edit',
+            'access_via_link': 'none',
+            'owner_id': cls.user_admin.id,
+            'folder_id': cls.internal_folder.id,
+            'url': f'{cls.base_url()}/web/health',
         })
-        vals = {
-            'document_ids': [(6, 0, [self.document_txt.id, document_url.id])],
-            'folder_id': self.folder_a.id,
-            'type': 'ids',
-        }
-        share = self.env['documents.share'].create(vals)
-        response = self.url_open(f"/document/download/all/{share.id}/{share.access_token}")
-        self.assertEqual(response.status_code, 200)
 
-    def test_upload_attachment_public(self):
-        """Check the upload and notifications for public users."""
-        files = [('files', ('test.txt', b'test', 'image/svg+xml'))]
-        # Authenticate to set `self.session` for `http.Request.csrf_token(self)`. Use `None` to simulate public auth. + self.authenticate(None, None)
-        self.authenticate(None, None)
-        response = self.url_open(
-            f'/document/upload/{self.share_folder_b.id}/{self.share_folder_b.access_token}', files=files, data={'csrf_token': http.Request.csrf_token(self)}
+        cls.public_folder = Doc.create({
+            'type': 'folder',
+            'name': "public folder",
+            'access_internal': 'edit',
+            'access_via_link': 'edit',
+            'folder_id': cls.internal_folder.id,
+            'owner_id': cls.user_admin.id,
+        })
+        cls.public_file = Doc.create({
+            'type': 'binary',
+            'name': "public-file.png",
+            'access_internal': 'edit',
+            'access_via_link': 'view',
+            'owner_id': cls.user_admin.id,
+            'folder_id': cls.public_folder.id,
+            'raw': cls.doc_icon,
+        })
+        cls.public_request = Doc.create({
+            'type': 'binary',
+            'name': "public-request.png",
+            'access_internal': 'edit',
+            'access_via_link': 'edit',
+            'owner_id': cls.user_admin.id,
+            'folder_id': cls.public_folder.id,
+        })
+        cls.public_url = Doc.create({
+            'type': 'url',
+            'name': "public url",
+            'access_internal': 'edit',
+            'access_via_link': 'view',
+            'owner_id': cls.user_admin.id,
+            'folder_id': cls.public_folder.id,
+            'url': f'{cls.base_url()}/web/health',
+        })
+        cls.public_shortcut = cls.internal_file.action_create_shortcut(cls.public_folder.id)
+        cls.missing_file = Doc.new()
+
+        # Make so the demo and portal users already visited all
+        # documents, so that it doesn't attempt to create the
+        # documents.access record inside a read-only controller.
+        # It also makes so the portal user can list those files.
+        now = fields.Datetime.now()
+        cls.env['documents.access'].create([
+            {
+                'document_id': doc.id,
+                'partner_id': partner.id,
+                'last_access_date': now
+            }
+            for doc in [
+                cls.internal_folder, cls.internal_file, cls.internal_hidden,
+                cls.internal_request, cls.internal_url, cls.public_folder,
+                cls.public_file, cls.public_request, cls.public_url,
+                cls.public_shortcut,
+            ]
+            for partner in [
+                cls.user_demo.partner_id,
+                cls.user_portal.partner_id,
+            ]
+        ])
+
+    def test_doc_ctrl_avatar(self):
+        avatar_128 = b64decode(self.user_admin.avatar_128)
+        placeholder = image_process(
+            self.user_admin.partner_id._avatar_get_placeholder(),
+            size=(128, 128),
         )
-        document = self.env['documents.document'].search([('folder_id', '=', self.folder_b.id)])
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(len(document), 1)
-        self.assertEqual(document.name, 'test.txt')
-        self.assertEqual(document.raw, b'test')
+
+        for document, user, status, content, filename in [
+            (      self.missing_file,   None, 200, placeholder, 'avatar_grey.png'),
+            (       self.public_file,   None, 200,  avatar_128, '"Mitchell Admin.png"'),
+            (     self.internal_file,   None, 200, placeholder, 'avatar_grey.png'),
+            (   self.public_shortcut,   None, 200, placeholder, 'avatar_grey.png'),
+            (   self.public_shortcut, 'demo', 200,  avatar_128, '"Mitchell Admin.png"'),
+            (     self.internal_file, 'demo', 200,  avatar_128, '"Mitchell Admin.png"'),
+            # keep it last the response is reused outside the loop
+        ]:
+            url = f'/documents/avatar/{document.access_token}'
+            session = self.authenticate(user, user)
+            with self.subTest(document=document.name, user=user):
+                res = self.url_open(url)
+                self.assertEqual(res.status_code, status)
+                if status == 200:
+                    self.assertEqual(
+                        res.headers.get('Content-Disposition'),
+                        f'inline; filename={filename}')
+                    self.assertEqual(res.content, content)
+                    self.assertIn('Last-Modified', res.headers)
+                    self.assertIn('ETag', res.headers)
+
+        # reuse the last response's ETag/Last-Modified
+        assert session.uid == self.user_demo.id
+        assert document is self.internal_file
+        res = self.url_open(url, headers={
+            'If-Modified-Since': res.headers['Last-Modified'],
+            'If-None-Match': res.headers['ETag'],
+        })
+        res.raise_for_status()
+        self.assertEqual(res.status_code, HTTPStatus.NOT_MODIFIED)
+
+    def test_doc_ctrl_avatar_portal(self):
+        placeholder = image_process(
+            self.user_admin.partner_id._avatar_get_placeholder(),
+            size=(128, 128),
+        )
+        self.authenticate('portal_test', 'portal_test')
+        access_portal = self.internal_file.access_ids.filtered(
+            lambda access: access.partner_id == self.user_portal.partner_id
+        ).ensure_one()
+        access_portal.role = 'view'
+
+        access_portal.expiration_date = fields.Datetime.now() + timedelta(hours=1)
+        res = self.url_open(f'/documents/avatar/{self.internal_file.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.content, b64decode(self.user_admin.avatar_128))
+
+        access_portal.expiration_date = fields.Datetime.now() - timedelta(hours=1)
+        res = self.url_open(f'/documents/avatar/{self.internal_file.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.content, placeholder)
+
+    def test_doc_ctrl_avatar_shortcut(self):
+        self.internal_file.action_update_access_rights(
+            access_via_link='view',
+            is_access_via_link_hidden=False,
+        )
+        for user in [None, 'demo']:
+            with self.subTest(user=user):
+                res = self.url_open(f'/documents/avatar/{self.public_shortcut.access_token}')
+                res.raise_for_status()
+                self.assertEqual(res.content, b64decode(self.user_admin.avatar_128))
+
+    def test_doc_ctrl_content_binary(self):
+        for document, user, dl, status, content in [
+            (      self.missing_file,   None,   '1', 404,   "not found"),  # no document
+            (     self.internal_file,   None,   '1', 404,   "not found"),  # access_via_link='none'
+            (       self.public_file,   None,   '1', 200, self.doc_icon),  # access_via_link='view'
+            (       self.public_file,   None,   '0', 200, self.doc_icon),  # access_via_link='view'
+            (       self.public_file,   None, 'bad', 400,     "Use 0/1"),  # int('bad')
+            (    self.public_request,   None,   '1', 404,   "not found"),  # no attachment_id
+            (   self.public_shortcut,   None,   '1', 404,   "not found"),  # hidden shortcut
+            (     self.internal_file, 'demo',   '1', 200, self.doc_icon),  # access_internal='view'
+            (   self.internal_hidden, 'demo',   '1', 404,   "not found"),  # access_internal='none'
+            (     self.internal_file, 'demo',   '0', 200, self.doc_icon),  # access_internal='view'
+            # keep it last, the response is reused outside the loop
+        ]:
+            session = self.authenticate(user, user)
+            url = f'/documents/content/{document.access_token}?download={dl}'
+            with self.subTest(user=user, url=url):
+                res = self.url_open(url)
+                self.assertEqual(res.status_code, status)
+                if status == 200:
+                    self.assertEqual(res.content, content)
+                    self.assertIn('Last-Modified', res.headers)
+                    self.assertIn('ETag', res.headers)
+                    self.assertEqual(
+                        res.headers.get('Content-Disposition'),
+                        ("attachment" if dl == "1" else "inline")
+                        + f'; filename={document.name}'
+                    )
+                else:
+                    self.assertIn(content, res.text)
+
+        # reuse the last response's ETag/Last-Modified
+        assert session.uid == self.user_demo.id
+        assert url == f'/documents/content/{self.internal_file.access_token}?download=0'
+        res = self.url_open(url, headers={
+            'If-Modified-Since': res.headers['Last-Modified'],
+            'If-None-Match': res.headers['ETag'],
+        })
+        res.raise_for_status()
+        self.assertEqual(res.status_code, HTTPStatus.NOT_MODIFIED)  # 304
+
+    def test_doc_ctrl_content_binary_portal(self):
+        self.authenticate('portal_test', 'portal_test')
+        access_portal = self.internal_file.access_ids.filtered(
+            lambda access: access.partner_id == self.user_portal.partner_id
+        ).ensure_one()
+        access_portal.role = 'view'
+
+        access_portal.expiration_date = fields.Datetime.now() + timedelta(hours=1)
+        res = self.url_open(f'/documents/content/{self.internal_file.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.content, self.doc_icon)
+
+        access_portal.expiration_date = fields.Datetime.now() - timedelta(hours=1)
+        res = self.url_open(f'/documents/content/{self.internal_file.access_token}')
+        self.assertEqual(res.status_code, 404)
+
+    def test_doc_ctrl_content_binary_shortcut(self):
+        self.authenticate('demo', 'demo')
+        res = self.url_open(f'/documents/content/{self.public_shortcut.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.content, self.doc_icon)
+
+        # make so the public user can follow the shortcut
+        self.internal_file.action_update_access_rights(
+            access_via_link='view',
+            is_access_via_link_hidden=False,
+        )
+        self.authenticate(None, None)
+        res = self.url_open(f'/documents/content/{self.public_shortcut.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.content, self.doc_icon)
+
+    def test_doc_ctrl_content_folder(self):
+        self.authenticate(None, None)
+        res = self.url_open(f'/documents/content/{self.internal_folder.access_token}')
+        self.assertEqual(res.status_code, 404)
+        res = self.url_open(f'/documents/content/{self.public_folder.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.status_code, 200)
+        with zipfile.ZipFile(BytesIO(res.content)) as reszip:
+            self.assertEqual(reszip.namelist(), ['public-file.png'])
+            self.assertEqual(reszip.read('public-file.png'), self.doc_icon)
+
+        self.internal_file.action_update_access_rights(
+            access_via_link='view',
+            is_access_via_link_hidden=False,
+        )
+        res = self.url_open(f'/documents/content/{self.public_folder.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.status_code, 200)
+        with zipfile.ZipFile(BytesIO(res.content)) as reszip:
+            self.assertEqual(sorted(reszip.namelist()), ['internal-file.png', 'public-file.png'])
+            self.assertEqual(reszip.read('internal-file.png'), self.doc_icon)
+            self.assertEqual(reszip.read('public-file.png'), self.doc_icon)
+
+        # check that the name are all unique
+        self.public_file.action_create_shortcut(self.internal_folder.id)
+        self.public_folder.action_create_shortcut(self.internal_folder.id)
+        self.env['documents.document'].create([{
+            'name': 'test.tar.gz',
+            'folder_id': self.internal_folder.id,
+            'access_internal': 'view',
+            'datas': 'test',
+        } for _ in range(3)] + [{
+            'name': self.public_folder.name,
+            'datas': 'test',
+            'folder_id': self.public_folder.folder_id.id,
+            'access_internal': 'view',
+            'type': 'folder',
+        } for _ in range(3)] + [{
+            'name': '.hidden',
+            'datas': 'test',
+            'folder_id': self.public_folder.folder_id.id,
+            'access_internal': 'view',
+            'type': 'folder',
+        } for _ in range(2)])
+
+        self.authenticate('demo', 'demo')
+        res = self.url_open(f'/documents/content/{self.internal_folder.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.status_code, 200)
+        expected = {
+            'internal-file.png',
+            'public-file.png',
+            'public folder/',
+            # already discovered, but it's a shortcut to a file so it's ok
+            'public folder/public-file.png',
+            'public folder/internal-file.png',
+            'public folder-2/',
+            'public folder-3/',
+            'public folder-4/',
+            'public folder-5/',
+            'test.tar.gz',
+            'test-2.tar.gz',
+            'test-3.tar.gz',
+            '.hidden/',
+            '.hidden-2/',
+        }
+        with zipfile.ZipFile(BytesIO(res.content)) as reszip:
+            self.assertEqual(set(reszip.namelist()), expected)
+            self.assertEqual(reszip.read('internal-file.png'), self.doc_icon)
+
+    def test_doc_ctrl_content_url(self):
+        self.authenticate(None, None)
+        res = self.url_open(f'/documents/content/{self.public_url.access_token}', allow_redirects=False)
+        res.raise_for_status()
+        self.assertEqual(res.status_code, HTTPStatus.TEMPORARY_REDIRECT)  # 307
+        self.assertEqual(res.headers.get('Location'), self.public_url.url)
+        res = self.url_open(f'/documents/content/{self.internal_url.access_token}', allow_redirects=False)
+        self.assertEqual(res.status_code, 404)
+
+        self.authenticate('demo', 'demo')
+        res = self.url_open(f'/documents/content/{self.internal_url.access_token}', allow_redirects=False)
+        res.raise_for_status()
+        self.assertEqual(res.status_code, HTTPStatus.TEMPORARY_REDIRECT)  # 307
+        self.assertEqual(res.headers.get('Location'), self.internal_url.url)
+
+    def test_doc_ctrl_cross_redirection(self):
+        docs_url = f'/documents/{self.public_file.access_token}'
+        odoo_url = '/odoo' + docs_url
+        portal = self.user_portal.login
+        demo = self.user_demo.login
+        for login, url, code, location in [
+            (     None, odoo_url, 307, docs_url),
+            (   portal, odoo_url, 307, docs_url),
+            (     demo, docs_url, 307, odoo_url),
+            (     None, docs_url, 200, ...),
+            (   portal, docs_url, 200, ...),
+            (     demo, odoo_url, 303, ...),
+        ]:
+            with self.subTest(login=login, url=url):
+                self.authenticate(login, login)
+                res = self.url_open(url, allow_redirects=False)
+                res.raise_for_status()
+                self.assertEqual(res.status_code, code)
+                if code == 307:
+                    self.assertURLEqual(res.headers.get('Location'), location)
+
+    def test_doc_render_public_templates(self):
+        self.authenticate(None, None)
+
+        # Internal documents
+        for doc in (
+            self.internal_file,
+            self.internal_hidden,
+            self.internal_folder,
+            self.internal_request,
+            self.internal_url,
+        ):
+            with self.subTest(name=doc.name):
+                res = self.url_open(doc.access_url)
+                self.assertEqual(res.status_code, 404)
+                self.assertIn("does not exist or is not publicly available.", res.text)
+
+        # URL
+        res = self.url_open(self.public_url.access_url, allow_redirects=False)
+        res.raise_for_status()
+        self.assertEqual(res.status_code, HTTPStatus.TEMPORARY_REDIRECT)
+
+        # Folder
+        res = self.url_open(self.public_folder.access_url)
+        res.raise_for_status()
+        self.assertRegex(res.text, r"0\s+folders,\s+1\s+files")
+        self.assertIn(self.public_file.name, res.text)
+        self.assertIn(self.public_request.name, res.text)
+        self.assertIn(self.public_url.name, res.text)
+
+        # Folder with visible shortcut
+        self.internal_file.action_update_access_rights(
+            access_via_link='view',
+            is_access_via_link_hidden=False,
+        )
+        res = self.url_open(self.public_folder.access_url)
+        res.raise_for_status()
+        self.assertRegex(res.text, r"0\s+folders,\s+2\s+files")
+        self.assertIn(self.public_file.name, res.text)
+        self.assertIn(self.public_request.name, res.text)
+        self.assertIn(self.public_url.name, res.text)
+        self.assertIn(self.internal_file.name, res.text)
+
+        # File
+        res = self.url_open(self.public_file.access_url)
+        res.raise_for_status()
+        self.assertIn(self.public_file.name, res.text)
+        self.assertIn("Download file", res.text)
+        self.assertIn("Preview file", res.text)
+
+        # Request
+        res = self.url_open(self.public_request.access_url)
+        res.raise_for_status()
+        self.assertIn("This document has been requested.", res.text)
+
+    def test_doc_ctrl_thumbnail(self):
+        placeholder = self.env['ir.binary']._placeholder(
+            self.internal_file._get_placeholder_filename('thumbnail'))
+
+        self.authenticate(None, None)
+        res = self.url_open(f'/documents/thumbnail/{self.internal_file.access_token}')
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.content, placeholder)
+        res = self.url_open(f'/documents/thumbnail/{self.public_file.access_token}')
+        res.raise_for_status()
+        self.assertEqual(res.status_code, 200)
+        with (Image.open(BytesIO(self.doc_icon)) as image,
+              Image.open(BytesIO(res.content)) as thumbnail):
+            self.assertEqual(image.size, (100, 100))
+            self.assertEqual(thumbnail.size, (100, 70))
+        res = self.url_open(f'/documents/thumbnail/{self.public_file.access_token}?width=bad')
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('bad', res.text)
+
+    def test_doc_ctrl_upload_folder_public(self):
+        self.authenticate(None, None)
+
+        # Check errors
+        res = self.url_open(f'/documents/upload/{self.internal_folder.access_token}', data={
+            'csrf_token': http.Request.csrf_token(self),
+            'ufile': '',
+        })
+        self.assertEqual(res.status_code, 404)
+        res = self.url_open(f'/documents/upload/{self.public_folder.access_token}', data={
+            'csrf_token': http.Request.csrf_token(self),
+            'ufile': '',
+        })
+        self.assertEqual(res.status_code, 400)
+        self.assertIn("missing files", res.text)
+        res = self.url_open(f'/documents/upload/{self.public_folder.access_token}',
+            data={
+                'csrf_token': http.Request.csrf_token(self),
+                'res_model': 'res.users',
+            },
+            files={'ufile': BytesIO()})
+        self.assertEqual(res.status_code, HTTPStatus.FORBIDDEN)
+        self.assertIn("only internal users can provide field values", res.text)
+
+        # Upload a text file
+        with RecordCapturer(self.env['documents.document'], []) as capture:
+            res = self.url_open(f'/documents/upload/{self.public_folder.access_token}',
+                data={'csrf_token': http.Request.csrf_token(self)},
+                files={'ufile': ('hello.txt', BytesIO(b"Hello"), 'text/plain')},
+                allow_redirects=False)
+            res.raise_for_status()
+        document = capture.records.ensure_one()
+        self.assertEqual(document.name, 'hello.txt')
         self.assertEqual(document.mimetype, 'text/plain')
+        self.assertEqual(document.access_internal, 'edit')
+        self.assertEqual(document.access_via_link, 'view')
+        self.assertEqual(document.folder_id, self.public_folder)
+        self.assertEqual(document.owner_id, self.public_folder.owner_id)
+        self.assertEqual(document.raw, b"Hello")
+        self.assertRegex(document.access_token, r'[A-Za-z0-9-_]{22}')
+        self.assertEqual(document.message_ids.mapped('body'), [
+            "<p>Document uploaded by Public user</p>",
+            "<p>Document created</p>",
+        ])
+        self.assertEqual(res.status_code, HTTPStatus.SEE_OTHER)  # 303
+        self._assertPathEqual(res.headers.get('Location'), document.access_url)
+        self.url_open(res.headers['Location']).raise_for_status()
 
-        public_user = self.env.ref('base.public_user')
-        file_uploaded_note = document.message_ids[0]
-        self.assertEqual(file_uploaded_note.author_id, public_user.partner_id)
-        self.assertIn('<b>File uploaded by:</b> Public user <br>', file_uploaded_note.body)
-        self.assertIn(f'<b>Link created by:</b> {self.share_folder_b.create_uid.name}', file_uploaded_note.body)
+        # Upload an image but forge the filename/mimetype to pretend it is text
+        with (RecordCapturer(self.env['documents.document'], []) as record_capture,
+              self.assertLogs('odoo.tools.mimetypes', 'WARNING') as log_capture):
+            res = self.url_open(f'/documents/upload/{self.public_folder.access_token}',
+                data={'csrf_token': http.Request.csrf_token(self)},
+                files={'ufile': ('hello.txt', BytesIO(self.doc_icon), 'text/plain')},
+                allow_redirects=False)
+            res.raise_for_status()
+        document = record_capture.records.ensure_one()
+        self.assertEqual(document.name, 'hello.txt.png',
+                         "the filename must have been neutralized")
+        self.assertEqual(document.mimetype, 'image/png',
+                         "the mimetype must have been neutralized")
+        self.assertEqual(document.raw, self.doc_icon)
+        self.assertEqual(log_capture.output, [
+            ("WARNING:odoo.tools.mimetypes:File 'hello.txt' has an "
+             "invalid extension for mimetype 'image/png', adding '.png'")
+        ])
+        self.url_open(res.headers['Location']).raise_for_status()
 
-    def test_upload_attachment_user(self):
-        """Check that logged user's name is used in notification."""
-        files = [('files', ('test.txt', b'test', 'text/plain'))]
-        demo_session = self.authenticate('demo', 'demo')
-        demo_user = self.env['res.users'].browse(demo_session.uid)
-        self.url_open(f'/document/upload/{self.share_folder_b.id}/{self.share_folder_b.access_token}', files=files, data={'csrf_token': http.Request.csrf_token(self)})
-        document = self.env['documents.document'].search([('folder_id', '=', self.folder_b.id)])
+    def test_doc_ctrl_upload_request_public(self):
+        self.authenticate(None, None)
 
-        file_uploaded_note = document.message_ids[0]
-        self.assertEqual(file_uploaded_note.author_id, demo_user.partner_id)
-        self.assertIn('<b>File uploaded by:</b> Marc Demo <br>', file_uploaded_note.body)
-        self.assertIn(f'<b>Link created by:</b> {self.share_folder_b.create_uid.name}', file_uploaded_note.body)
+        # Upload a text file
+        res = self.url_open(f'/documents/upload/{self.public_request.access_token}',
+            data={'csrf_token': http.Request.csrf_token(self)},
+            files={'ufile': ('hello.txt', BytesIO(b"Hello"), 'text/plain')},
+            allow_redirects=False)
+        res.raise_for_status()
+        self.assertEqual(self.public_request.name, 'hello.txt')
+        self.assertEqual(self.public_request.mimetype, 'text/plain')
+        self.assertEqual(self.public_request.access_internal, 'edit')
+        self.assertEqual(self.public_request.access_via_link, 'view')
+        self.assertEqual(self.public_request.owner_id, self.user_admin)
+        self.assertEqual(self.public_request.raw, b"Hello")
+        self.assertEqual(self.public_request.message_ids.mapped('body'), [
+            "<p>Document uploaded by Public user</p>",
+            "<p>Document created</p>",
+        ])
+        self.assertEqual(res.status_code, HTTPStatus.SEE_OTHER)  # 303
+        self._assertPathEqual(res.headers.get('Location'), self.public_request.access_url)
+        self.url_open(res.headers['Location']).raise_for_status()
+
+        # Reset the request
+        self.public_request.action_update_access_rights(
+            access_via_link='edit',
+            is_access_via_link_hidden=False,
+        )
+
+        # Upload an image but forge the filename/mimetype to pretend it is text
+        with self.assertLogs('odoo.tools.mimetypes', 'WARNING') as log_capture:
+            res = self.url_open(f'/documents/upload/{self.public_request.access_token}',
+                data={'csrf_token': http.Request.csrf_token(self)},
+                files={'ufile': ('hello.txt', BytesIO(self.doc_icon), 'text/plain')},
+                allow_redirects=False
+            )
+            res.raise_for_status()
+        self.assertEqual(self.public_request.name, 'hello.txt.png',
+                         "the filename must have been neutralized")
+        self.assertEqual(self.public_request.mimetype, 'image/png',
+                         "the mimetype must have been neutralized")
+        self.assertEqual(self.public_request.raw, self.doc_icon)
+        self.assertEqual(log_capture.output, [
+            ("WARNING:odoo.tools.mimetypes:File 'hello.txt' has an "
+             "invalid extension for mimetype 'image/png', adding '.png'")
+        ])
+        self.url_open(res.headers['Location']).raise_for_status()
+
+    @freeze_time('2022-07-24 08:00:00')
+    def test_doc_upload_folder_user(self):
+        self.authenticate('demo', 'demo')
+
+        # Errors
+        res = self.url_open(f'/documents/upload/{self.internal_folder.access_token}',
+            data={
+                'csrf_token': http.Request.csrf_token(self),
+                'res_id': 'bad'
+            },
+            files={'ufile': BytesIO()},
+            allow_redirects=False,
+        )
+        self.assertEqual(res.status_code, 400)
+        self.assertIn('bad', res.text)
+
+        # Upload a test file
+        self.internal_folder.create_activity_option = True
+        with (RecordCapturer(self.env['documents.document'], []) as capture,
+              RecordCapturer(self.env['mail.activity'], [
+                ('res_model', '=', 'documents.document')
+              ]) as capture_activity):
+            res = self.url_open(f'/documents/upload/{self.internal_folder.access_token}',
+                data={'csrf_token': http.Request.csrf_token(self)},
+                files={'ufile': ('hello.txt', b"Hello", 'text/plain')},
+                allow_redirects=False,
+            )
+            res.raise_for_status()
+
+        document = capture.records.ensure_one()
+        self.assertEqual(document.name, 'hello.txt')
+        self.assertEqual(document.mimetype, 'text/plain')
+        self.assertEqual(document.owner_id, self.user_demo)
+        self.assertEqual(document.res_id, document.id)
+        self.assertEqual(document.res_model, 'documents.document')
+        self.assertEqual(document.message_ids.mapped('body'), [
+            "<p>Document uploaded by Marc Demo</p>",
+            "<p>Document created</p>",
+        ])
+        activity = capture_activity.records.ensure_one()
+        self.assertEqual(activity.activity_type_id, self.test_activity_type)
+        self.assertEqual(activity.summary, 'test summary')
+        self.assertEqual(activity.note, '<p>test note</p>')
+        self.assertEqual(activity.user_id, self.user_admin)
+        self.assertIn(activity.date_deadline, {fields.Date.today() + timedelta(days=5)})
+
+        # Upload a fake text file that actually is an image on the demo user
+        self.internal_folder.create_activity_option = False
+        with (RecordCapturer(self.env['documents.document'], []) as capture,
+              RecordCapturer(self.env['mail.activity'], [
+                ('res_model', '=', 'documents.document')
+              ]) as capture_activity):
+            res = self.url_open(f'/documents/upload/{self.internal_folder.access_token}',
+                data={
+                    'csrf_token': http.Request.csrf_token(self),
+                    'res_id': self.user_demo.partner_id.id,
+                    'res_model': 'res.partner',
+                },
+                files={'ufile': ('hello.txt', self.doc_icon, 'text/plain')},
+            )
+            res.raise_for_status()
+
+        self.assertFalse(capture_activity.records)
+        document = capture.records.ensure_one()
+        self.assertEqual(document.name, 'hello.txt',
+            "the filename must not have been neutralized")
+        self.assertEqual(document.mimetype, 'text/plain',
+            "the mimetype must not have been neutralized")
+        self.assertEqual(document.res_id, self.user_demo.partner_id.id)
+        self.assertEqual(document.res_model, 'res.partner')
+
+    def test_doc_upload_request_user(self):
+        self.authenticate('demo', 'demo')
+
+        # res_model/res_id should be ignored
+        res = self.url_open(f'/documents/upload/{self.internal_request.access_token}',
+            data={
+                'res_id': self.user_demo.id,
+                'res_model': 'res.users',
+                'csrf_token': http.Request.csrf_token(self),
+            },
+            files={'ufile': ('hello.txt', BytesIO(b"Hello"), 'text/plain')},
+            allow_redirects=False
+        )
+        res.raise_for_status()
+
+        self.assertEqual(self.internal_request.name, 'hello.txt')
+        self.assertEqual(self.internal_request.mimetype, 'text/plain')
+        self.assertEqual(self.internal_request.res_id, self.internal_request.id)
+        self.assertEqual(self.internal_request.res_model, 'documents.document')
+        self.assertEqual(self.internal_request.raw, b"Hello")
+        self.assertEqual(self.internal_request.message_ids.mapped('body'), [
+            "<p>Document uploaded by Marc Demo</p>",
+            "<p>Document created</p>",
+        ])
+
+        # attempt to upload on the admin's file
+        res = self.url_open(f'/documents/upload/{self.internal_hidden.access_token}',
+            data={'csrf_token': http.Request.csrf_token(self)},
+            files={'ufile': ('hello.txt', BytesIO(b"Hello"), 'text/plain')},
+        )
+        self.assertEqual(res.status_code, 404)
+
+    def test_doc_ctrl_upload_shortcut(self):
+        self.authenticate(None, None)
+        self.internal_file.action_update_access_rights(access_via_link='edit')
+        for access_via_link, hidden in [
+            ('none', True),
+            ('view', True),
+            ('edit', True),
+            ('none', False),
+            ('view', False),
+        ]:
+            with self.subTest(access_via_link=access_via_link, hidden=hidden):
+                self.internal_file.action_update_access_rights(
+                    access_via_link=access_via_link,
+                    is_access_via_link_hidden=hidden,
+                )
+                res = self.url_open(f'/documents/upload/{self.public_shortcut.access_token}',
+                    data={'csrf_token': http.Request.csrf_token(self)},
+                    files={'ufile': ('hello.txt', BytesIO(b"Hello"), 'text/plain')},
+                    allow_redirects=False
+                )
+                self.assertEqual(res.status_code, 404)
+
+        self.internal_file.action_update_access_rights(
+            access_via_link='edit',
+            is_access_via_link_hidden=False,
+        )
+        res = self.url_open(f'/documents/upload/{self.public_shortcut.access_token}',
+            data={'csrf_token': http.Request.csrf_token(self)},
+            files={'ufile': ('hello.txt', BytesIO(b"Hello"), 'text/plain')},
+            allow_redirects=False
+        )
+        res.raise_for_status()
+        self.assertEqual(res.status_code, 303)
+        self._assertPathIn(res.headers.get('Location'), {
+            self.internal_file.access_url,
+            self.public_shortcut.access_url,
+        })
+        self.assertEqual(self.internal_file.access_via_link, 'edit')
+        self.assertEqual(self.internal_file.name, 'hello.txt')
+        self.assertEqual(self.internal_file.mimetype, 'text/plain')
+        self.assertEqual(self.internal_file.res_id, self.internal_file.id)
+        self.assertEqual(self.internal_file.res_model, 'documents.document')
+        self.assertEqual(self.internal_file.raw, b"Hello")
+        self.assertEqual(self.internal_file.message_ids.mapped('body'), [
+            "<p>Document uploaded by Public user</p>",
+            "<p>Document created</p>",
+        ])
+
+        self.url_open(res.headers['Location']).raise_for_status()
+
+    def test_doc_ctrl_zip(self):
+        # the internal user can access all access_internal=view files
+        self.authenticate('demo', 'demo')
+        res = self.url_open('/documents/zip?' + urlencode({
+            'zip_name': 'file.zip',
+            'file_ids': f'{self.public_file.id},{self.internal_file.id}',
+        }))
+        res.raise_for_status()
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.headers.get('Content-Disposition'),
+                         "attachment; filename*=UTF-8''file.zip")
+        with BytesIO(res.content) as resfile, zipfile.ZipFile(resfile) as reszip:
+            self.assertEqual(sorted(reszip.namelist()), ['internal-file.png', 'public-file.png'])
+            self.assertEqual(reszip.read('internal-file.png'), self.doc_icon)
+            self.assertEqual(reszip.read('public-file.png'), self.doc_icon)
+
+        # the portal user can only access files that he is not member of
+        self.authenticate('portal_test', 'portal_test')
+        with self.assertLogs('odoo.http', 'WARNING'):
+            res = self.url_open('/documents/zip?' + urlencode({
+                'zip_name': 'file.zip',
+                'file_ids': f'{self.public_file.id},{self.internal_file.id}',
+            }))
+            self.assertEqual(res.status_code, HTTPStatus.FORBIDDEN)
+        res = self.url_open('/documents/zip?' + urlencode({
+            'zip_name': 'file.zip',
+            'file_ids': f'{self.public_file.id}',
+        }))
+        res.raise_for_status()
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(res.headers.get('Content-Disposition'),
+                         "attachment; filename*=UTF-8''file.zip")
+        with BytesIO(res.content) as resfile, zipfile.ZipFile(resfile) as reszip:
+            self.assertEqual(reszip.namelist(), ['public-file.png'])
+            self.assertEqual(reszip.read('public-file.png'), self.doc_icon)
+
+    def test_web_ctrl_documents(self):
+        public_url = f'/web/content/documents.document/{self.public_file.id}/raw'
+        internal_url = f'/web/content/documents.document/{self.internal_file.id}/raw'
+
+        with self.subTest(user=None):
+            self.authenticate(None, None)
+            res = self.url_open(public_url)
+            self.assertEqual(res.status_code, 404)
+
+        with self.subTest(user='portal_test'):
+            self.authenticate('portal_test', 'portal_test')
+
+            res = self.url_open(public_url)
+            res.raise_for_status()
+            self.assertEqual(res.status_code, 200)
+            self.assertEqual(res.content, self.doc_icon)
+
+            res = self.url_open(internal_url)
+            self.assertEqual(res.status_code, 404)
+
+            self.internal_file.access_ids.filtered(
+                lambda access: access.partner_id == self.user_portal.partner_id
+            ).role = 'view'
+            res = self.url_open(internal_url)
+            res.raise_for_status()
+            self.assertEqual(res.status_code, 200)
+            self.assertEqual(res.content, self.doc_icon)
+
+        with self.subTest(user='demo'):
+            self.authenticate('demo', 'demo')
+            res = self.url_open(internal_url)
+            res.raise_for_status()
+            self.assertEqual(res.status_code, 200)
+            self.assertEqual(res.content, self.doc_icon)

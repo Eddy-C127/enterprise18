@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
@@ -14,7 +13,13 @@ class TestSpreadsheetImportXLSXUi(HttpCase):
         with file_open('documents_spreadsheet/tests/data/test.xlsx', 'rb') as f:
             spreadsheet_data = base64.encodebytes(f.read())
 
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({
+            'name': 'Test folder',
+            'type': 'folder',
+            "is_pinned_folder": True,
+            "access_internal": "view",
+            "access_via_link": "none",
+        })
         self.env['documents.document'].create({
             'datas': spreadsheet_data,
             'name': 'test.xlsx',

@@ -2,7 +2,6 @@
 
 import { TemplateDialog } from "@documents_spreadsheet/spreadsheet_template/spreadsheet_template_dialog";
 import { useService } from "@web/core/utils/hooks";
-import { loadBundle } from "@web/core/assets";
 
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { SpreadsheetCloneXlsxDialog } from "@documents_spreadsheet/spreadsheet_clone_xlsx_dialog/spreadsheet_clone_xlsx_dialog";
@@ -16,21 +15,11 @@ export const DocumentsSpreadsheetControllerMixin = () => ({
         this.orm = useService("orm");
         this.action = useService("action");
         this.dialogService = useService("dialog");
+        this.notification = useService("notification");
         // Hack-ish way to do this but the function is added by a hook which we can't really override.
         this.baseOnOpenDocumentsPreview = this.onOpenDocumentsPreview.bind(this);
         this.onOpenDocumentsPreview = this._onOpenDocumentsPreview.bind(this);
     },
-
-    /**
-     * @override
-     */
-    documentsViewHelpers() {
-        return {
-            ...super.documentsViewHelpers(),
-            sharePopupAction: this.sharePopupAction.bind(this),
-        };
-    },
-
 
     /**
      * Prevents spreadsheets from being in the viewable attachments list
@@ -39,46 +28,17 @@ export const DocumentsSpreadsheetControllerMixin = () => ({
      * @override
      */
     isRecordPreviewable(record) {
-        return super.isRecordPreviewable(record) && record.data.handler !== "spreadsheet";
-    },
-
-    async sharePopupAction(documentShareVals) {
-        const selection = this.env.model.root.selection;
-        const documents = selection.length ? selection : this.env.model.root.records;
-        if (
-            this.env.model.useSampleModel ||
-            documents.every((doc) => doc.data.handler !== "spreadsheet")
-        ) {
-            return documentShareVals;
-        }
-        const spreadsheetShares = [];
-        for (const doc of documents) {
-            if (doc.data.handler === "spreadsheet") {
-                const resId = doc.resId;
-                await loadBundle("spreadsheet.o_spreadsheet");
-                const { fetchSpreadsheetModel, freezeOdooData } = odoo.loader.modules.get(
-                    "@spreadsheet/helpers/model"
-                );
-                const model = await fetchSpreadsheetModel(this.env, "documents.document", resId);
-                const data = await freezeOdooData(model);
-                spreadsheetShares.push({
-                    spreadsheet_data: JSON.stringify(data),
-                    excel_files: model.exportXLSX().files,
-                    document_id: resId,
-                });
-            }
-        }
-        return {
-            ...documentShareVals,
-            spreadsheet_shares: JSON.stringify(spreadsheetShares),
-        };
+        return (
+            super.isRecordPreviewable(...arguments) &&
+            !["spreadsheet", "frozen_spreadsheet"].includes(record.data.handler)
+        );
     },
 
     /**
      * @override
      */
     async _onOpenDocumentsPreview({ mainDocument }) {
-        if (mainDocument.data.handler === "spreadsheet") {
+        if (["spreadsheet", "frozen_spreadsheet"].includes(mainDocument.data.handler)) {
             this.action.doAction({
                 type: "ir.actions.client",
                 tag: "action_open_spreadsheet",
@@ -122,7 +82,7 @@ export const DocumentsSpreadsheetControllerMixin = () => ({
             context: this.props.context,
             folders: this.env.searchModel
                 .getFolders()
-                .filter((folder) => folder.id && folder.id !== "TRASH"),
+                .filter((folder) => folder.id && typeof folder.id === "number"),
         });
     },
 });

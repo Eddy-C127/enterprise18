@@ -11,7 +11,9 @@ patch(DocumentsActivityModel.Record.prototype, {
      */
     isViewable() {
         return (
-            this.data.handler === "spreadsheet" || this.data.mimetype === XLSX_MIME_TYPE || super.isViewable(...arguments)
+            ["spreadsheet", "frozen_spreadsheet"].includes(this.data.handler) ||
+            this.data.mimetype === XLSX_MIME_TYPE ||
+            super.isViewable(...arguments)
         );
     },
 });

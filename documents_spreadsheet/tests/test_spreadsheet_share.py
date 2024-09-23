@@ -1,11 +1,12 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-import json
-
+from datetime import date
+from psycopg2.errors import CheckViolation
 
 from .common import SpreadsheetTestCommon
-from odoo.exceptions import AccessError
+from odoo.exceptions import AccessError, ValidationError
 from odoo.tests.common import new_test_user
+from odoo.tools import mute_logger
 
 EXCEL_FILES = [
     {
@@ -16,176 +17,135 @@ EXCEL_FILES = [
 
 
 class SpreadsheetSharing(SpreadsheetTestCommon):
-    def test_share_url(self):
-        document = self.create_spreadsheet()
-        share_vals = {
-            "document_ids": [(6, 0, [document.id])],
-            "folder_id": document.folder_id.id,
-            "type": "ids",
-            "spreadsheet_shares": json.dumps([
-            {
-                "spreadsheet_data": document.spreadsheet_data,
-                "document_id": document.id,
-                "excel_files": EXCEL_FILES,
-            }
-        ])
-        }
-        url = self.env["documents.share"].action_get_share_url(share_vals)
-        share = self.env["documents.share"].search(
-            [("document_ids", "in", document.id)]
-        )
-        self.assertEqual(url, share.full_url)
-        spreadsheet_share = share.freezed_spreadsheet_ids
-        self.assertEqual(len(spreadsheet_share), 1)
-        self.assertEqual(spreadsheet_share.document_id, document)
-        self.assertTrue(spreadsheet_share.excel_export)
 
-    def test_two_spreadsheets_share_url(self):
-        document1 = self.create_spreadsheet()
-        document2 = self.create_spreadsheet()
-        documents = document1 | document2
-        share_vals = {
-            "document_ids": [(6, 0, documents.ids)],
-            "folder_id": document1.folder_id.id,
-            "type": "ids",
-            "spreadsheet_shares": json.dumps([
-            {
-                "spreadsheet_data": document1.spreadsheet_data,
-                "document_id": document1.id,
-                "excel_files": EXCEL_FILES,
-            },
-            {
-                "spreadsheet_data": document2.spreadsheet_data,
-                "document_id": document2.id,
-                "excel_files": EXCEL_FILES,
-            },
-        ])
-        }
-        url = self.env["documents.share"].action_get_share_url(share_vals)
-        share = self.env["documents.share"].search(
-            [("document_ids", "in", documents.ids)]
-        )
-        self.assertEqual(url, share.full_url)
-        spreadsheet_shares = share.freezed_spreadsheet_ids
-        self.assertEqual(len(spreadsheet_shares), 2)
-
-    def test_share_popup(self):
-        document = self.create_spreadsheet()
-        share_vals = {
-            "document_ids": [(6, 0, [document.id])],
-            "folder_id": document.folder_id.id,
-            "type": "ids",
-            "spreadsheet_shares": json.dumps([
-                {
-                    "spreadsheet_data": document.spreadsheet_data,
-                    "document_id": document.id,
-                    "excel_files": EXCEL_FILES,
-                }
-            ])
-        }
-        share = self.env["documents.share"].create(share_vals)
-        spreadsheet_share = share.freezed_spreadsheet_ids
-        self.assertEqual(len(spreadsheet_share), 1)
-        self.assertEqual(spreadsheet_share.document_id, document)
-        self.assertTrue(spreadsheet_share.excel_export)
-
-    def test_can_create_own(self):
-        document = self.create_spreadsheet()
-        with self.with_user(self.spreadsheet_user.login):
-            share = self.share_spreadsheet(document)
-
-        shared_spreadsheet = share.freezed_spreadsheet_ids
-        self.assertTrue(shared_spreadsheet)
-        self.assertTrue(shared_spreadsheet.create_uid, self.spreadsheet_user)
-
+    @mute_logger('odoo.addons.base.models.ir_rule')
     def test_cannot_read_others(self):
         document = self.create_spreadsheet()
-        share = self.share_spreadsheet(document)
-        shared_spreadsheet = share.freezed_spreadsheet_ids
-        with self.assertRaises(AccessError):
-            shared_spreadsheet.with_user(self.spreadsheet_user).spreadsheet_data
+        alice = new_test_user(self.env, login="alice")
+        bob = new_test_user(self.env, login="bob")
+        self.env['documents.access'].create({
+            'document_id': document.id,
+            'partner_id': alice.partner_id.id,
+            'role': 'edit',
+        })
+        self.env['documents.access'].create({  # Do not copy this access
+            'document_id': document.id,
+            'partner_id': bob.partner_id.id,
+            'role': False,
+            'last_access_date': date.today(),
+        })
 
+        shared_spreadsheet = document.action_freeze_and_copy({}, b"")
+
+        self.assertNotEqual(document.access_token, shared_spreadsheet.access_token)
+        self.assertEqual(shared_spreadsheet.folder_id.owner_id, self.env.ref('base.user_root'))
+        self.assertEqual(shared_spreadsheet.access_internal, 'none')
+
+        with self.assertRaises(AccessError):
+            shared_spreadsheet.with_user(self.spreadsheet_user).name
+
+        # check that the access have been copied, and switched to "view" if needed
+        access = shared_spreadsheet.access_ids
+        self.assertEqual(len(access), 1)
+        self.assertEqual(access.role, 'view')
+        self.assertEqual(access.partner_id, alice.partner_id)
+
+    @mute_logger('odoo.addons.base.models.ir_rule')
     def test_collaborative_spreadsheet_with_token(self):
         document = self.create_spreadsheet()
-        share = self.share_spreadsheet(document)
+
+        document.access_via_link = 'view'
+        document.access_internal = 'none'
+        document.folder_id.access_via_link = 'none'
+        document.folder_id.access_internal = 'none'
+        access_token = document.sudo().access_token
+
         raoul = new_test_user(self.env, login="raoul")
-        document.folder_id.group_ids = self.env.ref("documents.group_documents_user")
-        document = document.with_user(raoul)
-        with self.with_user("raoul"):
+        alice = new_test_user(self.env, login="alice")
+
+        self.env['documents.access'].create({
+            'document_id': document.id,
+            'partner_id': raoul.partner_id.id,
+            'role': 'edit',
+        })
+
+        document = document.with_user(alice)
+        with self.assertRaises(AccessError):
             # join without token
-            with self.assertRaises(AccessError):
-                document.join_spreadsheet_session()
+            document.join_spreadsheet_session()
 
+        with self.assertRaises(AccessError):
             # join with wrong token
-            with self.assertRaises(AccessError):
-                document.join_spreadsheet_session(share.id, "a wrong token")
+            document.join_spreadsheet_session("a wrong token")
 
-            # join with token
-            token = share.access_token
-            data = document.join_spreadsheet_session(share.id, token)
-            self.assertTrue(data)
-            self.assertEqual(data["isReadonly"], False)
+        revision = self.new_revision_data(document)
 
-            revision = self.new_revision_data(document)
+        # dispatch revision without access
+        with self.assertRaises(AccessError):
+            document.dispatch_spreadsheet_message(revision)
 
-            # dispatch revision without token
-            with self.assertRaises(AccessError):
-                document.dispatch_spreadsheet_message(revision)
+        # dispatch revision with wrong token
+        with self.assertRaises(AccessError):
+            document.dispatch_spreadsheet_message(revision, "a wrong token")
 
-            # dispatch revision with wrong token
-            with self.assertRaises(AccessError):
-                document.dispatch_spreadsheet_message(
-                    revision, share.id, "a wrong token"
-                )
+        # snapshot without token
+        snapshot_revision = {
+            "type": "SNAPSHOT",
+            "serverRevisionId": document.sudo().current_revision_uuid,
+            "nextRevisionId": "snapshot-revision-id",
+            "data": {"revisionId": "snapshot-revision-id"},
+        }
+        with self.assertRaises(AccessError):
+            document.dispatch_spreadsheet_message(snapshot_revision)
 
-            # dispatch revision with token
-            token = share.access_token
-            accepted = document.dispatch_spreadsheet_message(revision, share.id, token)
-            self.assertEqual(accepted, True)
+        # snapshot with wrong token
+        snapshot_revision = {
+            "type": "SNAPSHOT",
+            "serverRevisionId": document.sudo().current_revision_uuid,
+            "nextRevisionId": "snapshot-revision-id",
+            "data": {"revisionId": "snapshot-revision-id"},
+        }
+        with self.assertRaises(AccessError):
+            document.dispatch_spreadsheet_message(snapshot_revision, "a wrong token")
 
-            # snapshot without token
-            snapshot_revision = {
-                "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().current_revision_uuid,
-                "nextRevisionId": "snapshot-revision-id",
-                "data": {"revisionId": "snapshot-revision-id"},
-            }
-            with self.assertRaises(AccessError):
-                document.dispatch_spreadsheet_message(snapshot_revision)
+        # now, the user can access the spreadsheet
+        document = document.with_user(raoul)
+        self.assertEqual(document.user_permission, "edit")
+        self.assertTrue(document._check_collaborative_spreadsheet_access(
+            "write", access_token, raise_exception=False))
 
-            # snapshot with wrong token
-            snapshot_revision = {
-                "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().current_revision_uuid,
-                "nextRevisionId": "snapshot-revision-id",
-                "data": {"revisionId": "snapshot-revision-id"},
-            }
-            with self.assertRaises(AccessError):
-                document.dispatch_spreadsheet_message(
-                    snapshot_revision, share.id, "a wrong token"
-                )
+        # join with access
+        data = document.join_spreadsheet_session(access_token)
+        self.assertTrue(data)
+        self.assertEqual(data["isReadonly"], False)
 
-            # snapshot with token
-            snapshot_revision = {
-                "type": "SNAPSHOT",
-                "serverRevisionId": document.sudo().current_revision_uuid,
-                "nextRevisionId": "snapshot-revision-id",
-                "data": {"revisionId": "snapshot-revision-id"},
-            }
-            accepted = document.dispatch_spreadsheet_message(
-                snapshot_revision, share.id, token
-            )
-            self.assertEqual(accepted, True)
+        revision = self.new_revision_data(document)
 
+        # dispatch revision with access
+        accepted = document.dispatch_spreadsheet_message(revision, access_token)
+        self.assertEqual(accepted, True)
+
+        # snapshot with access
+        snapshot_revision = {
+            "type": "SNAPSHOT",
+            "serverRevisionId": document.sudo().current_revision_uuid,
+            "nextRevisionId": "snapshot-revision-id",
+            "data": {"revisionId": "snapshot-revision-id"},
+        }
+        accepted = document.dispatch_spreadsheet_message(snapshot_revision, access_token)
+        self.assertEqual(accepted, True)
+
+    @mute_logger('odoo.addons.base.models.ir_rule')
     def test_collaborative_readonly_spreadsheet_with_token(self):
         """Readonly access"""
         document = self.create_spreadsheet()
-        document.folder_id.group_ids = self.env.ref("base.group_system")
-        document.folder_id.read_group_ids = self.env.ref(
-            "documents.group_documents_user"
-        )
-        with self.with_user(self.spreadsheet_user.login):
-            share = self.share_spreadsheet(document)
+
+        document.access_via_link = 'view'
+        document.access_internal = 'none'
+        document.folder_id.access_via_link = 'none'
+        document.folder_id.access_internal = 'none'
+
+        access_token = document.sudo().access_token
 
         user = new_test_user(self.env, login="raoul")
         document = document.with_user(user)
@@ -195,7 +155,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
                 document.join_spreadsheet_session()
 
             # join with token
-            data = document.join_spreadsheet_session(share.id, share.access_token)
+            data = document.join_spreadsheet_session(access_token)
             self.assertEqual(data["isReadonly"], True)
 
             revision = self.new_revision_data(document)
@@ -205,21 +165,18 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
 
             # dispatch revision with wrong token
             with self.assertRaises(AccessError):
-                document.dispatch_spreadsheet_message(
-                    revision, share.id, "a wrong token"
-                )
+                document.dispatch_spreadsheet_message(revision, "a wrong token")
 
-            # dispatch revision with right token but no write access
+            # raise because of readonly access
             with self.assertRaises(AccessError):
-                token = share.access_token
-                document.dispatch_spreadsheet_message(revision, share.id, token)
+                document.dispatch_spreadsheet_message(revision, access_token)
 
             # snapshot without token
             snapshot_revision = {
                 "type": "SNAPSHOT",
                 "serverRevisionId": document.sudo().current_revision_uuid,
                 "nextRevisionId": "snapshot-revision-id",
-                "data": r"{}",
+                "data": b"{}",
             }
             with self.assertRaises(AccessError):
                 document.dispatch_spreadsheet_message(snapshot_revision)
@@ -229,31 +186,56 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
                 "type": "SNAPSHOT",
                 "serverRevisionId": document.sudo().current_revision_uuid,
                 "nextRevisionId": "snapshot-revision-id",
-                "data": r"{}",
+                "data": b"{}",
             }
             with self.assertRaises(AccessError):
-                document.dispatch_spreadsheet_message(
-                    snapshot_revision, share.id, token
-                )
+                document.dispatch_spreadsheet_message(snapshot_revision, access_token)
 
     def test_spreadsheet_with_token_from_workspace_share(self):
         document_1 = self.create_spreadsheet()
         self.create_spreadsheet()
         folder = document_1.folder_id
-        self.assertEqual(len(folder.document_ids), 2, "there are more than one document in the folder")
-        share = self.env["documents.share"].create(
-            {
-                "folder_id": folder.id,
-                "domain": [("folder_id", "child_of", folder.id)],
-                "type": "domain",
-            }
-        )
-        self.env["documents.shared.spreadsheet"].create(
-            {
-                "share_id": share.id,
-                "document_id": document_1.id,
-                "spreadsheet_data": document_1.spreadsheet_data,
-            }
-        )
-        result = document_1.join_spreadsheet_session(share.id, share.access_token)
+        self.assertEqual(len(folder.children_ids), 2, "there are more than one document in the folder")
+        result = document_1.join_spreadsheet_session(document_1.access_token)
         self.assertTrue(result, "it should grant access")
+
+    @mute_logger('odoo.sql_db')
+    def test_spreadsheet_can_not_share_write_access_to_portal(self):
+        spreadsheet = self.create_spreadsheet()
+        user_portal = new_test_user(self.env, login='alice', groups='base.group_portal')
+        user_internal = new_test_user(self.env, login='eve')
+        partner = self.env['res.partner'].create({'name': 'Bob'})
+
+        self.env['documents.access'].create({
+            'document_id': spreadsheet.id,
+            'partner_id': user_internal.partner_id.id,
+            'role': 'edit',
+        })
+
+        with self.assertRaises(ValidationError):
+            self.env['documents.access'].create({
+                'document_id': spreadsheet.id,
+                'partner_id': user_portal.partner_id.id,
+                'role': 'edit',
+            })
+
+        with self.assertRaises(ValidationError):
+            self.env['documents.access'].create({
+                'document_id': spreadsheet.id,
+                'partner_id': partner.id,
+                'role': 'edit',
+            })
+
+        with self.assertRaises(CheckViolation):
+            spreadsheet.access_via_link = 'edit'
+            spreadsheet.flush_recordset()
+
+        with self.assertRaises(CheckViolation):
+            frozen = spreadsheet.action_freeze_and_copy({}, b"")
+            frozen.access_via_link = 'edit'
+            frozen.flush_recordset()
+
+        with self.assertRaises(CheckViolation):
+            frozen = spreadsheet.action_freeze_and_copy({}, b"")
+            frozen.access_internal = 'edit'
+            frozen.flush_recordset()

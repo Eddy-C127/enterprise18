@@ -10,6 +10,20 @@ class ApprovalRequest(models.Model):
     documents_count = fields.Integer(compute='_compute_documents_count')
     documents_enabled = fields.Boolean(related='company_id.documents_approvals_settings')
 
+    def _get_document_vals_access_rights(self):
+        """Make sure (only) request owner and approval users can view the document."""
+        return {
+            'access_via_link': 'view',
+            'access_internal': 'none',
+            'is_access_via_link_hidden': False,
+        }
+
+    def _get_document_owner(self):
+        return self.env.user
+
+    def _get_document_access_ids(self):
+        return [(self.request_owner_id.partner_id, ('view', False))]
+
     def _get_document_tags(self):
         return self.company_id.approvals_tag_ids
 
@@ -41,7 +55,13 @@ class ApprovalRequest(models.Model):
             'res_model': 'documents.document',
             'name': _('Documents'),
             'view_mode': 'kanban,list,form',
-            'domain': [('res_model', '=', 'approval.request'), ('res_id', 'in', self.ids)],
+            'domain': [
+                '|',
+                ('type', '=', 'folder'),
+                '&',
+                ('res_model', '=', 'approval.request'),
+                ('res_id', 'in', self.ids),
+            ],
             'context': {
                 'searchpanel_default_folder_id': self._get_document_folder().id,
                 'default_res_model': 'approval.request',

@@ -6,7 +6,7 @@ import { SearchPanel } from "@web/search/search_panel/search_panel";
 import { useNestedSortable } from "@web/core/utils/nested_sortable";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { user } from "@web/core/user";
-import { useService } from "@web/core/utils/hooks";
+import { useBus, useService } from "@web/core/utils/hooks";
 import { utils as uiUtils } from "@web/core/ui/ui_service";
 import { Component, onWillStart, useState } from "@odoo/owl";
 import { toggleArchive } from "@documents/views/hooks";
@@ -38,18 +38,19 @@ export class DocumentsSearchPanel extends SearchPanel {
     static template = !uiUtils.isSmall() ? "documents.SearchPanel" : "web.SearchPanel";
     static subTemplates = !uiUtils.isSmall()
         ? {
-              section: "documents.SearchPanel.Section",
+              section: "web.SearchPanel.Section",
               category: "documents.SearchPanel.Category",
               filtersGroup: "documents.SearchPanel.FiltersGroup",
           }
         : {
-              section: "documents.SearchPanel.Section.Small",
+              section: "web.SearchPanel.Section",
               category: "documents.SearchPanel.Category.Small",
               filtersGroup: "documents.SearchPanel.FiltersGroup.Small",
           };
     setup() {
         super.setup(...arguments);
         const { uploads } = useService("file_upload");
+        this.documentService = useService("document.document");
         this.documentUploads = uploads;
         useState(uploads);
         this.notification = useService("notification");
@@ -63,6 +64,16 @@ export class DocumentsSearchPanel extends SearchPanel {
 
         onWillStart(async () => {
             this.isDocumentManager = await user.hasGroup("documents.group_documents_manager");
+        });
+
+        useBus(this.env.documentsView.bus, "documents-expand-folder", (ev) => {
+            this._expandFolder(ev.detail);
+        });
+        useBus(this.env.documentsView.bus, "documents-open-edit-selected-folder", () => {
+            const selectedFolderId = this.env.searchModel.getSelectedFolderId();
+            if (selectedFolderId) {
+                this.editSectionValue("documents.document", selectedFolderId);
+            }
         });
 
         useNestedSortable({
@@ -96,37 +107,29 @@ export class DocumentsSearchPanel extends SearchPanel {
             },
             onDrop: async ({ element, parent, next }) => {
                 const draggingFolderId = parseInt(element.dataset.valueId);
-                const parentFolderId = parent ? parseInt(parent.dataset.valueId) : false;
-                const beforeFolderId = next ? parseInt(next.dataset.valueId) : false;
-                await this.orm.call("documents.folder", "move_folder_to", [
-                    [draggingFolderId],
-                    parentFolderId,
-                    beforeFolderId,
-                ]);
+                let parentFolderId = parent ? parent.dataset.valueId : false;
+                if (!parentFolderId || this._notify_wrong_drop_destination(parentFolderId)) {
+                    return;
+                }
+                if (parentFolderId === "MY") {
+                    await this.orm.call(
+                        "documents.document",
+                        "action_create_shortcut",
+                        [draggingFolderId],
+                        { location_folder_id : false },
+                    );
+                    return this.env.searchModel._reloadSearchModel(true);
+                } else if (parentFolderId) {
+                    parentFolderId = parseInt(parentFolderId);
+                }
+                await this.orm.call(
+                    "documents.document",
+                    "action_move_documents",
+                    [draggingFolderId, parentFolderId],
+                );
                 await this.env.searchModel._reloadSearchModel(true);
             },
         });
-    }
-
-    /**
-     * Returns the fields that are supported for creating new subsections on the fly
-     */
-    get supportedEditionFields() {
-        if (!this.isDocumentManager) {
-            return ["folder_id"];
-        }
-        return ["folder_id", "tag_ids"];
-    }
-
-    get supportedNewChildModels() {
-        if (!this.isDocumentManager) {
-            return [];
-        }
-        return ["documents.folder", "documents.facet"];
-    }
-
-    get supportedDocumentsDropFields() {
-        return ["folder_id", "tag_ids"];
     }
 
     isUploadingInFolder(folderId) {
@@ -139,20 +142,6 @@ export class DocumentsSearchPanel extends SearchPanel {
     // Edition
     //---------------------------------------------------------------------
 
-    getResModelResIdFromValueGroup(section, value, group) {
-        if (value) {
-            return [
-                this.env.model.root.fields[section.fieldName].relation,
-                section.values.get(value).id,
-            ];
-        } else if (group) {
-            const resId = section.groups.get(group).id;
-            if (section.groupBy === "facet_id") {
-                return ["documents.facet", resId];
-            }
-        }
-    }
-
     // Support for edition on mobile
     resetLongTouchTimer() {
         if (this.longTouchTimer) {
@@ -161,14 +150,14 @@ export class DocumentsSearchPanel extends SearchPanel {
         }
     }
 
-    onSectionValueTouchStart(ev, section, value, group) {
-        if (!uiUtils.isSmall() || !this.supportedEditionFields.includes(section.fieldName)) {
+    onSectionValueTouchStart(ev, section, value) {
+        if (!uiUtils.isSmall() || typeof value !== "number") {
             return;
         }
         this.touchStartMs = Date.now();
         if (!this.longTouchTimer) {
             this.longTouchTimer = browser.setTimeout(() => {
-                this.openEditPopover(ev, section, value, group);
+                this.openEditPopover(ev, section, value);
                 this.resetLongTouchTimer();
             }, LONG_TOUCH_THRESHOLD);
         }
@@ -185,75 +174,25 @@ export class DocumentsSearchPanel extends SearchPanel {
         this.resetLongTouchTimer();
     }
 
-    async openEditPopover(ev, section, value, group) {
-        const [resModel, resId] = this.getResModelResIdFromValueGroup(section, value, group);
-        const target = ev.currentTarget || ev.target;
-        const label = target.closest(".o_search_panel_label");
-        const counter = label && label.querySelector(".o_search_panel_counter");
-        this.popover.open(ev.target, {
-            onEdit: () => {
-                this.popover.close();
-                this.state.showMobileSearch = false;
-                this.editSectionValue(resModel, resId);
-            },
-            onCreateChild: () => {
-                this.popover.close();
-                this.addNewSectionValue(section, value || group);
-            },
-            onShare: async () => {
-                this.popover.close();
-                const vals = await this.prepareShareVals(resId);
-                await this.env.documentsView.bus.trigger("documents-open-share", { vals });
-            },
-            createChildEnabled: this.supportedNewChildModels.includes(resModel),
-            isShareable: "documents.folder" === resModel,
-            isEditable: this.isDocumentManager,
-        });
-        target.classList.add("d-block");
-        if (counter) {
-            counter.classList.add("d-none");
-        }
-        this.onPopoverClose = () => {
-            this.onPopoverClose = null;
-            target.classList.remove("d-block");
-            if (counter) {
-                counter.classList.remove("d-none");
-            }
-        };
-    }
-
-    async addNewSectionValue(section, parentValue) {
-        const resModel = section.fieldName === "folder_id" ? "documents.folder" : "documents.tag";
-        const defaultName = resModel === "documents.folder" ? _t("New Workspace") : _t("New Tag");
-        const createValues = {
-            name: defaultName,
-        };
-        if (resModel === "documents.folder") {
-            createValues.parent_folder_id = parentValue;
-        } else if (resModel === "documents.tag") {
-            createValues.facet_id = parentValue;
-            // There is a unicity constraint on the name of the tag, so we need to make sure that the name is unique.
-            const group = section.groups.get(parentValue);
-            const groupValues = [...group.values.values()];
-            let index = 2;
-            while (groupValues.find((v) => v.display_name === createValues.name)) {
-                createValues.name = defaultName + ` (${index++})`;
+    _expandFolder({ folderId }) {
+        let needRefresh = false;
+        const sectionId = this.sections[0].id;
+        for (const folder of this.env.searchModel.getFolderAndParents(
+            this.env.searchModel.getFolderById(folderId)
+        )) {
+            if (!this.state.expanded[sectionId][folder.id]) {
+                this.state.expanded[sectionId][folder.id] = true;
+                needRefresh = true;
             }
         }
-        await this.orm.create(resModel, [createValues], {
-            context: {
-                create_from_search_panel: true,
-            },
-        });
-        await this.env.searchModel._reloadSearchModel(resModel === "documents.folder" && !section.enableCounters);
-        if (resModel === "documents.folder") {
-            this.state.expanded[section.id][parentValue] = true;
+        if (needRefresh) {
+            this.render(true);
         }
-        this.render(true);
     }
 
     async editSectionValue(resModel, resId) {
-        this.action.doAction(
+        this.env.documentsView.bus.trigger("documents-close-preview");
+        return this.action.doAction(
             {
                 res_model: resModel,
                 res_id: resId,
@@ -269,15 +208,6 @@ export class DocumentsSearchPanel extends SearchPanel {
                 onClose: () => this.env.searchModel._reloadSearchModel(true),
             }
         );
-        await this.env.model.env.documentsView.bus.trigger("documents-close-preview");
-    }
-
-    async prepareShareVals(resId) {
-        return {
-            domain: [["folder_id", "child_of", resId]],
-            folder_id: resId,
-            type: "domain",
-        };
     }
 
     //---------------------------------------------------------------------
@@ -305,8 +235,7 @@ export class DocumentsSearchPanel extends SearchPanel {
             return (
                 value.id &&
                 target &&
-                target.closest(VALUE_SELECTOR) &&
-                this.supportedDocumentsDropFields.includes(section.fieldName)
+                target.closest(VALUE_SELECTOR)
             );
         } else if (dataTransfer.types.includes("o_documents_drag_folder")) {
             return (
@@ -342,6 +271,12 @@ export class DocumentsSearchPanel extends SearchPanel {
         }
     }
 
+    onDragOver(section, value, ev) {
+        const currentFolder = this.env.searchModel.getSelectedFolder();
+        const dropEffect = value.rootId === "MY" && currentFolder.rootId !== "MY" || ev.ctrlKey ? "link" : "move";
+        ev.dataTransfer.dropEffect = dropEffect;
+    }
+
     async onDrop(section, value, ev) {
         this.updateDragOverClass(null);
         if (this.isValidDragTransfer(section, value, ev.relatedTarget, ev.dataTransfer)) {
@@ -353,46 +288,58 @@ export class DocumentsSearchPanel extends SearchPanel {
     }
 
     /**
-     * Allows the selected kanban cards to be dropped in folders (workspaces) or tags.
+     * Allows the selected kanban cards to be dropped in folders.
      * @private
      * @param {Object} section
      * @param {Object} value
      * @param {DragEvent} ev
      */
-    async onDropDocuments(section, value, { currentTarget, dataTransfer }) {
+    async onDropDocuments(section, value, ev) {
+        const { currentTarget, dataTransfer } = ev;
         if (
             currentTarget.querySelector(":scope > .active") || // prevents dropping in the current folder
             !this.isValidDragTransfer(section, value, currentTarget, dataTransfer)
         ) {
             return;
         }
+        let target_folder_id = value.id === "MY" ? false : value.id;
         const data = JSON.parse(dataTransfer.getData("o_documents_data"));
-        if (section.fieldName === "folder_id") {
-            const currentFolder = this.env.searchModel.getSelectedFolder();
-            if ((currentFolder.id && !currentFolder.has_write_access) || !value.has_write_access) {
-                return this.notification.add(
-                    _t("You don't have the rights to move documents to that workspace"),
-                    {
-                        title: _t("Access Error"),
-                        type: "warning",
-                    }
-                );
-            }
-            if (currentFolder.id === "TRASH") {
-                const model = this.env.model;
-                await this.orm.write("documents.document", data.recordIds, { folder_id: value.id });
-                await toggleArchive(model, model.root.resModel, data.recordIds, false);
-                return;
-            }
-            // Dropping in the trash
-            if (value.id === "TRASH") {
-                const model = this.env.model;
-                const callback = async () => {
-                    await toggleArchive(model, model.root.resModel, data.recordIds, true);
-                };
-                model.root.records[0].openDeleteConfirmationDialog(model.root, callback, false);
-                return;
-            }
+        const currentFolder = this.env.searchModel.getSelectedFolder();
+
+        if (this._notify_wrong_drop_destination(value.id)) {
+            return;
+        }
+        if ((currentFolder.id && currentFolder.user_permission !== "edit")
+            || value.user_permission !== "edit") {
+            return this.notification.add(
+                _t("You don't have the rights to move documents to that folder."),
+                {
+                    title: _t("Access Error"),
+                    type: "warning",
+                }
+            );
+        }
+        if (currentFolder.id === "TRASH") {
+            const model = this.env.model;
+            await this.orm.write("documents.document", data.recordIds, { folder_id: value.id });
+            await toggleArchive(model, model.root.resModel, data.recordIds, false);
+            return;
+        }
+        // Dropping in 'My Drive'
+        if (value.rootId === "MY" && currentFolder.rootId !== "MY") {  // Not from my drive => shortcut
+            await this.orm.call("documents.document", "action_create_shortcut", data.recordIds, {
+                location_folder_id: false,
+            });
+            await this.env.searchModel._reloadSearchModel(true);
+            return this.notification.add(
+                _t("Shortcut created"),
+                { title: _t("Done!"), type: "success" }
+            );
+        }
+        if (target_folder_id === "TRASH") {
+            const model = this.env.model;
+            await toggleArchive(model, model.root.resModel, data.recordIds, true);
+            return;
         }
         if (data.lockedCount) {
             this.notification.add(
@@ -403,10 +350,24 @@ export class DocumentsSearchPanel extends SearchPanel {
                 { title: _t("Partial transfer"), type: "warning" }
             );
         }
-        if (section.fieldName === "folder_id") {
-            this.env.searchModel.updateRecordFolderId(data.recordIds, value.id);
-        } else {
-            this.env.searchModel.updateRecordTagId(data.recordIds, value.id);
+        const action_name = ev.ctrlKey ? "action_create_shortcut" : "action_move_documents";
+        await this.orm.call("documents.document", action_name, [data.recordIds, target_folder_id]);
+        await this.env.searchModel._reloadSearchModel(true);
+    }
+
+    _notify_wrong_drop_destination(folderId) {
+        if (["RECENT", "SHARED", "COMPANY"].includes(folderId)) {
+            this.notification.add(
+                _t("You can't create shortcuts in or move documents to this special folder.") +
+                    (folderId === "COMPANY" && this.isDocumentManager
+                        ? _t(" Perhaps you mean to use the pin action.")
+                        : ""),
+                {
+                    title: _t("Invalid operation"),
+                    type: "warning",
+                }
+            );
+            return true;
         }
     }
 }

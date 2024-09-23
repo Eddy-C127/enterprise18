@@ -13,7 +13,11 @@ registry.category("web_tour.tours").add("test_document_folder_rights_for_multi_c
             run: "click",
         },
         {
-            trigger: "span.o_search_panel_label_title[data-tooltip='Workspace1']",
+            trigger: "span.o_search_panel_label_title:contains('Company')",
+            run: "click",
+        },
+        {
+            trigger: "span.o_search_panel_label_title:contains('Folder1')",
             run: "click",
         },
         {
@@ -28,8 +32,12 @@ registry.category("web_tour.tours").add("test_document_folder_rights_for_multi_c
             trigger: ".o_switch_company_menu:contains('Company_A')",
         },
         {
+            trigger: "span.o_search_panel_label_title:contains('Company')",
+            run: "click",
+        },
+        {
             content: "Check that the workspace is not visible",
-            trigger: ".o_search_panel_label_title:not(:contains('Workspace1'))",
+            trigger: ".o_search_panel_label_title:not(:contains('Folder1'))",
         },
     ],
 });

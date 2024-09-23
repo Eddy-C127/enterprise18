@@ -6,13 +6,10 @@ from . import documents_unlink_mixin
 from . import documents_mixin
 
 # documents
+from . import documents_access
 from . import documents_document
-from . import documents_facet
-from . import documents_folder
-from . import documents_share
+from . import documents_redirect
 from . import documents_tag
-from . import documents_workflow_action
-from . import documents_workflow_rule
 
 # orm
 from . import ir_attachment

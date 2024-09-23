@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, models, fields, _
+from odoo import models, fields, _
+from odoo.osv import expression
 
 
 class Partner(models.Model):
@@ -11,7 +12,10 @@ class Partner(models.Model):
 
     def _compute_document_count(self):
         read_group_var = self.env['documents.document']._read_group(
-            [('partner_id', 'in', self.ids)],
+            expression.AND([
+                [('partner_id', 'in', self.ids)],
+                [('type', '!=', 'folder')],
+            ]),
             groupby=['partner_id'],
             aggregates=['__count'])
 
@@ -32,4 +36,13 @@ class Partner(models.Model):
                 "default_partner_id": self.id,
                 "searchpanel_default_folder_id": False
             },
+        }
+
+    def action_create_members_to_invite(self):
+        return {
+            'res_model': 'res.partner',
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+            'view_id': self.env.ref('base.view_partner_simple_form').id,
+            'view_mode': 'form',
         }

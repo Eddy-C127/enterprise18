@@ -64,7 +64,7 @@ class IrAttachment(models.Model):
             vals_list = [
                 model.browse(res_id)._get_document_vals(attachment)
                 for attachment in self
-                if not attachment.res_field
+                if not attachment.res_field and model.browse(res_id)._check_create_documents()
             ]
             vals_list = [vals for vals in vals_list if vals]  # Remove empty values
             self.env['documents.document'].create(vals_list)

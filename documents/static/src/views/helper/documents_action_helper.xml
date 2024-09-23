@@ -4,15 +4,17 @@
         <div class="o_view_nocontent">
             <div class="o_nocontent_help">
                 <t t-out="noContentHelp"/>
-                <div t-if="state.mailTo">
-                    <p class="fw-normal">Or send emails to 
-                        <a t-attf-href="mailto:{{state.mailTo}}">
-                            <t t-esc="state.mailTo"/>
-                        </a>
-                    </p>
-                    <p class="fw-normal"><em>Tip: configure your scanner to send all documents to this address.</em></p>
-                </div>
-                <p t-elif="selectedFolderId !== 'TRASH'">No alias configured</p>
+                <t t-if="!['MY', 'RECENT', 'SHARED', 'TRASH'].includes(selectedFolderId)">
+                    <div t-if="state.mailTo">
+                        <p class="fw-normal">Or send emails to
+                            <a t-attf-href="mailto:{{state.mailTo}}">
+                                <t t-esc="state.mailTo"/>
+                            </a>
+                        </p>
+                        <p class="fw-normal"><em>Tip: configure your scanner to send all documents to this address.</em></p>
+                    </div>
+                    <p t-else="">No alias configured</p>
+                </t>
             </div>
         </div>
     </t>

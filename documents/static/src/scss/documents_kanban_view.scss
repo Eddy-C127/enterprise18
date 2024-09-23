@@ -26,13 +26,38 @@
         .o_kanban_record {
             display: flex;
             flex-direction: column;
-            min-height: 200px;
-            width: 200px;
+            width: 260px;
             margin: .5rem;
             border: none;
 
+            .o_kanban_progress_card {
+                height: 100%;
+            }
+
             > div:nth-of-type(1) {
                 border: 1px solid #d8dadd;
+            }
+
+            &.o_drag_hover {
+                & > div {
+                    border-color: $o-success !important;
+                    background-color: mix($o-success, $o-white, 10%) !important;
+                }
+            }
+
+            &.o_drag_invalid {
+                & > div {
+                    border-color: $o-danger !important;
+                    background-color: mix($o-danger, $o-white, 10%) !important;
+                }
+            }
+
+            &:not(.o_folder_record) {
+                min-height: 200px;
+            }
+
+            &.o_kanban_ghost {
+                min-height: 0;
             }
 
             &:hover .o-file-upload-progress-bar-abort {
@@ -59,6 +84,11 @@
                     transform: translate(6px, 6px);
                 }
             }
+
+            .o_kanban_record_body {
+                max-height: 1rem;
+                line-height: 1rem;
+            }
         }
 
         .o_kanban_record .o_kanban_attachment {
@@ -75,8 +105,19 @@
 
             .o_kanban_image_wrapper {
                 background-color: $gray-200;
-                width: 100%;
                 height: 140px;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-around;
+                .o_image.o_image_thumbnail {
+                    height: 70px;
+                    width: 70px;
+                }
+
+                .o_documents_image {
+                    height: 100%;
+                }
 
                 img {
                     width: 100%;
@@ -95,6 +136,10 @@
 
             .oe_kanban_previewer {
                 cursor: zoom-in;
+            }
+
+            .o_kanban_record_title {
+                margin-bottom: 0;
             }
 
             .o_record_selector {
@@ -199,4 +244,22 @@
        opacity: 1;
        transform: scaleX(1.00) scaleY(1.00);
    }
+}
+
+////// =============== Buttons ===============
+////// =======================================
+
+.o_documents_main_buttons .fa {
+    width: 14px !important;
+}
+
+////// =============== Sample Data ===============
+////// ===========================================
+
+.o_view_sample_data {
+
+    h3.o_documents_title {
+        @include o-sample-data-disabled;
+    }
+
 }

@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
+
 from odoo import http
 from odoo.tests.common import HttpCase
 
@@ -9,10 +9,11 @@ from .common import SpreadsheetTestCommon
 from odoo.tools import file_open
 from odoo.exceptions import UserError
 
+
 class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
     def test_import_xlsx(self):
         """Import xlsx"""
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({"name": "Test folder", "type": "folder"})
         with file_open('documents_spreadsheet/tests/data/test.xlsx', 'rb') as f:
             spreadsheet_data = base64.encodebytes(f.read())
             document_xlsx = self.env['documents.document'].create({
@@ -27,7 +28,7 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
 
     def test_import_xlsx_WPS_mimetype(self):
         """Import xlsx"""
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({"name": "Test folder", "type": "folder"})
         with file_open('documents_spreadsheet/tests/data/test.xlsx', 'rb') as f:
             raw = f.read()
             document_xlsx = self.env['documents.document'].create({
@@ -42,7 +43,7 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
 
     def test_import_xlsx_wrong_mime_type(self):
         """Import xlsx with wrong mime type raisese an error"""
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({"name": "Test folder", "type": "folder"})
         with file_open('documents_spreadsheet/tests/data/test.xlsx', 'rb') as f:
             spreadsheet_data = base64.encodebytes(f.read())
             document_xlsx = self.env['documents.document'].create({
@@ -59,7 +60,7 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
 
     def test_import_xlsx_wrong_content(self):
         """Import a xlsx which isn't a zip raises error"""
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({"name": "Test folder", "type": "folder"})
         document_xlsx = self.env['documents.document'].create({
             'datas': base64.encodebytes(b"yolo"),
             'name': 'text.xlsx',
@@ -73,7 +74,7 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
 
     def test_import_xlsx_zip_but_not_xlsx(self):
         """Import a zip which isn't a xlsx raises error"""
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({"name": "Test folder", "type": "folder"})
         document_xlsx = self.env['documents.document'].create({
             # Minimum zip file
             'datas': base64.encodebytes(b"\x50\x4B\x05\x06\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00"),
@@ -88,7 +89,7 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
 
     def test_import_xlsx_computes_multipage(self):
         """Import xlsx leads to accurate multipage computation"""
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({"name": "Test folder", "type": "folder"})
 
         cases = [('test.xlsx', False), ('test2sheets.xlsx', True)]
 
@@ -114,7 +115,7 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
     def test_request_xlsx_computes_multipage(self):
         """Successfully upload xlsx on requested documents"""
         self.authenticate('admin', 'admin')
-        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        folder = self.env["documents.document"].create({"name": "Test folder", "type": "folder"})
         activity_type = self.env['mail.activity.type'].create({
             'name': 'request_document',
             'category': 'upload_file',
@@ -129,16 +130,14 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
 
         with file_open('documents_spreadsheet/tests/data/test2sheets.xlsx', 'rb') as file:
             response = self.url_open(
-                url='/documents/upload_attachment',
+                url='/documents/upload',
                 data={
-                    'folder_id':folder.id,
-                    'tag_ids':'',
-                    'document_id':document.id,
+                    'access_token': document.access_token,
                     'csrf_token': http.Request.csrf_token(self),
                 },
                 files=[('ufile', ('test2sheets.xlsx', file.read(), 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'))],
             )
 
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.text, '{"success": "All files uploaded"}')
+        self.assertEqual(response.json(), [document.id])
         self.assertEqual(document.is_multipage, True)

@@ -16,7 +16,8 @@ class AccountChartTemplate(models.AbstractModel):
     def _create_demo_data_documents_folder(self, company):
         indian_companies = company or self.env['res.company'].search([('account_fiscal_country_id.code', '=', 'IN')])
         for indian_company in indian_companies:
-            return self.env['documents.folder'].create({
+            return self.env['documents.document'].create({
+                'type': 'folder',
                 'name': 'Bills',
                 'company_id': indian_company.id,
             })

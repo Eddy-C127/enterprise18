@@ -1,40 +1,42 @@
 /** @odoo-module **/
 
-import { user } from "@web/core/user";
+import { Domain } from "@web/core/domain";
+import { useService } from "@web/core/utils/hooks";
 import { RelationalModel } from "@web/model/relational_model/relational_model";
 import {
     DocumentsModelMixin,
     DocumentsRecordMixin,
 } from "../documents_model_mixin";
 
-export class DocumentsKanbanModel extends DocumentsModelMixin(RelationalModel) {}
+export class DocumentsKanbanModel extends DocumentsModelMixin(RelationalModel) {
+    setup() {
+        super.setup(...arguments);
+        this.documentService = useService("document.document");
+    }
+
+    /**
+     * Ensure that when coming from a URL with a document token, the document is present in the first page.
+     */
+    async _loadData(config) {
+        const data = await super._loadData(config);
+        const documentIdToRestore = this.documentService.getOnceDocumentIdToRestore();
+        if (
+            documentIdToRestore &&
+            !data.records.some((record) => record.id === documentIdToRestore)
+        ) {
+            const missingData = await super._loadData({
+                ...config,
+                domain: Domain.and([config.domain, [["id", "=", documentIdToRestore]]]).toList(),
+            });
+            if (missingData?.records?.length) {
+                data.records.push(missingData.records[0]);
+            }
+        }
+        return data;
+    }
+}
 
 export class DocumentsKanbanRecord extends DocumentsRecordMixin(RelationalModel.Record) {
-    async onClickPreview(ev) {
-        if (this.data.type === "empty") {
-            // In case the file is actually empty we open the input to replace the file
-            ev.stopPropagation();
-            ev.target.querySelector(".o_kanban_replace_document").click();
-        } else if (this.isViewable()) {
-            ev.stopPropagation();
-            ev.preventDefault();
-            const folder = this.model.env.searchModel
-                .getFolders()
-                .filter((folder) => folder.id === this.data.folder_id[0]);
-            const hasPdfSplit =
-                (!this.data.lock_uid || this.data.lock_uid[0] === user.userId) &&
-                folder.has_write_access;
-            const selection = this.model.root.selection;
-            const documents = selection.length > 1 && selection.find(rec => rec === this) && selection.filter(rec => rec.isViewable()) || [this];
-            await this.model.env.documentsView.bus.trigger("documents-open-preview", {
-                documents,
-                mainDocument: this,
-                isPdfSplit: false,
-                rules: this.data.available_rule_ids.records,
-                hasPdfSplit,
-            });
-        }
-    }
 
     async onReplaceDocument(ev) {
         if (!ev.target.files.length) {
@@ -42,12 +44,9 @@ export class DocumentsKanbanRecord extends DocumentsRecordMixin(RelationalModel.
         }
         await this.model.env.documentsView.bus.trigger("documents-upload-files", {
             files: ev.target.files,
-            folderId: this.data.folder_id && this.data.folder_id[0],
-            recordId: this.resId,
-            tagIds: this.model.env.searchModel.getSelectedTagIds(),
+            accessToken: this.data.access_token,
         });
         ev.target.value = "";
     }
 }
 DocumentsKanbanModel.Record = DocumentsKanbanRecord;
-

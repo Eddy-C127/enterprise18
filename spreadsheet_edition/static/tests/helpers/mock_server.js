@@ -1,7 +1,7 @@
 import { RPCError } from "@web/core/network/rpc";
 
 export function mockJoinSpreadsheetSession(resModel) {
-    return function (resId, shareId, accessToken) {
+    return function (resId, accessToken) {
         const record = this.env[resModel].search_read([["id", "=", resId]])[0];
         if (!record) {
             const error = new RPCError(`Spreadsheet ${resId} does not exist`);

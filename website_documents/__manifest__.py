@@ -13,7 +13,7 @@ When sharing documents/folder, the domain of the shared URL can be chosen by sel
 """,
     'depends': ['documents', 'website'],
     'data': [
-        'views/documents_share_views.xml',
+        'views/documents_document_views.xml',
     ],
     'auto_install': True,
     'license': 'OEEL-1',

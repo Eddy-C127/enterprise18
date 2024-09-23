@@ -1,58 +1,7 @@
-# -*- coding: utf-8 -*-
-# Part of Odoo. See LICENSE file for full copyright and licensing details.
-
-from odoo.tests.common import TransactionCase
-import base64
-
-GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
-TEXT = base64.b64encode(bytes("TEST", 'utf-8'))
+from odoo.addons.documents.tests.test_documents_common import TransactionCaseDocuments, GIF, TEXT
 
 
-class TestCaseDocuments(TransactionCase):
-
-    def setUp(self):
-        super(TestCaseDocuments, self).setUp()
-        self.doc_user = self.env['res.users'].create({
-            'name': 'Test user documents',
-            'login': 'documents@example.com',
-        })
-        self.doc_partner = self.env['res.partner'].create({
-             'name': 'Luke Skywalker',
-        })
-        self.folder_a = self.env['documents.folder'].create({
-            'name': 'folder A',
-        })
-        self.folder_a_a = self.env['documents.folder'].create({
-            'name': 'folder A - A',
-            'parent_folder_id': self.folder_a.id,
-        })
-        self.folder_b = self.env['documents.folder'].create({
-            'name': 'folder B',
-        })
-        self.tag_category_b = self.env['documents.facet'].create({
-            'folder_id': self.folder_b.id,
-            'name': "categ_b",
-        })
-        self.tag_b = self.env['documents.tag'].create({
-            'facet_id': self.tag_category_b.id,
-            'name': "tag_b",
-        })
-        self.tag_category_a = self.env['documents.facet'].create({
-            'folder_id': self.folder_a.id,
-            'name': "categ_a",
-        })
-        self.tag_category_a_a = self.env['documents.facet'].create({
-            'folder_id': self.folder_a_a.id,
-            'name': "categ_a_a",
-        })
-        self.tag_a_a = self.env['documents.tag'].create({
-            'facet_id': self.tag_category_a_a.id,
-            'name': "tag_a_a",
-        })
-        self.tag_a = self.env['documents.tag'].create({
-            'facet_id': self.tag_category_a.id,
-            'name': "tag_a",
-        })
+class TestDocumentsMailActivity(TransactionCaseDocuments):
 
     def test_request_activity(self):
         """
@@ -103,6 +52,9 @@ class TestCaseDocuments(TransactionCase):
         Ensure that separate document requests are created for recurring upload activities
         Ensure that the next activity is linked to the new document
         """
+        self.doc_partner = self.env['res.partner'].create({
+            'name': 'Luke Skywalker',
+        })
         activity_type = self.env['mail.activity.type'].create({
             'name': 'recurring_upload_activity_type',
             'category': 'upload_file',
@@ -122,15 +74,17 @@ class TestCaseDocuments(TransactionCase):
 
         self.assertEqual(activity.summary, 'Wizard Request')
 
-        document.write({'datas': GIF, 'name': 'testGif.gif'})
+        # Simulate the document upload controller which create the attachment
+        document.write({'attachment_id': self.env['ir.attachment'].create({'datas': GIF, 'name': 'testGif.gif'}).id})
 
         self.assertFalse(activity.exists(), 'the activity should be removed after file upload')
         self.assertEqual(document.type, 'binary', 'document 1 type should be binary')
         self.assertFalse(document.request_activity_id, 'document 1 should have no activity remaining')
 
         # a new document (request) and file_upload activity should be created
-        activity_2 = self.env['mail.activity'].search([('res_model', '=', 'documents.document')])
-        document_2 = self.env['documents.document'].search([('request_activity_id', '=', activity_2.id), ('type', '=', 'empty')])
+        activity_2 = self.env['mail.activity'].search([
+            ('res_model', '=', 'documents.document'), ('activity_type_id', '=', activity_type.id)])
+        document_2 = self.env['documents.document'].search([('request_activity_id', '=', activity_2.id), ('type', '=', 'binary'), ('attachment_id', '=', False)])
 
         self.assertNotEqual(document_2.id, document.id, 'a new document and activity should exist')
         self.assertEqual(document_2.request_activity_id.summary, 'Wizard Request')

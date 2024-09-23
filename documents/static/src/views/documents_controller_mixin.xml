@@ -1,42 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates>
-    <div t-name="documents.DocumentsViews.ControlPanel" class="o_cp_buttons d-lg-flex gap-1" role="toolbar" aria-label="Control panel buttons" t-ref="cpButtons">
+    <div t-name="documents.DocumentsViews.ControlPanel" class="o_cp_buttons d-flex gap-1" role="toolbar" aria-label="Control panel buttons" t-ref="cpButtons">
         <t t-set="isShareable" t-value="hasShareDocuments()"/>
         <t t-set="folder" t-value="this.env.searchModel.getSelectedFolder()"/>
-        <t t-set="hasShareableWorkspace" t-value="env.searchModel.getFolders().some((workspaceFolder) => workspaceFolder.id and workspaceFolder.id !== 'TRASH')"/>
 
         <div class="btn-group me-1">
             <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-hotkey="c">
                 New
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu o_documents_main_buttons">
                 <input type="file" multiple="true" t-ref="uploadFileInput" class="o_input_file o_hidden" t-on-change.stop="onFileInputChange"/>
                 <button type="button" class="btn btn-link dropdown-item o_documents_kanban_upload"
-                    t-att-disabled="!folder.id or !folder.has_write_access or folder.id === 'TRASH'"
+                    t-att-disabled="!canUploadInFolder(folder)"
                     t-on-click.prevent="() => this.uploadFileInputRef.el.click()" data-hotkey="a">
-                    <i class="fa fa-upload me-2"/>Upload
+                    <i class="fa fa-upload me-1"/>
+                    <span>Upload</span>
                 </button>
                 <button type="button" class="btn btn-link dropdown-item o_documents_kanban_request"
-                    t-att-disabled="!hasShareableWorkspace or folder.id === 'TRASH' or (folder.id and !folder.has_write_access)"
+                    t-if="userIsInternal"
+                    t-att-disabled="!canUploadInFolder(folder)"
                     t-on-click.prevent="onClickDocumentsRequest" data-hotkey="r">
-                    <i class="fa fa-paper-plane-o me-2"/>Request
+                    <i class="fa fa-paper-plane-o me-1"/>
+                    <span>Request</span>
                 </button>
                 <button type="button" class="btn btn-link dropdown-item o_documents_kanban_url"
-                    t-att-disabled="!hasShareableWorkspace or folder.id === 'TRASH' or (folder.id and !folder.has_write_access)"
+                    t-att-disabled="!canUploadInFolder(folder)"
                     t-on-click.prevent="onClickDocumentsAddUrl" data-hotkey="l">
-                    <i class="fa fa-link me-2"/>Link
+                    <i class="fa fa-link me-1"/>
+                    <span>Link</span>
                 </button>
-                <div t-if="isDocumentsManager" class="dropdown-divider"/>
-                <button t-if="isDocumentsManager" type="button" t-on-click.prevent="onClickAddWorkspace"
-                    class="btn btn-link dropdown-item o_documents_kanban_workspace" data-hotkey="w">
-                    <i class="fa fa-folder me-2"/>Workspace
-                </button>
+                <t t-if="['COMPANY', 'MY'].includes(folder.id) or !folder.id or (folder.user_permission === 'edit' and typeof folder.id === 'number')">
+                    <div class="dropdown-divider"/>
+                    <button type="button" t-on-click.prevent="onClickAddFolder"
+                        class="btn btn-link dropdown-item o_documents_kanban_workspace" data-hotkey="w">
+                        <i class="fa fa-folder me-1"/>
+                        <span>Folder</span>
+                    </button>
+                </t>
             </ul>
         </div>
-        <button type="button" class="btn btn-secondary o_documents_kanban_share_domain"
-            t-att-disabled="!hasShareableWorkspace or folder.id === 'TRASH' or isShareable"
-            t-on-click.stop.prevent="onClickShareDomain" title="Share this domain" data-hotkey="s">
-            Share
-        </button>
+        <t t-set="shareTitle">
+            <t t-if="this.targetRecords.length > 1">You cannot share multiple documents at the same time</t>
+            <t t-elif="folder.id === 'TRASH'">Documents in the Trash cannot be shared</t>
+            <t t-elif="!selectionCount and (!folder.id or typeof folder.id !== 'number')">Special folders cannot be shared</t>
+            <t t-else="">Open the permissions panel</t>
+        </t>
     </div>
 </templates>

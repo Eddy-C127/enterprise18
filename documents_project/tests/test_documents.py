@@ -1,51 +1,31 @@
 # -*- coding: utf-8 -*-
 
 import base64
-from datetime import date, timedelta
 
-from odoo import Command
-from odoo.tests.common import users
-
+from odoo.addons.documents.tests.test_documents_common import TransactionCaseDocuments
 from odoo.addons.project.tests.test_project_base import TestProjectCommon
+from odoo.tests.common import users
 
 GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
 TEXT = base64.b64encode(bytes("workflow bridge project", 'utf-8'))
 
 
-class TestCaseDocumentsBridgeProject(TestProjectCommon):
+class TestDocumentsBridgeProject(TestProjectCommon, TransactionCaseDocuments):
 
-    def setUp(self):
-        super(TestCaseDocumentsBridgeProject, self).setUp()
-        self.folder_a = self.env['documents.folder'].create({
-            'name': 'folder A',
-        })
-        self.folder_a_a = self.env['documents.folder'].create({
-            'name': 'folder A - A',
-            'parent_folder_id': self.folder_a.id,
-        })
-        self.attachment_txt = self.env['documents.document'].create({
-            'datas': TEXT,
-            'name': 'file.txt',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_a_a.id,
-        })
-        self.attachment_txt_2 = self.env['documents.document'].create({
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.document_txt_2 = cls.env['documents.document'].create({
             'datas': TEXT,
             'name': 'file2.txt',
             'mimetype': 'text/plain',
-            'folder_id': self.folder_a_a.id,
+            'folder_id': cls.folder_a_a.id,
         })
-        self.workflow_rule_task = self.env['documents.workflow.rule'].create({
-            'domain_folder_id': self.folder_a.id,
-            'name': 'workflow rule create task on f_a',
-            'create_model': 'project.task',
-        })
-
-        self.pro_admin = self.env['res.users'].create({
+        cls.pro_admin = cls.env['res.users'].create({
             'name': 'Project Admin',
             'login': 'proj_admin',
             'email': 'proj_admin@example.com',
-            'groups_id': [(4, self.ref('project.group_project_manager'))],
+            'groups_id': [(4, cls.env.ref('project.group_project_manager').id)],
         })
 
     def test_bridge_folder_workflow(self):
@@ -53,21 +33,26 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         tests the create new business model (project).
 
         """
-        self.assertEqual(self.attachment_txt.res_model, 'documents.document', "failed at default res model")
-        self.workflow_rule_task.apply_actions([self.attachment_txt.id])
-
-        self.assertEqual(self.attachment_txt.res_model, 'project.task', "failed at workflow_bridge_documents_project"
-                                                                        " new res_model")
-        task = self.env['project.task'].search([('id', '=', self.attachment_txt.res_id)])
+        self.assertEqual(self.document_txt.res_model, 'documents.document', "failed at default res model")
+        self.env['documents.document'].action_folder_embed_action(
+            self.document_txt.folder_id.id,
+            self.env.ref('documents_project.ir_actions_server_create_project_task').id
+        )
+        create_task_embedded_action = self.document_txt.available_embedded_actions_ids
+        self.assertEqual(len(create_task_embedded_action), 1)
+        self.document_txt.action_create_project_task()
+        self.assertEqual(self.document_txt.res_model, 'project.task', "failed at workflow_bridge_documents_project"
+                                                                      " new res_model")
+        task = self.env['project.task'].search([('id', '=', self.document_txt.res_id)])
         self.assertTrue(task.exists(), 'failed at workflow_bridge_documents_project task')
-        self.assertEqual(self.attachment_txt.res_id, task.id, "failed at workflow_bridge_documents_project res_id")
+        self.assertEqual(self.document_txt.res_id, task.id, "failed at workflow_bridge_documents_project res_id")
 
     def test_bridge_parent_folder(self):
         """
         Tests the "Parent Workspace" setting
         """
-        parent_folder = self.env.ref('documents_project.documents_project_folder')
-        self.assertEqual(self.project_pigs.documents_folder_id.parent_folder_id, parent_folder, "The workspace of the project should be a child of the 'Projects' workspace.")
+        parent_folder = self.env.ref('documents_project.document_project_folder')
+        self.assertEqual(self.project_pigs.documents_folder_id.folder_id, parent_folder, "The workspace of the project should be a child of the 'Projects' workspace.")
 
     def test_bridge_project_project_settings_on_write(self):
         """
@@ -95,61 +80,14 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         self.assertEqual(txt_doc.folder_id, self.project_pigs.documents_folder_id, 'the text test document should have a folder')
         self.assertEqual(gif_doc.folder_id, self.project_pigs.documents_folder_id, 'the gif test document should have a folder')
 
-    def test_bridge_document_is_shared(self):
-        """
-        Tests that the `is_shared` computed field on `documents.document` is working as intended.
-        """
-        self.assertFalse(self.attachment_txt.is_shared, "The document should not be shared by default")
-
-        share_link = self.env['documents.share'].create({
-            'folder_id': self.folder_a_a.id,
-            'include_sub_folders': False,
-            'type': 'domain',
-        })
-        self.folder_a_a._compute_is_shared()
-        self.attachment_txt._compute_is_shared()
-
-        self.assertTrue(self.attachment_txt.is_shared, "The document should be shared by a link sharing its folder")
-
-        share_link.write({
-            'folder_id': self.folder_a.id,
-            'include_sub_folders': True,
-        })
-        self.folder_a_a._compute_is_shared()
-        self.attachment_txt._compute_is_shared()
-
-        self.assertTrue(self.attachment_txt.is_shared, "The document should be shared by a link sharing on of its ancestor folders with the subfolders option enabled")
-        # We assume the rest of the cases depending on whether the document folder is shared are handled by the TestDocumentsFolder test in `documents`
-
-        share_link.write({
-            'include_sub_folders': False,
-            'type': 'ids',
-            'document_ids': [Command.link(self.attachment_txt.id)],
-        })
-        self.folder_a_a._compute_is_shared()
-        self.attachment_txt._compute_is_shared()
-
-        self.assertFalse(self.folder_a_a.is_shared, "The folder should not be shared")
-        self.assertTrue(self.attachment_txt.is_shared, "The document should be shared by a link sharing it by id")
-
-        share_link.write({'date_deadline': date.today() + timedelta(days=-1)})
-        self.attachment_txt._compute_is_shared()
-
-        self.assertFalse(self.attachment_txt.is_shared, "The document should be shared by an expired link sharing it by id")
-
-        share_link.write({'date_deadline': date.today() + timedelta(days=1)})
-        self.attachment_txt._compute_is_shared()
-
-        self.assertTrue(self.attachment_txt.is_shared, "The document should be shared by a link sharing it by id and not expired yet")
-
     def test_project_document_count(self):
         projects = self.project_pigs | self.project_goats
         self.assertEqual(self.project_pigs.document_count, 0)
-        self.attachment_txt.write({
+        self.document_txt.write({
             'res_model': 'project.project',
             'res_id': self.project_pigs.id,
         })
-        projects._compute_attached_document_count()
+        projects._compute_documents()
         self.assertEqual(self.project_pigs.document_count, 1, "The documents linked to the project should be taken into account.")
         self.env['documents.document'].create({
             'datas': GIF,
@@ -159,7 +97,7 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
             'res_model': 'project.task',
             'res_id': self.task_1.id,
         })
-        projects._compute_attached_document_count()
+        projects._compute_documents()
         self.assertEqual(self.project_pigs.document_count, 2, "The documents linked to the tasks of the project should be taken into account.")
 
     def test_project_document_search(self):
@@ -169,11 +107,11 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         projects = self.project_pigs | self.project_goats
         self.assertEqual(projects[0].document_count, 0, "No project should have document linked to it initially")
         self.assertEqual(projects[1].document_count, 0, "No project should have document linked to it initially")
-        self.attachment_txt.write({
+        self.document_txt.write({
             'res_model': 'project.project',
             'res_id': projects[0].id,
         })
-        self.attachment_txt_2.write({
+        self.document_txt_2.write({
             'res_model': 'project.project',
             'res_id': projects[1].id,
         })
@@ -190,7 +128,7 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         # docs[0] --> projects[0] "Pigs"
         # docs[1] --> projects[1] "Goats"
         # docs[2] --> task "Pigs UserTask" --> projects[0] "Pigs"
-        docs = self.attachment_txt + self.attachment_txt_2 + doc_gif
+        docs = self.document_txt + self.document_txt_2 + doc_gif
         # Needed for `in` query leafs
         docs.flush_recordset()
         search_domains = [
@@ -227,7 +165,7 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
             'name': 'Goats UserTask',
             'project_id': projects[1].id})
 
-        self.attachment_txt.write({
+        self.document_txt.write({
             'res_model': 'project.task',
             'res_id': task_2,
         })
@@ -284,8 +222,7 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         """
         missing_id = self.env['documents.document'].search([], order='id DESC', limit=1).id + 1
         result = self.env['documents.document'].with_context(
-            active_id=missing_id, active_model='project.task',
-            limit_folders_to_project=True).search_panel_select_range('folder_id')
+            active_id=missing_id, active_model='project.task').search_panel_select_range('folder_id')
         self.assertTrue(result)
 
     def test_copy_project(self):
@@ -295,25 +232,29 @@ class TestCaseDocumentsBridgeProject(TestProjectCommon):
         when this context key is used, it is expected that a folder will be copied/created manually, so that we don't
         end up with a project having the documents feature enabled but no folder).
         """
-        last_folder_id = self.env['documents.folder'].search([], order='id desc', limit=1).id
+        last_folder_id = self.env['documents.document'].search([('type', '=', 'folder')], order='id desc', limit=1).id
         self.project_pigs.copy()
-        self.assertEqual(len(self.env['documents.folder'].search([('id', '>', last_folder_id)])), 1, "There should only be one new folder created.")
+        new_folder = self.env['documents.document'].search([('type', '=', 'folder'), ('id', '>', last_folder_id)])
+        self.assertEqual(len(new_folder), 1, "There should only be one new folder created.")
         self.project_goats.with_context(no_create_folder=True).copy()
-        self.assertEqual(len(self.env['documents.folder'].search([('id', '>', last_folder_id + 1)])), 0, "There should be no new folder created.")
+        self.assertEqual(self.env['documents.document'].search_count(
+            [('type', '=', 'folder'), ('id', '>', new_folder.id)], limit=1),
+            0,
+            "There should be no new folder created."
+        )
 
     def test_propagate_document_name_task(self):
         """
         This test will check that the document's name and partner fields are propagated to its tasks on creation
         """
         test_partner = self.env['res.partner'].create({'name': 'TestPartner'})
-        self.attachment_txt.write({'partner_id': test_partner.id})
+        self.document_txt.write({'partner_id': test_partner.id})
+        self.document_txt.action_create_project_task()
 
-        self.workflow_rule_task.apply_actions([self.attachment_txt.id])
+        task = self.env['project.task'].browse(self.document_txt.res_id)
 
-        task = self.env['project.task'].browse(self.attachment_txt.res_id)
-
-        self.assertEqual(task.name, self.attachment_txt.name, "The task's name and the document's name should be the same")
-        self.assertEqual(task.partner_id, self.attachment_txt.partner_id, "The task's partner and the document's partner should be the same")
+        self.assertEqual(task.name, self.document_txt.name, "The task's name and the document's name should be the same")
+        self.assertEqual(task.partner_id, self.document_txt.partner_id, "The task's partner and the document's partner should be the same")
 
     @users('proj_admin')
     def test_rename_project(self):

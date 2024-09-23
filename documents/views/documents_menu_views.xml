@@ -22,10 +22,10 @@
         action="configuration_action"
         groups="base.group_system"
         sequence="10"/>
-    <menuitem name="Shares &amp; Emails"
-        id="documents.share_menu"
+    <menuitem name="Email Aliases"
+        id="documents.mail_alias_menu"
         parent="documents.Config"
-        action="share_action"
+        action="mail_alias_action"
         groups="documents.group_documents_manager"
         sequence="30"/>
 
@@ -35,21 +35,11 @@
         groups="documents.group_documents_manager"
         sequence="40"/>
 
-    <menuitem name="Workspaces"
-        id="documents.folder_menu"
-        parent="documents.structure"
-        action="folder_action"
-        sequence="10"/>
     <menuitem name="Tags"
         id="documents.category_menu"
         parent="documents.structure"
-        action="facet_action"
-        sequence="20"/>
-    <menuitem name="Actions"
-        id="documents.workflow_rules_menu"
-        parent="documents.structure"
-        action="workflow_rule_action"
-        sequence="30"/>
+        action="tag_action"
+        sequence="10"/>
 
     <menuitem name="Activities"
         id="documents.mail_activities"

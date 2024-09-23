@@ -6,7 +6,7 @@ export class ExitSplitToolsDialog extends Component {
     static components = { Dialog };
     static props = {
         close: Function,
-        isRuleApplied: Boolean,
+        isEmbeddedActionApplied: Boolean,
         onDeleteRemainingPages: Function,
         onGatherRemainingPages: Function,
     };

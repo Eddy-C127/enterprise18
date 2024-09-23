@@ -1,120 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-    <record id="folder_view_search" model="ir.ui.view">
-        <field name="name">Workspace search</field>
-        <field name="model">documents.folder</field>
+    <record id="document_view_form_new_folder" model="ir.ui.view">
+        <field name="name">New Folder form</field>
+        <field name="model">documents.document</field>
         <field name="arch" type="xml">
-        <search>
-            <field name="name"/>
-            <field name="active"/>
-            <field name="parent_folder_id"/>
-            <filter string="Parent Workspace" name="by_parent" domain="[]" context="{'group_by': 'parent_folder_id'}"/>
-            <filter string="Moved To Trash" name="archived_workspace_filter" domain="[('active', '=', False)]"/>
-         </search>
-        </field>
-    </record>
-
-    <record id="folder_view_tree" model="ir.ui.view">
-        <field name="name">Workspace.list</field>
-        <field name="model">documents.folder</field>
-        <field name="arch" type="xml">
-            <list string="Workspaces" js_class="folder_list">
-                <field name="sequence" widget="handle"/>
-                <field name="display_name" string="Workspace"/>
-                <field name="active" column_invisible="True"/>
-                <field name="facet_ids"  widget="many2many_tags" string="Tag Categories" optional="hide"/>
-                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
-                <field name="group_ids" widget="many2many_tags" optional="hide"/>
-                <field name="read_group_ids" widget="many2many_tags" optional="hide"/>
-            </list>
-        </field>
-    </record>
-
-    <record id="folder_view_form" model="ir.ui.view">
-        <field name="name">Workspace form</field>
-        <field name="model">documents.folder</field>
-        <field name="arch" type="xml">
-            <form js_class="folder_form">
+            <form>
+                <field name="type" invisible="1" force_save="1"/>  <!-- save that we're creating a folder -->
                 <field name="active" string="Active" invisible="1"/>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="action_see_actions" type="object" class="oe_stat_button" icon="fa-gears">
-                            <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_value"><field name="action_count"/></span>
-                                <span class="o_stat_text">Actions</span>
-                            </div>
-                        </button>
-                        <button name="action_see_documents" type="object" class="oe_stat_button" icon="fa-file-text-o" invisible="document_count == 0">
-                            <div class="o_field_widget o_stat_info">
-                                <span class="o_stat_value"><field name="document_count"/></span>
-                                <span class="o_stat_text">Documents</span>
-                            </div>
-                        </button>
-                    </div>
                     <div class="oe_title">
                         <label for="name" class="Workspace Name"/>
-                        <h1><field name="name" placeholder="e.g. Finance" options="{'line_breaks': False}" widget="text"/></h1>
+                        <h1><field name="name" placeholder="e.g. Finance" options="{'line_breaks': False}" widget="text" readonly="False"/></h1>
                     </div>
-                    <group>
-                        <group>
-                            <field name="parent_folder_id" domain="[('id', '!=', id)]"/>
-                        </group>
-                        <group>
-                            <field name="company_id" groups="base.group_multi_company"/>
-                        </group>
-                    </group>
-                    <notebook>
-                        <page string="Tags" name="tags">
-                            <field name="facet_ids" context="{
-                                'form_view_ref' : 'documents.facet_view_form',
-                                'documents_view_from_folder' : True,
-                                'default_folder_id' : id,
-                                'simple_name': True
-                            }">
-                                <list>
-                                    <field name="sequence" widget="handle"/>
-                                    <field name="name" string="Category"/>
-                                    <field name="tag_ids"
-                                           string="Tags"
-                                           domain="[('facet_id', '=' , id)]"
-                                           context="{'default_facet_id' : id}"
-                                           options="{'no_create_edit': True}"
-                                           widget="many2many_tags"/>
-                                </list>
-                            </field>
-                        </page>
-                        <page string="Access Rights" name="access_rights">
-                            <group>
-                                <group string="Write Access">
-                                    <field name="group_ids" widget="many2many_tags"/>
-                                    <field name="user_specific_write" string="Own Documents Only"
-                                        invisible="not user_specific or not group_ids"/>
-                                </group>
-                                <group string="Read Access">
-                                    <field name="read_group_ids" widget="many2many_tags"/>
-                                    <field name="user_specific" invisible="not read_group_ids"/>
-                                </group>
-                            </group>
-                        </page>
-                        <page string="Description" name="description">
-                            <field name="description" widget="html"/>
-                        </page>
-                    </notebook>
                 </sheet>
-                <footer class="justify-content-between">
-                    <div class="btn-group">
-                        <button class="btn btn-primary me-2 rounded w-auto" special="save" data-hotkey="q">Save</button>
-                        <button class="btn btn-secondary rounded w-auto" special="cancel" data-hotkey="x">Discard</button>
-                    </div>
-                    <button invisible="not id" class="btn btn-outline-danger text-uppercase rounded w-auto" type="object" name="action_delete_folder" data-hotkey="d">Delete</button>
-                </footer>
             </form>
         </field>
     </record>
 
     <record id="folder_deletion_form" model="ir.ui.view">
         <field name="name">Folder Deletion</field>
-        <field name="model">documents.folder</field>
+        <field name="model">documents.document</field>
         <field name="priority">20</field>
         <field name="arch" type="xml">
             <form>
@@ -129,20 +34,16 @@
         </field>
     </record>
 
-    <record id="folder_action" model="ir.actions.act_window">
-            <field name="name">Workspaces</field>
-            <field name="res_model">documents.folder</field>
-            <field name="view_mode">list,form</field>
-          <field name="view_ids" eval="[(5, 0, 0),
-              (0, 0, {'view_mode': 'list', 'view_id': ref('documents.folder_view_tree')}),
-              (0, 0, {'view_mode': 'form', 'view_id': ref('documents.folder_view_form')})]"/>
-      </record>
-
-    <record id="action_workspace_form" model="ir.actions.act_window">
-        <field name="name">Add Workspace</field>
-        <field name="res_model">documents.folder</field>
+    <record id="action_folder_form" model="ir.actions.act_window">
+        <field name="name">Add Folder</field>
+        <field name="res_model">documents.document</field>
         <field name="view_mode">form</field>
-        <field name="context">{'form_view_ref': 'documents.folder_view_form'}</field>
+        <field name="context">{
+            'form_view_ref': 'documents.document_view_form_new_folder',
+            'default_type': 'folder',
+            'dialog_size': 'medium',
+        }</field>
+        <field name="domain">[("type", "=", "folder")]</field>
         <field name="target">new</field>
     </record>
 </odoo>

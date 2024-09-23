@@ -13,12 +13,13 @@ patch(MockServer.prototype, {
      * @private
      */
     async _performRPC(route, args) {
-        if (
+        // TODO: since sharepocalypse, maybe useless, maybe change for /documents/thumbnail
+        /*if (
             route.indexOf("/documents/image") >= 0 ||
             [".png", ".jpg"].includes(route.substr(route.length - 4))
         ) {
             return Promise.resolve();
-        }
+        }*/
         if (args.method === "get_deletion_delay") {
             return 30;
         }

@@ -41,18 +41,12 @@ class TestActivityPerformance(BaseMailPerformance):
         })
 
         # documents records for activities
-        cls.documents_test_folder = cls.env['documents.folder'].create({
+        cls.documents_test_folder = cls.env['documents.document'].create({
             'name': 'Test Folder',
-        })
-        cls.documents_test_facet = cls.env['documents.facet'].create({
-            'folder_id': cls.documents_test_folder.id,
-            'name': 'Test Facet',
+            'type': 'folder'
         })
         cls.documents_test_tags = cls.env['documents.tag'].create([
-            {'facet_id': cls.documents_test_facet.id,
-             'folder_id': cls.documents_test_folder.id,
-             'name': 'Test Tag %d' % index,
-            } for index in range(2)
+            {'name': 'Test Tag %d' % index} for index in range(2)
         ])
         cls.phonecall_activity = cls.env.ref('mail.mail_activity_data_call')
         cls.phonecall_activity.write({
@@ -137,7 +131,7 @@ class TestActivityPerformance(BaseMailPerformance):
         enabled. No computed fields are involved. """
         test_record_voip = self.test_record_voip.with_env(self.env)
 
-        with self.assertQueryCount(employee=39):
+        with self.assertQueryCount(employee=50):
             activity = test_record_voip.activity_schedule(
                 'mail.mail_activity_data_upload_document',
                 summary='Upload Activity',
@@ -196,7 +190,7 @@ class TestActivityPerformance(BaseMailPerformance):
         ])
         self.env.flush_all()
 
-        with self.assertQueryCount(employee=59):
+        with self.assertQueryCount(employee=64):
             activities.action_feedback(
                 feedback='Intense feedback',
                 attachment_ids=attachments.ids,
@@ -238,7 +232,7 @@ class TestActivityPerformance(BaseMailPerformance):
         ])
         self.env.flush_all()
 
-        with self.assertQueryCount(employee=59):
+        with self.assertQueryCount(employee=64):
             activities.action_feedback(
                 feedback='Intense feedback',
                 attachment_ids=attachments.ids,

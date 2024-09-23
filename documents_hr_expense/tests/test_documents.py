@@ -3,13 +3,14 @@
 import base64
 from odoo import Command
 from odoo.tests.common import TransactionCase
-
+from odoo.tools import mute_logger
 
 TEXT = base64.b64encode(bytes("workflow bridge project", 'utf-8'))
 
 
 class TestCaseDocumentsBridgeExpense(TransactionCase):
 
+    @mute_logger('odoo.addons.documents.models.documents_document')
     def test_create_document_to_expense(self):
         """
         Makes sure the hr expense is created from the document.
@@ -22,7 +23,8 @@ class TestCaseDocumentsBridgeExpense(TransactionCase):
             - Check the res_model of the document
 
         """
-        folder_internal = self.env.ref('documents.documents_internal_folder')
+        folder_internal = self.env.ref('documents.document_internal_folder')
+        folder_internal.action_update_access_rights(access_internal='edit')
 
         documents_user = self.env['res.users'].create({
             'name': "aaadocuments test basic user",
@@ -30,23 +32,16 @@ class TestCaseDocumentsBridgeExpense(TransactionCase):
             'email': "aadtbu@yourcompany.com",
             'groups_id': [Command.set([self.env.ref('documents.group_documents_user').id])],
         })
-        documents_user.action_create_employee() # Employee is mandatory in expense so i create
-
+        documents_user.action_create_employee()  # Employee is mandatory in expense
         attachment_txt = self.env['documents.document'].with_user(documents_user).create({
-            'datas': TEXT,
-            'name': 'file.txt',
-            'mimetype': 'text/plain',
+            'datas': 'JVBERi0gRmFrZSBQREYgY29udGVudA==',
+            'name': 'file.pdf',
+            'mimetype': 'application/pdf',
             'folder_id': folder_internal.id,
         })
 
-        workflow_rule_expense = self.env['documents.workflow.rule'].create({
-            'domain_folder_id': folder_internal.id,
-            'name': 'workflow rule create expenses',
-            'create_model': 'hr.expense',
-        })
-
         self.assertEqual(attachment_txt.res_model, 'documents.document', "The default res model of an attachment is documents.document.")
-        workflow_rule_expense.with_user(documents_user).apply_actions([attachment_txt.id])
+        attachment_txt.with_user(documents_user).document_hr_expense_create_hr_expense()
         self.assertEqual(attachment_txt.res_model, 'hr.expense', "The attachment model is updated.")
         expense = self.env['hr.expense'].search([('id', '=', attachment_txt.res_id)])
         self.assertTrue(expense.exists(), 'expense sholud be created.')

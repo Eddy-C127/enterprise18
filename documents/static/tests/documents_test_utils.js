@@ -18,9 +18,7 @@ import { fileUploadService } from "@web/core/file_upload/file_upload_service";
 export function getEnrichedSearchArch(searchArch='<search></search>') {
     var searchPanelArch = `
         <searchpanel class="o_documents_search_panel">
-            <field name="folder_id" string="Workspace" enable_counters="1"/>
-            <field name="tag_ids" select="multi" groupby="facet_id" enable_counters="1"/>
-            <field name="res_model" select="multi" string="Attached To" enable_counters="1"/>
+            <field name="folder_id" string="Folders"/>
         </searchpanel>
     `;
     return searchArch.split('</search>')[0] + searchPanelArch + '</search>';

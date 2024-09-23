@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { Component, useEffect, useState } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
 
 export class DocumentsDropZone extends Component {
     static template = "documents.DocumentsDropZone";
@@ -13,6 +14,7 @@ export class DocumentsDropZone extends Component {
             dragOver: false,
             topOffset: 0,
         });
+        this.documentService = useService("document.document");
         useEffect(
             (el) => {
                 if (!el) {
@@ -42,8 +44,7 @@ export class DocumentsDropZone extends Component {
     }
 
     get canDrop() {
-        const selectedFolder = this.env.searchModel.getSelectedFolder();
-        return selectedFolder && selectedFolder.has_write_access && selectedFolder.id !== 'TRASH';
+        return this.documentService.canUploadInFolder(this.env.searchModel.getSelectedFolder());
     }
 
     get rootDropOverClass() {
@@ -82,9 +83,7 @@ export class DocumentsDropZone extends Component {
         if (this.canDrop) {
             this.env.documentsView.bus.trigger("documents-upload-files", {
                 files: ev.dataTransfer.files,
-                folderId: this.env.searchModel.getSelectedFolderId(),
-                recordId: false,
-                tagIds: this.env.searchModel.getSelectedTagIds(),
+                accessToken: this.documentService.currentFolderAccessToken,
             });
         }
     }

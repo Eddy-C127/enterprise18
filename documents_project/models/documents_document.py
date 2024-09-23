@@ -1,79 +1,23 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from collections import OrderedDict
+from markupsafe import Markup, escape
 
-from odoo import _, api, fields, models
+from odoo import Command, fields, models, _
+from odoo import api
 from odoo.exceptions import UserError, ValidationError
+from odoo.osv import expression
 from odoo.tools import SQL
 
 
 class Document(models.Model):
     _inherit = 'documents.document'
 
-    is_shared = fields.Boolean(compute='_compute_is_shared', search='_search_is_shared', export_string_translation=False)
     project_id = fields.Many2one('project.project', compute='_compute_project_id', search='_search_project_id', export_string_translation=False)
     task_id = fields.Many2one('project.task', compute='_compute_task_id', search='_search_task_id', export_string_translation=False)
 
-    def _compute_is_shared(self):
-        search_domain = [
-            '&',
-                '|',
-                    ('date_deadline', '=', False),
-                    ('date_deadline', '>', fields.Date.today()),
-                '&',
-                    ('type', '=', 'ids'),
-                    ('document_ids', 'in', self.ids),
-        ]
-
-        doc_share_read_group = self.env['documents.share']._read_group(
-            search_domain,
-            ['document_ids'],
-            ['__count'],
-        )
-        doc_share_count_per_doc_id = {document.id: count for document, count in doc_share_read_group}
-
-        for document in self:
-            document.is_shared = doc_share_count_per_doc_id.get(document.id) or document.folder_id.is_shared
-
-    @api.model
-    def _search_is_shared(self, operator, value):
-        if operator not in ('=', '!=') or not isinstance(value, bool):
-            raise UserError(_(
-                "The search does not support operator %(operator)s or value %(value)s.",
-                operator=operator,
-                value=value,
-            ))
-
-        share_links = self.env['documents.share'].search_read(
-            ['|', ('date_deadline', '=', False), ('date_deadline', '>', fields.Date.today())],
-            ['document_ids', 'folder_id', 'include_sub_folders', 'type'],
-        )
-
-        shared_folder_ids = set()
-        shared_folder_with_descendants_ids = set()
-        shared_document_ids = set()
-
-        for link in share_links:
-            if link['type'] == 'domain':
-                if link['include_sub_folders']:
-                    shared_folder_with_descendants_ids.add(link['folder_id'][0])
-                else:
-                    shared_folder_ids.add(link['folder_id'][0])
-            else:
-                shared_document_ids |= set(link['document_ids'])
-
-        domain = [
-            '|',
-                '|',
-                    ('folder_id', 'in', list(shared_folder_ids)),
-                    ('folder_id', 'child_of', list(shared_folder_with_descendants_ids)),
-                ('id', 'in', list(shared_document_ids)),
-        ]
-
-        if (operator == '=') ^ value:
-            domain.insert(0, '!')
-        return domain
+    # for folders
+    project_ids = fields.One2many('project.project', 'documents_folder_id', string="Projects")
 
     @api.depends('res_id', 'res_model')
     def _compute_project_id(self):
@@ -121,6 +65,32 @@ class Document(models.Model):
         else:
             raise ValidationError(_("Invalid project search"))
 
+    def _prepare_create_values(self, vals_list):
+        vals_list = super()._prepare_create_values(vals_list)
+        folder_ids = {folder_id for v in vals_list if (folder_id := v.get('folder_id')) and not v.get('res_id')}
+        folder_id_values = {
+            folder_id: self.browse(folder_id)._get_link_to_project_values()
+            for folder_id in folder_ids
+        }
+        for vals in vals_list:
+            if (folder_id := vals.get('folder_id')) and vals.get('type') != 'folder' and not vals.get('res_id'):
+                vals.update(folder_id_values[folder_id])
+        return vals_list
+
+    def _add_missing_default_values(self, values):
+        values = super()._add_missing_default_values(values)
+        if self.env.context.get('documents_project') and not values.get('folder_id'):
+            access_internal = values['access_internal'] or (
+                'edit' if self.env.context.get('privacy_visibility') != 'followers' else 'none')
+            values['folder_id'] = self.env.ref('documents_project.document_project_folder').id
+            values['access_internal'] = access_internal
+            values["children_ids"] = [Command.create({
+                "access_internal": access_internal,
+                "name": f'{values.get("name")} - {_("Shared")}',
+                "type": 'folder',
+            })]
+        return values
+
     @api.depends('res_id', 'res_model')
     def _compute_task_id(self):
         for record in self:
@@ -155,41 +125,142 @@ class Document(models.Model):
             raise ValidationError(_("Invalid task search"))
 
     @api.model
-    def search_panel_select_range(self, field_name, **kwargs):
-        if field_name != 'folder_id' or not self._context.get('limit_folders_to_project'):
-            return super().search_panel_select_range(field_name, **kwargs)
+    def _search_display_name(self, operator, value):
+        domain = super()._search_display_name(operator, value)
+        if (template_folder_id := self.env.context.get('project_documents_template_folder')) \
+                and [('type', '=', 'folder')] in domain:
+            domain = expression.AND([
+                domain,
+                ['!', ('id', 'child_of', template_folder_id)],
+            ])
+        return domain
 
-        res_model = self._context.get('active_model')
-        if res_model not in ('project.project', 'project.task'):
-            return super().search_panel_select_range(field_name, **kwargs)
+    @api.ondelete(at_uninstall=False)
+    def unlink_except_project_folder(self):
+        project_folder = self.env.ref('documents_project.document_project_folder')
+        if project_folder in self:
+            raise UserError(_('The "%s" folder is required by the Project application and cannot be deleted.', project_folder.name))
 
-        res_id = self._context.get('active_id')
-        fields = ['display_name', 'description', 'parent_folder_id', 'has_write_access']
+    @api.constrains('company_id')
+    def _check_no_company_on_projects_folder(self):
+        if not self.company_id:
+            return
+        projects_folder = self.env.ref('documents_project.document_project_folder')
+        if projects_folder in self:
+            raise UserError(_("You cannot set a company on the %s folder.", projects_folder.name))
 
-        active_record = self.env[res_model].browse(res_id)
-        if not active_record.exists():
-            return super().search_panel_select_range(field_name, **kwargs)
-        project = active_record if res_model == 'project.project' else active_record.sudo().project_id
+    @api.constrains('company_id')
+    def _check_company_is_projects_company(self):
+        for folder in self.filtered(lambda d: d.type == 'folder'):
+            if folder.project_ids and folder.project_ids.company_id:
+                different_company_projects = folder.project_ids.filtered(lambda project: project.company_id != self.company_id)
+                if not different_company_projects:
+                    continue
+                if len(different_company_projects) == 1:
+                    project = different_company_projects[0]
+                    message = _('This folder should remain in the same company as the "%(project)s" project to which it is linked. Please update the company of the "%(project)s" project, or leave the company of this workspace empty.', project=project.name)
+                else:
+                    lines = [f"- {project.name}" for project in different_company_projects]
+                    message = _('This folder should remain in the same company as the following projects to which it is linked:\n%s\n\nPlease update the company of those projects, or leave the company of this workspace empty.', '\n'.join(lines))
+                raise UserError(message)
 
-        document_read_group = self.env['documents.document']._read_group(kwargs.get('search_domain', []), [], ['folder_id:array_agg'])
-        folder_ids = document_read_group[0][0]
-        records = self.env['documents.folder'].with_context(hierarchical_naming=False).search_read([
-            '|',
-                ('id', 'child_of', project.documents_folder_id.id),
-                ('id', 'in', folder_ids),
-        ], fields)
-        available_folder_ids = set(record['id'] for record in records)
+    def action_move_documents(self, folder_id):
+        res = super().action_move_documents(folder_id)
+        if not self.folder_id:
+            return res
+        if unlinked_documents := self.filtered(
+            lambda d: d.res_model in ['documents.document', False] and d.res_id in [False, d.id]
+        ):
+            values = self.folder_id._get_link_to_project_values()
+            unlinked_documents.write(values)
+        return res
 
-        values_range = OrderedDict()
-        for record in records:
-            record_id = record['id']
-            if record['parent_folder_id'] and record['parent_folder_id'][0] not in available_folder_ids:
-                record['parent_folder_id'] = False
-            value = record['parent_folder_id']
-            record['parent_folder_id'] = value and value[0]
-            values_range[record_id] = record
+    def action_create_project_task(self):
+        if not self.ids:
+            return
+        if any(document.type == 'folder' for document in self):
+            raise UserError(_('You cannot create a task from a folder.'))
+        deprecated_tag = self.env.ref('documents.documents_tag_deprecated', raise_if_not_found=False)
+        if deprecated_tag and deprecated_tag in self.tag_ids:
+            raise (_("Impossible to create a task on a deprecated document"))
 
-        return {
-            'parent_field': 'parent_folder_id',
-            'values': list(values_range.values()),
+        if self.res_model == 'project.task':
+            raise UserError(_("Documents already linked to a task."))
+        project = self._get_project_from_closest_ancestor() if len(self.folder_id) == 1 else self.env['project.project']
+        new_obj = self.env['project.task'].create({
+            'name': " / ".join(self.mapped('name')) or _("New task from Documents"),
+            'user_ids': [Command.set(self.env.user.ids)],
+            'partner_id': self.partner_id.id if len(self.partner_id) == 1 else False,
+            'project_id': project.id,
+        })
+        task_action = {
+            'type': 'ir.actions.act_window',
+            'res_model': 'project.task',
+            'res_id': new_obj.id,
+            'name': _("new %(model)s from %(new_record)s", model='project.task', new_record=new_obj.name),
+            'view_mode': 'form',
+            'views': [(False, "form")],
+            'context': self._context,
         }
+        if len(self) == 1:
+            document_msg = _('Task created from document %s', self._get_html_link())
+        else:
+            document_msg = escape(_('Task created from documents'))
+            document_msg += Markup("<ul>%s</ul>") % Markup().join(Markup("<li>%s</li>") % document._get_html_link()
+                                                                  for document in self)
+        for document in self:
+            this_document = document
+            if (document.res_model or document.res_id) and document.res_model != 'documents.document' \
+                    and not (project and document.res_model == 'project.project' and document.res_id == project.id):
+                this_document = document.copy()
+                attachment_id_copy = document.attachment_id.with_context(no_document=True).copy()
+                this_document.write({'attachment_id': attachment_id_copy.id})
+
+            # the 'no_document' key in the context indicates that this ir_attachment has already a
+            # documents.document and a new document shouldn't be automatically generated.
+            this_document.attachment_id.with_context(no_document=True).write({
+                'res_model': 'project.task',
+                'res_id': new_obj.id
+            })
+        new_obj.message_post(body=document_msg)
+        return task_action
+
+    def _get_link_to_project_values(self):
+        self.ensure_one()
+        values = {}
+        if project := self._get_project_from_closest_ancestor():
+            if self.type == 'folder' and not self.shortcut_document_id:
+                values.update({
+                    'res_model': 'project.project',
+                    'res_id': project.id,
+                })
+                if project.partner_id and not self.partner_id.id:
+                    values['partner_id'] = project.partner_id.id
+        return values
+
+    def _get_project_from_closest_ancestor(self):
+        """
+        If the current folder is linked to exactly one project, this method returns
+        that project.
+
+        If the current folder doesn't match the criteria, but one of its ancestors
+        does, this method will return the project linked to the closest ancestor
+        matching the criteria.
+
+        :return: The project linked to the closest valid ancestor, or an empty
+        recordset if no project is found.
+        """
+        self.ensure_one()
+        eligible_projects = self.env['project.project'].sudo()._read_group(
+            [('documents_folder_id', 'parent_of', self.id)],
+            ['documents_folder_id'],
+            having=[('__count', '=', 1)],
+        )
+        if not eligible_projects:
+            return self.env['project.project']
+
+        # dict {folder_id: position}, where position is a value used to sort projects by their folder_id
+        folder_id_order = {int(folder_id): i for i, folder_id in enumerate(reversed(self.parent_path[:-1].split('/')))}
+        eligible_projects.sort(key=lambda project_group: folder_id_order[project_group[0].id])
+        return self.env['project.project'].sudo().search(
+            [('documents_folder_id', '=', eligible_projects[0][0].id)], limit=1).sudo(False)

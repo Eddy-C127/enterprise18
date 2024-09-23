@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models
 
@@ -21,7 +21,7 @@ class AccountMove(models.Model):
             domain=[('res_model', '=', self._name), ('res_id', 'in', self.ids)],
             groupby=['res_id'],
         )
-        has_documents_ids = [r[0] for r in result]
+        has_documents_ids = {r[0] for r in result}
         for move in self:
             move.has_documents = move.id in has_documents_ids
 
@@ -95,15 +95,15 @@ class AccountMove(models.Model):
                     'owner_id': self.create_uid.id,
                     'tag_ids': [(4, tag.id) for tag in setting.tag_ids],
                 }
-                Documents = self.env['documents.document'].with_context(default_type='empty').sudo()
-                doc = Documents.search([('attachment_id', '=', attachment_id)], limit=1)
-                if doc:
-                    doc.write(values)
+                Documents_sudo = self.env['documents.document'].sudo()
+                doc_sudo = Documents_sudo.search([('attachment_id', '=', attachment_id)], limit=1)
+                if doc_sudo:
+                    doc_sudo.write(values)
                 else:
                     # backward compatibility with documents that may be not
                     # registered as attachments yet
                     values.update({'attachment_id': attachment_id})
-                    doc.create(values)
+                    doc_sudo.create(values)
 
     def _sync_partner_on_document(self):
         for move in self:

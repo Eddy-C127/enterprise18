@@ -19,6 +19,9 @@ export class FileViewer extends WebFileViewer {
             ) {
                 this.activateFile(indexOfFileToPreview);
             }
+            this.documentService.setPreviewedDocument(
+                this.documentService.documentList.documents[nextProps.startIndex]
+            );
         });
     }
     get hasSplitPdf() {
@@ -50,10 +53,15 @@ export class FileViewer extends WebFileViewer {
     }
     close() {
         this.documentService.documentList?.onDeleteCallback();
+        this.documentService.setPreviewedDocument(null);
         super.close();
     }
     next() {
         super.next();
+        this.documentService.setPreviewedDocument(
+            this.documentService.documentList.documents[this.state.index]
+        );
+
         if (this.onSelectDocument) {
             const documentList = this.documentService.documentList;
             if (
@@ -74,6 +82,10 @@ export class FileViewer extends WebFileViewer {
     }
     previous() {
         super.previous();
+        this.documentService.setPreviewedDocument(
+            this.documentService.documentList.documents[this.state.index]
+        );
+
         if (this.onSelectDocument) {
             const documentList = this.documentService.documentList;
             if (

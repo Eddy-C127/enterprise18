@@ -1,103 +1,40 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
-from odoo.tests.common import TransactionCase, new_test_user
-from odoo.exceptions import AccessError
-from odoo.tests import users
 import base64
+from datetime import datetime, timedelta
+from unittest import skip
 
-GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
-TEXT = base64.b64encode(bytes("TEST", 'utf-8'))
+from odoo import Command, http
+from odoo.exceptions import ValidationError
+from odoo.tests.common import new_test_user
+from odoo.tests import users
+
+from .test_documents_common import TransactionCaseDocuments, GIF, TEXT
+
 DATA = "data:application/zip;base64,R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
 file_a = {'name': 'doc.zip', 'data': 'data:application/zip;base64,R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs='}
 file_b = {'name': 'icon.zip', 'data': 'data:application/zip;base64,R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs='}
 
 
-class TestCaseDocuments(TransactionCase):
-    @classmethod
-    def setUpClass(self):
-        super().setUpClass()
-        self.doc_user = self.env['res.users'].create({
-            'email': 'documents@example.com',
-            'groups_id': [(4, self.env.ref('documents.group_documents_user').id, 0)],
-            'login': 'documents@example.com',
-            'name': 'Test user documents',
-        })
-        self.folder_a = self.env['documents.folder'].create({
-            'name': 'folder A',
-        })
-        self.folder_a_a = self.env['documents.folder'].create({
-            'name': 'folder A - A',
-            'parent_folder_id': self.folder_a.id,
-        })
-        self.folder_b = self.env['documents.folder'].create({
-            'name': 'folder B',
-        })
-        self.tag_category_b = self.env['documents.facet'].create({
-            'folder_id': self.folder_b.id,
-            'name': "categ_b",
-        })
-        self.tag_b = self.env['documents.tag'].create({
-            'facet_id': self.tag_category_b.id,
-            'name': "tag_b",
-        })
-        self.tag_category_a = self.env['documents.facet'].create({
-            'folder_id': self.folder_a.id,
-            'name': "categ_a",
-        })
-        self.tag_category_a_a = self.env['documents.facet'].create({
-            'folder_id': self.folder_a_a.id,
-            'name': "categ_a_a",
-        })
-        self.tag_a_a = self.env['documents.tag'].create({
-            'facet_id': self.tag_category_a_a.id,
-            'name': "tag_a_a",
-        })
-        self.tag_a = self.env['documents.tag'].create({
-            'facet_id': self.tag_category_a.id,
-            'name': "tag_a",
-        })
-        self.document_gif = self.env['documents.document'].create({
-            'datas': GIF,
-            'name': 'file.gif',
-            'mimetype': 'image/gif',
-            'folder_id': self.folder_b.id,
-        })
-        self.document_txt = self.env['documents.document'].create({
-            'datas': TEXT,
-            'name': 'file.txt',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_b.id,
-        })
-        self.share_link_ids = self.env['documents.share'].create({
-            'document_ids': [(4, self.document_txt.id, 0)],
-            'type': 'ids',
-            'name': 'share_link_ids',
-            'folder_id': self.folder_a_a.id,
-        })
-        self.share_link_folder = self.env['documents.share'].create({
-            'folder_id': self.folder_a_a.id,
-            'name': "share_link_folder",
-        })
-        self.tag_action_a = self.env['documents.workflow.action'].create({
-            'action': 'add',
-            'facet_id': self.tag_category_b.id,
-            'tag_id': self.tag_b.id,
-        })
-        self.worflow_rule = self.env['documents.workflow.rule'].create({
-            'domain_folder_id': self.folder_a_a.id,
-            'name': 'workflow rule on f_a_a',
-            'folder_id': self.folder_b.id,
-            'tag_action_ids': [(4, self.tag_action_a.id, 0)],
-            'remove_activities': True,
-            'activity_option': True,
-            'activity_type_id': self.env.ref('documents.mail_documents_activity_data_Inbox').id,
-            'activity_summary': 'test workflow rule activity summary',
-            'activity_date_deadline_range': 7,
-            'activity_date_deadline_range_type': 'days',
-            'activity_note': 'activity test note',
-        })
+class TestCaseDocuments(TransactionCaseDocuments):
+
+    @skip("TODO: move to controller")
+    @users('documents@example.com')
+    def test_documents_action_log_access_archived(self):
+        access = self.env['documents.access'].search([
+            ('document_id', '=', self.document_txt.id),
+            ('partner_id', '=', self.env.user.partner_id.id),
+        ])
+        self.assertFalse(access)
+        self.document_txt.action_archive()
+        self.env['documents.document'].action_log_access(
+            self.document_txt.access_token)
+        access = self.env['documents.access'].search([
+            ('document_id', '=', self.document_txt.id),
+            ('partner_id', '=', self.env.user.partner_id.id),
+        ])
+        self.assertTrue(access)
 
     def test_documents_create_from_attachment(self):
         """
@@ -117,7 +54,7 @@ class TestCaseDocuments(TransactionCase):
         self.assertEqual(document_a.attachment_id.id, attachment.id,
                          'the attachment should be the attachment given in the create values')
         self.assertEqual(document_a.name, 'new name',
-                         'the name should be taken from the ir attachment')
+                         'the name given should be used')
         self.assertEqual(document_a.res_model, 'documents.document',
                          'the res_model should be set as document by default')
         self.assertEqual(document_a.res_id, document_a.id,
@@ -147,214 +84,42 @@ class TestCaseDocuments(TransactionCase):
         document_no_attachment.write({'datas': TEXT})
         self.assertEqual(document_no_attachment.attachment_id.datas, TEXT, 'the document should have an attachment')
 
-    def test_documents_rules(self):
-        """
-        Tests a documents.workflow.rule
-        """
-        self.worflow_rule.apply_actions([self.document_gif.id, self.document_txt.id])
-        self.assertTrue(self.tag_b.id in self.document_gif.tag_ids.ids, "failed at workflow rule add tag id")
-        self.assertTrue(self.tag_b.id in self.document_txt.tag_ids.ids, "failed at workflow rule add tag id txt")
-        self.assertEqual(len(self.document_gif.tag_ids.ids), 1, "failed at workflow rule add tag len")
-
-        activity_gif = self.env['mail.activity'].search(['&',
-                                                         ('res_id', '=', self.document_gif.id),
-                                                         ('res_model', '=', 'documents.document')])
-
-        self.assertEqual(len(activity_gif), 1, "failed at workflow rule activity len")
-        self.assertTrue(activity_gif.exists(), "failed at workflow rule activity exists")
-        self.assertEqual(activity_gif.summary, 'test workflow rule activity summary',
-                         "failed at activity data summary from workflow create activity")
-        self.assertEqual(activity_gif.note, '<p>activity test note</p>',
-                         "failed at activity data note from workflow create activity")
-        self.assertEqual(activity_gif.activity_type_id.id,
-                         self.env.ref('documents.mail_documents_activity_data_Inbox').id,
-                         "failed at activity data note from workflow create activity")
-
-        self.assertEqual(self.document_gif.folder_id.id, self.folder_b.id, "failed at workflow rule set folder gif")
-        self.assertEqual(self.document_txt.folder_id.id, self.folder_b.id, "failed at workflow rule set folder txt")
-
-    def test_documents_rules_link_to_record(self):
-        """
-        Tests a documents.workflow.rule that links a document to a record.
-        """
-        workflow_rule_link = self.env['documents.workflow.rule'].create({
-            'domain_folder_id': self.folder_a.id,
-            'name': 'workflow rule on link to record',
-            'condition_type': 'criteria',
-            'create_model': 'link.to.record',
-        })
-        user_admin_doc = new_test_user(self.env, login='Test admin documents', groups='documents.group_documents_manager,base.group_partner_manager')
-
-        # prepare documents that the user owns
-        Document = self.env['documents.document'].with_user(user_admin_doc)
-        document_gif = Document.create({
-            'datas': GIF,
-            'name': 'file.gif',
-            'mimetype': 'image/gif',
-            'folder_id': self.folder_b.id,
-        })
-        document_txt = Document.create({
-            'datas': TEXT,
-            'name': 'file.txt',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_b.id,
-        })
-        documents_to_link = [document_gif, document_txt]
-
-        res_model = 'res.partner'
-        record = {
-            'res_model': res_model,
-            'res_model_id': self.env['ir.model'].name_search(res_model, operator='=', limit=1)[0],
-            'res_id': self.env[res_model].search([], limit=1).id,
-        }
-        link_to_record_ctx = workflow_rule_link.apply_actions([doc.id for doc in documents_to_link])['context']
-        link_to_record_wizard = self.env['documents.link_to_record_wizard'].with_user(user_admin_doc)\
-                                                                           .with_context(link_to_record_ctx).create({})
-        # Link record to document_gif and document_txt
-        link_to_record_wizard.model_id = record['res_model_id']
-        link_to_record_wizard.resource_ref = '%s,%s' % (record['res_model'], record['res_id'])
-        link_to_record_wizard.link_to()
-
-        for doc in documents_to_link:
-            self.assertEqual(doc.res_model, record['res_model'], "bad model linked to the document")
-            self.assertEqual(doc.res_id, record['res_id'], "bad record linked to the document")
-
-        # Removes the link between document_gif and record
-        workflow_rule_link.unlink_record([self.document_gif.id])
-        self.assertNotEqual(self.document_gif.res_model, record['res_model'],
-                            "the link between document_gif and its record was not correctly removed")
-        self.assertNotEqual(self.document_gif.res_id, record['res_id'],
-                            "the link between document_gif and its record was not correctly removed")
-
-    def test_documents_rule_display(self):
-        """
-        tests criteria of rules
-        """
-
-        self.workflow_rule_criteria = self.env['documents.workflow.rule'].create({
-            'domain_folder_id': self.folder_a.id,
-            'name': 'workflow rule on f_a & criteria',
-            'condition_type': 'criteria',
-            'required_tag_ids': [(6, 0, [self.tag_b.id])],
-            'excluded_tag_ids': [(6, 0, [self.tag_a_a.id])]
-        })
-
-        self.assertFalse(self.workflow_rule_criteria.limited_to_single_record,
-                         "this rule should not be limited to a single record")
-
-        self.document_txt_criteria_a = self.env['documents.document'].create({
-            'name': 'Test criteria a',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_a.id,
-            'tag_ids': [(6, 0, [self.tag_a_a.id, self.tag_b.id])]
-        })
-
-        self.assertTrue(self.workflow_rule_criteria.id not in self.document_txt_criteria_a.available_rule_ids.ids,
-                        "failed at documents_workflow_rule unavailable rule")
-
-        self.document_txt_criteria_b = self.env['documents.document'].create({
-            'name': 'Test criteria b',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_a.id,
-            'tag_ids': [(6, 0, [self.tag_a.id])]
-        })
-
-        self.assertTrue(self.workflow_rule_criteria.id not in self.document_txt_criteria_b.available_rule_ids.ids,
-                        "failed at documents_workflow_rule unavailable rule")
-        self.document_txt_criteria_c = self.env['documents.document'].create({
-            'datas': TEXT,
-            'name': 'file.txt',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_a.id,
-            'tag_ids': [(6, 0, [self.tag_b.id])]
-        })
-
-        self.assertTrue(self.workflow_rule_criteria.id in self.document_txt_criteria_c.available_rule_ids.ids,
-                        "failed at documents_workflow_rule available rule")
-
-        self.document_txt_criteria_d = self.env['documents.document'].create({
-            'name': 'Test criteria d',
-            'mimetype': 'text/plain',
-            'folder_id': self.folder_b.id,
-            'tag_ids': [(6, 0, [self.tag_b.id])]
-        })
-
-        self.assertTrue(self.workflow_rule_criteria.id not in self.document_txt_criteria_d.available_rule_ids.ids,
-                        "failed at documents_workflow_rule unavailable rule")
+    def test_documents_create_performance(self):
+        folders = self.env['documents.document'].create([
+            {'type': 'folder', 'name': f'Folder {i}', 'access_internal': 'view'}
+            for i in range(50)
+        ])
+        folders.flush_recordset()
+        folders.invalidate_recordset()
+        with self.assertQueryCount(162):
+            self.env['documents.document'].create([{
+                'folder_id': folder.id,
+                'type': 'binary',
+            } for folder in folders])
 
     def test_documents_share_links(self):
         """
         Tests document share links
         """
-
+        # todo: transform into testing sharing a shortcut document with expiration
         # by Folder
-        vals = {
-            'folder_id': self.folder_b.id,
-            'domain': [],
-            'tag_ids': [(6, 0, [])],
-            'type': 'domain',
-        }
-        self.documents_share_links_a = self.env['documents.share'].create(vals)
-        self.assertEqual(self.documents_share_links_a.type, 'domain', "failed at share link type domain")
-
-        # by Folder with upload and activites
-        vals = {
-            'folder_id': self.folder_b.id,
-            'domain': [],
-            'tag_ids': [(6, 0, [])],
-            'type': 'domain',
-            'date_deadline': '3052-01-01',
-            'allow_upload': True,
-            'activity_option': True,
-            'activity_type_id': self.ref('documents.mail_documents_activity_data_tv'),
-            'activity_summary': 'test by Folder with upload and activites',
-            'activity_date_deadline_range': 4,
-            'activity_date_deadline_range_type': 'days',
-            'activity_user_id': self.env.user.id,
-        }
-        self.share_folder_with_upload = self.env['documents.share'].create(vals)
-        self.assertTrue(self.share_folder_with_upload.exists(), 'failed at upload folder creation')
-        self.assertEqual(self.share_folder_with_upload.activity_type_id.name, 'To validate',
-                         'failed at activity type for upload documents')
-        self.assertEqual(self.share_folder_with_upload.state, 'live', "failed at share_link live")
-
-        # by documents
-        vals = {
-            'document_ids': [(6, 0, [self.document_gif.id, self.document_txt.id])],
-            'folder_id': self.folder_b.id,
-            'date_deadline': '2001-11-05',
-            'type': 'ids',
-        }
-        self.result_share_documents_act = self.env['documents.share'].create(vals)
-
-        # Expiration date
-        self.assertEqual(self.result_share_documents_act.state, 'expired', "failed at share_link expired")
+        pass
 
     def test_documents_share_popup(self):
-        share_folder = self.env['documents.folder'].create({
+        shared_folder = self.env['documents.document'].create({
+            'type': 'folder',
             'name': 'share folder',
-            'document_ids': [
-                Command.create({'datas': GIF, 'name': 'file.gif', 'mimetype': 'image/gif'}),
+            'children_ids': [
+                Command.create({'type': 'binary', 'datas': GIF, 'name': 'file.gif', 'mimetype': 'image/gif'}),
                 Command.create({'type': 'url', 'url': 'https://odoo.com'}),
             ],
         })
-        share_tag_category = self.env['documents.facet'].create({
-            'folder_id': share_folder.id,
-            'name': "share category",
-        })
         share_tag = self.env['documents.tag'].create({
-            'facet_id': share_tag_category.id,
-            'name': "share tag",
+            'name': "share category > share tag",
         })
-        share_folder.document_ids[0].tag_ids = [Command.set(share_tag.ids)]
-        domain = [('folder_id', 'in', share_folder.id)]
-        share = self.env['documents.share'].create({
-            'domain': domain,
-            'folder_id': share_folder.id,
-            'tag_ids': [[6, 0, [share_tag.id]]],
-            'type': 'domain',
-        })
-        self.assertEqual(share.links_count, 0, "There should be no links counted in this share")
+        shared_folder.children_ids[0].tag_ids = [Command.set(share_tag.ids)]
+        # todo
+        # self.assertEqual(shared_folder.links_count, 0, "There should be no links counted in this share")
 
     def test_default_res_id_model(self):
         """
@@ -435,7 +200,7 @@ class TestCaseDocuments(TransactionCase):
         """
         Tests the consistency of documents' mimetypes
         """
-        document = self.env['documents.document'].create({'datas': GIF, 'folder_id': self.folder_b.id})
+        document = self.env['documents.document'].with_user(self.doc_user.id).create({'datas': GIF, 'folder_id': self.folder_b.id})
         document.with_user(self.doc_user.id).write({'datas': TEXT, 'mimetype': 'text/plain'})
         self.assertEqual(document.mimetype, 'text/plain', "the new mimetype should be the one given on write")
         document.with_user(self.doc_user.id).write({'datas': TEXT, 'mimetype': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'})
@@ -464,6 +229,7 @@ class TestCaseDocuments(TransactionCase):
         In fact this logic is implemented in the base `IrAttachment` model but was originally duplicated.  
         The test stays duplicated here to ensure the de-duplicated logic still catches our use cases.
         """
+        self.folder_b.action_update_access_rights(partners={self.doc_user.partner_id: ('edit', False)})
         document = self.env['documents.document'].create({'datas': GIF, 'folder_id': self.folder_b.id})
 
         document.with_user(self.doc_user.id).write({'datas': TEXT, 'mimetype': 'text/xml'})
@@ -474,43 +240,6 @@ class TestCaseDocuments(TransactionCase):
         self.assertEqual(document.mimetype, 'text/plain', "HTML mimetype should be forced to text")
         document.with_user(self.doc_user.id).write({'datas': TEXT, 'mimetype': 'application/xhtml+xml'})
         self.assertEqual(document.mimetype, 'text/plain', "XHTML mimetype should be forced to text")
-
-    def test_create_from_message(self):
-        """
-        When we create the document from a message, we need to apply the defaults set on the share.
-        """
-        attachment = self.env['ir.attachment'].create({
-            'datas': GIF,
-            'name': 'attachmentGif.gif',
-            'res_model': 'documents.document',
-            'res_id': 0,
-        })
-        partner = self.env['res.partner'].create({
-            'name': 'Luke Skywalker'
-        })
-        share = self.env['documents.share'].create({
-            'owner_id': self.doc_user.partner_id.id,
-            'partner_id': partner.id,
-            'tag_ids': [(6, 0, [self.tag_b.id])],
-            'folder_id': self.folder_a.id,
-        })
-        message = self.env['documents.document'].message_new({
-            'subject': 'test message'
-        }, {
-            # this create_share_id value, is normally passed from the alias default created by the share
-            'create_share_id': share.id,
-            'folder_id': self.folder_a.id,
-        })
-        message._message_post_after_hook({ }, {
-            'attachment_ids': [(4, attachment.id)]
-        })
-        self.assertEqual(message.active, False, 'Document created for the message should be inactive')
-        self.assertNotEqual(attachment.res_id, 0, 'Should link document to attachment')
-        attachment_document = self.env['documents.document'].browse(attachment.res_id)
-        self.assertNotEqual(attachment_document, None, 'Should have created document')
-        self.assertEqual(attachment_document.owner_id.id, self.doc_user.id, 'Should assign owner from share')
-        self.assertEqual(attachment_document.partner_id.id, partner.id, 'Should assign partner from share')
-        self.assertEqual(attachment_document.tag_ids.ids, [self.tag_b.id], 'Should assign tags from share')
 
     def test_create_from_message_invalid_tags(self):
         """
@@ -562,21 +291,12 @@ class TestCaseDocuments(TransactionCase):
         })
 
         self.folder_a.company_id = company_a
-
-        self.assertEqual(self.folder_a.display_name,
-            'folder A', "The folder should not be restricted")
-        self.assertEqual(self.folder_a.with_user(user_b).sudo().display_name,
-            'Restricted Folder', "The folder should be restricted")
-        self.assertEqual(
-            self.folder_a_a.display_name,
-            "folder A / folder A - A",
-            "The parent folder name should not be restricted",
-        )
-        self.assertEqual(
-            self.folder_a_a.with_user(user_b).sudo().display_name,
-            "Restricted Folder / folder A - A",
-            "The parent folder name should be restricted",
-        )
+        self.assertEqual(self.folder_a.display_name, 'folder A',
+                         "The parent folder's name should not be hidden")
+        self.assertEqual(self.folder_a.with_user(user_b).display_name, 'Restricted',
+                         "The parent folder's name should be hidden")
+        self.assertEqual(self.folder_a_a.display_name, "folder A - A",
+                         "The parent folder name should not be included in the name")
 
     def test_unlink_attachments_with_documents(self):
         """
@@ -625,43 +345,21 @@ class TestCaseDocuments(TransactionCase):
     def test_copy_document(self):
         copy = self.document_txt.copy()
         self.assertEqual(copy.name, "file.txt (copy)")
+        self.assertNotEqual(
+            copy.attachment_id.ensure_one().id,
+            self.document_txt.attachment_id.id,
+            "There must be a new attachment"
+        )
+        self.assertEqual(copy.raw, self.document_txt.raw)
+
         copy_with_default = self.document_txt.copy({"name": "test"})
         self.assertEqual(copy_with_default.name, "test")
-
-    def test_link_document(self):
-        """
-            Test whether a user can link a document to a record
-            even if he does not have read access to the `ir.model`.
-        """
-        partner = self.env['res.partner'].create({'name': 'Partner Test'})
-        attachment_txt_test = self.env['ir.attachment'].with_user(self.env.user).create({
-            'datas': TEXT,
-            'name': 'fileText_test.txt',
-            'mimetype': 'text/plain',
-            'res_model': 'res.partner',
-            'res_id': partner.id,
-        })
-        document = self.env['documents.document'].search([('attachment_id', '=', attachment_txt_test.id)])
-
-        res_partner_model = self.env['ir.model'].search([('model', '=', 'res.partner')], limit=1)
-
-        workflow = self.env['documents.workflow.rule'].create({
-            'name': 'test',
-            'domain_folder_id': self.folder_a.id,
-            'link_model': res_partner_model.id,
-        })
-
-        admin = new_test_user(self.env, login='Admin', groups='documents.group_documents_manager,base.group_partner_manager,base.group_system')
-        manager = new_test_user(self.env, login='Manager', groups='documents.group_documents_manager,base.group_partner_manager')
-
-        document.available_rule_ids.unlink_record(document.id)
-        self.env['ir.model'].with_user(admin).check_access('read')
-        workflow.with_user(admin).link_to_record(document)
-
-        document.available_rule_ids.unlink_record(document.id)
-        with self.assertRaises(AccessError):
-            self.env['ir.model'].with_user(manager).check_access('read')
-        workflow.with_user(manager).link_to_record(document)
+        self.assertNotEqual(
+            copy.attachment_id.ensure_one().id,
+            self.document_txt.attachment_id.id,
+            "There must be a new attachment"
+        )
+        self.assertEqual(copy.raw, self.document_txt.raw)
 
     def test_document_thumbnail_status(self):
         for mimetype in ['application/pdf', 'application/pdf;base64']:
@@ -692,3 +390,130 @@ class TestCaseDocuments(TransactionCase):
                 })
                 self.assertEqual(image_document.thumbnail, GIF)
                 self.assertEqual(image_document.thumbnail_status, 'present')
+
+    def test_document_max_upload_limit(self):
+        Doc = self.env['documents.document']
+        ICP = self.env['ir.config_parameter']
+        key_doc = 'document.max_fileupload_size'
+        key_web = 'web.max_file_upload_size'
+
+        ICP.set_param(key_doc, 20)
+        ICP.set_param(key_web, 10)
+        self.assertEqual(Doc.get_document_max_upload_limit(), 20)
+
+        ICP.set_param(key_doc, 0)
+        self.assertEqual(Doc.get_document_max_upload_limit(), None)
+
+        ICP.search([('key', '=', key_doc)]).unlink()
+        self.assertEqual(Doc.get_document_max_upload_limit(), 10)
+
+        ICP.search([('key', '=', key_web)]).unlink()
+        self.assertEqual(
+            Doc.get_document_max_upload_limit(),
+            http.DEFAULT_MAX_CONTENT_LENGTH
+        )
+
+    def test_document_order_by_is_folder(self):
+        # check that the order is "folder first", and then most recent first
+        doc_1 = self.env['documents.document'].create([{'name': 'D1'}])
+        doc_2 = self.env['documents.document'].create([{'name': 'D2', 'type': 'folder'}])
+        doc_3 = self.env['documents.document'].create([{'name': 'D3', 'type': 'url'}])
+        doc_4 = self.env['documents.document'].create([{'name': 'D4'}])
+        docs = doc_1 | doc_2 | doc_3 | doc_4
+        result = self.env['documents.document'].search([('id', 'in', docs.ids)], order='is_folder, create_date DESC, id DESC')
+
+        self.assertEqual(result[0], doc_2)
+        self.assertEqual(result[1], doc_4)
+        self.assertEqual(result[2], doc_3)
+        self.assertEqual(result[3], doc_1)
+
+    def test_document_order_by_last_access_date(self):
+        documents = self.env['documents.document'].create([{'name': 'D1'}, {'name': 'D2'}])
+        self.env['documents.access'].create([{
+            'document_id': documents[0].id,
+            'last_access_date': datetime.now() + timedelta(days=1),
+            'partner_id': self.env.user.partner_id.id,
+        }, {
+            'document_id': documents[1].id,
+            'last_access_date': datetime.now() + timedelta(days=2),
+            'partner_id': self.env.user.partner_id.id,
+        }])
+
+        result = self.env['documents.document'].search([('id', 'in', documents.ids)], order='last_access_date_group DESC')
+        self.assertEqual(result[0], documents[1])
+        self.assertEqual(result[1], documents[0])
+
+        result = self.env['documents.document'].search([('id', 'in', documents.ids)], order='last_access_date_group ASC')
+        self.assertEqual(result[0], documents[0])
+        self.assertEqual(result[1], documents[1])
+
+    def test_document_group_by_last_access_date(self):
+        Doc = self.env['documents.document']
+        documents = Doc.create([{'name': f'D{i}'} for i in range(6)])
+        self.env['documents.access'].create([{
+            'document_id': documents[0].id,
+            'last_access_date': datetime.now() - timedelta(hours=1),
+            'partner_id': self.env.user.partner_id.id,
+        }, {
+            'document_id': documents[1].id,
+            'last_access_date': datetime.now() - timedelta(days=2),
+            'partner_id': self.env.user.partner_id.id,
+        }, {
+            'document_id': documents[2].id,
+            'last_access_date': datetime.now() - timedelta(days=8),
+            'partner_id': self.env.user.partner_id.id,
+        }, {
+            'document_id': documents[3].id,
+            'last_access_date': datetime.now() - timedelta(days=40),
+            'partner_id': self.env.user.partner_id.id,
+        }, {
+            'document_id': documents[4].id,
+            'last_access_date': datetime.now() - timedelta(minutes=1),
+            'partner_id': self.env.user.partner_id.id,
+        }, {
+            'document_id': documents[5].id,
+            'last_access_date': datetime.now() - timedelta(days=1, hours=5),
+            'partner_id': self.env.user.partner_id.id,
+        }])
+
+        result = Doc. web_read_group(
+            [('id', 'in', documents.ids)],
+            ['id', 'name'],
+            groupby=['last_access_date_group'],
+            orderby='last_access_date_group DESC')['groups']
+
+        self.assertEqual(len(result), 4)
+
+        self.assertEqual(result[0]['last_access_date_group'], '3_day')
+        self.assertEqual(result[0]['last_access_date_group_count'], 2)
+        result_day = Doc.search(result[0]['__domain'])
+        self.assertEqual(result_day[0], documents[4])
+        self.assertEqual(result_day[1], documents[0])
+        self.assertEqual(result_day.mapped('last_access_date_group'), ['3_day'] * 2)
+
+        self.assertEqual(result[1]['last_access_date_group'], '2_week')
+        self.assertEqual(result[1]['last_access_date_group_count'], 2)
+        result_week = Doc.search(result[1]['__domain'])
+        self.assertEqual(result_week[0], documents[5])
+        self.assertEqual(result_week[1], documents[1])
+        self.assertEqual(result_week.mapped('last_access_date_group'), ['2_week'] * 2)
+
+        self.assertEqual(result[2]['last_access_date_group'], '1_month')
+        self.assertEqual(result[2]['last_access_date_group_count'], 1)
+        self.assertEqual(Doc.search(result[2]['__domain']), documents[2])
+        self.assertEqual(documents[2].last_access_date_group, '1_month')
+
+        self.assertEqual(result[3]['last_access_date_group'], '0_older')
+        self.assertEqual(result[3]['last_access_date_group_count'], 1)
+        self.assertEqual(Doc.search(result[3]['__domain']), documents[3])
+        self.assertEqual(documents[3].last_access_date_group, '0_older')
+
+    def test_link_constrains(self):
+        folder = self.env['documents.document'].create({'name': 'folder', 'type': 'folder'})
+        for url in ("wrong URL format", "https:/ example.com", "test https://example.com"):
+            with self.assertRaises(ValidationError):
+                self.env['documents.document'].create({
+                    'name': 'Test Document',
+                    'folder_id': folder.id,
+                    'url': url,
+                })

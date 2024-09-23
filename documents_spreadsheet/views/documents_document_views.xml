@@ -10,7 +10,7 @@
                 <field name="spreadsheet_thumbnail_checksum"/>
             </xpath>
             <xpath expr="//div[@name='document_preview']" position="before">
-                <t t-set="isSpreadsheet" t-value="record.handler.raw_value === 'spreadsheet'"/>
+                <t t-set="isSpreadsheet" t-value="['spreadsheet', 'frozen_spreadsheet'].includes(record.handler.raw_value)"/>
                 <t t-set="isXlsx"
                    t-value="record.mimetype.raw_value === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'"/>
             </xpath>
@@ -21,7 +21,7 @@
             <xpath expr="(//div[@name='document_preview']/div)[last()]" position="before">
                 <div t-elif="isSpreadsheet" class="o_attachment_image o_documents_image">
                     <t t-set="unique" t-value="record.spreadsheet_thumbnail_checksum.raw_value.slice(-8)"/>
-                    <img t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;unique=#{unique}" alt="Spreadsheet Preview"/>
+                    <img t-attf-src="/documents/thumbnail/#{record.access_token.raw_value}?unique=#{unique}" alt="Spreadsheet Preview"/>
                 </div>
             </xpath>
         </field>
@@ -43,7 +43,7 @@
         <field name="inherit_id" ref="documents.document_view_search"/>
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='pdf_doc']" position='after'>
-                <filter string="Spreadsheets" name="spreadsheet" domain="[('handler', '=', 'spreadsheet')]"/>
+                <filter string="Spreadsheets" name="spreadsheet" domain="[('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))]"/>
             </xpath>
         </field>
     </record>

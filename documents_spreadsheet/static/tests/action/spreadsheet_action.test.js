@@ -10,7 +10,7 @@ import * as spreadsheet from "@odoo/o-spreadsheet";
 import { selectCell, setCellContent, setSelection } from "@spreadsheet/../tests/helpers/commands";
 import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
 import { getCell, getCellValue } from "@spreadsheet/../tests/helpers/getters";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { doMenuAction } from "@spreadsheet/../tests/helpers/ui";
 import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
 import {
@@ -63,7 +63,7 @@ const TEST_LOCALES = [
 
 test("open spreadsheet with deprecated `active_id` params", async function () {
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         serverData: { models: getBasicData() },
         mockRPC: async function (route, args) {
             if (args.method === "join_spreadsheet_session") {
@@ -90,8 +90,8 @@ test("open spreadsheet with deprecated `active_id` params", async function () {
 
 test("breadcrumb is rendered the navbar", async function () {
     const actions = {
-        1: {
-            id: 1,
+        2: {
+            id: 2,
             name: "Documents",
             res_model: "documents.document",
             type: "ir.actions.act_window",
@@ -104,16 +104,16 @@ test("breadcrumb is rendered the navbar", async function () {
     };
     const serverData = { actions, models: getBasicData(), views };
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         serverData,
     });
     await mountWithCleanup(WebClient);
-    await getService("action").doAction(1);
+    await getService("action").doAction(2);
     await getService("action").doAction({
         type: "ir.actions.client",
         tag: "action_open_spreadsheet",
         params: {
-            spreadsheet_id: 1,
+            spreadsheet_id: 2,
         },
     });
     expect(".o_navbar .o-sp-breadcrumb").toHaveText("Documents", {
@@ -296,6 +296,7 @@ test("Spreadsheet is created with locale in data", async function () {
     const serverData = getBasicServerData();
     serverData.models["documents.document"] = {
         records: [
+            DocumentsDocument._records[0], // res_company.document_spreadsheet_folder_id
             {
                 id: 3000,
                 name: "My template spreadsheet",

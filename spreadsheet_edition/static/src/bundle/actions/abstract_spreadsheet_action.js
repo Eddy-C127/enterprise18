@@ -304,7 +304,6 @@ export class AbstractSpreadsheetAction extends Component {
     async _fetchData() {
         return this.orm.call(this.resModel, "join_spreadsheet_session", [
             this.resId,
-            this.shareId,
             this.accessToken,
         ]);
     }

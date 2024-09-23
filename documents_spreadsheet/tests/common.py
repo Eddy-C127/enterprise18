@@ -1,11 +1,15 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+from contextlib import contextmanager
+from datetime import datetime
+from freezegun import freeze_time
+from unittest.mock import patch
+
 
 from odoo.tests.common import HttpCase, new_test_user
 from odoo.addons.spreadsheet_edition.tests.spreadsheet_test_case import SpreadsheetTestCase
 from odoo.tools import file_open, misc
 
-from uuid import uuid4
 
 TEST_CONTENT = "{}"
 GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
@@ -14,50 +18,47 @@ GIF = b"R0lGODdhAQABAIAAAP///////ywAAAAAAQABAAACAkQBADs="
 class SpreadsheetTestCommon(SpreadsheetTestCase):
     @classmethod
     def setUpClass(cls):
-        super(SpreadsheetTestCommon, cls).setUpClass()
-        cls.folder = cls.env["documents.folder"].create({"name": "Test folder"})
+        super().setUpClass()
+        cls.folder = cls.env["documents.document"].create({
+            "name": "Test folder",
+            "type": "folder",
+            "access_internal": "view",
+            "access_via_link": "none",
+            "is_pinned_folder": True,
+        })
         cls.spreadsheet_user = new_test_user(
             cls.env, login="spreadsheetDude", groups="documents.group_documents_user"
         )
 
     def create_spreadsheet(self, values=None, *, user=None, name="Untitled Spreadsheet"):
-        if values is None:
-            values = {}
-        return (
-            self.env["documents.document"]
-            .with_user(user or self.env.user)
-            .create({
+        def _create():
+            vals = {
                 "spreadsheet_data": r"{}",
                 "folder_id": self.folder.id,
                 "handler": "spreadsheet",
                 "mimetype": "application/o-spreadsheet",
                 "name": name,
-                **values,
-            })
-        )
+                "access_via_link": "view",
+                **(values or {}),
+            }
+            return self.env["documents.document"].with_user(user or self.env.user).create(vals)
 
-    def share_spreadsheet(self, document):
-        share = self.env["documents.share"].create(
-            {
-                "folder_id": document.folder_id.id,
-                "document_ids": [(6, 0, [document.id])],
-                "type": "ids",
-            }
-        )
-        self.env["documents.shared.spreadsheet"].create(
-            {
-                "share_id": share.id,
-                "document_id": document.id,
-                "spreadsheet_data": document.spreadsheet_data,
-            }
-        )
-        return share
+        if values and 'create_date' in values:
+            _create = patch.object(self.env.cr, 'now', lambda: values['create_date'])(_create)
+
+        return _create()
+
+    @contextmanager
+    def _freeze_time(self, time):
+        time_format = "%Y-%m-%d %H:%M" if ':' in time else "%Y-%m-%d"
+        with patch.object(self.env.cr, 'now', lambda: datetime.strptime(time, time_format)), freeze_time(time):
+            yield
 
 
 class SpreadsheetTestTourCommon(SpreadsheetTestCommon, HttpCase):
     @classmethod
     def setUpClass(cls):
-        super(SpreadsheetTestTourCommon, cls).setUpClass()
+        super().setUpClass()
         cls.spreadsheet_user.partner_id.country_id = cls.env.ref("base.us")
         cls.env['res.users'].browse(2).partner_id.country_id = cls.env.ref("base.be")
         # Avoid interference from the demo data which rename the admin user
@@ -68,5 +69,6 @@ class SpreadsheetTestTourCommon(SpreadsheetTestCommon, HttpCase):
                 "handler": "spreadsheet",
                 "folder_id": cls.folder.id,
                 "raw": f.read(),
-                "name": "Res Partner Test Spreadsheet"
+                "name": "Res Partner Test Spreadsheet",
+                "access_internal": "edit",
             })

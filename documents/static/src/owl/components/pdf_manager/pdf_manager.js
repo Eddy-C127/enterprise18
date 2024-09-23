@@ -26,11 +26,11 @@ export class PdfManager extends Component {
         PdfGroupName,
     };
     static defaultProps = {
-        rules: [],
+        embeddedActions: [],
     };
     static props = {
         documents: Array,
-        rules: { type: Array, optional: true },
+        embeddedActions: { type: Array, optional: true },
         onProcessDocuments: { type: Function },
         close: { type: Function },
     };
@@ -96,7 +96,7 @@ export class PdfManager extends Component {
         this._selectionY = 0.0;
         this._selectionScrollTop = 0.0;
         this._selectionScrollLeft = 0.0;
-        this._ruleApplied = false;
+        this._embeddedActionApplied = false;
         this._onMouseDown = this._onMouseDown.bind(this);
         this._onMouseUp = this._onMouseUp.bind(this);
         this._onMouseMove = this._onMouseMove.bind(this);
@@ -116,7 +116,7 @@ export class PdfManager extends Component {
                 }
                 for (const pdf_document of this.props.documents) {
                     this._addFile(pdf_document.name, {
-                        url: `/documents/content/${pdf_document.id}`,
+                        url: `/documents/content/${pdf_document.access_token}`,
                         documentId: pdf_document.id,
                     });
                 }
@@ -534,9 +534,9 @@ export class PdfManager extends Component {
      * PDF Manager. If no ignored page remain, the PDF Manager closes and the
      * view is reloaded.
      * @private
-     * @param {number} [ruleId]
+     * @param {number} [actionId]
      */
-    async _applyChanges(ruleId) {
+    async _applyChanges(actionId) {
         let processedPageIds = this.selectedPageIds;
         let pageIds = this.ignoredPageIds;
         if (processedPageIds.length === 0 && !this.state.focusedPage) {
@@ -555,10 +555,10 @@ export class PdfManager extends Component {
         }
         try {
             const documentIds = await this._sendChanges();
-            this.props.onProcessDocuments({ documentIds, ruleId, exit });
+            this.props.onProcessDocuments({ documentIds, actionId, exit });
             this._displayNumberCreatedDocuments(documentIds.length);
             if (!exit) {
-                this._ruleApplied = true;
+                this._embeddedActionApplied = true;
                 for (const pageId of processedPageIds) {
                     this._removePage(pageId, { fromFile: true });
                 }
@@ -891,7 +891,7 @@ export class PdfManager extends Component {
      */
     _exitSplitTools(formerTargetCallback = () => {}) {
         this.dialog.add(ExitSplitToolsDialog, {
-            isRuleApplied: this._ruleApplied,
+            isEmbeddedActionApplied: this._embeddedActionApplied,
             onDeleteRemainingPages: async () => {
                 await this.props.close();
                 formerTargetCallback();
@@ -1231,10 +1231,10 @@ export class PdfManager extends Component {
     }
     /**
      * @public
-     * @param {number} ruleId
+     * @param {number} actionId
      */
-    onClickRule(ruleId) {
-        this._applyChanges(ruleId);
+    onClickEmbeddedAction(actionId) {
+        this._applyChanges(actionId);
     }
     /**
      * @public

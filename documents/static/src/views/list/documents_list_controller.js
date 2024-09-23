@@ -2,7 +2,7 @@
 
 import { ListController } from "@web/views/list/list_controller";
 import { _t } from "@web/core/l10n/translation";
-import { preSuperSetup, useDocumentView } from "@documents/views/hooks";
+import { openDeleteConfirmationDialog, preSuperSetup, useDocumentView } from "@documents/views/hooks";
 import { useRef, useState } from "@odoo/owl";
 
 export class DocumentsListController extends ListController {
@@ -15,7 +15,6 @@ export class DocumentsListController extends ListController {
         Object.assign(this, properties);
 
         this.documentStates = useState({
-            inspectedDocuments: [],
             previewStore: {},
         });
     }
@@ -35,9 +34,6 @@ export class DocumentsListController extends ListController {
                 this.root.el.querySelectorAll(
                     ".o_data_row.o_data_row_selected .o_list_record_selector"
                 ),
-            setInspectedDocuments: (inspectedDocuments) => {
-                this.documentStates.inspectedDocuments = inspectedDocuments;
-            },
             setPreviewStore: (previewStore) => {
                 this.documentStates.previewStore = previewStore;
             },
@@ -71,21 +67,22 @@ export class DocumentsListController extends ListController {
         };
     }
 
-    onDeleteSelectedRecords() {
+    async onDeleteSelectedRecords() {
+        if (!(await openDeleteConfirmationDialog(this.model, true))) {
+            return;
+        }
         const root = this.model.root;
-        const callback = async () => {
-            await root.deleteRecords(root.records.filter((record) => record.selected));
-            await this.model.notify();
-        };
-        root.records[0].openDeleteConfirmationDialog(root, callback, true);
+        await root.deleteRecords(root.records.filter((record) => record.selected));
+        await this.model.notify();
+        await this.model.env.documentsView.bus.trigger("documents-close-preview");
     }
 
-    onArchiveSelectedRecords() {
-        const root = this.model.root;
-        const callback = async () => {
-            await this.toggleArchiveState(true);
-        };
-        root.records[0].openDeleteConfirmationDialog(root, callback, false);
+    async onArchiveSelectedRecords() {
+        if (!(await openDeleteConfirmationDialog(this.model, false))) {
+            return;
+        }
+        await this.toggleArchiveState(true);
+        await this.model.env.documentsView.bus.trigger("documents-close-preview");
     }
 
     isRecordPreviewable(record) {

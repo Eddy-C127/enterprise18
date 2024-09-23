@@ -1,27 +1,28 @@
 /** @odoo-module **/
 
-import { _t } from "@web/core/l10n/translation";
+import { useSetupAction } from "@web/search/action_hook";
 import { SearchModel } from "@web/search/search_model";
 import { browser } from "@web/core/browser/browser";
 import { router } from "@web/core/browser/router";
-import { useSetupAction } from "@web/search/action_hook";
+import { Domain } from "@web/core/domain";
+import { _t } from "@web/core/l10n/translation";
+import { user } from "@web/core/user";
+import { useService } from "@web/core/utils/hooks";
 
 import { onWillStart } from "@odoo/owl";
-
-// Helpers
-const isFolderCategory = (s) => s.type === "category" && s.fieldName === "folder_id";
-const isTagFilter = (s) => s.type === "filter" && s.fieldName === "tag_ids";
 
 export class DocumentsSearchModel extends SearchModel {
     setup(services) {
         super.setup(services);
+        this.documentService = useService("document.document");
+        this.orm = useService("orm");
         this.skipLoadClosePreview = false;
         onWillStart(async () => {
             this.deletionDelay = await this.orm.call("documents.document", "get_deletion_delay", [[]]);
         });
         useSetupAction({
             beforeLeave: () => {
-                this._updateRouteState({ folder_id: undefined, tag_ids: undefined });
+                this._updateRouteState({ folder_id: undefined });
             },
         });
     }
@@ -30,24 +31,57 @@ export class DocumentsSearchModel extends SearchModel {
         await super.load(...arguments);
 
         let folderId = router.current.folder_id || this.getSelectedFolderId();
-        const tagIds = router.current.tag_ids;
 
         if (folderId) {
-            const folderSection = this.getSections(isFolderCategory)[0];
-            if (folderSection) {
-                if (!folderSection.values.has(folderId)) {
-                    folderId = false;
-                }
-                this.toggleCategoryValue(folderSection.id, folderId);
+            const folderSection = this.getSections()[0];
+            if (!folderSection.values.has(folderId)) {
+                folderId = false;
             }
+            this.toggleCategoryValue(folderSection.id, folderId);
         }
+    }
 
-        if (tagIds) {
-            const tagSection = this.getSections(isTagFilter)[0];
-            if (tagSection) {
-                this.toggleFilterValues(tagSection.id, String(tagIds).split(",").map(Number));
+    /**
+     * Override to add rootId
+     *
+     * @override
+     */
+    _createCategoryTree(sectionId, result) {
+        super._createCategoryTree(...arguments);
+        const category = this.sections.get(sectionId);
+        const findRootId = (folder)=> {
+            if (!folder.parentId) {
+                return folder.id;
+            }
+            const parent = category.values.get(folder.parentId);
+            if (!parent) {
+                return false;
+            }
+            if (parent.rootId !== undefined) {
+                return parent.rootId;
+            } else {
+                const rootId = findRootId(parent);
+                parent.rootId = rootId;
+                return rootId;
             }
         }
+        for (const [, folder] of category.values) {
+            if (!folder.rootId) {
+                folder.rootId = findRootId(folder);
+            }
+        }
+    }
+
+    /**
+     * @override
+     */
+    _extractSearchDefaultsFromGlobalContext() {
+        const { searchDefaults, searchPanelDefaults } =
+            super._extractSearchDefaultsFromGlobalContext(...arguments);
+        if (searchPanelDefaults.folder_id && !this.globalContext.no_documents_unique_folder_id) {
+            this.globalContext['documents_unique_folder_id'] = searchPanelDefaults.folder_id;
+        }
+        return { searchDefaults, searchPanelDefaults };
     }
 
     //---------------------------------------------------------------------
@@ -55,12 +89,22 @@ export class DocumentsSearchModel extends SearchModel {
     //---------------------------------------------------------------------
 
     /**
-     * Returns a description of each folder (record of documents.folder).
+     * Returns a description of each folder (record of documents.document, type === 'folder').
      * @returns {Object[]}
      */
     getFolders() {
-        const { values } = this.getSections(isFolderCategory)[0];
+        const { values } = this.getSections()[0];
         return [...values.values()];
+    }
+
+    /**
+     * Returns the folder corresponding to the provided id, if any, false otherwise.
+     * @returns {Object | false}
+     */
+    getFolderById(folderId) {
+        const folderSection = this.getSections()[0];
+        const folder = folderSection && folderSection.values.get(folderId);
+        return folder || false;
     }
 
     /**
@@ -69,7 +113,7 @@ export class DocumentsSearchModel extends SearchModel {
      * @returns {number | false}
      */
     getSelectedFolderId() {
-        const { activeValueId } = this.getSections(isFolderCategory)[0];
+        const { activeValueId } = this.getSections()[0];
         return activeValueId;
     }
 
@@ -78,33 +122,48 @@ export class DocumentsSearchModel extends SearchModel {
      * @returns {Object | false}
      */
     getSelectedFolder() {
-        const folderSection = this.getSections(isFolderCategory)[0];
-        const folder = folderSection && folderSection.values.get(folderSection.activeValueId);
-        return folder || false;
+        const folderSection = this.getSections()[0];
+        return this.getFolderById(folderSection.activeValueId);
     }
 
     /**
-     * Returns ids of selected tags.
-     * @returns {number[]}
+     * Returns the folder and all its parents, if any.
+     * @returns {Object | []}
      */
-    getSelectedTagIds() {
-        const { values } = this.getSections(isTagFilter)[0];
-        return [...values.values()].filter((value) => value.checked).map((value) => value.id);
+    getFolderAndParents(folder) {
+        const folders = [];
+        const folderSection = this.getSections()[0];
+        while (folder) {
+            folders.push(folder);
+            folder = folder.folder_id ? folderSection.values.get(folder.folder_id) : false;
+        }
+        if (folders.length === 1 && !folders[0].id && folders[0].display_name === _t("All")) {
+            folders[0].display_name = _t("Home");
+        }
+        return folders;
     }
 
     /**
-     * Returns a description of each tag (record of documents.tag).
+     * Returns the current selected folder and all its parents, if any.
+     * @returns {Object | []}
+     */
+    getSelectedFolderAndParents() {
+        const folderSection = this.getSections()[0];
+        const folder = folderSection.values.get(folderSection.activeValueId);
+        return this.getFolderAndParents(folder);
+    }
+
+    /**
+     * Lazy load the tags.
      * @returns {Object[]}
      */
-    getTags() {
-        const { values } = this.getSections(isTagFilter)[0];
-        return [...values.values()].sort((a, b) => {
-            if (a.group_sequence === b.group_sequence) {
-                return a.sequence - b.sequence;
-            } else {
-                return a.group_sequence - b.group_sequence;
-            }
-        });
+    async getTags() {
+        if (this._tags) {
+            return this._tags;
+        }
+        const result = await this.orm.call("documents.tag", "name_search", [], {});
+        this._tags = result.map((tag) => ({ id: tag[0], name: tag[1] }));
+        return this._tags;
     }
 
     /**
@@ -114,24 +173,18 @@ export class DocumentsSearchModel extends SearchModel {
      */
     toggleCategoryValue(sectionId, valueId) {
         super.toggleCategoryValue(...arguments);
-        const { fieldName } = this.sections.get(sectionId);
-        const storageKey = this._getStorageKey(fieldName);
-        browser.localStorage.setItem(storageKey, valueId);
+        browser.localStorage.setItem("searchpanel_documents_document", valueId);
 
-        if (fieldName === "folder_id") {
-            this._updateRouteState({ folder_id: valueId, tag_ids: undefined });
+        const selectedFolder = this.getSelectedFolder();
+        this.documentService.updateDocumentURL(selectedFolder);
+        if (typeof valueId === "number") {
+            this.documentService.logAccess(selectedFolder.access_token);
         }
-    }
-
-    /**
-     * Overriden to write the tag_ids in the url.
-     * @override
-     */
-    toggleFilterValues(sectionId, valueIds, forceTo = null) {
-        super.toggleFilterValues(...arguments);
-        const { fieldName } = this.sections.get(sectionId);
-        if (fieldName === "tag_ids") {
-            this._updateRouteState({ tag_ids: this.getSelectedTagIds() });
+        if (!valueId) { // Home
+            const item = Object.values(this.searchItems).find(o => o['name'] === "no_shortcuts");
+            if (item && this.query.findIndex((queryElem) => queryElem.searchItemId === item.id) < 0) {
+                this.toggleSearchItem(item.id);
+            }
         }
     }
 
@@ -140,10 +193,8 @@ export class DocumentsSearchModel extends SearchModel {
      * @param {number[]} recordIds
      * @param {number} valueId
      */
-    async updateRecordFolderId(recordIds, valueId) {
-        await this.orm.write("documents.document", recordIds, {
-            folder_id: valueId,
-        });
+    async updateRecordFolderId(recordIds, valueId) { // todo: CHECK IF USED
+        await this.orm.call("documents.document", "action_move_documents", [recordIds, valueId]);
         this.trigger("update");
     }
 
@@ -159,49 +210,17 @@ export class DocumentsSearchModel extends SearchModel {
         });
         this.skipLoadClosePreview = true;
         this.trigger("update");
-        await this._reloadSections();  // update the tag count
     }
 
     //---------------------------------------------------------------------
     // Private
     //---------------------------------------------------------------------
 
-    /**
-     * Adds a new fake folder to see all currently archived documents.
-     * @override
-     */
-    async _fetchCategories() {
-        const result = await super._fetchCategories(...arguments);
-        const folderCategory = this.categories.find((cat) => cat.fieldName === "folder_id");
-        if (!folderCategory) {
-            return result;
-        }
-        if (!folderCategory.rootIds.includes("TRASH")) {
-            folderCategory.rootIds.push("TRASH");
-        }
-        if (!folderCategory.values.has("TRASH")) {
-            folderCategory.values.set("TRASH", {
-                bold: true,
-                childrenIds: [],
-                display_name: _t("Trash"),
-                id: "TRASH",
-                parentId: false,
-                has_write_access: true,
-                description: _t(
-                    "Items in trash will be deleted forever after %s days.", this.deletionDelay
-                ),
-            });
-        }
-        return result;
-    }
-
     async _reloadSearchModel(reloadCategories) {
         // By default the categories are not reloaded.
         if (reloadCategories) {
             await this._fetchSections(
-                this.getSections(
-                    (s) => s.type === "category" && s.fieldName === "folder_id"
-                ),
+                this.getSections((s) => s.type === "category"),
                 []
             );
         }
@@ -209,14 +228,51 @@ export class DocumentsSearchModel extends SearchModel {
     }
 
     /**
-     * Make sure we use the correct domain instead of folder_id = 0.
+     * Make sure we use the correct domain instead of folder_id = 'COMPANY', 'MY', ....
      * @override
      */
     _getCategoryDomain() {
         const folderCategory = this.categories.find((cat) => cat.fieldName === "folder_id");
+        if (folderCategory.activeValueId === "COMPANY") {
+            return Domain.and([
+                [["folder_id", "=", false]],
+                Domain.or([
+                    [["owner_id", "=", this.documentService.store.odoobot.userId]],
+                    Domain.and([
+                        [["owner_id", "!=", this.documentService.store.odoobot.userId]],
+                        [["access_internal", "!=", 'none']],
+                    ]),
+                ])
+            ]).toList();
+        }
         if (folderCategory.activeValueId === "TRASH") {
             return [["active", "=", false]];
         }
+        if (folderCategory.activeValueId === "MY") {
+            return [["folder_id", "=", false], ["owner_id", "=", user.userId]];
+        }
+        if (folderCategory.activeValueId === "SHARED") {
+            return Domain.and([
+                [["owner_id", '!=', user.userId]],
+                [["shortcut_document_id", "=", false]], // no need to show them, the target will be here (or nested)
+                Domain.or([
+                    Domain.and([[['folder_id', '=', false]], [['owner_id', '!=', this.documentService.store.odoobot.userId]]]),
+                    // a non-accessible parent would still be found with its id (not False), and using `not any` (not, !=, 'none')
+                    // is much simpler than implementing searching for 'user permission', '=', 'none'.
+                    Domain.and([[['folder_id', '!=', false]], [['folder_id', 'not any', [['user_permission', '!=', 'none']]]]]),
+                ])
+            ]).toList();
+        }
+        if (folderCategory.activeValueId === "RECENT") {
+            return [['access_ids', 'any', [['partner_id', '=', user.partnerId], ['last_access_date', '!=', false]]]];
+        }
+        if (!folderCategory.activeValueId) {
+            return [];
+        }
+        const folder = this.getSelectedFolder();
+        const folderIdToOpen = folder?.shortcut_document_id?.length ?
+            folder.shortcut_document_id[0] :
+            folderCategory.activeValueId;
         const result = super._getCategoryDomain();
         const folderLeafIdx = result.findIndex(
             (leaf) => leaf[0] === "folder_id" && leaf[1] === "child_of"
@@ -225,10 +281,35 @@ export class DocumentsSearchModel extends SearchModel {
             result.splice(
                 folderLeafIdx,
                 1,
-                ...[["folder_id", "child_of", folderCategory.activeValueId]]
+                ...[["folder_id", "=", folderIdToOpen]],
             );
         }
         return result;
+    }
+
+    get orderBy() {
+        const order = super.orderBy;
+        if (!order?.length && this.sections.get(1).activeValueId === "TRASH") {
+            return [
+                { name: "write_date", asc: false },
+                { name: "is_folder", asc: false },
+            ];
+        }
+        if (!order?.length && this.sections.get(1).activeValueId === "RECENT") {
+            return [
+                { name: "is_folder", asc: true },
+                { name: "last_access_date_group", asc: false },
+            ];
+        }
+        return order;
+    }
+
+    get groupBy() {
+        const groupBy = super.groupBy;
+        if (!groupBy?.length && this.sections.get(1).activeValueId === "RECENT") {
+            return ["last_access_date_group"];
+        }
+        return groupBy;
     }
 
     _isCategoryValueReachable(category, valueId) {
@@ -253,16 +334,18 @@ export class DocumentsSearchModel extends SearchModel {
         ) {
             return;
         }
+
         // If not set in context, or set to an unknown value, set active value
         // from localStorage
-        const storageKey = this._getStorageKey(category.fieldName);
-        const storageItem = browser.localStorage.getItem(storageKey);
+        const storageItem = browser.localStorage.getItem("searchpanel_documents_document");
         category.activeValueId =
-            storageItem && storageItem !== "TRASH" ? JSON.parse(storageItem) : storageItem;
+            storageItem && !["COMPANY", "MY", "RECENT", "SHARED", "TRASH"].includes(storageItem)
+                ? JSON.parse(storageItem)
+                : storageItem;
         if (
-            category.activeValueId === "TRASH" ||
-            (valueIds.includes(category.activeValueId) &&
-                this._isCategoryValueReachable(category, category.activeValueId))
+            ["COMPANY", "MY", "RECENT", "SHARED", "TRASH"].includes(category.activeValueId)
+            || (valueIds.includes(category.activeValueId)
+                && this._isCategoryValueReachable(category, category.activeValueId))
         ) {
             return;
         }
@@ -272,25 +355,20 @@ export class DocumentsSearchModel extends SearchModel {
             let newSection = category.values.get(
                 category.values.get(category.activeValueId).parentId
             );
-            while (!this._isCategoryValueReachable(category, newSection.id)) {
+            while (newSection && !this._isCategoryValueReachable(category, newSection.id)) {
                 newSection = category.values.get(newSection.parentId);
             }
-            category.activeValueId = newSection.id || valueIds[Number(valueIds.length > 1)];
-            browser.localStorage.setItem(storageKey, category.activeValueId);
+            if (newSection) {
+                category.activeValueId = newSection.id || valueIds[Number(valueIds.length > 1)];
+            } else {
+                category.activeValueId = this.documentService.userIsInternal ? "COMPANY" : valueIds[0];
+            }
+            browser.localStorage.setItem("searchpanel_documents_document", category.activeValueId);
         } else {
-            // If still not a valid value, get the search panel default value
-            // from the given valid values.
-            category.activeValueId = valueIds[Number(valueIds.length > 1)];
+            // If still not a valid value, default to COMPANY for internal users
+            // or root folder for portal users
+            category.activeValueId = this.documentService.userIsInternal ? "COMPANY" : valueIds[0];
         }
-    }
-
-    /**
-     * @private
-     * @param {string} fieldName
-     * @returns {string}
-     */
-    _getStorageKey(fieldName) {
-        return `searchpanel_${this.resModel}_${fieldName}`;
     }
 
     /**

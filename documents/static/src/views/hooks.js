@@ -1,22 +1,51 @@
 /** @odoo-module **/
 
+import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
 import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
 import { escape } from "@web/core/utils/strings";
 import { memoize } from "@web/core/utils/functions";
-import { formatFloat } from "@web/views/fields/formatters";
-import { FormViewDialog } from "@web/views/view_dialogs/form_view_dialog";
 import { useSetupAction } from "@web/search/action_hook";
+import { formatFloat } from "@web/views/fields/formatters";
+import { DocumentsPermissionPanel } from "@documents/components/documents_permission_panel/documents_permission_panel";
 import { PdfManager } from "@documents/owl/components/pdf_manager/pdf_manager";
-import { x2ManyCommands } from "@web/core/orm_service";
-import { EventBus, onWillStart, markup, useComponent, useEnv, useRef, useSubEnv } from "@odoo/owl";
+import { EventBus, onMounted, onWillStart, markup, useComponent, useEnv, useRef, useSubEnv } from "@odoo/owl";
 
 /**
  * Controller/View hooks
  */
 
+export function openDeleteConfirmationDialog(model, isPermanent) {
+    return new Promise((resolve, reject) => {
+        const root = model.root;
+        const dialogProps = {
+            title: isPermanent ? _t("Delete permanently") : _t("Move to trash"),
+            body: isPermanent
+                ? root.isDomainSelected || root.selection.length > 1
+                    ? _t("Are you sure you want to permanently erase the documents?")
+                    : _t("Are you sure you want to permanently erase the document?")
+                : _t(
+                      "Items moved to the trash will be deleted forever after %s days.",
+                      model.env.searchModel.deletionDelay
+                  ),
+            confirmLabel: isPermanent ? _t("Delete permanently") : _t("Move to trash"),
+            cancelLabel: _t("Discard"),
+            confirm: async () => {
+                resolve(true);
+            },
+            cancel: () => {
+                resolve(false);
+            },
+        };
+        model.dialog.add(ConfirmationDialog, dialogProps);
+    });
+}
+
 export async function toggleArchive(model, resModel, resIds, doArchive) {
+    if (doArchive && !(await openDeleteConfirmationDialog(model, false))) {
+        return;
+    }
     const action = await model.orm.call(
         resModel,
         doArchive ? "action_archive" : "action_unarchive",
@@ -27,6 +56,9 @@ export async function toggleArchive(model, resModel, resIds, doArchive) {
     }
     await model.load();
     await model.notify();
+    if (doArchive) {
+        await model.env.documentsView.bus.trigger("documents-close-preview");
+    }
 }
 
 export function preSuperSetupFolder() {
@@ -78,6 +110,7 @@ export function useDocumentView(helpers) {
     const notification = useService("notification");
     const dialogService = useService("dialog");
     const action = useService("action");
+    const documentService = useService("document.document");
 
     // Env setup
     useSubEnv({
@@ -87,23 +120,11 @@ export function useDocumentView(helpers) {
     const bus = env.documentsView.bus;
 
     // Opens Share Dialog
-    const _openShareDialog = async (vals) => {
-        const context = Object.fromEntries(
-            Object.entries(vals).map(([name, value]) => [`default_${name}`, value])
-        );
-        dialogService.add(FormViewDialog, {
-            title: vals.type === "domains" ? _t("Share workspace") : _t("Share documents"),
-            resModel: "documents.share",
-            context,
-            onRecordSaved: async (record) => {
-                setTimeout(async () => {
-                    // Copy the share link to the clipboard
-                    await navigator.clipboard.writeText(record.data.full_url);
-                    notification.add(_t("The share URL has been copied to your clipboard."), {
-                        type: "success",
-                    });
-                });
-            },
+    const _openShareDialog = async ({ id, shortcut_document_id }) => {
+        const document = shortcut_document_id ? { id: shortcut_document_id[0] } : { id };
+        dialogService.add(DocumentsPermissionPanel, {
+            document,
+            onChangesSaved: () => env.searchModel.trigger("update"),
         });
     };
 
@@ -116,7 +137,7 @@ export function useDocumentView(helpers) {
     });
 
     useBus(bus, "documents-open-share", (ev) => {
-        _openShareDialog(ev.detail.vals);
+        _openShareDialog(ev.detail);
     });
 
     let maxUploadSize;
@@ -131,6 +152,10 @@ export function useDocumentView(helpers) {
         component.isDocumentsManager = await user.hasGroup("documents.group_documents_manager");
     });
 
+    onMounted(async() => {
+        documentService.updateDocumentURLRefresh();
+    });
+
     return {
         // Refs
         root,
@@ -142,15 +167,17 @@ export function useDocumentView(helpers) {
         // Document preview
         ...useDocumentsViewFilePreviewer(helpers),
         // Document upload
+        canUploadInFolder: (folder) => documentService.canUploadInFolder(folder),
         ...useDocumentsViewFileUpload(),
         // Trigger rule
-        ...useTriggerRule(),
+        ...useEmbeddedAction(),
         // Helpers
         hasShareDocuments: () => {
             const folder = env.searchModel.getSelectedFolder();
             const selectedRecords = env.model.root.selection.length;
-            return !folder.id && !selectedRecords;
+            return typeof folder.id !== "number" && !selectedRecords;
         },
+        userIsInternal: documentService.userIsInternal,
         // Listeners
         onClickDocumentsRequest: () => {
             action.doAction("documents.action_request_form", {
@@ -158,7 +185,6 @@ export function useDocumentView(helpers) {
                     default_partner_id: props.context.default_partner_id || false,
                     default_folder_id:
                         env.searchModel.getSelectedFolderId() || env.searchModel.getFolders()[1].id,
-                    default_tag_ids: [x2ManyCommands.set(env.searchModel.getSelectedTagIds())],
                     default_res_id: props.context.default_res_id || false,
                     default_res_model: props.context.default_res_model || false,
                     default_requestee_id: props.context.default_partner_id || false,
@@ -174,9 +200,9 @@ export function useDocumentView(helpers) {
         onClickDocumentsAddUrl: () => {
             action.doAction("documents.action_url_form", {
                 additionalContext: {
+                    default_type: "url",
                     default_partner_id: props.context.default_partner_id || false,
                     default_folder_id: env.searchModel.getSelectedFolderId(),
-                    default_tag_ids: [x2ManyCommands.set(env.searchModel.getSelectedTagIds())],
                     default_res_id: props.context.default_res_id || false,
                     default_res_model: props.context.default_res_model || false,
                 },
@@ -188,62 +214,41 @@ export function useDocumentView(helpers) {
                 },
             });
         },
-        onClickAddWorkspace: () => {
-            action.doAction("documents.action_workspace_form", {
+        onClickAddFolder: () => {
+            const currentFolder = env.searchModel.getSelectedFolderId();
+            action.doAction("documents.action_folder_form", {
                 additionalContext: {
-                    default_parent_folder_id: env.searchModel.getSelectedFolderId() || false,
+                    default_type: "folder",
+                    default_folder_id: currentFolder || false,
+                    ...(currentFolder === "COMPANY" ? { default_access_internal: "edit" } : {}),
                 },
                 fullscreen: env.isSmall,
                 onClose: async () => {
                     await env.searchModel._reloadSearchModel(true);
+                    bus.trigger("documents-expand-folder", {
+                        folderId: [false, "COMPANY"].includes(currentFolder) ? "MY" : currentFolder,
+                    });
                 },
             });
         },
-        onClickShareDomain: async () => {
-            const selection = env.model.root.selection;
-            const folderId = env.searchModel.getSelectedFolderId();
-            if (
-                selection.length &&
-                selection.every((rec) => ["empty", "url"].includes(rec._values.type))
-            ) {
-                notification.add(_t("The links and requested documents are not shareable."), {
-                    type: "danger",
-                });
-                return;
-            }
-            // All workspace
-            let folderIds;
-            if (!folderId) {
-                folderIds = selection
-                    .filter((rec) => !["empty", "url"].includes(rec._values.type))
-                    .map((rec) => rec.data.folder_id[0]);
-                // Check if documents are from different workspace
-                if (folderIds.length > 1 && folderIds.some((val) => val !== folderIds[0])) {
-                    notification.add(_t("Can't share documents of different workspaces."), {
-                        type: "danger",
-                    });
+        onClickShareFolder: async () => {
+            if (env.model.root.selection.length > 0) {
+                if (env.model.root.selection.length !== 1) {
                     return;
                 }
+                const rec = env.model.root.selection[0];
+                await _openShareDialog({
+                    id: rec.resId,
+                    name: rec._values.name,
+                    shortcut_document_id: rec._values.shortcut_document_id,
+                });
+            } else {
+                const folder = env.searchModel.getSelectedFolder();
+                await _openShareDialog({
+                    id: folder.id,
+                    shortcut_document_id: folder.shortcut_document_id,
+                });
             }
-            const defaultVals = {
-                domain: env.searchModel.domain,
-                folder_id: folderId || folderIds[0],
-                tag_ids: [x2ManyCommands.set(env.searchModel.getSelectedTagIds())],
-                type: selection.length ? "ids" : "domain",
-                document_ids: selection.length
-                    ? [
-                          x2ManyCommands.set(
-                              selection
-                                  .filter((rec) => rec._values.type !== "empty")
-                                  .map((rec) => rec.resId)
-                          ),
-                      ]
-                    : false,
-            };
-            const vals = helpers?.sharePopupAction
-                ? await helpers.sharePopupAction(defaultVals)
-                : defaultVals;
-            _openShareDialog(vals);
         },
     };
 }
@@ -253,7 +258,6 @@ export function useDocumentView(helpers) {
  */
 function useDocumentsViewFilePreviewer({
     getSelectedDocumentsElements,
-    setInspectedDocuments,
     setPreviewStore,
     isRecordPreviewable = () => true,
 }) {
@@ -269,7 +273,7 @@ function useDocumentsViewFilePreviewer({
         documents,
         mainDocument,
         isPdfSplit,
-        rules,
+        embeddedActions,
         hasPdfSplit,
     }) => {
         const openPdfSplitter = (documents) => {
@@ -279,16 +283,14 @@ function useDocumentsViewFilePreviewer({
                 PdfManager,
                 {
                     documents: documents.map((doc) => doc.data),
-                    rules: rules.map((rule) => {
-                        return { ...rule.data, id: rule.resId };
-                    }),
-                    onProcessDocuments: ({ documentIds, ruleId, exit, isForcingDelete }) => {
+                    embeddedActions,
+                    onProcessDocuments: ({ documentIds, actionId, exit, isForcingDelete }) => {
                         forceDelete = isForcingDelete;
                         if (documentIds && documentIds.length) {
                             newDocumentIds = [...new Set(newDocumentIds.concat(documentIds))];
                         }
-                        if (ruleId) {
-                            component.triggerRule(documentIds, ruleId, !exit);
+                        if (actionId) {
+                            component.embeddedAction(documentIds, actionId, !exit);
                         }
                     },
                 },
@@ -321,18 +323,22 @@ function useDocumentsViewFilePreviewer({
             (documents.length === 1 && component.model.root.records) ||
             documents
         )
-            .filter(isRecordPreviewable)
+            .filter((rec) => isRecordPreviewable(rec) && rec.isViewable())
             .map((rec) => {
-                return store.Document.insert({
-                    id: rec.resId,
-                    attachment: {
+                const getRecordAttachment = (rec) => {
+                    rec = rec.shortcutTarget;
+                    return {
                         id: rec.data.attachment_id[0],
                         name: rec.data.attachment_id[1],
                         mimetype: rec.data.mimetype,
                         url: rec.data.url,
                         documentId: rec.resId,
                         documentData: rec.data,
-                    },
+                    };
+                };
+                return store.Document.insert({
+                    id: rec.resId,
+                    attachment: getRecordAttachment(rec),
                     name: rec.data.name,
                     mimetype: rec.data.mimetype,
                     url: rec.data.url,
@@ -365,14 +371,7 @@ function useDocumentsViewFilePreviewer({
                         .classList.remove("overflow-hidden");
                 }
 
-                setInspectedDocuments([]);
                 setPreviewStore({});
-            },
-            onSelectDocument: (record) => {
-                // change the inspected documents only if we inspect only one
-                if (documents.length <= 1) {
-                    setInspectedDocuments([record]);
-                }
             },
             hasPdfSplit,
             selectedDocument,
@@ -384,7 +383,8 @@ function useDocumentsViewFilePreviewer({
             attachments: documentsRecords.map((doc) => doc.attachment),
         };
 
-        setInspectedDocuments(documents);
+        documentService.setPreviewedDocument(selectedDocument);
+
         setPreviewStore({ ...previewStore });
     };
 
@@ -392,7 +392,6 @@ function useDocumentsViewFilePreviewer({
         component.onOpenDocumentsPreview(ev.detail);
     });
     useBus(bus, "documents-close-preview", () => {
-        setInspectedDocuments([]);
         setPreviewStore({});
     });
 
@@ -410,6 +409,7 @@ function useDocumentsViewFileUpload() {
     const bus = env.documentsView.bus;
     const notification = useService("notification");
     const fileUpload = useService("file_upload");
+    const documentService = useService("document.document");
 
     const handleUploadError = (result) => {
         notification.add(result.error, {
@@ -440,56 +440,55 @@ function useDocumentsViewFileUpload() {
         });
     });
 
+    useBus(documentService.bus, "DOCUMENT_RELOAD", async (ev) => {
+        await env.searchModel._reloadSearchModel(true);
+        await env.model.load();
+        await env.model.notify();
+    });
+
     useBus(fileUpload.bus, "FILE_UPLOAD_LOADED", async (ev) => {
         wasUsingSampleModel = false;
         const { upload } = ev.detail;
         const xhr = upload.xhr;
-        const result =
-            xhr.status === 200
-                ? JSON.parse(xhr.response)
-                : {
-                      error: _t("status code: %(status)s, message: %(message)s", {
-                          status: xhr.status,
-                          message: xhr.response,
-                      }),
-                  };
-        if (result.error) {
-            handleUploadError(result);
-        } else {
-            env.model.useSampleModel = false;
-            await env.model.load(component.props);
-            if (!result.ids) {
-                return;
+        if (xhr.status !== 200) {
+            handleUploadError(_t("status code: %(status)s, message: %(message)s", {
+                status: xhr.status,
+                message: xhr.response,
+            }));
+            return
+        }
+        // Depending on the controller called, the response is different:
+        // /documents/upload/xx: returns an array of document ids
+        // /mail/attachment/upload: returns an object { "ir.attachment": ... }
+        const response = JSON.parse(xhr.response);
+        const newDocumentIds = Array.isArray(response) ? response : undefined;
+        env.model.useSampleModel = false;
+        await env.model.load(component.props);
+        if (!newDocumentIds) {
+            return;
+        }
+        const records = env.model.root.records;
+        let count = 0;
+        for (const record of records) {
+            if (!newDocumentIds.includes(record.resId)) {
+                continue;
             }
-            const records = env.model.root.records;
-            let count = 0;
-            for (const record of records) {
-                if (!result.ids.includes(record.resId)) {
-                    continue;
-                }
-                record.onRecordClick(null, {
-                    isKeepSelection: count++ !== 0,
-                    isRangeSelection: false,
-                });
-            }
+            record.onRecordClick(null, {
+                isKeepSelection: count++ !== 0,
+                isRangeSelection: false,
+            });
         }
     });
 
-    const uploadFiles = async ({ files, folderId, recordId, context, tagIds }) => {
-        const validFiles = component.maxUploadSize
-            ? [...files].filter((file) => file.size <= component.maxUploadSize)
-            : files;
+    /**
+     * Create several new documents inside a given folder (folder accessToken) or replace
+     * the document's attachment by the given single file (binary accessToken).
+     */
+    const uploadFiles = async ({ files, accessToken, context }) => {
+        const validFiles = [...files].filter((file) => file.size <= component.maxUploadSize);
         if (validFiles.length !== 0) {
-            await fileUpload.upload("/documents/upload_attachment", validFiles, {
+            await fileUpload.upload(`/documents/upload/${accessToken || ""}`, validFiles, {
                 buildFormData: (formData) => {
-                    formData.append("folder_id", folderId);
-                    if (recordId) {
-                        formData.append("document_id", recordId);
-                    }
-                    if (!tagIds.length && context?.default_tag_ids) {
-                        tagIds = context.default_tag_ids;
-                    }
-                    formData.append("tag_ids", tagIds);
                     if (context) {
                         for (const key of [
                             "default_owner_id",
@@ -516,8 +515,7 @@ function useDocumentsViewFileUpload() {
     };
 
     useBus(bus, "documents-upload-files", (ev) => {
-        ev.detail.context = ev.detail.context || component.props.context;
-        component.uploadFiles(ev.detail);
+        component.uploadFiles({ context: component.props.context, ...ev.detail });
     });
 
     return {
@@ -528,10 +526,8 @@ function useDocumentsViewFileUpload() {
             }
             await component.uploadFiles({
                 files: ev.target.files,
-                folderId: env.searchModel.getSelectedFolderId(),
-                recordId: false,
+                accessToken: documentService.currentFolderAccessToken,
                 context: component.props.context,
-                tagIds: env.searchModel.getSelectedTagIds(),
             });
             ev.target.value = "";
         },
@@ -539,20 +535,29 @@ function useDocumentsViewFileUpload() {
 }
 
 /**
- * Trigger rule hook.
+ * Trigger embedded action hook.
  * NOTE: depends on env.model being set
  */
-export function useTriggerRule() {
+export function useEmbeddedAction() {
     const env = useEnv();
     const orm = useService("orm");
     const notification = useService("notification");
     const action = useService("action");
     return {
-        triggerRule: async (documentIds, ruleId, preventReload = false) => {
-            const result = await orm.call("documents.workflow.rule", "apply_actions", [
-                [ruleId],
-                documentIds,
-            ]);
+        embeddedAction: async (documentIds, actionId, preventReload = false) => {
+            const context = {
+                active_model: "documents.document",
+                active_ids: documentIds,
+            };
+            const result = await orm.call(
+                "documents.document",
+                "action_execute_embedded_action",
+                [[actionId]],
+                {
+                    context,
+                }
+            );
+
             if (result && typeof result === "object") {
                 if (Object.prototype.hasOwnProperty.call(result, "warning")) {
                     notification.add(

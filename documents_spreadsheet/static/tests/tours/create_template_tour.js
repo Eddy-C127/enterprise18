@@ -1,5 +1,6 @@
 /** @odoo-module */
 
+import { waitFor } from "@odoo/hoot-dom";
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
@@ -12,9 +13,9 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
     steps: () => [
         ...stepUtils.goToAppSteps("documents.menu_root", "Open Document app"),
         {
-            trigger: 'li[title="Test folder"] header',
+            trigger: '.o_kanban_record:contains("Test folder")',
             content: "Open the test folder",
-            run: "click",
+            run: "dblclick",
         },
         {
             trigger: `div[title="${SHEET_NAME}"]`,
@@ -22,27 +23,22 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
             run: "click",
         },
         {
-            trigger: `button.o_switch_view.o_list`,
-            content: "Switch to list view",
-            run: "click",
-        },
-        {
-            trigger: `img[title="${SHEET_NAME}"]`,
+            trigger: 'img[alt="Spreadsheet Preview"]',
             content: "Open the sheet",
             run: "click",
         },
         {
-            trigger: `.o-topbar-menu[data-id="file"]`,
+            trigger: '.o-topbar-menu[data-id="file"]',
             content: "Open the file menu",
             run: "click",
         },
         {
-            trigger: `.o-menu-item[data-name="save_as_template"]`,
+            trigger: '.o-menu-item[data-name="save_as_template"]',
             content: "Save as template",
             run: "click",
         },
         {
-            trigger: `.modal button[name="save_template"]`,
+            trigger: '.modal button[name="save_template"]',
             content: "Save as template",
             run: "click",
         },
@@ -64,6 +60,13 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
                 '.dropdown-item[data-menu-xmlid="documents_spreadsheet.menu_technical_spreadsheet_template"]',
             content: "Open Templates menu",
             run: "click",
+        },
+        {
+            trigger: ".o_menu_brand",
+            content: "Wait search filter to be displayed",
+            run: async () => {
+                await waitFor(".o_searchview .o_facet_remove", { timeout: 1500 });
+            },
         },
         {
             trigger: ".o_searchview .o_facet_remove",
@@ -88,6 +91,13 @@ registry.category("web_tour.tours").add("documents_spreadsheet_create_template_t
             trigger: "button.o-new-spreadsheet",
             content: "Create spreadsheet from template",
             run: "click",
+        },
+        {
+            trigger: ".o_menu_brand",
+            content: "Wait",
+            run: async () => {
+                await waitFor(".o-spreadsheet", { timeout: 1500 });
+            },
         },
         {
             trigger: ".o-spreadsheet",

@@ -65,9 +65,9 @@ export class TemplateDialog extends Component {
             const defaultFolder = await this.orm.searchRead(
                 "res.company",
                 [["id", "=", this.companyService.currentCompany.id]],
-                ["documents_spreadsheet_folder_id"]
+                ["document_spreadsheet_folder_id"]
             );
-            this.documentsSpreadsheetFolderId = defaultFolder[0].documents_spreadsheet_folder_id[0];
+            this.documentsSpreadsheetFolderId = defaultFolder[0].document_spreadsheet_folder_id[0];
             const views = await this.viewService.loadViews({
                 resModel: "spreadsheet.template",
                 context: this.props.context,
@@ -138,23 +138,22 @@ export class TemplateDialog extends Component {
     async _getOpenSpreadsheetAction() {
         const context = this.props.context;
         const templateId = this.state.selectedTemplateId;
+        const folder_id = this.props.folderId
+            ? typeof this.props.folderId === "number"
+                ? this.props.folderId
+                : false
+            : this.documentsSpreadsheetFolderId;
         if (templateId) {
             return this.orm.call(
                 "spreadsheet.template",
                 "action_create_spreadsheet",
-                [
-                    templateId,
-                    { folder_id: this.props.folderId || this.documentsSpreadsheetFolderId },
-                ],
+                [templateId, { folder_id }],
                 { context }
             );
         }
-        return this.orm.call(
-            "documents.document",
-            "action_open_new_spreadsheet",
-            [{ folder_id: this.props.folderId || this.documentsSpreadsheetFolderId }],
-            { context }
-        );
+        return this.orm.call("documents.document", "action_open_new_spreadsheet", [{ folder_id }], {
+            context,
+        });
     }
 
     /**

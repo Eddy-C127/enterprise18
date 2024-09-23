@@ -34,7 +34,7 @@ class QualitySpreadsheetTemplate(models.Model):
             },
         }
 
-    def join_spreadsheet_session(self, share_id=None, access_token=None):
-        data = super().join_spreadsheet_session(share_id, access_token)
+    def join_spreadsheet_session(self, access_token=None):
+        data = super().join_spreadsheet_session(access_token)
         data['quality_check_cell'] = self.check_cell
         return data

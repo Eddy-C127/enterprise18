@@ -1,31 +1,20 @@
 # -*- coding: utf-8 -*-
 
-import base64
-from odoo.tests.common import tagged, TransactionCase
+from odoo.tests.common import tagged
 
-TEXT = base64.b64encode(bytes("documents_hr", 'utf-8'))
+from .test_documents_hr_common import TransactionCaseDocumentsHr
 
 
 @tagged('post_install', '-at_install', 'test_document_bridge')
-class TestCaseDocumentsBridgeHR(TransactionCase):
+class TestCaseDocumentsBridgeHR(TransactionCaseDocumentsHr):
 
-    def setUp(self):
-        super().setUp()
-        self.documents_user = self.env['res.users'].create({
-            'name': "documents test basic user",
-            'login': "dtbu",
-            'email': "dtbu@yourcompany.com",
-            'groups_id': [(6, 0, [self.ref('documents.group_documents_user')])]
-        })
-
-        self.folder_test = self.env['documents.folder'].create({'name': 'folder_test'})
-        company = self.env.user.company_id
-        company.documents_hr_settings = True
-        company.documents_hr_folder = self.folder_test.id
-        self.employee = self.env['hr.employee'].create({
-            'name': 'User Empl Employee',
-            'user_id': self.documents_user.id,
-            'work_contact_id': self.documents_user.partner_id.id,
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.employee = cls.env['hr.employee'].create({
+            'name': 'Employee (related to doc_user)',
+            'user_id': cls.doc_user.id,
+            'work_contact_id': cls.doc_user.partner_id.id
         })
 
     def test_bridge_hr_settings_on_write(self):
@@ -34,7 +23,7 @@ class TestCaseDocumentsBridgeHR(TransactionCase):
         on invoices.
         """
         attachment_txt_test = self.env['ir.attachment'].create({
-            'datas': TEXT,
+            'datas': self.TEXT,
             'name': 'fileText_test.txt',
             'mimetype': 'text/plain',
             'res_model': 'hr.employee',
@@ -43,8 +32,11 @@ class TestCaseDocumentsBridgeHR(TransactionCase):
 
         document = self.env['documents.document'].search([('attachment_id', '=', attachment_txt_test.id)])
         self.assertTrue(document.exists(), "There should be a new document created from the attachment")
-        self.assertEqual(document.owner_id, self.documents_user, "The owner_id should be the document user")
+        self.assertEqual(document.owner_id, self.user_root, "The owner_id should be odooBot")
         self.assertEqual(document.partner_id, self.employee.work_contact_id, "The partner_id should be the employee's address")
+        self.assertEqual(document.access_via_link, "none")
+        self.assertEqual(document.access_internal, "none")
+        self.assertTrue(document.is_access_via_link_hidden)
 
     def test_upload_employee_attachment(self):
         """
@@ -53,15 +45,19 @@ class TestCaseDocumentsBridgeHR(TransactionCase):
         """
         document = self.env['documents.document'].create({
             'name': 'Doc',
-            'folder_id': self.folder_test.id,
+            'folder_id': self.hr_folder.id,
             'res_model': self.employee._name,
             'res_id': self.employee.id,
         })
         document.write({
-            'datas': TEXT,
+            'datas': self.TEXT,
             'mimetype': 'text/plain',
         })
         self.assertTrue(document.attachment_id, "An attachment should have been created")
+
+    def test_hr_employee_document_creation_permission_employee_only(self):
+        """ Test that created hr.employee documents are only viewable by the employee and editable by hr managers. """
+        self.check_document_creation_permission(self.employee)
 
     def test_open_document_from_hr(self):
         """ Test that opening the document app from an employee (hr app) is opening it in the right context. """
@@ -71,15 +67,15 @@ class TestCaseDocumentsBridgeHR(TransactionCase):
         self.assertEqual(context['default_res_model'], 'hr.employee')
         self.assertEqual(context['default_res_id'], self.employee.id)
         self.assertEqual(context['default_partner_id'], self.employee.work_contact_id.id)
-        self.env['documents.document'].create([
-            {'name': 'employee doc1', 'folder_id': self.folder_test.id, 'partner_id': self.employee.work_contact_id.id},
-            {'name': 'employee doc2', 'folder_id': self.folder_test.id, 'owner_id': self.employee.user_id.id},
-            {'name': 'non employee', 'folder_id': self.folder_test.id},
+        employee_related_doc, *__ = self.env['documents.document'].create([
+            {'name': 'employee doc', 'partner_id': self.employee.work_contact_id.id},
+            {'name': 'employee doc 2', 'owner_id': self.employee.user_id.id},
+            {'name': 'non employee'},
         ])
-        filtered_documents = self.env['documents.document'].search(action['domain'])
+        filtered_documents = self.env['documents.document'].search(action['domain']).filtered(lambda d: d.type != 'folder')
         self.assertEqual(
             len(filtered_documents.filtered(
                 lambda doc: doc.owner_id == self.employee.user_id or doc.partner_id == self.employee.work_contact_id)),
-            2,
-            "Employee related documents are visible")
-        self.assertEqual(len(filtered_documents), 2, "Only employee related documents are visible")
+            1,
+            "Employee related document is visible")
+        self.assertEqual(filtered_documents, employee_related_doc, "Only employee-related document is visible")

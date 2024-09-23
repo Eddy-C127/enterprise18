@@ -4,7 +4,7 @@ import { mockActionService } from "@documents_spreadsheet/../tests/helpers/sprea
 import { beforeEach, describe, expect, getFixture, test } from "@odoo/hoot";
 import { click, dblclick } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { contains, mountView } from "@web/../tests/web_test_helpers";
 
 describe.current.tags("desktop");
@@ -13,8 +13,16 @@ defineDocumentSpreadsheetModels();
 const kanbanArch = /* xml */ `
     <kanban js_class="documents_kanban">
         <templates>
+            <field name="id"/>
+            <field name="available_embedded_actions_ids"/>
+            <field name="access_token"/>
+            <field name="mimetype"/>
+            <field name="folder_id"/>
+            <field name="active"/>
+            <field name="type"/>
+            <field name="attachment_id"/>
             <t t-name="card">
-                <field name="name"/>
+                <div><field name="name"/></div>
             </t>
         </templates>
     </kanban>`;
@@ -34,12 +42,18 @@ const TEST_TEMPLATES = [
 
 function getDocumentBasicData(views = {}) {
     const models = {};
-    models["documents.folder"] = {
-        records: [{ name: "Workspace1", description: "Workspace", has_write_access: true, id: 1 }],
-    };
     models["mail.alias"] = { records: [{ alias_name: "hazard@rmcf.es", id: 1 }] };
-    models["documents.share"] = {
-        records: [{ name: "Share1", folder_id: 1, alias_id: 1 }],
+    models["documents.document"] = {
+        records: [
+            {
+                name: "Workspace1",
+                alias_id: 1,
+                description: "Workspace",
+                type: "folder",
+                id: 1,
+                available_embedded_actions_ids: [],
+            },
+        ],
     };
     models["spreadsheet.template"] = {
         records: [
@@ -68,7 +82,7 @@ async function initTestEnvWithKanban(args = {}) {
     data.models["spreadsheet.template"].records = data.models[
         "spreadsheet.template"
     ].records.concat(args.additionalTemplates || []);
-    await makeSpreadsheetMockEnv({ ...args, serverData: data });
+    await makeDocumentsSpreadsheetMockEnv({ ...args, serverData: data });
     return await mountView({
         type: "kanban",
         resModel: "documents.document",
@@ -82,8 +96,16 @@ async function initTestEnvWithKanban(args = {}) {
  */
 async function initTestEnvWithBlankSpreadsheet(params = {}) {
     const serverData = getDocumentBasicData();
-    serverData.models["documents.folder"] = {
-        records: [{ name: "Workspace1", description: "Workspace", has_write_access: true, id: 1 }],
+    serverData.models["documents.document"] = {
+        records: [
+            {
+                name: "Workspace1",
+                description: "Workspace",
+                type: "folder",
+                id: 1,
+                available_embedded_actions_ids: [],
+            },
+        ],
     };
     serverData.models["documents.document"] = {
         record: [
@@ -120,7 +142,7 @@ test("Create spreadsheet from kanban view opens a modal", async function () {
 
 test("Create spreadsheet from list view opens a modal", async function () {
     const serverData = getDocumentBasicData();
-    await makeSpreadsheetMockEnv({ serverData });
+    await makeDocumentsSpreadsheetMockEnv({ serverData });
     await mountView({
         resModel: "documents.document",
         type: "list",
@@ -247,13 +269,25 @@ test("Can create a blank spreadsheet from template dialog", async function () {
 test("Context is transmitted when creating spreadsheet", async function () {
     const serverData = await getDocumentBasicData({
         "documents.document,false,kanban": `
-                <kanban js_class="documents_kanban"><templates><t t-name="card">
-                <field name="name"/>
-                </t></templates></kanban>
+                <kanban js_class="documents_kanban">
+                    <field name="available_embedded_actions_ids"/>
+                    <field name="access_token"/>
+                    <field name="id"/>
+                    <field name="mimetype"/>
+                    <field name="folder_id"/>
+                    <field name="active"/>
+                    <field name="type"/>
+                    <field name="attachment_id"/>
+                    <templates>
+                        <t t-name="card">
+                            <field name="name"/>
+                        </t>
+                    </templates>
+                </kanban>
                 `,
         "documents.document,false,search": getEnrichedSearchArch(),
     });
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         mockRPC: async function (route, args) {
             if (args.method === "action_open_new_spreadsheet") {
                 expect.step("action_open_new_spreadsheet");
@@ -330,11 +364,12 @@ test("Can create a spreadsheet from a template", async function () {
 test("The workspace selection should not display Trash workspace", async function () {
     await initTestEnvWithKanban();
     const menu = target.querySelector(".o_control_panel .btn-group");
-    await contains(".o_search_panel_category_value:nth-of-type(1) header").click();
     await contains(menu.querySelector(".dropdown-toggle")).click();
     await contains(menu.querySelector(".o_documents_kanban_spreadsheet")).click();
-    const selection = target.querySelector(".o-spreadsheet-templates-dialog select");
-    expect([...selection.options].find((option) => option.value === "TRASH")).toBe(undefined, {
+    const options = target.querySelectorAll(
+        ".o-spreadsheet-templates-dialog .o-spreadsheet-grid-item-name"
+    );
+    expect([...options].find((option) => option.textContent === "TRASH")).toBe(undefined, {
         message: "Trash workspace should not be present in the selection",
     });
 });

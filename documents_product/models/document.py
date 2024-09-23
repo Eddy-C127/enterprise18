@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, fields, models, _
@@ -41,3 +40,37 @@ class Document(models.Model):
             query_doc = self._search([('res_model', '=', Model._name), ('res_id', 'in', query_model)])
             return [("id", "in", query_doc)]
         raise ValidationError(_("Invalid %s search", self.env['ir.model']._get(Model._name).name))
+
+    def create_product_template(self):
+        # JUC: WTF? A single product for many documents, and the created
+        #      product has the image of the first document?!
+
+        product = self.env['product.template'].create({
+            'name': _('Product created from Documents')
+        })
+
+        for document in self:
+            if ((document.res_model or document.res_id)
+                and document.res_model != 'documents.document'
+            ):
+                att_copy = document.attachment_id.with_context(no_document=True).copy()
+                document = document.copy({'attachment_id': att_copy.id})
+            document.write({
+                'res_model': product._name,
+                'res_id': product.id,
+            })
+            is_image = (document.mimetype or '').partition('/')[0] == 'image'
+            if is_image and not product.image_1920:
+                product.write({'image_1920': document.datas})
+
+        view_id = product.get_formview_id()
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'product.template',
+            'name': "New product template",
+            'context': self.env.context,
+            'view_mode': 'form',
+            'views': [(view_id, "form")],
+            'res_id': product.id,
+            'view_id': view_id,
+        }

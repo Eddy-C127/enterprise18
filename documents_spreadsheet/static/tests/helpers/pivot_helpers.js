@@ -3,7 +3,7 @@ import { getFixture } from "@odoo/hoot";
 import { animationFrame } from "@odoo/hoot-mock";
 import { onMounted } from "@odoo/owl";
 import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     getSpreadsheetActionEnv,
@@ -39,7 +39,7 @@ import { WebClient } from "@web/webclient/webclient";
  */
 export async function spawnPivotViewForSpreadsheet(params = {}) {
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         serverData: params.serverData || getBasicServerData(),
         mockRPC: params.mockRPC,
     });

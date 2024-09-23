@@ -23,130 +23,77 @@
             <field name="groups_id" eval="[(4, ref('documents.group_documents_manager'))]"/>
         </record>
 
-
-        <!-- folder rules -->
-        <data noupdate="1">
-
-        <record id="documents_folder_global_rule" model="ir.rule">
-            <field name="name">Documents.folder: company</field>
-            <field name="model_id" ref="model_documents_folder"/>
-            <field name="domain_force">['|',
-                ('company_id', '=', False),
-                ('company_id',  'in', company_ids)]</field>
-        </record>
-
-        <record id="documents_folder_groups_rule" model="ir.rule">
-            <field name="name">Documents.folder: groups</field>
-            <field name="model_id" ref="model_documents_folder"/>
-            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-            <field name="domain_force">[
-                '|', '|',
-                    '&amp;',
-                        ('read_group_ids', '=', False),
-                        ('group_ids', '=', False),
-                    ('group_ids', 'in', [g.id for g in user.groups_id]),
-                    ('read_group_ids', 'in', [g.id for g in user.groups_id]),
-                ]</field>
-        </record>
-
-        <record id="documents_folder_manager_rule" model="ir.rule">
-            <field name="name">Documents.folder: manager rule</field>
-            <field name="model_id" ref="model_documents_folder"/>
-            <field name="groups" eval="[(4, ref('documents.group_documents_manager'))]"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
-        </record>
-
         <!-- documents rules -->
-
         <!-- duplicated for spreadsheetCellThreads in rule documents_spreadsheet.documents_document_thread_global_rule
         Please update aforemetioned the rule accordingly -->
         <record id="documents_document_global_rule" model="ir.rule">
-            <field name="name">Documents.document: global</field>
+            <field name="name">Documents.document: global read rule</field>
             <field name="model_id" ref="model_documents_document"/>
-            <field name="domain_force">['|',
-                ('folder_id.company_id', '=', False),
-                ('folder_id.company_id', 'in', company_ids)]</field>
+            <field name="domain_force">[('user_permission', '!=', 'none')]</field>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
         </record>
 
-        <!--
-            The two following rule apply to base.group_user (instead of group_documents_user) so users can access
-            documents on which they have an activity scheduled for them.
-        -->
-        <record id="documents_document_readonly_rule" model="ir.rule">
-            <field name="name">Documents.document: readonly rule</field>
+        <record id="documents_document_global_create_rule" model="ir.rule">
+            <field name="name">Documents.document: global create rule</field>
             <field name="model_id" ref="model_documents_document"/>
-            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
             <field name="domain_force">[
-                '&amp;',
-                    ('folder_id.read_group_ids', 'in', [g.id for g in user.groups_id]),
-                    '|',
-                        ('folder_id.user_specific', '=', False),
-                        ('owner_id', '=', user.id)
-                ]</field>
-            <field name="perm_read" eval="True"/>
+                '|', ('folder_id.user_permission', '=', 'edit'), ('folder_id', '=', False),
+            ]</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_unlink" eval="False"/>
             <field name="perm_write" eval="False"/>
-            <field name="perm_create" eval="False"/>
-            <field name="perm_unlink" eval="False"/>
         </record>
 
-        <!--
-            This rule is copy-pasted for "model_spreadsheet_cell_thread",
-            xmd_id: documents_spreadsheet.spreadsheet_cell_thread_write_rule
-            If you update this rule, please don't forget to update the
-            rule in module "documents_spreadsheet" ;)
-         -->
-        <record id="documents_document_write_rule" model="ir.rule">
-            <field name="name">Documents.document: folder write groups</field>
+        <record id="documents_document_global_write_rule" model="ir.rule">
+            <field name="name">Documents.document: global write rule</field>
             <field name="model_id" ref="model_documents_document"/>
-            <field name="groups" eval="[(4, ref('base.group_user'))]"/>
-            <field name="domain_force">[
-                '|',
-                    '&amp;',
-                        ('folder_id.group_ids', 'in', [g.id for g in user.groups_id]),
-                        '|',
-                            ('folder_id.user_specific_write', '=', False),
-                            ('owner_id', '=', user.id),
-                    '&amp;',
-                        ('folder_id.read_group_ids', '=', False),
-                        ('folder_id.group_ids', '=', False)]
-                    </field>
-            <field name="perm_read" eval="True"/>
-            <field name="perm_write" eval="True"/>
-            <field name="perm_create" eval="True"/>
+            <field name="domain_force">[('user_permission', '=', 'edit')]</field>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_read" eval="False"/>
             <field name="perm_unlink" eval="False"/>
         </record>
 
-        <!-- duplicated for spreadsheetCellThreads in rule documents_spreadsheet.spreadsheet_manager_document_threads
-        Please update aforemetioned the rule accordingly -->
-        <record id="documents_document_manager_rule" model="ir.rule">
-            <field name="name">Documents.document: manager rule</field>
+        <!-- duplicated for spreadsheetCellThreads in rule documents_spreadsheet.spreadsheet_cell_thread_write_rule -->
+        <record id="documents_document_write_base_rule" model="ir.rule">
+            <field name="name">Documents.document: write+unlink base rule</field>
+            <field name="model_id" ref="model_documents_document"/>
+            <field name="groups" eval="[
+                (4, ref('base.group_public')),
+                (4, ref('base.group_portal')),
+                (4, ref('base.group_user')),
+            ]"/>
+            <field name="domain_force">[('user_permission', '=', 'edit'), ('is_pinned_folder', '=', False)]</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_create" eval="False"/>
+        </record>
+
+        <record id="documents_document_write_manager_rule" model="ir.rule">
+            <field name="name">Documents.document: write+unlink manager rule</field>
             <field name="model_id" ref="model_documents_document"/>
             <field name="groups" eval="[(4, ref('documents.group_documents_manager'))]"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="domain_force">[('user_permission', '=', 'edit')]</field>
+            <field name="perm_read" eval="False"/>
+            <field name="perm_create" eval="False"/>
         </record>
 
-        <!-- share links rules -->
-
-        <record id="documents_share_folder_company_rule" model="ir.rule">
-            <field name="name">Documents.share: company</field>
-            <field name="model_id" ref="model_documents_share"/>
-            <field name="domain_force">['|',
-                ('folder_id.company_id', '=', False),
-                ('folder_id.company_id', 'in', company_ids)]</field>
+        <!-- same as documents.document -->
+        <record id="documents_access_global_rule_read" model="ir.rule">
+            <field name="name">Documents.access: global read rule</field>
+            <field name="model_id" ref="model_documents_access"/>
+            <field name="domain_force">[('document_id.user_permission', '!=', 'none')]</field>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
         </record>
 
-        <record id="documents_share_folder_create_uid_rule" model="ir.rule">
-            <field name="name">Documents.share: create uid</field>
-            <field name="model_id" ref="model_documents_share"/>
-            <field name="groups" eval="[(4, ref('group_documents_user'))]"/>
-            <field name="domain_force">[('create_uid', '=', user.id)]</field>
-        </record>
-
-        <record id="documents_share_manager_rule" model="ir.rule">
-            <field name="name">Documents.share: manager rule</field>
-            <field name="model_id" ref="model_documents_share"/>
-            <field name="groups" eval="[(4, ref('group_documents_manager'))]"/>
-            <field name="domain_force">[(1, '=', 1)]</field>
+        <!-- same as documents.document -->
+        <record id="documents_access_global_rule_write" model="ir.rule">
+            <field name="name">Documents.access: global write rule</field>
+            <field name="model_id" ref="model_documents_access"/>
+            <field name="domain_force">[('document_id.user_permission', '=', 'edit')]</field>
+            <field name="perm_read" eval="False"/>
         </record>
 
         <record id="mail_plan_rule_group_document_manager_document" model="ir.rule">
@@ -165,5 +112,14 @@
             <field name="perm_read" eval="False"/>
         </record>
 
-    </data>
+    <record id="documents_tag_rule_portal" model="ir.rule">
+        <field name="name">Tag portal: Read access to the tags of the documents the user has access to</field>
+        <field name="model_id" ref="model_documents_tag"/>
+        <field name="groups" eval="[(4, ref('base.group_portal'))]"/>
+        <field name="domain_force">[('document_ids.user_permission', '!=', 'none')]</field>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
 </odoo>

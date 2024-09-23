@@ -124,6 +124,7 @@ test("Datasources are loaded before exporting in Excel", async function () {
     };
     const serverData = getBasicServerData();
     serverData.models["documents.document"].records = [
+        DocumentsDocument._records[0], // keep the res_company.document_spreadsheet_folder_id
         {
             id: 45,
             spreadsheet_data: JSON.stringify(spreadsheetData),

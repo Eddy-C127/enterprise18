@@ -14,7 +14,9 @@ The first element of the selection (in DRM) will be used as the signature attach
     'depends': ['documents', 'sign'],
 
     'data': [
-        'data/documents_workflow_rule_data.xml',
+        'data/documents_folder_data.xml',
+        'data/ir_action_server_data.xml',
+        'data/res_company_data.xml',
         'views/sign_templates.xml',
         'views/res_config_settings.xml',
     ],

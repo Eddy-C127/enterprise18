@@ -16,8 +16,9 @@ class testAttachmentAccess(TransactionCase):
             'email': "foo@bar.com",
             'groups_id': [(6, 0, [cls.env.ref('documents.group_documents_user').id])]
         })
+        folder = cls.env['documents.document'].create({'type': 'folder', 'name': 'foo', 'access_internal': 'edit'})
         cls.document_defaults = {
-            'folder_id': cls.env['documents.folder'].create({'name': 'foo'}).id,
+            'folder_id': folder.id,
         }
 
     def test_user_document_attachment_without_res_fields(self):

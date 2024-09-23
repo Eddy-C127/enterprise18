@@ -14,7 +14,6 @@ Adds approvals data to documents
         "views/res_config_settings_views.xml",
         "views/approval_request_views.xml",
         "data/documents_folder_data.xml",
-        "data/documents_facet_data.xml",
         "data/res_company_data.xml"
     ],
     'installable': True,

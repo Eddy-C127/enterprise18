@@ -1,3 +1,5 @@
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 from odoo import models, api
 
 class IrAttachment(models.Model):
@@ -7,7 +9,7 @@ class IrAttachment(models.Model):
     def create(self, vals_list):
         attachments = super().create(vals_list)
         for vals, attachment in zip(vals_list, attachments):
-            if vals.get('res_model', False) != 'account.move':
+            if vals.get('res_model') != 'account.move':
                 continue
             move = self.env['account.move'].browse(vals.get('res_id', False))
             if move.move_type == 'entry' or (len(move.attachment_ids) == 1 and move.attachment_ids[0] == attachment):

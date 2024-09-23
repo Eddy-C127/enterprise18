@@ -13,6 +13,11 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
             run: "click",
         },
         {
+            trigger: '.o_kanban_record:contains("Test folder")',
+            content: "Open the test folder",
+            run: "dblclick",
+        },
+        {
             trigger: ".o_cp_buttons:contains('New') .dropdown-toggle",
             content: "Open dropdown",
             run: "click",
@@ -45,59 +50,6 @@ registry.category("web_tour.tours").add("spreadsheet_create_empty_sheet", {
         {
             trigger: ".o_document_spreadsheet:first",
             content: "Reopen the sheet",
-            run: "click",
-        },
-        {
-            trigger: ".o-sp-breadcrumb",
-            content: "Wait for the spreadsheet to be properly unloaded",
-            run: "click",
-        },
-    ],
-});
-registry.category("web_tour.tours").add("spreadsheet_create_list_view", {
-    test: true,
-    steps: () => [
-        stepUtils.showAppsMenuItem(),
-        {
-            trigger: '.o_app[data-menu-xmlid="documents.menu_root"]',
-            content: "Open document app",
-            run: "click",
-        },
-        {
-            trigger: "button.o_switch_view.o_list",
-            content: "Switch to list view",
-            run: "click",
-        },
-        {
-            trigger: ".o_list_view",
-        },
-        {
-            trigger: ".o_control_panel .o_cp_action_menus .dropdown-toggle",
-            content: "Open the cog menu",
-            run: "click",
-        },
-        {
-            trigger: ".dropdown-menu .dropdown-toggle:contains(Spreadsheet)",
-            run: "hover",
-        },
-        {
-            trigger: ".o_insert_list_spreadsheet_menu",
-            content: "Insert in spreadsheet",
-            run: "click",
-        },
-        {
-            trigger: ".modal-footer .btn-primary",
-            content: "Confirm",
-            run: "click",
-        },
-        {
-            trigger: ".o-topbar-topleft .o-topbar-menu[data-id='data']",
-            content: "Open Data menu",
-            run: "click",
-        },
-        {
-            trigger: ".o-menu-item[data-name='item_list_1']",
-            content: "Open List Side Panel",
             run: "click",
         },
         {

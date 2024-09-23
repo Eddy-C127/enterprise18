@@ -64,11 +64,14 @@ class L10nInGSTReturnPeriod(models.Model):
         xml_id = 'l10n_in_reports_gstr_spreadsheet.%s_gstr_folder' % self.company_id.id
         gstr_folder = self.env.ref(xml_id, raise_if_not_found=False)
         if not gstr_folder:
-            gstr_folder = self.env['documents.folder'].create({
+            gstr_folder = self.env['documents.document'].create({
+                'type': 'folder',
                 'name': 'GSTR',
                 'company_id': self.company_id.id,
-                'group_ids': [Command.link(self.env.ref('account.group_account_manager').id)],
-                'read_group_ids': [Command.link(self.env.ref('account.group_account_manager').id)],
+                'access_internal': 'none',
+                'access_via_link': 'none',
+                'access_ids': [Command.create({'partner_id': partner.id, 'role': 'edit'})
+                               for partner in self.env.ref('account.group_account_manager').users.partner_id]
             })
             self.env['ir.model.data']._update_xmlids([{
                 'xml_id': xml_id,

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import models, fields, api, _
+from odoo import Command, models, fields, api, _
 from odoo.exceptions import UserError
 
 
@@ -35,13 +35,18 @@ class HrPayrollEmployeeDeclaration(models.Model):
     def _post_pdf(self):
         create_vals = []
         posted_documents = self._get_posted_documents()
+        odoobot = self.env.ref('base.user_root')
         lines_to_post = self.env['hr.payroll.employee.declaration']
         for line in self:
             template = self.env[line.res_model]._get_posted_mail_template()
             if line.pdf_filename not in posted_documents and line.pdf_file:
                 lines_to_post += line
+                partner_id = self.env[line.res_model]._get_posted_document_owner(line.employee_id).partner_id.id
                 create_vals.append({
-                    'owner_id': self.env[line.res_model]._get_posted_document_owner(line.employee_id).id,
+                    'owner_id': odoobot.id,
+                    'access_ids': [] if not partner_id else [
+                        Command.create({'partner_id': partner_id, 'role': 'view'})
+                    ],
                     'datas': line.pdf_file,
                     'name': line.pdf_filename,
                     'folder_id': line.company_id.documents_payroll_folder_id.id,

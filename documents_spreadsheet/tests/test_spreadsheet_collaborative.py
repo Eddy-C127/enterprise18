@@ -1,10 +1,7 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+
 import json
 import base64
-
-from freezegun import freeze_time
-from uuid import uuid4
 
 from .common import SpreadsheetTestCommon
 from odoo.tests.common import new_test_user, tagged
@@ -173,23 +170,20 @@ class SpreadsheetCollaborative(SpreadsheetTestCommon):
 class SpreadsheetORMAccess(SpreadsheetTestCommon):
     @classmethod
     def setUpClass(cls):
-        super(SpreadsheetORMAccess, cls).setUpClass()
-        cls.group = cls.env["res.groups"].create({"name": "test group"})
-        cls.folder.group_ids = cls.group
-        cls.user = new_test_user(
-            cls.env, login="John", groups="documents.group_documents_user"
-        )
-        cls.admin = new_test_user(
-            cls.env, login="John's manager", groups="documents.group_documents_manager,base.group_system"
-        )
+        super().setUpClass()
+        cls.folder.access_internal = 'none'
+        cls.user = new_test_user(cls.env, login="John", groups="base.group_user")
+        cls.admin = new_test_user(cls.env, login="John's manager", groups="base.group_system")
         cls.spreadsheet = cls.env["documents.document"].create(
             {
                 "spreadsheet_data": b"{}",
                 "folder_id": cls.folder.id,
                 "handler": "spreadsheet",
                 "mimetype": "application/o-spreadsheet",
+                "access_internal": "none",
             }
         )
+        cls.env['documents.access'].create({'document_id': cls.spreadsheet.id, 'partner_id': cls.admin.partner_id.id, 'role': 'edit'})
         cls.spreadsheet.join_spreadsheet_session()
 
     def test_create_user(self):
@@ -203,10 +197,8 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             )
 
     def test_create_user_with_doc_access(self):
-        self.user.groups_id |= self.group
-        self.spreadsheet.with_user(self.user).write(
-            {}
-        )  # the user can write the document
+        # the user can write the document
+        self._give_user_access('edit')
         with self.assertRaises(AccessError):
             self.env["spreadsheet.revision"].with_user(self.user).create(
                 {
@@ -232,6 +224,13 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
         )
         self.assertTrue(revision)
 
+    def _give_user_access(self, role='view'):
+        self.env['documents.access'].create({
+            'document_id': self.spreadsheet.id,
+            'partner_id': self.user.partner_id.id,
+            'role': role,
+        })
+
     def test_read_user(self):
         with self.assertRaises(AccessError):
             self.spreadsheet.with_user(self.user).spreadsheet_revision_ids.read()
@@ -239,7 +238,9 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             self.env["spreadsheet.revision"].with_user(self.user).search([])
 
     def test_read_user_with_doc_access(self):
-        self.user.groups_id |= self.group
+        with self.assertRaises(AccessError):
+            self.spreadsheet.with_user(self.user).read()
+        self._give_user_access()
         self.spreadsheet.with_user(self.user).read()  # the user can read the document
         with self.assertRaises(AccessError):
             self.spreadsheet.with_user(self.user).spreadsheet_revision_ids.read()
@@ -260,7 +261,7 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             self.spreadsheet.with_user(self.user).spreadsheet_revision_ids.write({})
 
     def test_write_user_with_doc_access(self):
-        self.user.groups_id |= self.group
+        self._give_user_access('edit')
         self.env.invalidate_all()
         self.spreadsheet.with_user(self.user).write(
             {"name": "new name"}
@@ -283,7 +284,7 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             self.spreadsheet.with_user(self.user).spreadsheet_revision_ids.unlink()
 
     def test_unlink_user_with_doc_access(self):
-        self.user.groups_id |= self.group
+        self._give_user_access()
         with self.assertRaises(AccessError):
             self.spreadsheet.with_user(self.user).spreadsheet_revision_ids.unlink()
 
@@ -301,14 +302,13 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             self.spreadsheet.with_user(self.user).join_spreadsheet_session()
 
     def test_join_user_with_doc_access(self):
-        self.user.groups_id |= self.group
+        self._give_user_access()
         self.env.invalidate_all()
         self.spreadsheet.with_user(self.user).join_spreadsheet_session()
 
     def test_join_user_with_read_doc_access(self):
-        self.user.groups_id |= self.group
-        self.folder.group_ids = False
-        self.folder.read_group_ids = self.group
+        self.spreadsheet.access_internal = 'view'
+
         self.env.invalidate_all()
         self.spreadsheet.with_user(self.user).join_spreadsheet_session()
         with self.assertRaises(AccessError):
@@ -318,15 +318,14 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
 
     def test_join_new_spreadsheet_user(self):
         # only read access
-        self.user.groups_id |= self.group
-        self.folder.group_ids = False
-        self.folder.read_group_ids = self.group
+        self.spreadsheet.access_internal = 'view'
         spreadsheet = self.env["documents.document"].create(
             {
                 "spreadsheet_data": b"{}",
                 "folder_id": self.folder.id,
                 "handler": "spreadsheet",
                 "mimetype": "application/o-spreadsheet",
+                "access_internal": "edit",
             }
         )
         # no one ever joined this spreadsheet
@@ -334,19 +333,19 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
         self.assertEqual(result["data"], {})
 
     def test_join_snapshot_request(self):
-        with freeze_time("2020-02-02 18:00"):
+        with self._freeze_time("2020-02-02 18:00"):
             self.spreadsheet.dispatch_spreadsheet_message(
                 self.new_revision_data(self.spreadsheet)
             )
-        self.user.groups_id |= self.group
-        self.folder.group_ids = False
-        self.folder.read_group_ids = self.group
-        with freeze_time("2020-02-03 18:00"):
+        self.spreadsheet.access_internal = 'view'
+        with self._freeze_time("2020-02-03 18:00"):
             self.assertFalse(
                 self.spreadsheet.with_user(self.user).join_spreadsheet_session().get("snapshot_requested"),
                 "It should not have requested a snapshot",
             )
-            self.folder.group_ids = self.group  # grant write access
+            self.spreadsheet.access_internal = 'edit'
+            self.folder.access_internal = 'edit'
+            self.assertTrue(self.spreadsheet._should_be_snapshotted())
             self.assertTrue(
                 self.spreadsheet.with_user(self.user).join_spreadsheet_session().get("snapshot_requested"),
                 "It should have requested a snapshot",
@@ -360,7 +359,7 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             )
 
     def test_snapshot_user_with_doc_access(self):
-        self.user.groups_id |= self.group
+        self._give_user_access('edit')
         self.spreadsheet.dispatch_spreadsheet_message(
             # add at least one revision
             self.new_revision_data(self.spreadsheet)
@@ -373,9 +372,7 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
         self.assertEqual(len(self.spreadsheet.spreadsheet_revision_ids), 0)
 
     def test_snapshot_user_with_read_doc_access(self):
-        self.user.groups_id |= self.group
-        self.folder.group_ids = False
-        self.folder.read_group_ids = self.group
+        self._give_user_access()
         self.spreadsheet.current_revision_uuid
         self.env.invalidate_all()
         with self.assertRaises(AccessError):
@@ -391,7 +388,7 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             )
 
     def test_dispatch_user_with_doc_access(self):
-        self.user.groups_id |= self.group
+        self._give_user_access('edit')
         commands = self.new_revision_data(self.spreadsheet)
         self.env.invalidate_all()
         self.spreadsheet.with_user(self.user).dispatch_spreadsheet_message(commands)
@@ -401,9 +398,7 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
         )
 
     def test_dispatch_user_with_read_doc_access(self):
-        self.user.groups_id |= self.group
-        self.folder.group_ids = False
-        self.folder.read_group_ids = self.group
+        self._give_user_access()
         commands = self.new_revision_data(self.spreadsheet)
         with self.assertRaises(AccessError):
             self.spreadsheet.with_user(self.user).dispatch_spreadsheet_message(
@@ -411,9 +406,7 @@ class SpreadsheetORMAccess(SpreadsheetTestCommon):
             )
 
     def test_dispatch_user_with_read_doc_access_move(self):
-        self.user.groups_id |= self.group
-        self.folder.group_ids = False
-        self.folder.read_group_ids = self.group
+        self._give_user_access()
         self.env.invalidate_all()
         self.spreadsheet.with_user(self.user).dispatch_spreadsheet_message(
             {"type": "CLIENT_MOVED"}

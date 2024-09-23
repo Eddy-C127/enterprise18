@@ -8,9 +8,11 @@ def _documents_fsm_post_init(env):
     fsm_projects = env["project.project"].search([("is_fsm", "=", True), ("use_documents", "=", True)])
 
     # Search for folders that are descendants of fsm_projects folders and have documents
-    subfolders_with_documents = env["documents.folder"].search([
+    subfolders_with_documents = env["documents.document"].search([
         ("id", "child_of", fsm_projects.documents_folder_id.ids),
-        ("document_ids", "!=", False),
+        ("type", '=', "folder"),
+        ("shortcut_document_id", "=", False),
+        ("children_ids", "any", ["|", ("type", "!=", "folder"), ("shortcut_document_id", "!=", False)]),
     ])
 
     folders_with_non_empty_subfolders = {

@@ -21,12 +21,12 @@ async function mountSetup(PdfManager, target, env) {
         env,
         props: {
             documents: [
-                { id: 1, name: "yop", mimetype: "application/pdf", available_rule_ids: [1, 2] },
-                { id: 2, name: "blip", mimetype: "application/pdf", available_rule_ids: [1] },
+                { id: 1, name: "yop", mimetype: "application/pdf", available_embedded_actions_ids: [1, 2] },
+                { id: 2, name: "blip", mimetype: "application/pdf", available_embedded_actions_ids: [1] },
             ],
-            rules: [
-                { id: 1, display_name: "rule1", note: "note1", limited_to_single_record: false },
-                { id: 2, display_name: "rule2", limited_to_single_record: false },
+            embeddedActions: [
+                { id: 1, name: "action1"},
+                { id: 2, name: "action2"},
             ],
             onProcessDocuments: () => {},
             close: () => {},
@@ -95,13 +95,13 @@ QUnit.module("documents", {}, function () {
                 );
                 assert.strictEqual(
                     target.querySelectorAll(".o_pdf_manager_button")[3].innerText,
-                    "RULE1",
-                    "There should be a RULE1 button"
+                    "ACTION1",
+                    "There should be a ACTION1 button"
                 );
                 assert.strictEqual(
                     target.querySelectorAll(".o_pdf_manager_button")[4].innerText,
-                    "RULE2",
-                    "There should be a RULE2 button"
+                    "ACTION2",
+                    "There should be a ACTION2 button"
                 );
                 assert.containsOnce(
                     target,

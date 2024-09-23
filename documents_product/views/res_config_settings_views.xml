@@ -15,12 +15,12 @@
                         <field name="documents_product_settings"/>
                         <div class="content-group" invisible="not documents_product_settings">
                             <div class="row mt16">
-                                <label class="o_form_label col-lg-3" for="product_folder" string="Workspace"/>
-                                <field name="product_folder" required="documents_product_settings"/>
+                                <label class="o_form_label col-lg-3" for="product_folder_id" string="Workspace"/>
+                                <field name="product_folder_id" required="documents_product_settings" widget="documents_folder_many2one"/>
                             </div>
                             <div class="row">
-                                <label class="o_form_label col-lg-3" for="product_tags" string="Default Tags"/>
-                                <field name="product_tags" widget="many2many_tags" domain="[('folder_id','=', product_folder)]"/>
+                                <label class="o_form_label col-lg-3" for="product_tag_ids" string="Default Tags"/>
+                                <field name="product_tag_ids" widget="many2many_tags"/>
                             </div>
                         </div>
                     </setting>

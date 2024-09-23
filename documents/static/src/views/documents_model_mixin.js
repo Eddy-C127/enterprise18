@@ -1,59 +1,17 @@
 /** @odoo-module **/
 
 import { _t } from "@web/core/l10n/translation";
-import { inspectorFields } from "./inspector/documents_inspector";
-import { makeActiveField } from "@web/model/relational_model/utils";
-import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
+import { user } from '@web/core/user';
+import { useService } from "@web/core/utils/hooks";
 
 export const DocumentsModelMixin = (component) =>
     class extends component {
-        /**
-         * Add inspector fields to the list of fields to load
-         * @override
-         */
         setup(params) {
-            for (const field of inspectorFields) {
-                if (!(field in params.config.activeFields)) {
-                    if (field === 'folder_id') {
-                        // force required to true for that field, to have proper validation inside the inspector
-                        params.config.activeFields[field] = makeActiveField({ required: true });
-                    } else {
-                        params.config.activeFields[field] = makeActiveField();
-                    }
-                }
-            }
-            params.config.activeFields.available_rule_ids = Object.assign(
-                {},
-                params.config.activeFields.available_rule_ids,
-                {
-                    related: {
-                        activeFields: {
-                            display_name: makeActiveField(),
-                            note: makeActiveField(),
-                            limited_to_single_record: makeActiveField(),
-                            create_model: makeActiveField(),
-                        },
-                        fields: {
-                            display_name: {
-                                type: "string",
-                            },
-                            note: {
-                                type: "string",
-                            },
-                            limited_to_single_record: {
-                                type: "boolean",
-                            },
-                            create_model: {
-                                type: "string",
-                            },
-                        },
-                    },
-                }
-            );
             super.setup(...arguments);
             if (this.config.resModel === "documents.document") {
                 this.originalSelection = params.state?.sharedSelection;
             }
+            this.documentService = useService("document.document");
         }
 
         exportSelection() {
@@ -78,6 +36,7 @@ export const DocumentsModelMixin = (component) =>
                 : this.env.documentsView.bus.trigger("documents-close-preview");
             this._reapplySelection();
             this._computeFileSize();
+            this.shortcutTargetRecords = this.orm.isSample ? [] : await this._loadShortcutTargetRecords();
             return res;
         }
 
@@ -106,20 +65,82 @@ export const DocumentsModelMixin = (component) =>
             size /= 1000 * 1000; // in MB
             this.fileSize = Math.round(size * 100) / 100;
         }
+
+        async _loadShortcutTargetRecords() {
+            const shortcuts = this.root.records.filter(
+                (record) => !!record.data.shortcut_document_id,
+            );
+            if (!shortcuts.length) {
+                return [];
+            }
+            const shortcutTargetRecords = [];
+            const targetRecords = await this._loadRecords({
+                ...this.config,
+                resIds: shortcuts.map((record) => record.data.shortcut_document_id[0]),
+            });
+            for (const targetRecord of targetRecords) {
+                shortcutTargetRecords.push(this._createRecordDatapoint(targetRecord));
+            }
+            return shortcutTargetRecords;
+        }
+
+        _createRecordDatapoint(data, mode = "readonly") {
+            return new this.constructor.Record(
+                this,
+                {
+                    context: this.config.context,
+                    activeFields: this.config.activeFields,
+                    resModel: this.config.resModel,
+                    fields: this.config.fields,
+                    resId: data.id || false,
+                    resIds: data.id ? [data.id] : [],
+                    isMonoRecord: true,
+                    currentCompanyId: this.config.currentCompanyId,
+                    mode,
+                },
+                data,
+                { manuallyAdded: !data.id }
+            );
+        }
     };
 
 export const DocumentsRecordMixin = (component) => class extends component {
 
     async update() {
         const originalFolderId = this.data.folder_id[0];
-        await super.update(...arguments);
+        const ret = await super.update(...arguments);
         if (this.data.folder_id && this.data.folder_id[0] !== originalFolderId) {
             this.model.root._removeRecords(this.model.root.selection.map((rec) => rec.id));
         }
+        return ret;
     }
 
     isPdf() {
         return this.data.mimetype === "application/pdf" || this.data.mimetype === "application/pdf;base64";
+    }
+
+    isRequest() {
+        return !this.data.shortcut_document_id && this.data.type === "binary" && !this.data.attachment_id;
+    }
+
+    isShortcut() {
+        return !!this.data.shortcut_document_id;
+    }
+
+    isURL() {
+        return !this.data.shortcut_document_id && this.data.type === "url";
+    }
+
+    /**
+     * Return the source Document if this is a shortcut and self if not.
+     */
+    get shortcutTarget() {
+        if (!this.isShortcut()) {
+            return this;
+        }
+        return this.model.shortcutTargetRecords.find(
+            (rec) => rec.resId === this.data.shortcut_document_id[0],
+        ) || this;
     }
 
     hasStoredThumbnail() {
@@ -127,8 +148,10 @@ export const DocumentsRecordMixin = (component) => class extends component {
     }
 
     isViewable() {
+        const thisRecord = this.shortcutTarget;
         return (
-            [
+            thisRecord.data.type !== "folder" &&
+            ([
                 "image/bmp",
                 "image/gif",
                 "image/jpeg",
@@ -148,9 +171,41 @@ export const DocumentsRecordMixin = (component) => class extends component {
                 "video/x-matroska",
                 "video/mp4",
                 "video/webm",
-            ].includes(this.data.mimetype) ||
-            (this.data.url && this.data.url.includes("youtu"))
+            ].includes(thisRecord.data.mimetype) ||
+            (thisRecord.data.url && thisRecord.data.url.includes("youtu")))
         );
+    }
+
+    async onClickPreview(ev) {
+        if (this.isRequest()) {
+            ev.stopPropagation();
+            // Only supported in the kanban view
+            ev.target.querySelector(".o_kanban_replace_document")?.click();
+        } else if (this.isViewable()) {
+            ev.stopPropagation();
+            ev.preventDefault();
+            const folder = this.model.env.searchModel
+                .getFolders()
+                .filter((folder) => folder.id === this.data.folder_id[0]);
+            const hasPdfSplit =
+                (!this.data.lock_uid || this.data.lock_uid[0] === user.userId) &&
+                folder.user_permission === "edit";
+            const selection = this.model.root.selection;
+            const documents = selection.length > 1 && selection.find(rec => rec === this) && selection.filter(rec => rec.isViewable()) || [this];
+
+            // Load the embeddedActions in case we open the split tool
+            const embeddedActions = this.data.available_embedded_actions_ids.records.map((rec) => ({ id: rec.resId, name: rec.data.display_name }));
+
+            await this.model.env.documentsView.bus.trigger("documents-open-preview", {
+                documents,
+                mainDocument: this,
+                isPdfSplit: false,
+                embeddedActions,
+                hasPdfSplit,
+            });
+        } else if (this.isURL()) {
+            window.open(this.data.url, "_blank");
+        }
     }
 
     /**
@@ -176,17 +231,44 @@ export const DocumentsRecordMixin = (component) => class extends component {
             const lowerIdx = Math.min(indexFrom, indexTo);
             const upperIdx = Math.max(indexFrom, indexTo) + 1;
             root.selection.forEach((rec) => (rec.selected = false));
+            // We don't modify the current one as it will be by the toggleSelection below. TODO: improve the method
             for (let idx = lowerIdx; idx < upperIdx; idx++) {
-                root.records[idx].selected = true;
+                const record = root.records[idx];
+                if (record != this) {
+                    record.selected = true;
+                }
             }
-            thisSelected = true;
         } else if (!isKeepSelection && (isMultiSelect || thisSelected)) {
             root.selection.forEach((rec) => {
                 rec.selected = false;
             });
-            thisSelected = undefined;
         }
-        this.toggleSelection(thisSelected);
+        this.toggleSelection();
+    }
+
+    async toggleSelection() {
+        await super.toggleSelection();
+
+        if (this.selected) {
+            this.model.documentService.logAccess(this.data.access_token);
+        }
+
+        this.model.documentService.updateDocumentURL(null, this.model.root.selection);
+    }
+
+    /**
+     * Opens the folder upon double click on record with folder as type.
+     */
+    onRecordDoubleClick() {
+        const sectionId = this.model.env.searchModel.getSections()[0].id;
+        const folderId = this.isShortcut()
+            ? this.data.type === "folder"
+                ? this.shortcutTarget.data.id
+                : this.shortcutTarget.data.folder_id[0]
+            : this.data.id;
+        this.model.env.searchModel.toggleCategoryValue(sectionId, folderId);
+        this.model.originalSelection = [this.shortcutTarget.resId];
+        this.model.env.documentsView.bus.trigger("documents-expand-folder", { folderId: folderId });
     }
 
     /**
@@ -202,7 +284,9 @@ export const DocumentsRecordMixin = (component) => class extends component {
             return agg;
         }, {});
         const draggableRecords = root.selection.filter(
-            (record) => (!record.data.lock_uid || record.data.lock_uid[0] === this.context.uid) && foldersById[record.data.folder_id[0]].has_write_access
+            (record) => (!record.data.lock_uid || record.data.lock_uid[0] === this.context.uid)
+                && record.data.user_permission === 'edit'
+                && (!foldersById[record.data.folder_id[0]] || foldersById[record.data.folder_id[0]].user_permission === "edit")
         );
         if (draggableRecords.length === 0) {
             ev.preventDefault();
@@ -211,6 +295,10 @@ export const DocumentsRecordMixin = (component) => class extends component {
         const lockedCount = root.selection.reduce((count, record) => {
             return count + (record.data.lock_uid && record.data.lock_uid[0] !== this.context.uid);
         }, 0);
+        const folderCount = draggableRecords.reduce((count, record) => {
+            return count + (record.data.type === "folder");
+        }, 0);
+        const fileCount = draggableRecords.length - folderCount;
         ev.dataTransfer.setData(
             "o_documents_data",
             JSON.stringify({
@@ -219,15 +307,21 @@ export const DocumentsRecordMixin = (component) => class extends component {
             })
         );
         let dragText;
-        if (lockedCount > 0) {
-            dragText = _t("%(documentCount)s Documents (%(lockedCount)s locked)", {
-                documentCount: draggableRecords.length,
-                lockedCount: lockedCount,
-            });
-        } else if (draggableRecords.length === 1) {
+        if (draggableRecords.length === 1) {
             dragText = draggableRecords[0].data.name ? draggableRecords[0].data.display_name : _t("Unnamed");
         } else {
-            dragText = _t("%s Documents", draggableRecords.length);
+            let fileCountText, folderCountText;
+            if (fileCount) {
+                fileCountText = (fileCount.length === 1) ? _t("1 File") : _t("%s Files", fileCount);
+            }
+            if (folderCount) {
+                folderCountText = (folderCount.length === 1) ? _t("1 Folder") : _t("%s Folders", folderCount);
+            }
+            dragText = fileCount ? fileCountText : "";
+            dragText += folderCount ? fileCount ? " " + folderCountText : folderCountText : "";
+        }
+        if (lockedCount > 0) {
+            dragText += _t(" (%s locked)", lockedCount);
         }
         const newElement = document.createElement("span");
         newElement.classList.add("o_documents_drag_icon");
@@ -237,23 +331,31 @@ export const DocumentsRecordMixin = (component) => class extends component {
         setTimeout(() => newElement.remove());
     }
 
-    async openDeleteConfirmationDialog(root, callback, isPermanent) {
-        const dialogProps = {
-            title: isPermanent ? _t("Delete permanently") : _t("Move to trash"),
-            body: isPermanent ? root.isDomainSelected || root.selection.length > 1
-                ? _t("Are you sure you want to permanently erase the documents?")
-                : _t("Are you sure you want to permanently erase the document?")
-                : _t("Items moved to the trash will be deleted forever after %s days.", 
-                    this.model.env.searchModel.deletionDelay
-                    ),
-            confirmLabel: isPermanent ? _t("Delete permanently") : _t("Move to trash"),
-            cancelLabel: _t("Discard"),
-            confirm: async () => {
-                await callback();
-                await this.model.env.documentsView.bus.trigger("documents-close-preview");
-            },
-            cancel: () => {},
-        };
-        this.model.dialog.add(ConfirmationDialog, dialogProps);
+//    TODO: Change the drag & drop with search panel
+//    TODO: add notification when drop not valid
+    async onDrop(ev) {
+        if (!this.isValidDragTarget(ev)) {
+            return;
+        }
+        if (ev.dataTransfer.types.includes("o_documents_data")) {
+            const data = JSON.parse(ev.dataTransfer.getData("o_documents_data"));
+
+            const action_name = ev.ctrlKey ? "action_create_shortcut" : "action_move_documents";
+
+            await this.model.orm.call("documents.document", action_name, [
+                data.recordIds,
+                this.data.id,
+            ]);
+            await this.model.env.searchModel._reloadSearchModel(true);
+
+            if (action_name ===  "action_move_documents") {
+                this.model.notification.add(_t("The document has been moved."), { type: "success" });
+            }
+        }
+    }
+
+    isValidDragTarget({ dataTransfer }) {
+        const data = JSON.parse(dataTransfer.getData("o_documents_data")); // can only be accessed from the drop event... shitty news...
+        return this.data.type == "folder" && !data.recordIds.includes(this.resId);
     }
 };

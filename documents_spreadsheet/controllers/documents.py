@@ -1,55 +1,71 @@
-# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
 import re
 
-from odoo import _, http
-from odoo.http import request
-from odoo.exceptions import AccessError, MissingError, ValidationError
+from odoo.http import request, route
 from odoo.addons.documents.controllers.documents import ShareRoute
 
+# ends with .osheet.json or .osheet (6).json
+SPREADSHEET_RE = re.compile(r'\.osheet(\s?\(\d+\))?\.json$')
+
 class SpreadsheetShareRoute(ShareRoute):
+    def _documents_render_public_view(self, document_sudo):
+        if document_sudo.handler in ("spreadsheet", "frozen_spreadsheet"):
+            return self._documents_render_portal_view(document_sudo)
 
-    @classmethod
-    def _get_downloadable_documents(cls, documents):
+        return super()._documents_render_public_view(document_sudo)
+
+    def _documents_render_portal_view(self, document):
+        if document.handler not in ("spreadsheet", "frozen_spreadsheet"):
+            return super()._documents_render_portal_view(document)
+
+        # check if the spreadsheet contains "live data", if yes the rendering will fail
+        if document._contains_live_data():
+            return request.render("documents_spreadsheet.documents_error_live_data")
+
+        return request.render(
+            "spreadsheet.public_spreadsheet_layout",
+            {
+                "spreadsheet_name": document.name,
+                "share": document,
+                "session_info": request.env["ir.http"].session_info(),
+                "props": {
+                    "dataUrl": f"/documents/spreadsheet/{document.access_token}",
+                    "downloadExcelUrl": f"/documents/content/{document.access_token}",
+                },
+            },
+        )
+
+    def _documents_content_stream(self, document_sudo):
         """
-            override of documents to prevent the download
-            of spreadsheets binary as they are not usable
+        Use the ``excel_export`` field instead of ``raw`` when
+        downloading frozen spreadsheets.
         """
-        return super()._get_downloadable_documents(documents.filtered(lambda doc: doc.mimetype != "application/o-spreadsheet"))
+        if document_sudo.handler == 'frozen_spreadsheet':
+            return request.env['ir.binary']._get_stream_from(document_sudo, 'excel_export')
+        elif document_sudo.handler == 'spreadsheet':
+            raise ValueError("non-frozen spreadsheets have no content")
+        return super()._documents_content_stream(document_sudo)
 
-    def _create_uploaded_documents(self, *args, **kwargs):
-        documents = super()._create_uploaded_documents(*args, **kwargs)
-        if any(doc.handler == "spreadsheet" for doc in documents):
-            raise AccessError(_("You cannot upload spreadsheets in a shared folder"))
-        return documents
+    @route('/documents/spreadsheet/<access_token>', type='http', auth='public', readonly=True)
+    def documents_spreadsheet(self, access_token):
+        """Download the spreadsheet data for the readonly view."""
+        document_sudo = self._from_access_token(access_token, skip_log=True)
+        if not document_sudo:
+            raise request.not_found()
 
-    @classmethod
-    def _get_share_zip_data_stream(cls, share, document):
-        if document.handler == "spreadsheet":
-            spreadsheet_copy = share.freezed_spreadsheet_ids.filtered(
-                lambda s: s.document_id == document
-            )
-            try:
-                return request.env["ir.binary"]._get_stream_from(
-                    spreadsheet_copy, "excel_export", filename=document.name
-                )
-            except MissingError:
-                return False
-        return super()._get_share_zip_data_stream(share, document)
+        spreadsheet_data = json.loads(document_sudo.spreadsheet_data)
+        spreadsheet_data['revisions'] = document_sudo._build_spreadsheet_messages()
+        return json.dumps(spreadsheet_data)
 
-    @http.route()
-    def upload_document(self, *args, **kwargs):
-        response = super().upload_document(*args, **kwargs)
-        document_ids = response.json.get("ids")
-        documents = request.env["documents.document"].browse(document_ids)
-        # ends with .osheet.json or .osheet (6).json
-        match_regex = r"\.osheet(\s?\(\d+\))?\.json$"
-        spreadsheets = documents.filtered(lambda doc: doc.name and re.search(match_regex, doc.name) and doc.mimetype == "application/json")
-        spreadsheets.handler = "spreadsheet"
-        try:
-            spreadsheets._check_spreadsheet_data()
-        except ValidationError as e:
-            return request.make_json_response({
-                "error": str(e)
-            })
-        return response
+    def _documents_upload_create_write(self, *args, **kwargs):
+        """Set the correct handler when uploading a spreadsheet"""
+        document_sudo = super()._documents_upload_create_write(*args, **kwargs)
+        if (document_sudo.name
+            and SPREADSHEET_RE.search(document_sudo.name)
+            and document_sudo.mimetype == 'application/json'
+        ):
+            document_sudo.handler = 'spreadsheet'
+            document_sudo._check_spreadsheet_data()
+        return document_sudo

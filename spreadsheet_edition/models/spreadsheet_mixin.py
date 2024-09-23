@@ -72,7 +72,7 @@ class SpreadsheetMixin(models.AbstractModel):
         spreadsheets._copy_spreadsheet_image_attachments()
         return spreadsheets
 
-    def join_spreadsheet_session(self, share_id=None, access_token=None):
+    def join_spreadsheet_session(self, access_token=None):
         """Join a spreadsheet session.
         Returns the following data::
         - the last snapshot
@@ -82,9 +82,9 @@ class SpreadsheetMixin(models.AbstractModel):
         - whether the user can edit the content of the spreadsheet or not
         """
         self.ensure_one()
-        self._check_collaborative_spreadsheet_access("read", share_id, access_token)
+        self._check_collaborative_spreadsheet_access("read", access_token)
         can_write = self._check_collaborative_spreadsheet_access(
-            "write", share_id, access_token, raise_exception=False
+            "write", access_token, raise_exception=False
         )
         spreadsheet_sudo = self.sudo()
         return {
@@ -100,7 +100,7 @@ class SpreadsheetMixin(models.AbstractModel):
             "writable_rec_name_field": self._get_writable_record_name_field(),
         }
 
-    def dispatch_spreadsheet_message(self, message: CollaborationMessage, share_id=None, access_token=None):
+    def dispatch_spreadsheet_message(self, message: CollaborationMessage, access_token=None):
         """This is the entry point of collaborative editing.
         Collaboration messages arrive here. For each received messages,
         the server decides if it's accepted or not. If the message is
@@ -135,7 +135,7 @@ class SpreadsheetMixin(models.AbstractModel):
         self.ensure_one()
 
         if message["type"] in ["REMOTE_REVISION", "REVISION_UNDONE", "REVISION_REDONE"]:
-            self._check_collaborative_spreadsheet_access("write", share_id, access_token)
+            self._check_collaborative_spreadsheet_access("write", access_token)
             is_accepted = self.sudo()._save_concurrent_revision(
                 message["nextRevisionId"],
                 message["serverRevisionId"],
@@ -145,12 +145,12 @@ class SpreadsheetMixin(models.AbstractModel):
                 self._broadcast_spreadsheet_message(message)
             return is_accepted
         elif message["type"] == "SNAPSHOT":
-            self._check_collaborative_spreadsheet_access("write", share_id, access_token)
+            self._check_collaborative_spreadsheet_access("write", access_token)
             return self.sudo()._snapshot_spreadsheet(
                 message["serverRevisionId"], message["nextRevisionId"], message["data"]
             )
         elif message["type"] in ["CLIENT_JOINED", "CLIENT_LEFT", "CLIENT_MOVED"]:
-            self._check_collaborative_spreadsheet_access("read", share_id, access_token)
+            self._check_collaborative_spreadsheet_access("read", access_token)
             self._broadcast_spreadsheet_message(message)
             return True
         return False
@@ -296,28 +296,25 @@ class SpreadsheetMixin(models.AbstractModel):
         ]
 
     def _check_collaborative_spreadsheet_access(
-        self, operation: str, share_id=None, access_token=None, *, raise_exception=True
+        self, operation: str, access_token=None, *, raise_exception=True
     ):
         """Check that the user has the right to read/write on the document.
         It's used to ensure that a user can read/write the spreadsheet revisions
         of this document.
         """
         try:
-            if share_id and access_token:
-                self._check_spreadsheet_share(operation, share_id, access_token)
-            else:
-                self.check_access(operation)
+            self._check_spreadsheet_share(operation, access_token)
         except AccessError as e:
             if raise_exception:
                 raise e
             return False
         return True
 
-    def _check_spreadsheet_share(self, operation, share_id, access_token):
+    def _check_spreadsheet_share(self, operation, access_token):
         """Delegates the sharing check to the underlying model which might
         implement sharing in different ways.
         """
-        raise AccessError(_("You are not allowed to access this spreadsheet."))
+        self.check_access(operation)
 
     def _broadcast_spreadsheet_message(self, message: CollaborationMessage):
         """Send the message to the spreadsheet channel"""

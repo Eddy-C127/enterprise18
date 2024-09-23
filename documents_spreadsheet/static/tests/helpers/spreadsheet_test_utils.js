@@ -2,7 +2,7 @@ import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreads
 import { SpreadsheetTemplateAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_template/spreadsheet_template_action";
 import { animationFrame } from "@odoo/hoot-mock";
 import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import {
     getSpreadsheetActionEnv,
@@ -52,7 +52,7 @@ async function createSpreadsheetAction(actionTag, params) {
     });
     if (!webClient) {
         await prepareWebClientForSpreadsheet();
-        await makeSpreadsheetMockEnv(params);
+        await makeDocumentsSpreadsheetMockEnv(params);
         await mountWithCleanup(WebClient);
     }
     await getService("action").doAction(

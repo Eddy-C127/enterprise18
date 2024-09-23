@@ -43,7 +43,7 @@ test("open wizard action", async () => {
             expect(options).toEqual({
                 additionalContext: {
                     default_document_id: 2,
-                    default_name: "",
+                    default_name: "My spreadsheet",
                 },
             });
         }

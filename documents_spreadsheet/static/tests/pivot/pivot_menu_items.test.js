@@ -1,6 +1,7 @@
 import {
     defineDocumentSpreadsheetModels,
     defineDocumentSpreadsheetTestAction,
+    DocumentsDocument,
 } from "@documents_spreadsheet/../tests/helpers/data";
 import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
 import { createSpreadsheet } from "@documents_spreadsheet/../tests/helpers/spreadsheet_test_utils";
@@ -194,6 +195,7 @@ test("Reinsert an Odoo pivot which has no formula on the sheet (meaning the data
     };
     const serverData = getBasicServerData();
     serverData.models["documents.document"].records = [
+        DocumentsDocument._records[0], // res_company.document_spreadsheet_folder_id
         {
             id: 45,
             spreadsheet_data: JSON.stringify(spreadsheetData),

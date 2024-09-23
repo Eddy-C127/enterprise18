@@ -1,25 +1,24 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
+import json
 import base64
 from datetime import datetime
-import json
-
-from freezegun import freeze_time
-from psycopg2 import IntegrityError
 
 from .common import SpreadsheetTestCommon, TEST_CONTENT, GIF
 from odoo.exceptions import AccessError
-from odoo.tools import mute_logger
 from odoo.tests import Form
-from odoo.tests.common import new_test_user
+from odoo.tests.common import freeze_time, new_test_user
 
 
 class SpreadsheetDocuments(SpreadsheetTestCommon):
     @classmethod
     def setUpClass(cls):
-        super(SpreadsheetDocuments, cls).setUpClass()
-        cls.folder = cls.env["documents.folder"].create({"name": "Test folder"})
+        super().setUpClass()
+        cls.folder = cls.env["documents.document"].create({
+            "name": "Test folder",
+            "type": "folder",
+            "access_internal": "edit",
+        })
 
     def test_action_open_new_spreadsheet(self):
         action = self.env["documents.document"].action_open_new_spreadsheet()
@@ -36,7 +35,6 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.assertEqual(action_open["tag"], "action_open_spreadsheet")
         self.assertEqual(action_notification["type"], "ir.actions.client")
         self.assertEqual(action_notification["tag"], "display_notification")
-
 
     def test_action_open_new_spreadsheet_with_locale(self):
         self.env["res.lang"].create(
@@ -88,42 +86,47 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.env["documents.document"].search([("handler", "=", "spreadsheet")]).active = False
 
     def test_spreadsheet_default_folder(self):
-        document = self.env["documents.document"].create({
-            "spreadsheet_data": r"{}",
-            "handler": "spreadsheet",
-            "mimetype": "application/o-spreadsheet",
-        })
-        self.assertEqual(
-            document.folder_id,
-            self.env.company.documents_spreadsheet_folder_id,
-            "It should have been assigned the default Spreadsheet Folder"
-        )
-        self.env.company.documents_spreadsheet_folder_id = self.env['documents.folder'].create({
-            'name': 'Spreadsheet - Test Folder',
-        })
-        document = self.env["documents.document"].create({
-            "spreadsheet_data": r"{}",
-            "handler": "spreadsheet",
-            "mimetype": "application/o-spreadsheet",
-        })
-        self.assertEqual(
-            document.folder_id,
-            self.env.company.documents_spreadsheet_folder_id,
-            "It should have been assigned the default Spreadsheet Folder"
-        )
+        user1 = new_test_user(self.env, login="Alice", groups="base.group_user")
+        user2 = new_test_user(self.env, login="Bob", groups="base.group_user")
 
-    def test_normal_doc_default_folder(self):
-        """Default spreadsheet folder is not assigned to normal documents"""
-        with self.assertRaises(IntegrityError), mute_logger('odoo.sql_db'):
-            self.env["documents.document"].create({
-                "spreadsheet_data": r"{}",
-                "mimetype": "application/o-spreadsheet",
-            })
+        document = self.env["documents.document"].with_user(user1).create({
+            "spreadsheet_data": "{}",
+            "handler": "spreadsheet",
+            "mimetype": "application/o-spreadsheet",
+        })
+        self.assertEqual(
+            document.folder_id,
+            self.env.company.document_spreadsheet_folder_id,
+            "It should have been assigned the default Spreadsheet Folder"
+        )
+        self.assertEqual(document.access_internal, 'none')
+        self.assertEqual(document.access_via_link, 'none')
+
+        # Bob can not read the documents of Alice
+        result = self.env['documents.document'].with_user(user2).search(
+            [('folder_id', '=', document.folder_id.id)])
+        self.assertNotIn(document, result)
+
+        self.env.company.document_spreadsheet_folder_id = self.env['documents.document'].create({
+            'name': 'Spreadsheet - Test Folder',
+            'type': 'folder',
+            'access_internal': 'edit',
+        })
+        document = self.env["documents.document"].with_user(user1).create({
+            "spreadsheet_data": "{}",
+            "handler": "spreadsheet",
+            "mimetype": "application/o-spreadsheet",
+        })
+        self.assertEqual(
+            document.folder_id,
+            self.env.company.document_spreadsheet_folder_id,
+            "It should have been assigned the default Spreadsheet Folder"
+        )
 
     def test_spreadsheet_no_default_folder(self):
         """Folder is not overwritten by the default spreadsheet folder"""
         document = self.env["documents.document"].create({
-            "spreadsheet_data": r"{}",
+            "spreadsheet_data": "{}",
             "folder_id": self.folder.id,
             "handler": "spreadsheet",
             "mimetype": "application/o-spreadsheet",
@@ -133,9 +136,9 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
     def test_spreadsheet_to_display_with_domain(self):
         self.archive_existing_spreadsheet()
 
-        with freeze_time("2020-02-03"):
+        with self._freeze_time("2020-02-03"):
             spreadsheet1 = self.create_spreadsheet(name="My Spreadsheet")
-        with freeze_time("2020-02-02"):
+        with self._freeze_time("2020-02-02"):
             spreadsheet2 = self.create_spreadsheet(name="Untitled Spreadsheet")
         spreadsheets = self.env["documents.document"]._get_spreadsheets_to_display([("name", "ilike", "My")])
         spreadsheet_ids = [s["id"] for s in spreadsheets]
@@ -149,20 +152,18 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_spreadsheet_to_display_with_offset_limit(self):
         self.archive_existing_spreadsheet()
-        user = new_test_user(
-            self.env, login="Jean", groups="documents.group_documents_user"
-        )
-        with freeze_time("2020-02-02"):
+        user = new_test_user(self.env, login="Jean", groups="base.group_user")
+        with self._freeze_time("2020-02-02"):
             spreadsheet1 = self.create_spreadsheet(user=user, name="My Spreadsheet 1")
-        with freeze_time("2020-02-03"):
+        with self._freeze_time("2020-02-03"):
             spreadsheet2 = self.create_spreadsheet(user=user, name="My Spreadsheet 2")
-        with freeze_time("2020-02-04"):
+        with self._freeze_time("2020-02-04"):
             spreadsheet3 = self.create_spreadsheet(name="My Spreadsheet 3")
-        with freeze_time("2020-02-05"):
+        with self._freeze_time("2020-02-05"):
             spreadsheet4 = self.create_spreadsheet(user=user, name="SP 4")
-        with freeze_time("2020-02-06"):
+        with self._freeze_time("2020-02-06"):
             spreadsheet5 = self.create_spreadsheet(name="SP 5")
-        with freeze_time("2020-02-07"):
+        with self._freeze_time("2020-02-07"):
             spreadsheet6 = self.create_spreadsheet(name="SP 6")
 
         #########
@@ -257,9 +258,9 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_spreadsheet_to_display_create_order(self):
         self.archive_existing_spreadsheet()
-        with freeze_time("2020-02-02 18:00"):
+        with self._freeze_time("2020-02-02 18:00"):
             spreadsheet1 = self.create_spreadsheet()
-        with freeze_time("2020-02-15 18:00"):
+        with self._freeze_time("2020-02-15 18:00"):
             spreadsheet2 = self.create_spreadsheet()
         spreadsheets = self.env["documents.document"]._get_spreadsheets_to_display([])
         spreadsheet_ids = [s["id"] for s in spreadsheets]
@@ -267,9 +268,9 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_spreadsheet_to_display_write_order(self):
         self.archive_existing_spreadsheet()
-        with freeze_time("2020-02-02 18:00"):
+        with self._freeze_time("2020-02-02 18:00"):
             spreadsheet1 = self.create_spreadsheet()
-        with freeze_time("2020-02-15 18:00"):
+        with self._freeze_time("2020-02-15 18:00"):
             spreadsheet2 = self.create_spreadsheet()
         spreadsheet1.spreadsheet_data = r"{}"
         spreadsheets = self.env["documents.document"]._get_spreadsheets_to_display([])
@@ -278,9 +279,9 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_spreadsheet_to_display_join_session(self):
         self.archive_existing_spreadsheet()
-        with freeze_time("2020-02-02 18:00"):
+        with self._freeze_time("2020-02-02 18:00"):
             spreadsheet1 = self.create_spreadsheet()
-        with freeze_time("2020-02-15 18:00"):
+        with self._freeze_time("2020-02-15 18:00"):
             spreadsheet2 = self.create_spreadsheet()
         spreadsheet1.join_spreadsheet_session()
         spreadsheets = self.env["documents.document"]._get_spreadsheets_to_display([])
@@ -292,9 +293,9 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         user = new_test_user(
             self.env, login="Jean", groups="documents.group_documents_user"
         )
-        with freeze_time("2020-02-02 18:00"):
+        with self._freeze_time("2020-02-02 18:00"):
             spreadsheet1 = self.create_spreadsheet(user=user)
-        with freeze_time("2020-02-15 18:00"):
+        with self._freeze_time("2020-02-15 18:00"):
             spreadsheet2 = self.create_spreadsheet()
         spreadsheets = (
             self.env["documents.document"].with_user(user)._get_spreadsheets_to_display([])
@@ -457,6 +458,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_contributor_write_spreadsheet_data(self):
         document = self.create_spreadsheet()
+        document.access_internal = "edit"
         user = new_test_user(
             self.env, "Test Manager", groups="documents.group_documents_manager"
         )
@@ -468,10 +470,16 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_contributor_move_workspace(self):
         document = self.create_spreadsheet()
-        new_folder = self.env["documents.folder"].create({"name": "New folder"})
+        new_folder = self.env["documents.document"].create({
+            "name": "New folder",
+            "type": "folder",
+            "folder_id": self.folder.id,
+            "access_internal": "edit",
+        })
         user = new_test_user(
             self.env, "Test Manager", groups="documents.group_documents_manager"
         )
+        document.access_internal = "edit"
         document.with_user(user).write({"folder_id": new_folder.id})
         contributor = self.env["spreadsheet.contributor"].search(
             [("user_id", "=", user.id), ("document_id", "=", document.id)]
@@ -607,9 +615,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
 
     def test_copy_spreadsheet_revisions(self):
         spreadsheet = self.create_spreadsheet()
-        user = new_test_user(
-            self.env, login="Jean", groups="documents.group_documents_user"
-        )
+        user = new_test_user(self.env, login="Jean", groups="base.group_user")
         spreadsheet.dispatch_spreadsheet_message(self.new_revision_data(spreadsheet))
 
         #########
@@ -622,9 +628,9 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
             "The revision should be copied with admin access right",
         )
 
-        ########
+        #############
         # NON-ADMIN #
-        ########
+        #############
         spreadsheet.invalidate_recordset()
         copy_non_admin = spreadsheet.with_user(user).copy()
         self.assertEqual(
@@ -658,32 +664,32 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         self.assertEqual(copy.name, 'sheet')
 
     def test_autovacuum_remove_old_empty_spreadsheet(self):
-        self.env["documents.document"].search([('handler', '=', 'spreadsheet')]).unlink()
+        self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))]).unlink()
 
         spreadsheet = self.create_spreadsheet(name="Spreadsheet", values={
             "create_date": datetime(2023, 5, 15, 18)
         })
         spreadsheet.previous_attachment_ids = False
-        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+        self.assertEqual(len(self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))])), 1)
 
-        with freeze_time("2023-05-16 19:00"):
+        with self._freeze_time("2023-05-16 19:00"):
             self.env["documents.document"]._gc_spreadsheet()
-        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 0)
+        self.assertEqual(len(self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))])), 0)
 
     def test_autovacuum_keep_new_empty_spreadsheet(self):
-        self.env["documents.document"].search([('handler', '=', 'spreadsheet')]).unlink()
+        self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))]).unlink()
 
         self.create_spreadsheet(name="Spreadsheet", values={
             "create_date": datetime(2023, 5, 16, 18)
         })
-        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+        self.assertEqual(len(self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))])), 1)
 
-        with freeze_time("2023-05-16 19:00"):
+        with self._freeze_time("2023-05-16 19:00"):
             self.env["documents.document"]._gc_spreadsheet()
-        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+        self.assertEqual(len(self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))])), 1)
 
     def test_autovacuum_keep_old_spreadsheet_with_revision(self):
-        self.env["documents.document"].search([('handler', '=', 'spreadsheet')]).unlink()
+        self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))]).unlink()
 
         spreadsheet = self.create_spreadsheet(name="Spreadsheet", values={
             "create_date": datetime(2023, 5, 15, 18)
@@ -691,11 +697,11 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
         commands = self.new_revision_data(spreadsheet)
         spreadsheet.dispatch_spreadsheet_message(commands)
 
-        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+        self.assertEqual(len(self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))])), 1)
 
-        with freeze_time("2023-05-16 19:00"):
+        with self._freeze_time("2023-05-16 19:00"):
             self.env["documents.document"]._gc_spreadsheet()
-        self.assertEqual(len(self.env["documents.document"].search([('handler', '=', 'spreadsheet')])), 1)
+        self.assertEqual(len(self.env["documents.document"].search([('handler', 'in', ('spreadsheet', 'frozen_spreadsheet'))])), 1)
 
     def test_autovacuum_preserve_spreadsheet_with_attachment(self):
         self.env["documents.document"].search([('handler', '=', 'spreadsheet')]).unlink()
@@ -717,7 +723,7 @@ class SpreadsheetDocuments(SpreadsheetTestCommon):
     def test_join_session_name_is_a_string(self):
         spreadsheet = self.create_spreadsheet(name="")
         self.assertEqual(spreadsheet.name, "")
-        self.assertEqual(spreadsheet.display_name, False)
+        self.assertFalse(spreadsheet.display_name)
         session_data = spreadsheet.join_spreadsheet_session()
         self.assertEqual(session_data["name"], "")
 

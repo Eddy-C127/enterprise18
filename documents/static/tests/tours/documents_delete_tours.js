@@ -3,57 +3,6 @@
 import { registry } from "@web/core/registry";
 import { stepUtils } from "@web_tour/tour_service/tour_utils";
 
-function deleteWorkspaceSteps() {
-    return [
-        {
-            trigger: '.o_search_panel_label_title:contains("Workspace1")',
-            content: "Open workspace",
-            run: "click",
-        },
-        {
-            trigger: '.o_search_panel_field header.active:contains("Workspace1")',
-            content: "Move to mouse on the workspace to display the edit widget",
-            run: async function () {
-                const elements = document.querySelectorAll(".o_search_panel_label_title");
-                elements.forEach((element) => {
-                    if (element.textContent.includes("Workspace1")) {
-                        const event = new MouseEvent("mouseenter", {
-                            view: window,
-                            bubbles: true,
-                            cancelable: true,
-                        });
-                        element.dispatchEvent(event);
-                    }
-                });
-                await document
-                    .querySelector("header.active .o_documents_search_panel_section_edit")
-                    .click();
-            },
-        },
-        {
-            trigger: ".o_search_panel_value_edit_edit",
-            content: "Edit workspace",
-            run: "click",
-        },
-        {
-            trigger: ".modal .modal-footer .btn-outline-danger",
-            content: "Delete workspace",
-            run: "click",
-        },
-        {
-            trigger: ".modal button:contains(Move to trash)",
-            content: "Confirm",
-            run: "click",
-        },
-        {
-            trigger: "body:not(:has(.modal))",
-        },
-        {
-            trigger: '.o_kanban_renderer:not(:has(.o_kanban_record:contains("Chouchou")))',
-            content: "Check that the document is no longer visible",
-        },
-    ];
-}
 
 function restoreDocumentSteps() {
     return [
@@ -72,9 +21,16 @@ function restoreDocumentSteps() {
             run: "click",
         },
         {
-            trigger: ".o_inspector_button.o_archived",
-            content: "Restore the document",
+            trigger: ".o_control_panel_actions button:contains('Action')",
             run: "click",
+        },
+        {
+            trigger: "button:contains('Restore')",
+            run: "click",
+        },
+        {
+            trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",
+            content: "Check that the document is no longer visible",
         },
     ];
 }
@@ -89,28 +45,25 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             content: "Open document app",
             run: "click",
         },
-        // 1) Archive a document and restore it in an active folder
+        // Archive a file in a folder and restore it
         {
-            trigger: '.o_search_panel_label_title:contains("Workspace1")',
-            content: "Open workspace",
+            trigger: '.o_search_panel_field header.active:contains("Folder1")',
+            content: "Check that we are in Folder1",
+        },
+        {
+            trigger: '.o_kanban_record:contains("Chouchou")',
+            content: "Select a file",
             run: "click",
         },
         {
-            trigger: '.o_inspector_value:contains("1")',
+            trigger: '.o_record_selected:contains("Chouchou")',
         },
         {
-            trigger: '.o_search_panel_field header.active:contains("Workspace1")',
-            content: "Make sure we start with one card",
+            trigger: ".o_control_panel_actions button:contains('Action')",
             run: "click",
         },
         {
-            trigger: ".o_record_selector",
-            content: "Select document",
-            run: "click",
-        },
-        {
-            trigger: ".o_inspector_button.o_inspector_archive",
-            content: "Move document to trash",
+            trigger: "button:contains('Move to Trash')",
             run: "click",
         },
         {
@@ -119,18 +72,38 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             run: "click",
         },
         {
-            trigger: "body:not(:has(.modal))",
-        },
-        {
             trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",
             content: "Check that the document is no longer visible",
         },
         ...restoreDocumentSteps(),
         // 2) Archive a folder (and this its documents) and restore the archived document
-        ...deleteWorkspaceSteps(),
-        ...restoreDocumentSteps(),
-        // 3) Archive a folder (and this its documents) and delete permanently the document
-        ...deleteWorkspaceSteps(),
+        {
+            trigger: '.o_search_panel_field header:contains("Folder1")',
+            content: "Go back to folder",
+            run: "click",
+        },
+        {
+            trigger: '.o_kanban_record:contains("Chouchou")',
+            content: "Select a file",
+            run: "click",
+        },
+        {
+            trigger: ".o_control_panel_actions button:contains('Action')",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Move to Trash')",
+            run: "click",
+        },
+        {
+            trigger: ".modal .modal-footer .btn-primary:contains(move to trash)",
+            content: "Confirm deletion",
+            run: "click",
+        },
+        {
+            trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",
+            content: "Check that the document is no longer visible",
+        },
         {
             trigger: '.o_search_panel_label_title:contains("Trash")',
             content: "Open trash",
@@ -146,14 +119,30 @@ registry.category("web_tour.tours").add("document_delete_tour", {
             run: "click",
         },
         {
-            trigger: ".o_inspector_button.o_inspector_delete",
-            content: "Delete permanently the document",
+            trigger: ".o_control_panel_actions button:contains('Action')",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Delete')",
             run: "click",
         },
         {
             trigger: ".modal-footer .btn-primary",
             content: "Confirm deletion",
             run: "click",
+        },
+        {
+            trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",
+            content: "Check that the document is no longer visible",
+        },
+        {
+            trigger: '.o_search_panel_field header:contains("Folder1")',
+            content: "Go back to folder one last time",
+            run: "click",
+        },
+        {
+            trigger: ".o_kanban_renderer:not(:has(.o_kanban_record:not(.o_kanban_ghost)))",
+            content: "Check that the document is no longer visible",
         },
     ],
 });

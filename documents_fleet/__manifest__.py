@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
@@ -13,9 +12,8 @@ Adds fleet data to documents
     'depends': ['documents', 'fleet'],
     'data': [
         'data/documents_folder_data.xml',
-        'data/documents_facet_data.xml',
         'data/documents_tag_data.xml',
-        'data/documents_workflow_rule_data.xml',
+        'data/ir_actions_server_data.xml',
         'data/res_company_data.xml',
         'views/fleet_vehicle_views.xml',
         'views/res_config_settings_views.xml',

@@ -10,7 +10,8 @@ class ResConfigSettings(models.TransientModel):
     documents_hr_settings = fields.Boolean(
         related='company_id.documents_hr_settings', readonly=False, string="Human Resources")
     documents_hr_folder = fields.Many2one(
-        'documents.folder', related='company_id.documents_hr_folder', readonly=False, string="hr default workspace")
+        'documents.document', domain=[('type', '=', 'folder'), ('shortcut_document_id', '=', False)],
+        related='company_id.documents_hr_folder', readonly=False, string="hr default workspace")
 
     @api.onchange('documents_hr_folder')
     def _onchange_documents_hr_folder(self):

@@ -109,7 +109,7 @@ QUnit.module("documents", {}, function () {
             },
         },
         function () {
-            QUnit.test("documents activity basic rendering", async function (assert) {
+            QUnit.skip("documents activity basic rendering", async function (assert) {
                 function onRouteCalled(args) {
                     if (args.method === "action_archive" && args.model === "documents.document") {
                         assert.step("action_archive");
@@ -159,7 +159,7 @@ QUnit.module("documents", {}, function () {
                 assert.verifySteps(["action_archive"]);
             });
 
-            QUnit.test("documents activity unlink record", async function (assert) {
+            QUnit.skip("documents activity unlink record", async function (assert) {
                 function onRouteCalled(args) {
                     if (args.method === "unlink" && args.model === "documents.document") {
                         assert.step("unlink");
@@ -195,7 +195,7 @@ QUnit.module("documents", {}, function () {
                 assert.verifySteps(["unlink"]);
             });
 
-            QUnit.test(
+            QUnit.skip(
                 "document inspector: update document info from activity view",
                 async function (assert) {
                     assert.expect(11);

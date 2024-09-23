@@ -4,7 +4,7 @@ import { describe, expect, getFixture, test } from "@odoo/hoot";
 import { dblclick } from "@odoo/hoot-dom";
 import { advanceTime, animationFrame } from "@odoo/hoot-mock";
 import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { prepareWebClientForSpreadsheet } from "@spreadsheet_edition/../tests/helpers/webclient_helpers";
 import { SpreadsheetSelectorDialog } from "@spreadsheet_edition/assets/components/spreadsheet_selector_dialog/spreadsheet_selector_dialog";
 import { contains, mountWithCleanup } from "@web/../tests/web_test_helpers";
@@ -65,7 +65,7 @@ function getDefaultProps() {
 async function mountSpreadsheetSelectorDialog(config = {}) {
     await prepareWebClientForSpreadsheet();
     const target = getFixture();
-    const env = await makeSpreadsheetMockEnv({
+    const env = await makeDocumentsSpreadsheetMockEnv({
         serverData: config.serverData || serverData,
         mockRPC: config.mockRPC,
     });

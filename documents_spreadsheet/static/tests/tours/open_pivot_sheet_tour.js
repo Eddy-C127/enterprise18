@@ -22,8 +22,13 @@ registry.category("web_tour.tours").add("spreadsheet_open_pivot_sheet", {
             run: "click",
         },
         {
+            trigger: 'li[title="Company"] header',
+            content: "Open company folder",
+            run: "click",
+        },
+        {
             trigger: 'li[title="Test folder"] header',
-            content: "Open the test folder",
+            content: "Open the test folder (in company folder)",
             run: "click",
         },
         {
@@ -37,9 +42,9 @@ registry.category("web_tour.tours").add("spreadsheet_open_pivot_sheet", {
             run: "click",
         },
         {
-            trigger: `img[title="${SHEETNAME}"]`,
+            trigger: `.o_data_cell:contains("${SHEETNAME}")`,
             content: "Open the sheet",
-            run: "click",
+            run: "dblclick",
         },
         {
             trigger: "div.o_topbar_filter_icon",
@@ -100,7 +105,7 @@ registry.category("web_tour.tours").add("spreadsheet_open_pivot_sheet", {
             run: "click",
         },
         {
-            trigger: ".o_document_spreadsheet:first",
+            trigger: `.o_data_cell:contains("${SHEETNAME}")`,
             content: "Sheet is visible in Documents",
         },
     ],

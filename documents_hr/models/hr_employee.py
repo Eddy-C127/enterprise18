@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import _, fields, models
+from odoo import _, fields, models, tools
 from odoo.exceptions import ValidationError, UserError
 from odoo.osv import expression
 
@@ -11,13 +11,12 @@ class HrEmployee(models.Model):
     _inherit = ['hr.employee', 'documents.mixin']
 
     document_count = fields.Integer(compute='_compute_document_count', groups="hr.group_hr_user")
-    documents_share_id = fields.Many2one('documents.share', readonly=True, groups="hr.group_hr_manager")
+
+    def _get_document_access_ids(self):
+        return [(self.work_contact_id, ('view', False))]
 
     def _get_document_folder(self):
         return self.company_id.documents_hr_folder if self.company_id.documents_hr_settings else False
-
-    def _get_document_owner(self):
-        return self.user_id
 
     def _get_document_partner(self):
         return self.work_contact_id
@@ -28,9 +27,6 @@ class HrEmployee(models.Model):
     def _get_employee_document_domain(self):
         self.ensure_one()
         user_domain = [('partner_id', '=', self.work_contact_id.id)]
-        if self.user_id:
-            user_domain = expression.OR([user_domain,
-                                        [('owner_id', '=', self.user_id.id)]])
         return user_domain
 
     def _compute_document_count(self):
@@ -57,28 +53,31 @@ class HrEmployee(models.Model):
             'default_res_id': self.id,
             'default_res_model': 'hr.employee',
         }
-        action['domain'] = self._get_employee_document_domain()
+        action['domain'] = expression.OR([
+            [('type', '=', 'folder')],
+            self._get_employee_document_domain(),
+        ])
         return action
 
     def action_send_documents_share_link(self):
+        if not self.env.user.has_group('hr.group_hr_user'):
+            raise UserError(_('You can not send the documents link to the employee.'))
         invalid_employees = self.filtered(lambda e: not (e.private_email and e.user_id))
         if invalid_employees:
             raise UserError(_('Employee\'s related user and private email must be set to use \"Send Access Link\" function:\n%s', '\n'.join(invalid_employees.mapped('name'))))
         template = self.env.ref('documents_hr.mail_template_document_folder_link', raise_if_not_found=False)
         for employee in self:
-            if not employee.documents_share_id or (employee.documents_share_id.owner_id != employee.user_id):
-                employee.documents_share_id = self.env['documents.share'].create({
-                    'folder_id': self.env.company.documents_hr_folder.id,
-                    'include_sub_folders': True,
-                    'name': _('HR Documents: %s', employee.name),
-                    'type': 'domain',
-                    'domain': "[('owner_id', '=', %s)]" % (employee.user_id.id),
-                    'allow_upload': False,
-                    'owner_id': employee.user_partner_id.id,
-                })
             if template:
                 template.send_mail(
                     employee.id, force_send=True,
                     email_values={'model': False, 'res_id': False},
                     email_layout_xmlid='mail.mail_notification_light')
                 employee.message_post(body=_('The access link has been sent to the employee.'))
+
+    def _get_employee_documents_token(self):
+        self.ensure_one()
+        return tools.hmac(
+            self.env(su=True),
+            "documents-hr-my-files",
+            str(self.id),
+        )

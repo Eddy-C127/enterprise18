@@ -1,10 +1,11 @@
-import { CopyButton } from "@web/core/copy_button/copy_button";
+import { browser } from "@web/core/browser/browser";
 import { ErrorDialog } from "@web/core/errors/error_dialogs";
 import { _t } from "@web/core/l10n/translation";
-import { x2ManyCommands } from "@web/core/orm_service";
-import { user } from "@web/core/user";
 import { useBus, useService } from "@web/core/utils/hooks";
+import { CopyButton } from "@web/core/copy_button/copy_button";
+
 import { patch } from "@web/core/utils/patch";
+import { onWillStart } from "@odoo/owl";
 
 patch(ErrorDialog.components, {
     CopyButton,
@@ -17,32 +18,37 @@ patch(ErrorDialog.prototype, {
         this.fileUpload = useService("file_upload");
         this.dialogService = useService("dialog");
         this.notification = useService("notification");
-        this.state.shareUrl = null;
-        this.state.shared = false;
-        this.copiedText = _t("Copied");
-        this.isAdmin = user.isAdmin;
+        this.state.tracebackUrl = null;
+        this.state.processed = false;
+        this.canUploadTraceback = false;
         useBus(this.fileUpload.bus, "FILE_UPLOAD_LOADED", async (ev) => {
-            const response = JSON.parse(ev.detail.upload.xhr.response);
-            const record = {
-                document_ids: [x2ManyCommands.set([response.id])],
-                domain: [],
-                folder_id: response.folder_id,
-                tag_ids: [x2ManyCommands.set([])],
-                type: "ids",
-            };
-            const res = await this.orm.webSave("documents.share", [], record, {
-                specification: { full_url: {} },
-            });
-            navigator.clipboard.writeText(res[0].full_url);
-            this.state.shareUrl = res[0].full_url;
-            this.notification.add(_t("The share URL has been copied to your clipboard."), {
-                type: "success",
-            });
+            if (ev.detail.upload.xhr.status === 200) {
+                const response = JSON.parse(ev.detail.upload.xhr.response);
+                if (response.length === 1) {
+                    this.state.tracebackUrl = response[0];
+                    setTimeout(async () => {
+                        await browser.navigator.clipboard.writeText(response[0]);
+                        this.notification.add(_t("The document URL has been copied to your clipboard."), {
+                            type: "success"
+                        });
+                    });
+                }
+            }
+        });
+        onWillStart(async () => {
+            try {
+                this.canUploadTraceback = await this.orm.call(
+                    "documents.document",
+                    "can_upload_traceback"
+                );
+            } catch {
+                this.canUploadTraceback = false;
+            }
         });
     },
     shareTraceback() {
-        if (!this.state.shared) {
-            this.state.shared = true;
+        if (!this.state.processed) {
+            this.state.processed = true;
             const file = new File(
                 [
                     `${this.props.name}\n\n${this.props.message}\n\n${this.contextDetails}\n\n${
@@ -54,7 +60,7 @@ patch(ErrorDialog.prototype, {
                 )}.txt`,
                 { type: "text/plain" }
             );
-            this.fileUpload.upload("/documents/upload_traceback", [file]);
+            this.fileUpload.upload("/documents/upload_traceback", [file], {});
         }
     },
 });

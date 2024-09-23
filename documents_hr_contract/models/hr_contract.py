@@ -7,11 +7,11 @@ class HrContract(models.Model):
     _name = 'hr.contract'
     _inherit = ['hr.contract', 'documents.mixin']
 
+    def _get_document_access_ids(self):
+        return [(self.employee_id.work_contact_id, ('view', False))]
+
     def _get_document_tags(self):
         return self.company_id.documents_hr_contracts_tags
-
-    def _get_document_owner(self):
-        return self.employee_id.user_id
 
     def _get_document_partner(self):
         return self.employee_id.work_contact_id

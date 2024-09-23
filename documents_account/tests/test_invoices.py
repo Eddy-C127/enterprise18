@@ -13,9 +13,9 @@ class TestInvoices(AccountTestInvoicingCommon):
         reconcile_activity_type = self.env['mail.activity.type'].create({
             "name": "Reconciliation request",
             "category": "upload_file",
-            "folder_id": self.env.ref("documents.documents_finance_folder").id,
+            "folder_id": self.env.ref("documents.document_finance_folder").id,
             "res_model": "account.move",
-            "tag_ids": [(6, 0, [self.env.ref('documents.documents_finance_status_tc').id])],
+            "tag_ids": [(6, 0, [self.env.ref('documents.documents_tag_to_validate').id])],
         })
 
         st = self.env['account.bank.statement'].create({
@@ -53,12 +53,7 @@ class TestInvoices(AccountTestInvoicingCommon):
         activity._action_done(attachment_ids=attachment.ids)
 
         # Upload as a vendor bill.
-        workflow_rule_vendor_bill = self.env['documents.workflow.rule'].create({
-            'domain_folder_id': documents.folder_id.id,
-            'name': "Create a new Vendor Bill from document",
-            'create_model': 'account.move.in_invoice',
-        })
-        vendor_bill_action = workflow_rule_vendor_bill.apply_actions(documents.ids)
+        vendor_bill_action = documents.account_create_account_move('in_invoice')
         self.assertTrue(vendor_bill_action.get('res_id'))
         vendor_bill = self.env['account.move'].browse(vendor_bill_action['res_id'])
 

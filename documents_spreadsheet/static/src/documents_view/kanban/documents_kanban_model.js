@@ -11,7 +11,7 @@ patch(DocumentsKanbanRecord.prototype, {
      */
     isViewable() {
         return (
-            this.data.handler === "spreadsheet" ||
+            ["spreadsheet", "frozen_spreadsheet"].includes(this.data.handler) ||
             XLSX_MIME_TYPES.includes(this.data.mimetype) ||
             super.isViewable(...arguments)
         );

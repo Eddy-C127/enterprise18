@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import base64
 from odoo.tests.common import tagged, TransactionCase
 
@@ -12,10 +10,10 @@ class TestCaseDocumentsBridgeProduct(TransactionCase):
     
     def setUp(self):
         super(TestCaseDocumentsBridgeProduct, self).setUp()
-        self.folder_test = self.env['documents.folder'].create({'name': 'folder_test'})
+        self.folder_test = self.env['documents.document'].create({'name': 'folder_test', 'type': 'folder'})
         self.company_test = self.env['res.company'].create({
             'name': 'test bridge products',
-            'product_folder': self.folder_test.id,
+            'product_folder_id': self.folder_test.id,
             'documents_product_settings': False
         })
         self.template_test = self.env['product.template'].create({
@@ -126,7 +124,7 @@ class TestCaseDocumentsBridgeProduct(TransactionCase):
         """
         company_test = self.env['res.company'].create({
             'name': 'test bridge products two',
-            'product_folder': self.folder_test.id,
+            'product_folder_id': self.folder_test.id,
             'documents_product_settings': True,
         })
         test_user = self.env['res.users'].create({
@@ -176,7 +174,6 @@ class TestCaseDocumentsBridgeProduct(TransactionCase):
         self.assertTrue(document, "It should have created a document from default values")
 
     def test_create_product_from_workflow(self):
-
         document_gif = self.env['documents.document'].create({
             'datas': GIF,
             'name': 'file.gif',
@@ -184,13 +181,7 @@ class TestCaseDocumentsBridgeProduct(TransactionCase):
             'folder_id': self.folder_test.id,
         })
 
-        workflow_rule = self.env['documents.workflow.rule'].create({
-            'domain_folder_id': self.folder_test.id,
-            'name': 'workflow product',
-            'create_model': 'product.template',
-        })
-
-        action = workflow_rule.apply_actions([document_gif.id])
+        action = document_gif.create_product_template()
         new_product = self.env['product.template'].browse([action['res_id']])
 
         self.assertEqual(document_gif.res_model, 'product.template')

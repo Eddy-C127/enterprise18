@@ -1,7 +1,8 @@
 /** @odoo-module **/
 import { registry } from "@web/core/registry";
-import { x2ManyCommands } from "@web/core/orm_service";
+import { useService } from "@web/core/utils/hooks";
 
+import { DocumentsPermissionPanel } from "@documents/components/documents_permission_panel/documents_permission_panel";
 import { Model } from "@odoo/o-spreadsheet";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import { AbstractSpreadsheetAction } from "@spreadsheet_edition/bundle/actions/abstract_spreadsheet_action";
@@ -25,11 +26,15 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
             spreadsheetName: UNTITLED_SPREADSHEET_NAME,
         });
         this.threadId = this.params?.thread_id;
+        this.notification = useService("notification");
+        this.dialogService = useService("dialog");
         useSubEnv({
             newSpreadsheet: this.createNewSpreadsheet.bind(this),
             makeCopy: this.makeCopy.bind(this),
             saveAsTemplate: this.saveAsTemplate.bind(this),
-            onSpreadsheetShared: this.shareSpreadsheet?.bind(this),
+            onShareSpreadsheet: this.shareSpreadsheet.bind(this),
+            onFreezeAndShareSpreadsheet: this.freezeAndShareSpreadsheet.bind(this),
+            isFrozenSpreadsheet: () => this.data.handler === "frozen_spreadsheet",
         });
     }
 
@@ -89,26 +94,37 @@ export class SpreadsheetAction extends AbstractSpreadsheetAction {
     }
 
     /**
-     *
-     * @param data
-     * @param excelExport
-     * @returns {Promise<string>} the url to share the spreadsheet
+     * @returns <string> the url to share the spreadsheet
      */
-    async shareSpreadsheet(data, excelExport) {
-        const vals = {
-            document_ids: [x2ManyCommands.set([this.resId])],
-            folder_id: this.data.folder_id,
-            type: "ids",
-            spreadsheet_shares: JSON.stringify([
-                {
-                    document_id: this.resId,
-                    spreadsheet_data: JSON.stringify(data),
-                    excel_files: excelExport.files,
-                },
-            ]),
-        };
-        const url = await this.orm.call("documents.share", "action_get_share_url", [vals]);
-        return url;
+    shareSpreadsheet() {
+        this.dialogService.add(DocumentsPermissionPanel, {
+            document: {
+                id: this.data.shortcut_document_id || this.resId,
+                name: this.data.name,
+            },
+        });
+    }
+
+    async freezeAndShareSpreadsheet() {
+        if (this.data.handler === "frozen_spreadsheet") {
+            this.notification.add(_t("You can not freeze a frozen spreadsheet"));
+            return;
+        }
+
+        const { freezeOdooData } = odoo.loader.modules.get("@spreadsheet/helpers/model");
+        const data = await freezeOdooData(this.model);
+
+        const record = await this.orm.call("documents.document", "action_freeze_and_copy", [
+            this.resId,
+            JSON.stringify(data),
+            this.model.exportXLSX().files,
+        ]);
+        this.dialogService.add(DocumentsPermissionPanel, {
+            document: {
+                id: record.shortcut_document_id || record.id,
+                name: record.name,
+            },
+        });
     }
 }
 

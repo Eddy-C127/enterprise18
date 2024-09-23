@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models
@@ -23,6 +22,7 @@ class FleetVehicle(models.Model):
         return self.company_id.documents_fleet_folder
 
     def _get_document_owner(self):
+        """User can see only their own documents in the fleet folder (see _get_document_vals_access_rights)."""
         return self.env.user
 
     def _get_document_tags(self):
@@ -38,7 +38,13 @@ class FleetVehicle(models.Model):
         fleet_folder = self._get_document_folder()
         fleet_tags = self._get_document_tags()
         action = self.env['ir.actions.act_window']._for_xml_id('documents.document_action')
-        action['domain'] = [('res_model', '=', self._name), ('res_id', '=', self.id),]
+        action['domain'] = [
+            '|',
+                ('type', '=', 'folder'),
+                '&',
+                    ('res_model', '=', self._name),
+                    ('res_id', '=', self.id),
+        ]
         action['context'] = {
             'default_res_id': self.id,
             'default_res_model': self._name,

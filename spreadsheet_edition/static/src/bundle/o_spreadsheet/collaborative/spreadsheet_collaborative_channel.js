@@ -70,7 +70,6 @@ export class SpreadsheetCollaborativeChannel {
         return this.orm.call(this.resModel, "dispatch_spreadsheet_message", [
             this.resId,
             message,
-            this.shareId,
             this.accessToken,
         ]);
     }

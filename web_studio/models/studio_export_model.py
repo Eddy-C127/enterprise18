@@ -12,7 +12,7 @@ PRESET_MODELS_DEFAULTS = [
     ("hr.employee", {"is_demo_data": True}),
     ("product.public.category", {"updatable": False}),
     ("project.task.type", {"updatable": False}),
-    ("documents.folder", {"updatable": False}),
+    ("documents.document", {"domain": "[('type', '=', 'folder')]", "updatable": False}),
     ("product.category", {"updatable": False}),
     ("worksheet.template", {}),
     ("account.analytic.plan", {"is_demo_data": True}),

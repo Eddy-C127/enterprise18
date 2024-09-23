@@ -1,5 +1,6 @@
 import {
     DocumentsDocument,
+    getBasicPermissionPanelData,
     defineDocumentSpreadsheetModels,
 } from "@documents_spreadsheet/../tests/helpers/data";
 import { createSpreadsheetFromPivotView } from "@documents_spreadsheet/../tests/helpers/pivot_helpers";
@@ -7,11 +8,12 @@ import { createSpreadsheet } from "@documents_spreadsheet/../tests/helpers/sprea
 import { beforeEach, describe, expect, getFixture, test } from "@odoo/hoot";
 import { animationFrame } from "@odoo/hoot-mock";
 import { Model } from "@odoo/o-spreadsheet";
-import { getBasicData, getBasicServerData } from "@spreadsheet/../tests/helpers/data";
+import {
+    getBasicData,
+    getBasicServerData,
+} from "@spreadsheet/../tests/helpers/data";
 import { contains, getService, patchWithCleanup } from "@web/../tests/web_test_helpers";
 import { browser } from "@web/core/browser/browser";
-import { x2ManyCommands } from "@web/core/orm_service";
-import { Deferred } from "@web/core/utils/concurrency";
 
 defineDocumentSpreadsheetModels();
 describe.current.tags("desktop");
@@ -66,10 +68,10 @@ test("spreadsheet name can never be empty (white spaces)", async function () {
 });
 
 test("untitled spreadsheet", async function () {
-    await createSpreadsheet({ spreadsheetId: 2 });
+    await createSpreadsheet({ spreadsheetId: 3 });
     const input = target.querySelector(".o_sp_name input");
     expect(input).toHaveClass("o-sp-untitled", {
-        message: "It should be styled as untitled",
+        message: "It should be styled as untitled"
     });
     expect(input).toHaveValue("", { message: "It should be empty" });
     expect(input.placeholder).toBe("Untitled spreadsheet", {
@@ -118,7 +120,7 @@ test("trailing white spaces are trimmed", async function () {
 });
 
 test("focus sets the placeholder as value and select it", async function () {
-    await createSpreadsheet({ spreadsheetId: 2 });
+    await createSpreadsheet({ spreadsheetId: 3 });
     const input = target.querySelector(".o_sp_name input");
     expect(input).toHaveValue("", { message: "It should be empty" });
     await contains(input).focus();
@@ -131,120 +133,106 @@ test("focus sets the placeholder as value and select it", async function () {
     });
 });
 
-test("share spreadsheet from control panel", async function () {
+test("Freeze&Share spreadsheet from control panel", async function () {
     const spreadsheetId = 789;
+    const frozenSpreadsheetId = 1337;
     const model = new Model();
     const serverData = getBasicServerData();
-    serverData.models["documents.folder"].records = [{ id: 1 }];
     serverData.models["documents.document"].records = [
+        { id: 1, type: "folder" },
         {
             name: "My spreadsheet",
             id: spreadsheetId,
             spreadsheet_data: JSON.stringify(model.exportData()),
             folder_id: 1,
+            active: true,
         },
     ];
     patchWithCleanup(browser.navigator.clipboard, {
         writeText: async (url) => {
             expect.step("share url copied");
-            expect(url).toBe("localhost:8069/share/url/132465");
+            expect(url).toBe("http://localhost:8069/share/url/132465");
         },
     });
-    const def = new Deferred();
     await createSpreadsheet({
         serverData,
         spreadsheetId,
         mockRPC: async function (route, args) {
-            if (args.method === "action_get_share_url") {
-                await def;
-                expect.step("spreadsheet_shared");
-                const [shareVals] = args.args;
-                expect(args.model).toBe("documents.share");
+            if (args.method === "action_freeze_and_copy") {
                 const excel = JSON.parse(JSON.stringify(model.exportXLSX().files));
-                expect(shareVals).toEqual({
-                    document_ids: [x2ManyCommands.set([spreadsheetId])],
-                    folder_id: 1,
-                    type: "ids",
-                    spreadsheet_shares: JSON.stringify([
-                        {
-                            document_id: spreadsheetId,
-                            spreadsheet_data: JSON.stringify(model.exportData()),
-                            excel_files: excel,
-                        },
-                    ]),
-                });
-                return "localhost:8069/share/url/132465";
+
+                expect(args.args[0]).toEqual(spreadsheetId);
+                expect(args.args[1]).toEqual(JSON.stringify(model.exportData()));
+                expect(args.args[2]).toEqual(excel);
+
+                expect.step("spreadsheet_shared");
+                return { id: frozenSpreadsheetId };
+            }
+            if (args.method === "permission_panel_data") {
+                expect(args.args[0]).toEqual(frozenSpreadsheetId);
+                expect.step("permission_panel_data");
+                return getBasicPermissionPanelData({ handler: "spreadsheet" });
+            }
+            if (args.method === "can_upload_traceback") {
+                return false;
             }
         },
     });
     expect(target.querySelector(".spreadsheet_share_dropdown")).toBe(null);
-    await contains("i.fa-share-alt").click();
-    expect(".spreadsheet_share_dropdown").toHaveText("Generating sharing link");
-    def.resolve();
-    await animationFrame();
-    expect.verifySteps(["spreadsheet_shared", "share url copied"]);
-    expect(".o_field_CopyClipboardChar").toHaveText("localhost:8069/share/url/132465");
-    await contains(".fa-clone").click();
-    expect.verifySteps(["share url copied"]);
+    await contains("button:contains(Freeze and share)").click();
+
+    await contains(".o_clipboard_button", { timeout: 1500 }).click();
+    expect.verifySteps(["spreadsheet_shared", "permission_panel_data", "share url copied"]);
 });
 
-test("changing contents will recreate the share", async function () {
+test("Share spreadsheet from control panel", async function () {
     const spreadsheetId = 789;
     const model = new Model();
     const serverData = getBasicServerData();
-    let counter = 0;
-    serverData.models["documents.folder"].records = [{ id: 1 }];
     serverData.models["documents.document"].records = [
+        { id: 1, type: "folder" },
         {
             name: "My spreadsheet",
             id: spreadsheetId,
             spreadsheet_data: JSON.stringify(model.exportData()),
             folder_id: 1,
+            active: true,
         },
     ];
     patchWithCleanup(browser.navigator.clipboard, {
-        writeText: async (url) => {},
+        writeText: async (url) => {
+            expect.step("share url copied");
+            expect(url).toBe("http://localhost:8069/share/url/132465");
+        },
     });
-    const { model: newModel } = await createSpreadsheet({
+    await createSpreadsheet({
         serverData,
         spreadsheetId,
         mockRPC: async function (route, args) {
-            if (args.method === "action_get_share_url") {
-                return `localhost:8069/share/url/${++counter}`;
+            if (args.method === "permission_panel_data") {
+                expect(args.args[0]).toEqual(spreadsheetId);
+                expect.step("permission_panel_data");
+                return getBasicPermissionPanelData({ handler: "spreadsheet" });
+            }
+            if (args.method === "can_upload_traceback") {
+                return false;
             }
         },
     });
-    await contains("i.fa-share-alt").click();
-    await animationFrame();
-    expect(".o_field_CopyClipboardChar").toHaveText("localhost:8069/share/url/1");
+    expect(target.querySelector(".spreadsheet_share_dropdown")).toBe(null);
+    await contains("button:contains(Share)").click();
 
-    await contains("i.fa-share-alt").click(); // close share dropdown
-
-    await contains("i.fa-share-alt").click();
-    await animationFrame();
-    expect(".o_field_CopyClipboardChar").toHaveText("localhost:8069/share/url/1");
-
-    await contains("i.fa-share-alt").click(); // close share dropdown
-    newModel.dispatch("UPDATE_CELL", {
-        col: 0,
-        row: 1,
-        sheetId: newModel.getters.getActiveSheetId(),
-        content: "I am new value",
-    });
-    await animationFrame();
-
-    await contains("i.fa-share-alt").click();
-    await animationFrame();
-    expect(".o_field_CopyClipboardChar").toHaveText("localhost:8069/share/url/2");
+    await contains(".o_clipboard_button", { timeout: 1500 }).click();
+    expect.verifySteps(["permission_panel_data", "share url copied"]);
 });
 
 test("toggle favorite", async function () {
     await createSpreadsheet({
-        spreadsheetId: 1,
+        spreadsheetId: 2,
         mockRPC: async function (route, args) {
             if (args.method === "toggle_favorited" && args.model === "documents.document") {
                 expect.step("favorite_toggled");
-                expect(args.args[0]).toEqual([1], {
+                expect(args.args[0]).toEqual([2], {
                     message: "It should write the correct document",
                 });
                 return true;
@@ -261,7 +249,7 @@ test("toggle favorite", async function () {
 });
 
 test("already favorited", async function () {
-    await createSpreadsheet({ spreadsheetId: 2 });
+    await createSpreadsheet({ spreadsheetId: 3 });
     expect(".favorite_button_enabled").toHaveCount(1, {
         message: "It should already be favorited",
     });

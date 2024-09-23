@@ -3,7 +3,7 @@ import { getFixture } from "@odoo/hoot";
 import { waitFor } from "@odoo/hoot-dom";
 import { animationFrame } from "@odoo/hoot-mock";
 import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { waitForDataLoaded } from "@spreadsheet/helpers/model";
 import {
     getSpreadsheetActionEnv,
@@ -41,7 +41,7 @@ import { onMounted } from "@odoo/owl";
 export async function spawnListViewForSpreadsheet(params = {}) {
     const { model, serverData, mockRPC } = params;
     await prepareWebClientForSpreadsheet();
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         serverData: serverData || getBasicServerData(),
         mockRPC,
     });

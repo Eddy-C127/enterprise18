@@ -15,14 +15,12 @@ export class DocumentsActivityController extends ActivityController {
         Object.assign(this, properties);
 
         this.documentStates = useState({
-            inspectedDocuments: [],
             previewStore: {},
         });
     }
 
     get rendererProps() {
         const props = super.rendererProps;
-        props.inspectedDocuments = this.documentStates.inspectedDocuments;
         props.previewStore = this.documentStates.previewStore;
         return props;
     }
@@ -40,9 +38,6 @@ export class DocumentsActivityController extends ActivityController {
         return {
             getSelectedDocumentsElements: () => [],
             isRecordPreviewable: this.isRecordPreviewable.bind(this),
-            setInspectedDocuments: (inspectedDocuments) => {
-                this.documentStates.inspectedDocuments = inspectedDocuments;
-            },
             setPreviewStore: (previewStore) => {
                 this.documentStates.previewStore = previewStore;
             },

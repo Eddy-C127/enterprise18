@@ -13,15 +13,17 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
             run: "click",
         },
         {
-            trigger: '.o_search_panel_label_title:contains("Test folder")',
-            content: "Open Test folder workspace",
+            trigger: ".o_search_panel_label_title:contains('Company')",
+            content: "Open Company Folder",
             run: "click",
         },
         {
-            trigger: '.o_inspector_value:contains("1")',
+            trigger: '.o_kanban_record:contains("Test folder")',
+            content: "Open Test folder workspace",
+            run: "dblclick",
         },
         {
-            trigger: '.o_search_panel_field header.active:contains("Test folder")',
+            trigger: '.list-group-item.active:contains("Test folder")',
             content: "Make sure we start with one card",
             run: "click",
         },
@@ -75,28 +77,12 @@ registry.category("web_tour.tours").add("spreadsheet_clone_xlsx", {
         {
             trigger: ".o_kanban_renderer:not(:has(.o_kanban_record .o_document_xlsx))",
             content: "Check that XLSX is no longer visible",
-        },
-        {
-            trigger: '.o_search_panel_label_title:contains("Trash")',
-            content: "Open Trash",
-            run: "click",
-        },
-        {
-            trigger: ".o_document_xlsx",
-            content: "Select xlsx document",
-            run: "click",
-        },
-        {
-            trigger: ".modal-footer .btn-primary",
-            content: "Restore xlsx document",
-            run: "click",
-        },
-        {
-            trigger: '.o_inspector_value:contains("3")',
-        },
-        {
-            trigger: ".o_kanban_renderer",
-            run: "click",
+            run: function () {
+                const elements = document.querySelectorAll(".o_document_xlsx").length;
+                if (elements) {
+                    console.error(`${elements} elements found.`);
+                }
+            },
         },
     ],
 });

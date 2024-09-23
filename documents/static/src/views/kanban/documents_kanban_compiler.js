@@ -28,6 +28,7 @@ export class DocumentsKanbanCompiler extends KanbanCompiler {
             dummyElement.classList.add("o_hidden", "o_documents_dummy_action");
             card.prepend(dummyElement);
             card.setAttribute("t-on-dragstart.stop", `(ev) => __comp__.props.record.onDragStart(ev)`);
+            card.setAttribute("t-on-drop", `(ev) => __comp__.props.record.onDrop(ev)`);
             const fileInput = card.querySelector("input.o_kanban_replace_document");
             if (fileInput) {
                 fileInput.setAttribute("t-on-change.stop.prevent", `(ev) => __comp__.props.record.onReplaceDocument(ev)`);
@@ -47,15 +48,16 @@ export class DocumentsKanbanCompiler extends KanbanCompiler {
         // `o_record_selected` if the document is currently selected
         elem.setAttribute(
             "t-attf-class",
-            (elem.getAttribute("t-attf-class") || "") + " {{record.type.raw_value === 'empty' ? 'oe_file_request' : ''}} {{__comp__.props.record.selected ? 'o_record_selected' : ''}}"
+            (elem.getAttribute("t-attf-class") || "")
+            + " {{(record.type.raw_value === 'binary' && !record.attachment_id.raw_value && !record.shortcut_document_id.raw_value) ? 'oe_file_request' : ''}}"
+            + " {{__comp__.props.record.selected ? 'o_record_selected' : ''}}"
         );
         // Selector and FileUploadProgressBar
         const content = new DOMParser().parseFromString(
             /*xml*/ `
             <t>
                 <t t-set="fileUpload" t-value="__comp__.getFileUpload()"/>
-                <i t-if="!fileUpload" class="fa fa-circle o_record_selector text-white" title="Select document"/>
-                <t t-else="">
+                <t t-if="fileUpload">
                     <FileUploadProgressBar fileUpload="fileUpload"/>
                 </t>
             </t>

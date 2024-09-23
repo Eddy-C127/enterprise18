@@ -3,7 +3,7 @@ import { beforeEach, describe, expect, getFixture, test } from "@odoo/hoot";
 import { animationFrame } from "@odoo/hoot-mock";
 import * as spreadsheet from "@odoo/o-spreadsheet";
 import { Partner, getBasicData } from "@spreadsheet/../tests/helpers/data";
-import { makeSpreadsheetMockEnv } from "@spreadsheet/../tests/helpers/model";
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { makeFakeSpreadsheetService } from "@spreadsheet_edition/../tests/helpers/collaborative_helpers";
 import { InsertViewSpreadsheet } from "@spreadsheet_edition/assets/insert_action_link_menu/insert_action_link_menu";
 import {
@@ -40,7 +40,7 @@ async function openView(viewType, options = {}) {
         { sequence: 1 }
     );
     mockService("spreadsheet_collaborative", makeFakeSpreadsheetService());
-    await makeSpreadsheetMockEnv({
+    await makeDocumentsSpreadsheetMockEnv({
         serverData,
         mockRPC: options.mockRPC,
     });
@@ -171,7 +171,7 @@ test("insert list in existing spreadsheet", async function () {
         mockRPC: function (route, args) {
             if (args.method === "join_spreadsheet_session") {
                 expect.step("spreadsheet-joined");
-                expect(args.args[0]).toBe(1, {
+                expect(args.args[0]).toBe(2, {
                     message: "It should join the selected spreadsheet",
                 });
             }
@@ -180,7 +180,7 @@ test("insert list in existing spreadsheet", async function () {
     await loadJS("/web/static/lib/Chart/Chart.js");
     await toggleSearchBarMenu();
     await contains(".o_insert_action_spreadsheet_menu").click();
-    await contains(".o-spreadsheet-grid div[data-id='1']").click();
+    await contains(".o-spreadsheet-grid div[data-id='2']").click();
     await contains(".modal-footer button.btn-primary").click();
     await animationFrame();
     expect.verifySteps(["spreadsheet-joined"]);

@@ -1,7 +1,7 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 import base64
+import contextlib
 import io
 import json
 import zipfile
@@ -9,10 +9,11 @@ import datetime
 
 from lxml import etree
 
-from odoo import _, fields, models, api
+from odoo import _, Command, fields, models, api
 from odoo.exceptions import UserError, AccessError, ValidationError
 from odoo.osv import expression
-from odoo.tools import image_process
+from odoo.tools import image_process, consteq
+from odoo.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 
 
 SUPPORTED_PATHS = (
@@ -47,14 +48,78 @@ class Document(models.Model):
         compute='_compute_spreadsheet_thumbnail_checksum',
         export_string_translation=False
     )
+    excel_export = fields.Binary()
 
-    handler = fields.Selection(
-        [("spreadsheet", "Spreadsheet")], ondelete={"spreadsheet": "cascade"}
-    )
+    handler = fields.Selection([
+        ("spreadsheet", "Spreadsheet"),
+        ("frozen_folder", "Frozen Folder"),
+        ("frozen_spreadsheet", "Frozen Spreadsheet"),
+    ], ondelete={"spreadsheet": "cascade", "frozen_folder": "cascade", "frozen_spreadsheet": "cascade"})
+
+    _sql_constraints = [(
+        'spreadsheet_access_via_link',
+        "CHECK((handler != 'spreadsheet') OR access_via_link != 'edit')",
+        "To share a spreadsheet in edit mode, add the user in the accesses"
+    ), (
+        'frozen_spreadsheet_access_via_link_access_internal',
+        "CHECK((handler != 'frozen_spreadsheet') OR (access_via_link != 'edit' AND access_internal != 'edit'))",
+        "A frozen spreadsheet can not be editable"
+    )]
+
+    @api.returns('documents.document', lambda d: {'id': d.id, 'shortcut_document_id': d.shortcut_document_id.id})
+    def action_freeze_and_copy(self, spreadsheet_data, excel_files):
+        """Render the spreadsheet in JS, and then make a copy to share it.
+
+        :param spreadsheet_data: The spreadsheet data to save
+        :param excel_files: The files to download
+        """
+        self.ensure_one()
+
+        # we will copy in SUDO to skip check on frozen spreadsheets
+        # (see @_check_spreadsheet_share)
+        self.env['documents.document'].check_access('create')
+        self.check_access('read')
+        self.folder_id.check_access('write')
+
+        folder = self.env['documents.document'].sudo().search([
+            ('folder_id', '=', self.folder_id.id),
+            ('type', '=', 'folder'),
+            ('handler', '=', 'frozen_folder'),
+        ], limit=1)
+
+        if not folder:
+            folder = self.env['documents.document'].create({
+                'name': _('Frozen spreadsheets'),
+                'type': 'folder',
+                'handler': 'frozen_folder',
+                'folder_id': self.folder_id.id,
+                'access_via_link': 'none',
+                'access_internal': 'view',
+                'owner_id': self.env.ref('base.user_root').id,
+            })
+
+        if isinstance(spreadsheet_data, dict):
+            spreadsheet_data = json.dumps(spreadsheet_data)
+
+        return self.sudo().copy({
+            'name': _('Frozen at %(date)s: %(name)s',
+                      date=fields.Date.today().strftime(DEFAULT_SERVER_DATE_FORMAT), name=self.name),
+            'access_internal': 'none' if self.access_internal == 'none' else 'view',
+            'access_via_link': 'view',
+            'spreadsheet_data': spreadsheet_data,
+            'folder_id': folder.id,
+            'excel_export': base64.b64encode(self.env['spreadsheet.mixin']._zip_xslx_files(excel_files)),
+            'handler': 'frozen_spreadsheet',
+            'is_access_via_link_hidden': True,
+            'access_ids': [Command.create({
+                'partner_id': access.partner_id.id,
+                'role': 'view' if access.role == 'edit' else access.role,
+            }) for access in self.access_ids if access.role],
+        })
 
     @api.model_create_multi
     def create(self, vals_list):
-        vals_list = self._assign_spreadsheet_default_folder(vals_list)
+        vals_list = self._assign_spreadsheet_default_values(vals_list)
         vals_list = self._resize_spreadsheet_thumbnails(vals_list)
         documents = super().create(vals_list)
         documents._update_spreadsheet_contributors()
@@ -65,40 +130,61 @@ class Document(models.Model):
             vals['handler'] = False
         if 'spreadsheet_data' in vals:
             self._update_spreadsheet_contributors()
-        if all(document.handler == 'spreadsheet' for document in self):
+        if all(document.handler in ("spreadsheet", "frozen_spreadsheet") for document in self):
             vals = self._resize_thumbnail_value(vals)
         return super().write(vals)
 
-    def join_spreadsheet_session(self, share_id=None, access_token=None):
-        if self.sudo().handler != "spreadsheet":
-            raise ValidationError(_("The spreadsheet you are trying to access does not exist."))
-        data = super().join_spreadsheet_session(share_id, access_token)
-        self._update_spreadsheet_contributors()
-        return dict(data, is_favorited=self.sudo().is_favorited, folder_id=self.sudo().folder_id.id)
+    def dispatch_spreadsheet_message(self, message, access_token=None):
+        if self.sudo().handler == "frozen_spreadsheet":
+            return False
+        return super().dispatch_spreadsheet_message(message, access_token)
 
-    def _check_spreadsheet_share(self, operation, share_id, access_token):
-        share = self.env['documents.share'].browse(share_id).sudo()
-        available_documents = share._get_documents_and_check_access(access_token, operation=operation)
-        if not available_documents or self not in available_documents:
+    def join_spreadsheet_session(self, access_token=None):
+        if self.sudo().handler not in ("spreadsheet", "frozen_spreadsheet"):
+            raise ValidationError(_("The spreadsheet you are trying to access does not exist."))
+        data = super().join_spreadsheet_session(access_token)
+        self._update_spreadsheet_contributors()
+        return {
+            **data,
+            'handler': self.sudo().handler,
+            'access_url': self.sudo().access_url,
+            'is_favorited': self.sudo().is_favorited,
+            'folder_id': self.sudo().folder_id.id,
+        }
+
+    def _check_spreadsheet_share(self, operation, access_token):
+        if not self.env.su and operation == 'write' and self.sudo().handler == 'frozen_spreadsheet':
+            raise AccessError(_("You can not edit a frozen spreadsheet"))
+
+        with contextlib.suppress(AccessError):
+            super()._check_spreadsheet_share(operation, access_token)
+            return
+
+        if (
+            not access_token
+            or not consteq(access_token, self.sudo().access_token)
+            or (operation == 'write' and self.sudo().access_via_link != 'edit')
+            or (operation == 'read' and self.sudo().access_via_link == 'none')
+        ):
             raise AccessError(_("You don't have access to this document"))
 
     def _compute_file_extension(self):
         """ Spreadsheet documents do not have file extension. """
-        spreadsheet_docs = self.filtered(lambda rec: rec.handler == "spreadsheet")
+        spreadsheet_docs = self.filtered(lambda rec: rec.handler in ("spreadsheet", "frozen_spreadsheet"))
         spreadsheet_docs.file_extension = False
         super(Document, self - spreadsheet_docs)._compute_file_extension()
 
     @api.depends("datas", "handler")
     def _compute_spreadsheet_binary_data(self):
         for document in self:
-            if document.handler == "spreadsheet":
+            if document.handler in ("spreadsheet", "frozen_spreadsheet"):
                 document.spreadsheet_binary_data = document.datas
             else:
                 document.spreadsheet_binary_data = False
 
     def _inverse_spreadsheet_binary_data(self):
         for document in self:
-            if document.handler == "spreadsheet":
+            if document.handler in ("spreadsheet", "frozen_spreadsheet"):
                 document.write({
                     "datas": document.spreadsheet_binary_data,
                     "mimetype": "application/o-spreadsheet"
@@ -107,7 +193,7 @@ class Document(models.Model):
     @api.depends("thumbnail")
     def _compute_spreadsheet_thumbnail_checksum(self):
         spreadsheets = self.filtered(lambda doc: doc.handler == "spreadsheet")
-        thumbnails = self.env["ir.attachment"].search([
+        thumbnails = self.env["ir.attachment"].sudo().search([
             ("res_model", "=", self._name),
             ("res_field", "=", "thumbnail"),
             ("res_id", "in", spreadsheets.ids),
@@ -124,12 +210,16 @@ class Document(models.Model):
     def _compute_thumbnail(self):
         # Spreadsheet thumbnails cannot be computed from their binary data.
         # They should be saved independently.
-        spreadsheets = self.filtered(lambda d: d.handler == "spreadsheet")
+        spreadsheets = self.filtered(lambda d: d.handler in ("spreadsheet", "frozen_spreadsheet"))
         super(Document, self - spreadsheets)._compute_thumbnail()
 
     def _copy_spreadsheet_image_attachments(self):
-        spreadsheets = self.filtered(lambda d: d.handler == "spreadsheet")
+        spreadsheets = self.filtered(lambda d: d.handler in ("spreadsheet", "frozen_spreadsheet"))
         super(Document, spreadsheets)._copy_spreadsheet_image_attachments()
+
+    def _copy_attachment_filter(self, default):
+        return super()._copy_attachment_filter(default).filtered(
+            lambda d: d.handler not in ("spreadsheet", "frozen_spreadsheet"))
 
     def _resize_thumbnail_value(self, vals):
         if 'thumbnail' in vals:
@@ -143,27 +233,29 @@ class Document(models.Model):
         return [
             (
                 self._resize_thumbnail_value(vals)
-                if vals.get('handler') == 'spreadsheet'
+                if vals.get('handler') in ('spreadsheet', 'frozen_spreadsheet')
                 else vals
             )
             for vals in vals_list
         ]
 
-    def _assign_spreadsheet_default_folder(self, vals_list):
+    def _assign_spreadsheet_default_values(self, vals_list):
         """Make sure spreadsheet values have a `folder_id`. Assign the
         default spreadsheet folder if there is none.
         """
         # Use the current company's spreadsheet workspace, since `company_id` on `documents.document` is a related field
         # on `folder_id` we do not need to check vals_list for different companies.
-        default_folder = self.env.company.documents_spreadsheet_folder_id
+        default_folder = self.env.company.document_spreadsheet_folder_id
         if not default_folder:
-            default_folder = self.env['documents.folder'].search([], limit=1, order="sequence asc")
+            default_folder = self.env['documents.document'].search([], limit=1)
         return [
-            (
-                dict(vals, folder_id=vals.get('folder_id', default_folder.id))
-                if vals.get('handler') == 'spreadsheet'
-                else vals
-            )
+            {
+                'folder_id': default_folder.id,
+                'access_internal': 'none',
+                'access_via_link': 'none',
+                **vals,
+            }
+            if vals.get('handler') == 'spreadsheet' else vals
             for vals in vals_list
         ]
 
@@ -187,7 +279,7 @@ class Document(models.Model):
         })
         action_open = spreadsheet.action_open_spreadsheet()
         action_open['params']['is_new_spreadsheet'] = True
-        action = {
+        return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
@@ -196,7 +288,6 @@ class Document(models.Model):
                 'next': action_open
             }
         }
-        return action
 
     @api.model
     def _get_spreadsheets_to_display(self, domain, offset=0, limit=None):
@@ -204,20 +295,21 @@ class Document(models.Model):
         Get all the spreadsheets, with the spreadsheet that the user has recently
         opened at first.
         """
+        # TODO: improve with _read_group to not fetch all records
         Contrib = self.env["spreadsheet.contributor"]
-        visible_docs = self.search(expression.AND([domain, [("handler", "=", "spreadsheet")]]))
+        visible_docs = self.search(expression.AND([domain, [("handler", "in", ("spreadsheet", "frozen_spreadsheet"))]]))
         contribs = Contrib.search(
             [
                 ("document_id", "in", visible_docs.ids),
                 ("user_id", "=", self.env.user.id),
             ],
-            order="last_update_date desc",
+            order="last_update_date DESC, id DESC",
         )
         user_docs = contribs.document_id
         # Intersection is used to apply the `domain` to `user_doc`, the union is
         # here to keep only the visible docs, but with the order of contribs.
         docs = ((user_docs & visible_docs) | visible_docs)
-        if (limit):
+        if limit:
             docs = docs[offset:offset + limit]
         else:
             docs = docs[offset:]
@@ -225,16 +317,16 @@ class Document(models.Model):
 
     def clone_xlsx_into_spreadsheet(self, archive_source=False):
         """Clone an XLSX document into a new document with its content unzipped, and return the new document id"""
-
         self.ensure_one()
 
         unzipped, attachments = self._unzip_xlsx()
 
         doc = self.copy({
+            "attachment_id": False,
             "handler": "spreadsheet",
             "mimetype": "application/o-spreadsheet",
             "name": self.name.rstrip(".xlsx"),
-            "spreadsheet_data": json.dumps(unzipped)
+            "spreadsheet_data": json.dumps(unzipped),
         })
 
         for attachment in attachments:
@@ -259,8 +351,8 @@ class Document(models.Model):
                 return None
             return self._is_xlsx_data_multipage(spreadsheet_data)
 
-        if self.handler == "spreadsheet":
-            spreadsheet_data = json.loads(self.spreadsheet_data)
+        if self.handler in ("spreadsheet", "frozen_spreadsheet"):
+            spreadsheet_data = json.loads(self.spreadsheet_data or '{}')
             if spreadsheet_data.get("sheets"):
                 return len(spreadsheet_data["sheets"]) > 1
             return self._is_xlsx_data_multipage(spreadsheet_data)
@@ -335,7 +427,7 @@ class Document(models.Model):
     def _gc_spreadsheet(self):
         yesterday = datetime.datetime.utcnow() - datetime.timedelta(days=1)
         domain = [
-            ('handler', '=', 'spreadsheet'),
+            ('handler', 'in', ('spreadsheet', 'frozen_spreadsheet')),
             ('create_date', '<', yesterday),
             ('spreadsheet_revision_ids', '=', False),
             ('spreadsheet_snapshot', '=', False),
@@ -355,7 +447,7 @@ class Document(models.Model):
 
     @api.model
     def get_spreadsheets(self, domain=(), offset=0, limit=None):
-        domain = expression.AND([domain, [("handler", "=", "spreadsheet")]])
+        domain = expression.AND([domain, [("handler", "in", ("spreadsheet", "frozen_spreadsheet"))]])
         return {
             "records": self._get_spreadsheets_to_display(domain, offset, limit),
             "total": self.search_count(domain),
@@ -372,6 +464,34 @@ class Document(models.Model):
             "sequence": 0,
             "allow_create": True,
         }
+
+    def _permission_specification(self):
+        specification = super()._permission_specification()
+        specification['handler'] = {}
+        if self.env.user.has_group('base.group_user'):
+            specification['access_ids']['fields']['partner_id']['fields']['partner_share'] = {}
+        return specification
+
+    def _contains_live_data(self):
+        """Return true if the spreadsheet contains live data, like Odoo pivots, chart, etc."""
+        self.ensure_one()
+        if self.handler != 'spreadsheet':
+            return False
+
+        snapshot = self._get_spreadsheet_snapshot()
+        if snapshot.get("lists") or snapshot.get("pivots") or snapshot.get("chartOdooMenusReferences"):
+            return True
+
+        revisions = self._build_spreadsheet_messages()
+        return any(  # modification not yet committed in snapshot
+            command.get("type")
+            in ("INSERT_ODOO_LIST", "ADD_PIVOT", "LINK_ODOO_MENU_TO_CHART")
+            for revision in revisions
+            for command in revision.get("commands", [])
+        )
+
+    def _get_writable_record_name_field(self):
+        return 'name'
 
 class XSLXReadUserError(UserError):
     pass
