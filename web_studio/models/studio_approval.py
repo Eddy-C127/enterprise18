@@ -22,17 +22,20 @@ class StudioApprovers(models.Model):
     user_id = fields.Many2one("res.users", required=True, ondelete="cascade")
     rule_id = fields.Many2one("studio.approval.rule", required=True, ondelete="cascade")
     date_to = fields.Date()
+    is_delegation = fields.Boolean(default=True)
 
     @api.depends("create_uid", "user_id", "date_to")
     def _compute_display_name(self):
         for rec in self:
             name = []
             if rec.create_uid.name:
-                name.append(f"{rec.create_uid.name}")
-            name.append(f"to {rec.user_id.name}.")
+                name.extend([rec.create_uid.name, _("delegates to %s.", rec.user_id.name)])
+            else:
+                name.append(_("to %s.", rec.user_id.name))
+
             if rec.date_to:
                 val = rec._fields["date_to"].convert_to_display_name(rec.date_to, rec)
-                name.append(f"Until {val}.")
+                name.append(_("Until %s", val))
             rec.display_name = " ".join(name)
 
     def _is_valid(self):
@@ -144,7 +147,7 @@ class StudioApprovalRule(models.Model):
         if approvers is not None and not data.get("approver_log_ids"):
             approver_ids = self._fields["approver_ids"].convert_to_cache(approvers, self)
             commands = [Command.clear()]
-            commands.extend([Command.create({"user_id": _id}) for _id in approver_ids])
+            commands.extend([Command.create({"user_id": _id, "is_delegation": False}) for _id in approver_ids])
             return commands
         return None
 
@@ -1092,10 +1095,14 @@ class StudioApprovalRuleDelegate(models.TransientModel):
 
         commands = []
         for log in rule.approver_log_ids:
-            if not log._is_valid() or log.create_uid.id == self.env.uid:
+            if not log._is_valid() or (log.create_uid.id == self.env.uid and log.is_delegation):
                 commands.append(Command.delete(log.id))
         for approver_id in rec.approver_ids:
-            commands.append(Command.create({"user_id": approver_id.id, "date_to": rec.date_to}))
+            commands.append(Command.create({
+                "user_id": approver_id.id,
+                "date_to": rec.date_to,
+                "is_delegation": True
+            }))
 
         rule.write({
             "approver_log_ids": commands,
@@ -1108,6 +1115,6 @@ class StudioApprovalRuleDelegate(models.TransientModel):
         default_rule_id = self.env.context.get("default_approval_rule_id")
         if default_rule_id and "approver_ids" in fields_list and "users_to_notify" in fields_list:
             rule = self.env["studio.approval.rule"].browse(default_rule_id).sudo()
-            vals["approver_ids"] = [Command.link(log.user_id.id) for log in rule.approver_log_ids if not log.create_uid or log.create_uid.id == self.env.uid]
+            vals["approver_ids"] = [Command.link(log.user_id.id) for log in rule.approver_log_ids if log.is_delegation and log.create_uid.id == self.env.uid]
             vals["users_to_notify"] = [Command.link(uid) for uid in rule.users_to_notify.ids]
         return vals
