@@ -48,7 +48,7 @@
                 <div class="d-flex">
                     <label t-attf-for="rule_responsible_{{rule.id}}">
                         Approvers
-                        <sup class="text-info p-1" data-tooltip="Users will be able to approve or reject the step and will receive activities" t-esc="'?'"/>
+                        <sup class="text-info p-1" data-tooltip="These users are able to approve or reject the step and will be assigned to an activity when their approval is requested." t-esc="'?'"/>
                     </label>
                     <div class="ms-auto">
                         <button
@@ -71,7 +71,7 @@
             </div>
             <label t-attf-for="rule_group_{{rule.id}}">
                 Approver Group
-                <sup class="text-info p-1" data-tooltip="The members of this group will be able to approve or reject the step" t-esc="'?'"/>
+                <sup class="text-info p-1" data-tooltip="The users in this group are able to approve or reject the step." t-esc="'?'"/>
             </label>
             <div class="o_approval_group">
                 <div class="o_field_widget o_field_many2one" name="approval_group_ids" t-attf-class="{{ !isValid('approval_group_id', record) ? 'border border-danger' : ''}}">
@@ -93,7 +93,7 @@
         <div class="o_web_studio_sidebar_text">
             <label t-attf-for="approval_message_{{rule.id}}">
                 Description
-                <sup class="text-info p-1" data-tooltip="This message will be displayed to users that cannot proceed without this approval" t-esc="'?'"/>
+                <sup class="text-info p-1" data-tooltip="The step description will be displayed on the button on which an approval is requested." t-esc="'?'"/>
             </label>
             <input t-attf-id="approval_message_{{rule.id}}" t-attf-name="approval_message_{{rule.id}}" type="text"
                 t-att-value="rule.message || null" t-on-change="(ev) => this.onApprovalEdit('operation_approval_message', rule.id, ev.target.value)"/>
@@ -102,7 +102,7 @@
             <div class="o_web_studio_sidebar_text">
                 <label t-attf-for="notification_order{{rule.id}}">
                     Approval Order
-                    <sup class="text-info p-1" data-tooltip="Use this field to setup multi-level validation. Next activities for an approval request will only be sent once steps from previous levels have been validated" t-esc="'?'"/>
+                    <sup class="text-info p-1" data-tooltip="Defines the sequential order in which the approvals are requested." t-esc="'?'"/>
                 </label>
                 <select t-attf-id="notification_order{{rule.id}}" t-on-change="(ev) => this.onChangeNotificationOrder(ev, rule.id)" class="form-select">
                     <option t-att-selected="!rule.notification_order || rule.notification_order === '1'">1</option>

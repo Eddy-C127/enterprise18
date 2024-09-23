@@ -64,16 +64,17 @@ class StudioApprovalRule(models.Model):
     action_id = fields.Many2one("ir.actions.actions", string="Action", ondelete="cascade")
     action_xmlid = fields.Char(related="action_id.xml_id", search="_search_action_xmlid")
     name = fields.Char()
-    message = fields.Char(translate=True, string="Description", help="This message will be displayed to users that cannot proceed without this approval")
+    message = fields.Char(translate=True, string="Description", help="The step description will be displayed on the button on which an approval is requested.")
     approver_ids = fields.Many2many(
         comodel_name='res.users',
         compute='_compute_approver_ids',
         inverse="_inverse_approver_ids",
         string='Approvers',
+        help="These users are able to approve or reject the step and will be assigned to an activity when their approval is requested.",
         domain="[('id', 'not in', [1]), ('share', '=', False)]"
     )
     approver_log_ids = fields.One2many("studio.approval.rule.approver", inverse_name="rule_id")
-    approval_group_id = fields.Many2one(comodel_name='res.groups', string='Approval Group')
+    approval_group_id = fields.Many2one(comodel_name='res.groups', string='Approval Group', help="The users in this group are able to approve or reject the step.")
     users_to_notify = fields.Many2many(
         comodel_name='res.users',
         relation='approval_rule_users_to_notify_rel',
@@ -96,7 +97,7 @@ class StudioApprovalRule(models.Model):
         string='Step',
         default='1',
         group_expand=_group_expand_notification_order,
-        help="Use this field to setup multi-level validation. Next activities and notifications for an approval request will only be sent once rules from previous levels have been validated"
+        help="Defines the sequential order in which the approvals are requested."
     )
     exclusive_user = fields.Boolean(string="Exclusive Approval",
                                            help="If set, the user who approves this rule will not "
