@@ -148,13 +148,6 @@ class StudioApprovalRule(models.Model):
             return commands
         return None
 
-    @api.constrains("approval_group_id")
-    def _check_group_xmlid(self):
-        group_xmlids = self.approval_group_id.get_external_id()
-        for rule in self:
-            if rule.approval_group_id and not group_xmlids.get(rule.approval_group_id.id):
-                raise ValidationError(_('Groups used in approval rules must have an external identifier.'))
-
     @api.constrains("model_id", "method")
     def _check_model_method(self):
         for rule in self:
