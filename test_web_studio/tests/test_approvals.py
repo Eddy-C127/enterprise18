@@ -83,21 +83,25 @@ class TestStudioApprovals(TransactionCase):
             self.env["test.studio.model_action"].browse(model_action.id).action_confirm()
 
         self.assertFalse(model_action.confirmed)
-        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, Rule 1 approved by {self.demo_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, Approved")
+        self.assertTrue('title="Rule 1"' in model_action.message_ids[0].body)
+        self.assertEqual(model_action.message_ids[0].author_id, self.demo_user.partner_id)
         self.assertEqual(len(model_action.activity_ids), 1)
 
         with self.with_user("admin"):
             self.env["test.studio.model_action"].browse(model_action.id).action_confirm()
 
         self.assertFalse(model_action.confirmed)
-        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, Rule 2 approved by {self.admin_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, Approved")
+        self.assertTrue('title="Rule 2"' in model_action.message_ids[0].body)
         self.assertEqual(len(model_action.activity_ids), 1)
 
         with self.with_user("test"):
             self.env["test.studio.model_action"].browse(model_action.id).action_confirm()
 
         self.assertTrue(model_action.confirmed)
-        self.assertEqual(model_action.message_ids[0].preview, f"@{self.other_user.name}, Rule 3 approved by {self.other_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.other_user.name}, Approved")
+        self.assertTrue('title="Rule 3"' in model_action.message_ids[0].body)
         self.assertEqual(len(model_action.activity_ids), 0)
 
     def test_notify_higher_notification_order(self):
@@ -152,7 +156,9 @@ class TestStudioApprovals(TransactionCase):
 
         # Rule 3 is not found: it applies on another model
         self.assertEqual(model_action.step, 0)
-        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, rule 1 approved by {self.demo_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, Approved")
+        self.assertTrue('title="rule 1"' in model_action.message_ids[0].body)
+
         self.assertEqual(len(model_action.activity_ids), 1)
 
         spec = self.env["studio.approval.rule"].get_approval_spec([dict(model="test.studio.model_action", method="action_step", action_id=False, res_id=model_action.id)])
@@ -165,7 +171,9 @@ class TestStudioApprovals(TransactionCase):
 
         # rule 2 is validated, rule 2 - bis doesn't apply, but is at the same level as rule 2 anyway, so it would not notify.
         self.assertEqual(model_action.step, 0)
-        self.assertEqual(model_action.message_ids[0].preview, f"@{self.other_user.name}, rule 2 approved by {self.admin_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.other_user.name}, Approved")
+        self.assertTrue('title="rule 2"' in model_action.message_ids[0].body)
+
         self.assertEqual(len(model_action.activity_ids), 0)
 
         spec = self.env["studio.approval.rule"].get_approval_spec([dict(model="test.studio.model_action", method="action_step", action_id=False, res_id=model_action.id)])
@@ -223,7 +231,8 @@ class TestStudioApprovals(TransactionCase):
             self.env["test.studio.model_action"].browse(model_action.id).action_step()
 
         self.assertEqual(model_action.step, 0)
-        self.assertEqual(model_action.message_ids[0].preview, f"R0 approved by {self.admin_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, "Approved")
+        self.assertTrue('title="R0"' in model_action.message_ids[0].body)
         self.assertEqual(len(model_action.activity_ids), 2)
         self.assertEqual(model_action.activity_ids.mapped("user_id").ids, self.admin_user.ids)
 
@@ -232,7 +241,10 @@ class TestStudioApprovals(TransactionCase):
             self.env["test.studio.model_action"].browse(model_action.id).action_step()
 
         self.assertEqual(model_action.step, 0)
-        self.assertEqual(model_action.message_ids[0].preview, f"R1 approved by {self.other_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, "Approved")
+        self.assertEqual(model_action.message_ids[0].author_id, self.other_user.partner_id)
+        self.assertTrue('title="R1"' in model_action.message_ids[0].body)
+
         self.assertEqual(len(model_action.activity_ids), 1)
         self.assertEqual(model_action.activity_ids.mapped("user_id").ids, self.admin_user.ids)
 
@@ -240,7 +252,9 @@ class TestStudioApprovals(TransactionCase):
             self.env["test.studio.model_action"].browse(model_action.id).action_step()
 
         self.assertEqual(model_action.step, 0)
-        self.assertEqual(model_action.message_ids[0].preview, f"R2 approved by {self.demo_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, "Approved")
+        self.assertTrue('title="R2"' in model_action.message_ids[0].body)
+
         self.assertEqual(len(model_action.activity_ids), 1)
         self.assertEqual(model_action.activity_ids.mapped("user_id").ids, self.test_user_2.ids)
 
@@ -248,7 +262,9 @@ class TestStudioApprovals(TransactionCase):
             self.env["test.studio.model_action"].browse(model_action.id).action_step()
 
         self.assertEqual(model_action.step, 1)
-        self.assertEqual(model_action.message_ids[0].preview, f"R3 approved by {self.test_user_2.name}")
+        self.assertEqual(model_action.message_ids[0].preview, "Approved")
+        self.assertTrue('title="R3"' in model_action.message_ids[0].body)
+
         self.assertEqual(len(model_action.activity_ids), 0)
 
     def test_no_responsible(self):
@@ -312,7 +328,9 @@ class TestStudioApprovals(TransactionCase):
         with self.with_user("demo"):
             self.env["test.studio.model_action"].browse(model_action.id).action_confirm()
         self.assertFalse(model_action.confirmed)
-        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, rule 2 approved by {self.demo_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, Approved")
+        self.assertTrue('title="rule 2"' in model_action.message_ids[0].body)
+
         self.assertEqual(len(model_action.activity_ids), 1)
 
         spec = self.env["studio.approval.rule"].get_approval_spec([
@@ -369,7 +387,9 @@ class TestStudioApprovals(TransactionCase):
         with self.with_user("demo"):
             self.env["studio.approval.rule"].browse(rules[0].id).set_approval(model_action.id, True)
         self.assertFalse(model_action.confirmed)
-        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, rule 1 approved by {self.demo_user.name}")
+        self.assertEqual(model_action.message_ids[0].preview, f"@{self.admin_user.name}, Approved")
+        self.assertTrue('title="rule 1"' in model_action.message_ids[0].body)
+
         self.assertEqual(len(model_action.activity_ids), 1)
         self.assertEqual(model_action.activity_ids.user_id.id, self.other_user.id)
 

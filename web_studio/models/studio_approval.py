@@ -1051,13 +1051,22 @@ class StudioApprovalEntry(models.Model):
                 continue
             record = self.env[entry.model].browse(entry.res_id)
             partner_ids = entry.rule_id.users_to_notify.partner_id
+            rule = entry.rule_id
+            target_name = ""
+            if rule.name:
+                target_name = rule.name
+            elif rule.method:
+                target_name = _("Method: %s", rule.method)
+            elif rule.action_id.name:
+                target_name = _("Action: %s", rule.action_id.name)
+
             record.message_post_with_source(
                 'web_studio.notify_approval',
                 author_id=entry.user_id.partner_id.id,
                 partner_ids=partner_ids.ids,
                 render_values={
                     'partner_ids': partner_ids,
-                    'target_name': entry.rule_id.name or entry.rule_id.method or entry.rule_id.action_id.name,
+                    'target_name': target_name,
                     'user_name': entry.user_id.display_name,
                     'approved': entry.approved,
                     },
