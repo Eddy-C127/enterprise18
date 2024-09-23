@@ -25,7 +25,7 @@
                         <td colspan="2">
                             <t t-if="props.carryoverData.carryover_target">
                                 <span>
-                                    <strong t-out="props.carryoverData.carryover"/> will be carried over to <t t-out="props.carryoverData.carryover_target"/> in the next period.
+                                    <strong t-out="props.carryoverData.carryover"/> will be carried over to <strong t-out="props.carryoverData.carryover_target"/> in the next period.
                                 </span>
                             </t>
                             <t t-else="">
