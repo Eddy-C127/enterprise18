@@ -31,7 +31,7 @@
         <t t-if="state.rules === null">
             <i class="fa fa-circle-o-notch fa-spin"/>
         </t>
-        <div t-else="" t-foreach="state.rules" t-as="ruleId" t-key="ruleId" class="o_web_studio_approval_rule m-2">
+        <div t-else="" t-foreach="state.rules" t-as="ruleId" t-key="ruleId" class="o_web_studio_approval_rule m-2 mb-3">
             <t t-set="rule" t-value="this.props.approval.rules[ruleId]" />
             <t t-set="entry" t-value="getEntry(rule.id)"/>
             <div t-if="!getEntry(rule.id)" t-attf-class="o_web_studio_approval_no_entry d-flex flex-row align-items-center justify-content-center gap-2">
@@ -75,7 +75,7 @@
                         t-att-title="getEntry(rule.id).user_id[1]"/>
                 </div>
                 <div class="o_web_studio_approval_description flex-grow-1" t-att-title="formatDate(getEntry(rule.id).write_date, 'DDDD')">
-                    <p>
+                    <p class="mb-0">
                         <strong t-esc="getEntry(rule.id).user_id[1]"/> <i t-if="rule.exclusive_user" class="fa fa-shield" title="This rule limits this user to a single approval for this action."/>
                         <br/>
                         <span class="small">
