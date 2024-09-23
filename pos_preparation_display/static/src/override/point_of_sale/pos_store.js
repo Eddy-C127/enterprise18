@@ -51,19 +51,17 @@ patch(PosStore.prototype, {
                 ]);
             } catch (error) {
                 console.warn(error);
+
+                // Show error popup only if warningTriggered is false
+                if (!this.data.network.warningTriggered) {
+                    this.dialog.add(AlertDialog, {
+                        title: _t("Send failed"),
+                        body: _t("Failed in sending the changes to preparation display"),
+                    });
+                }
             }
 
             o.uiState.noteHistory = {};
-        }
-
-        // We display this error popup only if the PoS is connected,
-        // otherwise the user has already received a popup telling him
-        // that this functionality will be limited.
-        if (this.data.network.offline) {
-            this.dialog.add(AlertDialog, {
-                title: _t("Send failed"),
-                body: _t("Failed in sending the changes to preparation display"),
-            });
         }
 
         return super.sendOrderInPreparation(o, cancelled);
