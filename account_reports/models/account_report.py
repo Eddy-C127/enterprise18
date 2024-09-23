@@ -1756,6 +1756,10 @@ class AccountReport(models.Model):
         if self.only_tax_exigible:
             domain += self.env['account.move.line']._get_tax_exigible_domain()
 
+        if options.get('forced_domain'):
+            # That option key is set when splitting options between column groups
+            domain += options['forced_domain']
+
         return domain
 
     ####################################################
@@ -1765,10 +1769,6 @@ class AccountReport(models.Model):
     @api.model
     def _query_get(self, options, date_scope, domain=None):
         domain = self._get_options_domain(options, date_scope) + (domain or [])
-
-        if options.get('forced_domain'):
-            # That option key is set when splitting options between column groups
-            domain += options['forced_domain']
 
         self.env['account.move.line'].check_access_rights('read')
 
