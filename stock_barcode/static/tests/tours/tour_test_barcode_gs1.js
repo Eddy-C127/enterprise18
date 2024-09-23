@@ -708,6 +708,7 @@ registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_numb
     // Validates the transfer.
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
+
 registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_2', {test: true, steps: () => [
     {
         trigger: '.o_barcode_client_action',
@@ -1294,6 +1295,16 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
         }
     },
     ...stepUtils.discardBarcodeForm(),
+]});
+
+registry.category("web_tour.tours").add("test_gs1_receipt_scan_not_gs1_multi_barcode", {test: true, steps: () => [
+    { trigger: ".o_stock_barcode_main_menu", run: "scan WHIN" },
+    // Scan a barcode containing 1 product tracked by SN followed by 8 serial numbers.
+    { trigger: ".o_barcode_client_action", run: "scan productserial1,sn1,sn2,sn3,sn4,sn5,sn6,sn7,sn8" },
+    { trigger: ".o_barcode_line .qty-done:contains(8)" },
+    { trigger: "button.o_toggle_sublines", run: "click" },
+    { trigger: ".o_sublines .o_barcode_line:nth-child(8)" },
+    ...stepUtils.validateBarcodeOperation(),
 ]});
 
 registry.category("web_tour.tours").add('test_gs1_receipt_packaging', {test: true, steps: () => [

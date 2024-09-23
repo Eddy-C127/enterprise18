@@ -654,8 +654,8 @@ export default class BarcodeModel extends EventBus {
                         this.trigger("updateBarcodesCountProcessed");
                         continue;
                     }
-                    validBarcodes.push(barcodeObject);
                 }
+                validBarcodes.push(barcodeObject);
             }
 
             this.actionMutex.exec(async () => {

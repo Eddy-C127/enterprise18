@@ -14,13 +14,20 @@ export class BarcodeObject {
         this.isURN = Boolean(this.rawValue.match(/^urn:.*$/));
 
         if (this.parser) {
-            this.parsedBarcode = this.parser.parse_barcode(this.rawValue);
-            if (!Array.isArray(this.parsedBarcode)) {
+            try {
+                this.parsedBarcode = this.parser.parse_barcode(this.rawValue);
+            } catch (err) {
+                // The barcode can't be parsed but the error is caught to fallback
+                // on the classic way to handle barcodes.
+                console.log(`%cWarning: error about ${this.rawValue}`, 'text-weight: bold;');
+                console.log(err.message);
+            }
+            if (this.parsedBarcode && !Array.isArray(this.parsedBarcode)) {
                 // Depending of the nomenclature, the parsed data is either an object,
                 // either an array of objects. Convert it into an array in all case.
                 this.parsedBarcode = [this.parsedBarcode];
             }
-            this.isParsed = Boolean(this.parsedBarcode.length);
+            this.isParsed = Boolean(this.parsedBarcode?.length);
         } else {
             console.warn("No parser set !");
         }
@@ -34,6 +41,9 @@ export class BarcodeObject {
      * For missing record(s), they need to be fetched afterward.
      */
     async setRecords(options=false) {
+        if (!this.isParsed) {
+            return;
+        }
         options = options || {
             fetchLater: true,
             onlyInCache: true,

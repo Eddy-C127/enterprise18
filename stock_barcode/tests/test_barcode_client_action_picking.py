@@ -3409,6 +3409,15 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         self.assertTrue(move3.picked)
         self.assertEqual(move3.product_uom.id, uom_g.id)
 
+    def test_gs1_receipt_scan_not_gs1_multi_barcode(self):
+        """ This test ensures the user can scan a barcode containing multiple
+        non-GS1 barcode when GS1 nomenclature is active."""
+        self.clean_access_rights()
+        grp_lot = self.env.ref('stock.group_production_lot')
+        self.env.user.write({'groups_id': [(4, grp_lot.id, 0)]})
+        self.env.company.nomenclature_id = self.env.ref('barcodes_gs1_nomenclature.default_gs1_nomenclature')
+        self.start_tour('/odoo/barcode', 'test_gs1_receipt_scan_not_gs1_multi_barcode', login='admin')
+
     def test_gs1_package_receipt_and_delivery(self):
         """ Receives some products and scans a GS1 barcode for a package, then
         creates a delivery and scans the same package.
