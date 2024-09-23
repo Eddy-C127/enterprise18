@@ -63,16 +63,6 @@
                     </DropdownItem>
                 </t>
 
-                <t t-if="'show_all_accounts' in controller.options">
-                    <DropdownItem
-                        class="{ 'filter_show_all_accounts_hook': true, 'selected': controller.options.show_all_accounts }"
-                        onSelected="() => this.filterClicked({ optionKey: 'show_all_accounts', reload: true})"
-                        closingMode="'none'"
-                    >
-                        Show All Accounts
-                    </DropdownItem>
-                </t>
-
                 <t t-if="controller.options.integer_rounding">
                     <DropdownItem
                         class="{ 'selected': controller.options.integer_rounding_enabled }"
