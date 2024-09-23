@@ -1,4 +1,5 @@
 /** @odoo-module */
+import { LEGACY_KANBAN_MENU_ATTRIBUTE } from "@web/views/kanban/kanban_arch_parser";
 import { KanbanCompiler } from "@web/views/kanban/kanban_compiler";
 import { computeXpath, applyInvisible } from "../xml_utils";
 import { isComponentNode } from "@web/views/view_compiler";
@@ -58,7 +59,7 @@ export class KanbanEditorCompilerLegacy extends KanbanCompiler {
                 this.addPriorityHook(compiled);
             }
 
-            const dropdown = this.templates["menu"];
+            const dropdown = this.templates[LEGACY_KANBAN_MENU_ATTRIBUTE];
             if (!dropdown) {
                 this.addDropdownHook(compiled);
             }

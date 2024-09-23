@@ -91,9 +91,9 @@ class _KanbanEditorRecord extends KanbanRecord {
     setup() {
         super.setup();
         this.viewEditorModel = useState(this.env.viewEditorModel);
-        if (this.constructor.KANBAN_MENU_ATTRIBUTE in this.props.templates) {
+        if (this.constructor.LEGACY_KANBAN_MENU_ATTRIBUTE in this.props.templates) {
             const compiledTemplateMenu =
-                this.props.templates[this.constructor.KANBAN_MENU_ATTRIBUTE];
+                this.props.templates[this.constructor.LEGACY_KANBAN_MENU_ATTRIBUTE];
             this.dropdownXpath = computeXpath(compiledTemplateMenu, "kanban");
             this.dropdownHasCoverSetter = Boolean(
                 compiledTemplateMenu.querySelectorAll("a[data-type='set_cover']").length

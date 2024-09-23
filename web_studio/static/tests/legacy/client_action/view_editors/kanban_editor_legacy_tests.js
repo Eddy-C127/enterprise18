@@ -928,7 +928,7 @@ QUnit.module(
             const arch = `
             <kanban>
                 <templates>
-                    <t t-name="menu">
+                    <t t-name="kanban-menu">
                         <a type="edit" class="dropdown-item">Edit</a>
                     </t>
                     <t t-name="kanban-box">
@@ -1000,7 +1000,7 @@ QUnit.module(
                 const arch = `
                 <kanban>
                     <templates>
-                        <t t-name="menu">
+                        <t t-name="kanban-menu">
                             <a type="set_cover">Set Cover Image</a>
                         </t>
                         <t t-name='kanban-box'>
@@ -1070,7 +1070,7 @@ QUnit.module(
                 const arch = `
                 <kanban>
                     <templates>
-                        <t t-name='menu'/>
+                        <t t-name='kanban-menu'/>
                         <t t-name='kanban-box'>
                             <div class='o_kanban_record'>
                             </div>
@@ -1342,7 +1342,7 @@ QUnit.module(
             const newArch = `
             <kanban>
                 <templates>
-                    <t t-name='menu'>
+                    <t t-name='kanban-menu'>
                         <t t-if="widget.editable">
                             <a type="edit" class="dropdown-item">Edit</a>
                         </t>
