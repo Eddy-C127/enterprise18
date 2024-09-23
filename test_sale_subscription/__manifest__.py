@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 {
@@ -10,4 +9,9 @@
     'demo': ['data/sale_subscription_demo.xml'],
     'installable': True,
     'license': 'OEEL-1',
+    'assets': {
+        'web.assets_tests': [
+            'test_sale_subscription/static/tests/tours/*',
+        ],
+    },
 }

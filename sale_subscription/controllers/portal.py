@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import datetime
 import werkzeug
 from collections import OrderedDict
@@ -6,18 +5,17 @@ from dateutil.relativedelta import relativedelta
 from math import ceil
 from werkzeug.urls import url_encode
 
-from odoo import http, fields
+from odoo import Command, fields, http, _
 from odoo.exceptions import AccessError, MissingError, UserError, ValidationError
-from odoo.fields import Command
 from odoo.http import request
-from odoo.tools.translate import _
-from odoo.tools.misc import str2bool
-from odoo.tools import format_date
+from odoo.tools import format_date, str2bool
+
 from odoo.addons.sale.controllers import portal as payment_portal
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.portal.controllers.portal import pager as portal_pager
 from odoo.addons.sale.controllers import portal as sale_portal
 from odoo.addons.sale_subscription.models.sale_order import SUBSCRIPTION_PROGRESS_STATE, SUBSCRIPTION_CLOSED_STATE
+
 
 class CustomerPortal(payment_portal.PaymentPortal):
 
@@ -331,19 +329,10 @@ class PaymentPortal(payment_portal.PaymentPortal):
             if subscriptions:
                 # Reroute the next steps of the payment flow to the portal view of the invoice.
                 # Add `is_subscription` variable in invoice information for differentiating subscriptions from regular SOs.
-                # Call different transaction methods depending on the quantity of subscriptions linked to the invoice lines.
-                if len(subscriptions) == 1:
-                    transaction_route = f'/my/subscriptions/{subscriptions[0].id}/transaction'
-                    access_token = subscriptions[0].access_token
-                else:
-                    # Multiple subscriptions: we send the invoice and fetch the subscriptions from its invoice lines.
-                    transaction_route = f'/my/subscriptions/invoice/{invoice_sudo.id}/transaction'
-                    access_token = invoice_sudo.access_token
-
-                extra_payment_form_values.update(
-                    {
+                transaction_route = f'/my/subscriptions/invoice/{invoice_sudo.id}/transaction'
+                extra_payment_form_values.update({
                     'transaction_route_subscription': transaction_route,
-                    'access_token': access_token,
+                    'access_token': invoice_sudo.access_token,
                     'is_subscription': True,
                 })
         return extra_payment_form_values
@@ -456,16 +445,16 @@ class PaymentPortal(payment_portal.PaymentPortal):
         logged_in = not request.env.user._is_public()
         partner_sudo = request.env.user.partner_id if logged_in else invoice_sudo.partner_id
         amount = kwargs.get('amount', 0) or invoice_sudo.amount_total
-        tokenize = kwargs.get('tokenization_requested')
         kwargs.update({
             'partner_id': partner_sudo.id,
             'amount': amount,
             'currency_id': invoice_sudo.currency_id.id,
-            'tokenization_requested': tokenize,
         })
 
         # Get subscriptions linked to the invoice lines and create the transaction linking to them.
         subscriptions_sudo = invoice_sudo.invoice_line_ids.subscription_id
+        # Note: tokenize will always be True in this flow (unautomated goes via account_payment)
+        tokenize = kwargs.get('tokenization_requested') or kwargs.get('flow') == 'token'
         tx_sudo = self._create_transaction(
             custom_create_values={
                 'sale_order_ids': [Command.set(subscriptions_sudo.ids)],
