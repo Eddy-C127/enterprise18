@@ -4,6 +4,7 @@ import datetime
 from datetime import date
 from freezegun import freeze_time
 from unittest.mock import patch
+from dateutil.relativedelta import relativedelta
 
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
 from odoo.addons.payment.tests.common import PaymentCommon
@@ -525,3 +526,79 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         tx._set_done()
         tx._post_process()
         self.assertTrue(inv2.payment_state in ['paid', 'in_payment'], "invoice 2  is paid")
+
+    def test_close_at_date_contract(self):
+        """
+        Test the closing of a subscription at a specific date.
+        """
+        with freeze_time("2021-11-17"):
+            self.authenticate(None, None)
+            self.subscription.plan_id.user_closable = True
+            self.subscription.plan_id.user_closable_options = "at_date"
+            self.subscription.action_confirm()
+            inv1 = self.subscription._create_invoices()
+            inv1._post()  # We won't pay it
+
+        with freeze_time("2021-11-18"):
+            close_reason_id = self.env.ref("sale_subscription.close_reason_1")
+            data = {
+                "access_token": self.subscription.access_token,
+                "csrf_token": http.Request.csrf_token(self),
+                "close_reason_id": close_reason_id.id,
+                "closing_text": "I am not able to continue subs"
+            }
+            url = f"/my/subscriptions/{self.subscription.id}/close"
+            res = self.url_open(url, allow_redirects=False, data=data)
+            self.assertEqual(res.status_code, 303, "Redirection status code should be 303.")
+            self.env.invalidate_all()
+            self.env["sale.order"].sudo()._cron_subscription_expiration()
+            self.assertEqual(
+                self.subscription.subscription_state, "6_churn",
+                "Subscription state should be '6_churn'."
+            )
+            self.assertEqual(
+                self.subscription.end_date, date(2021, 11, 18),
+                "End date should be the closing date: 2021-11-18."
+            )
+            self.assertTrue(
+                self.subscription.close_reason_id,
+                "Close reason should be set after closing."
+            )
+
+    def test_close_end_of_period_contract(self):
+        """
+        Test the closing of a subscription at the end of the period.
+        """
+        with freeze_time("2021-11-17"):
+            self.authenticate(None, None)
+            self.subscription.plan_id.user_closable = True
+            self.subscription.plan_id.user_closable_options = "end_of_period"
+            self.subscription.action_confirm()
+            inv1 = self.subscription._create_invoices()
+            inv1._post()  # We won't pay it
+
+        with freeze_time("2021-11-18"):
+            close_reason_id = self.env.ref("sale_subscription.close_reason_1")
+            data = {
+                "access_token": self.subscription.access_token,
+                "csrf_token": http.Request.csrf_token(self),
+                "close_reason_id": close_reason_id.id,
+                "closing_text": "I am not able to continue subs"
+            }
+            url = f"/my/subscriptions/{self.subscription.id}/close"
+            res = self.url_open(url, allow_redirects=False, data=data)
+            self.assertEqual(res.status_code, 303, "Redirection status code should be 303.")
+            self.env.invalidate_all()
+            self.assertEqual(self.subscription.subscription_state, "3_progress", "Subscription should still be in progress.")
+            self.assertEqual(
+                self.subscription.next_invoice_date - relativedelta(days=1), self.subscription.end_date,
+                "End date should be one day before next invoice date."
+            )
+
+        with freeze_time("2021-12-17"):
+            self.env["sale.order"].sudo()._cron_subscription_expiration()
+            self.assertEqual(
+                self.subscription.subscription_state, "6_churn",
+                "Subscription state should be '6_churn' after closing."
+            )
+            self.assertTrue(self.subscription.close_reason_id, "Close reason should be set after closing.")

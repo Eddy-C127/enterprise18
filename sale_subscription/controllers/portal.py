@@ -12,6 +12,7 @@ from odoo.fields import Command
 from odoo.http import request
 from odoo.tools.translate import _
 from odoo.tools.misc import str2bool
+from odoo.tools import format_date
 from odoo.addons.sale.controllers import portal as payment_portal
 from odoo.addons.payment import utils as payment_utils
 from odoo.addons.portal.controllers.portal import pager as portal_pager
@@ -138,7 +139,9 @@ class CustomerPortal(payment_portal.PaymentPortal):
             return self._show_report(model=order_sudo, report_type=report_type, report_ref='sale.action_report_saleorder', download=download)
 
         enable_token_management = request.env.user.partner_id in (order_sudo.partner_id.child_ids | order_sudo.partner_id)
-        display_close = order_sudo.user_closable and order_sudo.subscription_state in ['3_progress', '4_paused']
+        closable = order_sudo.user_closable and order_sudo.subscription_state in ['3_progress', '4_paused']
+        end_date_reached = order_sudo.end_date and order_sudo.end_date <= order_sudo.next_invoice_date
+        display_close = closable and not end_date_reached
         is_follower = request.env.user.partner_id in order_sudo.message_follower_ids.partner_id
         periods = {'week': 'weeks', 'month': 'months', 'year': 'years'}
         # Calculate the duration when the customer can reopen his subscription
@@ -172,6 +175,8 @@ class CustomerPortal(payment_portal.PaymentPortal):
             'sale_order': order_sudo,
             'report_type': 'html',
             'display_close': display_close,
+            'closable': closable,
+            'end_date_reached': end_date_reached,
             'is_follower': is_follower,
             'close_reasons': request.env['sale.order.close.reason'].search([]),
             'missing_periods': missing_periods,
@@ -187,6 +192,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
             'backend_url': backend_url,
             'product_documents': order_sudo._get_product_documents(),
             'next_billing_details': order_sudo._next_billing_details(),
+            'format_date': lambda date: format_date(request.env, date),
         }
 
         portal_page_values = self._get_page_view_values(

@@ -124,6 +124,11 @@
                      invisible="subscription_state != '1_draft' or state not in ['draft', 'sent']">Subscription Quotation</div>
                 <div name="subscription_to_renew" class="float-end badge rounded-pill fw-bold text-bg-warning"
                      invisible="not display_late">To Renew</div>
+                <div name="subscription_closing_pill"
+                     class="o_field_badge float-end fs-6 mx-1"
+                     invisible="subscription_state != '3_progress' or not end_date or end_date &gt; next_invoice_date">
+                    <span class="badge rounded-pill text-bg-warning">Closing</span>
+                </div>
             </xpath>
             <field name="pricelist_id" position="attributes">
                 <attribute name="readonly">state in ['cancel', 'sale'] and subscription_state not in ['3_progress', '4_paused']</attribute>

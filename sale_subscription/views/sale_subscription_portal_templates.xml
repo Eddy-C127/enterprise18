@@ -49,6 +49,21 @@
         </div>
     </template>
 
+    <template id="sale_subscription_portal_templates_warnings">
+        <div class="alert alert-warning pb-0" role="alert">
+            <p class="fst-italic text-muted">
+                <t t-if="sale_order.plan_id.user_closable_options == 'at_date'">
+                    You are about to permanently close a subscription that is valid until
+                    &amp;nbsp;<span t-field="sale_order.next_invoice_date"/>.
+                </t>
+                <t t-else="">
+                    <t t-set="end_of_period_date" t-value="sale_order.next_invoice_date - relativedelta(days=1)"/>
+                    Your subscription will be closed on the <span t-out="format_date(end_of_period_date)"/>.
+                </t>
+            </p>
+        </div>
+    </template>
+
     <template id="subscription_portal_template" inherit_id="sale.sale_order_portal_template" primary="True">
         <div id="modalaccept" position="after">
             <!-- ======  MODAL: Close Subscription Initialization ====== -->
@@ -63,8 +78,8 @@
                             <form method="post" t-attf-action="/my/subscriptions/#{sale_order.id}/close?access_token=#{sale_order.access_token}">
                                 <input class="d-none" name="csrf_token" t-att-value="request.csrf_token()"/>
                                 <main class="modal-body">
-                                    <p class="fst-italic text-muted">You are about to permanently close a subscription that is valid until <span t-field="sale_order.next_invoice_date"/>.</p>
-                                    <h1>We are sorry to see you go.</h1>
+                                    <t t-call="sale_subscription.sale_subscription_portal_templates_warnings"/>
+                                    <h3>We are sorry to see you go.</h3>
                                     <p>Tell us, why are you leaving?</p>
                                     <t t-if="any(reason.visible_in_portal for reason in close_reasons)">
                                         <div class="mb-3">
@@ -85,10 +100,17 @@
                                     </t>
                                 </main>
                                 <footer class="modal-footer">
-                                    <a role="button" data-bs-toggle="modal" data-bs-target="#wc-modal-close-retain"
-                                       href="#" class="btn btn-primary subscription-close-init-retain d-none">Submit</a>
-                                    <button t-attf-class="btn btn-primary subscription-close-init-noretain subscription-close-finish
-                                            {{ 'd-none' if any(reason.visible_in_portal for reason in close_reasons) else '' }}">Submit</button>
+                                    <div class="tooltip-wrapper" data-tooltip="Choose a closing reason before submitting">
+                                        <a role="button" data-bs-toggle="modal" href="#"
+                                           data-bs-target="#wc-modal-close-retain"
+                                           class="btn btn-primary subscription-close-init-retain d-none">
+                                            Submit
+                                        </a>
+                                        <button t-attf-class="btn btn-primary subscription-close-init-noretain subscription-close-finish
+                                                {{ 'disabled' if any(reason.visible_in_portal for reason in close_reasons) else '' }}">
+                                            Submit
+                                        </button>
+                                    </div>
                                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Discard, I want to stay</button>
                                 </footer>
                             </form>
@@ -105,7 +127,7 @@
                             </h4>
                         </header>
                         <main class="modal-body">
-                            <p class="fst-italic text-muted">You are about to permanently close a subscription that is valid until <span t-field="sale_order.next_invoice_date"/>.</p>
+                            <t t-call="sale_subscription.sale_subscription_portal_templates_warnings"/>
                             <t t-foreach="close_reasons" t-as="close_reason">
                                 <t t-if="close_reason.visible_in_portal and not (close_reason.empty_retention_message or close_reason.retention_button_text == False or close_reason.retention_button_link == False)">
                                     <div t-att-data-id="close_reason.id" class="subscription-close-message" t-field="close_reason.retention_message"></div>
@@ -153,6 +175,11 @@
                 <a t-if="(providers_sudo or tokens_sudo) and sale_order.amount_total> 0" href="#payment_message" class="alert-link">Pay now</a>
                 <t t-else="">Pay now</t>
             </div>
+            <div class="alert alert-warning"
+                role="alert"
+                t-if="closable and end_date_reached">
+                <span>Your subscription is about to end on the <span t-field="sale_order.end_date"/>.</span>
+            </div>
         </div>
 
         <div id="intro_row" position="replace">
@@ -171,6 +198,11 @@
                 <span t-elif="sale_order.subscription_state == '4_paused'" class="badge rounded-pill text-bg-success align-middle smaller"><i class="fa fa-fw fa-check"/> Paused</span>
                 <span t-elif="sale_order.subscription_state == '5_renewed'" class="badge rounded-pill text-bg-secondary align-middle smaller"><i class="fa fa-fw fa-check"/> Renewed</span>
                 <span t-elif="sale_order.subscription_state == '6_churn'" class="badge rounded-pill text-bg-dark align-middle smaller"><i class="fa fa-fw fa-remove"/> Closed</span>
+                <span
+                    t-if="closable and end_date_reached"
+                    class="badge rounded-pill text-bg-warning align-middle smaller">
+                    <i class="fa fa-fw fa-remove"/> Closing
+                </span>
             </div>
         </div>
 

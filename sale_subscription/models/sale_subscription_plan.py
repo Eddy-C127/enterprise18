@@ -35,6 +35,10 @@ class SaleSubscriptionPlan(models.Model):
                                        "plan_id", "related_plan_id", string="Optional Plans",
                                        help="Allow your customers to switch from this plan to "
                                             "another on quotation (new subscription or renewal)")
+    user_closable_options = fields.Selection([
+        ("at_date", "At date"),
+        ("end_of_period", "End of period")
+    ], string="Closeable Plan Options", required=True, default='at_date')
 
     # Invoicing
     auto_close_limit = fields.Integer(string="Automatic Closing", default=15,

@@ -1017,38 +1017,41 @@ class SaleOrder(models.Model):
         return create_values, update_values
 
     def _set_closed_state(self, renew=False):
-        for order in self:
-            renewal_order = order.subscription_child_ids.filtered(lambda s: s.subscription_state in SUBSCRIPTION_PROGRESS_STATE)
-            if renew and renewal_order and order.state == 'sale':
-                order.subscription_state = '5_renewed'
-                order.locked = True
-            else:
-                order.subscription_state = '6_churn'
+        renewal_order = self.subscription_child_ids.filtered(lambda s: s.subscription_state in SUBSCRIPTION_PROGRESS_STATE)
+        if renew and renewal_order and self.state == 'sale':
+            self.subscription_state = '5_renewed'
+            self.locked = True
+        else:
+            self.subscription_state = '6_churn'
 
     def set_close(self, close_reason_id=None, renew=False):
         """
-        Close subscriptions
-        :param int close_reason_id:  id of the sale.order.close.reason
+        Close subscriptions.
+        :param int close_reason_id: The ID of the sale.order.close.reason.
+        :param bool renew: Indicates whether the subscription is being renewed.
         :return: True
         """
-        self._set_closed_state(renew)
         today = fields.Date.context_today(self)
-        values = {'end_date': today}
-        if close_reason_id:
-            values['close_reason_id'] = close_reason_id
-            self.update(values)
-        else:
+        if not close_reason_id:
             renew_close_reason_id = self.env.ref('sale_subscription.close_reason_renew').id
             end_of_contract_reason_id = self.env.ref('sale_subscription.close_reason_end_of_contract').id
             close_reason_unknown_id = self.env.ref('sale_subscription.close_reason_unknown').id
-            for sub in self:
+        for sub in self:
+            if sub.plan_id.user_closable and sub.plan_id.user_closable_options == 'end_of_period':
+                end_date = sub.next_invoice_date - relativedelta(days=1)
+            else:
+                end_date = today
+            if renew or end_date <= today:
+                sub._set_closed_state(renew)
+            values = {'end_date': end_date}
+            if not close_reason_id and not (close_reason_id := sub.close_reason_id):
                 if renew:
                     close_reason_id = renew_close_reason_id
-                elif sub.end_date and sub.end_date <= today:
+                elif sub.end_date and sub.end_date <= end_date:
                     close_reason_id = end_of_contract_reason_id
                 else:
                     close_reason_id = close_reason_unknown_id
-                sub.update(dict(**values, close_reason_id=close_reason_id))
+            sub.update(dict(**values, close_reason_id=close_reason_id))
         return True
 
     def set_open(self):

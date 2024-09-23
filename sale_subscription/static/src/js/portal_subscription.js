@@ -28,18 +28,30 @@
          */
         _onChange: function () {
             const reasonId = this.$el.val();
-            $('.subscription-close-message').add('.subscription-close-link')
-                .hide()
-                .filter((i, e) => $(e).attr('data-id') == reasonId)
-                .show();
+            const messages = document.querySelectorAll('.subscription-close-message, .subscription-close-link');
+            const retainButton = document.querySelector('.subscription-close-init-retain');
+            const noRetainButton = document.querySelector('.subscription-close-init-noretain');
+            const tooltipWrapper = document.querySelector('.tooltip-wrapper');
 
-            $('.subscription-close-init-retain').addClass('d-none');
-            $('.subscription-close-init-noretain').addClass('d-none');
+            messages.forEach(message => {
+                message.style.display = (message.dataset.id === reasonId) ? 'block' : 'none';
+            });
+
+            // Reset button visibility and tooltip
+            retainButton.classList.add('d-none');
+            noRetainButton.classList.add('disabled');
+            noRetainButton.classList.remove('d-none');
+            tooltipWrapper.dataset.tooltip = 'Choose a closing reason before submitting';
+
             if (reasonId) {
-                if (this.$el.children(':selected').attr('data-retention')) {
-                    $('.subscription-close-init-retain').removeClass('d-none');
+                const selectedOption = this.$el.find(':selected');
+                const hasRetention = selectedOption?.data('retention');
+                if (hasRetention) {
+                    retainButton.classList.remove('d-none');
+                    noRetainButton.classList.add('d-none');
                 } else {
-                    $('.subscription-close-init-noretain').removeClass('d-none');
+                    noRetainButton.classList.remove('disabled');
+                    tooltipWrapper.removeAttribute('data-tooltip');
                 }
             }
         },
