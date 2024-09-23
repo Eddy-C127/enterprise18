@@ -2089,6 +2089,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(company)
         if cfdi_values.get('errors'):
             on_failure("\n".join(cfdi_values['errors']))
+            if self._can_commit():
+                self._cr.commit()
             return
 
         root_company = cfdi_values['root_company']
@@ -2096,12 +2098,16 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
         if cfdi_values.get('errors'):
             on_failure("\n".join(cfdi_values['errors']))
+            if self._can_commit():
+                self._cr.commit()
             return
 
         # == CFDI values ==
         populate_return = on_populate(cfdi_values)
         if cfdi_values.get('errors'):
             on_failure("\n".join(cfdi_values['errors']))
+            if self._can_commit():
+                self._cr.commit()
             return
 
         # == Generate the CFDI ==
@@ -2139,6 +2145,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
                 cfdi_filename=cfdi_filename,
                 cfdi_str=cfdi_str,
             )
+            if self._can_commit():
+                self._cr.commit()
             return
 
         # == Check PAC ==
@@ -2149,6 +2157,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
                 cfdi_filename=cfdi_filename,
                 cfdi_str=cfdi_str,
             )
+            if self._can_commit():
+                self._cr.commit()
             return
 
         # == Success ==
@@ -2170,6 +2180,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         cfdi_values = self.env['l10n_mx_edi.document']._get_company_cfdi_values(company)
         if cfdi_values.get('errors'):
             on_failure("\n".join(cfdi_values['errors']))
+            if self._can_commit():
+                self._cr.commit()
             return
 
         root_company = cfdi_values['root_company']
@@ -2177,6 +2189,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         self.env['l10n_mx_edi.document']._add_certificate_cfdi_values(cfdi_values)
         if cfdi_values.get('errors'):
             on_failure("\n".join(cfdi_values['errors']))
+            if self._can_commit():
+                self._cr.commit()
             return
 
         # == Check credentials ==
@@ -2184,6 +2198,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         credentials = getattr(self.env['l10n_mx_edi.document'], f'_get_{pac_name}_credentials')(root_company)
         if credentials.get('errors'):
             on_failure("\n".join(credentials['errors']))
+            if self._can_commit():
+                self._cr.commit()
             return
 
         # == Check PAC ==
@@ -2198,6 +2214,8 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         )
         if cancel_results.get('errors'):
             on_failure("\n".join(cancel_results['errors']))
+            if self._can_commit():
+                self._cr.commit()
             return
 
         # == Success ==
