@@ -53,7 +53,7 @@
                         <div class="o_appointment_kanban_card_ungrouped row">
                             <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
                             <div class="col-lg-2 col-sm-5 col-11 py-0 my-auto text-large text-truncate">
-                                <field class="fw-bold ms-2 o_appointment_kanban_ungrouped_name" t-att-title="record.name.value" name="name"/><br/>
+                                <span class="fw-bold ms-2 o_appointment_kanban_ungrouped_name" t-att-title="record.name.value"><field name="name"/></span><br/>
                                 <field name="category" class="ms-2"/>
                             </div>
                             <div class="col-lg-4 col-sm-7 col-12 py-0 mt-3 mb-2 my-lg-auto d-flex">
