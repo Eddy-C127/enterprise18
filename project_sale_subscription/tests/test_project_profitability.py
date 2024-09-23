@@ -324,10 +324,51 @@ class TestSaleSubscriptionProjectProfitability(TestSubscriptionCommon, TestProje
                     'data': [{
                         'id': 'subscriptions',
                         'sequence': 8,
-                        'invoiced': 1.0,
+                        'invoiced': 2.0,
                         'to_invoice': 0.0
                     }],
-                    'total': {'invoiced': 1.0, 'to_invoice': 0.0},
+                    'total': {'invoiced': 2.0, 'to_invoice': 0.0},
+                },
+                'costs': {
+                    'data': [],
+                    'total': {'billed': 0.0, 'to_bill': 0.0}
+                }
+            }
+        )
+
+    def test_project_profitability_when_different_plan(self):
+        plan = self.env['account.analytic.plan'].create({'name': 'Custom Plan'})
+        project = self.env['project.project'].create({'name': 'Project'})
+        project._create_analytic_account()
+        project.analytic_account_id.update({'plan_id': plan.id})
+
+        sale_subscription = self.env['sale.order'].create({
+            'is_subscription': True,
+            'partner_id': self.partner.id,
+            'analytic_account_id': project.analytic_account_id.id,
+            'plan_id': self.plan_month.id,
+            'end_date': fields.Date.today() + relativedelta(months=1),
+        })
+
+        self.env['sale.order.line'].create({
+            'order_id': sale_subscription.id,
+            'product_id': self.product.product_variant_id.id,
+        })
+        sale_subscription.action_confirm()
+        invoice = sale_subscription._create_invoices()
+        invoice.action_post()
+
+        self.assertDictEqual(
+            project._get_profitability_items(with_action=False),
+            {
+                'revenues': {
+                    'data': [{
+                        'id': 'subscriptions',
+                        'sequence': 8,
+                        'invoiced': 1.0,
+                        'to_invoice': 1.0
+                    }],
+                    'total': {'invoiced': 1.0, 'to_invoice': 1.0},
                 },
                 'costs': {
                     'data': [],

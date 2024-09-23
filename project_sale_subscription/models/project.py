@@ -110,7 +110,7 @@ class Project(models.Model):
         # fetch the data needed for the 'invoiced' section before handling the 'to invoice' one, in order to have all the currencies available and make only one fetch on the rates
         aal_read_group = self.env['account.analytic.line'].sudo()._read_group(
             [('move_line_id.subscription_id', 'in', all_subscription_ids),
-             ('account_id', 'in', self.analytic_account_id.ids)],
+             ('auto_account_id', 'in', self.analytic_account_id.ids)],
             ['currency_id'],
             ['amount:sum'],
         )
