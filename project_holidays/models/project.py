@@ -16,7 +16,7 @@ class Task(models.Model):
         compute_sudo=True, readonly=True, export_string_translation=False)
 
     @api.depends_context('lang')
-    @api.depends('planned_date_begin', 'date_deadline', 'user_ids')
+    @api.depends('planned_date_begin', 'date_deadline', 'user_ids', 'project_id', 'is_closed')
     def _compute_leave_warning(self):
         def group_by_leave(data):
             mapping_leaves = defaultdict(list)
@@ -32,10 +32,14 @@ class Task(models.Model):
             return res
 
         # Avoid NewIds issue by browsing for self.ids.
-        tasks = self.with_context(prefetch_fields=False).browse(self.ids)
-        tasks.fetch(['user_ids', 'project_id', 'planned_date_begin', 'date_deadline', 'is_closed'])
+        tasks = self.with_context(prefetch_fields=False)
+
+        if all(self._ids):
+            tasks = tasks.browse(self.ids)
+            tasks.fetch(['user_ids', 'project_id', 'planned_date_begin', 'date_deadline', 'is_closed'])
+
         assigned_tasks = tasks.filtered(
-            lambda t: t.user_ids.employee_id
+            lambda t: t.user_ids._origin.employee_id
             and t.project_id
             and t.planned_date_begin
             and t.date_deadline
@@ -52,13 +56,13 @@ class Task(models.Model):
         leaves = self.env['hr.leave']._get_leave_interval(
             date_from=date_from,
             date_to=max(assigned_tasks.mapped('date_deadline')),
-            employee_ids=assigned_tasks.mapped('user_ids.employee_id')
+            employee_ids=assigned_tasks.user_ids._origin.employee_id
         )
 
         for task in assigned_tasks:
             leaves_parameters = {"validated": [], "requested": []}
             # Gather leaves parameters for each employee
-            for employee in task.user_ids.employee_id:
+            for employee in task.user_ids._origin.employee_id:
                 task_leaves = leaves.get(employee.id)
                 if task_leaves:
                     employee_leaves = self.env['hr.leave']._get_leave_warning_parameters(

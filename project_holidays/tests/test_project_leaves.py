@@ -2,7 +2,7 @@
 import datetime
 
 from odoo.addons.mail.tests.common import mail_new_test_user
-from odoo.tests import common, freeze_time
+from odoo.tests import common, freeze_time, Form
 
 
 @freeze_time('2020-01-01')
@@ -168,3 +168,23 @@ class TestProjectLeaves(common.TransactionCase):
             "Test HrUser is on time off on 01/02/2020 from 2:00 PM to 6:00 PM. \n")
         self.assertEqual(task_3.leave_warning, False,
                          "employee is not on leave, no warning")
+
+    def test_leave_warning_on_creation(self):
+        self.env['hr.leave'].sudo().create({
+            'holiday_status_id': self.leave_type.id,
+            'employee_id': self.employee_hruser.id,
+            'request_date_from': '2020-1-1',
+            'request_date_to': '2020-1-1',
+        }).action_validate()
+
+        with Form(self.env['project.task']) as task_form:
+            task_form.name = 'Test Task'
+            task_form.user_ids = self.employee_hruser.user_id
+            task_form.project_id = self.project
+            task_form.date_deadline = datetime.datetime(2020, 1, 2)
+            task_form.planned_date_begin = datetime.datetime(2020, 1, 1)
+
+            self.assertEqual(task_form.leave_warning, "Test HrUser is on time off on 01/01/2020. \n")
+
+            task_form.planned_date_begin = datetime.datetime(2020, 1, 2)
+            self.assertFalse(task_form.leave_warning)
