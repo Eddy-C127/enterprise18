@@ -593,8 +593,8 @@ class AppointmentType(models.Model):
         :param datetime first_day: beginning of appointment check boundary. Timezoned to UTC;
         :param datetime last_day: end of appointment check boundary. Timezoned to UTC;
         :param str timezone: requested timezone string e.g.: 'Europe/Brussels' or 'Etc/GMT+1'
-        :param datetime reference_date: starting datetime to fetch slots. If not
-          given now (in UTC) is used instead. Note that minimum schedule hours
+        :param datetime reference_date: starting datetime to fetch slots (in naive UTC). If not
+          given now (in naive UTC) is used instead. Note that minimum schedule hours
           defined on appointment type is added to the beginning of slots if the
           slot start is too close from now;
 
