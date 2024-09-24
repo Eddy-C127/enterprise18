@@ -263,7 +263,7 @@
                         <div class="d-flex text-muted">
                             <field name="date_start" widget="date" class="me-1"/>-<field name="date_end" widget="date" class="ms-1"/>
                         </div>
-                        <footer class="pt-0 fs-6">
+                        <footer class="pt-0">
                             <field name="activity_ids" widget="kanban_activity"/>
                             <field name="request_owner_id" widget="many2one_avatar_user" class="ms-auto"/>
                         </footer>

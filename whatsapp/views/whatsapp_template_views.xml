@@ -186,7 +186,7 @@
                                     widget="label_selection"
                                     options="{'classes': {'approved': 'success', 'rejected': 'danger'}}" class="ms-auto"/>
                         </div>
-                        <footer class="fs-6 mt-1" t-if="!selection_mode">
+                        <footer class="mt-1" t-if="!selection_mode">
                             <div class="d-flex align-items-center">
                                 <field name="quality" widget="priority" readonly="1" class="me-2 lh-1"/>
                                 <field name="create_date" class="me-2"/>

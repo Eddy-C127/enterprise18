@@ -39,7 +39,7 @@
                         <main class="ml8">
                             <field name="name" class="fw-bolder fs-5"/>
                             <field name="room_properties" widget="properties"/>
-                            <footer class="pt-0 fs-6">
+                            <footer class="pt-0">
                                 <div t-if="record.active.raw_value" t-attf-class="py-1 px-2 text-bg-#{record.is_available.raw_value ? 'success' : 'danger'}">
                                     <t t-if="record.is_available.raw_value">Available</t>
                                     <t t-else="">Busy</t>

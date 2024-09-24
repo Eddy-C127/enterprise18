@@ -38,7 +38,7 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <xpath expr="//t[@t-name='card']" position="inside">
-                <footer class="fs-6">
+                <footer>
                     <div class="badge text-bg-danger" t-if="!selection_mode and record.maintenance_open_count.raw_value" >
                         <field name="maintenance_open_count"/> Request
                     </div>

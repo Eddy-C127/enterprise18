@@ -72,7 +72,7 @@
                                     'cancel': 'default',
                                     'done': 'default'}}" class="ms-auto"/>
                         </div>
-                        <footer class="fs-6 pt-1">
+                        <footer class="pt-1">
                             <field name="picking_type_id" readonly="state != 'draft'"/>
                             <div class="d-flex ms-auto">
                                 <field name="scheduled_date" readonly="state in ['cancel', 'done']" class="me-1"/>

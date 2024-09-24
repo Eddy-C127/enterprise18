@@ -342,8 +342,8 @@
                                 </a>
                             </div>
                             <field name="article_properties" widget="properties"/>
-                            <footer class="fs-6 ms-auto">
-                                <field name="activity_ids" widget="kanban_activity" class="pt-1"/>
+                            <footer>
+                                <field name="activity_ids" widget="kanban_activity" class="ms-auto"/>
                                 <field name="create_uid" widget="many2one_avatar_user"/>
                             </footer>
                         </main>

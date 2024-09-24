@@ -247,7 +247,7 @@
                     <t t-name="card">
                         <field name="name" class="fw-bolder fs-5"/>
                         <field name="company_id" widget="many2one" groups="base.group_multi_company"/>
-                        <footer class="fs-6">
+                        <footer>
                             <a name="action_view_worksheets" type="object">
                                 <field name="worksheet_count"/>
                                 <span class="o_label ms-2">Worksheets</span>

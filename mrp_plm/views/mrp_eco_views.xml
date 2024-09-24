@@ -300,7 +300,7 @@
                             <t t-if="record.effectivity_date.raw_value and record.effectivity_date.raw_value lt (new Date())" t-set="red">text-danger</t>
                             <span t-attf-class="#{red || ''}"><field name="effectivity_date" class="fst-italic"/></span>
                         </div>
-                        <footer class="fs-6 pt-0">
+                        <footer class="pt-0">
                             <field name="priority" widget="priority"/>
                             <div class="d-flex align-items-center ms-auto">
                                 <field name="activity_ids" widget="kanban_activity" groups="base.group_user"/>

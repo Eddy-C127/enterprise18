@@ -39,7 +39,7 @@
                         </div>
                         <field name="create_date" class="fst-italic mb-1" options="{'show_seconds': false}"/>
                         <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
-                        <footer class="fs-6 pt-1">
+                        <footer class="pt-1">
                             <div class="d-flex mobile-xs-hide">
                                 <button name="%(sign.action_sign_send_request)d" type="action" class="btn btn-primary btn-sm mt8 mr8 px-2 py-0" context="{'sign_directly_without_mail': 0, 'show_email': 1}">Send</button>
                                 <button name="%(sign.action_sign_send_request)d" type="action" class="btn btn-primary btn-sm mt8 mr8 px-2 py-0" context="{'sign_directly_without_mail': 1}">Sign Now</button>
