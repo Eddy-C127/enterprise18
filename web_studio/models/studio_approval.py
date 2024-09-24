@@ -74,10 +74,11 @@ class StudioApprovalRule(models.Model):
         inverse="_inverse_approver_ids",
         string='Approvers',
         help="These users are able to approve or reject the step and will be assigned to an activity when their approval is requested.",
-        domain="[('id', 'not in', [1]), ('share', '=', False)]"
+        domain="[('id', 'not in', [1]), ('share', '=', False)]",
+        tracking=True
     )
-    approver_log_ids = fields.One2many("studio.approval.rule.approver", inverse_name="rule_id")
-    approval_group_id = fields.Many2one(comodel_name='res.groups', string='Approval Group', help="The users in this group are able to approve or reject the step.")
+    approver_log_ids = fields.One2many("studio.approval.rule.approver", inverse_name="rule_id", tracking=True)
+    approval_group_id = fields.Many2one(comodel_name='res.groups', string='Approval Group', help="The users in this group are able to approve or reject the step.", tracking=True)
     users_to_notify = fields.Many2many(
         comodel_name='res.users',
         relation='approval_rule_users_to_notify_rel',
@@ -139,6 +140,12 @@ class StudioApprovalRule(models.Model):
 
     def _inverse_approver_ids(self):
         for rec in self:
+            track_message = _("%(user_name)s has set approval rights from %(previous_approvers)s to %(next_approvers)s",
+                user_name=self.env.user.name,
+                previous_approvers=", ".join(self.approver_log_ids.filtered(lambda log: not log.is_delegation).user_id.mapped("name")) or _("no one"),
+                next_approvers=", ".join(rec.approver_ids.mapped("name")) or _("no one")
+                )
+            rec._track_set_log_message(track_message)
             commands = rec._get_approver_log_changes({"approver_ids": rec.approver_ids})
             rec.approver_log_ids = commands
 
@@ -150,6 +157,42 @@ class StudioApprovalRule(models.Model):
             commands.extend([Command.create({"user_id": _id, "is_delegation": False}) for _id in approver_ids])
             return commands
         return None
+
+    def _delegate_to(self, user_ids, date_to):
+        self.ensure_one()
+        commands = []
+        revoked_users = []
+        for log in self.approver_log_ids:
+            if not log._is_valid():
+                commands.append(Command.delete(log.id))
+            elif log.create_uid.id == self.env.uid and log.is_delegation:
+                commands.append(Command.delete(log.id))
+                revoked_users.append(log.user_id.id)
+
+        for approver_id in user_ids:
+            commands.append(Command.create({
+                "user_id": approver_id.id,
+                "date_to": date_to,
+                "is_delegation": True
+            }))
+
+        if user_ids:
+            message = _("%(user_name)s delegated approval rights to %(delegate_to)s",
+                        user_name=self.env.user.name,
+                        delegate_to=", ".join(user_ids.mapped("name")))
+            if date_to:
+                approver_model = self.env["studio.approval.rule.approver"]
+                date_field = approver_model._fields["date_to"]
+                val = date_field.convert_to_display_name(date_to, approver_model)
+                message += _(" until %s", val)
+            self._track_set_log_message(message)
+        elif revoked_users:
+            revoked_users = self.env["res.users"].browse(revoked_users)
+            message = _("%(user_name)s revoked their delegation to %(revoked_users)s",
+                        user_name=self.env.user.name,
+                        revoked_users=", ".join(revoked_users.mapped("name")))
+            self._track_set_log_message(message)
+        self.write({"approver_log_ids": commands})
 
     @api.constrains("model_id", "method")
     def _check_model_method(self):
@@ -989,6 +1032,19 @@ class StudioApprovalRule(models.Model):
             "context": context,
         }
 
+    # Tracking Values
+    def _track_filter_for_display(self, tracking_values):
+        approver_log_field = self.env["ir.model.fields"]._get(self._name, "approver_log_ids")
+        approver_ids_field = self.env["ir.model.fields"]._get(self._name, "approver_ids")
+        return tracking_values.filtered(lambda tv: tv.field_id not in [approver_log_field, approver_ids_field])
+
+    def _mail_track(self, tracked_fields, initial_values):
+        # The one2many may have some deleted records
+        # pop the whole thing to always have the custom message
+        # and avoid a MissingError
+        initial_values.pop("approver_log_ids", None)
+        return super()._mail_track(tracked_fields, initial_values)
+
 
 class StudioApprovalEntry(models.Model):
     _name = 'studio.approval.entry'
@@ -1099,25 +1155,12 @@ class StudioApprovalRuleDelegate(models.TransientModel):
     date_to = fields.Date(string="Until")
 
     def create(self, vals):
-        rec = super().create(vals)
-        rule = rec.approval_rule_id.sudo()
-
-        commands = []
-        for log in rule.approver_log_ids:
-            if not log._is_valid() or (log.create_uid.id == self.env.uid and log.is_delegation):
-                commands.append(Command.delete(log.id))
-        for approver_id in rec.approver_ids:
-            commands.append(Command.create({
-                "user_id": approver_id.id,
-                "date_to": rec.date_to,
-                "is_delegation": True
-            }))
-
-        rule.write({
-            "approver_log_ids": commands,
-            "users_to_notify": rec.users_to_notify
-        })
-        return rec
+        records = super().create(vals)
+        for rec in records:
+            rule = rec.approval_rule_id.sudo()
+            rule._delegate_to(rec.approver_ids, rec.date_to)
+            rule.write({"users_to_notify": rec.users_to_notify})
+        return records
 
     def default_get(self, fields_list):
         vals = super().default_get(fields_list)
