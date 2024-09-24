@@ -9,8 +9,8 @@ class PosPreparationDisplayOrderline(models.Model):
     internal_note = fields.Char(help="Internal notes written at the time of the order")
     attribute_value_ids = fields.Many2many('product.template.attribute.value', 'pos_pdis_orderline_product_template_attribute_value_rel', string="Selected Attributes")
     product_id = fields.Many2one('product.product', string="Product ID")
-    product_quantity = fields.Integer("Quantity of ordered product")
-    product_cancelled = fields.Integer("Quantity of cancelled product")
+    product_quantity = fields.Float("Quantity of ordered product")
+    product_cancelled = fields.Float("Quantity of cancelled product")
     preparation_display_order_id = fields.Many2one(
         'pos_preparation_display.order', required=True, index=True, ondelete='cascade')
     pos_order_line_uuid = fields.Char(help="Original pos order line UUID")
