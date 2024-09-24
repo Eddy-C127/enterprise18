@@ -36,7 +36,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     //--------------------------------------------------------------------------
 
     get allowedPickings() {
-        const pickingTypeId = this.record.picking_type_id;
+        const pickingTypeId = this.record.picking_type_id.id;
         if (!pickingTypeId || !this._allowedPickings) {
             return [];
         }
@@ -110,7 +110,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
     async confirmSelection() {
         if (this.needPickingType && this.selectedPickingTypeId) {
             // Applies the selected picking type to the batch.
-            this.record.picking_type_id = this.selectedPickingTypeId;
+            this.record.picking_type_id = this.cache.getRecord('stock.picking.type', this.selectedPickingTypeId);
             this.trigger('update');
         } else if (this.needPickings && this.selectedPickings.length) {
             // Adds the selected pickings to the batch.
@@ -119,7 +119,7 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
                 'action_add_pickings_and_confirm',
                 [[this.resId],
                 {
-                    picking_type_id: this.record.picking_type_id,
+                    picking_type_id: this.record.picking_type_id.id,
                     picking_ids: this.selectedPickings,
                     state: 'in_progress',
                 }]

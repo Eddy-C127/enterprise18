@@ -109,9 +109,12 @@ class StockPickingBatch(models.Model):
             picking_data['records'] = {'res.users': user_ids.read(['name'], False)}
             picking_data['source_location_ids'] = []
             picking_data['destination_locations_ids'] = []
-            if not self.picking_type_id:
-                picking_types = allowed_picking_ids.picking_type_id
-                picking_data['picking_types'] = picking_types.read(['name'], False)
+            if self.picking_type_id:
+                picking_types = self.picking_type_id.read(['name'], False)
+            else:
+                picking_types = allowed_picking_ids.picking_type_id.read(['name'], False)
+                picking_data['picking_types'] = picking_types
+            picking_data['records']['stock.picking.type'] = picking_types
         else:  # Get data from batch's pickings.
             picking_data = self.picking_ids._get_stock_barcode_data()
         picking_data['records'].update({
