@@ -31,18 +31,16 @@
             <t t-call-assets="room.assets_room_booking" t-css="false" lazy_load="True"/>
         </xpath>
         <xpath expr="//t[@t-out='0']" position="replace">
-            <div id="wrapwrap" t-attf-class="#{pageName or ''}">
-                <main>
-                    <owl-component name="room.room_booking_view" t-att-props="json.dumps({
-                        'id': room.id,
-                        'description': room.description,
-                        'name': room.name,
-                        'accessToken': room.access_token,
-                        'bookableBgColor': room.bookable_background_color,
-                        'bookedBgColor': room.booked_background_color,
-                        })"/>
-                </main>
-            </div>
+            <main>
+                <owl-component name="room.room_booking_view" t-att-props="json.dumps({
+                    'id': room.id,
+                    'description': room.description,
+                    'name': room.name,
+                    'accessToken': room.access_token,
+                    'bookableBgColor': room.bookable_background_color,
+                    'bookedBgColor': room.booked_background_color,
+                    })"/>
+            </main>
         </xpath>
     </template>
 </odoo>
