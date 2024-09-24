@@ -128,10 +128,10 @@ class AccountChangeLockDate(models.TransientModel):
         compute='_compute_exception_needed',
     )
     exception_applies_to = fields.Selection(
-        string='Exception applies to',
+        string='Exception applies',
         selection=[
-            ('me', "me"),
-            ('everyone', "everyone"),
+            ('me', "for me"),
+            ('everyone', "for everyone"),
         ],
         default='me',
         required=True,
@@ -139,10 +139,10 @@ class AccountChangeLockDate(models.TransientModel):
     exception_duration = fields.Selection(
         string='Exception Duration',
         selection=[
-            ('5min', "5 minutes"),
-            ('15min', "15 minutes"),
-            ('1h', "1 hour"),
-            ('24h', "24 hours"),
+            ('5min', "for 5 minutes"),
+            ('15min', "for 15 minutes"),
+            ('1h', "for 1 hour"),
+            ('24h', "for 24 hours"),
             ('forever', "forever"),
         ],
         default='5min',
