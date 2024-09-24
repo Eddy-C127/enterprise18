@@ -171,7 +171,6 @@ class WebsiteAppointmentTest(AppointmentCommon, MockVisitor):
                 self.assertFalse(mock_request.env.user.country_id)
                 self.assertFalse(mock_request.geoip.country_code)
                 domain = [
-                    ('category', 'in', ['punctual', 'recurring']),
                     '|', ('end_datetime', '=', False), ('end_datetime', '>=', datetime.utcnow())
                 ]
                 available_appointments = wa_controller._fetch_and_check_private_appointment_types(None, None, None, "", domain=wa_controller._appointments_base_domain(None, False, None, domain))

@@ -45,7 +45,7 @@
             </attribute>
         </xpath>
         <xpath expr="//t[@t-call='appointment.appointment_progress_bar']" position="before">
-            <a t-if="appointment_type.category in ['punctual', 'recurring'] and len(available_appointments) != 1"
+            <a t-if="len(available_appointments) != 1"
                 class="text-truncate"
                 t-attf-href="/appointment?#{keep_query('filter_appointment_type_ids', 'filter_staff_user_ids', 'invite_token')}">
                 <i class="fa fa-long-arrow-left me-2"/>All Appointments
@@ -84,8 +84,8 @@
                 <div class="container-lg o_appointment o_wappointment_select_operator o_wappointment_type_options h-100" t-att-data-appointment-type-id="appointment_type.id">
                     <div class="row mt-4">
                         <div class="col-12 col-md-8">
-                            <nav t-if="appointment_type.category in ['punctual', 'recurring']" class="d-print-none d-flex justify-content-between mb-4">
-                                <a t-if="appointment_type.category in ['punctual', 'recurring'] and len(available_appointments) != 1"
+                            <nav class="d-print-none d-flex justify-content-between mb-4">
+                                <a t-if="len(available_appointments) != 1"
                                     class="text-truncate"
                                     t-attf-href="/appointment?#{keep_query('filter_appointment_type_ids', 'filter_staff_user_ids', 'invite_token')}">
                                     <i class="fa fa-long-arrow-left me-2"/>All Appointments

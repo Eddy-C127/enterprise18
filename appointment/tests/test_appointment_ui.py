@@ -99,7 +99,7 @@ class AppointmentUITest(AppointmentUICommon):
         self.assertTrue(result.get('appointment_type_id'), 'The request returns the id of the custom appointment type')
         appointment_type = self.env['appointment.type'].browse(result['appointment_type_id'])
         self.assertEqual(appointment_type.category, 'custom')
-        self.assertEqual(appointment_type.name, "%s - Let's meet" % self.env.user.name)
+        self.assertEqual(appointment_type.name, "%s - My availabilities" % self.env.user.name)
         self.assertEqual(len(appointment_type.slot_ids), 2, "Two slots have been created")
 
         with freeze_time(self.reference_now):

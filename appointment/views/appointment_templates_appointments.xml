@@ -192,8 +192,8 @@
                                                     </select>
                                                 </div>
                                             </form>
-                                            <div t-if="appointment_type.category in ['punctual', 'recurring']">
-                                                <div t-if="slots and not based_on_users and appointment_type.resource_manage_capacity and max_capacity" class="mb-4">
+                                            <div t-if="not based_on_users and appointment_type.resource_manage_capacity">
+                                                <div t-if="slots and max_capacity" class="mb-4">
                                                     <input type="hidden" name="max_capacity" t-att-value="max_capacity"/>
                                                     <label class="mb-2 o_editable" for="resourceCapacity">Number of people</label>
                                                     <select class="form-select cursor-pointer" name="resourceCapacity" id="resourceCapacity">
@@ -204,8 +204,7 @@
                                                         </option>
                                                     </select>
                                                 </div>
-                                                <div t-if="not based_on_users and appointment_type.resource_manage_capacity"
-                                                    class="o_appointment_no_capacity d-flex mt-2 pb-0 text-center"/>
+                                                <div class="o_appointment_no_capacity d-flex mt-2 pb-0 text-center"/>
                                             </div>
                                             <div id="slotsList" class="o_appointment_availabilities o_not_editable my-3 my-xl-0" t-att-data-appointments-count="len(available_appointments)"/>
                                             <div class="o_appointment_slot_list_loading d-flex align-items-center py-5 my-5 d-none">

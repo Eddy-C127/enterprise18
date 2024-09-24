@@ -340,8 +340,6 @@ class AppointmentType(models.Model):
     def _check_staff_user_configuration(self):
         anytime_appointments = self.search([('category', '=', 'anytime')])
         for appointment_type in self.filtered(lambda appt: appt.schedule_based_on == "users" and appt.category == "anytime"):
-            if len(appointment_type.staff_user_ids) != 1:
-                raise ValidationError(_("Anytime appointment types should only have one user but got %s users", len(appointment_type.staff_user_ids)))
             duplicate = anytime_appointments.filtered(lambda apt_type: bool(apt_type.staff_user_ids & appointment_type.staff_user_ids))
             if appointment_type.ids != duplicate.ids:
                 raise ValidationError(_("Only one anytime appointment type is allowed for a specific user."))
@@ -595,8 +593,8 @@ class AppointmentType(models.Model):
         :param datetime first_day: beginning of appointment check boundary. Timezoned to UTC;
         :param datetime last_day: end of appointment check boundary. Timezoned to UTC;
         :param str timezone: requested timezone string e.g.: 'Europe/Brussels' or 'Etc/GMT+1'
-        :param datetime reference_date: starting datetime to fetch slots. If not
-          given now (in UTC) is used instead. Note that minimum schedule hours
+        :param datetime reference_date: starting datetime to fetch slots (in naive UTC). If not
+          given now (in naive UTC) is used instead. Note that minimum schedule hours
           defined on appointment type is added to the beginning of slots if the
           slot start is too close from now;
 

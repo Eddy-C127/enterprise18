@@ -514,7 +514,7 @@ class CalendarEvent(models.Model):
             stop_utc = timezone_datetime(stop)
             slot_available_intervals = [
                 (slot['utc'][0], slot['utc'][1])
-                for slot in appointment_type._slots_generate(start_utc, stop_utc, 'utc', reference_date=start_utc)
+                for slot in appointment_type._slots_generate(start_utc, stop_utc, 'utc', reference_date=start)
             ]
             slots_unavailable_intervals = invert_intervals(slot_available_intervals, start_utc, stop_utc)
 

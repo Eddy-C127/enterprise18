@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import api, fields, models
+from odoo import api, models
 from odoo.addons.website_appointment.controllers.appointment import WebsiteAppointment
 
 
@@ -13,15 +13,6 @@ class AppointmentType(models.Model):
         'website.published.multi.mixin',
         'website.searchable.mixin',
     ]
-
-    is_published = fields.Boolean(
-        compute='_compute_is_published', default=None,  # force None to avoid default computation from mixin
-        readonly=False, store=True, tracking=True)
-
-    @api.depends('category')
-    def _compute_is_published(self):
-        self.is_published = False
-        # TODO: clean me in master as we don't really need a compute anymore as everything can be handle by default values
 
     def _compute_website_url(self):
         super()._compute_website_url()
