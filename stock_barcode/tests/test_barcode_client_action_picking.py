@@ -3023,6 +3023,46 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
             {"quantity": 4.0, "picked": False},
         ])
 
+    def test_satisfy_existing_lot_line_before_exceeding_demand(self):
+        """ If two move lines have the same lot-tracked product_id but belong to
+        different moves, they should not be grouped as sublines under the same parent.
+        """
+        self.clean_access_rights()
+
+        lot1, lot2 = self.env['stock.lot'].create([
+            {
+                'name': 'TSELBED lot',
+                'product_id': self.productlot1.id,
+            },
+            {
+                'name': 'additional lot',
+                'product_id': self.productlot1.id,
+            },
+        ])
+        self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, quantity=2, lot_id=lot1)
+        self.env['stock.quant']._update_available_quantity(self.productlot1, self.stock_location, quantity=2, lot_id=lot2)
+
+        move_vals = {
+            'name': 'TSELBED move',
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'product_id': self.productlot1.id,
+            'product_uom_qty': 1,
+        }
+        delivery = self.env['stock.picking'].create({
+            'name': 'TSELBED picking',
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.customer_location.id,
+            'picking_type_id': self.picking_type_out.id,
+            'move_ids': [Command.create(move_vals)],
+        })
+        delivery.action_assign()
+        self.env['stock.move'].create({**move_vals, 'quantity': 1, 'picking_id': delivery.id})
+
+        url = self._get_client_action_url(delivery.id)
+        self.start_tour(url, 'test_satisfy_existing_lot_line_before_exceeding_demand', login='admin', timeout=180)
+        self.assertRecordValues(delivery, [{'backorder_ids': [], 'state': 'done'}])
+
     # === GS1 TESTS ===#
     def test_gs1_delivery_ambiguous_lot_number(self):
         """

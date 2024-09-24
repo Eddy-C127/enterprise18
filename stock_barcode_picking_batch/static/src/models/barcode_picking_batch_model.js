@@ -379,4 +379,11 @@ export default class BarcodePickingBatchModel extends BarcodePickingModel {
         return false;
     }
 
+    _canAddAdditionalQty(line, otherLine) {
+        return (
+            super._canAddAdditionalQty(...arguments) &&
+            line.picking_id?.id === otherLine.picking_id?.id
+        );
+    }
+
 }

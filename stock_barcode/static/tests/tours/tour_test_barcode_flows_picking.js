@@ -4737,3 +4737,20 @@ registry.category("web_tour.tours").add('test_scan_location_destination_for_inte
             isCheck: true,
         },
 ]});
+
+registry.category("web_tour.tours").add("test_satisfy_existing_lot_line_before_exceeding_demand", {
+    test: true, steps: () => [
+        {
+            trigger: ".o_barcode_client_action",
+            run: function () {
+                helper.assertLinesCount(2);
+            }
+        },
+        { trigger: ".o_barcode_client_action", run: "scan TSELBED lot" },
+        { trigger: ".o_barcode_line:first-child.o_line_completed", run: "scan TSELBED lot" },
+        { trigger: ".o_barcode_line:last-child.o_line_completed", run: "scan additional lot" },
+        { trigger: ".o_barcode_line.o_line_not_completed", run: "scan additional lot" },
+        { trigger: '.o_line_button.o_toggle_sublines', run: 'click' },
+        ...stepUtils.validateBarcodeOperation(".o_barcode_line:last-child.o_faulty .qty-done:contains(2)"),
+    ]
+});

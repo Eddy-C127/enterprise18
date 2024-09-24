@@ -167,7 +167,7 @@ export default class BarcodeModel extends EventBus {
     }
 
     groupKey(line) {
-        return `${line.product_id.id}_${line.location_id.id}`;
+        return `${line.product_id.id}_${line.location_id.id}_${line.move_id}`;
     }
 
     /**

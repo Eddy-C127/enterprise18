@@ -800,10 +800,8 @@ export default class BarcodePickingModel extends BarcodeModel {
                 if (qtyDone < line.reserved_uom_qty) {
                     // Checks if another move line shares the same move id and adds its quantity done in that case.
                     qtyDone += this.currentState.lines.reduce((additionalQtyDone, otherLine) => {
-                        return otherLine.product_id.id === line.product_id.id
-                            && otherLine.move_id === line.move_id
-                            && !otherLine.reserved_uom_qty ?
-                            additionalQtyDone + otherLine.qty_done : additionalQtyDone
+                        return this._canAddAdditionalQty(line, otherLine) ?
+                        additionalQtyDone + otherLine.qty_done : additionalQtyDone
                     }, 0);
                     if (qtyDone < line.reserved_uom_qty) { // Quantity done still insufficient.
                         uncompletedLines.push(line);
@@ -1114,18 +1112,26 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     _getNewLineDefaultValues(fieldsParams) {
+        const existingLine = (
+            this.selectedLine ||
+            this.pageLines.filter((line) => line.product_id?.id === fieldsParams.product_id?.id)[0]
+        );
         const defaultValues = super._getNewLineDefaultValues(...arguments);
-        if (this.selectedLine && !fieldsParams.move_id &&
-            this.selectedLine.product_id.id === fieldsParams.product_id?.id) {
-            defaultValues.move_id = this.selectedLine.move_id;
+        if (existingLine && !fieldsParams.move_id &&
+            existingLine.product_id.id === fieldsParams.product_id?.id) {
+            defaultValues.move_id = existingLine.move_id;
         }
-        return Object.assign(defaultValues, {
+        const newLineVals = Object.assign(defaultValues, {
             location_dest_id: this._defaultDestLocation(),
             reserved_uom_qty: 0,
             qty_done: 0,
             picking_id: this.resId,
             result_package_id: false,
         });
+        if (fieldsParams.lot_id) {
+            newLineVals.lot_id = fieldsParams.lot_id;
+        }
+        return newLineVals;
     }
 
     _getFieldToWrite() {
@@ -1679,5 +1685,13 @@ export default class BarcodePickingModel extends BarcodeModel {
 
     _getCompanyId() {
         return this.record.company_id;
+    }
+
+    _canAddAdditionalQty(line, otherLine) {
+        return (
+            otherLine.product_id.id === line.product_id.id &&
+            otherLine.move_id === line.move_id &&
+            !otherLine.reserved_uom_qty
+        );
     }
 }
