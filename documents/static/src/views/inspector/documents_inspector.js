@@ -33,6 +33,7 @@ import {
 const { DateTime } = luxon;
 
 export const inspectorFields = [
+    "id",   // required by PdfManager when splitting PDFs from the activity view
     "attachment_id",
     "active",
     "activity_ids",
