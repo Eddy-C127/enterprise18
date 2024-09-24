@@ -319,7 +319,7 @@ test("Autofill pivot values with date (day)", async function () {
     });
     expect(getCellFormula(model, "A3")).toBe('=PIVOT.HEADER(1,"date:day","04/14/2016")');
     expect(model.getters.getTooltipFormula(getCellFormula(model, "A3"))).toEqual([
-        { value: "4/14/2016" },
+        { value: "14 Apr 2016" },
     ]);
     expect(getPivotAutofillValue(model, "A3", { direction: "bottom", steps: 1 })).toBe(
         '=PIVOT.HEADER(1,"date:day","04/15/2016")'
