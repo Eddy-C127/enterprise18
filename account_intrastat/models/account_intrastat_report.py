@@ -429,6 +429,7 @@ class IntrastatReportCustomHandler(models.AbstractModel):
                             THEN inv_line_uom.factor ELSE 1 END
                         )) AS numeric), 2)
                     ELSE NULL END AS supplementary_units,
+                code.supplementary_unit AS supplementary_unit_code,
                 account_move_line.quantity AS line_quantity,
                 -- We double sign the balance to make sure that we keep consistency between invoice/bill and the intrastat report
                 -- Example: An invoice selling 10 items (but one is free 10 - 1), in the intrastat report we'll have 2 lines
