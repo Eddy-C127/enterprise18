@@ -542,7 +542,7 @@ class L10nMxEdiDocument(models.Model):
         """
         company = cfdi_values['company']
         root_company = cfdi_values['root_company']
-        certificate = company.l10n_mx_edi_certificate_ids._get_valid_certificate()
+        certificate = company.sudo().l10n_mx_edi_certificate_ids._get_valid_certificate()
         if not certificate and company != root_company:
             certificate = root_company.l10n_mx_edi_certificate_ids._get_valid_certificate()
         if not certificate:
