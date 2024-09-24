@@ -1,29 +1,89 @@
 {
-    "version": 12,
+    "version": 21,
     "sheets": [
         {
             "id": "sheet1",
             "name": "Dashboard",
             "colNumber": 7,
-            "rowNumber": 56,
+            "rowNumber": 72,
             "rows": {
                 "6": {
                     "size": 40
                 },
-                "18": {
+                "22": {
                     "size": 40
                 },
-                "30": {
+                "38": {
                     "size": 40
                 },
-                "31": {
+                "39": {
                     "size": 40
+                },
+                "40": {
+                    "size": 31
+                },
+                "41": {
+                    "size": 31
+                },
+                "42": {
+                    "size": 31
                 },
                 "43": {
-                    "size": 40
+                    "size": 31
                 },
                 "44": {
+                    "size": 31
+                },
+                "45": {
+                    "size": 31
+                },
+                "46": {
+                    "size": 31
+                },
+                "47": {
+                    "size": 31
+                },
+                "48": {
+                    "size": 31
+                },
+                "49": {
+                    "size": 31
+                },
+                "51": {
                     "size": 40
+                },
+                "52": {
+                    "size": 40
+                },
+                "53": {
+                    "size": 31
+                },
+                "54": {
+                    "size": 31
+                },
+                "55": {
+                    "size": 31
+                },
+                "56": {
+                    "size": 31
+                },
+                "57": {
+                    "size": 31
+                },
+                "58": {
+                    "size": 31
+                },
+                "59": {
+                    "size": 31
+                },
+                "60": {
+                    "size": 31
+                },
+                "61": {
+                    "size": 31
+                },
+                "62": {
+                    "size": 31
                 }
             },
             "cols": {
@@ -52,587 +112,426 @@
             "merges": [],
             "cells": {
                 "A7": {
-                    "style": 1,
-                    "content": "[Weekly Production](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"date_finished:week\"],\"graph_measure\":\"product_uom_qty\",\"graph_mode\":\"line\",\"graph_groupbys\":[\"date_finished:week\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Weekly Production\"})",
-                    "border": 1
+                    "content": "[Weekly Production](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"date_finished:week\"],\"graph_measure\":\"product_uom_qty\",\"graph_mode\":\"line\",\"graph_groupbys\":[\"date_finished:week\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Weekly Production\"})"
                 },
-                "A19": {
-                    "style": 1,
-                    "content": "[Most Produced Products](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"product_id\",\"state\"],\"graph_measure\":\"product_uom_qty\",\"graph_mode\":\"bar\",\"graph_groupbys\":[\"product_id\",\"state\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Most Produced Products\"})",
-                    "border": 1
-                },
-                "A31": {
-                    "style": 1,
-                    "content": "[Top Products](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"product_id\"],\"pivot_measures\":[\"__count\",\"product_uom_qty\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"product_id\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Products\"})",
-                    "border": 1
-                },
-                "A32": {
-                    "style": 2,
-                    "content": "=_t(\"Product\")",
-                    "border": 2
-                },
-                "A33": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",1)"
-                },
-                "A34": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",2)"
-                },
-                "A35": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",3)"
-                },
-                "A36": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",4)"
-                },
-                "A37": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",5)"
-                },
-                "A38": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",6)"
+                "A23": {
+                    "content": "[Most Produced Products](odoo://view/{\"viewType\":\"graph\",\"action\":{\"domain\":[\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"product_id\",\"state\"],\"graph_measure\":\"product_uom_qty\",\"graph_mode\":\"bar\",\"graph_groupbys\":[\"product_id\",\"state\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Most Produced Products\"})"
                 },
                 "A39": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",7)"
+                    "content": "[Top Products](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"product_id\"],\"pivot_measures\":[\"__count\",\"product_uom_qty\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"product_id\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Products\"})"
                 },
                 "A40": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",8)"
+                    "content": "=_t(\"Product\")"
                 },
                 "A41": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",9)"
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",1)"
                 },
                 "A42": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(1,\"#product_id\",10)"
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",2)"
+                },
+                "A43": {
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",3)"
                 },
                 "A44": {
-                    "style": 1,
-                    "content": "[Top Responsibles](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[\"&\",\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"],[\"user_id\",\"!=\",false]],\"context\":{\"group_by\":[\"user_id\"],\"pivot_measures\":[\"__count\",\"product_uom_qty\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"picking_type_id\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Responsibles\"})",
-                    "border": 1
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",4)"
                 },
                 "A45": {
-                    "style": 2,
-                    "content": "=_t(\"Responsible\")",
-                    "border": 2
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",5)"
                 },
                 "A46": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",1)"
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",6)"
                 },
                 "A47": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",2)"
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",7)"
                 },
                 "A48": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",3)"
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",8)"
                 },
                 "A49": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",4)"
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",9)"
                 },
                 "A50": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",5)"
-                },
-                "A51": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",6)"
+                    "content": "=PIVOT.HEADER(1,\"#product_id\",10)"
                 },
                 "A52": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",7)"
+                    "content": "[Top Responsibles](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[\"&\",\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"],[\"user_id\",\"!=\",false]],\"context\":{\"group_by\":[\"user_id\"],\"pivot_measures\":[\"__count\",\"product_uom_qty\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"picking_type_id\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Responsibles\"})"
                 },
                 "A53": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",8)"
+                    "content": "=_t(\"Responsible\")"
                 },
                 "A54": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",9)"
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",1)"
                 },
                 "A55": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(3,\"#user_id\",10)"
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",2)"
                 },
-                "B7": {
-                    "style": 5,
-                    "border": 1
+                "A56": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",3)"
                 },
-                "B19": {
-                    "style": 5,
-                    "border": 1
+                "A57": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",4)"
                 },
-                "B31": {
-                    "style": 5,
-                    "border": 1
+                "A58": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",5)"
                 },
-                "B32": {
-                    "style": 6,
-                    "content": "=_t(\"Orders\")",
-                    "border": 2
+                "A59": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",6)"
                 },
-                "B33": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",1)"
+                "A60": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",7)"
                 },
-                "B34": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",2)"
+                "A61": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",8)"
                 },
-                "B35": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",3)"
+                "A62": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",9)"
                 },
-                "B36": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",4)"
-                },
-                "B37": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",5)"
-                },
-                "B38": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",6)"
-                },
-                "B39": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",7)"
+                "A63": {
+                    "content": "=PIVOT.HEADER(3,\"#user_id\",10)"
                 },
                 "B40": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",8)"
+                    "content": "=_t(\"Orders\")"
                 },
                 "B41": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",9)"
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",1)"
                 },
                 "B42": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"__count\",\"#product_id\",10)"
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",2)"
+                },
+                "B43": {
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",3)"
                 },
                 "B44": {
-                    "style": 5,
-                    "border": 1
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",4)"
                 },
                 "B45": {
-                    "style": 6,
-                    "content": "=_t(\"Orders\")",
-                    "border": 2
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",5)"
                 },
                 "B46": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",1)"
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",6)"
                 },
                 "B47": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",2)"
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",7)"
                 },
                 "B48": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",3)"
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",8)"
                 },
                 "B49": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",4)"
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",9)"
                 },
                 "B50": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",5)"
-                },
-                "B51": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",6)"
-                },
-                "B52": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",7)"
+                    "content": "=PIVOT.VALUE(1,\"__count\",\"#product_id\",10)"
                 },
                 "B53": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",8)"
+                    "content": "=_t(\"Orders\")"
                 },
                 "B54": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",9)"
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",1)"
                 },
                 "B55": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"__count\",\"#user_id\",10)"
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",2)"
                 },
-                "C7": {
-                    "style": 5,
-                    "border": 1
+                "B56": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",3)"
                 },
-                "C19": {
-                    "style": 5,
-                    "border": 1
+                "B57": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",4)"
                 },
-                "C31": {
-                    "style": 5,
-                    "border": 1
+                "B58": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",5)"
                 },
-                "C32": {
-                    "style": 6,
-                    "content": "=_t(\"Qty Produced\")",
-                    "border": 2
+                "B59": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",6)"
                 },
-                "C33": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",1)"
+                "B60": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",7)"
                 },
-                "C34": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",2)"
+                "B61": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",8)"
                 },
-                "C35": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",3)"
+                "B62": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",9)"
                 },
-                "C36": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",4)"
-                },
-                "C37": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",5)"
-                },
-                "C38": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",6)"
-                },
-                "C39": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",7)"
+                "B63": {
+                    "content": "=PIVOT.VALUE(3,\"__count\",\"#user_id\",10)"
                 },
                 "C40": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",8)"
+                    "content": "=_t(\"Qty Produced\")"
                 },
                 "C41": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",9)"
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",1)"
                 },
                 "C42": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(1,\"product_uom_qty\",\"#product_id\",10)"
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",2)"
+                },
+                "C43": {
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",3)"
                 },
                 "C44": {
-                    "style": 5,
-                    "border": 1
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",4)"
                 },
                 "C45": {
-                    "style": 6,
-                    "content": "=_t(\"Qty Produced\")",
-                    "border": 2
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",5)"
                 },
                 "C46": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",1)"
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",6)"
                 },
                 "C47": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",2)"
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",7)"
                 },
                 "C48": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",3)"
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",8)"
                 },
                 "C49": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",4)"
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",9)"
                 },
                 "C50": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",5)"
-                },
-                "C51": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",6)"
-                },
-                "C52": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",7)"
+                    "content": "=PIVOT.VALUE(1,\"product_uom_qty\",\"#product_id\",10)"
                 },
                 "C53": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",8)"
+                    "content": "=_t(\"Qty Produced\")"
                 },
                 "C54": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",9)"
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",1)"
                 },
                 "C55": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(3,\"product_uom_qty\",\"#user_id\",10)"
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",2)"
                 },
-                "D7": {
-                    "style": 5,
-                    "border": 1
+                "C56": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",3)"
                 },
-                "E7": {
-                    "style": 5,
-                    "border": 1
+                "C57": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",4)"
                 },
-                "E31": {
-                    "style": 1,
-                    "content": "[Top Operation Types](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"picking_type_id\"],\"pivot_measures\":[\"__count\",\"product_uom_qty\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"picking_type_id\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Operation Types\"})",
-                    "border": 1
+                "C58": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",5)"
                 },
-                "E32": {
-                    "style": 2,
-                    "content": "=_t(\"Operation Type\")",
-                    "border": 2
+                "C59": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",6)"
                 },
-                "E33": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",1)"
+                "C60": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",7)"
                 },
-                "E34": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",2)"
+                "C61": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",8)"
                 },
-                "E35": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",3)"
+                "C62": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",9)"
                 },
-                "E36": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",4)"
-                },
-                "E37": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",5)"
-                },
-                "E38": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",6)"
+                "C63": {
+                    "content": "=PIVOT.VALUE(3,\"product_uom_qty\",\"#user_id\",10)"
                 },
                 "E39": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",7)"
+                    "content": "[Top Operation Types](odoo://view/{\"viewType\":\"pivot\",\"action\":{\"domain\":[\"|\",[\"state\",\"=\",\"draft\"],\"|\",[\"state\",\"=\",\"confirmed\"],\"|\",\"&\",\"&\",[\"is_planned\",\"=\",true],[\"date_start\",\"!=\",false],[\"date_finished\",\"!=\",false],\"|\",[\"state\",\"=\",\"progress\"],[\"state\",\"=\",\"done\"]],\"context\":{\"group_by\":[\"picking_type_id\"],\"pivot_measures\":[\"__count\",\"product_uom_qty\"],\"pivot_column_groupby\":[],\"pivot_row_groupby\":[\"picking_type_id\"]},\"modelName\":\"mrp.production\",\"views\":[[false,\"graph\"],[false,\"pivot\"],[false,\"form\"],[false,\"search\"]]},\"threshold\":0,\"name\":\"Top Operation Types\"})"
                 },
                 "E40": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",8)"
+                    "content": "=_t(\"Operation Type\")"
                 },
                 "E41": {
-                    "style": 3,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",9)"
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",1)"
                 },
                 "E42": {
-                    "style": 4,
-                    "content": "=ODOO.PIVOT.HEADER(2,\"#picking_type_id\",10)"
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",2)"
                 },
-                "F7": {
-                    "style": 5,
-                    "border": 1
+                "E43": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",3)"
                 },
-                "F31": {
-                    "style": 5,
-                    "border": 1
+                "E44": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",4)"
                 },
-                "F32": {
-                    "style": 6,
-                    "content": "=_t(\"Orders\")",
-                    "border": 2
+                "E45": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",5)"
                 },
-                "F33": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",1)"
+                "E46": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",6)"
                 },
-                "F34": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",2)"
+                "E47": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",7)"
                 },
-                "F35": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",3)"
+                "E48": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",8)"
                 },
-                "F36": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",4)"
+                "E49": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",9)"
                 },
-                "F37": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",5)"
-                },
-                "F38": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",6)"
-                },
-                "F39": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",7)"
+                "E50": {
+                    "content": "=PIVOT.HEADER(2,\"#picking_type_id\",10)"
                 },
                 "F40": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",8)"
+                    "content": "=_t(\"Orders\")"
                 },
                 "F41": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",9)"
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",1)"
                 },
                 "F42": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"__count\",\"#picking_type_id\",10)"
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",2)"
                 },
-                "G7": {
-                    "style": 5,
-                    "border": 1
+                "F43": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",3)"
                 },
-                "G31": {
-                    "style": 5,
-                    "border": 1
+                "F44": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",4)"
                 },
-                "G32": {
-                    "style": 6,
-                    "content": "=_t(\"Qty Produced\")",
-                    "border": 2
+                "F45": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",5)"
                 },
-                "G33": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",1)"
+                "F46": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",6)"
                 },
-                "G34": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",2)"
+                "F47": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",7)"
                 },
-                "G35": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",3)"
+                "F48": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",8)"
                 },
-                "G36": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",4)"
+                "F49": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",9)"
                 },
-                "G37": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",5)"
-                },
-                "G38": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",6)"
-                },
-                "G39": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",7)"
+                "F50": {
+                    "content": "=PIVOT.VALUE(2,\"__count\",\"#picking_type_id\",10)"
                 },
                 "G40": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",8)"
+                    "content": "=_t(\"Qty Produced\")"
                 },
                 "G41": {
-                    "style": 7,
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",9)"
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",1)"
                 },
                 "G42": {
-                    "format": 1,
-                    "content": "=ODOO.PIVOT(2,\"product_uom_qty\",\"#picking_type_id\",10)"
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",2)"
                 },
-                "A8": {
-                    "border": 2
+                "G43": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",3)"
                 },
-                "A20": {
-                    "border": 2
+                "G44": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",4)"
                 },
-                "B8": {
-                    "border": 2
+                "G45": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",5)"
                 },
-                "B20": {
-                    "border": 2
+                "G46": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",6)"
                 },
-                "C8": {
-                    "border": 2
+                "G47": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",7)"
                 },
-                "C20": {
-                    "border": 2
+                "G48": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",8)"
                 },
-                "D8": {
-                    "border": 2
+                "G49": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",9)"
                 },
-                "D19": {
-                    "border": 1
-                },
-                "D20": {
-                    "border": 2
-                },
-                "E8": {
-                    "border": 2
-                },
-                "E19": {
-                    "border": 1
-                },
-                "E20": {
-                    "border": 2
-                },
-                "F8": {
-                    "border": 2
-                },
-                "F19": {
-                    "border": 1
-                },
-                "F20": {
-                    "border": 2
-                },
-                "G8": {
-                    "border": 2
-                },
-                "G19": {
-                    "border": 1
-                },
-                "G20": {
-                    "border": 2
+                "G50": {
+                    "content": "=PIVOT.VALUE(2,\"product_uom_qty\",\"#picking_type_id\",10)"
                 }
             },
-            "conditionalFormats": [],
+            "styles": {
+                "A7": 1,
+                "A23": 1,
+                "A39": 1,
+                "A52": 1,
+                "E39": 1,
+                "A40": 2,
+                "A53": 2,
+                "D40:E40": 2,
+                "D53:G53": 2,
+                "A41:G50": 3,
+                "A54:G63": 3,
+                "B23:C23": 4,
+                "B39:C39": 4,
+                "B52:C52": 4,
+                "B7:G7": 4,
+                "F39:G39": 4,
+                "B40:C40": 5,
+                "B53:C53": 5,
+                "F40:G40": 5
+            },
+            "formats": {},
+            "borders": {
+                "A39:C39": 1,
+                "A52:C52": 1,
+                "A7:G7": 1,
+                "A23:G23": 1,
+                "E39:G39": 1,
+                "A40:C40": 2,
+                "A53:C53": 2,
+                "A8:G8": 2,
+                "A24:G24": 2,
+                "E40:G40": 2,
+                "A41": 3,
+                "A54": 3,
+                "E41": 3,
+                "A42:A49": 4,
+                "A55:A62": 4,
+                "E42:E49": 4,
+                "A50": 5,
+                "A63": 5,
+                "E50": 5,
+                "B41": 6,
+                "B54": 6,
+                "F41": 6,
+                "B42:B49": 7,
+                "B55:B62": 7,
+                "F42:F49": 7,
+                "B50": 8,
+                "B63": 8,
+                "F50": 8,
+                "C41": 9,
+                "C54": 9,
+                "G41": 9,
+                "C42:C49": 10,
+                "C55:C62": 10,
+                "G42:G49": 10,
+                "C50": 11,
+                "C63": 11,
+                "G50": 11
+            },
+            "conditionalFormats": [
+                {
+                    "rule": {
+                        "type": "DataBarRule",
+                        "color": 15531509,
+                        "rangeValues": "C41:C50"
+                    },
+                    "id": "e0bf60e7-d8d6-4cf2-a625-8ffab7fbc487",
+                    "ranges": [
+                        "A41:A50"
+                    ]
+                },
+                {
+                    "rule": {
+                        "type": "DataBarRule",
+                        "color": 16708338,
+                        "rangeValues": "G41:G50"
+                    },
+                    "id": "f8a19bb1-7c0a-48d6-a511-1648df213a2c",
+                    "ranges": [
+                        "E41:E50"
+                    ]
+                },
+                {
+                    "rule": {
+                        "type": "DataBarRule",
+                        "color": 15726335,
+                        "rangeValues": "C54:C63"
+                    },
+                    "id": "17e8918f-61eb-49df-8f1a-5d13f0261745",
+                    "ranges": [
+                        "A54:A63"
+                    ]
+                }
+            ],
             "figures": [
                 {
                     "id": "2828f15d-9fe0-43c8-8ad7-a2b7fe7ff3c5",
                     "x": 0,
                     "y": 178,
                     "width": 1000,
-                    "height": 230,
+                    "height": 343,
                     "tag": "chart",
                     "data": {
-                        "title": "",
+                        "title": {
+                            "text": ""
+                        },
                         "background": "#FFFFFF",
                         "legendPosition": "none",
                         "metaData": {
@@ -641,7 +540,8 @@
                             ],
                             "measure": "product_uom_qty",
                             "order": null,
-                            "resModel": "mrp.production"
+                            "resModel": "mrp.production",
+                            "mode": "line"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -661,18 +561,41 @@
                             "orderBy": []
                         },
                         "type": "odoo_line",
-                        "verticalAxisPosition": "left"
+                        "verticalAxisPosition": "left",
+                        "stacked": false,
+                        "fillArea": true,
+                        "fieldMatching": {
+                            "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                                "chain": "date_finished",
+                                "type": "datetime",
+                                "offset": 0
+                            },
+                            "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                                "chain": "product_id",
+                                "type": "many2one"
+                            },
+                            "dfe37941-d119-494e-af10-62c1ed04c413": {
+                                "chain": "picking_type_id",
+                                "type": "many2one"
+                            },
+                            "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                                "chain": "user_id",
+                                "type": "many2one"
+                            }
+                        }
                     }
                 },
                 {
                     "id": "6591ce4b-64ce-4630-943d-18570a18a4f2",
                     "x": 0,
-                    "y": 471,
+                    "y": 563,
                     "width": 1000,
-                    "height": 230,
+                    "height": 343,
                     "tag": "chart",
                     "data": {
-                        "title": "",
+                        "title": {
+                            "text": ""
+                        },
                         "background": "#FFFFFF",
                         "legendPosition": "right",
                         "metaData": {
@@ -682,7 +605,8 @@
                             ],
                             "measure": "product_uom_qty",
                             "order": "DESC",
-                            "resModel": "mrp.production"
+                            "resModel": "mrp.production",
+                            "mode": "bar"
                         },
                         "searchParams": {
                             "comparison": null,
@@ -740,88 +664,134 @@
                         },
                         "type": "odoo_bar",
                         "verticalAxisPosition": "left",
-                        "stacked": true
+                        "stacked": true,
+                        "fieldMatching": {
+                            "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                                "chain": "date_finished",
+                                "type": "datetime",
+                                "offset": 0
+                            },
+                            "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                                "chain": "product_id",
+                                "type": "many2one"
+                            },
+                            "dfe37941-d119-494e-af10-62c1ed04c413": {
+                                "chain": "picking_type_id",
+                                "type": "many2one"
+                            },
+                            "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                                "chain": "user_id",
+                                "type": "many2one"
+                            }
+                        }
                     }
                 },
                 {
                     "id": "992b1b7d-78e0-4b41-b144-3995c16b73be",
                     "x": 210,
-                    "y": 0,
+                    "y": 9,
                     "width": 200,
-                    "height": 120,
+                    "height": 105,
                     "tag": "chart",
                     "data": {
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "percentage",
-                        "title": "Quantity Produced",
+                        "title": {
+                            "text": "Quantity Produced",
+                            "bold": true,
+                            "color": "#434343"
+                        },
                         "type": "scorecard",
-                        "background": "",
+                        "background": "#EFF6FF",
                         "baseline": "Data!E3",
                         "baselineDescr": "since last period",
-                        "keyValue": "Data!D3"
+                        "keyValue": "Data!D3",
+                        "humanize": false
                     }
                 },
                 {
                     "id": "379d22d2-4cbf-48fb-8fad-e44b9ce00dea",
                     "x": 0,
-                    "y": 0,
+                    "y": 9,
                     "width": 200,
-                    "height": 120,
+                    "height": 105,
                     "tag": "chart",
                     "data": {
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "percentage",
-                        "title": "Manufacturing Orders",
+                        "title": {
+                            "text": "Manufacturing Orders",
+                            "bold": true,
+                            "color": "#434343"
+                        },
                         "type": "scorecard",
-                        "background": "",
+                        "background": "#EFF6FF",
                         "baseline": "Data!E2",
                         "baselineDescr": "since last period",
-                        "keyValue": "Data!D2"
+                        "keyValue": "Data!D2",
+                        "humanize": false
                     }
                 },
                 {
                     "id": "683afc26-bbb2-4647-8e80-e3699839ffd5",
                     "x": 420,
-                    "y": 0,
+                    "y": 9,
                     "width": 200,
-                    "height": 120,
+                    "height": 105,
                     "tag": "chart",
                     "data": {
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "percentage",
-                        "title": "OEE",
+                        "title": {
+                            "text": "OEE",
+                            "bold": true,
+                            "color": "#434343"
+                        },
                         "type": "scorecard",
-                        "background": "",
+                        "background": "#ECFDF5",
                         "baseline": "Data!E7",
                         "baselineDescr": "since last period",
-                        "keyValue": "Data!D7"
+                        "keyValue": "Data!D7",
+                        "humanize": false
                     }
                 },
                 {
                     "id": "9f95d0f4-ad80-45de-970a-9897eab4d56f",
                     "x": 630,
-                    "y": 0,
+                    "y": 9,
                     "width": 200,
-                    "height": 120,
+                    "height": 105,
                     "tag": "chart",
                     "data": {
                         "baselineColorDown": "#DC6965",
                         "baselineColorUp": "#00A04A",
                         "baselineMode": "percentage",
-                        "title": "Average Cost / Unit",
+                        "title": {
+                            "text": "Average Cost / Unit",
+                            "color": "#434343",
+                            "bold": true
+                        },
                         "type": "scorecard",
-                        "background": "",
+                        "background": "#FFF7ED",
                         "baseline": "Data!E8",
                         "baselineDescr": "since last period",
-                        "keyValue": "Data!D8"
+                        "keyValue": "Data!D8",
+                        "humanize": false
                     }
                 }
             ],
+            "tables": [],
             "areGridLinesVisible": true,
-            "isVisible": true
+            "isVisible": true,
+            "headerGroups": {
+                "ROW": [],
+                "COL": []
+            },
+            "dataValidationRules": [],
+            "comments": {}
         },
         {
             "id": "e85b0e6c-d32d-4ab1-a3c7-e5c1ae0e5350",
@@ -833,7 +803,6 @@
             "merges": [],
             "cells": {
                 "A1": {
-                    "style": 2,
                     "content": "=_t(\"KPI\")"
                 },
                 "A2": {
@@ -858,186 +827,106 @@
                     "content": "=_t(\"Average cost / unit\")"
                 },
                 "B1": {
-                    "style": 2,
                     "content": "=_t(\"Current\")"
                 },
                 "B2": {
-                    "content": "=ODOO.PIVOT(5,\"__count\")"
+                    "content": "=PIVOT.VALUE(5,\"__count\")"
                 },
                 "B3": {
-                    "content": "=ODOO.PIVOT(5,\"product_uom_qty\")"
+                    "content": "=PIVOT.VALUE(5,\"product_uom_qty\")"
                 },
                 "B4": {
-                    "content": "=ODOO.PIVOT(7,\"duration\")"
+                    "content": "=PIVOT.VALUE(7,\"duration\")"
                 },
                 "B5": {
-                    "content": "=ODOO.PIVOT(7,\"duration\",\"loss_type\",\"availability\")"
+                    "content": "=PIVOT.VALUE(7,\"duration\",\"loss_type\",\"availability\")"
                 },
                 "B6": {
-                    "content": "=ODOO.PIVOT(7,\"duration\",\"loss_type\",\"productive\")"
+                    "content": "=PIVOT.VALUE(7,\"duration\",\"loss_type\",\"productive\")"
                 },
                 "B7": {
                     "content": "=IFERROR(B6/B4)"
                 },
                 "B8": {
-                    "content": "=ODOO.PIVOT(9,\"unit_cost\")"
+                    "content": "=PIVOT.VALUE(9,\"unit_cost\")"
                 },
                 "C1": {
-                    "style": 2,
                     "content": "=_t(\"Previous\")"
                 },
                 "C2": {
-                    "content": "=ODOO.PIVOT(6,\"__count\")"
+                    "content": "=PIVOT.VALUE(6,\"__count\")"
                 },
                 "C3": {
-                    "content": "=ODOO.PIVOT(6,\"product_uom_qty\")"
+                    "content": "=PIVOT.VALUE(6,\"product_uom_qty\")"
                 },
                 "C4": {
-                    "content": "=ODOO.PIVOT(8,\"duration\")"
+                    "content": "=PIVOT.VALUE(8,\"duration\")"
                 },
                 "C5": {
-                    "content": "=ODOO.PIVOT(8,\"duration\",\"loss_type\",\"availability\")"
+                    "content": "=PIVOT.VALUE(8,\"duration\",\"loss_type\",\"availability\")"
                 },
                 "C6": {
-                    "content": "=ODOO.PIVOT(8,\"duration\",\"loss_type\",\"productive\")"
+                    "content": "=PIVOT.VALUE(8,\"duration\",\"loss_type\",\"productive\")"
                 },
                 "C7": {
                     "content": "=IFERROR(C6/C4)"
                 },
                 "C8": {
-                    "content": "=ODOO.PIVOT(10,\"unit_cost\")"
+                    "content": "=PIVOT.VALUE(10,\"unit_cost\")"
                 },
                 "D1": {
-                    "style": 2,
                     "content": "=_t(\"Current\")"
                 },
                 "D2": {
-                    "style": 7,
                     "content": "=FORMAT.LARGE.NUMBER(B2)"
                 },
                 "D3": {
-                    "style": 7,
                     "content": "=FORMAT.LARGE.NUMBER(B3)"
                 },
-                "D4": {
-                    "style": 8
-                },
-                "D5": {
-                    "style": 8
-                },
-                "D6": {
-                    "style": 8
-                },
                 "D7": {
-                    "style": 7,
-                    "format": 2,
                     "content": "=B7"
                 },
                 "D8": {
-                    "style": 7,
                     "content": "=FORMAT.LARGE.NUMBER(B8)"
                 },
                 "E1": {
-                    "style": 2,
                     "content": "=_t(\"Previous\")"
                 },
                 "E2": {
-                    "style": 7,
                     "content": "=FORMAT.LARGE.NUMBER(C2)"
                 },
                 "E3": {
-                    "style": 7,
                     "content": "=FORMAT.LARGE.NUMBER(C3)"
                 },
-                "E4": {
-                    "style": 8
-                },
-                "E5": {
-                    "style": 8
-                },
-                "E6": {
-                    "style": 8
-                },
                 "E7": {
-                    "style": 7,
-                    "format": 2,
                     "content": "=C7"
                 },
                 "E8": {
-                    "style": 7,
                     "content": "=FORMAT.LARGE.NUMBER(C8)"
-                },
-                "F1": {
-                    "style": 2
-                },
-                "G1": {
-                    "style": 2
-                },
-                "H1": {
-                    "style": 2
-                },
-                "I1": {
-                    "style": 2
-                },
-                "J1": {
-                    "style": 2
-                },
-                "K1": {
-                    "style": 2
-                },
-                "L1": {
-                    "style": 2
-                },
-                "M1": {
-                    "style": 2
-                },
-                "N1": {
-                    "style": 2
-                },
-                "O1": {
-                    "style": 2
-                },
-                "P1": {
-                    "style": 2
-                },
-                "Q1": {
-                    "style": 2
-                },
-                "R1": {
-                    "style": 2
-                },
-                "S1": {
-                    "style": 2
-                },
-                "T1": {
-                    "style": 2
-                },
-                "U1": {
-                    "style": 2
-                },
-                "V1": {
-                    "style": 2
-                },
-                "W1": {
-                    "style": 2
-                },
-                "X1": {
-                    "style": 2
-                },
-                "Y1": {
-                    "style": 2
-                },
-                "Z1": {
-                    "style": 2
                 }
             },
+            "styles": {
+                "A1:Z1": 6,
+                "D2:E3": 7,
+                "D7:E8": 7
+            },
+            "formats": {
+                "D7:E7": 1
+            },
+            "borders": {},
             "conditionalFormats": [],
             "figures": [],
+            "tables": [],
             "areGridLinesVisible": true,
-            "isVisible": true
+            "isVisible": true,
+            "headerGroups": {
+                "ROW": [],
+                "COL": []
+            },
+            "dataValidationRules": [],
+            "comments": {}
         }
     ],
-    "entities": {},
     "styles": {
         "1": {
             "textColor": "#01666b",
@@ -1045,49 +934,164 @@
             "fontSize": 16
         },
         "2": {
+            "textColor": "#434343",
+            "fontSize": 11,
             "bold": true
         },
         "3": {
-            "fillColor": "#f2f2f2",
-            "textColor": "#741b47"
+            "textColor": "#434343",
+            "verticalAlign": "middle"
         },
         "4": {
-            "textColor": "#741b47"
-        },
-        "5": {
             "bold": true,
             "fontSize": 16
         },
+        "5": {
+            "textColor": "#434343",
+            "fontSize": 11,
+            "bold": true,
+            "align": "center"
+        },
         "6": {
-            "align": "right",
             "bold": true
         },
         "7": {
             "fillColor": "#f2f2f2"
-        },
-        "8": {
-            "fillColor": ""
         }
     },
     "formats": {
-        "1": "0",
-        "2": "0%"
+        "1": "0%"
     },
     "borders": {
         "1": {
-            "bottom": [
-                "thin",
-                "#000"
-            ]
+            "bottom": {
+                "style": "thin",
+                "color": "#CCCCCC"
+            }
         },
         "2": {
-            "top": [
-                "thin",
-                "#000"
-            ]
+            "top": {
+                "style": "thin",
+                "color": "#CCCCCC"
+            }
+        },
+        "3": {
+            "bottom": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "right": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "4": {
+            "top": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "bottom": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "right": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "5": {
+            "top": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "right": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "6": {
+            "bottom": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "left": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "right": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "7": {
+            "top": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "bottom": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "left": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "right": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "8": {
+            "top": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "left": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "right": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "9": {
+            "bottom": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "left": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "10": {
+            "top": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "bottom": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "left": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
+        },
+        "11": {
+            "top": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            },
+            "left": {
+                "style": "thick",
+                "color": "#FFFFFF"
+            }
         }
     },
-    "revisionId": "START_REVISION",
+    "revisionId": "348d78a5-d877-47ee-95a9-4bb00f897343",
+    "uniqueFigureIds": true,
     "settings": {
         "locale": {
             "name": "English (US)",
@@ -1096,24 +1100,32 @@
             "decimalSeparator": ".",
             "dateFormat": "mm/dd/yyyy",
             "timeFormat": "hh:mm:ss",
-            "formulaArgSeparator": ","
+            "formulaArgSeparator": ",",
+            "weekStart": 7
         }
     },
-    "chartOdooMenusReferences": {
-        "2828f15d-9fe0-43c8-8ad7-a2b7fe7ff3c5": "mrp.menu_mrp_root",
-        "6591ce4b-64ce-4630-943d-18570a18a4f2": "mrp.menu_mrp_root",
-        "3d49564f-cc66-495b-b056-61dd29b34ea6": "mrp.menu_mrp_root",
-        "379d22d2-4cbf-48fb-8fad-e44b9ce00dea": "mrp_account_enterprise.mrp_dashboard_menuitem",
-        "992b1b7d-78e0-4b41-b144-3995c16b73be": "mrp_account_enterprise.mrp_dashboard_menuitem",
-        "683afc26-bbb2-4647-8e80-e3699839ffd5": "mrp.menu_mrp_workcenter_productivity_report",
-        "9f95d0f4-ad80-45de-970a-9897eab4d56f": "mrp.menu_mrp_workcenter_productivity_report"
-    },
-    "odooVersion": 4,
-    "lists": {},
-    "listNextId": 1,
     "pivots": {
         "1": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_finished",
+                    "type": "datetime",
+                    "offset": 0
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {
                 "default_company_id": 1
             },
@@ -1163,16 +1175,15 @@
             "id": "1",
             "measures": [
                 {
-                    "field": "__count"
+                    "id": "__count",
+                    "fieldName": "__count"
                 },
                 {
-                    "field": "product_uom_qty"
+                    "id": "product_uom_qty",
+                    "fieldName": "product_uom_qty"
                 }
             ],
             "model": "mrp.production",
-            "rowGroupBys": [
-                "product_id"
-            ],
             "name": "Manufacturing Orders by Product",
             "sortedColumn": {
                 "groupId": [
@@ -1181,10 +1192,36 @@
                 ],
                 "measure": "product_uom_qty",
                 "order": "desc"
-            }
+            },
+            "formulaId": "1",
+            "columns": [],
+            "rows": [
+                {
+                    "fieldName": "product_id"
+                }
+            ]
         },
         "2": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_finished",
+                    "type": "datetime",
+                    "offset": 0
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {
                 "default_company_id": 1
             },
@@ -1234,16 +1271,15 @@
             "id": "2",
             "measures": [
                 {
-                    "field": "__count"
+                    "id": "__count",
+                    "fieldName": "__count"
                 },
                 {
-                    "field": "product_uom_qty"
+                    "id": "product_uom_qty",
+                    "fieldName": "product_uom_qty"
                 }
             ],
             "model": "mrp.production",
-            "rowGroupBys": [
-                "picking_type_id"
-            ],
             "name": "Manufacturing Orders by Operation Type",
             "sortedColumn": {
                 "groupId": [
@@ -1252,10 +1288,36 @@
                 ],
                 "measure": "product_uom_qty",
                 "order": "desc"
-            }
+            },
+            "formulaId": "2",
+            "columns": [],
+            "rows": [
+                {
+                    "fieldName": "picking_type_id"
+                }
+            ]
         },
         "3": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_finished",
+                    "type": "datetime",
+                    "offset": 0
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {
                 "group_by": [
                     "user_id"
@@ -1321,16 +1383,15 @@
             "id": "3",
             "measures": [
                 {
-                    "field": "__count"
+                    "id": "__count",
+                    "fieldName": "__count"
                 },
                 {
-                    "field": "product_uom_qty"
+                    "id": "product_uom_qty",
+                    "fieldName": "product_uom_qty"
                 }
             ],
             "model": "mrp.production",
-            "rowGroupBys": [
-                "user_id"
-            ],
             "name": "Manufacturing Orders by Responsible",
             "sortedColumn": {
                 "groupId": [
@@ -1339,10 +1400,36 @@
                 ],
                 "measure": "product_uom_qty",
                 "order": "desc"
-            }
+            },
+            "formulaId": "3",
+            "columns": [],
+            "rows": [
+                {
+                    "fieldName": "user_id"
+                }
+            ]
         },
         "5": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_finished",
+                    "type": "datetime",
+                    "offset": 0
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {
                 "default_company_id": 1
             },
@@ -1392,19 +1479,42 @@
             "id": "5",
             "measures": [
                 {
-                    "field": "__count"
+                    "id": "__count",
+                    "fieldName": "__count"
                 },
                 {
-                    "field": "product_uom_qty"
+                    "id": "product_uom_qty",
+                    "fieldName": "product_uom_qty"
                 }
             ],
             "model": "mrp.production",
-            "rowGroupBys": [],
             "name": "stats mo - current",
-            "sortedColumn": null
+            "sortedColumn": null,
+            "formulaId": "5",
+            "columns": [],
+            "rows": []
         },
         "6": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_finished",
+                    "type": "datetime",
+                    "offset": -1
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {
                 "default_company_id": 1
             },
@@ -1454,19 +1564,42 @@
             "id": "6",
             "measures": [
                 {
-                    "field": "__count"
+                    "id": "__count",
+                    "fieldName": "__count"
                 },
                 {
-                    "field": "product_uom_qty"
+                    "id": "product_uom_qty",
+                    "fieldName": "product_uom_qty"
                 }
             ],
             "model": "mrp.production",
-            "rowGroupBys": [],
             "name": "stats mo - previous",
-            "sortedColumn": null
+            "sortedColumn": null,
+            "formulaId": "6",
+            "columns": [],
+            "rows": []
         },
         "7": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_end",
+                    "type": "datetime",
+                    "offset": 0
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "production_id.product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "production_id.picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {
                 "create": false,
                 "edit": false
@@ -1475,18 +1608,42 @@
             "id": "7",
             "measures": [
                 {
-                    "field": "duration"
+                    "id": "duration",
+                    "fieldName": "duration"
                 }
             ],
             "model": "mrp.workcenter.productivity",
-            "rowGroupBys": [
-                "loss_type"
-            ],
             "name": "oee - current",
-            "sortedColumn": null
+            "sortedColumn": null,
+            "formulaId": "7",
+            "columns": [],
+            "rows": [
+                {
+                    "fieldName": "loss_type"
+                }
+            ]
         },
         "8": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_end",
+                    "type": "datetime",
+                    "offset": 0
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "production_id.product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "production_id.picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {
                 "create": false,
                 "edit": false
@@ -1495,116 +1652,106 @@
             "id": "8",
             "measures": [
                 {
-                    "field": "duration"
+                    "id": "duration",
+                    "fieldName": "duration"
                 }
             ],
             "model": "mrp.workcenter.productivity",
-            "rowGroupBys": [
-                "loss_type"
-            ],
             "name": "oee - previous",
-            "sortedColumn": null
+            "sortedColumn": null,
+            "formulaId": "8",
+            "columns": [],
+            "rows": [
+                {
+                    "fieldName": "loss_type"
+                }
+            ]
         },
         "9": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_finished",
+                    "type": "datetime",
+                    "offset": 0
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "production_id.picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "production_id.user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {},
             "domain": [],
             "id": "9",
             "measures": [
                 {
-                    "field": "unit_cost"
+                    "id": "unit_cost",
+                    "fieldName": "unit_cost"
                 }
             ],
             "model": "mrp.report",
-            "rowGroupBys": [],
             "name": "avg cost - current",
-            "sortedColumn": null
+            "sortedColumn": null,
+            "formulaId": "9",
+            "columns": [],
+            "rows": []
         },
         "10": {
-            "colGroupBys": [],
+            "type": "ODOO",
+            "fieldMatching": {
+                "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592": {
+                    "chain": "date_finished",
+                    "type": "datetime",
+                    "offset": -1
+                },
+                "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb": {
+                    "chain": "product_id",
+                    "type": "many2one"
+                },
+                "dfe37941-d119-494e-af10-62c1ed04c413": {
+                    "chain": "production_id.picking_type_id",
+                    "type": "many2one"
+                },
+                "be98718e-525b-4252-92c5-1c95bd470fc9": {
+                    "chain": "production_id.user_id",
+                    "type": "many2one"
+                }
+            },
             "context": {},
             "domain": [],
             "id": "10",
             "measures": [
                 {
-                    "field": "unit_cost"
+                    "id": "unit_cost",
+                    "fieldName": "unit_cost"
                 }
             ],
             "model": "mrp.report",
-            "rowGroupBys": [],
             "name": "avg cost - previous",
-            "sortedColumn": null
+            "sortedColumn": null,
+            "formulaId": "10",
+            "columns": [],
+            "rows": []
         }
     },
     "pivotNextId": 11,
+    "customTableStyles": {},
+    "odooVersion": 12,
     "globalFilters": [
         {
             "id": "a5d0b2fb-b866-4fa0-8d25-bcf1c41cf592",
             "type": "date",
             "label": "Period",
             "defaultValue": "last_three_months",
-            "rangeType": "relative",
-            "defaultsToCurrentPeriod": false,
-            "pivotFields": {
-                "1": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "2": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "3": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "5": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "6": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": -1
-                },
-                "7": {
-                    "field": "date_end",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "8": {
-                    "field": "date_end",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "9": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "10": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": -1
-                }
-            },
-            "listFields": {},
-            "graphFields": {
-                "2828f15d-9fe0-43c8-8ad7-a2b7fe7ff3c5": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": 0
-                },
-                "6591ce4b-64ce-4630-943d-18570a18a4f2": {
-                    "field": "date_finished",
-                    "type": "datetime",
-                    "offset": 0
-                }
-            }
+            "rangeType": "relative"
         },
         {
             "id": "ad6b4dd2-f0c1-4ef7-9591-f9af7c790bdb",
@@ -1613,57 +1760,7 @@
             "modelName": "product.product",
             "defaultValue": [],
             "defaultValueDisplayNames": [],
-            "rangeType": "year",
-            "defaultsToCurrentPeriod": false,
-            "pivotFields": {
-                "1": {
-                    "field": "product_id",
-                    "type": "many2one"
-                },
-                "2": {
-                    "field": "product_id",
-                    "type": "many2one"
-                },
-                "3": {
-                    "field": "product_id",
-                    "type": "many2one"
-                },
-                "5": {
-                    "field": "product_id",
-                    "type": "many2one"
-                },
-                "6": {
-                    "field": "product_id",
-                    "type": "many2one"
-                },
-                "7": {
-                    "field": "production_id.product_id",
-                    "type": "many2one"
-                },
-                "8": {
-                    "field": "production_id.product_id",
-                    "type": "many2one"
-                },
-                "9": {
-                    "field": "product_id",
-                    "type": "many2one"
-                },
-                "10": {
-                    "field": "product_id",
-                    "type": "many2one"
-                }
-            },
-            "listFields": {},
-            "graphFields": {
-                "2828f15d-9fe0-43c8-8ad7-a2b7fe7ff3c5": {
-                    "field": "product_id",
-                    "type": "many2one"
-                },
-                "6591ce4b-64ce-4630-943d-18570a18a4f2": {
-                    "field": "product_id",
-                    "type": "many2one"
-                }
-            }
+            "rangeType": "year"
         },
         {
             "id": "dfe37941-d119-494e-af10-62c1ed04c413",
@@ -1672,57 +1769,7 @@
             "modelName": "stock.picking.type",
             "defaultValue": [],
             "defaultValueDisplayNames": [],
-            "rangeType": "year",
-            "defaultsToCurrentPeriod": false,
-            "pivotFields": {
-                "1": {
-                    "field": "picking_type_id",
-                    "type": "many2one"
-                },
-                "2": {
-                    "field": "picking_type_id",
-                    "type": "many2one"
-                },
-                "3": {
-                    "field": "picking_type_id",
-                    "type": "many2one"
-                },
-                "5": {
-                    "field": "picking_type_id",
-                    "type": "many2one"
-                },
-                "6": {
-                    "field": "picking_type_id",
-                    "type": "many2one"
-                },
-                "7": {
-                    "field": "production_id.picking_type_id",
-                    "type": "many2one"
-                },
-                "8": {
-                    "field": "production_id.picking_type_id",
-                    "type": "many2one"
-                },
-                "9": {
-                    "field": "production_id.picking_type_id",
-                    "type": "many2one"
-                },
-                "10": {
-                    "field": "production_id.picking_type_id",
-                    "type": "many2one"
-                }
-            },
-            "listFields": {},
-            "graphFields": {
-                "2828f15d-9fe0-43c8-8ad7-a2b7fe7ff3c5": {
-                    "field": "picking_type_id",
-                    "type": "many2one"
-                },
-                "6591ce4b-64ce-4630-943d-18570a18a4f2": {
-                    "field": "picking_type_id",
-                    "type": "many2one"
-                }
-            }
+            "rangeType": "year"
         },
         {
             "id": "be98718e-525b-4252-92c5-1c95bd470fc9",
@@ -1731,57 +1778,18 @@
             "modelName": "res.users",
             "defaultValue": [],
             "defaultValueDisplayNames": [],
-            "rangeType": "year",
-            "defaultsToCurrentPeriod": false,
-            "pivotFields": {
-                "1": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "2": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "3": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "5": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "6": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "7": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "8": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "9": {
-                    "field": "production_id.user_id",
-                    "type": "many2one"
-                },
-                "10": {
-                    "field": "production_id.user_id",
-                    "type": "many2one"
-                }
-            },
-            "listFields": {},
-            "graphFields": {
-                "2828f15d-9fe0-43c8-8ad7-a2b7fe7ff3c5": {
-                    "field": "user_id",
-                    "type": "many2one"
-                },
-                "6591ce4b-64ce-4630-943d-18570a18a4f2": {
-                    "field": "user_id",
-                    "type": "many2one"
-                }
-            }
+            "rangeType": "year"
         }
-    ]
+    ],
+    "lists": {},
+    "listNextId": 1,
+    "chartOdooMenusReferences": {
+        "2828f15d-9fe0-43c8-8ad7-a2b7fe7ff3c5": "mrp.menu_mrp_root",
+        "6591ce4b-64ce-4630-943d-18570a18a4f2": "mrp.menu_mrp_root",
+        "3d49564f-cc66-495b-b056-61dd29b34ea6": "mrp.menu_mrp_root",
+        "379d22d2-4cbf-48fb-8fad-e44b9ce00dea": "mrp_account_enterprise.mrp_dashboard_menuitem",
+        "992b1b7d-78e0-4b41-b144-3995c16b73be": "mrp_account_enterprise.mrp_dashboard_menuitem",
+        "683afc26-bbb2-4647-8e80-e3699839ffd5": "mrp.menu_mrp_workcenter_productivity_report",
+        "9f95d0f4-ad80-45de-970a-9897eab4d56f": "mrp.menu_mrp_workcenter_productivity_report"
+    }
 }
