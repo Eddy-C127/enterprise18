@@ -4,7 +4,7 @@ from dateutil.relativedelta import relativedelta
 from collections import defaultdict
 
 from odoo import fields, models, api, _, Command
-from odoo.tools import format_date
+from odoo.tools import float_is_zero, format_date
 
 from .sale_order import SUBSCRIPTION_PROGRESS_STATE
 
@@ -186,7 +186,7 @@ class SaleOrderLine(models.Model):
                 order.subscription_state in ('3_progress', '4_paused')
                 and (not order.end_date or order.next_invoice_date < order.end_date)
             )
-            if line.recurring_invoice and is_order_active:
+            if line.recurring_invoice and is_order_active and not float_is_zero(line.price_subtotal, precision_rounding=line.currency_id.rounding):
                 recurring_monthly_tax_incl = line.recurring_monthly / line.price_subtotal * line.price_total
                 line.amount_to_invoice = recurring_monthly_tax_incl
 
