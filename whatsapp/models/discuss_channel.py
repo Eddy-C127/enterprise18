@@ -102,6 +102,7 @@ class DiscussChannel(models.Model):
         new_msg = super().message_post(message_type=message_type, **kwargs)
         if self.channel_type == 'whatsapp' and message_type == 'whatsapp_message':
             if new_msg.author_id == self.whatsapp_partner_id:
+                self.last_wa_mail_message_id = new_msg
                 self._bus_send_store(
                     self, {"whatsapp_channel_valid_until": self.whatsapp_channel_valid_until}
                 )
