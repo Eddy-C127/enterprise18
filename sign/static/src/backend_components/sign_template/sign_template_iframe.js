@@ -689,6 +689,7 @@ export class SignTemplateIframe extends EditablePDFIframeMixin(PDFIframe) {
             tail = this.signItems[new_data.page][new_id];
             new_data.updated = true;
         }
+        this.refreshSignItems();
         await this.saveChanges();
     }
 
