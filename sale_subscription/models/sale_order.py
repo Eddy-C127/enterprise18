@@ -1849,50 +1849,6 @@ class SaleOrder(models.Model):
             tx_sudo._send_payment_request()
         return transactions_sudo
 
-    def _send_success_mail(self, invoices, tx):
-        """
-        Send mail once the transaction to pay subscription invoice has succeeded
-        :param invoices: one or more account.move recordset
-        :param tx: single payment.transaction
-        """
-        current_date = fields.Date.today()
-        subscription_ids = []
-        for invoice in invoices:
-            # We may have different subscriptions per invoice
-            subscriptions = invoice.invoice_line_ids.subscription_id
-            if not subscriptions or invoice.is_move_sent or not invoice._is_ready_to_be_sent() or invoice.state != 'posted':
-                continue
-            invoice_values = {sub.id: invoice for sub in subscriptions}
-            subscription_ids += subscriptions.ids
-        for subscription in self.env['sale.order'].browse(subscription_ids):
-            linked_invoices = invoice_values[subscription.id]
-            # Most of the time, we invoice one sub per invoice
-            next_date = subscription.next_invoice_date or current_date
-            # if no recurring next date, have next invoice be today + interval
-            if not subscription.next_invoice_date:
-                error_msg = "The success mail could not be sent for subscription %s and invoice %s." % (subscription.name, invoice.name)
-                _logger.error(error_msg)
-                continue
-            email_context = {**self.env.context.copy(),
-                             'payment_token': subscription.payment_token_id.payment_details,
-                             '5_renewed': True,     # TODO master remove or rename
-                             'total_amount': tx.amount,
-                             'next_date': next_date,
-                             'previous_date': subscription.next_invoice_date,
-                             'email_to': subscription.partner_id.email,
-                             'code': subscription.client_order_ref,
-                             'subscription_name': subscription.name,
-                             'currency': subscription.currency_id.name,
-                             'date_end': subscription.end_date}
-            _logger.debug("Sending Payment Confirmation Mail to %s for subscription %s", subscription.partner_id.email, subscription.id)
-
-            if linked_invoices:
-                self.env['account.move.send'].with_context(email_context)._generate_and_send_invoices(
-                    linked_invoices,
-                    allow_raising=False,
-                    allow_fallback=True
-                )
-
     @api.model
     def _process_invoices_to_send(self, account_moves):
         for invoice in account_moves:

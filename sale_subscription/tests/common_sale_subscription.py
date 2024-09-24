@@ -333,13 +333,6 @@ class TestSubscriptionCommon(TestSaleCommon):
         return tx
 
     # Mocking for 'test_auto_payment_with_token'
-    # Otherwise the whole sending mail process will be triggered
-    # And we are not here to test that flow, and it is a heavy one
-    def _mock_subscription_send_success_mail(self, tx, invoice):
-        self.mock_send_success_count += 1
-        return 666
-
-    # Mocking for 'test_auto_payment_with_token'
     # Avoid account_id is False when creating the invoice
     def _mock_prepare_invoice_data(self):
         invoice = self.original_prepare_invoice()

@@ -154,8 +154,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
 
         self.original_prepare_invoice = self.subscription._prepare_invoice
         self.mock_send_success_count = 0
-        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment),\
-            patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail', wraps=self._mock_subscription_send_success_mail):
+        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
             self.env['ir.config_parameter'].sudo().set_param('sale.automatic_invoice', 'False')
             subscription = self._portal_payment_controller_flow()
             subscription.transaction_ids.unlink()
@@ -299,9 +298,7 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
 
     def test_portal_partial_payment(self):
         with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment',
-                   wraps=self._mock_subscription_do_payment), \
-                patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail',
-                      wraps=self._mock_subscription_send_success_mail):
+                   wraps=self._mock_subscription_do_payment):
             self.env['ir.config_parameter'].sudo().set_param('sale.automatic_invoice', 'False')
             with freeze_time("2024-01-22"):
                 subscription = self.subscription.create({

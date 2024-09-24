@@ -16,8 +16,7 @@ class TestSubscriptionPaymentsAccount(AccountPaymentCommon, TestSubscriptionComm
     # Inheriting on AccountPaymentCommon is necessary because it patches _get_payment_method_information
 
     def test_invoice_consolidation(self):
-        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment),\
-             patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail', wraps=self._mock_subscription_send_success_mail):
+        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
             self.env['ir.config_parameter'].set_param('sale_subscription.invoice_consolidation', True)
             bank_journal = self.company_data['default_journal_bank']
             new_provider = self.dummy_provider.copy({

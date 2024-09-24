@@ -36,9 +36,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
 
         self.original_prepare_invoice = self.subscription._prepare_invoice
 
-        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment),\
-            patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail',
-                  wraps=self._mock_subscription_send_success_mail):
+        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
 
             self.subscription.write({
                 'partner_id': self.partner.id,
@@ -51,7 +49,6 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
             self.mock_send_success_count = 0
             self.env['sale.order']._cron_recurring_create_invoice()
             self.subscription.transaction_ids._post_process()
-            self.assertEqual(self.mock_send_success_count, 1, 'a mail to the invoice recipient should have been sent')
             self.assertEqual(self.subscription.subscription_state, '3_progress', 'subscription with online payment and a payment method set should stay opened when transaction succeeds')
             invoice = self.subscription.invoice_ids.sorted('date')[-1]
             recurring_total_with_taxes = self.subscription.amount_total
@@ -99,9 +96,7 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
     def test_auto_payment_across_time(self):
         self.original_prepare_invoice = self.subscription._prepare_invoice
 
-        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment), \
-                patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._send_success_mail',
-                      wraps=self._mock_subscription_send_success_mail):
+        with patch('odoo.addons.sale_subscription.models.sale_order.SaleOrder._do_payment', wraps=self._mock_subscription_do_payment):
 
             subscription_tmpl = self.env['sale.order.template'].create({
                 'name': 'Subscription template without discount',
@@ -576,14 +571,6 @@ class TestSubscriptionPayments(PaymentCommon, TestSubscriptionCommon, MockEmail)
         self.assertEqual(self.subscription.state, 'sale')
         self.assertEqual(len(self.subscription.invoice_ids), 1)
         self.assertEqual(self.subscription.invoice_ids.state, 'posted')
-        send_invoice_mock.assert_called_once_with(
-            self.env['account.move.send'],
-            self.subscription.invoice_ids,
-            allow_raising=False,
-            allow_fallback=True,
-        )
-        template = self.env.ref('sale_subscription.email_payment_success')
-        self.assertTrue(all(template == self.env['account.move.send']._get_default_mail_template_id(move) for move in self.subscription.invoice_ids))
 
     def test_manually_captured_payment_providers_not_allowed(self):
         self.provider.capture_manually = True

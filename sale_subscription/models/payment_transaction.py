@@ -174,7 +174,6 @@ class PaymentTransaction(models.Model):
                 # Once the token is assigned, we are done because we don't send emails in that case.
                 continue
             orders.set_open()
-            orders._send_success_mail(tx.invoice_ids, tx)
             if tx.subscription_action in ['manual_send_mail', 'automatic_send_mail']:
                 automatic = tx.subscription_action == 'automatic_send_mail'
                 for order in orders:
