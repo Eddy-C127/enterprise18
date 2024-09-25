@@ -356,7 +356,7 @@ class ProductTemplate(models.Model):
         ebay_api = self._get_ebay_api()
         try:
             response = ebay_api.execute(verb, data, list_nodes, verb_attrs, files)
-            _logger.info("eBay API response for operation %s: %s", verb, pformat(response.dict()))
+            _logger.debug("eBay API response for operation %s: %s", verb, pformat(response.dict()))
             return response
         except EbayConnectionError as e:
             errors = e.response.dict()['Errors']
