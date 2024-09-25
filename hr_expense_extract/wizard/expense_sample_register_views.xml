@@ -14,8 +14,10 @@
                 <group> 
                     <group> 
                         <field name="journal_id" options="{'no_open': True, 'no_create': True}"/>
-                        <field name="payment_method_line_id" widget="radio"
-                            invisible="hide_payment_method_line" />
+                        <field name="payment_method_line_id"
+                               widget="radio"
+                               context="{'hide_payment_journal_id': 1}"
+                               invisible="hide_payment_method_line" />
                         <field name="partial_mode" widget="radio"
                             invisible="hide_partial" />
                     </group>
