@@ -69,6 +69,7 @@ patch(PartnerListScreen.prototype, {
         const payment = newOrder.add_paymentline(selectedPaymentMethod);
         payment.set_amount(totalDue);
         newOrder.set_partner(this.state.selectedPartner);
+        newOrder.is_settling_account = true;
         this.pos.showScreen("PaymentScreen");
     },
 });
