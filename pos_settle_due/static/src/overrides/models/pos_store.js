@@ -93,6 +93,7 @@ patch(PosStore.prototype, {
                 const payment = newOrder.add_paymentline(selectedPaymentMethod);
                 payment.set_amount(totalDue);
                 newOrder.set_partner(partner);
+                newOrder.is_settling_account = true;
                 this.showScreen("PaymentScreen", { orderUuid: this.selectedOrderUuid });
             },
         });
