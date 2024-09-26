@@ -256,3 +256,13 @@ class HrPayslip(models.Model):
             if low <= x <= high:
                 return min_amount, rate
         return 0, 0
+
+    def _get_data_files_to_update(self):
+        # Note: file order should be maintained
+        return super()._get_data_files_to_update() + [(
+            'l10n_ch_hr_payroll_elm', [
+                'data/hr_payslip_input_type_data.xml',
+                'data/hr_salary_attachment_type_data.xml',
+                'data/hr_salary_rule_category_data.xml',
+                'data/hr_salary_rule_data.xml',
+            ])]
