@@ -13,7 +13,7 @@ registry.category("web_tour.tours").add("test_document_folder_rights_for_multi_c
             run: "click",
         },
         {
-            trigger: "span.o_search_panel_label_title[data-tooltip='Workspace1']",
+            trigger: ".o_search_panel_label[data-tooltip='Workspace1']",
             run: "click",
         },
         {
