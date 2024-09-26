@@ -12,6 +12,11 @@ class ResPartner(models.Model):
         """The customer statement is a report that is based on the partner ledger, with a few differences.
         It is commonly sent each month to every customer with purchases during the month.
         """
+        return self.env.ref('l10n_account_customer_statements.action_customer_statements_report').with_context(
+            report_options=options
+        ).report_action(self)
+
+    def _prepare_customer_statement_values(self, options=None):
         def format_monetary(value):
             return self.env['account.report']._format_value(
                 options=options,
@@ -64,7 +69,7 @@ class ResPartner(models.Model):
         for partner in self:
             # Always show the initial balance, even if 0, as no balance is also an information.
             partner_running_balances[partner.id] = initial_balances[partner.id]
-            partner_lines[partner.id].append(
+            partner_lines[str(partner.id)].append(
                 {
                     'date': format_date(self.env, from_date, date_format='d MMM yy'),
                     'activity': 'Initial Balance',
@@ -80,7 +85,7 @@ class ResPartner(models.Model):
                 partner_running_balances[partner.id] += line_value.get('balance', 0.0)
                 is_payment = line_value.get('move_type') == 'entry' and line_value.get('payment_id')
                 due_date = '' if is_payment else format_date(self.env, line_value.get('date_maturity'), date_format='d MMM yy')
-                partner_lines[partner.id].append(
+                partner_lines[str(partner.id)].append(
                     {
                         'date': format_date(self.env, line_value.get('invoice_date'), date_format='d MMM yy'),
                         'activity': line_value.get('move_name'),
@@ -92,18 +97,15 @@ class ResPartner(models.Model):
                     }
                 )
 
-        return self.env.ref('l10n_account_customer_statements.action_customer_statements_report').report_action(
-            self,
-            data={
-                'from_date': format_date(self.env, from_date, date_format='d MMMM yyyy').upper(),
-                'to_date': format_date(self.env, to_date, date_format='d MMMM yyyy').upper(),
-                'lines': partner_lines,
-                'balances_due': {
-                    partner.id: format_monetary(partner_running_balances[partner.id]) for partner in self
-                },
-                'vat_label': {partner.id: partner.country_id.vat_label or 'VAT' for partner in self},
+        return {
+            'from_date': format_date(self.env, from_date, date_format='d MMMM yyyy').upper(),
+            'to_date': format_date(self.env, to_date, date_format='d MMMM yyyy').upper(),
+            'lines': partner_lines,
+            'balances_due': {
+                str(partner.id): format_monetary(partner_running_balances[partner.id]) for partner in self
             },
-        )
+            'vat_label': {partner.id: partner.country_id.vat_label or 'VAT' for partner in self},
+        }
 
     def _get_initial_balances(self, options, report):
         balances = self.env[report.custom_handler_model_name]._get_initial_balance_values(
