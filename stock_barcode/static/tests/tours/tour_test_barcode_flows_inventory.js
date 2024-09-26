@@ -23,10 +23,7 @@ registry.category("web_tour.tours").add("test_inventory_adjustment", {
         }
     },
 
-    {
-        trigger: '.o_barcode_client_action',
-        run: 'scan product1',
-    },
+    { trigger: '.o_barcode_client_action', run: 'scan product1' },
     {
         trigger: '.o_barcode_line',
         run: function () {
@@ -36,15 +33,10 @@ registry.category("web_tour.tours").add("test_inventory_adjustment", {
         }
     },
 
-    {
-        trigger: '.o_barcode_client_action',
-        run: 'scan product1',
-    },
+    { trigger: '.o_barcode_client_action', run: 'scan product1' },
+    { trigger: '.o_barcode_line .qty-done:contains(2)' },
 
-    {
-        trigger: '.o_edit',
-        run: "click",
-    },
+    { trigger: '.o_edit', run: "click" },
 
     {
         trigger: '.o_field_widget[name="inventory_quantity"]',
@@ -135,6 +127,7 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_dont_update_l
         trigger: '.o_barcode_client_action',
         run: "scan LOC-01-01-00"
     },
+    { trigger: ".o_barcode_location_line[data-location='WH/Stock'].text-muted" },
     {
         trigger: '.o_barcode_location_group:first-child .o_barcode_line',
         run: "click",
@@ -144,7 +137,7 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_dont_update_l
         run: "click",
     },
     {
-        trigger: 'button.o_remove_unit:not([disabled])',
+        trigger: 'button.o_remove_unit:enabled',
         run: function () {
             helper.assertLinesCount(2);
             const selectedLine = helper.getLine({ selected: true });
@@ -733,7 +726,7 @@ registry.category("web_tour.tours").add("test_inventory_dialog_not_counted_seria
     { trigger: ".o_scan_message.o_scan_src", run: "scan LOC-01-01-00" },
     { trigger: ".o_scan_message.o_scan_product_or_src", run: "scan productserial1" },
     { trigger: ".o_barcode_line.o_selected", run: "scan sn1" },
-    { trigger: ".o_apply_page:not(disabled)", run: "click" },
+    { trigger: ".o_apply_page:enabled", run: "click" },
     { trigger: ".o_stock_barcode_apply_quant_dialog" },
     // Apply only counted quant and reopen the Inv. Adjust. => other Section 1 quants are still here.
     { trigger: ".o_dialog button.o_apply", run: "click" },
@@ -758,7 +751,7 @@ registry.category("web_tour.tours").add("test_inventory_dialog_not_counted_seria
     { trigger: ".o_scan_message.o_scan_product_or_src", run: "scan productserial1" },
     { trigger: ".o_barcode_line.o_selected", run: "scan sn2" },
     { trigger: ".o_barcode_line.o_selected.o_line_completed" },
-    { trigger: ".o_apply_page:not(disabled)", run: "click" },
+    { trigger: ".o_apply_page:enabled", run: "click" },
     { trigger: ".o_stock_barcode_apply_quant_dialog" },
     { trigger: ".o_dialog button.o_apply_all", run: "click" },
     // Reopen the Inventory Adjustment.
@@ -1302,7 +1295,7 @@ registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to
         run: 'scan LOC-01-00-00',
     },
     {
-        trigger: '.o_barcode_line',
+        trigger: '.o_scan_message.o_scan_product_or_src',
         run: function () {
             helper.assertLinesCount(3);
             const [line1, line2, line3] = helper.getLines();
@@ -1411,7 +1404,7 @@ registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to
         run: 'scan LOC-01-00-00',
     },
     {
-        trigger: '.o_barcode_line',
+        trigger: '.o_scan_message.o_scan_product_or_src',
         run: function () {
             helper.assertLinesCount(3);
             const [line1, line2, line3] = helper.getLines();

@@ -1310,6 +1310,7 @@ registry.category("web_tour.tours").add("test_scan_can_change_destination_locati
         trigger: '.o_scan_message.o_scan_product',
         run: 'scan product1',
     },
+    { trigger: '.o_barcode_line.o_selected.o_line_completed' },
     {
         trigger: '.o_barcode_line:not(.o_selected) button.o_add_remaining_quantity',
         run: "click",
