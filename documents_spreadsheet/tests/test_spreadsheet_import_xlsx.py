@@ -111,6 +111,26 @@ class SpreadsheetImportXlsx(HttpCase, SpreadsheetTestCommon):
             with self.subTest(is_multipage=is_multipage, kind="spreadsheet"):
                 self.assertEqual(spreadsheet.is_multipage, is_multipage)
 
+    def test_compute_xlsx_multipage_does_not_create_attachment(self):
+        """multipage computation does not create the xlsx attachments in the database"""
+        folder = self.env["documents.folder"].create({"name": "Test folder"})
+        filename = "test_with_image.xlsx"
+
+        with file_open(f'documents_spreadsheet/tests/data/{filename}', 'rb') as f:
+            spreadsheet_data = base64.encodebytes(f.read())
+            new_document = self.env['documents.document'].create(
+                {
+                    'datas': spreadsheet_data,
+                    'name': filename,
+                    'mimetype': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    'folder_id': folder.id,
+                }
+            )
+        attachment_count = self.env['ir.attachment'].search_count([('res_model', '=', 'documents.document')])
+        new_document.is_multipage
+        new_attachment_count = self.env['ir.attachment'].search_count([('res_model', '=', 'documents.document')])
+        self.assertEqual(attachment_count, new_attachment_count)
+
     def test_request_xlsx_computes_multipage(self):
         """Successfully upload xlsx on requested documents"""
         self.authenticate('admin', 'admin')
