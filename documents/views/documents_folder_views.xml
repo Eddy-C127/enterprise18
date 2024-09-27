@@ -84,6 +84,11 @@
                             </field>
                         </page>
                         <page string="Access Rights" name="access_rights">
+                            <field name="children_folder_ids" invisible="1"/>
+                            <div class="alert alert-warning mb-0" role="alert"
+                                invisible="not children_folder_ids or (not group_ids and not read_group_ids)">
+                                The specified access rights only apply to the current workspace, not its children
+                            </div>
                             <group>
                                 <group string="Write Access">
                                     <field name="group_ids" widget="many2many_tags"/>

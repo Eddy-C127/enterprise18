@@ -3,7 +3,7 @@
 import json
 from collections import defaultdict
 
-from odoo import api, fields, models, _, _lt
+from odoo import api, fields, models, Command, _, _lt
 from odoo.exceptions import AccessError, UserError
 from odoo.tools import frozendict
 
@@ -112,6 +112,7 @@ class ProjectProject(models.Model):
         folders_to_create_vals = []
         projects_with_folder_to_create = []
         documents_project_folder_id = self.env.ref('documents_project.documents_project_folder').id
+        group_project_user_id = self.env.ref('project.group_project_user').id
 
         for project in self:
             if not project.documents_folder_id:
@@ -119,6 +120,8 @@ class ProjectProject(models.Model):
                     'name': project.name,
                     'parent_folder_id': documents_project_folder_id,
                     'company_id': project.company_id.id,
+                    'group_ids': [Command.link(group_project_user_id)],
+                    'read_group_ids': [Command.link(group_project_user_id)],
                 }
                 folders_to_create_vals.append(folder_vals)
                 projects_with_folder_to_create.append(project)
