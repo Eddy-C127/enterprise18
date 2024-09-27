@@ -13,7 +13,12 @@ import {
 } from "@odoo/owl";
 import { hasTouch, isMobileOS } from "@web/core/browser/feature_detection";
 import { Domain } from "@web/core/domain";
-import { is24HourFormat, formatDateTime, serializeDate, serializeDateTime } from "@web/core/l10n/dates";
+import {
+    is24HourFormat,
+    formatDateTime,
+    serializeDate,
+    serializeDateTime,
+} from "@web/core/l10n/dates";
 import { localization } from "@web/core/l10n/localization";
 import { usePopover } from "@web/core/popover/popover_hook";
 import { evaluateBooleanExpr } from "@web/core/py_js/py";
@@ -1086,12 +1091,18 @@ export class GanttRenderer extends Component {
             this.model.metaData;
 
         const startOutside = record[dateStartField] < startDate;
-        const stopOutside = record[dateStopField] > stopDate;
+
+        let recordDateStopField = record[dateStopField];
+        if (this.model.dateStopFieldIsDate()) {
+            recordDateStopField = recordDateStopField.plus({ day: 1 });
+        }
+
+        const stopOutside = recordDateStopField > stopDate;
 
         /** @type {DateTime} */
         const pillStartDate = startOutside ? startDate : record[dateStartField];
         /** @type {DateTime} */
-        const pillStopDate = stopOutside ? stopDate : record[dateStopField];
+        const pillStopDate = stopOutside ? stopDate : recordDateStopField;
 
         const disableStartResize = !canEdit || startOutside;
         const disableStopResize = !canEdit || stopOutside;

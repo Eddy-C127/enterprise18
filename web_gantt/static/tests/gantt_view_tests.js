@@ -22,7 +22,7 @@ import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { createWebClient, doAction } from "@web/../tests/webclient/helpers";
 import { browser } from "@web/core/browser/browser";
 import { Domain } from "@web/core/domain";
-import { deserializeDateTime } from "@web/core/l10n/dates";
+import { deserializeDate, deserializeDateTime } from "@web/core/l10n/dates";
 import { registry } from "@web/core/registry";
 import { omit } from "@web/core/utils/objects";
 import { GanttController } from "@web_gantt/gantt_controller";
@@ -4874,9 +4874,15 @@ QUnit.test("Progress bar rpc is triggered when option set.", async (assert) => {
         ["50%", "12.5%"]
     );
     await hoverGridCell(1, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50h / 100h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "50h / 100h"
+    );
     await hoverGridCell(2, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25h / 200h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "25h / 200h"
+    );
 });
 
 QUnit.test("Progress bar when multilevel grouped.", async (assert) => {
@@ -4930,9 +4936,15 @@ QUnit.test("Progress bar when multilevel grouped.", async (assert) => {
         ["50%", "12.5%"]
     );
     await hoverGridCell(1, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "50h / 100h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "50h / 100h"
+    );
     await hoverGridCell(3, 1);
-    assert.deepEqual(target.querySelector(SELECTORS.progressBarForeground).textContent, "25h / 200h");
+    assert.deepEqual(
+        target.querySelector(SELECTORS.progressBarForeground).textContent,
+        "25h / 200h"
+    );
 });
 
 QUnit.test("Progress bar warning when max_value is zero", async (assert) => {
@@ -4993,7 +5005,7 @@ QUnit.test("Progress bar when value less than hour", async (assert) => {
                 assert.deepEqual(args[1], { user_id: [1, 2] });
                 return {
                     user_id: {
-                        1: { value: 0.50, max_value: 100 },
+                        1: { value: 0.5, max_value: 100 },
                     },
                 };
             }
@@ -6825,23 +6837,257 @@ QUnit.test("group tasks by datetime", async (assert) => {
         groupBy: ["my_date:month"],
     });
     const { rows } = getGridContent();
-    assert.deepEqual(
-        rows,
-        [
-            {
-                pills: [
-                    {
-                        title: "Yop",
-                        colSpan: "02 -> 12 (1/2)",
-                        level: 0,
-                    },
-                    {
-                        title: "Blop",
-                        colSpan: "14 -> 24 (1/2)",
-                        level: 0,
-                    },
-                ],
-            },
-        ],
+    assert.deepEqual(rows, [
+        {
+            pills: [
+                {
+                    title: "Yop",
+                    colSpan: "02 -> 12 (1/2)",
+                    level: 0,
+                },
+                {
+                    title: "Blop",
+                    colSpan: "14 -> 24 (1/2)",
+                    level: 0,
+                },
+            ],
+        },
+    ]);
+});
+
+QUnit.test("date fields: domain", async function (assert) {
+    assert.expect(4);
+    serverData.models.tasks.fields.start = { string: "Start", type: "date" };
+    serverData.models.tasks.fields.stop = { string: "Stop", type: "date" };
+
+    const domains = [
+        ["&", ["start", "<=", "2018-12-20"], ["stop", ">=", "2018-12-20"]],
+        ["&", ["start", "<=", "2018-12-22"], ["stop", ">=", "2018-12-16"]],
+        ["&", ["start", "<=", "2018-12-31"], ["stop", ">=", "2018-01-01"]],
+        ["&", ["start", "<=", "2018-12-31"], ["stop", ">=", "2018-12-01"]],
+    ];
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop" />`,
+        mockRPC: function (_, { kwargs, method }) {
+            if (method === "get_gantt_data") {
+                assert.deepEqual(kwargs.domain, domains.pop());
+            }
+        },
+    });
+    await setScale("year");
+    await setScale("week");
+    await setScale("day");
+});
+
+QUnit.test("date fields: pill columns", async function (assert) {
+    serverData.models.tasks.fields.start = { string: "Start", type: "date" };
+    serverData.models.tasks.fields.stop = { string: "Stop", type: "date" };
+    serverData.models.tasks.records = serverData.models.tasks.records.slice(0, 1);
+    serverData.models.tasks.records[0].start = "2018-12-20";
+    serverData.models.tasks.records[0].stop = "2018-12-22";
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop"/>`,
+    });
+
+    const { rows } = getGridContent();
+    assert.deepEqual(rows, [
+        {
+            pills: [
+                {
+                    colSpan: "20 -> 22",
+                    level: 0,
+                    title: "Task 1",
+                },
+            ],
+        },
+    ]);
+});
+
+QUnit.test("date fields: resize a pill", async function (assert) {
+    assert.expect(4);
+    serverData.models.tasks.fields.start = { string: "Start", type: "date" };
+    serverData.models.tasks.fields.stop = { string: "Stop", type: "date" };
+    serverData.models.tasks.records = serverData.models.tasks.records.slice(0, 1);
+    serverData.models.tasks.records[0].start = "2018-12-20";
+    serverData.models.tasks.records[0].stop = "2018-12-22";
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop"/>`,
+        mockRPC: function (_, { args, method }) {
+            if (method === "write") {
+                assert.deepEqual(args[0], [1]);
+                // initial dates -- start: '"2018-12-20"', stop: '"2018-12-22"'
+                assert.deepEqual(args[1], { stop: "2018-12-21" });
+            }
+        },
+    });
+    assert.deepEqual(getGridContent().rows, [
+        {
+            pills: [
+                {
+                    colSpan: "20 -> 22",
+                    level: 0,
+                    title: "Task 1",
+                },
+            ],
+        },
+    ]);
+
+    await resizePill(getPillWrapper("Task 1"), "end", -1);
+    assert.deepEqual(getGridContent().rows, [
+        {
+            pills: [
+                {
+                    colSpan: "20 -> 21",
+                    level: 0,
+                    title: "Task 1",
+                },
+            ],
+        },
+    ]);
+});
+
+QUnit.test("date fields: drag a pill", async function (assert) {
+    assert.expect(4);
+    serverData.models.tasks.fields.start = { string: "Start", type: "date" };
+    serverData.models.tasks.fields.stop = { string: "Stop", type: "date" };
+    serverData.models.tasks.records = serverData.models.tasks.records.slice(0, 1);
+    serverData.models.tasks.records[0].start = "2018-12-20";
+    serverData.models.tasks.records[0].stop = "2018-12-22";
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop"/>`,
+        mockRPC: function (_, { args, method }) {
+            if (method === "write") {
+                assert.deepEqual(args[0], [1]);
+                assert.deepEqual(args[1], {
+                    start: "2018-12-19",
+                    stop: "2018-12-21",
+                });
+            }
+        },
+    });
+    assert.deepEqual(getGridContent().rows, [
+        {
+            pills: [
+                {
+                    colSpan: "20 -> 22",
+                    level: 0,
+                    title: "Task 1",
+                },
+            ],
+        },
+    ]);
+
+    const { drop } = await dragPill("Task 1");
+    await drop({ row: 1, column: 19, part: 1 });
+
+    assert.deepEqual(getGridContent().rows, [
+        {
+            pills: [
+                {
+                    colSpan: "19 -> 21",
+                    level: 0,
+                    title: "Task 1",
+                },
+            ],
+        },
+    ]);
+});
+
+QUnit.test("date fields: popover", async function (assert) {
+    assert.expect(5);
+    serverData.models.tasks.fields.start = { string: "Start", type: "date" };
+    serverData.models.tasks.fields.stop = { string: "Stop", type: "date" };
+    serverData.models.tasks.records = serverData.models.tasks.records.slice(0, 1);
+    serverData.models.tasks.records[0].start = "2018-12-20";
+    serverData.models.tasks.records[0].stop = "2018-12-22";
+
+    patchWithCleanup(browser, { setTimeout: (fn) => fn() });
+
+    const task1 = serverData.models.tasks.records[0];
+    const startDateLocalString = deserializeDate(task1.start).toFormat("f");
+    const stopDateLocalString = deserializeDate(task1.stop).toFormat("f");
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop"/>`,
+    });
+    assert.deepEqual(getGridContent().rows, [
+        {
+            pills: [
+                {
+                    colSpan: "20 -> 22",
+                    level: 0,
+                    title: "Task 1",
+                },
+            ],
+        },
+    ]);
+    assert.containsNone(target, ".o_popover");
+
+    await click(target, ".o_gantt_pill");
+    assert.containsOnce(target, ".o_popover");
+    assert.deepEqual(getTexts(".o_popover .popover-body span"), [
+        "Task 1",
+        startDateLocalString,
+        stopDateLocalString,
+    ]);
+
+    await click(target, ".o_popover .popover-header i.fa.fa-close");
+    assert.containsNone(target, ".o_popover");
+});
+
+QUnit.test("date fields: dialog", async function (assert) {
+    assert.expect(4);
+    serverData.models.tasks.fields.start = { string: "Start", type: "date" };
+    serverData.models.tasks.fields.stop = { string: "Stop", type: "date" };
+    serverData.models.tasks.records = serverData.models.tasks.records.slice(0, 1);
+    serverData.models.tasks.records[0].start = "2018-12-20";
+    serverData.models.tasks.records[0].stop = "2018-12-22";
+
+    serverData.views = {
+        "tasks,false,form": `
+            <form>
+                <field name="name"/>
+                <field name="start"/>
+                <field name="stop"/>
+            </form>
+        `,
+    };
+
+    await makeView({
+        type: "gantt",
+        resModel: "tasks",
+        serverData,
+        arch: `<gantt date_start="start" date_stop="stop"/>`,
+    });
+
+    assert.containsNone(target, ".modal");
+
+    await editPill("Task 1");
+    // check that the dialog is opened with prefilled fields
+    assert.containsOnce(target, ".modal");
+    const modal = target.querySelector(".modal");
+    assert.strictEqual(
+        modal.querySelector(".o_field_widget[name=start] input").value,
+        "12/20/2018"
     );
+    assert.strictEqual(modal.querySelector(".o_field_widget[name=stop] input").value, "12/22/2018");
 });
