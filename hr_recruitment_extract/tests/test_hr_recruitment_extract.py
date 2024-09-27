@@ -3,10 +3,12 @@
 
 from odoo.addons.hr.tests.common import TestHrCommon
 from odoo.addons.iap_extract.tests.test_extract_mixin import TestExtractMixin
+from odoo.tests import tagged
 
 from ..models.hr_applicant import OCR_VERSION
 
 
+@tagged('post_install', '-at_install')
 class TestRecruitmentExtractProcess(TestHrCommon, TestExtractMixin):
 
     @classmethod
@@ -195,10 +197,8 @@ class TestRecruitmentExtractProcess(TestHrCommon, TestExtractMixin):
         with self._mock_iap_extract(extract_response=extract_response):
             self.applicant._check_ocr_status()
 
-        created_applicant_skills = self.env['hr.applicant.skill'].search_read(
+        created_applicant_skills = self.env['hr.applicant.skill'].search(
             [('applicant_id', '=', self.applicant.id)],
-            fields=['skill_id']
-        )
+        ).mapped('skill_id.id')
 
-        for applicant_skills in created_applicant_skills:
-            self.assertIn(applicant_skills['skill_id'][0], skills.mapped('id'))
+        self.assertCountEqual(created_applicant_skills, skills.mapped('id'))
