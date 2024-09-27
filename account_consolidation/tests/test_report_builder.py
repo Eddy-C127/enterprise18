@@ -549,7 +549,7 @@ class TestDefaultBuilder(AccountConsolidationTestCase):
                 'figure_type': 'monetary',
                 'class': 'number',
                 'is_zero': False,
-                'auditable': True,
+                'auditable': False,
                 'journal_id': False  # False as no company period id is set on journals
             } for t in totals],
             'level': 2,

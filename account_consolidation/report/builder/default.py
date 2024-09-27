@@ -48,8 +48,10 @@ class DefaultBuilder(AbstractBuilder):
         for col, journal in zip(line['columns'], self.journals):
             domain = [('account_id', '=', account.id), ('journal_id', '=', journal.id)]
             journal_lines_amount = self.env['consolidation.journal.line'].search_count(domain)
-            if journal_lines_amount > 0:
-                col['journal_id'] = journal.id if journal.company_period_id else False
+            col['journal_id'] = journal.id if journal_lines_amount > 0 and journal.company_period_id else False
+
+            # Need to be False when we have no journal id because the methods action_open_audit needs it
+            col['auditable'] &= bool(col['journal_id'])
         return line
 
     def _get_default_line_totals(self, options: dict, **kwargs) -> list:
