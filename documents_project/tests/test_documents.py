@@ -4,6 +4,7 @@ import base64
 from datetime import date, timedelta
 
 from odoo import Command
+from odoo.exceptions import UserError
 from odoo.tests.common import users
 
 from odoo.addons.project.tests.test_project_sharing import TestProjectSharingCommon
@@ -397,3 +398,21 @@ class TestCaseDocumentsBridgeProject(TestProjectSharingCommon):
         with self.get_project_sharing_form_view(self.task_cow, self.user_portal) as form:
             self.assertTrue(form.project_use_documents)
             self.assertEqual(form.shared_document_count, 1, "There should only be one document shared.")
+
+    def test_delete_project_folder(self):
+        """
+        It should not be possible to delete the "Projects" folder.
+        """
+        project_folder = self.env.ref('documents_project.documents_project_folder')
+        with self.assertRaises(UserError, msg="It should not be possible to delete the 'Projects' folder"):
+            project_folder.unlink()
+
+        current = project_folder
+        for i in range(3):
+            current.parent_folder_id = self.env['documents.folder'].create({
+                "name": f"Ancestor Test {i}",
+            })
+            current = current.parent_folder_id
+
+        with self.assertRaises(UserError, msg="It should not be possible to delete an ancestor of the 'Projects' folder"):
+            current.unlink()

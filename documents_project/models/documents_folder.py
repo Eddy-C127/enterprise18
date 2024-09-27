@@ -31,7 +31,8 @@ class DocumentFolder(models.Model):
     @api.ondelete(at_uninstall=False)
     def unlink_except_project_folder(self):
         project_folder = self.env.ref('documents_project.documents_project_folder')
-        if project_folder in self:
+        project_folder_ancestors = {int(ancestor_id) for ancestor_id in project_folder.parent_path.split('/')[:-1]}
+        if project_folder_ancestors & set(self.ids):
             raise UserError(_('The "%s" workspace is required by the Project application and cannot be deleted.', project_folder.name))
 
     @api.constrains('company_id')
