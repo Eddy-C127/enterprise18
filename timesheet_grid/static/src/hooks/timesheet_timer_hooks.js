@@ -201,6 +201,7 @@ export class TimesheetTimerRendererHook {
                 this.timesheet.resId === this.timerState.timesheetId) ||
             this.timerState.headerReadonly
         ) {
+            this.timesheet = undefined;
             return;
         }
 
