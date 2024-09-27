@@ -2731,9 +2731,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         } for product in [self.product1, self.product2, product3]])
         delivery.action_confirm()
 
-        action = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
-        url = "/odoo/action-stock_barcode.stock_barcode_action_main_menu"
-        self.start_tour(url, 'test_split_line_on_exit_for_delivery', login='admin')
+        self.start_tour("/odoo/barcode", 'test_split_line_on_exit_for_delivery', login='admin')
         # Checks delivery moves values:
         # - product1 line should not be split (completed line)
         # - product2 line should be split in two (2 qty picked, 2 qty left)

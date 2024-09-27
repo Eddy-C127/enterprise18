@@ -392,25 +392,25 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
         run: 'scan productlot1',
     },
     {
-        trigger: '.o_barcode_line:contains("productlot1")',
+        trigger: '.o_barcode_line[data-barcode="productlot1"].o_selected',
         run: 'scan lot1',
     },
     {
-        trigger: '.o_barcode_line .qty-done:contains(3)',
+        trigger: '.o_barcode_line.o_selected .qty-done:contains(3)',
         run: 'scan productserial1',
     },
     {
-        trigger: '.o_barcode_line:contains("productserial1")',
+        trigger: '.o_barcode_line[data-barcode="productserial1"].o_selected',
         run: 'scan serial3',
     },
     {
-        trigger: ':contains("productserial1") .o_sublines .o_barcode_line:contains("serial3")',
+        trigger: '[data-barcode="productserial1"] .o_sublines .o_barcode_line:contains("serial3")',
         run: function () {
             helper.assertLinesCount(2);
             helper.assertSublinesCount(3);
         },
     },
-    // Edit a line to trigger a save.
+    // Add a new line (it also triggers a save.)
     {
         trigger: '.o_add_line',
         run: "click",
@@ -429,7 +429,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
     },
     // Scan tracked by lots product, then scan new lots.
     {
-        trigger: '.o_sublines .o_barcode_line:nth-child(3)',
+        trigger: '.o_sublines .o_barcode_line:nth-child(4)',
         run: function () {
             helper.assertLinesCount(2);
             helper.assertSublinesCount(4);
@@ -440,11 +440,11 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
         run: 'scan productlot1',
     },
     {
-        trigger: '.o_barcode_line.o_selected:contains("productlot1")',
+        trigger: '.o_barcode_line[data-barcode="productlot1"].o_selected',
         run: 'scan lot2',
     },
     {
-        trigger: '.o_barcode_line .o_barcode_line:contains("lot2")',
+        trigger: '.o_barcode_line .o_barcode_line.o_selected:contains("lot2")',
         run: 'scan lot3',
     },
     // Must have 6 lines in two groups: lot1, lot2, lot3 and serial1, serial2, serial3.
@@ -460,6 +460,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
         trigger: '.o_barcode_client_action',
         run: 'scan OBTVALI',
     },
+    // Confirm modal (because one of the line tracked by serial number has no SN.)
     {
         trigger: '.modal-header',
         run: "click",
