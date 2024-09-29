@@ -1,96 +1,118 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_appointment
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Leonardo J. Caballero G. <leonardocaballero@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
-"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: es\n"
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_booking_resource_description
-msgid "(+1 other)"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_card_top
 msgid "<i class=\"fa fa-ban me-2\"/>Unpublished"
-msgstr "<i class=\"fa fa-ban me-2\"/>Sin publicar"
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_pages_kanban_view
-msgid "<i class=\"fa fa-globe me-2\" title=\"Website URL\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-ban me-2\"/>No publicado"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_form
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_info
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_validated
 msgid "<i class=\"fa fa-long-arrow-left me-2\"/>All Appointments"
+msgstr "<i class=\"fa fa-long-arrow-left me-2\"/>Todas las citas"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_card_body
+msgid ""
+"<i class=\"fa fa-video-camera fa-fw me-1 fs-5 text-muted\"/>\n"
+"                    <span class=\"o_not_editable\">Online</span>"
+msgstr ""
+"<i class=\"fa fa-video-camera fa-fw me-1 fs-5 text-muted\"/>\n"
+"                    <span class=\"o_not_editable\">En línea</span>"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_pages_kanban_view
+msgid "<span class=\"fa fa-globe\" title=\"website\"/>"
+msgstr "<span class=\"fa fa-globe\" title=\"website\"/>"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "<span itemprop=\"name\">Bistr-Odoo</span>"
 msgstr ""
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.website_calendar_index_topbar
-msgid "<span class=\"navbar-brand h4 my-0 me-auto my-auto\">Choose Your Appointment</span>"
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "<span itemprop=\"name\">Doctor's Office</span>"
 msgstr ""
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_kanban
-msgid "<span class=\"text-bg-success\">Published</span>"
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "<span itemprop=\"name\">Online</span>"
+msgstr ""
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "<span itemprop=\"name\">Tennis Club</span>"
 msgstr ""
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
-msgid "<span> See all availabilities <i class=\"fa fa-long-arrow-right\"/></span>"
+msgid "<span>See all availabilities <i class=\"fa fa-long-arrow-right\"/></span>"
 msgstr ""
+"<span>Ver toda la disponibilidad <i class=\"fa fa-long-arrow-"
+"right\"/></span>"
+
+#. module: website_appointment
+#. odoo-python
+#: code:addons/website_appointment/models/website_snippet_filter.py:0
+msgid "A first step in joining our team as a technical consultant."
+msgstr "Un primer paso para unirse a nuestro equipo como asesor técnico."
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
 msgid "Add a function here..."
-msgstr ""
+msgstr "Agregar una función aquí..."
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
 msgid "Add a resource description here..."
-msgstr ""
+msgstr "Agregar una descripción del recurso aquí..."
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
 msgid "Add a user description here..."
-msgstr ""
+msgstr "Agregar una descripción de usuario aquí..."
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_card_body
 msgid "Add an intro message here..."
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_validated
-msgid "All Appointments"
-msgstr "Todas las citas"
+msgstr "Agregar un mensaje de introducción..."
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "All Types"
-msgstr ""
+msgstr "Todos los tipos"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "All assigned users"
-msgstr ""
+msgstr "Todos los usuarios asignados"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Allow Guests"
+msgstr "Permitir invitados"
 
 #. module: website_appointment
 #. odoo-python
@@ -100,12 +122,23 @@ msgid "Appointment"
 msgstr "Cita"
 
 #. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.website_online_appointment_snippet
+msgid "Appointment Button"
+msgstr "Botón de cita"
+
+#. module: website_appointment
+#: model:ir.model,name:website_appointment.model_appointment_invite
+msgid "Appointment Invite"
+msgstr "Invitación a la cita"
+
+#. module: website_appointment
 #: model:ir.actions.act_window,name:website_appointment.action_appointment_pages_list
 msgid "Appointment Pages"
-msgstr ""
+msgstr "Páginas de citas"
 
 #. module: website_appointment
 #: model:ir.model,name:website_appointment.model_appointment_type
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
 msgid "Appointment Type"
 msgstr "Tipo de cita"
 
@@ -113,48 +146,57 @@ msgstr "Tipo de cita"
 #. odoo-javascript
 #: code:addons/website_appointment/static/src/xml/website_appointment_templates.xml:0
 msgid "Appointment Type Name"
-msgstr ""
+msgstr "Nombre del tipo de cita"
 
 #. module: website_appointment
 #: model:ir.ui.menu,name:website_appointment.menu_appointment_pages
+#: model:ir.ui.menu,name:website_appointment.website_appointment_type_menu
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippets
 msgid "Appointments"
 msgstr "Citas"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
 msgid "Appointments Page"
-msgstr ""
+msgstr "Página de citas"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment
 msgid "Book an Appointment"
-msgstr ""
+msgstr "Reservar una cita"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
-msgid "Booked<span class=\"chevron position-absolute d-block\"/>"
-msgstr ""
-
-#. module: website_appointment
+#: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__can_publish
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__can_publish
 msgid "Can Publish"
 msgstr "Puede publicar"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
-msgid "Card Design"
-msgstr ""
+#. odoo-python
+#: code:addons/website_appointment/models/website_snippet_filter.py:0
+msgid "Candidate Interview"
+msgstr "Entrevista con el candidato"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
-msgid "Choose"
-msgstr "Elegir"
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Card Design"
+msgstr "Diseño de la tarjeta"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
 msgid "Choose who you will meet"
-msgstr ""
+msgstr "Elija con quién se reunirá"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.website_calendar_index_topbar
+msgid "Choose your appointment"
+msgstr "Elija su cita"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "Comma-separated list of parts of appointment names"
+msgstr "Lista de nombres de citas separados por comas"
 
 #. module: website_appointment
 #. odoo-javascript
@@ -163,22 +205,28 @@ msgid "Contact us"
 msgstr "Contáctenos"
 
 #. module: website_appointment
-#: model:ir.model.fields,field_description:website_appointment.field_appointment_type__cover_properties
-msgid "Cover Properties"
-msgstr "Propiedades de la portada"
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "Dental Care"
+msgstr "Cuidado dental"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
-msgid "Details<span class=\"chevron position-absolute d-block\"/>"
-msgstr ""
+#: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__appointment_type_warning_msg
+msgid "Different Website Message"
+msgstr "Mensaje diferente del sitio web"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "Filter On"
+msgstr "Filtrar por"
 
 #. module: website_appointment
 #. odoo-javascript
 #: code:addons/website_appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Go back to Appointment"
-msgstr ""
+msgstr "Volver a la cita"
 
 #. module: website_appointment
+#: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__is_published
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__is_published
 msgid "Is Published"
 msgstr "Está publicado"
@@ -186,7 +234,12 @@ msgstr "Está publicado"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
 msgid "Meeting"
-msgstr ""
+msgstr "Reunión"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "Names"
+msgstr "Nombres"
 
 #. module: website_appointment
 #: model:ir.actions.act_window,name:website_appointment.appointment_type_action_add_simplified
@@ -194,24 +247,21 @@ msgid "New Appointment Type"
 msgstr "Nuevo tipo de cita"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
-msgid "No appointment found."
-msgstr "No se encontraron citas."
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "No Filter"
+msgstr "Sin filtro"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
-msgid "Online"
-msgstr "En línea"
+msgid "No result for \""
+msgstr "Sin resultados para \""
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.website_online_appointment_snippet
-msgid "Online Appointment"
-msgstr "Cita en línea"
-
-#. module: website_appointment
-#: model:ir.ui.menu,name:website_appointment.website_appointment_type_menu
-msgid "Online Appointments"
-msgstr "Citas en línea"
+#. odoo-python
+#: code:addons/website_appointment/models/website_snippet_filter.py:0
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "Online Cooking Lesson"
+msgstr "Clase de cocina en línea"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
@@ -222,12 +272,12 @@ msgstr "Operador"
 #. odoo-javascript
 #: code:addons/website_appointment/static/src/xml/website_appointment_templates.xml:0
 msgid "Please fill this field"
-msgstr ""
+msgstr "Por favor, complete este campo"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_form
-msgid "Publish"
-msgstr "Publicar"
+#: model:website.snippet.filter,name:website_appointment.website_snippet_filter_appointments
+msgid "Public Appointments"
+msgstr "Citas públicas"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_kanban
@@ -236,24 +286,25 @@ msgid "Published"
 msgstr "Publicado"
 
 #. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "Resources"
+msgstr "Recursos"
+
+#. module: website_appointment
+#: model:ir.model.fields,help:website_appointment.field_appointment_invite__website_id
+#: model:ir.model.fields,help:website_appointment.field_appointment_type__website_id
+msgid "Restrict to a specific website."
+msgstr "Restringir a un sitio web específico."
+
+#. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__is_seo_optimized
 msgid "SEO optimized"
 msgstr "Optimizado para SEO"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
-msgid "Schedule"
-msgstr "Planificacion"
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_validated
-msgid "Schedule Another Appointment"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
-msgid "Schedule an Appointment"
-msgstr "Concertar una cita"
+#: model_terms:ir.ui.view,arch_db:website_appointment.dynamic_filter_template_appointment_type_card
+msgid "Sample"
+msgstr "Muestra"
 
 #. module: website_appointment
 #. odoo-python
@@ -263,8 +314,13 @@ msgstr "Programar una cita"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.website_calendar_index_topbar
-msgid "Search an appointment..."
-msgstr ""
+msgid "Search..."
+msgstr "Buscar…"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
+msgid "See all appointments <i class=\"fa fa-long-arrow-right\"/>"
+msgstr "Ver todas las citas <i class=\"fa fa-long-arrow-right\"/>"
 
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__seo_name
@@ -272,58 +328,106 @@ msgid "Seo name"
 msgstr "Nombre SEO"
 
 #. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Show Duration"
+msgstr "Mostrar duración"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Show Time Zone"
+msgstr "Mostrar zona horaria"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.snippet_options
+msgid "Show User/Resource Pictures"
+msgstr "Mostrar imágenes de usuarios/recursos"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "Specific Resources"
+msgstr "Recursos específicos"
+
+#. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "Specific Types"
-msgstr ""
+msgstr "Tipos específicos"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "Specific Users"
+msgstr "Usuarios específicos"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "Specific users"
+msgstr "Usuarios específicos"
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "Table"
+msgstr "Mesa"
+
+#. module: website_appointment
+#. odoo-python
+#: code:addons/website_appointment/models/website_snippet_filter.py:0
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_appointments_preview_data
+msgid "Tennis Court"
+msgstr "Pista de tenis "
+
+#. module: website_appointment
+#. odoo-python
+#: code:addons/website_appointment/models/appointment_invite.py:0
+msgid ""
+"The following appointment type(s) are not compatible with the website "
+"chosen: %(appointments)s"
 msgstr ""
 
 #. module: website_appointment
+#: model:ir.model.fields,help:website_appointment.field_appointment_invite__website_url
 #: model:ir.model.fields,help:website_appointment.field_appointment_type__website_url
 msgid "The full URL to access the document through the website."
 msgstr "La URL completa para acceder al documento a través del sitio web."
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
-msgid "Time<span class=\"chevron position-absolute d-block\"/>"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_form
-msgid "Unpublish"
-msgstr "No publicado"
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
+msgid "There is currently no appointment available"
+msgstr "Por el momento no hay una cita disponible"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointments_list_layout
 msgid "Use the top button '<b>+ New</b>' to create an appointment type."
-msgstr "Utilice el botón de arriba '<b>+Nuevo</b>' para crear un tipo de cita."
+msgstr ""
+"Utilice el botón de arriba '<b>+Nuevo</b>' para crear un tipo de cita."
 
 #. module: website_appointment
 #. odoo-javascript
 #: code:addons/website_appointment/static/src/xml/website_appointment_templates.xml:0
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
 msgid "Users"
 msgstr "Usuarios"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
-msgid "View availability <i class=\"oi oi-arrow-right\"/>"
-msgstr ""
-
-#. module: website_appointment
+#: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__website_published
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__website_published
 msgid "Visible on current website"
 msgstr "Visible en el sitio web actual"
 
 #. module: website_appointment
 #: model:ir.model,name:website_appointment.model_website
+#: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__website_id
+#: model:ir.model.fields,field_description:website_appointment.field_appointment_type__website_id
+#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_search
 msgid "Website"
 msgstr "Sitio web"
 
 #. module: website_appointment
+#: model:ir.model,name:website_appointment.model_website_snippet_filter
+msgid "Website Snippet Filter"
+msgstr "Filtro de snippets del sitio web"
+
+#. module: website_appointment
+#: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__website_url
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__website_url
 msgid "Website URL"
 msgstr "URL del sitio web"
@@ -331,27 +435,22 @@ msgstr "URL del sitio web"
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__website_meta_description
 msgid "Website meta description"
-msgstr "Meta descripción del sitio web"
+msgstr "Descripción meta del sitio web"
 
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__website_meta_keywords
 msgid "Website meta keywords"
-msgstr "Meta palabras clave del sitio web"
+msgstr "Palabras clave meta del sitio web"
 
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__website_meta_title
 msgid "Website meta title"
-msgstr "Meta título del sitio web"
+msgstr "Título meta del sitio web"
 
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__website_meta_og_img
 msgid "Website opengraph image"
-msgstr "Imagen del Open Graph del sitio"
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_booking_resource_description
-msgid "available"
-msgstr ""
+msgstr "Imagen Open Graph del sitio web"
 
 #. module: website_appointment
 #. odoo-javascript
@@ -363,7 +462,12 @@ msgstr "contáctenos"
 #. odoo-javascript
 #: code:addons/website_appointment/static/src/xml/website_appointment_templates.xml:0
 msgid "e.g. \"Technical Demo\""
-msgstr ""
+msgstr "p. ej. \"Demostración técnica\""
+
+#. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "e.g. Dental Care, ..."
+msgstr "p. ej. Cuidado dental"
 
 #. module: website_appointment
 #. odoo-javascript
@@ -372,26 +476,17 @@ msgid "or"
 msgstr "o"
 
 #. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_booking_resource_description
-msgid "others)"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_booking_resource_description
-msgid "people"
-msgstr ""
-
-#. module: website_appointment
-#: model_terms:ir.ui.view,arch_db:website_appointment.appointment_booking_resource_description
-msgid "resource(s)"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
+msgid "⌙ Resources"
+msgstr "⌙ Recursos"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "⌙ Specify"
-msgstr ""
+msgstr "⌙ Especificar"
 
 #. module: website_appointment
+#: model_terms:ir.ui.view,arch_db:website_appointment.s_dynamic_snippet_options_template
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "⌙ Users"
-msgstr ""
+msgstr "⌙ Usuarios"

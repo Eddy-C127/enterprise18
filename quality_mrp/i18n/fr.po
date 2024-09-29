@@ -1,23 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* quality_mrp
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Jolien De Paepe, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~14.5+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: quality_mrp
@@ -43,7 +42,7 @@ msgstr "<span class=\"o_stat_text\">Contrôles qualité</span>"
 #. module: quality_mrp
 #: model_terms:ir.ui.view,arch_db:quality_mrp.worksheet_page
 msgid "<strong>Manufacturing Order: </strong>"
-msgstr ""
+msgstr "<strong>Ordre de fabrication : </strong>"
 
 #. module: quality_mrp
 #: model:ir.model.fields,field_description:quality_mrp.field_mrp_production__quality_alert_ids
@@ -56,12 +55,23 @@ msgid "Checks"
 msgstr "Contrôles"
 
 #. module: quality_mrp
+#: model:ir.model,name:quality_mrp.model_mrp_production
+#: model:ir.model.fields,field_description:quality_mrp.field_quality_check_on_demand__production_id
+msgid "Manufacturing Order"
+msgstr "Ordre de fabrication"
+
+#. module: quality_mrp
+#. odoo-python
+#: code:addons/quality_mrp/models/mrp_production.py:0
+msgid "On-Demand Quality Check"
+msgstr "Contrôle qualité à la demande"
+
+#. module: quality_mrp
 #: model:ir.model,name:quality_mrp.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr "Mouvements de produit (Ligne de mouvement de stock)"
 
 #. module: quality_mrp
-#: model:ir.model,name:quality_mrp.model_mrp_production
 #: model:ir.model.fields,field_description:quality_mrp.field_quality_alert__production_id
 #: model:ir.model.fields,field_description:quality_mrp.field_quality_check__production_id
 msgid "Production Order"
@@ -79,6 +89,7 @@ msgid "Quality Alert Count"
 msgstr "Nombre d'alertes qualité"
 
 #. module: quality_mrp
+#: model:ir.actions.server,name:quality_mrp.mrp_production_action_quality_check_on_demand
 #: model:ir.model,name:quality_mrp.model_quality_check
 msgid "Quality Check"
 msgstr "Contrôle qualité"
@@ -91,7 +102,7 @@ msgstr "Échec du contrôle qualité"
 #. module: quality_mrp
 #: model:ir.model.fields,field_description:quality_mrp.field_mrp_production__quality_check_todo
 msgid "Quality Check Todo"
-msgstr "Contrôle qualité à effectuer"
+msgstr "Contrôle qualité à faire"
 
 #. module: quality_mrp
 #: model:ir.actions.act_window,name:quality_mrp.quality_check_action_mo
@@ -108,6 +119,42 @@ msgstr "Point de contrôle qualité"
 #: model:ir.model,name:quality_mrp.model_stock_move
 msgid "Stock Move"
 msgstr "Mouvement de stock"
+
+#. module: quality_mrp
+#. odoo-python
+#: code:addons/quality_mrp/models/quality.py:0
+msgid ""
+"The Quantity quality check type is not possible with manufacturing operation"
+" types."
+msgstr ""
+"Le contrôle qualité par quantité n'est pas disponible pour les opérations de"
+" fabrication."
+
+#. module: quality_mrp
+#: model:ir.model,name:quality_mrp.model_quality_check_on_demand
+msgid "Wizard to select on-demand quality check points"
+msgstr "Assistant de sélection des points de contrôle de qualité sur demande"
+
+#. module: quality_mrp
+#. odoo-python
+#: code:addons/quality_mrp/models/mrp_production.py:0
+#: code:addons/quality_mrp/wizard/on_demand_quality_check_wizard.py:0
+msgid ""
+"You can not create quality check for a draft, done or cancelled "
+"manufacturing order."
+msgstr ""
+"Vous ne pouvez pas créer de contrôle qualité pour un ordre de fabrication en"
+" projet, effectué ou annulé."
+
+#. module: quality_mrp
+#. odoo-python
+#: code:addons/quality_mrp/models/mrp_production.py:0
+msgid ""
+"You cannot perform a quality check if the quantity producing is zero. Please"
+" set the production quantity first."
+msgstr ""
+"Il n'est pas possible d'effectuer un contrôle de qualité si la quantité "
+"produite est nulle. Veuillez d'abord définir la quantité de production."
 
 #. module: quality_mrp
 #. odoo-python

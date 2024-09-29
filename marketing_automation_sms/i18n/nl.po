@@ -1,24 +1,33 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* marketing_automation_sms
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: marketing_automation_sms
+#: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_activity_summary_template_sms
+msgid "\" <strong>bounced</strong>,"
+msgstr "\" <strong>bounced</strong>,"
+
+#. module: marketing_automation_sms
+#: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_activity_summary_template_sms
+msgid "\" gets clicked,"
+msgstr "\" is/zijn aangeklikt,"
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields,field_description:marketing_automation_sms.field_marketing_campaign__mailing_sms_count
@@ -28,7 +37,7 @@ msgstr "# SMS mailings"
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Bounced after"
-msgstr "<i class=\"fa fa-exclamation-circle\"/> Gebounced na"
+msgstr "<i class=\"fa fa-exclamation-circle\"/> Bounced na"
 
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
@@ -52,16 +61,14 @@ msgid ""
 "                    <i data-trigger-type=\"sms_not_click\" class=\"fa fa-hand-pointer-o o_ma_text_rejected o_add_child_activity text-danger\" title=\"Not Clicked\" role=\"img\" aria-label=\"Not Clicked\"/>\n"
 "                    <i data-trigger-type=\"sms_bounce\" class=\"fa fa fa-exclamation-circle o_ma_text_rejected o_add_child_activity text-danger\" title=\"Bounced\" role=\"img\" aria-label=\"Bounced\"/>"
 msgstr ""
+"<i data-trigger-type=\"sms_click\" class=\"fa fa-hand-pointer-o o_ma_text_processed o_add_child_activity text-success\" title=\"Geklikt\" role=\"img\" aria-label=\"Clicked\"/>\n"
+"                    <i data-trigger-type=\"sms_not_click\" class=\"fa fa-hand-pointer-o o_ma_text_rejected o_add_child_activity text-danger\" title=\"Niet geklikt\" role=\"img\" aria-label=\"Not Clicked\"/>\n"
+"                    <i data-trigger-type=\"sms_bounce\" class=\"fa fa fa-exclamation-circle o_ma_text_rejected o_add_child_activity text-danger\" title=\"Bounced\" role=\"img\" aria-label=\"Bounced\"/>"
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields,field_description:marketing_automation_sms.field_marketing_activity__activity_type
 msgid "Activity Type"
 msgstr "Soort activiteit"
-
-#. module: marketing_automation_sms
-#: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
-msgid "Bounced"
-msgstr "Bounced"
 
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
@@ -72,7 +79,7 @@ msgstr "Geklikt"
 #. odoo-python
 #: code:addons/marketing_automation_sms/models/marketing_activity.py:0
 msgid "Exception in SMS Marketing: %s"
-msgstr "Foutmelding in SMS marketing: %s"
+msgstr "Foutmelding in SMS-Marketing: %s"
 
 #. module: marketing_automation_sms
 #: model:ir.model,name:marketing_automation_sms.model_mailing_trace
@@ -93,7 +100,7 @@ msgstr "Marketingactiviteit"
 #. module: marketing_automation_sms
 #: model:ir.actions.act_window,name:marketing_automation_sms.mail_mass_mailing_action_marketing_automation_sms
 msgid "Marketing Automation SMS"
-msgstr "Marketing automatisering SMS"
+msgstr "Marketing Automation SMS"
 
 #. module: marketing_automation_sms
 #: model:ir.model,name:marketing_automation_sms.model_marketing_campaign
@@ -109,6 +116,11 @@ msgstr "Marketingtracering"
 #: model:ir.model,name:marketing_automation_sms.model_mailing_mailing
 msgid "Mass Mailing"
 msgstr "Bulkmailing"
+
+#. module: marketing_automation_sms
+#: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_campaign_view_form
+msgid "Opened"
+msgstr "Geopend"
 
 #. module: marketing_automation_sms
 #. odoo-python
@@ -150,13 +162,13 @@ msgstr "SMS verzonden"
 #. module: marketing_automation_sms
 #: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_activity_view_form
 msgid "SMS Template"
-msgstr "SMS sjabloon"
+msgstr "SMS-sjabloon"
 
 #. module: marketing_automation_sms
 #. odoo-python
 #: code:addons/marketing_automation_sms/models/marketing_activity.py:0
-msgid "SMS canceled"
-msgstr "SMS geannuleerd"
+msgid "SMS cancelled"
+msgstr "Geannuleerde SMS"
 
 #. module: marketing_automation_sms
 #. odoo-python
@@ -193,8 +205,12 @@ msgstr "Verzonden"
 #. module: marketing_automation_sms
 #. odoo-python
 #: code:addons/marketing_automation_sms/models/marketing_activity.py:0
-msgid "To use this feature you should be an administrator or belong to the marketing automation group."
-msgstr "Om deze feature te gebruiken moet je een administrator zijn of toebehoren aan de marketing automatisering groep."
+msgid ""
+"To use this feature you should be an administrator or belong to the "
+"marketing automation group."
+msgstr ""
+"Om deze feature te gebruiken moet je een administrator zijn of toebehoren "
+"aan de marketing automation groep."
 
 #. module: marketing_automation_sms
 #: model:ir.model.fields,field_description:marketing_automation_sms.field_marketing_activity__trigger_category
@@ -205,3 +221,25 @@ msgstr "Activeer categorie"
 #: model:ir.model.fields,field_description:marketing_automation_sms.field_marketing_activity__trigger_type
 msgid "Trigger Type"
 msgstr "Soort trigger"
+
+#. module: marketing_automation_sms
+#: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_activity_summary_template_sms
+msgid "after the <strong>SMS text message</strong> sent by the Activity \""
+msgstr "als de <strong>sms</strong> is verzonden door de Activiteit \""
+
+#. module: marketing_automation_sms
+#: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_activity_summary_template_sms
+msgid ""
+"after the Participant <strong>clicked</strong>,<br/>on any link included in "
+"the <strong>SMS text message</strong> sent by the Activity \""
+msgstr ""
+"nadat de Deelnemer<strong>heeft geklikt</strong>,<br/>op een link in de "
+"<strong>sms</strong> verzonden door de Activiteit \""
+
+#. module: marketing_automation_sms
+#: model_terms:ir.ui.view,arch_db:marketing_automation_sms.marketing_activity_summary_template_sms
+msgid ""
+"if no link included in the <strong>SMS text message</strong> sent by the "
+"Activity \""
+msgstr ""
+"indien geen link in de <strong>sms</strong> verzonden door de Activiteit \""

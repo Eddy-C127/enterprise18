@@ -1,27 +1,29 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* planning
-#
+# 
 # Translators:
-# Thanh Nguyễn Văn, 2022
-# Duy BQ <duybq86@gmail.com>, 2022
-# Vo Thanh Thuy, 2022
-# Martin Trigaux, 2022
-# Nancy Momoland <thanhnguyen.icsc@gmail.com>, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Nancy Momoland <thanhnguyen.icsc@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
-"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/resource_resource.py:0
+msgid "%(resource_name)s (%(role)s)"
+msgstr "%(resource_name)s (%(role)s)"
 
 #. module: planning
 #. odoo-python
@@ -46,6 +48,16 @@ msgid ".&amp;nbsp;"
 msgstr ".&amp;nbsp;"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "01/01/2023 5:00 PM"
+msgstr "01/01/2023 5:00 CH"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "01/01/2023 9:00 AM"
+msgstr "01/01/2023 9:00 S"
+
+#. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "04:00"
 msgstr "04:00"
@@ -53,7 +65,24 @@ msgstr "04:00"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "08:00"
-msgstr ""
+msgstr "08:00"
+
+#. module: planning
+#: model_terms:hr.job,job_details:planning.job_maintenance_technician
+#: model_terms:hr.job,job_details:planning.job_quality_control
+msgid "1 Onsite Interview"
+msgstr "1 Phỏng vấn tại chỗ"
+
+#. module: planning
+#: model_terms:hr.job,job_details:planning.job_maintenance_technician
+#: model_terms:hr.job,job_details:planning.job_quality_control
+msgid "1 Phone Call"
+msgstr "1 cuộc điện thoại"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "100"
+msgstr "100"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -62,18 +91,49 @@ msgstr "12:00"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
+msgid "13"
+msgstr "13"
+
+#. module: planning
+#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
+msgid "14"
+msgstr "14"
+
+#. module: planning
+#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
+msgid "15"
+msgstr "15"
+
+#. module: planning
+#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "16:00"
 msgstr "16:00"
 
 #. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<b class=\"o_gantt_header o_gantt_row_sidebar position-sticky top-0 bg-view d-flex align-items-center justify-content-center\">Schedule</b>"
-msgstr ""
+#: model_terms:hr.job,job_details:planning.job_maintenance_technician
+#: model_terms:hr.job,job_details:planning.job_quality_control
+msgid "2 open days"
+msgstr "2 ngày mở cửa"
+
+#. module: planning
+#: model_terms:hr.job,job_details:planning.job_maintenance_technician
+#: model_terms:hr.job,job_details:planning.job_quality_control
+msgid "4 Days after Interview"
+msgstr "4 ngày sau phỏng vấn"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "8 hours"
+msgstr "8 giờ"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<b class=\"o_gantt_header_scale d-flex align-items-center justify-content-center\">12 February 2023 - 18 February 2023</b>"
+msgid ""
+"<b class=\"o_gantt_title d-flex align-items-center justify-content-center "
+"bg-100 position-sticky start-0 p-2 border-end\"> Schedule</b>"
 msgstr ""
+"<b class=\"o_gantt_title d-flex align-items-center justify-content-center "
+"bg-100 position-sticky start-0 p-2 border-end\"> Lịch trình</b>"
 
 #. module: planning
 #: model_terms:digest.tip,tip_description:planning.digest_tip_planning_0
@@ -81,16 +141,25 @@ msgid "<b class=\"tip_title\">Tip: Record your planning faster</b>"
 msgstr "<b class=\"tip_title\">Mẹo: Ghi lại kế hoạch của bạn nhanh hơn</b>"
 
 #. module: planning
-#. odoo-javascript
-#: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "<b>Congratulations!</b></br> You are now a master of planning."
-msgstr "<b>Chúc mừng!</b></br> Bây giờ bạn là một bậc thầy về lập kế hoạch."
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
+msgid "<b>Allocated Time:</b>"
+msgstr "<b>Thời gian đã phân bổ:</b>"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its period."
-msgstr "<b>Kéo & thả</b> các ca để đặt lại kế hoạch. <i>Mẹo: bấm CTRL (hoặc Cmd) để tạo bản sao.</i> <b>Thay đổi kích cỡ</b> của ca để sửa đổi thời lượng."
+msgid ""
+"<b>Drag & drop</b> your shift to reschedule it. <i>Tip: hit CTRL (or Cmd) to"
+" duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its"
+" period."
+msgstr ""
+"<b>Kéo & thả</b> các ca để đặt lại kế hoạch. <i>Mẹo: bấm CTRL (hoặc Cmd) để "
+"tạo bản sao.</i> <b>Thay đổi kích cỡ</b> của ca để sửa đổi thời lượng."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
+msgid "<b>Note:</b>"
+msgstr "<b>Ghi chú:</b>"
 
 #. module: planning
 #. odoo-javascript
@@ -99,135 +168,54 @@ msgid "<b>Publish & send</b> your employee's planning."
 msgstr "<b>Công bố & gửi</b> kế hoạch làm việc cho nhắn viên của bạn."
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
+msgid "<b>Role:</b>"
+msgstr "<b>Vai trò:</b>"
+
+#. module: planning
 #: model:mail.template,body_html:planning.email_template_shift_switch_email
 msgid ""
 "<div>\n"
-"                    <p>\n"
-"                        Dear <t t-out=\"ctx['assignee'].name or ''\"></t>,\n"
-"                        <br><br>\n"
-"                        Your following shift was re-assigned to <t t-out=\"ctx['employee'].name\"></t>.\n"
-"                    </p>\n"
+"                    <p t-if=\"ctx.get('old_assignee_name')\">Dear <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Hello,</p>\n"
 "                    <br>\n"
-"                    <table style=\"width: 80%; margin: auto;\">\n"
-"                        <tr>\n"
-"                            <th style=\"padding: 5px;text-align: left;\">From</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('start_datetime') or ''\">05/31/2021 08:00:00</td>\n"
-"                        </tr>\n"
-"                        <tr>\n"
-"                            <th style=\"padding: 5px;text-align: left;\">To</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('end_datetime') or ''\">05/31/2021 16:00:00</td>\n"
+"                    <p>\n"
+"                        The following shift that you requested to switch has been re-assigned\n"
+"                        <t t-if=\"ctx.get('new_assignee_name')\"> to <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>.\n"
+"                    </p>\n"
+"                    <table style=\"margin-left: 30px;\">\n"
+"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Date</th>\n"
+"                            <td style=\"padding: 5px;\">\n"
+"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
+"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
+"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t>h)\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
+"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t>%)\n"
+"                                </span>\n"
+"                            </td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px;text-align: left;\">Role</th>\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Role</th>\n"
 "                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Bartender</td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px;text-align: left;\">Project</th>\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Project</th>\n"
 "                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Gathering</td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Sale Order Item</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\"></td>\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Sales Order Item</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">Coffee</td>\n"
 "                        </tr>\n"
 "                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px;text-align: left;\">Note</th>\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Note</th>\n"
 "                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
 "                        </tr>\n"
 "                    </table>\n"
-"                </div>\n"
-"            "
-msgstr ""
-
-#. module: planning
-#: model:mail.template,body_html:planning.email_template_planning_planning
-msgid ""
-"<div>\n"
-"                    <p>\n"
-"                    <t t-if=\"ctx.get('employee')\">\n"
-"                        Dear <t t-out=\"ctx['employee'].name or ''\"></t>,\n"
-"                    </t>\n"
-"                    <t t-else=\"\">\n"
-"                        Hello,\n"
-"                    </t>\n"
-"                        <br><br>\n"
-"                    <t t-if=\"ctx.get('assigned_new_shift')\">\n"
-"                        You have been assigned new shifts:\n"
-"                    </t>\n"
-"                    <t t-else=\"\">\n"
-"                        Please, find your planning for the following period:\n"
-"                    </t>\n"
-"                    </p>\n"
 "                    <br>\n"
-"\n"
-"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
-"                        <tr>\n"
-"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">From</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"format_date(ctx.get('start_datetime')) or ''\">05/05/2021</td>\n"
-"                        </tr>\n"
-"                        <tr>\n"
-"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">To</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"format_date(ctx.get('end_datetime')) or ''\">05/05/2021</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
-"\n"
-"                    <div t-if=\"ctx.get('planning_url')\" style=\"margin: 15px;\">\n"
-"                        <a t-att-href=\"ctx.get('planning_url')\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">View Your Planning</a>\n"
-"                    </div>\n"
-"\n"
-"                    <div t-if=\"ctx.get('slot_unassigned')\">\n"
-"                        <p>If an open shift is available and at your convenience, please assign yourself to it</p>\n"
-"                    </div>\n"
-"                    <br>\n"
-"\n"
-"                    <t t-if=\"ctx.get('message')\">\n"
-"                        <p t-out=\"ctx['message'] or ''\"></p>\n"
-"                    </t>\n"
-"\n"
-"                    <p t-if=\"hasattr(object, 'allow_self_unassign') and object.allow_self_unassign and hasattr(object, 'self_unassign_days_before') and object.self_unassign_days_before\">\n"
-"                        As a small reminder, you have <t t-out=\"object.self_unassign_days_before or ''\">5</t>day(s) before the beginning of a shift to unassign yourself if you are unavailable. Thank you for your understanding.\n"
-"                    </p>\n"
-"                </div>\n"
-"            "
-msgstr ""
-
-#. module: planning
-#: model:mail.template,body_html:planning.email_template_slot_single
-msgid ""
-"<div>\n"
-"                    <p>Dear <t t-out=\"ctx.get('employee_name', '')\">Anita Oliver</t>,<br><br></p>\n"
-"                    <t t-if=\"ctx.get('open_shift_available')\">\n"
-"                        <p>A new open shift is available:</p>\n"
-"                    </t>\n"
-"                    <t t-else=\"\">\n"
-"                        <p>You have been assigned the following schedule:</p>\n"
-"                    </t>\n"
-"                    <br>\n"
-"                    <table style=\"width: 80%; margin: auto;\">\n"
-"                        <tr>\n"
-"                            <th style=\"padding: 5px;text-align: left;\">From</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('start_datetime') or ''\">05/31/2021 08:00:00</td>\n"
-"                        </tr>\n"
-"                        <tr>\n"
-"                            <th style=\"padding: 5px;text-align: left;\">To</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"ctx.get('end_datetime') or ''\">05/31/2021 16:00:00</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"object.role_id\">\n"
-"                            <th style=\"padding: 5px;text-align: left;\">Role</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Bartender</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
-"                            <th style=\"padding: 5px;text-align: left;\">Project</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Gathering</td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
-"                            <th style=\"padding: 5px; text-align: left;\">Sale Order Item</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\"></td>\n"
-"                        </tr>\n"
-"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
-"                            <th style=\"padding: 5px;text-align: left;\">Note</th>\n"
-"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
-"                        </tr>\n"
-"                    </table>\n"
 "                </div>\n"
 "            "
 msgstr ""
@@ -235,29 +223,38 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
 msgid ""
-"<i class=\"fa fa-check-circle text-success\"/> \n"
+"<i class=\"fa fa-check-circle text-success\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/>\n"
+"                        Bạn đã yêu cầu đổi ca thành công. Bạn sẽ được thông báo khi có nhân viên khác đảm nhận ca làm việc của bạn."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-check-circle text-success\"/> Request to switch shift cancelled successfully."
+msgid ""
+"<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
+"cancelled successfully."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> Yêu cầu đổi ca đã được hủy "
+"thành công."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-check-circle text-success\"/> This shift is no longer assigned to you."
-msgstr "<i class=\"fa fa-check-circle text-success\"/> Ca này không còn được giao cho bạn nữa."
+msgid ""
+"<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
+"assigned to you."
+msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> Ca này không còn được giao "
+"cho bạn nữa."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-check-circle text-success\"/> You were successfully assigned this open shift."
-msgstr "<i class=\"fa fa-check-circle text-success\"/> Bạn đã được chỉ định thành công ca mở này."
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
-msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
-msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Ngày\"/>"
+msgid ""
+"<i class=\"fa fa-check-circle text-success\"/> You were successfully "
+"assigned this open shift."
+msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> Bạn đã được phân công thành "
+"công cho ca làm trống này."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -266,23 +263,37 @@ msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Hours\" title=\"Gi�
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
-msgid "<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-right: 2px\"/>"
+msgid ""
+"<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-"
+"right: 2px\"/>"
 msgstr ""
+"<i class=\"fa fa-envelope-o\" title=\"Thư\" role=\"img\" style=\"padding-"
+"right: 2px\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already assigned to another employee."
-msgstr "<i class=\"fa fa-exclamation-circle text-warning\"/> Ca này đã được giao cho một nhân viên khác."
+msgid ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
+"assigned to another employee."
+msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> Ca này đã được giao cho"
+" một nhân viên khác."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
-msgid "<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer unassign yourself from this shift."
+msgid ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
+"unassign yourself from this shift."
 msgstr "Bạn không thể tự bỏ phân công khỏi ca làm này nữa."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
-msgid "<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
-msgstr "<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+msgid ""
+"<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
+msgstr ""
+"<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
@@ -298,91 +309,108 @@ msgstr "<i class=\"fa fa-long-arrow-right\" title=\"Mũi tên\"/>"
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
 msgid "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-right: 2px\"/>"
 msgstr ""
+"<i class=\"fa fa-phone\" title=\"Điện thoại\" role=\"img\" style=\"padding-"
+"right: 2px\"/>"
 
 #. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<i class=\"fa small fa-minus me-1\"></i>Bartender"
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
+msgid "<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<i class=\"fa small fa-minus me-1\"></i>Waiter"
+msgid ""
+"<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
+"class=\"text-truncate w-0 flex-grow-1 text-start\">Bartender</span>"
 msgstr ""
+"<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
+"class=\"text-truncate w-0 flex-grow-1 text-start\">Nhân viên pha chế</span>"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.period_report_template
-msgid "<span aria-label=\"Close\">×</span>"
-msgstr "<span aria-label=\"Đóng\">×</span>"
+#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
+msgid ""
+"<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
+"class=\"text-truncate w-0 flex-grow-1 text-start\">Waiter</span>"
+msgstr ""
+"<i class=\"o_group_caret fa fa-fw me-1 fa-caret-down\"></i> <span "
+"class=\"text-truncate w-0 flex-grow-1 text-start\">Phục vụ bàn</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "<span class=\"align-middle\" attrs=\"{'invisible': [('overlap_slot_count', '=', 0)]}\">for this resource at the same time.</span>"
-msgstr "<span class=\"align-middle\" attrs=\"{'invisible': [('overlap_slot_count', '=', 0)]}\">cho nguồn lực này cùng lúc.</span>"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
-msgid "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
-msgstr "<span class=\"ms-2 flex-shrink-1\"> Working hours</span>"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "<span class=\"ms-2 me-4\">Edit</span>"
-msgstr ""
+msgid "<span class=\"ms-0 me-4\">Edit</span>"
+msgstr "<span class=\"ms-0 me-4\">Chỉnh sửa</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 mb-1\">04:00</span>"
+msgid ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">04:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">04:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 mb-1\">12:00</span>"
+msgid ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">12:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">12:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 mb-1\">16:00</span>"
+msgid ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">16:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">16:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 z-index-1\">04:00</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-1\">04:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-1\">04:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 z-index-1\">08:00</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-1\">08:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-1\">08:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title bg-view text-truncate px-1 z-index-1\">12:00</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-1\">12:00</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title bg-view text-truncate px-1 "
+"z-1\">12:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM (4h) - Jeffrey Kelly</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 "
+"PM</span>"
 msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 chiều - 5:00 "
+"chiều</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">1:00 PM - 5:00 PM (4h)</span>"
+msgid ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 "
+"PM</span>"
 msgstr ""
-
-#. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM (4h) - Doris Cole</span>"
-msgstr ""
-
-#. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM (4h) - Eli Lambert</span>"
-msgstr ""
-
-#. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 AM - 12:00 PM (4h)</span>"
-msgstr ""
+"<span class=\"o_gantt_pill_title text-truncate mx-1\">8:00 sáng - 12:00 "
+"chiều</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -391,27 +419,86 @@ msgid ""
 "                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>\n"
 "                                    <span class=\"o_end_date\"/>"
 msgstr ""
+"<span class=\"o_start_date\"/>\n"
+"                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"Biểu tượng mũi tên\" title=\"Mũi tên\"/>\n"
+"                                    <span class=\"o_end_date\"/>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
+msgid "<span class=\"o_stat_text\">Planning</span>"
+msgstr "<span class=\"o_stat_text\">Kế hoạch</span>"
+
+#. module: planning
+#: model_terms:hr.job,job_details:planning.job_maintenance_technician
+#: model_terms:hr.job,job_details:planning.job_quality_control
+msgid "<span class=\"text-muted small\">Days to get an Offer</span>"
+msgstr "<span class=\"text-muted small\">Số ngày để nhận Đề nghị</span>"
+
+#. module: planning
+#: model_terms:hr.job,job_details:planning.job_maintenance_technician
+#: model_terms:hr.job,job_details:planning.job_quality_control
+msgid "<span class=\"text-muted small\">Process</span>"
+msgstr "<span class=\"text-muted small\">Quá trình</span>"
+
+#. module: planning
+#: model_terms:hr.job,job_details:planning.job_maintenance_technician
+#: model_terms:hr.job,job_details:planning.job_quality_control
+msgid "<span class=\"text-muted small\">Time to Answer</span>"
+msgstr "<span class=\"text-muted small\">Thời gian để trả lời</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span>Doris Cole <span class=\"text-muted\">(Bartender)</span></span>"
-msgstr "<span>Lê Minh Xuân <span class=\"text-muted\">(Người pha chế)</span></span>"
+msgid ""
+"<span class=\"text-truncate w-0 flex-grow-1 text-start\">Open Shifts</span>"
+msgstr ""
+"<span class=\"text-truncate w-0 flex-grow-1 text-start\">Ca làm trống</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span>Eli Lambert <span class=\"text-muted\">(Waiter)</span></span>"
-msgstr "<span>Lâm Văn Long <span class=\"text-muted\">(Phục vụ)</span></span>"
+msgid ""
+"<span class=\"text-truncate w-0 flex-grow-1\"> <span>Doris Cole </span> "
+"<span class=\"text-muted text-truncate\">(Bartender)</span> </span>"
+msgstr ""
+"<span class=\"text-truncate w-0 flex-grow-1\"> <span>Doris Cole </span> "
+"<span class=\"text-muted text-truncate\">(Nhân viên pha chế)</span> </span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "<span>Jeffrey Kelly <span class=\"text-muted\">(Bartender)</span></span>"
-msgstr "<span>Hồ Cẩm Nhung <span class=\"text-muted\">(Người pha chế)</span></span>"
+msgid ""
+"<span class=\"text-truncate w-0 flex-grow-1\"> <span>Eli Lambert </span> "
+"<span class=\"text-muted text-truncate\">(Waiter)</span> </span>"
+msgstr ""
+"<span class=\"text-truncate w-0 flex-grow-1\"> <span>Eli Lambert </span> "
+"<span class=\"text-muted text-truncate\">(Phục vụ bàn)</span> </span>"
+
+#. module: planning
+#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
+msgid ""
+"<span class=\"text-truncate w-0 flex-grow-1\"> <span>Jeffrey Kelly </span> "
+"<span class=\"text-muted text-truncate\">(Bartender)</span> </span>"
+msgstr ""
+"<span class=\"text-truncate w-0 flex-grow-1\"> <span>Jeffrey Kelly </span> "
+"<span class=\"text-muted text-truncate\">(Nhân viên pha chế)</span> </span>"
+
+#. module: planning
+#: model_terms:web_tour.tour,rainbow_man_message:planning.planning_tour
+msgid ""
+"<span><b>Congratulations!</b> You are now a master of planning.\n"
+"        </span>"
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "<span>Allow employees to:</span>"
+msgstr "<span>Cho phép nhân viên:</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
-msgid "<span>The employee assigned would like to switch shifts with someone else.</span>"
-msgstr ""
+msgid ""
+"<span>The employee assigned would like to switch shifts with someone "
+"else.</span>"
+msgstr "<span>Nhân viên được phân công muốn đổi ca với người khác.</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -424,14 +511,140 @@ msgid "<strong>Allocated Time — </strong>"
 msgstr "<strong>Thời gian được phân bổ — </strong>"
 
 #. module: planning
+#: model:mail.template,body_html:planning.email_template_slot_single
+msgid ""
+"<style>\n"
+"                    .planning_mail_template_button {\n"
+"                        padding: 5px 10px;\n"
+"                        text-decoration: none;\n"
+"                        border: 1px;\n"
+"                        border-radius: 3px;\n"
+"                        text-align: center;\n"
+"                        color: #374151;\n"
+"                        background-color: #E7E9ED;\n"
+"                        border: solid #E7E9ED;\n"
+"                        flex: 1 1 40%;\n"
+"                    }\n"
+"                    .top_button {\n"
+"                        color: #FFFFFF;\n"
+"                        background-color: #714B67;\n"
+"                        border: solid #714B67;\n"
+"                        flex: 1 1 60%;\n"
+"                    }\n"
+"                    .button_box {\n"
+"                        display: flex;\n"
+"                        flex-wrap: wrap;\n"
+"                        gap: 10px;\n"
+"                        margin: 20px 15px 0px 15px;\n"
+"                    }\n"
+"                </style>\n"
+"                <div>\n"
+"                    <p t-if=\"ctx.get('employee_name')\">Dear <t t-out=\"ctx['employee_name']\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Hello,</p>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('open_shift_available')\">We have a new shift opening:</p>\n"
+"                    <p t-else=\"\">You have been assigned the following shift:</p>\n"
+"                    <table style=\"margin-left: 30px;\">\n"
+"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Date</th>\n"
+"                            <td style=\"padding: 5px;\">\n"
+"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
+"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
+"                                    (<t t-out=\"ctx['allocated_hours']\">4:00</t>h)\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
+"                                    (<t t-out=\"ctx['allocated_percentage']\">50</t>%)\n"
+"                                </span>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"object.role_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Role</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Bartender</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Project</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Gathering</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Sales Order Item</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">Coffee</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Note</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                    <div class=\"button_box\">\n"
+"                        <a t-if=\"ctx.get('available_link')\" t-att-href=\"ctx['available_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">Assign me this shift</a>\n"
+"                        <a t-if=\"ctx.get('unavailable_link')\" t-att-href=\"ctx['unavailable_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">I am unavailable</a>\n"
+"                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to Google Calendar</a>\n"
+"                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Add to iCal/Outlook</a>\n"
+"                    </div>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('open_shift_available')\">If you are interested and available, please assign yourself this open shift.</p>\n"
+"                    <p t-else=\"\">In case the current shift doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: planning
+#: model:mail.template,body_html:planning.email_template_planning_planning
+msgid ""
+"<style>\n"
+"                .planning_mail_template_button {\n"
+"                    padding: 5px 10px;\n"
+"                    text-decoration: none;\n"
+"                    border: 1px;\n"
+"                    border-radius: 3px;\n"
+"                    display: inline-block; \n"
+"                    width: 190px;\n"
+"                    text-align: center;\n"
+"                }\n"
+"                </style>\n"
+"                <div>\n"
+"                    <p t-if=\"ctx.get('employee')\">Dear <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Hello,</p>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
+"                        Your upcoming shifts from <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
+"                        to <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> have been published.\n"
+"                    </p>\n"
+"                    <div style=\"display: flex; margin: 15px;\">\n"
+"                        <div t-if=\"ctx.get('planning_url')\" style=\"margin-right: 15px;\">\n"
+"                            <a t-att-href=\"ctx['planning_url']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;\">View Your Planning</a>\n"
+"                        </div>\n"
+"                        <div t-if=\"ctx.get('planning_url_ics')\">\n"
+"                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Add to Calendar</a>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
+"                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
+"                            We would also like to remind you that there are some open shifts available, and if you are interested and available, please assign yourself to those shifts.\n"
+"                        </t>\n"
+"                        <t t-if=\"object.allow_self_unassign and object.self_unassign_days_before\">\n"
+"                            If you are unable to work a shift that has been assigned to you, please unassign yourself within <t t-out=\"object.self_unassign_days_before or ''\">5</t> day(s) before the start of the shift.\n"
+"                        </t>\n"
+"                    </p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
+"                    <p t-if=\"object.allow_self_unassign\">In case your current schedule doesn't suit you, we encourage you to reach out to your colleagues and request to switch shifts. They might be interested in exchanging shifts with you.</p>\n"
+"                </div>\n"
+"            "
+msgstr ""
+
+#. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
-msgid "A recurrence repeating itself until a certain date must have its limit set"
+msgid ""
+"A recurrence repeating itself until a certain date must have its limit set"
 msgstr "Lặp lại mỗi ngày, cho đến khi kết thúc thời hạn"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
-msgid "ASSIGN TO ME"
-msgstr "GIAO CHO TÔI"
+#. odoo-python
+#: code:addons/planning/models/planning_recurrency.py:0
+msgid "A shift must be in the same company as its recurrence."
+msgstr "Một ca phải thuộc cùng một công ty với các ca lặp lại."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__active
@@ -446,14 +659,14 @@ msgid "Add Shift"
 msgstr "Thêm ca"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
-msgid "Additional message"
-msgstr "Thông điệp bổ sung"
-
-#. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
 msgid "Additional message displayed in the email sent to employees"
 msgstr "Hiển thị thông điệp trong email gửi đến nhân viên"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+msgid "Additional message included in the email sent to your employees"
+msgstr "Tin nhắn bổ sung có trong email gửi tới nhân viên"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -463,30 +676,44 @@ msgstr "Ghi chú bổ sung gửi cho nhân viên"
 #. module: planning
 #: model:res.groups,name:planning.group_planning_manager
 msgid "Administrator"
-msgstr "Người quản trị"
+msgstr "Quản trị viên"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
-msgid "All open shifts have already been assigned, or there are no resources available to take them at this time."
+msgid ""
+"All open shifts have already been assigned, or there are no resources "
+"available to take them at this time."
 msgstr ""
+"Tất cả ca làm trống đã được phân công hoặc không có nhân viên rảnh để thực "
+"hiện chúng vào lúc này."
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__all
 msgid "All shifts"
-msgstr ""
+msgstr "Tất cả ca làm"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
-msgid "All subsequent shifts will be deleted. Are you sure you want to continue?"
-msgstr "Tất cả các ca tiếp theo sẽ bị xóa. Bạn có chắc chắn muốn tiếp tục không?"
+msgid ""
+"All subsequent shifts will be deleted. Are you sure you want to continue?"
+msgstr ""
+"Tất cả các ca tiếp theo sẽ bị xóa. Bạn có chắc chắn muốn tiếp tục không?"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_hours
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Allocated Hours"
 msgstr "Giờ phân bổ"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
+msgid "Allocated Percentage"
+msgstr "Phần trăm đã phân bổ"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_hours
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_hours
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Allocated Time"
@@ -503,9 +730,15 @@ msgid "Allocated Time (%)"
 msgstr "Thời gian phân bổ (%)"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
+msgid "Allocated Time:"
+msgstr "Thời gian đã phân bổ:"
+
+#. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_allocated_hours_positive
 msgid "Allocated hours and allocated time percentage cannot be negative."
-msgstr "Số giờ được phân bổ và phần trăm thời gian được phân bổ không được âm."
+msgstr ""
+"Số giờ được phân bổ và phần trăm thời gian được phân bổ không được âm."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocation_type
@@ -513,25 +746,13 @@ msgid "Allocation Type"
 msgstr "Loại phân bổ"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__allow_template_creation
-msgid "Allow Template Creation"
-msgstr "Cho phép tạo mẫu"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_allow_self_unassign
-msgid "Allow Unassignment"
-msgstr "Cho phép hủy gán"
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning_recurrency.py:0
-msgid "An shift must be in the same company as its recurrency."
-msgstr "Một sự thay đổi ca làm việc trong cùng một công ty với sự lặp lại của nó."
-
-#. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
-msgid "Analyze the allocation of your resources across roles, projects, and sales orders, and estimate future needs."
-msgstr "Phân tích việc phân bổ nguồn lực của bạn theo vai trò, dự án và đơn đặt hàng cũng như ước tính nhu cầu trong tương lai."
+msgid ""
+"Analyze the allocation of your resources across roles, projects, and sales "
+"orders, and estimate future needs."
+msgstr ""
+"Phân tích việc phân bổ nhân viên của bạn theo vai trò, dự án và đơn bán hàng"
+" cũng như ước tính nhu cầu trong tương lai."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
@@ -539,7 +760,18 @@ msgstr "Phân tích việc phân bổ nguồn lực của bạn theo vai trò, d
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 msgid "Archived"
-msgstr "Đã lưu"
+msgstr "Đã lưu trữ"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/resource_form/resource_form_controller.js:0
+#: code:addons/planning/static/src/views/resource_list/resource_list_controller.js:0
+msgid ""
+"Archiving this resource will transform all of its future shifts into open "
+"shifts. Are you sure you want to continue?"
+msgstr ""
+"Việc lưu trữ nhân viên này sẽ chuyển đổi tất cả ca làm việc trong tương lai "
+"của nhân viên đó thành ca làm trống. Bạn có chắc chắn muốn tiếp tục không?"
 
 #. module: planning
 #. odoo-javascript
@@ -548,32 +780,45 @@ msgid "Are you sure you want to delete this shift?"
 msgstr "Bạn có chắc chắn muốn xóa ca này không?"
 
 #. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "As there is no running contract during this period, this resource is not expected to work a shift. Planned hours:"
-msgstr "Vì không có hợp đồng đang chạy trong khoảng thời gian này, tài nguyên này dự kiến sẽ không hoạt động theo ca. Giờ dự kiến:"
+#. odoo-javascript
+#: code:addons/planning/static/src/components/conflicting_slot_ids_field/conflicting_slot_ids_field.xml:0
+msgid "Arrow"
+msgstr "Mũi tên"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/components/conflicting_slot_ids_field/conflicting_slot_ids_field.xml:0
+msgid "Arrow icon"
+msgstr "Biểu tượng mũi tên"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Ask To Switch"
-msgstr ""
+msgstr "Hỏi để đổi"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Ask to Switch"
-msgstr ""
+msgstr "Hỏi để đổi"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "Assign a <b>resource</b>, or leave it open for the moment. <i>Tip: Create open shifts for the roles you will be needing to complete a mission. Then, assign those open shifts to the resources that are available.</i>"
-msgstr "Chỉ định một <b>nhân sự</b> hoặc để nó mở trong lúc này. <i>Mẹo: Tạo ca làm việc mở cho các vai trò mà bạn sẽ cần để hoàn thành nhiệm vụ. Sau đó, chỉ định các ca mở đó cho các nhân sự có sẵn.</i>"
+msgid ""
+"Assign a <b>resource</b>, or leave it open for the moment. <i>Tip: Create "
+"open shifts for the roles you will be needing to complete a mission. Then, "
+"assign those open shifts to the resources that are available.</i>"
+msgstr ""
+"Phân công một <b>nhân viên</b> hoặc để nó mở trong lúc này. <i>Mẹo: Tạo ca "
+"làm trống cho các vai trò mà bạn sẽ cần để hoàn thành nhiệm vụ. Sau đó, phân"
+" công các ca làm đó cho những nhân viên trống lịch.</i>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "Assignee"
-msgstr "Người nhận"
+msgstr "Người được phân công"
 
 #. module: planning
 #. odoo-javascript
@@ -582,19 +827,20 @@ msgstr "Người nhận"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Auto Plan"
-msgstr ""
+msgstr "Tự động lập kế hoạch"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 msgid "Automatically plan open shifts and sales orders"
-msgstr ""
+msgstr "Tự động lập kế hoạch ca làm trống và đơn bán hàng"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_resource_resource__avatar_128
-msgid "Avatar 128"
-msgstr "Hình đại diện 128"
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_filter_panel/planning_calendar_filter_panel.xml:0
+msgid "Avatar"
+msgstr "Ảnh đại diện"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -609,29 +855,25 @@ msgstr "Người dùng cơ bản"
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_resource
 msgid "By Resource"
-msgstr "Theo nguồn lực"
+msgstr "Theo nhân viên"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_role
 msgid "By Role"
-msgstr "Theo qui tắc"
+msgstr "Theo vai trò"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "CANCEL SWITCH"
-msgstr ""
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_res_company__planning_allow_self_unassign
-msgid "Can Employee Un-Assign Themselves?"
-msgstr "Nhân viên có thể tự chỉ định không?"
+msgstr "HUỶ ĐỔI CA"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Cancel Switch"
-msgstr ""
+msgstr "Huỷ đổi ca"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
@@ -641,7 +883,6 @@ msgstr "Nhắn tin"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__color
 #: model:ir.model.fields,field_description:planning.field_planning_slot__color
-#: model:ir.model.fields,field_description:planning.field_resource_resource__color
 msgid "Color"
 msgstr "Màu sắc"
 
@@ -660,20 +901,23 @@ msgstr "Công ty"
 #: model:ir.model.fields,field_description:planning.field_planning_planning__company_id
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__company_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__company_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Company"
 msgstr "Công ty"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_planning__company_id
-msgid "Company linked to the material resource. Leave empty for the resource to be available in every company."
-msgstr "Công ty liên kết với các nhân sự. Để trống đối với tài nguyên có sẵn trong mọi công ty."
+msgid ""
+"Company linked to the material resource. Leave empty for the resource to be "
+"available in every company."
+msgstr ""
+"Công ty liên kết với nguồn lực vật chất. Để trống đối với nguồn lực có trong"
+" mọi công ty."
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_config_settings
 msgid "Config Settings"
-msgstr "Cấu hình"
+msgstr "Cài đặt cấu hình"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_settings
@@ -681,14 +925,10 @@ msgid "Configuration"
 msgstr "Cấu hình"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__confirm_delete
-msgid "Confirm Slots Deletion"
-msgstr "Xác nhận Xóa chỗ"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__conflicting_slot_ids
-msgid "Conflicting Slot"
-msgstr "Khung giờ xung đột"
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.xml:0
+msgid "Confirm"
+msgstr "Xác nhận"
 
 #. module: planning
 #. odoo-javascript
@@ -702,6 +942,11 @@ msgstr "Sao chép trước"
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 msgid "Copy previous week"
 msgstr "Sao chép tuần trước"
+
+#. module: planning
+#: model:planning.role,name:planning.planning_role_crane
+msgid "Crane"
+msgstr "Crane"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
@@ -747,7 +992,6 @@ msgid "Days"
 msgstr "Ngày"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_planning__self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_planning_slot__self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_self_unassign_days_before
@@ -758,11 +1002,6 @@ msgstr "Số ngày trước ca làm có thể bỏ phân ca"
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Deadline"
 msgstr "Hạn chót"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__unassign_deadline
-msgid "Deadline for unassignment"
-msgstr "Hạn chót bỏ phân ca"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_planning__self_unassign_days_before
@@ -776,27 +1015,51 @@ msgstr "Số ngày tới hạn chót bỏ phân ca"
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
 #: model:ir.model.fields,field_description:planning.field_resource_resource__default_role_id
 msgid "Default Role"
-msgstr ""
+msgstr "Vai trò mặc định"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
+msgid "Default Roles"
+msgstr "Vai trò mặc định"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
-msgid "Define a work email address for the following employees so they will receive the planning."
-msgstr "Xác định địa chỉ email công việc cho những nhân viên sau để họ nhận được kế hoạch."
+msgid ""
+"Define a work email address for the following employees so they will receive"
+" the planning."
+msgstr ""
+"Xác định địa chỉ email công việc cho những nhân viên sau để họ nhận được kế "
+"hoạch."
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__role_id
-msgid "Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). Create open shifts for the roles you need to complete a mission. Then, assign those open shifts to the resources that are available."
-msgstr "Xác định vai trò mà nhân sự của bạn thực hiện (ví dụ: Đầu bếp, Nhân viên pha chế, Người phục vụ...). Tạo ca mở cho các vai trò bạn cần để hoàn thành nhiệm vụ. Sau đó, chỉ định các ca mở đó cho các nhân sự hiện có."
+msgid ""
+"Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). "
+"Create open shifts for the roles you need to complete a mission. Then, "
+"assign those open shifts to the resources that are available."
+msgstr ""
+"Xác định vai trò mà nhân viên của bạn thực hiện (VD: Đầu bếp, Nhân viên pha "
+"chế, Phục vụ bàn,...). Tạo ca làm trống cho các vai trò bạn cần để hoàn "
+"thành nhiệm vụ. Sau đó, phân công các ca làm đó cho những nhân viên trống "
+"lịch."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). Create open shifts for the roles you will be needing to complete a mission. Then, assign those open shifts to the resources that are available."
-msgstr "Xác định vai trò mà nhân sự của bạn thực hiện (ví dụ: Đầu bếp, Nhân viên pha chế, Người phục vụ...). Tạo ca mở cho các vai trò mà bạn sẽ cần để hoàn thành nhiệm vụ. Sau đó, chỉ định các ca mở đó cho các nhân sự hiện có."
+msgid ""
+"Define the roles your resources perform (e.g. Chef, Bartender, Waiter...). "
+"Create open shifts for the roles you will be needing to complete a mission. "
+"Then, assign those open shifts to the resources that are available."
+msgstr ""
+"Xác định vai trò mà nhân viên của bạn thực hiện (VD: Đầu bếp, Nhân viên pha "
+"chế, Phục vụ bàn,...). Tạo ca làm trống cho các vai trò bạn cần để hoàn "
+"thành nhiệm vụ. Sau đó, phân công các ca làm đó cho những nhân viên trống "
+"lịch."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
 msgid "Delete"
 msgstr "Xoá"
@@ -805,20 +1068,19 @@ msgstr "Xoá"
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.js:0
 msgid "Delete Recurring Shift"
-msgstr ""
+msgstr "Xóa ca định kỳ"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__department_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__department_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Department"
-msgstr "Phòng/Ban"
+msgstr "Phòng ban"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_departure_wizard
 msgid "Departure Wizard"
-msgstr "Departure Wizard"
+msgstr "Công cụ hỗ trợ quá trình nghỉ việc"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_developer
@@ -846,7 +1108,7 @@ msgstr "Tên hiển thị"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "Distribute your material resources across projects and sales orders."
-msgstr "Phân phối tài nguyên của bạn trên các dự án và đơn đặt hàng."
+msgstr "Phân phối nguồn lực vật chất của bạn cho các dự án và đơn bán hàng."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -858,21 +1120,25 @@ msgstr "Doris Cole (Nhân viên pha chế)"
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__state__draft
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__state__draft
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Draft"
-msgstr "Dự thảo"
+msgstr "Nháp"
 
 #. module: planning
 #: model_terms:digest.tip,tip_description:planning.digest_tip_planning_0
-msgid "Drag a shift to another day to reschedule it, or to another row to reassign the shift. If the shift was published, the user will automatically be notified of the change. Press CTRL (or Cmd on Mac) while dragging a shift to duplicate it."
-msgstr "Kéo ca làm việc sang ngày khác để lên lịch lại hoặc sang hàng khác để phân công lại ca làm việc. Nếu sự thay đổi được công bố, người dùng sẽ tự động được thông báo về sự thay đổi. Nhấn CTRL (hoặc Cmd trên Mac) trong khi kéo một ca để sao chép nó."
+msgid ""
+"Drag a shift to another day to reschedule it, or to another row to reassign "
+"the shift. Press CTRL (or Cmd on Mac) while dragging a shift to duplicate "
+"it."
+msgstr ""
+"Kéo ca làm việc sang ngày khác để lên lịch lại hoặc sang hàng khác để phân "
+"công lại ca làm việc. Nhấn CTRL (hoặc Cmd trên Mac) trong khi kéo một ca để "
+"nhân bản."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__duration
-#: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration
 msgid "Duration"
-msgstr "Thời lượng"
+msgstr "Thời hạn"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
@@ -883,16 +1149,25 @@ msgstr "Khoảng thời gian (ngày)"
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
 msgid "Edit"
-msgstr "Sửa"
+msgstr "Chỉnh sửa"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.xml:0
+msgid "Edit Recurrent Shift"
+msgstr ""
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Eli Lambert (Waiter)"
-msgstr "Eli Lambert (Người phục vụ)"
+msgstr "Eli Lambert (Phục vụ bàn)"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_shift_switch_email
-msgid "Email sent automatically when employee self assigns to an unwanted shift of another employee"
+msgid ""
+"Email sent automatically when an employee self-assigns to the unwanted shift"
+" of another employee, notifying the person who requested to switch that the "
+"shift has been taken"
 msgstr ""
 
 #. module: planning
@@ -902,7 +1177,8 @@ msgstr "Email được gửi tự động khi công bố một ca làm việc"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_planning_planning
-msgid "Email sent automatically when publishing the schedule of your employees"
+msgid ""
+"Email sent automatically when publishing the schedule of your employees"
 msgstr "Email tự động gửi khi công bố lịch làm việc của nhân viên"
 
 #. module: planning
@@ -915,27 +1191,27 @@ msgstr "Nhân viên"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
 msgid "Employee Name"
-msgstr "Tên Nhân viên"
+msgstr "Tên nhân viên"
 
 #. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_company__planning_employee_unavailabilities
+#: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_employee_unavailabilities
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Employee Unavailabilities"
+msgstr "Thời điểm vắng mặt của nhân viên"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_send__employee_ids
 #: model:ir.ui.menu,name:planning.planning_menu_settings_employee
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Employees"
 msgstr "Nhân viên"
-
-#. module: planning
-#: model:ir.model.fields,help:planning.field_planning_send__employee_ids
-msgid "Employees who will receive planning by email if you click on publish & send."
-msgstr "Nhân viên sẽ nhận được kế hoạch qua email nếu bạn nhấp vào công bố và gửi."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
 msgid "Employees with no Work Email"
 msgstr "Nhân viên không có email công việc"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_send__employees_no_email
-msgid "Employees without email"
-msgstr "Nhân viên không có email"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -945,8 +1221,7 @@ msgstr "Kết thúc"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__end_datetime
 #: model:ir.model.fields,field_description:planning.field_planning_slot__end_datetime
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "End Date"
 msgstr "Ngày kết thúc"
 
@@ -961,15 +1236,10 @@ msgid "Error: each employee token must be unique"
 msgstr "Lỗi: mỗi người chỉ có duy nhất một token"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "Every"
-msgstr "Mỗi"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_recurrency.py:0
-msgid "Every %s week(s) until %s"
-msgstr "Mỗi %s tuần đơn vị %s"
+msgid "Every %(repeat_interval)s week(s) until %(repeat_until)s"
+msgstr "Mỗi %(repeat_interval)s tuần cho đến %(repeat_until)s"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__note
@@ -978,8 +1248,18 @@ msgstr "Thông điệp ngoài"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
-msgid "Find here your planning. Assign yourself open shifts that match your roles, or indicate your unavailability."
-msgstr "Tìm ở đây kế hoạch của bạn. Chỉ định cho mình những ca mở phù hợp với vai trò của bạn hoặc cho biết bạn không có mặt."
+msgid ""
+"Find here your planning. Assign yourself open shifts that match your roles, "
+"or indicate your unavailability."
+msgstr ""
+"Tìm ở đây kế hoạch của bạn. Chỉ định cho mình những ca làm trống phù hợp với"
+" vai trò của bạn hoặc cho biết bạn không có mặt."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "First you have to specify the date of the invitation."
+msgstr "Đầu tiên, bạn phải xác định ngày cho lời mời."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
@@ -1009,10 +1289,14 @@ msgid "Forever, every %s week(s)"
 msgstr "Mãi mãi, mỗi %s tuần"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Future"
-msgstr "Tương lai"
+#: model:planning.role,name:planning.planning_furniture_assembler
+msgid "Furniture Assembler"
+msgstr "Thợ lắp ráp nội thất"
+
+#. module: planning
+#: model:planning.role,name:planning.planning_furniture_tool
+msgid "Furniture Tools"
+msgstr "Dụng cụ đồ gỗ"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1025,10 +1309,9 @@ msgid "Give depth to your"
 msgstr "Tạo chiều sâu cho"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Group By"
 msgstr "Nhóm theo"
 
@@ -1037,12 +1320,12 @@ msgstr "Nhóm theo"
 #: model:ir.model.fields,field_description:planning.field_hr_employee_base__has_slots
 #: model:ir.model.fields,field_description:planning.field_hr_employee_public__has_slots
 msgid "Has Slots"
-msgstr ""
+msgstr "Có ca trống"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__request_to_switch
+#: model:ir.model.fields,field_description:planning.field_planning_analysis_report__request_to_switch
 msgid "Has there been a request to switch on this shift slot?"
-msgstr ""
+msgstr "Đã có yêu cầu đổi sang ca làm việc này chưa?"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__name
@@ -1050,28 +1333,31 @@ msgid "Hours"
 msgstr "Giờ"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__user
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Human"
 msgstr "Con người"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "I Am Unavailable"
-msgstr "Tôi không rảnh"
+msgstr "Tôi vắng mặt"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "I Take It"
 msgstr "Tôi nhận nó"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "I am unavailable"
-msgstr "Tôi không có"
+msgstr "Tôi vắng mặt"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__id
@@ -1087,49 +1373,31 @@ msgstr "ID"
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_analysis_report__publication_warning
 #: model:ir.model.fields,help:planning.field_planning_slot__publication_warning
-msgid "If checked, it means that the shift contains has changed since its last publish."
-msgstr "Nếu được chọn, điều đó có nghĩa là ca làm việc đã thay đổi kể từ lần xuất bản cuối cùng."
+msgid ""
+"If checked, it means that the shift contains has changed since its last "
+"publish."
+msgstr ""
+"Nếu được chọn, điều đó có nghĩa là ca làm việc đã thay đổi kể từ lần xuất "
+"bản cuối cùng."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "If you are happy with your planning, you can now <b>send</b> it to your employees."
-msgstr "Bây giờ, nếu bạn vừa lòng với kế hoạch, bạn có thể <b>gửi</b> cho nhân viên."
+msgid ""
+"If you are happy with your planning, you can now <b>send</b> it to your "
+"employees."
+msgstr ""
+"Bây giờ, nếu bạn vừa lòng với kế hoạch, bạn có thể <b>gửi</b> cho nhân viên."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
 msgid "Include Open Shifts"
-msgstr "Bao gồm các ca mở"
+msgstr "Bao gồm ca làm trống"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__include_unassigned
 msgid "Includes Open Shifts"
-msgstr "Bao gồm ca mở"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__is_hatched
-msgid "Is Hatched"
-msgstr "Là có kế hoạch"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__is_assigned_to_me
-msgid "Is This Shift Assigned To The Current User"
-msgstr "Có phải ca này được giao cho người dùng hiện tại"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__is_past
-msgid "Is This Shift In The Past?"
-msgstr "Có phải ca này ở quá khứ không?"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__is_users_role
-msgid "Is the shifts role one of the current user roles"
-msgstr ""
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__is_unassign_deadline_passed
-msgid "Is unassignement deadline not past"
-msgstr "Là hạn chót bỏ phân ca chưa trôi qua"
+msgstr "Bao gồm ca làm trống"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1142,11 +1410,6 @@ msgstr "Jeffrey Kelly (Bartender)"
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
 msgid "Job Title"
 msgstr "Chức danh công việc"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_recurrency__last_generated_end_datetime
-msgid "Last Generated End Date"
-msgstr "Ngày kết thúc được tạo cuối cùng"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__write_uid
@@ -1169,15 +1432,10 @@ msgid "Last Updated on"
 msgstr "Cập nhật lần cuối vào"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Last Week"
-msgstr "Tuần trước"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 msgid "Legend"
-msgstr "Huyền thoại"
+msgstr "Quy tắc"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__allow_self_unassign
@@ -1187,20 +1445,58 @@ msgstr "Cho phép nhân viên tự bỏ phân ca"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
-msgid "Let employees unassign themselves from shifts"
-msgstr "Hãy để nhân viên tự hủy bỏ ca làm việc"
+msgid ""
+"Let employees switch shifts with colleagues or unassign themselves when "
+"unavailable"
+msgstr ""
+"Cho phép nhân viên đổi ca với đồng nghiệp hoặc tự hủy phân công khi không có"
+" thời gian"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "Let's create your first <b>shift</b>. <i>Tip: use the (+) shortcut available on each cell of the Gantt view to save time.</i>"
-msgstr "Hãy tạo <b>ca</b> đầu tiên của bạn. <i>Mẹo: sử dụng phím tắt (+) có trên mỗi ô của chế độ xem Gantt để tiết kiệm thời gian.</i>"
+msgid ""
+"Let's check out the Gantt view for cool features. Get ready to <b>share your"
+" schedule</b> and easily plan your shifts with just one click by <em>copying"
+" the previous week's schedule</em>."
+msgstr ""
+"Hãy cùng xem chế độ xem Gantt để tìm hiểu thêm về các tính năng thú vị. Sẵn "
+"sàng <b>chia sẻ lịch trình của bạn</b> và dễ dàng lập kế hoạch ca làm chỉ "
+"với một cú nhấp chuột bằng cách <em>sao chép lịch trình của tuần trước</em>."
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/tours/planning.js:0
+msgid ""
+"Let's create your first <b>shift</b>. <i>Tip: use the (+) shortcut available"
+" on each cell of the Gantt view to save time.</i>"
+msgstr ""
+"Hãy tạo <b>ca</b> đầu tiên của bạn. <i>Mẹo: sử dụng phím tắt (+) có trên mỗi"
+" ô của chế độ xem Gantt để tiết kiệm thời gian.</i>"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/tours/planning.js:0
+msgid "Let's schedule a <b>shift</b> for this time range."
+msgstr "Hãy lên lịch một <b>ca làm</b> cho khoảng thời gian này."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 msgid "Let's start managing your employees' schedule!"
 msgstr "Hãy bắt đầu quản lý lịch trình của nhân viên của bạn!"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+msgid "List"
+msgstr "Danh sách"
+
+#. module: planning
+#: model:hr.job,name:planning.job_maintenance_technician
+#: model:planning.role,name:planning.planning_maintenance_technician
+msgid "Maintenance Technician"
+msgstr "Kỹ thuật viên bảo trì"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
@@ -1215,23 +1511,35 @@ msgstr "Quản lý"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__manager_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__manager_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Manager"
-msgstr "Người quản lý"
+msgstr "Quản lý"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.slot_report
+msgid "Marc Demo"
+msgstr "Marc Demo"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
 msgid "Material"
 msgstr "Nguyên liệu/Máy móc"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_resources
 #: model:ir.ui.menu,name:planning.planning_menu_settings_resource
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Materials"
-msgstr "Vật liệu"
+msgstr "Nguyên liệu"
+
+#. module: planning
+#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
+msgid "May 2024"
+msgstr "5/2024"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__publication_warning
@@ -1240,9 +1548,10 @@ msgid "Modified Since Last Publication"
 msgstr "Được sửa đổi kể từ lần công bố cuối cùng"
 
 #. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "Monday, 13"
-msgstr ""
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+msgid "Month"
+msgstr "Tháng"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__month
@@ -1251,9 +1560,8 @@ msgid "Months"
 msgstr "Tháng"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Department"
 msgstr "Phòng ban của tôi"
 
@@ -1265,23 +1573,20 @@ msgid "My Planning"
 msgstr "Kế hoạch của tôi"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Roles"
 msgstr "Vai trò của tôi"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Shifts"
 msgstr "Ca của tôi"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Team"
 msgstr "Đội của tôi"
 
@@ -1291,14 +1596,34 @@ msgid "Name"
 msgstr "Tên"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
+msgid "New Event"
+msgstr "Sự kiện Mới"
+
+#. module: planning
+#. odoo-javascript
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+#: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
+msgid "New Shift"
+msgstr "Ca mới"
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/controllers/main.py:0
+msgid "New_Shift"
+msgstr "Ca_mới"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Next Week"
 msgstr "Tuần tới"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
-msgid "No Email Address For Some Employees"
+msgid "No Email Address for Some Employees"
 msgstr "Không có địa chỉ email cho một số nhân viên"
 
 #. module: planning
@@ -1314,7 +1639,7 @@ msgstr "Chưa có dữ liệu nào!"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "No material resources found. Let's create one!"
-msgstr "Không tìm thấy tài nguyên nhân sự. Hãy tạo một cái!"
+msgstr "Không tìm thấy nguồn lực vật chất nào. Hãy tạo mới!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1331,7 +1656,7 @@ msgstr "Không tìm thấy mẫu ca làm. Hãy tạo một mẫu!"
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
 msgid "No shifts found. Let's create one!"
-msgstr "Không tìm thấy ca trực. Hãy tạo một ca!"
+msgstr "Không tìm thấy ca làm nào. Hãy tạo một ca!"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__name
@@ -1343,15 +1668,24 @@ msgid "Note"
 msgstr "Ghi chú"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
+msgid "Note:"
+msgstr "Lưu ý:"
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "Now that this week is ready, let's get started on <b>next week's schedule</b>."
-msgstr "Giờ thì tuần này đã sẵn sàng, hãy bắt đầu với <b>lịch trình của tuần tới</b>."
+msgid ""
+"Now that this week is ready, let's get started on <b>next week's "
+"schedule</b>."
+msgstr ""
+"Giờ thì tuần này đã sẵn sàng, hãy bắt đầu với <b>lịch trình của tuần "
+"tới</b>."
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__x_times
 msgid "Number of Occurrences"
-msgstr ""
+msgstr "Số lần xuất hiện"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__x_times
@@ -1359,48 +1693,88 @@ msgid "Number of Repetitions"
 msgstr "Số lần tái diễn"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
+msgid "Open Shift"
+msgstr "Ca làm trống"
+
+#. module: planning
 #. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_calendar_model.js:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_model.js:0
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #: model_terms:ir.ui.view,arch_db:planning.slot_report
 msgid "Open Shifts"
-msgstr "Ca làm việc mở"
+msgstr "Ca làm trống"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid "Open Shifts Available"
-msgstr "Ca mở hiện có"
+msgstr "Ca làm trống hiện có"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_hooks.js:0
+msgid "Open shifts assigned"
+msgstr ""
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_hooks.js:0
+msgid "Open shifts unscheduled"
+msgstr ""
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
+msgid "Open: %s"
+msgstr "Mở: %s"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "Operation not supported, you should always compare overlap_slot_count to 0 value with = or > operator."
-msgstr "Vận hành không được hỗ trợ, bạn phải luôn so sánh overlap_slot_count với giá trị 0 bằng toán tử = hoặc >."
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
-msgid "Overlapping Slots"
-msgstr "Các chỗ bị trùng"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Past"
-msgstr "Quá khứ"
+msgid ""
+"Operation not supported, you should always compare overlap_slot_count to 0 "
+"value with = or > operator."
+msgstr ""
+"Thao tác không được hỗ trợ, bạn phải luôn so sánh overlap_slot_count với giá"
+" trị 0 bằng toán tử = hoặc >."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Period"
-msgstr "Chu kỳ"
+msgstr "Giai đoạn"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid ""
+"Plan resource allocation across projects and estimate deadlines more "
+"accurately"
+msgstr ""
+"Lập kế hoạch phân công nhân viên cho các dự án và ước tính hạn chót chính "
+"xác hơn"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "Plan all of your shifts in one click by <b>copying the previous week's schedule</b>."
-msgstr "Lên kế hoạch cho tất cả các ca làm việc của bạn chỉ bằng một cú nhấp chuột bằng cách <b>sao chép lịch trình của tuần trước</b>."
+msgid ""
+"Plan your shifts in one click by <b>copying the schedule from the previous "
+"week</b>."
+msgstr ""
+"Lập kế hoạch ca làm việc trong một cú nhấp chuột <b>bằng cách sao chép lịch "
+"làm việc từ tuần trước</b>."
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/tours/planning.js:0
+msgid ""
+"Plan your shifts in one click by <b>copying the schedule from the previous "
+"week</b>. Open the menu to access this option."
+msgstr ""
+"Lập kế hoạch ca làm việc trong một cú nhấp chuột <b>bằng cách sao chép lịch "
+"làm việc từ tuần trước</b>. Mở menu để truy cập tuỳ chọn này."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__start_time
@@ -1421,7 +1795,7 @@ msgstr "Số giờ theo kế hoạch"
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:planning.slot_report
 msgid "Planning"
-msgstr "Kế hoạch"
+msgstr "Lập kế hoạch"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_report_action_analysis
@@ -1437,6 +1811,11 @@ msgid "Planning Analysis Report"
 msgstr "Báo cáo phân tích kế hoạch"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.resource_planning
+msgid "Planning Meeting"
+msgstr "Lập kế hoạch cuộc họp"
+
+#. module: planning
 #: model:ir.model,name:planning.model_planning_recurrency
 msgid "Planning Recurrence"
 msgstr "Lập kế hoạch tái phát"
@@ -1445,7 +1824,7 @@ msgstr "Lập kế hoạch tái phát"
 #: model:ir.model,name:planning.model_planning_role
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
 msgid "Planning Role"
-msgstr "Qui tắc kế hoạch"
+msgstr "Lập kế hoạch vai trò"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
@@ -1455,7 +1834,17 @@ msgstr "Danh sách Qui tắc kế hoạch"
 #. module: planning
 #: model:ir.model,name:planning.model_planning_slot
 msgid "Planning Shift"
-msgstr "Ca dự kiến"
+msgstr "Lập kế hoạch ca làm"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_analysis_report__slot_id
+msgid "Planning Slot"
+msgstr "Khung giờ kế hoạch"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_role__slot_properties_definition
+msgid "Planning Slot Properties"
+msgstr "Thuộc tính khung giờ kế hoạch"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -1475,7 +1864,7 @@ msgstr "Lập kế hoạch: Ca mới"
 #. module: planning
 #: model:mail.template,name:planning.email_template_shift_switch_email
 msgid "Planning: Shift Re-assigned"
-msgstr ""
+msgstr "Kế hoạch: Đã phân công lại ca làm"
 
 #. module: planning
 #: model:ir.actions.server,name:planning.ir_cron_forecast_schedule_ir_actions_server
@@ -1486,7 +1875,7 @@ msgstr "Kế hoạch: tạo ca làm việc định kỳ tiếp theo"
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "Planning: new open shift available on"
-msgstr "Kế hoạch: ca mở mới khả dụng vào"
+msgstr "Kế hoạch: ca làm trống mới sẵn sàng vào"
 
 #. module: planning
 #. odoo-python
@@ -1500,9 +1889,38 @@ msgid "Plans"
 msgstr "Kế hoạch"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__previous_template_id
-msgid "Previous Template"
-msgstr "Mẫu trước đó"
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_email
+msgid ""
+"Please add a work email for the following employee so that they can receive "
+"their planning:"
+msgstr ""
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/components/conflicting_slot_ids_field/conflicting_slot_ids_field.xml:0
+msgid "Prepare for the ultimate multi-tasking challenge:"
+msgstr "Chuẩn bị tinh thần cho thử thách đa nhiệm vụ khó nhằn:"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_gantt/planning_gantt_renderer_controls.xml:0
+msgid "Press Ctrl to duplicate the shift"
+msgstr "Nhấn Ctrl để nhân bản ca"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_config_settings__module_project_forecast
+msgid "Project Planning"
+msgstr "Kế hoạch dự án"
+
+#. module: planning
+#: model:planning.role,name:planning.planning_role_projector
+msgid "Projector"
+msgstr "Máy chiếu"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__slot_properties
+msgid "Properties"
+msgstr "Thuộc tính"
 
 #. module: planning
 #. odoo-javascript
@@ -1521,14 +1939,24 @@ msgid "Publish & Send"
 msgstr "Công khai và Gửi"
 
 #. module: planning
+#: model:ir.actions.act_window,name:planning.planning_send_action
+msgid "Publish & Send the Schedule by Email"
+msgstr "Đăng và gửi kế hoạch qua email"
+
+#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__state__published
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__state__published
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Published"
 msgstr "Đã công bố"
+
+#. module: planning
+#: model:hr.job,name:planning.job_quality_control
+#: model:planning.role,name:planning.planning_quality_control
+msgid "Quality Control Inspector"
+msgstr "Chuyên viên kiểm soát chất lượng"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_generation_interval
@@ -1539,17 +1967,22 @@ msgstr "Tốc độ tạo ca"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
 msgid "Recurrence Update"
-msgstr ""
+msgstr "Cập nhật lịch lặp lại"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__recurrency_id
-#: model:ir.model.fields,field_description:planning.field_planning_slot__recurrency_id
 msgid "Recurrency"
-msgstr "Định kì phát sinh"
+msgstr "Định kì"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Recurring Shifts"
+msgstr "Ca làm định kỳ"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
+msgid "Recurring shifts created"
 msgstr ""
 
 #. module: planning
@@ -1565,7 +1998,7 @@ msgstr "Người dùng liên quan đến nguồn lực để quản lý sự tru
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Remove"
-msgstr "Gỡ"
+msgstr "Xóa"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat
@@ -1611,29 +2044,32 @@ msgid "Reporting"
 msgstr "Báo cáo"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Requests to Switch"
-msgstr ""
+msgstr "Yêu cầu đổi"
 
 #. module: planning
 #: model:ir.actions.server,name:planning.model_planning_slot_action_reset_to_draft
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Reset to Draft"
-msgstr "Đưa về dự thảo"
+msgstr "Đặt lại thành nháp"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_id
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_id
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Resource"
 msgstr "Nguồn lực"
 
 #. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__resource_color
+msgid "Resource color"
+msgstr "Màu sắc nhân viên"
+
+#. module: planning
 #: model:ir.model,name:planning.model_resource_resource
 #: model:ir.model.fields,field_description:planning.field_planning_role__resource_ids
-#: model:ir.model.fields,field_description:planning.field_planning_send__employee_ids
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 msgid "Resources"
 msgstr "Nguồn lực"
@@ -1644,9 +2080,8 @@ msgstr "Nguồn lực"
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__role_id
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Role"
 msgstr "Vai trò"
@@ -1666,12 +2101,24 @@ msgid ""
 "Role that will be selected by default when creating a shift for this resource.\n"
 "This role will also have precedence over the other roles of the resource when planning shifts."
 msgstr ""
+"Vai trò sẽ được chọn theo mặc định khi tạo ca làm việc cho nhân viên này.\n"
+"Vai trò này cũng sẽ được ưu tiên hơn các vai trò khác của nhân viên khi lập kế hoạch ca làm."
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
+msgid "Role:"
+msgstr "Vai trò:"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/components/avatar_card_resource/avatar_card_resource_popover.xml:0
 #: model:ir.actions.act_window,name:planning.planning_action_roles
 #: model:ir.model.fields,field_description:planning.field_hr_employee__planning_role_ids
+#: model:ir.model.fields,field_description:planning.field_planning_slot__resource_roles
 #: model:ir.model.fields,field_description:planning.field_resource_resource__role_ids
 #: model:ir.ui.menu,name:planning.planning_menu_settings_role
+#: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
+#: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Roles"
 msgstr "Qui tắc"
 
@@ -1684,7 +2131,7 @@ msgid ""
 "Leave empty for the employee to be assigned shifts regardless of the role."
 msgstr ""
 "Các vai trò mà nhân viên có thể điền vào. Khi tạo ca làm việc cho nhân viên này, chỉ các mẫu ca làm việc cho các vai trò này sẽ được hiển thị.\n"
-"Tương tự, chỉ những ca mở có sẵn cho các vai trò này mới được gửi cho nhân viên khi lịch trình được xuất bản.\n"
+"Tương tự, chỉ những ca làm trống có sẵn cho các vai trò này mới được gửi cho nhân viên khi lịch trình được xuất bản.\n"
 "Ngoài ra, nhân viên sẽ chỉ được chỉ định các đơn đặt hàng cho các vai trò này (với vai trò lập kế hoạch mặc định được ưu tiên hơn các vai trò khác).\n"
 "Để trống cho nhân viên được giao ca bất kể vai trò."
 
@@ -1699,6 +2146,11 @@ msgid "Save & Send Schedule"
 msgstr "Lưu & Gửi lịch trình"
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Save Template"
+msgstr "Lưu mẫu"
+
+#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_creation
 msgid "Save as Template"
 msgstr "Lưu dưới dạng Mẫu"
@@ -1708,6 +2160,11 @@ msgstr "Lưu dưới dạng Mẫu"
 #: code:addons/planning/static/src/js/tours/planning.js:0
 msgid "Save this shift once it is ready."
 msgstr "Lưu ca này khi nó đã sẵn sàng."
+
+#. module: planning
+#: model:planning.role,name:planning.planning_role_scanner
+msgid "Scanner"
+msgstr "Máy quét"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_planning
@@ -1727,17 +2184,37 @@ msgid "Schedule by Role"
 msgstr "Lịch trình theo vai trò"
 
 #. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
-#: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
-msgid "Schedule your human and material resources across roles, projects and sales orders."
-msgstr "Lên lịch cho nguồn nhân lực và vật chất của bạn theo vai trò, dự án và đơn đặt hàng."
+#. odoo-python
+#: code:addons/planning/wizard/planning_send.py:0
+msgid "Schedule sent to your employees"
+msgstr ""
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_hr_employee__employee_token
+#: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
+#: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_role
+msgid ""
+"Schedule your human and material resources across roles, projects and sales "
+"orders."
+msgstr ""
+"Lên lịch cho nguồn nhân lực và vật lực của bạn theo vai trò, dự án và đơn "
+"bán hàng."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "Search operation not supported"
+msgstr "Thao tác tìm kiếm không được hỗ trợ"
+
+#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__access_token
-#: model:ir.model.fields,field_description:planning.field_planning_slot__access_token
 msgid "Security Token"
-msgstr "Mã bảo mật"
+msgstr "Token bảo mật"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/components/conflicting_slot_ids_field/conflicting_slot_ids_field.xml:0
+msgid "See conflicting shifts"
+msgstr "Xem những ca làm xung đột"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -1751,11 +2228,6 @@ msgid "Send Planning"
 msgstr "Gửi kế hoạch"
 
 #. module: planning
-#: model:ir.actions.act_window,name:planning.planning_send_action
-msgid "Send Planning By Email"
-msgstr "Gửi kế hoạch bằng Email"
-
-#. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
@@ -1763,23 +2235,27 @@ msgid "Send schedule"
 msgstr "Gửi lịch trình"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_role__sequence
-#: model:ir.model.fields,field_description:planning.field_planning_slot_template__sequence
-msgid "Sequence"
-msgstr "Trình tự"
-
-#. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_settings
 #: model:ir.ui.menu,name:planning.planning_menu_settings_config
 msgid "Settings"
-msgstr "Thiết lập"
+msgstr "Cài đặt"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/tours/planning.js:0
+msgid ""
+"Share the schedule with your team by publishing and sending it. Open the "
+"menu to access this option."
+msgstr ""
+"Chia sẻ lịch trình với bộ phận của bạn bằng cách đăng và gửi. Mở menu để "
+"truy cập tùy chọn này."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/controllers/main.py:0
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Shift"
-msgstr "Ca làm việc"
+msgstr "Ca làm"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
@@ -1809,9 +2285,21 @@ msgid "Shift Templates"
 msgstr "Mẫu Ca làm việc"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Shifts Planned"
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
+msgid "Shift saved as template"
 msgstr ""
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "Shift sent"
+msgstr ""
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
+msgid "Shifts Planned"
+msgstr "Đã lập kế hoạch ca làm"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -1821,26 +2309,30 @@ msgstr "Ca từ"
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts in Conflict"
 msgstr "Ca làm bị xung đột"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Department Member"
-msgstr "Ca làm việc của thành viên bộ phận của bạn"
+msgstr "Ca làm việc của thành viên trong phòng của bạn"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Team Member"
 msgstr "Ca của các thành viên trong nhóm bạn"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_send__slot_ids
-msgid "Slot"
-msgstr "Chỗ"
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "Shifts reset to draft"
+msgstr ""
+
+#. module: planning
+#: model:planning.role,name:planning.planning_shipping_associate
+msgid "Shipping Associate"
+msgstr "Cộng tác viên vận chuyển"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
@@ -1848,23 +2340,27 @@ msgid "Some changes were made since this shift was published."
 msgstr "Một số thay đổi đã được thực hiện kể từ khi ca này được công bố."
 
 #. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
+msgid "Span"
+msgstr "Khoảng thời gian"
+
+#. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Start"
-msgstr "Khởi động"
+msgstr "Bắt đầu"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
+msgid "Start & End Hours"
+msgstr "Giờ bắt đầu và kết thúc"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__start_datetime
 #: model:ir.model.fields,field_description:planning.field_planning_planning__start_datetime
 #: model:ir.model.fields,field_description:planning.field_planning_slot__start_datetime
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Start Date"
 msgstr "Ngày bắt đầu"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
-msgid "Start Hour"
-msgstr "Giờ bắt đầu"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__state
@@ -1879,42 +2375,27 @@ msgid "Stop Date"
 msgstr "Ngày dừng"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__template_autocomplete_ids
-msgid "Template Autocomplete"
-msgstr "Tự động điền mẫu"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__template_reset
-msgid "Template Reset"
-msgstr "Cài lại mẫu"
+#: model:ir.model.fields.selection,name:planning.selection__res_company__planning_employee_unavailabilities__switch
+msgid "Switch shifts with other employees"
+msgstr "Đổi ca với nhân viên khác"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_res_company_planning_self_unassign_days_before_positive
-msgid "The amount of days before unassignment must be positive or equal to zero."
+msgid ""
+"The amount of days before unassignment must be positive or equal to zero."
 msgstr "Số ngày trước khi bỏ phân ca phải là số dương hoặc bằng 0."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "The company does not allow you to self unassign."
-msgstr "Công ty không cho phép bạn tự hủy."
+msgid "The company does not allow you to unassign yourself from shifts."
+msgstr "Công ty không cho phép bạn tự bỏ phân ca."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "The deadline for unassignment has passed."
 msgstr "Hạn chót để bỏ phân ca đã trôi qua."
-
-#. module: planning
-#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
-msgid "The duration cannot be negative."
-msgstr "Khoảng thời gian không được âm."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning_template.py:0
-msgid "The duration is too long."
-msgstr "Thời lượng quá dài."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
@@ -1926,12 +2407,6 @@ msgstr "Ngày kết thúc ca phải sau ngày bắt đầu."
 #: code:addons/planning/models/planning_recurrency.py:0
 msgid "The number of repetitions cannot be negative."
 msgstr "Số lượng lặp lại không thể là số âm."
-
-#. module: planning
-#. odoo-javascript
-#: code:addons/planning/static/src/views/planning_hooks.js:0
-msgid "The open shifts have been successfully assigned."
-msgstr ""
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_repeat_interval_positive
@@ -1947,46 +2422,35 @@ msgstr "Ngày kết thúc của lần lặp lại phải sau ngày bắt đầu 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
-msgid "The recurring shifts have successfully been created."
-msgstr "Các ca định kỳ đã được tạo thành công."
+msgid "The shift has successfully been created."
+msgstr "Ca làm đã được tạo thành công."
 
 #. module: planning
-#. odoo-python
-#: code:addons/planning/wizard/planning_send.py:0
-msgid "The schedule was successfully sent to your employees."
-msgstr "Lịch trình đã được gửi thành công cho nhân viên."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning_template.py:0
-msgid "The selected duration creates a date too far into the future."
-msgstr "Khoảng thời gian đã chọn tạo ra một ngày quá xa trong tương lai."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "The shift has successfully been sent."
-msgstr "Ca làm đã được gửi thành công."
-
-#. module: planning
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 #: code:addons/planning/wizard/planning_send.py:0
-msgid "The shifts have already been published, or there are no shifts to publish."
+msgid ""
+"The shifts have already been published, or there are no shifts to publish."
 msgstr "Các ca đã được công bố hoặc không có ca nào để công bố."
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "The shifts have been successfully reset to draft."
-msgstr "Các ca làm đã được đặt thành nháp thành công."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "The shifts have successfully been published and sent."
 msgstr "Các ca làm đã được công bố và gửi thành công."
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_days_positive
+msgid "The span must be at least 1 working day."
+msgstr "Khoảng thời gian phải ít nhất là 1 ngày làm việc."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning_template.py:0
+msgid ""
+"The start and end hours must be greater or equal to 0 and lower than 24."
+msgstr "Giờ bắt đầu và giờ kết thúc phải lớn hơn hoặc bằng 0 và nhỏ hơn 24."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
@@ -2001,20 +2465,32 @@ msgstr "Giờ bắt đầu không được âm."
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
-msgid "The start hour must be greater or equal to 0 and lower than 24."
-msgstr "Giờ bắt đầu phải lớn hơn hoặc bằng 0 và nhỏ hơn 24."
+msgid ""
+"The start hour cannot be before the end hour for a one-day shift template."
+msgstr ""
+"Đối với mẫu ca làm một ngày, giờ bắt đầu không được trước giờ kết thúc."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/wizard/planning_send.py:0
+msgid "The work email is missing for the following employees:"
+msgstr ""
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "There are no resources available for this open shift."
-msgstr ""
+msgstr "Không có nhân viên nào có thể đảm nhận ca làm trống này."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
-msgid "There are no shifts planned for the previous week, or they have already been copied."
-msgstr "Không có ca nào được lên kế hoạch cho tuần trước hoặc chúng đã được sao chép."
+msgid ""
+"There are no shifts planned for the previous week, or they have already been"
+" copied."
+msgstr ""
+"Không có ca nào được lên kế hoạch cho tuần trước hoặc chúng đã được sao "
+"chép."
 
 #. module: planning
 #. odoo-python
@@ -2040,41 +2516,54 @@ msgid "This Shift Was Copied From Previous Week"
 msgstr "Ca này đã được sao chép từ tuần trước"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "This Week"
 msgstr "Tuần này"
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__subsequent
 msgid "This and following shifts"
+msgstr "Ca làm này và các ca làm tiếp theo"
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid ""
+"This employee is not expected to work during this period, either because "
+"they do not have a current contract or because they are on leave."
+msgstr ""
+"Theo dự kiến, nhân viên này sẽ không làm việc trong thời gian này vì không "
+"có hợp đồng còn hiệu lực hoặc đang nghỉ phép."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "This method must take two slots in argument."
 msgstr ""
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
-msgid "This open shift is no longer available, or the planning has been updated in the meantime. Please contact your manager for further information."
-msgstr "Ca mở này không còn nữa, hoặc kế hoạch đã được thay đổi. Vui lòng liên hệ với quản lý để biết thêm chi tiết."
+msgid ""
+"This open shift is no longer available, or the planning has been updated in "
+"the meantime. Please contact your manager for further information."
+msgstr ""
+"Ca làm trống này không còn nữa, hoặc kế hoạch đã được thay đổi. Vui lòng "
+"liên hệ với quản lý để biết thêm chi tiết."
 
 #. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
 msgid "This shift"
-msgstr ""
+msgstr "Ca làm này"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "This shift is recurrent. Delete:"
-msgstr ""
-
-#. module: planning
-#. odoo-javascript
-#: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
-msgid "This shift was successfully saved as a template."
-msgstr "Ca này đã được lưu dưới dạng mẫu thành công."
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.resource_resource_kanban_view
-msgid "Timezone:"
-msgstr "Múi giờ:"
+msgstr "Ca làm này diễn ra định kỳ. Xóa:"
 
 #. module: planning
 #: model:digest.tip,name:planning.digest_tip_planning_0
@@ -2082,25 +2571,24 @@ msgid "Tip: Record your planning faster"
 msgstr "Mẹo: Ghi lại kế hoạch của bạn nhanh hơn"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "To Resend"
-msgstr "Gửi lại"
-
-#. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__repeat
-msgid "To avoid polluting your database and performance issues, shifts are only created for the next 6 months. They are then gradually created as time passes by in order to always get shifts 6 months ahead. This value can be modified from the settings of Planning, in debug mode."
+msgid ""
+"To avoid polluting your database and performance issues, shifts are only "
+"created for the next 6 months. They are then gradually created as time "
+"passes by in order to always get shifts 6 months ahead. This value can be "
+"modified from the settings of Planning, in debug mode."
 msgstr ""
+"Để tránh làm ảnh hưởng đến cơ sở dữ liệu và các vấn đề về hiệu suất, các ca "
+"làm việc chỉ được tạo cho 6 tháng tới. Sau đó chúng được tạo ra dần dần theo"
+" thời gian để luôn có sẵn ca làm việc trước 6 tháng. Giá trị này có thể được"
+" sửa đổi từ cài đặt Kế hoạch, trong chế độ gỡ lỗi."
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_analysis_report_view_search
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Today"
 msgstr "Hôm nay"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Tomorrow"
-msgstr "Ngày mai"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -2108,15 +2596,15 @@ msgid "Total"
 msgstr "Tổng"
 
 #. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "Tuesday, 14"
-msgstr ""
-
-#. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__resource_type
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_type
 msgid "Type"
 msgstr "Loại"
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__res_company__planning_employee_unavailabilities__unassign
+msgid "Unassign themselves from shifts"
+msgstr "Tự bỏ phân ca làm"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__until
@@ -2127,7 +2615,7 @@ msgstr "Cho đến"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "Unwanted Shifts Available"
-msgstr ""
+msgstr "Ca làm không mong muốn hiện có"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
@@ -2144,8 +2632,6 @@ msgstr "Người dùng"
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/hr.py:0
-#: model:ir.actions.server,name:planning.model_hr_employee_action_planning_view
-#: model:ir.actions.server,name:planning.model_hr_employee_public_action_planning_view
 msgid "View Planning"
 msgstr "Xem kế hoạch"
 
@@ -2155,9 +2641,10 @@ msgid "Waiter"
 msgstr "Phục vụ bàn"
 
 #. module: planning
-#: model_terms:ir.actions.act_window,help:planning.planning_action_roles
-msgid "Wednesday, 15"
-msgstr ""
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+msgid "Week"
+msgstr "Tuần"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_type
@@ -2165,11 +2652,6 @@ msgstr ""
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_unit__week
 msgid "Weeks"
 msgstr "Tuần"
-
-#. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_slot__work_address_id
-msgid "Work Address"
-msgstr "Địa chỉ làm việc"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__work_email
@@ -2182,16 +2664,23 @@ msgid "Work Location"
 msgstr "Địa điểm làm việc"
 
 #. module: planning
-#: model:ir.model.fields,field_description:planning.field_planning_analysis_report__working_days_count
-#: model:ir.model.fields,field_description:planning.field_planning_slot__working_days_count
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Working Days"
 msgstr "Ngày làm việc"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
-msgid "Write the <b>role</b> your employee will perform (<i>e.g. Chef, Bartender, Waiter, etc.</i>). <i>Tip: Create open shifts for the roles you will be needing to complete a mission. Then, assign those open shifts to the resources that are available.</i>"
-msgstr "Viết ra <b>vai trò</b> nhắn viên của bạn sẽ làm (<i>ví dụ. Đầu bếp, Bartender, bồi bàn, v.v.</i>). <i>Mẹo: Tạo ca làm việc mở cho các vai trò mà bạn sẽ cần để hoàn thành nhiệm vụ. Sau đó, chỉ định các ca mở đó cho các nhân sự có sẵn.</i>"
+msgid ""
+"Write the <b>role</b> your employee will perform (<i>e.g. Chef, Bartender, "
+"Waiter, etc.</i>). <i>Tip: Create open shifts for the roles you will be "
+"needing to complete a mission. Then, assign those open shifts to the "
+"resources that are available.</i>"
+msgstr ""
+"Ghi ra <b>vai trò</b> mà nhân viên của bạn sẽ thực hiện (<i>ví dụ. Đầu bếp, "
+"Nhân viên chế, Phục vụ bàn,...</i>). <i>Mẹo: Tạo ca làm trống cho các vai "
+"trò mà bạn sẽ cần để hoàn thành nhiệm vụ. Sau đó, phân công các ca làm đó "
+"cho những nhân sự trống lịch.</i>"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__year
@@ -2200,15 +2689,10 @@ msgid "Years"
 msgstr "Năm"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
-msgid "Yesterday"
-msgstr "Hôm qua"
-
-#. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "You are not allowed to reset to draft shifts."
-msgstr "Bạn không được phép đặt lại thành ca nháp."
+msgid "You are not allowed to reset shifts to draft."
+msgstr ""
 
 #. module: planning
 #. odoo-python
@@ -2219,50 +2703,66 @@ msgstr "Bạn không thể tự gán cho mình một ca đã được chỉ đ�
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
-msgid "You can not cancel a request to switch made by another user."
-msgstr ""
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You can not request to switch a shift that is assigned to another user."
-msgstr ""
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
 msgid "You can not unassign another employee than yourself."
 msgstr "Bạn không thể chỉ định một nhân viên khác hơn mình."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
+msgid "You cannot cancel a request to switch made by another user."
+msgstr "Bạn không thể hủy yêu cầu đổi ca do người dùng khác tạo."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
 msgid "You cannot cancel a request to switch that is in the past."
-msgstr ""
+msgstr "Bạn không thể hủy yêu cầu đổi ca trong quá khứ."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You cannot request to switch a shift that is assigned to another user."
+msgstr "Bạn không thể yêu cầu đổi ca đã được phân công cho người dùng khác."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot switch a shift that is in the past."
+msgstr "Bạn không đổi ca trong quá khứ."
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+msgid "You don't have any shifts planned yet."
+msgstr "Bạn chưa lập kế hoạch bất kỳ ca làm nào."
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/js/planning_calendar_front.js:0
+msgid ""
+"You don't have any shifts planned yet. You can assign yourself some of the "
+"available open shifts."
 msgstr ""
+"Bạn chưa lập kế hoạch bất kỳ ca làm nào. Bạn có thể tự phân công cho mình "
+"một số ca làm trống có sẵn."
+
+#. module: planning
+#. odoo-python
+#: code:addons/planning/models/planning.py:0
+msgid "You don't have the right to assign yourself to shifts."
+msgstr "Bạn không có quyền phân ca cho chính mình."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You don't have the right to cancel a request to switch."
-msgstr ""
-
-#. module: planning
-#. odoo-python
-#: code:addons/planning/models/planning.py:0
-msgid "You don't have the right to self assign."
-msgstr "Bạn không có quyền tự phân ca."
+msgstr "Bạn không có quyền huỷ yêu cầu đổi ca."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You don't have the right to switch shifts."
-msgstr ""
+msgstr "Bạn không có quyền đổi ca."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
@@ -2276,19 +2776,38 @@ msgstr "Kế hoạch của bạn"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_planning_planning
-msgid "Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ format_date(ctx.get('end_datetime')) }}"
-msgstr "Kế hoạch từ {{ format_date(ctx.get('start_datetime')) } tới {{ format_date(ctx.get('end_datetime')) }}"
+msgid ""
+"Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ "
+"format_date(ctx.get('end_datetime')) }}"
+msgstr ""
+"Kế hoạch từ {{ format_date(ctx.get('start_datetime')) } tới {{ "
+"format_date(ctx.get('end_datetime')) }}"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_shift_switch_email
-msgid "Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ ctx['employee'].name }}"
+msgid ""
+"Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ "
+"ctx.get('new_assignee_name', 'Marc Demo') }}"
 msgstr ""
+"Ca làm việc của bạn vào {{ ctx.get('start_datetime') }} đã được phân công "
+"lại cho {{ ctx.get('new_assignee_name', 'Marc Demo') }}"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
+msgid "all"
+msgstr "tất cả"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "all shifts"
-msgstr ""
+msgstr "tất cả ca làm"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "close"
+msgstr "đóng"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -2296,15 +2815,16 @@ msgid "days before the beginning of the shift"
 msgstr "ngày trước khi bắt đầu ca"
 
 #. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
-msgid "days span)"
-msgstr "khoản ngày)"
-
-#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "e.g. Bartender"
 msgstr "ví dụ. Người pha chế rượu"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
+msgid "e.g. Cleaner"
+msgstr "VD: Tạp vụ"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_form_view_inherit
@@ -2314,13 +2834,9 @@ msgstr "ví dụ. Máy trục"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "e.g. John Doe"
 msgstr "vd: John Doe"
-
-#. module: planning
-#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
-msgid "other shift(s)"
-msgstr "ca làm việc khác"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
@@ -2330,21 +2846,34 @@ msgstr "(các) ca khác xung đột."
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
+msgid "subsequent"
+msgstr "subsequent"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
+msgid "this"
+msgstr "this"
+
+#. module: planning
+#. odoo-javascript
+#: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "this and following shifts"
-msgstr ""
+msgstr "ca làm này và các ca làm tiếp theo"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "this shift"
-msgstr ""
+msgstr "ca làm này"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "to"
-msgstr "tới"
+msgstr "đến"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_slot_single
 msgid "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
-msgstr "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
+msgstr ""
+"{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"

@@ -1,28 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* quality_mrp_workorder
-#
+# 
 # Translators:
-# Svante Suominen <svante.suominen@web-veistamo.fi>, 2022
-# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2022
-# Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2022
-# Kari Lindgren <kari.lindgren@emsystems.fi>, 2022
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
-#
+# Tiffany Chang, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Tiffany Chang, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: quality_mrp_workorder
@@ -38,17 +32,23 @@ msgstr ""
 #. module: quality_mrp_workorder
 #: model:ir.model.fields,field_description:quality_mrp_workorder.field_mrp_production__check_ids
 msgid "Checks"
-msgstr "Shekit"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_inherit_mrp_workorder
 msgid "Component Lot/Serial"
-msgstr "Komponentin erä- tai sarjanumero"
+msgstr ""
+
+#. module: quality_mrp_workorder
+#. odoo-javascript
+#: code:addons/quality_mrp_workorder/static/src/components/menuPopup.xml:0
+msgid "Create a Quality Alert"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_alert_view_form_inherit_mrp
 msgid "Discard"
-msgstr "Hylkää"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.mrp_production_workorder_tree_editable_view_inherit_quality
@@ -58,39 +58,50 @@ msgstr "Valmis"
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
 msgid "Fail"
-msgstr "Epäonnistui"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #. odoo-python
 #: code:addons/quality_mrp_workorder/models/quality.py:0
 msgid "Failure"
-msgstr "Epäonnistui"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_quality_mrp_workorder
 msgid "Finished Lot/Serial"
-msgstr "Valmis Erä/Serial"
+msgstr ""
+
+#. module: quality_mrp_workorder
+#: model:ir.model,name:quality_mrp_workorder.model_mrp_production
+msgid "Manufacturing Order"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_point_view_search_inherit_mrp_workorder
 msgid "Manufacturing Steps"
-msgstr "Valmistusvaiheet"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
 msgid "Measure:"
-msgstr "Mittaus:"
+msgstr ""
+
+#. module: quality_mrp_workorder
+#. odoo-javascript
+#: code:addons/quality_mrp_workorder/static/src/mrp_display/mrp_quality_check_confirmation_dialog/mrp_quality_check_confirmation_dialog.xml:0
+msgid "Open spreadsheet"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_alert_view_search_inherit_quality_mrp_workorder
 msgid "Operation"
-msgstr "Toiminto"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
 msgid "Pass"
-msgstr "Hyväksy"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_product_template
@@ -100,23 +111,12 @@ msgstr "Tuote"
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "Tuotteiden siirrot (Stock Move Line)"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_product_product
 msgid "Product Variant"
-msgstr "Tuotevariaatio"
-
-#. module: quality_mrp_workorder
-#: model:ir.model,name:quality_mrp_workorder.model_mrp_production
-msgid "Production Order"
-msgstr "Valmistustilaus"
-
-#. module: quality_mrp_workorder
-#. odoo-javascript
-#: code:addons/quality_mrp_workorder/static/src/components/menuPopup.xml:0
-msgid "Quality Alert"
-msgstr "Laatuhälytys"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_quality_check
@@ -127,47 +127,69 @@ msgstr "Laadun tarkistus"
 #. odoo-python
 #: code:addons/quality_mrp_workorder/models/quality.py:0
 msgid "Quality Check Failed"
-msgstr "Laaduntarkastus epäonnistui"
+msgstr ""
 
 #. module: quality_mrp_workorder
+#. odoo-javascript
+#: code:addons/quality_mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #: model:ir.actions.act_window,name:quality_mrp_workorder.quality_check_action_wo
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_search_inherit_mrp_workorder
 msgid "Quality Checks"
-msgstr "Laaduntarkastukset"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_quality_point
 msgid "Quality Control Point"
-msgstr "Laadunvalvontapiste"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_point_view_search_inherit_mrp_workorder
 msgid "Quality Points"
-msgstr "Laatupisteet"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_alert_view_form_inherit_mrp
 msgid "Save"
-msgstr "Tallenna"
+msgstr ""
+
+#. module: quality_mrp_workorder
+#: model:ir.model.fields,field_description:quality_mrp_workorder.field_quality_check__operation_id
+msgid "Step"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #. odoo-python
 #: code:addons/quality_mrp_workorder/models/quality.py:0
 msgid "Success"
-msgstr "Onnistuminen"
+msgstr ""
+
+#. module: quality_mrp_workorder
+#. odoo-python
+#: code:addons/quality_mrp_workorder/models/quality.py:0
+msgid ""
+"The On-demand frequency is not possible with work order quality points."
+msgstr ""
+
+#. module: quality_mrp_workorder
+#. odoo-python
+#: code:addons/quality_mrp_workorder/models/quality.py:0
+msgid ""
+"The Quantity quality check type is not possible with manufacturing operation"
+" types."
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_tablet_inherit_quality
 msgid "Validate"
-msgstr "Vahvista"
+msgstr ""
 
 #. module: quality_mrp_workorder
 #: model:ir.model,name:quality_mrp_workorder.model_mrp_workorder
 msgid "Work Order"
-msgstr "Työtilaus"
+msgstr ""
 
 #. module: quality_mrp_workorder
-#. odoo-python
-#: code:addons/quality_mrp_workorder/models/mrp_workorder.py:0
-msgid "You first need to complete the Quality Check using the Tablet View before marking the Operation as Done."
-msgstr "Sinun on ensin suoritettava laatutarkastus Tablet-näkymässä, ennen kuin voit merkitä toiminnon Valmis-toiminnoksi."
+#: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_form_inherit_mrp_workorder
+#: model_terms:ir.ui.view,arch_db:quality_mrp_workorder.quality_check_view_tree_inherit_mrp_workorder
+msgid "Work Order Operation"
+msgstr ""

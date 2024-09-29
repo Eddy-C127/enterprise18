@@ -1,25 +1,25 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* hr_payroll
-#
+# 
 # Translators:
-# Tivisse <yti@odoo.com>, 2022
-# Martin Trigaux, 2022
-# Cécile Collart <cco@odoo.com>, 2022
-# Jolien De Paepe, 2023
-#
+# Martin Trigaux, 2024
+# Tivisse <yti@odoo.com>, 2024
+# Jolien De Paepe, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Jolien De Paepe, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
-"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: fr\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: hr_payroll
@@ -42,29 +42,50 @@ msgstr "# Fiches de paie"
 
 #. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "%s and %s"
-msgstr ""
+#: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
+msgid "%(employee_name)s-declaration-%(year)s"
+msgstr "%(employee_name)s-déclaration-%(year)s"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_salary_rule.py:0
 msgid ""
-"%s:\n"
-"- Employee: %s\n"
-"- Contract: %s\n"
-"- Payslip: %s\n"
-"- Salary rule: %s (%s)\n"
-"- Error: %s"
+"%(error_type)s\n"
+"- Employee: %(employee)s\n"
+"- Contract: %(contract)s\n"
+"- Payslip: %(payslip)s\n"
+"- Salary rule: %(name)s (%(code)s)\n"
+"- Error: %(error_message)s"
 msgstr ""
-"%s:\n"
-"- Employé : %s\n"
-"- Contrat : %s\n"
-"- Fiche de paie : %s\n"
-"- Règle salariale : %s (%s)\n"
-"- Erreur : %s"
+"%(error_type)s\n"
+"- Employé : %(employee)s\n"
+"- Contrat : %(contract)s\n"
+"- Fiche de paie : %(payslip)s\n"
+"- Règle salariale : %(name)s (%(code)s)\n"
+"- Erreur : %(error_message)s"
 
 #. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_headcount.py:0
+msgid "%(rate)s Hours/week"
+msgstr "%(rate)s Heures/semaine"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip.py:0
+msgid "%(start_date_string)s and %(end_date_string)s"
+msgstr "%(start_date_string)s et %(end_date_string)s"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_contract.py:0
+#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
+#: code:addons/hr_payroll/models/hr_salary_rule.py:0
+msgid "%s (copy)"
+msgstr "%s (copie)"
+
+#. module: hr_payroll
+#: model:ir.actions.report,print_report_name:hr_payroll.action_report_light_payslip
 #: model:ir.actions.report,print_report_name:hr_payroll.action_report_payslip
 msgid "'Payslip - %s' % (object.name)"
 msgstr "'Fiche de paie - %s' % (object.name)"
@@ -84,12 +105,15 @@ msgid ""
 "                \n"
 "* If the payslip is confirmed then status is set to 'Done'.\n"
 "                \n"
-"* When user cancel payslip the status is 'Rejected'."
+"* When the user cancels a payslip, the status is 'Canceled'."
 msgstr ""
 "* Quand la fiche de paie est créée, le statut est 'Brouillon'.\n"
+"                \n"
 "* Si la fiche de paie est en cours de vérification, le statut est 'En attente'.\n"
+"                \n"
 "* Si la fiche de paie est confirmée, le statut est 'Terminée'.\n"
-"* Quand l'utilisateur annule la fiche de paie, le statut est 'Rejetée'."
+"                \n"
+"* Quand l'utilisateur annule la fiche de paie, le statut est 'Annulée'."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -107,9 +131,54 @@ msgid "/ Month"
 msgstr "/ Mois"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ day"
+msgstr "/ jour"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ half-month"
+msgstr "/ demi-mois"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ half-year"
+msgstr "/ semestre"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ quarter"
+msgstr "/ trimestre"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ two months"
+msgstr "/ deux mois"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ two weeks"
+msgstr "/ deux semaines"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ week"
+msgstr "/ semaine"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "/ year"
+msgstr "/ année"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "1. Save documents to terminated employees"
-msgstr "1. Sauvegarder les documents des employés licenciés"
+msgstr "1. Enregistrer les documents des employés licenciés"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
+msgid "100"
+msgstr "100"
 
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_13th_month_salary
@@ -120,7 +189,7 @@ msgstr "13ème mois"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "1st semester of %s"
-msgstr ""
+msgstr "1e semestre de %s"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -128,10 +197,15 @@ msgid "2. Index salaries for Marketing department"
 msgstr "2. Indexer les salaires du département Marketing"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
+msgid "2023 Payroll"
+msgstr "2023 Paie"
+
+#. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "2nd semester of %s"
-msgstr ""
+msgstr "2e semestre de %s"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -161,6 +235,28 @@ msgid ""
 "                            Work Entries\n"
 "                            </span>"
 msgstr ""
+"<span class=\"o_stat_text\">\n"
+"                            Prestations\n"
+"                            </span>"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid ""
+"<span class=\"o_stat_text\"> Payslips </span>\n"
+"                            <span class=\"o_stat_value\"> New </span>"
+msgstr ""
+"<span class=\"o_stat_text\"> Fiches de paie </span>\n"
+"                            <span class=\"o_stat_value\"> Nouvelle </span>"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
+msgid "<span class=\"o_stat_text\">Eligible Employees</span>"
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_form
+msgid "<span class=\"o_stat_text\">Employees</span>"
+msgstr "<span class=\"o_stat_text\">Employés</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -168,24 +264,39 @@ msgid "<span class=\"o_stat_text\">Payslips</span>"
 msgstr "<span class=\"o_stat_text\">Fiches de paie</span>"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid ""
+"<span class=\"o_stat_text\">Salary Attachments</span>\n"
+"                            <span class=\"o_stat_value\">New</span>"
+msgstr ""
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
-msgid "<span nolabel=\"1\" colspan=\"2\">This wizard will generate payslips for all selected employee(s) based on the dates and credit note specified on Payslips Run.</span>"
-msgstr "<span nolabel=\"1\" colspan=\"2\">Cet assistant génère les fiches de paie de tous les employés sélectionnés sur la base des dates et des avoirs figurant sur les bulletins de paie.</span>"
+msgid ""
+"<span nolabel=\"1\" colspan=\"2\">This wizard will generate payslips for all"
+" selected employee(s) based on the dates and credit note specified on "
+"Payslips Run.</span>"
+msgstr ""
+"<span nolabel=\"1\" colspan=\"2\">Cet assistant génère les fiches de paie de"
+" tous les employés sélectionnés sur la base des dates et des avoirs figurant"
+" sur les fiches de paie.</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_index_form_view
-msgid "<span role=\"status\" class=\"alert alert-warning d-block\" attrs=\"{'invisible': [('display_warning', '=', False)]}\">You have selected contracts that are not running, this wizard can only index running contracts.</span>"
-msgstr "<span role=\"status\" class=\"alert alert-warning d-block\" attrs=\"{'invisible': [('display_warning', '=', False)]}\">Vous avez sélectionné des contrats qui ne sont pas en cours, cet assistant peut uniquement indexer des contrats qui sont en cours.</span>"
+msgid ""
+"<span role=\"status\" class=\"alert alert-warning d-block\" invisible=\"not "
+"display_warning\">You have selected contracts that are not running, this "
+"wizard can only index running contracts.</span>"
+msgstr ""
+"<span role=\"status\" class=\"alert alert-warning d-block\" invisible=\"not "
+"display_warning\">Vous avez sélectionné des contrats qui ne sont pas en "
+"cours d'exécution. Cet assistant ne peut indexer que des contrats en cours "
+"d'exécution.</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
 msgid "<span> %</span>"
 msgstr "<span> %</span>"
-
-#. module: hr_payroll
-#: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
-msgid "<span> hours/week</span>"
-msgstr "<span> heures/semaine</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
@@ -194,8 +305,33 @@ msgstr "<span>/ heure</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_edit_payslip_lines_form_wizard
-msgid "<span><strong>Tip:</strong> Each time you edit the quantity or the amount on a line, we recompute the following lines. We recommend that you edit from top to bottom to prevent your edition from being overwritten by the automatic recalculation. Be careful that reordering the lines doesn't recompute them.</span>"
-msgstr "<span><strong>Astuce l:</strong> Chaque fois que vous éditez la quantité ou le montant d'une ligne, les lignes suivants sont recalculées. Nous vous conseillons d'éditer les lignes de haut en bas pour éviter que vos changements soient écrasés par le recalcul automatique. Soyez conscient que réordonner les lignes ne les recalcule pas.</span>"
+msgid ""
+"<span><strong>Tip:</strong> Each time you edit the quantity or the amount on"
+" a line, we recompute the following lines. We recommend that you edit from "
+"top to bottom to prevent your edition from being overwritten by the "
+"automatic recalculation. Be careful that reordering the lines doesn't "
+"recompute them.</span>"
+msgstr ""
+"<span><strong>Astuce l:</strong> Chaque fois que vous modifiez la quantité "
+"ou le montant d'une ligne, les lignes suivants sont recalculées. Nous vous "
+"conseillons d'modifier les lignes de haut en bas pour éviter que vos "
+"changements soient écrasés par le recalcul automatique. Soyez conscient que "
+"réordonner les lignes ne les recalcule pas.</span>"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
+msgid "<span>Days</span>"
+msgstr "<span>Jours</span>"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
+msgid "<span>Payslips</span>"
+msgstr "<span>Fiches de paie</span>"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "<span>Total</span>"
+msgstr "<span>Total</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_rule_parameter_view_form
@@ -204,53 +340,75 @@ msgstr "<span>Versions</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Basic Salary</strong>"
-msgstr "<strong>Salaire de base</strong>"
+msgid "<strong class=\"me-2\">Children:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Computed on </strong>"
-msgstr "<strong>Calculé le </strong>"
+msgid "<strong class=\"me-2\">Computed On:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Contract Start Date</strong>"
-msgstr "<strong>Date de début du contrat</strong>"
+msgid "<strong class=\"me-2\">Contract Start Date:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Contract Type</strong>"
-msgstr "<strong>Type de contrat</strong>"
+msgid "<strong class=\"me-2\">Contract Type:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Designation</strong>"
-msgstr "<strong>Désignation</strong>"
+msgid "<strong class=\"me-2\">Department:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Employee</strong>"
-msgstr "<strong>Employé</strong>"
+msgid "<strong class=\"me-2\">Email:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Identification</strong>"
-msgstr "<strong>Identification</strong>"
+msgid "<strong class=\"me-2\">ID:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Marital Status</strong>"
-msgstr "<strong>État civil</strong>"
+msgid "<strong class=\"me-2\">Job Position:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Pay Period</strong>"
-msgstr "<strong>Période de paie</strong>"
+msgid "<strong class=\"me-2\">Marital Status:</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Person in charge</strong>"
-msgstr "<strong>Personne responsable</strong>"
+msgid "<strong class=\"me-2\">Name:</strong>"
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "<strong class=\"me-2\">Pay Period:</strong>"
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "<strong class=\"me-2\">Private Address:</strong>"
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "<strong class=\"me-2\">Working Schedule:</strong>"
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:web_tour.tour,rainbow_man_message:hr_payroll.payroll_tours
+msgid ""
+"<strong>Congrats, Your first payslip is now finished. It's time for you to "
+"explore the Payroll app by yourself.</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
@@ -263,9 +421,9 @@ msgid "<strong>Total</strong>"
 msgstr "<strong>Total</strong>"
 
 #. module: hr_payroll
-#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "<strong>Working Schedule</strong>"
-msgstr "<strong>Horaire de travail</strong>"
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
+msgid "<strong>YTD</strong>"
+msgstr ""
 
 #. module: hr_payroll
 #: model:mail.template,body_html:hr_payroll.mail_template_new_payslip
@@ -280,6 +438,15 @@ msgid ""
 "</tbody></table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
+"    <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
+"        Bonjour <t t-esc=\"object.employee_id.name\"></t>, une nouvelle fiche de paie est disponible pour vous.<br><br>\n"
+"        Vous trouverez le PDF dans votre portail employé.<br><br>\n"
+"        Belle journée,<br>\n"
+"        L'équipe RH\n"
+"    </td></tr>\n"
+"</tbody></table>\n"
+"            "
 
 #. module: hr_payroll
 #: model:ir.model.constraint,message:hr_payroll.constraint_hr_work_entry_type_is_unforeseen_is_leave
@@ -299,7 +466,9 @@ msgid "Action Needed"
 msgstr "Nécessite une action"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__active
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__active
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__active
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__active
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
 msgid "Active"
@@ -320,7 +489,7 @@ msgstr "Activités"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_exception_decoration
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Activité d'exception de décoration"
+msgstr "Activité exception décoration"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_state
@@ -340,13 +509,19 @@ msgstr "Icône de type d'activité"
 #: code:addons/hr_payroll/static/src/views/payslip_batch_form/payslip_batch_form.js:0
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 msgid "Add Payslips"
-msgstr ""
+msgstr "Ajouter des fiches de paie"
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Add a <strong>name</strong> to the contract."
 msgstr "Ajoutez un <strong>nom</strong> au contrat."
+
+#. module: hr_payroll
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+msgid "Add a employee to your contract"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -357,6 +532,15 @@ msgstr "Ajoutez une nouvelle structure salariale"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Add an internal note..."
 msgstr "Ajouter une note interne…"
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__ytd_computation
+#: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure__ytd_computation
+#: model:ir.model.fields,help:hr_payroll.field_hr_payslip__ytd_computation
+msgid ""
+"Adds a column in the payslip that shows the accumulated amount paid for "
+"different rules during the year"
+msgstr ""
 
 #. module: hr_payroll
 #: model:res.groups,name:hr_payroll.group_hr_payroll_manager
@@ -382,7 +566,7 @@ msgstr "Allocation"
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__condition_select__none
 msgid "Always True"
-msgstr "Toujours vrai"
+msgstr "Toujours vraie"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__amount
@@ -395,33 +579,57 @@ msgid "Amount"
 msgstr "Montant"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__amount_other_input_id
+msgid "Amount Other Input"
+msgstr ""
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__amount_select
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__amount_select
 msgid "Amount Type"
 msgstr "Type de montant"
 
 #. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "Amount to pay"
+msgstr "Montant à payer"
+
+#. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__monthly_amount
-msgid "Amount to pay each month."
-msgstr "Montant à payer chaque mois."
+msgid "Amount to pay each payslip."
+msgstr "Montant à payer à chaque fiche de paie."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__active_amount
-msgid "Amount to pay for this month, Monthly Amount or less depending on the Remaining Amount."
-msgstr "Montant à payer pour ce mois, montant mensuel ou moins selon le montant restant."
+msgid ""
+"Amount to pay for this payslip, Payslip Amount or less depending on the "
+"Remaining Amount."
+msgstr ""
+"Montant à payer pour cette fiche de paie, montant de la fiche de paie ou "
+"moins selon le montant restant."
+
+#. module: hr_payroll
+#: model:ir.model.constraint,message:hr_payroll.constraint_hr_payroll_employee_declaration_unique_employee_sheet
+msgid "An employee can only have one declaration per sheet."
+msgstr "Un employé ne peut avoir qu'une déclaration par feuille."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/components/dashboard/payroll_stats/payroll_stats.xml:0
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure__schedule_pay__annually
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__annually
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__annually
 msgid "Annually"
 msgstr "Annuel"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
-msgid "Another refund payslip with the same amount has been found. Do you want to create a new one?"
+msgid ""
+"Another refund payslip with the same amount has been found. Do you want to "
+"create a new one?"
 msgstr ""
+"Un autre bulletin de remboursement du même montant a été trouvé. Voulez-vous"
+" en créer un nouveau ?"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__appears_on_payslip
@@ -431,8 +639,12 @@ msgstr "Apparaît sur le bulletin de paie"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__condition_python
-msgid "Applied this rule for calculation if condition is true. You can specify condition like basic > 1000."
-msgstr "Appliquer cette règle pour le calcul si la condition est vraie. Vous pouvez spécifier une condition comme base > 1000."
+msgid ""
+"Applied this rule for calculation if condition is true. You can specify "
+"condition like basic > 1000."
+msgstr ""
+"Appliquer cette règle pour le calcul si la condition est vraie. Vous pouvez "
+"spécifier une condition comme base > 1000."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__date_estimated_end
@@ -440,6 +652,16 @@ msgid "Approximated end date."
 msgstr "Date de fin approximative."
 
 #. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__4
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__4
+msgid "April"
+msgstr "Avril"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_dashboard_warning_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_dashboard_warning_view_search
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_search
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_employee_grade_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payroll_structure_filter
@@ -450,22 +672,26 @@ msgstr "Archivé"
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/components/dashboard/todo_list/todo_list.js:0
-msgid "Are you sure you want to delete this note? All content will be definitely lost."
+msgid ""
+"Are you sure you want to delete this note? All content will be definitely "
+"lost."
 msgstr ""
+"Êtes-vous sûr de vouloir supprimer cette note ? Le contenu sera "
+"définitivement perdu."
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__assignment_amount
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__deduction_type__assignment
+#: model:hr.salary.rule,name:hr_payroll.default_assignment_of_salary_rule
 msgid "Assignment of Salary"
 msgstr "Cession sur salaire"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "At least one previous negative net could be reported on this payslip for %s"
-msgstr "Au moins un montant net négatif précédent pourrait être reporté sur cette fiche de paie pour %s"
+msgid ""
+"At least one previous negative net could be reported on this payslip for %s"
+msgstr ""
+"Au moins un montant net négatif précédent pourrait être reporté sur cette "
+"fiche de paie pour %s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_attachment_count
@@ -480,12 +706,9 @@ msgid "Attachment Name"
 msgstr "Nom de la pièce jointe"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__attachment_amount
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__deduction_type__attachment
+#: model:hr.salary.rule,name:hr_payroll.default_attachment_of_salary_rule
 msgid "Attachment of Salary"
-msgstr "Saisie sur salaire"
+msgstr "Ajustement salarial"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__attendance
@@ -494,19 +717,36 @@ msgid "Attendances"
 msgstr "Présences"
 
 #. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__8
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__8
+msgid "August"
+msgstr "Août"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "August 2023 Payslip"
+msgstr "Fiche de paie août 2023"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__struct_ids
 msgid "Availability in Structure"
 msgstr "Disponible dans la structure"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__available_in_attachments
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_search
+msgid "Available in attachments"
+msgstr ""
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__avatar_1920
 msgid "Avatar"
-msgstr ""
+msgstr "Avatar"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__avatar_128
 msgid "Avatar 128"
-msgstr ""
+msgstr "Avatar 128"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_report_view_tree
@@ -519,14 +759,20 @@ msgid "Average of Net Wage"
 msgstr "Moyenne du salaire net"
 
 #. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "Bank account"
+msgstr "Compte bancaire"
+
+#. module: hr_payroll
 #: model:hr.salary.rule.category,name:hr_payroll.BASIC
 msgid "Basic"
 msgstr "Basique"
 
 #. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.salary.rule,name:hr_payroll.default_basic_salary_rule
 msgid "Basic Salary"
 msgstr "Salaire de base"
 
@@ -534,7 +780,7 @@ msgstr "Salaire de base"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__basic_wage
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__basic_wage
 msgid "Basic Wage"
-msgstr "Salaire minimum"
+msgstr "Salaire de base"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__leave_basic_wage
@@ -566,13 +812,13 @@ msgid "Belgium Payroll"
 msgstr "Paie belge"
 
 #. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure__schedule_pay__bi-monthly
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__bi-monthly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__bi-monthly
 msgid "Bi-monthly"
 msgstr "Bi-mensuel"
 
 #. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure__schedule_pay__bi-weekly
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__bi-weekly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__bi-weekly
 msgid "Bi-weekly"
 msgstr "Bi-hebdomadaire"
@@ -580,7 +826,12 @@ msgstr "Bi-hebdomadaire"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "Board meeting summary:"
-msgstr ""
+msgstr "Récapitulatif du conseil d'administration :"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_payment_report_wizard__export_format__csv
+msgid "CSV"
+msgstr "CSV"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_form
@@ -595,11 +846,17 @@ msgstr "Calendrier modifié"
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_hr_payroll_cancel_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_index_form_view
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_payment_report_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Cancel"
 msgstr "Annuler"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__cancel
+msgid "Canceled"
+msgstr "Annulée"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__state__cancel
@@ -617,13 +874,26 @@ msgstr "Impossible d'annuler une fiche de paie terminée."
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Cannot mark payslip as paid if not confirmed."
-msgstr "Impossible de marquer la fiche de paie comme payée si elle n'est pas confirmée."
+msgstr ""
+"Impossible de marquer la fiche de paie comme payée si elle n'est pas "
+"confirmée."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__code
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_worked_days__code
-msgid "Careful, the Code is used in many references, changing it could lead to unwanted changes."
-msgstr "Attention, le Code est utilisé dans de nombreuses références, le modifier pourrait entraîner des changements indésirables."
+msgid ""
+"Careful, the Code is used in many references, changing it could lead to "
+"unwanted changes."
+msgstr ""
+"Attention, le Code est utilisé dans de nombreuses références, le modifier "
+"pourrait entraîner des changements indésirables."
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payroll_headcount_line__employee_type
+msgid ""
+"Categorize your Employees by type. This field also has an impact on "
+"contracts. Only Employees, Students and Trainee will have contract history."
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__category_id
@@ -634,28 +904,24 @@ msgid "Category"
 msgstr "Catégorie"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Check the <strong>Salary Structure Type</strong>."
-msgstr "Vérifiez le <strong>type de structure de salaire</strong>."
+#: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__is_refund
+msgid ""
+"Check if the value of the salary attachment must be taken into account as "
+"negative (-X)"
+msgstr ""
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Check the <strong>Work Entries</strong> linked to your newly created Contract."
-msgstr "Vérifiez les <strong>prestations</strong> liées à votre contrat nouvellement créé."
+msgid ""
+"Check the <strong>Work Entries</strong> linked to your newly created "
+"Contract."
+msgstr ""
+"Vérifiez les <strong>prestations</strong> liées à votre contrat nouvellement"
+" créé."
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Check the <strong>Working Schedule</strong>."
-msgstr "Vérifiez <strong>l'horaire de travail</strong>."
-
-#. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__child_support_amount
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__deduction_type__child_support
+#: model:hr.salary.rule,name:hr_payroll.default_child_support
 msgid "Child Support"
 msgstr "Pension alimentaire"
 
@@ -667,7 +933,7 @@ msgstr "Enfants"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Choose a Payroll Localization"
-msgstr "Choisissez une localisation pour la paie"
+msgstr "Choisir une localisation pour la paie"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -678,32 +944,37 @@ msgstr "Cliquez ici pour créer un nouveau <strong>Contrat</strong>."
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Click here to generate a <strong>Batch</strong> for the displayed Employees."
-msgstr "Cliquez ici pour générer un <strong>Lot</strong> pour les employés affichés."
+msgid ""
+"Click here to generate a <strong>Batch</strong> for the displayed Employees."
+msgstr ""
+"Cliquez ici pour générer un <strong>Lot</strong> pour les employés affichés."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Click here to go back to the <strong>Employee's profile</strong>."
-msgstr "Cliquez ici pour revenir au <strong>profil de l'employé</strong>."
-
-#. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Click on <strong>Salary Information</strong> to access additional fields."
-msgstr "Cliquez sur <strong>informations salariales</strong> pour accéder à des champs additionnels."
+msgid ""
+"Click on <strong>Salary Information</strong> to access additional fields."
+msgstr ""
+"Cliquez sur <strong>informations salariales</strong> pour accéder à des "
+"champs additionnels."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Click on Employees to pick one of your <strong>Employees</strong>."
-msgstr "Cliquez sur employés pour choisir un de vos <strong>employés</strong>."
+msgstr ""
+"Cliquez sur employés pour choisir un de vos <strong>employés</strong>."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Click on Payroll to manage your employee's <strong>Work Entries</strong>, <strong>Contracts</strong> and <strong>Payslips</strong>."
-msgstr "Cliquez sur paie pour gérer les <strong>prestations</strong>, les <strong>contrats</strong> et les <strong>fiches de paie</strong> de vos employés."
+msgid ""
+"Click on Payroll to manage your employee's <strong>Work Entries</strong>, "
+"<strong>Contracts</strong> and <strong>Payslips</strong>."
+msgstr ""
+"Cliquez sur paie pour gérer les <strong>prestations</strong>, les "
+"<strong>contrats</strong> et les <strong>fiches de paie</strong> de vos "
+"employés."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -724,10 +995,9 @@ msgid "Close"
 msgstr "Fermer"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Close the window."
-msgstr "Fermer la fenêtre."
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__paid_date
+msgid "Close Date"
+msgstr "Date de fermeture"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__half-up
@@ -737,6 +1007,7 @@ msgstr "Le plus proche"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__code
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__code
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__structure_code
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input__code
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__code
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__code
@@ -755,18 +1026,27 @@ msgid "Code:"
 msgstr "Code :"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__color
+msgid "Color"
+msgstr "Couleur"
+
+#. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_res_company
 msgid "Companies"
 msgstr "Sociétés"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__company_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__company_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__company_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__company_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__company_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__company_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__company_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__company_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__company_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__company_id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__company_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__company_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__company_id
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_report_view_search
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_report_view_search
@@ -782,14 +1062,13 @@ msgstr "Contribution de la société"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__full_time_required_hours
-#: model:ir.model.fields,field_description:hr_payroll.field_resource_calendar__full_time_required_hours
 msgid "Company Full Time"
-msgstr ""
+msgstr "Temps plein société"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_attachment__state__close
 msgid "Completed"
-msgstr "Achevé"
+msgstr "Terminé"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -813,6 +1092,11 @@ msgid "Condition Based on"
 msgstr "Condition basée sur"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__condition_other_input_id
+msgid "Condition Other Input"
+msgstr ""
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
 msgid "Conditions"
 msgstr "Conditions"
@@ -824,6 +1108,7 @@ msgstr "Paramètres de configuration"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_index_form_view
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Confirm"
 msgstr "Confirmer"
@@ -845,23 +1130,18 @@ msgid "Conflict"
 msgstr "Conflit"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_work_entries_in_conflict
 msgid "Conflicts"
 msgstr "Conflits"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Congratulations! You created your first contract and generated your first payslip!"
-msgstr "Félicitations! Vous venez de créer votre premier contrat et de générer votre première fiche de paie !"
-
-#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__contract_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__contract_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__contract_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input__contract_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__contract_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__contract_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_employee_mixin__contract_ids
 msgid "Contract"
 msgstr "Contrat"
 
@@ -871,14 +1151,29 @@ msgid "Contract Domain"
 msgstr "Domaine du contrat"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
+msgid "Contract Expiration Notice Period"
+msgstr "Délai de préavis du contrat"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__contract_names
+msgid "Contract Names"
+msgstr "Noms de contrats"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
 msgid "Contract Type"
 msgstr "Type de contrat"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Contract Wage ("
+msgstr ""
+
+#. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_contract_history
 msgid "Contract history"
-msgstr "Historique des contrats"
+msgstr "Historique des Contrats"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_index_form_view
@@ -921,6 +1216,7 @@ msgid "Count"
 msgstr "Comptage"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__country_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__country_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__country_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__country_id
@@ -932,6 +1228,7 @@ msgstr "Pays"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__country_code
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__country_code
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__country_code
 msgid "Country Code"
 msgstr "Code du pays"
@@ -939,7 +1236,18 @@ msgstr "Code du pays"
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_hr_payroll_confirm_payroll
 msgid "Create Draft Entry"
-msgstr "Créer une écriture brouillon"
+msgstr "Créer une entrée brouillon"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
+msgid "Create Individual Attachments"
+msgstr "Créer des ajustements individuels"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
+msgid "Create Payment Report"
+msgstr "Créer un rapport de paiement"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -949,12 +1257,32 @@ msgstr "Créer un paiement SEPA"
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_new_salary_attachment
 msgid "Create Salary Attachment"
-msgstr "Créer une saisie sur salaire"
+msgstr "Créer un ajustement salarial"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__create_uid
+msgid "Create Uid"
+msgstr "Créer Uid"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_hr_contract_repository
 msgid "Create a new contract"
 msgstr "Créer un nouveau contrat"
+
+#. module: hr_payroll
+#: model_terms:ir.actions.act_window,help:hr_payroll.action_salary_rule_form
+msgid "Create a new salary rule"
+msgstr "Créer une nouvelle règle salariale"
+
+#. module: hr_payroll
+#: model_terms:ir.actions.act_window,help:hr_payroll.hr_rule_parameter_action
+msgid "Create a new salary rule parameter"
+msgstr "Créer un nouveau paramètre de règle salariale"
+
+#. module: hr_payroll
+#: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_list_form
+msgid "Create a new salary structure"
+msgstr "Créer une nouvelle structure salariale"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -963,11 +1291,17 @@ msgid "Create new todo note"
 msgstr "Créer une nouvelle note à faire"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__create_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__create_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__create_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__create_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__create_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__create_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__create_uid
@@ -985,11 +1319,17 @@ msgid "Created by"
 msgstr "Créé par"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__create_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__create_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__create_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__create_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__create_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__create_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__create_date
@@ -1017,13 +1357,22 @@ msgid "Credit Notes"
 msgstr "Avoirs"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__is_credit_time
+msgid "Credit Time"
+msgstr "Crédit-temps"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_history__time_credit
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry__is_credit_time
 msgid "Credit time"
 msgstr "Crédit-temps"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__currency_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__currency_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__currency_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__currency_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__currency_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__currency_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__currency_id
 msgid "Currency"
@@ -1035,6 +1384,18 @@ msgid "Current month"
 msgstr "Mois actuel"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__is_name_custom
+msgid "Custom Name"
+msgstr "Nom personnalisé"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__daily
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__daily
+msgid "Daily"
+msgstr "Chaque jour"
+
+#. module: hr_payroll
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_dashboard_configuration
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_dashboard_root
 msgid "Dashboard"
 msgstr "Tableau de bord"
@@ -1063,12 +1424,26 @@ msgstr "Date de fin"
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__date_end
 msgid "Date at which this assignment has been set as completed or cancelled."
-msgstr "Date à laquelle cette mission a été définie comme terminée ou annulée."
+msgstr ""
+"Date à laquelle cette mission a été définie comme terminée ou annulée."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days__full
 msgid "Day"
-msgstr "Jour"
+msgstr "Journée"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
+msgid "Day where the 'Year To Date' will be reset every year."
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_res_company__ytd_reset_day
+#: model:ir.model.fields,help:hr_payroll.field_res_config_settings__ytd_reset_day
+msgid ""
+"Day where the YTD will be reset every year. If zero or negative, then the first day of the month will be selected instead.\n"
+"        If greater than the last day of a month, then the last day of the month will be selected instead."
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__number_of_days
@@ -1091,17 +1466,44 @@ msgid "Days of Unpaid Time Off"
 msgstr "Jours de congés non payés"
 
 #. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__12
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__12
+msgid "December"
+msgstr "Décembre"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__res_id
+msgid "Declaration Model Id"
+msgstr "Id du modèle de déclaration"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__res_model
+msgid "Declaration Model Name"
+msgstr "Nom du modèle de déclaration"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__line_ids
+msgid "Declarations"
+msgstr "Déclarations"
+
+#. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.salary.rule,name:hr_payroll.default_deduction_salary_rule
 #: model:hr.salary.rule.category,name:hr_payroll.DED
 msgid "Deduction"
 msgstr "Déduction"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__schedule_pay
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__default_schedule_pay
 msgid "Default Scheduled Pay"
 msgstr "Paiement planifié par défaut"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__wage_type
+msgid "Default Wage Type"
+msgstr "Type de salaire par défaut"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__default_work_entry_type_id
@@ -1115,7 +1517,6 @@ msgid "Define a <strong>Wage</strong>."
 msgstr "Définissez un <strong>salaire</strong>."
 
 #. module: hr_payroll
-#: model:ir.model.fields,help:hr_payroll.field_hr_contract__schedule_pay
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure__schedule_pay
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure_type__default_schedule_pay
 msgid "Defines the frequency of the wage payment."
@@ -1124,28 +1525,40 @@ msgstr "Définit la fréquence de paiement du salaire."
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_edit_payslip_line__struct_id
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__struct_id
-msgid "Defines the rules that have to be applied to this payslip, according to the contract chosen. If the contract is empty, this field isn't mandatory anymore and all the valid rules of the structures of the employee's contracts will be applied."
-msgstr "Définit les règles qui doivent être appliquées à cette fiche de paie, selon le contrat choisi. Si le contrat est vide, ce champ n'est plus obligatoire et toutes les règles valides des structures des contrats du salarié seront appliquées."
+msgid ""
+"Defines the rules that have to be applied to this payslip, according to the "
+"contract chosen. If the contract is empty, this field isn't mandatory "
+"anymore and all the valid rules of the structures of the employee's "
+"contracts will be applied."
+msgstr ""
+"Définit les règles qui doivent être appliquées à cette fiche de paie, selon "
+"le contrat choisi. Si le contrat est vide, ce champ n'est plus obligatoire "
+"et toutes les règles valides des structures des contrats du salarié seront "
+"appliquées."
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__department_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__department_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__department_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__department_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__department_id
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_line_search
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_report_view_search
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_report_view_search
-#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 msgid "Department"
 msgstr "Département"
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__note
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
+msgid "Department:"
+msgstr ""
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__description
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__note
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__name
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__note
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter__description
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__description
@@ -1157,16 +1570,27 @@ msgid "Description"
 msgstr "Description"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__disabled
+msgid "Disabled"
+msgstr "Désactivé"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_edit_payslip_lines_form_wizard
 msgid "Discard"
 msgstr "Ignorer"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__display_name
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__display_name
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__display_name
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__display_name
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__display_name
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__display_name
@@ -1179,7 +1603,6 @@ msgstr "Ignorer"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter_value__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__display_name
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule_category__display_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__display_name
@@ -1190,6 +1613,8 @@ msgstr "Nom d'affichage"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Display Payslip PDF File on a payslip form"
 msgstr ""
+"Afficher le fichier PDF de la fiche de paie sur un formulaire de fiche de "
+"paie"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_work_entry_type_view_form_inherit
@@ -1199,7 +1624,7 @@ msgstr "Afficher dans la fiche de paie"
 #. module: hr_payroll
 #: model:res.groups,name:hr_payroll.group_payslip_display
 msgid "Display payslip PDF"
-msgstr ""
+msgstr "Afficher le PDF de la fiche de paie"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__attachment
@@ -1228,7 +1653,7 @@ msgstr "Fiche de paie terminé"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Double Holiday Pay"
-msgstr "Double pécule de vacances"
+msgstr "Double Pécule"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__down
@@ -1236,6 +1661,7 @@ msgid "Down"
 msgstr "Bas"
 
 #. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_employee_declaration__state__draft
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__draft
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__state__draft
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
@@ -1257,7 +1683,7 @@ msgstr "Fiche de paie brouillon"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 #: model:ir.actions.server,name:hr_payroll.action_edit_payslip_lines
 msgid "Edit Payslip Lines"
-msgstr "Éditer les lignes de fiche de paie"
+msgstr "Modifier les lignes de fiche de paie"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__edit_payslip_lines_wizard_id
@@ -1291,18 +1717,32 @@ msgid "Edition of Payslip Lines in the Payslip"
 msgstr "Edition de lignes de fiche de paie"
 
 #. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__eligible_employee_line_ids
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_employee_mixin_list_view
+msgid "Eligible Employees"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__eligible_employee_count
+msgid "Eligible Employees Count"
+msgstr ""
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__email_cc
 msgid "Email cc"
-msgstr "Email cc"
+msgstr "E-mail cc"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_employee
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__employee_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__employee_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__employee_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__employee_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__employee_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__employee_id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__employee_id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__employee_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_employee_mixin__employee_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__employee_id
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_report_view_search
@@ -1313,6 +1753,13 @@ msgid "Employee"
 msgstr "Employé"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_search_inherit
+#: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_employee_view_search
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
+msgid "Employee Code"
+msgstr "Code d'employé"
+
+#. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_contract
 msgid "Employee Contract"
 msgstr "Contrat de l'employé"
@@ -1320,14 +1767,27 @@ msgstr "Contrat de l'employé"
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__employee_count
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__employee_count
 msgid "Employee Count"
 msgstr "Nombre d'employés"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
+msgid "Employee Declarations"
+msgstr "Déclarations de l'employé"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_employee_grade_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payroll_structure_list_view
 msgid "Employee Function"
 msgstr "Fonction de l'employé"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Employee Information"
+msgstr "Informations sur l'employé"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -1344,8 +1804,25 @@ msgid "Employee Trends"
 msgstr "Tendance des employés"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__employee_type
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_line_search
+msgid "Employee Type"
+msgstr "Type d'employé"
+
+#. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "Employee address"
+msgstr "Adresse de l'employé"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "Employee name"
+msgstr "Nom de l'employé"
+
+#. module: hr_payroll
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_with_different_company_on_contract
 msgid "Employee whose contracts and company are differents"
 msgstr "Employé dont les contrats et la société sont différents"
 
@@ -1356,13 +1833,15 @@ msgstr "Salaire horaire brut de l'employé."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract__resource_calendar_id
-msgid "Employee's working schedule."
-msgstr "Emploi du temps de l'employé."
+msgid ""
+"Employee's working schedule.\n"
+"        When left empty, the employee is considered to have a fully flexible schedule, allowing them to work without any time limit, anytime of the week.\n"
+"        "
+msgstr ""
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__employee_ids
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__employee_ids
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_filter
@@ -1370,52 +1849,60 @@ msgid "Employees"
 msgstr "Employés"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_missing_from_open_batch
 msgid "Employees (With Running Contracts) missing from open batches"
-msgstr "Employés (avec un contrat en cours) manquant dans des lots de fiche de paie"
+msgstr ""
+"Employés (avec un contrat en cours) manquant dans des lots de fiche de paie"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
+msgid "Employees Selection"
+msgstr ""
+
+#. module: hr_payroll
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_ambiguous_contract
 msgid "Employees With Both New And Running Contracts"
 msgstr "Employés avec à la fois un contrat en cours et ouvert"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employees_multiple_payslips
 msgid "Employees With Multiple Open Payslips of Same Type"
 msgstr "Employés avec plusieurs fiches de paie du même type en attente"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_without_bank_account
 msgid "Employees Without Bank account Number"
-msgstr ""
+msgstr "Employés sans numéro de compte bancaire"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_without_identification
 msgid "Employees Without Identification Number"
-msgstr ""
+msgstr "Employés sans numéro d'identification"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_without_contract
 msgid "Employees Without Running Contracts"
 msgstr "Employés sans contrats ouverts"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "Employees with payslips generated on the previous contract"
-msgstr "Employés avec des fiches de paie générées à partir d'un contrat précédent"
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_nearly_expired_contracts
+msgid "Employees with running contracts coming to an end"
+msgstr "Employés sont les contrats en cours arrivent à terme"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Employer Cost"
 msgstr "Coût pour l'employeur"
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure__hide_basic_on_pdf
+msgid ""
+"Enable this option if you don't want to display the Basic Salary on the "
+"printed pdf."
+msgstr ""
+"Activez cette option si vous ne voulez pas afficher le salaire de base sur "
+"le PDF imprimé."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__date_to
@@ -1437,7 +1924,9 @@ msgstr "Erreur"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_salary_rule_category.py:0
 msgid "Error! You cannot create recursive hierarchy of Salary Rule Category."
-msgstr "Erreur ! Vous ne pouvez pas créer de hiérarchie récursive de catégorie de règles salariales."
+msgstr ""
+"Erreur ! Vous ne pouvez pas créer de hiérarchie récursive de catégorie de "
+"règles salariales."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__date_estimated_end
@@ -1448,12 +1937,56 @@ msgstr "Date de fin estimée"
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line__partner_id
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__partner_id
 msgid "Eventual third party involved in the salary payment of the employees."
-msgstr "Éventuelle partie tierce impliquée dans le paiement des salaires des employés."
+msgstr ""
+"Éventuelle partie tierce impliquée dans le paiement des salaires des "
+"employés."
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_employee_mixin__export_id
+msgid "Export"
+msgstr "Exporter"
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payslip_run__payment_report
+msgid "Export .csv file related to this batch"
+msgstr "Exporter le fichier .csv relatif à ce lot"
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payslip__payment_report
+msgid "Export .csv file related to this payslip"
+msgstr "Exporter le fichier .csv relatif à cette fiche de paie"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_list_view
+msgid "Export Employee Work Entries"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__export_file
+msgid "Export File"
+msgstr "Exporter le fichier"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__export_filename
+msgid "Export Filename"
+msgstr "Nom du fichier d'export"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__export_format
+msgid "Export Format"
+msgstr "Exporter le format"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Export Payslip"
 msgstr "Exporter la fiche de paie"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__2
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__2
+msgid "February"
+msgstr "Février"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -1467,6 +2000,12 @@ msgstr "Premièrement, nous allons créer un nouveau <strong>contrat</strong>."
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__amount_select__fix
 msgid "Fixed Amount"
 msgstr "Montant fixe"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__wage_type__monthly
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__wage_type__monthly
+msgid "Fixed Wage"
+msgstr "Salaire fixe"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_follower_ids
@@ -1500,6 +2039,7 @@ msgid "French Payroll"
 msgstr "Paie française"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__date_from
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__date_from
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__date_from
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter_value__date_from
@@ -1509,8 +2049,8 @@ msgstr "De"
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
-msgid "From %s to %s"
-msgstr "De %s à %s"
+msgid "From %(from_date)s to %(end_date)s"
+msgstr "Du %(from_date)s au %(end_date)s"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -1518,9 +2058,20 @@ msgid "General"
 msgstr "Général"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_payment_report_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 msgid "Generate"
 msgstr "Générer"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
+msgid "Generate Export File"
+msgstr "Générer le fichier d'export"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_tree
+msgid "Generate PDFs"
+msgstr "Générer des PDF"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -1530,7 +2081,7 @@ msgstr "Générer"
 #: model:ir.actions.server,name:hr_payroll.action_hr_payslip_run_generate
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
 msgid "Generate Payslips"
-msgstr "Générer des fiches de paie"
+msgstr "Générer les fiches de paie"
 
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_generate_payslips_from_work_entries
@@ -1540,7 +2091,12 @@ msgstr "Générer des fiches de paie"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_employees
 msgid "Generate payslips for all selected employees"
-msgstr "Générer des fiches de paie pour tous les employés sélectionnés"
+msgstr "Génère les fiches de paie pour tous les employés sélectionnés"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_generated
+msgid "Generated PDF"
+msgstr "PDF généré"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -1549,16 +2105,8 @@ msgstr "Fiches de paie générées"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
-msgid "Give assurance card to new registered employees"
+msgid "Give insurance card to new registered employees"
 msgstr "Donner une carte d'assurances aux nouveaux employés enregistrés"
-
-#. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
-#: code:addons/hr_payroll/models/hr_payslip.py:0
-#: model:hr.salary.rule.category,name:hr_payroll.GROSS
-msgid "Gross"
-msgstr "Brut"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__gross_wage
@@ -1567,6 +2115,8 @@ msgid "Gross Wage"
 msgstr "Salaire brut"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_search
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_line_search
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_report_view_search
@@ -1581,7 +2131,12 @@ msgstr "Regrouper par"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__group_payslip_display
 msgid "Group Payslip Display"
-msgstr ""
+msgstr "Afficher les fiches de paie du groupe"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_payment_report_wizard
+msgid "HR Payroll Payment Report Wizard"
+msgstr "Assistant de rapport de paiement Paie RH"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_work_entry
@@ -1597,6 +2152,11 @@ msgstr "Type de prestations RH"
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days__half
 msgid "Half Day"
 msgstr "Demi-journée"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__has_done_payslip
+msgid "Has Done Payslip"
+msgstr "A effectué la fiche de paie"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__has_message
@@ -1618,12 +2178,12 @@ msgstr "A un bulletin de remboursement"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__has_similar_attachment
 msgid "Has Similar Attachment"
-msgstr "A une saisie similaire"
+msgstr "A un ajustement similaire"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__has_similar_attachment_warning
 msgid "Has Similar Attachment Warning"
-msgstr "A l'avertissement de saisie similaire"
+msgstr "A l'avertissement d'ajustement similaire"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__has_total_amount
@@ -1631,10 +2191,57 @@ msgid "Has Total Amount"
 msgstr "A un montant total"
 
 #. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.hr_payroll_headcount_action
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_headcount_action
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_tree
+msgid "Headcount"
+msgstr "Effectifs"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_headcount_line
+msgid "Headcount Line"
+msgstr "Ligne d'effectifs"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_headcount.py:0
+msgid "Headcount for %(company_name)s from %(date_from)s to %(date_to)s"
+msgstr "Effectifs pour %(company_name)s du %(date_from)s au %(date_to)s"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_headcount.py:0
+msgid "Headcount for %(company_name)s on the %(date)s"
+msgstr "Effectifs pour %(company_name)s le %(date)s"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_line_view_tree
+msgid "Headcount's Employees"
+msgstr "Effectif salarié"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_headcount.py:0
+msgid "Headcount's employees"
+msgstr "Effectif salarié"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__hide_basic_on_pdf
+msgid "Hide Basic On Pdf"
+msgstr "Masquer le salaire de base sur le PDF"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__hourly_wage
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__wage_type__hourly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__wage_type__hourly
 msgid "Hourly Wage"
 msgstr "Salaire horaire"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Hours / Week"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__hours_per_week
@@ -1648,11 +2255,17 @@ msgid "House Rent Allowance"
 msgstr "Allocation logement"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__id
@@ -1665,7 +2278,6 @@ msgstr "Allocation logement"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_rule_parameter_value__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule_category__id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__id
@@ -1702,25 +2314,49 @@ msgid "If checked, some messages have a delivery error."
 msgstr "Si coché, certains messages ont une erreur de livraison."
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
+msgid ""
+"If empty, the default salary structure from the Salary structure type of the"
+" employee will be used"
+msgstr ""
+
+#. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_employee__is_non_resident
 #: model:ir.model.fields,help:hr_payroll.field_res_users__is_non_resident
 msgid "If recipient lives in a foreign country"
+msgstr "Si le destinataire réside dans un pays étranger"
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input_type__is_quantity
+#: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__is_quantity
+msgid ""
+"If set, hide currency and consider the manual input as a quantity for every "
+"rule computation using this input."
 msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__active
-msgid "If the active field is set to false, it will allow you to hide the salary rule without removing it."
-msgstr "Si le champ actif n'est pas coché, la règle salariale sera masquée sans être supprimée."
+msgid ""
+"If the active field is set to false, it will allow you to hide the salary "
+"rule without removing it."
+msgstr ""
+"Si le champ actif n'est pas coché, la règle salariale sera masquée sans être"
+" supprimée."
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_employee__disabled
+msgid "If the employee is declared disabled by law"
+msgstr "Si l'employé est déclaré handicapé par la loi"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__image_1920
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__image_128
 msgid "Image 128"
-msgstr ""
+msgstr "Image 128"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_view_tree
@@ -1741,7 +2377,7 @@ msgstr "Indexer les contrats"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__module_l10n_in_hr_payroll
 msgid "Indian Payroll"
-msgstr "Paie Indienne"
+msgstr "Paie indienne"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__credit_note
@@ -1799,25 +2435,79 @@ msgstr "Est un super-utilisateur"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__is_wrong_duration
 msgid "Is Wrong Duration"
+msgstr "Mauvaise durée"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__is_quantity
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__is_quantity
+msgid "Is quantity?"
 msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__quantity
-msgid "It is used in computation for percentage and fixed amount. E.g. a rule for Meal Voucher having fixed amount of 1€ per worked day can have its quantity defined in expression like worked_days.WORK100.number_of_days."
-msgstr "Il est utilisé dans le calcul du pourcentage et du montant fixe. Par ex. une règle pour un chèque-repas ayant un montant fixe de 1 € par jour ouvré peut avoir sa quantité définie dans l'expression comme working_days.WORK100.number_of_days."
+msgid ""
+"It is used in computation for percentage and fixed amount. E.g. a rule for "
+"Meal Voucher having fixed amount of 1€ per worked day can have its quantity "
+"defined in expression like worked_days['WORK100'].number_of_days."
+msgstr ""
+"Il est utilisé dans les calculs du pourcentage et du montant fixe. Par "
+"exemple, une règle pour les chèques-repas ayant un montant fixe de 1 € par "
+"jour travaillé peut avoir sa quantité définie dans une expression comme "
+"worked_days['WORK100'].number_of_days."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input__amount
-msgid "It is used in computation. E.g. a rule for salesmen having 1%% commission of basic salary per product can defined in expression like: result = inputs.SALEURO.amount * contract.wage * 0.01."
-msgstr "Il est utilisé dans le calcul. Par ex. une règle pour les vendeurs ayant 1%% commission de salaire de base par produit peut être définie dans une expression comme : résultat = intrants.SALEURO.montant * contrat.salaire * 0,01."
+msgid ""
+"It is used in computation. E.g. a rule for salesmen having 1%% commission of"
+" basic salary per product can defined in expression like: result = "
+"inputs['SALEURO'].amount * contract.wage * 0.01."
+msgstr ""
+"Il est utilisé dans les calculs. Par exemple, une règle pour les vendeurs "
+"ayant une commission de 1%% du salaire de base par produit peut être définie"
+" dans une expression comme : result = inputs['SALEURO'].amount * "
+"contract.wage * 0.01."
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__1
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__1
+msgid "January"
+msgstr "Janvier"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_line_search
+msgid "Job"
+msgstr "Poste"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__job_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__job_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__job_id
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_report_view_search
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_filter
 msgid "Job Position"
-msgstr "Poste de travail"
+msgstr "Poste"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__job_id
+msgid "Job Title"
+msgstr "Titre du poste"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
+msgid "Job Title:"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__7
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__7
+msgid "July"
+msgstr "Juillet"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__6
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__6
+msgid "June"
+msgstr "Juin"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_report_view_search
@@ -1838,14 +2528,20 @@ msgstr "Le mois dernier"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_line_view_search_register
 msgid "Last Quarter"
-msgstr "Dernier trimestre"
+msgstr "Le dernier trimestre"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__write_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__write_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__write_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__write_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__write_uid
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__write_uid
@@ -1860,14 +2556,20 @@ msgstr "Dernier trimestre"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__write_uid
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule_category__write_uid
 msgid "Last Updated by"
-msgstr "Dernière mise à jour par"
+msgstr "Mis à jour par"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__write_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__write_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__write_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__write_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__write_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__write_date
@@ -1882,7 +2584,12 @@ msgstr "Dernière mise à jour par"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__write_date
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule_category__write_date
 msgid "Last Updated on"
-msgstr "Dernière mise à jour le"
+msgstr "Mis à jour le"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__line_ids
+msgid "Line"
+msgstr "Linéaire"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_form
@@ -1890,24 +2597,28 @@ msgid "Line Name"
 msgstr "Ligne de nom"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__lines_count
+msgid "Lines Count"
+msgstr "Nombre de lignes"
+
+#. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule_category__parent_id
-msgid "Linking a salary category to its parent is used only for the reporting purpose."
-msgstr "La liaison d'une catégorie salariale à son parent est utilisée uniquement dans le but de rapports."
+msgid ""
+"Linking a salary category to its parent is used only for the reporting "
+"purpose."
+msgstr ""
+"La liaison d'une catégorie salariale à son parent est utilisée uniquement "
+"dans le but de rapports."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "Links:"
-msgstr ""
+msgstr "Liens :"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__paid
 msgid "Made Payment Order? "
-msgstr ""
-
-#. module: hr_payroll
-#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "Made by Odoo with ❤️"
-msgstr "Réalisé par Odoo avec ❤️"
+msgstr "Ordre de paiement effectué ?"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_main_attachment_id
@@ -1915,9 +2626,10 @@ msgid "Main Attachment"
 msgstr "Pièce jointe principale"
 
 #. module: hr_payroll
-#: model:res.groups,name:hr_payroll.group_hr_payroll_employee_manager
-msgid "Manager"
-msgstr "Manager"
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__3
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__3
+msgid "March"
+msgstr "Mars"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
@@ -1940,6 +2652,12 @@ msgstr "Département parent"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__condition_range_max
 msgid "Maximum Range"
 msgstr "Plage maximale"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__5
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__5
+msgid "May"
+msgstr "Mai"
 
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.hr_salary_rule_meal_voucher
@@ -1968,7 +2686,7 @@ msgstr "Plage minimale"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__mobile_invoice
 msgid "Mobile Subscription Invoice"
-msgstr "Facture d'abonnement de téléphone"
+msgstr "Facture d'abonnement téléphonique"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_report_hr_payroll_contribution_register
@@ -1978,26 +2696,15 @@ msgstr "Modèle pour imprimer hr.payslip.line groupé par registre"
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/components/dashboard/payroll_stats/payroll_stats.xml:0
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure__schedule_pay__monthly
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__monthly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__monthly
 msgid "Monthly"
 msgstr "Mensuel"
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__monthly_amount
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_tree
 msgid "Monthly Amount"
 msgstr "Montant mensuel"
-
-#. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__wage_type__monthly
-msgid "Monthly Fixed Wage"
-msgstr "Salaire fixe mensuel"
-
-#. module: hr_payroll
-#: model:ir.model.constraint,message:hr_payroll.constraint_hr_salary_attachment_check_monthly_amount
-msgid "Monthly amount must be strictly positive."
-msgstr "Le montant mensuel doit être strictement positif."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__my_activity_date_deadline
@@ -2006,8 +2713,10 @@ msgid "My Activity Deadline"
 msgstr "Échéance de mon activité"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__name
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__name
@@ -2023,8 +2732,17 @@ msgstr "Nom"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure__payslip_name
-msgid "Name to be set on a payslip. Example: 'End of the year bonus'. If not set, the default value is 'Salary Slip'"
-msgstr "Nom à indiquer sur une fiche de paie. Exemple: 'Bonus de fin d'année'. S'il n'est pas défini, la valeur par défaut est 'Salaire'"
+msgid ""
+"Name to be set on a payslip. Example: 'End of the year bonus'. If not set, "
+"the default value is 'Salary Slip'"
+msgstr ""
+"Nom à indiquer sur une fiche de paie. Exemple: 'Bonus de fin d'année'. S'il "
+"n'est pas défini, la valeur par défaut est 'Salaire'"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
+msgid "Name:"
+msgstr "Nom :"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__negative_net_to_report_amount
@@ -2047,6 +2765,11 @@ msgid "Negative Net to Report"
 msgstr "Net négatif à reporter"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__is_refund
+msgid "Negative Value"
+msgstr ""
+
+#. module: hr_payroll
 #: model:hr.salary.rule.category,name:hr_payroll.NET
 msgid "Net"
 msgstr "Net"
@@ -2058,8 +2781,8 @@ msgstr "Net -"
 
 #. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.salary.rule,name:hr_payroll.default_net_salary
 msgid "Net Salary"
 msgstr "Salaire net"
 
@@ -2077,8 +2800,7 @@ msgid "New"
 msgstr "Nouveau"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_new_contracts
 msgid "New Contracts"
 msgstr "Nouveaux contrats"
 
@@ -2104,19 +2826,29 @@ msgstr "Activité suivante de l'événement du calendrier"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_date_deadline
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Date limite de l'Activité à venir"
+msgstr "Date limite de l'activité à venir"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_summary
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_summary
 msgid "Next Activity Summary"
-msgstr "Résumé d'activité suivante"
+msgstr "Résumé de l'activité suivante"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__activity_type_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__activity_type_id
 msgid "Next Activity Type"
 msgstr "Type d'activités à venir"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__no_end_date
+msgid "No End Date"
+msgstr "Aucune date de fin"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "No ID number on the employee !!!"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days__no
@@ -2129,21 +2861,23 @@ msgid "No duplication of registration numbers is allowed"
 msgstr "Aucune duplication des numéros d'enregistrement n'est autorisée"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__default_no_end_date
+msgid "No end date by default"
+msgstr ""
+
+#. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_rule_parameter.py:0
-msgid "No rule parameter with code '%s' was found for %s "
-msgstr "Aucun paramètre de règle avec le code '%s' n'a été trouvé pour %s "
+msgid "No rule parameter with code \"%(code)s\" was found for %(date)s"
+msgstr ""
+"Aucun paramètre de règle avec le code \"%(code)s\" n'a été trouvé pour "
+"%(date)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__is_non_resident
 #: model:ir.model.fields,field_description:hr_payroll.field_res_users__is_non_resident
 msgid "Non-resident"
-msgstr ""
-
-#. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__normal_wage
-msgid "Normal Wage"
-msgstr "Salaire normal"
+msgstr "Non-résident"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2154,14 +2888,22 @@ msgstr "Note"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_rule_parameter_view_form
-msgid "Note a description of your parameter, when it's used, how is it computed, what's the source, ..."
-msgstr "Notez une description de votre paramètre, quand il est utilisé, comment il est calculé, quelle est la source, ..."
+msgid ""
+"Note a description of your parameter, when it's used, how is it computed, "
+"what's the source, ..."
+msgstr ""
+"Notez une description de votre paramètre, quand il est utilisé, comment il "
+"est calculé, quelle est la source, ..."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "Note: There are previous payslips with a negative amount for a total of %s to report."
-msgstr "Note : Il y a des fiches de paie précédentes avec un montant négatif pour un total de %s à reporter "
+msgid ""
+"Note: There are previous payslips with a negative amount for a total of %s "
+"to report."
+msgstr ""
+"Note : Il y a des fiches de paie précédentes avec un montant négatif pour un"
+" total de %s à reporter "
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_form
@@ -2171,7 +2913,13 @@ msgstr "Notes"
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_contribution_registers
 msgid "Nothing to show"
-msgstr "Rien à afficher"
+msgstr "Rien à montrer"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__11
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__11
+msgid "November"
+msgstr "Novembre"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_needaction_counter
@@ -2197,6 +2945,24 @@ msgid "Number of Hours"
 msgstr "Nombre d'heures"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
+msgid ""
+"Number of days prior to the contract end date that a contract expiration "
+"warning is triggered."
+msgstr ""
+"Nombre de jours avant la date de fin du contrat pour qu'un avertissement "
+"d'expiration du contrat soit déclenché."
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
+msgid ""
+"Number of days prior to the work permit expiration date that a warning is "
+"triggered."
+msgstr ""
+"Nombre de jours avant la date d'expiration du permis de travail pour qu'un "
+"avertissement soit déclenché."
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_has_error_counter
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__message_has_error_counter
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__message_has_error_counter
@@ -2205,16 +2971,19 @@ msgstr "Nombre d'erreurs"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract__full_time_required_hours
-#: model:ir.model.fields,help:hr_payroll.field_resource_calendar__full_time_required_hours
-msgid "Number of hours to work on the company schedule to be considered as fulltime."
+msgid ""
+"Number of hours to work on the company schedule to be considered as "
+"fulltime."
 msgstr ""
+"Nombre d'heures de travail selon l'horaire de l'entreprise pour être "
+"considéré comme un temps plein"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__message_needaction_counter
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_run__message_needaction_counter
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Nombre de messages exigeant une action"
+msgid "Number of messages requiring action"
+msgstr "Nombre de messages nécessitant une action"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__message_has_error_counter
@@ -2224,9 +2993,26 @@ msgid "Number of messages with delivery error"
 msgstr "Nombre de messages avec des erreurs d'envoi"
 
 #. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__occurrences
+msgid "Number of times the salary attachment will appear on the payslip."
+msgstr ""
+"Nombre de fois où l'ajustement salarial apparaîtra sur le bulletin de paie."
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__occurrences
+msgid "Occurrences"
+msgstr "Occurrences"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__10
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__10
+msgid "October"
+msgstr "Octobre"
+
+#. module: hr_payroll
 #: model:res.groups,name:hr_payroll.group_hr_payroll_user
 msgid "Officer: Manage all contracts"
-msgstr ""
+msgstr "Gestionnaire : Gérer tous les contrats"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
@@ -2236,20 +3022,32 @@ msgstr "Sur le"
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "On the first tab is the amount of worked time giving you a <strong>gross amount</strong>."
-msgstr "Sur le premier onglet vous retrouvez le montant de temps presté vous donnant un <strong>montant brut</strong>."
+msgid ""
+"On the first tab is the amount of worked time giving you a <strong>gross "
+"amount</strong>."
+msgstr ""
+"Sur le premier onglet vous retrouvez le montant de temps presté vous donnant"
+" un <strong>montant brut</strong>."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "On the second tab is the computation of the rules linked to the Structure resulting in a <strong>net amount</strong>."
-msgstr "Sur le deuxième onglet il y a le calcul des règles liées à la structure de paie résultant en un <strong>montant net</strong>."
+msgid ""
+"On the second tab is the computation of the rules linked to the Structure "
+"resulting in a <strong>net amount</strong>."
+msgstr ""
+"Sur le deuxième onglet il y a le calcul des règles liées à la structure de "
+"paie résultant en un <strong>montant net</strong>."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "On the smartbutton, you can find all the <strong>Payslips</strong> included in the Batch."
-msgstr "Sur ce bouton, vous trouverez toutes les <strong>fiches de paie</strong> comprises dans le lot."
+msgid ""
+"On the smartbutton, you can find all the <strong>Payslips</strong> included "
+"in the Batch."
+msgstr ""
+"Sur ce bouton, vous trouverez toutes les <strong>fiches de paie</strong> "
+"comprises dans le lot."
 
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.ir_actions_server_action_open_reporting
@@ -2262,6 +3060,13 @@ msgid "Other Info"
 msgstr "Autres informations"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Other Information"
+msgstr "Autres informations"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__amount_select__input
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__condition_select__input
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_employee_grade_form
 msgid "Other Input"
 msgstr "Autre entrée"
@@ -2286,6 +3091,22 @@ msgstr "Autres entrées"
 #: model:hr.work.entry.type,name:hr_payroll.hr_work_entry_type_out_of_contract
 msgid "Out of Contract"
 msgstr "Hors contrat"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__pdf_error
+msgid "PDF Error Message"
+msgstr "Message d'erreur PDF"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_file
+msgid "PDF File"
+msgstr "Fichier PDF"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_employee_declaration.py:0
+msgid "PDF generation started. It will be available shortly."
+msgstr "Lancement de la génération du PDF. Il sera disponible sous peu."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__paid
@@ -2315,7 +3136,6 @@ msgstr "Parent"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__time_credit
-#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_search_inherit
 msgid "Part Time"
 msgstr "Temps partiel"
@@ -2326,10 +3146,20 @@ msgid "Part Time Work Entry Type"
 msgstr "Type de prestation à temps partiel"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
+msgid "Part time"
+msgstr "Temps partiel"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__partner_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__partner_id
 msgid "Partner"
 msgstr "Partenaire"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
+msgid "Pay Period:"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip
@@ -2354,6 +3184,25 @@ msgstr "Lignes de la fiche de paie par registre de contribution"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
 msgid "PaySlip Name"
 msgstr "Nom de la fiche de paie"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__payment_report
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__payment_report
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_payment_report_view_form
+msgid "Payment Report"
+msgstr "Rapport de paiement"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__payment_report_date
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__payment_report_date
+msgid "Payment Report Date"
+msgstr "Date du rapport de paiement"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__payment_report_filename
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__payment_report_filename
+msgid "Payment Report Filename"
+msgstr "Nom du fichier du rapport de paiement"
 
 #. module: hr_payroll
 #: model:ir.actions.act_window,name:hr_payroll.open_payroll_modules
@@ -2385,7 +3234,7 @@ msgstr "Rapport d'analyse de paie"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__code
 msgid "Payroll Code"
-msgstr ""
+msgstr "Code Paie"
 
 #. module: hr_payroll
 #: model:ir.actions.client,name:hr_payroll.hr_payroll_dashboard_open
@@ -2393,14 +3242,41 @@ msgid "Payroll Dashboard"
 msgstr "Tableau de bord de la paie"
 
 #. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_dashboard_warning
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_dashboard_warning_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_dashboard_warning_view_tree
+msgid "Payroll Dashboard Warning"
+msgstr "Avertissement tableau de bord de la paie"
+
+#. module: hr_payroll
+#: model:ir.actions.act_window,name:hr_payroll.action_hr_payroll_dashboard_warning
+msgid "Payroll Dashboard Warnings"
+msgstr "Avertissements tableau de bord de la paie"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_declaration_mixin
+msgid "Payroll Declaration Mixin"
+msgstr "Mixin de déclaration de paie"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_employee_declaration
+msgid "Payroll Employee Declaration"
+msgstr "Déclaration de l'employé paie"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Payroll Entries"
 msgstr "Entrées de règles de paie"
 
 #. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_headcount
+msgid "Payroll Headcount"
+msgstr "Effectif Payroll"
+
+#. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_note
 msgid "Payroll Note"
-msgstr ""
+msgstr "Note de paie"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -2425,7 +3301,7 @@ msgstr "Règles de paie qui s'appliquent dans votre pays"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "Payroll tips &amp; tricks:"
-msgstr ""
+msgstr "Trucs & astuces pour la paie :"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__module_hr_payroll_account
@@ -2433,7 +3309,7 @@ msgid "Payroll with Accounting"
 msgstr "Paie avec Comptabilité"
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__module_hr_payroll_account_sepa
+#: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__module_hr_payroll_account_iso20022
 msgid "Payroll with SEPA payment"
 msgstr "Paie avec paiement SEPA"
 
@@ -2455,8 +3331,11 @@ msgstr "Paie : Mettre à jour les données"
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:ir.actions.act_window,name:hr_payroll.action_hr_payslip_new
 #: model:ir.actions.report,name:hr_payroll.action_report_payslip
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__payslip_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__payslip_ids
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__payslip_id
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Payslip"
 msgstr "Fiche de paie"
@@ -2466,6 +3345,17 @@ msgstr "Fiche de paie"
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Payslip 'Date From' must be earlier than 'Date To'."
 msgstr ""
+"La date de début de la fiche de paie doit être antérieure à la date de fin."
+
+#. module: hr_payroll
+#: model:ir.actions.report,name:hr_payroll.action_report_light_payslip
+msgid "Payslip (Light)"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__monthly_amount
+msgid "Payslip Amount"
+msgstr "Montant de la fiche de paie"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
@@ -2484,9 +3374,9 @@ msgid "Payslip Count"
 msgstr "Nombre de fiches de paie"
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__payslip_end_date
-msgid "Payslip End Date"
-msgstr "Date de fin de la fiche de paie"
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
+msgid "Payslip Generation"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_input
@@ -2502,6 +3392,7 @@ msgstr "Nom de l'entrée de la fiche de paie"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_input_type
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_search
 msgid "Payslip Input Type"
 msgstr "Type d'entrée de la fiche de paie"
 
@@ -2509,6 +3400,11 @@ msgstr "Type d'entrée de la fiche de paie"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__input_line_ids
 msgid "Payslip Inputs"
 msgstr "Entrées de la fiche de paie"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_employee_view_form
+msgid "Payslip Language"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
@@ -2530,7 +3426,6 @@ msgstr "Lignes de la fiche de paie"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__payslip_name
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__name
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__payslip_id
 msgid "Payslip Name"
 msgstr "Nom de fiche de paie"
 
@@ -2542,18 +3437,29 @@ msgstr "Autres types d'entrée de la fiche de paie"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Payslip PDF Display"
-msgstr ""
+msgstr "PDF de la fiche de paie"
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment_report__payslip_start_date
-msgid "Payslip Start Date"
-msgstr "Date de début de la fiche de paie"
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "Payslip Period"
+msgstr "Période de la fiche de paie"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__payslip_run_id
+msgid "Payslip Run"
+msgstr "Exécution de la fiche de paie"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_worked_days
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__worked_days_line_ids
 msgid "Payslip Worked Days"
-msgstr "Fiche de paie jours ouvrés"
+msgstr "Prestations"
+
+#. module: hr_payroll
+#: model:ir.model.constraint,message:hr_payroll.constraint_hr_salary_attachment_check_monthly_amount
+msgid "Payslip amount must be strictly positive."
+msgstr "Le montant de la fiche de paie doit être strictement positif."
 
 #. module: hr_payroll
 #. odoo-python
@@ -2585,8 +3491,7 @@ msgid "Payslips Count"
 msgstr "Nombre de fiches de paie"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_payslips_previous_contract
 msgid "Payslips Generated On Previous Contract"
 msgstr "Fiches de paie générées sur un contrat précédent"
 
@@ -2596,10 +3501,9 @@ msgid "Payslips To Pay"
 msgstr "Fiches de paie à payer"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "Payslips With Negative Amounts"
-msgstr "Fiches de paie avec un montant négatif"
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_payslips_negative_net
+msgid "Payslips With Negative NET"
+msgstr "Fiches de paie avec un net négatif"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
@@ -2607,10 +3511,14 @@ msgid "Payslips by Employees"
 msgstr "Fiches de paie par employé"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "Payslips with negative NET"
-msgstr "Fiches de paie avec un net négatif"
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_filename
+msgid "Pdf Filename"
+msgstr "Nom du fichier PDF"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__pdf_to_generate
+msgid "Pdf To Generate"
+msgstr "PDF à générer"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__percentage
@@ -2636,16 +3544,33 @@ msgid "Period"
 msgstr "Période"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Pick an Employee to see his <strong>Contract's History</strong>."
-msgstr "Sélectionnez un employé pour voir son <strong>historique de contrats</strong>."
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_start
+msgid "Period Start"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_stop
+msgid "Period Stop"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__planning
 msgid "Planning"
 msgstr "Planning"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_employee_declaration.py:0
+msgid "Please select the declarations for which you want to generate a PDF."
+msgstr ""
+"Sélectionnez les déclarations pour lesquelles vous voulez générer un PDF."
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
+msgid "Populate"
+msgstr "Remplir"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -2681,8 +3606,10 @@ msgid "Provident Fund"
 msgstr "Caisse de prévoyance"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__evaluation_code
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__amount_python_compute
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__amount_select__code
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_rule_filter
 msgid "Python Code"
 msgstr "Code Python"
 
@@ -2705,6 +3632,7 @@ msgstr "Structure de données Python"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__quantity
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__quantity
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__quantity
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Quantity"
 msgstr "Quantité"
 
@@ -2716,11 +3644,11 @@ msgstr "Quantité/taux"
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "Quarter %s of %s"
-msgstr ""
+msgid "Quarter %(quarter)s of %(year)s"
+msgstr "Trimester %(quarter)s de %(year)s"
 
 #. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure__schedule_pay__quarterly
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__quarterly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__quarterly
 msgid "Quarterly"
 msgstr "Trimestriel"
@@ -2729,6 +3657,11 @@ msgstr "Trimestriel"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__queued_for_pdf
 msgid "Queued For Pdf"
 msgstr "En file d'attente pour le PDF"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_employee_declaration__state__pdf_to_generate
+msgid "Queued PDF generation"
+msgstr "Génération de PDF en file d'attente"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_salary_rule__condition_select__range
@@ -2741,6 +3674,12 @@ msgid "Range Based on"
 msgstr "Plage basée sur"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_working_rate__rate
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "Rate"
+msgstr "Taux"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__rate
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__rate
 msgid "Rate (%)"
@@ -2751,7 +3690,7 @@ msgstr "Taux (%)"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__rating_ids
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Évaluations"
 
 #. module: hr_payroll
 #: model:ir.actions.server,name:hr_payroll.action_hr_payroll_recompute_whole_sheet
@@ -2761,7 +3700,9 @@ msgstr "Recalculer la feuille entière"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Recompute the payslip lines only, not the worked days / input lines"
-msgstr "Recalculer uniquement les lignes de fiche de paie, pas les jours ouvrés/lignes d'entrée"
+msgstr ""
+"Recalculer uniquement les lignes de fiche de paie, pas les jours "
+"ouvrés/lignes d'entrée"
 
 #. module: hr_payroll
 #. odoo-python
@@ -2775,15 +3716,30 @@ msgid "Reference"
 msgstr "Référence"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__reference_month
+msgid "Reference Month"
+msgstr "Mois de référence"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__reference_year
+msgid "Reference Year"
+msgstr "Année de référence"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Refund"
-msgstr "Remboursement"
+msgstr "Rembourser"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Refund: %(payslip)s"
 msgstr "Remboursement : %(payslip)s"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
+msgid "Refunds"
+msgstr "Remboursements"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__registration_number
@@ -2802,15 +3758,15 @@ msgstr "Journée de travail régulière"
 
 #. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/hr_payroll_structure.py:0
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.salary.rule,name:hr_payroll.default_reimbursement_salary_rule
 msgid "Reimbursement"
 msgstr "Remboursement"
 
 #. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__cancel
-msgid "Rejected"
-msgstr "Rejeté"
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_tree
+msgid "Related Payslips"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__remaining_amount
@@ -2828,15 +3784,28 @@ msgid "Remaining amount to be paid."
 msgstr "Le montant restant doit être payé."
 
 #. module: hr_payroll
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
-msgid "Report"
-msgstr "Rapport"
+#. odoo-javascript
+#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
+msgid "Remove \"Conflicting\" filter"
+msgstr ""
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "Report Date"
+msgstr "Date du rapport"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_report
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_work_entry_type_view_form_inherit_contract
 msgid "Reporting"
 msgstr "Analyse"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
+msgid "Resolve Conflicts"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_resource_calendar
@@ -2897,12 +3866,6 @@ msgid "Running"
 msgstr "En cours"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "Running contracts coming to an end"
-msgstr "Contrats en cours arrivant à échéance"
-
-#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__sim_card
 msgid "SIM Card Copy"
 msgstr "Copie de la carte SIM"
@@ -2923,49 +3886,40 @@ msgstr "Salaire"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_contract.py:0
 #: code:addons/hr_payroll/report/hr_contract_history.py:0
+#: model:ir.actions.act_window,name:hr_payroll.action_hr_salary_attachment_new
 #: model:ir.actions.act_window,name:hr_payroll.hr_salary_attachment_action
 #: model:ir.actions.act_window,name:hr_payroll.hr_salary_attachment_action_view_employee
 #: model:ir.model,name:hr_payroll.model_hr_salary_attachment
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
 msgid "Salary Attachment"
-msgstr "Saisie sur salaire"
-
-#. module: hr_payroll
-#: model:ir.model,name:hr_payroll.model_hr_salary_attachment_report
-msgid "Salary Attachment / Report"
-msgstr "Saisie sur salaire / Rapport"
+msgstr "Ajustement salarial"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__salary_attachments_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_history__salary_attachment_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__salary_attachment_count
 msgid "Salary Attachment Count"
-msgstr "Nombre de saisies sur salaire"
-
-#. module: hr_payroll
-#: model:ir.actions.act_window,name:hr_payroll.hr_salary_attachment_report_action
-#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_attachment_salary_report
-#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_report_view_pivot
-msgid "Salary Attachment Report"
-msgstr "Rapport de saisies sur salaire"
+msgstr "Nombre d'ajustements salariaux"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__salary_attachment_count
 msgid "Salary Attachment count"
-msgstr "Nombre de saisies sur salaire"
+msgstr "Nombre d'ajustements salariaux"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__salary_attachment_ids
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__salary_attachment_ids
 #: model:ir.ui.menu,name:hr_payroll.hr_menu_salary_attachments
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_history_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_pivot
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_tree
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Salary Attachments"
-msgstr "Saisies sur salaire"
+msgstr "Ajustements salariaux"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_form
@@ -3033,7 +3987,6 @@ msgstr "Fiche de paie"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__structure_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__struct_id
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_edit_payslip_lines_form_wizard
-#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_tree
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_line_tree_register
@@ -3043,6 +3996,9 @@ msgstr "Structure salariale"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_structure_type
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__structure_type_id
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__structure_type_id
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_tree_inherit
 msgid "Salary Structure Type"
 msgstr "Type de structure salariale"
 
@@ -3054,9 +4010,24 @@ msgstr "Structure salariales"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__schedule_pay
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__schedule_pay
-msgid "Scheduled Pay"
-msgstr "Paie planifiée"
+msgid "Schedule Pay"
+msgstr "Horaire de paie"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_search
+msgid "Search Declarations"
+msgstr "Rechercher des déclarations"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_line_search
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_view_search
+msgid "Search Headcount"
+msgstr "Recherche d'effectifs"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_dashboard_warning_view_search
+msgid "Search Payroll Dashboard Warning"
+msgstr "Rechercher avertissement tableau de bord de la paie"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_filter
@@ -3077,7 +4048,7 @@ msgstr "Rechercher dans les fiches de paie"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
 msgid "Search Salary Attachment"
-msgstr "Rechercher des saisies sur salaire"
+msgstr "Rechercher des ajustements salariaux"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_rule_filter
@@ -3090,16 +4061,16 @@ msgid "Search Structure Type"
 msgstr "Rechercher le type de structure"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Select an <strong>HR Responsible</strong> for the contract."
-msgstr "Sélectionnez un <strong>responsable RH</strong>pour le contrat."
-
-#. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure__schedule_pay__semi-annually
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-annually
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__semi-annually
 msgid "Semi-annually"
 msgstr "Semestriel"
+
+#. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__semi-monthly
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__semi-monthly
+msgid "Semi-monthly"
+msgstr "Bimensuel"
 
 #. module: hr_payroll
 #: model:mail.template,description:hr_payroll.mail_template_new_payslip
@@ -3107,8 +4078,16 @@ msgid "Sent to employee to notify them about their new payslip"
 msgstr "Envoyé à l'employé pour l'informer de sa nouvelle fiche de paie"
 
 #. module: hr_payroll
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__9
+#: model:ir.model.fields.selection,name:hr_payroll.selection__res_company__ytd_reset_month__9
+msgid "September"
+msgstr "Septembre"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__sequence
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__sequence
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__sequence
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__sequence
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input__sequence
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__sequence
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__sequence
@@ -3118,19 +4097,33 @@ msgstr "Séquence"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
-msgid "Set a specific department if you wish to select all the employees from this department (and subdepartments) at once."
-msgstr "Définissez un département spécifique si vous souhaitez sélectionner tous les employés de ce département (et sous-départements) à la fois."
+msgid ""
+"Set a specific department if you wish to select all the employees from this "
+"department (and subdepartments) at once."
+msgstr ""
+"Définissez un département spécifique si vous souhaitez sélectionner tous les"
+" employés de ce département (et sous-départements) à la fois."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
-msgid "Set a specific structure if you wish to make an extra payslip (eg: End of the year bonus). If you leave this field empty, a regular payslip will be generated for all the selected employees, based on their contracts configuration."
-msgstr "Définissez une structure spécifique si vous souhaitez faire une fiche de paie supplémentaire (par ex. bonus de fin d'année). Si vous laissez ce champ vide, une fiche de paie régulière sera générée pour tous les employés sélectionnés, sur la base de la configuration de leurs contrats."
+msgid ""
+"Set a specific job if you wish to select all the employees from this job at "
+"once."
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
+msgid ""
+"Set a specific structure type if you wish to select all the employees from "
+"this structure type at once."
+msgstr ""
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Set the Contract as <strong><q>Running</q></strong>."
-msgstr "Définissez le contrat comme <strong><q>en cours d'exécution</q></strong>."
+msgstr ""
+"Définissez le contrat comme <strong><q>en cours d'exécution</q></strong>."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -3151,9 +4144,17 @@ msgstr "Fiches à confirmer"
 
 #. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/hr_work_entry.py:0
-msgid "Some part of %s's calendar is not covered by any work entry. Please complete the schedule. Time intervals to look for:%s"
-msgstr "Certaines portions du calendrier de %sne sont pas couvertes par des prestations. Veuillez compléter l'horaire. Intervalles de temps à vérifier : %s"
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "Some employees (%s) don't have a bank account."
+msgstr "Certains employés (%s) n'ont pas de compte bancaire."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
+msgid ""
+"Some work entries are in conflict. Please resolve the conflicts before "
+"exporting."
+msgstr ""
 
 #. module: hr_payroll
 #. odoo-python
@@ -3174,9 +4175,11 @@ msgid "Start Date"
 msgstr "Date de début"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_employee_declaration__state
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__state
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_search
 msgid "State"
-msgstr "État"
+msgstr "Statut"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__state
@@ -3232,7 +4235,7 @@ msgstr "Nombre de types de structure"
 #: model:ir.actions.act_window,name:hr_payroll.action_hr_payroll_structure_type
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_structure_type
 msgid "Structure Types"
-msgstr "Types de structure"
+msgstr "Types de structures"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__struct_ids
@@ -3257,7 +4260,26 @@ msgid "Sum of Days"
 msgstr "Somme des jours"
 
 #. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payroll_dashboard_warning__color
+msgid "Tag color. No color means black."
+msgstr "Couleur de l'étiquette. Aucune couleur veut dire noire"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.salary.rule,name:hr_payroll.default_gross_salary_rule
+#: model:hr.salary.rule.category,name:hr_payroll.GROSS
+msgid "Taxable Salary"
+msgstr "Salaire imposable"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__report_id
+msgid "Template"
+msgstr "Modèle"
+
+#. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__country_code
+#: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input_type__country_code
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_run__country_code
 msgid ""
 "The ISO country code in two chars. \n"
@@ -3268,20 +4290,41 @@ msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_form_inherit
-msgid "The Standard Calendar is the calendar used by the people working at a 100% rate. It's used here to compute your part-time percentage."
-msgstr "Le calendrier standard est le calendrier utilisé par les personnes travaillant à 100 %. Il est utilisé ici pour calculer votre pourcentage de temps partiel."
+msgid ""
+"The Standard Calendar is the calendar used by the people working at a 100% "
+"rate. It's used here to compute your part-time percentage."
+msgstr ""
+"Le calendrier standard est le calendrier utilisé par les personnes "
+"travaillant à 100 %. Il est utilisé ici pour calculer votre pourcentage de "
+"temps partiel."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__is_unforeseen
-msgid "The Work Entry checked as Unforeseen Absence will be counted in absenteeism at work report."
-msgstr "La prestation marquée comme absence imprévue sera comptée dans le rapport d'absentéisme au travail."
+msgid ""
+"The Work Entry checked as Unforeseen Absence will be counted in absenteeism "
+"at work report."
+msgstr ""
+"La prestation marquée comme absence imprévue sera comptée dans le rapport "
+"d'absentéisme au travail."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/res_company.py:0
+msgid ""
+"The YTD reset day must be a valid day of the month : since the current month"
+" is %(month)s, it should be between 1 and %(day)s."
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_edit_payslip_line__code
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_line__code
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__code
-msgid "The code of salary rules can be used as reference in computation of other rules. In that case, it is case sensitive."
-msgstr "Le code des règles salariales peuvent être utilisés comme référence dans le calcul d'autres règles. Dans ce cas, il est sensible à la casse."
+msgid ""
+"The code of salary rules can be used as reference in computation of other "
+"rules. In that case, it is case sensitive."
+msgstr ""
+"Le code des règles salariales peuvent être utilisés comme référence dans le "
+"calcul d'autres règles. Dans ce cas, il est sensible à la casse."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input__code
@@ -3307,10 +4350,18 @@ msgid "The contract this worked days should be applied to"
 msgstr "Le contrat sur lequel ces jours travaillés doivent être appliqués"
 
 #. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_payslip__paid_date
+msgid "The date on which the payment is made to the employee."
+msgstr "La date à laquelle l'employé est payé."
+
+#. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "The duration of the payslip is not accurate according to the structure type."
+msgid ""
+"The duration of the payslip is not accurate according to the structure type."
 msgstr ""
+"La durée de la fiche de paie n'est pas exacte en fonction du type de "
+"structure."
 
 #. module: hr_payroll
 #. odoo-python
@@ -3343,9 +4394,14 @@ msgid "The minimum amount, applied for this rule."
 msgstr "Le montant minimum, appliqué pour cette règle."
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
-msgid "The net amount will be recovered from the first positive remuneration established after this."
-msgstr "Le montant net sera récupéré sur la première rémunération positive établie ensuite."
+msgid ""
+"The net amount will be recovered from the first positive remuneration "
+"established after this."
+msgstr ""
+"Le montant net sera récupéré sur la première rémunération positive établie "
+"ensuite."
 
 #. module: hr_payroll
 #. odoo-python
@@ -3357,29 +4413,73 @@ msgstr "Les fiches de paie doivent être en brouillon ou en attente."
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/views/add_payslips_hook.js:0
 msgid "The payslips(s) are now added to the batch"
-msgstr ""
+msgstr "La ou les fiches de paie sont désormais ajoutées au lot"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "The period selected does not match the contract validity period."
 msgstr ""
-
-#. module: hr_payroll
-#: model:ir.model.fields,help:hr_payroll.field_hr_contract__time_credit_type_id
-msgid "The work entry type used when generating work entries to fit full time working schedule."
-msgstr "Le type de prestation utilisé lors de la génération des prestations pour s'adapter à l'horaire de travail à temps plein."
-
-#. module: hr_payroll
-#: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__unpaid_structure_ids
-msgid "The work entry won’t grant any money to employee in payslip."
-msgstr "La prestation n'accordera aucune somme d'argent à l'employé sur la fiche de paie."
+"La période sélectionnée ne correspond pas à la période de validité du "
+"contrat."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "There's no contract set on payslip %s for %s. Check that there is at least a contract set on the employee form."
-msgstr "Aucun contrat n'est défini sur la fiche de paie %s de %s. Vérifiez qu'au moins un contrat est défini sur la fiche de l'employé."
+msgid "The selected payslips should be linked to the same batch"
+msgstr "Les fiches de paie sélectionnées doivent être liées au même lot "
+
+#. module: hr_payroll
+#: model:ir.model.constraint,message:hr_payroll.constraint_hr_payroll_headcount_date_range
+msgid "The start date must be anterior to the end date."
+msgstr "La date de début doit être antérieure à la date de fin."
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_contract__time_credit_type_id
+msgid ""
+"The work entry type used when generating work entries to fit full time "
+"working schedule."
+msgstr ""
+"Le type d'entrée de travail utilisé lors de la génération d'entrées de "
+"travail pour s'adapter à l'horaire de travail à temps plein."
+
+#. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__unpaid_structure_ids
+msgid "The work entry won’t grant any money to employee in payslip."
+msgstr ""
+"La prestation n'accordera aucune somme d'argent à l'employé sur la fiche de "
+"paie."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
+msgid "There is no declaration to generate for the given period"
+msgstr "Il n'y a aucune déclaration à générer pour la période donnée."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid ""
+"There is no valid payslip (done and net wage > 0) to generate the file."
+msgstr ""
+"Aucune fiche de paie valide (effectuée et salaire net > 0) ne permet de "
+"générer le fichier."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid "There should be at least one payslip to generate the file."
+msgstr "Il faut au moins une fiche de paie pour générer le fichier."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip.py:0
+msgid ""
+"There's no contract set on payslip %(payslip)s for %(employee)s. Check that "
+"there is at least a contract set on the employee form."
+msgstr ""
+"Aucun contrat n'est défini sur la fiche de paie %(payslip)s de %(employee)s."
+" Veillez à ce que le formulaire de l'employé contienne au moins un contrat."
 
 #. module: hr_payroll
 #. odoo-python
@@ -3397,12 +4497,18 @@ msgstr "Cette action est réservée aux gestionnaires de paie uniquement."
 #: model:ir.model.fields,help:hr_payroll.field_hr_rule_parameter__code
 #: model:ir.model.fields,help:hr_payroll.field_hr_rule_parameter_value__code
 msgid "This code is used in salary rules to refer to this parameter."
-msgstr "Ce code est utilisé dans les règles salariales pour faire référence à ce paramètre."
+msgstr ""
+"Ce code est utilisé dans les règles salariales pour faire référence à ce "
+"paramètre."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip_input_type__struct_ids
-msgid "This input will be only available in those structure. If empty, it will be available in all payslip."
-msgstr "Cette entrée sera uniquement disponible pour ces structures. Si ce champ est vide, elle sera disponible dans toutes les fiches de paies. "
+msgid ""
+"This input will be only available in those structure. If empty, it will be "
+"available in all payslip."
+msgstr ""
+"Cette entrée sera uniquement disponible pour ces structures. Si ce champ est"
+" vide, elle sera disponible dans toutes les fiches de paies. "
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract_history__time_credit
@@ -3410,22 +4516,29 @@ msgid "This is a credit time contract."
 msgstr "C'est un contrat crédit-temps"
 
 #. module: hr_payroll
+#: model:ir.model.fields,help:hr_payroll.field_hr_work_entry__is_credit_time
+msgid "This is a credit time work entry."
+msgstr "Il s'agit d'une prestation de crédit-temps."
+
+#. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "This payslip can be erroneous :"
-msgstr ""
+msgstr "Cette fiche de paie peut être erronée :"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_edit_payslip_lines_wizard.py:0
 msgid "This payslip has been manually edited by %s."
-msgstr "Cette fiche de paie a été éditée manuellement par %s."
+msgstr "Cette fiche de paie a été modifiée manuellement par %s."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "This payslip is not validated. This is not a legal document."
-msgstr "Cette fiche de paie n'est pas validée. Ce n'est pas un document légal."
+msgstr ""
+"Cette fiche de paie n'est pas validée. Ce n'est pas un document légal."
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.payroll_report_action
@@ -3439,8 +4552,15 @@ msgstr "Ce rapport effectue une analyse de vos prestations."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__condition_range
-msgid "This will be used to compute the % fields values; in general it is on basic, but you can also use categories code fields in lowercase as a variable names (hra, ma, lta, etc.) and the variable basic."
-msgstr "Sera utilisé pour calculer le % des valeurs des champs, en général s'applique à la base, mais vous pouvez également utiliser les catégories de champs de code en minuscules en tant que nom de variables (hra, ma, Ita, etc.) et la base variable."
+msgid ""
+"This will be used to compute the % fields values; in general it is on basic,"
+" but you can also use categories code fields in lowercase as a variable "
+"names (hra, ma, lta, etc.) and the variable basic."
+msgstr ""
+"Sera utilisé pour calculer le % des valeurs des champs, en général "
+"s'applique à la base, mais vous pouvez également utiliser les catégories de "
+"champs de code en minuscules en tant que nom de variables (hra, ma, Ita, "
+"etc.) et la base variable."
 
 #. module: hr_payroll
 #. odoo-python
@@ -3449,6 +4569,7 @@ msgid "Time intervals to look for:%s"
 msgstr "Intervalles de temps à vérifier : %s "
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount__date_to
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__date_to
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__date_to
 msgid "To"
@@ -3470,6 +4591,7 @@ msgid "To Pay"
 msgstr "A payer"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "To pay on"
 msgstr "A payer le"
@@ -3484,6 +4606,7 @@ msgstr "Pour voir quelque chose dans ce rapport, calculez une fiche de paie."
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__total
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Total"
 msgstr "Total"
 
@@ -3505,8 +4628,12 @@ msgstr "Nombre total d'heures travaillées"
 
 #. module: hr_payroll
 #: model:ir.model.constraint,message:hr_payroll.constraint_hr_salary_attachment_check_total_amount
-msgid "Total amount must be strictly positive and greater than or equal to the monthly amount."
-msgstr "Le montant total doit être strictement positif et supérieur ou égal au montant mensuel."
+msgid ""
+"Total amount must be strictly positive and greater than or equal to the "
+"payslip amount."
+msgstr ""
+"Le montant total doit être strictement positif et supérieur ou égal au "
+"montant de la fiche de paie."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_attachment__total_amount
@@ -3529,11 +4656,12 @@ msgid "Two rules with the same code cannot start the same day"
 msgstr "Deux règles avec le même code ne peuvent pas commencer le même jour"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__type
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__type_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__struct_type_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input__input_type_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__work_entry_type_id
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__deduction_type
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__other_input_type_id
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
 msgid "Type"
 msgstr "Type"
@@ -3558,12 +4686,12 @@ msgstr "Statut inconnu"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_work_entry_type_view_form_inherit
 msgid "Unpaid"
-msgstr "Non rémunéré"
+msgstr "Non payé"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_type__3
 msgid "Unpaid Time Off"
-msgstr "Congés non rémunérés"
+msgstr "Congés non payés"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__unpaid_work_entry_type_ids
@@ -3578,7 +4706,17 @@ msgstr "Types de prestations non rémunérées"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_type__unpaid_structure_ids
 msgid "Unpaid in Structures Types"
-msgstr "Non rémunéré dans les types de structure"
+msgstr "Non rémunéré dans les types de structures"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/wizard/hr_payroll_payment_report_wizard.py:0
+msgid ""
+"Untrusted bank account for the following employees:\n"
+"%s"
+msgstr ""
+"Compte bancaire non fiable pour les employés suivants : \n"
+"%s"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days_type__up
@@ -3587,6 +4725,7 @@ msgstr "Haut"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__use_worked_day_lines
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__use_worked_day_lines
 msgid "Use Worked Day Lines"
 msgstr "Utiliser les lignes de jours travaillés"
 
@@ -3605,7 +4744,8 @@ msgstr "Utilisé pour montrer la règle salariale sur la fiche de paie."
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__appears_on_employee_cost_dashboard
 msgid "Used to display the value in the employer cost dashboard."
-msgstr "Utilisé pour afficher la valeur dans le tableau de bord des coûts employeur."
+msgstr ""
+"Utilisé pour afficher la valeur dans le tableau de bord des coûts employeur."
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_res_users
@@ -3615,12 +4755,9 @@ msgstr "Utilisateur"
 #. module: hr_payroll
 #: model:res.groups,comment:hr_payroll.group_hr_payroll_user
 msgid "User can manage all contracts, work entries and create payslips."
-msgstr "L'utilisateur peut gérer tous les contrats, les prestations et créer des fiches de paie."
-
-#. module: hr_payroll
-#: model:res.groups,comment:hr_payroll.group_hr_payroll_employee_manager
-msgid "User can see his own contracts and the contracts of the people he's manager of."
-msgstr "L'utilisateur peut voir ses propres contrats et les contrats des personnes dont il est responsable."
+msgstr ""
+"L'utilisateur peut gérer tous les contrats, les prestations et créer des "
+"fiches de paie."
 
 #. module: hr_payroll
 #: model:res.groups,comment:hr_payroll.group_hr_payroll_manager
@@ -3662,12 +4799,16 @@ msgstr "Afficher sur les rapports de paie"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_contract_view_kanban
 msgid "Wage :"
-msgstr ""
+msgstr "Salaire :"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__wage_on_payroll
+msgid "Wage On Payroll"
+msgstr "Salaire pour la paie"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__wage_type
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_history__wage_type
-#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__wage_type
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__wage_type
 msgid "Wage Type"
 msgstr "Type de salaire"
@@ -3675,13 +4816,18 @@ msgstr "Type de salaire"
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_index_wizard.py:0
-msgid "Wage indexed by %.2f%% on %s"
-msgstr "Salaire indexé par %.2f%% le %s"
+msgid "Wage indexed by %(percentage).2f%% on %(date)s"
+msgstr "Indexation du salaire de %(percentage).2f%% le %(date)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payslip__state__verify
 msgid "Waiting"
 msgstr "En attente"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__color
+msgid "Warning Color"
+msgstr "Couleur de l'avertissement"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__warning_message
@@ -3692,13 +4838,30 @@ msgstr "Message d'avertissement"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 msgid "Warning, a similar attachment has been found."
-msgstr "Attention, une pièce jointe similaire a été trouvée."
+msgstr "Attention, un ajustement salarial a été trouvé."
 
 #. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/components/dashboard/action_box/action_box.xml:0
+#: model:ir.ui.menu,name:hr_payroll.menu_hr_payroll_dashboard_warning
 msgid "Warnings"
 msgstr "Avertissements"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry.py:0
+msgid ""
+"Watch out for gaps in %(employee_name)s's calendar\n"
+"\n"
+"Please complete the missing work entries of %(employee_name)s:%(time_intervals_str)s \n"
+"\n"
+"Missing work entries are like the Bermuda Triangle for paychecks. Let's keep your colleague's earnings from vanishing into thin air!"
+msgstr ""
+"Faites attention aux trous dans le calendrier de %(employee_name)s\n"
+"\n"
+"Veuillez compléter les prestations manquantes de %(employee_name)s:%(time_intervals_str)s \n"
+"\n"
+"Les prestations manquantes sont comme le triangle des Bermudes pour les fiches de paie. Faisons en sorte que les revenus de votre collègue ne se volatilisent pas !"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__round_days_type
@@ -3708,7 +4871,8 @@ msgstr "Manière d'arrondir le type de prestation."
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "We have to improve our Payroll flow with the new Odoo process"
-msgstr "Nous devons améliorer notre flux de paie avec le nouveau processus Odoo"
+msgstr ""
+"Nous devons améliorer notre flux de paie avec le nouveau processus Odoo"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__website_message_ids
@@ -3728,10 +4892,10 @@ msgstr "Historique de communication du site web"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Week %(week_number)s of %(year)s"
-msgstr ""
+msgstr "Semaine %(week_number)s de %(year)s"
 
 #. module: hr_payroll
-#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure__schedule_pay__weekly
+#: model:ir.model.fields.selection,name:hr_payroll.selection__hr_contract__schedule_pay__weekly
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_structure_type__default_schedule_pay__weekly
 msgid "Weekly"
 msgstr "Hebdomadaire"
@@ -3740,12 +4904,16 @@ msgstr "Hebdomadaire"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "Weeks %(week)s and %(week1)s of %(year)s"
-msgstr ""
+msgstr "Semaines %(week)s et %(week1)s de %(year)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__round_days
-msgid "When the work entry is displayed in the payslip, the value is rounded accordingly."
-msgstr "Quand la prestation est affichée sur la fiche de paie, la valeur est arrondie en conséquence."
+msgid ""
+"When the work entry is displayed in the payslip, the value is rounded "
+"accordingly."
+msgstr ""
+"Quand la prestation est affichée sur la fiche de paie, la valeur est "
+"arrondie en conséquence."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract__calendar_changed
@@ -3754,8 +4922,12 @@ msgstr "Si le contrat précédent ou suivant a un calendrier différent ou non"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_index__description
-msgid "Will be used as the message specifying why the wage on the contract has been modified"
-msgstr "Sera utilisé comme message précisant pourquoi le salaire du contrat a été modifié"
+msgid ""
+"Will be used as the message specifying why the wage on the contract has been"
+" modified"
+msgstr ""
+"Sera utilisé comme message précisant pourquoi le salaire du contrat a été "
+"modifié"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__count_work
@@ -3781,15 +4953,46 @@ msgid "Work Entries Analysis Report"
 msgstr "Rapport d'analyse des prestations"
 
 #. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
+msgid "Work Entries Export"
+msgstr ""
+
+#. module: hr_payroll
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "Work Entries are generated for each <strong>time period</strong> defined in the Working Schedule of the Contract."
-msgstr "Les prestations sont générées pour chaque <strong>période</strong>définie sur l'horaire de travail du contrat."
+msgid ""
+"Work Entries are generated for each <strong>time period</strong> defined in "
+"the Working Schedule of the Contract."
+msgstr ""
+"Les prestations sont générées pour chaque <strong>période</strong>définie "
+"sur l'horaire de travail du contrat."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
+msgid "Work Entries for %(employee)s"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_employee_mixin__work_entry_ids
+msgid "Work Entry"
+msgstr "Prestation"
 
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_work_entry_report
 msgid "Work Entry Analysis"
 msgstr "Analyse des prestations"
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_work_entry_export_employee_mixin
+msgid "Work Entry Export Employee"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_work_entry_export_mixin
+msgid "Work Entry Export Mixin"
+msgstr ""
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__work_entry_source
@@ -3810,6 +5013,11 @@ msgid "Work Hours"
 msgstr "Heures de travail"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
+msgid "Work Permit Expiration Notice Period"
+msgstr "Délai d'expiration du permis de travai"
+
+#. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_resource_calendar__work_time_rate
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_resource_calendar_view_form
 msgid "Work Time Rate"
@@ -3818,8 +5026,11 @@ msgstr "Taux de temps de travail"
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
-msgid "Work entries may not be generated for the period from %(start)s to %(end)s."
+msgid ""
+"Work entries may not be generated for the period from %(start)s to %(end)s."
 msgstr ""
+"Les prestations ne peuvent pas être générées pour la période du %(start)s au"
+" %(end)s."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure_type__default_work_entry_type_id
@@ -3834,14 +5045,19 @@ msgstr "Taux de temps de travail"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_resource_calendar__work_time_rate
-msgid "Work time rate versus full time working schedule, should be between 0 and 100 %."
-msgstr "Le ratio du taux de temps de travail par rapport à l'horaire complet à temps plein devrait se situer entre 0 et 100 %."
+msgid ""
+"Work time rate versus full time working schedule, should be between 0 and "
+"100 %."
+msgstr ""
+"Le ratio du taux de temps de travail par rapport à l'horaire complet à temps"
+" plein devrait se situer entre 0 et 100 %."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract__work_time_rate
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract_history__work_time_rate
 msgid "Work time rate versus full time working schedule."
-msgstr "Taux de temps de travail par rapport à l'horaire de travail à temps plein."
+msgstr ""
+"Taux de temps de travail par rapport à l'horaire de travail à temps plein."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__work_code
@@ -3876,19 +5092,27 @@ msgstr "Ligne de jours travaillés"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_structure__use_worked_day_lines
+#: model:ir.model.fields,help:hr_payroll.field_hr_payslip__use_worked_day_lines
 msgid "Worked days won't be computed/displayed in payslips."
-msgstr "Les jours travaillés ne seront pas calculés/affichés sur les fiches de paie."
+msgstr ""
+"Les jours travaillés ne seront pas calculés/affichés sur les fiches de paie."
+
+#. module: hr_payroll
+#: model:ir.model,name:hr_payroll.model_hr_payroll_headcount_working_rate
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__working_rate_ids
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_headcount_line_search
+msgid "Working Rate"
+msgstr "Taux de travail"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__resource_calendar_id
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__calendar
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_report__work_entry_source__calendar
 msgid "Working Schedule"
-msgstr "Horaire"
+msgstr "Horaire de travail"
 
 #. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip.py:0
+#: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_working_schedule_change
 msgid "Working Schedule Changes"
 msgstr "Changements d'horaire"
 
@@ -3924,15 +5148,80 @@ msgstr "Mauvais intervalle conditionnel défini pour :"
 
 #. module: hr_payroll
 #. odoo-python
-#: code:addons/hr_payroll/models/res_users.py:0
-msgid "You are receiving this message because you are the HR Responsible of this employee."
-msgstr "Vous recevez ce message parce que vous êtres le responsable RH de cet employé."
+#: code:addons/hr_payroll/models/hr_rule_parameter.py:0
+msgid ""
+"Wrong rule parameter value for %(rule_parameter_name)s at date %(date)s.\n"
+"%(error)s"
+msgstr ""
+"Valeur incorrecte du paramètre de la règle pour %(rule_parameter_name)s à la date du %(date)s.\n"
+"%(error)s"
 
 #. module: hr_payroll
-#. odoo-javascript
-#: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
-msgid "You can access the Payslips from the Employee's Profile."
-msgstr "Vous pouvez accéder aux fiches de paie à partir du profil de l'employé. "
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip.py:0
+msgid ""
+"Wrong warning computation code defined for:\n"
+"- Warning: %(warning)s\n"
+"- Error: %(error)s"
+msgstr ""
+"Mauvais avertissement de code de calcul défini pour :\n"
+"- Avertissement : %(warning)s\n"
+"- Erreur : %(error)s"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__ytd
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__ytd
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__ytd
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__ytd
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "YTD"
+msgstr ""
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
+msgid "YTD Reset Date"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_res_company__ytd_reset_day
+#: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__ytd_reset_day
+msgid "YTD Reset Day of the month"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_res_company__ytd_reset_month
+#: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__ytd_reset_month
+msgid "YTD Reset Month"
+msgstr ""
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__year
+msgid "Year"
+msgstr "Année"
+
+#. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_lines_wizard__ytd_computation
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__ytd_computation
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__ytd_computation
+msgid "Year to Date Computation"
+msgstr ""
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/res_users.py:0
+msgid ""
+"You are receiving this message because you are the HR Responsible of this "
+"employee."
+msgstr ""
+"Vous recevez ce message parce que vous êtres le responsable RH de cet "
+"employé."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payslip_run.py:0
+msgid ""
+"You can't delete a batch with payslips if they are not draft or cancelled."
+msgstr ""
 
 #. module: hr_payroll
 #. odoo-python
@@ -3943,51 +5232,84 @@ msgstr "Vous ne pouvez pas valider une fiche de paie annulée."
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip_input_type.py:0
-msgid "You cannot delete %s as it is used in another module but you can archive it instead."
-msgstr "Vous ne pouvez pas supprimer %s, car c'est utilisé dans un autre module. Veuillez plutôt l'archiver."
-
-#. module: hr_payroll
-#. odoo-python
-#: code:addons/hr_payroll/models/hr_payslip_run.py:0
-msgid "You cannot delete a payslip batch which is not draft!"
-msgstr "Vous ne pouvez pas supprimer un lot de fiches de paie qui n'est pas en brouillon !"
+msgid ""
+"You cannot delete %s as it is used in another module but you can archive it "
+"instead."
+msgstr ""
+"Vous ne pouvez pas supprimer %s, car c'est utilisé dans un autre module. "
+"Veuillez plutôt l'archiver."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
-#: code:addons/hr_payroll/models/hr_payslip_run.py:0
 msgid "You cannot delete a payslip which is not draft or cancelled!"
-msgstr "Vous ne pouvez supprimer une fiche de paie qui ne soit ni brouillon ni annulée !"
+msgstr ""
+"Vous ne pouvez supprimer une fiche de paie qui ne soit ni brouillon ni "
+"annulée !"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_salary_attachment.py:0
 msgid "You cannot delete a running salary attachment!"
-msgstr "Vous ne pouvez pas supprimer une saisie sur salaire en cours."
+msgstr "Vous ne pouvez pas supprimer un ajustement salarial en cours."
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_salary_attachment.py:0
+msgid "You cannot record a payment on multi employees attachments."
+msgstr ""
+"Il n'est pas possible d'enregistrer un paiement sur des ajustements multi-"
+"employés."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip_run.py:0
-msgid "You cannot reset a batch to draft if some of the payslips have already been paid."
-msgstr "Vous ne pouvez pas remettre un lot en brouillon si certaines des fiches de paie ont déjà été payées."
+msgid ""
+"You cannot reset a batch to draft if some of the payslips have already been "
+"paid."
+msgstr ""
+"Vous ne pouvez pas remettre un lot en brouillon si certaines des fiches de "
+"paie ont déjà été payées."
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payslip.py:0
 msgid "You cannot validate a payslip on which the contract is cancelled"
-msgstr "Vous ne pouvez pas valider une fiche de paie sur laquelle le contrat est résilié"
+msgstr ""
+"Vous ne pouvez pas valider une fiche de paie sur laquelle le contrat est "
+"résilié"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_index_wizard.py:0
-msgid "You have selected non running contracts, if you really need to index them, please do it by hand"
-msgstr "Vous avez sélectionné des contrats qui ne sont pas en cours, si vous avez vraiment besoin de les indexer, veuillez le faire manuellement"
+msgid ""
+"You have selected non running contracts, if you really need to index them, "
+"please do it by hand"
+msgstr ""
+"Vous avez sélectionné des contrats qui ne sont pas en cours, si vous avez "
+"vraiment besoin de les indexer, veuillez le faire manuellement"
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
+msgid "You must be logged in a %(country_code)s company to use this feature"
+msgstr ""
+
+#. module: hr_payroll
+#. odoo-python
+#: code:addons/hr_payroll/models/hr_payroll_declaration_mixin.py:0
+msgid "You must be logged in a %s company to use this feature"
+msgstr ""
+"Vous devez être connecté dans une société %s pour utiliser cette "
+"fonctionnalité"
 
 #. module: hr_payroll
 #. odoo-python
 #: code:addons/hr_payroll/wizard/hr_payroll_payslips_by_employees.py:0
 msgid "You must select employee(s) to generate payslip(s)."
-msgstr "Vous devez sélectionner un ou des employés pour générer une ou des fiches de paie."
+msgstr ""
+"Vous devez sélectionner un ou des employés pour générer une ou des fiches de"
+" paie."
 
 #. module: hr_payroll
 #. odoo-python
@@ -3999,7 +5321,14 @@ msgstr "Vous devez définir un contrat pour créer une ligne de fiche de paie."
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_payroll_structure_type.py:0
 msgid "You should also be logged into a company in %s to set this country."
-msgstr "Vous devez également être connecté à une entreprise en/au %spour définir ce pays."
+msgstr ""
+"Vous devez également être connecté à une entreprise en/au %spour définir ce "
+"pays."
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_employee_mixin_list_view
+msgid "contracts"
+msgstr ""
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -4007,9 +5336,19 @@ msgid "e.g. April 2021"
 msgstr "par ex. avril 2021"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_form
+msgid "e.g. Child Support"
+msgstr ""
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_form
 msgid "e.g. Employee"
 msgstr "par ex. Employé"
+
+#. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_dashboard_warning_view_form
+msgid "e.g. Employee Without Contracts"
+msgstr "Par ex. Employé sans contrats"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -4027,11 +5366,17 @@ msgid "e.g. Regular Pay"
 msgstr "par ex. Salaire régulier"
 
 #. module: hr_payroll
+#: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__headcount_id
+msgid "headcount_id"
+msgstr "effectifs_id"
+
+#. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_note_demo_content
 msgid "https://www.odoo.com/fr_FR/slides/slide/manage-payroll-1002"
 msgstr "https://www.odoo.com/fr_FR/slides/slide/manage-payroll-1002"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "of"
 msgstr "de"
@@ -4042,6 +5387,14 @@ msgid "result will be affected to a variable"
 msgstr "le résultat sera affecté à une variable"
 
 #. module: hr_payroll
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
+#: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
+msgid "xxxxxxxxxxxx"
+msgstr "xxxxxxxxxxxx"
+
+#. module: hr_payroll
 #: model:mail.template,subject:hr_payroll.mail_template_new_payslip
 msgid "{{ object.employee_id.name }}, a new payslip is available for you"
-msgstr "{{ object.employee_id.name }}, une nouvelle fiche de paie est disponible pour vous"
+msgstr ""
+"{{ object.employee_id.name }}, une nouvelle fiche de paie est disponible "
+"pour vous"

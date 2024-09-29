@@ -1,23 +1,22 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* helpdesk_sale_timesheet
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Thi Huong Nguyen, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
-"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: helpdesk_sale_timesheet
@@ -26,9 +25,28 @@ msgid "4 hours to finish"
 msgstr "4 giờ để hoàn thành"
 
 #. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
+msgid ""
+"<span class=\"fa fa-exclamation-triangle text-warning\" title=\"The sales "
+"order associated with this ticket has been cancelled. We recommend either "
+"updating the sales order item or cancelling this ticket in alignment with "
+"the cancellation of the sales order.\" invisible=\"sale_order_state != "
+"'cancel'\"/>"
+msgstr ""
+"<span class=\"fa fa-exclamation-triangle text-warning\" title=\"Đơn bán hàng"
+" liên kết với phiếu hỗ trợ này đã bị hủy. Chúng tôi khuyên bạn nên cập nhật "
+"mục đơn bán hàng hoặc hủy phiếu hỗ trợ này cho phù hợp với việc hủy đơn bán "
+"hàng.\" invisible=\"sale_order_state != 'cancel'\"/>"
+
+#. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Tài khoản phân tích"
+msgid "Analytic Line"
+msgstr "Dòng phân tích"
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_sale_order_line__color
+msgid "Color"
+msgstr "Màu sắc"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket_convert_wizard
@@ -46,39 +64,14 @@ msgid "Date"
 msgstr "Ngày"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
-msgid "Days"
-msgstr "Ngày"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Days Spent"
-msgstr "Ngày đã dùng"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Days:"
-msgstr "Ngày:"
-
-#. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Description"
 msgstr "Mô tả"
 
 #. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_account_analytic_line__display_sol
-msgid "Display Sol"
-msgstr "Hiển thị Sol"
-
-#. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Employee"
 msgstr "Nhân viên"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.product_template_form_view_invoice_policy_inherit_helpdesk
-msgid "Helpdesk"
-msgstr "Hỗ trợ"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla
@@ -88,7 +81,7 @@ msgstr "Chính sách SLA hỗ trợ"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_team
 msgid "Helpdesk Team"
-msgstr "Đội ngũ hỗ trợ "
+msgstr "Bộ phận hỗ trợ"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket
@@ -96,34 +89,31 @@ msgid "Helpdesk Ticket"
 msgstr "Phiếu hỗ trợ"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
-msgid "Hours"
-msgstr "Giờ"
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
+msgid "Invoices"
+msgstr "Hóa đơn"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Hours Spent"
-msgstr "Giờ đã dùng"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Hours:"
-msgstr "Giờ:"
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_my_timesheets_inherit
+msgid "No Ticket"
+msgstr "Không có phiếu hỗ trợ nào"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Non-billable"
-msgstr ""
+msgstr "Không thể tính phí"
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_inherit
+msgid "Not Billed"
+msgstr "Không được tính phí"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_sla_view_form_inherit_sale_timesheet
 msgid "OR"
-msgstr ""
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model,name:helpdesk_sale_timesheet.model_product_template
-msgid "Product"
-msgstr "Sản phẩm"
+msgstr "HOẶC"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_team__project_id
@@ -132,13 +122,12 @@ msgstr "Dự án"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_team__project_id
-msgid "Project to which the timesheets of this helpdesk team's tickets will be linked."
-msgstr "Dự án mà các bảng chấm công phiếu hỗ trợ của đội ngũ hỗ trợ này sẽ được liên kết."
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
-msgid "Project's sale order"
-msgstr "Đơn bán hàng của dự án"
+msgid ""
+"Project to which the timesheets of this helpdesk team's tickets will be "
+"linked."
+msgstr ""
+"Dự án mà các bảng chấm công phiếu hỗ trợ của bộ phận hỗ trợ này sẽ được liên"
+" kết."
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_order_id
@@ -148,45 +137,18 @@ msgstr "Mã đơn bán hàng"
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__use_helpdesk_sale_timesheet
 msgid "Reinvoicing Timesheet activated on Team"
-msgstr "Xuất lại hóa đơn Bảng chấm công đã kích hoạt cho Đội ngũ"
+msgstr "Xuất lại hóa đơn Bảng chấm công đã kích hoạt cho bộ phận"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
-msgid "Remaining Days on SO"
-msgstr "Số ngày còn lại cho đơn bán hàng"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Remaining Days on SO:"
-msgstr "Số ngày còn lại cho đơn bán hàng:"
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_available
-msgid "Remaining Hours Available"
-msgstr "Số giờ trống còn lại "
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_so
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__remaining_hours_so
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__remaining_hours_so
 msgid "Remaining Hours on SO"
 msgstr "Số giờ còn lại cho đơn bán hàng"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Remaining Hours on SO:"
-msgstr "Số giờ còn lại cho đơn bán hàng:"
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_product__sla_id
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_template__sla_id
-msgid "SLA Policy"
-msgstr "Chính sách SLA"
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,help:helpdesk_sale_timesheet.field_product_product__sla_id
-#: model:ir.model.fields,help:helpdesk_sale_timesheet.field_product_template__sla_id
-msgid "SLA Policy that will automatically apply to the tickets linked to a sales order item containing this service."
-msgstr "Chính sách SLA sẽ tự động áp dụng cho các phiếu hỗ trợ được liên kết với một hạng mục đơn bán hàng có chứa dịch vụ này."
+#: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla_report_analysis
+msgid "SLA Status Analysis"
+msgstr "Phân tích trạng thái SLA"
 
 #. module: helpdesk_sale_timesheet
 #. odoo-python
@@ -198,8 +160,9 @@ msgid "Sales Order"
 msgstr "Đơn bán hàng"
 
 #. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__sale_line_id
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_line_id
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_search_inherit_helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__sale_line_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Sales Order Item"
 msgstr "Hạng mục đơn bán hàng"
@@ -214,23 +177,47 @@ msgid ""
 msgstr ""
 "Hạng mục đơn bán hàng mà thời gian dành cho phiếu hỗ trợ này sẽ được cộng vào để lập hóa đơn cho khách hàng của bạn.\n"
 "Theo mặc định, hạng mục đơn bán hàng trả trước cuối cùng còn thời gian sẽ được chọn.\n"
-"Xóa hạng mục đơn bán hàng để ngăn việc lập hoá đơn thanh toán cho phiếu hỗ trợ này.\n"
-"Bạn cũng có thể thay đổi hoặc xóa hạng mục đơn bán hàng của từng mục nhập bảng chấm công riêng lẻ."
+"Xóa hạng mục đơn bán hàng để không tính phí phiếu hỗ trợ này.\n"
+"Bạn cũng có thể thay đổi hoặc xóa hạng mục đơn bán hàng của từng mục nhập bảng chấm công."
 
 #. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__sale_line_ids
-msgid "Sales Order Items"
-msgstr "Hạng mục đơn bán hàng"
+#: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Dòng đơn bán hàng"
 
 #. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
-msgid "Sales order to which the project is linked."
-msgstr "Đơn bán hàng liên kết với với dự án này."
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
+msgid "Search in Sales Order"
+msgstr "Tìm kiếm trong đơn bán hàng"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
-msgid "Spent"
-msgstr "Đã dùng"
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
+msgid "Search in Ticket"
+msgstr "Tìm kiếm trong phiếu hỗ trợ"
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__product_ids
+msgid "Services"
+msgstr "Dịch vụ"
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_my_timesheets_inherit
+msgid "Task/Ticket"
+msgstr "Nhiệm vụ/Phiếu hỗ trợ"
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
+#: code:addons/helpdesk_sale_timesheet/models/sale_order.py:0
+msgid "Ticket"
+msgstr "Phiếu hỗ trợ"
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket_report_analysis
+msgid "Ticket Analysis"
+msgstr "Phân tích phiếu hỗ trợ"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_sale_order__ticket_count
@@ -243,9 +230,25 @@ msgid "Tickets"
 msgstr "Phiếu hỗ trợ"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_search_inherit_helpdesk_sale_timesheet
-msgid "Tickets in Overtime"
-msgstr "Nhiệm vụ trong giờ làm thêm"
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__use_helpdesk_sale_timesheet
+msgid "Time Billing"
+msgstr "Tính phí theo thời gian"
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_so
+msgid "Time Remaining on SO"
+msgstr "Thời gian còn lại trên đơn bán hàng"
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
+msgid "Time Remaining on SO:"
+msgstr "Thời gian còn lại trên đơn bán hàng:"
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
+msgid "Time Spent"
+msgstr "Thời gian đã dùng"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
@@ -254,5 +257,13 @@ msgstr "Bảng chấm công"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Total"
-msgstr "Tổng"
+msgid "Total Time Spent:"
+msgstr "Tổng thời gian đã dùng:"
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
+msgid ""
+"You cannot link order item %(order_id)s - %(product_id)s to this ticket "
+"because it is not a service product."
+msgstr ""

@@ -1,24 +1,64 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_gantt
-#
+# 
 # Translators:
-# Martin Trigaux, 2023
-# Malaz Abuidris <msea@odoo.com>, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
-"Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ar\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_model.js:0
+msgid "%(hour)sh%(minute)s"
+msgstr "%(hour)s ساعات و%(minute)s  "
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "%s cannot be scheduled in the past"
+msgstr "لا يمكن جدولة %s في الماضي "
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_model.js:0
+msgid "%sh"
+msgstr "%s ساعات "
+
+#. module: web_gantt
+#: model:ir.model,name:web_gantt.model_ir_actions_act_window_view
+msgid "Action Window View"
+msgstr "عرض نافذة الإجراء"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Activate dense mode"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Activate sparse mode"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Apply"
+msgstr "تطبيق"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -29,42 +69,47 @@ msgstr "هل أنت متأكد من أنك ترغب في حذف هذا السج�
 #. module: web_gantt
 #: model:ir.model,name:web_gantt.model_base
 msgid "Base"
-msgstr "أساس"
+msgstr "قاعدة "
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Collapse rows"
 msgstr "تصغير الصفوف "
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_cell_buttons.xml:0
 #: code:addons/web_gantt/static/src/gantt_controller.js:0
 msgid "Create"
 msgstr "إنشاء"
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Day"
-msgstr "اليوم"
-
-#. module: web_gantt
-#. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 msgid "Edit"
-msgstr ""
+msgstr "تحرير"
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Expand rows"
 msgstr "تكبير الصفوف "
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_view.js:0
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Focus Today"
+msgstr "ركّز اليوم "
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "From"
+msgstr "من"
+
+#. module: web_gantt
+#: model:ir.model.fields.selection,name:web_gantt.selection__ir_actions_act_window_view__view_mode__gantt
+#: model:ir.model.fields.selection,name:web_gantt.selection__ir_ui_view__type__gantt
 msgid "Gantt"
 msgstr "جانت"
 
@@ -95,8 +140,24 @@ msgstr "يجب أن يكون لعرض غانت خاصية 'date_stop' "
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
-msgid "Gantt must have a 'dependency_inverted_field' attribute once the 'dependency_field' is specified"
-msgstr "يجب أن يكون لنافذة عرض غانت خاصية 'dependency_inverted_field' بمجرد أن يتم تحديد 'dependency_field' "
+msgid ""
+"Gantt must have a 'dependency_inverted_field' attribute once the "
+"'dependency_field' is specified"
+msgstr ""
+"يجب أن يكون لنافذة عرض غانت خاصية 'dependency_inverted_field' بمجرد أن يتم "
+"تحديد 'dependency_field' "
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
+msgid "Gantt start date"
+msgstr "تاريخ بدء غانت "
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
+msgid "Gantt stop date"
+msgstr "تاريخ انتهاء غانت "
 
 #. module: web_gantt
 #. odoo-python
@@ -105,10 +166,10 @@ msgid "Gantt view can contain only one templates tag"
 msgstr "يمكن أن يحتوي عرض غانت على علامة تصنيف قوالب واحدة فقط "
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_model.js:0
-msgid "Grouping by date is not supported"
-msgstr "خاصية التجميع حسب التاريخ غير مدعومة "
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "Impossible to schedule in the past."
+msgstr "لا يمكن القيام بالجدولة في الماضي. "
 
 #. module: web_gantt
 #. odoo-python
@@ -119,8 +180,18 @@ msgstr "لا توجد حقول كافية لعرض غانت! "
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
-msgid "Invalid attributes (%s) in gantt view. Attributes must be in (%s)"
-msgstr "خواص غير صالحة (%s) في عرض غانت. يجب أن تكون الخواص في (%s) "
+msgid ""
+"Invalid attributes (%(invalid_attributes)s) in gantt view. Attributes must "
+"be in (%(valid_attributes)s)"
+msgstr ""
+"خواص غير صالحة (%(invalid_attributes)s) في عرض غانت. يجب أن تكون الخواص في "
+"(%(valid_attributes)s) "
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/ir_ui_view.py:0
+msgid "Invalid default_range '%s' in gantt"
+msgstr "default_range '%s' غير صالح في عرض غانت "
 
 #. module: web_gantt
 #. odoo-python
@@ -129,28 +200,22 @@ msgid "Invalid default_scale '%s' in gantt"
 msgstr "default_scale '%s' غير صالح في عرض غانت "
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Month"
-msgstr "الشهر"
+#. odoo-python
+#: code:addons/web_gantt/models/ir_ui_view.py:0
+msgid "Invalid display_mode '%s' in gantt"
+msgstr "display_mode '%s' في نافذة عرض غانت غير صالح "
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 msgid "Name"
-msgstr ""
+msgstr "الاسم"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_controller.xml:0
 msgid "New"
 msgstr "جديد"
-
-#. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
-msgid "Next"
-msgstr "التالي"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -165,46 +230,76 @@ msgid "Plan"
 msgstr "الخطة "
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_cell_buttons.xml:0
-msgid "Plan existing"
-msgstr "تخطيط الموجود "
-
-#. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
-msgid "Previous"
-msgstr "السابق"
-
-#. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
-msgid "Records that are in the past cannot be automatically rescheduled. They should be manually rescheduled instead."
-msgstr "لا يمكن إعادة جدولة السجلات التي هي في الماضي. يجب أن تتم إعادة جدولتها يدوياً عوضاً عن ذلك. "
+msgid "Reschedule done successfully."
+msgstr ""
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 msgid "Start"
-msgstr ""
+msgstr "بدء"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 msgid "Stop"
-msgstr ""
+msgstr "إيقاف"
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "The dependencies are not valid, there is a cycle."
+msgstr "التبعيات غير صالحة. لقد تسببت في إحداث دائرة مغلقة. "
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "There are no valid candidates to re-plan"
+msgstr "لا يوجد مرشحون صالحون لإعادة التخطيط "
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This month"
+msgstr "هذا الشهر"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This quarter"
+msgstr "ربع السنة هذا "
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This week"
+msgstr "هذا الأسبوع "
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This year"
+msgstr "هذا العام"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "Today"
-msgstr "اليوم"
+msgstr "اليوم "
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Toolbar menu"
+msgstr "قائمة شريط الأدوات "
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 msgid "Total"
-msgstr ""
+msgstr "الإجمالي"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -217,46 +312,52 @@ msgstr "غير محدد %s "
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 #: model:ir.model,name:web_gantt.model_ir_ui_view
 msgid "View"
-msgstr "عرض "
+msgstr "أداة العرض"
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Week"
-msgstr "الأسبوع"
-
-#. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Year"
-msgstr "السنة"
+#: model:ir.model.fields,field_description:web_gantt.field_ir_actions_act_window_view__view_mode
+#: model:ir.model.fields,field_description:web_gantt.field_ir_ui_view__type
+msgid "View Type"
+msgstr "نوع واجهة العرض"
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
-msgid "You cannot reschedule %s towards %s."
-msgstr "لا يمكنك إعادة جدولة %s إلى %s. "
+msgid "You cannot move %(record)s towards %(related_record)s."
+msgstr "لا يمكنك تحريك %(record)s نحو %(related_record)s. "
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
-msgid "You cannot reschedule tasks that do not follow a direct dependency path. Only the first task has been automatically rescheduled."
-msgstr "لا يمكنك إعادة جدولة المهام التي لا تتبع مسار تبعيات مهام مباشر. لقد تمت إعادة جدولة المهمة الأولى فقط تلقائياً. "
+msgid "You cannot reschedule %(main_record)s towards %(other_record)s."
+msgstr "لا يمكنك إعادة جدولة %(main_record)s نحو %(other_record)s. "
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "hours"
-msgstr ""
+msgstr "ساعات"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "minutes"
-msgstr ""
+msgstr "دقائق "
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "months"
-msgstr ""
+msgstr "شهور"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "to"
+msgstr "إلى"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_row_progress_bar.xml:0
+msgid "{{ props.progressBar.warning }}"
+msgstr "{{ props.progressBar.warning }}"

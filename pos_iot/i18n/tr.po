@@ -1,97 +1,75 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* pos_iot
-#
+# 
 # Translators:
-# Ediz Duman <neps1192@gmail.com>, 2022
-# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2022
-# Murat Durmuş <muratd@projetgrup.com>, 2022
-# omerfarukcakmak <omerfarukckmk@protonmail.com>, 2022
-# Tugay Hatıl <tugayh@projetgrup.com>, 2022
-# abc Def <hdogan1974@gmail.com>, 2022
-# Levent Karakaş <levent@mektup.at>, 2022
-# Martin Trigaux, 2022
-# Ramiz Deniz Öner <deniz@denizoner.com>, 2022
-# Murat Kaplan <muratk@projetgrup.com>, 2022
-# Umur Akın <umura@projetgrup.com>, 2022
-# Halil, 2023
-#
+# emre oktem, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Halil, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: emre oktem, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
-"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Accept payments with a Worldline payment terminal"
-msgstr "Worldline ödeme terminali ile ödeme kabul edin"
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Accept payments with an Ingenico payment terminal"
-msgstr "Bir Ingenico ödeme terminali ile ödemeleri kabul edin"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Access your"
-msgstr "Şunlara erişin"
+msgstr ""
 
 #. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/LastTransactionStatus.xml:0
-msgid "Action identifier:"
-msgstr "Eylem tanımlayıcısı:"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/LastTransactionStatus.xml:0
-msgid "Amount:"
-msgstr "Tutar:"
-
-#. module: pos_iot
-#: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Barcode Scanners/Card Readers"
-msgstr "Barkod Okuyucular/Kart Okuyucular"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_print_via_proxy
 msgid "Bypass browser printing and prints via the hardware proxy."
-msgstr "Tarayıcıyı iptal edin ve donanım proxy'si ile yazdırın."
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Cashdrawer"
-msgstr "Nakit Çekmece"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Click on Advanced/Show Details/Details/More information"
-msgstr "Gelişmiş / Ayrıntıları Göster / Ayrıntılar / Daha fazla bilgi üzerine tıklayın"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
-msgid "Click on Proceed to .../Add Exception/Visit this website/Go on to the webpage"
-msgstr "Devam et ... / İstisna Ekle / Bu web sitesini ziyaret et / Web sayfasına git"
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
+msgid ""
+"Click on Proceed to .../Add Exception/Visit this website/Go on to the "
+"webpage"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Close this window and try again"
-msgstr "Bu pencereyi kapatıp tekrar deneyin"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_res_config_settings
@@ -100,76 +78,71 @@ msgstr "Yapılandırma Ayarları"
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Configuration of payment terminal failed"
-msgstr "Ödeme terminalinin yapılandırması başarısız oldu"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/iot_longpolling.js:0
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Connection to IoT Box failed"
-msgstr "IoT Kutusu ile bağlantı kurulamadı"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Connection to terminal failed"
-msgstr "Terminal bağlantısı başarısız oldu"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/ScaleScreen.js:0
+#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.js:0
 msgid "Could not connect to IoT scale"
-msgstr "IoT ölçeğine bağlanılamadı"
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Customer Display"
-msgstr "Müşteri Ekranı"
-
-#. module: pos_iot
-#: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_customer_facing_display_via_proxy
-msgid "Customer Facing Display"
-msgstr "Müşteri Yüz Ekranı"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_electronic_scale
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Electronic Scale"
-msgstr "Elektronik Tartı"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/js/LastTransactionStatus.js:0
-msgid "Electronic payment in progress"
-msgstr "Devam eden elektronik ödeme"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_scan_via_proxy
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_scanner_ids
 #: model:ir.model.fields,help:pos_iot.field_res_config_settings__pos_iface_scanner_ids
-msgid "Enable barcode scanning with a remotely connected barcode scanner and card swiping with a Vantiv card reader."
-msgstr "Uzaktan bağlı bir barkod tarayıcı ile barkod taramayı ve bir Vantiv kart okuyucu ile kart kaydırmayı etkinleştirin."
+msgid ""
+"Enable barcode scanning with a remotely connected barcode scanner and card "
+"swiping with a Vantiv card reader."
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_electronic_scale
 msgid "Enables Electronic Scale integration."
-msgstr "Elektronik Ölçek Entegrasyonunu etkinleştir."
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Firefox only: Click on Confirm Security Exception"
 msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/ScaleScreen.xml:0
+#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.xml:0
 msgid "Get Weight"
-msgstr "Kilo Alın"
+msgstr ""
+
+#. module: pos_iot
+#: model:ir.model,name:pos_iot.model_iot_device
+msgid "IOT Device"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__device_identifier
@@ -178,49 +151,55 @@ msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
-msgid "If you are on a secure server (HTTPS) check if you accepted the certificate:"
-msgstr "Güvenli bir sunucudaysanız (HTTPS) sertifikayı kabul edip etmediğinizi kontrol edin:"
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
+msgid ""
+"If you are on a secure server (HTTPS) check if you accepted the certificate:"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_display_id
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__pos_iface_display_id
 msgid "Iface Display"
-msgstr "Iface Ekran"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_printer_id
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__pos_iface_printer_id
 msgid "Iface Printer"
-msgstr "Iface Yazıcı"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_scale_id
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__pos_iface_scale_id
 msgid "Iface Scale"
-msgstr "Iface Terazisi"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_scanner_ids
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__pos_iface_scanner_ids
 msgid "Iface Scanner"
-msgstr "Iface Tarayıcı"
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Ingenico (BENELUX)"
-msgstr "Ingenico (BENELUX)"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__ingenico_payment_terminal
 msgid "Ingenico Payment Terminal"
-msgstr "Ingenico Ödeme Terminali"
+msgstr ""
+
+#. module: pos_iot
+#: model:ir.model,name:pos_iot.model_iot_box
+msgid "IoT Box"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "IoT Box Homepage"
-msgstr "IoT Kutusu Ana Sayfası"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__device_id
@@ -231,92 +210,72 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "IoT Devices"
-msgstr "IoT Cihazları"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iot_device_ids
 msgid "Iot Device"
-msgstr "IoT Cihazı"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/js/models.js:0
-msgid ""
-"It seems that no scale was detected.\n"
-"Make sure that the scale is connected and visible in the IoT app."
 msgstr ""
-"Görünüşe göre hiçbir ölçek tespit edilmedi.\n"
-"Ölçeğin bağlı olduğundan ve IoT uygulamasında görünür olduğundan emin olun."
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/LastTransactionStatus.xml:0
-msgid "Last Transaction Status"
-msgstr "Son İşlem Durumu"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/js/models.js:0
-msgid "No Scale Detected"
-msgstr "Ölçek Algılanmadı"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/LastTransactionStatus.xml:0
-msgid "Ok"
-msgstr "Tamam"
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
+msgid "Network Error"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_payment_method__payment_terminal_ids
 msgid "Payment Terminal"
-msgstr "Ödeme Terminali"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__payment_terminal_device_ids
 #: model:ir.model.fields,field_description:pos_iot.field_pos_payment_method__iot_device_id
 msgid "Payment Terminal Device"
-msgstr "Ödeme Terminali Cihazı"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Payment terminal error"
-msgstr "Ödeme terminali hatası"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
-#: code:addons/pos_iot/static/src/xml/IoTErrorPopup.xml:0
+#: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Please check if the IoT Box is still connected."
-msgstr "Lütfen IoT kutusunun hala bağlı olup olmadığını kontrol edin."
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Please check if the terminal is still connected."
-msgstr "Lütfen terminalin hala bağlı olup olmadığını kontrol edin."
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
-msgid "Please check the network connection and then check the status of the last transaction manually."
-msgstr "Lütfen ağ bağlantısını kontrol edin ve ardından son işlemin durumunu manuel olarak kontrol edin."
+#: code:addons/pos_iot/static/src/app/payment.js:0
+msgid ""
+"Please check the network connection and then check the status of the last "
+"transaction manually."
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/app/pos_store.js:0
+#: code:addons/pos_iot/static/src/overrides/models/pos_store.js:0
 msgid "Please process or cancel the current transaction."
-msgstr "Lütfen mevcut işlemi gerçekleştirin veya iptal edin."
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_config
 msgid "Point of Sale Configuration"
-msgstr "Satış Noktası Yapılandırması"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_payment_method
 msgid "Point of Sale Payment Methods"
-msgstr "Satış Noktası Ödeme Yöntemleri"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_printer
@@ -326,12 +285,12 @@ msgstr ""
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_session
 msgid "Point of Sale Session"
-msgstr "Satış Noktası Oturumu"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_print_via_proxy
 msgid "Print via Proxy"
-msgstr "Proxy ile Yazdır"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__proxy_ip
@@ -339,26 +298,32 @@ msgid "Proxy IP Address"
 msgstr ""
 
 #. module: pos_iot
+#. odoo-python
+#: code:addons/pos_iot/models/pos_printer.py:0
+msgid "Proxy IP cannot be empty."
+msgstr ""
+
+#. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Receipt Printer"
-msgstr "Makbuz Yazıcısı"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_scan_via_proxy
 msgid "Scan via Proxy"
-msgstr "Proxy üzerinden tara"
+msgstr ""
 
 #. module: pos_iot
-#: model:ir.model.fields,help:pos_iot.field_pos_config__iface_customer_facing_display_via_proxy
-msgid "Show checkout to customers with a remotely-connected screen."
-msgstr "Uzaktan bağlı bir ekran ile müşterilere ödeme göster."
+#: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
+msgid "Scanner"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Terminal Disconnected"
-msgstr "Terminal Bağlantısı Kesildi"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_printer__proxy_ip
@@ -367,63 +332,57 @@ msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/ScaleScreen.js:0
+#: code:addons/pos_iot/static/src/overrides/components/scale_screen/scale_screen.js:0
 msgid "The IoT scale is not responding. You should check your connection."
-msgstr "IoT ölçeği yanıt vermiyor. Bağlantınızı kontrol etmelisiniz."
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
-msgid "The transactions are processed by Ingenico. Set your Ingenico device on the related payment method."
-msgstr "İşlemler Ingenico tarafından işlenir. Ingenico cihazınızı ilgili ödeme yöntemine ayarlayın."
+msgid ""
+"The transactions are processed by Ingenico. Set your Ingenico device on the "
+"related payment method."
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_res_config_settings__worldline_payment_terminal
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
-msgid "The transactions are processed by Worldline. Set your Worldline device on the related payment method."
-msgstr "İşlemler Worldline tarafından işlenir. Worldline cihazınızı ilgili ödeme yöntemine ayarlayın."
+msgid ""
+"The transactions are processed by Worldline. Set your Worldline device on "
+"the related payment method."
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/LastTransactionStatus.xml:0
-msgid "Time:"
-msgstr "Zaman:"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Transaction could not be cancelled"
-msgstr "İşlem iptal edilemedi"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/app/pos_store.js:0
+#: code:addons/pos_iot/static/src/overrides/models/pos_store.js:0
 msgid "Transaction in progress"
-msgstr "İşlem devam ediyor"
+msgstr ""
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
-msgid "Worldline"
-msgstr "Worldline"
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/xml/LastTransactionStatus.xml:0
-msgid "Worldline - Last Transaction Status"
-msgstr "Worldline - Son İşlem Durumu"
+msgid "Worldline (BENELUX)"
+msgstr ""
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__worldline_payment_terminal
 msgid "Worldline Payment Terminal"
-msgstr "Worldline Ödeme Terminali"
+msgstr ""
 
 #. module: pos_iot
 #. odoo-javascript
-#: code:addons/pos_iot/static/src/js/LastTransactionStatus.js:0
-msgid "You cannot check the status of the last transaction when a payment in in progress."
-msgstr "Bir ödeme devam ederken son işlemin durumunu kontrol edemezsiniz."
-
-#. module: pos_iot
-#. odoo-javascript
-#: code:addons/pos_iot/static/src/js/payment.js:0
+#: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "You must select a payment terminal in your POS config."
-msgstr "POS yapılandırmanızda bir ödeme terminali seçmeniz gerekir."
+msgstr ""
+
+#. module: pos_iot
+#. odoo-python
+#: code:addons/pos_iot/models/pos_config.py:0
+msgid ""
+"You must set a display device for an IOT-connected screen. You'll find the "
+"field under the 'IoT Box' option."
+msgstr ""

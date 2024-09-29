@@ -1,29 +1,29 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_cohort
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
-"Language: ko\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ko\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: web_cohort
 #. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
-msgid "%s - By %s"
-msgstr "%s - 저자 %s"
+msgid "%(date_stop)s - By %(interval)s"
+msgstr "%(date_stop)s - %(interval)s 단위로"
 
 #. module: web_cohort
 #. odoo-javascript
@@ -37,8 +37,8 @@ msgid "Action Window View"
 msgstr "작업 윈도우 보기"
 
 #. module: web_cohort
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "Average"
@@ -47,7 +47,7 @@ msgstr "평균"
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_base
 msgid "Base"
-msgstr "Base"
+msgstr "기준액"
 
 #. module: web_cohort
 #: model:ir.model.fields.selection,name:web_cohort.selection__ir_actions_act_window_view__view_mode__cohort
@@ -59,7 +59,7 @@ msgstr "코호트"
 #. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
 msgid "Cohort %(title)s (%(model_name)s)"
-msgstr ""
+msgstr "코호트 %(title)s (%(model_name)s)"
 
 #. module: web_cohort
 #. odoo-javascript
@@ -83,7 +83,7 @@ msgstr "일"
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "Download as Excel file"
-msgstr ""
+msgstr "엑셀 파일로 다운로드"
 
 #. module: web_cohort
 #. odoo-javascript
@@ -110,6 +110,31 @@ msgid ""
 "Period: %(period)s\n"
 "%(measure)s: %(count)s"
 msgstr ""
+"기간: %(period)s\n"
+"%(measure)s: %(count)s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(interval)s is not a valid interval. Here are the intervals: "
+"%(intervals)s"
+msgstr "%(interval)s 인수는 유효한 간격이 아닙니다. 간격은 다음과 같습니다: %(intervals)s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(mode)s is not a valid mode. Here are the modes: %(modes)s"
+msgstr "%(mode)s 인수는 유효한 모드가 아닙니다. 모드는 다음과 같습니다: %(modes)s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(timeline)s is not a valid timeline. Here are the timelines: "
+"%(timelines)s"
+msgstr "%(timeline)s 인수의 유효한 타임라인이 아닙니다. 타임라인은 다음과 같습니다: %(timelines)s"
 
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_ir_ui_view

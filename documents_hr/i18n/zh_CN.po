@@ -1,37 +1,28 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* documents_hr
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# 稀饭~~ <wangwhai@qq.com>, 2022
-# Jeffery CHEN <jeffery9@gmail.com>, 2022
-# Emily Jia <eji@odoo.com>, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Emily Jia <eji@odoo.com>, 2023\n"
+"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: documents_hr
-#: model_terms:ir.ui.view,arch_db:documents_hr.res_config_settings_view_form
-msgid ""
-"<span name=\"documents_hr_tags\" class=\"o_form_label\" invisible=\"1\" attrs=\"{'invisible' : [('documents_hr_settings', '=', False)]}\">\n"
-"                                Default tags\n"
-"                            </span>"
+#: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
+msgid "<i class=\"fa fa-download fa-fw\"/> Download file"
 msgstr ""
-"<span name=\"documents_hr_tags\" class=\"o_form_label\" invisible=\"1\" attrs=\"{'invisible' : [('documents_hr_settings', '=', False)]}\">\n"
-"                                默认标签\n"
-"                            </span>"
 
 #. module: documents_hr
 #: model:mail.template,body_html:documents_hr.mail_template_document_folder_link
@@ -42,7 +33,7 @@ msgid ""
 "            You'll find all your personal HR documents in this folder.<br><br>\n"
 "            Please keep this link secure.<br><br>\n"
 "            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
-"                <a t-attf-href=\"{{ object.documents_share_id.full_url }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                <a t-attf-href=\"{{ object.sudo().documents_link_url }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
 "                    Your Documents\n"
 "                </a>\n"
 "            </div>\n"
@@ -54,7 +45,7 @@ msgid ""
 msgstr ""
 
 #. module: documents_hr
-#: model:documents.tag,name:documents_hr.documents_hr_documents_absences
+#: model:documents.tag,name:documents_hr.documents_tag_absences
 msgid "Absences"
 msgstr "离开"
 
@@ -64,7 +55,7 @@ msgid "Centralize your employees' documents (contracts, payslips, etc.)"
 msgstr "集中员工的文档（合同，工资单等）"
 
 #. module: documents_hr
-#: model:documents.tag,name:documents_hr.documents_hr_documents_Cerification
+#: model:documents.tag,name:documents_hr.documents_tag_certification
 msgid "Certifications"
 msgstr "认证"
 
@@ -86,7 +77,7 @@ msgstr "离职向导"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_users__document_ids
 msgid "Document"
-msgstr "文档"
+msgstr "单据"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_employee__document_count
@@ -94,9 +85,13 @@ msgid "Document Count"
 msgstr "文档数"
 
 #. module: documents_hr
+#: model:ir.model,name:documents_hr.model_documents_redirect
+msgid "Document Redirect"
+msgstr ""
+
+#. module: documents_hr
 #. odoo-python
 #: code:addons/documents_hr/models/res_users.py:0
-#: model:documents.facet,name:documents_hr.documents_hr_documents
 #: model:ir.model.fields,field_description:documents_hr.field_res_users__document_count
 #: model_terms:ir.ui.view,arch_db:documents_hr.hr_employee_view_form
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_users_view_form
@@ -109,12 +104,13 @@ msgid "Documents Hr Settings"
 msgstr "文档人力资源设置"
 
 #. module: documents_hr
-#: model:ir.model.fields,field_description:documents_hr.field_hr_employee__documents_share_id
-msgid "Documents Share"
-msgstr "‎文档共享‎"
+#: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
+msgid "Download file"
+msgstr "下载文件"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_hr_employee
+#: model:ir.model.fields,field_description:documents_hr.field_documents_redirect__employee_id
 msgid "Employee"
 msgstr "员工"
 
@@ -122,27 +118,16 @@ msgstr "员工"
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 msgid ""
-"Employee's private email must be set to use \"Send Access Link\" function:\n"
+"Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
-"员工的私人邮箱必须设置为使用“发送访问链接”功能：\n"
+"工相关用户和私人电邮必须设置为使用 “发送访问链接” 功能。\n"
 "%s"
 
 #. module: documents_hr
-#: model:documents.tag,name:documents_hr.documents_hr_documents_employees
+#: model:documents.tag,name:documents_hr.documents_tag_employees
 msgid "Employees Documents"
 msgstr "员工文档"
-
-#. module: documents_hr
-#: model:documents.folder,name:documents_hr.documents_hr_folder
-msgid "HR"
-msgstr "HR"
-
-#. module: documents_hr
-#. odoo-python
-#: code:addons/documents_hr/models/hr_employee.py:0
-msgid "HR Documents: %s"
-msgstr "人力资源文档： %s"
 
 #. module: documents_hr
 #: model:mail.template,name:documents_hr.mail_template_document_folder_link
@@ -153,6 +138,11 @@ msgstr "HR：文档访问链接"
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_settings
 msgid "Human Resources"
 msgstr "人力资源"
+
+#. module: documents_hr
+#: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
+msgid "My documents"
+msgstr ""
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__private_email
@@ -171,13 +161,20 @@ msgstr "发送 HR 文档访问链接"
 
 #. module: documents_hr
 #: model:ir.model.fields,help:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
-msgid "Send a share link to the private email of the employee with all the HR files he owns in Documents app"
+msgid ""
+"Send a share link to the private email of the employee with all the HR files"
+" he owns in Documents app"
 msgstr "向员工个人电子邮箱发送共享链接，包含其在Documents应用程序中拥有的所有人力资源文件"
 
 #. module: documents_hr
 #: model:mail.template,description:documents_hr.mail_template_document_folder_link
 msgid "Sent manually when recording an employee departure"
 msgstr "记录员工离职时手动发送"
+
+#. module: documents_hr
+#: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
+msgid "Size:"
+msgstr "尺寸："
 
 #. module: documents_hr
 #. odoo-python
@@ -198,8 +195,16 @@ msgstr "工作区"
 #. module: documents_hr
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
-msgid "You must set a private address on the Employee in order to use Document's features."
-msgstr "您须为员工设置私人地址，方能使用Document应用程序的功能。"
+msgid "You can not send the documents link to the employee."
+msgstr ""
+
+#. module: documents_hr
+#. odoo-python
+#: code:addons/documents_hr/models/hr_employee.py:0
+msgid ""
+"You must set a work contact address on the Employee in order to use "
+"Document's features."
+msgstr "您必须为员工设置工作联系地址，才能使用文档功能。"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_folder

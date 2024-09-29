@@ -1,35 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_helpdesk_livechat
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# 稀饭~~ <wangwhai@qq.com>, 2022
-# Raymond Yu <cl_yu@hotmail.com>, 2022
-# Jeffery CHEN <jeffery9@gmail.com>, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:50+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
-"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-
-#. module: website_helpdesk_livechat
-#. odoo-python
-#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid ""
-"\n"
-"                    Create a new helpdesk ticket by typing <b>/ticket <i>ticket title</i></b><br>\n"
-"                    "
-msgstr ""
 
 #. module: website_helpdesk_livechat
 #. odoo-python
@@ -43,20 +31,17 @@ msgid "Alright, we should have everything we need"
 msgstr "好了，我们应该有我们需要的一切"
 
 #. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/chatbot_script.py:0
+msgid ""
+"An \"Email\" step type must exist before the \"Create Ticket\" step for a "
+"ticket to be created."
+msgstr "要创建工单，“创建工单” 步骤之前必须有 “电子邮件” 步骤类型。"
+
+#. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial_misc
 msgid "Anything else to add?"
 msgstr "还有其他别的需要添加吗？"
-
-#. module: website_helpdesk_livechat
-#: model:ir.actions.act_window,name:website_helpdesk_livechat.helpdesk_im_livechat_canned_response_action
-#: model:ir.ui.menu,name:website_helpdesk_livechat.helpdesk_team_canned_response_menu
-msgid "Canned Responses"
-msgstr "预设回复"
-
-#. module: website_helpdesk_livechat
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.im_livechat_canned_response_view_search
-msgid "Canned Responses Search"
-msgstr "预设回复搜索"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_chatbot_script
@@ -69,14 +54,19 @@ msgid "Chatbot Script Step"
 msgstr "聊天机器人脚本步骤"
 
 #. module: website_helpdesk_livechat
+#: model:ir.ui.menu,name:website_helpdesk_livechat.chatbot_config
+msgid "Chatbots"
+msgstr "聊天机器人"
+
+#. module: website_helpdesk_livechat
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
-msgid "Configure Canned Responses"
-msgstr ""
+msgid "Configure Chatbots"
+msgstr "配置聊天机器人"
 
 #. module: website_helpdesk_livechat
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
 msgid "Configure Live Chat Channel"
-msgstr ""
+msgstr "设置在线客服频道"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields.selection,name:website_helpdesk_livechat.selection__chatbot_script_step__step_type__create_ticket
@@ -85,8 +75,16 @@ msgstr "创建工单"
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Create a new helpdesk ticket (/ticket ticket title)"
+msgstr "新建技术支持请求（/ticket 请求主题）"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
+msgid ""
+"Create a new helpdesk ticket by typing: %(pre_start)s%(ticket_command)s "
+"%(i_start)sticket title%(i_end)s%(pre_end)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -104,11 +102,6 @@ msgstr "讨论频道"
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_dispatch
 msgid "First, what is the nature of your issue?"
 msgstr "首先，您的问题的性质是什么？"
-
-#. module: website_helpdesk_livechat
-#: model:ir.model.fields,field_description:website_helpdesk_livechat.field_chatbot_script__ticket_count
-msgid "Generated Ticket Count"
-msgstr "生成的工单计数"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_yes
@@ -154,7 +147,13 @@ msgstr "最后一件事，能不能给我们提供您的电子邮件地址？"
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields,field_description:website_helpdesk_livechat.field_helpdesk_team__use_website_helpdesk_livechat
 msgid "Live Chat"
-msgstr ""
+msgstr "在线聊天"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
+msgid "Load More"
+msgstr "加载更多"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_answer_no
@@ -162,19 +161,19 @@ msgid "No"
 msgstr "否"
 
 #. module: website_helpdesk_livechat
-#: model_terms:ir.actions.act_window,help:website_helpdesk_livechat.helpdesk_im_livechat_canned_response_action
-msgid "No canned reponses found. Let's create one!"
-msgstr "未找到预设回复，让我们创建一个！"
-
-#. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "No tickets found for <b>%s</b>. <br> Make sure you are using the right format:<br> <b>/search_tickets <i>keyword</i></b>"
+msgid ""
+"No tickets found for %(b_start)s%(keywords)s%(b_end)s.%(br)sMake sure you "
+"are using the right format: %(pre_start)s%(search_tickets_command)s "
+"%(i_start)skeywords%(i_end)s%(pre_end)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_ticket
-msgid "OK, I just created a ticket for you. You should receive an email confirmation very soon."
+msgid ""
+"OK, I just created a ticket for you. You should receive an email "
+"confirmation very soon."
 msgstr "好的，我刚刚为您创建了一个工单。你应该很快收到一封确认电子邮件。"
 
 #. module: website_helpdesk_livechat
@@ -189,14 +188,16 @@ msgstr "请在下面写您的客户参考号码。"
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Search helpdesk tickets (/search_tickets keyword)"
-msgstr ""
+msgstr "搜索服务台技术支持请求（/search_tickets 关键字）"
 
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "Search helpdesk tickets by typing <b>/search_tickets <i>keyword</i></b>"
+msgid ""
+"Search helpdesk tickets by typing: %(pre_start)s%(search_tickets_command)s "
+"%(i_start)skeywords%(i_end)s%(pre_end)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -204,6 +205,12 @@ msgstr ""
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
 msgid "Something is missing or wrong in command"
 msgstr "命令不完整或者命令错误"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
+msgid "Something is missing or wrong in the command"
+msgstr "指令中有遗漏或错误"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields,field_description:website_helpdesk_livechat.field_chatbot_script_step__step_type
@@ -223,7 +230,9 @@ msgstr "工单"
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "Tickets search results for %s: "
+msgid ""
+"Tickets search results for %(b_start)s%(keywords)s%(b_end)s: "
+"%(br)s%(tickets)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -236,6 +245,11 @@ msgstr ""
 "它们写在你收到的每张结算上，在你的名称旁边。"
 
 #. module: website_helpdesk_livechat
+#: model:res.groups,name:website_helpdesk_livechat.group_use_website_helpdesk_livechat
+msgid "Use Live Chat"
+msgstr "使用在线客服"
+
+#. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_res_users
 msgid "User"
 msgstr "用户"
@@ -244,11 +258,6 @@ msgstr "用户"
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_issue
 msgid "We're all set. Now, what is your issue?"
 msgstr "我们都准备好了。现在，你的问题是什么？"
-
-#. module: website_helpdesk_livechat
-#: model_terms:ir.actions.act_window,help:website_helpdesk_livechat.helpdesk_im_livechat_canned_response_action
-msgid "With canned responses, you can type <i>:shortcuts</i> to insert prewritten responses into your messages. These shortcuts are replaced directly in your messages so that you can still make changes before sending them."
-msgstr "使用预设回复，您可以键入<i>：快捷方式</i>以将预先编写的回复插入消息中。 这些快捷方式直接在您的消息中替换，以便您仍然可以在发送之前进行更改。"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_answer_yes

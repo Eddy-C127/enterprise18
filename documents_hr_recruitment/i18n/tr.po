@@ -1,57 +1,44 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* documents_hr_recruitment
-#
+# 
 # Translators:
-# Ediz Duman <neps1192@gmail.com>, 2022
-# Umur Akın <umura@projetgrup.com>, 2022
-# Halil, 2022
-# abc Def <hdogan1974@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Özlem Atalay <ozlema@eskayazilim.com.tr>, 2022
-# Levent Karakaş <levent@mektup.at>, 2022
-# Murat Kaplan <muratk@projetgrup.com>, 2022
-# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2022
-#
+# Murat Kaplan <muratk@projetgrup.com>, 2024
+# emre oktem, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server saas~15.3+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2022\n"
+"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: emre oktem, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
-"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: documents_hr_recruitment
-#: model:ir.model,name:documents_hr_recruitment.model_documents_workflow_rule
-msgid "A set of condition and actions which will be available to all attachments matching the conditions"
-msgstr "Koşullara uyan tüm eklerde kullanılabilecek bir koşul ve eylem dizisi"
-
-#. module: documents_hr_recruitment
 #: model:ir.model,name:documents_hr_recruitment.model_hr_applicant
-#: model:ir.model.fields.selection,name:documents_hr_recruitment.selection__documents_workflow_rule__create_model__hr_applicant
 msgid "Applicant"
-msgstr "Aday"
+msgstr ""
 
 #. module: documents_hr_recruitment
-#: model:documents.tag,name:documents_hr_recruitment.documents_recruitment_sheet_tag
+#: model:documents.tag,name:documents_hr_recruitment.documents_tag_cancelled
 msgid "Cancelled"
 msgstr "İptal Edildi"
 
 #. module: documents_hr_recruitment
 #: model_terms:ir.ui.view,arch_db:documents_hr_recruitment.res_config_settings_view_form
 msgid "Centralize files attached to applications and job positions"
-msgstr "Uygulamalara ve iş pozisyonlarına eklenen dosyaları merkezileştirin"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model,name:documents_hr_recruitment.model_res_company
 msgid "Companies"
-msgstr "Şirketler"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model,name:documents_hr_recruitment.model_res_config_settings
@@ -59,79 +46,74 @@ msgid "Config Settings"
 msgstr "Yapılandırma Ayarları"
 
 #. module: documents_hr_recruitment
-#: model:ir.model.fields,field_description:documents_hr_recruitment.field_documents_workflow_rule__create_model
-msgid "Create"
-msgstr "Oluştur"
-
-#. module: documents_hr_recruitment
-#: model:documents.workflow.rule,name:documents_hr_recruitment.documents_applicant_rule
-msgid "Create an Applicant"
-msgstr "Aday Oluştur"
+#: model:ir.actions.server,name:documents_hr_recruitment.ir_actions_server_create_hr_candidate
+msgid "Create a Candidate"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model_terms:ir.ui.view,arch_db:documents_hr_recruitment.res_config_settings_view_form
 msgid "Default Tags"
-msgstr "Varsayılan Etiketler"
+msgstr ""
+
+#. module: documents_hr_recruitment
+#: model:ir.model,name:documents_hr_recruitment.model_documents_document
+msgid "Document"
+msgstr "Belge"
 
 #. module: documents_hr_recruitment
 #. odoo-python
 #: code:addons/documents_hr_recruitment/models/hr_applicant.py:0
 #: code:addons/documents_hr_recruitment/models/hr_job.py:0
 msgid "Documents"
-msgstr "Belgeler"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model.fields,field_description:documents_hr_recruitment.field_res_company__documents_recruitment_settings
 msgid "Documents Recruitment Settings"
-msgstr "Belgeler İşe Alım Ayarları"
-
-#. module: documents_hr_recruitment
-#: model:documents.tag,name:documents_hr_recruitment.documents_recruitment_new_tag
-msgid "Inbox"
-msgstr "Gelen Kutusu"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model,name:documents_hr_recruitment.model_hr_job
 msgid "Job Position"
-msgstr "İş Pozisyonu"
+msgstr ""
 
 #. module: documents_hr_recruitment
-#: model:documents.folder,name:documents_hr_recruitment.documents_recruitment_folder
 #: model:ir.model.fields,field_description:documents_hr_recruitment.field_res_config_settings__documents_recruitment_settings
 msgid "Recruitment"
-msgstr "İşe Alım"
+msgstr ""
 
 #. module: documents_hr_recruitment
-#: model:documents.tag,name:documents_hr_recruitment.documents_recruitment_plans_tag
+#: model:documents.tag,name:documents_hr_recruitment.documents_tag_recruitment_reserve
 msgid "Recruitment Reserve"
-msgstr "İşe Alım Rezervi"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model.fields,field_description:documents_hr_recruitment.field_res_company__recruitment_tag_ids
 msgid "Recruitment Tag"
-msgstr "İşe Alım Etiketi"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model.fields,field_description:documents_hr_recruitment.field_res_config_settings__recruitment_tag_ids
 msgid "Recruitment Tags"
-msgstr "İşe Alım Etiketleri"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model.fields,field_description:documents_hr_recruitment.field_res_company__recruitment_folder_id
 msgid "Recruitment Workspace"
-msgstr "İşe Alım Çalışma Alanı"
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model:ir.model.fields,field_description:documents_hr_recruitment.field_res_config_settings__recruitment_folder_id
 msgid "Recruitment default workspace"
-msgstr "İşe alım varsayılan çalışma alanı"
+msgstr ""
 
 #. module: documents_hr_recruitment
-#: model:documents.facet,name:documents_hr_recruitment.documents_recruitment_documents_facet
-msgid "Status"
-msgstr "Durumu"
+#. odoo-python
+#: code:addons/documents_hr_recruitment/models/documents_document.py:0
+msgid "This action can only be applied on documents."
+msgstr ""
 
 #. module: documents_hr_recruitment
 #: model_terms:ir.ui.view,arch_db:documents_hr_recruitment.res_config_settings_view_form
 msgid "Workspace"
-msgstr "Çalışma alanı"
+msgstr ""

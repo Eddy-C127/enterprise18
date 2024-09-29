@@ -1,30 +1,38 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* mrp_mps
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Thi Huong Nguyen, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
-"Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: vi\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: mrp_mps
-#. odoo-javascript
-#: code:addons/mrp_mps/static/src/components/line.xml:0
-msgid "- Indirect Demand Forecast"
-msgstr "- Dự báo nhu cầu gián tiếp"
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
+msgid "<span invisible=\"enable_batch_size\">No Batch Size</span>"
+msgstr ""
+
+#. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
+msgid "<span invisible=\"enable_max_replenish\">No Maximum</span>"
+msgstr "<span invisible=\"enable_max_replenish\">Không có giới hạn tối đa</span>"
+
+#. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_bom_form_view_inherit_mps
+msgid "<span>Schedules</span>"
+msgstr ""
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -47,8 +55,8 @@ msgstr "Nhu cầu thực tế"
 #. module: mrp_mps
 #. odoo-python
 #: code:addons/mrp_mps/models/mrp_mps.py:0
-msgid "Actual Demand %s %s (%s - %s)"
-msgstr "Nhu cầu thực tế %s %s (%s - %s)"
+msgid "Actual Demand %(product)s %(date)s (%(date_start)s - %(date_end)s)"
+msgstr "Nhu cầu thực tế %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -69,13 +77,14 @@ msgstr "Nhu cầu thực tế Y-2"
 #: code:addons/mrp_mps/static/src/search/group_menu.xml:0
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__total_qty
 msgid "Actual Replenishment"
-msgstr "Bổ sung thực tế"
+msgstr "Bổ sung hàng thực tế"
 
 #. module: mrp_mps
 #. odoo-python
 #: code:addons/mrp_mps/models/mrp_mps.py:0
-msgid "Actual Replenishment %s %s (%s - %s)"
-msgstr "Bổ sung thực tế %s %s (%s - %s)"
+msgid ""
+"Actual Replenishment %(product)s %(date)s (%(date_start)s - %(date_end)s)"
+msgstr "Bổ sung thực tế %(product)s %(date)s (%(date_start)s - %(date_end)s)"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -85,22 +94,42 @@ msgid "Add a Product"
 msgstr "Thêm một sản phẩm"
 
 #. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__allowed_route_ids
+msgid "Allowed Route"
+msgstr "Tuyến được phép"
+
+#. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/models/master_production_schedule_model.js:0
 msgid "Are you sure you want to delete these records?"
-msgstr "Bạn có chắc muốn xoá các dữ liệu này?"
+msgstr "Bạn có chắc muốn xoá các bản ghi này?"
 
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/models/master_production_schedule_model.js:0
 msgid "Are you sure you want to delete this record?"
-msgstr "Bạn có chắc muốn xóa dữ liệu này ?"
+msgstr "Bạn có chắc muốn xóa bản ghi này ?"
+
+#. module: mrp_mps
+#: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_trigger__automated
+msgid "Automatic"
+msgstr "Tự động"
+
+#. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
+msgid "Automatically Replenished"
+msgstr "Bô sung tự động"
 
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/search/group_menu.xml:0
 msgid "Available to Promise"
 msgstr "Tài nguyên có sẵn để đáp ứng nhu cầu"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__batch_size
+msgid "Batch Size"
+msgstr ""
 
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_mrp_bom
@@ -168,6 +197,17 @@ msgid "Date"
 msgstr "Ngày"
 
 #. module: mrp_mps
+#. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/main.js:0
+msgid "Day"
+msgstr "Ngày"
+
+#. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
+msgid "Default Time Range"
+msgstr ""
+
+#. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__product_uom_id
 msgid "Default unit of measure used for all stock operations."
 msgstr "Đơn vị tính mặc định dùng cho tất cả hoạt động kho."
@@ -175,8 +215,11 @@ msgstr "Đơn vị tính mặc định dùng cho tất cả hoạt động kho."
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_res_company__manufacturing_period
 #: model:ir.model.fields,help:mrp_mps.field_res_config_settings__manufacturing_period
-msgid "Default value for the time ranges in Master Production Schedule report."
-msgstr "Giá trị mặc định cho phạm vi thời gian dùng trong báo cáo Kế hoạch sản xuất tổng thể."
+msgid ""
+"Default value for the time ranges in Master Production Schedule report."
+msgstr ""
+"Giá trị mặc định cho phạm vi thời gian dùng trong báo cáo kế hoạch sản xuất "
+"tổng thể."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -209,7 +252,7 @@ msgstr "Hiển thị nhu cầu thực tế năm ngoái"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_actual_replenishment
 msgid "Display Actual Replenishment"
-msgstr "Hiển thị bổ sung thực tế"
+msgstr "Hiển thị bổ sung hàng thực tế"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__mrp_mps_show_available_to_promise
@@ -249,9 +292,19 @@ msgid "Display To Replenish"
 msgstr "Hiển thị cần bổ sung"
 
 #. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_batch_size
+msgid "Enable Batch Size"
+msgstr ""
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_max_replenish
+msgid "Enable Max Replenish"
+msgstr "Bật Bổ sung tối đa"
+
+#. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_state__excessive_replenishment
 msgid "Excessive Replenishment"
-msgstr ""
+msgstr "Bổ sung hàng thừa"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -269,12 +322,6 @@ msgstr "ID bên ngoài"
 #: model:ir.model,name:mrp_mps.model_mrp_mps_forecast_details
 msgid "Forecast Demand Details"
 msgstr "Chi tiết nhu cầu dự báo"
-
-#. module: mrp_mps
-#. odoo-javascript
-#: code:addons/mrp_mps/static/src/components/line.xml:0
-msgid "Forecast Report"
-msgstr "Báo cáo dự báo"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -298,12 +345,7 @@ msgstr "Tồn kho được dự báo"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__forecast_ids
 msgid "Forecasted quantity at date"
-msgstr "Số lượng dự báo tại ngày"
-
-#. module: mrp_mps
-#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__sequence
-msgid "Gives the sequence order when displaying a product list"
-msgstr "Cung cấp trình tự khi hiển thị một danh sách sản phẩm"
+msgstr "Số lượng được dự báo tại ngày"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__id
@@ -313,10 +355,40 @@ msgid "ID"
 msgstr "ID"
 
 #. module: mrp_mps
+#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__batch_size
+msgid ""
+"If set, the generated manufacturing orders will be split in quantities of "
+"this value at maximum."
+msgstr ""
+
+#. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/models/mrp_mps.py:0
+msgid "Import Template for Master Production Schedule"
+msgstr ""
+
+#. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
+msgid "Indirect Demand"
+msgstr "Nhu cầu gián tiếp"
+
+#. module: mrp_mps
 #. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/line.xml:0
 #: code:addons/mrp_mps/static/src/search/group_menu.xml:0
 msgid "Indirect Demand Forecast"
 msgstr "Dự báo nhu cầu gián tiếp"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__is_indirect
+msgid "Indirect demand product"
+msgstr "Sản phẩm cần gián tiếp"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__is_manufacture_route
+msgid "Is Manufacture Route"
+msgstr ""
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__write_uid
@@ -338,6 +410,45 @@ msgid "MPS"
 msgstr "Kế hoạch sản xuất tổng thể"
 
 #. module: mrp_mps
+#: model:ir.actions.server,name:mrp_mps.ir_cron_replenish_automated_mps_ir_actions_server
+msgid "MPS: replenish automated schedules"
+msgstr "MPS: lịch bổ sung tự động"
+
+#. module: mrp_mps
+#: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_trigger__manual
+msgid "Manual"
+msgstr "Thủ công"
+
+#. module: mrp_mps
+#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__replenish_trigger
+msgid ""
+"Manual: Product to be replenished manually from MPS.\n"
+"Automatic: Product replenished automatically via scheduled action.\n"
+"Never: Product is not replenished from MPS."
+msgstr ""
+"Thủ công: Sản phẩm được bổ sung thủ công từ MPS.\n"
+"Tự động: Sản phẩm được bổ sung tự động thông qua tác vụ đã lên lịch.\n"
+"Không bao giờ: Sản phẩm không được bổ sung từ MPS."
+
+#. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
+msgid "Manually Replenished"
+msgstr "Bổ sung thủ công"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__manufacture_string
+msgid "Manufacture String"
+msgstr "Chuỗi sản xuất"
+
+#. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/wizard/mrp_mps_forecast_details.py:0
+msgid "Manufacturing Order"
+msgstr "Lệnh sản xuất"
+
+#. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/wizard/mrp_mps_forecast_details.py:0
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_forecast_details_form_view
 msgid "Manufacturing Orders"
 msgstr "Lệnh sản xuất"
@@ -346,7 +457,15 @@ msgstr "Lệnh sản xuất"
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period
 msgid "Manufacturing Period"
-msgstr "Kỳ sản xuất"
+msgstr "Giai đoạn sản xuất"
+
+#. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/models/res_company.py:0
+msgid ""
+"Manufacturing Settings: Your Master Production Schedule must always display "
+"at least 1 period."
+msgstr ""
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -368,6 +487,12 @@ msgid "Minimum to Replenish"
 msgstr "Số lượng bổ sung tối thiểu"
 
 #. module: mrp_mps
+#. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/main.js:0
+msgid "Month"
+msgstr "Tháng"
+
+#. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__res_company__manufacturing_period__month
 msgid "Monthly"
 msgstr "Hàng tháng"
@@ -378,30 +503,96 @@ msgid "Move"
 msgstr "Dịch chuyển"
 
 #. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__moves_string
+msgid "Moves String"
+msgstr "Chuỗi dịch chuyển"
+
+#. module: mrp_mps
+#: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_trigger__never
+msgid "Never"
+msgstr "Không bao giờ"
+
+#. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/main.xml:0
 msgid "No product yet. Add one to start scheduling."
 msgstr "Chưa có sản phẩm. Cần thêm một sản phẩm để bắt đầu lập lịch trình. "
 
 #. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
+msgid "Not Replenished from MPS"
+msgstr "Không được bổ sung từ MPS"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_day
+msgid "Number of Daily Manufacturing Period Columns"
+msgstr ""
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_month
+msgid "Number of Monthly Manufacturing Period Columns"
+msgstr ""
+
+#. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
-msgid "Number of Columns"
-msgstr "Số cột"
+msgid "Number of Periods"
+msgstr ""
 
 #. module: mrp_mps
-#: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display
-msgid "Number of Manufacturing Period Columns"
-msgstr "Số cột kỳ sản xuất"
+#: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_week
+msgid "Number of Weekly Manufacturing Period Columns"
+msgstr ""
 
 #. module: mrp_mps
-#: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display
-msgid "Number of columns for the        given period to display in Master Production Schedule"
-msgstr "Số cột trong một kỳ cụ thể hiển thị trong kế hoạch sản xuất tổng thể"
+#: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_year
+msgid "Number of Yearly Manufacturing Period Columns"
+msgstr ""
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_day
+msgid ""
+"Number of columns for the daily period to display in Master Production "
+"Schedule"
+msgstr ""
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_month
+msgid ""
+"Number of columns for the monthly period to display in Master Production "
+"Schedule"
+msgstr ""
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_week
+msgid ""
+"Number of columns for the weekly period to display in Master Production "
+"Schedule"
+msgstr ""
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_year
+msgid ""
+"Number of columns for the yearly period to display in Master Production "
+"Schedule"
+msgstr ""
+
+#. module: mrp_mps
+#. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/line.xml:0
+#: code:addons/mrp_mps/static/src/components/main.js:0
+#: code:addons/mrp_mps/static/src/components/main.xml:0
+msgid "Order"
+msgstr "Đơn hàng"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__route_id
+msgid "Preferred Route"
+msgstr "Tuyến ưu tiên"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_product_forecast__procurement_launched
 msgid "Procurement has been run for this forecast"
-msgstr "Cung ứng đã chạy cho dự báo này"
+msgstr "Thu mua đã chạy cho dự báo này"
 
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_product_template
@@ -452,7 +643,7 @@ msgstr "Đơn mua hàng"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__purchase_order_line_ids
 msgid "Purchase Order Line"
-msgstr "Mục đơn mua hàng"
+msgstr "Dòng đơn mua hàng"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__moves_qty
@@ -472,10 +663,22 @@ msgstr "Số lượng từ YCBG"
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
-msgid "Quantity predicted to be available for sale at the end of the period (= to replenish - actual demand)."
-msgstr "Số lượng được dự kiến sẽ có sẵn để bán vào cuối kỳ (= cần bổ sung - nhu cầu thực tế)."
+msgid ""
+"Quantity predicted to be available for sale at the end of the period (= to "
+"replenish - actual demand)."
+msgstr ""
+"Số lượng được dự kiến sẽ có sẵn để bán vào cuối giai đoạn (= cần bổ sung - "
+"nhu cầu thực tế)."
 
 #. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/wizard/mrp_mps_forecast_details.py:0
+msgid "Receipt"
+msgstr "Phiếu nhập kho"
+
+#. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/wizard/mrp_mps_forecast_details.py:0
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_forecast_details_form_view
 msgid "Receipts"
 msgstr "Phiếu nhập kho"
@@ -483,15 +686,13 @@ msgstr "Phiếu nhập kho"
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
-#: code:addons/mrp_mps/static/src/components/main.js:0
-#: code:addons/mrp_mps/static/src/components/main.xml:0
 msgid "Replenish"
-msgstr "Bổ sung"
+msgstr "Bổ sung hàng"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__replenish_state
 msgid "Replenish State"
-msgstr ""
+msgstr "Trạng thái bổ sung"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_product_forecast__replenish_qty_updated
@@ -501,23 +702,57 @@ msgstr "Replenish_qty đã được cập nhật thủ công"
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Replenishment Too High"
-msgstr ""
+msgstr "Bổ sung hàng quá cao"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
 msgid "Replenishment Too Low"
-msgstr ""
+msgstr "Bổ sung hàng quá thấp"
 
 #. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__replenish_trigger
+msgid "Replenishment Trigger"
+msgstr "Kích hoạt bổ sung"
+
+#. module: mrp_mps
+#. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/line.xml:0
+msgid "Replenishment:"
+msgstr "Bổ sung hàng:"
+
+#. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/wizard/mrp_mps_forecast_details.py:0
+msgid "Request for quotation"
+msgstr "Yêu cầu báo giá"
+
+#. module: mrp_mps
+#. odoo-python
+#: code:addons/mrp_mps/wizard/mrp_mps_forecast_details.py:0
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_forecast_details_form_view
 msgid "Requests for quotation"
 msgstr "Yêu cầu báo giá"
 
 #. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__rfq_string
+msgid "Rfq String"
+msgstr "Chuỗi YCBG"
+
+#. module: mrp_mps
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
+msgid "Route"
+msgstr "Quy trình"
+
+#. module: mrp_mps
+#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__route_id
+msgid "Route to replenish your product."
+msgstr "Tuyến bổ sung sản phẩm của bạn."
+
+#. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/search/group_menu.xml:0
 msgid "Rows"
-msgstr "Dòng"
+msgstr "Hàng"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__forecast_target_qty
@@ -540,19 +775,27 @@ msgid "Scheduled Date"
 msgstr "Ngày theo kế hoạch"
 
 #. module: mrp_mps
-#: model:ir.model.fields,field_description:mrp_mps.field_mrp_bom__schedule_count
 #: model:ir.model.fields,field_description:mrp_mps.field_product_product__schedule_count
 #: model:ir.model.fields,field_description:mrp_mps.field_product_template__schedule_count
-#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_bom_form_view_inherit_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.product_normal_form_view_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.product_template_only_form_view_mps
 msgid "Schedules"
 msgstr "Lịch trình"
 
 #. module: mrp_mps
-#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__sequence
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__mps_sequence
 msgid "Sequence"
 msgstr "Trình tự"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__show_bom
+msgid "Show Bom"
+msgstr "Hiển thị ĐMNL"
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__show_vendor
+msgid "Show Vendor"
+msgstr "Hiển thị nhà cung cấp"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -566,20 +809,14 @@ msgid "Stock Rule"
 msgstr "Quy tắc tồn kho"
 
 #. module: mrp_mps
-#. odoo-javascript
-#: code:addons/mrp_mps/static/src/components/line.xml:0
-msgid "Suggested Replenishment"
-msgstr "Bổ sung được đề xuất"
-
-#. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__replenish_state
 msgid "Technical field to support filtering by replenish state"
-msgstr ""
+msgstr "Trường kỹ thuật để hỗ trợ lọc theo trạng thái bổ sung"
 
 #. module: mrp_mps
 #: model:ir.model.constraint,message:mrp_mps.constraint_mrp_production_schedule_warehouse_product_ref_uniq
 msgid "The combination of warehouse and product must be unique!"
-msgstr ""
+msgstr "Sự kết hợp của kho hàng và sản phẩm phải là duy nhất!"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -590,8 +827,11 @@ msgstr "Nhu cầu đã xác nhận, dựa theo đơn bán hàng đã xác nhận
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
-msgid "The forecasted demand to fulfill the needs in components of the Manufacturing Orders."
-msgstr "Nhu cầu dự kiến để đáp ứng nhu cầu của các nguyên liệu trong Lệnh sản xuất."
+msgid ""
+"The forecasted demand to fulfill the needs in components of the "
+"Manufacturing Orders."
+msgstr ""
+"Nhu cầu được dự báo để đáp ứng nhu cầu nguyên liệu trong lệnh sản xuất."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -603,13 +843,13 @@ msgstr "Nhu cầu được dự báo. Giá trị này phải được nhập th�
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 msgid "The forecasted quantity in stock at the beginning of the period."
-msgstr "Số lượng được dự báo có sẵn vào đầu kỳ. "
+msgstr "Số lượng được dự báo có sẵn vào đầu giai đoạn. "
 
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
 msgid "The forecasted quantity in stock at the end of the period."
-msgstr "Số lượng được dự báo có sẵn vào cuối kỳ. "
+msgstr "Số lượng được dự báo có sẵn vào cuối giai đoạn. "
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -625,30 +865,41 @@ msgstr ""
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__max_to_replenish_qty
-msgid "The maximum replenishment you would like to launch for each period in the MPS. Note that if the demand is higher than that amount, the remaining quantity will be transferred to the next period automatically."
-msgstr "Số lượng bổ sung tối đa bạn muốn khởi chạy cho mỗi kỳ trong KHSXTT. Lưu ý nếu nhu cầu cao hơn số lượng đó, thì số lượng còn lại sẽ được tự động chuyển sang kỳ tiếp theo."
+msgid ""
+"The maximum replenishment you would like to launch for each period in the "
+"MPS. Note that if the demand is higher than that amount, the remaining "
+"quantity will be transferred to the next period automatically."
+msgstr ""
+"Số lượng bổ sung tối đa bạn muốn khởi chạy cho mỗi giai đoạn trong kế hoạch "
+"sản xuất tổng thể. Lưu ý nếu nhu cầu cao hơn số lượng đó, thì số lượng còn "
+"lại sẽ được tự động chuyển sang giai đoạn tiếp theo."
 
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
-msgid "The quantity being replenished, based on the Requests for Quotation and the Manufacturing Orders."
-msgstr "Số lượng được bổ sung, dựa theo Yêu cầu báo giá và Lệnh sản xuất. "
+msgid ""
+"The quantity being replenished, based on the Requests for Quotation and the "
+"Manufacturing Orders."
+msgstr "Số lượng được bổ sung, dựa theo yêu cầu báo giá và lệnh sản xuất. "
 
 #. module: mrp_mps
 #. odoo-javascript
 #: code:addons/mrp_mps/static/src/components/line.xml:0
-msgid "The quantity to replenish through Purchase Orders or Manufacturing Orders."
-msgstr "Số lượng cần bổ sung thông qua Đơn mua hàng hoặc Lệnh sản xuất. "
+msgid ""
+"The quantity to replenish through Purchase Orders or Manufacturing Orders."
+msgstr "Số lượng cần bổ sung thông qua đơn mua hàng hoặc lệnh sản xuất. "
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__forecast_target_qty
-msgid "This is the minimum free stock you want to keep for that product at all times."
+msgid ""
+"This is the minimum free stock you want to keep for that product at all "
+"times."
 msgstr "Đây là lượng hàng có sẵn tối thiểu bạn luôn muốn giữ cho sản phẩm đó."
 
 #. module: mrp_mps
-#: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
-msgid "Time Range"
-msgstr "Khoảng thời gian"
+#: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_search_view
+msgid "To Forecast"
+msgstr "Cần dự báo"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -660,25 +911,54 @@ msgid "To Replenish"
 msgstr "Cần bổ sung"
 
 #. module: mrp_mps
+#. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/main.js:0
+msgid "Toggle Indirect Demand"
+msgstr "Bật/tắt nhu cầu gián tiếp"
+
+#. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__mrp_production_schedule__replenish_state__under_replenishment
 msgid "Under Replenishment"
-msgstr ""
+msgstr "Bổ sung hàng thiếu"
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__min_to_replenish_qty
-msgid "Unless the demand is 0, Odoo will always at least replenish this quantity."
+msgid ""
+"Unless the demand is 0, Odoo will always at least replenish this quantity."
 msgstr "Trừ khi nhu cầu bằng 0, Odoo sẽ luôn bổ sung ít nhất là số lượng này."
+
+#. module: mrp_mps
+#: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__supplier_id
+msgid "Vendor"
+msgstr "Nhà cung cấp"
+
+#. module: mrp_mps
+#. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/main.js:0
+msgid "Week"
+msgstr "Tuần"
 
 #. module: mrp_mps
 #. odoo-python
 #: code:addons/mrp_mps/models/res_company.py:0
-msgid "Week {week_num} ({start_date}-{end_date}/{month})"
-msgstr "Tuần {week_num} ({start_date}-{end_date}/{month})"
+msgid "Week %(week_num)s (%(start_date)s-%(end_date)s/%(month)s)"
+msgstr "Tuần %(week_num)s (%(start_date)s-%(end_date)s/%(month)s)"
 
 #. module: mrp_mps
 #: model:ir.model.fields.selection,name:mrp_mps.selection__res_company__manufacturing_period__week
 msgid "Weekly"
 msgstr "Hàng tuần"
+
+#. module: mrp_mps
+#. odoo-javascript
+#: code:addons/mrp_mps/static/src/components/main.js:0
+msgid "Year"
+msgstr "Năm"
+
+#. module: mrp_mps
+#: model:ir.model.fields.selection,name:mrp_mps.selection__res_company__manufacturing_period__year
+msgid "Yearly"
+msgstr "Hàng năm"
 
 #. module: mrp_mps
 #. odoo-javascript

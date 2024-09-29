@@ -1,45 +1,44 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_cohort
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Larissa Manderfeld, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Larissa Manderfeld, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
-"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: web_cohort
 #. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
-msgid "%s - By %s"
-msgstr "%s - mit %s"
+msgid "%(date_stop)s - By %(interval)s"
+msgstr "%(date_stop)s - Nach %(interval)s"
 
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "- By"
-msgstr "- Von"
+msgstr "- Durch"
 
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_ir_actions_act_window_view
 msgid "Action Window View"
-msgstr "Aktive Fenster ansicht"
+msgstr "Ansicht des Aktionsfensters"
 
 #. module: web_cohort
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "Average"
@@ -66,13 +65,15 @@ msgstr "Kohorte %(title)s (%(model_name)s)"
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
 msgid "Cohort view has not defined \"date_start\" attribute."
-msgstr "In der Cohort-Ansicht wurde das Attribut \"Start_Datum\" nicht definiert."
+msgstr ""
+"In der Kohorten-Ansicht wurde das Attribut „date_start“ nicht definiert."
 
 #. module: web_cohort
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
 msgid "Cohort view has not defined \"date_stop\" attribute."
-msgstr "In der Cohort-Ansicht wurde das Attribut \"Stop_Datum\" nicht definiert."
+msgstr ""
+"In der Kohorten-Ansicht wurde das Attribut „date_stop“ nicht definiert."
 
 #. module: web_cohort
 #. odoo-javascript
@@ -111,6 +112,36 @@ msgid ""
 "Period: %(period)s\n"
 "%(measure)s: %(count)s"
 msgstr ""
+"Periode: %(period)s\n"
+"%(measure)s: %(count)s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(interval)s is not a valid interval. Here are the intervals: "
+"%(intervals)s"
+msgstr ""
+"Das Argument %(interval)s ist kein gültiges Intervall. Hier sind die "
+"Intervalle: %(intervals)s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(mode)s is not a valid mode. Here are the modes: %(modes)s"
+msgstr ""
+"Das Argument %(mode)s ist kein gültiger Modus. Hier sind die Modi: %(modes)s"
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(timeline)s is not a valid timeline. Here are the timelines: "
+"%(timelines)s"
+msgstr ""
+"Das Argument %(timeline)s ist keine gültige Zeitleiste. Hier sind die "
+"Zeitleisten: %(timelines)s"
 
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_ir_ui_view

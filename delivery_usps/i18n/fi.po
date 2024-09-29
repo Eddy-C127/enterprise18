@@ -1,72 +1,64 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* delivery_usps
-#
+# 
 # Translators:
-# Kim Asplund <kim.asplund@gmail.com>, 2022
-# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2022
-# Miika Nissi <miika.nissi@tawasta.fi>, 2022
-# Kari Lindgren <kari.lindgren@emsystems.fi>, 2022
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2022
-# Veikko Väätäjä <veikko.vaataja@gmail.com>, 2022
-# Tukea <nokoa@live.fi>, 2022
-# Martin Trigaux, 2022
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023
-#
+# Tiffany Chang, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Tiffany Chang, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
-"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_intl_non_delivery_option__abandon
 msgid "Abandon"
-msgstr "Hylkää"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_account_validated
 msgid "Account Validated"
-msgstr "Tili vahvistettu"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,help:delivery_usps.field_delivery_carrier__usps_account_validated
 msgid "Check this box if your account is validated by USPS"
-msgstr "Valitse tämä laatikko, jos USPS on vahvistanut käyttäjäsi"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Company phone number is invalid. Please insert a US phone number."
-msgstr "Yhtiön puhelinnumero on virheellinen. Ole hyvä ja anna Yhdysvaltojen puhelinnumero."
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_content_type
 msgid "Content Type"
-msgstr "Sisällön tyyppi"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_delivery_nature
 msgid "Delivery Nature"
-msgstr "Toimituksen luonne"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__documents
 msgid "Documents"
-msgstr "Dokumentit"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_delivery_nature__domestic
 msgid "Domestic"
-msgstr "Kotimaa"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
@@ -75,221 +67,223 @@ msgid ""
 "Error:\n"
 "%s"
 msgstr ""
-"Virhe:\n"
-"%s"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_service__express
 msgid "Express"
-msgstr "Express"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_service__first_class
 msgid "First Class"
-msgstr "Ensimmäinen luokka"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__flat
 msgid "Flat"
-msgstr "Litteä"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__flatrate
 msgid "Flat Rate"
-msgstr "Kiinteä toimituskulu"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__flat_rate_box
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_international_regular_container__flatratebox
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__flatratebox
 msgid "Flat Rate Box"
-msgstr "Kiinteän toimituskulun laatikko"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__flat_rate_envelope
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_international_regular_container__flatrateenv
 msgid "Flat Rate Envelope"
-msgstr "Kiinteän toimituskulun kirjekuori"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__gift
 msgid "Gift"
-msgstr "Lahja"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_delivery_nature__international
 msgid "International"
-msgstr "Kansainvälinen"
+msgstr ""
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
 msgid "Label Format"
-msgstr "Etiketin muoto"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_size_container__large
 msgid "Large"
-msgstr "Suuri"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__largeenvelope
 msgid "Large Envelope"
-msgstr "Suuri kirjekuori"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__lg_flat_rate_box
 msgid "Large Flat Rate Box"
-msgstr "Suuri kiinteän toimituskulun laatikko"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__legal_flat_rate_envelope
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_international_regular_container__legalflatrateenv
 msgid "Legal Flat Rate Envelope"
-msgstr "Legal-muotoinen kiinteän toimituskulun kirjekuori"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__letter
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__letter
 msgid "Letter"
-msgstr "Kirje"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_machinable
 msgid "Machinable"
-msgstr "Työstettävissä"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__md_flat_rate_box
 msgid "Medium Flat Rate Box"
-msgstr "Keskikokoinen kiinteän toimituskulun laatikko"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__merchandise
 msgid "Merchandise"
-msgstr "Lahjatavarat"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_intl_non_delivery_option
 msgid "Non delivery option"
-msgstr "Ei toimitusvaihtoehto"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_container__nonrectangular
 msgid "Non-rectangular"
-msgstr "Muut kuin suorakulmaiset"
+msgstr ""
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
 msgid "Options"
-msgstr "Vaihtoehdot"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_label_file_type__pdf
 msgid "PDF"
-msgstr "PDF"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__package
 msgid "Package"
-msgstr "Paketti"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_girth
 msgid "Package Girth"
-msgstr "Pakkauksen ympärysmitta"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_height
 msgid "Package Height"
-msgstr "Pakkauksen korkeus"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_length
 msgid "Package Length"
-msgstr "Pakkauksen pituus"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__package_service
 msgid "Package Service"
-msgstr "Pakettipalvelu"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_width
 msgid "Package Width"
-msgstr "Pakkauksen leveys"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__padded_flat_rate_envelope
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_international_regular_container__paddedflatrateenv
 msgid "Padded Flat Rate Envelope"
-msgstr "Pehmustettu kirjekuori"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__parcel
 msgid "Parcel"
-msgstr "Paketti"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,help:delivery_usps.field_delivery_carrier__usps_machinable
-msgid "Please check on USPS website to ensure that your package is machinable."
-msgstr "Tarkista USPS:n verkkosivuilta, että pakettisi on työstettävissä."
+msgid ""
+"Please check on USPS website to ensure that your package is machinable."
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-msgid "Please choose another service (maximum weight of this service is 4 pounds)"
-msgstr "Valitse toinen palvelu (tämän palvelun enimmäispaino on 4 kiloa)"
+msgid ""
+"Please choose another service (maximum weight of this service is 4 pounds)"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Please enter a valid ZIP code in recipient address"
-msgstr "Kirjoita voimassa oleva postinumero vastaanottajan osoitteeseen"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Please enter a valid ZIP code in your Company address"
-msgstr "Kirjoita voimassa oleva postinumero yrityksen osoitteeseen"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Please provide at least one item to ship."
-msgstr "Anna vähintään yksi lähetettävä tuote."
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-msgid "Please set country U.S.A in your company address, Service is only available for U.S.A"
-msgstr "Aseta maa U.S.A. yrityksen osoitteeseen, palvelu on saatavilla vain U.S.A.:ssa"
+msgid ""
+"Please set country U.S.A in your company address, Service is only available "
+"for U.S.A"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__postcard
 msgid "Postcard"
-msgstr "Postikortti"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_service__priority
 msgid "Priority"
-msgstr "Prioriteetti"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__delivery_type
 msgid "Provider"
-msgstr "Palveluntarjoaja"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Quantity for each move line should be less than 1000."
-msgstr "Kunkin siirtorivin määrän on oltava alle 1000."
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Recipient address cannot be found. Please check the address exists."
-msgstr "Vastaanottajan osoitetta ei löydy. Tarkista, että osoite on olemassa."
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_container__rectangular
@@ -299,39 +293,39 @@ msgstr "Suorakulmainen"
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_intl_non_delivery_option__redirect
 msgid "Redirect"
-msgstr "Uudelleenohjaus"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_redirect_partner_id
 msgid "Redirect Partner"
-msgstr "Lähetä edelleen kumppanille"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_size_container__regular
 msgid "Regular"
-msgstr "Tavallinen"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_container__variable
 msgid "Regular < 12 inch"
-msgstr "Tavallinen < 12 tuumaa"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__return
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_intl_non_delivery_option__return
 msgid "Return"
-msgstr "Palauta"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__sample
 msgid "Sample"
-msgstr "Esimerkki"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/delivery_usps.py:0
 msgid "Shipment #%s has been cancelled"
-msgstr "Lähetys #%s on peruutettu"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
@@ -348,22 +342,22 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model,name:delivery_usps.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr "Toimitustavat"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__sm_flat_rate_box
 msgid "Small Flat Rate Box"
-msgstr "Pieni kiinteän toimituskulun laatikko"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__sm_flat_rate_envelope
 msgid "Small Flat Rate Envelope"
-msgstr "Pieni kiinteän toimituskulun kirjekuori"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_label_file_type__tif
 msgid "TIF"
-msgstr "TIF"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
@@ -372,8 +366,6 @@ msgid ""
 "The address of your company is missing or wrong (Missing field(s) :  \n"
 " %s)"
 msgstr ""
-"Yrityksesi osoite puuttuu tai on väärä (Puuttuvat kentät :\n"
-" %s)"
 
 #. module: delivery_usps
 #. odoo-python
@@ -382,8 +374,6 @@ msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
 msgstr ""
-"Arvioitua toimitushintaa ei voida laskea, koska seuraavan tuotteen (seuraavien tuotteiden) paino puuttuu:\n"
-" %s"
 
 #. module: delivery_usps
 #. odoo-python
@@ -392,14 +382,12 @@ msgid ""
 "The recipient address is missing or wrong (Missing field(s) :  \n"
 " %s)"
 msgstr ""
-"Vastaanottajan osoite puuttuu tai on väärä (Puuttuvat kenttät :\n"
-" %s)"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "The selected USPS service (%s) cannot be used to deliver this package."
-msgstr "Valittua USPS-palvelua (%s) ei voida käyttää tämän paketin toimittamiseen."
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
@@ -410,95 +398,99 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_international_regular_container
 msgid "Type of USPS International regular container"
-msgstr "USPS Internationalin tavallisen säiliön tyyppi"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_domestic_regular_container
 msgid "Type of USPS domestic regular container"
-msgstr "USPS:n kotimaan tavallisen säiliön tyyppi"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_container
 msgid "Type of container"
-msgstr "Säiliön tyyppi"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__delivery_type__usps
 msgid "USPS"
-msgstr "USPS"
+msgstr ""
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
 msgid "USPS Configuration"
-msgstr "USPS-määritykset"
+msgstr ""
 
 #. module: delivery_usps
 #: model:delivery.carrier,name:delivery_usps.delivery_carrier_usps_domestic
 #: model:product.template,name:delivery_usps.product_product_delivery_usps_domestic_product_template
 msgid "USPS Domestic Flat Rate Envelope"
-msgstr "USPS kotimaan kiinteän toimituskulun kirjekuori"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-msgid "USPS Domestic is used only to ship inside of the U.S.A. Please change the delivery method into USPS International."
-msgstr "USPS kotimaan lähetystapaa käytetään vain Yhdysvaltain sisäisiin toimituksiin. Vaihda toimitustapa USPS International -lähetystavaksi."
+msgid ""
+"USPS Domestic is used only to ship inside of the U.S.A. Please change the "
+"delivery method into USPS International."
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_first_class_mail_type
 msgid "USPS First Class Mail Type"
-msgstr "USPS First Class Mail -tyyppi"
+msgstr ""
 
 #. module: delivery_usps
 #: model:delivery.carrier,name:delivery_usps.delivery_carrier_usps_international
 #: model:product.template,name:delivery_usps.product_product_delivery_usps_international_product_template
 msgid "USPS International Flat Rate Box"
-msgstr "USPS International kiinteän toimituskulun laatikko"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
-msgid "USPS International is used only to ship outside of the U.S.A. Please change the delivery method into USPS Domestic."
-msgstr "USPS International -lähetystapaa käytetään vain lähetyksiin Yhdysvaltojen ulkopuolelle. Vaihda toimitustapa USPS Domestic -lähetystavaksi."
+msgid ""
+"USPS International is used only to ship outside of the U.S.A. Please change "
+"the delivery method into USPS Domestic."
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_label_file_type
 msgid "USPS Label File Type"
-msgstr "USPS-tarran tiedostotyyppi"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_mail_type
 msgid "USPS Mail Type"
-msgstr "USPS Postin tyyppi"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_service
 msgid "USPS Service"
-msgstr "USPS-palvelu"
+msgstr ""
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.res_config_settings_view_form_sale
 #: model_terms:ir.ui.view,arch_db:delivery_usps.res_config_settings_view_form_stock
 msgid "USPS Shipping Methods"
-msgstr "USPS Toimitusmenetelmät"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_username
 msgid "USPS User ID"
-msgstr "USPS-käyttäjätunnus"
+msgstr ""
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_size_container
 msgid "Usps Size Container"
-msgstr "USPS-kokoinen säiliö"
+msgstr ""
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Your company or recipient ZIP code is incorrect."
-msgstr "Yrityksesi tai vastaanottajan postinumero on virheellinen."
+msgstr ""
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
 msgid "inch"
-msgstr "tuuma"
+msgstr ""

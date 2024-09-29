@@ -1,34 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_helpdesk_livechat
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Jolien De Paepe, 2023
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2023
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:50+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: website_helpdesk_livechat
-#. odoo-python
-#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid ""
-"\n"
-"                    Create a new helpdesk ticket by typing <b>/ticket <i>ticket title</i></b><br>\n"
-"                    "
-msgstr ""
 
 #. module: website_helpdesk_livechat
 #. odoo-python
@@ -42,20 +31,19 @@ msgid "Alright, we should have everything we need"
 msgstr "Oké, we hebben alles wat nodig is."
 
 #. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/chatbot_script.py:0
+msgid ""
+"An \"Email\" step type must exist before the \"Create Ticket\" step for a "
+"ticket to be created."
+msgstr ""
+"Een stap van het type 'E-mail' moet aan de stap 'Ticket aanmaken' voorafgaan"
+" om een ticket aan te maken."
+
+#. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial_misc
 msgid "Anything else to add?"
 msgstr "Wil je nog iets toevoegen?"
-
-#. module: website_helpdesk_livechat
-#: model:ir.actions.act_window,name:website_helpdesk_livechat.helpdesk_im_livechat_canned_response_action
-#: model:ir.ui.menu,name:website_helpdesk_livechat.helpdesk_team_canned_response_menu
-msgid "Canned Responses"
-msgstr "Automatische antwoorden"
-
-#. module: website_helpdesk_livechat
-#: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.im_livechat_canned_response_view_search
-msgid "Canned Responses Search"
-msgstr "Automatische antwoorden zoeken"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_chatbot_script
@@ -68,14 +56,19 @@ msgid "Chatbot Script Step"
 msgstr "Chatbot-scriptstap"
 
 #. module: website_helpdesk_livechat
+#: model:ir.ui.menu,name:website_helpdesk_livechat.chatbot_config
+msgid "Chatbots"
+msgstr "Chatbots"
+
+#. module: website_helpdesk_livechat
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
-msgid "Configure Canned Responses"
-msgstr ""
+msgid "Configure Chatbots"
+msgstr "Configureer chatbots"
 
 #. module: website_helpdesk_livechat
 #: model_terms:ir.ui.view,arch_db:website_helpdesk_livechat.helpdesk_team_view_form_inherit_website_helpdesk_livechat
 msgid "Configure Live Chat Channel"
-msgstr ""
+msgstr "Livechat kanaal configureren"
 
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields.selection,name:website_helpdesk_livechat.selection__chatbot_script_step__step_type__create_ticket
@@ -84,8 +77,16 @@ msgstr "Maak ticket"
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Create a new helpdesk ticket (/ticket ticket title)"
+msgstr "Maak een nieuw helpdeskticket (/ticket titel ticket)"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
+msgid ""
+"Create a new helpdesk ticket by typing: %(pre_start)s%(ticket_command)s "
+"%(i_start)sticket title%(i_end)s%(pre_end)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -97,17 +98,12 @@ msgstr "Nieuw ticket aangemaakt: %s"
 #. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_discuss_channel
 msgid "Discussion Channel"
-msgstr "Discussiekanaal"
+msgstr "Chatkanaal"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_dispatch
 msgid "First, what is the nature of your issue?"
 msgstr "Allereerst, wat is de aard van je probleem?"
-
-#. module: website_helpdesk_livechat
-#: model:ir.model.fields,field_description:website_helpdesk_livechat.field_chatbot_script__ticket_count
-msgid "Generated Ticket Count"
-msgstr "Aantal gegenereerde tickets"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_yes
@@ -153,7 +149,13 @@ msgstr "Nog één ding, mogen we je e-mailadres noteren?"
 #. module: website_helpdesk_livechat
 #: model:ir.model.fields,field_description:website_helpdesk_livechat.field_helpdesk_team__use_website_helpdesk_livechat
 msgid "Live Chat"
-msgstr ""
+msgstr "Livechat"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
+msgid "Load More"
+msgstr "Laad meer"
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_answer_no
@@ -161,47 +163,57 @@ msgid "No"
 msgstr "Nee"
 
 #. module: website_helpdesk_livechat
-#: model_terms:ir.actions.act_window,help:website_helpdesk_livechat.helpdesk_im_livechat_canned_response_action
-msgid "No canned reponses found. Let's create one!"
-msgstr "Geen automatische antwoorden gevonden. Laten we er één maken!"
-
-#. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "No tickets found for <b>%s</b>. <br> Make sure you are using the right format:<br> <b>/search_tickets <i>keyword</i></b>"
+msgid ""
+"No tickets found for %(b_start)s%(keywords)s%(b_end)s.%(br)sMake sure you "
+"are using the right format: %(pre_start)s%(search_tickets_command)s "
+"%(i_start)skeywords%(i_end)s%(pre_end)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_ticket
-msgid "OK, I just created a ticket for you. You should receive an email confirmation very soon."
-msgstr "Oké, ik heb juist een ticket voor jou aangemaakt. Je zou snel een e-mailbevestiging moeten ontvangen."
+msgid ""
+"OK, I just created a ticket for you. You should receive an email "
+"confirmation very soon."
+msgstr ""
+"Oké, ik heb juist een ticket voor jou aangemaakt. Je zou snel een "
+"e-mailbevestiging moeten ontvangen."
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_technical_serial
 msgid "Please write below the serial number of your equipment."
-msgstr "Graag hieronder het serienummer van je apparatuur te noteren."
+msgstr "Schrijf hieronder het serienummer van je apparatuur."
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_input
 msgid "Please write below your customer reference."
-msgstr "Graag hieronder je klantreferentie te noteren."
+msgstr "Schrijf hieronder je klantreferentie."
 
 #. module: website_helpdesk_livechat
 #. odoo-javascript
-#: code:addons/website_helpdesk_livechat/static/src/messaging_service_patch.js:0
+#: code:addons/website_helpdesk_livechat/static/src/core/web/store_service_patch.js:0
 msgid "Search helpdesk tickets (/search_tickets keyword)"
-msgstr ""
+msgstr "Zoek helpdesktickets (/search_tickets trefwoord)"
 
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "Search helpdesk tickets by typing <b>/search_tickets <i>keyword</i></b>"
+msgid ""
+"Search helpdesk tickets by typing: %(pre_start)s%(search_tickets_command)s "
+"%(i_start)skeywords%(i_end)s%(pre_end)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
 msgid "Something is missing or wrong in command"
+msgstr "Er is iets mis of er ontbreekt iets in het commando"
+
+#. module: website_helpdesk_livechat
+#. odoo-python
+#: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
+msgid "Something is missing or wrong in the command"
 msgstr "Er is iets mis of er ontbreekt iets in het commando"
 
 #. module: website_helpdesk_livechat
@@ -222,7 +234,9 @@ msgstr "Tickets"
 #. module: website_helpdesk_livechat
 #. odoo-python
 #: code:addons/website_helpdesk_livechat/models/helpdesk.py:0
-msgid "Tickets search results for %s: "
+msgid ""
+"Tickets search results for %(b_start)s%(keywords)s%(b_end)s: "
+"%(br)s%(tickets)s"
 msgstr ""
 
 #. module: website_helpdesk_livechat
@@ -235,6 +249,11 @@ msgstr ""
 "Deze bevindt zich op elke ontvangen factuur, naast je naam."
 
 #. module: website_helpdesk_livechat
+#: model:res.groups,name:website_helpdesk_livechat.group_use_website_helpdesk_livechat
+msgid "Use Live Chat"
+msgstr "Gebruik Live Chat"
+
+#. module: website_helpdesk_livechat
 #: model:ir.model,name:website_helpdesk_livechat.model_res_users
 msgid "User"
 msgstr "Gebruiker"
@@ -243,11 +262,6 @@ msgstr "Gebruiker"
 #: model:chatbot.script.step,message:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_issue
 msgid "We're all set. Now, what is your issue?"
 msgstr "We zijn er helemaal klaar voor. Wat is je probleem?"
-
-#. module: website_helpdesk_livechat
-#: model_terms:ir.actions.act_window,help:website_helpdesk_livechat.helpdesk_im_livechat_canned_response_action
-msgid "With canned responses, you can type <i>:shortcuts</i> to insert prewritten responses into your messages. These shortcuts are replaced directly in your messages so that you can still make changes before sending them."
-msgstr "Met automatische antwoorden, kan je <i>:shortcuts</i> ingeven om vooraf geschreven antwoorden in je berichten te voegen. Deze snelkoppelingen worden onmiddellijk vervangen in je berichten, zodat je ze steeds kan wijzigen voor ze te verzenden."
 
 #. module: website_helpdesk_livechat
 #: model:chatbot.script.answer,name:website_helpdesk_livechat.chatbot_script_helpdesk_step_administrative_customer_ref_answer_yes

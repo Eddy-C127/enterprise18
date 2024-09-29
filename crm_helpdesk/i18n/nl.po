@@ -1,30 +1,34 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* crm_helpdesk
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Gunther Clauwaert <gclauwae@hotmail.com>, 2022
-# Jolien De Paepe, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 15.5alpha1+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:45+0000\n"
-"Last-Translator: Jolien De Paepe, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
-"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: crm_helpdesk
-#: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_to_lead_view_form
-msgid "Convert"
-msgstr "Converteren"
+#. odoo-python
+#: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
+msgid "An archived ticket cannot be converted into a lead."
+msgstr "Een gearchiveerd ticket kan niet worden omgezet in een lead."
+
+#. module: crm_helpdesk
+#: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__convert_to
+msgid "Conversion Action"
+msgstr "Conversie actie"
 
 #. module: crm_helpdesk
 #: model:ir.model,name:crm_helpdesk.model_helpdesk_ticket_to_lead
@@ -33,9 +37,20 @@ msgid "Convert Ticket to Lead"
 msgstr "Converteer ticket naar lead"
 
 #. module: crm_helpdesk
-#: model:ir.actions.act_window,name:crm_helpdesk.helpdesk_ticket_to_lead_action
+#. odoo-python
+#: code:addons/crm_helpdesk/models/helpdesk_ticket.py:0
+#: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_to_lead_view_form
+#: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_view_form_inherited
 msgid "Convert to Lead"
 msgstr "Converteer naar lead"
+
+#. module: crm_helpdesk
+#. odoo-python
+#: code:addons/crm_helpdesk/models/helpdesk_ticket.py:0
+#: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_to_lead_view_form
+#: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_view_form_inherited
+msgid "Convert to Opportunity"
+msgstr "Converteren naar verkoopkans"
 
 #. module: crm_helpdesk
 #: model:ir.actions.act_window,name:crm_helpdesk.crm_lead_convert2ticket_action
@@ -45,14 +60,19 @@ msgid "Convert to Ticket"
 msgstr "Converteer naar ticket"
 
 #. module: crm_helpdesk
+#: model:ir.model.fields.selection,name:crm_helpdesk.selection__helpdesk_ticket_to_lead__convert_to__convert
+msgid "Convert to opportunity"
+msgstr "Converteer naar verkoopkans"
+
+#. module: crm_helpdesk
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.crm_lead_convert2ticket_view_form
 msgid "Create Ticket"
-msgstr "Ticket aanmaken"
+msgstr "Maak ticket"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields.selection,name:crm_helpdesk.selection__helpdesk_ticket_to_lead__action__create
 msgid "Create a new customer"
-msgstr "Een nieuwe klant aanmaken"
+msgstr "Maak een nieuwe klant"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__create_uid
@@ -77,18 +97,23 @@ msgstr "Klant"
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.crm_lead_convert2ticket_view_form
 #: model_terms:ir.ui.view,arch_db:crm_helpdesk.helpdesk_ticket_to_lead_view_form
 msgid "Discard"
-msgstr ""
+msgstr "Negeren"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__display_name
 #: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__display_name
 msgid "Display Name"
-msgstr "Weergavenaam"
+msgstr "Schermnaam"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields.selection,name:crm_helpdesk.selection__helpdesk_ticket_to_lead__action__nothing
 msgid "Do not link to a customer"
 msgstr "Koppel niet aan een klant"
+
+#. module: crm_helpdesk
+#: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__force_assignment
+msgid "Force assignment"
+msgstr "Forceer toewijzing"
 
 #. module: crm_helpdesk
 #: model:ir.model,name:crm_helpdesk.model_helpdesk_ticket
@@ -100,6 +125,15 @@ msgstr "Helpdeskticket"
 #: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__id
 msgid "ID"
 msgstr "ID"
+
+#. module: crm_helpdesk
+#: model:ir.model.fields,help:crm_helpdesk.field_helpdesk_ticket_to_lead__force_assignment
+msgid ""
+"If checked, forces salesman to be updated on updated opportunities even if "
+"already set."
+msgstr ""
+"Indien aangevinkt, dwingt het de verkoper om op de hoogte te blijven van "
+"bijgewerkte verkoopkansen, zelfs als deze al zijn ingesteld."
 
 #. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__write_uid
@@ -141,6 +175,12 @@ msgid "Link to an existing customer"
 msgstr "Koppel aan een bestaande klant"
 
 #. module: crm_helpdesk
+#. odoo-python
+#: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
+msgid "Opportunity created"
+msgstr "Verkoopkans aangemaakt"
+
+#. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__action
 msgid "Related Customer"
 msgstr "Gekoppelde klant"
@@ -164,14 +204,14 @@ msgstr "Team"
 #. module: crm_helpdesk
 #. odoo-python
 #: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
-msgid "The archived ticket can not converted as lead."
-msgstr "Het gearchiveerde ticket kan niet worden omgezet als lead."
+msgid "This lead has been created from ticket: %s"
+msgstr "Deze lead is gemaakt van ticket: %s"
 
 #. module: crm_helpdesk
 #. odoo-python
 #: code:addons/crm_helpdesk/wizard/helpdesk_ticket_to_lead.py:0
-msgid "This lead has been created from ticket: %s"
-msgstr "Deze lead is gemaakt van ticket: %s"
+msgid "This opportunity has been created from ticket: %s"
+msgstr "Deze verkoopkans is aangemaakt vanuit het ticket: %s"
 
 #. module: crm_helpdesk
 #: model:ir.model.fields,field_description:crm_helpdesk.field_helpdesk_ticket_to_lead__ticket_id
@@ -185,12 +225,7 @@ msgid "Ticket Converted"
 msgstr "Ticket geconverteerd"
 
 #. module: crm_helpdesk
-#: model:ir.model.fields,field_description:crm_helpdesk.field_crm_lead_convert2ticket__ticket_type_id
-msgid "Ticket Type"
-msgstr "Ticketsoort"
-
-#. module: crm_helpdesk
 #. odoo-python
 #: code:addons/crm_helpdesk/wizard/crm_lead_convert2ticket.py:0
-msgid "Ticket created"
-msgstr "Ticket aangemaakt"
+msgid "Ticket Created"
+msgstr "Gemaakt ticket"
