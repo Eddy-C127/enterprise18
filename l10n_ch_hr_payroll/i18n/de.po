@@ -2,12 +2,16 @@
 # This file contains the translation of the following modules:
 #   * l10n_ch_hr_payroll
 # 
+# Translators:
+# Larissa Manderfeld, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.5alpha1+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-08-24 13:12+0000\n"
 "PO-Revision-Date: 2024-06-24 12:27+0000\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -207,13 +211,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_accident_insurance_line_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_payslip__l10n_ch_accident_insurance_line_id
 msgid "AAP/AANP Insurance"
-msgstr ""
+msgstr "BUV/NBUV-Versicherung"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll.action_l10n_ch_accident_insurance
 #: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_l10n_ch_accident_insurance
 msgid "AAP/AANP Insurances"
-msgstr ""
+msgstr "BUV/NBUV-Versicherungen"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_ac
@@ -651,7 +655,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_avs
 msgid "AVS"
-msgstr ""
+msgstr "AHV"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_avs_comp
@@ -662,24 +666,24 @@ msgstr ""
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_avs_salary
 #: model:hr.salary.rule.category,name:l10n_ch_hr_payroll.hr_salary_rule_category_avs_salary
 msgid "AVS Salary"
-msgstr ""
+msgstr "AHV-Gehalt"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_salary_rule__l10n_ch_ac_included
 msgid "AVS/AC Included"
-msgstr ""
+msgstr "Einschließlich AHV/ALV"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_social_insurance_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_payslip__l10n_ch_social_insurance_id
 msgid "AVS/AC Insurance"
-msgstr ""
+msgstr "AHV/ALV-Versicherung"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll.action_l10n_ch_social_insurance
 #: model:ir.ui.menu,name:l10n_ch_hr_payroll.menu_l10n_ch_social_insurance
 msgid "AVS/AC Insurances"
-msgstr ""
+msgstr "AHV/ALV-Versicherungen"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_accident_insurance__insurance_company__s14
@@ -704,23 +708,23 @@ msgstr ""
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_aanp
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_aanp_comp
 msgid "Accident Insurance (Non Occupational Rates)"
-msgstr ""
+msgstr "Unfallversicherung (Tarife für Nichtberufsunfälle)"
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_aap_comp
 msgid "Accident Insurance (Occupational Rates)"
-msgstr ""
+msgstr "Unfallversicherung (Tarife für Berufsunfälle)"
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_accident_insurance_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_accident_insurance_view_tree
 msgid "Accident Insurances"
-msgstr ""
+msgstr "Unfallversicherungen"
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_accident_insurance_line_view_form
 msgid "Accident Insurances Solutions"
-msgstr ""
+msgstr "Unfall-Zusatzversicherungslösungen"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll.hr_salary_attachment_type_accident_wage
@@ -730,19 +734,19 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_laac_comp
 msgid "Additional Accident Insurance (LAAC)"
-msgstr ""
+msgstr "Unfall-Zusatzversicherung (UVG)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll.action_l10n_ch_additional_accident_insurance
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_additional_accident_insurance_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_additional_accident_insurance_view_tree
 msgid "Additional Accident Insurances"
-msgstr ""
+msgstr "Unfall-Zusatzversicherungen"
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_additional_accident_insurance_line_view_form
 msgid "Additional Accident Insurances Solutions"
-msgstr ""
+msgstr "Unfall-Zusatzversicherungslösungen"
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_compl_ac
@@ -771,7 +775,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_monthly_summary
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.report_payslip_ch
 msgid "Amount"
-msgstr ""
+msgstr "Betrag"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__l10n_ch_residence_category__annual-b
@@ -828,7 +832,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_social_insurance__avs_line_ids
 msgid "Avs Line"
-msgstr ""
+msgstr "AHV-Zeile"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_l10n_ch_location_unit__bur_ree_number
@@ -920,7 +924,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model_terms:hr.salary.rule,note:l10n_ch_hr_payroll.l10n_ch_employees_fak
 msgid "CAF Contribution (Family Allowances)"
-msgstr ""
+msgstr "FAK-Beitrag (Familienzulagen)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_compensation_fund__insurance_company__066_002
@@ -1444,14 +1448,14 @@ msgstr ""
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll.hr_salary_attachment_type_family_allowance
 #: model:hr.salary.rule,name:l10n_ch_hr_payroll.l10n_ch_employees_family_allowance
 msgid "Family Allowance"
-msgstr ""
+msgstr "Familienzulage"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.rule.category,name:l10n_ch_hr_payroll.hr_salary_rule_category_caf
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_contract__l10n_ch_compensation_fund_id
 #: model:ir.model.fields,field_description:l10n_ch_hr_payroll.field_hr_payslip__l10n_ch_compensation_fund_id
 msgid "Family Allowance (CAF)"
-msgstr ""
+msgstr "Familienzulage (FAK)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.actions.act_window,name:l10n_ch_hr_payroll.action_l10n_ch_compensation_fund
@@ -1459,7 +1463,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_compensation_fund_view_form
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_compensation_fund_view_tree
 msgid "Family Allowances"
-msgstr ""
+msgstr "Familienzulagen"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__l10n_ch_monthly_summary__month__2
@@ -2257,7 +2261,7 @@ msgstr ""
 #: code:addons/l10n_ch_hr_payroll/models/l10n_ch_accident_insurance.py:0
 #, python-format
 msgid "No AAP/AANP threshold found for date %s"
-msgstr ""
+msgstr "Keine BUV/NBUV-Grenze für Datum %s gefunden"
 
 #. module: l10n_ch_hr_payroll
 #. odoo-python
@@ -2272,7 +2276,7 @@ msgstr ""
 #: code:addons/l10n_ch_hr_payroll/models/l10n_ch_social_insurance.py:0
 #, python-format
 msgid "No AVS rates found for date %s"
-msgstr ""
+msgstr "Keine AHV-Sätze für Datum %s gefunden"
 
 #. module: l10n_ch_hr_payroll
 #. odoo-python
@@ -2435,7 +2439,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_social_insurance_view_form
 msgid "Old-age and survivors' insurance (AVS)"
-msgstr ""
+msgstr "Alters- und Hinterlassenenversicherung (AHV)"
 
 #. module: l10n_ch_hr_payroll
 #: model:hr.salary.attachment.type,name:l10n_ch_hr_payroll.hr_salary_attachment_type_optional_aanp
@@ -3048,17 +3052,17 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_accident_insurance
 msgid "Swiss: Accident Insurances (AAP/AANP)"
-msgstr ""
+msgstr "Schweiz: Unfallversicherungen (BUV/NBUV)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_accident_insurance_line
 msgid "Swiss: Accident Insurances Line (AAP/AANP)"
-msgstr ""
+msgstr "Schweiz: Unfallversicherungszeile (BUV/NBUV)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_accident_insurance_line_rate
 msgid "Swiss: Accident Insurances Line Rate (AAP/AANP)"
-msgstr ""
+msgstr "Schweiz: Unfallversicherungssatz (BUV/NBUV)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_additional_accident_insurance
@@ -3089,12 +3093,12 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_compensation_fund
 msgid "Swiss: Family Allowance (CAF)"
-msgstr ""
+msgstr "Schweiz: Familienzulage (FAK)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_compensation_fund_line
 msgid "Swiss: Family Allowance Rate (CAF)"
-msgstr ""
+msgstr "Schweiz: Familienzulagensatz (FAK)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__certificate__highervoceducation
@@ -3144,7 +3148,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_social_insurance
 msgid "Swiss: Social Insurances (AVS, AC)"
-msgstr ""
+msgstr "Schweiz: Sozialversicherungen (AHV/ALV)"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_social_insurance_ac_line
@@ -3154,7 +3158,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model:ir.model,name:l10n_ch_hr_payroll.model_l10n_ch_social_insurance_avs_line
 msgid "Swiss: Social Insurances - AVS Line"
-msgstr ""
+msgstr "Schweiz: Sozialversicherungen – AHV-Zeile"
 
 #. module: l10n_ch_hr_payroll
 #: model:ir.model.fields.selection,name:l10n_ch_hr_payroll.selection__hr_employee__certificate__teachercertificate
@@ -3578,7 +3582,7 @@ msgstr ""
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_compensation_fund_view_form
 msgid "e.g. \"Family Allowance AK Bern\""
-msgstr ""
+msgstr "z. B. „Familienzulage AK Bern“"
 
 #. module: l10n_ch_hr_payroll
 #: model_terms:ir.ui.view,arch_db:l10n_ch_hr_payroll.l10n_ch_lpp_insurance_view_form

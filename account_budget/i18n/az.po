@@ -1,37 +1,41 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_budget
-#
+# 
 # Translators:
-# Jumshud Sultanov <cumshud@gmail.com>, 2022
-# erpgo translator <jumshud@erpgo.az>, 2022
-#
+# erpgo translator <jumshud@erpgo.az>, 2024
+# Jumshud Sultanov <cumshud@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0beta+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:45+0000\n"
-"Last-Translator: erpgo translator <jumshud@erpgo.az>, 2022\n"
+"POT-Creation-Date: 2023-10-26 22:20+0000\n"
+"PO-Revision-Date: 2023-10-26 23:10+0000\n"
+"Last-Translator: Jumshud Sultanov <cumshud@gmail.com>, 2024\n"
 "Language-Team: Azerbaijani (https://app.transifex.com/odoo/teams/41243/az/)\n"
-"Language: az\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: az\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: account_budget
 #. odoo-python
 #: code:addons/account_budget/models/account_budget.py:0
 #, python-format
-msgid "\"End Date\" of the budget line should be included in the Period of the budget"
+msgid ""
+"\"End Date\" of the budget line should be included in the Period of the "
+"budget"
 msgstr ""
 
 #. module: account_budget
 #. odoo-python
 #: code:addons/account_budget/models/account_budget.py:0
 #, python-format
-msgid "\"Start Date\" of the budget line should be included in the Period of the budget"
+msgid ""
+"\"Start Date\" of the budget line should be included in the Period of the "
+"budget"
 msgstr ""
 
 #. module: account_budget
@@ -41,7 +45,9 @@ msgstr ""
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form
-msgid "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
+msgid ""
+"<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 msgstr "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"Ox işarəsi\" title=\"Ox\"/>"
 
 #. module: account_budget
@@ -97,7 +103,9 @@ msgstr ""
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget_lines__planned_amount
-msgid "Amount you plan to earn/spend. Record a positive amount if it is a revenue and a negative amount if it is a cost."
+msgid ""
+"Amount you plan to earn/spend. Record a positive amount if it is a revenue "
+"and a negative amount if it is a cost."
 msgstr ""
 
 #. module: account_budget
@@ -109,7 +117,7 @@ msgstr "Analitik Hesab"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget_lines__analytic_plan_id
 msgid "Analytic Plan"
-msgstr ""
+msgstr "Analitik Plan"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form
@@ -215,7 +223,9 @@ msgstr "Şirkət"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget_lines__percentage
-msgid "Comparison between practical and theoretical amount. This measure tells you if you are below or over budget."
+msgid ""
+"Comparison between practical and theoretical amount. This measure tells you "
+"if you are below or over budget."
 msgstr ""
 
 #. module: account_budget
@@ -320,7 +330,7 @@ msgstr "Aşağıdakılara görə Qrupla"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Mesajı Var"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_account_budget_post__id
@@ -392,7 +402,7 @@ msgstr "Mesajlar"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Mənim Fəaliyyətlərimin Son Tarixi "
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_account_budget_post__name
@@ -403,7 +413,7 @@ msgstr "Ad"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Növbəti Fəaliyyət Təqvimi Tədbiri"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__activity_date_deadline
@@ -437,7 +447,7 @@ msgstr "Xətaların sayı"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget__message_needaction_counter
-msgid "Number of messages which requires an action"
+msgid "Number of messages requiring action"
 msgstr "Əməliyyat tələb edən mesajların sayı"
 
 #. module: account_budget
@@ -483,7 +493,7 @@ msgstr ""
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Qiymətləndirmələr"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.crossovered_budget_view_form
@@ -519,7 +529,7 @@ msgstr "Başlanğıc Tarixi"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_crossovered_budget__state
 msgid "Status"
-msgstr ""
+msgstr "Status"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_crossovered_budget__activity_state
@@ -592,7 +602,9 @@ msgstr "Qeyddəki istisna fəaliyyət növü."
 #. module: account_budget
 #: model_terms:ir.actions.act_window,help:account_budget.act_crossovered_budget_view
 msgid "Use budgets to compare actual with expected revenues and costs"
-msgstr "Faktiki gəlir və xərclərlə gözlənilən gəlir və xərcləri müqayisə etmək üçün büdcədən istifadə edin"
+msgstr ""
+"Faktiki gəlir və xərclərlə gözlənilən gəlir və xərcləri müqayisə etmək üçün "
+"büdcədən istifadə edin"
 
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__crossovered_budget__state__validate
@@ -613,7 +625,9 @@ msgstr "Veb saytın kommunikasiya tarixçəsi"
 #. odoo-python
 #: code:addons/account_budget/models/account_budget.py:0
 #, python-format
-msgid "You have to enter at least a budgetary position or analytic account on a budget line."
+msgid ""
+"You have to enter at least a budgetary position or analytic account on a "
+"budget line."
 msgstr ""
 
 #. module: account_budget

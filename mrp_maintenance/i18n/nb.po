@@ -34,7 +34,7 @@ msgstr "<span class=\"o_stat_text\">Vedlikehold</span>"
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
 msgid "<span class=\"o_stat_text\">Work Center</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\"> Arbeidssenter </span>"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_needaction
@@ -64,7 +64,7 @@ msgstr "Ikon type Aktivitet"
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
 msgid "Add a new maintenance request"
-msgstr ""
+msgstr "Legg til nytt vedlikeholdsønske"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__recurring_leaves_count
@@ -121,7 +121,7 @@ msgstr "Avbryt"
 #. module: mrp_maintenance
 #: model:maintenance.equipment,name:mrp_maintenance.equipment_furniture3
 msgid "Drill Machine"
-msgstr ""
+msgstr "Bore-maskin"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__effective_date
@@ -143,12 +143,12 @@ msgstr ""
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Estimated Next Failure"
-msgstr ""
+msgstr "Estimert neste feil"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__estimated_next_failure
 msgid "Estimated time before next failure (in days)"
-msgstr ""
+msgstr "Estimert tid til neste feil (dager)"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__expected_mtbf
@@ -166,6 +166,7 @@ msgstr ""
 msgid ""
 "Follow the process of the request and communicate with the collaborator."
 msgstr ""
+"Følg prosessen for forespørselen og kommuniser med samarbeidspartneren."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_follower_ids
@@ -233,12 +234,12 @@ msgstr ""
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Latest Failure"
-msgstr ""
+msgstr "Siste feil"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__latest_failure_date
 msgid "Latest Failure Date"
-msgstr ""
+msgstr "Dato siste feil"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__leave_ids
@@ -270,7 +271,7 @@ msgstr "Vedlikehold"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_count
 msgid "Maintenance Count"
-msgstr ""
+msgstr "Antall vedlikehold"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_maintenance_equipment
@@ -442,7 +443,7 @@ msgstr "Vedlikeholdsforespørsel"
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "Request planned for %s"
-msgstr ""
+msgstr "Forespørsel planlagt for %s"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_user_id
@@ -487,7 +488,7 @@ msgstr "Tekniker"
 #: code:addons/mrp_maintenance/static/src/components/maintenance_request_form_view.js:0
 #, python-format
 msgid "The maintenance request has successfully been created."
-msgstr ""
+msgstr "Forespørsel om vedlikehold er opprettet med suksess."
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -503,7 +504,7 @@ msgstr ""
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "The workcenter is missing for %s."
-msgstr ""
+msgstr "Arbeidssenter mangler for %s."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__effective_date
@@ -567,4 +568,4 @@ msgstr "dager"
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "work centers"
-msgstr ""
+msgstr "arbeidssenter"

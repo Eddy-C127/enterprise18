@@ -70,11 +70,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode commands and operation types"
 msgstr ""
+"<i class=\"fa fa-print\"/> Skriv ut strekkodekommandoer og operasjonstyper"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
 msgid "<i class=\"fa fa-print\"/> Print barcode demo sheet"
-msgstr ""
+msgstr "<i class=\"fa fa-print\"/> Skriv ut strekkode demo ark"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -86,7 +87,7 @@ msgstr "Legg til komponent"
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow full order validation"
-msgstr ""
+msgstr "Tillat full ordrevalidering."
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,help:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -96,7 +97,7 @@ msgstr "Tillat å opprette nye lot/serienummer for komponenter"
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.view_picking_type_form
 msgid "Allow user to produce all even if no components were scanned"
-msgstr ""
+msgstr "Tillat brukeren å produsere alt selv om ingen komponenter er skannet."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -108,7 +109,7 @@ msgstr "Er du sikker på at du vil kansellere denne MO?"
 #. module: stock_barcode_mrp
 #: model:ir.actions.client,name:stock_barcode_mrp.stock_barcode_mo_client_action
 msgid "Barcode MO Client Action"
-msgstr ""
+msgstr "Strekkode MO brukerhandling"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -120,14 +121,14 @@ msgstr "Strekkode-nomenklatur"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Cancel Manufacturing Order"
-msgstr ""
+msgstr "Avbryt produksjonsordre"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Cancel manufacturing order?"
-msgstr ""
+msgstr "Avbryte produksjonsordre?"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.res_config_settings_view_form
@@ -144,7 +145,7 @@ msgstr "Bekreft"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_picking_type__count_mo_confirmed
 msgid "Count Mo Confirmed"
-msgstr ""
+msgstr "Antall Mo bekreftet"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__pick_type_create_components_lots
@@ -154,7 +155,7 @@ msgstr "Opprett nye lot/serie nummer for komponenter"
 #. module: stock_barcode_mrp
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Create a new Manufacturing Order"
-msgstr ""
+msgstr "Lag en ny produksjonsordre"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -172,7 +173,7 @@ msgstr "Avbryt"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__is_completed
 msgid "Is Completed"
-msgstr ""
+msgstr "Er fullført"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__manual_consumption
@@ -182,12 +183,12 @@ msgstr "Manuelt forbruk"
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_byproduct_line_ids
 msgid "Move Byproduct Line"
-msgstr ""
+msgstr "Flytt biproduktslinjen"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_raw_line_ids
 msgid "Move Raw Line"
-msgstr ""
+msgstr "Flytt Raw linjen"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__backorder_ids
@@ -206,14 +207,14 @@ msgstr "Ny"
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "No Manufacturing Order ready for this %(barcode_type)s"
-msgstr ""
+msgstr "Ingen produksjonsordre er klar for denne%(barcode_type)s"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "No product or order found for barcode %s"
-msgstr ""
+msgstr "Ingen produkt eller ordre funnet for strekkode %s"
 
 #. module: stock_barcode_mrp
 #: model:ir.actions.act_window,name:stock_barcode_mrp.mrp_action_kanban
@@ -230,21 +231,21 @@ msgstr "Plukktype"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Finished Product Label (PDF)"
-msgstr ""
+msgstr "Skriv ut ferdig produktetikett (PDF)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Finished Product Label (ZPL)"
-msgstr ""
+msgstr "Skriv ut ferdig produktetikett (ZPL)"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Print Production Order"
-msgstr ""
+msgstr "Skriv ut produksjonsordren"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -281,7 +282,7 @@ msgstr "Produktvariant"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Product not Allowed"
-msgstr ""
+msgstr "Produkt ikke tillatt"
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production
@@ -299,14 +300,14 @@ msgstr "Antall"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Scan a component"
-msgstr ""
+msgstr "Skann en komponent"
 
 #. module: stock_barcode_mrp
 #. odoo-python
 #: code:addons/stock_barcode_mrp/models/mrp_production.py:0
 #, python-format
 msgid "Scan a product to filter the orders."
-msgstr ""
+msgstr "Skann et produkt for å filtrere ordrene"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -314,20 +315,21 @@ msgstr ""
 #, python-format
 msgid "Scan a transfer, a product or a package to filter your records"
 msgstr ""
+"Skann en overføring, et produkt eller en pakke for å filtrere postene dine"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/kanban/stock_barcode_kanban.xml:0
 #, python-format
 msgid "Scan an order or a product to filter your records"
-msgstr ""
+msgstr "Skann en ordre eller et produkt for å filtrere postene dine."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "Scan your final product or more components"
-msgstr ""
+msgstr "Skann sluttproduktet ditt eller flere komponenter."
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -351,7 +353,7 @@ msgstr "Lagerbevegelse"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "The Manufacturing Order has been cancelled"
-msgstr ""
+msgstr "Produksjonsordren er kansellert"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
@@ -361,27 +363,29 @@ msgid ""
 "The lines with a kit have been replaced with their components. Please check "
 "the picking before the final validation."
 msgstr ""
+"Linjene med et sett/kit har blitt erstattet med komponentene deres. "
+"Vennligst sjekk plukkingen før den endelige valideringen."
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "The manufacturing order has been validated"
-msgstr ""
+msgstr "Produksjonsordren har blitt validert"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "This order is already done"
-msgstr ""
+msgstr "Denne ordren er allerede ferdig"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "This order is cancelled"
-msgstr ""
+msgstr "Denne ordren er kansellert"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.stock_mrp_picking_type_kanban
@@ -393,7 +397,7 @@ msgstr "Å Behandle"
 #: code:addons/stock_barcode_mrp/static/src/models/barcode_mrp_model.js:0
 #, python-format
 msgid "To produce more products create a new MO."
-msgstr ""
+msgstr "For å produsere nye produkter må det lages ny MO."
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_stock_picking
@@ -404,6 +408,7 @@ msgstr "Overføring"
 #: model_terms:ir.actions.act_window,help:stock_barcode_mrp.mrp_action_kanban
 msgid "Transfers allow you to move products from one location to another."
 msgstr ""
+"Overføringer tillater deg å flytte produkter fra en lokasjon til en annen."
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -432,3 +437,5 @@ msgstr "Veiviser for å markere som ferdig eller opprette etterbestilling"
 #, python-format
 msgid "You can't add the final product of a MO as a byproduct."
 msgstr ""
+"Du kan ikke legge til sluttproduktet av en produksjonsordre som et "
+"biprodukt."

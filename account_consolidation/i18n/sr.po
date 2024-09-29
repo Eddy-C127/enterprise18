@@ -8,6 +8,7 @@
 # Milan Bojovic <mbojovic@outlook.com>, 2023
 # コフスタジオ, 2024
 # Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2024
+# Geoinfo d.o.o. <geoinfobih@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Dragan Vukosavljevic <dragan.vukosavljevic@gmail.com>, 2024\n"
+"Last-Translator: Geoinfo d.o.o. <geoinfobih@gmail.com>, 2024\n"
 "Language-Team: Serbian (https://app.transifex.com/odoo/teams/41243/sr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -123,12 +124,12 @@ msgstr "<span class=\"o_form_label oe_inline\">%</span>"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Consolidated Balance</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Konsolidovani saldo</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_form
 msgid "<span class=\"o_stat_text\">Edit</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Uredi</span>"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_kanban
@@ -157,6 +158,8 @@ msgid ""
 "A journal entry should only be linked to a company period OR to a analysis "
 "period of another consolidation!"
 msgstr ""
+"Unos u dnevnik treba da bude povezan samo sa kompanijskim periodom ili "
+"periodom analize druge konsolidacije!"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_account_account
@@ -287,6 +290,8 @@ msgid ""
 "An account group can only have accounts or other groups children but not "
 "both!"
 msgstr ""
+"Grupa računa može da ima samo račune ili druge pripadajuće grupe ali ne "
+"oboje!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal__period_id
@@ -314,7 +319,7 @@ msgstr "Analysis period"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Analysis period created!"
-msgstr ""
+msgstr "Period analize je kreiran!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form_onboarding
@@ -667,7 +672,7 @@ msgstr "Consolidation Rate (%)"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_chart__rate_ids
 msgid "Consolidation Rates"
-msgstr ""
+msgstr "Stop konsolidacije"
 
 #. module: account_consolidation
 #: model:ir.model,name:account_consolidation.model_consolidation_account
@@ -712,7 +717,7 @@ msgstr "Create First Period"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_create_consolidation_period
 msgid "Create your first analysis period & set the currency rates."
-msgstr ""
+msgstr "Kreirajte prvi period analize i podesite devizni kurs."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__create_uid
@@ -799,7 +804,7 @@ msgstr "Definiši"
 #: model:onboarding.onboarding.step,description:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid ""
 "Define the companies that should be consolidated & the target currency."
-msgstr ""
+msgstr "Definišite kompanije koje treba konsolidovati i ciljnu valutu."
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__note
@@ -1184,6 +1189,7 @@ msgstr ""
 msgid ""
 "Only one entry by account should be created for a generated journal entry!"
 msgstr ""
+"Za generisani unos u dnevnik potrebno je kreirati samo jedan unos po računu!"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_period_search
@@ -1299,7 +1305,7 @@ msgstr "Greška u dostavi SMS-a"
 #. module: account_consolidation
 #: model:onboarding.onboarding.step,done_text:account_consolidation.onboarding_onboarding_step_setup_consolidation
 msgid "Scope of Consolidation defined!"
-msgstr ""
+msgstr "Obim konsolidacije definisan!"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_account__sequence
@@ -1577,7 +1583,7 @@ msgstr "You can't edit an auto-generated journal entry."
 #: code:addons/account_consolidation/models/consolidation_journal.py:0
 #, python-format
 msgid "You cannot add journals to a closed period!"
-msgstr ""
+msgstr "Ne možete dodati dnevnike u zaključenom periodu."
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_group_form
