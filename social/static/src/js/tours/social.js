@@ -33,13 +33,13 @@ registry.category("web_tour.tours").add('social_tour', {
             position: 'bottom',
             edition: 'enterprise',
         }, {
-            trigger: '.o_social_post_message_wrapper',
+            trigger: '.o_field_widget[name="message"] .o_input',
             content: _t("Write a message to get a preview of your post."),
             position: 'bottom',
             edition: 'enterprise',
+            run: 'edit Awesome post!',
         }, {
             trigger: 'button[name="action_post"]',
-            extra_trigger: 'textarea[name="message"]:first:propValueContains()', // message field not empty
             content: _t("Happy with the result? Let's post it!"),
             position: 'bottom',
             edition: 'enterprise',
