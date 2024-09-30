@@ -5324,6 +5324,45 @@ QUnit.module("documents", {}, function () {
             );
 
             QUnit.test(
+                "documents list: don't unselect all when interacting with the headers",
+                async function (assert) {
+                    assert.expect(2);
+
+                    await createDocumentsView({
+                        type: "list",
+                        resModel: "documents.document",
+                        arch: `
+                            <tree js_class="documents_list">
+                                <field name="type" invisible="1"/>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="owner_id"/>
+                                <field name="type"/>
+                            </tree>`,
+                    });
+
+                    const firstRecord = target.querySelector(".o_data_row");
+                    await triggerEvent(firstRecord, null, "keydown", {
+                        key: "Enter",
+                    });
+                    const secondRecord = target.querySelectorAll(".o_data_row")[1];
+                    await triggerEvent(secondRecord, null, "keydown", {
+                        key: "Enter",
+                        shiftKey: true,
+                    });
+                    assert.containsN(target, ".o_data_row_selected", 2);
+
+                    const th2 = target.querySelector("th:nth-child(2)");
+                    const resizeHandle = th2.querySelector(".o_resize");
+
+                    // This should be `await dragAndDrop(resizeHandle, target.querySelector("th:nth-child(3)"))`
+                    // But the dragAndDrop doesn't trigger a click event like it is supposed to
+                    await legacyClick(resizeHandle);
+                    assert.containsN(target, ".o_data_row_selected", 2);
+                }
+            );
+
+            QUnit.test(
                 "documents Kanban: workspace user will be able to share document",
                 async function (assert) {
                     assert.expect(2);
