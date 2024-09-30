@@ -205,7 +205,7 @@ publicWidget.registry.KnowledgeWidget = publicWidget.Widget.extend({
             // Replace `span` elements by actual links.
             const link = document.createElement("A");
             link.classList.add("text-o-color-1");
-            link.href = `/web/login?redirect=/knowledge/article/${this.resId}`;
+            link.href = `/web/login?redirect=/knowledge/article/${this.$id}`;
             link.textContent = decodeDataBehaviorProps(viewLink.dataset.behaviorProps).name;
             viewLink.replaceWith(link);
         }
