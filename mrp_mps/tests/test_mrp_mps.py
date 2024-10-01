@@ -726,3 +726,34 @@ class TestMpsMps(common.TransactionCase):
         mps_impacted = mps_p_l[0].get_impacted_schedule()
         self.assertEqual(len(mps_impacted), 1)
         self.assertEqual(mps_impacted[0], mps_c2.id)
+
+    def test_outgoing_move_with_different_uom(self):
+        """
+        Test that the outgoing and incoming quantities are computed in the product's UoM.
+        """
+        mps = self.env['mrp.production.schedule'].create({
+            'product_id': self.bolt.id,
+            'warehouse_id': self.warehouse.id,
+        })
+        outgoing_move = self.env['stock.move'].create({
+            'name': self.bolt.name,
+            'product_id': self.bolt.id,
+            'product_uom_qty': 1,
+            'product_uom': self.env.ref('uom.product_uom_dozen').id,
+            'location_id': self.warehouse.lot_stock_id.id,
+            'location_dest_id': self.env.ref('stock.stock_location_customers').id,
+        })
+        incoming_move = self.env['stock.move'].create({
+            'name': self.bolt.name,
+            'product_id': self.bolt.id,
+            'product_uom_qty': 1,
+            'product_uom': self.env.ref('uom.product_uom_dozen').id,
+            'location_id': self.env.ref('stock.stock_location_customers').id,
+            'location_dest_id': self.warehouse.lot_stock_id.id,
+        })
+        (outgoing_move | incoming_move)._action_confirm()
+        state = mps.get_production_schedule_view_state()[0]
+        outgoing_qty = state['forecast_ids'][0]['outgoing_qty']
+        incoming_qty = state['forecast_ids'][0]['incoming_qty']
+        self.assertEqual(outgoing_qty, 12, 'outgoing qty is incorrect')
+        self.assertEqual(incoming_qty, 12, 'outgoing qty is incorrect')
