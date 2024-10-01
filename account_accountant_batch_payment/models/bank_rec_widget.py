@@ -73,7 +73,6 @@ class BankRecWidget(models.Model):
 
     @api.depends('company_id', 'line_ids.source_aml_id', 'line_ids.source_batch_payment_id')
     def _compute_selected_aml_ids(self):
-        # OVERRIDES account_accountant
         super()._compute_selected_aml_ids()
         for wizard in self:
             new_batches = self.line_ids.filtered(lambda x: x.flag == 'new_batch')
