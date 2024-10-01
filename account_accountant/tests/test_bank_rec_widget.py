@@ -2912,3 +2912,30 @@ class TestBankRecWidget(TestBankRecWidgetCommon):
             ('partner_id', '=', partner.id),
         ])
         self.assertEqual(len(bank_accounts), 2, "Second bank account was not registered!")
+
+    def test_unreconciled_with_other_lines(self):
+        """Test that other lines are shown in the widget if they exist."""
+        st_line = self._create_st_line(
+            1000.0,
+            date='2017-01-01',
+        )
+
+        # Edit the associated move to partially reconcile some of the suspense amount; i.e. we add another line
+        liquidity_line, suspense_line, other_line = st_line._seek_for_lines()
+        other_account = st_line.journal_id.company_id.default_cash_difference_income_account_id
+        self.assertFalse(other_line)
+        st_line.move_id.write({'line_ids': [
+            Command.create({'account_id': other_account.id, 'credit': 100.0}),
+            Command.update(suspense_line.id, {'credit': 900.0}),
+        ]})
+        liquidity_line, suspense_line, other_line = st_line._seek_for_lines()
+        self.assertTrue(other_line)
+
+        # Check that the wizard displays the new line
+        wizard = self.env['bank.rec.widget'].with_context(default_st_line_id=st_line.id).new({})
+        self.assertRecordValues(wizard.line_ids, [
+            # pylint: disable=C0326
+            {'flag': 'liquidity',      'account_id': liquidity_line.account_id.id,   'amount_currency': 1000.0},
+            {'flag': 'aml',            'account_id': other_line.account_id.id,       'amount_currency': -100.0},
+            {'flag': 'auto_balance',   'account_id': suspense_line.account_id.id,    'amount_currency': -900.0},
+        ])
