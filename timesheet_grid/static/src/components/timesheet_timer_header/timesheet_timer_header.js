@@ -68,6 +68,13 @@ export class TimesheetTimerHeader extends Component {
         }
     }
 
+    getFieldType(fieldName) {
+        if (fieldName === "task_id") {
+            return "task_with_hours";
+        }
+        return this.props.fields[fieldName].type;
+    }
+
     getIsProjectManager() {
         return this.isProjectManager;
     }

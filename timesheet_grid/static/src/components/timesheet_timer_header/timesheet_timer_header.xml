@@ -63,7 +63,7 @@
                             context="props.fields['task_id'].context"
                             canCreateEdit="false"
                             domain="getDomain('task_id')"
-                            type="'task_with_hours'"
+                            type="getFieldType('task_id')"
                         />
                         <Field
                             name="'name'"
