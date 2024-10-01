@@ -41,10 +41,12 @@ class TestSubscriptionPaymentsAccount(AccountPaymentCommon, TestSubscriptionComm
                 'start_date': False,
                 'next_invoice_date': False,
             })
-            sub2 = self.subscription.copy({'payment_token_id':test_payment_token.id}) # tokens have copy=False property
+            other_user = self.company_data['default_user_salesman']
+            sub2 = self.subscription.copy({'payment_token_id': test_payment_token.id, 'user_id': other_user.id})  # tokens have copy=False property
             with freeze_time("2023-02-01"):
                 (sub2 | self.subscription).action_confirm()
-                self.env['sale.order'].with_context(test_provider=new_provider)._create_recurring_invoice()
+                # enable tracking to test _message_auto_subscribe_followers with multiple user_id
+                self.env['sale.order'].with_context(test_provider=new_provider, tracking_disable=False)._create_recurring_invoice()
                 self.assertEqual(self.subscription.invoice_ids, sub2.invoice_ids)
                 invoice = sub2.invoice_ids
                 invoice.journal_id.type = 'bank'
