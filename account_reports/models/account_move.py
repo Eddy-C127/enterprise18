@@ -58,7 +58,7 @@ class AccountMove(models.Model):
         # Also, we are not using a RedirectWarning because it will force a rollback on the closing move created for
         # depending companies.
         try:
-            super().action_post()
+            return super().action_post()
         except TaxClosingNonPostedDependingMovesError as exception:
             return {
                 "type": "ir.actions.client",
