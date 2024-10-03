@@ -512,7 +512,7 @@
                             <t t-esc="overlap_slot_count"/> other shift(s) in conflict.
                         </p>
                         <footer replace="0">
-                            <button name="unlink" type="object" string="Delete" class="btn btn-sm btn-secondary"
+                            <button t-if="0" name="unlink" type="object" string="Delete" class="btn btn-sm btn-secondary"
                                 groups="planning.group_planning_manager"/>
                         </footer>
                     </div>
