@@ -5,6 +5,7 @@ import base64
 from odoo import Command
 from odoo.tools import file_open
 from odoo.tests.common import TransactionCase, new_test_user
+from odoo.addons.mail.tests.common import mail_new_test_user
 
 class SignRequestCommon(TransactionCase):
     @classmethod
@@ -18,6 +19,13 @@ class SignRequestCommon(TransactionCase):
             'raw': pdf_content,
             'name': 'test_employee_contract.pdf',
         })
+        cls.public_user = mail_new_test_user(
+            cls.env,
+            name='Public user',
+            login='public_user',
+            email='public_user@example.com',
+            groups='base.group_public',
+        )
 
         cls.role_customer = cls.env.ref('sign.sign_item_role_customer')
         cls.role_customer.change_authorized = False

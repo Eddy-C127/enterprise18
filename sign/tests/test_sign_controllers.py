@@ -4,6 +4,7 @@ import json
 from unittest.mock import patch
 from freezegun import freeze_time
 
+from odoo.http import Request
 from .sign_request_common import SignRequestCommon
 from odoo.addons.base.tests.common import HttpCaseWithUserDemo
 from odoo.addons.sign.controllers.main import Sign
@@ -186,3 +187,42 @@ class TestSignController(TestSignControllerCommon):
 
         with freeze_time('2020-01-04'):
             self.start_tour(url, 'sign_resend_expired_link_tour', login='demo')
+
+    def test_cancel_request_as_public_user(self):
+        """
+        Test that a public user can cancel a sign request and that a cancellation log is recorded on the partner_id.
+        """
+        sign_request = self.create_sign_request_1_role(self.partner_1, self.env['res.partner'])
+        sign_request_item = sign_request.request_item_ids[0]
+
+        url = '/sign/sign_confirm_cancel/%(item_id)s' % {
+            'item_id': sign_request_item.id,
+        }
+
+        # Set the environment user as the public user
+        self.env.user = self.public_user
+
+        # Send a request to cancel the sign request item
+        self.authenticate(None, None)
+        post_data = {
+            'access_token': sign_request_item.access_token,
+            'csrf_token': Request.csrf_token(self),
+        }
+        response = self.url_open(url, data=post_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(sign_request.state, 'canceled', "Sign request state should be 'canceled'")
+        self.assertEqual(sign_request_item.state, 'canceled', "Sign request item state should be 'canceled'")
+
+        sign_cancel_log = self.env['sign.log'].search([
+            ('sign_request_id', '=', sign_request.id),
+            ('action', '=', 'cancel')
+        ])
+
+        self.assertTrue(sign_cancel_log, "A sign cancel log should be created")
+        self.assertEqual(sign_cancel_log.request_state, 'canceled',
+                         "Log request state should be 'canceled'")
+        self.assertEqual(sign_cancel_log.partner_id, self.partner_1,
+                         "Log partner_id should match partner_1")
+        self.assertEqual(sign_cancel_log.sign_request_item_id.id, sign_request_item.id,
+                         "Log should reference the correct request item")
