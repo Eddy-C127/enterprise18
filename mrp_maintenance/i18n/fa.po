@@ -95,6 +95,7 @@ msgstr "شرکت"
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__estimated_next_failure
 msgid "Computed as Latest Failure Date + MTBF"
 msgstr ""
+"محاسبه شده به‌صورت تاریخ آخرین خرابی + میانگین زمان بین خرابی‌ها (MTBF)"
 
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.maintenance_workcenter_action
@@ -141,23 +142,23 @@ msgstr ""
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Estimated Next Failure"
-msgstr ""
+msgstr "خرابی بعدی تخمینی"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__estimated_next_failure
 msgid "Estimated time before next failure (in days)"
-msgstr ""
+msgstr "زمان تخمینی تا خرابی بعدی (به روز)"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__expected_mtbf
 msgid "Expected MTBF"
-msgstr ""
+msgstr "میانگین زمان بین خرابی پیش‌بینی‌شده (MTBF)"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__expected_mtbf
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Expected Mean Time Between Failure"
-msgstr ""
+msgstr "میانگین زمان بین خرابی پیش‌بینی‌شده"
 
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
@@ -232,12 +233,12 @@ msgstr ""
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Latest Failure"
-msgstr ""
+msgstr "آخرین خرابی"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__latest_failure_date
 msgid "Latest Failure Date"
-msgstr ""
+msgstr "زمان آخرین خرابی"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__leave_ids
@@ -247,12 +248,12 @@ msgstr ""
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__mtbf
 msgid "MTBF"
-msgstr ""
+msgstr "MTBF"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__mttr
 msgid "MTTR"
-msgstr ""
+msgstr "MTTR"
 
 #. module: mrp_maintenance
 #: model:ir.ui.menu,name:mrp_maintenance.menu_equipment_dashboard
@@ -316,19 +317,19 @@ msgstr ""
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Mean Time Between Failure"
-msgstr ""
+msgstr "میانگین زمان بین خرابی"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__mtbf
 msgid ""
 "Mean Time Between Failure, computed based on done corrective maintenances."
-msgstr ""
+msgstr "میانگین زمان بین خرابی، محاسبه شده بر اساس تعمیرات اصلاحی انجام شده."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__mttr
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Mean Time To Repair"
-msgstr ""
+msgstr "میانگین زمان تعمیر"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_has_error
@@ -441,7 +442,7 @@ msgstr ""
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #, python-format
 msgid "Request planned for %s"
-msgstr ""
+msgstr "درخواست برنامه‌ریزی شده برای %s"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_user_id
@@ -507,7 +508,7 @@ msgstr ""
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__effective_date
 msgid "This date will be used to compute the Mean Time Between Failure."
-msgstr ""
+msgstr "این تاریخ برای محاسبه میانگین زمان بین خرابی استفاده خواهد شد."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_exception_decoration

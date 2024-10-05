@@ -12,11 +12,11 @@
 # grupoda2 <dmitrijus.ivanovas@gmail.com>, 2023
 # Audrius Palenskis <audrius.palenskis@gmail.com>, 2023
 # Donatas <donatasvaliulis16@gmail.com>, 2023
-# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2023
 # Jonas Zinkevicius <jozi@odoo.com>, 2023
 # Martin Trigaux, 2023
 # Linas Versada <linaskrisiukenas@gmail.com>, 2023
 # Gailius Kazlauskas <gailius@vialaurea.lt>, 2024
+# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Gailius Kazlauskas <gailius@vialaurea.lt>, 2024\n"
+"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -60,7 +60,7 @@ msgstr "<i class=\"fa fa-clock-o\" aria-label=\"Date\" role=\"img\" title=\"Date
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_form_inherit_account_batch_payment
 msgid "<span>Batch Payment</span>"
-msgstr ""
+msgstr "<span>Grupinis mokėjimas</span>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -133,12 +133,12 @@ msgstr "Suma"
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__amount_residual
 msgid "Amount Residual"
-msgstr ""
+msgstr "Likusi suma"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__amount_residual_currency
 msgid "Amount Residual Currency"
-msgstr ""
+msgstr "Likusi suma valiuta"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_payment__amount_signed
@@ -168,7 +168,7 @@ msgstr "Banko žurnalas"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Bank Transfer"
-msgstr ""
+msgstr "Banko pervedimas"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -238,6 +238,8 @@ msgstr ""
 #, python-format
 msgid "Cannot validate an empty batch. Please add some payments to it first."
 msgstr ""
+"Negalite patvirtinti tuščio grup.mokėjimo. Pirmiausia pridėkite keletą "
+"mokėjimų."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -257,7 +259,7 @@ msgstr "Įmonės naudojama valiuta"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_tree_inherit_account_batch_payment
 msgid "Create Batch"
-msgstr ""
+msgstr "Sukurti gupinį mokėjimą"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -313,7 +315,7 @@ msgstr "Klientas"
 #. module: account_batch_payment
 #: model:ir.actions.act_window,name:account_batch_payment.action_batch_payment_in
 msgid "Customer Batch Payments"
-msgstr ""
+msgstr "Grupiniai kliento mokėjimai"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__date
@@ -480,7 +482,7 @@ msgstr "Paskutinį kartą atnaujinta"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
 msgid "Leave empty to generate automatically..."
-msgstr ""
+msgstr "Kad generuotų automatiškai, palikite tuščią..."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -500,7 +502,7 @@ msgstr "Žinutės"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Monthly Payment"
-msgstr ""
+msgstr "Mėnesinė įmoka"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__my_activity_date_deadline
@@ -550,7 +552,7 @@ msgstr "Kito veiksmo tipas"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_search_inherit_account_batch_payment
 msgid "Not Batch Payments"
-msgstr ""
+msgstr "Nėra grupinių mokėjimų"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_search_inherit_account_batch_payment
@@ -634,7 +636,7 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Payments must be posted to be added to a batch."
-msgstr ""
+msgstr "Kad būtų įtrauktas į grup.mokėjimą, mokėjimas turi būti patvirtintas."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -718,21 +720,21 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments have already been matched with a bank statement."
-msgstr ""
+msgstr "Kai kurie mokėjimai jau buvo sudengti su banko išrašu."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Some payments have already been sent."
-msgstr ""
+msgstr "Kai kurie mokėjimai jau išsiųsti."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "Some recipient accounts do not allow out payments."
-msgstr ""
+msgstr "Kai kurioms gavėjų sąskaitoms neleidžiama atlikti mokėjimų"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__state
@@ -774,7 +776,7 @@ msgstr "Grupinis mokėjimas negali būti patvirtintas"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
 msgid "The batch could not be validated"
-msgstr ""
+msgstr "Nepavyko patvirtinti grupinio mokėjimo"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -845,7 +847,7 @@ msgstr "Patvirtinti"
 #. module: account_batch_payment
 #: model:ir.actions.act_window,name:account_batch_payment.action_batch_payment_out
 msgid "Vendor Batch Payments"
-msgstr ""
+msgstr "Grupiniai tiekėjų mokėjimai"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_error_wizard__warning_line_ids
@@ -881,11 +883,11 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add payments that are not posted."
-msgstr ""
+msgstr "Negailte pridėti mokėjimų, kurie yra nepatvirtinti."
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
-msgstr ""
+msgstr "Į grupinį mokėjimą negalite pridėti mokėjimų su nuline suma."

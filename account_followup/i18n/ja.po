@@ -277,7 +277,7 @@ msgstr "<span class=\"o_stat_text\">期限</span>"
 msgid ""
 "<span>Preferred address for follow-up reports. Selected by default when you "
 "send reminders about overdue invoices.</span>"
-msgstr "<span>フォローアップレポート用の優先アドレス。未払請求書に関する督促を送信する際にデフォルトで選択されます。</span>"
+msgstr "<span>フォローアップレポート用の優先アドレス。滞納請求書に関する督促を送信する際にデフォルトで選択されます。</span>"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -850,7 +850,7 @@ msgstr "移動元"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view
 msgid "Overdue Invoices"
-msgstr "期限超過請求書"
+msgstr "滞納請求書"
 
 #. module: account_followup
 #. odoo-python
@@ -1127,7 +1127,7 @@ msgstr "取引先の情報が不足していたため、自動化されたフォ
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__with_overdue_invoices
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_form_view
 msgid "With overdue invoices"
-msgstr "期限超過請求書あり"
+msgstr "滞納請求書あり"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_manual_reminder
