@@ -65,7 +65,7 @@ msgstr "%s telah diedit dan ditandatangani"
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "%s has been linked to this sign request."
-msgstr ""
+msgstr "%s telah dihubungkan ke permintaan tanda tangan ini."
 
 #. module: sign
 #. odoo-python
@@ -369,7 +369,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.message_signature_link
 msgid "A document has been signed and a copy attached to"
-msgstr ""
+msgstr "Dokumen telah ditandatangani dan salinan dilampirkan ke"
 
 #. module: sign
 #. odoo-python
@@ -680,7 +680,7 @@ msgstr "Tersedia di templat baru"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "Back to %s"
-msgstr ""
+msgstr "Kembali ke %s"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -1280,7 +1280,7 @@ msgstr "Edit"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Edit Template"
-msgstr ""
+msgstr "Edit Templat"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -1689,6 +1689,11 @@ msgid ""
 "                        </code>\n"
 "                        menu."
 msgstr ""
+"Bila Anda tidak ingin menerima notifikasi ini lagi, Anda dapat menonaktifkan langkah autentikasi ekstra di menu\n"
+"                        <code>\n"
+"                            Tandatangan &gt; Konfigurasi &gt; Peran\n"
+"                         </code>\n"
+"                         menu."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -2185,7 +2190,7 @@ msgstr "Jumlah Action"
 #: model:ir.model.fields,field_description:sign.field_sign_item__num_options
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__num_options
 msgid "Number of Radio Button options"
-msgstr ""
+msgstr "Jumlah opsi Tombol Radio"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -2405,17 +2410,18 @@ msgstr "Tombol Radio"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__radio_items
 msgid "Radio Items"
-msgstr ""
+msgstr "Item-Item Radio"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__radio_set_id
 msgid "Radio button options"
-msgstr ""
+msgstr "Opsi-opsi tombol radio"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_radio_set
 msgid "Radio button set for keeping radio button items together"
 msgstr ""
+"Tombol radio yang ditetapkan agar item-item tombol radio tetap bersama."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__rating_ids
@@ -3494,7 +3500,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The mail has been sent to contacts in copy: %(contacts)s"
-msgstr ""
+msgstr "Email telah dikirim ke kontak di salinan: %(contacts)s"
 
 #. module: sign
 #. odoo-python
@@ -4238,6 +4244,8 @@ msgid ""
 "because you don't have enough credits for this operation.\n"
 "                    The signatory was able to finish signing, but was not asked to authenticate fully."
 msgstr ""
+"karena Anda tidak memiliki kredit yang mencukupi untuk operasi ini.\n"
+"                    Penandatangan akan dapat menyelesaikan tandatangan, tapi tidak diminta untuk mengautentikasi secara penuh."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container

@@ -3,8 +3,8 @@
 # 	* web_studio
 # 
 # Translators:
-# Abe Manyo, 2024
 # Wil Odoo, 2024
+# Abe Manyo, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Abe Manyo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,7 +94,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid " until %s"
-msgstr ""
+msgstr "sampai %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -106,7 +106,7 @@ msgstr "\" gagal."
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s delegated approval rights to %(delegate_to)s"
-msgstr ""
+msgstr "%(user_name)s mendelegasikan hak penyetuju ke %(delegate_to)s"
 
 #. module: web_studio
 #. odoo-python
@@ -115,12 +115,14 @@ msgid ""
 "%(user_name)s has set approval rights from %(previous_approvers)s to "
 "%(next_approvers)s"
 msgstr ""
+"%(user_name)s memiliki hak penyetuju dari %(previous_approvers)s sampai "
+"%(next_approvers)s"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s revoked their delegation to %(revoked_users)s"
-msgstr ""
+msgstr "%(user_name)s mencabut delegasi mereka ke %(revoked_users)s"
 
 #. module: web_studio
 #. odoo-python
@@ -132,7 +134,7 @@ msgstr "%s Laporan"
 #. odoo-python
 #: code:addons/web_studio/models/studio_export_model.py:0
 msgid "%s record(s)"
-msgstr ""
+msgstr "%s record"
 
 #. module: web_studio
 #. odoo-python
@@ -250,7 +252,7 @@ msgstr "Judul tindakan"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Action: %s"
-msgstr ""
+msgstr "Action: %s"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
@@ -343,7 +345,7 @@ msgstr "Tambahkan prioritas"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Add an approval step"
-msgstr ""
+msgstr "Tambahkan langkah penyetuju"
 
 #. module: web_studio
 #. odoo-javascript
@@ -384,7 +386,7 @@ msgstr "Tambahkan tag"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_export_data
 msgid "Additional Export Data"
-msgstr ""
+msgstr "Data Ekspor Tambahan"
 
 #. module: web_studio
 #. odoo-javascript
@@ -395,12 +397,12 @@ msgstr "Tambahkan Field"
 #. module: web_studio
 #: model_terms:ir.actions.act_window,help:web_studio.action_models_to_export
 msgid "Additional Studio Exports"
-msgstr ""
+msgstr "Ekspor Studio Tambahan"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_models
 msgid "Additional models to export"
-msgstr ""
+msgstr "Model tambahan untuk diekspor"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_wizard__additional_models
@@ -408,6 +410,8 @@ msgid ""
 "Additional models you may choose to export in addition to the Studio "
 "customizations"
 msgstr ""
+"Model tambahan yang Anda mungkin dapat pilih untuk diekspor sebagai tambahan"
+" ke kustomisasi Studio"
 
 #. module: web_studio
 #. odoo-javascript
@@ -443,7 +447,7 @@ msgstr "Izinkan Pengurutan ulang"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "An approval is missing"
-msgstr ""
+msgstr "Kurang penyetuju"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
@@ -470,7 +474,7 @@ msgstr "Kelompok Persetujuan"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approval Order"
-msgstr ""
+msgstr "Pesanan Penyetuju"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__rule_id
@@ -482,12 +486,12 @@ msgstr "Peraturan Persetujuan"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_approver
 msgid "Approval Rule Approvers Enriched"
-msgstr ""
+msgstr "Peraturan Penyetuju Pemberi Persetujuan Diperkaya"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_delegate
 msgid "Approval Rule Delegate"
-msgstr ""
+msgstr "Peraturan Penyetuju Delegasi"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_button_configuration_search_view
@@ -504,7 +508,7 @@ msgstr "Persetujuan"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals %(model_name)s"
-msgstr ""
+msgstr "Approval %(model_name)s"
 
 #. module: web_studio
 #. odoo-python
@@ -535,7 +539,7 @@ msgstr "Disetujui"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Approved <i class=\"fa fa-thumbs-up text-success\"/>"
-msgstr ""
+msgstr "Disetuju <i class=\"fa fa-thumbs-up text-success\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -552,12 +556,12 @@ msgstr "Disetujui/Ditolak oleh"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approver Group"
-msgstr ""
+msgstr "Kelompok Penyetuju"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__approver_log_ids
 msgid "Approver Log"
-msgstr ""
+msgstr "Log Penyetuju"
 
 #. module: web_studio
 #. odoo-javascript
@@ -619,7 +623,7 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__is_demo_data
 msgid "As Demo"
-msgstr ""
+msgstr "Sebagai Demo"
 
 #. module: web_studio
 #. odoo-javascript
@@ -982,11 +986,13 @@ msgid ""
 "Configure additional models to export with Studio, such as records that hold"
 " configuration information or demo data."
 msgstr ""
+"Konfigurasikan model-model tambahan untuk diekspor dengan Studio, seperti "
+"record yang memiliki informasi konfigurasi atau data demo."
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Configure data and demo data to export"
-msgstr ""
+msgstr "Konfigurasi data dan data demo untuk diekspor"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1263,7 +1269,7 @@ msgstr "Mode Tampilan Default"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__default_export_data
 msgid "Default Export Data"
-msgstr ""
+msgstr "Data Ekspor Default"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1315,14 +1321,14 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__updatable
 msgid "Defines if the records would be updated during a module update."
-msgstr ""
+msgstr "Mendefinisikan bila record akan diupdate selama update module."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
 msgid "Defines the sequential order in which the approvals are requested."
-msgstr ""
+msgstr "Mendefinisikan sequential order di mana approval akan diminta."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1334,13 +1340,13 @@ msgstr "Delay Field"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
 msgid "Delegate"
-msgstr ""
+msgstr "Delegasikan"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Delegate to"
-msgstr ""
+msgstr "Delegasikan ke"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1701,7 +1707,7 @@ msgstr "Kolom"
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_model__excluded_fields
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 msgid "Fields to exclude"
-msgstr ""
+msgstr "Field untuk dikecualikan"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2008,6 +2014,8 @@ msgid ""
 "If set, the attachments related to the exported records will be included in "
 "the export."
 msgstr ""
+"Bila ditetapkan, lampiran terkait ke record yang diekspor akan dimasukkan di"
+" ekspor."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__is_demo_data
@@ -2015,6 +2023,8 @@ msgid ""
 "If set, the exported records will be considered as demo data during the "
 "import."
 msgstr ""
+"Bila ditetapkan, record yang diekspor akan dianggap sebagai data demo selama"
+" impor."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
@@ -2074,12 +2084,12 @@ msgstr "Dalam Proses"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_additional_data
 msgid "Include Data"
-msgstr ""
+msgstr "Termasuk Data"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_demo_data
 msgid "Include Demo Data"
-msgstr ""
+msgstr "Termasuk Data Demo"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2159,7 +2169,7 @@ msgstr "Sembunyikan"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_approver__is_delegation
 msgid "Is Delegation"
-msgstr ""
+msgstr "Apakah Delegasi"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_is_follower
@@ -2193,7 +2203,7 @@ msgstr "Kanban"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__kanban_color
 msgid "Kanban Color"
-msgstr ""
+msgstr "Warna Kanban"
 
 #. module: web_studio
 #. odoo-python
@@ -2254,7 +2264,7 @@ msgstr "Tinggalkan DIFF"
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.action_web_studio_leave_with
 msgid "Leave Studio with another action"
-msgstr ""
+msgstr "Tinggalkan Studio dengan action lain"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2393,7 +2403,7 @@ msgstr "Metode untuk dijalankan"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Method: %s"
-msgstr ""
+msgstr "Metode: %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2423,7 +2433,7 @@ msgstr "Model"
 #. odoo-python
 #: code:addons/web_studio/wizard/studio_export_wizard.py:0
 msgid "Model '%s' should not contain records with the same ID."
-msgstr ""
+msgstr "Model '%s' harusnya tidak memiliki record dengan ID yang sama."
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_model_access
@@ -2682,7 +2692,7 @@ msgstr "Catatan"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
-msgstr ""
+msgstr "Notifikasi "
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_needaction_counter
@@ -2754,7 +2764,7 @@ msgstr "Buka tampilan formulir"
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Open kanban view of approvals"
-msgstr ""
+msgstr "Buka tampilan kanban approval"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2854,12 +2864,12 @@ msgstr "Mohon tetapkan field."
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__post
 msgid "Post"
-msgstr "Rekam"
+msgstr "Post"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__pre
 msgid "Pre"
-msgstr ""
+msgstr "Pra"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
@@ -3009,7 +3019,7 @@ msgstr "Ditolak"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Rejected <i class=\"fa fa-thumbs-down text-danger\"/>"
-msgstr ""
+msgstr "Ditolak <i class=\"fa fa-thumbs-down text-danger\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3289,7 +3299,7 @@ msgstr "Pilih Field"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select a group..."
-msgstr ""
+msgstr "Pilih kelompok..."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3306,7 +3316,7 @@ msgstr "Pilih field yang terkait."
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 msgid "Select group"
-msgstr ""
+msgstr "Pilih kelompok"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3332,7 +3342,7 @@ msgstr "Pilih reciprocal ManyToOne field"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select users..."
-msgstr ""
+msgstr "Pilih user..."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3442,7 +3452,7 @@ msgstr "Lambat"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "Some approvals are missing"
-msgstr ""
+msgstr "Kurang beberapa approval"
 
 #. module: web_studio
 #. odoo-python
@@ -3535,47 +3545,47 @@ msgstr "Langkah"
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__1
 msgid "Step 1"
-msgstr ""
+msgstr "Langkah 1"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__2
 msgid "Step 2"
-msgstr ""
+msgstr "Langkah 2"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__3
 msgid "Step 3"
-msgstr ""
+msgstr "Langkah 3"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__4
 msgid "Step 4"
-msgstr ""
+msgstr "Langkah 4"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__5
 msgid "Step 5"
-msgstr ""
+msgstr "Langkah 5"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__6
 msgid "Step 6"
-msgstr ""
+msgstr "Langkah 6"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__7
 msgid "Step 7"
-msgstr ""
+msgstr "Langkah 7"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__8
 msgid "Step 8"
-msgstr ""
+msgstr "Langkah 8"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__9
 msgid "Step 9"
-msgstr ""
+msgstr "Langkah 9"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3639,7 +3649,7 @@ msgstr "Kustomisasi Studio"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Studio Customizations will be exported"
-msgstr ""
+msgstr "Kustomisasi Studio akan diekspor"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.action_models_to_export
@@ -3648,27 +3658,27 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
 msgid "Studio Export"
-msgstr ""
+msgstr "Ekspor Studio"
 
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.studio_export_action
 msgid "Studio Export Action"
-msgstr ""
+msgstr "Action Ekspor Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard_data
 msgid "Studio Export Data"
-msgstr ""
+msgstr "Data Ekspor Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_model
 msgid "Studio Export Models"
-msgstr ""
+msgstr "Model-Model Ekspor Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard
 msgid "Studio Export Wizard"
-msgstr ""
+msgstr "Wizard Ekspor Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_mixin
@@ -3836,6 +3846,7 @@ msgid ""
 "The step description will be displayed on the button on which an approval is"
 " requested."
 msgstr ""
+"Keterangan langkah akan ditampilkan pada tombol pada mana approval diminta."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3844,13 +3855,15 @@ msgid ""
 "The user who approves this step will not be able to approve other steps for "
 "the same record."
 msgstr ""
+"User yang menyetujui langkah ini tidak dapat menyetujui langkah-langkah "
+"lainnya untuk record yang sama."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__approval_group_id
 msgid "The users in this group are able to approve or reject the step."
-msgstr ""
+msgstr "User-user di kelompok ini dapat menyetujui atau menolak langkah."
 
 #. module: web_studio
 #. odoo-python
@@ -3893,6 +3906,8 @@ msgid ""
 "These users are able to approve or reject the step and will be assigned to "
 "an activity when their approval is requested."
 msgstr ""
+"User-user ini akan dapat menyetujui atau menolak langkah dan akan ditugaskan"
+" ke kegiatan saat persetujuan mereka diminta."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3902,6 +3917,8 @@ msgid ""
 "These users will receive a notification via internal note when the step is "
 "approved or rejected"
 msgstr ""
+"User-user ini akan menerima notifikasi melalui catatan internal saat langkah"
+" disetujui atau ditolak"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3945,7 +3962,7 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_export_model_unique_model
 msgid "This model is already being exported."
-msgstr ""
+msgstr "Model ini sudah diekspor."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4014,7 +4031,7 @@ msgstr "Undo"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Unsupported operator '%s' to search action_xmlid"
-msgstr ""
+msgstr "Operator tidak didukung '%s' untuk mencari action_xmlid"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__date_to
@@ -4064,7 +4081,7 @@ msgstr "Placeholder avatar user"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__users_to_notify
 msgid "Users to Notify"
-msgstr ""
+msgstr "User untuk Dinotifikasi"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4097,7 +4114,7 @@ msgstr "Tampilan"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor.js:0
 msgid "View Editor"
-msgstr ""
+msgstr "Lihat Editor"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4221,7 +4238,7 @@ msgstr "Tahun"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "You can not approve this rule."
-msgstr ""
+msgstr "Anda tidak dapat menyetujui peraturan ini."
 
 #. module: web_studio
 #. odoo-python
@@ -4230,6 +4247,8 @@ msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
 msgstr ""
+"Anda tidak dapat membatalkan persetujuan yang Anda tidak tetapkan sendiri "
+"atau Anda tidak dalam tingkat peraturan penyetuju yang lebih tinggi."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4262,7 +4281,7 @@ msgstr "action"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "delegates to %s."
-msgstr ""
+msgstr "didelegasi ke %s."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4286,7 +4305,7 @@ msgstr "contohnya Real Estate"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "no one"
-msgstr ""
+msgstr "tidak ada"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4316,7 +4335,7 @@ msgstr "test email"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "to %s."
-msgstr ""
+msgstr "ke %s."
 
 #. module: web_studio
 #. odoo-javascript

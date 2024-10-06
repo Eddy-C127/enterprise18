@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -120,12 +121,14 @@ msgstr "Camera"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Check IoT Box connection. Try restarting if needed."
 msgstr ""
+"Controleer de verbinding van de IoT Box. Probeer opnieuw op te starten als "
+"dat nodig is."
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/views/iot_device_form.js:0
 msgid "Check if the device is still connected"
-msgstr "Controleer of het toestel nog steeds verbonden is."
+msgstr "Controleer of het toestel nog steeds verbonden is"
 
 #. module: iot
 #. odoo-javascript
@@ -309,7 +312,7 @@ msgstr "Logboeken downloaden"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_report_action.js:0
 msgid "Failed to send to printer."
-msgstr ""
+msgstr "Versturen naar printer mislukt."
 
 #. module: iot
 #. odoo-javascript
@@ -330,7 +333,7 @@ msgstr "Groeperen op"
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
 msgid "HDMI"
-msgstr ""
+msgstr "HDMI"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__id
@@ -349,7 +352,7 @@ msgstr "IoT toestel"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__identifier
 msgid "Identifier"
-msgstr "Identificatie "
+msgstr "Identificatie"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__identifier
@@ -416,7 +419,7 @@ msgstr "Is scanner"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__is_websocket_active
 msgid "Is Websocket active?"
-msgstr ""
+msgstr "Is Websocket actief?"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__keyboard
@@ -481,7 +484,7 @@ msgstr "Lees de meting handmatig van het apparaat af"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__is_scanner
 msgid "Manually switch the device type between keyboard and scanner"
-msgstr "Schakel het apparaattype handmatig tussen toetsenbord en scanner."
+msgstr "Schakel het apparaattype handmatig tussen toetsenbord en scanner"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__manufacturer
@@ -504,7 +507,7 @@ msgstr "Netwerk"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "New IoT Box connected!"
-msgstr ""
+msgstr "Nieuwe IoT Box aangesloten!"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
@@ -515,7 +518,7 @@ msgstr "Geen IoT Box gevonden!"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "No new IoT Box found."
-msgstr ""
+msgstr "Geen nieuwe IoT Box gevonden."
 
 #. module: iot
 #. odoo-javascript
@@ -533,7 +536,7 @@ msgstr "Geen rapport om weer te geven"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 msgid "Odoo cannot reach the IoT Box."
-msgstr "Odoo kan niet met de IoT box verbinden"
+msgstr "Odoo kan niet met de IoT box verbinden."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__office_printer
@@ -547,6 +550,9 @@ msgid ""
 "One of the printer used to print document have been removed. Please retry "
 "the operation to choose new printers to print."
 msgstr ""
+"Een van de printers gebruikt voor het afdrukken van documenten is "
+"verwijderd. Probeer het opnieuw om nieuwe printers te kiezen om af te "
+"drukken."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -588,7 +594,7 @@ msgstr "Controleer of de IoT box nog steeds verbonden is."
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Please enter a pairing code."
-msgstr ""
+msgstr "Voer een koppelcode in."
 
 #. module: iot
 #. odoo-javascript
@@ -620,7 +626,7 @@ msgstr "Printers"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Printing operation completed on printer %s"
-msgstr ""
+msgstr "Afdrukken voltooid op printer %s"
 
 #. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
@@ -652,14 +658,14 @@ msgstr "Rapportages"
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 msgid "Reports with linked printers"
-msgstr ""
+msgstr "Rapporten met gekoppelde printers"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #: model:ir.ui.menu,name:iot.iot_clear_selected_devices
 msgid "Reset Linked Printers"
-msgstr ""
+msgstr "Gekoppelde printers resetten"
 
 #. module: iot
 #. odoo-javascript
@@ -705,7 +711,7 @@ msgstr "Selectie printers"
 #: code:addons/iot/static/src/iot_report_action.js:0
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Sending to printer %s..."
-msgstr ""
+msgstr "Versturen naar printer %s..."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -807,7 +813,7 @@ msgstr "USB"
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Using Pairing Code to connect..."
-msgstr ""
+msgstr "Koppelingscode gebruiken om verbinding te maken..."
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
@@ -818,7 +824,7 @@ msgstr "Variant"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "Waiting for a new IoT Box..."
-msgstr ""
+msgstr "Wachten op een nieuwe IoT Box..."
 
 #. module: iot
 #. odoo-python
@@ -834,7 +840,7 @@ msgid ""
 "on the IoT Box"
 msgstr ""
 "Wanneer je hier een apparaat instelt, zal het rapport worden geprint met dit"
-" apparaat op de IoT box."
+" apparaat op de IoT box"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
@@ -849,12 +855,12 @@ msgstr "of wifi"
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
 msgid "reset.linked.printers"
-msgstr ""
+msgstr "reset.gekoppelde.printers"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "to add an IoT Box."
-msgstr "om een IoT box toe te voegen"
+msgstr "om een IoT box toe te voegen."
 
 #. module: iot
 #: model:ir.model,name:iot.model_ir_websocket

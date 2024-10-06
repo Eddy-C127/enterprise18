@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,12 +28,15 @@ msgid ""
 "\n"
 "If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly."
 msgstr ""
+"\n"
+"\n"
+"Als je al een ticket hebt geopend voor dit probleem, meld het dan niet opnieuw: een supportmedewerker zal binnenkort contact met je opnemen."
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/wizard/account_journal_duplicate_transactions.py:0
 msgid "%s duplicate transactions"
-msgstr ""
+msgstr "%s dubbele transacties"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -53,7 +57,7 @@ msgstr "0 transacties opgehaald"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
 msgid "<i class=\"fa fa-trash me-1\"/> Delete Selected"
-msgstr ""
+msgstr "<i class=\"fa fa-trash me-1\"/> Geselecteerd verwijderen"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_form
@@ -347,6 +351,7 @@ msgstr "Bekijk de documentatie"
 msgid ""
 "Choose a date and a journal from which you want to check the transactions."
 msgstr ""
+"Kies een datum en een journaal waarvan je de transacties wilt controleren."
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
@@ -559,7 +564,7 @@ msgstr "Aan het ophalen..."
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #: code:addons/account_online_synchronization/static/src/components/bank_reconciliation/find_duplicate_transactions_cog_menu.xml:0
 msgid "Find Duplicate Transactions"
-msgstr ""
+msgstr "Dubbele transacties vinden"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -572,7 +577,7 @@ msgstr "Ontbrekende transacties vinden"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__first_ids_in_group
 msgid "First Ids In Group"
-msgstr ""
+msgstr "Eerste Ids in groep"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_follower_ids
@@ -649,12 +654,12 @@ msgstr "Indien aangevinkt hebben sommige berichten een leveringsfout."
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_account__inverse_balance_sign
 msgid "If checked, the balance sign will be inverted"
-msgstr "Indien aangevinkt, wordt het saldoteken omgekeerd."
+msgstr "Indien aangevinkt, wordt het saldoteken omgekeerd"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_account__inverse_transaction_sign
 msgid "If checked, the transaction sign will be inverted"
-msgstr "Indien aangevinkt, wordt het transactieteken omgekeerd."
+msgstr "Indien aangevinkt, wordt het transactieteken omgekeerd"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__auto_sync
@@ -665,7 +670,7 @@ msgid ""
 msgstr ""
 "We proberen indien mogelijk automatisch nieuwe transacties voor deze record op te halen\n"
 "                \n"
-"De automatische synchronisatie is uitgeschakeld vanwege het beveiligingsbeleid van de bank. De synchronisatie moet dus handmatig worden gestart."
+"De automatische synchronisatie is uitgeschakeld vanwege het beveiligingsbeleid van de bank. De synchronisatie moet dus handmatig worden gestart"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -738,7 +743,7 @@ msgid ""
 msgstr ""
 "Het dagboek %(journal_name)s is ingesteld met een andere valuta en heeft al "
 "bestaande boekingen. Je kunt de geselecteerde bankrekening niet koppelen in "
-"%(currency_name)s."
+"%(currency_name)s"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__last_refresh
@@ -1118,7 +1123,7 @@ msgstr "Een bankrekening instellen"
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "Some transactions"
-msgstr ""
+msgstr "Sommige transacties"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__date
@@ -1178,6 +1183,8 @@ msgid ""
 "This action will delete all selected transactions. Are you sure you want to "
 "proceed?"
 msgstr ""
+"Deze actie verwijdert alle geselecteerde transacties. Weet je zeker dat je "
+"verder wilt gaan?"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1267,7 +1274,7 @@ msgstr "Website communicatie geschiedenis"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_duplicate_transaction_wizard
 msgid "Wizard for duplicate transactions"
-msgstr ""
+msgstr "Wizard voor dubbele transacties"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_missing_transaction_wizard
@@ -1360,13 +1367,13 @@ msgstr "boekingen"
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/bank_configure/bank_configure.xml:0
 msgid "loading..."
-msgstr "Laden ..."
+msgstr "laden ..."
 
 #. module: account_online_synchronization
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "may be duplicates."
-msgstr ""
+msgstr "kunnen duplicaten zijn."
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent

@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -63,7 +64,7 @@ msgstr "%s is bewerkt en ondertekend"
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "%s has been linked to this sign request."
-msgstr ""
+msgstr "%s is gekoppeld aan dit tekenverzoek."
 
 #. module: sign
 #. odoo-python
@@ -222,8 +223,8 @@ msgstr "<br/>(de e-mail toegang is niet verzonden)"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
 msgid "<i class=\"fa fa-check\"/> A fresh link has just been sent to your inbox!"
 msgstr ""
-"<html><i class=\"fa fa-check\"/>Er is zojuist een nieuwe link naar je inbox "
-"verzonden!</i>"
+"<i class=\"fa fa-check\"/>Er is zojuist een nieuwe link naar je inbox "
+"verzonden!"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -250,8 +251,8 @@ msgid ""
 "<i class=\"fa fa-info-circle\"/> Links sent via email expire after a set "
 "delay to increase security."
 msgstr ""
-"<html><i class=\"fa fa-info-circle\"/>Links die via e-mail worden verzonden,"
-" verlopen na een bepaalde vertraging om de veiligheid te vergroten.</i>"
+"<i class=\"fa fa-info-circle\"/>Links die via e-mail worden verzonden, "
+"verlopen na een bepaalde vertraging om de veiligheid te vergroten."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -373,7 +374,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.message_signature_link
 msgid "A document has been signed and a copy attached to"
-msgstr ""
+msgstr "Een document is ondertekend en een kopie is toegevoegd aan"
 
 #. module: sign
 #. odoo-python
@@ -683,7 +684,7 @@ msgstr "Beschikbaar in nieuwe sjablonen"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "Back to %s"
-msgstr ""
+msgstr "Terug naar %s"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -1198,7 +1199,7 @@ msgstr "Documentsjabloon"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Document saved as Template."
-msgstr "Document als sjabloon opgeslagen"
+msgstr "Document als sjabloon opgeslagen."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.portal_my_home_sign
@@ -1285,7 +1286,7 @@ msgstr "Bewerken"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Edit Template"
-msgstr ""
+msgstr "Bewerk template"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -1695,6 +1696,11 @@ msgid ""
 "                        </code>\n"
 "                        menu."
 msgstr ""
+"Als je deze meldingen niet meer wilt ontvangen, kun je de extra-authenticatie stap uitschakelen in de\n"
+"                       <code>\n"
+"                            Aanmelden &gt; Configuratie &gt; Rollen\n"
+"                       </code>\n"
+"                        menu."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -2194,7 +2200,7 @@ msgstr "Aantal acties"
 #: model:ir.model.fields,field_description:sign.field_sign_item__num_options
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__num_options
 msgid "Number of Radio Button options"
-msgstr ""
+msgstr "Aantal keuzerondjes"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -2413,17 +2419,17 @@ msgstr "Keuzerondjes"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__radio_items
 msgid "Radio Items"
-msgstr ""
+msgstr "Radio Artikelen"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__radio_set_id
 msgid "Radio button options"
-msgstr ""
+msgstr "Keuzerondjes"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_radio_set
 msgid "Radio button set for keeping radio button items together"
-msgstr ""
+msgstr "Keuzeset voor het bij elkaar houden van keuzerondjes"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__rating_ids
@@ -3508,7 +3514,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The mail has been sent to contacts in copy: %(contacts)s"
-msgstr ""
+msgstr "De mail is verzonden naar contactpersonen in kopie: %(contacts)s"
 
 #. module: sign
 #. odoo-python
@@ -4258,6 +4264,8 @@ msgid ""
 "because you don't have enough credits for this operation.\n"
 "                    The signatory was able to finish signing, but was not asked to authenticate fully."
 msgstr ""
+"omdat je niet genoeg credits hebt voor deze bewerking.\n"
+"                    De ondertekenaar kon de ondertekening afmaken, maar werd niet gevraagd om zich volledig te authenticeren."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container

@@ -4,6 +4,9 @@
 # 
 # Translators:
 # Stevin Lilla, 2024
+# Katrin Kampura, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Anna, 2024
 # Siim Raasuke, 2024
 # 
 msgid ""
@@ -23,35 +26,35 @@ msgstr ""
 #. module: project_account_budget
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid ") of the"
-msgstr ""
+msgstr ")"
 
 #. module: project_account_budget
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid ") of the budget is remaining."
-msgstr ""
+msgstr ") eelarvest on alles."
 
 #. module: project_account_budget
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "<u>Budget</u>"
-msgstr ""
+msgstr "<u>Eelarve</u>"
 
 #. module: project_account_budget
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "Accounts"
-msgstr ""
+msgstr "Kontod"
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 msgid "Add Budget"
-msgstr ""
+msgstr "Lisa eelarve"
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "Allocated"
-msgstr ""
+msgstr "Jaotatud"
 
 #. module: project_account_budget
 #. odoo-javascript
@@ -59,18 +62,18 @@ msgstr ""
 #: model:ir.model,name:project_account_budget.model_budget_analytic
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_project_kanban_view_inherited
 msgid "Budget"
-msgstr ""
+msgstr "Eelarve"
 
 #. module: project_account_budget
 #. odoo-python
 #: code:addons/project_account_budget/models/project.py:0
 msgid "Budget Items"
-msgstr ""
+msgstr "Eelarve kirje"
 
 #. module: project_account_budget
 #: model:ir.model,name:project_account_budget.model_budget_line
 msgid "Budget Line"
-msgstr ""
+msgstr "Eelarve rida"
 
 #. module: project_account_budget
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_project_kanban_view_inherited
@@ -78,35 +81,37 @@ msgid ""
 "Budget {{ budget_progress >= 0.25 ? 'on track' : budget_progress >= 0 ? "
 "'soon overspent' : 'overspent' }}"
 msgstr ""
+"Budget {{ budget_progress >= 0.25 ? 'on track' : budget_progress >= 0 ? "
+"'soon overspent' : 'overspent' }}"
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 msgid "Budgets"
-msgstr ""
+msgstr "Eelarved"
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 msgid "Compare expected and actual revenues and costs."
-msgstr ""
+msgstr "Võrdle oodatud ja tegelikke tulusid ja kulusid. "
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.js:0
 msgid "New Budget"
-msgstr ""
+msgstr "Uus eelarve"
 
 #. module: project_account_budget
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "No Accounts"
-msgstr ""
+msgstr "Kontod puuduvad"
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 msgid "No Budget"
-msgstr ""
+msgstr "Eelarve puudub"
 
 #. module: project_account_budget
 #: model:ir.model,name:project_account_budget.model_project_project
@@ -116,21 +121,21 @@ msgstr "Projekt"
 #. module: project_account_budget
 #: model:ir.model,name:project_account_budget.model_project_update
 msgid "Project Update"
-msgstr ""
+msgstr "Projekti värskendus"
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "Remaining"
-msgstr ""
+msgstr "Allesjäänud"
 
 #. module: project_account_budget
 #. odoo-javascript
 #: code:addons/project_account_budget/static/src/components/project_right_side_panel/project_right_side_panel.xml:0
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "Spent"
-msgstr ""
+msgstr "Kulutatud"
 
 #. module: project_account_budget
 #. odoo-javascript
@@ -142,4 +147,4 @@ msgstr "Kokku"
 #. module: project_account_budget
 #: model_terms:ir.ui.view,arch_db:project_account_budget.project_update_default_description
 msgid "budget has been spent."
-msgstr ""
+msgstr "eelarve on kulutatud."

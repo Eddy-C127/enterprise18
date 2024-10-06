@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -220,6 +221,49 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"                    <p t-if=\"ctx.get('old_assignee_name')\">Beste <t t-out=\"ctx['old_assignee_name']\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Hallo,</p>\n"
+"                    <br>\n"
+"                    <p>\n"
+"                        De volgende dienst die je hebt aangevraagd is opnieuw toegewezen\n"
+"                        <t t-if=\"ctx.get('new_assignee_name')\"> aan <t t-out=\"ctx['new_assignee_name']\">Marc Demo</t></t>.\n"
+"                    </p>\n"
+"                    <table style=\"margin-left: 30px;\">\n"
+"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Datum</th>\n"
+"                            <td style=\"padding: 5px;\">\n"
+"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
+"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
+"                                   <t t-out=\"ctx['allocated_hours']\">(4:00h</t>)\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
+"                                   <t t-out=\"ctx['allocated_percentage']\">(50%</t>)\n"
+"                                </span>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"object.role_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Rol</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Barman</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Project</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Verzamelen</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Item Verkooporder</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">Koffie</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Opmerking</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                    <br>\n"
+"                </div>\n"
+"            "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -255,7 +299,7 @@ msgid ""
 "assigned this open shift."
 msgstr ""
 "<i class=\"fa fa-check-circle text-success\"/>Je hebt met succes deze "
-"openstaande dienst toegewezen gekregen. "
+"openstaande dienst toegewezen gekregen."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
@@ -319,6 +363,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
 msgid "<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
+"<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" "
+"title=\"Date\"/>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -491,6 +537,8 @@ msgid ""
 "<span><b>Congratulations!</b> You are now a master of planning.\n"
 "        </span>"
 msgstr ""
+"<span><b>Gefeliciteerd!</b> Je bent nu een meester in plannen.\n"
+"        </span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -595,6 +643,80 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<style>\n"
+"                    .planning_mail_template_button {\n"
+"                        padding: 5px 10px;\n"
+"                        tekstdecoratie: geen;\n"
+"                        rand: 1px;\n"
+"                        randradius: 3px;\n"
+"                        tekst-uitlijning: centreren;\n"
+"                        kleur: #374151;\n"
+"                        achtergrondkleur: #E7E9ED;\n"
+"                        rand: effen #E7E9ED;\n"
+"                        flex: 1 1 40%;\n"
+"                    }\n"
+"                    .top_button {\n"
+"                        kleur: #FFFFFF;\n"
+"                        achtergrondkleur: #714B67;\n"
+"                        border: solid #714B67;\n"
+"                        flex: 1 1 60%;\n"
+"                    }\n"
+"                    .knop_vak {\n"
+"                        weergave: flex;\n"
+"                        flex-wrap: wrap;\n"
+"                        tussenruimte: 10px;\n"
+"                        margin: 20px 15px 0px 15px;\n"
+"                    }\n"
+"                </style>\n"
+"                <div>\n"
+"                    <p t-if=\"ctx.get('employee_name')\">Beste <t t-out=\"ctx['employee_name']\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Hallo,</p>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('open_shift_available')\">We hebben een nieuwe dienst:</p>\n"
+"                    <p t-else=\"\">Je hebt de volgende dienst toegewezen gekregen:</p>\n"
+"                    <table style=\"margin-left: 30px;\">\n"
+"                        <tr t-if=\"(ctx.get('start_datetime') and ctx.get('end_datetime'))                                   or ctx.get('allocated_hours')                                   or ctx.get('allocated_percentage')\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Datum</th>\n"
+"                            <td style=\"padding: 5px;\">\n"
+"                                <span t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\" t-out=\"'%s ⟶ %s' % (                                     ctx['start_datetime'],                                     ctx['end_datetime'],                                 )\">\n"
+"                                    05/31/2021, 8:00 AM ⟶ 05/31/2021, 4:00 PM\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_hours')\" style=\"opacity: 0.5;\">\n"
+"                                   <t t-out=\"ctx['allocated_hours']\">(4:00h</t>)\n"
+"                                </span>\n"
+"                                <span t-if=\"ctx.get('allocated_percentage') and ctx['allocated_percentage'] != '100'\" style=\"opacity: 0.5;\">\n"
+"                                   <t t-out=\"ctx['allocated_percentage']\">(50%</t>)\n"
+"                                </span>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"object.role_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Rol</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.role_id.name or ''\">Barman</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'project_id') and object.project_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Project</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().project_id.name or ''\">Verzamelen</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'sale_line_id') and object.sale_line_id\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Item Verkooporder</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.sudo().sale_line_id.name or ''\">Koffie</td>\n"
+"                        </tr>\n"
+"                        <tr t-if=\"hasattr(object, 'name') and object.name\">\n"
+"                            <th style=\"padding: 5px; text-align: left;\">Opmerking</th>\n"
+"                            <td style=\"padding: 5px;\" t-out=\"object.name or ''\">/</td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                    <div class=\"button_box\">\n"
+"                        <a t-if=\"ctx.get('available_link')\" t-att-href=\"ctx['available_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">Wijs mij deze dienst toe</a>\n"
+"                        <a t-if=\"ctx.get('unavailable_link')\" t-att-href=\"ctx['unavailable_link']\" target=\"_blank\" class=\"planning_mail_template_button top_button\">Ik ben niet beschikbaar</a>\n"
+"                        <a t-if=\"ctx.get('google_url')\" t-att-href=\"ctx['google_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Toevoegen aan Google Agenda</a>\n"
+"                        <a t-if=\"ctx.get('iCal_url')\" t-att-href=\"ctx['iCal_url']\" target=\"_blank\" class=\"planning_mail_template_button\">Toevoegen aan iCal/Outlook</a>\n"
+"                    </div>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('open_shift_available')\">Als je geïnteresseerd en beschikbaar bent, wijs jezelf dan deze open dienst toe.</p>\n"
+"                    <p t-else=\"\">Als de huidige dienst je niet schikt, raden we je aan om contact op te nemen met je collega's en te vragen om van dienst te ruilen. Misschien zijn ze geïnteresseerd om van dienst te ruilen.</p>\n"
+"                </div>\n"
+"            "
 
 #. module: planning
 #: model:mail.template,body_html:planning.email_template_planning_planning
@@ -640,6 +762,46 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<style>\n"
+"                .planning_mail_template_button {\n"
+"                    padding: 5px 10px;\n"
+"                    tekstdecoratie: geen;\n"
+"                    rand: 1px;\n"
+"                    randradius: 3px;\n"
+"                    weergave: inline-block; \n"
+"                    breedte: 190px;\n"
+"                    tekst-uitlijning: centreren;\n"
+"                }\n"
+"                </style>\n"
+"                <div>\n"
+"                    <p t-if=\"ctx.get('employee')\">Beste <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Hallo,</p>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
+"                        Je aankomende verschuivingen van <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
+"                        tot <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> zijn gepubliceerd.\n"
+"                    </p>\n"
+"                    <div style=\"display: flex; margin: 15px;\">\n"
+"                        <div t-if=\"ctx.get('planning_url')\" style=\"margin-right: 15px;\">\n"
+"                            <a t-att-href=\"ctx['planning_url']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;\">Bekijk je planning</a>\n"
+"                        </div>\n"
+"                        <div t-if=\"ctx.get('planning_url_ics')\">\n"
+"                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Toevoegen aan kalender</a>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
+"                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
+"                            We willen je er ook graag aan herinneren dat er nog wat open diensten beschikbaar zijn, en als je geïnteresseerd en beschikbaar bent, wijs jezelf dan alsjeblieft aan voor die diensten.\n"
+"                        </t>\n"
+"                        <t t-if=\"object.allow_self_unassign and object.self_unassign_days_before\">\n"
+"                            Als je een dienst die aan jou is toegewezen niet kunt werken, meld je dan af binnen <t t-out=\"object.self_unassign_days_before or ''\">5</t> dag(en) voor het begin van de dienst.\n"
+"                        </t>\n"
+"                    </p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
+"                    <p t-if=\"object.allow_self_unassign\">Als je huidige rooster niet bij je past, moedigen we je aan om contact op te nemen met je collega's en te vragen om van dienst te ruilen. Misschien zijn ze geïnteresseerd om diensten met je te ruilen.</p>\n"
+"                </div>\n"
+"            "
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
@@ -677,7 +839,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
 msgid "Additional message included in the email sent to your employees"
-msgstr "Extra bericht in de e-mail die naar jouw werknemers verzonden wordt."
+msgstr "Extra bericht in de e-mail die naar jouw werknemers verzonden wordt"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
@@ -1168,7 +1330,7 @@ msgstr "Bewerken"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.xml:0
 msgid "Edit Recurrent Shift"
-msgstr ""
+msgstr "Terugkerende verschuiving bewerken"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1182,6 +1344,9 @@ msgid ""
 " of another employee, notifying the person who requested to switch that the "
 "shift has been taken"
 msgstr ""
+"E-mail die automatisch wordt verzonden wanneer een werknemer zichzelf "
+"toewijst aan de ongewenste dienst van een andere werknemer, met de melding "
+"aan degene die om de dienst heeft gevraagd dat de dienst is overgenomen"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_slot_single
@@ -1457,7 +1622,7 @@ msgstr "Legenda"
 #: model:ir.model.fields,field_description:planning.field_planning_planning__allow_self_unassign
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allow_self_unassign
 msgid "Let Employee Unassign Themselves"
-msgstr "Laat de werknemer zichzelf uitschrijven."
+msgstr "Laat de werknemer zichzelf uitschrijven"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1734,13 +1899,13 @@ msgstr "Beschikbare openstaande diensten"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts assigned"
-msgstr ""
+msgstr "Open diensten toegewezen"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts unscheduled"
-msgstr ""
+msgstr "Open diensten ongepland"
 
 #. module: planning
 #. odoo-javascript
@@ -1911,6 +2076,8 @@ msgid ""
 "Please add a work email for the following employee so that they can receive "
 "their planning:"
 msgstr ""
+"Voeg een werkmail toe voor de volgende medewerker zodat hij of zij de "
+"planning kan ontvangen:"
 
 #. module: planning
 #. odoo-javascript
@@ -2000,7 +2167,7 @@ msgstr "Terugkerende diensten"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 msgid "Recurring shifts created"
-msgstr ""
+msgstr "Terugkerende verschuivingen gecreëerd"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__slot_ids
@@ -2125,7 +2292,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
 msgid "Role:"
-msgstr "Functie"
+msgstr "Functie:"
 
 #. module: planning
 #. odoo-javascript
@@ -2205,7 +2372,7 @@ msgstr "Planning per functie"
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "Schedule sent to your employees"
-msgstr ""
+msgstr "Planning verzonden naar je werknemers"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
@@ -2306,13 +2473,13 @@ msgstr "Dienstsjablonen"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 msgid "Shift saved as template"
-msgstr ""
+msgstr "Verschuiving opgeslagen als sjabloon"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "Shift sent"
-msgstr ""
+msgstr "Shift verzonden"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -2345,7 +2512,7 @@ msgstr "Diensten van je teamlid"
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "Shifts reset to draft"
-msgstr ""
+msgstr "Verschuivingen teruggezet naar concept"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_shipping_associate
@@ -2501,7 +2668,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "The work email is missing for the following employees:"
-msgstr ""
+msgstr "De werkmail ontbreekt voor de volgende medewerkers:"
 
 #. module: planning
 #. odoo-python
@@ -2539,7 +2706,7 @@ msgstr "Deze voorgangsbalk is niet geïmplementeerd."
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__was_copied
 msgid "This Shift Was Copied From Previous Week"
-msgstr "Deze dienst is gekopieerd van vorige week."
+msgstr "Deze dienst is gekopieerd van vorige week"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -2567,7 +2734,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "This method must take two slots in argument."
-msgstr ""
+msgstr "Deze methode moet twee slots als argument hebben."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2594,7 +2761,7 @@ msgstr "Deze dienst is terugkerend. Verwijder:"
 #. module: planning
 #: model:digest.tip,name:planning.digest_tip_planning_0
 msgid "Tip: Record your planning faster"
-msgstr "Tip: leg je planning sneller vast."
+msgstr "Tip: leg je planning sneller vast"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__repeat
@@ -2647,7 +2814,7 @@ msgstr "Ongewenste diensten beschikbaar"
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
 msgid "Up to which date should the plannings be repeated"
-msgstr "Tot welke datum moet de planning worden herhaald?"
+msgstr "T/m welke datum moet de planning worden herhaald"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__user_id
@@ -2719,7 +2886,7 @@ msgstr "Jaar"
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You are not allowed to reset shifts to draft."
-msgstr ""
+msgstr "Het is niet toegestaan om diensten terug te zetten naar concept."
 
 #. module: planning
 #. odoo-python
@@ -2800,7 +2967,7 @@ msgstr "Je hebt het recht niet om van diensten te wisselen."
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
 msgid "You have been successfully unassigned from this shift"
-msgstr "Je bent met succes uit deze dienst verwijderd."
+msgstr "Je bent met succes uit deze dienst verwijderd"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign

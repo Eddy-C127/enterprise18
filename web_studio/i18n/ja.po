@@ -5,6 +5,7 @@
 # Translators:
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,7 +91,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid " until %s"
-msgstr ""
+msgstr "%sまで"
 
 #. module: web_studio
 #. odoo-javascript
@@ -102,7 +103,7 @@ msgstr "\"失敗しました。"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s delegated approval rights to %(delegate_to)s"
-msgstr ""
+msgstr "%(user_name)s は承認権を %(delegate_to)sに委ねました"
 
 #. module: web_studio
 #. odoo-python
@@ -111,12 +112,13 @@ msgid ""
 "%(user_name)s has set approval rights from %(previous_approvers)s to "
 "%(next_approvers)s"
 msgstr ""
+"%(user_name)s は承認権を %(previous_approvers)s から %(next_approvers)s に設定しました。"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s revoked their delegation to %(revoked_users)s"
-msgstr ""
+msgstr "%(user_name)sは %(revoked_users)sから委任権を取消しました"
 
 #. module: web_studio
 #. odoo-python
@@ -128,7 +130,7 @@ msgstr "%sレポート"
 #. odoo-python
 #: code:addons/web_studio/models/studio_export_model.py:0
 msgid "%s record(s)"
-msgstr ""
+msgstr "%s レコード"
 
 #. module: web_studio
 #. odoo-python
@@ -244,7 +246,7 @@ msgstr "アクションのタイトル"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Action: %s"
-msgstr ""
+msgstr "アクション: %s"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
@@ -336,7 +338,7 @@ msgstr "優先度を追加する"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Add an approval step"
-msgstr ""
+msgstr "承認ステップを追加"
 
 #. module: web_studio
 #. odoo-javascript
@@ -377,7 +379,7 @@ msgstr "タグを追加する"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_export_data
 msgid "Additional Export Data"
-msgstr ""
+msgstr "追加エクスポートデータ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -388,19 +390,19 @@ msgstr "追加フィールド"
 #. module: web_studio
 #: model_terms:ir.actions.act_window,help:web_studio.action_models_to_export
 msgid "Additional Studio Exports"
-msgstr ""
+msgstr "追加スタジオエクスポート"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_models
 msgid "Additional models to export"
-msgstr ""
+msgstr "エクスポートする追加モデル"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_wizard__additional_models
 msgid ""
 "Additional models you may choose to export in addition to the Studio "
 "customizations"
-msgstr ""
+msgstr "スタジオのカスタマイズに加えて、エクスポートする追加モデルを選択できます"
 
 #. module: web_studio
 #. odoo-javascript
@@ -434,7 +436,7 @@ msgstr "再付番を許可"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "An approval is missing"
-msgstr ""
+msgstr "承認が見つかりません"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
@@ -461,7 +463,7 @@ msgstr "承認グループ"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approval Order"
-msgstr ""
+msgstr "承認オーダ"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__rule_id
@@ -473,12 +475,12 @@ msgstr "承認規則"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_approver
 msgid "Approval Rule Approvers Enriched"
-msgstr ""
+msgstr "承認規則 承認者エンリッチ済"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_delegate
 msgid "Approval Rule Delegate"
-msgstr ""
+msgstr "承認規則委任"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_button_configuration_search_view
@@ -495,7 +497,7 @@ msgstr "承認"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals %(model_name)s"
-msgstr ""
+msgstr "承認 %(model_name)s"
 
 #. module: web_studio
 #. odoo-python
@@ -524,7 +526,7 @@ msgstr "承認済"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Approved <i class=\"fa fa-thumbs-up text-success\"/>"
-msgstr ""
+msgstr "承認済 <i class=\"fa fa-thumbs-up text-success\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -541,12 +543,12 @@ msgstr "承認/却下"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approver Group"
-msgstr ""
+msgstr "承認者グループ"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__approver_log_ids
 msgid "Approver Log"
-msgstr ""
+msgstr "承認者ログ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -608,7 +610,7 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__is_demo_data
 msgid "As Demo"
-msgstr ""
+msgstr "デモとして"
 
 #. module: web_studio
 #. odoo-javascript
@@ -970,12 +972,12 @@ msgstr "モデルの構成"
 msgid ""
 "Configure additional models to export with Studio, such as records that hold"
 " configuration information or demo data."
-msgstr ""
+msgstr "設定情報やデモデータを保持するレコードなど、スタジオでエクスポートする追加のモデルを設定します。"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Configure data and demo data to export"
-msgstr ""
+msgstr "エキスポートするデータやデモデータを設定する"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1252,7 +1254,7 @@ msgstr "デフォルトの表示モード"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__default_export_data
 msgid "Default Export Data"
-msgstr ""
+msgstr "デフォルトエクスポートデータ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1303,14 +1305,14 @@ msgstr "開始日/終了日を定義し、ガントチャートでレコード�
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__updatable
 msgid "Defines if the records would be updated during a module update."
-msgstr ""
+msgstr "モジュール更新時にレコードが更新されるかどうかを定義します。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
 msgid "Defines the sequential order in which the approvals are requested."
-msgstr ""
+msgstr "承認が要求される順序を定義します。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1322,13 +1324,13 @@ msgstr "遅延フィールド"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
 msgid "Delegate"
-msgstr ""
+msgstr "委任"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Delegate to"
-msgstr ""
+msgstr "委任先:"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1687,7 +1689,7 @@ msgstr "フィールド"
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_model__excluded_fields
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 msgid "Fields to exclude"
-msgstr ""
+msgstr "除外対象フィールド"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1988,14 +1990,14 @@ msgstr "チェックした場合は、一部のメッセージに配信エラー
 msgid ""
 "If set, the attachments related to the exported records will be included in "
 "the export."
-msgstr ""
+msgstr "設定されている場合、エクスポートされたレコードに関連する添付ファイルはエクスポートに含まれます。"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__is_demo_data
 msgid ""
 "If set, the exported records will be considered as demo data during the "
 "import."
-msgstr ""
+msgstr "設定されている場合、エクスポートされたレコードはインポート時にデモデータとみなされます。"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
@@ -2048,12 +2050,12 @@ msgstr "進行中"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_additional_data
 msgid "Include Data"
-msgstr ""
+msgstr "データを含む"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_demo_data
 msgid "Include Demo Data"
-msgstr ""
+msgstr "デモデータを含む"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2131,7 +2133,7 @@ msgstr "見えない"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_approver__is_delegation
 msgid "Is Delegation"
-msgstr ""
+msgstr "委任"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_is_follower
@@ -2165,7 +2167,7 @@ msgstr "かんばん"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__kanban_color
 msgid "Kanban Color"
-msgstr ""
+msgstr "かんばん色"
 
 #. module: web_studio
 #. odoo-python
@@ -2363,7 +2365,7 @@ msgstr "実行するメソッド"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Method: %s"
-msgstr ""
+msgstr "方法: %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2393,7 +2395,7 @@ msgstr "モデル"
 #. odoo-python
 #: code:addons/web_studio/wizard/studio_export_wizard.py:0
 msgid "Model '%s' should not contain records with the same ID."
-msgstr ""
+msgstr "モデル '%s' は同じIDのレコードを含んではいけません。"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_model_access
@@ -2650,7 +2652,7 @@ msgstr "ノート"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
-msgstr ""
+msgstr "通知先:"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_needaction_counter
@@ -2720,7 +2722,7 @@ msgstr "フォームビューを開く"
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Open kanban view of approvals"
-msgstr ""
+msgstr "承認のかんばんビューを開く"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2825,7 +2827,7 @@ msgstr "記帳"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__pre
 msgid "Pre"
-msgstr ""
+msgstr "前の"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
@@ -2973,7 +2975,7 @@ msgstr "拒否済"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Rejected <i class=\"fa fa-thumbs-down text-danger\"/>"
-msgstr ""
+msgstr "拒否済 <i class=\"fa fa-thumbs-down text-danger\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3249,7 +3251,7 @@ msgstr "フィールドを選択"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select a group..."
-msgstr ""
+msgstr "グループを選択"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3266,7 +3268,7 @@ msgstr "関連するフィールドを選択します。"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 msgid "Select group"
-msgstr ""
+msgstr "グループを選択"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3291,7 +3293,7 @@ msgstr "相互多対1フィールドを選択"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select users..."
-msgstr ""
+msgstr "ユーザを選択"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3401,7 +3403,7 @@ msgstr "スロー"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "Some approvals are missing"
-msgstr ""
+msgstr "見つからない承認があります"
 
 #. module: web_studio
 #. odoo-python
@@ -3492,47 +3494,47 @@ msgstr "ステップ"
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__1
 msgid "Step 1"
-msgstr ""
+msgstr "ステップ 1"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__2
 msgid "Step 2"
-msgstr ""
+msgstr "ステップ 2"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__3
 msgid "Step 3"
-msgstr ""
+msgstr "ステップ 3"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__4
 msgid "Step 4"
-msgstr ""
+msgstr "ステップ 4"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__5
 msgid "Step 5"
-msgstr ""
+msgstr "ステップ 5"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__6
 msgid "Step 6"
-msgstr ""
+msgstr "ステップ 6"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__7
 msgid "Step 7"
-msgstr ""
+msgstr "ステップ 7"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__8
 msgid "Step 8"
-msgstr ""
+msgstr "ステップ 8"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__9
 msgid "Step 9"
-msgstr ""
+msgstr "ステップ 9"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3596,7 +3598,7 @@ msgstr "スタジオのカスタマイズ"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Studio Customizations will be exported"
-msgstr ""
+msgstr "スタジオカスタマイズがエクスポートされます"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.action_models_to_export
@@ -3605,27 +3607,27 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
 msgid "Studio Export"
-msgstr ""
+msgstr "スタジオエクスポート"
 
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.studio_export_action
 msgid "Studio Export Action"
-msgstr ""
+msgstr "スタジオエクスポートアクション"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard_data
 msgid "Studio Export Data"
-msgstr ""
+msgstr "スタジオエクスポートデータ"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_model
 msgid "Studio Export Models"
-msgstr ""
+msgstr "スタジオエクスポートモジュール"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard
 msgid "Studio Export Wizard"
-msgstr ""
+msgstr "スタジオエクスポートウィザード"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_mixin
@@ -3787,7 +3789,7 @@ msgstr "要求された変更により、ビューでエラーが発生しまし
 msgid ""
 "The step description will be displayed on the button on which an approval is"
 " requested."
-msgstr ""
+msgstr "承認を依頼するボタンに、ステップの説明が表示されます。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3795,14 +3797,14 @@ msgstr ""
 msgid ""
 "The user who approves this step will not be able to approve other steps for "
 "the same record."
-msgstr ""
+msgstr "このステップを承認するユーザーは、同じレコードの他のステップを承認することはできません。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__approval_group_id
 msgid "The users in this group are able to approve or reject the step."
-msgstr ""
+msgstr "このグループのユーザは、ステップを承認または拒否することができます。"
 
 #. module: web_studio
 #. odoo-python
@@ -3841,7 +3843,7 @@ msgstr "プレビューするレコードがありません。"
 msgid ""
 "These users are able to approve or reject the step and will be assigned to "
 "an activity when their approval is requested."
-msgstr ""
+msgstr "これらのユーザはステップを承認または拒否することができ、承認が求められた際に活動に割当てられます。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3850,7 +3852,7 @@ msgstr ""
 msgid ""
 "These users will receive a notification via internal note when the step is "
 "approved or rejected"
-msgstr ""
+msgstr "これらのユーザには、ステップが承認または拒否された際に、社内通知が送信されます。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3892,7 +3894,7 @@ msgstr "これは、編集した部分のシンタックスが間違っている
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_export_model_unique_model
 msgid "This model is already being exported."
-msgstr ""
+msgstr "このモデルはすでにインストールされています。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3959,7 +3961,7 @@ msgstr "戻す"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Unsupported operator '%s' to search action_xmlid"
-msgstr ""
+msgstr "action_xmlid を検索するためのオペレータ '%s' はサポートされていません"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__date_to
@@ -4007,7 +4009,7 @@ msgstr "ユーザーアバタープレースホルダー"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__users_to_notify
 msgid "Users to Notify"
-msgstr ""
+msgstr "通知先ユーザ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4040,7 +4042,7 @@ msgstr "ビュー"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor.js:0
 msgid "View Editor"
-msgstr ""
+msgstr "エディタを表示"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4164,7 +4166,7 @@ msgstr "年"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "You can not approve this rule."
-msgstr ""
+msgstr "この規則を承認できません。"
 
 #. module: web_studio
 #. odoo-python
@@ -4172,7 +4174,7 @@ msgstr ""
 msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
-msgstr ""
+msgstr "自分が設定していない承認や、上位レベルの規則の承認者に属していない承認は取消できません。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4202,7 +4204,7 @@ msgstr "アクション"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "delegates to %s."
-msgstr ""
+msgstr "%sに委任。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4226,7 +4228,7 @@ msgstr "例:不動産"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "no one"
-msgstr ""
+msgstr "誰も"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4256,7 +4258,7 @@ msgstr "テストメール"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "to %s."
-msgstr ""
+msgstr " %sへ。"
 
 #. module: web_studio
 #. odoo-javascript

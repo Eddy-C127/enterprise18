@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Abe Manyo, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Abe Manyo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -76,19 +77,19 @@ msgstr "<span class=\"badge text-bg-success\">Connected</span>"
 #. module: iot
 #: model:ir.model,name:iot.model_add_iot_box
 msgid "Add IoT Box wizard"
-msgstr "Tambahkan alat bantu Kotak IoT"
+msgstr "Tambahkan alat bantu IoT Box"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 msgid "Are you sure you want to reboot the IoT box?"
-msgstr "Apakah Anda yakin ingin reboot kotak IoT?"
+msgstr "Apakah Anda yakin ingin reboot IoT Box?"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 msgid "Are you sure you want to restart Odoo on the IoT box?"
-msgstr "Apakah Anda yakin ingin restart Odoo pada kotak IoT?"
+msgstr "Apakah Anda yakin ingin restart Odoo pada IoT Box?"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__drivers_auto_update
@@ -98,7 +99,7 @@ msgstr "Update pengemudi gratis"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_box__drivers_auto_update
 msgid "Automatically update drivers when the IoT Box boots"
-msgstr "Secara otomatis update pengemudi saat Kotak IoT dinyalakan"
+msgstr "Secara otomatis update pengemudi saat IoT Box dinyalakan"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__scanner
@@ -119,7 +120,7 @@ msgstr "Kamera"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Check IoT Box connection. Try restarting if needed."
-msgstr ""
+msgstr "Periksa koneksi IoT Box. Coba restart bila diperlukan."
 
 #. module: iot
 #. odoo-javascript
@@ -188,7 +189,7 @@ msgstr "Connect"
 #: model:ir.actions.act_window,name:iot.action_add_iot_box
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "Connect an IoT Box"
-msgstr "Hubungkan Kotak IoT"
+msgstr "Hubungkan IoT Box"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__connection
@@ -309,7 +310,7 @@ msgstr "Unduh log"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_report_action.js:0
 msgid "Failed to send to printer."
-msgstr ""
+msgstr "Gagal untuk mengirimkan ke printer."
 
 #. module: iot
 #. odoo-javascript
@@ -330,7 +331,7 @@ msgstr "Dikelompokkan berdasarkan"
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
 msgid "HDMI"
-msgstr ""
+msgstr "HDMI"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__id
@@ -359,7 +360,7 @@ msgstr "Pengidentifikasi (Alamat Mac)"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__connected
 msgid "If device is connected to the IoT Box"
-msgstr "Apakah perangkat terhubung ke Kotak IoT"
+msgstr "Apakah perangkat terhubung ke IoT Box"
 
 #. module: iot
 #. odoo-javascript
@@ -390,13 +391,13 @@ msgstr "IoT Box"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__ip_url
 msgid "IoT Box Home Page"
-msgstr "Beranda Kotak IoT"
+msgstr "Beranda IoT Box"
 
 #. module: iot
 #: model:ir.actions.act_window,name:iot.iot_box_action
 #: model:ir.ui.menu,name:iot.iot_box_menu_action
 msgid "IoT Boxes"
-msgstr "Kotak-Kotak IoT"
+msgstr "Kotak-IoT Box"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
@@ -416,7 +417,7 @@ msgstr "Apakah Scanner"
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__is_websocket_active
 msgid "Is Websocket active?"
-msgstr ""
+msgstr "Apakah Websocket aktif?"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__keyboard
@@ -504,18 +505,18 @@ msgstr "Jaringan"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "New IoT Box connected!"
-msgstr ""
+msgstr "IoT Box baru terhubung!"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "No IoT Box found!"
-msgstr "Tidak menemukan Kotak IoT!"
+msgstr "Tidak menemukan IoT Box!"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "No new IoT Box found."
-msgstr ""
+msgstr "Tidak ada Kotak IoX baru yang ditemukan."
 
 #. module: iot
 #. odoo-javascript
@@ -533,7 +534,7 @@ msgstr "Tidak ada laporan untuk ditampilkan"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 msgid "Odoo cannot reach the IoT Box."
-msgstr "Odoo tidak dapat mencapai Kotak IoT."
+msgstr "Odoo tidak dapat mencapai IoT Box."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__office_printer
@@ -547,6 +548,8 @@ msgid ""
 "One of the printer used to print document have been removed. Please retry "
 "the operation to choose new printers to print."
 msgstr ""
+"Salah satu printer yang digunakan untuk mencetak dokumen telah dihapus. "
+"Silakan coba ulang operasi untuk memilih printer baru untuk mencetak."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -575,7 +578,7 @@ msgid ""
 "Please accept the certificate of your IoT Box (procedure depends on your "
 "browser):"
 msgstr ""
-"Mohon terima sertifikat Kotak IoT Anda (prosedur tergantung pada browser "
+"Mohon terima sertifikat IoT Box Anda (prosedur tergantung pada browser "
 "Anda):"
 
 #. module: iot
@@ -588,7 +591,7 @@ msgstr "Mohon periksa apakah IoT Box masih terhubung."
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Please enter a pairing code."
-msgstr ""
+msgstr "Silakan masukkan kode pairing."
 
 #. module: iot
 #. odoo-javascript
@@ -620,12 +623,12 @@ msgstr "Printer"
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Printing operation completed on printer %s"
-msgstr ""
+msgstr "Operasi pencetakkan diselesaikan pada printer %s"
 
 #. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
 msgid "Publisher Warranty Contract For IoT Box"
-msgstr "Kontrak Garansi Penerbit Untuk Kotak IoT"
+msgstr "Kontrak Garansi Penerbit Untuk IoT Box"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__receipt_printer
@@ -652,14 +655,14 @@ msgstr "Laporan"
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 msgid "Reports with linked printers"
-msgstr ""
+msgstr "Melaporkan dengan printer terhubung"
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
 #: model:ir.ui.menu,name:iot.iot_clear_selected_devices
 msgid "Reset Linked Printers"
-msgstr ""
+msgstr "Reset Printer Terhubung"
 
 #. module: iot
 #. odoo-javascript
@@ -705,7 +708,7 @@ msgstr "Pilihan printer"
 #: code:addons/iot/static/src/iot_report_action.js:0
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 msgid "Sending to printer %s..."
-msgstr ""
+msgstr "Mengirim ke printer %s..."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -756,12 +759,12 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_device_action_search_iot_box
 msgid "There is no device connected to this IoT Box"
-msgstr "Tidak ada perangkat yang terhubung ke Kotak IoT"
+msgstr "Tidak ada perangkat yang terhubung ke IoT Box"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_device_action
 msgid "There is no device connected to your IoT Boxes"
-msgstr "Tidak ada perangkat yang terhubung ke Kotak IoT Anda"
+msgstr "Tidak ada perangkat yang terhubung ke IoT Box Anda"
 
 #. module: iot
 #. odoo-javascript
@@ -807,7 +810,7 @@ msgstr "USB"
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "Using Pairing Code to connect..."
-msgstr ""
+msgstr "Gunakan Kode Pairing untuk terhubung..."
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
@@ -818,14 +821,14 @@ msgstr "Varian"
 #. odoo-javascript
 #: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
 msgid "Waiting for a new IoT Box..."
-msgstr ""
+msgstr "Menunggu IoT Box baru..."
 
 #. module: iot
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
 msgid "We had troubles pairing your IoT Box. Please try again later."
 msgstr ""
-"Kami mengalami masalah mempasangkan Kotak IoT Anda. Silakan coba lagi nanti."
+"Kami mengalami masalah mempasangkan IoT Box Anda. Silakan coba lagi nanti."
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_ir_actions_report__device_ids
@@ -834,7 +837,7 @@ msgid ""
 "on the IoT Box"
 msgstr ""
 "Saat mengatur perangkat di sini, laporan akan dicetak melalui perangkat ini "
-"pada Kotak IoT"
+"pada IoT Box"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
@@ -849,12 +852,12 @@ msgstr "atau wifi"
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
 msgid "reset.linked.printers"
-msgstr ""
+msgstr "reset.linked.printers"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "to add an IoT Box."
-msgstr "untuk menambahkan Kotak IoT."
+msgstr "untuk menambahkan IoT Box."
 
 #. module: iot
 #: model:ir.model,name:iot.model_ir_websocket

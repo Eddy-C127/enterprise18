@@ -4,6 +4,8 @@
 # 
 # Translators:
 # Stevin Lilla, 2024
+# Patrick-Jordan Kiudorv, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
 # Siim Raasuke, 2024
 # 
 msgid ""
@@ -23,12 +25,12 @@ msgstr ""
 #. module: project_forecast
 #: model_terms:ir.ui.view,arch_db:project_forecast.planning_shift_ics_description_inherit
 msgid "<b>Project:</b>"
-msgstr ""
+msgstr "<b>Projekt:</b>"
 
 #. module: project_forecast
 #: model:ir.ui.menu,name:project_forecast.planning_menu_schedule_by_project
 msgid "By Project"
-msgstr ""
+msgstr "Projekti järgi"
 
 #. module: project_forecast
 #: model:ir.model.fields,field_description:project_forecast.field_planning_slot_template__company_id
@@ -38,13 +40,13 @@ msgstr "Ettevõte"
 #. module: project_forecast
 #: model_terms:ir.actions.act_window,help:project_forecast.project_forecast_action_from_project
 msgid "Let's start your planning by adding a new shift."
-msgstr ""
+msgstr "Alustame teie töögraafiku koostamist uue vahetuse lisamisega."
 
 #. module: project_forecast
 #: model_terms:ir.ui.view,arch_db:project_forecast.planning_slot_template_inherit_view_search
 #: model_terms:ir.ui.view,arch_db:project_forecast.planning_slot_view_search
 msgid "My Projects"
-msgstr ""
+msgstr "Minu projektid"
 
 #. module: project_forecast
 #: model_terms:ir.actions.act_window,help:project_forecast.planning_action_schedule_by_project
@@ -52,13 +54,13 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:project_forecast.project_forecast_action_from_project
 #: model_terms:ir.actions.act_window,help:project_forecast.project_forecast_action_schedule_by_employee
 msgid "No shifts found. Let's create one!"
-msgstr ""
+msgstr "Vahetusi ei leitud. Loome ühe!"
 
 #. module: project_forecast
 #. odoo-python
 #: code:addons/project_forecast/models/project.py:0
 msgid "Planned"
-msgstr ""
+msgstr "Planeeritud"
 
 #. module: project_forecast
 #: model:ir.actions.act_window,name:project_forecast.planning_action_schedule_project
@@ -66,17 +68,17 @@ msgstr ""
 #: model:ir.embedded.actions,name:project_forecast.project_embedded_action_planning
 #: model:ir.embedded.actions,name:project_forecast.project_embedded_action_planning_dashboard
 msgid "Planning"
-msgstr ""
+msgstr "Planeerimine"
 
 #. module: project_forecast
 #: model:ir.model,name:project_forecast.model_planning_analysis_report
 msgid "Planning Analysis Report"
-msgstr ""
+msgstr "Planeerimise analüüsi aruanne"
 
 #. module: project_forecast
 #: model:ir.model,name:project_forecast.model_planning_slot
 msgid "Planning Shift"
-msgstr ""
+msgstr "Vahetuse planeerimine"
 
 #. module: project_forecast
 #: model:ir.model,name:project_forecast.model_project_project
@@ -93,17 +95,17 @@ msgstr "Projekt"
 #. module: project_forecast
 #: model_terms:ir.ui.view,arch_db:project_forecast.planning_shift_ics_description_inherit
 msgid "Project:"
-msgstr ""
+msgstr "Projekt:"
 
 #. module: project_forecast
 #: model:ir.actions.act_window,name:project_forecast.planning_action_schedule_by_project
 msgid "Schedule by Project"
-msgstr ""
+msgstr "Planeeri projekti järgi"
 
 #. module: project_forecast
 #: model:ir.actions.act_window,name:project_forecast.project_forecast_action_schedule_by_employee
 msgid "Schedule by Resource"
-msgstr ""
+msgstr "Planeeri ressursside järgi"
 
 #. module: project_forecast
 #: model_terms:ir.actions.act_window,help:project_forecast.planning_action_schedule_by_project
@@ -113,16 +115,18 @@ msgid ""
 "Schedule your human and material resources across roles, projects and sales "
 "orders."
 msgstr ""
+"Planeerige oma inim- ja materiaalsed ressursid rollide, projektide ja "
+"müügitellimuste lõikes."
 
 #. module: project_forecast
 #: model:ir.model,name:project_forecast.model_planning_slot_template
 msgid "Shift Template"
-msgstr ""
+msgstr "Vahetuse mall"
 
 #. module: project_forecast
 #: model:planning.role,name:project_forecast.planning_role_tester
 msgid "Tester"
-msgstr ""
+msgstr "Testija"
 
 #. module: project_forecast
 #. odoo-python
@@ -131,3 +135,5 @@ msgid ""
 "You cannot update the company for project %(project_name)s as it's linked to shifts in another company.\n"
 "If you want to change the company for another, leave the project's company blank, transfer shifts %(slots_names)s to the destination company and then change the project's company."
 msgstr ""
+"Te ei saa projekti %(project_name)s ettevõtet uuendada, kuna see on seotud vahetustega teises ettevõttes. \n"
+"Kui soovid ettevõtet teiseks muuta, jäta projekti ettevõte tühjaks, edasta vahetused %(slots_names)s sihtettevõttesse ja seejärel muuda projekti ettevõtet."

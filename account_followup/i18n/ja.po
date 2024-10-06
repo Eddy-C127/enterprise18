@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-09-26 12:48+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,6 +102,37 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px;\">\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\"> <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>)様</t>\n"
+"                        <t t-else=\"\">Dear <t t-out=\"object.name or ''\"></t>様</t>\n"
+"                        <br>\n"
+"                        以下のお支払いについて ご入金が確認できておりません: <t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"></t>\n"
+"                        <br>\n"
+"                        つきましては、8日以内にお支払いお手続きをお願いします。\n"
+"                        <br>\n"
+"                        <div t-if=\"object._show_pay_now_button()\" class=\"d-flex\">\n"
+"                            <a t-att-href=\"'/my/invoices/overdue'\" class=\"btn btn-primary\">今すぐ支払う</a>\n"
+"                        </div>\n"
+"                        なお、行き違いでご送金頂いておりました場合には、何卒ご容赦下さい。\n"
+"                        何かご質問などございましたら、弊社の経理部宛にご連絡下さい。\n"
+"                        <br>\n"
+"                        ご理解頂きありがとうございます。\n"
+"                        <br>\n"
+"                        何卒宜しくお願い致します。\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"></t>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br>\n"
+"                            --\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"></t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_4
@@ -226,7 +258,7 @@ msgstr ""
 msgid ""
 "<span>Preferred address for follow-up reports. Selected by default when you "
 "send reminders about overdue invoices.</span>"
-msgstr "<span>フォローアップレポート用の優先アドレス。未払請求書に関する督促を送信する際にデフォルトで選択されます。</span>"
+msgstr "<span>フォローアップレポート用の優先アドレス。滞納請求書に関する督促を送信する際にデフォルトで選択されます。</span>"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -759,8 +791,8 @@ msgstr "フォローアップレターを印刷"
 
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.action_account_reports_customer_statements_do_followup
-msgid "Process Automatic Follow-ups"
-msgstr "自動フォローアップ"
+msgid "Process Follow-ups"
+msgstr ""
 
 #. module: account_followup
 #. odoo-python
@@ -988,7 +1020,7 @@ msgstr "取引先の情報が不足していたため、自動化されたフォ
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__with_overdue_invoices
 msgid "With overdue invoices"
-msgstr "期限超過請求書あり"
+msgstr "滞納請求書あり"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_manual_reminder

@@ -39,13 +39,13 @@ msgstr "# Geboekte afschrijvingen"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Disposal"
-msgstr ""
+msgstr "%(asset)s: Verwijdering"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Sale"
-msgstr ""
+msgstr "%(asset)s: Verkoop"
 
 #. module: account_asset
 #. odoo-python
@@ -57,7 +57,7 @@ msgstr "%(months)s m"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s van %(total)s)"
 
 #. module: account_asset
 #. odoo-python
@@ -96,7 +96,7 @@ msgstr "(Geen %s)"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "(incl."
-msgstr "(inclusief"
+msgstr "(incl."
 
 #. module: account_asset
 #. odoo-python
@@ -156,7 +156,7 @@ msgstr "Een document gekoppeld aan deze boeking is verwijderd: %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "Er is een bruto toename gecreëerd: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -291,7 +291,7 @@ msgstr "Activiteitensoort icoon"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Add an internal note"
-msgstr "Voeg een interne notitie toe..."
+msgstr "Voeg een interne notitie toe"
 
 #. module: account_asset
 #. odoo-python
@@ -337,6 +337,8 @@ msgid ""
 "An asset wil be created for each asset model when this account is used on a "
 "vendor bill or a refund"
 msgstr ""
+"Er wordt een activum aangemaakt voor elk activamodel wanneer deze rekening "
+"wordt gebruikt op een factuur van een verkoper of een terugbetaling"
 
 #. module: account_asset
 #. odoo-python
@@ -544,8 +546,8 @@ msgid ""
 "Atleast one asset (%s) couldn't be set as running because it lacks any "
 "required information"
 msgstr ""
-"Tenminste één activum (%s) kon niet als actif worden ingesteld omdat de "
-"vereiste informatie ontbreekt."
+"Tenminste één activum (%s) kon niet als actief worden ingesteld omdat de "
+"vereiste informatie ontbreekt"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_attachment_count
@@ -672,7 +674,7 @@ msgstr "Aantal activa"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__count_linked_asset
 msgid "Count Linked Asset"
-msgstr ""
+msgstr "Telling Gekoppeld activum"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__count_linked_assets
@@ -1028,7 +1030,7 @@ msgstr "Groeperen op rekening"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Asset Group"
-msgstr ""
+msgstr "Groep per activagroep"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
@@ -1040,13 +1042,13 @@ msgstr "Groeperen op..."
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Account"
-msgstr ""
+msgstr "Groepeer op rekening"
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Asset Group"
-msgstr ""
+msgstr "Groep per activagroep"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__has_message
@@ -1331,7 +1333,7 @@ msgstr "Nee"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "No Grouping"
-msgstr ""
+msgstr "Geen groepering"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__none
@@ -1786,7 +1788,7 @@ msgstr "Waardevermeerdering voor: %(asset)s"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__warning_count_assets
 msgid "Warning Count Assets"
-msgstr ""
+msgstr "Waarschuwingstelling Activa"
 
 #. module: account_asset
 #. odoo-python
@@ -1832,8 +1834,8 @@ msgid ""
 "You can't post an entry related to a draft asset. Please post the asset "
 "before."
 msgstr ""
-"U kunt geen boeking maken dat betrekking heeft op een activa in concept. "
-"Boek de activa eerst"
+"Je kunt geen boeking maken dat betrekking heeft op een activa in concept. "
+"Boek de activa eerst."
 
 #. module: account_asset
 #. odoo-python
@@ -1888,7 +1890,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "You cannot dispose of an asset before the lock date."
-msgstr "U kunt een activum niet verwijderen vóór de blokkeerdatum."
+msgstr "Je kunt een activum niet verwijderen vóór de blokkeerdatum."
 
 #. module: account_asset
 #. odoo-python
@@ -1896,7 +1898,7 @@ msgstr "U kunt een activum niet verwijderen vóór de blokkeerdatum."
 msgid "You cannot reset to draft an entry related to a posted asset"
 msgstr ""
 "Je kunt geen boeking die gerelateerd is aan een geboekt activum terugzetten "
-"naar concept."
+"naar concept"
 
 #. module: account_asset
 #. odoo-python

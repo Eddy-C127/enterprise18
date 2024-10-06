@@ -3,7 +3,12 @@
 # 	* account_budget
 # 
 # Translators:
+# Katrin Kampura, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
 # Stevin Lilla, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
+# Anna, 2024
+# Martin Trigaux, 2024
 # Siim Raasuke, 2024
 # 
 msgid ""
@@ -34,7 +39,7 @@ msgstr ""
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 msgid "Account"
-msgstr ""
+msgstr "Konto"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__achieved_amount
@@ -113,7 +118,7 @@ msgstr ""
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_split_wizard__analytical_plan_ids
 msgid "Analytic Plans"
-msgstr ""
+msgstr "Analüütilised plaanid"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_attachment_count
@@ -137,7 +142,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_line_graph
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_line_pivot
 msgid "Budget"
-msgstr ""
+msgstr "Eelarve"
 
 #. module: account_budget
 #. odoo-python
@@ -155,7 +160,7 @@ msgstr ""
 #: model:ir.model,name:account_budget.model_budget_line
 #: model:ir.model.fields,field_description:account_budget.field_account_analytic_account__budget_line_ids
 msgid "Budget Line"
-msgstr ""
+msgstr "Eelarve rida"
 
 #. module: account_budget
 #. odoo-python
@@ -216,7 +221,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_budget.view_account_analytic_account_form_inherit_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_line_search
 msgid "Budgets"
-msgstr ""
+msgstr "Eelarved"
 
 #. module: account_budget
 #: model:ir.actions.act_window,name:account_budget.act_budget_lines_view
@@ -236,7 +241,7 @@ msgstr ""
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_analytic__state__canceled
 msgid "Canceled"
-msgstr ""
+msgstr "Tühistatud"
 
 #. module: account_budget
 #: model_terms:ir.actions.act_window,help:account_budget.act_budget_analytic_view
@@ -317,7 +322,7 @@ msgstr "Kuvatav nimi"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__res_id
 msgid "Document"
-msgstr ""
+msgstr "Dokument"
 
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_analytic__state__done
@@ -346,7 +351,7 @@ msgstr "Lõppkuupäev"
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_analytic__budget_type__expense
 msgid "Expense"
-msgstr ""
+msgstr "Kulu"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_follower_ids
@@ -376,7 +381,7 @@ msgstr "Tulevased tegevused"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_tree
 msgid "Generate"
-msgstr ""
+msgstr "Loo"
 
 #. module: account_budget
 #: model:ir.actions.act_window,name:account_budget.budget_split_wizard_action
@@ -556,7 +561,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget.field_budget_split_wizard__period
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Period"
-msgstr ""
+msgstr "Periood"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_line_graph
@@ -567,22 +572,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__account_id
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__account_id
 msgid "Project Account"
-msgstr ""
+msgstr "Projekti konto"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_purchase_order
 msgid "Purchase Order"
-msgstr ""
+msgstr "Ostutellimus"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_purchase_order_line
 msgid "Purchase Order Line"
-msgstr ""
+msgstr "Ostutellimuse rida"
 
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_split_wizard__period__quarter
 msgid "Quarter"
-msgstr ""
+msgstr "Kvartal"
 
 #. module: account_budget
 #. odoo-python
@@ -598,7 +603,7 @@ msgstr "Hinnangud"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Reset to Draft"
-msgstr ""
+msgstr "Lähtesta mustandiks"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__user_id
@@ -613,7 +618,7 @@ msgstr "Vastutav kasutaja"
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_analytic__budget_type__revenue
 msgid "Revenue"
-msgstr ""
+msgstr "Tulu"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
@@ -649,11 +654,13 @@ msgstr "Jada"
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_search
 msgid "Show all records which has next action date is before today"
 msgstr ""
+"Näita kõiki andmeid, mille järgmise tegevuse kuupäev on ennem tänast "
+"kuupäeva"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
 msgid "Split"
-msgstr ""
+msgstr "Poolita"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__date_from
@@ -726,6 +733,7 @@ msgstr "Kirjel oleva erandtegevuse tüüp."
 #: model_terms:ir.actions.act_window,help:account_budget.act_budget_analytic_view
 msgid "Use budgets to compare actual with expected revenues and costs"
 msgstr ""
+"Kasutage eelarveid, et võrrelda tegelikke ja eeldatud tulusid ja kulusid"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__user_id

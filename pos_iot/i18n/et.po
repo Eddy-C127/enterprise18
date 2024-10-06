@@ -3,6 +3,8 @@
 # 	* pos_iot
 # 
 # Translators:
+# Maidu Targama <m.targama@gmail.com>, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
 # Stevin Lilla, 2024
 # 
 msgid ""
@@ -43,13 +45,13 @@ msgstr ""
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_print_via_proxy
 msgid "Bypass browser printing and prints via the hardware proxy."
-msgstr ""
+msgstr "Bypass browser printing and prints via the hardware proxy."
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Cashdrawer"
-msgstr ""
+msgstr "Sularahasahtel"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -86,7 +88,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Connection to IoT Box failed"
-msgstr ""
+msgstr "Ühenduse loomine IoT kastiga ebaõnnestus"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -104,14 +106,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Customer Display"
-msgstr ""
+msgstr "Kliendi kuva"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_electronic_scale
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Electronic Scale"
-msgstr ""
+msgstr "Elektrooniline skaala"
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_scan_via_proxy
@@ -121,11 +123,13 @@ msgid ""
 "Enable barcode scanning with a remotely connected barcode scanner and card "
 "swiping with a Vantiv card reader."
 msgstr ""
+"Lubage vöötkoodi skanneerimine kaugühendusega vöötkoodiskanneriga ja kaardi "
+"läbi tõmbamine Vantivi kaardilugejaga."
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_electronic_scale
 msgid "Enables Electronic Scale integration."
-msgstr ""
+msgstr "Võimaldab elektroonilise skaala integreerimist."
 
 #. module: pos_iot
 #. odoo-javascript
@@ -193,13 +197,13 @@ msgstr ""
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_iot_box
 msgid "IoT Box"
-msgstr ""
+msgstr "IoT Karp"
 
 #. module: pos_iot
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "IoT Box Homepage"
-msgstr ""
+msgstr "IoT Boxi koduleht"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__device_id
@@ -221,7 +225,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 msgid "Network Error"
-msgstr ""
+msgstr "Võrgu viga"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_payment_method__payment_terminal_ids
@@ -245,7 +249,7 @@ msgstr ""
 #: code:addons/pos_iot/static/src/app/iot_box_disconnected_dialog.xml:0
 #: code:addons/pos_iot/static/src/app/payment.js:0
 msgid "Please check if the IoT Box is still connected."
-msgstr ""
+msgstr "Kontrollige, kas IoT karp on endiselt ühendatud."
 
 #. module: pos_iot
 #. odoo-javascript
@@ -270,32 +274,32 @@ msgstr ""
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_config
 msgid "Point of Sale Configuration"
-msgstr ""
+msgstr "Kassa seadistused"
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_payment_method
 msgid "Point of Sale Payment Methods"
-msgstr ""
+msgstr "Kassa maksemeetodid"
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_printer
 msgid "Point of Sale Printer"
-msgstr ""
+msgstr "Kassa printer"
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_session
 msgid "Point of Sale Session"
-msgstr ""
+msgstr "Kassa Sessioon"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_print_via_proxy
 msgid "Print via Proxy"
-msgstr ""
+msgstr "Printige puhverserveri kaudu"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_printer__proxy_ip
 msgid "Proxy IP Address"
-msgstr ""
+msgstr "Puhverserveri IP-aadress"
 
 #. module: pos_iot
 #. odoo-python
@@ -307,17 +311,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Receipt Printer"
-msgstr ""
+msgstr "Tšekiprinter"
 
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_pos_config__iface_scan_via_proxy
 msgid "Scan via Proxy"
-msgstr ""
+msgstr "Skannimine puhverserveri kaudu"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.pos_iot_config_view_form
 msgid "Scanner"
-msgstr ""
+msgstr "Skänner"
 
 #. module: pos_iot
 #. odoo-javascript
@@ -328,7 +332,7 @@ msgstr ""
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_printer__proxy_ip
 msgid "The IP Address or hostname of the Printer's hardware proxy"
-msgstr ""
+msgstr "Printeri riistvara puhverserveri hostinimi või IP aadress. "
 
 #. module: pos_iot
 #. odoo-javascript

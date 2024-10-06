@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Abe Manyo, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Abe Manyo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -148,6 +149,14 @@ msgid ""
 "                 You can also manually schedule open shifts for your Sales "
 "Order or assign them to any employee you prefer."
 msgstr ""
+"Bila diaktifkan, shift akan secara otomatis dibuat untuk peran yang terpilih"
+" saat mengonfirmasi Sales Order.                 Dengan fitur 'auto plan', "
+"hanya karyawan dengan peran ini akan secara otomatis ditugaskan shift untuk "
+"Sales Order yang memiliki layanan ini.                 Sistem akan "
+"mempertimbangkan ketersediaan karyawan dan waktu yang tersisa untuk "
+"direncanakan.                 Anda juga dapat secara manual menjadwalkan "
+"shift kosong untuk Sales Order Anda atau tugaskan mereka ke karyawan apa pun"
+" yang Anda inginkan."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -177,13 +186,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders assigned"
-msgstr ""
+msgstr "Shift kosong dan sales order ditugaskan"
 
 #. module: sale_planning
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders unscheduled"
-msgstr ""
+msgstr "Shift kosong dan sales order belum dijadwalkan"
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template
@@ -385,6 +394,8 @@ msgid ""
 "You cannot update the company for sales order %(order_name)s as it's linked to shifts in another company.\n"
 "Please transfer shifts %(slots_names)s to the destination company first."
 msgstr ""
+"Anda tidak dapat mengupdate perusahaan untuk sales order %(order_name)s karena terhubung ke shift di perusahaan lain.\n"
+"Silakan terlebih dahulu transfer shift %(slots_names)s ke perusahaan tujuan lalu ganti perusahaan project."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_role_view_tree_inherit_sale_planning
