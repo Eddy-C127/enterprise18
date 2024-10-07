@@ -88,6 +88,14 @@ export class DocumentsListController extends ListController {
     isRecordPreviewable(record) {
         return record.isViewable();
     }
+
+    /**
+     * Prevent the user to select all domain records as most of the actions only applies on visible records.
+     * @override
+     */
+    get isPageSelected() {
+        return false;
+    }
 }
 
 DocumentsListController.template = "documents.DocumentsListController";
