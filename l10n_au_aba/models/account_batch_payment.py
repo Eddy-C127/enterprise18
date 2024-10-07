@@ -47,8 +47,9 @@ class AccountBatchPayment(models.Model):
             test_bsb = re.sub('( |-)','',bsb)
             return '%s-%s' % (test_bsb[0:3],test_bsb[3:6])
 
-        def to_fixed_width(string, length, fill=' ', right=False):
-            return right and string[0:length].rjust(length, fill) or string[0:length].ljust(length, fill)
+        def to_fixed_width(string, length, fill=' ', right=False, check_utf8=False):
+            utf8_length = length + (len(string) - len(string.encode('utf8'))) if check_utf8 else length
+            return right and string[0:utf8_length].rjust(utf8_length, fill) or string[0:utf8_length].ljust(utf8_length, fill)
 
         def append_detail(detail_summary, detail_record, credit, debit):
             detail_summary['detail_records'].append(detail_record)
@@ -87,11 +88,11 @@ class AccountBatchPayment(models.Model):
                     + to_fixed_width(payment.partner_bank_id.acc_number, 9, right=True) \
                     + ' ' + '50' \
                     + to_fixed_width(str(round(aud_currency.round(credit) * 100)), 10, '0', right=True) \
-                    + to_fixed_width(payment.partner_bank_id.acc_holder_name or payment.partner_id.name, 32) \
+                    + to_fixed_width(payment.partner_bank_id.acc_holder_name or payment.partner_id.name, 32, check_utf8=True) \
                     + to_fixed_width(payment.ref or 'Payment', 18) \
                     + _normalise_bsb(bank_account.aba_bsb) \
                     + to_fixed_width(bank_account.acc_number, 9, right=True) \
-                    + to_fixed_width(bank_account.acc_holder_name or self.journal_id.company_id.name, 16) \
+                    + to_fixed_width(bank_account.acc_holder_name or self.journal_id.company_id.name, 16, check_utf8=True) \
                     + ('0' * 8)
             append_detail(detail_summary, detail_record, credit, debit)
 
@@ -105,11 +106,11 @@ class AccountBatchPayment(models.Model):
                     + to_fixed_width(bank_account.acc_number, 9, right=True) \
                     + ' ' + '13' \
                     + to_fixed_width(str(round(aud_currency.round(debit) * 100)), 10, fill='0', right=True) \
-                    + to_fixed_width(bank_account.acc_holder_name or self.journal_id.company_id.name, 32) \
+                    + to_fixed_width(bank_account.acc_holder_name or self.journal_id.company_id.name, 32, check_utf8=True) \
                     + to_fixed_width('PAYMENTS %s' % aba_date.strftime('%d%m%y'), 18) \
                     + _normalise_bsb(bank_account.aba_bsb) \
                     + to_fixed_width(bank_account.acc_number, 9, right=True) \
-                    + to_fixed_width(bank_account.acc_holder_name or self.journal_id.company_id.name, 16) \
+                    + to_fixed_width(bank_account.acc_holder_name or self.journal_id.company_id.name, 16, check_utf8=True) \
                     + ('0' * 8)
             append_detail(detail_summary, detail_record, credit, debit)
 
