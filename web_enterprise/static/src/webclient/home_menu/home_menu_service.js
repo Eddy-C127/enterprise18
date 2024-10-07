@@ -10,7 +10,7 @@ import {
 } from "@web/webclient/actions/action_service";
 import { HomeMenu } from "./home_menu";
 
-import { Component, onMounted, onWillUnmount, xml } from "@odoo/owl";
+import { Component, onMounted, onWillUnmount, useState, xml } from "@odoo/owl";
 
 export const homeMenuService = {
     dependencies: ["action", "router", "user"],
@@ -24,12 +24,17 @@ export const homeMenuService = {
                 this.menus = useService("menu");
                 const user = useService("user");
                 const homemenuConfig = JSON.parse(user.settings?.homemenu_config || "null");
-                const apps = computeAppsAndMenuItems(this.menus.getMenuAsTree("root")).apps;
+                const apps = useState(
+                    computeAppsAndMenuItems(this.menus.getMenuAsTree("root")).apps
+                );
                 if (homemenuConfig) {
                     reorderApps(apps, homemenuConfig);
                 }
                 this.homeMenuProps = {
                     apps: apps,
+                    reorderApps: (order) => {
+                        reorderApps(apps, order);
+                    },
                 };
                 onMounted(() => this.onMounted());
                 onWillUnmount(this.onWillUnmount);

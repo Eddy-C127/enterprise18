@@ -4,18 +4,21 @@ import { IconCreator } from "@web_studio/client_action/icon_creator/icon_creator
 import { StudioHomeMenu } from "@web_studio/client_action/studio_home_menu/studio_home_menu";
 import { MODES } from "@web_studio/studio_service";
 
-import { ormService } from "@web/core/orm_service";
-import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
-
-import { fakeCommandService, makeFakeRPCService } from "@web/../tests/helpers/mock_services";
-import { userService } from "@web/core/user_service";
-import { uiService } from "@web/core/ui/ui_service";
-import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
-import { makeTestEnv } from "@web/../tests/helpers/mock_env";
+import { clearRegistryWithCleanup, makeTestEnv } from "@web/../tests/helpers/mock_env";
+import { fakeCommandService } from "@web/../tests/helpers/mock_services";
 import { click, getFixture, mount } from "@web/../tests/helpers/utils";
+import { doAction, getActionManagerServerData } from "@web/../tests/webclient/helpers";
 import { dialogService } from "@web/core/dialog/dialog_service";
+import { hotkeyService } from "@web/core/hotkeys/hotkey_service";
+import { ormService } from "@web/core/orm_service";
 import { registry } from "@web/core/registry";
+import { uiService } from "@web/core/ui/ui_service";
+import { userService } from "@web/core/user_service";
+import { menuService } from "@web/webclient/menus/menu_service";
+import { createEnterpriseWebClient } from "@web_enterprise/../tests/helpers";
+import { enterpriseSubscriptionService } from "@web_enterprise/webclient/home_menu/enterprise_subscription_service";
+import { registerStudioDependencies } from "@web_studio/../tests/helpers";
 
 import { Component, EventBus, xml } from "@odoo/owl";
 const serviceRegistry = registry.category("services");
@@ -291,10 +294,23 @@ QUnit.module("Studio", (hooks) => {
     });
 
     QUnit.test("edit an icon", async (assert) => {
-        assert.expect(3);
+        clearRegistryWithCleanup(serviceRegistry);
+        registerStudioDependencies();
+        serviceRegistry.add("menu", menuService);
+        // QUnit crap that disappears with HOOT
+        const fakeService = {
+            start() {
+                return {};
+            },
+        };
+        serviceRegistry.add("website", fakeService);
+        serviceRegistry.add("website_custom_menus", fakeService);
 
+        const target = getFixture();
+        const serverData = getActionManagerServerData();
         const mockRPC = (route, args) => {
             if (route === "/web_studio/edit_menu_icon") {
+                assert.step("edit_menu_icon");
                 assert.deepEqual(args, {
                     context: {
                         lang: "en",
@@ -304,12 +320,17 @@ QUnit.module("Studio", (hooks) => {
                     icon: ["fa fa-balance-scale", "#f1c40f", "#34495e"],
                     menu_id: 1,
                 });
+                serverData.menus[1].webIcon = args.icon.join(",");
+                return true;
             }
         };
-        registry.category("services").add("rpc", makeFakeRPCService(mockRPC), { force: true });
-
-        const target = await createStudioHomeMenu();
-
+        const webClient = await createEnterpriseWebClient({ serverData, mockRPC });
+        await doAction(webClient, {
+            target: "current",
+            tag: "menu",
+            type: "ir.actions.client",
+        });
+        await click(target, ".o_web_studio_navbar_item button");
         await click(target.querySelector(".o_web_studio_edit_icon i"));
         const dialog = document.querySelector("div.modal");
         await click(dialog.querySelector(".o_web_studio_upload a"));
@@ -329,5 +350,9 @@ QUnit.module("Studio", (hooks) => {
         );
 
         await click(dialog.querySelector("footer button")); // trigger save
+        assert.verifySteps(["edit_menu_icon"]);
+        assert.hasClass(target.querySelector(".o_home_menu .o_app_icon i"), "fa-balance-scale");
+        await click(target, ".o_web_studio_leave");
+        assert.hasClass(target.querySelector(".o_home_menu .o_app_icon i"), "fa-balance-scale");
     });
 });

@@ -5,7 +5,6 @@ import { useHotkey } from "@web/core/hotkeys/hotkey_hook";
 import { useService } from "@web/core/utils/hooks";
 import { ExpirationPanel } from "./expiration_panel";
 import { useSortable } from "@web/core/utils/sortable_owl";
-import { reorderApps } from "@web/webclient/menus/menu_helpers";
 
 import {
     Component,
@@ -48,6 +47,7 @@ export class HomeMenu extends Component {
      *      - Object: customized icon (background, class and color)
      * @param {string} [props.apps[].webIconData]
      * @param {string} props.apps[].xmlid
+     * @param {function} props.reorderApps
      */
     setup() {
         this.command = useService("command");
@@ -63,7 +63,6 @@ export class HomeMenu extends Component {
         this.inputRef = useRef("input");
         this.rootRef = useRef("root");
         this.pressTimer;
-        this.apps = useState(this.props.apps);
 
         if (!this.env.isSmall) {
             this._registerHotkeys();
@@ -113,7 +112,7 @@ export class HomeMenu extends Component {
      * @returns {Object[]}
      */
     get displayedApps() {
-        return this.apps;
+        return this.props.apps;
     }
 
     /**
@@ -250,7 +249,7 @@ export class HomeMenu extends Component {
             order.splice(0, 0, elementId);
         }
         // apply new order
-        reorderApps(this.apps, order);
+        this.props.reorderApps(order);
         this.user.setUserSettings("homemenu_config", JSON.stringify(order));
     }
 
@@ -370,5 +369,6 @@ HomeMenu.props = {
             },
         },
     },
+    reorderApps: { type: Function },
 };
 HomeMenu.template = "web_enterprise.HomeMenu";
