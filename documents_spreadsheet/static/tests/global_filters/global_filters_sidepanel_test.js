@@ -357,6 +357,32 @@ QUnit.module(
             });
         });
 
+        QUnit.test("Can select ID in relation filter", async function (assert) {
+            const { model } = await createSpreadsheetFromPivotView({
+                serverData: {
+                    models: getBasicData(),
+                    views: {
+                        "partner,false,pivot": `
+                            <pivot string="Partners">
+                                <field name="foo" type="col"/>
+                                <field name="product_id" type="row"/>
+                                <field name="probability" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": `<search/>`,
+                    },
+                },
+            });
+            await openGlobalFilterSidePanel();
+            await clickCreateFilter("relation");
+            await selectModelForRelation("partner");
+            await saveGlobalFilter();
+            const [globalFilter] = model.getters.getGlobalFilters();
+            assert.deepEqual(model.getters.getPivotFieldMatching("1", globalFilter.id), {
+                chain: "id",
+                type: "integer",
+            });
+        });
+
         QUnit.test("Create a new many2many relational global filter", async function (assert) {
             const serverData = getBasicServerData();
             serverData.models["vehicle"] = {
@@ -666,14 +692,15 @@ QUnit.module(
             await openGlobalFilterSidePanel();
             await clickCreateFilter("relation");
             await click(target, ".o_side_panel_related_model input");
-            const [model1, model2, model3, model4, model5] = target.querySelectorAll(
+            const [model1, model2, model3, model4, model5, model6] = target.querySelectorAll(
                 ".o-autocomplete--dropdown-item a"
             );
             assert.equal(model1.innerText, "Product");
-            assert.equal(model2.innerText, "Users");
-            assert.equal(model3.innerText, "Document");
-            assert.equal(model4.innerText, "Vehicle");
-            assert.equal(model5.innerText, "Computer");
+            assert.equal(model2.innerText, "Partner");
+            assert.equal(model3.innerText, "Users");
+            assert.equal(model4.innerText, "Document");
+            assert.equal(model5.innerText, "Vehicle");
+            assert.equal(model6.innerText, "Computer");
         });
 
         QUnit.test("Edit an existing global filter", async function (assert) {
