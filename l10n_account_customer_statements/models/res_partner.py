@@ -12,8 +12,11 @@ class ResPartner(models.Model):
         """The customer statement is a report that is based on the partner ledger, with a few differences.
         It is commonly sent each month to every customer with purchases during the month.
         """
+        partner_languages = self.mapped('lang')
+        report_lang = partner_languages[0] if len(partner_languages) == 1 else self.env.user.lang
         return self.env.ref('l10n_account_customer_statements.action_customer_statements_report').with_context(
-            report_options=options
+            report_options=options,
+            lang=report_lang,
         ).report_action(self)
 
     def _prepare_customer_statement_values(self, options=None):
