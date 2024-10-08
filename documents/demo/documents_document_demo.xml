@@ -19,14 +19,6 @@
         </record>
 
 
-        <record id="documents_data_design_brief" model="documents.document" forcecreate="0">
-            <field name="name">Interior Design Brief.pdf</field>
-            <field name="datas" type="base64" file="documents/demo/files/Interior_Design_Brief.pdf"/>
-            <field name="folder_id" ref="documents.documents_internal_folder"/>
-            <field name="tag_ids" eval="[(6,0,[ref('documents.documents_internal_status_tc'),
-                                               ref('documents.documents_internal_template_project')])]"/>
-        </record>
-
         <!-- finance -->
 
         <record id="documents_vendor_bill_inv_007" model="documents.document" forcecreate="0">
