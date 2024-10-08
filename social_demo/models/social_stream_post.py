@@ -52,7 +52,8 @@ class DemoSocialStreamPost(models.Model):
                 'profile_image_url_https': '/web/image/res.users/2/avatar_128',
                 'authorUrn': 'urn:li:organization:2414183',
             },
-            'message': message
+            'message': message,
+            'comments': {'data': []},
         }
 
     def _linkedin_comment_delete(self, comment_urn):
@@ -134,7 +135,8 @@ class DemoSocialStreamPost(models.Model):
                 'name': 'Mitchell Admin',
                 'profile_image_url_https': '/web/image/res.users/2/avatar_128'
             },
-            'message': message
+            'message': message,
+            'comments': {'data': []},
         }
 
     # ========================================================

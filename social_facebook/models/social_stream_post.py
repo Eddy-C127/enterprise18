@@ -126,6 +126,8 @@ class SocialStreamPostFacebook(models.Model):
         params = {
             'message': message,
             'access_token': self.stream_id.account_id.facebook_access_token,
+            # The response received from the post request to post the comment
+            # does not return all the fields mentioned here.
             'fields': self.FACEBOOK_COMMENT_FIELDS
         }
 
@@ -149,6 +151,7 @@ class SocialStreamPostFacebook(models.Model):
         for inner_comment in inner_comments:
             inner_comment['likes'] = {'summary': {'total_count': inner_comment.get('like_count', 0)}}
 
+        result.setdefault('comments', {'data': []})
         return result
 
     def _facebook_like(self, object_id, like):
