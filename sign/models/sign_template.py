@@ -4,14 +4,13 @@
 import re
 import base64
 import io
-
-from PyPDF2 import PdfFileReader
 from collections import defaultdict
 from random import randint
 
 from odoo import api, fields, models, Command, _
 from odoo.exceptions import UserError, AccessError, ValidationError
 from odoo.tools import pdf
+from odoo.tools.pdf import PdfFileReader
 
 
 class SignTemplate(models.Model):

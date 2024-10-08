@@ -8,7 +8,6 @@ from ast import literal_eval
 from collections import OrderedDict
 
 import requests
-from PyPDF2 import PdfFileReader
 from dateutil.relativedelta import relativedelta
 
 from odoo import _, api, fields, models
@@ -17,6 +16,7 @@ from odoo.osv import expression
 from odoo.tools import image_process
 from odoo.tools.mimetypes import get_extension
 from odoo.tools.misc import clean_context
+from odoo.tools.pdf import PdfFileReader
 from odoo.addons.mail.tools import link_preview
 
 from .documents_facet import N_FACET_COLORS
