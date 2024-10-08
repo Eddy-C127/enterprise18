@@ -18,8 +18,8 @@ class TimesheetForecastReport(models.Model):
     @api.model
     def _select(self):
         return super()._select() + """,
-            (F.allocated_hours / GREATEST(F.working_days_count, 1)) * SOL.price_unit AS planned_revenues,
-            (F.allocated_hours / GREATEST(F.working_days_count, 1)) * (SOL.price_unit - E.hourly_cost) AS planned_margin,
+            (F.allocated_hours / GREATEST(F.working_days_count, 1)) * (SOL.price_unit * P_UOM.factor / HOUR_UOM.factor) AS planned_revenues,
+            (F.allocated_hours / GREATEST(F.working_days_count, 1)) * (SOL.price_unit * P_UOM.factor / HOUR_UOM.factor - E.hourly_cost) AS planned_margin,
             CASE WHEN F.sale_line_id IS NOT NULL THEN (F.allocated_hours / GREATEST(F.working_days_count, 1)) ELSE 0 END AS planned_billable_hours,
             CASE WHEN F.sale_line_id IS NULL THEN (F.allocated_hours / GREATEST(F.working_days_count, 1)) ELSE 0 END AS planned_non_billable_hours,
             0.0 AS effective_revenues,
@@ -27,9 +27,14 @@ class TimesheetForecastReport(models.Model):
             0.0 AS effective_billable_hours,
             0.0 AS effective_non_billable_hours
         """
+
     @api.model
     def _from(self):
-        return super()._from() + "LEFT JOIN sale_order_line SOL ON SOL.id = F.sale_line_id"
+        return super()._from() + """
+            LEFT JOIN sale_order_line SOL ON SOL.id = F.sale_line_id
+            LEFT JOIN uom_uom P_UOM ON SOL.product_uom = P_UOM.id,
+            (SELECT U.factor FROM uom_uom U WHERE U.id = %s) HOUR_UOM
+        """ % (self.env.ref('uom.product_uom_hour').id)
 
     @api.model
     def _select_union(self):
@@ -38,8 +43,8 @@ class TimesheetForecastReport(models.Model):
             0.0 AS planned_margin,
             0.0 AS planned_billable_hours,
             0.0 AS planned_non_billable_hours,
-            (A.unit_amount / UOM.factor * HOUR_UOM.factor) * SOL.price_unit AS effective_revenues,
-            (A.unit_amount / UOM.factor * HOUR_UOM.factor) * (SOL.price_unit - E.hourly_cost) AS effective_margin,
+            (A.unit_amount / UOM.factor * HOUR_UOM.factor) * (SOL.price_unit * P_UOM.factor / HOUR_UOM.factor) AS effective_revenues,
+            (A.unit_amount / UOM.factor * HOUR_UOM.factor) * (SOL.price_unit * P_UOM.factor / HOUR_UOM.factor - E.hourly_cost) AS effective_margin,
             CASE WHEN A.so_line IS NOT NULL THEN (A.unit_amount / UOM.factor * HOUR_UOM.factor) ELSE 0 END AS effective_billable_hours,
             CASE WHEN A.so_line IS NULL THEN (A.unit_amount / UOM.factor * HOUR_UOM.factor) ELSE 0 END AS effective_non_billable_hours
         """
@@ -49,6 +54,7 @@ class TimesheetForecastReport(models.Model):
         return super()._from_union() + """
             LEFT JOIN project_task T ON A.task_id = T.id
             LEFT JOIN sale_order_line SOL ON A.so_line = SOL.id
+            LEFT JOIN uom_uom P_UOM ON SOL.product_uom = P_UOM.id
         """
 
     @api.model
