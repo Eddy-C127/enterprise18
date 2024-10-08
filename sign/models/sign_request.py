@@ -7,11 +7,6 @@ import os
 import time
 import uuid
 
-from PyPDF2 import PdfFileReader, PdfFileWriter
-try:
-    from PyPDF2.errors import PdfReadError
-except ImportError:
-    from PyPDF2.utils import PdfReadError
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -32,7 +27,8 @@ from odoo import api, fields, models, http, _, Command
 from odoo.tools import config, email_normalize, format_list, get_lang, is_html_empty, format_date, formataddr, groupby, consteq
 from odoo.exceptions import UserError, ValidationError
 from odoo.tools.misc import hmac
-from odoo.tools.pdf import reshape_text
+from odoo.tools.pdf import PdfFileReader, PdfFileWriter, PdfReadError, reshape_text
+
 
 TTFSearchPath.append(os.path.join(config["root_path"], "..", "addons", "web", "static", "fonts", "sign"))
 
