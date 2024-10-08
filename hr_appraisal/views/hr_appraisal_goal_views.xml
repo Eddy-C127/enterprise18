@@ -28,7 +28,7 @@
                             <field name="progression" widget="selection_badge"/>
                         </group>
                         <group>
-                            <field name="manager_id" force_save="1" readonly="not is_manager" widget="many2one_avatar_user"/>
+                            <field name="manager_id" force_save="1" readonly="not is_manager" widget="many2one_avatar_employee"/>
                             <field name="deadline"/>
                             <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
                         </group>
@@ -57,8 +57,8 @@
                 <field name="deadline" widget="remaining_days"/>
                 <field name="activity_ids" widget="list_activity"/>
                 <field name="progression" widget="badge" decoration-success="progression == '100'"/>
-                <field name="employee_id" widget="many2one_avatar_user"/>
-                <field name="manager_id" widget="many2one_avatar_user"/>
+                <field name="employee_id" widget="many2one_avatar_employee"/>
+                <field name="manager_id" widget="many2one_avatar_employee"/>
                 <field name="tag_ids" widget="many2many_tags" readonly="1" optional="hidden" options="{'color_field': 'color'}"/>
             </tree>
         </field>
@@ -74,7 +74,7 @@
                 <templates>
                     <t t-name="kanban-menu">
                         <t t-if="widget.deletable"><a type="delete" class="dropdown-item" role="menuitem">Delete</a></t>
-                        <a type="object" name="action_confirm" class="dropdown-item" role="menuitem">Mark as Done</a>
+                        <a type="object" name="action_confirm" class="dropdown-item" invisible="progression == '100'" role="menuitem">Mark as Done</a>
                     </t>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_card oe_kanban_global_click oe_kanban_content">
@@ -101,7 +101,7 @@
                                     <field name="deadline" widget="remaining_days"/>
                                 </div>
                                 <div class="oe_kanban_bottom_right">
-                                    <field name="employee_id" widget="many2one_avatar_user"/>
+                                    <field name="employee_id" widget="many2one_avatar_employee"/>
                                 </div>
                             </div>
                             <div class="clearfix"></div>
