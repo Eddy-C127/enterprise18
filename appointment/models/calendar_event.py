@@ -67,19 +67,20 @@ class CalendarEvent(models.Model):
     # currently unused but kept because of stable constraint, properly removed by: https://github.com/odoo/enterprise/commit/dea2f65fcb106848c9f1985e3d49f177c597fe71
     appointment_resource_id = fields.Many2one('appointment.resource', string="Appointment Resource",
                                               compute="_compute_appointment_resource_id", inverse="_inverse_appointment_resource_id_or_capacity",
-                                              store=True, group_expand="_read_group_appointment_resource_id")
+                                              store=True, group_expand="_read_group_appointment_resource_id", copy=False)
     appointment_resource_ids = fields.Many2many('appointment.resource', 'appointment_booking_line', 'calendar_event_id', 'appointment_resource_id',
                                                 string="Appointment Resources", group_expand="_read_group_appointment_resource_id",
-                                                depends=['booking_line_ids'], readonly=True)
+                                                depends=['booking_line_ids'], readonly=True, copy=False)
     # This field is used in the form view to create/manage the booking lines based on the resource_total_capacity_reserved
     # selected. This allows to have the appointment_resource_ids field linked to the appointment_booking_line model and
     # thus avoid the duplication of information.
     resource_ids = fields.Many2many('appointment.resource', string="Resources",
                                     compute="_compute_resource_ids", inverse="_inverse_resource_ids_or_capacity",
-                                    group_expand="_read_group_appointment_resource_id")
-    booking_line_ids = fields.One2many('appointment.booking.line', 'calendar_event_id', string="Booking Lines")
+                                    group_expand="_read_group_appointment_resource_id", copy=False)
+    booking_line_ids = fields.One2many('appointment.booking.line', 'calendar_event_id', string="Booking Lines", copy=True)
     partner_ids = fields.Many2many('res.partner', group_expand="_read_group_partner_ids")
-    resource_total_capacity_reserved = fields.Integer('Total Capacity Reserved', compute="_compute_resource_total_capacity", inverse="_inverse_appointment_resource_id_or_capacity")
+    resource_total_capacity_reserved = fields.Integer('Total Capacity Reserved', compute="_compute_resource_total_capacity",
+                                                      inverse="_inverse_appointment_resource_id_or_capacity", copy=True)
     resource_total_capacity_used = fields.Integer('Total Capacity Used', compute="_compute_resource_total_capacity")
     user_id = fields.Many2one('res.users', group_expand="_read_group_user_id")
     videocall_redirection = fields.Char('Meeting redirection URL', compute='_compute_videocall_redirection')
