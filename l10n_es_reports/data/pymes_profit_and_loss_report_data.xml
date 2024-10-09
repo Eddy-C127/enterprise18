@@ -25,7 +25,7 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">es_profit_and_loss_line_1.balance + es_profit_and_loss_line_2.balance + es_profit_and_loss_line_3.balance + es_profit_and_loss_line_4.balance + es_profit_and_loss_line_5.balance + es_profit_and_loss_line_6.balance + es_profit_and_loss_line_7.balance + es_profit_and_loss_line_8.balance + es_profit_and_loss_line_9.balance + es_profit_and_loss_line_10.balance + es_profit_and_loss_line_11.balance + es_profit_and_loss_line_12.balance</field>
-                        <field name="date_scope">normal</field>
+                        <field name="date_scope">strict_range</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -39,7 +39,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-701 - 706 - 700 - 709 - 702 - 705 - 703 - 704 - 708</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -53,7 +53,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-71 - 6930 - 7930</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -67,7 +67,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-73</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -81,7 +81,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-608 - 602 - 601 - 606 - 6931 - 61 - 600 - 7933 - 6932 - 7932 - 7931 - 607 - 6933 - 609</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -95,7 +95,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-747 - 740 - 75 - 95</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -109,7 +109,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-64</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -123,7 +123,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-7954 - 639 - 636 - 634 - 694 - 65 - 85 - 695 - 62 - 794 - 631</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -137,7 +137,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-68</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -151,7 +151,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">domain</field>
                                 <field name="formula" eval="[('account_id.code','=like','746%'), ('account_id.code','not like','7461%')]"/>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                                 <field name="subformula">-sum</field>
                             </record>
                         </field>
@@ -166,7 +166,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-7951 - 7956 - 7952 - 7957 - 7955 - 7950</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -180,7 +180,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-670 - 772 - 96 - 792 - 791 - 672 - 770 - 671 - 86 - 691 - 690 - 790 - 771</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -194,7 +194,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-678 - 774 - 778</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -209,7 +209,7 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">es_profit_and_loss_line_13.balance + es_profit_and_loss_line_14.balance + es_profit_and_loss_line_15.balance + es_profit_and_loss_line_16.balance + es_profit_and_loss_line_17.balance</field>
-                        <field name="date_scope">normal</field>
+                        <field name="date_scope">strict_range</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -221,7 +221,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">aggregation</field>
                                 <field name="formula">es_profit_and_loss_line_13a.balance + es_profit_and_loss_line_13b.balance</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                         <field name="children_ids">
@@ -235,7 +235,7 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-7461 - 72 - 84 - 94</field>
-                                        <field name="date_scope">normal</field>
+                                        <field name="date_scope">strict_range</field>
                                     </record>
                                 </field>
                             </record>
@@ -249,7 +249,7 @@
                                         <field name="label">balance</field>
                                         <field name="engine">account_codes</field>
                                         <field name="formula">-767 - 761 - 760 - 762 - 769</field>
-                                        <field name="date_scope">normal</field>
+                                        <field name="date_scope">strict_range</field>
                                     </record>
                                 </field>
                             </record>
@@ -265,7 +265,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-661 - 669 - 662 - 660 - 664 - 665</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -279,7 +279,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-80 - 763 - 90 - 663</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -293,7 +293,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-82 - 768 - 92 - 668</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -307,7 +307,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-89 - 667 - 992 - 692 - 797 - 766 - 698 - 993 - 994 - 773 - 666 - 697 - 796 - 675 - 799 - 798 - 91 - 696 - 775 - 699 - 673 - 991 - 81</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
@@ -322,7 +322,7 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">es_profit_and_loss_sum_a.balance + es_profit_and_loss_sum_b.balance</field>
-                        <field name="date_scope">normal</field>
+                        <field name="date_scope">strict_range</field>
                     </record>
                 </field>
             </record>
@@ -335,7 +335,7 @@
                         <field name="label">balance</field>
                         <field name="engine">aggregation</field>
                         <field name="formula">es_profit_and_loss_sum_c.balance + es_profit_and_loss_line_18.balance</field>
-                        <field name="date_scope">normal</field>
+                        <field name="date_scope">strict_range</field>
                     </record>
                 </field>
                 <field name="children_ids">
@@ -349,7 +349,7 @@
                                 <field name="label">balance</field>
                                 <field name="engine">account_codes</field>
                                 <field name="formula">-638 - 633 - 6301 - 83 - 6300</field>
-                                <field name="date_scope">normal</field>
+                                <field name="date_scope">strict_range</field>
                             </record>
                         </field>
                     </record>
