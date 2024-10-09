@@ -12,8 +12,7 @@ from odoo.exceptions import UserError
 from odoo.tools.float_utils import float_repr
 from odoo.tools.xml_utils import create_xml_node, create_xml_node_chain
 from odoo.tools.misc import remove_accents
-from odoo.addons.account_batch_payment.models.sepa_mapping import _replace_characters_SEPA
-
+from odoo.addons.account_batch_payment.models.sepa_mapping import sanitize_communication
 from lxml import etree
 
 import re
@@ -53,21 +52,8 @@ class AccountPayment(models.Model):
 
     @api.model
     def _sanitize_communication(self, communication):
-        """ Returns a sanitized version of the communication given in parameter,
-            so that:
-                - it contains only latin characters
-                - it does not contain any //
-                - it does not start or end with /
-            (these are the SEPA compliance criteria)
-        """
-        while '//' in communication:
-            communication = communication.replace('//', '/')
-        if communication.startswith('/'):
-            communication = communication[1:]
-        if communication.endswith('/'):
-            communication = communication[:-1]
-        communication = _replace_characters_SEPA(communication)
-        return communication
+        # DEPRECATED - to be removed in master
+        return sanitize_communication(communication, None)
 
     def generate_xml(self, company_id, required_collection_date, askBatchBooking):
         """ Generates a SDD XML file containing the payments corresponding to this recordset,

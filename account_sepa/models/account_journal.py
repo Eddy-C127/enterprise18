@@ -10,26 +10,12 @@ from odoo.exceptions import UserError, ValidationError
 from odoo.tools import float_repr, float_round
 
 import odoo.addons.account.tools.structured_reference as sr
-from odoo.addons.account_batch_payment.models.sepa_mapping import _replace_characters_SEPA
+from odoo.addons.account_batch_payment.models import sepa_mapping
 
 
 def sanitize_communication(communication, size=140):
-    """ Returns a sanitized version of the communication given in parameter,
-        so that:
-            - it contains only latin characters
-            - it does not contain any //
-            - it does not start or end with /
-            - it is maximum 140 characters long
-        (these are the SEPA compliance criteria)
-    """
-    while '//' in communication:
-        communication = communication.replace('//', '/')
-    if communication.startswith('/'):
-        communication = communication[1:]
-    if communication.endswith('/'):
-        communication = communication[:-1]
-    communication = _replace_characters_SEPA(communication, size)
-    return communication
+    # DEPRECATED - to be removed in master
+    return sepa_mapping.sanitize_communication(communication, size)
 
 class AccountJournal(models.Model):
     _inherit = "account.journal"

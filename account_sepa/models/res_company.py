@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
-from .account_journal import sanitize_communication
+from odoo.addons.account_batch_payment.models.sepa_mapping import sanitize_communication
 
 class ResCompany(models.Model):
     _inherit = "res.company"
