@@ -5,7 +5,7 @@ import { registry } from "@web/core/registry";
 import { stepUtils } from "./tour_step_utils";
 
 // Inventory Tests.
-registry.category("web_tour.tours").add('test_gs1_inventory_gtin_8', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_inventory_gtin_8', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -39,7 +39,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_gtin_8', {test: true
     ...stepUtils.validateBarcodeOperation('.o_barcode_line .qty-done:contains("78")'),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_inventory_product_units', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_inventory_product_units', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -67,7 +67,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_product_units', {tes
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -297,7 +297,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_lot_serial', {test: 
     },
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_inventory_package', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -400,7 +400,7 @@ registry.category("web_tour.tours").add('test_gs1_inventory_package', {test: tru
 
 // Picking Tests.
 
-registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_package_receipt', { steps: () => [
     { trigger: '.o_stock_barcode_main_menu', run: 'scan WHIN' },
     // Scans PRO_GTIN_8 x4
     { trigger: '.o_barcode_client_action', run: 'scan 0100000082655853300004' },
@@ -543,7 +543,7 @@ registry.category("web_tour.tours").add('test_gs1_package_receipt', {test: true,
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_package_delivery', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_package_delivery', { steps: () => [
     {
         trigger: '.o_stock_barcode_main_menu',
         run: 'scan WHOUT',
@@ -572,7 +572,7 @@ registry.category("web_tour.tours").add('test_gs1_package_delivery', {test: true
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_reserved_delivery', {test:true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_reserved_delivery', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -619,7 +619,7 @@ registry.category("web_tour.tours").add('test_gs1_reserved_delivery', {test:true
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_1', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_1', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -647,7 +647,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_1
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_lot_number', {test:true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_lot_number', { steps: () => [
     // Create a delivery.
     { trigger: '.o_stock_barcode_main_menu', run: 'scan WHOUT' },
     // Scan the GS1 barcode (contains product + lot)
@@ -687,7 +687,7 @@ registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_lot_number'
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_number', {test:true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_number', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: 'scan LOC-01-00-00',
@@ -709,7 +709,7 @@ registry.category("web_tour.tours").add('test_gs1_delivery_ambiguous_serial_numb
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_2', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_2', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -737,7 +737,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_2
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -821,7 +821,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_conflicting_barcodes_3
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
-registry.category("web_tour.tours").add("test_gs1_receipt_conflicting_barcodes_mistaken_as_gs1", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_gs1_receipt_conflicting_barcodes_mistaken_as_gs1", { steps: () => [
     // Creates a new receipt.
     { trigger: ".o_stock_barcode_main_menu", run: "scan WHIN" },
     // Scans 3000000015 -> Will be parsed as 15 units by the GS1 nomenclature
@@ -890,7 +890,7 @@ registry.category("web_tour.tours").add("test_gs1_receipt_conflicting_barcodes_m
     },
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -1169,7 +1169,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', {test: tr
     ...stepUtils.validateBarcodeOperation(".o_validate_page"),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -1291,7 +1291,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_quantity_with_uom', {t
     ...stepUtils.discardBarcodeForm(),
 ]});
 
-registry.category("web_tour.tours").add("test_gs1_receipt_scan_not_gs1_multi_barcode", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_gs1_receipt_scan_not_gs1_multi_barcode", { steps: () => [
     { trigger: ".o_stock_barcode_main_menu", run: "scan WHIN" },
     // Scan a barcode containing 1 product tracked by SN followed by 8 serial numbers.
     { trigger: ".o_barcode_client_action", run: "scan productserial1,sn1,sn2,sn3,sn4,sn5,sn6,sn7,sn8" },
@@ -1301,7 +1301,7 @@ registry.category("web_tour.tours").add("test_gs1_receipt_scan_not_gs1_multi_bar
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_receipt_packaging', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_receipt_packaging', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: function () {
@@ -1349,7 +1349,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_packaging', {test: tru
     ...stepUtils.discardBarcodeForm(),
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_receipt_packaging_with_uom', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_receipt_packaging_with_uom', { steps: () => [
     { trigger: ".o_stock_barcode_main_menu", run: "scan WHIN"},
     /* Scan (01)10347543011337(3103)000900(17)240701(10)100005
         - (01) 10347543011337: packaging barcode (6 units);
@@ -1412,7 +1412,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_packaging_with_uom', {
     },
 ]});
 
-registry.category("web_tour.tours").add('test_gs1_tracked_packaging', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_gs1_tracked_packaging', { steps: () => [
     // Create a receipt and check non-existing lot is correctly scanned alongside the packaging.
     { trigger: '.o_stock_barcode_main_menu', run: "scan WHIN" },
     { trigger: '.o_barcode_client_action', run: "scan 020000001265325610lot-001" },

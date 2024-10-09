@@ -5,7 +5,6 @@ import { registry } from "@web/core/registry";
 import { stepUtils } from "./tour_step_utils";
 
 registry.category("web_tour.tours").add("test_inventory_adjustment", {
-    test: true,
     steps: () => [
 
     {
@@ -105,7 +104,6 @@ registry.category("web_tour.tours").add("test_inventory_adjustment", {
 ]});
 
 registry.category("web_tour.tours").add("test_inventory_adjustment_dont_update_location", {
-    test: true,
     steps: () => [
     {
         trigger: '.o_button_inventory',
@@ -163,7 +161,6 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_dont_update_l
 ]});
 
 registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company", {
-    test: true,
     steps: () => [
     // Open the company switcher.
     {
@@ -283,7 +280,7 @@ registry.category("web_tour.tours").add("test_inventory_adjustment_multi_company
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_adjustment_multi_location', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_adjustment_multi_location', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -341,7 +338,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_multi_locatio
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_product', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_product', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -481,7 +478,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_product_multilocation', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_product_multilocation', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -585,7 +582,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_product_permissive_quants', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_product_permissive_quants', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -648,7 +645,7 @@ registry.category("web_tour.tours").add('test_inventory_adjustment_tracked_produ
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_create_quant', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_create_quant', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -706,7 +703,7 @@ registry.category("web_tour.tours").add('test_inventory_create_quant', {test: tr
     },
 ]});
 
-registry.category("web_tour.tours").add("test_inventory_dialog_not_counted_serial_numbers", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_inventory_dialog_not_counted_serial_numbers", { steps: () => [
     { trigger: ".o_button_inventory", run: "click" },
     {
         trigger: ".o_barcode_client_action",
@@ -795,7 +792,7 @@ registry.category("web_tour.tours").add("test_inventory_dialog_not_counted_seria
     { trigger: ".o_stock_barcode_main_menu" },
 ]});
 
-registry.category("web_tour.tours").add("test_inventory_image_visible_for_quant", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_inventory_image_visible_for_quant", { steps: () => [
     { trigger: "button.o_button_inventory", run: "click" },
     { trigger: ".o_barcode_line:first-child button.o_edit", run: "click" },
     {
@@ -816,7 +813,7 @@ registry.category("web_tour.tours").add("test_inventory_image_visible_for_quant"
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_nomenclature', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_nomenclature', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -844,7 +841,7 @@ registry.category("web_tour.tours").add('test_inventory_nomenclature', {test: tr
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_package', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_package', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -882,14 +879,14 @@ registry.category("web_tour.tours").add('test_inventory_package', {test: true, s
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_packaging', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_packaging', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
     },
     // Scans a packaging when there is no existing quant for its product.
     {
-        trigger: '.o_barcode_client_action', 
+        trigger: '.o_barcode_client_action',
         run: 'scan pack007',
     },
     {
@@ -929,7 +926,7 @@ registry.category("web_tour.tours").add('test_inventory_packaging', {test: true,
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_serial_product_packaging', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_serial_product_packaging', { steps: () => [
     { trigger: '.o_button_inventory', run: "click" },
     { trigger: '.o_barcode_client_action', run: 'scan PCK3' },
     {
@@ -958,7 +955,7 @@ registry.category("web_tour.tours").add('test_inventory_serial_product_packaging
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_owner_scan_package', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_owner_scan_package', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -978,7 +975,7 @@ registry.category("web_tour.tours").add('test_inventory_owner_scan_package', {te
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_using_buttons', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_using_buttons', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -1286,7 +1283,7 @@ registry.category("web_tour.tours").add('test_inventory_using_buttons', {test: t
     }
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to_count_on', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to_count_on', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -1395,7 +1392,7 @@ registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to_count_off', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to_count_off', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -1510,7 +1507,7 @@ registry.category("web_tour.tours").add('test_inventory_setting_show_quantity_to
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_setting_count_entire_locations_on', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_setting_count_entire_locations_on', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",
@@ -1575,7 +1572,7 @@ registry.category("web_tour.tours").add('test_inventory_setting_count_entire_loc
     },
 ]});
 
-registry.category("web_tour.tours").add('test_inventory_setting_count_entire_locations_off', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_inventory_setting_count_entire_locations_off', { steps: () => [
     {
         trigger: '.o_button_inventory',
         run: "click",

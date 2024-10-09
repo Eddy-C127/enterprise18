@@ -4,7 +4,7 @@ import * as helper from '@stock_barcode/../tests/tours/tour_helper_stock_barcode
 import { registry } from "@web/core/registry";
 import { stepUtils } from '@stock_barcode/../tests/tours/tour_step_utils';
 
-registry.category("web_tour.tours").add('test_immediate_receipt_kit_from_scratch_with_tracked_compo', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_immediate_receipt_kit_from_scratch_with_tracked_compo', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: 'scan kit_lot',
@@ -61,7 +61,7 @@ registry.category("web_tour.tours").add('test_immediate_receipt_kit_from_scratch
     ...stepUtils.validateBarcodeOperation('.o_line_lot_name:contains("super_lot")'),
 ]});
 
-registry.category("web_tour.tours").add('test_planned_receipt_kit_from_scratch_with_tracked_compo', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_planned_receipt_kit_from_scratch_with_tracked_compo', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: 'scan kit_lot',
@@ -118,7 +118,7 @@ registry.category("web_tour.tours").add('test_planned_receipt_kit_from_scratch_w
     ...stepUtils.validateBarcodeOperation('.o_line_lot_name:contains("super_lot")'),
 ]});
 
-registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_process_confirmed_mo', { steps: () => [
     {
         trigger: '.o_kanban_record_title:contains("Manufacturing")',
         run: "click",
@@ -161,7 +161,7 @@ registry.category("web_tour.tours").add('test_process_confirmed_mo', {test: true
     },
 ]});
 
-registry.category("web_tour.tours").add('test_barcode_production_create', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_barcode_production_create', { steps: () => [
     {
         trigger: ".o_kanban_record_title:contains('Manufacturing')",
         run: "click",
@@ -232,7 +232,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create', {test:
     ...stepUtils.validateBarcodeOperation(".o_scan_message.o_scan_validate"),
 ]});
 
-registry.category("web_tour.tours").add("test_barcode_production_create_bom", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_barcode_production_create_bom", { steps: () => [
     // Creates a new production from the Barcode App.
     {
         trigger: ".o_kanban_record_title:contains('Manufacturing')",
@@ -300,7 +300,7 @@ registry.category("web_tour.tours").add("test_barcode_production_create_bom", {t
     ...stepUtils.validateBarcodeOperation(".o_scan_message.o_scan_validate"),
 ]})
 
-registry.category("web_tour.tours").add('test_barcode_production_create_tracked_bom', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_barcode_production_create_tracked_bom', { steps: () => [
     {
         trigger: '.o_kanban_record_title:contains("Manufacturing")',
         run: "click",
@@ -472,7 +472,7 @@ registry.category("web_tour.tours").add('test_barcode_production_create_tracked_
     ...stepUtils.validateBarcodeOperation(".o_validate_page.btn-primary"),
 ]});
 
-registry.category("web_tour.tours").add("test_barcode_production_reserved_from_multiple_locations", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_barcode_production_reserved_from_multiple_locations", { steps: () => [
     {
         trigger: ".o_barcode_client_action",
         run: function() { // Check all lines are here (header + 4 compos)
@@ -590,7 +590,7 @@ registry.category("web_tour.tours").add("test_barcode_production_reserved_from_m
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_barcode_production_scan_other_than_reserved', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_barcode_production_scan_other_than_reserved', { steps: () => [
     {
         trigger: ".o_barcode_client_action",
         run: function() { // Check all lines are here (header + 2 compos)
@@ -671,7 +671,7 @@ registry.category("web_tour.tours").add('test_barcode_production_scan_other_than
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add("test_barcode_production_component_no_stock", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_barcode_production_component_no_stock", { steps: () => [
     // Creates a new production from the Barcode App.
     {
         trigger: ".o_kanban_record_title:contains('Manufacturing')",
@@ -731,7 +731,7 @@ registry.category("web_tour.tours").add("test_barcode_production_component_no_st
     },
 ]});
 
-registry.category("web_tour.tours").add('test_mo_scrap_digipad_view', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_mo_scrap_digipad_view', { steps: () => [
     {
         trigger: ".o_barcode_actions",
         run: "click",
@@ -753,7 +753,7 @@ registry.category("web_tour.tours").add('test_mo_scrap_digipad_view', {test: tru
     },
 ]});
 
-registry.category("web_tour.tours").add('test_barcode_production_components_reservation_state_reserved', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_barcode_production_components_reservation_state_reserved', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: () => {
@@ -762,7 +762,7 @@ registry.category("web_tour.tours").add('test_barcode_production_components_rese
     },
 ]});
 
-registry.category("web_tour.tours").add('test_barcode_production_components_reservation_state_unreserved', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_barcode_production_components_reservation_state_unreserved', { steps: () => [
     {
         trigger: '.o_barcode_client_action',
         run: () => {
@@ -771,7 +771,7 @@ registry.category("web_tour.tours").add('test_barcode_production_components_rese
     },
 ]});
 
-registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_barcode_production_add_scrap", { steps: () => [
     // Creates a new production from the Barcode App.
     {
         trigger: ".o_kanban_record_title:contains('Manufacturing')",
@@ -836,7 +836,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_scrap", {te
     // Further assertions are done server-side as scrapped products aren't shown in barcode interface
 ]});
 
-registry.category("web_tour.tours").add("test_barcode_production_add_byproduct", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_barcode_production_add_byproduct", { steps: () => [
     // Creates a new production from the Barcode App.
     {
         trigger: ".o_kanban_record_title:contains('Manufacturing')",
@@ -902,7 +902,7 @@ registry.category("web_tour.tours").add("test_barcode_production_add_byproduct",
     ...stepUtils.validateBarcodeOperation(),
 ]});
 
-registry.category("web_tour.tours").add('test_split_line_on_exit_for_production', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_split_line_on_exit_for_production', { steps: () => [
     // Opens the manufacturing order and check its lines.
     { trigger: ".o_stock_barcode_main_menu", run: "scan production_split_line_on_exit" },
     {
@@ -973,8 +973,7 @@ registry.category("web_tour.tours").add('test_split_line_on_exit_for_production'
     },
 ]});
 
-registry.category("web_tour.tours").add("test_barcode_production_component_different_uom", {
-    test: true, steps: () => [
+registry.category("web_tour.tours").add("test_barcode_production_component_different_uom", { steps: () => [
         // Creates a new production from the Barcode App.
         {
             trigger: ".o_kanban_record_title:contains('Manufacturing')",
@@ -1002,14 +1001,12 @@ registry.category("web_tour.tours").add("test_barcode_production_component_diffe
     ]
 });
 
-registry.category("web_tour.tours").add('test_picking_product_with_kit_and_packaging', {
-    test: true, steps: () => [
+registry.category("web_tour.tours").add('test_picking_product_with_kit_and_packaging', { steps: () => [
         { trigger: '.btn.o_validate_page', run: 'click' }
     ]
 });
 
-registry.category("web_tour.tours").add('test_multi_company_manufacture_creation_in_barcode', {
-    test: true, steps: () => [
+registry.category("web_tour.tours").add('test_multi_company_manufacture_creation_in_barcode', { steps: () => [
         // test scan
         { trigger: '.o_stock_barcode_main_menu', run: 'scan company2_mrp_operation' },
         { trigger: '.o_barcode_client_action', run: 'scan final' },
@@ -1028,7 +1025,7 @@ registry.category("web_tour.tours").add('test_multi_company_manufacture_creation
 });
 
 registry.category("web_tour.tours").add('test_multi_company_record_access_in_mrp_barcode', {
-   test: true, steps: () => [
+    steps: () => [
         { trigger: '.o_stock_barcode_main_menu', run: 'scan company_mrp_operation' },
         { trigger: '.o_barcode_client_action', run: 'scan second_company_product' },
         { trigger: '.btn.o_add_line', run: 'click' },
@@ -1042,7 +1039,7 @@ registry.category("web_tour.tours").add('test_multi_company_record_access_in_mrp
 });
 
 registry.category("web_tour.tours").add('test_multi_company_record_access_in_mrp_barcode2', {
-   test: true, steps: () => [
+    steps: () => [
         { trigger: '.o_stock_barcode_main_menu', run: 'scan company2_mrp_operation' },
         { trigger: '.o_barcode_client_action', run: 'scan second_company_product' },
         { trigger: '.btn.o_add_quantity', run: 'click' },
@@ -1052,7 +1049,7 @@ registry.category("web_tour.tours").add('test_multi_company_record_access_in_mrp
 });
 
 registry.category("web_tour.tours").add('test_kit_bom_decomposition_keeps_location', {
-   test: true, steps: () => [
+    steps: () => [
         /* Test 1: two move lines
             same final product, same bom, different location */
         { trigger: '.o_stock_barcode_main_menu', run: 'scan test_kit_bom_decomposition_keeps_location_picking1' },
@@ -1100,7 +1097,7 @@ registry.category("web_tour.tours").add('test_kit_bom_decomposition_keeps_locati
     ]
 });
 
-registry.category("web_tour.tours").add('test_always_backorder_mo', {test: true, steps: () => [
+registry.category("web_tour.tours").add('test_always_backorder_mo', { steps: () => [
     { trigger: '.o_kanban_record_title:contains(Manufacturing)', run: 'click' },
     { trigger: '.o_kanban_record:contains(Final Product)', run: 'click' },
     { trigger: '.o_barcode_line.o_header .fa-pencil', run: 'click' },
@@ -1112,7 +1109,7 @@ registry.category("web_tour.tours").add('test_always_backorder_mo', {test: true,
 ]});
 
 registry.category("web_tour.tours").add('test_backorder_partial_completion_save_sensible_split', {
-    test: true, steps: () => [
+    steps: () => [
         { trigger: '.o_stock_barcode_main_menu', run: 'scan TBPCSNS mo' },
         {
             trigger: '.o_barcode_line:has(.o_barcode_line_title .o_product_label:contains("Final Product")) .o_edit',

@@ -1,6 +1,6 @@
 import { registry } from "@web/core/registry";
 
-registry.category("web_tour.tours").add("test_partial_quantity_check_fail", {test: true, steps: () => [
+registry.category("web_tour.tours").add("test_partial_quantity_check_fail", { steps: () => [
     {
         trigger: 'footer.o_barcode_control button.o_check_quality',
         run: 'click',
