@@ -16,7 +16,6 @@ export class IoTRestartOdooOrReboot extends Component {
         this.dialog = useService("dialog");
         this.http = useService("http");
         this.notification = useService("notification");
-        this.rpc = useService("rpc");
     }
 
     get ip_url() {
@@ -48,8 +47,7 @@ export class IoTRestartOdooOrReboot extends Component {
     }
 
     async callRestartMethodOnServer() {
-        /// Call "restart_odoo_or_reboot" method from "hw_posbox_homepage" controller
-        let restartResponse;
+        /// Call restart method from "hw_posbox_homepage" controller
         try {
             this.showMsgAndClearInterval(
                 null,
@@ -57,14 +55,13 @@ export class IoTRestartOdooOrReboot extends Component {
                 _t("Restarting"),
                 "warning"
             );
-            restartResponse = await this.rpc(this.ip_url + "/iot_restart_odoo_or_reboot", {
-                action: this.props.action,
-            });
+            const endpoint = this.props.action === "restart_odoo" ? "restart_odoo_service" : "restart_iotbox";
+            const response = await this.http.get(`${this.ip_url}/hw_posbox_homepage/${endpoint}`);
+            return response.status;
         } catch (error) {
-            restartResponse = `${error.name} ${error.message}`;
             this.doWarnFail(this.ip_url);
+            return `${error.name} ${error.message}`;
         }
-        return restartResponse;
     }
 
     pingServerUntilItFinishedRestarting() {
