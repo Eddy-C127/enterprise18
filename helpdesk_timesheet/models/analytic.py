@@ -28,7 +28,7 @@ class AccountAnalyticLine(models.Model):
             if not line.project_id or line.project_id != line.helpdesk_ticket_id.project_id:
                 line.helpdesk_ticket_id = False
 
-    @api.depends('helpdesk_ticket_id')
+    @api.depends('helpdesk_ticket_id', 'helpdesk_ticket_id.project_id')
     def _compute_project_id(self):
         timesheets_with_ticket = self.filtered('helpdesk_ticket_id')
         for timesheet in timesheets_with_ticket:
