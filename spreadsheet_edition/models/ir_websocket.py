@@ -51,7 +51,7 @@ class IrWebsocket(models.AbstractModel):
         else:
             share_id = None
             access_token = None
-        record = self.env[model_name].browse(res_id)
+        record = self.env[model_name].browse(res_id).exists()
         access = record._check_collaborative_spreadsheet_access(
             "read", share_id, access_token, raise_exception=False
         )
