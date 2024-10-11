@@ -44,6 +44,7 @@ class MrpWorkorderAdditionalProduct(models.TransientModel):
                     self.product_id.uom_id,
                     operation_id=wo.operation_id.id,
                 )
+                values['manual_consumption'] = True
             else:
                 values = wo.production_id._get_move_finished_values(
                     self.product_id.id,
@@ -55,6 +56,7 @@ class MrpWorkorderAdditionalProduct(models.TransientModel):
             mo = self.production_id
             if self.type == 'component':
                 values = mo._get_move_raw_values(self.product_id, self.product_qty, self.product_id.uom_id)
+                values['manual_consumption'] = True
             else:
                 values = mo._get_move_finished_values(self.product_id.id, self.product_qty, self.product_id.uom_id.id)
 

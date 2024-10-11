@@ -1,7 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
-import helper from '@mrp_workorder/../tests/tours/tour_helper_mrp_workorder';
+import helper from "@mrp_workorder/../tests/tours/tour_helper_mrp_workorder";
 
 
 registry.category("web_tour.tours").add('test_serial_tracked_and_register', {test: true, steps: () => [
@@ -102,3 +102,117 @@ registry.category("web_tour.tours").add('test_access_shop_floor_with_multicomany
         isCheck: true,
     }]
 })
+
+registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "button:has(input[name='Nuclear Workcenter'])",
+            run: "click",
+        },
+        {
+            trigger: "button.active:has(input[name='Nuclear Workcenter'])",
+            isCheck: true,
+        },
+        {
+            trigger: "button:contains('Confirm')",
+            run: "click",
+        },
+        {
+            context: "Check that we are in the MO view",
+            trigger: ".o_mrp_display_records button:contains('Nuclear Workcenter')",
+            isCheck: true,
+        },
+        {
+            context: "Add Wood to the MO components",
+            trigger: ".o_mrp_display_record .card-footer button.btn-light.py-3",
+        },
+        {
+            trigger: ".o_mrp_menu_dialog",
+            isCheck: true,
+        },
+        {
+            trigger: "button:contains('Add Component')",
+            run: "click",
+        },
+        {
+            trigger: ".o_cell:has(div[name='product_id']) input.o_input",
+            run: "text Super Wood",
+        },
+        {
+            trigger: ".dropdown-item:contains('Super Wood')",
+        },
+        {
+            trigger: "header.modal-header",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Add Component')",
+            run: "click",
+        },
+        {
+            context: "Check that the Wood is visible on the MO",
+            trigger: ".o_mrp_record_line:contains('Super Wood')",
+            isCheck: true,
+        },
+        {
+            context: "Swap to the WO view of the Nuclear Workcenter",
+            trigger: "button.btn-light:contains('Nuclear Workcenter')",
+            run: "click",
+        },
+        {
+            context: "Check that we are in the WO view",
+            trigger: ".o_mrp_display_records .card-header .card-title:contains('Super Operation')",
+            isCheck: true,
+        },
+        {
+            context: "Add Courage to the WO components",
+            trigger: ".o_mrp_display_record .card-footer button.btn-light.py-3",
+            run: "click",
+        },
+        {
+            trigger: ".o_mrp_menu_dialog",
+            isCheck: true,
+        },
+        {
+            trigger: "button:contains('Add Component')",
+            run: "click",
+        },
+        {
+            trigger: ".o_cell:has(div[name='product_id']) input.o_input",
+            run: "text Courage",
+        },
+        {
+            trigger: ".dropdown-item:contains('Courage')",
+            run: "click",
+        },
+        {
+            trigger: "header.modal-header",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Add Component')",
+            run: "click",
+        },
+        {
+            context: "Check that the Courage is visible on the WO",
+            trigger: ".o_mrp_record_line span:contains('Courage')",
+            isCheck: true,
+        },
+        {
+            context: "Go back to the MO",
+            trigger: "button.btn:contains('All MO')",
+            run: "click",
+        },
+        {
+            context: "Check that we are in the MO view",
+            trigger: ".o_mrp_display_records button:contains('Nuclear Workcenter')",
+            isCheck: true,
+        },
+        {
+            context: "Check that the Courage is visible on the MO",
+            trigger: ".o_mrp_record_line span:contains('Courage')",
+            isCheck: true,
+        },
+    ],
+});
