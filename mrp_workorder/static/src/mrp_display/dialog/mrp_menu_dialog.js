@@ -29,7 +29,7 @@ export class MrpMenuDialog extends Component {
         this.state = useState({ menu: "main"});
     }
 
-    async callAction(method) {
+    async callAction(method, props = {}) {
         const action = await this.orm.call(this.props.record.resModel, method,
             [
                 [this.props.record.resId],
@@ -42,8 +42,17 @@ export class MrpMenuDialog extends Component {
             onClose: async () => {
                 await this.props.reload(this.props.record);
             },
+            props,
         });
         this.props.close();
+    }
+
+    async callAddComponentAction() {
+        return this.callAction("action_add_component", {
+            onCatalogUpdated: async () => {
+                await this.props.reload(this.props.record);
+            },
+        });
     }
 
     moveToWorkcenter() {
