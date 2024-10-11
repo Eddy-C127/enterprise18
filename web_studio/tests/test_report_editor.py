@@ -709,7 +709,7 @@ class TestReportEditorUIUnit(HttpCase):
         self.assertXMLEqual(new_view_arch, """
             <t t-name="studio_report_document">
                 <div class="page">
-                    <div class="oe_structure"><span t-field="doc.function">some default value</span>Custo</div>
+                    <div class="oe_structure"><p><span t-field="doc.function">some default value</span><br/>Custo</p></div>
                 </div>
             </t>
         """)

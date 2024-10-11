@@ -626,6 +626,19 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         {
             trigger: "iframe .odoo-editor-editable .page div",
             async run(helpers) {
+                const element = this.$anchor[0];
+                const doc = element.ownerDocument;
+                const sel = doc.getSelection();
+                sel.removeAllRanges();
+                const range = doc.createRange();
+                range.setStart(element, 0);
+                range.setEnd(element, 0);
+                sel.addRange(range);
+            },
+        },
+        {
+            trigger: "iframe .odoo-editor-editable .page div p",
+            async run(helpers) {
                 const el = this.$anchor[0];
                 openEditorPowerBox(el);
             },
@@ -677,10 +690,11 @@ registry.category("web_tour.tours").add("web_studio.test_add_field_blank_report"
         },
         {
             // check that field was added successfully
-            trigger: "iframe .odoo-editor-editable .page div > span:contains(some default value)",
+            trigger:
+                "iframe .odoo-editor-editable .page div > p > span:contains(some default value)",
         },
         {
-            trigger: "iframe .odoo-editor-editable .page div",
+            trigger: "iframe .odoo-editor-editable .page div p",
             run() {
                 insertText(this.$anchor[0], "Custo");
             },
