@@ -43,15 +43,19 @@ export class AccountReportController {
     async displayReport(reportId) {
         const cacheKey = await this.loadReport(reportId);
         this.options = await this.reportOptionsMap[cacheKey];
-        this.data = await this.reportInformationMap[cacheKey];
+        const informationMap = await this.reportInformationMap[cacheKey];
 
-        // If there is a specific order for lines in the options, we want to use it by default
-        if (this.areLinesOrdered())
-            await this.sortLines();
+        if (informationMap !== undefined) {
+            this.data = informationMap;
 
-        this.setLineVisibility(this.lines);
-        this.refreshVisibleFootnotes();
-        this.saveSessionOptions(this.options);
+            // If there is a specific order for lines in the options, we want to use it by default
+            if (this.areLinesOrdered())
+                await this.sortLines();
+
+            this.setLineVisibility(this.lines);
+            this.refreshVisibleFootnotes();
+            this.saveSessionOptions(this.options);
+        }
     }
 
     async reload(optionPath, newOptions) {
