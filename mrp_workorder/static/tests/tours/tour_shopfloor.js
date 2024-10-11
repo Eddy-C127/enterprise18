@@ -1,6 +1,7 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import helper from './tour_helper_mrp_workorder';
 
 registry.category("web_tour.tours").add("test_shop_floor", {
     steps: () => [
@@ -218,6 +219,129 @@ registry.category("web_tour.tours").add("test_shop_floor", {
     {
         trigger: ".o_apps",
     },
+    ],
+});
+
+registry.category("web_tour.tours").add("test_shop_floor_auto_select_workcenter", {
+    steps: () => [
+        // Select 3 available Work Centers.
+        { trigger: "input[name='Preparation Table 1']", run: "click" },
+        { trigger: "input[name='Preparation Table 2']", run: "click" },
+        { trigger: "input[name='Furnace']", run: "click" },
+        { trigger: ".modal-footer button.btn-primary", run: "click" },
+        {
+            trigger: ".o_control_panel_actions button:nth-child(3)",
+            run: () => {
+                const selectionButtons = document.querySelectorAll(
+                    '.o_control_panel_actions button.text-nowrap'
+                );
+                helper.assert(selectionButtons.length, 3, "Three WC buttons should be visible");
+            },
+        },
+        // Exit the Shop Floor and re-open it.
+        { trigger: ".o_home_menu", run: "click" },
+        { trigger: ".o_menuitem[href='/odoo/shop-floor']", run: "click" },
+        { trigger: ".o_control_panel_actions button:first-child.active" },
+        { trigger: ".o_control_panel_actions button:nth-child(2):not(.active)" },
+        { trigger: ".o_control_panel_actions button:nth-child(3):not(.active)" },
+
+        { trigger: ".o_control_panel_actions button.fa-plus", run: "click" },
+        { trigger: ".o_mrp_workcenter_dialog" },
+        { trigger: "input[name='All MO']", run: "click" },
+        { trigger: "input[name='My WO']", run: "click" },
+        { trigger: ".modal-footer button.btn-primary", run: "click" },
+
+        // Exit/re-open the Shop Floor again then check first button is selected (not "All MO".)
+        { trigger: ".o_home_menu", run: "click" },
+        { trigger: ".o_menuitem[href='/odoo/shop-floor']", run: "click" },
+        {
+            trigger: ".o_action.o_mrp_display",
+            run: () => {
+                const selectedWC = document.querySelector(
+                    ".o_control_panel_actions button:first-child.active"
+                );
+                helper.assert(selectedWC.innerText.includes("Preparation Table 1"), true);
+            }
+        },
+        // Unselect WCs then re-select them to change the order ("All MO" will be first.)
+        { trigger: ".o_control_panel_actions button.fa-plus", run: "click" },
+        { trigger: ".o_mrp_workcenter_dialog" },
+        { trigger: "input[name='Preparation Table 1']", run: "click" },
+        { trigger: "input[name='Preparation Table 2']", run: "click" },
+        { trigger: "input[name='Furnace']", run: "click" },
+        { trigger: ".modal-footer button.btn-primary", run: "click" },
+
+        { trigger: ".o_web_client:not(.modal-open)" },
+        { trigger: ".o_control_panel_actions button.fa-plus", run: "click" },
+        { trigger: ".o_mrp_workcenter_dialog" },
+        { trigger: "input[name='Preparation Table 1']", run: "click" },
+        { trigger: "input[name='Preparation Table 2']", run: "click" },
+        { trigger: "input[name='Furnace']", run: "click" },
+        { trigger: ".modal-footer button.btn-primary", run: "click" },
+
+        {
+            trigger: ".o_web_client:not(.modal-open)",
+            run: () => {
+                const firstButton = document.querySelector(
+                    ".o_control_panel_actions button:first-child"
+                );
+                helper.assert(firstButton.innerText.includes("All MO"), true);
+            }
+        },
+
+        // Exit/re-open the Shop Floor once again then check first button is "All MO" and is selected.
+        { trigger: ".o_home_menu", run: "click" },
+        { trigger: ".o_menuitem[href='/odoo/shop-floor']", run: "click" },
+        {
+            trigger: ".o_action.o_mrp_display",
+            run: () => {
+                const selectedWC = document.querySelector(
+                    ".o_control_panel_actions button:first-child.active"
+                );
+                helper.assert(selectedWC.innerText.includes("All MO"), true);
+            }
+        },
+        // Check the MO is visible now but won't be once "Preparation Table 2" will be selected.
+        { trigger: ".o_mrp_display_record .o_mrp_record_line:contains('Prepare the pizza')" },
+        { trigger: ".o_control_panel_actions button.fa-plus", run: "click" },
+        { trigger: ".o_mrp_workcenter_dialog" },
+        { trigger: "input[name='All MO']", run: "click" },
+        { trigger: "input[name='My WO']", run: "click" },
+        { trigger: "input[name='Preparation Table 1']", run: "click" },
+        { trigger: ".modal-footer button.btn-primary", run: "click" },
+        // Exit/re-open the Shop Floor once again, "Preparation Table 2" should be the first WC.
+        { trigger: ".o_home_menu", run: "click" },
+        { trigger: ".o_menuitem[href='/odoo/shop-floor']", run: "click" },
+        {
+            trigger: ".o_view_nocontent .o_nocontent_help" ,
+            run: () => {
+                const selectedWC = document.querySelector(
+                    ".o_control_panel_actions button:first-child.active"
+                );
+                helper.assert(selectedWC.innerText.includes("Preparation Table 2"), true);
+            }
+        },
+        // Exit the Shop Floor and open it from a WO form view.
+        { trigger: ".o_home_menu", run: "click" },
+        { trigger: ".o_menuitem[href='/odoo/work-centers']", run: "click" },
+        { trigger: "button[data-menu-xmlid='mrp.menu_mrp_manufacturing']", run: "click" },
+        { trigger: "a[data-menu-xmlid='mrp.menu_mrp_workorder_todo']", run: "click" },
+        { trigger: "[name='workcenter_id'][data-tooltip='Furnace']", run: "click" },
+        { trigger: "button[name='action_open_mes']", run: "click" },
+        // Check whatever was selected, when we come from a WO form view, only its WC is displayed.
+        {
+            trigger: ".o_action.o_mrp_display",
+            run: () => {
+                const selectedWC = document.querySelector(
+                    ".o_control_panel_actions button:first-child.active"
+                );
+                helper.assert(selectedWC.innerText.includes("Furnace"), true);
+                const selectionButtons = document.querySelectorAll(
+                    '.o_control_panel_actions button.text-nowrap'
+                );
+                helper.assert(selectionButtons.length, 1, "Only one WC buttons should be visible");
+            }
+        },
     ],
 });
 
