@@ -15,7 +15,9 @@ class AccountMove(models.Model):
     def _l10n_cl_edi_post_validation(self):
         if self.l10n_latam_document_type_id.code == '39':
             if self.line_ids.filtered(lambda x: x.tax_group_id.id in [
-                    self.env['account.chart.template'].ref('tax_group_ila').id, self.env['account.chart.template'].ref('tax_group_retenciones').id]):
+                self.env['account.chart.template'].with_company(self.company_id).ref('tax_group_ila').id,
+                self.env['account.chart.template'].with_company(self.company_id).ref('tax_group_retenciones').id,
+            ]):
                 raise UserError(_('Receipts with withholding taxes are not allowed'))
             if self.company_id.currency_id != self.currency_id:
                 raise UserError(_('It is not allowed to create receipts in a different currency than CLP'))
