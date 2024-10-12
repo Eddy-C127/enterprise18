@@ -11,11 +11,11 @@
 # matjaz k <matjaz@mentis.si>, 2024
 # Martin Trigaux, 2024
 # Jasmina Macur <jasmina@hbs.si>, 2024
-# Grega Vavtar <grega@hbs.si>, 2024
 # Tadej Lupšina <tadej@hbs.si>, 2024
 # Matjaz Mozetic <m.mozetic@matmoz.si>, 2024
 # Katja Deržič, 2024
 # JernejEditor, 2024
+# Grega Vavtar <grega@hbs.si>, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: JernejEditor, 2024\n"
+"Last-Translator: Grega Vavtar <grega@hbs.si>, 2024\n"
 "Language-Team: Slovenian (https://app.transifex.com/odoo/teams/41243/sl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -261,6 +261,13 @@ msgstr "Predloga kontnega načrta"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "Account Code"
+msgstr ""
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid "Account Code / Tag"
 msgstr ""
 
@@ -449,7 +456,7 @@ msgstr "Zastarele obveznosti"
 #: model:ir.actions.client,name:account_reports.action_account_report_ar
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_receivable
 msgid "Aged Receivable"
-msgstr "Zastarane terjatve"
+msgstr "Starostna struktura terjatev"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_receivable_report_handler
@@ -459,7 +466,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Receivables"
-msgstr "Zastarane terjatve"
+msgstr "Starostna struktura terjatev"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3198,11 +3205,6 @@ msgid "Tags"
 msgstr "Ključne besede"
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.company_information
-msgid "Tax ID:"
-msgstr ""
-
-#. module: account_reports
 #. odoo-javascript
 #. odoo-python
 #: code:addons/account_reports/models/account_general_ledger.py:0
@@ -3251,6 +3253,11 @@ msgstr "Davčne mreže"
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__vat
 msgid "Tax ID"
 msgstr "ID za DDV"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.company_information
+msgid "Tax ID:"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python

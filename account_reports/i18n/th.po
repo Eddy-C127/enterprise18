@@ -254,6 +254,13 @@ msgstr "เทมเพลตแผนภูมิบัญชี"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
+msgid "Account Code"
+msgstr "รหัสบัญชี"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+#, python-format
 msgid "Account Code / Tag"
 msgstr "รหัสบัญชี / แท็ก"
 
@@ -2169,7 +2176,7 @@ msgstr "มีรายงานความครอบคลุมบัญช
 #: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #, python-format
 msgid "It seems there is some depending closing move to be posted"
-msgstr ""
+msgstr "ดูเหมือนว่าจะมีการโพสต์ย้ายการปิดบัญชีบางส่วน"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
@@ -3216,11 +3223,6 @@ msgid "Tags"
 msgstr "แท็ก"
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.company_information
-msgid "Tax ID:"
-msgstr ""
-
-#. module: account_reports
 #. odoo-javascript
 #. odoo-python
 #: code:addons/account_reports/models/account_general_ledger.py:0
@@ -3269,6 +3271,11 @@ msgstr "ตารางภาษี"
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__vat
 msgid "Tax ID"
 msgstr "เลขประจำตัวผู้เสียภาษี"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.company_information
+msgid "Tax ID:"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python

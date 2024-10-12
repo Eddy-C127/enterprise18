@@ -7,7 +7,7 @@
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Linas Versada <linaskrisiukenas@gmail.com>, 2023
-# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2023
+# Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2023\n"
+"Last-Translator: Ramunė ViaLaurea <ramune.vialaurea@gmail.com>, 2024\n"
 "Language-Team: Lithuanian (https://app.transifex.com/odoo/teams/41243/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,7 +40,7 @@ msgstr "1 operacija jau buvo importuota, todėl ignoruojama."
 #. module: account_bank_statement_import
 #: model:ir.model.constraint,message:account_bank_statement_import.constraint_account_bank_statement_line_unique_import_id
 msgid "A bank account transactions can be imported only once!"
-msgstr ""
+msgstr "Banko operacijas galima importuoti tik vieną kartą!"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_bank_statement_line
@@ -71,6 +71,8 @@ msgid ""
 "Could not make sense of the given file.\n"
 "Did you install the module to support this type of file?"
 msgstr ""
+"Nepavyko nuskaityti įkeltos bylos.\n"
+"Ar įdiegėte modulį, kuris palaikytų tokio tipo bylas?"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -91,7 +93,7 @@ msgstr ""
 #. module: account_bank_statement_import
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_import.journal_dashboard_view_inherit
 msgid "Import File"
-msgstr ""
+msgstr "Importuoti bylą"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_line__unique_import_id
@@ -103,7 +105,7 @@ msgstr "Importuoti ID"
 #: code:addons/account_bank_statement_import/static/src/account_bank_statement_import_model.js:0
 #, python-format
 msgid "Import Template for Bank Statements"
-msgstr ""
+msgstr "Importuoti banko išrašo šabloną"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_journal
@@ -115,7 +117,7 @@ msgstr "Žurnalas"
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 #, python-format
 msgid "Manual (or import %(import_formats)s)"
-msgstr ""
+msgstr "Rankiuniu būdu (arba importuoti %(import_formats)s)"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -153,7 +155,7 @@ msgstr "Banko išrašo valiuta (%s) nėra tokia pati, kaip žurnalo valiuta (%s)
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 #, python-format
 msgid "The following files could not be imported:\n"
-msgstr ""
+msgstr "Nepavyko importuoti šių failų:\n"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -174,7 +176,7 @@ msgstr "Šis failas neturi jokio judėjimo sąskaitoje %s."
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 #, python-format
 msgid "View successfully imported statements"
-msgstr ""
+msgstr "Peržiūrėkite sėkmingai importuotus išrašus"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -195,4 +197,4 @@ msgstr "Privalote nustatyti žurnalui bal.sąskaitą pagal nutylėjimą: %s"
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 #, python-format
 msgid "You uploaded an invalid or empty file."
-msgstr ""
+msgstr "Įkėlėte netinkamą arba tuščią bylą."
