@@ -6,6 +6,11 @@
 # emre oktem, 2024
 # Tiffany Chang, 2024
 # Ediz Duman <neps1192@gmail.com>, 2024
+# Levent Karakaş <levent@mektup.at>, 2024
+# Murat Kaplan <muratk@projetgrup.com>, 2024
+# abc Def <hdogan1974@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Tugay Hatıl <tugayh@projetgrup.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ediz Duman <neps1192@gmail.com>, 2024\n"
+"Last-Translator: Tugay Hatıl <tugayh@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -24,17 +29,17 @@ msgstr ""
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__active
 msgid "Active"
-msgstr ""
+msgstr "Etkin"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__applies_to
 msgid "Applies To"
-msgstr ""
+msgstr "Şunlara Uygulanır"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__code
 msgid "Code"
-msgstr ""
+msgstr "Kod"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__create_uid
@@ -60,6 +65,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:product_unspsc.field_product_unspsc_code__applies_to
 msgid "Indicate if this code could be used in products or in UoM"
 msgstr ""
+"Bu kodun ürünlerde mi yoksa ölçü biriminde mi kullanılabileceğini belirtin"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__write_uid
@@ -85,17 +91,17 @@ msgstr "Ürün"
 #. module: product_unspsc
 #: model:ir.model,name:product_unspsc.model_uom_uom
 msgid "Product Unit of Measure"
-msgstr ""
+msgstr "Ürün Ölçü Birimi"
 
 #. module: product_unspsc
 #: model:ir.model,name:product_unspsc.model_product_unspsc_code
 msgid "Product and UOM Codes from UNSPSC"
-msgstr ""
+msgstr "UNSPSC'den Ürün ve UOM Kodları"
 
 #. module: product_unspsc
 #: model:ir.model.fields,help:product_unspsc.field_uom_uom__unspsc_code_id
 msgid "The UNSPSC code related to this UoM. "
-msgstr ""
+msgstr "Bu Ölçü Birimi ile ilgili UNSPSC kodu."
 
 #. module: product_unspsc
 #: model:ir.model.fields,help:product_unspsc.field_product_product__unspsc_code_id
@@ -108,7 +114,7 @@ msgstr ""
 #. module: product_unspsc
 #: model_terms:ir.ui.view,arch_db:product_unspsc.product_template_unspsc
 msgid "UNSPSC"
-msgstr ""
+msgstr "UNSPSC"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_product__unspsc_code_id
@@ -118,7 +124,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_unspsc.view_product_uom_categ_search_unspsc
 #: model_terms:ir.ui.view,arch_db:product_unspsc.view_product_uom_categ_tree_unspsc
 msgid "UNSPSC Category"
-msgstr ""
+msgstr "UNSPSC Kategorisi"
 
 #. module: product_unspsc
 #: model:ir.model.fields.selection,name:product_unspsc.selection__product_unspsc_code__applies_to__uom

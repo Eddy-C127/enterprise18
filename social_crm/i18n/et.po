@@ -5,6 +5,10 @@
 # Translators:
 # Stevin Lilla, 2024
 # Siim Raasuke, 2024
+# Algo Kärp <algokarp@gmail.com>, 2024
+# Anna, 2024
+# Leaanika Randmets, 2024
+# JanaAvalah, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Siim Raasuke, 2024\n"
+"Last-Translator: JanaAvalah, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -47,7 +51,7 @@ msgstr "Tühista"
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__conversion_source
 msgid "Conversion Source"
-msgstr ""
+msgstr "Teisendamise allikas"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_view_form
@@ -58,18 +62,18 @@ msgstr "Teisenda"
 #: model:ir.actions.act_window,name:social_crm.social_post_to_lead_action
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_view_form
 msgid "Convert Post to Lead"
-msgstr ""
+msgstr "Teisenda postitus vihjeks"
 
 #. module: social_crm
 #: model:ir.model,name:social_crm.model_social_post_to_lead
 msgid "Convert Social Post to Lead"
-msgstr ""
+msgstr "Teisenda sotsiaalne postitus vihjeks"
 
 #. module: social_crm
 #. odoo-javascript
 #: code:addons/social_crm/static/src/xml/social_crm_button.xml:0
 msgid "Create Lead"
-msgstr ""
+msgstr "Loo müügivihje"
 
 #. module: social_crm
 #: model:ir.model.fields.selection,name:social_crm.selection__social_post_to_lead__action__create
@@ -105,12 +109,12 @@ msgstr "Ära seo kliendiga"
 #. module: social_crm
 #: model:ir.model.fields.selection,name:social_crm.selection__social_post_to_lead__conversion_source__comment
 msgid "From a comment"
-msgstr ""
+msgstr "Kommentaarist"
 
 #. module: social_crm
 #: model:ir.model.fields.selection,name:social_crm.selection__social_post_to_lead__conversion_source__stream_post
 msgid "From a stream post"
-msgstr ""
+msgstr "From a stream post"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__id
@@ -130,12 +134,12 @@ msgstr "Viimati uuendatud"
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post__leads_opportunities_count
 msgid "Leads / Opportunities count"
-msgstr ""
+msgstr "Müügivihjete / müügivõimaluste arv"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_view_kanban
 msgid "Leads:"
-msgstr ""
+msgstr "Müügivihjed:"
 
 #. module: social_crm
 #: model:ir.model.fields.selection,name:social_crm.selection__social_post_to_lead__action__exist
@@ -145,22 +149,22 @@ msgstr "Seo olemasoleva kliendiga"
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_view_kanban
 msgid "Opportunities:"
-msgstr ""
+msgstr "Müügivõimalused:"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__author_name
 msgid "Post Author Name"
-msgstr ""
+msgstr "Postituse autori nimi"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_content
 msgid "Post Content"
-msgstr ""
+msgstr "Postituse sisu"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_datetime
 msgid "Post Datetime"
-msgstr ""
+msgstr "Postituskuupäev"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_image_urls
@@ -170,7 +174,7 @@ msgstr ""
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__post_link
 msgid "Post Link"
-msgstr ""
+msgstr "Postita link"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__action
@@ -181,17 +185,17 @@ msgstr "Seotud klient"
 #. odoo-python
 #: code:addons/social_crm/wizard/social_post_to_lead.py:0
 msgid "Request from %s"
-msgstr ""
+msgstr "Taotlus alates %s"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__social_account_id
 msgid "Social Account"
-msgstr ""
+msgstr "Sotsiaalkonto"
 
 #. module: social_crm
 #: model:ir.model,name:social_crm.model_social_post
 msgid "Social Post"
-msgstr ""
+msgstr "Sotsiaalmeedia postitus"
 
 #. module: social_crm
 #: model_terms:ir.ui.view,arch_db:social_crm.social_post_to_lead_description
@@ -201,13 +205,13 @@ msgstr ""
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__social_stream_post_id
 msgid "Social Stream Post"
-msgstr ""
+msgstr "Sotsiaalmeedia striiming postitus"
 
 #. module: social_crm
 #. odoo-python
 #: code:addons/social_crm/wizard/social_post_to_lead.py:0
 msgid "The lead has been created successfully."
-msgstr ""
+msgstr "Vihje on edukalt loodud."
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post__use_leads
@@ -217,14 +221,14 @@ msgstr "Kasuta müügivihjeid"
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__utm_campaign_id
 msgid "Utm Campaign"
-msgstr ""
+msgstr "Utm kampaania"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__utm_medium_id
 msgid "Utm Medium"
-msgstr ""
+msgstr "Utm Meedium"
 
 #. module: social_crm
 #: model:ir.model.fields,field_description:social_crm.field_social_post_to_lead__utm_source_id
 msgid "Utm Source"
-msgstr ""
+msgstr "Utm Allikas"

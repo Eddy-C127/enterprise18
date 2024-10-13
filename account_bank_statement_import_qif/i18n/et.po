@@ -3,6 +3,7 @@
 # 	* account_bank_statement_import_qif
 # 
 # Translators:
+# Anna, 2024
 # Egon Raamat <egon@avalah.ee>, 2024
 # 
 msgid ""
@@ -26,17 +27,20 @@ msgid ""
 "financial institutions use the local format.Therefore, it is frequent "
 "outside the US to have QIF date formatted day-first (dd/mm/yy)."
 msgstr ""
+"Kuigi ajalooline QIF-i kuupäevavorming kk/pp/aa (kuu on esimene), paljud "
+"finantsasutused kasutavad kohalikku vormingut ja seetõttu on väljaspool "
+"USA-d sageli QIF-i kuupäev muudetud pp/kk/aa (päev on esimene). "
 
 #. module: account_bank_statement_import_qif
 #. odoo-python
 #: code:addons/account_bank_statement_import_qif/models/account_journal.py:0
 msgid "Could not decipher the QIF file."
-msgstr ""
+msgstr "Ei suutnud dešifreerida QIF faili."
 
 #. module: account_bank_statement_import_qif
 #: model:ir.model.fields,help:account_bank_statement_import_qif.field_account_journal__qif_decimal_point
 msgid "Field used to avoid conversion issues."
-msgstr ""
+msgstr "Teisendamise probleemide vältimiseks kasutatav väli."
 
 #. module: account_bank_statement_import_qif
 #: model:ir.model,name:account_bank_statement_import_qif.model_account_journal
@@ -46,25 +50,27 @@ msgstr "Andmik"
 #. module: account_bank_statement_import_qif
 #: model:ir.model.fields,field_description:account_bank_statement_import_qif.field_account_journal__qif_date_format
 msgid "QIF Dates format"
-msgstr ""
+msgstr "QIF kuupäeva formaat"
 
 #. module: account_bank_statement_import_qif
 #: model:ir.model.fields,field_description:account_bank_statement_import_qif.field_account_journal__qif_decimal_point
 msgid "QIF Decimal Separator"
-msgstr ""
+msgstr "QIF kümnendkohtade eraldaja"
 
 #. module: account_bank_statement_import_qif
 #. odoo-python
 #: code:addons/account_bank_statement_import_qif/models/account_journal.py:0
 msgid "This file is either not a bank statement or is not correctly formed."
 msgstr ""
+"See fail ei ole pangaväljavõte või ei ole vormindatud vastavalt QIF "
+"standardile."
 
 #. module: account_bank_statement_import_qif
 #: model:ir.model.fields.selection,name:account_bank_statement_import_qif.selection__account_journal__qif_date_format__day_first
 msgid "dd/mm/yy"
-msgstr ""
+msgstr "dd/mm/yy"
 
 #. module: account_bank_statement_import_qif
 #: model:ir.model.fields.selection,name:account_bank_statement_import_qif.selection__account_journal__qif_date_format__month_first
 msgid "mm/dd/yy"
-msgstr ""
+msgstr "mm/dd/yy"

@@ -6,6 +6,7 @@
 # Stevin Lilla, 2024
 # Siim Raasuke, 2024
 # Martin Trigaux, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Piia Paurson <piia@avalah.ee>, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,6 +40,8 @@ msgid ""
 "Configure correct warehouse for company(%s) from Menu: "
 "Settings/Users/Companies"
 msgstr ""
+"Konfigureerige ettevõtte jaoks õige ladu (%s) menüüst: "
+"Seadistused/Kasutajad/Ettevõtted"
 
 #. module: sale_purchase_stock_inter_company_rules
 #: model:ir.model.fields,help:sale_purchase_stock_inter_company_rules.field_res_company__intercompany_receipt_type_id
@@ -55,6 +58,8 @@ msgid ""
 "Default value to set on Purchase(Sales) Orders that will be created based on"
 " Sale(Purchase) Orders made to this company"
 msgstr ""
+"Sellele ettevõttele tehtud Müügi(Ostu) tellimuste põhjal loodavate "
+"Ostu(Müügi) tellimuste jaoks seatav vaikeväärtus"
 
 #. module: sale_purchase_stock_inter_company_rules
 #: model:ir.model,name:sale_purchase_stock_inter_company_rules.model_purchase_order
@@ -91,7 +96,7 @@ msgstr ""
 #. module: sale_purchase_stock_inter_company_rules
 #: model_terms:ir.ui.view,arch_db:sale_purchase_stock_inter_company_rules.res_config_settings_view_form
 msgid "Use Warehouse"
-msgstr ""
+msgstr "kasuta ladu"
 
 #. module: sale_purchase_stock_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_stock_inter_company_rules.field_res_company__intercompany_warehouse_id
@@ -101,4 +106,4 @@ msgstr "Ladu"
 #. module: sale_purchase_stock_inter_company_rules
 #: model:ir.model.fields,field_description:sale_purchase_stock_inter_company_rules.field_res_config_settings__intercompany_warehouse_id
 msgid "Warehouse For Purchase Orders"
-msgstr ""
+msgstr "Ladu ostutellimustele"

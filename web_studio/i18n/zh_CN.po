@@ -5,6 +5,8 @@
 # Translators:
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Chloe Wang, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -72,7 +74,7 @@ msgid ""
 "            "
 msgstr ""
 " <p class=\"o_view_nocontent_empty_report\">\n"
-"                添加新报告\n"
+"                添加新报表\n"
 "            </p>\n"
 "            "
 
@@ -126,7 +128,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/web_studio/controllers/report.py:0
 msgid "%s Report"
-msgstr "%s 报告"
+msgstr "%s 报表"
 
 #. module: web_studio
 #. odoo-python
@@ -424,7 +426,7 @@ msgstr "全天"
 msgid ""
 "All changes done to the report's structure will be discarded and the report "
 "will be reset to its factory settings."
-msgstr "对报告结构做的全部更改都将被丢弃，报告将重置为出厂设置。"
+msgstr "对报表结构做的全部更改都将被丢弃，报表将重置为出厂设置。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -712,7 +714,7 @@ msgstr "空白"
 #. odoo-python
 #: code:addons/web_studio/models/ir_model.py:0
 msgid "Blocked"
-msgstr "阻塞"
+msgstr "构造块"
 
 #. module: web_studio
 #. odoo-javascript
@@ -974,12 +976,12 @@ msgstr "配置模型"
 msgid ""
 "Configure additional models to export with Studio, such as records that hold"
 " configuration information or demo data."
-msgstr ""
+msgstr "配置其他模型以使用 Studio 导出，例如保存配置信息或演示数据的记录。"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Configure data and demo data to export"
-msgstr ""
+msgstr "配置要导出的数据和演示数据"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1146,7 +1148,7 @@ msgstr "定制模型"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_base_module_uninstall__custom_reports
 msgid "Custom Reports"
-msgstr "自定义报告"
+msgstr "自定义报表"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1178,7 +1180,7 @@ msgstr "定制模型:"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
 msgid "Custom reports:"
-msgstr "自定义报告:"
+msgstr "自定义报表:"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_base_module_uninstall_studio
@@ -1256,7 +1258,7 @@ msgstr "默认显示模式"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__default_export_data
 msgid "Default Export Data"
-msgstr ""
+msgstr "默认导出数据"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1307,14 +1309,14 @@ msgstr "定义开始/结束日期并在甘特图中可视化记录"
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__updatable
 msgid "Defines if the records would be updated during a module update."
-msgstr ""
+msgstr "定义在模块更新期间是否更新记录。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
 msgid "Defines the sequential order in which the approvals are requested."
-msgstr ""
+msgstr "定义请求批准的顺序。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1326,13 +1328,13 @@ msgstr "延迟字段"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
 msgid "Delegate"
-msgstr ""
+msgstr "委派"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Delegate to"
-msgstr ""
+msgstr "委派至"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1691,7 +1693,7 @@ msgstr "字段"
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_model__excluded_fields
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 msgid "Fields to exclude"
-msgstr ""
+msgstr "要排除的字段"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1903,7 +1905,7 @@ msgstr "有消息"
 msgid ""
 "Header and footer are shared with other reports which may be impacted by the"
 " reset."
-msgstr "页眉和页脚与其他报告共享，可能会受到重置的影响。"
+msgstr "页眉和页脚与其他报表共享，可能会受到重置的影响。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1992,14 +1994,14 @@ msgstr "如果勾选此项，有些消息会有传递错误。"
 msgid ""
 "If set, the attachments related to the exported records will be included in "
 "the export."
-msgstr ""
+msgstr "如果设置，与导出记录相关的附件将包含在导出中。"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__is_demo_data
 msgid ""
 "If set, the exported records will be considered as demo data during the "
 "import."
-msgstr ""
+msgstr "如果设置，导出的记录在导入期间将被视为演示数据。"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
@@ -2052,12 +2054,12 @@ msgstr "进行中"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_additional_data
 msgid "Include Data"
-msgstr ""
+msgstr "包含数据"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_demo_data
 msgid "Include Demo Data"
-msgstr ""
+msgstr "包括演示数据"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2135,7 +2137,7 @@ msgstr "不可见的"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_approver__is_delegation
 msgid "Is Delegation"
-msgstr ""
+msgstr "是委派"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_is_follower
@@ -2169,7 +2171,7 @@ msgstr "看板"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__kanban_color
 msgid "Kanban Color"
-msgstr ""
+msgstr "看板颜色"
 
 #. module: web_studio
 #. odoo-python
@@ -2648,7 +2650,7 @@ msgstr "无"
 #: code:addons/web_studio/models/ir_model.py:0
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 msgid "Notes"
-msgstr "凭单"
+msgstr "备注"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
@@ -3017,37 +3019,37 @@ msgstr "移除选择"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_actions_report
 msgid "Report Action"
-msgstr "报告操作"
+msgstr "报表操作"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 msgid "Report Tools"
-msgstr "报告工具"
+msgstr "报表工具"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 msgid "Report edition failed"
-msgstr "报告版本失败"
+msgstr "报表编辑失败"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Report name"
-msgstr "报告名称"
+msgstr "报表名称"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 msgid "Report preview not available"
-msgstr "报告预览不可用"
+msgstr "报表预览不可用"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 msgid "Reporting views"
-msgstr "报告视图"
+msgstr "报表视图"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3055,7 +3057,7 @@ msgstr "报告视图"
 #: code:addons/web_studio/controllers/main.py:0
 #: code:addons/web_studio/static/src/client_action/editor/editor_menu/editor_menu.js:0
 msgid "Reports"
-msgstr "报告"
+msgstr "报表"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3095,7 +3097,7 @@ msgstr "重置视图架构向导"
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.js:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Reset report"
-msgstr "重置报告"
+msgstr "重置报表"
 
 #. module: web_studio
 #. odoo-python
@@ -3203,13 +3205,13 @@ msgstr "保存"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 msgid "Saving both some report's parts and full xml is not permitted."
-msgstr "不允许同时保存某些报告的部分内容和完整的 xml 文件。"
+msgstr "不允许同时保存某些报表的部分内容和完整的 xml 文件。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor.xml:0
 msgid "Saving the report \""
-msgstr "保存报告 \""
+msgstr "保存报表 \""
 
 #. module: web_studio
 #. odoo-javascript
@@ -3765,13 +3767,13 @@ msgid ""
 "The report could not be loaded as some error occured. Usually it means that "
 "some view inherits from another but targets a node that doesn't exist. It "
 "might be due to the mutations of the base views during the upgrade process."
-msgstr "报告无法加载，因为发生了一些错误。通常，这意味着某些视图继承自其他视图，但目标节点不存在。这可能是由于基础视图在升级过程中发生了突变。"
+msgstr "报表无法加载，因为发生了一些错误。通常，这意味着某些视图继承自其他视图，但目标节点不存在。这可能是由于基础视图在升级过程中发生了突变。"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_model.js:0
 msgid "The report is in error. Only editing the XML sources is permitted"
-msgstr "报告有误。只允许编辑 XML 源"
+msgstr "报表有误。只允许编辑 XML 源"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3828,7 +3830,7 @@ msgstr "没有方法 %(method)s 存在于模型 %(model_name)s（%(model_id)s）
 msgid ""
 "There is no record on which this report can be previewed. Create at least "
 "one record to preview the report."
-msgstr "没有可预览此报告的记录。至少创建一条记录来预览报告。"
+msgstr "没有可预览此报表的记录。至少创建一条记录来预览报表。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3884,7 +3886,7 @@ msgstr ""
 msgid ""
 "This could also be due to the absence of a real record to render the report "
 "with."
-msgstr "也可能是由于无真实记录来提供报告。"
+msgstr "也可能是由于无真实记录来提供报表。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4136,7 +4138,7 @@ msgstr "这个模型是否抽象"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/views/kanban_report/new_report_dialog.xml:0
 msgid "Which type of report do you want to create?"
-msgstr "您想创建哪种类型的报告？"
+msgstr "您想创建哪种类型的报表？"
 
 #. module: web_studio
 #. odoo-javascript

@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,13 +37,13 @@ msgstr "ACH公司贸易"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "ACH Credit"
-msgstr "ACH贷项"
+msgstr "ACH贷方"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "ACH Debit"
-msgstr "ACH借项"
+msgstr "ACH借方"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -78,7 +79,7 @@ msgstr "ACH交易"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "ARP Debit"
-msgstr "ARP借项"
+msgstr "ARP借方"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -120,13 +121,13 @@ msgstr "其他信息：%s"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Additional Miscellaneous Credit Operations"
-msgstr "其他杂项贷项操作"
+msgstr "其他杂项贷方操作"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Additional Miscellaneous Debit Operations"
-msgstr "其他杂项借项操作"
+msgstr "其他杂项借方操作"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -448,13 +449,13 @@ msgstr "对方交易"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Credit Adjustment"
-msgstr "贷项调整"
+msgstr "贷方调整"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Credit Adjustments"
-msgstr "贷项调整"
+msgstr "贷方调整"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -466,7 +467,7 @@ msgstr "信用卡付款"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Credit Transfer with agreed Commercial Information"
-msgstr "根据商定商业信息进行的贷项转账"
+msgstr "根据商定商业信息进行的贷方转账"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -496,7 +497,7 @@ msgstr "跨境信用卡付款"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Cross-Border Credit Transfer"
-msgstr "跨境贷项转账"
+msgstr "跨境贷方转账"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -550,13 +551,13 @@ msgstr "客户卡交易"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Debit"
-msgstr "借项"
+msgstr "借方"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Debit Adjustments"
-msgstr "借项调整"
+msgstr "借方调整"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -646,13 +647,13 @@ msgstr "跟单托收"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Documentary Credit"
-msgstr "跟单贷项"
+msgstr "跟单贷方"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Domestic Credit Transfer"
-msgstr "国内贷项转账"
+msgstr "国内贷方转账"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -958,7 +959,7 @@ msgstr "内部转账"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Internal Book Transfer"
-msgstr "内部帐簿转账"
+msgstr "内部账簿转账"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -1145,7 +1146,7 @@ msgstr "净值"
 msgid ""
 "No exchange rate was found to convert an amount into the currency of the "
 "journal"
-msgstr "未找到将金额转换为日记帐货币的汇率"
+msgstr "未找到将金额转换为日记账货币的汇率"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -1364,7 +1365,7 @@ msgid ""
 "Please check the currency on your bank journal.\n"
 "No statements in currency %s were found in this CAMT file."
 msgstr ""
-"请检查您银行日记帐上的货币。\n"
+"请检查您银行日记账上的货币。\n"
 "在此CAMT文件中没有找到货币%s的报表。"
 
 #. module: account_bank_statement_import_camt
@@ -1375,9 +1376,9 @@ msgid ""
 "\n"
 "This CAMT file is targeting several IBAN accounts but none match the current journal."
 msgstr ""
-"请在您的银行日记帐上设置 IBAN 帐户。\n"
+"请在您的银行日记账上设置 IBAN 账户。\n"
 "\n"
-"此 CAMT 文件针对多个 IBAN 帐户，但没有一个帐户与当前日志匹配。"
+"此 CAMT 文件针对多个 IBAN 帐户，但没有一个账户与当前日志匹配。"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python
@@ -1539,7 +1540,7 @@ msgstr "因付款取消请求而撤销"
 #. odoo-python
 #: code:addons/account_bank_statement_import_camt/lib/camt.py:0
 msgid "Reversal due to Payment Return/reimbursement of a Credit Transfer"
-msgstr "由于贷方转帐的付款退货/偿还而撤销"
+msgstr "由于贷方转账的付款退货/偿还而撤销"
 
 #. module: account_bank_statement_import_camt
 #. odoo-python

@@ -564,7 +564,7 @@ msgstr "Leningtermijn moet positief zijn"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Loan lines"
-msgstr "Leninglijnen"
+msgstr "Leningregels"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__display_name
@@ -591,7 +591,7 @@ msgstr "Leningen"
 #: model:ir.ui.menu,name:account_loans.menu_action_loans_analysis
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_pivot_view
 msgid "Loans Analysis"
-msgstr "Analyse van leningen"
+msgstr "Leningenanalyse"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__long_term_account_id
@@ -853,13 +853,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan date should be earlier than the loan lines date."
-msgstr "De leendatum moet eerder zijn dan de datum van de leenlijnen."
+msgstr "De leendatum moet eerder zijn dan de datum van de leenregels."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan duration should be equal to the number of loan lines."
-msgstr "De looptijd van de lening moet gelijk zijn aan het aantal leenlijnen."
+msgstr "De looptijd van de lening moet gelijk zijn aan het aantal leenregels."
 
 #. module: account_loans
 #. odoo-python
@@ -868,7 +868,7 @@ msgid ""
 "The loan interest should be equal to the sum of the loan lines interest."
 msgstr ""
 "De rente van de lening moet gelijk zijn aan de som van de rente van de "
-"leenlijnen."
+"leenregels."
 
 #. module: account_loans
 #. odoo-python

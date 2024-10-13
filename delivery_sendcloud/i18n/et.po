@@ -5,7 +5,11 @@
 # Translators:
 # Siim Raasuke, 2024
 # Leaanika Randmets, 2024
+# Helen Sulaoja <helen@avalah.ee>, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
+# Birgit Vijar, 2024
 # Stevin Lilla, 2024
+# Rivo Zängov <eraser@eraser.ee>, 2024
 # Anna, 2024
 # 
 msgid ""
@@ -32,6 +36,11 @@ msgid ""
 "Divide the quantity of the following product(s) across your packages if possible or choose another carrier:\n"
 "\t%s"
 msgstr ""
+"\n"
+"Lisaks, osad tooted on liiga rasked valitud tarneviisi jaoks.\n"
+"\n"
+"Jaga järgnevate toodete kogused erinevate pakkide vahel laiali või vali teine teenusepakkuja:\n"
+"\t%s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -40,18 +49,20 @@ msgid ""
 "\n"
 "Try to distribute your products across your packages so that they weigh less than %(max_weight)s %(unit)s or choose another carrier."
 msgstr ""
+"\n"
+"Jaota tooted erinevate pakkide vahel et nad kaaluksid vähem kui %(max_weight)s %(unit)s või vali mõni muu kuller."
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid "%(partner_name)s email required"
-msgstr ""
+msgstr "%(partner_name)s e-post on nõutud"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid "%(partner_name)s phone required"
-msgstr ""
+msgstr "%(partner_name)s telefoninumber on nõutud"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -85,18 +96,18 @@ msgstr ""
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__sendcloud_products_code
 msgid "Active Products Code"
-msgstr ""
+msgstr "Aktiivsete toodete kood"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__functionalities
 msgid "Available Functionalities"
-msgstr ""
+msgstr "Saadaval funktsioonid"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_has_custom_functionalities
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__can_customize_functionalities
 msgid "Can Customize Functionalities"
-msgstr ""
+msgstr "Saab kohandada funktsioone"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -114,7 +125,7 @@ msgstr "Vedaja"
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 msgid "Choose Sendcloud Shipping Products"
-msgstr ""
+msgstr "Vali Sendcloud'i saatmistooted"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_sendcloud_shipping_wizard
@@ -135,7 +146,7 @@ msgstr "Kinnitage"
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid "Could not find currency %s"
-msgstr ""
+msgstr "Valuutat ei leitud %s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -158,7 +169,7 @@ msgstr "Loodud"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Default Package Type"
-msgstr ""
+msgstr "Vaikimisi pakendi tüüp"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_default_package_type_id
@@ -173,7 +184,7 @@ msgstr "Tarne"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
 msgid "Delivery Product"
-msgstr ""
+msgstr "Tarnitav toode"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_rules
@@ -208,23 +219,23 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 msgid "Failed to create the return label!"
-msgstr ""
+msgstr "Tagastussildi loomine ebaõnnestus!"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 msgid "Failed to get the actual price!"
-msgstr ""
+msgstr "Tegelikku hinda ei õnnestunud saada!"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_product_functionalities
 msgid "Functionalities"
-msgstr ""
+msgstr "Funktsioonid"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Functionality Filters"
-msgstr ""
+msgstr "Fukntsioonide filtrid"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -236,7 +247,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_can_batch_shipping
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__has_multicollo
 msgid "Has Multicollo"
-msgstr ""
+msgstr "On Multicollo"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__id
@@ -247,7 +258,7 @@ msgstr "ID"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Integration"
-msgstr ""
+msgstr "Integratsioon"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__write_uid
@@ -264,7 +275,7 @@ msgstr "Viimati uuendatud"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "Load your products"
-msgstr ""
+msgstr "Laadi üles oma tooted"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -277,35 +288,35 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 msgid "Max height"
-msgstr ""
+msgstr "Maksimaalne kõrgus"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 msgid "Max length"
-msgstr ""
+msgstr "Maksimaalne pikkus"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 msgid "Max width"
-msgstr ""
+msgstr "Maksimaalne laius"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__max_weight
 msgid "Maximum Weight"
-msgstr ""
+msgstr "Maksimaalne kaal"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__min_weight
 msgid "Minimum Weight"
-msgstr ""
+msgstr "Minimaalne kaal"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 msgid "Must be a Sendcloud carrier!"
-msgstr ""
+msgstr "Peab olema Sendcloud'i transpordifirma!"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -350,7 +361,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 msgid "Other Functionalities"
-msgstr ""
+msgstr "Teised funktsioonid"
 
 #. module: delivery_sendcloud
 #. odoo-javascript
@@ -369,7 +380,7 @@ msgstr "Teenusepakkuja"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
 msgid "Return Product"
-msgstr ""
+msgstr "Tagasta toode"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__return_products
@@ -379,48 +390,48 @@ msgstr "Tagasta tooted"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
 msgid "SendCloud Configuration"
-msgstr ""
+msgstr "SendCloud seadistus"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.res_config_settings_view_form_sale
 msgid "SendCloud Shipping Methods"
-msgstr ""
+msgstr "SendCloud tarneviis"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields.selection,name:delivery_sendcloud.selection__delivery_carrier__delivery_type__sendcloud
 #: model:ir.model.fields.selection,name:delivery_sendcloud.selection__stock_package_type__package_carrier_type__sendcloud
 msgid "Sendcloud"
-msgstr ""
+msgstr "Sendcloud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_public_key
 msgid "Sendcloud API Integration Public key"
-msgstr ""
+msgstr "Sendcloud API integratsioon avalik võti"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_secret_key
 msgid "Sendcloud API Integration Secret key"
-msgstr ""
+msgstr "Sendcloud API integratsioon Secret võti"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_stock_picking__sendcloud_parcel_ref
 msgid "Sendcloud Parcel Reference"
-msgstr ""
+msgstr "Sendcloud saadetise viide"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__sendcloud_code
 msgid "Sendcloud Product Identifier"
-msgstr ""
+msgstr "Sendcloudi toote identifikaator"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_public_key
 msgid "Sendcloud Public Key"
-msgstr ""
+msgstr "Sendcloud avalik võti"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_return_id
 msgid "Sendcloud Return"
-msgstr ""
+msgstr "Sendcloud tagastus"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_stock_picking__sendcloud_return_parcel_ref
@@ -435,7 +446,7 @@ msgstr ""
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_secret_key
 msgid "Sendcloud Secret Key"
-msgstr ""
+msgstr "Sendcloudi salajane võti"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_id
@@ -445,12 +456,12 @@ msgstr "Sendcloud tarne"
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.res_config_settings_view_form_stock
 msgid "Sendcloud Shipping Methods"
-msgstr ""
+msgstr "Sendcloudi kohaletoimetamise meetodid"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_name
 msgid "Sendcloud Shipping Product"
-msgstr ""
+msgstr "Sendcloudi kohaletoimetamise toode"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -462,34 +473,34 @@ msgstr ""
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__country_id
 msgid "Ship From"
-msgstr ""
+msgstr "Saada (kust?)"
 
 #. module: delivery_sendcloud
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 msgid "Shipment %s cancelled"
-msgstr ""
+msgstr "Saadetis %s on tühistatud"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__carrier
 msgid "Shipping Carrier"
-msgstr ""
+msgstr "Transpordifirma"
 
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Tarneviisid"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__name
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
 msgid "Shipping Product"
-msgstr ""
+msgstr "Toode saatmiseks"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_wizard__shipping_products
 msgid "Shipping Products"
-msgstr ""
+msgstr "Tooted saatmiseks"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_default_package_type_id
@@ -504,7 +515,7 @@ msgstr ""
 msgid ""
 "Some packages in your transfer are too heavy for the heaviest available "
 "shipping method."
-msgstr ""
+msgstr "Mõned pakid on liiga rasked valitud tarneviisi jaoks."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -523,7 +534,7 @@ msgstr "Lao pakendi tüüp"
 #. odoo-python
 #: code:addons/delivery_sendcloud/models/sendcloud_service.py:0
 msgid "The %s address needs to have the street, city, zip, and country"
-msgstr ""
+msgstr "Aadress %s peab sisaldama tänavat, linna, postiindeksi ja riiki.  "
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -542,6 +553,8 @@ msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
 msgstr ""
+"Hinnangulist saatmishinda ei saa arvutada, kuna järgmistel toodetel puudub kaal: \n"
+" %s"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -555,7 +568,7 @@ msgstr ""
 msgid ""
 "The total weight of your transfer is too heavy for the heaviest available "
 "shipping method."
-msgstr ""
+msgstr "Siirde kogu kaal on liiga raske valitud tarneviisi jaoks."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -580,6 +593,7 @@ msgid ""
 "There is no shipping method available for this order with the selected "
 "carrier"
 msgstr ""
+"Valitud vedajal pole selle tellimuse jaoks saadaval ühtegi saatmisviisi."
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -620,7 +634,7 @@ msgstr "Siirded"
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping
 msgid "Use Batch Shipping"
-msgstr ""
+msgstr "Kasuta partii saatmist"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_rules
@@ -631,7 +645,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 msgid "Weight range"
-msgstr ""
+msgstr "Kaalu vahemik"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,help:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping
@@ -664,7 +678,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/delivery_sendcloud/static/src/views/sendcloud_product_selection_widget.xml:0
 msgid "cm"
-msgstr ""
+msgstr "cm"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.sendcloud_label_tracking
@@ -672,3 +686,5 @@ msgid ""
 "created in Sendcloud. <br/>\n"
 "            <b>Tracking Numbers:</b>"
 msgstr ""
+"loodud Sendcloudis.  <br/>\n"
+"            <b>Jälgimisnumbrid:</b>"

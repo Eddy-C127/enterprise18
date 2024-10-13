@@ -4,7 +4,11 @@
 # 
 # Translators:
 # Egon Raamat <egon@avalah.ee>, 2024
+# Leaanika Randmets, 2024
 # Stevin Lilla, 2024
+# Patrick-Jordan Kiudorv, 2024
+# Marek Pontus, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
 # Anna, 2024
 # 
 msgid ""
@@ -24,7 +28,7 @@ msgstr ""
 #. module: payment_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.sepa_state_header
 msgid "<strong>Amount: </strong>"
-msgstr ""
+msgstr "<strong>Summa:</strong>"
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,body_html:payment_sepa_direct_debit.mail_template_sepa_notify_validation
@@ -118,7 +122,7 @@ msgstr "Kontakt"
 #. module: payment_sepa_direct_debit
 #: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_provider__custom_mode
 msgid "Custom Mode"
-msgstr ""
+msgstr "Kohandatud režiim"
 
 #. module: payment_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:payment_sepa_direct_debit.inline_form
@@ -128,7 +132,7 @@ msgstr "IBAN"
 #. module: payment_sepa_direct_debit
 #: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_transaction__mandate_id
 msgid "Mandate"
-msgstr ""
+msgstr "Mandaat"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
@@ -140,7 +144,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
 msgid "No transaction found matching reference %s."
-msgstr ""
+msgstr "Ühtegi tehingut ei leitud, mis on seotud viitega %s."
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_account_payment_method
@@ -150,23 +154,23 @@ msgstr "Maksmise meetodid"
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_payment_provider
 msgid "Payment Provider"
-msgstr ""
+msgstr "Makseteenuse pakkuja"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_payment_token
 msgid "Payment Token"
-msgstr ""
+msgstr "Sümboolne makse"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_payment_transaction
 msgid "Payment Transaction"
-msgstr ""
+msgstr "Maksetehing"
 
 #. module: payment_sepa_direct_debit
 #. odoo-javascript
 #: code:addons/payment_sepa_direct_debit/static/src/js/payment_form.js:0
 msgid "Payment processing failed"
-msgstr ""
+msgstr "Makse töötlemine ebaõnnestus"
 
 #. module: payment_sepa_direct_debit
 #. odoo-python
@@ -177,7 +181,7 @@ msgstr ""
 #. module: payment_sepa_direct_debit
 #: model:ir.model,name:payment_sepa_direct_debit.model_sdd_mandate
 msgid "SDD Mandate"
-msgstr ""
+msgstr "SDD mandaat"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.model.fields.selection,name:payment_sepa_direct_debit.selection__payment_provider__custom_mode__sepa_direct_debit
@@ -192,7 +196,7 @@ msgstr ""
 #. module: payment_sepa_direct_debit
 #: model:ir.model.fields,field_description:payment_sepa_direct_debit.field_payment_token__sdd_mandate_id
 msgid "SEPA Direct Debit Mandate"
-msgstr ""
+msgstr "SEPA otsekorralduse mandaat"
 
 #. module: payment_sepa_direct_debit
 #: model:ir.actions.server,name:payment_sepa_direct_debit.cron_auto_confirm_paid_sepa_txs_ir_actions_server
@@ -238,7 +242,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/payment_sepa_direct_debit/models/payment_transaction.py:0
 msgid "The transaction is not linked to a token."
-msgstr ""
+msgstr "Tehing ei ole seotud tokeniga."
 
 #. module: payment_sepa_direct_debit
 #: model:mail.template,subject:payment_sepa_direct_debit.mail_template_sepa_notify_validation

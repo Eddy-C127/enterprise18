@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Daye Jeong, 2024
 # Wil Odoo, 2024
+# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 12:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -49,7 +49,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "%(report_label)s: %(period)s"
-msgstr ""
+msgstr "%(report_label)s: %(period)s"
 
 #. module: account_reports
 #. odoo-python
@@ -1282,7 +1282,7 @@ msgstr ""
 #. module: account_reports
 #: model:mail.template,name:account_reports.email_template_customer_statement
 msgid "Customer Statement"
-msgstr ""
+msgstr "고객 성명서"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1471,7 +1471,7 @@ msgstr "다운로드 계속하기"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Download Excel"
-msgstr ""
+msgstr "엑셀 다운로드"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1953,13 +1953,13 @@ msgstr "그룹화된 지연 항목 %s"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Account"
-msgstr ""
+msgstr "계정 숨기기"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Debit/Credit"
-msgstr ""
+msgstr "차변/대변 숨기기"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2235,7 +2235,7 @@ msgstr "전표"
 #: model:ir.actions.client,name:account_reports.action_account_report_ja
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_ja
 msgid "Journal Audit"
-msgstr ""
+msgstr "전표 감사"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move
@@ -2485,7 +2485,7 @@ msgstr "월"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Multi-Ledger:"
-msgstr ""
+msgstr "다중 원장"
 
 #. module: account_reports
 #. odoo-python
@@ -2506,7 +2506,7 @@ msgstr "다중 통화 재평가 마법사"
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__multi
 msgid "Multiple Recipients"
-msgstr ""
+msgstr "여러 수신자"
 
 #. module: account_reports
 #. odoo-python
@@ -3255,7 +3255,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Sending statements"
-msgstr ""
+msgstr "명세서 보내기"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__sequence
@@ -3282,7 +3282,7 @@ msgstr "단기현금예측액"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Account"
-msgstr ""
+msgstr "계정 보기"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3294,7 +3294,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Currency"
-msgstr ""
+msgstr "통화 표시"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
@@ -3304,7 +3304,7 @@ msgstr "경고 이동 표시"
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
-msgstr ""
+msgstr "단일 수신자"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3435,7 +3435,7 @@ msgstr "사업자등록번호"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.company_information
 msgid "Tax ID:"
-msgstr ""
+msgstr "세금 ID:"
 
 #. module: account_reports
 #. odoo-python
@@ -3447,7 +3447,7 @@ msgstr "세금 납부액 조정"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/tax_report/filters/filter_date.xml:0
 msgid "Tax Period"
-msgstr ""
+msgstr "과세 기간"
 
 #. module: account_reports
 #. odoo-python
@@ -3511,7 +3511,7 @@ msgstr "세금신고서"
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "Tax return"
-msgstr ""
+msgstr "세금 신고"
 
 #. module: account_reports
 #. odoo-python
@@ -3607,7 +3607,7 @@ msgid ""
 "The currently selected dates don't match a tax period. The closing entry "
 "will be created for the closest-matching period according to your "
 "periodicity setup."
-msgstr ""
+msgstr "선택한 날짜가 과세 기간과 일치하지 않습니다. 주기 설정에 따라 가장 일치하는 기간에 대한 마감 항목이 생성됩니다."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3767,6 +3767,8 @@ msgid ""
 "This report uses the CTA conversion method to consolidate multiple companies using different currencies,\n"
 "        which can lead the report to be unbalanced."
 msgstr ""
+"이 보고서는 CTA 변환 방법을 사용하여 서로 다른 통화를 사용하는 여러 회사를 통합하므로\n"
+"        보고서의 데이터가 일치하지 않을 수 있습니다."
 
 #. module: account_reports
 #. odoo-python
@@ -4126,7 +4128,7 @@ msgid ""
 "You're about the generate the closing entries of multiple companies at once."
 " Each of them will be created in accordance with its company tax "
 "periodicity."
-msgstr ""
+msgstr "여러 회사에 대한 마감 항목을 동시에 생성하려고 합니다. 각 항목은 회사의 세금 주기에 따라 작성됩니다."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main
@@ -4314,6 +4316,8 @@ msgid ""
 "{{ (object.company_id or object._get_followup_responsible().company_id).name"
 " }} Statement - {{ object.commercial_company_name }}"
 msgstr ""
+"{{ (object.company_id or object._get_followup_responsible().company_id).name"
+" }} 명세서 - {{ object.commercial_company_name }}"
 
 #. module: account_reports
 #. odoo-javascript

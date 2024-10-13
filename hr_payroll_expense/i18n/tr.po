@@ -2,12 +2,20 @@
 # This file contains the translation of the following modules:
 # 	* hr_payroll_expense
 # 
+# Translators:
+# Murat Kaplan <muratk@projetgrup.com>, 2024
+# Nadir Gazioglu <nadirgazioglu@gmail.com>, 2024
+# Özlem Atalay <ozlema@eskayazilim.com.tr>, 2024
+# Tugay Hatıl <tugayh@projetgrup.com>, 2024
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +39,7 @@ msgstr ""
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_hr_expense_sheet
 msgid "Expense Report"
-msgstr ""
+msgstr "Masraf Formu"
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -49,22 +57,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_payslip_view_form_inherit_expense
 msgid "Expenses"
-msgstr ""
+msgstr "Masraflar"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_payslip__expenses_count
 msgid "Expenses Count"
-msgstr ""
+msgstr "Masraf Sayısı"
 
 #. module: hr_payroll_expense
 #: model:hr.salary.rule,name:hr_payroll_expense.hr_salary_rule_expense_refund
 msgid "Expenses Reimbursement"
-msgstr ""
+msgstr "Masrafların Geri Ödenmesi"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,help:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
 msgid "Expenses to reimburse to employee."
-msgstr ""
+msgstr "Personele masraflarını geri ödeme."
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_account_payment_register__is_already_paid_through_a_payslip
@@ -74,7 +82,7 @@ msgstr ""
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Yevmiye Kaydı"
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -96,30 +104,30 @@ msgstr ""
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_account_payment_register
 msgid "Pay"
-msgstr ""
+msgstr "Ödeme İşlemi"
 
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_hr_payslip
 msgid "Pay Slip"
-msgstr ""
+msgstr "Bordro"
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_expense_sheet__payslip_id
 msgid "Payslip"
-msgstr ""
+msgstr "Ücret Bordrosu"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_expense_sheet__refund_in_payslip
 msgid "Reimburse In Next Payslip"
-msgstr ""
+msgstr "Bir sonraki maaş bordrosunda geri ödeme"
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_payslip.py:0
 msgid "Reimbursed Expenses"
-msgstr ""
+msgstr "Geri Ödenen Masraflar"
 
 #. module: hr_payroll_expense
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_expense_sheet_view_form_inherit_payroll
@@ -130,12 +138,12 @@ msgstr ""
 #: model:ir.actions.server,name:hr_payroll_expense.hr_expense_add_to_payslip_action_server
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_expense_sheet_view_form_inherit_payroll
 msgid "Report in Next Payslip"
-msgstr ""
+msgstr "Sonraki Maaş Bordrosunda Raporla"
 
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_hr_payroll_structure
 msgid "Salary Structure"
-msgstr ""
+msgstr "Ücret Yapısı"
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -188,4 +196,4 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/account_move.py:0
 msgid "You don't have the access rights to post an invoice."
-msgstr ""
+msgstr "Fatura göndermek için erişim haklarına sahip değilsiniz."

@@ -4,15 +4,19 @@
 # 
 # Translators:
 # Eneli Õigus <enelioigus@gmail.com>, 2024
-# Anna, 2024
-# Martin Trigaux, 2024
-# Leaanika Randmets, 2024
-# Arma Gedonsky <armagedonsky@hot.ee>, 2024
-# Patrick-Jordan Kiudorv, 2024
-# JanaAvalah, 2024
+# Tairi Tiimann, 2024
 # Rivo Zängov <eraser@eraser.ee>, 2024
-# Stevin Lilla, 2024
+# Katrin Kampura, 2024
+# Arma Gedonsky <armagedonsky@hot.ee>, 2024
+# Anna, 2024
+# Patrick-Jordan Kiudorv, 2024
+# Martin Trigaux, 2024
 # Siim Raasuke, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
+# Leaanika Randmets, 2024
+# Stevin Lilla, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# JanaAvalah, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Siim Raasuke, 2024\n"
+"Last-Translator: JanaAvalah, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,38 +47,38 @@ msgstr "%s (koopia)"
 #. module: planning
 #: model:ir.actions.report,print_report_name:planning.report_planning_slot
 msgid "'Planning'"
-msgstr ""
+msgstr "'Töögraafik'"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_template.py:0
 msgid "(%s days span)"
-msgstr ""
+msgstr "(%s päeva)"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid ".&amp;nbsp;"
-msgstr ""
+msgstr ".&amp;nbsp;"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 5:00 PM"
-msgstr ""
+msgstr "01/01/2023 5:00 PM"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "01/01/2023 9:00 AM"
-msgstr ""
+msgstr "01/01/2023 9:00 AM"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "04:00"
-msgstr ""
+msgstr "04:00"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "08:00"
-msgstr ""
+msgstr "08:00"
 
 #. module: planning
 #: model_terms:hr.job,job_details:planning.job_maintenance_technician
@@ -101,22 +105,22 @@ msgstr "12:00"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "13"
-msgstr ""
+msgstr "13"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "14"
-msgstr ""
+msgstr "14"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "15"
-msgstr ""
+msgstr "15"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "16:00"
-msgstr ""
+msgstr "16:00"
 
 #. module: planning
 #: model_terms:hr.job,job_details:planning.job_maintenance_technician
@@ -133,7 +137,7 @@ msgstr "4 päeva pärast invervjuud"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "8 hours"
-msgstr ""
+msgstr "8 tundi"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -145,7 +149,7 @@ msgstr ""
 #. module: planning
 #: model_terms:digest.tip,tip_description:planning.digest_tip_planning_0
 msgid "<b class=\"tip_title\">Tip: Record your planning faster</b>"
-msgstr ""
+msgstr "<b class=\"tip_title\">Soovitus: pane oma töögrafik kiiremini paika</b>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
@@ -160,6 +164,9 @@ msgid ""
 " duplicate it instead.</i> <b>Adjust the size</b> of the shift to modify its"
 " period."
 msgstr ""
+"<b>Lohistage</b> oma vahetust selle ümber planeerimiseks. <i>Vihje: vajutage"
+" vahetuse dubleerimiseks hoopis CTRL (või Cmd).</i><b> Reguleerige vahetuse "
+"suurust,</b> et muuta selle perioodi."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
@@ -170,7 +177,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 msgid "<b>Publish & send</b> your employee's planning."
-msgstr ""
+msgstr "<b>Avalda ja saada</b>oma töötajate töögraafik."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
@@ -231,6 +238,8 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/>\n"
 "                        You have successfully requested to switch your shift. You will be notified when another employee takes over your shift."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/>\n"
+" Oled esitanud avalduse vahetuse vahetamiseks. Sa saad teavituse, kui teine töötaja võtab teie vahetuse üle."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -238,6 +247,8 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/> Request to switch shift "
 "cancelled successfully."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> Avaldus vahetuse vahetamiseks"
+" on tühistatud."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -245,6 +256,8 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/> This shift is no longer "
 "assigned to you."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/>See vahetus pole enam teile "
+"määratud."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -252,11 +265,13 @@ msgid ""
 "<i class=\"fa fa-check-circle text-success\"/> You were successfully "
 "assigned this open shift."
 msgstr ""
+"<i class=\"fa fa-check-circle text-success\"/> Sind määrati edukalt sellele "
+"määramata vahetusele."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_kanban
 msgid "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Hours\" title=\"Hours\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o\" role=\"img\" aria-label=\"Hours\" title=\"Hours\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
@@ -264,6 +279,8 @@ msgid ""
 "<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-"
 "right: 2px\"/>"
 msgstr ""
+"<i class=\"fa fa-envelope-o\" title=\"Mail\" role=\"img\" style=\"padding-"
+"right: 2px\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -271,6 +288,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle text-warning\"/> This shift is already "
 "assigned to another employee."
 msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> See vahetus on juba "
+"teisele töötajale määratud."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
@@ -278,6 +297,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle text-warning\"/> You can no longer "
 "unassign yourself from this shift."
 msgstr ""
+"<i class=\"fa fa-exclamation-circle text-warning\"/> Te ei saa enam selle "
+"vahetuse määramist tühistada."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -285,11 +306,13 @@ msgid ""
 "<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" "
 "title=\"Arrow\"/>"
 msgstr ""
+"<i class=\"fa fa-long-arrow-right my-1 mx-1\" aria-label=\"Arrow icon\" "
+"title=\"Arrow\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid "<i class=\"fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
@@ -299,7 +322,7 @@ msgstr "<i class=\"fa fa-long-arrow-right\" title=\"Arrow\"/>"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_assignee_contact_popover
 msgid "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-right: 2px\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-right: 2px\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
@@ -323,7 +346,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "<span class=\"ms-0 me-4\">Edit</span>"
-msgstr ""
+msgstr "<span class=\"ms-0 me-4\">Muuda</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -331,6 +354,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">04:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">04:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -338,6 +363,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">12:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">12:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -345,6 +372,8 @@ msgid ""
 "<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
 "mb-1\">16:00</span>"
 msgstr ""
+"<span class=\"o_gantt_consolidated_pill_title bg-view text-truncate px-1 "
+"mb-1\">16:00</span>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -388,11 +417,14 @@ msgid ""
 "                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>\n"
 "                                    <span class=\"o_end_date\"/>"
 msgstr ""
+"<span class=\"o_start_date\"/>\n"
+"                                    <i class=\"mx-1 fa fa-long-arrow-right\" aria-label=\"Arrow icon\" title=\"Arrow\"/>\n"
+"                                    <span class=\"o_end_date\"/>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
 msgid "<span class=\"o_stat_text\">Planning</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Planeerimine</span>"
 
 #. module: planning
 #: model_terms:hr.job,job_details:planning.job_maintenance_technician
@@ -458,11 +490,12 @@ msgid ""
 "<span>The employee assigned would like to switch shifts with someone "
 "else.</span>"
 msgstr ""
+"<span>Määratud töötaja soovib kellegi teisega vahetust vahetada.</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "<span>months ahead</span>"
-msgstr ""
+msgstr "<span>kuud ette</span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
@@ -598,6 +631,7 @@ msgstr ""
 msgid ""
 "A recurrence repeating itself until a certain date must have its limit set"
 msgstr ""
+"Kuni teatud kuupäevani korduvale kordumisele peab olema seatud piirväärtus."
 
 #. module: planning
 #. odoo-python
@@ -615,12 +649,12 @@ msgstr "Aktiivne"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.js:0
 msgid "Add Shift"
-msgstr ""
+msgstr "Lisa vahetus"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_send__note
 msgid "Additional message displayed in the email sent to employees"
-msgstr ""
+msgstr "Töötajatele saadetud sõnumis kuvatakse täiendav sõnum"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
@@ -630,7 +664,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Additional note sent to the employee"
-msgstr ""
+msgstr "Töötajale saadetav täiendav sõnum"
 
 #. module: planning
 #: model:res.groups,name:planning.group_planning_manager
@@ -644,29 +678,33 @@ msgid ""
 "All open shifts have already been assigned, or there are no resources "
 "available to take them at this time."
 msgstr ""
+"Kõik vabad vahetused on juba määratud või hetkel pole ressursse nende "
+"vastuvõtmiseks saadaval. "
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__all
 msgid "All shifts"
-msgstr ""
+msgstr "Kõik vahetused"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid ""
 "All subsequent shifts will be deleted. Are you sure you want to continue?"
 msgstr ""
+"Kõik järgnevad vahetused kustutatakse: Kas olete kindlad, et soovite "
+"jätkata?"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Allocated Hours"
-msgstr ""
+msgstr "Jaotatud tunnid"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Allocated Percentage"
-msgstr ""
+msgstr "Eraldatud protsent"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_hours
@@ -678,12 +716,12 @@ msgstr "Jaotatud aeg"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_percentage
 msgid "Allocated Time %"
-msgstr ""
+msgstr "Jaotatud aeg %"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__allocated_percentage
 msgid "Allocated Time (%)"
-msgstr ""
+msgstr "Jaotatud aeg (%)"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
@@ -693,12 +731,12 @@ msgstr "Eraldatud aeg:"
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_allocated_hours_positive
 msgid "Allocated hours and allocated time percentage cannot be negative."
-msgstr ""
+msgstr "Jaotatud tunnid ja jaotatud aja protsent ei saa olla negatiivsed."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allocation_type
 msgid "Allocation Type"
-msgstr ""
+msgstr "Taotluse tüüp"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
@@ -706,6 +744,8 @@ msgid ""
 "Analyze the allocation of your resources across roles, projects, and sales "
 "orders, and estimate future needs."
 msgstr ""
+"Analüüsige oma ressursside jaotust rollide, projektide ja müügitellimuste "
+"vahel ning hinnake tulevasi vajadusi."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
@@ -723,12 +763,14 @@ msgid ""
 "Archiving this resource will transform all of its future shifts into open "
 "shifts. Are you sure you want to continue?"
 msgstr ""
+"Selle ressursi arhiveerimine muudab kõik selle tulevased vahetused avatud "
+"vahetusteks. Kas olete kindel, et soovite jätkata?"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_form/planning_form_view.js:0
 msgid "Are you sure you want to delete this shift?"
-msgstr ""
+msgstr "Kas olete kindel, et soovite selle vahetuse kustutada?"
 
 #. module: planning
 #. odoo-javascript
@@ -747,12 +789,12 @@ msgstr "Noole ikoon"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Ask To Switch"
-msgstr ""
+msgstr "Palu vahetada"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Ask to Switch"
-msgstr ""
+msgstr "Palu vahetada"
 
 #. module: planning
 #. odoo-javascript
@@ -762,6 +804,9 @@ msgid ""
 "open shifts for the roles you will be needing to complete a mission. Then, "
 "assign those open shifts to the resources that are available.</i>"
 msgstr ""
+"Määrake <b>ressurss</b> või jätke see hetkeks avatuks. <i>Vihje. Looge "
+"rollide jaoks avatud vahetused, mida vajate eesmärgi täitmiseks. Seejärel "
+"määrake need avatud vahetused vabadele ressurssidele.</i>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
@@ -782,7 +827,7 @@ msgstr "Planeeri automaatselt"
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 msgid "Automatically plan open shifts and sales orders"
-msgstr ""
+msgstr "Automaatselt planeeri vabad vahetused ja müügitellimused"
 
 #. module: planning
 #. odoo-javascript
@@ -793,7 +838,7 @@ msgstr "Avatar"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Bartender"
-msgstr ""
+msgstr "Baarman"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee_base
@@ -803,17 +848,17 @@ msgstr "Keskmine töötaja"
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_resource
 msgid "By Resource"
-msgstr ""
+msgstr "Ressursi järgi"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_schedule_by_role
 msgid "By Role"
-msgstr ""
+msgstr "Rolli järgi"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "CANCEL SWITCH"
-msgstr ""
+msgstr "TÜHISTA VAHETUS"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -821,7 +866,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Cancel Switch"
-msgstr ""
+msgstr "Tühista vahetus"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
@@ -837,7 +882,7 @@ msgstr "Värv"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_cm
 msgid "Community Manager"
-msgstr ""
+msgstr "Ühenduse juht"
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_company
@@ -859,6 +904,8 @@ msgid ""
 "Company linked to the material resource. Leave empty for the resource to be "
 "available in every company."
 msgstr ""
+"Materiaalse ressursiga seotud ettevõte. Jäta tühjaks, kui ressurss on "
+"saadaval igas ettevõttes."
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_config_settings
@@ -880,19 +927,19 @@ msgstr "Kinnitage"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 msgid "Copy previous"
-msgstr ""
+msgstr "Kopeeri eelmine"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 msgid "Copy previous week"
-msgstr ""
+msgstr "Kopeeri eelmine nädal"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_crane
 msgid "Crane"
-msgstr ""
+msgstr "Kraana"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
@@ -924,12 +971,12 @@ msgstr "Kuupäev"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__date_end
 msgid "Date End"
-msgstr ""
+msgstr "Lõppkuupäev"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__date_start
 msgid "Date Start"
-msgstr ""
+msgstr "Alguskuupäev"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__day
@@ -942,7 +989,7 @@ msgstr "päevad"
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Days before shift for unassignment"
-msgstr ""
+msgstr "Päevad enne vahetuse tühistamist"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -955,18 +1002,18 @@ msgstr "Tähtaeg"
 #: model:ir.model.fields,help:planning.field_res_company__planning_self_unassign_days_before
 #: model:ir.model.fields,help:planning.field_res_config_settings__planning_self_unassign_days_before
 msgid "Deadline in days for shift unassignment"
-msgstr ""
+msgstr "Tähtaeg päevades vahetuse tühistamiseks"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_hr_employee__default_planning_role_id
 #: model:ir.model.fields,field_description:planning.field_resource_resource__default_role_id
 msgid "Default Role"
-msgstr ""
+msgstr "Vaikimisi roll"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 msgid "Default Roles"
-msgstr ""
+msgstr "Vaikimisi rollid"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -974,6 +1021,8 @@ msgid ""
 "Define a work email address for the following employees so they will receive"
 " the planning."
 msgstr ""
+"Määrake järgmistele töötajatele töökoha e-posti aadress, et nad saaksid "
+"töögraafiku."
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__role_id
@@ -982,6 +1031,9 @@ msgid ""
 "Create open shifts for the roles you need to complete a mission. Then, "
 "assign those open shifts to the resources that are available."
 msgstr ""
+"Määrake oma ressursside rollid (nt kokk, baarmen, ettekandja, kelner...). "
+"Looge rollide jaoks vahetused, mida vajate eesmärgi täitmiseks. Seejärel "
+"määrake need vahetused olemasolevatele ressurssidele."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -990,6 +1042,9 @@ msgid ""
 "Create open shifts for the roles you will be needing to complete a mission. "
 "Then, assign those open shifts to the resources that are available."
 msgstr ""
+"Määrake oma ressursside rollid (nt kokk, baarmen, ettekandja, kelner...). "
+"Looge rollide jaoks vahetused, mida vajate eesmärgi täitmiseks. Seejärel "
+"määrake need vahetused olemasolevatele ressurssidele."
 
 #. module: planning
 #. odoo-javascript
@@ -1004,7 +1059,7 @@ msgstr "Kustuta"
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.js:0
 msgid "Delete Recurring Shift"
-msgstr ""
+msgstr "Kustuta korduv vahetus"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__department_id
@@ -1021,7 +1076,7 @@ msgstr "Lahkumise Wizard"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_developer
 msgid "Developer"
-msgstr ""
+msgstr "Arendaja"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
@@ -1045,11 +1100,12 @@ msgstr "Kuvatav nimi"
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "Distribute your material resources across projects and sales orders."
 msgstr ""
+"Jaotage oma materiaalsed ressursid projektide ja müügitellimuste vahel."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Doris Cole (Bartender)"
-msgstr ""
+msgstr "Tiina Kuusk (Baarman)"
 
 #. module: planning
 #. odoo-javascript
@@ -1067,6 +1123,9 @@ msgid ""
 "the shift. Press CTRL (or Cmd on Mac) while dragging a shift to duplicate "
 "it."
 msgstr ""
+"Lohistage vahetus teisele päevale ümberplaneerimiseks või teisele reale, et "
+"vahetus ümber määrata. Vahetuse kopeerimiseks vajutage vahetuse lohistamise "
+"ajal klahvi CTRL (või Macil Cmd)."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__duration
@@ -1076,7 +1135,7 @@ msgstr "Kestus"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration_days
 msgid "Duration Days"
-msgstr ""
+msgstr "Kestus"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_kanban
@@ -1093,7 +1152,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Eli Lambert (Waiter)"
-msgstr ""
+msgstr "Mari Kask (Teenindaja)"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_shift_switch_email
@@ -1106,13 +1165,13 @@ msgstr ""
 #. module: planning
 #: model:mail.template,description:planning.email_template_slot_single
 msgid "Email sent automatically when publishing a shift"
-msgstr ""
+msgstr "Automaatselt saadetud e-kiri vahetuse avaldamisel"
 
 #. module: planning
 #: model:mail.template,description:planning.email_template_planning_planning
 msgid ""
 "Email sent automatically when publishing the schedule of your employees"
-msgstr ""
+msgstr "Töötajate graafiku avaldamisel automaatselt saadetud e-kiri"
 
 #. module: planning
 #: model:ir.model,name:planning.model_hr_employee
@@ -1144,7 +1203,7 @@ msgstr "Töötajad"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
 msgid "Employees with no Work Email"
-msgstr ""
+msgstr "Töötajad, kellel ei ole töökoha e-posti aadressi"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
@@ -1161,12 +1220,12 @@ msgstr "Lõppkuupäev"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__end_time
 msgid "End Hour"
-msgstr ""
+msgstr "Lõpptund"
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_hr_employee_employee_token_unique
 msgid "Error: each employee token must be unique"
-msgstr ""
+msgstr "Viga: iga töötaja token peab olema kordumatu"
 
 #. module: planning
 #. odoo-python
@@ -1177,7 +1236,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__note
 msgid "Extra Message"
-msgstr ""
+msgstr "Lisasõnum"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
@@ -1185,22 +1244,24 @@ msgid ""
 "Find here your planning. Assign yourself open shifts that match your roles, "
 "or indicate your unavailability."
 msgstr ""
+"Leia siit oma töögraafik. Määrake endale avatud vahetused, mis vastavad teie"
+" rollidele, või märkige, et te ei ole saadaval."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "First you have to specify the date of the invitation."
-msgstr ""
+msgstr "Esmalt peate täpsustama kutse kuupäeva."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Fixed Hours"
-msgstr ""
+msgstr "Fikseeritud tunnid"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Flexible Hours"
-msgstr ""
+msgstr "Paindlik tööaeg"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__forecast
@@ -1217,7 +1278,7 @@ msgstr "Igavesti"
 #. odoo-python
 #: code:addons/planning/models/planning_recurrency.py:0
 msgid "Forever, every %s week(s)"
-msgstr ""
+msgstr "Igavesti, iga %s nädala pärast"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_furniture_assembler
@@ -1227,17 +1288,17 @@ msgstr ""
 #. module: planning
 #: model:planning.role,name:planning.planning_furniture_tool
 msgid "Furniture Tools"
-msgstr ""
+msgstr "Mööbli tööriistad"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Generate shifts"
-msgstr ""
+msgstr "Loo vahetused"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.brand_promotion
 msgid "Give depth to your"
-msgstr ""
+msgstr "Andke sügavust oma"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
@@ -1268,14 +1329,14 @@ msgstr "Tund(i)"
 #: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__user
 msgid "Human"
-msgstr ""
+msgstr "Inimene"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "I Am Unavailable"
-msgstr ""
+msgstr "Ma ei ole saadaval"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
@@ -1283,12 +1344,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "I Take It"
-msgstr ""
+msgstr "Võtan vahetuse endale "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "I am unavailable"
-msgstr ""
+msgstr "Ma ei ole saadaval"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__id
@@ -1308,6 +1369,8 @@ msgid ""
 "If checked, it means that the shift contains has changed since its last "
 "publish."
 msgstr ""
+"Kui valitud, tähendab see, et vahetuse sisu on peale viimast postitust "
+"muudetud."
 
 #. module: planning
 #. odoo-javascript
@@ -1316,21 +1379,23 @@ msgid ""
 "If you are happy with your planning, you can now <b>send</b> it to your "
 "employees."
 msgstr ""
+"Valitult tähendab see, et graafikusisestus on töötajale saadetud. "
+"Graafikusisestuse muutmine märgib selle mitte saadetuks."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
 msgid "Include Open Shifts"
-msgstr ""
+msgstr "Saada ka kinnitamata vahetused"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__include_unassigned
 msgid "Includes Open Shifts"
-msgstr ""
+msgstr "Sisaldab kinnitamata vahetusi"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Jeffrey Kelly (Bartender)"
-msgstr ""
+msgstr "Tõnu Tamm (Baarman)"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__job_title
@@ -1369,7 +1434,7 @@ msgstr "Legend"
 #: model:ir.model.fields,field_description:planning.field_planning_planning__allow_self_unassign
 #: model:ir.model.fields,field_description:planning.field_planning_slot__allow_self_unassign
 msgid "Let Employee Unassign Themselves"
-msgstr ""
+msgstr "Luba töötajal end vahetusest eemaldada"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1394,6 +1459,8 @@ msgid ""
 "Let's create your first <b>shift</b>. <i>Tip: use the (+) shortcut available"
 " on each cell of the Gantt view to save time.</i>"
 msgstr ""
+"Loome Teie esimese <b>vahetuse</b>. <i>Vihje: aja säästmiseks kasutage Gantt"
+" vaates igal real otseteed (+).</i>"
 
 #. module: planning
 #. odoo-javascript
@@ -1405,7 +1472,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 msgid "Let's start managing your employees' schedule!"
-msgstr ""
+msgstr "Alustame oma töötajate graafiku haldamist!"
 
 #. module: planning
 #. odoo-javascript
@@ -1422,7 +1489,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "Make encoding shifts easy with templates."
-msgstr ""
+msgstr "Muutke kodeeringu vahetamine mallide abil lihtsaks."
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_management
@@ -1447,7 +1514,7 @@ msgstr "Marc Demo"
 #: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
 msgid "Material"
-msgstr ""
+msgstr "Materjal"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_resources
@@ -1466,7 +1533,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__publication_warning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__publication_warning
 msgid "Modified Since Last Publication"
-msgstr ""
+msgstr "Eelmisest postitusest alates muudetud"
 
 #. module: planning
 #. odoo-javascript
@@ -1491,19 +1558,19 @@ msgstr "Minu osakond"
 #: model:ir.actions.act_window,name:planning.planning_action_open_shift
 #: model:ir.ui.menu,name:planning.planning_menu_my_planning
 msgid "My Planning"
-msgstr ""
+msgstr "Minu töögraafik"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Roles"
-msgstr ""
+msgstr "Minu rollid"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "My Shifts"
-msgstr ""
+msgstr "Minu vahetused"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
@@ -1528,7 +1595,7 @@ msgstr "Uus üritus"
 #: code:addons/planning/models/planning.py:0
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.js:0
 msgid "New Shift"
-msgstr ""
+msgstr "Uus vahetus"
 
 #. module: planning
 #. odoo-python
@@ -1539,7 +1606,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Next Week"
-msgstr ""
+msgstr "Järgmine nädal"
 
 #. module: planning
 #. odoo-python
@@ -1550,7 +1617,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_number
 msgid "No Of Repetitions of the plannings"
-msgstr ""
+msgstr "Planeeringu korduste arv"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_report_action_analysis
@@ -1560,17 +1627,17 @@ msgstr "Andmed puuduvad!"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "No material resources found. Let's create one!"
-msgstr ""
+msgstr "Materiaalseid ressursse ei leitud. Loome ühe!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "No roles found. Let's create one!"
-msgstr ""
+msgstr "Rolle ei leitud. Loome ühe!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_shift_template
 msgid "No shift templates found. Let's create one!"
-msgstr ""
+msgstr "Vahetuse malle ei leitud. Loome ühe!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_my_calendar
@@ -1591,7 +1658,7 @@ msgstr "Märkus"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
 msgid "Note:"
-msgstr ""
+msgstr "Märkus:"
 
 #. module: planning
 #. odoo-javascript
@@ -1600,22 +1667,23 @@ msgid ""
 "Now that this week is ready, let's get started on <b>next week's "
 "schedule</b>."
 msgstr ""
+"Nüüd, kui see nädal on valmis, alustame <b>järgmise nädala graafikuga</b>."
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__x_times
 msgid "Number of Occurrences"
-msgstr ""
+msgstr "Sündmuste arv"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__x_times
 msgid "Number of Repetitions"
-msgstr ""
+msgstr "Korduste arv"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Open Shift"
-msgstr ""
+msgstr "Vaba vahetus"
 
 #. module: planning
 #. odoo-javascript
@@ -1625,12 +1693,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 #: model_terms:ir.ui.view,arch_db:planning.slot_report
 msgid "Open Shifts"
-msgstr ""
+msgstr "Määramata vahetused"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.open_slots_list_template
 msgid "Open Shifts Available"
-msgstr ""
+msgstr "Saadaval määramata vahetused"
 
 #. module: planning
 #. odoo-javascript
@@ -1657,6 +1725,8 @@ msgid ""
 "Operation not supported, you should always compare overlap_slot_count to 0 "
 "value with = or > operator."
 msgstr ""
+"Operation not supported, you should always compare overlap_slot_count to 0 "
+"value with = or > operator."
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
@@ -1670,6 +1740,8 @@ msgid ""
 "Plan resource allocation across projects and estimate deadlines more "
 "accurately"
 msgstr ""
+"Planeeri ressursside jaotamine projektide lõikes ja prognoosi tähtaegu "
+"täpsemalt"
 
 #. module: planning
 #. odoo-javascript
@@ -1690,7 +1762,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot_template__start_time
 msgid "Planned Hours"
-msgstr ""
+msgstr "Planeeritud tunnid"
 
 #. module: planning
 #. odoo-python
@@ -1714,7 +1786,7 @@ msgstr "Planeerimine"
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_graph
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_pivot
 msgid "Planning Analysis"
-msgstr ""
+msgstr "Töögraafiku analüüs"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_analysis_report
@@ -1724,23 +1796,23 @@ msgstr "Planeerimise analüüsi aruanne"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_planning
 msgid "Planning Meeting"
-msgstr ""
+msgstr "Planeerimise koosolek"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_recurrency
 msgid "Planning Recurrence"
-msgstr ""
+msgstr "Graafiku korduvus"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_role
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
 msgid "Planning Role"
-msgstr ""
+msgstr "Graafiku roll"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "Planning Role List"
-msgstr ""
+msgstr "Graafiku rollide loend"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_slot
@@ -1750,7 +1822,7 @@ msgstr "Vahetuse planeerimine"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__slot_id
 msgid "Planning Slot"
-msgstr ""
+msgstr "Ajavahede planeerimine"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_role__slot_properties_definition
@@ -1760,17 +1832,17 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Planning:"
-msgstr ""
+msgstr "Töögraafik:"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_planning_planning
 msgid "Planning: New Schedule"
-msgstr ""
+msgstr "Töögraafik: Uus graafik"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_slot_single
 msgid "Planning: New Shift"
-msgstr ""
+msgstr "Töögraafik: uus vahetus"
 
 #. module: planning
 #: model:mail.template,name:planning.email_template_shift_switch_email
@@ -1780,19 +1852,19 @@ msgstr ""
 #. module: planning
 #: model:ir.actions.server,name:planning.ir_cron_forecast_schedule_ir_actions_server
 msgid "Planning: generate next recurring shifts"
-msgstr ""
+msgstr "Töögraafik: loo järgmised korduvad vahetused"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "Planning: new open shift available on"
-msgstr ""
+msgstr "Töögraafik: uued vahetused on saadaval"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "Planning: new shift on"
-msgstr ""
+msgstr "Töögraafik: uus vahetus"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.brand_promotion
@@ -1826,7 +1898,7 @@ msgstr "Projekti planeerimine"
 #. module: planning
 #: model:planning.role,name:planning.planning_role_projector
 msgid "Projector"
-msgstr ""
+msgstr "Projektor"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__slot_properties
@@ -1847,7 +1919,7 @@ msgstr "Avalda"
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Publish & Send"
-msgstr ""
+msgstr "Avalda ja saada"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_send_action
@@ -1873,22 +1945,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:planning.field_res_company__planning_generation_interval
 #: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
 msgid "Rate Of Shift Generation"
-msgstr ""
+msgstr "Rate Of Shift Generation"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__recurrence_update
 msgid "Recurrence Update"
-msgstr ""
+msgstr "Kordumise uuendamine"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__recurrency_id
 msgid "Recurrency"
-msgstr ""
+msgstr "Korduvus"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "Recurring Shifts"
-msgstr ""
+msgstr "Korduvad vahetused"
 
 #. module: planning
 #. odoo-javascript
@@ -1899,7 +1971,7 @@ msgstr ""
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__slot_ids
 msgid "Related Planning Entries"
-msgstr ""
+msgstr "Seotud töögraafiku kanded"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__user_id
@@ -1924,7 +1996,7 @@ msgstr "Sagedus"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_type
 msgid "Repeat Type"
-msgstr ""
+msgstr "Korda tüüpi"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_unit
@@ -1936,7 +2008,7 @@ msgstr "Korda ühikut"
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_until
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_until
 msgid "Repeat Until"
-msgstr ""
+msgstr "Korda kuni"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_interval
@@ -1947,7 +2019,7 @@ msgstr "Korda iga"
 #: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_number
 #: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_number
 msgid "Repetitions"
-msgstr ""
+msgstr "Kordused"
 
 #. module: planning
 #: model:ir.ui.menu,name:planning.planning_menu_reporting
@@ -1976,7 +2048,7 @@ msgstr "Ressurss"
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__resource_color
 msgid "Resource color"
-msgstr ""
+msgstr "Ressursi värv"
 
 #. module: planning
 #: model:ir.model,name:planning.model_resource_resource
@@ -2003,6 +2075,8 @@ msgid ""
 "Role that will be selected by default when creating a shift for this employee.\n"
 "This role will also have precedence over the other roles of the employee when planning orders."
 msgstr ""
+"Roll, mis valitakse vaikimisi selle töötaja vahetuse loomisel.\n"
+"See roll on ka tellimuste planeerimisel eelisjärjekorras töötaja teiste rollide ees."
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_resource_resource__default_role_id
@@ -2010,6 +2084,8 @@ msgid ""
 "Role that will be selected by default when creating a shift for this resource.\n"
 "This role will also have precedence over the other roles of the resource when planning shifts."
 msgstr ""
+"Roll, mis valitakse vaikimisi selle ressursi vahetuse loomisel.\n"
+"Antud roll valitakse eelisjärjekorras teiste rollide ees, kui sellele ressursile vahetusi planeeritakse. "
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_shift_ics_description
@@ -2027,7 +2103,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Roles"
-msgstr ""
+msgstr "Rollid"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_hr_employee__planning_role_ids
@@ -2037,6 +2113,10 @@ msgid ""
 "Additionally, the employee will only be assigned orders for these roles (with the default planning role having precedence over the other ones).\n"
 "Leave empty for the employee to be assigned shifts regardless of the role."
 msgstr ""
+"Rollid, mida töötaja saab täita. Selle töötaja jaoks vahetuse loomisel kuvatakse ainult nende rollide vahetuse mallid.\n"
+"Samuti saadetakse töötajale graafiku avaldamisel ainult nende rollide jaoks avatud vahetused.\n"
+"Lisaks määratakse töötajale ainult nende rollide tellimused (kusjuures vaikimisi planeerimisrollid on teiste rollide suhtes esikohal).\n"
+"Jäta tühjaks, et töötajale määratakse vahetused sõltumata rollist."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
@@ -2046,12 +2126,12 @@ msgstr "Salvesta"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.employee_no_email_list_wizard
 msgid "Save & Send Schedule"
-msgstr ""
+msgstr "Salvesta ja saada graafik"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
 msgid "Save Template"
-msgstr ""
+msgstr "Salvesta mall"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_creation
@@ -2062,7 +2142,7 @@ msgstr "Salvesta mall"
 #. odoo-javascript
 #: code:addons/planning/static/src/js/tours/planning.js:0
 msgid "Save this shift once it is ready."
-msgstr ""
+msgstr "Salvesta vahetus kui see on valmis"
 
 #. module: planning
 #: model:planning.role,name:planning.planning_role_scanner
@@ -2106,7 +2186,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "Search operation not supported"
-msgstr ""
+msgstr "Otsingutoimingut ei toetata"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_planning__access_token
@@ -2128,14 +2208,14 @@ msgstr "Saada"
 #. module: planning
 #: model:ir.model,name:planning.model_planning_send
 msgid "Send Planning"
-msgstr ""
+msgstr "Saada töögraafik"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_calendar_controller.xml:0
 #: code:addons/planning/static/src/views/planning_gantt/planning_gantt_controller.xml:0
 msgid "Send schedule"
-msgstr ""
+msgstr "Saada graafik"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_settings
@@ -2156,12 +2236,12 @@ msgstr ""
 #: code:addons/planning/controllers/main.py:0
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 msgid "Shift"
-msgstr ""
+msgstr "Vahetus"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "Shift List"
-msgstr ""
+msgstr "Vahetuse nimekiri"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_slot_template
@@ -2171,19 +2251,19 @@ msgstr "Vahetuse mall"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Shift Template Form"
-msgstr ""
+msgstr "Vahetuse malli vorm"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_tree
 msgid "Shift Template List"
-msgstr ""
+msgstr "Vahetuste mallide nimekiri"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_shift_template
 #: model:ir.model.fields,field_description:planning.field_planning_slot__template_id
 #: model:ir.ui.menu,name:planning.planning_menu_settings_shift_template
 msgid "Shift Templates"
-msgstr ""
+msgstr "Vahetuste mallid"
 
 #. module: planning
 #. odoo-javascript
@@ -2200,29 +2280,29 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts Planned"
-msgstr ""
+msgstr "Planeeritud vahetused"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
 msgid "Shifts from"
-msgstr ""
+msgstr "Vahetus alates"
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts in Conflict"
-msgstr ""
+msgstr "Vahetused vastuolus"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Department Member"
-msgstr ""
+msgstr "Teie osakonnaliikme vahetused"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Shifts of Your Team Member"
-msgstr ""
+msgstr "Teie meeskonnaliikme vahetused"
 
 #. module: planning
 #. odoo-python
@@ -2238,7 +2318,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "Some changes were made since this shift was published."
-msgstr ""
+msgstr "Pärast selle vahetuse avaldamist tehti mõned muudatused."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -2253,7 +2333,7 @@ msgstr "Alusta"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Start & End Hours"
-msgstr ""
+msgstr "Algus- ja lõpuajad"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__start_datetime
@@ -2273,7 +2353,7 @@ msgstr "Olek"
 #: model:ir.model.fields,field_description:planning.field_planning_planning__end_datetime
 #: model:ir.model.fields,field_description:planning.field_planning_send__end_datetime
 msgid "Stop Date"
-msgstr ""
+msgstr "Lõpetamise kuupäev"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__res_company__planning_employee_unavailabilities__switch
@@ -2285,6 +2365,8 @@ msgstr ""
 msgid ""
 "The amount of days before unassignment must be positive or equal to zero."
 msgstr ""
+"Päevade arv enne määramise tühistamist peab olema positiivne või võrdne "
+"nulliga."
 
 #. module: planning
 #. odoo-python
@@ -2296,29 +2378,29 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "The deadline for unassignment has passed."
-msgstr ""
+msgstr "Loobumise tähtaeg on möödas."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
 msgid "The end date of a shift should be after its start date."
-msgstr ""
+msgstr "Vahetuse lõppkuupäev peaks olema hilisem kui selle alguskuupäev."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning_recurrency.py:0
 msgid "The number of repetitions cannot be negative."
-msgstr ""
+msgstr "Korduste arv ei saa olla negatiivne."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_repeat_interval_positive
 msgid "The recurrence should be greater than 0."
-msgstr ""
+msgstr "Kordumine peaks olema suurem kui 0."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "The recurrence's end date should fall after the shift's start date."
-msgstr ""
+msgstr "Korduse lõppkuupäev peaks olema pärast vahetuse alguskuupäeva."
 
 #. module: planning
 #. odoo-javascript
@@ -2333,13 +2415,13 @@ msgstr ""
 #: code:addons/planning/wizard/planning_send.py:0
 msgid ""
 "The shifts have already been published, or there are no shifts to publish."
-msgstr ""
+msgstr "Vahetused on juba avaldatud või pole vahetusi, mida avaldada."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "The shifts have successfully been published and sent."
-msgstr ""
+msgstr "Vahetused on edukalt avaldatud ja saadetud."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_days_positive
@@ -2356,12 +2438,12 @@ msgstr ""
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
 msgid "The start hour cannot be greater than 24."
-msgstr ""
+msgstr "Algustund ei tohi olla pikem kui 24."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_positive
 msgid "The start hour cannot be negative."
-msgstr ""
+msgstr "Algustund ei saa olla negatiivne."
 
 #. module: planning
 #. odoo-python
@@ -2380,7 +2462,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "There are no resources available for this open shift."
-msgstr ""
+msgstr "Selle saadaval oleva vahetuse jaoks pole vaba ressurssi."
 
 #. module: planning
 #. odoo-javascript
@@ -2389,18 +2471,19 @@ msgid ""
 "There are no shifts planned for the previous week, or they have already been"
 " copied."
 msgstr ""
+"Eelmisele nädalale vahetusi planeeritud pole või on need juba kopeeritud."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "There are no shifts to publish and send."
-msgstr ""
+msgstr "Avaldamiseks ja saatmiseks vahetusi pole."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "There are no shifts to reset to draft."
-msgstr ""
+msgstr "Puuduvad vahetused, mida mustandiks määrata."
 
 #. module: planning
 #. odoo-python
@@ -2411,7 +2494,7 @@ msgstr "Antud edenemisriba ei rakendatud. "
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_slot__was_copied
 msgid "This Shift Was Copied From Previous Week"
-msgstr ""
+msgstr "See vahetus on eelmisest nädalast kopeeritud"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
@@ -2423,7 +2506,7 @@ msgstr "Sel nädalal"
 #: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__subsequent
 msgid "This and following shifts"
-msgstr ""
+msgstr "See ja järgnevad vahetused"
 
 #. module: planning
 #. odoo-python
@@ -2445,24 +2528,26 @@ msgid ""
 "This open shift is no longer available, or the planning has been updated in "
 "the meantime. Please contact your manager for further information."
 msgstr ""
+"See avatud vahetus pole enam saadaval või planeeringut on vahepeal "
+"uuendatud. Lisateabe saamiseks võtke ühendust oma juhiga."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_calendar/planning_ask_recurrence_update/planning_ask_recurrence_update_dialog.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__recurrence_update__this
 msgid "This shift"
-msgstr ""
+msgstr "See vahetus"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "This shift is recurrent. Delete:"
-msgstr ""
+msgstr "See vahetus on korduv. Kustuta:"
 
 #. module: planning
 #: model:digest.tip,name:planning.digest_tip_planning_0
 msgid "Tip: Record your planning faster"
-msgstr ""
+msgstr "Vihje: salvestage oma plaaneerimine kiiremini"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_slot__repeat
@@ -2472,6 +2557,10 @@ msgid ""
 "passes by in order to always get shifts 6 months ahead. This value can be "
 "modified from the settings of Planning, in debug mode."
 msgstr ""
+"Andmebaasi saastumise ja jõudluse probleemide vältimiseks luuakse vahetused "
+"ainult järgmiseks 6 kuuks. Neid luuakse järk-järgult ajas edasi, et tagada "
+"alati 6 kuu pikkune ettevaade. Seda väärtust saab muuta Planeerimise "
+"seadetest, debug režiimis."
 
 #. module: planning
 #. odoo-javascript
@@ -2505,12 +2594,12 @@ msgstr "Kuni"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.unwanted_slots_list_template
 msgid "Unwanted Shifts Available"
-msgstr ""
+msgstr "Saadaolevad soovimatud vahetused"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
 msgid "Up to which date should the plannings be repeated"
-msgstr ""
+msgstr "Mis kuupäevani tuleks planeeringuid korrata"
 
 #. module: planning
 #: model:ir.model.fields,field_description:planning.field_planning_analysis_report__user_id
@@ -2523,12 +2612,12 @@ msgstr "Kasutaja"
 #. odoo-python
 #: code:addons/planning/models/hr.py:0
 msgid "View Planning"
-msgstr ""
+msgstr "Vaata graafikut"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
 msgid "Waiter"
-msgstr ""
+msgstr "Kelner"
 
 #. module: planning
 #. odoo-javascript
@@ -2556,7 +2645,7 @@ msgstr "Töö asukoht"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
 msgid "Working Days"
-msgstr ""
+msgstr "Tööpäevad"
 
 #. module: planning
 #. odoo-javascript
@@ -2567,6 +2656,10 @@ msgid ""
 "needing to complete a mission. Then, assign those open shifts to the "
 "resources that are available.</i>"
 msgstr ""
+"Kirjutage <b>roll</b>, mida teie töötaja täidab (<i>nt kokk, baarmen, kelner"
+" jne</i>). <i>Vihje. Looge avatud vahetused rollide jaoks, mida vajate "
+"eesmärgi täitmiseks. Seejärel määrake need avatud vahetused saadaolevatele "
+"ressurssidele.</i>"
 
 #. module: planning
 #: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_unit__year
@@ -2584,13 +2677,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You can not assign yourself to an already assigned shift."
-msgstr ""
+msgstr "Te ei saa end määrata juba määratud vahetusse."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You can not unassign another employee than yourself."
-msgstr ""
+msgstr "Te ei saa tühistada teist töötajat peale iseenda."
 
 #. module: planning
 #. odoo-python
@@ -2602,7 +2695,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot cancel a request to switch that is in the past."
-msgstr ""
+msgstr "Sa ei saa tühistada minevikus olnud vahetust."
 
 #. module: planning
 #. odoo-python
@@ -2614,7 +2707,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You cannot switch a shift that is in the past."
-msgstr ""
+msgstr "Sa ei saa vahetada minevikus olnud vahetust."
 
 #. module: planning
 #. odoo-javascript
@@ -2640,23 +2733,23 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You don't have the right to cancel a request to switch."
-msgstr ""
+msgstr "Sul puudub õigus vahetuse vahetamist tühistada."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "You don't have the right to switch shifts."
-msgstr ""
+msgstr "Sul puudub õigus vahetust vahetada."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
 msgid "You have been successfully unassigned from this shift"
-msgstr ""
+msgstr "Teie määramine sellest vahetusest on edukalt eemaldatud"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.slot_unassign
 msgid "Your Planning"
-msgstr ""
+msgstr "Teie graafik"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_planning_planning
@@ -2664,6 +2757,8 @@ msgid ""
 "Your planning from {{ format_date(ctx.get('start_datetime')) }} to {{ "
 "format_date(ctx.get('end_datetime')) }}"
 msgstr ""
+"Teie planeerimise vorm {{ format_date(ctx.get('start_datetime')) }} kuni {{ "
+"format_date(ctx.get('end_datetime')) }}"
 
 #. module: planning
 #: model:mail.template,subject:planning.email_template_shift_switch_email
@@ -2671,6 +2766,8 @@ msgid ""
 "Your shift on {{ ctx.get('start_datetime') }} was re-assigned to {{ "
 "ctx.get('new_assignee_name', 'Marc Demo') }}"
 msgstr ""
+"Teie vahetus kuupäeval {{ ctx.get('start_datetime') }} muudeti nimele {{ "
+"ctx.get('new_assignee_name', 'Marc Demo') }}"
 
 #. module: planning
 #. odoo-javascript
@@ -2682,7 +2779,7 @@ msgstr "kõik"
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "all shifts"
-msgstr ""
+msgstr "kõik vahetused"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2692,25 +2789,25 @@ msgstr "sulge"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 msgid "days before the beginning of the shift"
-msgstr ""
+msgstr "päeva enne vahetuse algust"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_form
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
 msgid "e.g. Bartender"
-msgstr ""
+msgstr "nt. Teenindaja"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "e.g. Cleaner"
-msgstr ""
+msgstr "nt. Puhastaja"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_form_view_inherit
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_tree_view_inherit
 msgid "e.g. Crane"
-msgstr ""
+msgstr "nt. Kraana"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_simplified
@@ -2721,31 +2818,31 @@ msgstr "nt Jaan Tamm"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "other shift(s) in conflict."
-msgstr ""
+msgstr "muu(d) konfliktis olev(ad) vahetus(ed)."
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "subsequent"
-msgstr ""
+msgstr "järgmine"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "this"
-msgstr ""
+msgstr "see"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "this and following shifts"
-msgstr ""
+msgstr "see ja järgnevad vahetused"
 
 #. module: planning
 #. odoo-javascript
 #: code:addons/planning/static/src/components/address_recurrency_confirmation_dialog/address_recurrency_confirmation_dialog.xml:0
 msgid "this shift"
-msgstr ""
+msgstr "see vahetus"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template
@@ -2756,3 +2853,4 @@ msgstr "kuni"
 #: model:mail.template,subject:planning.email_template_slot_single
 msgid "{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"
 msgstr ""
+"{{ ctx.get('mail_subject', '') }} {{ ctx.get('start_datetime' , '') }}"

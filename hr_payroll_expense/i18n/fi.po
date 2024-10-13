@@ -2,12 +2,24 @@
 # This file contains the translation of the following modules:
 # 	* hr_payroll_expense
 # 
+# Translators:
+# Veikko Väätäjä <veikko.vaataja@gmail.com>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Eino Mäkitalo <eino.makitalo@netitbe.fi>, 2024
+# Konsta Aavaranta, 2024
+# Joakim Weckman, 2024
+# Svante Suominen <svante.suominen@web-veistamo.fi>, 2024
+# Miika Nissi <miika.nissi@tawasta.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,7 +43,7 @@ msgstr ""
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_hr_expense_sheet
 msgid "Expense Report"
-msgstr ""
+msgstr "Kuluraportti"
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -49,22 +61,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_payslip_view_form_inherit_expense
 msgid "Expenses"
-msgstr ""
+msgstr "Kulut"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_payslip__expenses_count
 msgid "Expenses Count"
-msgstr ""
+msgstr "Kulujen määrä"
 
 #. module: hr_payroll_expense
 #: model:hr.salary.rule,name:hr_payroll_expense.hr_salary_rule_expense_refund
 msgid "Expenses Reimbursement"
-msgstr ""
+msgstr "Kulujen korvaus"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,help:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
 msgid "Expenses to reimburse to employee."
-msgstr ""
+msgstr "Työntekijälle korvattavat kulut."
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_account_payment_register__is_already_paid_through_a_payslip
@@ -74,7 +86,7 @@ msgstr ""
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Päiväkirjan kirjaus"
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -96,30 +108,30 @@ msgstr ""
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_account_payment_register
 msgid "Pay"
-msgstr ""
+msgstr "Maksa"
 
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_hr_payslip
 msgid "Pay Slip"
-msgstr ""
+msgstr "Palkkalaskelma"
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_expense_sheet__payslip_id
 msgid "Payslip"
-msgstr ""
+msgstr "Palkkalaskelma"
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_expense_sheet__refund_in_payslip
 msgid "Reimburse In Next Payslip"
-msgstr ""
+msgstr "Korvaa seuraavassa palkkalaskelmassa"
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_payslip.py:0
 msgid "Reimbursed Expenses"
-msgstr ""
+msgstr "Korvatut kulut"
 
 #. module: hr_payroll_expense
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_expense_sheet_view_form_inherit_payroll
@@ -130,12 +142,12 @@ msgstr ""
 #: model:ir.actions.server,name:hr_payroll_expense.hr_expense_add_to_payslip_action_server
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_expense_sheet_view_form_inherit_payroll
 msgid "Report in Next Payslip"
-msgstr ""
+msgstr "Raportoi seuraavassa palkkalaskelmassa"
 
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_hr_payroll_structure
 msgid "Salary Structure"
-msgstr ""
+msgstr "Palkkarakenne"
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -188,4 +200,4 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/account_move.py:0
 msgid "You don't have the access rights to post an invoice."
-msgstr ""
+msgstr "Sinulla ei ole oikeutta kirjata laskua kirjanpitoon."

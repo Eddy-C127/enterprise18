@@ -4,6 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Chloe Wang, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -147,6 +149,9 @@ msgid ""
 "                 You can also manually schedule open shifts for your Sales "
 "Order or assign them to any employee you prefer."
 msgstr ""
+"如果启用，则在确认销售订单时，将为所选角色自动生成班次。 使用“自动计划”功能，只有具有此角色的员工才会被自动分配包含此服务的销售订单的班次。"
+"                 系统将考虑员工的可用性和要计划的剩余时间。                 "
+"您还可以为您的销售订单手动安排空班次，或将其分配给您偏好的任何员工。"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -174,13 +179,13 @@ msgstr "只有与可计划服务的销售订单相关联的时段才能取消计
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders assigned"
-msgstr ""
+msgstr "开放班次和分配的销售订单"
 
 #. module: sale_planning
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders unscheduled"
-msgstr ""
+msgstr "未安排的轮班和销售订单"
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template
@@ -217,7 +222,7 @@ msgstr "可计划服务应使用 %s 类别中的计量单位。"
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_planning_analysis_report
 msgid "Planning Analysis Report"
-msgstr "计划分析报告"
+msgstr "计划分析报表"
 
 #. module: sale_planning
 #: model:ir.model,name:sale_planning.model_planning_role
@@ -366,6 +371,8 @@ msgid ""
 "You cannot update the company for sales order %(order_name)s as it's linked to shifts in another company.\n"
 "Please transfer shifts %(slots_names)s to the destination company first."
 msgstr ""
+"您无法更新公司的销售订单%(order_name)s，因为它已链接到另一家公司的班次。\n"
+"请先将班次%(slots_names)s转移到目的地公司。"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_role_view_tree_inherit_sale_planning

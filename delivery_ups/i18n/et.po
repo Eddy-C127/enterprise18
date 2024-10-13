@@ -6,6 +6,12 @@
 # Siim Raasuke, 2024
 # Leaanika Randmets, 2024
 # Stevin Lilla, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Egon Raamat <egon@avalah.ee>, 2024
+# Arma Gedonsky <armagedonsky@hot.ee>, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
+# Birgit Vijar, 2024
+# Martin Aavastik <martin@avalah.ee>, 2024
 # Anna, 2024
 # 
 msgid ""
@@ -68,12 +74,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:delivery_ups.field_res_users__bill_my_account
 #: model:ir.model.fields,field_description:delivery_ups.field_sale_order__ups_bill_my_account
 msgid "Bill My Account"
-msgstr ""
+msgstr "Bill My Account"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_cod_funds_code
 msgid "COD Funding Option"
-msgstr ""
+msgstr "COD Funding Option"
 
 #. module: delivery_ups
 #. odoo-python
@@ -89,22 +95,22 @@ msgstr "Vedaja"
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_cod_funds_code__8
 msgid "Cashier's Check or MoneyOrder"
-msgstr ""
+msgstr "Cashier's Check or MoneyOrder"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_dimension_unit__cm
 msgid "Centimeters"
-msgstr ""
+msgstr "Centimeters"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_cod_funds_code__0
 msgid "Check, Cashier's Check or MoneyOrder"
-msgstr ""
+msgstr "Check, Cashier's Check or MoneyOrder"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_cod
 msgid "Collect on Delivery"
-msgstr ""
+msgstr "Collect on Delivery"
 
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_res_partner
@@ -114,12 +120,12 @@ msgstr "Kontakt"
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "Duties paid by"
-msgstr ""
+msgstr "Tollimaksud on tasutud "
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_label_file_type__epl
 msgid "EPL"
-msgstr ""
+msgstr "EPL"
 
 #. module: delivery_ups
 #. odoo-python
@@ -128,6 +134,8 @@ msgid ""
 "Error:\n"
 "%s"
 msgstr ""
+"Error:\n"
+"%s"
 
 #. module: delivery_ups
 #. odoo-python
@@ -145,21 +153,23 @@ msgid ""
 "If checked, ecommerce users will be prompted their UPS account number\n"
 "and delivery fees will be charged on it."
 msgstr ""
+"If checked, ecommerce users will be prompted their UPS account number\n"
+"and delivery fees will be charged on it."
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_dimension_unit__in
 msgid "Inches"
-msgstr ""
+msgstr "Inches"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_weight_unit__kgs
 msgid "Kilograms"
-msgstr ""
+msgstr "Kilogrammid"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "Label Format"
-msgstr ""
+msgstr "Sildi formaat"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
@@ -174,12 +184,12 @@ msgstr "PDF"
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_package_dimension_unit
 msgid "Package Size Unit"
-msgstr ""
+msgstr "Paki suuruse ühik"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "Package Weight Unit"
-msgstr ""
+msgstr "Pakendi kaaluühik"
 
 #. module: delivery_ups
 #. odoo-python
@@ -191,7 +201,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups/models/delivery_ups.py:0
 msgid "Packages:"
-msgstr ""
+msgstr "Pakid"
 
 #. module: delivery_ups
 #. odoo-python
@@ -343,7 +353,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid "Please provide at least one item to ship."
-msgstr ""
+msgstr "Please provide at least one item to ship."
 
 #. module: delivery_ups
 #. odoo-python
@@ -360,7 +370,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_weight_unit__lbs
 msgid "Pounds"
-msgstr ""
+msgstr "Naelad"
 
 #. module: delivery_ups
 #. odoo-python
@@ -372,7 +382,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid "Provided Tracking Ref. Number is invalid."
-msgstr ""
+msgstr "Esitatud jälgimis viitenumber on kehtetu."
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__delivery_type
@@ -406,12 +416,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups/models/delivery_ups.py:0
 msgid "Return label generated"
-msgstr ""
+msgstr "Tagastussilt on loodud "
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_label_file_type__spl
 msgid "SPL"
-msgstr ""
+msgstr "SPL"
 
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_sale_order
@@ -421,7 +431,7 @@ msgstr "Müügitellimus"
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "Saturday Delivery"
-msgstr ""
+msgstr "Saturday Delivery"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_duty_payment__sender
@@ -432,7 +442,7 @@ msgstr "Saatja"
 #. odoo-python
 #: code:addons/delivery_ups/models/delivery_ups.py:0
 msgid "Shipment #%s has been cancelled"
-msgstr ""
+msgstr "Saadetis #%s on tühistatud"
 
 #. module: delivery_ups
 #. odoo-python
@@ -467,7 +477,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Tarneviisid"
 
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_stock_package_type
@@ -487,6 +497,8 @@ msgid ""
 "The address of your company is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"The address of your company is missing or wrong.\n"
+"(Missing field(s) : %s)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -495,6 +507,8 @@ msgid ""
 "The address of your warehouse is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"The address of your warehouse is missing or wrong.\n"
+"(Missing field(s) : %s)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -502,6 +516,7 @@ msgstr ""
 msgid ""
 "The delivery cannot be done because the weight of your product is missing."
 msgstr ""
+"The delivery cannot be done because the weight of your product is missing."
 
 #. module: delivery_ups
 #. odoo-python
@@ -510,6 +525,8 @@ msgid ""
 "The estimated shipping price cannot be computed because the weight is missing for the following product(s): \n"
 " %s"
 msgstr ""
+"Hinnangulist saatmishinda ei saa arvutada, kuna järgmistel toodetel puudub kaal: \n"
+" %s"
 
 #. module: delivery_ups
 #. odoo-python
@@ -532,6 +549,8 @@ msgid ""
 "The recipient address is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"The recipient address is missing or wrong.\n"
+"(Missing field(s) : %s)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -592,6 +611,8 @@ msgid ""
 "This value added service enables UPS to collect the payment of the shipment "
 "from your customer."
 msgstr ""
+"This value added service enables UPS to collect the payment of the shipment "
+"from your customer."
 
 #. module: delivery_ups
 #: model:ir.model.fields,help:delivery_ups.field_delivery_carrier__ups_saturday_delivery
@@ -599,45 +620,47 @@ msgid ""
 "This value added service will allow you to ship the package on saturday "
 "also."
 msgstr ""
+"This value added service will allow you to ship the package on saturday "
+"also."
 
 #. module: delivery_ups
 #. odoo-python
 #: code:addons/delivery_ups/models/delivery_ups.py:0
 msgid "Tracking Numbers:"
-msgstr ""
+msgstr "Jälgimisnumbrid:"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__stock_package_type__package_carrier_type__ups
 msgid "UPS"
-msgstr ""
+msgstr "UPS"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_access_number
 msgid "UPS Access Key"
-msgstr ""
+msgstr "UPS-i juurdepääsuvõti"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_shipper_number
 #: model:ir.model.fields,field_description:delivery_ups.field_res_partner__property_ups_carrier_account
 #: model:ir.model.fields,field_description:delivery_ups.field_res_users__property_ups_carrier_account
 msgid "UPS Account Number"
-msgstr ""
+msgstr "UPS-i kontonumber"
 
 #. module: delivery_ups
 #: model:delivery.carrier,name:delivery_ups.delivery_carrier_ups_be
 #: model:product.template,name:delivery_ups.product_product_delivery_ups_be_product_template
 msgid "UPS BE"
-msgstr ""
+msgstr "UPS BE"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "UPS Configuration"
-msgstr ""
+msgstr "UPS Configuration"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_label_file_type
 msgid "UPS Label File Type"
-msgstr ""
+msgstr "UPS Label File Type"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__delivery_type__ups
@@ -652,12 +675,12 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_passwd
 msgid "UPS Password"
-msgstr ""
+msgstr "UPS Password"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_saturday_delivery
 msgid "UPS Saturday Delivery"
-msgstr ""
+msgstr "UPS-i laupäevane kohaletoimetamine"
 
 #. module: delivery_ups
 #. odoo-python
@@ -668,29 +691,29 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_default_service_type
 msgid "UPS Service Type"
-msgstr ""
+msgstr "UPS Service Type"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.res_config_settings_view_form_sale
 #: model_terms:ir.ui.view,arch_db:delivery_ups.res_config_settings_view_form_stock
 msgid "UPS Shipping Methods"
-msgstr ""
+msgstr "UPS tarnemeetodid"
 
 #. module: delivery_ups
 #: model:delivery.carrier,name:delivery_ups.delivery_carrier_ups_us
 #: model:product.template,name:delivery_ups.product_product_delivery_ups_us_product_template
 msgid "UPS US"
-msgstr ""
+msgstr "UPS US"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_username
 msgid "UPS Username"
-msgstr ""
+msgstr "UPS Username"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_sale_order__partner_ups_carrier_account
 msgid "UPS account number"
-msgstr ""
+msgstr "UPS-i kontonumber"
 
 #. module: delivery_ups
 #. odoo-python
@@ -703,12 +726,12 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_duty_payment
 msgid "Ups Duty Payment"
-msgstr ""
+msgstr "UPS-i tollimakse"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_package_weight_unit
 msgid "Ups Package Weight Unit"
-msgstr ""
+msgstr "Ups Package Weight Unit"
 
 #. module: delivery_ups
 #. odoo-python
@@ -726,7 +749,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid "Warehouse Phone must contain only numbers."
-msgstr ""
+msgstr "Lao telefoninumber peab sisaldama ainult numbreid."
 
 #. module: delivery_ups
 #. odoo-python
@@ -738,7 +761,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups/models/sale.py:0
 msgid "You must enter an UPS account number."
-msgstr ""
+msgstr "Pead sisestama UPS-i konto numbri."
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_label_file_type__zpl

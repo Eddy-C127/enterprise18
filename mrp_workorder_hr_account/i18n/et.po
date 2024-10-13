@@ -29,13 +29,13 @@ msgstr "Analüütiline rida"
 #. module: mrp_workorder_hr_account
 #: model:ir.model.fields,field_description:mrp_workorder_hr_account.field_mrp_report__unit_employee_cost
 msgid "Average Employee Cost / Unit"
-msgstr ""
+msgstr "Keskmise töötaja maksumus / ühiku kohta"
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model.fields,help:mrp_workorder_hr_account.field_account_analytic_line__employee_id
 msgid ""
 "Define an 'hourly cost' on the employee to track the cost of their time."
-msgstr ""
+msgstr "Määrake töötajale tunnitasu, et jälgida tema tasu töötatud aja eest."
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model.fields,field_description:mrp_workorder_hr_account.field_account_analytic_line__employee_id
@@ -45,33 +45,34 @@ msgstr "Töötaja"
 #. module: mrp_workorder_hr_account
 #: model:ir.model.fields,field_description:mrp_workorder_hr_account.field_mrp_workorder__employee_analytic_account_line_ids
 msgid "Employee Analytic Account Line"
-msgstr ""
+msgstr "Töötaja analüütilise konto rida"
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model.fields,help:mrp_workorder_hr_account.field_mrp_report__unit_employee_cost
 msgid ""
 "Employee Cost per unit produced (in product UoM) of manufacturing order"
 msgstr ""
+"Töötaja kulu toodetud tootmistellimuse ühiku kohta (toote mõõtühikus) "
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model,name:mrp_workorder_hr_account.model_report_mrp_account_enterprise_mrp_cost_structure
 msgid "MRP Cost Structure Report"
-msgstr ""
+msgstr "MRP kulude struktuuri aruanne"
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model,name:mrp_workorder_hr_account.model_mrp_report
 msgid "Manufacturing Report"
-msgstr ""
+msgstr "Tootmisaruanne"
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model.fields,field_description:mrp_workorder_hr_account.field_mrp_report__employee_cost
 msgid "Total Employee Cost"
-msgstr ""
+msgstr "Töötaja kogukulu"
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model.fields,help:mrp_workorder_hr_account.field_mrp_report__employee_cost
 msgid "Total cost of employees for manufacturing order"
-msgstr ""
+msgstr "Töötajate kogukulu tootmistellimuse kohta"
 
 #. module: mrp_workorder_hr_account
 #: model:ir.model,name:mrp_workorder_hr_account.model_mrp_routing_workcenter
@@ -92,4 +93,4 @@ msgstr "Töökoha tootlikkuse logi"
 #. odoo-python
 #: code:addons/mrp_workorder_hr_account/models/mrp_workorder.py:0
 msgid "[EMPL] %(work_order)s - %(employee)s"
-msgstr ""
+msgstr "[EMPL] %(work_order)s - %(employee)s"

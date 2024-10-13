@@ -8,6 +8,9 @@
 # Stevin Lilla, 2024
 # Martin Trigaux, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
+# Algo Kärp <algokarp@gmail.com>, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
 # Leaanika Randmets, 2024
 # 
 msgid ""
@@ -35,7 +38,7 @@ msgstr ""
 #. module: industry_fsm_stock
 #: model_terms:ir.ui.view,arch_db:industry_fsm_stock.view_task_form2_inherit
 msgid "<span>Products</span>"
-msgstr ""
+msgstr "<span>Tooted</span>"
 
 #. module: industry_fsm_stock
 #. odoo-python
@@ -49,7 +52,7 @@ msgstr ""
 #. module: industry_fsm_stock
 #: model_terms:ir.ui.view,arch_db:industry_fsm_stock.fsm_stock_tracking_line_view_form
 msgid "Already Delivered"
-msgstr ""
+msgstr "Juba kohale toimetatud"
 
 #. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__create_uid
@@ -78,7 +81,7 @@ msgstr "Kuvatav nimi"
 #. odoo-python
 #: code:addons/industry_fsm_stock/wizard/fsm_stock_tracking.py:0
 msgid "Each line needs a Lot/Serial Number"
-msgstr ""
+msgstr "Iga rida vajab partiid/seerianumbrit"
 
 #. module: industry_fsm_stock
 #: model:ir.model.fields,help:industry_fsm_stock.field_fsm_stock_tracking__tracking
@@ -88,7 +91,7 @@ msgstr "Tagage oma lattu ladustava toote jälgitavus."
 #. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_sale_order_line__fsm_lot_id
 msgid "Fsm Lot"
-msgstr ""
+msgstr "Fsm partii"
 
 #. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__id
@@ -111,7 +114,7 @@ msgstr "Viimati uuendatud"
 #. module: industry_fsm_stock
 #: model:ir.model,name:industry_fsm_stock.model_fsm_stock_tracking_line
 msgid "Lines for FSM Stock Tracking"
-msgstr ""
+msgstr "Read FSM lao jälgimiseks"
 
 #. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking_line__lot_id
@@ -122,7 +125,7 @@ msgstr "Partii/Seerianumber"
 #. odoo-javascript
 #: code:addons/industry_fsm_stock/static/src/js/product_catalog/sale_order_line/sale_order_line.xml:0
 msgid "Lot/Serial number"
-msgstr ""
+msgstr "Partii/Seerianumber"
 
 #. module: industry_fsm_stock
 #. odoo-python
@@ -183,13 +186,15 @@ msgid ""
 "The ordered quantity cannot be decreased below the amount already delivered."
 " Instead, create a return in your inventory."
 msgstr ""
+"Tellitud kogust ei saa muuta alla juba tarnitud koguste. Selle asemel looge "
+"laos tagastus."
 
 #. module: industry_fsm_stock
 #: model:ir.model,name:industry_fsm_stock.model_fsm_stock_tracking
 #: model_terms:ir.ui.view,arch_db:industry_fsm_stock.fsm_stock_tracking_line_line_view_form
 #: model_terms:ir.ui.view,arch_db:industry_fsm_stock.fsm_stock_tracking_line_view_form
 msgid "Track Stock"
-msgstr ""
+msgstr "Jälgi ladu"
 
 #. module: industry_fsm_stock
 #: model:ir.model.fields,field_description:industry_fsm_stock.field_fsm_stock_tracking__tracking
@@ -205,4 +210,4 @@ msgstr "Valideeri"
 #. odoo-python
 #: code:addons/industry_fsm_stock/models/product.py:0
 msgid "Validate Lot/Serial Number"
-msgstr ""
+msgstr "Valideerige partii/seerianumber"

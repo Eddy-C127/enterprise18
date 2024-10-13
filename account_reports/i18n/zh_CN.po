@@ -3,9 +3,9 @@
 # 	* account_reports
 # 
 # Translators:
-# Martin Trigaux, 2024
-# Chloe Wang, 2024
 # Wil Odoo, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 12:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -155,6 +155,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">亲爱的<t t-out=\"object.name or ''\"></t> （<t t-out=\"object.commercial_partner_id.name or ''\"></t>），</t>\n"
+"                    <t t-else=\"\">亲爱的<t t-out=\"object.name or ''\"></t>，</t>\n"
+"                    <br>\n"
+"                    随函附上您的账户对账单。\n"
+"                    <br>\n"
+"                    如有任何疑问，请随时联系我们。\n"
+"                    <br>\n"
+"                    诚挚问候，\n"
+"                    <br>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"></t>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -253,7 +268,7 @@ msgstr "会计科目表模版"
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Account Code"
-msgstr "帐户代码"
+msgstr "账户代码"
 
 #. module: account_reports
 #. odoo-python
@@ -275,12 +290,12 @@ msgstr "账户标签"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_annotation
 msgid "Account Report Annotation"
-msgstr "账户报告注释"
+msgstr "账户报表注释"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_custom_handler
 msgid "Account Report Custom Handler"
-msgstr "科目报告自定义处理程序"
+msgstr "科目报表自定义处理程序"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_tax_report_handler
@@ -322,17 +337,17 @@ msgstr "会计师事务所"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report
 msgid "Accounting Report"
-msgstr "会计报告"
+msgstr "会计报表"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_budget
 msgid "Accounting Report Budget"
-msgstr "账户报告预算"
+msgstr "账户报表预算"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_budget_item
 msgid "Accounting Report Budget Item"
-msgstr "账户报告项目"
+msgstr "账户报表项目"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_expression
@@ -342,14 +357,14 @@ msgstr "会计报表表达式"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
 msgid "Accounting Report Line"
-msgstr "会计报告行"
+msgstr "会计报表行"
 
 #. module: account_reports
 #: model:ir.actions.act_window,name:account_reports.action_account_report_tree
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_tree
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Accounting Reports"
-msgstr "会计报告"
+msgstr "会计报表"
 
 #. module: account_reports
 #. odoo-javascript
@@ -361,7 +376,7 @@ msgstr "账户"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Accounts Coverage Report"
-msgstr "科目覆盖报告"
+msgstr "科目覆盖报表"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_to_adjust
@@ -520,7 +535,7 @@ msgstr "全部应收账款"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "All Report Variants"
-msgstr "所有报告变体"
+msgstr "所有报表变体"
 
 #. module: account_reports
 #. odoo-javascript
@@ -642,7 +657,7 @@ msgstr "审计"
 #. module: account_reports
 #: model:ir.ui.menu,name:account_reports.account_reports_audit_reports_menu
 msgid "Audit Reports"
-msgstr "审计报告"
+msgstr "审计报表"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_avgcre0
@@ -739,12 +754,12 @@ msgstr "银行对账"
 #. module: account_reports
 #: model:account.report,name:account_reports.bank_reconciliation_report
 msgid "Bank Reconciliation Report"
-msgstr "银行对账报告"
+msgstr "银行对账报表"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_bank_reconciliation_report_handler
 msgid "Bank Reconciliation Report Custom Handler"
-msgstr "银行对账报告自定义处理程序"
+msgstr "银行对账报表自定义处理程序"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_bank_view0
@@ -1181,7 +1196,7 @@ msgstr "创建日期"
 #: model:account.report.column,name:account_reports.partner_ledger_report_credit
 #: model:account.report.column,name:account_reports.trial_balance_report_credit
 msgid "Credit"
-msgstr "贷项"
+msgstr "贷方"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_currency
@@ -1301,7 +1316,7 @@ msgstr "天"
 #: model:account.report.column,name:account_reports.partner_ledger_report_debit
 #: model:account.report.column,name:account_reports.trial_balance_report_debit
 msgid "Debit"
-msgstr "借项"
+msgstr "借方"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1339,12 +1354,12 @@ msgstr "递延开支自定义处理程序"
 #. module: account_reports
 #: model:account.report,name:account_reports.deferred_expense_report
 msgid "Deferred Expense Report"
-msgstr "递延开支报告"
+msgstr "递延开支报表"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_report_handler
 msgid "Deferred Expense Report Custom Handler"
-msgstr "递延开支报告自定义处理程序"
+msgstr "递延开支报表自定义处理程序"
 
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_revenue
@@ -1360,7 +1375,7 @@ msgstr "递延收入自定义处理程序"
 #. module: account_reports
 #: model:account.report,name:account_reports.deferred_revenue_report
 msgid "Deferred Revenue Report"
-msgstr "递延收入报告"
+msgstr "递延收入报表"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
@@ -1452,12 +1467,12 @@ msgstr "无论如何下载"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Download Excel"
-msgstr ""
+msgstr "下载Excel"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Download the Data Inalterability Check Report"
-msgstr "下载数据不变性检查报告"
+msgstr "下载数据不变性检查报表"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1490,7 +1505,7 @@ msgstr "欧洲共同体（EC）销售列表"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_ec_sales_report_handler
 msgid "EC Sales Report Custom Handler"
-msgstr "欧洲共同体（EC）销售报告自定义处理程序"
+msgstr "欧洲共同体（EC）销售报表自定义处理程序"
 
 #. module: account_reports
 #. odoo-python
@@ -1515,7 +1530,7 @@ msgstr "股权"
 msgid ""
 "Editing a manual report line is not allowed in multivat setup when "
 "displaying data from all fiscal positions."
-msgstr "显示所有财务状况数据时，在多增值税设置中不允许编辑手动报告行。"
+msgstr "显示所有财务状况数据时，在多增值税设置中不允许编辑手动报表行。"
 
 #. module: account_reports
 #. odoo-python
@@ -1523,7 +1538,7 @@ msgstr "显示所有财务状况数据时，在多增值税设置中不允许编
 msgid ""
 "Editing a manual report line is not allowed when multiple companies are "
 "selected."
-msgstr "选定多个公司时，不允许编辑手动报告行。"
+msgstr "选定多个公司时，不允许编辑手动报表行。"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__checkbox_send_mail
@@ -1661,7 +1676,7 @@ msgstr "导出"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_reports_export_wizard_format
 msgid "Export format for accounting's reports"
-msgstr "会计报告的导出格式"
+msgstr "会计报表的导出格式"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__export_format_ids
@@ -1671,7 +1686,7 @@ msgstr "导出至"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_reports_export_wizard
 msgid "Export wizard for accounting's reports"
-msgstr "会计报告导出向导"
+msgstr "会计报表导出向导"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
@@ -1699,7 +1714,7 @@ msgstr "字段"
 msgid ""
 "Field %s does not exist on account.move.line, and is not supported by this "
 "report's custom handler."
-msgstr "字段%s不在 account.move.line 内，亦不受此报告的自订处理程序支持。"
+msgstr "字段%s不在 account.move.line 内，亦不受此报表的自订处理程序支持。"
 
 #. module: account_reports
 #. odoo-python
@@ -1855,17 +1870,17 @@ msgstr "通用欧洲共同体（EC）销售清单"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler
 msgid "Generic Tax Report Custom Handler"
-msgstr "通用税务报告自定义处理程序"
+msgstr "通用税务报表自定义处理程序"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler_account_tax
 msgid "Generic Tax Report Custom Handler (Account -> Tax)"
-msgstr "通用税务报告自定义处理程序（科目 -> 税项）"
+msgstr "通用税务报表自定义处理程序（科目 -> 税项）"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler_tax_account
 msgid "Generic Tax Report Custom Handler (Tax -> Account)"
-msgstr "通用税务报告自定义处理程序（税务 -> 科目）"
+msgstr "通用税务报表自定义处理程序（税务 -> 科目）"
 
 #. module: account_reports
 #. odoo-python
@@ -1974,12 +1989,12 @@ msgstr "水平群组"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_horizontal_group
 msgid "Horizontal group for reports"
-msgstr "报告诉的水平群组"
+msgstr "报表的水平组"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_horizontal_group_rule
 msgid "Horizontal group rule for reports"
-msgstr "报告诉的水平群组规则"
+msgstr "报表的水平组规则"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
@@ -2095,7 +2110,7 @@ msgstr "数据不一致：“most_recent”外部行有同一日期的多个外�
 msgid ""
 "Inconsistent report_id in options dictionary. Options says "
 "%(options_report)s; report is %(report)s."
-msgstr "选项参照表的 report_id 不一致。 选项显示为 %(options_report)s； 报告则是 %(report)s。"
+msgstr "选项参照表的 report_id 不一致。 选项显示为 %(options_report)s； 报表则是 %(report)s。"
 
 #. module: account_reports
 #. odoo-python
@@ -2168,7 +2183,7 @@ msgstr "发票行"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__is_account_coverage_report_available
 msgid "Is Account Coverage Report Available"
-msgstr "账户覆盖报告是否可用"
+msgstr "账户覆盖报表是否可用"
 
 #. module: account_reports
 #. odoo-python
@@ -2245,12 +2260,12 @@ msgstr "税务审计的日记账项目"
 #. module: account_reports
 #: model:account.report,name:account_reports.journal_report
 msgid "Journal Report"
-msgstr "日记账报告"
+msgstr "日记账报表"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_journal_report_handler
 msgid "Journal Report Custom Handler"
-msgstr "日记账报告自定义处理程序"
+msgstr "日记账报表自定义处理程序"
 
 #. module: account_reports
 #. odoo-python
@@ -2390,7 +2405,7 @@ msgstr "主要公司"
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__main_company_id
 msgid ""
 "Main company of this unit; the one actually reporting and paying the taxes."
-msgstr "该单位的主要公司；实际报告和缴税的公司。"
+msgstr "该单位的主要公司；实际报表和缴税的公司。"
 
 #. module: account_reports
 #. odoo-python
@@ -2402,7 +2417,7 @@ msgstr "调整分录"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_file_download_error_wizard
 msgid "Manage the file generation errors from report exports."
-msgstr "管理报告导出时的文件生成错误。"
+msgstr "管理报表导出时的文件生成错误。"
 
 #. module: account_reports
 #. odoo-python
@@ -2472,7 +2487,7 @@ msgstr "多个分类账"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_report_handler
 msgid "Multicurrency Revaluation Report Custom Handler"
-msgstr "多币种重新估值报告自定义处理程序"
+msgstr "多币种重新估值报表自定义处理程序"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_wizard
@@ -2723,7 +2738,7 @@ msgstr "PDF"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__report_id
 msgid "Parent Report Id"
-msgstr "上级报告ID"
+msgstr "上级报表ID"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__export_wizard_id
@@ -3082,7 +3097,7 @@ msgstr "收款人"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Reconciliation Report"
-msgstr "对账报告"
+msgstr "对账报表"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity_reminder_day
@@ -3096,44 +3111,44 @@ msgstr "提醒"
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__report_id
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__account_report_id
 msgid "Report"
-msgstr "报告"
+msgstr "报表"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Report Line"
-msgstr "报告行"
+msgstr "报表行"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Report Name"
-msgstr "报告名称"
+msgstr "报表名称"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__report_options
 msgid "Report Options"
-msgstr "报告选项"
+msgstr "报表选项"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Report lines mentioning the account code"
-msgstr "提及科目代码的报告行"
+msgstr "提及科目代码的报表行"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_variant.xml:0
 msgid "Report:"
-msgstr "报告："
+msgstr "报表："
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Reporting"
-msgstr "报告"
+msgstr "报表"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group__report_ids
 msgid "Reports"
-msgstr "报告"
+msgstr "报表"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3176,7 +3191,7 @@ msgstr "撤销：%s"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Root Report"
-msgstr "根报告"
+msgstr "根报表"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group__rule_ids
@@ -3292,7 +3307,7 @@ msgstr "一些"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
 msgid "Some journal items appear to point to obsolete report lines."
-msgstr "部分日记账项目指向废弃的报告行。"
+msgstr "部分日记账项目指向废弃的报表行。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3306,7 +3321,7 @@ msgstr "指定日"
 msgid ""
 "Specify an Accounting Firm that will act as a representative when exporting "
 "reports."
-msgstr "指定代表导出报告的会计师事务所。"
+msgstr "指定代表导出报表的会计师事务所。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3436,7 +3451,7 @@ msgstr "已收税款调整"
 #: model:mail.activity.type,summary:account_reports.tax_closing_activity_type
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "Tax Report"
-msgstr "税务报告"
+msgstr "税务报表"
 
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_gt
@@ -3481,7 +3496,7 @@ msgstr "税款已准备好缴付"
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__mail_activity_type__category__tax_report
 msgid "Tax report"
-msgstr "税务报告"
+msgstr "税务报表"
 
 #. module: account_reports
 #. odoo-python
@@ -3513,7 +3528,7 @@ msgstr "技术字段：表明单位内所有公司是否存在财务规则"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_ir_actions_account_report_download
 msgid "Technical model for accounting report downloads"
-msgstr "会计报告下载技术模型"
+msgstr "会计报表下载技术模型"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3661,25 +3676,25 @@ msgstr "该科目存在于会计科目表，但未在报告的任何行提及"
 msgid ""
 "This account is reported in a line of the report but does not exist in the "
 "Chart of Accounts"
-msgstr "该科目在报告的一行中报告，但不存在于会计科目表"
+msgstr "该科目在报表的一行中报告，但不存在于会计科目表"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "This account is reported in multiple lines of the report"
-msgstr "该科目在报告的多行中报告"
+msgstr "该科目在报表的多行中报告"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "This account is reported multiple times on the same line of the report"
-msgstr "该科目在报告的同一行多次报告"
+msgstr "该科目在报表的同一行多次报告"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid ""
 "This allows you to choose the position of totals in your financial reports."
-msgstr "通过该功能，可以在财务报告中选择总计的位置。"
+msgstr "通过该功能，可以在财务报表中选择总计的位置。"
 
 #. module: account_reports
 #. odoo-javascript

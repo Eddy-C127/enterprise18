@@ -3,11 +3,14 @@
 # 	* sale_timesheet_enterprise
 # 
 # Translators:
-# Eneli Õigus <enelioigus@gmail.com>, 2024
-# Martin Trigaux, 2024
-# Stevin Lilla, 2024
 # Maidu Targama <m.targama@gmail.com>, 2024
 # Siim Raasuke, 2024
+# Stevin Lilla, 2024
+# Algo Kärp <algokarp@gmail.com>, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
+# Martin Trigaux, 2024
+# JanaAvalah, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Siim Raasuke, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,13 +30,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 msgid "%(billableTime)s / %(billable_time_target)s (%(billingRate)s%)"
-msgstr ""
+msgstr "%(billableTime)s / %(billable_time_target)s (%(billingRate)s%)"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
-msgstr ""
+msgstr "%(currentBillableTimeText)s / %(currentTargetTotalTimeText)s "
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -45,7 +48,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(percentage)s%"
-msgstr ""
+msgstr "%(percentage)s%"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -75,7 +78,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "(%(percentage)s%)"
-msgstr ""
+msgstr "(%(percentage)s%)"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.view_employee_form
@@ -92,11 +95,15 @@ msgid ""
 "                            Creating the invoice will automatically stop these timers.\n"
 "                        </span>"
 msgstr ""
+"<span>\n"
+"Mõnedel töötajatel on praegu jooksvad taimerid tööajarvestuslehtedel millest üritate arveid luua.\n"
+"Arve loomine automaatselt peatab vastavad taimerid.\n"
+"</span>"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields.selection,name:sale_timesheet_enterprise.selection__res_config_settings__invoiced_timesheet__all
 msgid "All recorded timesheets"
-msgstr ""
+msgstr "Kõikide ajaarvestuslehtede põhjal"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_analytic_line
@@ -119,25 +126,25 @@ msgstr ""
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_leaderboard
 msgid "Billing Rate Leaderboard"
-msgstr ""
+msgstr "Arveldusmäära edetabel"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_employee__billable_time_target
 msgid "Billing Time Target"
-msgstr ""
+msgstr "Arveldamise aja eesmärk"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 msgid "Billing:"
-msgstr ""
+msgstr "Arveldamine:"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
 msgid ""
 "Boost productivity and competitiveness by displaying a leaderboard based on "
 "the billing rates."
-msgstr ""
+msgstr "Suurenda tootlikkust ja konkurentsivõimet, kuvades edetabelit"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -192,7 +199,7 @@ msgstr "Kuvatav nimi"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_progress
 msgid "Display progress of current task."
-msgstr ""
+msgstr "Näitab praeguse ülesande käiku"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_employee
@@ -205,6 +212,8 @@ msgid ""
 "Even small tasks like answering an email should be recorded and rounded up "
 "to a quarter of an hour."
 msgstr ""
+"Isegi väiksemad ülesanded, nagu e-kirjale vastamine, tuleks salvestada ja "
+"ümardada veerandtunnini."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__id
@@ -217,6 +226,8 @@ msgid ""
 "If you help a colleague on a project, your time should be recorded on this "
 "project's timesheet as well."
 msgstr ""
+"Kui sa aitad oma kolleegi mõnes projektis, siis see aeg peaks olema ka "
+"arveldatav!"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
@@ -234,6 +245,9 @@ msgid ""
 "It's part of the job to search for information. A customer can't expect you "
 "to know everything on the spot. These hours should also be billable."
 msgstr ""
+"Analüüs ja info otsimine on samuti osa tööst. Klient ei saa oodata, et sa "
+"tead ja oskad kohe kõike öelda. Need tunnid peaksid samuti olema "
+"arveldatavad. "
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_account_move_line
@@ -255,7 +269,7 @@ msgstr "Viimati uuendatud"
 #: code:addons/sale_timesheet_enterprise/models/res_company.py:0
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_4
 msgid "Make it a habit to record timesheets every day."
-msgstr ""
+msgstr "Ajalogimine peaks muutuma harjumuseks!"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.timesheet_view_grid_by_invoice_type
@@ -265,12 +279,12 @@ msgstr "Kuu"
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "Motivate employees to fill timesheets with these tips."
-msgstr ""
+msgstr "Motiveeri töötajaid aega logida kasutades neid näpunäiteid. "
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.actions.act_window,help:sale_timesheet_enterprise.hr_timesheet_tip_action
 msgid "No tips found. Let's create one!"
-msgstr ""
+msgstr "Ühtegi näpunäidet ei leitud. Loo üks!"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
@@ -287,18 +301,18 @@ msgstr "Projekt"
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 msgid "Record timesheets to determine your billing rate!"
-msgstr ""
+msgstr "Kasuta tööaja arvestuslehti ja vali oma arveldusmäär!"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 msgid "Record timesheets to earn your rank!"
-msgstr ""
+msgstr "Salvesta tööaja arvestuslehti ja teeni tasemeid!"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_sale_advance_payment_inv
 msgid "Sales Advance Payment Invoice"
-msgstr ""
+msgstr "Müügi ettemaksuarve"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_sale_order_line
@@ -337,7 +351,7 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_leaderboard
 msgid "Show the leaderboard on My Timesheets view"
-msgstr ""
+msgstr "Näita edetabelit Minu tööaja arvestuslehtede vaates"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_project_task
@@ -347,7 +361,7 @@ msgstr "Ülesanne"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.constraint,message:sale_timesheet_enterprise.constraint_hr_employee_check_billable_time_target
 msgid "The billable time target cannot be negative."
-msgstr ""
+msgstr "Arveldatav aeg ei saa olla negatiivne."
 
 #. module: sale_timesheet_enterprise
 #. odoo-python
@@ -359,7 +373,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.xml:0
 msgid "This month"
-msgstr ""
+msgstr "See kuu"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_form
@@ -372,27 +386,29 @@ msgstr "Aega jäänud"
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.timesheet_view_grid_by_invoice_type
 msgid "Time Spent"
-msgstr ""
+msgstr "Kulutatud aeg"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
 msgid "Time Spent on Sub-tasks"
-msgstr ""
+msgstr "Alamülesannetele kulutatud aeg"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_subtask_effective_hours
 msgid "Time spent on the sub-tasks (and their own sub-tasks) of this task."
 msgstr ""
+"Selle ülesande alamülesannetele (ja nende endi alamülesannetele) kulutatud "
+"aeg."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_effective_hours
 msgid "Time spent on this task, excluding its sub-tasks."
-msgstr ""
+msgstr "Aega kulutatatud sellel ülesandel, sh alamülesannetel."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_total_hours_spent
 msgid "Time spent on this task, including its sub-tasks."
-msgstr ""
+msgstr "Aega kulutatatud sellel ülesandel, sh alamülesannetel."
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_employee__show_billable_time_target
@@ -407,12 +423,12 @@ msgstr "Tööaja arvestusleht"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__invoiced_timesheet
 msgid "Timesheets Invoicing"
-msgstr ""
+msgstr "Tööajatabelite arveldamine"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model,name:sale_timesheet_enterprise.model_hr_timesheet_tip
 msgid "Timesheets Leaderboard Tip"
-msgstr ""
+msgstr "Ajaarvestuslehtede edetabeli näpunäide"
 
 #. module: sale_timesheet_enterprise
 #: model:hr.timesheet.tip,name:sale_timesheet_enterprise.timesheet_tip_1
@@ -420,22 +436,24 @@ msgid ""
 "Timesheets are the lifeblood of our company; they have a direct impact on "
 "revenues."
 msgstr ""
+"Tööaja arvestuslehed on meie ettevõtte üks olulisem osa; neil on otsene mõju"
+" tuludele."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
 msgid "Timesheets taken into account when invoicing your time"
-msgstr ""
+msgstr "Arvete esitamisel võetakse kulunud tööaeg arvesse"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_hr_timesheet_tip__name
 msgid "Tip Name"
-msgstr ""
+msgstr "Näpunäite nimi"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.xml:0
 msgid "Tip of the day"
-msgstr ""
+msgstr "Tänane näpunäide"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.actions.act_window,name:sale_timesheet_enterprise.hr_timesheet_tip_action
@@ -449,12 +467,12 @@ msgstr "Jootraha"
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 msgid "Total Time Leaderboard"
-msgstr ""
+msgstr "Koondaja edetabel"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.project_sharing_inherit_project_task_view_tree
 msgid "Total Time Spent"
-msgstr ""
+msgstr "Kokku kulutatud aeg"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,help:sale_timesheet_enterprise.field_project_task__portal_remaining_hours
@@ -462,6 +480,8 @@ msgid ""
 "Total remaining time, can be re-estimated periodically by the assignee of "
 "the task."
 msgstr ""
+"Järelejäänud aeg kokku. Seda saab ümberhinnata perioodiliselt isik, kellele "
+"ülesande on määratud."
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -473,12 +493,12 @@ msgstr "Kokku:"
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/views/timesheet_leaderboard_dialog/timesheet_leaderboard_dialog.js:0
 msgid "Total: %(totalTime)s"
-msgstr ""
+msgstr "Kokku: %(totalTime)s"
 
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields.selection,name:sale_timesheet_enterprise.selection__res_config_settings__invoiced_timesheet__approved
 msgid "Validated timesheets only"
-msgstr ""
+msgstr "Ainult kinnitatud ajaarvestuslehtede põhjal"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.timesheet_view_grid_by_invoice_type
@@ -491,14 +511,16 @@ msgid ""
 "With the 'all recorded timesheets' option, all timesheets will be invoiced without distinction, even if they haven't been validated. Additionally, all timesheets will be accessible in your customers' portal. \n"
 "When you choose the 'validated timesheets only' option, only the validated timesheets will be invoiced and appear in your customers' portal."
 msgstr ""
+"Valiku „Kõik salvestatud töötunnitabelid” korral esitatakse kõikidele tööajalehtedele arveldamine, isegi kui neid pole kinnitatud. Lisaks on kõik ajatabelid kättesaadavad teie klientide portaalis.\n"
+"Kui valite valiku „Ainult kinnitatud ajatabelid”, esitatakse arve ainult kinnitatud ajatabelitele ja need kuvatakse teie klientide portaalis."
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.hr_timesheet_tip_view_tree
 msgid "e.g. Make it a habit to record timesheets every day."
-msgstr ""
+msgstr "Ajalogimised võiksid muutuda harjumuseks!"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.xml:0
 msgid "o_timesheet_leaderboard_confetti"
-msgstr ""
+msgstr "o_timesheet_leaderboard_confetti"

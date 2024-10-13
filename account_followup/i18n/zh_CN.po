@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
 # 
 msgid ""
@@ -102,6 +103,35 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px;\">\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">亲爱的<t t-out=\"object.name or ''\"></t>（<t t-out=\"object.commercial_partner_id.name or ''\"></t>），</t>\n"
+"                        <t t-else=\"\">亲爱的 <t t-out=\"object.name or ''\"></t>，</t>\n"
+"                        <br>\n"
+"                        我们注意到您有一笔未清余额，金额为 <t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"></t>\n"
+"                        <br>\n"
+"                        我们恳请您采取必要行动，在未来 8 天内结清这笔款项。\n"
+"                        <br>\n"
+"<div t-if=\"object._show_pay_now_button()\" class=\"d-flex\">\n"
+"                        如果您在收到此信息后已经付款，请忽略此信息。\n"
+"                        如果您需要任何帮助或有任何疑问，我们的会计部门随时为您提供服务。\n"
+"                        <br>\n"
+"                        感谢您的合作。\n"
+"                        <br>\n"
+"                        诚挚问候，\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"></t>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br>\n"
+"                            --\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"></t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_4
@@ -255,7 +285,7 @@ msgstr "科目管理员"
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.ir_cron_auto_post_draft_entry_ir_actions_server
 msgid "Account Report Followup; Execute followup"
-msgstr "科目报告跟进；执行跟进"
+msgstr "科目报表跟进；执行跟进"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
@@ -789,7 +819,7 @@ msgstr "绘制模型"
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_ir_actions_report
 msgid "Report Action"
-msgstr "报告操作"
+msgstr "报表操作"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view

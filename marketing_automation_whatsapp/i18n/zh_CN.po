@@ -38,7 +38,7 @@ msgstr ""
 #. module: marketing_automation_whatsapp
 #: model:ir.model.fields,field_description:marketing_automation_whatsapp.field_marketing_campaign__whatsapp_template_count
 msgid "# Whatsapp"
-msgstr ""
+msgstr "# Whatsapp"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
@@ -91,6 +91,13 @@ msgid ""
 "                <i data-trigger-type=\"whatsapp_not_click\" class=\"fa fa-hand-pointer-o o_ma_text_rejected o_add_child_activity text-danger\" title=\"Not Clicked\" role=\"img\" aria-label=\"Not Clicked\"/>\n"
 "                <i data-trigger-type=\"whatsapp_bounced\" class=\"fa fa-exclamation-circle o_ma_text_error o_add_child_activity text-danger\" title=\"Bounced\" role=\"img\" aria-label=\"Error\"/>"
 msgstr ""
+"<i data-trigger-type=\"whatsapp_read\" class=\"fa fa-check-circle o_ma_text_read o_add_child_activity text-info\" title=\"Opened\" role=\"img\" aria-label=\"Opened\"/>\n"
+"                <i data-trigger-type=\"whatsapp_not_read\" class=\"fa fa-check-circle o_ma_text_read o_add_child_activity text-danger\" title=\"Not Opened\" role=\"img\" aria-label=\"Not Opened\"/>\n"
+"                <i data-trigger-type=\"whatsapp_replied\" class=\"fa fa-reply o_ma_text_replied o_add_child_activity text-success\" title=\"replied\" role=\"img\" aria-label=\"replied\"/>\n"
+"                <i data-trigger-type=\"whatsapp_not_replied\" class=\"fa fa-reply o_ma_text_replied o_add_child_activity text-danger\" title=\"not replied\" role=\"img\" aria-label=\"not replied\"/>\n"
+"                <i data-trigger-type=\"whatsapp_click\" class=\"fa fa-hand-pointer-o o_ma_text_processed o_add_child_activity text-success\" title=\"Clicked\" role=\"img\" aria-label=\"Clicked\"/>\n"
+"                <i data-trigger-type=\"whatsapp_not_click\" class=\"fa fa-hand-pointer-o o_ma_text_rejected o_add_child_activity text-danger\" title=\"Not Clicked\" role=\"img\" aria-label=\"Not Clicked\"/>\n"
+"                <i data-trigger-type=\"whatsapp_bounced\" class=\"fa fa-exclamation-circle o_ma_text_error o_add_child_activity text-danger\" title=\"Bounced\" role=\"img\" aria-label=\"Error\"/>"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_participant_view_form
@@ -99,6 +106,9 @@ msgid ""
 "                        <i class=\"fa fa-check-circle\"/> Not opened yet\n"
 "                    </span>"
 msgstr ""
+"<span class=\"text-primary\">\n"
+"                        <i class=\"fa fa-check-circle\"/> 尚未开启\n"
+"                    </span>"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_participant_view_form
@@ -107,6 +117,9 @@ msgid ""
 "                        <i class=\"fa fa-exclamation-circle\"/> Didn't bounce yet\n"
 "                    </span>"
 msgstr ""
+"<span class=\"text-primary\">\n"
+"                        <i class=\"fa fa-exclamation-circle\"/> 尚未弹回\n"
+"                    </span>"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_participant_view_form
@@ -115,6 +128,9 @@ msgid ""
 "                        <i class=\"fa fa-hand-pointer-o\"/> Not clicked yet\n"
 "                    </span>"
 msgstr ""
+"<span class=\"text-primary\">\n"
+"                        <i class=\"fa fa-hand-pointer-o\"/> 尚未点击\n"
+"                    </span>"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_participant_view_form
@@ -123,6 +139,9 @@ msgid ""
 "                        <i class=\"fa fa-reply\"/> Not replied\n"
 "                    </span>"
 msgstr ""
+"<span class=\"text-primary\">\n"
+"                        <i class=\"fa fa-reply\"/> 未回复\n"
+"                    </span>"
 
 #. module: marketing_automation_whatsapp
 #: model:ir.model.fields,field_description:marketing_automation_whatsapp.field_marketing_activity__activity_type
@@ -148,7 +167,7 @@ msgstr "讨论群组"
 #. odoo-python
 #: code:addons/marketing_automation_whatsapp/models/marketing_activity.py:0
 msgid "Exception in Whatsapp Marketing: %s"
-msgstr ""
+msgstr "Whatsapp 营销的例外情况：%s"
 
 #. module: marketing_automation_whatsapp
 #: model:ir.model,name:marketing_automation_whatsapp.model_link_tracker_click
@@ -160,7 +179,7 @@ msgstr "跟踪链点击"
 msgid ""
 "Make sure you select url tracking under buttons option, otherwise those "
 "links won't be tracked"
-msgstr ""
+msgstr "确保在按钮选项下选择网址追踪，否则这些链接将不会被追踪"
 
 #. module: marketing_automation_whatsapp
 #: model:ir.model,name:marketing_automation_whatsapp.model_marketing_activity
@@ -170,7 +189,7 @@ msgstr "营销活动"
 #. module: marketing_automation_whatsapp
 #: model:ir.actions.act_window,name:marketing_automation_whatsapp.whatsapp_template_action_marketing_automation
 msgid "Marketing Automation Whatsapp"
-msgstr ""
+msgstr "营销自动化 WhatsApp"
 
 #. module: marketing_automation_whatsapp
 #: model:ir.model,name:marketing_automation_whatsapp.model_marketing_campaign
@@ -191,22 +210,22 @@ msgstr "营销踪迹"
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "Message Clicked"
-msgstr ""
+msgstr "消息已点击"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "Message Opened"
-msgstr ""
+msgstr "消息已开启"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "Message Replied"
-msgstr ""
+msgstr "消息已回复"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "Message Sent"
-msgstr ""
+msgstr "消息已发送"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form

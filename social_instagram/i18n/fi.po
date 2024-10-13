@@ -2,12 +2,20 @@
 # This file contains the translation of the following modules:
 # 	* social_instagram
 # 
+# Translators:
+# Retropikzel, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Mikko Salmela <salmemik@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,12 +31,12 @@ msgstr ""
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 msgid "34 SECONDS AGO"
-msgstr ""
+msgstr "34 SEKUNTIA SITTEN"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-comments me-1\" title=\"Comments\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-comments me-1\" title=\"Kommentit\"/>"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -54,33 +62,33 @@ msgstr ""
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_stream_post_view_kanban
 msgid "<i class=\"fa fa-heart me-1\" title=\"Likes\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-heart me-1\" title=\"Tykkäyksiä\"/>"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 msgid "<span class=\"fw-bold pe-1\">My_instagram_page</span>"
-msgstr ""
+msgstr "<span class=\"fw-bold pe-1\">Oma_instagram_sivu</span>"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 msgid "<span class=\"mt-1 fw-bold\">My Instagram Page</span>"
-msgstr ""
+msgstr "<span class=\"mt-1 fw-bold\">Oma Instagram-sivuni</span>"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_access_token
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_access_token
 msgid "Access Token"
-msgstr ""
+msgstr "Pääsytunniste"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.res_config_settings_view_form
 msgid "App ID"
-msgstr ""
+msgstr "App ID"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.res_config_settings_view_form
 msgid "App Secret"
-msgstr ""
+msgstr "App-salaisuus"
 
 #. module: social_instagram
 #. odoo-python
@@ -93,7 +101,7 @@ msgstr ""
 #: code:addons/social_instagram/static/src/xml/social_instagram_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_stream_post_view_kanban
 msgid "Author Image"
-msgstr ""
+msgstr "Tekijän kuva"
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_res_config_settings__instagram_use_own_account
@@ -101,23 +109,25 @@ msgid ""
 "Check this if you want to use your personal Instagram Developer Account "
 "instead of the provided one."
 msgstr ""
+"Merkitse tämä, jos haluat käyttää henkilökohtaista Instagram-"
+"kehittäjätiliäsi annetun tilin sijaan."
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Asetukset"
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/controllers/main.py:0
 msgid "Could not find any account to add."
-msgstr ""
+msgstr "En löytänyt lisättävää tiliä."
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__display_instagram_preview
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__display_instagram_preview
 msgid "Display Instagram Preview"
-msgstr ""
+msgstr "Näytä Instagram-esikatselu"
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_account__instagram_facebook_account_id
@@ -125,6 +135,8 @@ msgid ""
 "Facebook Account ID provided by the Facebook API, this should never be set manually.\n"
 "        The Instagram (\"Professional\") account is always linked to a Facebook account."
 msgstr ""
+"Facebook-tilin tunniste, jonka Facebook API tarjoaa, tätä ei koskaan pidä asettaa manuaalisesti.\n"
+"        Instagram-tili (\"Professional\") on aina yhdistetty Facebook-tiliin."
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__has_instagram_account
@@ -135,19 +147,19 @@ msgstr ""
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_post_template_view_form
 msgid "Images"
-msgstr ""
+msgstr "Kuvat"
 
 #. module: social_instagram
 #: model:ir.model.fields.selection,name:social_instagram.selection__social_media__media_type__instagram
 #: model:social.media,name:social_instagram.social_media_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_post_template_view_form
 msgid "Instagram"
-msgstr ""
+msgstr "Instagram"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_account__instagram_access_token
 msgid "Instagram Access Token"
-msgstr ""
+msgstr "Instagramin pääsytunniste"
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_account__instagram_access_token
@@ -155,11 +167,13 @@ msgid ""
 "Instagram Access Token provided by the Facebook API, this should never be set manually.\n"
 "        It's used to authenticate requests when posting to or reading information from this account."
 msgstr ""
+"Facebookin API:n tarjoama Instagramiun pääsytunniste, jota ei koskaan pidä asettaa manuaalisesti.\n"
+"        Sitä käytetään pyyntöjen todentamiseen, kun tälle tilille lähetetään viestejä tai luetaan tietoja tältä tililtä."
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_account__instagram_account_id
 msgid "Instagram Account ID"
-msgstr ""
+msgstr "Instagram-tilin tunnus"
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_account__instagram_account_id
@@ -167,38 +181,40 @@ msgid ""
 "Instagram Account ID provided by the Facebook API, this should never be set "
 "manually."
 msgstr ""
+"Facebookin API:n tarjoama Instagram-tilin tunnus, jota ei saa koskaan "
+"asettaa manuaalisesti."
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_res_config_settings__instagram_app_id
 msgid "Instagram App ID"
-msgstr ""
+msgstr "Instagram App ID"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_res_config_settings__instagram_client_secret
 msgid "Instagram App Secret"
-msgstr ""
+msgstr "Instagram-sovelluksen salainen avain"
 
 #. module: social_instagram
 #. odoo-javascript
 #: code:addons/social_instagram/static/src/js/stream_post_kanban_record.js:0
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_comments_count
 msgid "Instagram Comments"
-msgstr ""
+msgstr "Instagram-kommentit"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.res_config_settings_view_form
 msgid "Instagram Developer Account"
-msgstr ""
+msgstr "Instagram-kehittäjätili"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_account__instagram_facebook_account_id
 msgid "Instagram Facebook Account ID"
-msgstr ""
+msgstr "Instagram Facebook-tilin tunnus"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_facebook_author_id
 msgid "Instagram Facebook Author ID"
-msgstr ""
+msgstr "Instagram Facebook Tekijän tunnus"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_image_ids
@@ -209,7 +225,7 @@ msgstr ""
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_likes_count
 msgid "Instagram Likes"
-msgstr ""
+msgstr "Instagram-tykkäykset"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_message
@@ -221,45 +237,45 @@ msgstr ""
 #: model:ir.model.fields,field_description:social_instagram.field_social_live_post__instagram_post_id
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_post_id
 msgid "Instagram Post ID"
-msgstr ""
+msgstr "Instagram Post ID"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_post_link
 msgid "Instagram Post URL"
-msgstr ""
+msgstr "Instagram-postin URL-osoite"
 
 #. module: social_instagram
 #: model:social.stream.type,name:social_instagram.stream_type_instagram_posts
 msgid "Instagram Posts"
-msgstr ""
+msgstr "Instagram-julkaisut"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_preview
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_preview
 msgid "Instagram Preview"
-msgstr ""
+msgstr "Instagram esikatselu"
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/controllers/main.py:0
 msgid "Instagram did not provide a valid access token."
-msgstr ""
+msgstr "Instagram ei antanut voimassa olevaa käyttöoikeuskoodia."
 
 #. module: social_instagram
 #. odoo-javascript
 #: code:addons/social_instagram/static/src/xml/social_instagram_templates.xml:0
 msgid "Likes"
-msgstr ""
+msgstr "Tykkäykset"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_media__media_type
 msgid "Media Type"
-msgstr ""
+msgstr "Median tyyppi"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_post_template_view_form
 msgid "Message"
-msgstr ""
+msgstr "Viesti"
 
 #. module: social_instagram
 #. odoo-python
@@ -271,48 +287,48 @@ msgstr ""
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 msgid "Post Image"
-msgstr ""
+msgstr "Artikkelin kuva"
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/controllers/main.py:0
 msgid "Read More about Instagram Accounts"
-msgstr ""
+msgstr "Lue lisää Instagram-tileistä"
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_social_account
 msgid "Social Account"
-msgstr ""
+msgstr "Sosiaalisen median tili"
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_social_live_post
 msgid "Social Live Post"
-msgstr ""
+msgstr "Sosiaalisen median live-julkaisu"
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_social_media
 msgid "Social Media"
-msgstr ""
+msgstr "Sosiaalinen media"
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_social_post
 msgid "Social Post"
-msgstr ""
+msgstr "Sosiaalisen median julkaisu"
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_social_post_template
 msgid "Social Post Template"
-msgstr ""
+msgstr "Sosiaalisen median julkaisun malli"
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_social_stream
 msgid "Social Stream"
-msgstr ""
+msgstr "Sosiaalinen media"
 
 #. module: social_instagram
 #: model:ir.model,name:social_instagram.model_social_stream_post
 msgid "Social Stream Post"
-msgstr ""
+msgstr "Sosiaalisen median suoratoiston julkaisu"
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_stream_post__instagram_facebook_author_id
@@ -320,6 +336,8 @@ msgid ""
 "The Facebook ID of this Instagram post author, used to fetch the profile "
 "picture."
 msgstr ""
+"Tämän Instagram-julkaisun kirjoittajan Facebook-tunnus, jota käytetään "
+"profiilikuvan hakemiseen."
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -353,24 +371,25 @@ msgstr ""
 #. odoo-python
 #: code:addons/social_instagram/controllers/main.py:0
 msgid "There was a authentication issue during your request."
-msgstr ""
+msgstr "Pyyntösi aikana tapahtui todennusongelma."
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/controllers/main.py:0
 msgid "Unauthorized. Please contact your administrator."
-msgstr ""
+msgstr "Luvaton. Ota yhteyttä ylläpitäjään."
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_res_config_settings__instagram_use_own_account
 msgid "Use your own Instagram Account"
-msgstr ""
+msgstr "Käytä omaa Instagram-tiliäsi"
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_post__instagram_access_token
 #: model:ir.model.fields,help:social_instagram.field_social_post_template__instagram_access_token
 msgid "Used to allow access to Instagram to retrieve the post image"
 msgstr ""
+"Käytetään sallimaan pääsy Instagramiin postauksen kuvan hakemista varten"
 
 #. module: social_instagram
 #: model:ir.model.fields,help:social_instagram.field_social_media__media_type
@@ -395,7 +414,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/social_instagram/models/social_media.py:0
 msgid "You don't have an active subscription. Please buy one here: %s"
-msgstr ""
+msgstr "Sinulla ei ole aktiivista tilausta. Osta se täältä: %s"
 
 #. module: social_instagram
 #. odoo-python
@@ -404,12 +423,14 @@ msgid ""
 "You need to link your Instagram page to your Facebook account to post with Odoo Social.\n"
 " Please create one and make sure it is linked to your account."
 msgstr ""
+"Sinun on yhdistettävä Instagram-sivusi Facebook-tiliisi, jotta voit tehdä julkaisuja Odoo Social -palvelussa.\n"
+" Luo sellainen ja varmista, että se on linkitetty tiliisi."
 
 #. module: social_instagram
 #. odoo-python
 #: code:addons/social_instagram/models/social_post.py:0
 msgid "Your image appears to be corrupted, please try loading it again."
-msgstr ""
+msgstr "Kuva näyttää olevan vioittunut, yritä ladata se uudelleen."
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview

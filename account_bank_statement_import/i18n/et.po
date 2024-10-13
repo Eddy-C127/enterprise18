@@ -4,8 +4,13 @@
 # 
 # Translators:
 # Stevin Lilla, 2024
-# Egon Raamat <egon@avalah.ee>, 2024
 # Andre Roomet <andreroomet@gmail.com>, 2024
+# Arma Gedonsky <armagedonsky@hot.ee>, 2024
+# Anna, 2024
+# Egon Raamat <egon@avalah.ee>, 2024
+# Birgit Vijar, 2024
+# Aveli Kannel <aveli@avalah.ee>, 2024
+# Kärt Villako, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Andre Roomet <andreroomet@gmail.com>, 2024\n"
+"Last-Translator: Kärt Villako, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,18 +30,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "%d transactions had already been imported and were ignored."
-msgstr ""
+msgstr "%d tehingud on varem imporditud ja neid ignoreeriti."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "1 transaction had already been imported and was ignored."
-msgstr ""
+msgstr "1 kanne on juba imporditud ja seda ignoreeriti."
 
 #. module: account_bank_statement_import
 #: model:ir.model.constraint,message:account_bank_statement_import.constraint_account_bank_statement_line_unique_import_id
 msgid "A bank account transactions can be imported only once!"
-msgstr ""
+msgstr "Pangakonto tehinguid saab importida ainult üks kord!"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_bank_statement_line
@@ -55,6 +60,8 @@ msgid ""
 "Cannot find in which journal import this statement. Please manually select a"
 " journal."
 msgstr ""
+"Ei tuvasta, millisesse andmikku seda väljavõttet importida. Palun vali "
+"andmik."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -69,28 +76,30 @@ msgid ""
 "Could not make sense of the given file.\n"
 "Did you install the module to support this type of file?"
 msgstr ""
+"Ei suutnud antud failist aru saada.\n"
+"Kas te installisite mooduli seda tüüpi faili toetamiseks?"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "Go to Apps"
-msgstr ""
+msgstr "Mine vahekaardile Odoo rakendused"
 
 #. module: account_bank_statement_import
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_import.journal_dashboard_view_inherit
 msgid "Import File"
-msgstr ""
+msgstr "Impordi fail"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_line__unique_import_id
 msgid "Import ID"
-msgstr ""
+msgstr "Impordi ID"
 
 #. module: account_bank_statement_import
 #. odoo-javascript
 #: code:addons/account_bank_statement_import/static/src/account_bank_statement_import_model.js:0
 msgid "Import Template for Bank Statements"
-msgstr ""
+msgstr "Impordi mall panga väljavõtte jaoks"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_journal
@@ -101,7 +110,7 @@ msgstr "Andmik"
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "Manual (or import %(import_formats)s)"
-msgstr ""
+msgstr "Käsitsi (või impordi %(import_formats)s)"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -113,19 +122,19 @@ msgstr "Ei antud manust"
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "No currency found matching '%s'."
-msgstr ""
+msgstr "%s valuutat ei leitud."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_bank_statement.py:0
 msgid "No transactions matching your filters were found."
-msgstr ""
+msgstr "Tehingud vastavalt valitud filtritele puuduvad. "
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_bank_statement.py:0
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "Siin ei ole midagi teha!"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -147,7 +156,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "The following files could not be imported:\n"
-msgstr ""
+msgstr "Järgmisi faile ei õnnestunud importida:\n"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -169,22 +178,22 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "View successfully imported statements"
-msgstr ""
+msgstr "Vaata edukalt imporditud väljavõtteid"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You already have imported that file."
-msgstr ""
+msgstr "See fail on juba imporditud."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You have to set a Default Account for the journal: %s"
-msgstr ""
+msgstr "Palun lisage andmikule vaikimisi kasutatav konto: %s"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You uploaded an invalid or empty file."
-msgstr ""
+msgstr "Te laadisite üles vigase või tühja faili."

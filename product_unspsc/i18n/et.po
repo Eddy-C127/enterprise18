@@ -5,6 +5,8 @@
 # Translators:
 # Stevin Lilla, 2024
 # Martin Trigaux, 2024
+# Katrin Kampura, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +30,7 @@ msgstr "Aktiivne"
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__applies_to
 msgid "Applies To"
-msgstr ""
+msgstr "Millel rakendatakse?"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__code
@@ -58,7 +60,7 @@ msgstr "ID"
 #. module: product_unspsc
 #: model:ir.model.fields,help:product_unspsc.field_product_unspsc_code__applies_to
 msgid "Indicate if this code could be used in products or in UoM"
-msgstr ""
+msgstr "Märkige, kas seda koodi saab kasutada toodetes või mõõtühikutes"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_unspsc_code__write_uid
@@ -89,12 +91,12 @@ msgstr "Toote mõõtühik"
 #. module: product_unspsc
 #: model:ir.model,name:product_unspsc.model_product_unspsc_code
 msgid "Product and UOM Codes from UNSPSC"
-msgstr ""
+msgstr "Toote ja mõõtühiku koodid UNSPSC-lt"
 
 #. module: product_unspsc
 #: model:ir.model.fields,help:product_unspsc.field_uom_uom__unspsc_code_id
 msgid "The UNSPSC code related to this UoM. "
-msgstr ""
+msgstr "Antud mõõtühikuga seotud UNSPSC kood."
 
 #. module: product_unspsc
 #: model:ir.model.fields,help:product_unspsc.field_product_product__unspsc_code_id
@@ -103,11 +105,13 @@ msgid ""
 "The UNSPSC code related to this product.  Used for edi in Colombia, Peru, "
 "Mexico and Denmark"
 msgstr ""
+"Selle tootega seotud UNSPSC kood. Kasutatakse Kolumbias, Peruus, Mehhikos ja"
+" Taanis"
 
 #. module: product_unspsc
 #: model_terms:ir.ui.view,arch_db:product_unspsc.product_template_unspsc
 msgid "UNSPSC"
-msgstr ""
+msgstr "UNSPSC"
 
 #. module: product_unspsc
 #: model:ir.model.fields,field_description:product_unspsc.field_product_product__unspsc_code_id
@@ -117,7 +121,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_unspsc.view_product_uom_categ_search_unspsc
 #: model_terms:ir.ui.view,arch_db:product_unspsc.view_product_uom_categ_tree_unspsc
 msgid "UNSPSC Category"
-msgstr ""
+msgstr "UNSPSC kategooria"
 
 #. module: product_unspsc
 #: model:ir.model.fields.selection,name:product_unspsc.selection__product_unspsc_code__applies_to__uom

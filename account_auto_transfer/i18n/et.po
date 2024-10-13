@@ -3,12 +3,17 @@
 # 	* account_auto_transfer
 # 
 # Translators:
-# Andre Roomet <andreroomet@gmail.com>, 2024
 # Siim Raasuke, 2024
-# Triine Aavik <triine@avalah.ee>, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Egon Raamat <egon@avalah.ee>, 2024
 # Stevin Lilla, 2024
+# Tairi Tiimann, 2024
+# Aveli Kannel <aveli@avalah.ee>, 2024
+# Andre Roomet <andreroomet@gmail.com>, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Kärt Villako, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,7 +32,7 @@ msgstr ""
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "<span> to </span>"
-msgstr ""
+msgstr "<span> kuni </span>"
 
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_chart_template
@@ -37,12 +42,12 @@ msgstr "Konto tabeli mall"
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_transfer_model
 msgid "Account Transfer Model"
-msgstr ""
+msgstr "Konto Ülekande Mudel"
 
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_transfer_model_line
 msgid "Account Transfer Model Line"
-msgstr ""
+msgstr "Konto Ülekande Mudelijoon"
 
 #. module: account_auto_transfer
 #: model:ir.actions.server,name:account_auto_transfer.ir_cron_auto_transfer_ir_actions_server
@@ -65,6 +70,8 @@ msgid ""
 "Adds a condition to only transfer the sum of the lines from the origin "
 "accounts that match these analytic accounts to the destination account"
 msgstr ""
+"Lisab tingimuse üle kanda vaid nende ridade summa, mille korral algsete "
+"kontode analüütilised kontod sobivad sihtkonto omadega"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model_line__partner_ids
@@ -72,6 +79,8 @@ msgid ""
 "Adds a condition to only transfer the sum of the lines from the origin "
 "accounts that match these partners to the destination account"
 msgstr ""
+"Lisab tingimuse üle kanda vaid nende ridade summa, mille korral algsete "
+"kontode partnerid sobivad sihtkonto omadega"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__analytic_account_ids
@@ -87,7 +96,7 @@ msgstr "Arhiveeritud"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Automated Transfer"
-msgstr ""
+msgstr "Automatiseeritud Siire"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -99,7 +108,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "Automatic Transfer (-%s%%)"
-msgstr ""
+msgstr "Automaatne ülekanne (-%s%%)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -113,13 +122,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "Automatic Transfer (entries with analytic account(s): %s)"
-msgstr ""
+msgstr "Automaatne ülekanne (analüütilise konto(de) kanded: %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "Automatic Transfer (entries with partner(s): %s)"
-msgstr ""
+msgstr "Automaatne ülekanne (kanded partneri(te)ga): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -149,12 +158,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "Automatic Transfer (to account %s)"
-msgstr ""
+msgstr "Automaatne ülekanne (kontole %s)"
 
 #. module: account_auto_transfer
 #: model:ir.actions.act_window,name:account_auto_transfer.transfer_model_action
 msgid "Automatic Transfers"
-msgstr ""
+msgstr "Automaatsed siirded"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__company_id
@@ -169,7 +178,7 @@ msgstr "Ettevõte mis on antud registriga seotud"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Compute Transfer"
-msgstr ""
+msgstr "Arvuta"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__create_uid
@@ -196,12 +205,12 @@ msgstr "Sihtkoha konto"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__line_ids
 msgid "Destination Accounts"
-msgstr ""
+msgstr "Sihtkoha Kontod"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__journal_id
 msgid "Destination Journal"
-msgstr ""
+msgstr "Sihtkoha Artikkel"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -232,7 +241,7 @@ msgstr "Loodud kirjed"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__move_ids
 msgid "Generated Moves"
-msgstr ""
+msgstr "Loodud siirded"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__id
@@ -244,7 +253,7 @@ msgstr "ID"
 #. odoo-python
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 msgid "IFRS Automatic Transfers"
-msgstr ""
+msgstr "IFRS Automaatsed siirded"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -288,17 +297,17 @@ msgstr "Igakuine"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__move_ids_count
 msgid "Move Ids Count"
-msgstr ""
+msgstr "Kande ID-de arv"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Move Model"
-msgstr ""
+msgstr "Kande mudel"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_tree
 msgid "Move Models"
-msgstr ""
+msgstr "Kande mudelid"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__name
@@ -308,24 +317,24 @@ msgstr "Nimi"
 #. module: account_auto_transfer
 #: model:ir.model.constraint,message:account_auto_transfer.constraint_account_transfer_model_line_unique_account_by_transfer_model
 msgid "Only one account occurrence by transfer model"
-msgstr ""
+msgstr "Ainult ühe konto esinemine ülekandemudeli järgi. "
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__account_ids
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Origin Accounts"
-msgstr ""
+msgstr "Algkontod"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_bank_statement_line__transfer_model_id
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_move__transfer_model_id
 msgid "Originating Model"
-msgstr ""
+msgstr "Päritolumudel"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__partner_ids
 msgid "Partner Filter"
-msgstr ""
+msgstr "Partneri filter"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__percent
@@ -335,19 +344,19 @@ msgstr "Protsent"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Percent (%)"
-msgstr ""
+msgstr "Protsent (%)"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__percent_is_readonly
 msgid "Percent Is Readonly"
-msgstr ""
+msgstr "Protsent on ainult loetav. "
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,help:account_auto_transfer.field_account_transfer_model_line__percent
 msgid ""
 "Percentage of the sum of lines from the origin accounts will be transferred "
 "to the destination account"
-msgstr ""
+msgstr "Algokonto ridade summa protsent kantakse sihtkoha kontole. "
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -382,13 +391,13 @@ msgstr "Staatus"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__date_stop
 msgid "Stop Date"
-msgstr ""
+msgstr "Lõpetamise kuupäev"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "The analytic filter %s is duplicated"
-msgstr ""
+msgstr "Analüütiline filter %s on dubleeritud. "
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -402,23 +411,23 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "The partner filter %s is duplicated"
-msgstr ""
+msgstr "Partneri filter %s on dubleeritud. "
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "The total percentage (%s) should be less or equal to 100!"
-msgstr ""
+msgstr "Koguprotsent (%s) peaks olema väiksem või võrdne 100-ga!"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__total_percent
 msgid "Total Percent"
-msgstr ""
+msgstr "Protsent kokku"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__transfer_model_id
 msgid "Transfer Model"
-msgstr ""
+msgstr "Ülekande mudel"
 
 #. module: account_auto_transfer
 #: model:ir.ui.menu,name:account_auto_transfer.menu_auto_transfer
@@ -457,9 +466,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_auto_transfer/models/account_move_line.py:0
 msgid "You cannot set Tax on Automatic Transfer's entries."
-msgstr ""
+msgstr "Te ei saa automaatse siirde kannetel maksusid seadistada."
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "e.g. Monthly Expense Transfer"
-msgstr ""
+msgstr "nt. igakuine kulude ülekanne"

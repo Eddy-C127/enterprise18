@@ -4,6 +4,14 @@
 # 
 # Translators:
 # Tiffany Chang, 2024
+# Miika Nissi <miika.nissi@tawasta.fi>, 2024
+# Miku Laitinen <miku.laitinen@gmail.com>, 2024
+# Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
+# Veikko Väätäjä <veikko.vaataja@gmail.com>, 2024
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +19,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tiffany Chang, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,240 +30,244 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model:ir.actions.report,print_report_name:mrp_account_enterprise.action_cost_struct_mrp_production
 msgid "'Cost Analysis - %s ' % object.name"
-msgstr ""
+msgstr "'Kustannusanalyysi - %s ' % object.name"
 
 #. module: mrp_account_enterprise
 #: model:ir.actions.report,print_report_name:mrp_account_enterprise.action_cost_struct_product_template
 msgid "'Cost Structure Analysis - %s' % object.name"
-msgstr ""
+msgstr "'Kustannusrakenneanalyysi - %s' % object.name"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid ", from"
-msgstr ""
+msgstr ", alkaen"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.product_product_inherit_form_view_cost_structure
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.product_template_inherit_form_view_cost_structure
 msgid "<span class=\"o_stat_text\">Cost Analysis</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Kustannusanalyysi</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Avg Cost of Components Per Unit</span>"
-msgstr ""
+msgstr "<span>Komponenttien keskimääräiset kustannukset yksikköä kohti</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Avg Cost of Operations Per Unit</span>"
-msgstr ""
+msgstr "<span>Keskimääräiset toimintakustannukset yksikköä kohti</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Avg Total Cost Per Unit</span>"
-msgstr ""
+msgstr "<span>Keskimääräiset kokonaiskustannukset yksikköä kohti</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Components</span>"
-msgstr ""
+msgstr "<span>Komponentit</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Cost/hour</span>"
-msgstr ""
+msgstr "<span>Kustannukset/tunti</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Operation</span>"
-msgstr ""
+msgstr "<span>Operaatio</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Product</span>"
-msgstr ""
+msgstr "<span>Tuote</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Quantity</span>"
-msgstr ""
+msgstr "<span>Määrä</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Resource</span>"
-msgstr ""
+msgstr "<span>Resurssit</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Scraps</span>"
-msgstr ""
+msgstr "<span>Romut</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Total Cost</span>"
-msgstr ""
+msgstr "<span>Kokonaiskustannukset</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Unit Cost</span>"
-msgstr ""
+msgstr "<span>Yksikkökustannukset</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Unit of Measure</span>"
-msgstr ""
+msgstr "<span>Mittayksikkö</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<span>Working Time</span>"
-msgstr ""
+msgstr "<span>Työaika</span>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<strong>Total Cost of Components</strong>"
-msgstr ""
+msgstr "<strong>Komponenttien kokonaiskustannukset</strong>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<strong>Total Cost of Operations</strong>"
-msgstr ""
+msgstr "<strong>Toiminnan kokonaiskustannukset</strong>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<strong>Total Cost of Scraps</strong>"
-msgstr ""
+msgstr "<strong>Romun kokonaiskustannukset</strong>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "<strong>Total Production Cost</strong>"
-msgstr ""
+msgstr "<strong>Tuotannon kokonaiskustannukset</strong>"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_pivot_view
 msgid "Average Component Cost / Unit"
-msgstr ""
+msgstr "Keskimääräiset komponenttikustannukset / yksikkö"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_pivot_view
 msgid "Average Operation Cost / Unit"
-msgstr ""
+msgstr "Keskimääräiset käyttökustannukset / yksikkö"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_pivot_view
 msgid "Average Total Cost / Unit"
-msgstr ""
+msgstr "Keskimääräiset kokonaiskustannukset / yksikkö"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "By product(s)"
-msgstr ""
+msgstr "Tuotteiden mukaan"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__byproduct_cost
 msgid "By-Products Total Cost"
-msgstr ""
+msgstr "Sivutuotteiden kokonaiskustannukset"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__company_id
 msgid "Company"
-msgstr ""
+msgstr "Yritys"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__unit_component_cost
 msgid "Component Cost / Unit"
-msgstr ""
+msgstr "Komponenttikustannukset / yksikkö"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__unit_component_cost
 msgid ""
 "Component cost per unit produced (in product UoM) of manufacturing order"
 msgstr ""
+"Valmistustilauksen komponenttikustannukset tuotettua yksikköä kohti "
+"(tuotteen mittayksikkönä)"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__unit_cost
 msgid "Cost / Unit"
-msgstr ""
+msgstr "Kustannukset / yksikkö"
 
 #. module: mrp_account_enterprise
 #: model:ir.actions.report,name:mrp_account_enterprise.action_cost_struct_mrp_production
 msgid "Cost Analysis"
-msgstr ""
+msgstr "Kustannusanalyysi"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Cost Analysis Report"
-msgstr ""
+msgstr "Kustannusanalyysiraportti"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Cost Breakdown of Products"
-msgstr ""
+msgstr "Tuotteiden kustannusten jakautuminen"
 
 #. module: mrp_account_enterprise
 #: model:ir.actions.report,name:mrp_account_enterprise.action_cost_struct_product_template
 msgid "Cost Structure Analysis"
-msgstr ""
+msgstr "Kustannusrakenneanalyysi"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Cost of Components"
-msgstr ""
+msgstr "Komponenttien kustannukset"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Cost of Components per unit (in"
-msgstr ""
+msgstr "Komponenttien kustannukset yksikköä kohti (in"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Cost of Operations"
-msgstr ""
+msgstr "Toiminnan kustannukset"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Cost of Operations per unit (in"
-msgstr ""
+msgstr "Toimintakustannukset yksikköä kohti (in"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Cost of Scraps"
-msgstr ""
+msgstr "Jätteiden kustannukset"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__unit_cost
 msgid "Cost per unit produced (in product UoM) of manufacturing order"
 msgstr ""
+"Kustannukset tuotettua yksikköä kohti (tuotteen mittayksikkö) "
+"valmistustilauksen osalta"
 
 #. module: mrp_account_enterprise
 #: model:account.analytic.account,name:mrp_account_enterprise.account_assembly_cycle
 msgid "Costing Account For Cycle of Assembly."
-msgstr ""
+msgstr "Kustannuslaskentatili kokoonpanosykliä varten."
 
 #. module: mrp_account_enterprise
 #: model:account.analytic.account,name:mrp_account_enterprise.account_assembly_hours
 msgid "Costing Account For Hours of Assembly."
-msgstr ""
+msgstr "Kustannuslaskenta kokoamistuntien osalta."
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Valuutta"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Näyttönimi"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__unit_duration
 msgid "Duration of Operations / Unit"
-msgstr ""
+msgstr "Toiminnan kesto / yksikkö"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__date_finished
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_search_view
 msgid "End Date"
-msgstr ""
+msgstr "Päättymispäivä"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__expected_component_cost_unit
@@ -280,49 +292,53 @@ msgstr ""
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_search_view
 msgid "Group by"
-msgstr ""
+msgstr "Ryhmittele"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mrp_account_enterprise
 #: model:ir.model,name:mrp_account_enterprise.model_report_mrp_account_enterprise_mrp_cost_structure
 msgid "MRP Cost Structure Report"
-msgstr ""
+msgstr "Valmistuksen kustannusrakenneraportti"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__production_id
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_search_view
 msgid "Manufacturing Order"
-msgstr ""
+msgstr "Valmistustilaus"
 
 #. module: mrp_account_enterprise
 #: model:ir.model,name:mrp_account_enterprise.model_mrp_report
 msgid "Manufacturing Report"
-msgstr ""
+msgstr "Valmistusraportti"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.actions.act_window,help:mrp_account_enterprise.mrp_report_dashboard_action
 msgid "No data yet!"
-msgstr ""
+msgstr "Ei vielä tietoja!"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__unit_operation_cost
 msgid ""
 "Operation cost per unit produced (in product UoM) of manufacturing order"
 msgstr ""
+"Toimintakustannukset valmistustilauksen tuotettua yksikköä kohti (tuotteen "
+"mittayksikkönä)"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__unit_duration
 msgid "Operation duration (minutes) per unit produced of manufacturing order"
 msgstr ""
+"Toimintakustannukset valmistustilauksen tuotettua yksikköä kohti (tuotteen "
+"mittayksikkönä)"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_pivot_view
 msgid "Order Overview"
-msgstr ""
+msgstr "Tilauksen yleiskatsaus"
 
 #. module: mrp_account_enterprise
 #: model:ir.model,name:mrp_account_enterprise.model_product_template
@@ -334,74 +350,74 @@ msgstr "Tuote"
 #. module: mrp_account_enterprise
 #: model:ir.model,name:mrp_account_enterprise.model_report_mrp_account_enterprise_product_template_cost_structure
 msgid "Product Template Cost Structure Report"
-msgstr ""
+msgstr "Tuotemallin kustannusrakenneraportti"
 
 #. module: mrp_account_enterprise
 #: model:ir.model,name:mrp_account_enterprise.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Tuotevariaatio"
 
 #. module: mrp_account_enterprise
 #: model:ir.actions.act_window,name:mrp_account_enterprise.mrp_report_dashboard_action
 #: model:ir.ui.menu,name:mrp_account_enterprise.mrp_dashboard_menuitem
 msgid "Production Analysis"
-msgstr ""
+msgstr "Tuotannon analyysi"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__qty_demanded
 msgid "Quantity Demanded"
-msgstr ""
+msgstr "Vaadittu määrä"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__qty_produced
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_report_pivot_view
 msgid "Quantity Produced"
-msgstr ""
+msgstr "Tehty määrä"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__yield_rate
 msgid "Ratio of quantity produced over quantity demanded"
-msgstr ""
+msgstr "Tuotetun määrän suhde kysyttyyn määrään"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Some of the Manufacturing Order(s) selected are not done yet"
-msgstr ""
+msgstr "Joitakin valittuja valmistustilauksia ei ole vielä tehty"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__component_cost
 msgid "Total Component Cost"
-msgstr ""
+msgstr "Komponentin kokonaiskustannukset"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__total_cost
 msgid "Total Cost"
-msgstr ""
+msgstr "Kokonaiskustannus"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "Total Cost per unit (in"
-msgstr ""
+msgstr "Kokonaiskustannukset yksikköä kohti (in"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__duration
 msgid "Total Duration of Operations"
-msgstr ""
+msgstr "Toiminnan kokonaiskesto"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__operation_cost
 msgid "Total Operation Cost"
-msgstr ""
+msgstr "Toiminnan kokonaiskustannukset"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__unit_operation_cost
 msgid "Total Operation Cost / Unit"
-msgstr ""
+msgstr "Toiminnan kokonaiskustannukset / yksikkö"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__component_cost
 msgid "Total cost of components for manufacturing order"
-msgstr ""
+msgstr "Valmistustilauksen komponenttien kokonaiskustannukset"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__total_cost
@@ -409,38 +425,40 @@ msgid ""
 "Total cost of manufacturing order (component + operation costs + "
 "subcontracting cost)"
 msgstr ""
+"Valmistustilauksen kokonaiskustannukset (komponentti + käyttökustannukset + "
+"alihankintakustannukset)"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__operation_cost
 msgid "Total cost of operations for manufacturing order"
-msgstr ""
+msgstr "Valmistustilauksen toimintakustannukset yhteensä"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__duration
 msgid "Total duration (minutes) of operations for manufacturing order"
-msgstr ""
+msgstr "Valmistustilauksen toimintojen kokonaiskesto (minuuttia)"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__qty_demanded
 msgid "Total quantity demanded in product's UoM"
-msgstr ""
+msgstr "Haluttu kokonaismäärä tuotteen mittayksikössä"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,help:mrp_account_enterprise.field_mrp_report__qty_produced
 msgid "Total quantity produced in product's UoM"
-msgstr ""
+msgstr "Tuotteen mittayksikössä tuotettu kokonaismäärä"
 
 #. module: mrp_account_enterprise
 #: model:ir.model.fields,field_description:mrp_account_enterprise.field_mrp_report__yield_rate
 msgid "Yield Percentage(%)"
-msgstr ""
+msgstr "Saantoprosentti (%)"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "hours"
-msgstr ""
+msgstr "tunti(a)"
 
 #. module: mrp_account_enterprise
 #: model_terms:ir.ui.view,arch_db:mrp_account_enterprise.mrp_cost_structure
 msgid "manufacturing order(s)."
-msgstr ""
+msgstr "valmistustilaus(ta)."

@@ -4,23 +4,24 @@
 # 
 # Translators:
 # Maidu Targama <m.targama@gmail.com>, 2024
-# Eneli Õigus <enelioigus@gmail.com>, 2024
 # Egon Raamat <egon@avalah.ee>, 2024
 # Martin Aavastik <martin@avalah.ee>, 2024
-# JanaAvalah, 2024
 # Katrin Kampura, 2024
 # Patrick-Jordan Kiudorv, 2024
-# Piia Paurson <piia@avalah.ee>, 2024
 # Rivo Zängov <eraser@eraser.ee>, 2024
 # Helen Sulaoja <helen@avalah.ee>, 2024
 # Algo Kärp <algokarp@gmail.com>, 2024
 # Arma Gedonsky <armagedonsky@hot.ee>, 2024
-# Leaanika Randmets, 2024
-# Triine Aavik <triine@avalah.ee>, 2024
 # Martin Trigaux, 2024
-# Anna, 2024
 # Siim Raasuke, 2024
 # Stevin Lilla, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
+# JanaAvalah, 2024
+# Mihkel avalah, 2024
+# Leaanika Randmets, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -28,7 +29,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -760,6 +761,8 @@ msgid ""
 "An easy way to process incoming mails is to configure your scanner to send "
 "PDFs to"
 msgstr ""
+"Lihtne moodus sissetulevate meilide haldamiseks on seadistada skänner "
+"selliselt, et PDFid saadetakse"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -770,12 +773,17 @@ msgid ""
 "launch user defined actions, request a signature, convert to vendor bills "
 "with AI, etc."
 msgstr ""
+"Lihtne moodus sissetulevate meilide haldamiseks on seadistada oma skännerid "
+"selliselt, et PDFid saadetaks teie tööala e-mailile. Skännitud failid "
+"ilmuvad automaatselt teie tööalale. Seejärel töötage korraga läbi oma "
+"dokumente, kasutades poolitamise tööriista: käivitage kasutajaga määratud "
+"tegevusi, taotlege allkirju, konverteerige tarnija arveid AI abil ümber jne."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "An error occured while uploading."
-msgstr ""
+msgstr "Esines tõrge faili laadimisel"
 
 #. module: documents
 #. odoo-javascript
@@ -831,6 +839,7 @@ msgstr "Kas olete kindel, et soovite kustutada jäädavalt need dokumendid?"
 msgid ""
 "As this PDF contains multiple documents, let's split and process in bulk."
 msgstr ""
+"Kuna see PDF sisaldab mitut dokumenti, poolitame ja töötleme faile korraga."
 
 #. module: documents
 #: model:ir.model,name:documents.model_ir_attachment
@@ -882,7 +891,7 @@ msgstr "Brošüürid"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_mail_activity_type__folder_id
 msgid "By defining a folder, the upload activities will generate a document"
-msgstr ""
+msgstr "Faili defineerides genereevad üleslaadimise tegevused dokumendi"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
@@ -929,6 +938,8 @@ msgid ""
 "Click on the <b>page separator</b>: we don't want to split these two pages "
 "as they belong to the same document."
 msgstr ""
+"Vajutage <b>lehe eraldajale</b>: me ei soovi poolitada neid kahte lehte, "
+"kuna nad kuuluvad sama dokumendi alla."
 
 #. module: documents
 #. odoo-javascript
@@ -1038,7 +1049,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_option
 msgid "Create a new activity"
-msgstr ""
+msgstr "Loo uus tegevus"
 
 #. module: documents
 #. odoo-javascript
@@ -1095,6 +1106,7 @@ msgstr "Vaikeväärtused"
 #: model:ir.model.fields,help:documents.field_res_config_settings__deletion_delay
 msgid "Delay after permanent deletion of the document in the trash (days)"
 msgstr ""
+"Prügikastis olevate dokumentide täieliku kustutamise viivitus (päevades) "
 
 #. module: documents
 #. odoo-javascript
@@ -1172,6 +1184,7 @@ msgstr "Kuvatav nimi"
 #: code:addons/documents/static/src/owl/components/pdf_exit_dialog/pdf_exit_dialog.xml:0
 msgid "Do you want to exit without saving or gather pages into one document ?"
 msgstr ""
+"Soovite väljuda ilma salvestamata või koondada leheküljed ühte dokumenti? "
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_document
@@ -1185,7 +1198,7 @@ msgstr "Dokument"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_access
 msgid "Document / Partner"
-msgstr ""
+msgstr "Dokument / Partner"
 
 #. module: documents
 #. odoo-javascript
@@ -1214,12 +1227,12 @@ msgstr "Dokumendi nimi"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_activity_plan_action_document
 msgid "Document Plans"
-msgstr ""
+msgstr "Dokumendi plaanid"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "Dokumendi ümbersuunamine"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1231,6 +1244,7 @@ msgstr "Dokumendipäring"
 msgid ""
 "Document Request {{ object.name != False and ': '+ object.name or '' }}"
 msgstr ""
+"Dokumenditaotlus {{ object.name != False ja ': '+ object.name or '' }}"
 
 #. module: documents
 #. odoo-python
@@ -1252,7 +1266,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Document preview"
-msgstr ""
+msgstr "Dokumendi eelvaade"
 
 #. module: documents
 #. odoo-python
@@ -1296,7 +1310,7 @@ msgstr "Dokumendi linkimine kirjega"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_mixin
 msgid "Documents creation mixin"
-msgstr ""
+msgstr "Documents creation mixin"
 
 #. module: documents
 #. odoo-javascript
@@ -1342,7 +1356,7 @@ msgstr "Laadige kõik failid alla"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
 msgid "Download file"
-msgstr ""
+msgstr "Laadige file"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -1552,7 +1566,7 @@ msgstr "Finants"
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_fiscal
 msgid "Fiscal"
-msgstr ""
+msgstr "Maksualane"
 
 #. module: documents
 #. odoo-javascript
@@ -1856,6 +1870,8 @@ msgstr "Esemed prügikastis kustutatakse igaveseks pärast %s päeva. "
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Items moved to the trash will be deleted forever after %s days."
 msgstr ""
+"Esemed, mis on liigutatud prügikasti, kustutatakse igaveseks pärast %s "
+"päeva. "
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__last_access_date
@@ -1891,6 +1907,8 @@ msgid ""
 "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter "
 "documents and structure your process.</i>"
 msgstr ""
+"Haldame teie postkasti dokumente.<br/><i> Nipp: Kasutage dokumentide "
+"filtreerimiseks ja struktureerimiseks silte.</i>"
 
 #. module: documents
 #. odoo-javascript
@@ -1911,6 +1929,8 @@ msgid ""
 "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your "
 "process, according to the workspace.</i>"
 msgstr ""
+"Märgime selle arve ära kui õiguslik<br/> <i>Nipid: tegevused saavad olla "
+"tööalale vastavalt olla loodud teie protsessile sobivalt."
 
 #. module: documents
 #. odoo-javascript
@@ -1987,7 +2007,7 @@ msgstr "Sisselogimine"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
 msgid "Logout"
-msgstr ""
+msgstr "Logi välja"
 
 #. module: documents
 #. odoo-python
@@ -2080,7 +2100,7 @@ msgstr "Liiguta prügikasti"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/form/folder_form_controller.js:0
 msgid "Move to trash?"
-msgstr ""
+msgstr "Liiguta prügikasti? "
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -2428,7 +2448,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Partial transfer"
-msgstr ""
+msgstr "Osaline üleviimine"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__partner_id
@@ -2538,6 +2558,8 @@ msgid ""
 "Reminder to upload your document{{ object.name and ' : ' + object.name or ''"
 " }}"
 msgstr ""
+"Meeldetuletus, et laeksid üles enda dokumendid {{ object.name and ' : ' + "
+"object.name or '' }}"
 
 #. module: documents
 #. odoo-javascript
@@ -2801,7 +2823,7 @@ msgstr "Määra tegevused"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
 msgid "Set deletion delay for documents in the Trash"
-msgstr ""
+msgstr "Seadke kustutamisviivitus dokumentidele prügikastis"
 
 #. module: documents
 #. odoo-javascript
@@ -2815,6 +2837,8 @@ msgid ""
 "Set reminders in activities to notify users who didn't upload their "
 "requested document"
 msgstr ""
+"Seadke meeldetuletus, et teavitada kasutajaid, kes pole laadinud üles nõutud"
+" dokumente"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.configuration_action
@@ -2897,6 +2921,7 @@ msgstr "Suurus:"
 #: code:addons/documents/static/src/views/hooks.js:0
 msgid "Some files could not be uploaded (max size: %s)."
 msgstr ""
+"Mõningaid dokumente polnud võimalik üles laadida (lubatud suurus: %s)."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__shortcut_document_id
@@ -3106,6 +3131,8 @@ msgid ""
 "This document has been requested.\n"
 "                <b onclick=\"document.querySelector('.o_request_upload').click()\" style=\"cursor:pointer;\">Upload it</b>."
 msgstr ""
+"Selle dokumendi kohta on esitatud päring..\n"
+"                <b onclick=\"document.querySelector('.o_request_upload').click()\" style=\"cursor:pointer;\">Laadige see üles</b>."
 
 #. module: documents
 #. odoo-python
@@ -3161,6 +3188,8 @@ msgstr "Pisipildi staatus"
 #: code:addons/documents/static/src/views/helper/documents_action_helper.xml:0
 msgid "Tip: configure your scanner to send all documents to this address."
 msgstr ""
+"Vihje: konfigureerige oma skanner nii, et kõik dokumendid saadetakse sellele"
+" aadressile."
 
 #. module: documents
 #: model:digest.tip,name:documents.digest_tip_documents_0
@@ -3234,6 +3263,7 @@ msgid ""
 "URL %s does not seem complete, as it does not begin with http(s):// or "
 "ftp://"
 msgstr ""
+"URL %s ei paista olevat terviklik kuna see ei alga http(s):// või ftp://"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url_preview_image
@@ -3278,6 +3308,8 @@ msgid ""
 "Upload <span class=\"fw-normal\">a file or</span> drag <span class=\"fw-"
 "normal\">it here.</span>"
 msgstr ""
+"Laadige <span class=\"fw-normal\">fail või</span> lohistage <span "
+"class=\"fw-normal\">see siia.</span>"
 
 #. module: documents
 #. odoo-python
@@ -3334,6 +3366,7 @@ msgstr "Ülevaataja"
 msgid ""
 "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
 msgstr ""
+"Soovite hakata <b>paberivabaks ettevõtteks</b>? Avastame Odoo Dokumendid."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__website_message_ids
@@ -3528,7 +3561,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
 msgid "days."
-msgstr ""
+msgstr "päevad."
 
 #. module: documents
 #. odoo-javascript
@@ -3539,7 +3572,7 @@ msgstr "dokument,"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "documents"
-msgstr ""
+msgstr "dokumendid"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -3591,7 +3624,7 @@ msgstr "kaustad,"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__is_readonly_model
 msgid "is_readonly_model"
-msgstr ""
+msgstr "ainult_lugemiseks"
 
 #. module: documents
 #. odoo-javascript
@@ -3608,7 +3641,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_page/pdf_page.xml:0
 msgid "select"
-msgstr ""
+msgstr "vali"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
@@ -3623,7 +3656,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "shared by"
-msgstr ""
+msgstr "jagatud"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
@@ -3651,7 +3684,7 @@ msgstr "sub-doc-%s"
 #. odoo-javascript
 #: code:addons/documents/static/src/owl/components/pdf_manager/pdf_manager.js:0
 msgid "unnamed"
-msgstr ""
+msgstr "nimetu"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page

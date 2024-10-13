@@ -8,6 +8,12 @@
 # Egon Raamat <egon@avalah.ee>, 2024
 # Martin Trigaux, 2024
 # Stevin Lilla, 2024
+# Aveli Kannel <aveli@avalah.ee>, 2024
+# Algo Kärp <algokarp@gmail.com>, 2024
+# Eneli Õigus <enelioigus@gmail.com>, 2024
+# JanaAvalah, 2024
+# Birgit Vijar, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +47,7 @@ msgstr ""
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">Payslip</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Palgaleht</span>"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_account_chart_template
@@ -52,7 +58,7 @@ msgstr "Konto tabeli mall"
 #. odoo-python
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 msgid "Account Payslip Houserental"
-msgstr ""
+msgstr "Konto palgaleht üür"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_contract_view_form
@@ -63,13 +69,13 @@ msgstr "Raamatupidamine"
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__move_id
 msgid "Accounting Entry"
-msgstr ""
+msgstr "Raamatupidamiskanne"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid "Adjustment Entry"
-msgstr ""
+msgstr "Korrigeerimiskanne"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_contract__analytic_account_id
@@ -82,7 +88,7 @@ msgstr "Analüütiline konto"
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_run_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_view_form
 msgid "Are you sure you want to proceed?"
-msgstr ""
+msgstr "Kas oled kindel, et soovid jätkata?"
 
 #. module: hr_payroll_account
 #: model:ir.actions.act_window,name:hr_payroll_account.action_res_partner_bank_account_form
@@ -94,14 +100,14 @@ msgstr "Pangakontod"
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.res_config_settings_view_form
 msgid "Batch Account Move Lines"
-msgstr ""
+msgstr "Koondlaosiirete read"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_company__batch_payroll_move_lines
 #: model:ir.model.fields,field_description:hr_payroll_account.field_res_config_settings__batch_payroll_move_lines
 msgid "Batch Payroll Move Lines"
-msgstr ""
+msgstr "Batch Payroll Move Lines"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_res_company
@@ -116,13 +122,13 @@ msgstr "Seadistused"
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_contract_history
 msgid "Contract history"
-msgstr ""
+msgstr "Lepingu ajalugu"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_run_view_form
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.hr_payslip_view_form
 msgid "Create Draft Entry"
-msgstr ""
+msgstr "Kinnita"
 
 #. module: hr_payroll_account
 #: model_terms:ir.actions.act_window,help:hr_payroll_account.action_res_partner_bank_account_form
@@ -132,7 +138,7 @@ msgstr "Loo pangakonto"
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__account_credit
 msgid "Credit Account"
-msgstr ""
+msgstr "Kreeditkonto"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip_line__credit_tag_ids
@@ -143,12 +149,12 @@ msgstr ""
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__date
 msgid "Date Account"
-msgstr ""
+msgstr "Kuupäev"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__account_debit
 msgid "Debit Account"
-msgstr ""
+msgstr "Deebetkonto"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip_line__debit_tag_ids
@@ -159,7 +165,7 @@ msgstr ""
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_contract
 msgid "Employee Contract"
-msgstr ""
+msgstr "Tööleping"
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.view_partner_bank_search_inherit
@@ -174,6 +180,9 @@ msgid ""
 "into a single account move line. This will anonymize the accounting entries "
 "but also disable single payment generations."
 msgstr ""
+"Luba see valik, et saaksid ühendada kõik raamatupidamiskanded samale "
+"perioodile üheks kontoreaks. See anonümiseerib raamatupidamiskanded, kuid "
+"keelab ka üksikute maksete genereerimise."
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_salary_rule__split_move_lines
@@ -206,7 +215,7 @@ msgstr ""
 #: code:addons/hr_payroll_account/models/hr_payroll_structure.py:0
 msgid ""
 "Incorrect journal: The journal must be in the same currency as the company"
-msgstr ""
+msgstr "Vigane andmik: andmik peab olema ettevõttega samas valuutas"
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -233,6 +242,7 @@ msgstr "Andmiku kanne"
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_payslip__date
 msgid "Keep empty to use the period of the validation(Payslip) date."
 msgstr ""
+"Hoidke tühjana, et kasutada kinnitamise (palgalehe) kuupäeva perioodi."
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip_run__move_id
@@ -247,19 +257,19 @@ msgstr ""
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
 msgid "Not computed in net accountably"
-msgstr ""
+msgstr "Ei ole arvutatud netoarvestuses"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid "One of the contract for these payslips has no structure type."
-msgstr ""
+msgstr "Ühel nende palgakannete lepingul ei ole struktuuri tüüpi."
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid "One of the payroll structures has no account journal defined on it."
-msgstr ""
+msgstr "Palgaliigil ei ole andmikku määratud."
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_account_payment_register
@@ -270,13 +280,13 @@ msgstr "Maksa"
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_payslip
 msgid "Pay Slip"
-msgstr ""
+msgstr "Palgaleht"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/wizard/account_payment_register.py:0
 msgid "Payment done at %s"
-msgstr ""
+msgstr "Makse tehtud %s"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_account_payment
@@ -286,46 +296,46 @@ msgstr "Maksed"
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_payslip_run
 msgid "Payslip Batches"
-msgstr ""
+msgstr "Koondpalgalehed"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_payslip_line
 msgid "Payslip Line"
-msgstr ""
+msgstr "Palgalehe rida"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_account_bank_statement_line__payslip_ids
 #: model:ir.model.fields,field_description:hr_payroll_account.field_account_move__payslip_ids
 msgid "Payslips"
-msgstr ""
+msgstr "Palgalehed"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 msgid "SLR"
-msgstr ""
+msgstr "Palk"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/account_chart_template.py:0
 msgid "Salaries"
-msgstr ""
+msgstr "Palgad"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payroll_structure__journal_id
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_payslip__journal_id
 msgid "Salary Journal"
-msgstr ""
+msgstr "Palgaandmik"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_salary_rule
 msgid "Salary Rule"
-msgstr ""
+msgstr "Palgareegel"
 
 #. module: hr_payroll_account
 #: model:ir.model,name:hr_payroll_account.model_hr_payroll_structure
 msgid "Salary Structure"
-msgstr ""
+msgstr "Töölepingu liik"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,field_description:hr_payroll_account.field_hr_salary_rule__split_move_lines
@@ -355,19 +365,19 @@ msgstr ""
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid ""
 "The Expense Journal \"%s\" has not properly configured the default Account!"
-msgstr ""
+msgstr "Kulude andmikus \"%s\" ei ole vaikekontot õigesti seadistatud!"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid "The credit account on the NET salary rule is not reconciliable"
-msgstr ""
+msgstr "Kreeditkonto NET palgareeglis ei ole sobiv"
 
 #. module: hr_payroll_account
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid "The employee bank account is untrusted"
-msgstr ""
+msgstr "Töötaja pangakonto on ebausaldusväärne"
 
 #. module: hr_payroll_account
 #: model:ir.model.fields,help:hr_payroll_account.field_hr_salary_rule__not_computed_in_net
@@ -377,6 +387,10 @@ msgid ""
 "in the accounting. For example, if you want to display the value of your "
 "representation fees, you can check this field."
 msgstr ""
+"See väli võimaldab kustutada selle reegli väärtuse reeglist \"Netopalk\" "
+"raamatupidamise tasemel, et selle reegli väärtust raamatupidamises "
+"selgesõnaliselt kuvada. Näiteks kui soovite kuvada oma esindustasude "
+"väärtust, võite selle välja märkida."
 
 #. module: hr_payroll_account
 #: model_terms:ir.ui.view,arch_db:hr_payroll_account.view_partner_bank_form_inherit_hr_payroll_account
@@ -387,7 +401,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll_account/models/hr_payslip.py:0
 msgid "You can only register payment for posted journal entries."
-msgstr ""
+msgstr "Makset saab registreerida ainult postitatud andmiku kannetele. "
 
 #. module: hr_payroll_account
 #. odoo-python
@@ -399,4 +413,4 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll_account/models/account_journal.py:0
 msgid "You cannot delete the journal linked to a Salary Structure"
-msgstr ""
+msgstr "Sa ei saa kustutada andmikuid, mis on seotud palgastruktuuriga."

@@ -4,12 +4,16 @@
 # 
 # Translators:
 # Patrick-Jordan Kiudorv, 2024
-# Siim Raasuke, 2024
 # Martin Trigaux, 2024
 # Arma Gedonsky <armagedonsky@hot.ee>, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Maidu Targama <m.targama@gmail.com>, 2024
+# JanaAvalah, 2024
+# Siim Raasuke, 2024
 # Stevin Lilla, 2024
+# Leaanika Randmets, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,12 +32,12 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>Average time</span>"
-msgstr ""
+msgstr "<span>Keskmine aeg</span>"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "<span>In progress</span>"
-msgstr ""
+msgstr "<span>Töös</span>"
 
 #. module: pos_preparation_display
 #. odoo-python
@@ -49,7 +53,7 @@ msgstr "Ligipääsu võti"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__alert_timer
 msgid "Alert timer (min)"
-msgstr ""
+msgstr "Hoiatusaja taimer (min)"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -60,12 +64,12 @@ msgstr "Kõik"
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_form
 msgid "All PoS"
-msgstr ""
+msgstr "Kõik kassad"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_form
 msgid "All categories"
-msgstr ""
+msgstr "Kõik kategooriad"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
@@ -87,13 +91,13 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_reset_wizard
 msgid "Check products"
-msgstr ""
+msgstr "Märgi tooted"
 
 #. module: pos_preparation_display
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 msgid "Clear All Filters"
-msgstr ""
+msgstr "Eemalda kõik filtrid"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -179,7 +183,7 @@ msgstr "Tehtud"
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 msgid "Explore demo data"
-msgstr ""
+msgstr "Tutvu demoandmetega"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -198,7 +202,7 @@ msgstr "Filtrid"
 #: code:addons/pos_preparation_display/static/src/app/components/order/order.xml:0
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__pdis_general_note
 msgid "General Note"
-msgstr ""
+msgstr "Üldine märkus"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__id
@@ -240,7 +244,7 @@ msgstr ""
 #: model:ir.actions.server,name:pos_preparation_display.action_pos_preparation_display_kitchen_display
 #: model:ir.ui.menu,name:pos_preparation_display.menu_point_kitchen_display_root
 msgid "Kitchen Display"
-msgstr ""
+msgstr "Köögi kuva"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__write_uid
@@ -288,7 +292,7 @@ msgstr "Andmed pole saadaval"
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_form
 msgid "Offer"
-msgstr ""
+msgstr "Pakkumine"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order_stage__order_id
@@ -303,7 +307,7 @@ msgstr "Tellimuse read"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
 msgid "Order Stage"
-msgstr ""
+msgstr "Tellimuse etapp"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__average_time
@@ -313,7 +317,7 @@ msgstr ""
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__order_count
 msgid "Order count"
-msgstr ""
+msgstr "Tellimuste arv"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__displayed
@@ -386,22 +390,22 @@ msgstr ""
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__preparation_display_id
 msgid "Preparation display"
-msgstr ""
+msgstr "Ettevalmistuse kuvamine"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_order
 msgid "Preparation orders"
-msgstr ""
+msgstr "Ettevalmistustellimused"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__product_id
 msgid "Product ID"
-msgstr ""
+msgstr "Toote ID"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__category_ids
 msgid "Product categories"
-msgstr ""
+msgstr "Tootekategooriad"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_display__category_ids
@@ -422,7 +426,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/preparation_display/preparation_display.xml:0
 msgid "Recall"
-msgstr ""
+msgstr "Helista uuesti"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -445,7 +449,7 @@ msgstr ""
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
 msgid "Reset all orders"
-msgstr ""
+msgstr "Lähtesta kõik tellimused"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__attribute_value_ids
@@ -456,7 +460,7 @@ msgstr "Valitud atribuudid"
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/override/point_of_sale/pos_store.js:0
 msgid "Send failed"
-msgstr ""
+msgstr "Saatmine ebaõnnestus"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__sequence
@@ -497,7 +501,7 @@ msgstr ""
 #. module: pos_preparation_display
 #: model:ir.actions.server,name:pos_preparation_display.preparation_display_delete_cron_ir_actions_server
 msgid "delete_preparation_display_order"
-msgstr ""
+msgstr "delete_preparation_display_order"
 
 #. module: pos_preparation_display
 #. odoo-javascript
@@ -509,4 +513,4 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_preparation_display/static/src/app/components/order/order.xml:0
 msgid "products"
-msgstr ""
+msgstr "tooted"

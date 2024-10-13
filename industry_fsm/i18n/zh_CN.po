@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +36,7 @@ msgstr "%(partner)s同时有%(number)s个任务。"
 #: model:ir.actions.report,print_report_name:industry_fsm.task_custom_report
 msgid ""
 "'Field Service Report - %s - %s' % (object.name, object.partner_id.name)"
-msgstr "'现场服务报告 - %s - %s' % (object.name, object.partner_id.name)"
+msgstr "'现场服务报表 - %s - %s' % (object.name, object.partner_id.name)"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.worksheet_custom_page
@@ -105,7 +106,7 @@ msgstr ""
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_button
 msgid "<i class=\"fa fa-check me-1\"/>Sign Report"
-msgstr "<i class=\"fa fa-check me-1\"/>签署报告"
+msgstr "<i class=\"fa fa-check me-1\"/>签署报表"
 
 #. module: industry_fsm
 #: model:mail.template,body_html:industry_fsm.mail_template_data_task_report
@@ -120,7 +121,7 @@ msgid ""
 msgstr ""
 "<p>\n"
 "                亲爱的<t t-out=\"object.partner_id.name or 'Customer'\">客户</t><br><br>\n"
-"                随函附上我们现场操作的现场服务报告。<br><br>\n"
+"                随函附上我们现场操作的现场服务报表。<br><br>\n"
 "                如有任何问题，请随时与我们联系。<br><br>\n"
 "                致以最诚挚的问候、<br><br>\n"
 "            </p>\n"
@@ -240,7 +241,7 @@ msgstr "平均评分（1-5）"
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__dependent_ids
 msgid "Block"
-msgstr "阻塞"
+msgstr "构造块"
 
 #. module: industry_fsm
 #: model:ir.ui.menu,name:industry_fsm.project_task_menu_planning_by_location_fsm
@@ -455,7 +456,7 @@ msgstr "您想停止运行的计时器吗？"
 #. module: industry_fsm
 #: model:mail.template,description:industry_fsm.mail_template_data_task_report
 msgid "Email sent when clicking on \"send report\" in a task"
-msgstr "在任务中点击“发送报告”时发送电子邮件"
+msgstr "在任务中点击“发送报表”时发送电子邮件"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__date_end
@@ -488,22 +489,22 @@ msgstr "现场服务"
 #. module: industry_fsm
 #: model:ir.actions.report,name:industry_fsm.task_custom_report
 msgid "Field Service Report"
-msgstr "现场服务报告"
+msgstr "现场服务报表"
 
 #. module: industry_fsm
 #: model:mail.template,subject:industry_fsm.mail_template_data_task_report
 msgid "Field Service Report - {{ object.name }}"
-msgstr "现场服务报告 - {{ object.name }}"
+msgstr "现场服务报表 - {{ object.name }}"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.worksheet_custom_page
 msgid "Field Service Report:"
-msgstr "现场服务报告："
+msgstr "现场服务报表："
 
 #. module: industry_fsm
 #: model:mail.template,name:industry_fsm.mail_template_data_task_report
 msgid "Field Service: Field Service Report"
-msgstr "外勤服务外勤服务报告"
+msgstr "现场服务：现场服务报表"
 
 #. module: industry_fsm
 #: model:mail.template,name:industry_fsm.mail_template_data_intervention_details
@@ -689,7 +690,7 @@ msgstr "里程碑"
 #. odoo-python
 #: code:addons/industry_fsm/controllers/webmanifest.py:0
 msgid "My Calendar"
-msgstr ""
+msgstr "我的日历"
 
 #. module: industry_fsm
 #. odoo-python
@@ -851,12 +852,12 @@ msgstr "准备好<b>管理你的现场干预</b>了吗？<i>点击现场服务�
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_ir_actions_report
 msgid "Report Action"
-msgstr "报告操作"
+msgstr "报表操作"
 
 #. module: industry_fsm
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_reporting
 msgid "Reporting"
-msgstr "报告"
+msgstr "报表"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_location
@@ -885,12 +886,12 @@ msgstr "为您的任务选择<b>客户</b>。"
 #. odoo-python
 #: code:addons/industry_fsm/models/project_task.py:0
 msgid "Send Field Service Report"
-msgstr "发送现场服务报告"
+msgstr "发送现场服务报表"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
 msgid "Send Report"
-msgstr "发送报告"
+msgstr "发送报表"
 
 #. module: industry_fsm
 #: model:mail.template,description:industry_fsm.mail_template_data_intervention_details
@@ -913,13 +914,13 @@ msgstr "显示下一操作日期早于今天的所有记录"
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_modal
 msgid "Sign Field Service Report"
-msgstr "签署现场服务报告"
+msgstr "签署现场服务报表"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.portal_task_sign_modal
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_task_form2_inherit
 msgid "Sign Report"
-msgstr "签署报告"
+msgstr "签署报表"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_project_task__worksheet_signature
@@ -1036,7 +1037,7 @@ msgstr "任务阶段"
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_report_industry_fsm_worksheet_custom
 msgid "Task Worksheet Custom Report"
-msgstr "任务工作表自定义报告"
+msgstr "任务工作表自定义报表"
 
 #. module: industry_fsm
 #: model:ir.model,name:industry_fsm.model_project_task_stop_timers_wizard
@@ -1068,7 +1069,7 @@ msgstr "任务分析"
 #. odoo-python
 #: code:addons/industry_fsm/controllers/portal.py:0
 msgid "The field service report has been signed by the customer."
-msgstr "客户已在现场服务报告上签字。"
+msgstr "客户已在现场服务报表上签字。"
 
 #. module: industry_fsm
 #. odoo-python
@@ -1088,7 +1089,7 @@ msgstr "工作表没有处于需要客户签名的状态。"
 #. odoo-python
 #: code:addons/industry_fsm/models/project_task.py:0
 msgid "There are no reports to send."
-msgstr "没有报告可发送。"
+msgstr "没有报表可发送。"
 
 #. module: industry_fsm
 #. odoo-python

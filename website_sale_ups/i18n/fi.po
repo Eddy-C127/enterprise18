@@ -2,12 +2,20 @@
 # This file contains the translation of the following modules:
 # 	* website_sale_ups
 # 
+# Translators:
+# Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Kim Asplund <kim.asplund@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Kim Asplund <kim.asplund@gmail.com>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,12 +26,12 @@ msgstr ""
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_delivery_method
 msgid "(Bill My Account)"
-msgstr ""
+msgstr "(Lasku tililleni)"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_delivery_method
 msgid "<i class=\"fa fa-trash-o\" role=\"img\" aria-label=\"Delete\" title=\"Delete\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-trash-o\" role=\"img\" aria-label=\"Poista\" title=\"Poista\"/>"
 
 #. module: website_sale_ups
 #: model_terms:payment.provider,pending_msg:website_sale_ups.payment_provider_ups_cod
@@ -31,92 +39,94 @@ msgid ""
 "<i>Pending</i>, Thanks for choosing COD(Collect on Delivery/Cash on "
 "Delivery) option. Delivery boy will collect the payment on delivery."
 msgstr ""
+"<i>Vireillä</i>, Kiitos, että valitsit postiennakon (COD, Cash on Delivery) "
+"-vaihtoehdon. Lähetti kerää maksun toimituksen yhteydessä."
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_delivery_method
 msgid "<span>(UPS Billing will remain to the customer)</span>"
-msgstr ""
+msgstr "<span>(UPS laskutus jää asiakkaalle)</span>"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_bill_my_account_dialog
 msgid "Apply"
-msgstr ""
+msgstr "Käytä"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_bill_my_account_dialog
 msgid "Cancel"
-msgstr ""
+msgstr "Peruuta"
 
 #. module: website_sale_ups
 #: model:ir.model.fields.selection,name:website_sale_ups.selection__payment_provider__custom_mode__cash_on_delivery
 msgid "Cash On Delivery"
-msgstr ""
+msgstr "Postiennakko (COD)"
 
 #. module: website_sale_ups
 #: model:payment.method,name:website_sale_ups.payment_method_cash_on_delivery
 #: model:payment.provider,name:website_sale_ups.payment_provider_ups_cod
 msgid "Cash on Delivery"
-msgstr ""
+msgstr "Postiennakko (COD)"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_bill_my_account_dialog
 msgid "Close"
-msgstr ""
+msgstr "Sulje"
 
 #. module: website_sale_ups
 #: model:ir.model.fields,field_description:website_sale_ups.field_payment_provider__custom_mode
 msgid "Custom Mode"
-msgstr ""
+msgstr "Mukautettu tila"
 
 #. module: website_sale_ups
 #: model:ir.model,name:website_sale_ups.model_payment_provider
 msgid "Payment Provider"
-msgstr ""
+msgstr "Maksupalveluntarjoaja"
 
 #. module: website_sale_ups
 #: model:ir.model,name:website_sale_ups.model_sale_order
 msgid "Sales Order"
-msgstr ""
+msgstr "Myyntitilaus"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_bill_my_account_dialog
 msgid "UPS Bill My Account"
-msgstr ""
+msgstr "UPS: Laskuta tiliäni"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.property_ups_carrier_account_inherit_portal_details
 msgid "UPS Number Account"
-msgstr ""
+msgstr "UPS-numero tili"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.res_config_settings_view_form
 msgid "UPS Shipping Methods"
-msgstr ""
+msgstr "UPS:n toimitustavat"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_delivery_method
 msgid "Using Account"
-msgstr ""
+msgstr "Käyttäen tiliä"
 
 #. module: website_sale_ups
 #: model_terms:ir.ui.view,arch_db:website_sale_ups.ups_bill_my_account_dialog
 msgid "Your UPS Account Number"
-msgstr ""
+msgstr "UPS-tilinumerosi"
 
 #. module: website_sale_ups
 #: model_terms:payment.provider,auth_msg:website_sale_ups.payment_provider_ups_cod
 msgid "Your payment has been authorized."
-msgstr ""
+msgstr "Maksusuorituksesi on hyväksytty."
 
 #. module: website_sale_ups
 #: model_terms:payment.provider,cancel_msg:website_sale_ups.payment_provider_ups_cod
 msgid "Your payment has been cancelled."
-msgstr ""
+msgstr "Maksusi on peruutettu."
 
 #. module: website_sale_ups
 #: model_terms:payment.provider,done_msg:website_sale_ups.payment_provider_ups_cod
 msgid "Your payment has been successfully processed."
-msgstr ""
+msgstr "Maksusi on käsitelty onnistuneesti."
 
 #. module: website_sale_ups
 #. odoo-python

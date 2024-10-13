@@ -5,6 +5,14 @@
 # Translators:
 # Tiffany Chang, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
+# Svante Suominen <svante.suominen@web-veistamo.fi>, 2024
+# Veikko Väätäjä <veikko.vaataja@gmail.com>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Heikki Katajisto <heikki.katajisto@myyntivoima.fi>, 2024
+# Miku Laitinen <miku.laitinen@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +35,8 @@ msgid ""
 ".st0{opacity:0.3;enable-background:new;}\n"
 "                .st1{fill:currentColor;stroke:#1A1919;stroke-width:3;stroke-miterlimit:10;}"
 msgstr ""
+".st0{opacity:0.3;enable-background:new;}\n"
+"                .st1{fill:currentColor;stroke:#1A1919;stroke-width:3;stroke-miterlimit:10;}"
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
@@ -34,11 +44,13 @@ msgid ""
 "<i class=\"oi oi-arrow-right\"/>\n"
 "                                Sign up to MapBox to get a free token"
 msgstr ""
+"<i class=\"oi oi-arrow-right\"/>\n"
+"                                Rekisteröidy MapBoxiin saadaksesi ilmaisen pääsytunnisteen"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_actions_act_window_view
 msgid "Action Window View"
-msgstr ""
+msgstr "Toimintoikkunan näkymä"
 
 #. module: web_map
 #. odoo-javascript
@@ -50,63 +62,63 @@ msgstr "Osoite"
 #. module: web_map
 #: model:ir.model,name:web_map.model_base
 msgid "Base"
-msgstr ""
+msgstr "Pohja"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Close"
-msgstr ""
+msgstr "Sulje"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Asetukset"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kontakti"
 
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_res_partner__contact_address_complete
 #: model:ir.model.fields,field_description:web_map.field_res_users__contact_address_complete
 msgid "Contact Address Complete"
-msgstr ""
+msgstr "Yhteysosoite valmis"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_http
 msgid "HTTP Routing"
-msgstr ""
+msgstr "HTTP-reititys"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_view.js:0
 msgid "Items"
-msgstr ""
+msgstr "Viennit"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Locating new addresses..."
-msgstr ""
+msgstr "Paikannetaan uusia osoitteita..."
 
 #. module: web_map
 #: model:ir.model.fields.selection,name:web_map.selection__ir_actions_act_window_view__view_mode__map
 #: model:ir.model.fields.selection,name:web_map.selection__ir_ui_view__type__map
 msgid "Map"
-msgstr ""
+msgstr "Kartta"
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Map Routes"
-msgstr ""
+msgstr "Karttareitit"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "MapBox servers unreachable"
-msgstr ""
+msgstr "MapBox-palvelimia ei tavoiteta"
 
 #. module: web_map
 #. odoo-javascript
@@ -118,65 +130,65 @@ msgstr "Nimi"
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Navigate to"
-msgstr ""
+msgstr "Siirry osoitteeseen"
 
 #. module: web_map
 #: model:ir.model.fields,help:web_map.field_res_config_settings__map_box_token
 msgid "Necessary for some functionalities in the map view"
-msgstr ""
+msgstr "Välttämätön joidenkin karttanäkymän toiminnallisuuksien kannalta"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "No"
-msgstr ""
+msgstr "Ei"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "None"
-msgstr ""
+msgstr "Ei mitään"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Open"
-msgstr ""
+msgstr "Avoin"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "OpenStreetMap's request limit exceeded, try again later."
-msgstr ""
+msgstr "OpenStreetMapin pyyntöraja ylittyi, yritä myöhemmin uudelleen."
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Set a MapBox account to activate routes and style"
-msgstr ""
+msgstr "Aseta MapBox-tili reittien ja tyylin aktivoimiseksi"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Set up token"
-msgstr ""
+msgstr "Aseta pääsytunniste"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "Some routing points are too far apart"
-msgstr ""
+msgstr "Jotkin reitityspisteet ovat liian kaukana toisistaan"
 
 #. module: web_map
 #. odoo-python
 #: code:addons/web_map/models/res_config_settings.py:0
 msgid "The MapBox server is unreachable"
-msgstr ""
+msgstr "MapBox-palvelinta ei tavoiteta"
 
 #. module: web_map
 #. odoo-python
 #: code:addons/web_map/models/res_config_settings.py:0
 msgid "The token input is not valid"
-msgstr ""
+msgstr "Pääsytunnisteen syöttö ei ole kelvollinen"
 
 #. module: web_map
 #. odoo-javascript
@@ -185,12 +197,13 @@ msgid ""
 "The view has switched to another provider but functionalities will be "
 "limited"
 msgstr ""
+"Näkymä on vaihtunut toiseen palveluntarjoajaan. Toiminnot ovat rajoitettuja"
 
 #. module: web_map
 #. odoo-python
 #: code:addons/web_map/models/res_config_settings.py:0
 msgid "This referer is not authorized"
-msgstr ""
+msgstr "Tämä lähettäjä ei ole valtuutettu"
 
 #. module: web_map
 #. odoo-javascript
@@ -199,84 +212,88 @@ msgid ""
 "To get routing on your map, you first need to set up your MapBox token. It's"
 " free."
 msgstr ""
+"Jotta saat reitityksen kartalle, sinun on ensin määritettävä MapBox-"
+"pääsytunniste. Se on maksuton."
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Token"
-msgstr ""
+msgstr "Pääsytunniste"
 
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_res_config_settings__map_box_token
 msgid "Token Map Box"
-msgstr ""
+msgstr "Map Boxin pääsytunniste"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "Token invalid"
-msgstr ""
+msgstr "Pääsytunniste on virheellinen"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "Too many requests, try again in a few minutes"
-msgstr ""
+msgstr "Liian monta pyyntöä, yritä uudelleen hetken kuluttua uudelleen"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "Too many routing points (maximum 25)"
-msgstr ""
+msgstr "Liian monta reitityspistettä (enintään 25)"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "Unauthorized connection"
-msgstr ""
+msgstr "Luvaton yhteys"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Undefined"
-msgstr ""
+msgstr "Ei määritelty"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Unsuccessful routing request:"
-msgstr ""
+msgstr "Reitityspyyntö ei onnistunut:"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_controller.js:0
 msgid "Untitled"
-msgstr ""
+msgstr "Nimetön"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_ui_view
 msgid "View"
-msgstr ""
+msgstr "Näytä"
 
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_ir_actions_act_window_view__view_mode
 #: model:ir.model.fields,field_description:web_map.field_ir_ui_view__type
 msgid "View Type"
-msgstr ""
+msgstr "Näkymän tyyppi"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "View in Google Maps"
-msgstr ""
+msgstr "Näytä Google Mapsissa"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
 msgid "Yes"
-msgstr ""
+msgstr "Kyllä"
 
 #. module: web_map
 #. odoo-python
 #: code:addons/web_map/models/models.py:0
 msgid "You need to set a Contact field on this model to use the Map View"
 msgstr ""
+"Sinun on määritettävä Yhteystiedot-kenttä tähän malliin, jotta voit käyttää "
+"Karttanäkymää"

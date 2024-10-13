@@ -5,7 +5,10 @@
 # Translators:
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Stevin Lilla, 2024
+# JanaAvalah, 2024
 # Siim Raasuke, 2024
+# Birgit Vijar, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Siim Raasuke, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,29 +37,38 @@ msgid ""
 "            </div>\n"
 "            "
 msgstr ""
+"<div>\n"
+"            <p><b>Head uudised!</b> Teie veebilehe konverteerimine on lõpetatud ja teie uus integreeritud Odoo veebileht on nüüd aktiivne.</p>\n"
+"            <p>Vaata oma uut veebilehte siit: <a t-att-href=\"ctx.get('website_url')\"><t t-out=\"ctx.get('website_url')\"></t></a></p>\n"
+"            <p>Aitäh, et valisite Odoo oma veebimoodulite integreerimiseks!</p>\n"
+"            <p>Parimate soovidega,</p>\n"
+"            <br>\n"
+"            <p>Odoo - Parim avatud lähtekoodiga veebilehe koostaja.</p>\n"
+"            </div>\n"
+"            "
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__additional_urls
 msgid "Additional URLs"
-msgstr ""
+msgstr "Täiendavad URL-id"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "An error occurred"
-msgstr ""
+msgstr "Ilmnes viga"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Attachment not found"
-msgstr ""
+msgstr "Manust ei leitud"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Banned url"
-msgstr ""
+msgstr "Keelatud url"
 
 #. module: website_generator
 #. odoo-python
@@ -83,7 +95,7 @@ msgstr "Kuvatav nimi"
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Done, website generated"
-msgstr ""
+msgstr "Tehtud, veebileht loodud"
 
 #. module: website_generator
 #. odoo-javascript
@@ -117,7 +129,7 @@ msgstr "ID"
 #. odoo-javascript
 #: code:addons/website_generator/static/src/client_actions/configurator/configurator.xml:0
 msgid "Import Products"
-msgstr ""
+msgstr "Toodete import"
 
 #. module: website_generator
 #. odoo-javascript
@@ -141,25 +153,25 @@ msgstr ""
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Invalid dbuuid"
-msgstr ""
+msgstr "Vigane dbuuid"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Invalid import products"
-msgstr ""
+msgstr "Kehtetud imporditud tooted"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Invalid token"
-msgstr ""
+msgstr " Vigane tunnus"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Invalid url"
-msgstr ""
+msgstr "Vigane URL"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__write_uid
@@ -174,7 +186,7 @@ msgstr "Viimati uuendatud"
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__notified
 msgid "Notified"
-msgstr ""
+msgstr "Teavitatud"
 
 #. module: website_generator
 #. odoo-python
@@ -186,12 +198,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Number of concurrent requests exceeded"
-msgstr ""
+msgstr "Samaaegsete päringute arv on ületatud."
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__page_count
 msgid "Number of pages"
-msgstr ""
+msgstr "Lehtede arv"
 
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__uuid
@@ -219,19 +231,19 @@ msgstr "Töötlemises"
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Request is still processing, result not available yet"
-msgstr ""
+msgstr "Päring on endiselt töös, tulemus pole veel saadaval."
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Server is currently under maintenance. Please retry later"
-msgstr ""
+msgstr "Serveris käib hetkel hooldus. Palun proovige hiljem uuesti"
 
 #. module: website_generator
 #. odoo-javascript
 #: code:addons/website_generator/static/src/client_actions/generator_wait/generator.xml:0
 msgid "Something went wrong"
-msgstr ""
+msgstr "Midagi läks valesti."
 
 #. module: website_generator
 #. odoo-javascript
@@ -247,7 +259,7 @@ msgstr "Olek"
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__status_message
 msgid "Status Message"
-msgstr ""
+msgstr "Staatuse sõnum"
 
 #. module: website_generator
 #. odoo-python
@@ -265,7 +277,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "The request asks for too many pages"
-msgstr ""
+msgstr "Päring nõuab liiga palju lehti."
 
 #. module: website_generator
 #. odoo-python
@@ -293,25 +305,26 @@ msgstr ""
 #. module: website_generator
 #: model:ir.model.fields,field_description:website_generator.field_website_generator_request__version
 msgid "Version"
-msgstr ""
+msgstr "Versioon"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Version is unsupported"
-msgstr ""
+msgstr "Versioon ei ole toetatud"
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Waiting for the server to process the request"
-msgstr ""
+msgstr "Ootame serveri töötlemist"
 
 #. module: website_generator
 #. odoo-javascript
 #: code:addons/website_generator/static/src/client_actions/generator_wait/generator.xml:0
 msgid "We could not convert your website, please try again later"
 msgstr ""
+"Me ei suutnud teie veebilehte konverteerida, palun proovige hiljem uuesti."
 
 #. module: website_generator
 #. odoo-javascript
@@ -333,12 +346,12 @@ msgstr "Veebilehe generaator"
 #. module: website_generator
 #: model:ir.actions.server,name:website_generator.action_convert_scraping_request_ICP
 msgid "Website Generator After Install"
-msgstr ""
+msgstr "Veebilehe generaator pärast installimist"
 
 #. module: website_generator
 #: model:ir.model,name:website_generator.model_website_generator_request
 msgid "Website Generator Request"
-msgstr ""
+msgstr "Veebilehe generaatori päring"
 
 #. module: website_generator
 #: model:ir.actions.server,name:website_generator.cron_get_result_ir_actions_server
@@ -360,13 +373,13 @@ msgstr "Veebilehe URL"
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Website blocked or unreachable"
-msgstr ""
+msgstr "Veebileht on blokeeritud või ei ole kättesaadav."
 
 #. module: website_generator
 #. odoo-python
 #: code:addons/website_generator/models/generator.py:0
 msgid "Website not supported"
-msgstr ""
+msgstr "Veebilehte ei toetata"
 
 #. module: website_generator
 #. odoo-javascript
@@ -383,7 +396,7 @@ msgstr "Veebilehti on võimalik hiljem luua. "
 #. module: website_generator
 #: model:mail.template,subject:website_generator.email_template_website_scrapped
 msgid "Your Odoo Website is Ready!"
-msgstr ""
+msgstr "Odoo veebileht on valmis!"
 
 #. module: website_generator
 #. odoo-javascript

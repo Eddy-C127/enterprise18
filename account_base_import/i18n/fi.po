@@ -5,6 +5,11 @@
 # Translators:
 # Tiffany Chang, 2024
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
+# Martin Trigaux, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Konsta Aavaranta, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Kari Lindgren <kari.lindgren@emsystems.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,23 +28,23 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "<span class=\"text-muted\">(end of year balances)</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">(vuoden lopun saldot)</span>"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "<span class=\"text-muted\">(for full history)</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">(koko historia)</span>"
 
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_account_account
 msgid "Account"
-msgstr ""
+msgstr "Tili"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Account Winbooks Import module"
-msgstr ""
+msgstr "Winbooks-tilien lataamisen moduuli"
 
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_account_import_summary
@@ -49,42 +54,42 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "Accounting Import"
-msgstr ""
+msgstr "Kirjanpidon tuonti"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/js/account_import_guide.js:0
 #: model:ir.actions.client,name:account_base_import.action_open_import_guide
 msgid "Accounting Import Guide"
-msgstr ""
+msgstr "Kirjanpidon tuonnin opas"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Accounting Import Options"
-msgstr ""
+msgstr "Kirjanpidon tuonnin asetukset"
 
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_base_import_import
 msgid "Base Import"
-msgstr ""
+msgstr "Perustuonti"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/js/account_import_action.js:0
 #: model:ir.actions.act_window,name:account_base_import.action_open_coa_setup
 msgid "Chart of Accounts"
-msgstr ""
+msgstr "Tilikartta"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "Choose how you want to setup your CoA"
-msgstr ""
+msgstr "Valitse, miten haluat määrittää tilikarttasi"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Luonut"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__create_date
@@ -95,79 +100,79 @@ msgstr "Luotu"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/js/account_import_action.js:0
 msgid "Customers"
-msgstr ""
+msgstr "Asiakkaat"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Näyttönimi"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Download"
-msgstr ""
+msgstr "Lataa"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Excel Import"
-msgstr ""
+msgstr "Excel-tuonti"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "FEC"
-msgstr ""
+msgstr "FEC"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "FEC Import module"
-msgstr ""
+msgstr "FEC-tuontimoduuli"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 #: model_terms:ir.ui.view,arch_db:account_base_import.view_account_base_import_list
 #: model_terms:ir.ui.view,arch_db:account_base_import.view_account_setup_base_import_list
 msgid "Import"
-msgstr ""
+msgstr "Tuo"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #: model:ir.actions.client,name:account_base_import.action_account_import
 msgid "Import Chart of Accounts"
-msgstr ""
+msgstr "Tuo tilikartta"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Import CoA"
-msgstr ""
+msgstr "Tuo tilikartta"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Import Contacts"
-msgstr ""
+msgstr "Tuo kontaktit"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #: model:ir.actions.client,name:account_base_import.action_account_move_line_import
 msgid "Import Journal Items"
-msgstr ""
+msgstr "Tuo päiväkirjarivit"
 
 #. module: account_base_import
 #: model:ir.actions.client,name:account_base_import.action_partner_import
 msgid "Import Partners"
-msgstr ""
+msgstr "Tuo kumppanit"
 
 #. module: account_base_import
 #. odoo-python
@@ -209,19 +214,21 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Import contacts"
-msgstr ""
+msgstr "Tuo kontaktit"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Import customers or suppliers (partners) and their contacts using a"
 msgstr ""
+"Tuo asiakkaita tai toimittajia (yhteistyökumppaneita) ja heidän "
+"yhteystietojaan käyttämällä"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Import the Chart of Accounts and initial balances using a"
-msgstr ""
+msgstr "Tuo tilikartta ja alkusaldot käyttämällä"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
@@ -231,34 +238,34 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "Initial Setup"
-msgstr ""
+msgstr "Alkuasetukset"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/js/account_import_guide.js:0
 msgid "Install a module"
-msgstr ""
+msgstr "Asenna moduuli"
 
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Päiväkirjatapahtuma"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/js/account_import_action.js:0
 msgid "Journal Items"
-msgstr ""
+msgstr "Päiväkirjan tapahtumat"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Viimeksi päivittänyt"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Viimeksi päivitetty"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -267,6 +274,8 @@ msgid ""
 "Most accounting software in Europe support exporting SAF-T file for audit purposes.\n"
 "                            Use the"
 msgstr ""
+"Useimmat Euroopan kirjanpito-ohjelmistot tukevat SAF-T-tiedoston vientiä tilintarkastusta varten.\n"
+"                            Käytä"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -275,6 +284,8 @@ msgid ""
 "Most accounting software in France support exporting FEC file for audit purposes.\n"
 "                            Use the"
 msgstr ""
+"Useimmat Ranskan kirjanpito-ohjelmistot tukevat FEC-tiedoston vientiä tilintarkastusta varten.\n"
+"                            Käytä"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
@@ -286,37 +297,39 @@ msgstr ""
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Optional, but useful to import open receivables & payables using a"
 msgstr ""
+"Vapaaehtoinen, mutta hyödyllinen avoinna olevien saamisten ja velkojen "
+"tuominen käyttämällä"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
 msgid "Review Manually"
-msgstr ""
+msgstr "Tarkista manuaalisesti"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "SAF-T"
-msgstr ""
+msgstr "SAF-T"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "SAF-T Import module"
-msgstr ""
+msgstr "SAF-T-tuontimoduuli"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "SIE 5"
-msgstr ""
+msgstr "SIE 5"
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "SIE Import module"
-msgstr ""
+msgstr "SIE Tuontimoduuli"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -326,18 +339,21 @@ msgid ""
 "such as auditing, importing and exporting data from and to other accounting "
 "softwares."
 msgstr ""
+"SIE-standarditiedostomuoto on hyvin yleinen Ruotsissa useisiin "
+"tarkoituksiin, kuten tilintarkastukseen sekä tietojen tuomiseen ja viemiseen"
+" muista kirjanpito-ohjelmista ja muihin kirjanpito-ohjelmiin."
 
 #. module: account_base_import
 #. odoo-python
 #: code:addons/account_base_import/models/account_move_line.py:0
 msgid "The import file is missing the following required columns: %s"
-msgstr ""
+msgstr "Tuontitiedostosta puuttuvat seuraavat vaaditut sarakkeet: %s"
 
 #. module: account_base_import
 #. odoo-python
 #: code:addons/account_base_import/models/account_account.py:0
 msgid "The import file must contain the 'code' column"
-msgstr ""
+msgstr "Tuontitiedoston on sisällettävä sarake \"code\""
 
 #. module: account_base_import
 #. odoo-javascript
@@ -347,18 +363,22 @@ msgid ""
 " import. Only use the Journal Items import for unreconciled entries in your "
 "Payable and Receivable Accounts."
 msgstr ""
+"Vinkki: suosittelemme alkuperäisten saldojen tuomista tilikarttatuonnilla. "
+"Käytä Päiväkirjakohtien tuontia vain maksettavien ja saatavien tilien "
+"täsmäyttämättömiin kirjauksiin."
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Use predefined format to import your data faster."
-msgstr ""
+msgstr "Käytä ennalta määriteltyä muotoa, jotta voit tuoda tietosi nopeammin."
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Use templates to import CSV or Excel for your accounting setup."
 msgstr ""
+"Käytä malleja CSV- tai Excel-tuontia varten kirjanpidon asetuksia varten."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -367,12 +387,14 @@ msgid ""
 "We will setup your charts of accounts and the history of journal entries, "
 "that will stay in draft."
 msgstr ""
+"Määritämme tilikartat ja päiväkirjamerkintöjen historian, joka pysyy "
+"luonnoksena."
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Winbooks"
-msgstr ""
+msgstr "Winbooks"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -381,6 +403,8 @@ msgid ""
 "Winbooks is an old school Belgian accounting software acquired by Exact.\n"
 "                            Use the"
 msgstr ""
+"Winbooks on vanha belgialainen kirjanpito-ohjelmisto, jonka Exact on ostanut.\n"
+"                            Käytä"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
@@ -395,6 +419,9 @@ msgid ""
 "                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
 "                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
 msgstr ""
+"tarvitaan SIE- ja SIE-merkintätiedostojen tuomiseen.\n"
+"                            Yleistä SIE:tä varten asetamme tilikarttasi saldot, päiväkirjat, kumppanit ja päiväkirjamerkintöjen historian (päiväkirjatietojen on oltava tiedostossa).\n"
+"                            SIE-merkintää varten luodaan vain kirjaukset ja kumppanit, muiden tietojen on oltava jo järjestelmässä."
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
@@ -426,7 +453,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "template."
-msgstr ""
+msgstr "pohja."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -435,6 +462,8 @@ msgid ""
 "to import a Winbooks full back-up (Maintenance > Backup) to get the chart of accounts, contacts, taxes, history of journal entries, and documents.\n"
 "                            Support versions: Winbooks Desktop 5.50, 6, 7, 8."
 msgstr ""
+"tuo Winbooksin täydellinen varmuuskopio (Ylläpito > Varmuuskopio), jotta saat tilikartan, yhteystiedot, verot, päiväkirjamerkintähistorian ja asiakirjat.\n"
+"                            Tuetut versiot: Winbooks Desktop 5.50, 6, 7, 8."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -443,9 +472,10 @@ msgid ""
 "to import the FEC file. We will setup your charts of accounts and the "
 "history of journal entries."
 msgstr ""
+"tuo FEC-tiedosto. Määritämme tilikartat ja päiväkirjamerkintöjen historia."
 
 #. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "to import the SAF-T file."
-msgstr ""
+msgstr "tuodaan SAF-T-tiedosto."

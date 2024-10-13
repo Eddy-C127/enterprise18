@@ -3,7 +3,11 @@
 # 	* account_disallowed_expenses_fleet
 # 
 # Translators:
+# Konsta Aavaranta, 2024
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Kari Lindgren <kari.lindgren@emsystems.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,17 +27,17 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_disallowed_expenses_fleet/report/account_disallowed_expenses_report.py:0
 msgid "Accounts missing a disallowed expense category"
-msgstr ""
+msgstr "Tilit, joilta puuttuu kielletty kululuokka"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__company_id
 msgid "Company"
-msgstr ""
+msgstr "Yritys"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Luonut"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__create_date
@@ -43,33 +47,34 @@ msgstr "Luotu"
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model,name:account_disallowed_expenses_fleet.model_account_deferred_report_handler
 msgid "Deferred Expense Report Custom Handler"
-msgstr ""
+msgstr "Ostojen jaksotusraportin mukautettu käsittelijä"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model,name:account_disallowed_expenses_fleet.model_account_disallowed_expenses_category
 msgid "Disallowed Expenses Category"
-msgstr ""
+msgstr "Hyväksymättömien kulujuen luokka"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model,name:account_disallowed_expenses_fleet.model_account_disallowed_expenses_fleet_report_handler
 msgid "Disallowed Expenses Fleet Custom Handler"
 msgstr ""
+"Kielletyt menot Fleet Custom Handler -kulkuneuvojen mukautettu käsittelijä"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_vehicle__rate_ids
 #: model_terms:ir.ui.view,arch_db:account_disallowed_expenses_fleet.fleet_vehicle_view_form
 msgid "Disallowed Expenses Rate"
-msgstr ""
+msgstr "Hyväksymättömien kulujen arvo"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Näyttönimi"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_disallowed_expenses_fleet
 #. odoo-javascript
@@ -77,67 +82,68 @@ msgstr ""
 msgid ""
 "It looks like Journal Items concerning vehicles are missing. Please check if"
 msgstr ""
+"Näyttää siltä, että ajoneuvoja koskevat päiväkirjat puuttuvat. Tarkista, jos"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model,name:account_disallowed_expenses_fleet.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Päiväkirjatapahtuma"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Viimeksi päivittänyt"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Viimeksi päivitetty"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model,name:account_disallowed_expenses_fleet.model_bank_rec_widget_line
 msgid "Line of the bank reconciliation widget"
-msgstr ""
+msgstr "Pankkien täsmäytyswidgetin rivi"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_account_disallowed_expenses_category__car_category
 msgid "Make Vehicle Required"
-msgstr ""
+msgstr "Määritä ajoneuvo vaadituksi"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__date_from
 msgid "Start Date"
-msgstr ""
+msgstr "Alkupäivä"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model.fields,help:account_disallowed_expenses_fleet.field_account_disallowed_expenses_category__car_category
 msgid "The vehicle becomes mandatory while booking any account move."
-msgstr ""
+msgstr "Ajoneuvo tulee pakolliseksi, kun varaat minkä tahansa tilisiirron."
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model,name:account_disallowed_expenses_fleet.model_fleet_vehicle
 #: model:ir.model.fields,field_description:account_disallowed_expenses_fleet.field_fleet_disallowed_expenses_rate__vehicle_id
 msgid "Vehicle"
-msgstr ""
+msgstr "Ajoneuvo"
 
 #. module: account_disallowed_expenses_fleet
 #: model:ir.model,name:account_disallowed_expenses_fleet.model_fleet_disallowed_expenses_rate
 msgid "Vehicle Disallowed Expenses Rate"
-msgstr ""
+msgstr "Ajoneuvo Hylätyt kulut prosenttia"
 
 #. module: account_disallowed_expenses_fleet
 #. odoo-javascript
 #: code:addons/account_disallowed_expenses_fleet/static/src/components/disallowed_expenses_report/filter_extra_options.xml:0
 msgid "Vehicle Split"
-msgstr ""
+msgstr "Ajoneuvon jako"
 
 #. module: account_disallowed_expenses_fleet
 #. odoo-javascript
 #: code:addons/account_disallowed_expenses_fleet/static/src/components/disallowed_expenses_report/warnings.xml:0
 msgid "need a Disallowed Expense Category."
-msgstr ""
+msgstr "tarvitsevat kielletyn kululuokan."
 
 #. module: account_disallowed_expenses_fleet
 #. odoo-javascript
 #: code:addons/account_disallowed_expenses_fleet/static/src/components/disallowed_expenses_report/warnings.xml:0
 msgid "these accounts"
-msgstr ""
+msgstr "nämä tilit"

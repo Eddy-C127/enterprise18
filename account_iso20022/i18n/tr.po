@@ -4,6 +4,12 @@
 # 
 # Translators:
 # emre oktem, 2024
+# Levent Karakaş <levent@mektup.at>, 2024
+# Tugay Hatıl <tugayh@projetgrup.com>, 2024
+# Umur Akın <umura@projetgrup.com>, 2024
+# abc Def <hdogan1974@gmail.com>, 2024
+# Ediz Duman <neps1192@gmail.com>, 2024
+# Murat Kaplan <muratk@projetgrup.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: emre oktem, 2024\n"
+"Last-Translator: Murat Kaplan <muratk@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,12 +45,12 @@ msgstr ""
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.view_batch_payment_form_inherit
 msgid "Batch Booking"
-msgstr ""
+msgstr "Toplu Rezervasyon"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_batch_payment
 msgid "Batch Payment"
-msgstr ""
+msgstr "Toplu Ödeme"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_batch_payment__iso20022_charge_bearer
@@ -54,7 +60,7 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Şirketler"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_config_settings
@@ -70,7 +76,7 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kontak"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__cred
@@ -87,7 +93,7 @@ msgstr ""
 msgid ""
 "Entity that assigns the identification (eg. KBE-BCO or Finanzamt Muenchen "
 "IV)."
-msgstr ""
+msgstr "Kimliği tayin eden kurum (örn. KBE-BCO veya Finanzamt Muenchen IV)."
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03_de
@@ -114,24 +120,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_id
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_orgid_id
 msgid "Identification"
-msgstr ""
+msgstr "Tanımlama"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_orgid_id
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_orgid_id
 msgid "Identification assigned by an institution (eg. VAT number)."
-msgstr ""
+msgstr "Bir kurum tarafından atanan kimliği (Örn.Vergi numarası)."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_issr
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_orgid_issr
 msgid "Issuer"
-msgstr ""
+msgstr "Düzenleyen"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Yevmiye"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_lei
@@ -158,7 +164,7 @@ msgstr ""
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.res_partner_sepa_inherit_form
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Diğer"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_initiating_party_name
@@ -166,6 +172,8 @@ msgid ""
 "Name of the Creditor Reference Party. Usage Rule: Limited to 70 characters "
 "in length."
 msgstr ""
+"Borç Sahibi Referans Partisinin adı. Kullanım Kuralları: 70 karakter "
+"uzunluğunda sınırlıdır."
 
 #. module: account_iso20022
 #. odoo-python
@@ -188,27 +196,27 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment_register
 msgid "Pay"
-msgstr ""
+msgstr "Ödeme İşlemi"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment_method
 msgid "Payment Methods"
-msgstr ""
+msgstr "Ödeme Yöntemleri"
 
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.account_journal_dashboard_kanban_view_inherited
 msgid "Payment to send via SEPA"
-msgstr ""
+msgstr "SEPA yoluyla göndermek için ödeme yapılması"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment
 msgid "Payments"
-msgstr ""
+msgstr "Ödemeler"
 
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.account_journal_dashboard_kanban_view_inherited
 msgid "Payments to send via SEPA"
-msgstr ""
+msgstr "SEPA yoluyla göndermek için yapılan ödemeler"
 
 #. module: account_iso20022
 #. odoo-python
@@ -230,13 +238,13 @@ msgstr ""
 #: model:account.payment.method,name:account_iso20022.account_payment_method_sepa_ct
 #: model_terms:ir.ui.view,arch_db:account_iso20022.view_account_journal_form
 msgid "SEPA Credit Transfer"
-msgstr ""
+msgstr "SEPA Alacak Transferi"
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal_dashboard.py:0
 msgid "SEPA Credit Transfers to Send"
-msgstr ""
+msgstr "SEPA Gönderilecek Alacak Transferleri"
 
 #. module: account_iso20022
 #. odoo-python
@@ -266,7 +274,7 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__shar
 msgid "Shared"
-msgstr ""
+msgstr "Paylaşılan"
 
 #. module: account_iso20022
 #. odoo-python
@@ -357,6 +365,8 @@ msgid ""
 "The journal '%s' requires a proper IBAN account to pay via SEPA. Please "
 "configure it first."
 msgstr ""
+"'%s' yevmiyesinin SEPA yoluyla ödeme yapmak için uygun bir IBAN hesabının "
+"olmasını gerektiriyor. Lütfen önce yapılandırın."
 
 #. module: account_iso20022
 #. odoo-python
@@ -368,7 +378,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Too many transactions for a single file."
-msgstr ""
+msgstr "Tek bir dosya için çok fazla işlem."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_payment__iso20022_uetr
@@ -399,6 +409,8 @@ msgid ""
 "Will appear in SEPA payments as the name of the party initiating the "
 "payment. Limited to 70 characters."
 msgstr ""
+"SEPA ödemelerinde ödemeyi başlatan tarafın adı olarak görünecektir. 70 "
+"karakterle sınırlandırılmıştır."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__sepa_pain_version
@@ -410,7 +422,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_initiating_party_name
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_initiating_party_name
 msgid "Your Company Name"
-msgstr ""
+msgstr "Şirketinizin Adı"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03

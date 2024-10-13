@@ -2,12 +2,20 @@
 # This file contains the translation of the following modules:
 # 	* appointment_crm
 # 
+# Translators:
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
+# Erno Iipponen <erno.iipponen@web-veistamo.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Martin Trigaux, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -18,28 +26,28 @@ msgstr ""
 #. module: appointment_crm
 #: model:ir.model,name:appointment_crm.model_appointment_invite
 msgid "Appointment Invite"
-msgstr ""
+msgstr "Ajanvarauksen kutsu"
 
 #. module: appointment_crm
 #: model:ir.model,name:appointment_crm.model_appointment_type
 msgid "Appointment Type"
-msgstr ""
+msgstr "Tapaamisen tyyppi"
 
 #. module: appointment_crm
 #: model:ir.model,name:appointment_crm.model_calendar_event
 msgid "Calendar Event"
-msgstr ""
+msgstr "Kalenteritapahtuma"
 
 #. module: appointment_crm
 #. odoo-javascript
 #: code:addons/appointment_crm/static/src/views/appointment_calendar/appointment_crm_calendar_controller.xml:0
 msgid "Click in your calendar to pick meeting time proposals for"
-msgstr ""
+msgstr "Valitse kalenteristasi kokousaikaehdotuksia varten"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_type__lead_create
 msgid "Create Opportunities"
-msgstr ""
+msgstr "Luo myyntimahdollisuuksia"
 
 #. module: appointment_crm
 #: model:ir.model.fields,help:appointment_crm.field_appointment_type__lead_create
@@ -47,21 +55,23 @@ msgid ""
 "For each scheduled appointment, create a new opportunity and assign it to "
 "the responsible user."
 msgstr ""
+"Luo jokaiselle suunnitellulle tapaamiselle uusi myyntimahdollisuus ja "
+"vastuuta se."
 
 #. module: appointment_crm
 #: model_terms:ir.ui.view,arch_db:appointment_crm.appointment_type_view_form
 msgid "Leads"
-msgstr ""
+msgstr "Liidit"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_type__lead_count
 msgid "Leads Count"
-msgstr ""
+msgstr "Liidien määrä"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_type__lead_ids
 msgid "Leads/Opportunity"
-msgstr ""
+msgstr "Liidit / Myyntimahdollisuudet"
 
 #. module: appointment_crm
 #: model:ir.model.fields,help:appointment_crm.field_appointment_invite__opportunity_id
@@ -69,19 +79,21 @@ msgid ""
 "Link an opportunity/lead to the appointment invite created.\n"
 "Used when creating an invitation from the Meeting action in the crm form view."
 msgstr ""
+"Linkitä myyntimahdollisuus tai liidi luotuun ajanvarauskutsuun.\n"
+"Käytetään, kun luodaan kutsu CRM-lomakenäkymään Meeting-toiminnolla."
 
 #. module: appointment_crm
 #. odoo-python
 #: code:addons/appointment_crm/models/calendar_event.py:0
 msgid "Meeting linked to Lead/Opportunity %s"
-msgstr ""
+msgstr "Kokous on yhdistetty liidiin tai myyntimahdollisuuteen %s"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_calendar_event__opportunity_id
 msgid "Opportunity"
-msgstr ""
+msgstr "Mahdollisuus"
 
 #. module: appointment_crm
 #: model:ir.model.fields,field_description:appointment_crm.field_appointment_invite__opportunity_id
 msgid "Opportunity/Lead"
-msgstr ""
+msgstr "Mahdollisuus/Liidi"

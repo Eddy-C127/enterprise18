@@ -2,12 +2,23 @@
 # This file contains the translation of the following modules:
 # 	* account_iso20022
 # 
+# Translators:
+# Eino Mäkitalo <eino.makitalo@netitbe.fi>, 2024
+# Miika Nissi <miika.nissi@tawasta.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Tommi Rintala <tommi.rintala@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,7 +30,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "A bank account is not defined."
-msgstr ""
+msgstr "Pankkitiliä ei ole määritelty."
 
 #. module: account_iso20022
 #. odoo-python
@@ -30,17 +41,17 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03_austrian_004
 msgid "Austrian"
-msgstr ""
+msgstr "Itävallan"
 
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.view_batch_payment_form_inherit
 msgid "Batch Booking"
-msgstr ""
+msgstr "Erävaraus"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_batch_payment
 msgid "Batch Payment"
-msgstr ""
+msgstr "Erämaksu"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_batch_payment__iso20022_charge_bearer
@@ -50,12 +61,12 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Yritykset"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Asetukset"
 
 #. module: account_iso20022
 #. odoo-python
@@ -66,17 +77,17 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kontakti"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__cred
 msgid "Creditor"
-msgstr ""
+msgstr "Velkoja"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__debt
 msgid "Debtor"
-msgstr ""
+msgstr "Velallinen"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_orgid_issr
@@ -84,11 +95,12 @@ msgid ""
 "Entity that assigns the identification (eg. KBE-BCO or Finanzamt Muenchen "
 "IV)."
 msgstr ""
+"Yhteisö joka antaa tunnisteen (esim. KBE-BCO tai Finanzamt Muenchen IV)."
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03_de
 msgid "German"
-msgstr ""
+msgstr "Saksa"
 
 #. module: account_iso20022
 #. odoo-python
@@ -99,7 +111,7 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__has_sepa_ct_payment_method
 msgid "Has Sepa Ct Payment Method"
-msgstr ""
+msgstr "Onko Sepa Ct maksutapa"
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022
@@ -110,38 +122,38 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_id
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_orgid_id
 msgid "Identification"
-msgstr ""
+msgstr "Tunnistus"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_orgid_id
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_orgid_id
 msgid "Identification assigned by an institution (eg. VAT number)."
-msgstr ""
+msgstr "Yhteisötunnus (esim. VAT-tunnus)"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_issr
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_orgid_issr
 msgid "Issuer"
-msgstr ""
+msgstr "Liikkeeseenlaskija"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Päiväkirja"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_lei
 #: model:ir.model.fields,field_description:account_iso20022.field_res_partner__iso20022_lei
 #: model:ir.model.fields,field_description:account_iso20022.field_res_users__iso20022_lei
 msgid "LEI"
-msgstr ""
+msgstr "LEI"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_lei
 #: model:ir.model.fields,help:account_iso20022.field_res_partner__iso20022_lei
 #: model:ir.model.fields,help:account_iso20022.field_res_users__iso20022_lei
 msgid "Legal Entity Identifier"
-msgstr ""
+msgstr "Oikeushenkilön tunnus"
 
 #. module: account_iso20022
 #. odoo-python
@@ -154,7 +166,7 @@ msgstr ""
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.res_partner_sepa_inherit_form
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Sekalaiset"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_initiating_party_name
@@ -162,6 +174,7 @@ msgid ""
 "Name of the Creditor Reference Party. Usage Rule: Limited to 70 characters "
 "in length."
 msgstr ""
+"Velkojan viiteosapuolen nimi. Käyttösääntö: Rajoitettu 70 merkin pituuteen."
 
 #. module: account_iso20022
 #. odoo-python
@@ -173,38 +186,38 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Partner %s has no country code defined."
-msgstr ""
+msgstr "Kumppanille %s ei ole määritelty maakoodia."
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Partner %s has not bank account defined."
-msgstr ""
+msgstr "Kumppanilla %s ei ole määritetty pankkitiliä."
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment_register
 msgid "Pay"
-msgstr ""
+msgstr "Maksa"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment_method
 msgid "Payment Methods"
-msgstr ""
+msgstr "Maksutavat"
 
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.account_journal_dashboard_kanban_view_inherited
 msgid "Payment to send via SEPA"
-msgstr ""
+msgstr "Lähetettävä SEPA maksu"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment
 msgid "Payments"
-msgstr ""
+msgstr "Maksut"
 
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.account_journal_dashboard_kanban_view_inherited
 msgid "Payments to send via SEPA"
-msgstr ""
+msgstr "maksua lähettävänä SEPA-maksuna"
 
 #. module: account_iso20022
 #. odoo-python
@@ -215,24 +228,24 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_batch_payment__iso20022_batch_booking
 msgid "Request batch booking from the bank for the related bank statements."
-msgstr ""
+msgstr "Pyydä pankilta erävarausta asiaan liittyviä tiliotteita varten."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_batch_payment__iso20022_batch_booking
 msgid "SCT Batch Booking"
-msgstr ""
+msgstr "SCT-erän varaus"
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_sepa_ct
 #: model_terms:ir.ui.view,arch_db:account_iso20022.view_account_journal_form
 msgid "SEPA Credit Transfer"
-msgstr ""
+msgstr "SEPA credit-siirto"
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal_dashboard.py:0
 msgid "SEPA Credit Transfers to Send"
-msgstr ""
+msgstr "Lähetettävät SEPA-tilisiirrot"
 
 #. module: account_iso20022
 #. odoo-python
@@ -262,13 +275,13 @@ msgstr ""
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__shar
 msgid "Shared"
-msgstr ""
+msgstr "Jaettu"
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Some payments are above the maximum amount allowed."
-msgstr ""
+msgstr "Jotkin maksut ylittävät sallitun enimmäismäärän."
 
 #. module: account_iso20022
 #. odoo-python
@@ -277,12 +290,14 @@ msgid ""
 "Some payments are missing a value for 'UETR', required for the SEPA "
 "Pain.001.001.09 format."
 msgstr ""
+"Joistakin maksuista puuttuu UETR-arvo, jota SEPA Pain.001.001.001.09 "
+"-muodossa tarvitaan."
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Some payments have no recipient bank account set."
-msgstr ""
+msgstr "Joillekin maksuille ei ole asetettu vastaanottajan pankkitiliä."
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_batch_payment__iso20022_charge_bearer
@@ -321,6 +336,9 @@ msgid ""
 "- 18 alphanumeric characters with capital letters\n"
 "- 2 digits in the end\n"
 msgstr ""
+"LEI-numeron on sisällettävä 20 merkkiä ja sen on vastattava seuraavaa rakennetta:\n"
+"- 18 aakkosnumeerista merkkiä isoilla kirjaimilla\n"
+"- 2 numeroa lopussa\n"
 
 #. module: account_iso20022
 #. odoo-python
@@ -353,6 +371,8 @@ msgid ""
 "The journal '%s' requires a proper IBAN account to pay via SEPA. Please "
 "configure it first."
 msgstr ""
+"Päiväkirja '%s' edellyttää asianmukaista IBAN-tiliä SEPA-maksua varten. "
+"Määritä se ensin."
 
 #. module: account_iso20022
 #. odoo-python
@@ -364,17 +384,17 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Too many transactions for a single file."
-msgstr ""
+msgstr "Liian monta tapahtumaa yhteen tiedostoon."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_payment__iso20022_uetr
 msgid "UETR"
-msgstr ""
+msgstr "UETR"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_payment__iso20022_uetr
 msgid "Unique end-to-end transaction reference"
-msgstr ""
+msgstr "Yksilöllinen alusta loppuun tapahtumaviite"
 
 #. module: account_iso20022
 #. odoo-python
@@ -395,6 +415,8 @@ msgid ""
 "Will appear in SEPA payments as the name of the party initiating the "
 "payment. Limited to 70 characters."
 msgstr ""
+"Ilmoitetaan SEPA-maksuissa maksun aloittavan osapuolen nimenä. Rajoitettu 70"
+" merkkiin."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__sepa_pain_version
@@ -406,7 +428,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_initiating_party_name
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_initiating_party_name
 msgid "Your Company Name"
-msgstr ""
+msgstr "Yrityksen nimi"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03

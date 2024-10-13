@@ -365,7 +365,7 @@ msgstr "演示數據啟用"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Destination Location"
-msgstr "目的地位置"
+msgstr "目標位置"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
@@ -416,7 +416,7 @@ msgstr "揀貨員是否必須將掃描的產品放入包裹中？如果是，以
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
 msgid "Does the picker have to scan the destination? If yes, at which rate?"
-msgstr "揀貨員必須掃描目的位置嗎？如果是，以什麼速度？"
+msgstr "揀貨員必須掃描目標位置嗎？如果是，以什麼速度？"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_cancel_operation_view
@@ -509,7 +509,7 @@ msgstr "強制掃描來源位置?"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_after_dest_location
 msgid "Force a destination on all products"
-msgstr "強制所有產品掃描目的位置"
+msgstr "強制所有產品掃描目標位置"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_all_product_packed
@@ -654,7 +654,7 @@ msgstr "批次/序列號"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Mandatory Destination Location"
-msgstr "強制性目的位置"
+msgstr "強制性目標位置"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__mandatory
@@ -1045,13 +1045,13 @@ msgstr "掃描批次"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a lot number or a packages then the destination location"
-msgstr "先掃描批次或者包裹，然後掃描目的位置。"
+msgstr "先掃描批次或者包裹，然後掃描目標位置。"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a lot number then the destination location"
-msgstr "先掃描批次，然後掃描目的位置。"
+msgstr "先掃描批次，然後掃描目標位置。"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1069,13 +1069,13 @@ msgstr "掃描包裹或放入包裹"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a package or the destination location"
-msgstr "掃描包裹或者目的位置"
+msgstr "掃描包裹或者目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a package, the destination location or another product"
-msgstr "掃描包裹，目的位置或者另一產品"
+msgstr "掃描包裹，目標位置或者另一產品"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1118,13 +1118,13 @@ msgstr "掃描產品或者另一包裹"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product or the destination location."
-msgstr "掃描產品或者目的位置"
+msgstr "掃描產品或者目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product then the destination location"
-msgstr "掃描產品，然後掃描目的位置"
+msgstr "掃描產品，然後掃描目標位置"
 
 #. module: stock_barcode
 #. odoo-python
@@ -1137,13 +1137,13 @@ msgstr "掃瞄產品、批次/序號或包裝，以篩選轉移。"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product, a package or the destination location"
-msgstr "掃描產品，包裹或目的位置"
+msgstr "掃描產品，包裹或目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a product, a package or the destination location."
-msgstr "掃描產品，包裹或目的位置"
+msgstr "掃描產品，包裹或目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1161,13 +1161,13 @@ msgstr "掃描序列號碼或者包裹"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a serial number or a package then the destination location"
-msgstr "掃描序列號碼或者包裹，然後掃描目的位置"
+msgstr "掃描序列號碼或者包裹，然後掃描目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan a serial number then the destination location"
-msgstr "掃描序列號碼，然後掃描目的位置"
+msgstr "掃描序列號碼，然後掃描目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1233,7 +1233,7 @@ msgstr "掃描產品序列號碼%s，以更改其數量"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "Scan the destination location"
-msgstr "掃描目的位置"
+msgstr "掃描目標位置"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1312,7 +1312,7 @@ msgstr "序列號／批次號碼"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "Set the maximum delay between each key in ms (100 ms by default.)"
-msgstr ""
+msgstr "設定每次按鍵之間的最長延遲，單位為毫秒（預設為 100 毫秒）"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__show_barcode_nomenclature

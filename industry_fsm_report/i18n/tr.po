@@ -4,9 +4,9 @@
 # 
 # Translators:
 # emre oktem, 2024
-# Martin Trigaux, 2024
 # Murat Kaplan <muratk@projetgrup.com>, 2024
 # Ediz Duman <neps1192@gmail.com>, 2024
+# Martin Trigaux, 2024
 # Tugay Hatıl <tugayh@projetgrup.com>, 2024
 # 
 msgid ""
@@ -28,12 +28,14 @@ msgstr ""
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "<b>Review and sign</b> the <b>task report</b> with your customer."
 msgstr ""
+"<b>Görev raporunu</b> <b>gözden geçirin ve müşterinizle birlikte "
+"imzalayın.</b>"
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "<b>Send your task report</b> to your customer."
-msgstr ""
+msgstr "<b>Görev raporunuzu</b> müşterinize gönderin."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_project_kanban_inherit_industry_fsm_report
@@ -41,11 +43,13 @@ msgid ""
 "<span class=\"fa fa-pencil me-1\" aria-label=\"Worksheet Template\" "
 "title=\"Worksheet Template\"/>"
 msgstr ""
+"<span class=\"fa fa-pencil me-1\" aria-label=\"Worksheet Template\" "
+"title=\"Worksheet Template\"/>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_kanban
 msgid "<span class=\"o_label ms-2\">Worksheets</span>"
-msgstr ""
+msgstr "<span class=\"o_label ms-2\">Çalışma Sayfaları</span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
@@ -74,12 +78,12 @@ msgstr ""
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_task_burndown_chart_report
 msgid "Burndown Chart"
-msgstr ""
+msgstr "Açılış tablosu"
 
 #. module: industry_fsm_report
 #: model:ir.ui.menu,name:industry_fsm_report.project_task_menu_planning_by_project_fsm
 msgid "By Worksheet Template"
-msgstr ""
+msgstr "Çalışma Sayfası Şablonuna Göre"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.x_project_task_worksheet_template_3_ir_model_fields_7
@@ -99,6 +103,8 @@ msgid ""
 "Create templates for each type of intervention you have and customize their "
 "content with your own custom fields."
 msgstr ""
+"Sahip olduğunuz her müdahale türü için şablonlar oluşturun ve içeriklerini "
+"kendi özel alanlarınızla özelleştirin."
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__create_uid
@@ -135,7 +141,7 @@ msgstr "Ön tanımlı çalışma sayfası "
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Description of the Intervention"
-msgstr ""
+msgstr "Müdahalenin Tanımı"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.res_config_settings_view_form
@@ -145,7 +151,7 @@ msgstr ""
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.x_project_task_worksheet_template_4_ir_model_1
 msgid "Device Installation and Maintenance"
-msgstr ""
+msgstr "Cihaz Kurulumu ve Bakımı"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_template_view_form_footer_design_button
@@ -169,7 +175,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Fill in your <b>worksheet</b> with the details of your intervention."
-msgstr ""
+msgstr "<b>Çalışma sayfanızı</b> müdahalenizin ayrıntılarıyla doldurun."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
@@ -182,7 +188,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Go back to your Field Service <b>task</b>."
-msgstr ""
+msgstr "Field Service <b>görevinize</b> geri dönün."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
@@ -190,6 +196,8 @@ msgid ""
 "I hereby certify that this device meets the requirements of an acceptable "
 "device at the time of testing."
 msgstr ""
+"Bu cihazın test sırasında kabul edilebilir bir cihazın gereksinimlerini "
+"karşıladığını onaylarım."
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__id
@@ -201,13 +209,14 @@ msgstr "ID"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Intervention Type"
-msgstr ""
+msgstr "Müdahale Türü"
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Invite your customer to <b>validate and sign your task report</b>."
 msgstr ""
+"Müşterinizi <b>görev raporunuzu doğrulamaya ve imzalamaya</b> davet edin."
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__write_uid
@@ -236,12 +245,12 @@ msgstr ""
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Manufacturer"
-msgstr ""
+msgstr "Üretici"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Model"
-msgstr ""
+msgstr "Model"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.x_project_task_worksheet_template_3_ir_model_fields_8
@@ -253,12 +262,12 @@ msgstr "Adı"
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet2
 msgid "No tasks found. Let's create one!"
-msgstr ""
+msgstr "Görev bulunamadı. Hadi bir tane oluşturalım!"
 
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.fsm_worksheets_action_settings
 msgid "No worksheet templates found. Let's create one!"
-msgstr ""
+msgstr "Çalışma sayfası şablonu bulunamadı. Hadi bir tane oluşturalım!"
 
 #. module: industry_fsm_report
 #. odoo-javascript
@@ -267,12 +276,13 @@ msgid ""
 "Open your <b>worksheet</b> in order to fill it in with the details of your "
 "intervention."
 msgstr ""
+"Müdahalenizin ayrıntılarını doldurmak için <b>çalışma sayfanızı</b> açın."
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 #: model:ir.actions.act_window,name:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet2
 msgid "Planning by Worksheet Template"
-msgstr ""
+msgstr "Çalışma Sayfası Şablonuna Göre Planlama"
 
 #. module: industry_fsm_report
 #: model:ir.actions.server,name:industry_fsm_report.project_task_fsm_planning_groupby_worksheet_server_action
@@ -282,34 +292,34 @@ msgstr ""
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_project
 msgid "Project"
-msgstr ""
+msgstr "Proje"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_template_view_form_footer_design_button
 msgid "Save & Close"
-msgstr ""
+msgstr "Kaydet & Kapat"
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Save time by automatically generating a <b>signature</b>."
-msgstr ""
+msgstr "Otomatik olarak bir <b>imza</b> oluşturarak zamandan tasarruf edin."
 
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet2
 msgid "Schedule your tasks and assign them to your workers."
-msgstr ""
+msgstr "Görevlerinizi planlayın ve çalışanlarınıza atayın."
 
 #. module: industry_fsm_report
 #: model:ir.actions.server,name:industry_fsm_report.action_fsm_task_send_report
 msgid "Send Report"
-msgstr ""
+msgstr "Rapor Gönder"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Serial Number"
-msgstr ""
+msgstr "Seri Numarası"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
@@ -343,34 +353,34 @@ msgstr "Görev"
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_task_recurrence
 msgid "Task Recurrence"
-msgstr ""
+msgstr "Görev Tekrarı"
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_report_industry_fsm_worksheet_custom
 msgid "Task Worksheet Custom Report"
-msgstr ""
+msgstr "Görev Çalışma Sayfası Özel Raporu"
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_report_project_task_user
 msgid "Tasks Analysis"
-msgstr ""
+msgstr "Görev Analizi"
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Use the breadcrumbs to return to your <b>task</b>."
-msgstr ""
+msgstr "<b>Görevinize</b> geri dönmek için ekmek kırıntılarını kullanın."
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Validate the <b>signature</b>."
-msgstr ""
+msgstr "<b>İmzayı</b> doğrulayın."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Worker Signature"
-msgstr ""
+msgstr "İşçi İmzası"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.portal_my_task
@@ -389,14 +399,14 @@ msgstr "Çalışma Sayfası"
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_map_view_inherit_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_view_search_fsm_report
 msgid "Worksheet Template"
-msgstr ""
+msgstr "Çalışma Sayfası Şablonu"
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.action_fsm_worksheets
 #: model:ir.actions.act_window,name:industry_fsm_report.fsm_worksheets_action_settings
 #: model:ir.ui.menu,name:industry_fsm_report.fsm_settings_worksheets
 msgid "Worksheet Templates"
-msgstr ""
+msgstr "Çalışma Sayfası Şablonları"
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.x_project_task_worksheet_template_3_ir_actions_act_window_1

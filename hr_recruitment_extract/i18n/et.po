@@ -5,6 +5,9 @@
 # Translators:
 # Siim Raasuke, 2024
 # Stevin Lilla, 2024
+# Leaanika Randmets, 2024
+# JanaAvalah, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +31,7 @@ msgstr "Vajalik toiming"
 #. module: hr_recruitment_extract
 #: model:ir.model,name:hr_recruitment_extract.model_hr_applicant
 msgid "Applicant"
-msgstr ""
+msgstr "Kandideerija"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__message_attachment_count
@@ -38,17 +41,17 @@ msgstr "Manuste arv"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__extract_can_show_send_button
 msgid "Can show the ocr send button"
-msgstr ""
+msgstr "Saab näidata OCR-i saatmise nuppu"
 
 #. module: hr_recruitment_extract
 #: model:ir.model,name:hr_recruitment_extract.model_hr_candidate
 msgid "Candidate"
-msgstr ""
+msgstr "Kandidaat"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.res_config_settings_view_form
 msgid "Choose a Job Board"
-msgstr ""
+msgstr "Vali tööportaal"
 
 #. module: hr_recruitment_extract
 #: model:ir.model,name:hr_recruitment_extract.model_res_company
@@ -63,23 +66,23 @@ msgstr "Seadistused"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields.selection,name:hr_recruitment_extract.selection__res_company__recruitment_extract_show_ocr_option_selection__auto_send
 msgid "Digitize automatically"
-msgstr ""
+msgstr "Tee automaatselt digitaalseks"
 
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_actions_server_digitize_cv
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.hr_recruitment_extract_view_form
 msgid "Digitize document"
-msgstr ""
+msgstr "Dokumendi digitaliseerimine"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields.selection,name:hr_recruitment_extract.selection__res_company__recruitment_extract_show_ocr_option_selection__manual_send
 msgid "Digitize on demand only"
-msgstr ""
+msgstr "Tee digitaalseks ainult nõudmisel"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields.selection,name:hr_recruitment_extract.selection__res_company__recruitment_extract_show_ocr_option_selection__no_send
 msgid "Do not digitize"
-msgstr ""
+msgstr "Ära tee digitaalseks"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__extract_error_message
@@ -89,17 +92,17 @@ msgstr "Veateade"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Extract State Processed"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__extract_state
 msgid "Extract state"
-msgstr ""
+msgstr "Väljavõtte olek"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Väljavõtte olek"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__message_follower_ids
@@ -119,7 +122,7 @@ msgstr "On sõnum"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID IAP-OCR taotlusele"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,help:hr_recruitment_extract.field_hr_candidate__message_needaction
@@ -140,17 +143,17 @@ msgstr "On jälgija"
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "On ekstraheeritavas olekus"
 
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.res_config_settings_view_form
 msgid "Job Board"
-msgstr ""
+msgstr "Tööportaal"
 
 #. module: hr_recruitment_extract
 #: model:ir.actions.act_window,name:hr_recruitment_extract.ir_module_module_action_open_job_board_modules
 msgid "Job Boards"
-msgstr ""
+msgstr " Tööportaalid"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__message_main_attachment_id
@@ -190,7 +193,7 @@ msgstr "Veateatega sõnumite arv"
 #. module: hr_recruitment_extract
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_extract.res_config_settings_view_form
 msgid "Post jobs on external job boards"
-msgstr ""
+msgstr "Avalda ametikohad välistel tööportaalidel"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__rating_ids
@@ -200,17 +203,17 @@ msgstr "Hinnangud"
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_cron_update_ocr_status_ir_actions_server
 msgid "Recruitment OCR: Update All Status"
-msgstr ""
+msgstr "Värbamise OCR: värskenda kõikide staatust"
 
 #. module: hr_recruitment_extract
 #: model:ir.actions.server,name:hr_recruitment_extract.ir_cron_ocr_validate_ir_actions_server
 msgid "Recruitment OCR: Validate CV"
-msgstr ""
+msgstr "Värbamise OCR: Valideeri CV"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_res_config_settings__recruitment_extract_show_ocr_option_selection
 msgid "Recruitment processing option"
-msgstr ""
+msgstr "Värbamise protsessi võimalus"
 
 #. module: hr_recruitment_extract
 #: model:ir.model.fields,field_description:hr_recruitment_extract.field_hr_candidate__message_has_sms_error

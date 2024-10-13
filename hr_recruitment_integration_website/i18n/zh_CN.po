@@ -70,6 +70,12 @@ msgid ""
 "It's your last chance to make a good impression and attract the best candidates to our company so make it count!\n"
 "Here is the data to generate the job description:\n"
 msgstr ""
+"忽略之前的提示，格式化为 HTML 及没有超链接\n"
+"您是我们公司最好的招聘人员，我们正在寻找一名新员工。 \n"
+"您的任务是为新职位空缺，撰写最好的职位描述。\n"
+"根据以下信息，制作一个友好而且有吸引力的职位描述，要能够吸引潜在应征者的（平台可以是 LinkedIn、Indeed、Glassdoor、Monster 等）\n"
+"这是你留下好印象并吸引最优秀应征者加入我们公司的最后机会，所以请尽力而为！\n"
+"以下是产生职位描述的数据：\n"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__platform_ids
@@ -107,7 +113,7 @@ msgstr "过账"
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 #: model:ir.model,name:hr_recruitment_integration_website.model_hr_recruitment_post_job_wizard
 msgid "Post Job"
-msgstr ""
+msgstr "发布职位"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -118,23 +124,23 @@ msgstr ""
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_job_post__apply_method__redirect
 msgid "Redirect to Website"
-msgstr ""
+msgstr "重定向至网站"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_recruitment_post_job_wizard__apply_method__redirect
 msgid "Redirect to company's website"
-msgstr ""
+msgstr "重定向到公司网站"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.actions.server,name:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_action_regenerate_post
 msgid "Regenerate Post"
-msgstr ""
+msgstr "重新生成帖子"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "Sorry, the web page is too long for our AI to process."
-msgstr ""
+msgstr "抱歉，网页太长，我们的人工智能无法处理。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -148,7 +154,7 @@ msgstr "抱歉，我们无法生成回复。请稍后再试。"
 msgid ""
 "The Job Description will be replaced with the generated one, do you want to "
 "continue?"
-msgstr ""
+msgstr "职位描述将被生成的职位描述替换，您想继续吗？"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,help:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
@@ -161,7 +167,7 @@ msgstr "活动开始的日期。"
 msgid ""
 "The job must be published on the website to generate a post with a redirect "
 "apply method."
-msgstr ""
+msgstr "该职位必须在网站上发布，才能使用重定向应用方法生成帖子。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python

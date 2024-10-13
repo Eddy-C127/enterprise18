@@ -3,10 +3,13 @@
 # 	* account_3way_match
 # 
 # Translators:
+# Stevin Lilla, 2024
 # Siim Raasuke, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
 # Egon Raamat <egon@avalah.ee>, 2024
-# Stevin Lilla, 2024
+# Andre Roomet <andreroomet@gmail.com>, 2024
+# Birgit Vijar, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Stevin Lilla, 2024\n"
+"Last-Translator: Birgit Vijar, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,29 +34,34 @@ msgid ""
 "  * Exception, there is a difference between received and billed quantities\n"
 "This status is defined automatically, but you can force it by ticking the 'Force Status' checkbox."
 msgstr ""
+"See väli aktsepteerib järgmisi väärtuseid: :\n"
+"* Jah: arve tuleks maksta, kaup on kohale jõudnud\n"
+" * Ei, arvet ei peaks maksma, kaup ei ole veel kohale jõudnud\n"
+" * Erand, arvel olevate ja saabunud kaupade kogustes on erinevusi\n"
+"See staatus defineeritakse automaatselt aga saate seda muuta märkides \"Määra Staatus Jõuga\" valikusse linnuke."
 
 #. module: account_3way_match
 #: model_terms:ir.ui.view,arch_db:account_3way_match.account_invoice_filter_inherit_account_3way_match
 msgid "Bills in Exception"
-msgstr ""
+msgstr "Ülevaatamist vajavad arved"
 
 #. module: account_3way_match
 #: model_terms:ir.ui.view,arch_db:account_3way_match.account_invoice_filter_inherit_account_3way_match
 msgid "Bills to Pay"
-msgstr "Arved maksta"
+msgstr "Tasumisele kuuluvad arved"
 
 #. module: account_3way_match
 #: model:ir.model.fields.selection,name:account_3way_match.selection__account_move__release_to_pay__exception
 #: model:ir.model.fields.selection,name:account_3way_match.selection__account_move__release_to_pay_manual__exception
 #: model:ir.model.fields.selection,name:account_3way_match.selection__account_move_line__can_be_paid__exception
 msgid "Exception"
-msgstr "Erand"
+msgstr "Ülevaatamisel"
 
 #. module: account_3way_match
 #: model:ir.model.fields,field_description:account_3way_match.field_account_bank_statement_line__force_release_to_pay
 #: model:ir.model.fields,field_description:account_3way_match.field_account_move__force_release_to_pay
 msgid "Force Status"
-msgstr ""
+msgstr "Määra staatus jõuga"
 
 #. module: account_3way_match
 #: model:ir.model.fields,help:account_3way_match.field_account_bank_statement_line__force_release_to_pay
@@ -61,7 +69,7 @@ msgstr ""
 msgid ""
 "Indicates whether the 'Should Be Paid' status is defined automatically or "
 "manually."
-msgstr ""
+msgstr "Näitab, kas staatus \"Peaks maksma\" on määratud automaatselt või käsitsi"
 
 #. module: account_3way_match
 #: model:ir.model,name:account_3way_match.model_account_journal
@@ -89,18 +97,18 @@ msgstr "Ei"
 #: model:ir.model.fields,field_description:account_3way_match.field_account_bank_statement_line__release_to_pay
 #: model:ir.model.fields,field_description:account_3way_match.field_account_move__release_to_pay
 msgid "Release To Pay"
-msgstr ""
+msgstr "Vabasta maksmiseks"
 
 #. module: account_3way_match
 #: model:ir.model.fields,field_description:account_3way_match.field_account_move_line__can_be_paid
 msgid "Release to Pay"
-msgstr ""
+msgstr "Vabasta maksmiseks"
 
 #. module: account_3way_match
 #: model:ir.model.fields,field_description:account_3way_match.field_account_bank_statement_line__release_to_pay_manual
 #: model:ir.model.fields,field_description:account_3way_match.field_account_move__release_to_pay_manual
 msgid "Should Be Paid"
-msgstr ""
+msgstr "Maksmist vajavad arved"
 
 #. module: account_3way_match
 #: model:ir.model.fields,help:account_3way_match.field_account_bank_statement_line__release_to_pay
@@ -112,6 +120,11 @@ msgid ""
 "  * Exception, there is a difference between received and billed quantities\n"
 "This status is defined automatically, but you can force it by ticking the 'Force Status' checkbox."
 msgstr ""
+"See väli aktsepteerib järgmisi väärtuseid: :\n"
+"* Jah: arve tuleks maksta, kaup on kohale jõudnud\n"
+" * Ei, arvet ei peaks maksma, kaup ei ole veel jõudnud\n"
+" * Erand, arvel olevalte ja kohale jõudnud kaupade kogustes on erinevus\n"
+"See staatus defineeritakse automaatselt aga saate seda muuta märkides \"Määra Staatus Jõuga\" valikusse linnuke."
 
 #. module: account_3way_match
 #: model:ir.model.fields.selection,name:account_3way_match.selection__account_move__release_to_pay__yes

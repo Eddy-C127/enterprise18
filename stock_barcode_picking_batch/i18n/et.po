@@ -4,8 +4,12 @@
 # 
 # Translators:
 # Stevin Lilla, 2024
-# Patrick-Jordan Kiudorv, 2024
 # Siim Raasuke, 2024
+# Birgit Vijar, 2024
+# Patrick-Jordan Kiudorv, 2024
+# Anna, 2024
+# Leaanika Randmets, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Siim Raasuke, 2024\n"
+"Last-Translator: Piia Paurson <piia@avalah.ee>, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +34,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_picking_view_kanban
 msgid "<span class=\"fa fa-external-link-square ms-1\" title=\"Open Batch Picking\"/>"
 msgstr ""
+"<span class=\"fa fa-external-link-square ms-1\" title=\"Open Batch "
+"Picking\"/>"
 
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_barcode_batch_picking_view_info
@@ -39,29 +45,29 @@ msgstr "Toodete eraldamine"
 #. module: stock_barcode_picking_batch
 #: model:ir.actions.client,name:stock_barcode_picking_batch.stock_barcode_picking_batch_client_action
 msgid "Barcode Batch Picking Client Action"
-msgstr ""
+msgstr "Triipkoodi koondvalimise kliendi toiming"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model,name:stock_barcode_picking_batch.model_stock_picking_batch
 #: model:ir.model.fields,field_description:stock_barcode_picking_batch.field_stock_barcode_cancel_operation__batch_id
 msgid "Batch Transfer"
-msgstr ""
+msgstr "Koondsiire"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model.fields,field_description:stock_barcode_picking_batch.field_stock_barcode_cancel_operation__batch_name
 msgid "Batch Transfer Name"
-msgstr ""
+msgstr "Koondsiirde nimi"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.actions.act_window,name:stock_barcode_picking_batch.stock_barcode_batch_picking_action_kanban
 msgid "Batch Transfers"
-msgstr ""
+msgstr "Koondsiire"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "Batches"
-msgstr ""
+msgstr "Koondpalgalehed"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
@@ -72,13 +78,13 @@ msgstr ""
 #. module: stock_barcode_picking_batch
 #: model:ir.model,name:stock_barcode_picking_batch.model_stock_barcode_cancel_operation
 msgid "Cancel Operation"
-msgstr ""
+msgstr "Tühista toiming"
 
 #. module: stock_barcode_picking_batch
 #. odoo-python
 #: code:addons/stock_barcode_picking_batch/models/stock_picking_batch.py:0
 msgid "Cancel this batch transfer?"
-msgstr ""
+msgstr "Tühista koondsiire?"
 
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_barcode_batch_picking_view_info
@@ -98,7 +104,7 @@ msgstr "Loobu"
 #. module: stock_barcode_picking_batch
 #: model:ir.model.fields,field_description:stock_barcode_picking_batch.field_stock_picking__display_batch_button
 msgid "Display Batch Button"
-msgstr ""
+msgstr "Kuva koond nupp"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model.fields,field_description:stock_barcode_picking_batch.field_stock_picking_type__group_lines_by_product
@@ -120,19 +126,19 @@ msgstr ""
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.actions.act_window,help:stock_barcode_picking_batch.stock_barcode_batch_picking_action_kanban
 msgid "No batch transfer found"
-msgstr ""
+msgstr "Koonsiirdeid ei leitud"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "No ready transfers found"
-msgstr ""
+msgstr "Ühtegi valmis siiret ei leitud"
 
 #. module: stock_barcode_picking_batch
 #. odoo-python
 #: code:addons/stock_barcode_picking_batch/models/stock_picking_batch.py:0
 msgid "Open picking batch form"
-msgstr ""
+msgstr "Ava koondvalimise vorm"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model,name:stock_barcode_picking_batch.model_stock_picking_type
@@ -143,7 +149,7 @@ msgstr "Noppetüüp"
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "Print Batch Transfer"
-msgstr ""
+msgstr "Printige koondsiire"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
@@ -160,31 +166,31 @@ msgstr "Toote liikumised"
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "Scan the package %s"
-msgstr ""
+msgstr "Skaneeri pakk %s"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "Select an operation type for batch transfer"
-msgstr ""
+msgstr "Valige operatsiooni tüüp koondsiirdele."
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "Select transfers for batch transfer"
-msgstr ""
+msgstr "Valige kanded koondsiirde jaoks."
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "The Batch Transfer has been validated"
-msgstr ""
+msgstr "Koondsiire on kinnitatud"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "The batch picking has been cancelled"
-msgstr ""
+msgstr "Koondsiire on tühistatud"
 
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.actions.act_window,help:stock_barcode_picking_batch.stock_barcode_batch_picking_action_kanban
@@ -194,6 +200,10 @@ msgid ""
 "            It may also be useful to assign jobs (one person = one batch) or\n"
 "            help the timing management of operations (tasks to be done at 1pm)."
 msgstr ""
+"Koondiirde eesmärgiks on koondada operatsioonid, mis\n"
+"            (peaks) olema tehtud koos tõstmaks nende efektiivsust. \n"
+"            Samuti võib olla kasulik määrata töösid (üks inimene= üks kogumik) või\n"
+"aidata toimingute ajastamist (ülesanded teha valmis kella 1ks)"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model.fields,help:stock_barcode_picking_batch.field_stock_move_line__picking_id
@@ -204,13 +214,13 @@ msgstr "Lao tegevus, kus pakkimine toimus"
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "This batch transfer is already done"
-msgstr ""
+msgstr "See koondsiire on juba tehtud."
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
 #: code:addons/stock_barcode_picking_batch/static/src/models/barcode_picking_batch_model.js:0
 msgid "This batch transfer is cancelled"
-msgstr ""
+msgstr "See koondsiire on tühistatud"
 
 #. module: stock_barcode_picking_batch
 #. odoo-javascript
@@ -219,6 +229,7 @@ msgid ""
 "This batch transfer is still draft, it must be confirmed before being "
 "processed"
 msgstr ""
+"See koondsiire on endiselt mustand, see tuleb enne protsessimist kinnitada"
 
 #. module: stock_barcode_picking_batch
 #: model:ir.model,name:stock_barcode_picking_batch.model_stock_picking
@@ -241,7 +252,7 @@ msgstr "Operatsiooni tüüp"
 #. module: stock_barcode_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcode_picking_batch.stock_barcode_batch_picking_view_info
 msgid "Unbatch Transfer"
-msgstr ""
+msgstr "Eemalda koondsiire"
 
 #. module: stock_barcode_picking_batch
 #. odoo-python
@@ -251,3 +262,6 @@ msgid ""
 "can use the info button on the top right corner of your screen to remove the"
 " transfer in question from the batch."
 msgstr ""
+"Kui ühtegi kogust pole broneeritud ega tehtud, ei saa kannet kinnitada. "
+"Käesoleva kande koondsiirdest eemaldamiseks saate kasutada ekraani paremas "
+"ülanurgas asuvat teabenuppu."

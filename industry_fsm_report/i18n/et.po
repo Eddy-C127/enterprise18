@@ -3,9 +3,14 @@
 # 	* industry_fsm_report
 # 
 # Translators:
-# Siim Raasuke, 2024
 # Stevin Lilla, 2024
+# Siim Raasuke, 2024
+# Patrick-Jordan Kiudorv, 2024
 # Martin Trigaux, 2024
+# Leaanika Randmets, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Anna, 2024
+# Tairi Tiimann, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Tairi Tiimann, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,12 +31,14 @@ msgstr ""
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "<b>Review and sign</b> the <b>task report</b> with your customer."
 msgstr ""
+"<b>Vaadake ülesande</b> <b>aruanne</b> koos kliendiga läbi ja allkirjastage "
+"see."
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "<b>Send your task report</b> to your customer."
-msgstr ""
+msgstr "<b>Saatke oma ülesande aruanne</b> kliendile."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_project_kanban_inherit_industry_fsm_report
@@ -39,16 +46,18 @@ msgid ""
 "<span class=\"fa fa-pencil me-1\" aria-label=\"Worksheet Template\" "
 "title=\"Worksheet Template\"/>"
 msgstr ""
+"<span class=\"fa fa-pencil me-1\" aria-label=\"Worksheet Template\" "
+"title=\"Worksheet Template\"/>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_kanban
 msgid "<span class=\"o_label ms-2\">Worksheets</span>"
-msgstr ""
+msgstr "<span class=\"o_label ms-2\">Tööleht</span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
 msgid "<span class=\"o_stat_text\">Worksheet</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Töölehed</span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_task_form2_inherit
@@ -56,6 +65,8 @@ msgid ""
 "<span class=\"o_stat_text\">Worksheet</span>\n"
 "                            <span class=\"o_stat_text\">Complete</span>"
 msgstr ""
+"<span class=\"o_stat_text\">Tööleht</span>\n"
+"                            <span class=\"o_stat_text\">Valmis</span>"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_view_gantt_fsm_worksheet
@@ -67,7 +78,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_3_ir_ui_view_1
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.x_project_task_worksheet_template_4_ir_ui_view_1
 msgid "Add details about your intervention..."
-msgstr ""
+msgstr "Lisa oma sekkumise kohta üksikasjad..."
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_project_task_burndown_chart_report
@@ -77,7 +88,7 @@ msgstr "Burndown Chart"
 #. module: industry_fsm_report
 #: model:ir.ui.menu,name:industry_fsm_report.project_task_menu_planning_by_project_fsm
 msgid "By Worksheet Template"
-msgstr ""
+msgstr "Töölehe malli järgi"
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.x_project_task_worksheet_template_3_ir_model_fields_7
@@ -118,7 +129,7 @@ msgstr "Loodud"
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Customize your <b>layout</b>."
-msgstr ""
+msgstr "Kohanda oma <b>kujundust</b>."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
@@ -128,12 +139,12 @@ msgstr "Kuupäev"
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.x_project_task_worksheet_template_3_ir_model_1
 msgid "Default Worksheet"
-msgstr ""
+msgstr "Vaikimisi tööleht"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Description of the Intervention"
-msgstr ""
+msgstr "Sekkumise kirjeldus"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.res_config_settings_view_form
@@ -143,7 +154,7 @@ msgstr ""
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.x_project_task_worksheet_template_4_ir_model_1
 msgid "Device Installation and Maintenance"
-msgstr ""
+msgstr "Seadme installimine ja hooldus"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.worksheet_template_view_form_footer_design_button
@@ -167,7 +178,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Fill in your <b>worksheet</b> with the details of your intervention."
-msgstr ""
+msgstr "Täitke <b>tööleht</b> oma sekkumise üksikasjadega."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
@@ -180,7 +191,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Go back to your Field Service <b>task</b>."
-msgstr ""
+msgstr "Mine tagasi oma Paigalduse <b>ülesande</b> juurde."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
@@ -199,13 +210,13 @@ msgstr "ID"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Intervention Type"
-msgstr ""
+msgstr "Sekkumise tüüp"
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Invite your customer to <b>validate and sign your task report</b>."
-msgstr ""
+msgstr "Kutsu klient ülesande aruannet <b>kinnitama ja allkirjastama</b>."
 
 #. module: industry_fsm_report
 #: model:ir.model.fields,field_description:industry_fsm_report.field_worksheet_template_load_wizard__write_uid
@@ -224,7 +235,7 @@ msgstr "Viimati uuendatud"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
 msgid "Load Template"
-msgstr ""
+msgstr "Lae mall"
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_worksheet_template_load_wizard
@@ -256,7 +267,7 @@ msgstr "Ülesandeid ei leitud. Koostame ühe!"
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.fsm_worksheets_action_settings
 msgid "No worksheet templates found. Let's create one!"
-msgstr ""
+msgstr "Töölehe malle ei leitud. Loome ühe!"
 
 #. module: industry_fsm_report
 #. odoo-javascript
@@ -264,13 +275,13 @@ msgstr ""
 msgid ""
 "Open your <b>worksheet</b> in order to fill it in with the details of your "
 "intervention."
-msgstr ""
+msgstr "Avage <b>tööleht</b>, et lisada oma sekkumise üksikasjad."
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 #: model:ir.actions.act_window,name:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet2
 msgid "Planning by Worksheet Template"
-msgstr ""
+msgstr "Planeerimine töölehe malli järgi"
 
 #. module: industry_fsm_report
 #: model:ir.actions.server,name:industry_fsm_report.project_task_fsm_planning_groupby_worksheet_server_action
@@ -291,23 +302,23 @@ msgstr "Salvesta ja sulge"
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Save time by automatically generating a <b>signature</b>."
-msgstr ""
+msgstr "Säästke aega, genereerides <b>allkiri</b> automaatselt."
 
 #. module: industry_fsm_report
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet
 #: model_terms:ir.actions.act_window,help:industry_fsm_report.project_task_action_fsm_planning_groupby_worksheet2
 msgid "Schedule your tasks and assign them to your workers."
-msgstr ""
+msgstr "Planeerige enda ülesandeid ja määrake need oma töötajatele."
 
 #. module: industry_fsm_report
 #: model:ir.actions.server,name:industry_fsm_report.action_fsm_task_send_report
 msgid "Send Report"
-msgstr ""
+msgstr "Saada aruanne"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Serial Number"
-msgstr ""
+msgstr "Seerianumber"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.view_worksheet_template_load_form
@@ -346,7 +357,7 @@ msgstr "Ülesande kordumine"
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_report_industry_fsm_worksheet_custom
 msgid "Task Worksheet Custom Report"
-msgstr ""
+msgstr "Ülesandega töölehe kohandatud raportid. "
 
 #. module: industry_fsm_report
 #: model:ir.model,name:industry_fsm_report.model_report_project_task_user
@@ -357,18 +368,18 @@ msgstr "Ülesannete analüüs"
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Use the breadcrumbs to return to your <b>task</b>."
-msgstr ""
+msgstr "Kasutage navigeerimisriba, et minna tagasi oma <b>ülesandele</b>."
 
 #. module: industry_fsm_report
 #. odoo-javascript
 #: code:addons/industry_fsm_report/static/src/js/tours/industry_fsm_report_tour.js:0
 msgid "Validate the <b>signature</b>."
-msgstr ""
+msgstr "Valideeri <b>allkiri</b>."
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.report_custom_x_project_task_worksheet_template_4
 msgid "Worker Signature"
-msgstr ""
+msgstr "Töötaja allkiri"
 
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.portal_my_task
@@ -387,14 +398,14 @@ msgstr "Tööleht"
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_map_view_inherit_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_task_view_search_fsm_report
 msgid "Worksheet Template"
-msgstr ""
+msgstr "Töölehe mall"
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.action_fsm_worksheets
 #: model:ir.actions.act_window,name:industry_fsm_report.fsm_worksheets_action_settings
 #: model:ir.ui.menu,name:industry_fsm_report.fsm_settings_worksheets
 msgid "Worksheet Templates"
-msgstr ""
+msgstr "Töölehe mallid"
 
 #. module: industry_fsm_report
 #: model:ir.actions.act_window,name:industry_fsm_report.x_project_task_worksheet_template_3_ir_actions_act_window_1
@@ -407,4 +418,4 @@ msgstr "Töölehed"
 #. module: industry_fsm_report
 #: model_terms:ir.ui.view,arch_db:industry_fsm_report.project_project_form_inherit_industry_fsm_report
 msgid "e.g. Device Installation"
-msgstr ""
+msgstr "nt. Seadme paigaldamine"

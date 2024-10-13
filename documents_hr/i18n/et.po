@@ -3,12 +3,17 @@
 # 	* documents_hr
 # 
 # Translators:
-# Mihkel avalah, 2024
 # JanaAvalah, 2024
 # Siim Raasuke, 2024
 # Martin Trigaux, 2024
 # Arma Gedonsky <armagedonsky@hot.ee>, 2024
 # Stevin Lilla, 2024
+# Tairi Tiimann, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Mihkel avalah, 2024
+# Piia Paurson <piia@avalah.ee>, 2024
+# Andre Roomet <andreroomet@gmail.com>, 2024
+# Leaanika Randmets, 2024
 # Anna, 2024
 # 
 msgid ""
@@ -53,17 +58,17 @@ msgstr ""
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_absences
 msgid "Absences"
-msgstr ""
+msgstr "Puudumised"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_config_settings_view_form
 msgid "Centralize your employees' documents (contracts, payslips, etc.)"
-msgstr ""
+msgstr "Koonda kokku oma töötaja dokumendid (lepingud, palgalehed jne.)"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_certification
 msgid "Certifications"
-msgstr ""
+msgstr "Sertifikaadid"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_company
@@ -93,7 +98,7 @@ msgstr "Dokumendi arv"
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "Dokumendi ümbersuunamine"
 
 #. module: documents_hr
 #. odoo-python
@@ -107,7 +112,7 @@ msgstr "Dokumendid"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_settings
 msgid "Documents Hr Settings"
-msgstr ""
+msgstr "Dokumendid HR Seaded"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
@@ -127,16 +132,18 @@ msgid ""
 "Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
+"Töötajaga seotud kasutaja ja isiklik e-post tuleb seadistada, et kasutada \"Saada juurdepääsulink\" funktsiooni:\n"
+"%s"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_employees
 msgid "Employees Documents"
-msgstr ""
+msgstr "Töötajate Dokumendid"
 
 #. module: documents_hr
 #: model:mail.template,name:documents_hr.mail_template_document_folder_link
 msgid "HR: Document Access Link"
-msgstr ""
+msgstr "Personal: Dokumendite juurdepääsulink"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_settings
@@ -156,12 +163,12 @@ msgstr "Isiklik e-post"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
 msgid "Send Access Link"
-msgstr ""
+msgstr "Saada juurdepääsulink"
 
 #. module: documents_hr
 #: model:ir.actions.server,name:documents_hr.ir_actions_server_send_access_link
 msgid "Send HR Documents Access Link"
-msgstr ""
+msgstr "Saada personali dokumentide juurdepääsulink"
 
 #. module: documents_hr
 #: model:ir.model.fields,help:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
@@ -169,11 +176,13 @@ msgid ""
 "Send a share link to the private email of the employee with all the HR files"
 " he owns in Documents app"
 msgstr ""
+"Saadke töötaja isiklikule e-posti aadressile link tema töötamisega seotud "
+"dokumentidest"
 
 #. module: documents_hr
 #: model:mail.template,description:documents_hr.mail_template_document_folder_link
 msgid "Sent manually when recording an employee departure"
-msgstr ""
+msgstr "Saadetakse käsitsi töötaja lahkumise salvestamisel"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
@@ -184,7 +193,7 @@ msgstr "Suurus:"
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 msgid "The access link has been sent to the employee."
-msgstr ""
+msgstr "Töötajale on saadetud juurdepääsulink"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_users
@@ -194,7 +203,7 @@ msgstr "Kasutaja"
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_config_settings_view_form
 msgid "Workspace"
-msgstr ""
+msgstr "Tööala"
 
 #. module: documents_hr
 #. odoo-python
@@ -209,18 +218,21 @@ msgid ""
 "You must set a work contact address on the Employee in order to use "
 "Document's features."
 msgstr ""
+"Peate töötajale määrama töökoha aadressi, et kasutada dokumentide "
+"funktsioone."
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_folder
 msgid "hr Workspace"
-msgstr ""
+msgstr "hr Töölaud"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_folder
 msgid "hr default workspace"
-msgstr ""
+msgstr "hr vaikimisi töölaud"
 
 #. module: documents_hr
 #: model:mail.template,subject:documents_hr.mail_template_document_folder_link
 msgid "{{ object.name }}, your personal documents access link is available"
 msgstr ""
+"{{ object.name }}, teie isiklike dokumentide juurdepääsulink on saadaval"

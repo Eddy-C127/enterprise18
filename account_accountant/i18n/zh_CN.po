@@ -7,6 +7,7 @@
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -666,7 +667,7 @@ msgstr "创建日期"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__credit
 msgid "Credit"
-msgstr "贷项"
+msgstr "贷方"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__cron_last_check
@@ -730,7 +731,7 @@ msgstr "天"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__debit
 msgid "Debit"
-msgstr "借项"
+msgstr "借方"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__journal_default_account_id
@@ -1079,7 +1080,7 @@ msgid ""
 "feature to update multiple journal entries from the General Ledger, or any "
 "Journal view."
 msgstr ""
-"在任何列表视图中，选择多项记录，列表即变为可编辑。如果更新单元格，选定记录将一次性全部更新。使用该功能可以更新总账或任何日记账视图中的多个日记帐分录。"
+"在任何列表视图中，选择多项记录，列表即变为可编辑。如果更新单元格，选定记录将一次性全部更新。使用该功能可以更新总账或任何日记账视图中的多个日记账分录。"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_expense_amount_computation_method__full_months
@@ -1161,7 +1162,7 @@ msgstr "如果未勾选该复选框，则表示用户在创建移动时不确定
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "In Currency"
-msgstr ""
+msgstr "在货币中"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
@@ -1673,7 +1674,7 @@ msgstr "未匹配"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Not locked"
-msgstr ""
+msgstr "未锁定"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1681,7 +1682,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
 msgid "Notes"
-msgstr "凭单"
+msgstr "备注"
 
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.action_bank_statement_line_transactions
@@ -1819,7 +1820,7 @@ msgstr "合作伙伴"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Payable"
-msgstr "应付帐款"
+msgstr "应付账款"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2159,12 +2160,12 @@ msgstr "源余额"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_credit
 msgid "Source Credit"
-msgstr "源贷项"
+msgstr "源贷方"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_debit
 msgid "Source Debit"
-msgstr "源借项"
+msgstr "源借方"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_id
@@ -2286,7 +2287,7 @@ msgstr "如果是多币种分录，则金额以可选的其他币种表示。"
 msgid ""
 "The amount of the write-off of a single credit line should be strictly "
 "negative."
-msgstr "单一贷项资料行的撤账金额应该严格为负数。"
+msgstr "单一贷方资料行的撤账金额应该严格为负数。"
 
 #. module: account_accountant
 #. odoo-python
@@ -2294,7 +2295,7 @@ msgstr "单一贷项资料行的撤账金额应该严格为负数。"
 msgid ""
 "The amount of the write-off of a single debit line should be strictly "
 "positive."
-msgstr "单一借项资料行的撤账金额应该严格为正数。"
+msgstr "单一借方资料行的撤账金额应该严格为正数。"
 
 #. module: account_accountant
 #. odoo-python
@@ -2558,7 +2559,7 @@ msgstr "网站沟通记录"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "With residual"
-msgstr ""
+msgstr "剩余残值"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__wizard_id

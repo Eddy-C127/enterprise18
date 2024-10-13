@@ -3,6 +3,7 @@
 # 	* pos_urban_piper
 # 
 # Translators:
+# Daye Jeong, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
@@ -36,7 +37,7 @@ msgstr "수락"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
-msgstr ""
+msgstr "인정됨"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -227,7 +228,7 @@ msgstr "세부 정보"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__dispatched
 msgid "Dispatched"
-msgstr ""
+msgstr "발송됨"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__display_name
@@ -250,7 +251,13 @@ msgstr "편집"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__3
 msgid "Eggetarian"
-msgstr ""
+msgstr "달걀류는 섭취 가능한 채식주의자"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
+msgid "Error"
+msgstr "오류"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -291,6 +298,12 @@ msgstr ""
 msgid ""
 "Handle products with urban piper and pos config - Product is linked or not "
 "with appropriate store."
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+msgid "HungerStation Code"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -348,7 +361,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_json
 msgid "JSON data of the order."
-msgstr ""
+msgstr "주문의 JSON 데이터입니다."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__journal_code
@@ -423,12 +436,12 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__2
 msgid "Non-Vegetarian"
-msgstr ""
+msgstr "비채식주의자"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Not available for online orders."
-msgstr ""
+msgstr "온라인 주문에는 사용할 수 없습니다."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -499,7 +512,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Outlet"
-msgstr ""
+msgstr "아울렛"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -520,7 +533,7 @@ msgstr "전화번호"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__placed
 msgid "Placed"
-msgstr ""
+msgstr "배치됨"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_config
@@ -582,13 +595,13 @@ msgstr "품목"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_urban_piper_status__is_product_linked
 msgid "Product Status on Urban piper."
-msgstr ""
+msgstr "Urban piper의 제품 상태."
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Product is out of Stock"
-msgstr ""
+msgstr "제품 품절"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urbanpiper_meal_type
@@ -609,13 +622,13 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_delivery_provider_technical_name_uniq
 msgid "Provider Name must be unique."
-msgstr ""
+msgstr "공급자 이름은 고유해야 합니다."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__is_recommended_on_urbanpiper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__is_recommended_on_urbanpiper
 msgid "Recommended products on food platforms."
-msgstr ""
+msgstr "식품 플랫폼에서 추천하는 제품입니다."
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -642,6 +655,12 @@ msgstr "거부"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Reject Order"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
+msgid "Rejecting this order is not allowed for \"%(providerName)s\""
 msgstr ""
 
 #. module: pos_urban_piper
@@ -710,7 +729,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__urban_piper_status_ids
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_template__urban_piper_status_ids
 msgid "Stores"
-msgstr ""
+msgstr "매장"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -721,6 +740,18 @@ msgstr ""
 #: model:ir.model,name:pos_urban_piper.model_ir_config_parameter
 msgid "System Parameter"
 msgstr "시스템 매개 변수"
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+msgid "Talabat Code"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-javascript
+#: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
+msgid "Talabat Short Code"
+msgstr ""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__technical_name
@@ -772,7 +803,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/delivery_button/delivery_button.xml:0
 msgid "There are no active order(s)."
-msgstr ""
+msgstr "활성 주문이 없습니다."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -846,7 +877,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/pos_urban_piper/models/pos_config.py:0
 msgid "UrbanPiper API Key is required.\n"
-msgstr ""
+msgstr "UrbanPiper API 키가 필요합니다.\n"
 
 #. module: pos_urban_piper
 #: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
@@ -857,7 +888,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/pos_urban_piper/models/res_config_settings.py:0
 msgid "UrbanPiper Delivery Providers are required."
-msgstr ""
+msgstr "UrbanPiper 배송 제공업체가 필요합니다."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
@@ -883,7 +914,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/pos_urban_piper/models/pos_config.py:0
 msgid "UrbanPiper Store ID is required.\n"
-msgstr ""
+msgstr "UrbanPiper 스토어 ID가 필요합니다.\n"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_store_identifier
@@ -899,7 +930,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:account.fiscal.position,name:pos_urban_piper.pos_account_fiscal_position_urbanpiper
 msgid "Urbanpiper"
-msgstr ""
+msgstr "어반파이퍼"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__urbanpiper_username
@@ -922,4 +953,4 @@ msgstr "채식"
 #. odoo-python
 #: code:addons/pos_urban_piper/models/ir_config_parameter.py:0
 msgid "You cannot change the pos_urban_piper.uuid."
-msgstr ""
+msgstr "pos_urban_piper.uuid는 변경할 수 없습니다."

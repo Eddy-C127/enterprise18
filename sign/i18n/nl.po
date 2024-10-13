@@ -611,6 +611,11 @@ msgid "Archive"
 msgstr "Archiveren"
 
 #. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Are you sure you want to cancel the sign request?"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
@@ -739,6 +744,11 @@ msgstr "CC-bericht"
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Cancel"
 msgstr "Annuleren"
+
+#. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Cancel Sign Request"
+msgstr ""
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -995,7 +1005,7 @@ msgstr "Aangemaakt op"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__create
 msgid "Creation"
-msgstr "Creatie"
+msgstr "Aangemaakt"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
@@ -2781,7 +2791,7 @@ msgstr "Toon alle records welke een actiedatum voor vandaag hebben"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Show standard terms & conditions on signature requests"
-msgstr "Standaardvoorwaarden weergeven op ondertekenverzoeken"
+msgstr "Algemene voorwaarden weergeven op ondertekenverzoeken"
 
 #. module: sign
 #. odoo-javascript
@@ -2803,12 +2813,12 @@ msgstr "Standaard algemene voorwaarden ondertekenen"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_company__sign_terms
 msgid "Sign Default Terms and Conditions"
-msgstr "Standaard algemene voorwaarden ondertekenen"
+msgstr "Onderteken algemene voorwaarden"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_company__sign_terms_html
 msgid "Sign Default Terms and Conditions as a Web page"
-msgstr "Standaard algemene voorwaarden ondertekenen als webpagina"
+msgstr "Onderteken algemene voorwaarden als webpagina"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_duplicate_template_pdf
@@ -3537,6 +3547,12 @@ msgstr "Het ondertekenverzoek is niet volledig ondertekend"
 
 #. module: sign
 #. odoo-python
+#: code:addons/sign/controllers/main.py:0
+msgid "The signature has been canceled by %(partner)s(%(role)s)"
+msgstr ""
+
+#. module: sign
+#. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The signature has been refused by %(partner)s(%(role)s)"
 msgstr "De handtekening is afgewezen door %(partner)s(%(role)s)"
@@ -4181,6 +4197,7 @@ msgstr "Je ontvangt het definitieve ondertekende document per e-mail."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "You won't receive any notification for this signature request anymore."
 msgstr "Je zal geen meldingen meer ontvangen voor dit hantekeningsverzoek."
 

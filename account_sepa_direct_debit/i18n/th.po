@@ -79,6 +79,25 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        เรียน <t t-out=\"object.partner_id.display_name or ''\">Azure Interior</t>\n"
+"                        <br>\n"
+"                        <br>\n"
+"                        นี่คือคำสั่งหักบัญชี SEPA ของคุณที่ต้องลงนามเพื่ออนุมัติ\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        เพื่อส่งคำสั่งไปยังธนาคารของคุณเพื่อหักบัญชีของคุณตามคำสั่งจาก\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        โปรดอย่าลังเลที่จะติดต่อเราหากคุณมีคำถาม\n"
+"                        <br>\n"
+"                        ขอแสดงความนับถือ\n"
+"                        <t t-if=\"not is_html_empty(user.signature)\">\n"
+"                            <br><br>\n"
+"                            <t t-out=\"user.signature\">--<br>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
@@ -430,19 +449,19 @@ msgstr ""
 "                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                                                        <div>\n"
 "                                                            สวัสดี<br><br>\n"
-"                                                            เอกสารหักบัญชีโดยตรงของ SEPA จะถึงวันหมดอายุโดยอัตโนมัติในวันที่ <span t-out=\"format_date(object._get_expiry_date_per_mandate()[object])\">2020-04-18</span><br>\n"
+"                                                            คำสั่งการหักบัญชีโดยตรงของ SEPA จะถึงวันหมดอายุโดยอัตโนมัติในวันที่ <span t-out=\"format_date(object._get_expiry_date_per_mandate()[object])\">2020-04-18</span><br>\n"
 "                                                            ซึ่งสามารถเกิดขึ้นได้จากสาเหตุต่อไปนี้:\n"
 "                                                            <ul>\n"
 "                                                                <li>\n"
 "                                                                    วันที่ดังกล่าวเป็นวันสิ้นสุดสัญญาตามที่ตกลงกันในการลงนาม\n"
 "                                                                </li>\n"
 "                                                                <li>\n"
-"                                                                    จากนั้นจะเป็นเวลามากกว่า 36 เดือนนับตั้งแต่ครั้งสุดท้ายที่ใช้เอกสารนี้\n"
+"                                                                    จากนั้นจะเป็นเวลามากกว่า 36 เดือนนับตั้งแต่ครั้งสุดท้ายที่ใช้คำสั่งนี้\n"
 "                                                                </li>\n"
 "                                                            </ul>\n"
 "                                                            <div style=\"margin: 16px 0px 16px 0px;\">\n"
 "                                                                <a t-attf-href=\"{{ website_url }}/odoo/sdd-mandates/{{ object.id }}\" style=\"background-color: #4caf50; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
-"                                                                    ไปที่เอกสาร\n"
+"                                                                    ไปที่คำสั่ง\n"
 "                                                                </a>\n"
 "                                                            </div>\n"
 "                                                            เพื่อความปลอดภัย: ตรวจสอบว่าชื่อโดเมนที่คุณถูกส่งต่อไปคือ: <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">\n"
@@ -829,7 +848,7 @@ msgstr "Demo@email.com"
 #: model:ir.ui.menu,name:account_sepa_direct_debit.account_sepa_direct_debit_customer_mandates_menu
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
 msgid "Direct Debit Mandates"
-msgstr "เอกสารการหักบัญชีอัตโนมัติ"
+msgstr "คำสั่งการหักบัญชีอัตโนมัติ"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_journal_dashboard_kanban_view
@@ -1032,7 +1051,7 @@ msgstr "ใบแจ้งหนี้ที่ตรงกับข้อกำ
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__paid_invoice_ids
 msgid "Invoices paid using this mandate."
-msgstr "ใบแจ้งหนี้ที่ชำระโดยใช้เอกสารนี้"
+msgstr "ใบแจ้งหนี้ที่ชำระโดยใช้คำสั่งนี้"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
@@ -1261,7 +1280,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
 msgid "Open this partner's mandates"
-msgstr "เปิดเอกสารของพาร์ทเนอร์รายนี้"
+msgstr "เปิดคำสั่งของพาร์ทเนอร์รายนี้"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate_send__lang
@@ -1517,7 +1536,7 @@ msgid ""
 " IBAN-compliant debtor account for this mandate."
 msgstr ""
 "โครงการหักบัญชีอัตโนมัติของ SEPA ยอมรับเฉพาะหมายเลขบัญชี IBAN เท่านั้น "
-"โปรดเลือกบัญชีลูกหนี้ที่สอดคล้องกับ IBAN สำหรับเอกสารนี้"
+"โปรดเลือกบัญชีลูกหนี้ที่สอดคล้องกับ IBAN สำหรับคำสั่งนี้"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_account_journal_form
@@ -1800,7 +1819,7 @@ msgid ""
 "will automatically go from 'active' to 'closed' after its first use in "
 "payment if this option is set.\n"
 msgstr ""
-"True ต่อเมื่อเอกสารนี้สามารถใช้ได้สำหรับธุรกรรมเดียวเท่านั้น "
+"True ต่อเมื่อคำสั่งนี้สามารถใช้ได้สำหรับธุรกรรมเดียวเท่านั้น "
 "ซึ่งจะเปลี่ยนจาก 'กำลังใช้งานอยู่' เป็น 'ปิด' "
 "โดยอัตโนมัติหลังจากการใช้งานครั้งแรกในการชำระเงิน หากตั้งค่าตัวเลือกนี้ไว้\n"
 
