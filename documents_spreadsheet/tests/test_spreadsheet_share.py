@@ -107,7 +107,7 @@ class SpreadsheetSharing(SpreadsheetTestCommon):
         share = self.share_spreadsheet(document)
         shared_spreadsheet = share.freezed_spreadsheet_ids
         with self.assertRaises(AccessError):
-            shared_spreadsheet.with_user(self.spreadsheet_user).spreadsheet_data
+            shared_spreadsheet.with_user(self.spreadsheet_user).spreadsheet_binary_data
 
     def test_collaborative_spreadsheet_with_token(self):
         document = self.create_spreadsheet()
