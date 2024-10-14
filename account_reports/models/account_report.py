@@ -5105,7 +5105,7 @@ class AccountReport(models.Model):
                 style = level_2_style
                 col1_style = level_2_col1_total_style if is_total_line else level_2_col1_style
                 col2_style = level_2_col2_style
-            elif level >= 3:
+            elif level and level >= 3:
                 style = default_style
                 col2_style = style
                 level_col1_styles = col1_styles.get(level)
