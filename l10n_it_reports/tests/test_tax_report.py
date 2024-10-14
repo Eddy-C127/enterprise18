@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from unittest.mock import patch
 
 from odoo import fields
@@ -13,7 +12,6 @@ class TestItalianTaxReport(TestAccountReportsCommon):
     def setUpClass(cls, chart_template_ref='it'):
         super().setUpClass(chart_template_ref=chart_template_ref)
         company = cls.company_data["company"]
-        AccountTax = cls.env['account.tax']
         company.update({
             'vat': 'IT78926680725',
             'country_id': cls.env.ref('base.it').id,
