@@ -5935,7 +5935,7 @@ class AccountReportLine(models.Model):
                 keys_and_names_in_sequence[out_of_sorting_record.id] = out_of_sorting_record.display_name
 
         else:
-            for non_relational_key in sorted(group_lines_by_keys.keys()):
+            for non_relational_key in sorted(group_lines_by_keys.keys(), key=lambda k: (k is None, k)):
                 keys_and_names_in_sequence[non_relational_key] = str(non_relational_key) if non_relational_key is not None else _("Unknown")
 
         # Build result: add a name to the groupby lines and handle totals below section for multi-level groupby
