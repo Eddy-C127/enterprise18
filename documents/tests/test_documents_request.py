@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
+import io
+import json
 
-from odoo.tests.common import Form, RecordCapturer
+from odoo import http
+from odoo.tests.common import Form, RecordCapturer, HttpCase
 from odoo.tools import mute_logger
 from odoo.addons.mail.tests.common import MailCommon
 
-class TestDocumentRequest(MailCommon):
+class TestDocumentRequest(MailCommon, HttpCase):
 
     @classmethod
     def setUpClass(cls):
@@ -98,3 +101,35 @@ class TestDocumentRequest(MailCommon):
         self.assertEqual(message.body, '<p>Hello</p>')
         self.assertEqual(message.partner_ids, self.doc_partner_1)
         self.assertEqual(message.subject, 'Example of document required')
+
+    def test_request_document_upload_through_activity_popover(self):
+        wizard = self.env['documents.request_wizard'].create({
+            'name': 'Wizard Request',
+            'requestee_id': self.doc_partner_1.id,
+            'activity_type_id': self.activity_type.id,
+            'folder_id': self.folder_a.id,
+        })
+        with self.mock_mail_gateway():
+            document = wizard.request_document()
+
+        self.assertEqual(document.create_share_id.owner_id.id, wizard.requestee_id.id, "Owner of the share is requestee")
+        self.assertEqual(document.request_activity_id.user_id, self.doc_user, "Activity assigned to the requestee")
+        self.assertEqual(document.owner_id, self.env.user, "Owner of the document is the requester")
+
+        self.authenticate("admin", "admin")
+        with io.StringIO("Hello world!") as file:
+            response = self.opener.post(
+                url=f"{self.base_url()}/mail/attachment/upload",
+                files={"ufile": file},
+                data={
+                    "activity_id": document.activity_ids.id,
+                    "thread_id": document.id,
+                    "thread_model": "documents.document",
+                    "csrf_token": http.Request.csrf_token(self),
+                },
+            )
+        response_content = response.json()
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('id', response_content, "We should have the id of the attachment upload inside the response.")
+        document.activity_ids.action_feedback(attachment_ids=[response_content['id']])
+        self.assertEqual(document.attachment_id.id, response_content['id'], "Attachment should be linked to document only once.")
