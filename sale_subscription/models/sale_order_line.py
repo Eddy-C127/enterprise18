@@ -192,7 +192,7 @@ class SaleOrderLine(models.Model):
     def _compute_last_invoiced_date(self):
         relevant_move_lines = self.env['account.move.line']._read_group(
             [
-                ('sale_line_ids', '!=', False),
+                ('sale_line_ids', 'in', self.ids),
                 ('move_id.state', '=', 'posted'),
                 ('move_id.move_type', 'in', ['out_invoice', 'out_refund']),
                 ('deferred_end_date', '!=', False)
