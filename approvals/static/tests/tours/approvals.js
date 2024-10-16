@@ -88,7 +88,7 @@
                 run: "click",
             },
             {
-                trigger: 'button[aria-label="Current state"][data-value="refused"]',
+                trigger: 'button[aria-checked="true"][data-value="refused"]',
                 content: "wait the request status compute",
                 isCheck: true,
             },
