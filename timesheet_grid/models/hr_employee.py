@@ -1,7 +1,6 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 from datetime import datetime, time, timedelta
-from pytz import UTC
+from pytz import timezone, UTC
 
 from odoo import api, fields, models, _
 from odoo.tools import float_round
@@ -93,11 +92,10 @@ class Employee(models.Model):
 
         if not current_employee:
             return result
-        # Change the type of the date from date to datetime and add UTC as the timezone time standard
-        datetime_min = datetime.combine(date_start_date, time.min).replace(tzinfo=UTC)
-        datetime_max = datetime.combine(date_stop_date, time.max).replace(tzinfo=UTC)
         # Collect the number of hours that an employee should work according to their schedule
         calendar = current_employee.resource_calendar_id or current_employee.company_id.resource_calendar_id
+        datetime_min = timezone(self.env.user.tz or calendar.tz).localize(datetime.combine(date_start_date, time.min)).astimezone(UTC)
+        datetime_max = timezone(self.env.user.tz or calendar.tz).localize(datetime.combine(date_stop_date, time.max)).astimezone(UTC)
         employee_work_days_data = calendar._work_intervals_batch(
             datetime_min, datetime_max,
             resources=current_employee.resource_id, compute_leaves=False
