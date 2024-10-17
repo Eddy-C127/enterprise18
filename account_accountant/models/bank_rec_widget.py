@@ -876,6 +876,7 @@ class BankRecWidget(models.Model):
                 'currency_id': new_aml.currency_id.id,
                 'amount_currency': exchange_diff_balance if new_aml.currency_id == self.company_currency_id else 0.0,
                 'balance': exchange_diff_balance,
+                'source_balance': exchange_diff_balance,
             }))
 
         if line_ids_commands:
@@ -1059,6 +1060,8 @@ class BankRecWidget(models.Model):
         if line.currency_id == line.company_currency_id:
             line.amount_currency = line.balance
             self._line_value_changed_amount_currency(line)
+        elif line.flag == 'exchange_diff':
+            self._lines_add_auto_balance_line()
         else:
             self._lines_recompute_exchange_diff()
             self._lines_add_auto_balance_line()
