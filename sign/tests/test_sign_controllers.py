@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import json
 from unittest.mock import patch
@@ -186,3 +185,12 @@ class TestSignController(TestSignControllerCommon):
 
         with freeze_time('2020-01-04'):
             self.start_tour(url, 'sign_resend_expired_link_tour', login='demo')
+
+    def test_sign_request_ignore_from_mail(self):
+        """Only GET requests should lead to a sign request being ignored."""
+        sign_request = self.create_sign_request_1_role(self.partner_1, self.env['res.partner'])
+        url = '/sign/sign_ignore/%s/%s' % (sign_request.id, sign_request.request_item_ids[0].access_token)
+        self.url_open(url, head=True)
+        self.assertEqual(sign_request.request_item_ids[0].ignored, False)
+        self.url_open(url)
+        self.assertEqual(sign_request.request_item_ids[0].ignored, True)

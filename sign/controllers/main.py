@@ -564,7 +564,9 @@ class Sign(http.Controller):
 
     @http.route(['/sign/sign_ignore/<int:item_id>/<token>'], type='http', auth='public')
     def ignore_sign_request_item_from_mail(self, item_id, token):
-        if self.ignore_sign_request_item(item_id, token):
+        # Mail scanners can send HEAD requests to link contained in emails. In that case,
+        # we do not actually ignore the sign request.
+        if request.httprequest.method == 'HEAD' or self.ignore_sign_request_item(item_id, token):
             return http.request.render('sign.ignore_sign_request_item')
         else:
             return http.request.not_found()
