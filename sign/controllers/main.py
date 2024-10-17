@@ -551,6 +551,9 @@ class Sign(http.Controller):
                 return http.request.render('sign.cancel_sign_request_item_with_confirmation', {
                     'record': sign_request_item,
                 })
+            # Mail scanners can send HEAD requests to link contained in emails, it shouldn't cancel the request.
+            if request.httprequest.method == 'HEAD':
+                return http.request.render('sign.canceled_sign_request_item')
             sign_request_item.sign_request_id.cancel()
             message_post = _("The signature has been canceled by %(partner)s(%(role)s)", partner=sign_request_item.partner_id.name, role=sign_request_item.role_id.name)
             sign_request_item.sign_request_id.message_post(body=message_post)
