@@ -43,6 +43,12 @@ class DocumentFolder(models.Model):
         project_folder = self.env.ref('documents_project.documents_project_folder')
         if self._project_folder_in_self_or_ancestors(project_folder):
             raise UserError(_('The "%s" workspace is required by the Project application and cannot be deleted.', project_folder.name))
+        projects_with_folder = self.env['project.project'].search([('use_documents', '=', True), ('documents_folder_id', 'child_of', self.ids)])
+        if projects_with_folder:
+            raise UserError(_(
+                "This action can't be performed, as it would remove the workspaces used by the following projects:\n%(projects)s\nTo continue, choose different workspaces or turn off the Documents feature for these projects.",
+                projects="\n".join(f"- {project.name}" for project in projects_with_folder),
+            ))
 
     @api.constrains('company_id')
     def _check_no_company_on_projects_folder(self):
