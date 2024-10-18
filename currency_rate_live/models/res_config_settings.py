@@ -609,6 +609,7 @@ class ResCompany(models.Model):
             'SF46406': 'JPY',
             'SF46407': 'GBP',
             'SF60653': 'USD',
+            'SF290383': 'CNY',
         }
         for index, currency in foreigns.items():
             if not series.get(index, False):
