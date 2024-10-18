@@ -1704,6 +1704,8 @@ export default class BarcodePickingModel extends BarcodeModel {
             } else {
                 result.destLocation = location;
             }
+        } else if (["scan_product_or_dest", "scan_dest"].includes(this.barcodeInfo.class)) {
+            result.destLocation = location;
         } else {
             result.location = location;
         }
