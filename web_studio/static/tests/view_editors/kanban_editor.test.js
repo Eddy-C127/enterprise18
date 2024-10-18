@@ -59,7 +59,7 @@ test("template without t-name='card' load the legacy kanban editor", async () =>
     const originalConsoleWarn = console.warn;
     patchWithCleanup(console, {
         warn: (msg) => {
-            if (msg !== "'kanban-box' is deprecated, use 'kanban-card' API instead") {
+            if (msg !== "'kanban-box' is deprecated, define a 'card' template instead") {
                 originalConsoleWarn(msg);
             }
         },
@@ -656,7 +656,7 @@ test("sortby and orderby field in kanban sidebar", async () => {
         const operation = params.operations[0];
         expect(operation.new_attrs.default_order).toBe("char_field asc");
         expect(operation.position).toBe("attributes");
-        expect(operation.target.xpath_info).toEqual([{tag: "kanban", indice: 1}]);
+        expect(operation.target.xpath_info).toEqual([{ tag: "kanban", indice: 1 }]);
         expect.step("edit_view");
         const newArch = `
             <kanban default_order="char_field asc">

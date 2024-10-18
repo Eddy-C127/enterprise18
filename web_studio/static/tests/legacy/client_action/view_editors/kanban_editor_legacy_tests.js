@@ -96,7 +96,7 @@ QUnit.module(
             const originalConsoleWarn = console.warn;
             patchWithCleanup(console, {
                 warn: (msg) => {
-                    if (msg !== "'kanban-box' is deprecated, use 'kanban-card' API instead") {
+                    if (msg !== "'kanban-box' is deprecated, define a 'card' template instead") {
                         originalConsoleWarn(msg);
                     }
                 },
@@ -1417,7 +1417,7 @@ QUnit.module(
             const _console = window.console;
             window.console = Object.assign(Object.create(_console), {
                 warn(msg) {
-                    if (msg !== "'kanban-box' is deprecated, use 'kanban-card' API instead") {
+                    if (msg !== "'kanban-box' is deprecated, define a 'card' template instead") {
                         assert.step(msg);
                     }
                 },
