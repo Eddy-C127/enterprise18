@@ -258,7 +258,7 @@ class AccountMove(models.Model):
                     invoice._l10n_br_edi_set_successful_status()
                     invoice.l10n_br_access_key = response["key"]
 
-                    self.with_context(no_new_invoice=True).message_post(
+                    invoice.with_context(no_new_invoice=True).message_post(
                         body=_("E-invoice submitted successfully."),
                         attachment_ids=invoice._l10n_br_edi_attachments_from_response(response).ids,
                     )
