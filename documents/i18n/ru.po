@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2024-10-10 14:52+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
@@ -1251,11 +1251,6 @@ msgid "Create Share"
 msgstr "Создать долю"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Create Vendor Bill"
-msgstr "Создать Счет Поставщика"
-
-#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr "Создать новый вид деятельности"
@@ -1437,6 +1432,7 @@ msgstr "Документ"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr "Количество документов"
 
@@ -1517,7 +1513,6 @@ msgstr "Документ: Запрос документа"
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -2205,6 +2200,11 @@ msgid "Logout"
 msgstr "Выйти"
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Mark As Bill"
+msgstr ""
+
+#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr "Пометить как черновик"
@@ -2399,11 +2399,6 @@ msgstr "Новая метка"
 #, python-format
 msgid "New Workspace"
 msgstr "Новое рабочее пространство"
-
-#. module: documents
-#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Следующее событие календаря активности"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2654,12 +2649,6 @@ msgstr "Презентации"
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "Проект"
-
-#. module: documents
-#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
-#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
-msgid "Ratings"
-msgstr "Рейтинги"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -3270,6 +3259,13 @@ msgstr "Url ресурса был скопирован в ваш буфер об
 #, python-format
 msgid "The share url has been copied to your clipboard. Links were excluded."
 msgstr "Url ресурса был скопирован в ваш буфер обмена. Ссылки были исключены."
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_form
+msgid ""
+"The specified access rights only apply to the current workspace, not its "
+"children"
+msgstr ""
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_share_share_unique

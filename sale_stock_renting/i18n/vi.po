@@ -151,11 +151,6 @@ msgid "No valid quant has been found in location %s for serial number %s!"
 msgstr "Không tìm thấy số lượng hợp lệ tại địa điểm %s cho số sê-ri %s!"
 
 #. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "(Các) lần thuê khác bị trùng lịch. "
-
-#. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
 msgid "Padding"
 msgstr "Bổ sung"
@@ -316,6 +311,11 @@ msgstr "Quy tắc tồn kho"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
 msgstr "Tạm thời đặt sản phẩm là không có hàng trước khi lấy hàng."
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

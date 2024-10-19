@@ -149,11 +149,6 @@ msgid "No valid quant has been found in location %s for serial number %s!"
 msgstr "%s 위치에서 일련번호 %s 관련하여 해당되는 수량을 찾을 수 없습니다!"
 
 #. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "충돌이 일어난 다른 렌탈."
-
-#. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
 msgid "Padding"
 msgstr "패딩"
@@ -314,6 +309,11 @@ msgstr "재고 규칙"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
 msgstr "수령 전에 해당 품목을 일시 품절로 설정합니다."
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

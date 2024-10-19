@@ -76,7 +76,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "%s is not a numeric value"
-msgstr ""
+msgstr "%s nėra skaitmeninė reikšmė"
 
 #. module: account_reports
 #. odoo-javascript
@@ -201,7 +201,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
 msgid "<span class=\"o_stat_text\">Partner Ledger</span>"
-msgstr "Partnerių didžioji knyga"
+msgstr "<span class=\"o_stat_text\">Partnerių skolų knyga</span>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -308,7 +308,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_revaluation_journal_id
 msgid "Account Revaluation Journal"
-msgstr ""
+msgstr "Sąskaitos perkainojimo žurnalas"
 
 #. module: account_reports
 #. odoo-javascript
@@ -936,7 +936,7 @@ msgstr "Keisti užrakinimo datą"
 #: code:addons/account_reports/static/src/components/aged_partner_balance/line_name/line_name.js:0
 #, python-format
 msgid "Change expected date"
-msgstr ""
+msgstr "Pakeisti numatomą datą"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1031,7 +1031,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Company Settings"
-msgstr ""
+msgstr "Įmonės nustatymai"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1050,7 +1050,7 @@ msgstr "Konfigūracijos nustatymai"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Configure your TAX accounts - %s"
-msgstr ""
+msgstr "Nustatykite mokesčių sąskaitas - %s"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -2729,7 +2729,7 @@ msgstr "PDF"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__report_id
 msgid "Parent Report Id"
-msgstr ""
+msgstr "Tėvinės ataskaitos ID"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__export_wizard_id
@@ -2772,7 +2772,7 @@ msgstr "Partnerių ataskaitos"
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 #, python-format
 msgid "Partner is bad"
-msgstr ""
+msgstr "Partneris yra nepatikimas"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2780,7 +2780,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 #, python-format
 msgid "Partner is good"
-msgstr ""
+msgstr "Partneris yra patikimas"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3663,7 +3663,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "Operacijos be išrašo"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -3794,7 +3794,7 @@ msgstr "Suma"
 #: code:addons/account_reports/models/account_move.py:0
 #, python-format
 msgid "Vat closing from %s to %s"
-msgstr ""
+msgstr "PVM uždarymas %s iki %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3824,7 +3824,7 @@ msgstr "Rodyti žurnalo įrašą"
 #: code:addons/account_reports/models/account_sales_report.py:0
 #, python-format
 msgid "View Partner"
-msgstr ""
+msgstr "Rodyti partnerius"
 
 #. module: account_reports
 #. odoo-python
@@ -3945,6 +3945,8 @@ msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
 msgstr ""
+"Negalite nustatyti šio uždarymo įrašo į juodraštį, nes vėliau buvo "
+"patvirtintas kitas uždarymo įrašas."
 
 #. module: account_reports
 #. odoo-python
@@ -3962,6 +3964,7 @@ msgstr ""
 #, python-format
 msgid "You need to activate more than one currency to access this report."
 msgstr ""
+"Reikia aktyvuoti daugiau nei vieną valiutą, kad atidarytumėte šią ataskaitą."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_main

@@ -40,12 +40,12 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count
 msgid "# Appointments"
-msgstr "# Cuộc hẹn"
+msgstr "# Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_report
 msgid "# Appointments in the last 30 days"
-msgstr "# Cuộc hẹn trong 30 ngày qua"
+msgstr "# Lịch hẹn trong 30 ngày qua"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_count
@@ -287,17 +287,17 @@ msgstr ""
 "        Xin chào <t t-out=\"object.common_name or ''\">Wood Corner</t>,<br><br>\n"
 "\n"
 "        <t t-if=\"target_customer\">\n"
-"            Cuộc hẹn <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</strong> <t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> với <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> đã được đặt.\n"
+"            Lịch hẹn <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</strong> <t t-if=\"object.event_id.appointment_type_id.category != 'custom' and object.event_id.appointment_type_id.schedule_based_on == 'users'\"> với <t t-out=\"object.event_id.user_id.name or ''\">Ready Mat</t></t> đã được đặt.\n"
 "            <t t-if=\"object.state != 'accepted' and object.event_id.appointment_type_id.schedule_based_on == 'resources' and object.event_id.appointment_type_id.resource_manual_confirmation\">\n"
-"                Bạn sẽ nhận được email xác nhận chứa nhiều thông tin chi tiết hơn khi cuộc hẹn này được xác nhận.\n"
+"                Bạn sẽ nhận được email xác nhận chứa nhiều thông tin chi tiết hơn khi lịch hẹn này được xác nhận.\n"
 "            </t>\n"
 "        </t>\n"
 "        <t t-elif=\"target_responsible\">\n"
 "            <t t-if=\"customer\">\n"
-"                <t t-out=\"customer.name or ''\"></t> đã lập lịch trình cho cuộc hẹn <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</strong> với bạn.\n"
+"                <t t-out=\"customer.name or ''\"></t> đã lập lịch trình cho lịch hẹn <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</strong> với bạn.\n"
 "            </t>\n"
 "            <t t-else=\"\">\n"
-"                Cuộc hẹn <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</strong> của bạn đã được đặt.\n"
+"                Lịch hẹn <strong t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</strong> của bạn đã được đặt.\n"
 "            </t>\n"
 "        </t>\n"
 "    </p>\n"
@@ -338,7 +338,7 @@ msgstr ""
 "        <td style=\"padding-top: 5px;\">\n"
 "            <p><strong>Chi tiết sự kiện</strong></p>\n"
 "            <ul>\n"
-"                <li>Loại cuộc hẹn: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</t></li>\n"
+"                <li>Loại lịch hẹn: <t t-out=\"object.event_id.appointment_type_id.name or ''\">Lên lịch buổi demo</t></li>\n"
 "                <t t-if=\"object.event_id.location\">\n"
 "                    <li>Địa điểm: <t t-out=\"object.event_id.location or ''\">Bruxelles</t>\n"
 "                        (<a target=\"_blank\" t-attf-href=\"http://maps.google.com/maps?oi=map&amp;q={{object.event_id.location}}\">Xem bản đồ</a>)\n"
@@ -491,7 +491,7 @@ msgstr ""
 "    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
 "    <t t-set=\"mail_tz\" t-value=\"object._get_mail_tz() or ctx.get('mail_tz')\"></t>\n"
 "    <p>\n"
-"    Cuộc hẹn đã được đặt trước cho <t t-out=\"object.appointment_type_id.name or ''\">Demo kỹ thuật</t>\n"
+"    Lịch hẹn đã được đặt trước cho <t t-out=\"object.appointment_type_id.name or ''\">Demo kỹ thuật</t>\n"
 "    <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> với <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t>.\n"
 "    </p>\n"
 "    <div style=\"text-align: center; padding: 16px 0px 16px 0px;\">\n"
@@ -648,7 +648,7 @@ msgstr ""
 "    <t t-set=\"recurrent\" t-value=\"object.recurrence_id and not ctx.get('calendar_template_ignore_recurrence')\"></t>\n"
 "    <t t-set=\"mail_tz\" t-value=\"object._get_mail_tz() or ctx.get('mail_tz')\"></t>\n"
 "    <p>\n"
-"    Cuộc hẹn về <t t-out=\"object.appointment_type_id.name or ''\">Demo kỹ thuật</t> <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> với <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t> đã bị hủy.\n"
+"    Lịch hẹn về <t t-out=\"object.appointment_type_id.name or ''\">Demo kỹ thuật</t> <t t-if=\"object.appointment_type_id.category != 'custom' and object.appointment_type_id.schedule_based_on == 'users'\"> với <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t></t> đã bị hủy.\n"
 "    </p>\n"
 "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\"><tr>\n"
 "            <td width=\"130px;\" style=\"min-width: 130px;\">\n"
@@ -752,8 +752,8 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'resources'\">Impossible to share a link for an appointment type that has no resource assigned.</span>"
 msgstr ""
 "<i class=\"fa fa-warning me-2\"/>\n"
-"                    <span invisible=\"schedule_based_on != 'users'\">Không thể chia sẻ liên kết đối với loại cuộc hẹn chưa được phân công người dùng.</span>\n"
-"                    <span invisible=\"schedule_based_on != 'resources'\">Không thể chia sẻ liên kết đối với loại cuộc hẹn chưa được chỉ định tài nguyên.</span>"
+"                    <span invisible=\"schedule_based_on != 'users'\">Không thể chia sẻ liên kết đối với loại lịch hẹn chưa được phân công người dùng.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Không thể chia sẻ liên kết đối với loại lịch hẹn chưa được chỉ định tài nguyên.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -763,8 +763,8 @@ msgid ""
 "                    <span invisible=\"schedule_based_on != 'resources'\">You can't create a personal link for an appointment type based on resources.</span>"
 msgstr ""
 "<i class=\"fa fa-warning me-2\"/>\n"
-"                    <span invisible=\"schedule_based_on != 'users'\">Bạn cần phải là một phần của loại cuộc hẹn để có thể chia sẻ liên kết cá nhân.</span>\n"
-"                    <span invisible=\"schedule_based_on != 'resources'\">Bạn không thể tạo liên kết cá nhân cho loại cuộc hẹn dựa trên tài nguyên.</span>"
+"                    <span invisible=\"schedule_based_on != 'users'\">Bạn cần phải là một phần của loại lịch hẹn để có thể chia sẻ liên kết cá nhân.</span>\n"
+"                    <span invisible=\"schedule_based_on != 'resources'\">Bạn không thể tạo liên kết cá nhân cho loại lịch hẹn dựa trên tài nguyên.</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_date
@@ -838,8 +838,8 @@ msgid ""
 "<strong>Appointment canceled!</strong>\n"
 "                                            You can schedule another appointment from here."
 msgstr ""
-"<strong>Cuộc hẹn đã bị hủy!</strong>\n"
-"                                            Bạn có thể lên lịch cuộc hẹn khác ở đây."
+"<strong>Lịch hẹn đã bị hủy!</strong>\n"
+"                                            Bạn có thể lên lịch lịch hẹn khác ở đây."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -863,7 +863,7 @@ msgid ""
 msgstr ""
 "<strong>Đặt lịch hẹn không thành công!</strong>\n"
 "                                           Thời gian đã chọn hiện không còn trống.\n"
-"                                           Có vẻ bạn đã có một cuộc hẹn khác với chúng tôi vào ngày đó."
+"                                           Có vẻ bạn đã có một lịch hẹn khác với chúng tôi vào ngày đó."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -910,7 +910,7 @@ msgstr "<strong>Loại: </strong>"
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "A %s appointment type shouldn't be limited by datetimes."
-msgstr "Loại cuộc hẹn %s không nên bị giới hạn bởi ngày giờ."
+msgstr "Loại lịch hẹn %s không nên bị giới hạn bởi ngày giờ."
 
 #. module: appointment
 #. odoo-python
@@ -918,7 +918,7 @@ msgstr "Loại cuộc hẹn %s không nên bị giới hạn bởi ngày giờ."
 #, python-format
 msgid ""
 "A list of slots information is needed to create a custom appointment type"
-msgstr "Cần có danh sách thông tin khung giờ để tạo loại cuộc hẹn tùy chỉnh"
+msgstr "Cần có danh sách thông tin khung giờ để tạo loại lịch hẹn tùy chỉnh"
 
 #. module: appointment
 #. odoo-python
@@ -928,7 +928,7 @@ msgid ""
 "A punctual appointment type should be limited between a start and end "
 "datetime."
 msgstr ""
-"Loại cuộc hẹn yêu cầu đúng giờ phải được giới hạn giữa ngày giờ bắt đầu và "
+"Loại lịch hẹn yêu cầu đúng giờ phải được giới hạn giữa ngày giờ bắt đầu và "
 "kết thúc."
 
 #. module: appointment
@@ -987,7 +987,7 @@ msgstr "Thêm mô tả về tài nguyên ở đây..."
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Add a specific appointment"
-msgstr "Thêm một cuộc hẹn cụ thể"
+msgstr "Thêm một lịch hẹn cụ thể"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -1002,7 +1002,7 @@ msgstr "Thêm thông tin chi tiết về bạn"
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_manage_leaves
 msgid "Add or remove leaves from appointments"
-msgstr "Thêm hoặc xoá lịch tạm ngừng sử dụng khỏi cuộc hẹn"
+msgstr "Thêm hoặc xoá lịch tạm ngừng sử dụng khỏi lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -1030,7 +1030,7 @@ msgstr "Tất cả"
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_report_all
 #: model:ir.ui.menu,name:appointment.menu_schedule_report_all_events
 msgid "All Appointments"
-msgstr "Tất cả cuộc hẹn"
+msgstr "Tất cả lịch hẹn"
 
 #. module: appointment
 #. odoo-python
@@ -1067,13 +1067,13 @@ msgstr ""
 #: code:addons/appointment/controllers/calendar_view.py:0
 #, python-format
 msgid "An appointment type is needed to get the link."
-msgstr "Cần một loại cuộc hẹn để lấy liên kết."
+msgstr "Cần một loại lịch hẹn để lấy liên kết."
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_calendar_event_check_resource_and_appointment_type
 msgid "An event cannot book resources without an appointment type."
 msgstr ""
-"Không thể đặt trước tài nguyên cho sự kiện nếu không có loại cuộc hẹn."
+"Không thể đặt trước tài nguyên cho sự kiện nếu không có loại lịch hẹn."
 
 #. module: appointment
 #. odoo-python
@@ -1127,7 +1127,7 @@ msgstr "Bất kỳ người dùng/tài nguyên"
 #, python-format
 msgid "Anytime appointment types should only have one user but got %s users"
 msgstr ""
-"Loại cuộc hẹn này luôn chỉ nên có một người dùng nhưng đã có %s người dùng "
+"Loại lịch hẹn này luôn chỉ nên có một người dùng nhưng đã có %s người dùng "
 
 #. module: appointment
 #. odoo-javascript
@@ -1136,88 +1136,88 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_type_id
 #, python-format
 msgid "Appointment"
-msgstr "Cuộc hẹn"
+msgstr "Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_answer_input
 msgid "Appointment Answer Inputs"
-msgstr "Đầu vào Câu trả lời Cuộc hẹn"
+msgstr "Đầu vào Câu trả lời Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_answer_input_ids
 msgid "Appointment Answers"
-msgstr "Câu trả lời Cuộc hẹn"
+msgstr "Câu trả lời Lịch hẹn"
 
 #. module: appointment
 #: model:mail.message.subtype,description:appointment.mt_calendar_event_booked
 #: model:mail.message.subtype,name:appointment.mt_appointment_type_booked
 #: model:mail.message.subtype,name:appointment.mt_calendar_event_booked
 msgid "Appointment Booked"
-msgstr "Cuộc hẹn đã Đặt"
+msgstr "Lịch hẹn đã Đặt"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.appointment_booked_mail_template
 msgid "Appointment Booked: {{ object.appointment_type_id.name }}"
-msgstr "Cuộc hẹn đã Đặt: {{ object.appointment_type_id.name }}"
+msgstr "Lịch hẹn đã Đặt: {{ object.appointment_type_id.name }}"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_booking_line
 msgid "Appointment Booking Line"
-msgstr "Dòng đặt lịch cuộc hẹn"
+msgstr "Dòng đặt lịch lịch hẹn"
 
 #. module: appointment
 #: model:mail.message.subtype,description:appointment.mt_calendar_event_canceled
 #: model:mail.message.subtype,name:appointment.mt_appointment_type_canceled
 #: model:mail.message.subtype,name:appointment.mt_calendar_event_canceled
 msgid "Appointment Canceled"
-msgstr "Cuộc hẹn bị Hủy"
+msgstr "Lịch hẹn bị Hủy"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.appointment_canceled_mail_template
 msgid "Appointment Canceled: {{ object.appointment_type_id.name }}"
-msgstr "Cuộc hẹn bị hủy: {{ object.appointment_type_id.name }}"
+msgstr "Lịch hẹn bị hủy: {{ object.appointment_type_id.name }}"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 msgid "Appointment Details"
-msgstr "Thông tin cuộc hẹn"
+msgstr "Thông tin lịch hẹn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_duration_formatted
 msgid "Appointment Duration Formatted "
-msgstr "Thời lượng Cuộc hẹn được Định dạng"
+msgstr "Thời lượng Lịch hẹn được Định dạng"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__appointment_duration_formatted
 msgid "Appointment Duration formatted in words"
-msgstr "Thời lượng Cuộc hẹn được Định dạng bằng chữ"
+msgstr "Thời lượng Lịch hẹn được Định dạng bằng chữ"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 #, python-format
 msgid "Appointment Duration should be higher than 0.00."
-msgstr "Thời lượng cuộc hẹn phải lớn hơn 0.00."
+msgstr "Thời lượng lịch hẹn phải lớn hơn 0.00."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_invite_id
 msgid "Appointment Invitation"
-msgstr "Lời mời Cuộc hẹn"
+msgstr "Lời mời Lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_search
 msgid "Appointment Invitation Links"
-msgstr "Liên kết Lời mời Cuộc hẹn"
+msgstr "Liên kết Lời mời Lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_tree_invitation
 msgid "Appointment Invitations"
-msgstr "Lời mời Cuộc hẹn"
+msgstr "Lời mời Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_invite
 msgid "Appointment Invite"
-msgstr "Lời mời Cuộc hẹn"
+msgstr "Lời mời Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__meeting_ids
@@ -1227,7 +1227,7 @@ msgstr "Họp"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "Appointment Name"
-msgstr "Tên Cuộc hẹn"
+msgstr "Tên Lịch hẹn"
 
 #. module: appointment
 #: model:onboarding.onboarding,name:appointment.onboarding_onboarding_appointment
@@ -1237,12 +1237,12 @@ msgstr "Hướng dẫn Lịch hẹn"
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_answer
 msgid "Appointment Question Answers"
-msgstr "Câu trả lời cho Câu hỏi về Cuộc hẹn"
+msgstr "Câu trả lời cho Câu hỏi về Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_question
 msgid "Appointment Questions"
-msgstr "Câu hỏi về Cuộc hẹn"
+msgstr "Câu hỏi về Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_resource
@@ -1255,14 +1255,14 @@ msgstr "Appointment Resource"
 #. module: appointment
 #: model:ir.actions.server,name:appointment.resource_calendar_leaves_action_show_appointment_resources
 msgid "Appointment Resource Leaves"
-msgstr "Lịch tạm ngừng sử dụng tài nguyên cuộc hẹn"
+msgstr "Lịch tạm ngừng sử dụng tài nguyên lịch hẹn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_ids
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_resource_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_search
 msgid "Appointment Resources"
-msgstr "Tài nguyên của cuộc hẹn"
+msgstr "Tài nguyên của lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
@@ -1270,13 +1270,13 @@ msgid ""
 "Appointment Resources are the places or equipment people can book\n"
 "                (e.g. Tables, Tennis Courts, Meeting Rooms, ...)"
 msgstr ""
-"Tài nguyên của cuộc hẹn là địa điểm hoặc thiết bị mà người dùng có thể đặt trước\n"
+"Tài nguyên của lịch hẹn là địa điểm hoặc thiết bị mà người dùng có thể đặt trước\n"
 "                 (VD: Bàn, Sân quần vợt, Phòng họp,...)"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
 msgid "Appointment Title"
-msgstr "Tiêu đề Cuộc hẹn"
+msgstr "Tiêu đề Lịch hẹn"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_type
@@ -1289,54 +1289,54 @@ msgstr "Tiêu đề Cuộc hẹn"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_tree
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_search
 msgid "Appointment Type"
-msgstr "Loại cuộc hẹn"
+msgstr "Loại lịch hẹn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Appointment Types"
-msgstr "Loại Cuộc hẹn"
+msgstr "Loại Lịch hẹn"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment canceled"
-msgstr "Cuộc hẹn bị hủy"
+msgstr "Lịch hẹn bị hủy"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment canceled by: %(partners)s"
-msgstr "Cuộc hẹn đã bị hủy bởi: %(partners)s"
+msgstr "Lịch hẹn đã bị hủy bởi: %(partners)s"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 #, python-format
 msgid "Appointment re-booked"
-msgstr "Cuộc hẹn được đặt lại"
+msgstr "Lịch hẹn được đặt lại"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_booked_mail_template
 msgid "Appointment: Appointment Booked"
-msgstr "Cuộc hẹn: Cuộc hẹn đã được Đặt"
+msgstr "Lịch hẹn: Lịch hẹn đã được Đặt"
 
 #. module: appointment
 #: model:mail.template,name:appointment.appointment_canceled_mail_template
 msgid "Appointment: Appointment Canceled"
-msgstr "Cuộc hẹn: Cuộc hẹn đã bị Hủy"
+msgstr "Lịch hẹn: Lịch hẹn đã bị Hủy"
 
 #. module: appointment
 #: model:mail.template,name:appointment.attendee_invitation_mail_template
 msgid "Appointment: Attendee Invitation"
-msgstr "Cuộc hẹn: Lời mời tham gia"
+msgstr "Lịch hẹn: Lời mời tham gia"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_slot
 msgid "Appointment: Time Slot"
-msgstr "Cuộc hẹn: Khung giờ"
+msgstr "Lịch hẹn: Khung giờ"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_type_action
@@ -1353,12 +1353,12 @@ msgstr "Cuộc hẹn: Khung giờ"
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_menu_appointment
 msgid "Appointments"
-msgstr "Cuộc hẹn"
+msgstr "Lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "Appointments by"
-msgstr "Cuộc hẹn với"
+msgstr "Lịch hẹn với"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
@@ -1367,6 +1367,13 @@ msgstr "Cuộc hẹn với"
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Archived"
 msgstr "Đã lưu trữ"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
+msgid ""
+"Are you sure you want to delete this Booking? Once it's gone, it's gone for "
+"good!"
+msgstr ""
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__resources_choice
@@ -1468,7 +1475,7 @@ msgstr "URL Đường dẫn Cơ sở"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_ids
 msgid "Booked Appointments"
-msgstr "Cuộc hẹn đã Đặt"
+msgstr "Lịch hẹn đã Đặt"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
@@ -1593,7 +1600,7 @@ msgstr "Ô (nhiều câu trả lời)"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Choose your appointment"
-msgstr "Chọn cuộc hẹn của bạn"
+msgstr "Chọn lịch hẹn của bạn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__company_id
@@ -1622,8 +1629,8 @@ msgid ""
 "Configure links that allow booking appointments with custom settings<br>\n"
 "                (e.g. a specific user only, a list of appointment types, ...)"
 msgstr ""
-"Cấu hình các liên kết cho phép đặt cuộc hẹn với cài đặt tùy chỉnh<br>\n"
-"                (VD: chỉ một người dùng cụ thể, danh sách các loại cuộc hẹn, ...)"
+"Cấu hình các liên kết cho phép đặt lịch hẹn với cài đặt tùy chỉnh<br>\n"
+"                (VD: chỉ một người dùng cụ thể, danh sách các loại lịch hẹn, ...)"
 
 #. module: appointment
 #. odoo-javascript
@@ -1635,7 +1642,7 @@ msgstr "Xác nhận"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Confirm Appointment"
-msgstr "Xác nhận Cuộc hẹn"
+msgstr "Xác nhận Lịch hẹn"
 
 #. module: appointment
 #. odoo-javascript
@@ -1695,7 +1702,7 @@ msgid ""
 "canceled,                                                  regardless of "
 "whether they attend or not"
 msgstr ""
-"Những người liên hệ cần được thông báo bất cứ khi nào một cuộc hẹn mới được "
+"Những người liên hệ cần được thông báo bất cứ khi nào một lịch hẹn mới được "
 "đặt hoặc bị hủy, dù họ có tham dự hay không"
 
 #. module: appointment
@@ -1726,7 +1733,7 @@ msgstr "Tạo (các) ngày nghỉ"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
-msgstr "Tạo một tài nguyên của cuộc hẹn"
+msgstr "Tạo một tài nguyên của lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
@@ -1742,7 +1749,7 @@ msgstr ""
 #: code:addons/appointment/models/onboarding_onboarding_step.py:0
 #, python-format
 msgid "Create your first Appointment"
-msgstr "Tạo Cuộc hẹn đầu tiên của bạn"
+msgstr "Tạo Lịch hẹn đầu tiên của bạn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__create_uid
@@ -1827,7 +1834,7 @@ msgstr "Đã từ chối"
 #, python-format
 msgid "Default slots cannot be applied to the %s appointment type category."
 msgstr ""
-"Không thể áp dụng các khung giờ mặc định cho danh mục loại cuộc hẹn %s. "
+"Không thể áp dụng các khung giờ mặc định cho danh mục loại lịch hẹn %s. "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__slot_type
@@ -1838,7 +1845,7 @@ msgid ""
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
 "Xác định loại khung giờ. Khung giờ định kỳ là loại mặc định được sử dụng cho\n"
-"        cuộc hẹn có tính chất định kỳ như hẹn khám bệnh.\n"
+"        lịch hẹn có tính chất định kỳ như hẹn khám bệnh.\n"
 "        Loại một lần chỉ sử dụng khi người dùng tạo cuộc họp tùy chỉnh cho khách hàng bằng cách\n"
 "        xác định khung giờ không định kỳ (VD: từ 10 đến 11 giờ sáng ngày 10 tháng 4 năm 2021 ) trong lịch."
 
@@ -1918,8 +1925,8 @@ msgid ""
 "            reserved for a slot exceeds the percentage chosen. The appointment is still considered as reserved for\n"
 "            the slots availability."
 msgstr ""
-"Không tự động chấp nhận các cuộc họp được tạo từ cuộc hẹn khi tổng sức chứa\n"
-"            đã đặt cho một khung giờ vượt quá tỷ lệ phần trăm đã chọn. Cuộc hẹn vẫn được coi là đã được đặt cho\n"
+"Không tự động chấp nhận các cuộc họp được tạo từ lịch hẹn khi tổng sức chứa\n"
+"            đã đặt cho một khung giờ vượt quá tỷ lệ phần trăm đã chọn. Lịch hẹn vẫn được coi là đã được đặt cho\n"
 "              các khung giờ trống."
 
 #. module: appointment
@@ -2002,12 +2009,12 @@ msgstr "Thông tin Bổ sung khi Xác nhận"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_confirmation
 msgid "Extra information provided once the appointment is booked."
-msgstr "Thông tin bổ sung được cung cấp sau khi cuộc hẹn được đặt."
+msgstr "Thông tin bổ sung được cung cấp sau khi lịch hẹn được đặt."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 msgid "Follow, reschedule or cancel your appointments"
-msgstr "Theo dõi, lên lịch lại hoặc hủy các cuộc hẹn của bạn"
+msgstr "Theo dõi, lên lịch lại hoặc hủy các lịch hẹn của bạn"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_follower_ids
@@ -2060,7 +2067,7 @@ msgstr "Lấy Liên kêt của Bạn"
 #. module: appointment
 #: model:ir.model,name:appointment.model_appointment_onboarding_link
 msgid "Get a link to an appointment type during the onboarding"
-msgstr "Lấy liên kết đến một loại cuộc hẹn trong quá trình hướng dẫn"
+msgstr "Lấy liên kết đến một loại lịch hẹn trong quá trình hướng dẫn"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_invite__suggested_staff_user_ids
@@ -2068,7 +2075,7 @@ msgid ""
 "Get the users linked to the appointment type selected to apply a domain on "
 "the users that can be selected"
 msgstr ""
-"Lấy người dùng được liên kết với loại cuộc hẹn đã chọn để áp dụng miền cho "
+"Lấy người dùng được liên kết với loại lịch hẹn đã chọn để áp dụng miền cho "
 "người dùng có thể được chọn"
 
 #. module: appointment
@@ -2193,7 +2200,7 @@ msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "canceled."
 msgstr ""
-"Nếu thiết lập, một email sẽ được gửi đến khách hàng khi cuộc hẹn bị hủy."
+"Nếu thiết lập, một email sẽ được gửi đến khách hàng khi lịch hẹn bị hủy."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__booked_mail_template_id
@@ -2201,7 +2208,7 @@ msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "confirmed."
 msgstr ""
-"Nếu thiết lập, một email sẽ được gửi đến khách hàng khi cuộc hẹn được xác "
+"Nếu thiết lập, một email sẽ được gửi đến khách hàng khi lịch hẹn được xác "
 "nhận."
 
 #. module: appointment
@@ -2252,7 +2259,7 @@ msgstr "Hình ảnh 512"
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 #, python-format
 msgid "Insert Appointment Link"
-msgstr "Chèn Liên kết Cuộc hẹn"
+msgstr "Chèn Liên kết Lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form_insert_link
@@ -2282,7 +2289,7 @@ msgstr "Liên kết Lời mời"
 #. module: appointment
 #: model:mail.template,description:appointment.attendee_invitation_mail_template
 msgid "Invitation email to new attendees of an appointment"
-msgstr "Email mời gửi tới những người tham dự mới của cuộc hẹn"
+msgstr "Email mời gửi tới những người tham dự mới của lịch hẹn"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.attendee_invitation_mail_template
@@ -2525,7 +2532,7 @@ msgstr "Văn bản có nhiều dòng"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "My Appointments"
-msgstr "Cuộc hẹn của tôi"
+msgstr "Lịch hẹn của tôi"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_search
@@ -2550,7 +2557,7 @@ msgstr "Điều hướng"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_alarm__default_for_new_appointment_type
 msgid "New Appointments Default"
-msgstr "Mặc định Cuộc hẹn Mới"
+msgstr "Mặc định Lịch hẹn Mới"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
@@ -2560,7 +2567,7 @@ msgstr "Chưa có câu trả lời nào!"
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action
 msgid "No Appointment Configured"
-msgstr "Không có Cuộc hẹn được Cấu hình"
+msgstr "Không có Lịch hẹn được Cấu hình"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_view_bookings_resources
@@ -2690,7 +2697,7 @@ msgstr ""
 #, python-format
 msgid "Only one anytime appointment type is allowed for a specific user."
 msgstr ""
-"Chỉ cho phép một loại cuộc hẹn bất kể thời điểm cho một nhân viên cụ thể."
+"Chỉ cho phép một loại lịch hẹn bất kể thời điểm cho một nhân viên cụ thể."
 
 #. module: appointment
 #. odoo-javascript
@@ -3019,7 +3026,7 @@ msgstr "Lên lịch một buổi hẹn"
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_report_all
 msgid "Schedule appointments to get statistics"
-msgstr "Lên lịch cuộc hẹn để lấy số liệu thống kê"
+msgstr "Lên lịch lịch hẹn để lấy số liệu thống kê"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__min_schedule_hours
@@ -3107,7 +3114,7 @@ msgstr "Câu trả lời được Lựa chọn"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_count
 msgid "Selected Appointments Count"
-msgstr "Số lượng Cuộc hẹn được Chọn"
+msgstr "Số lượng Lịch hẹn được Chọn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
@@ -3117,13 +3124,13 @@ msgstr "Câu hỏi Chọn lựa"
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_canceled_mail_template
 msgid "Sent to all attendees when an appointment is cancelled"
-msgstr "Gửi cho tất cả những người tham dự khi một cuộc hẹn bị hủy bỏ"
+msgstr "Gửi cho tất cả những người tham dự khi một lịch hẹn bị hủy bỏ"
 
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_booked_mail_template
 msgid "Sent to followers of an appointment type when a meeting is booked"
 msgstr ""
-"Được gửi tới những người theo dõi loại cuộc hẹn khi cuộc họp được đặt trước"
+"Được gửi tới những người theo dõi loại lịch hẹn khi cuộc họp được đặt trước"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__sequence
@@ -3238,7 +3245,7 @@ msgstr "Loại khung giờ"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_intro
 msgid "Small description of the appointment type."
-msgstr "Mô tả ngắn về loại cuộc hẹn."
+msgstr "Mô tả ngắn về loại lịch hẹn."
 
 #. module: appointment
 #. odoo-javascript
@@ -3405,7 +3412,7 @@ msgstr "Thời gian kết thúc phải muộn hơn thời gian bắt đầu."
 #, python-format
 msgid "The event %s cannot book resources without an appointment type."
 msgstr ""
-"Không thể đặt trước tài nguyên cho sự kiện %s nếu không có loại cuộc hẹn."
+"Không thể đặt trước tài nguyên cho sự kiện %s nếu không có loại lịch hẹn."
 
 #. module: appointment
 #. odoo-python
@@ -3419,14 +3426,14 @@ msgstr "Trường '%s' không tồn tại trong mô hình đích"
 #: code:addons/appointment/models/appointment_invite.py:0
 #, python-format
 msgid "The following appointment type(s) have no resource assigned: %s."
-msgstr "(Các) loại cuộc hẹn sau đây không có tài nguyên: %s."
+msgstr "(Các) loại lịch hẹn sau đây không có tài nguyên: %s."
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_invite.py:0
 #, python-format
 msgid "The following appointment type(s) have no staff assigned: %s."
-msgstr "(Các) loại cuộc hẹn sau không có nhân viên được chỉ định: %s."
+msgstr "(Các) loại lịch hẹn sau không có nhân viên được chỉ định: %s."
 
 #. module: appointment
 #. odoo-python
@@ -3470,12 +3477,12 @@ msgstr "Khung giờ trống sớm nhất là"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "There is currently no appointment available"
-msgstr "Hiện tại không có cuộc hẹn nào"
+msgstr "Hiện tại không có lịch hẹn nào"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "There is no appointment linked to your account."
-msgstr "Không có cuộc hẹn nào liên kết với tài khoản của bạn. "
+msgstr "Không có lịch hẹn nào liên kết với tài khoản của bạn. "
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__shareable
@@ -3492,7 +3499,7 @@ msgid ""
 "This appointment type has no availabilities because it does not have any "
 "opening hours configured"
 msgstr ""
-"Loại cuộc hẹn này không có khung giờ trống vì không có bất kỳ giờ bắt đầu "
+"Loại lịch hẹn này không có khung giờ trống vì không có bất kỳ giờ bắt đầu "
 "nào được định cấu hình"
 
 #. module: appointment
@@ -3501,7 +3508,7 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned"
 msgstr ""
-"Loại cuộc hẹn này không có khung giờ trống vì không có tài nguyên nào được "
+"Loại lịch hẹn này không có khung giờ trống vì không có tài nguyên nào được "
 "chỉ định"
 
 #. module: appointment
@@ -3510,7 +3517,7 @@ msgid ""
 "This appointment type has no availabilities because it has no resource "
 "assigned and does not have any opening hours configured"
 msgstr ""
-"Loại cuộc hẹn này không có khung giờ trống vì không có tài nguyên nào được "
+"Loại lịch hẹn này không có khung giờ trống vì không có tài nguyên nào được "
 "chỉ định và giờ bắt đầu không được thiết lập "
 
 #. module: appointment
@@ -3518,7 +3525,7 @@ msgstr ""
 msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 msgstr ""
-"Loại cuộc hẹn này không có khung giờ trống vì không có nhân viên được phân "
+"Loại lịch hẹn này không có khung giờ trống vì không có nhân viên được phân "
 "công"
 
 #. module: appointment
@@ -3527,7 +3534,7 @@ msgid ""
 "This appointment type has no availabilities because it has no staff assigned"
 " and does not have any opening hours configured"
 msgstr ""
-"Loại cuộc hẹn này không có khung giờ trống vì không có nhân viên được phân "
+"Loại lịch hẹn này không có khung giờ trống vì không có nhân viên được phân "
 "công và không có bất kỳ giờ bắt đầu nào được định cấu hình"
 
 #. module: appointment
@@ -3540,7 +3547,7 @@ msgstr "Trường này được sử dụng để xác định múi giờ làm v
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_edit_in_backend
 msgid "This is a preview of the customer appointment form."
-msgstr "Đây là bản xem trước của biểu mẫu cuộc hẹn khách hàng. "
+msgstr "Đây là bản xem trước của biểu mẫu lịch hẹn khách hàng. "
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
@@ -3558,7 +3565,7 @@ msgstr "Múi giờ"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__appointment_tz
 msgid "Timezone where appointment take place"
-msgstr "Múi giờ nơi cuộc hẹn diễn ra"
+msgstr "Múi giờ nơi lịch hẹn diễn ra"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3653,7 +3660,7 @@ msgstr "Sắp diễn ra"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_alarm__default_for_new_appointment_type
 msgid "Use as default for new Appointment Types"
-msgstr "Sử dụng làm mặc định cho các Loại Cuộc hẹn mới"
+msgstr "Sử dụng làm mặc định cho các Loại Lịch hẹn mới"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__category
@@ -3670,7 +3677,7 @@ msgid ""
 "\n"
 "            - Anytime: the user will create and share to another user an appointment type covering all their time slots"
 msgstr ""
-"Được sử dụng để xác định danh mục của loại cuộc hẹn này.\n"
+"Được sử dụng để xác định danh mục của loại lịch hẹn này.\n"
 "\n"
 "        Có thể là một trong:\n"
 "\n"
@@ -3678,9 +3685,9 @@ msgstr ""
 "\n"
 "            - Yêu cầu đúng giờ: các khung giờ định kỳ bị giới hạn giữa 2 thời điểm. Có thể truy cập qua trang web\n"
 "\n"
-"            - Tùy chỉnh: người dùng sẽ tạo và chia sẻ với người dùng khác một loại cuộc hẹn tùy chỉnh với các khung thời gian được chọn cẩn thận\n"
+"            - Tùy chỉnh: người dùng sẽ tạo và chia sẻ với người dùng khác một loại lịch hẹn tùy chỉnh với các khung thời gian được chọn cẩn thận\n"
 "\n"
-"            - Bất kể thời gian: người dùng sẽ tạo và chia sẻ với người dùng khác một loại cuộc hẹn bao gồm toàn bộ khung giờ của họ"
+"            - Bất kể thời gian: người dùng sẽ tạo và chia sẻ với người dùng khác một loại lịch hẹn bao gồm toàn bộ khung giờ của họ"
 
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
@@ -3750,7 +3757,7 @@ msgstr "Bạn không thể mời quá 10 người"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_details_column
 msgid "Your Appointment"
-msgstr "Cuộc hẹn của bạn"
+msgstr "Lịch hẹn của bạn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3768,7 +3775,7 @@ msgstr "Bạn đã đặt lịch hẹn thành công!"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Your appointment is in less than"
-msgstr "Cuộc hẹn của bạn ít hơn"
+msgstr "Lịch hẹn của bạn sẽ diễn ra trong vòng dưới"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -3909,12 +3916,12 @@ msgstr "ai đó"
 #. module: appointment
 #: model:onboarding.onboarding.step,description:appointment.appointment_onboarding_create_appointment_type_step
 msgid "to automate appointments"
-msgstr "để tự động hóa các cuộc hẹn"
+msgstr "để tự động hóa các lịch hẹn"
 
 #. module: appointment
 #: model:onboarding.onboarding.step,description:appointment.appointment_onboarding_preview_invite_step
 msgid "to schedule appointments"
-msgstr "để lên lịch cuộc hẹn"
+msgstr "để lên lịch lịch hẹn"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

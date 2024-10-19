@@ -297,7 +297,7 @@ msgstr "Kõik read peavad olema samalt kontolt"
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "All the lines should be from the same company"
-msgstr ""
+msgstr "Kõik read peaksid olema samalt ettevõttelt"
 
 #. module: account_asset
 #. odoo-python
@@ -315,7 +315,7 @@ msgstr "Importimisel juba amortiseeritud summa"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__parent_id
 msgid "An asset has a parent when it is the result of gaining value"
-msgstr ""
+msgstr "Varal on peamine vara, kui vara väärtus tõuseb"
 
 #. module: account_asset
 #. odoo-python
@@ -509,7 +509,7 @@ msgstr "Varad"
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_asset_report_handler
 msgid "Assets Report Custom Handler"
-msgstr ""
+msgstr "Varade aruande haldur"
 
 #. module: account_asset
 #: model:ir.ui.menu,name:account_asset.menu_finance_config_assets
@@ -1244,7 +1244,7 @@ msgstr "Uus jääkväärtus varale"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__salvage_value
 msgid "New salvage amount for the asset"
-msgstr ""
+msgstr "Uus jääkväärtus"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_calendar_event_id
@@ -1375,7 +1375,7 @@ msgstr "Ülem"
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #, python-format
 msgid "Parent Asset"
-msgstr ""
+msgstr "Peamine vara"
 
 #. module: account_asset
 #. odoo-python
@@ -1388,7 +1388,7 @@ msgstr "Pane pausile"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__paused_prorata_date
 msgid "Paused Prorata Date"
-msgstr ""
+msgstr "Peatatud proportsionaalne kuupäev"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
@@ -1543,6 +1543,8 @@ msgid ""
 "Starting date of the period used in the prorata calculation of the first "
 "depreciation"
 msgstr ""
+"Perioodi alguskuupäev, mida kasutatakse esimese amortisatsiooni "
+"proportsionaalseks arvutamiseks"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__state
@@ -1573,6 +1575,8 @@ msgid ""
 "Sum of the depreciable value, the salvage value and the book value of all "
 "value increase items"
 msgstr ""
+"Amortisiseeritava väärtuse, jääkväärtuse ja väärtuse kasvuga seotud varade "
+"summa"
 
 #. module: account_asset
 #. odoo-python
@@ -1583,6 +1587,9 @@ msgid ""
 "account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
 "%(move_count)s cancelled %(word)s:"
 msgstr ""
+"Konto %(exp_acc)s on krediteeritud %(exp_delta)s, kui konto %(dep_acc)s on "
+"debiteeritud %(dep_delta)s. See vastab %(move_count)s tühistamisele "
+"%(word)s:"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_period
@@ -1607,7 +1614,7 @@ msgstr "Vara, mida muudetakse viisardiga"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__children_ids
 msgid "The children are the gains in value of this asset"
-msgstr ""
+msgstr "Alamvarad tõstavad selle vara väärtust"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__invoice_ids
@@ -1687,7 +1694,7 @@ msgstr "Kirjel oleva erandtegevuse tüüp."
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Value at Import"
-msgstr ""
+msgstr "Väärtus importimisel"
 
 #. module: account_asset
 #. odoo-python
@@ -1709,7 +1716,7 @@ msgstr "Väärtuse kasv: %(asset)s"
 #: code:addons/account_asset/models/account_asset.py:0
 #, python-format
 msgid "Warning for the Original Value of %s"
-msgstr ""
+msgstr "Hoiatus originaalväärtuse kohta %s"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__website_message_ids
@@ -1774,6 +1781,7 @@ msgid ""
 "You cannot automate the journal entry for an asset that has a running gross "
 "increase. Please use 'Dispose' on the increase(s)."
 msgstr ""
+"Vara, millel on jooksev väärtuse kasv ei automatiseerida andmiku kannet. "
 
 #. module: account_asset
 #. odoo-python
@@ -1783,6 +1791,8 @@ msgid ""
 "You cannot create an asset from lines containing credit and debit on the "
 "account or with a null amount"
 msgstr ""
+"Vara ei saa luua kanderidadest, mis sisaldavad kreedit ja deebet kontot või "
+"on null summaga. "
 
 #. module: account_asset
 #. odoo-python
@@ -1822,6 +1832,7 @@ msgstr "Postitatud varaga seotud kannet ei saa lähtestada mustandisse"
 #, python-format
 msgid "You cannot resume at a date equal to or before the pause date"
 msgstr ""
+"Ei saa jätkata kuupäeval, mis on võrdne või ennem pausile pandud kuupäeva. "
 
 #. module: account_asset
 #. odoo-python

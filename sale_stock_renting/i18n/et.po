@@ -161,11 +161,6 @@ msgid "No valid quant has been found in location %s for serial number %s!"
 msgstr "Ühtegi vastavat kogust ei leitud asukohast %s seerianumbriga %s!"
 
 #. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "Muu rentimine on konfliktis."
-
-#. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
 msgid "Padding"
 msgstr "Varuaeg"
@@ -268,7 +263,7 @@ msgstr "Tagastuskorje"
 #: code:addons/sale_stock_renting/static/src/widgets/qty_at_date_widget.xml:0
 #, python-format
 msgid "Reserved lots unavailable"
-msgstr ""
+msgstr "Reserveeritud partiid pole saadaval"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_rental_order_wizard_line__returnable_lot_ids
@@ -326,6 +321,11 @@ msgstr "Laoreegel"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
 msgstr "Tee see toode ajutiselt mittesaadavaks enne korjet."
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

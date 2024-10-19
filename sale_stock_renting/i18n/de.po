@@ -155,11 +155,6 @@ msgstr ""
 "Am Standort %s wurde keine gültige Menge für Seriennummer %s gefunden!"
 
 #. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "Andere Vermietung(en) im Konflikt."
-
-#. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
 msgid "Padding"
 msgstr "Puffer"
@@ -325,6 +320,11 @@ msgid "Temporarily make this product unavailable before pickup."
 msgstr ""
 "Markieren Sie dieses Produkt vor der Abholung vorübergehend als nicht "
 "verfügbar."
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

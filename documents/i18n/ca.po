@@ -9,8 +9,8 @@
 # Susanna Pujol, 2023
 # Albert Parera, 2023
 # Marc Tormo i Bochaca <mtbochaca@gmail.com>, 2023
-# Cristian Cruz, 2023
 # Arnau Ros, 2023
+# Cristian Cruz, 2023
 # Ivan Espinola, 2023
 # M Palau <mpalau@tda.ad>, 2023
 # Quim - eccit <quim@eccit.com>, 2023
@@ -30,7 +30,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:41+0000\n"
+"POT-Creation-Date: 2024-10-10 14:52+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Santiago Payà <santiagopim@gmail.com>, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
@@ -1049,11 +1049,6 @@ msgid "Create Share"
 msgstr "Crea una compartició"
 
 #. module: documents
-#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
-msgid "Create Vendor Bill"
-msgstr "Crea factura de proveïdor"
-
-#. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_share__activity_option
 msgid "Create a new activity"
 msgstr "Crea una activitat nova"
@@ -1235,6 +1230,7 @@ msgstr "Document"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_count
 #: model:ir.model.fields,field_description:documents.field_res_partner__document_count
+#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 msgid "Document Count"
 msgstr "Recompte de documents"
 
@@ -1316,7 +1312,6 @@ msgstr "Document: Sol·licitud de document"
 #: model:ir.actions.act_window,name:documents.document_action
 #: model:ir.model.fields,field_description:documents.field_documents_folder__document_ids
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__document_ids
-#: model:ir.model.fields,field_description:documents.field_res_users__document_count
 #: model:ir.module.category,name:documents.module_category_documents_management
 #: model:ir.ui.menu,name:documents.dashboard
 #: model:ir.ui.menu,name:documents.menu_root
@@ -2001,6 +1996,11 @@ msgid "Logout"
 msgstr "Tancar sessió"
 
 #. module: documents
+#: model:documents.workflow.rule,name:documents.documents_rule_internal_mark
+msgid "Mark As Bill"
+msgstr ""
+
+#. module: documents
 #: model:documents.workflow.rule,name:documents.documents_rule_internal_mad
 msgid "Mark As Draft"
 msgstr "Marca com a esborrany"
@@ -2195,11 +2195,6 @@ msgstr "Etiqueta nova"
 #, python-format
 msgid "New Workspace"
 msgstr "Espai de treball nou"
-
-#. module: documents
-#: model:ir.model.fields,field_description:documents.field_documents_document__activity_calendar_event_id
-msgid "Next Activity Calendar Event"
-msgstr "Proper esdeveniment del calendari d'activitats"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_date_deadline
@@ -2448,12 +2443,6 @@ msgstr "Presentacions"
 #: model:documents.tag,name:documents.documents_internal_template_project
 msgid "Project"
 msgstr "Projecte"
-
-#. module: documents
-#: model:ir.model.fields,field_description:documents.field_documents_document__rating_ids
-#: model:ir.model.fields,field_description:documents.field_documents_share__rating_ids
-msgid "Ratings"
-msgstr "Valoracions"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_view_form
@@ -3059,6 +3048,13 @@ msgstr "L'URL de compartició s'ha copiat al porta-retalls."
 #: code:addons/documents/static/src/views/inspector/documents_inspector.js:0
 #, python-format
 msgid "The share url has been copied to your clipboard. Links were excluded."
+msgstr ""
+
+#. module: documents
+#: model_terms:ir.ui.view,arch_db:documents.folder_view_form
+msgid ""
+"The specified access rights only apply to the current workspace, not its "
+"children"
 msgstr ""
 
 #. module: documents

@@ -169,7 +169,7 @@ msgstr "Công cụ đối chiếu tài khoản"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_account_id
 msgid "Account used for deferred expenses"
-msgstr "Tài khoản sử dụng cho chi phí hoãn lại"
+msgstr "Tài khoản sử dụng cho chi phí chờ kết chuyển"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_account_id
@@ -606,12 +606,12 @@ msgstr "Ngày"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_end_date
 msgid "Date at which the deferred expense/revenue ends"
-msgstr "Ngày chi phí/doanh thu chưa thực hiện kết thúc"
+msgstr "Ngày chi phí chờ kết chuyển/doanh thu chưa thực hiện kết thúc"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_move_line__deferred_start_date
 msgid "Date at which the deferred expense/revenue starts"
-msgstr "Ngày chi phí/doanh thu chưa thực hiện bắt đầu"
+msgstr "Ngày chi phí chờ kết chuyển/doanh thu chưa thực hiện bắt đầu"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__day
@@ -672,7 +672,7 @@ msgstr "Loại bút toán hoãn lại"
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_expense_account_id
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_move__deferred_entry_type__expense
 msgid "Deferred Expense"
-msgstr "Chi phí hoãn lại"
+msgstr "Chi phí chờ kết chuyển"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__deferred_journal_id
@@ -900,7 +900,7 @@ msgstr "Tháng đầy đủ"
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Generate Deferred Expense Entries Method"
-msgstr "Phương thức tạo bút toán chi phí hoãn lại"
+msgstr "Phương thức tạo bút toán chi phí chờ kết chuyển"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_revenue_entries_method
@@ -1275,7 +1275,7 @@ msgstr "Phương pháp dùng để tính toán số tiền của bút toán hoã
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 msgid "Method used to generate deferred expense entries"
-msgstr "Phương pháp dùng để tạo bút toán chi phí hoãn lại"
+msgstr "Phương pháp dùng để tạo bút toán chi phí chờ kết chuyển"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
