@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,17 +28,17 @@ msgstr "Được chấp thuận"
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__account_online_linked
 msgid "Account Online Linked"
-msgstr ""
+msgstr "Tài khoản liên kết online"
 
 #. module: account_online_payment
 #: model:ir.actions.server,name:account_online_payment.ir_cron_bank_sync_update_payment_status_ir_actions_server
 msgid "Account: Update payment status"
-msgstr ""
+msgstr "Tài khoản: Cập nhật trạng thái thanh toán"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__payment_identifier
 msgid "Batch ID"
-msgstr ""
+msgstr "ID loạt"
 
 #. module: account_online_payment
 #: model:ir.model,name:account_online_payment.model_account_batch_payment
@@ -52,28 +53,28 @@ msgstr "Đã huỷ"
 #. module: account_online_payment
 #: model:ir.actions.server,name:account_online_payment.action_account_online_payment_check_status
 msgid "Check Status"
-msgstr ""
+msgstr "Kiểm tra trạng thái"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_payment__end_to_end_id
 msgid "End to End ID"
-msgstr ""
+msgstr "ID E2E:"
 
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
 msgid "Initiate Payment"
-msgstr ""
+msgstr "Thực hiện thanh toán"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__payment_online_status
 msgid "PIS Status"
-msgstr ""
+msgstr "Trạng thái PIS"
 
 #. module: account_online_payment
 #. odoo-python
 #: code:addons/account_online_payment/models/account_batch_payment.py:0
 msgid "Payment already been signed"
-msgstr ""
+msgstr "Thanh toán đã được ký"
 
 #. module: account_online_payment
 #: model:ir.model,name:account_online_payment.model_account_payment
@@ -92,6 +93,8 @@ msgid ""
 "Please be aware that signed payments may have already been processed and "
 "sent to the bank."
 msgstr ""
+"Xin lưu ý rằng các khoản thanh toán đã ký có thể đã được xử lý và gửi đến "
+"ngân hàng."
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__redirect_url
@@ -106,7 +109,7 @@ msgstr "Bị từ chối"
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
 msgid "Sign Payment"
-msgstr ""
+msgstr "Ký thanh toán"
 
 #. module: account_online_payment
 #. odoo-python
@@ -115,16 +118,18 @@ msgid ""
 "This payment might have already been signed. Refreshing the payment "
 "status..."
 msgstr ""
+"Khoản thanh toán này có thể đã được ký. Đang làm mới trạng thái thanh "
+"toán..."
 
 #. module: account_online_payment
 #: model:ir.model.fields.selection,name:account_online_payment.selection__account_batch_payment__payment_online_status__uninitiated
 msgid "Uninitiated"
-msgstr ""
+msgstr "Huỷ thực hiện"
 
 #. module: account_online_payment
 #: model:ir.model.fields.selection,name:account_online_payment.selection__account_batch_payment__payment_online_status__unsigned
 msgid "Unsigned"
-msgstr ""
+msgstr "Huỷ ký"
 
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
@@ -135,4 +140,4 @@ msgstr "XML"
 #. odoo-python
 #: code:addons/account_online_payment/models/account_payment.py:0
 msgid "You cannot modify a payment that has already been sent to the bank."
-msgstr ""
+msgstr "Bạn không thể sửa đổi khoản thanh toán đã được gửi tới ngân hàng."

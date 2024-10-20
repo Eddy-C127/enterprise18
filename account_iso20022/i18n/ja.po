@@ -3,8 +3,8 @@
 # 	* account_iso20022
 # 
 # Translators:
-# Junko Augias, 2024
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +30,7 @@ msgstr "銀行口座が指定されていません。"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_payment_register.py:0
 msgid "A bank account must be set on the following documents: %s(doc_name)"
-msgstr ""
+msgstr "銀行口座は以下のドキュメントで設定する必要があります: %s(doc_name)"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03_austrian_004
@@ -50,7 +50,7 @@ msgstr "一括払い"
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_batch_payment__iso20022_charge_bearer
 msgid "Charge Bearer"
-msgstr ""
+msgstr "費用負担者"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_company
@@ -66,7 +66,7 @@ msgstr "コンフィグ設定"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Configure Journal"
-msgstr ""
+msgstr "仕訳帳を設定"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_partner
@@ -99,7 +99,7 @@ msgstr "ドイツ"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Go to settings"
-msgstr ""
+msgstr "管理設定に移動"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__has_sepa_ct_payment_method
@@ -109,7 +109,7 @@ msgstr "Sepa Ct支払方法を有する"
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022
 msgid "ISO20022"
-msgstr ""
+msgstr "ISO20022"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_id
@@ -172,7 +172,7 @@ msgstr "債権者参照当事者の名前。使用規則：70文字以内"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Non-EUR Payments"
-msgstr ""
+msgstr "非ユーロ支払"
 
 #. module: account_iso20022
 #. odoo-python
@@ -215,7 +215,7 @@ msgstr "SEPA経由で送金する支払"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Payments without IBAN"
-msgstr ""
+msgstr "IBANなしの支払"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_batch_payment__iso20022_batch_booking
@@ -243,26 +243,26 @@ msgstr "未送金 SEPAクレジット振替 "
 #. odoo-python
 #: code:addons/account_iso20022/models/account_payment.py:0
 msgid "SEPA only accepts payments in EUR."
-msgstr ""
+msgstr "SEPAはユーロでの支払のみ受け付けます。"
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid ""
 "SEPA only accepts payments in EUR. Some payments are using another currency."
-msgstr ""
+msgstr "SEPAはユーロでの支払のみ受け付けます。別の通貨を使用している支払があります。"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_journal__sepa_pain_version
 #: model:ir.model.fields,help:account_iso20022.field_account_payment__sepa_pain_version
 msgid ""
 "SEPA version to use to generate Credit Transfer XML files from this journal"
-msgstr ""
+msgstr "この仕訳帳からクレジット振替XMLファイルを生成する際に使用するSEPAバージョン"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__slev
 msgid "Service Level"
-msgstr ""
+msgstr "サービスレベル"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__shar
@@ -294,17 +294,17 @@ msgstr "受取人の銀行口座が設定されていない支払いがありま
 msgid ""
 "Specifies which party/parties will bear the charges associated with the "
 "processing of the payment transaction."
-msgstr ""
+msgstr "支払取引の処理に関連する費用をどちらが負担するかを指定します。"
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022_se
 msgid "Swedish ISO20022"
-msgstr ""
+msgstr "スウェーデン ISO20022"
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022_ch
 msgid "Swiss ISO20022"
-msgstr ""
+msgstr "スイス ISO20022"
 
 #. module: account_iso20022
 #. odoo-python
@@ -342,7 +342,7 @@ msgstr ""
 msgid ""
 "The Name Identification and Issuer details are required to proceed. Please "
 "configure them in the settings."
-msgstr ""
+msgstr "手続きを進めるには、名前のIDと発行者の詳細が必要です。設定でそれらを設定して下さい。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -351,6 +351,8 @@ msgid ""
 "The bank account %(account)s, of journal '%(journal)s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"銀行口座 %(account)s(仕訳帳'%(journal)s'の) はIBANタイプではありません。\n"
+"SEPA機能を使用するには、有効なIBAN口座が必要です。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -358,7 +360,7 @@ msgstr ""
 msgid ""
 "The customer bank account set on some payments does not have an IBAN number."
 " This is required for SEPA."
-msgstr ""
+msgstr "一部の支払いに設定された顧客の銀行口座にIBAN番号がありません。SEPAで必要です。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -372,7 +374,7 @@ msgstr "仕訳'%s'はSEPA経由での支払いに適切なIBAN口座を必要と
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "This journal does not have a bank account defined."
-msgstr ""
+msgstr "この仕訳帳には、銀行口座が定義されていません。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -394,14 +396,14 @@ msgstr "一意のエンド・ツー・エンドの取引参照"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "View Payments"
-msgstr ""
+msgstr "支払を表示"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_initiating_party_name
 msgid ""
 "Will appear as the name of the party initiating the payment. Limited to 70 "
 "characters."
-msgstr ""
+msgstr "支払を行う側の名前として表示されます。70文字以内に制限されています。"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_orgid_issr
@@ -414,7 +416,7 @@ msgstr "SEPA支払では、支払いを行う当事者の名前として表示�
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__sepa_pain_version
 #: model:ir.model.fields,field_description:account_iso20022.field_account_payment__sepa_pain_version
 msgid "XML Format"
-msgstr ""
+msgstr "XMLフォーマット"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_initiating_party_name
@@ -425,9 +427,9 @@ msgstr "会社の名前"
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03
 msgid "pain.001.001.03"
-msgstr ""
+msgstr "pain.001.001.03"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_09
 msgid "pain.001.001.09"
-msgstr ""
+msgstr "pain.001.001.09"

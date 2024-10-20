@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 msgid ", which cannot be reported."
-msgstr ""
+msgstr ", które nie może być zaraportowane"
 
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__account_intrastat_code__supplementary_unit__1_000_kwh
@@ -55,11 +56,13 @@ msgid ""
 "<span class=\"fa fa-lg fa-building-o ms-2\" title=\"Values set here are "
 "company-specific.\"/>"
 msgstr ""
+"<span class=\"fa fa-lg fa-building-o ms-2\" title=\"Ustawione wartości są "
+"specyficzne dla firmy\"/>"
 
 #. module: account_intrastat
 #: model_terms:ir.ui.view,arch_db:account_intrastat.account_move_line_tree_view_account_intrastat_transaction_codes
 msgid "Account move line"
-msgstr "Linia przeniesienia konta"
+msgstr "Wiersz ruchu na koncie"
 
 #. module: account_intrastat
 #: model_terms:ir.ui.view,arch_db:account_intrastat.view_intrastat_code_search
@@ -70,7 +73,7 @@ msgstr "Aktywne"
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/filters/filters.js:0
 msgid "All partners"
-msgstr ""
+msgstr "Wszyscy partnerzy"
 
 #. module: account_intrastat
 #. odoo-javascript
@@ -188,12 +191,12 @@ msgstr "Tryb rozszerzony"
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/filters/filters.js:0
 msgid "Extended mode"
-msgstr ""
+msgstr "Tryb rozszerzony"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_res_config_settings__has_country_regions
 msgid "Has Country Regions"
-msgstr ""
+msgstr "Zawiera regiony kraju"
 
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_incoterm_code
@@ -238,12 +241,12 @@ msgstr "Customowy handler raportu Intrastat"
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_product_template__intrastat_supplementary_unit
 msgid "Intrastat Supplementary Unit"
-msgstr ""
+msgstr "Jednostka uzupełniająca Intrastat"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_product_template__intrastat_supplementary_unit_amount
 msgid "Intrastat Supplementary Unit Amount"
-msgstr ""
+msgstr "Ilość jednostki uzupełniającej Intrastat"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_account_bank_statement_line__intrastat_transport_mode_id
@@ -295,7 +298,7 @@ msgstr "Nieważne wpisy kodu intrastat transakcji."
 #. odoo-python
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 msgid "Invalid transport mode code entries."
-msgstr ""
+msgstr "Nieważne wpisy kodu trybu transportu."
 
 #. module: account_intrastat
 #: model_terms:ir.ui.view,arch_db:account_intrastat.account_move_line_tree_view_account_intrastat_product_origin_country_id
@@ -321,18 +324,18 @@ msgstr "Pozycja zapisu"
 #. odoo-python
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 msgid "Missing country of origin"
-msgstr ""
+msgstr "Brakuje kraju pochodzenia"
 
 #. module: account_intrastat
 #. odoo-python
 #: code:addons/account_intrastat/models/account_intrastat_report.py:0
 msgid "Missing product"
-msgstr ""
+msgstr "Brakujący produkt"
 
 #. module: account_intrastat
 #: model:res.country,name:account_intrastat.xi
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Północna Irlandia"
 
 #. module: account_intrastat
 #. odoo-javascript
@@ -359,7 +362,7 @@ msgstr "Partner VAT"
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/filters/filters.js:0
 msgid "Partners with VAT numbers"
-msgstr ""
+msgstr "Partnerzy z numerami VAT"
 
 #. module: account_intrastat
 #: model:ir.model,name:account_intrastat.model_product_template
@@ -413,7 +416,7 @@ msgstr "Niektóre produkty mają niezdefiniowane"
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/filters/filters.js:0
 msgid "Standard mode"
-msgstr ""
+msgstr "Tryb standardowy"
 
 #. module: account_intrastat
 #: model:ir.model.fields,field_description:account_intrastat.field_product_product__intrastat_supplementary_unit
@@ -440,7 +443,7 @@ msgstr "System"
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__product_template__intrastat_supplementary_unit__tj
 msgid "TJ"
-msgstr ""
+msgstr "TJ"
 
 #. module: account_intrastat
 #: model:ir.model.fields,help:account_intrastat.field_res_config_settings__company_country_id
@@ -497,7 +500,7 @@ msgstr "Wartość"
 #. module: account_intrastat
 #: model:account.report.column,name:account_intrastat.intrastat_report_column_weight
 msgid "Weight (kg)"
-msgstr ""
+msgstr "Waga (kg)"
 
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__account_intrastat_code__supplementary_unit__c/k
@@ -533,7 +536,7 @@ msgstr "gi F / S"
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 msgid "journals items with no product"
-msgstr ""
+msgstr "pozycje dziennika bez produktu"
 
 #. module: account_intrastat
 #: model:ir.model.fields.selection,name:account_intrastat.selection__account_intrastat_code__supplementary_unit__kg_90_%_sdt
@@ -634,7 +637,7 @@ msgstr "produkt"
 #. odoo-javascript
 #: code:addons/account_intrastat/static/src/components/intrastat_report/warnings.xml:0
 msgid "product commodity codes"
-msgstr ""
+msgstr "kody towarowe produktu"
 
 #. module: account_intrastat
 #. odoo-javascript

@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Marta Waclawek, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Marta Waclawek, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -51,19 +51,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(months)s m"
-msgstr ""
+msgstr "%(months)s m"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s z %(total)s)"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "%(years)s y"
-msgstr ""
+msgstr "%(years)s l"
 
 #. module: account_asset
 #. odoo-python
@@ -90,7 +90,7 @@ msgstr "%s: Amortyzacja"
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "(No %s)"
-msgstr ""
+msgstr "(Brak %s)"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -105,6 +105,9 @@ msgid ""
 "<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
 "asset following the changes."
 msgstr ""
+"Amortyzacja zostanie zaksięgowana z datą %(date)s. <br/> "
+"%(extra_text)sPrzyszłe wpisy zostaną obliczone ponownie aby zamortyzować "
+"aktywa po zmianach."
 
 #. module: account_asset
 #. odoo-python
@@ -114,6 +117,9 @@ msgid ""
 " A disposal entry will be posted on the %(account_type)s account "
 "<b>%(account)s</b>."
 msgstr ""
+"Wpis amortyzacyjny zostanie zaksięgowany w dniu i z dniem %(date)s. <br/> "
+"Zapis o zbyciu zostanie zaksięgowany na koncie "
+"%(account_type)s<b>%(account)s</b>."
 
 #. module: account_asset
 #. odoo-python
@@ -123,6 +129,9 @@ msgid ""
 " A second entry will neutralize the original income and post the  outcome of"
 " this sale on account <b>%(account)s</b>."
 msgstr ""
+"Zapis o amortyzacji zostanie zaksięgowany w dniu i z dniem %(date)s .<br/> "
+"Drugi zapis zneutralizuje pierwotny przychód i zaksięguje wynik tej "
+"sprzedaży na koncie<b>%(account)s</b> ."
 
 #. module: account_asset
 #. odoo-python
@@ -134,7 +143,7 @@ msgstr "Wpis amortyzacji zostanie zaksięgowany w dniu i z dniem %s."
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "A document linked to %(move_line_name)s has been deleted: %(link)s"
-msgstr ""
+msgstr "Dokument powiązany z %(move_line_name)s został usuniety: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -146,7 +155,7 @@ msgstr "Dokument związany z tym ruchem został usunięty: %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "Utworzono wzrost brutto: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -155,6 +164,8 @@ msgid ""
 "A non deductible tax value of %(tax_value)s was added to %(name)s's initial "
 "value of %(purchase_value)s"
 msgstr ""
+"Wartość podatku niepodlegająca odliczeniu w wysokości %(tax_value)s została "
+"dodana do początkowej wartości %(name)s %(purchase_value)s"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_account
@@ -322,6 +333,8 @@ msgid ""
 "An asset wil be created for each asset model when this account is used on a "
 "vendor bill or a refund"
 msgstr ""
+"Dla każdego modelu aktywów zostaną utworzone aktywa, gdy konto to zostanie "
+"użyte na rachunku sprzedawcy lub zwrocie środków."
 
 #. module: account_asset
 #. odoo-python
@@ -843,7 +856,7 @@ msgstr "Tablica amortyzacyjna zmodyfikowana %s"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "Depreciation entry %(name)s posted (%(value)s)"
-msgstr ""
+msgstr "Wpis amortyzacyjny %(name)s zaksięgowany (%(value)s)"
 
 #. module: account_asset
 #. odoo-python
@@ -1273,7 +1286,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__net_gain_on_sale
 msgid "Net value of gain or loss on sale of an asset"
-msgstr ""
+msgstr "Wartość netto zysku lub straty ze sprzedaży składnika aktywów"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__value_residual
@@ -1598,6 +1611,8 @@ msgid ""
 "Starting date of the period used in the prorata calculation of the first "
 "depreciation"
 msgstr ""
+"Data rozpoczęcia okresu wykorzystanego do proporcjonalnego obliczenia "
+"pierwszej amortyzacji"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__state
@@ -1666,6 +1681,9 @@ msgid ""
 "Purchase's value (%(purchase_value)s). Please make sure this is what you "
 "want."
 msgstr ""
+"Wprowadzona przez Ciebie kwota (%(entered_amount)s) nie pasuje do wartości "
+"zakupu powiązanego (%(purchase_value)s). Upewnij się. że chcesz "
+"przeprowadzić to działanie."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id
@@ -1895,7 +1913,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "You cannot select the same account as the Depreciation Account"
-msgstr ""
+msgstr "Nie możesz wybrać tego samego konta co Konto Amortyzacyjne"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_balance

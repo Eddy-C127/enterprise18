@@ -51,6 +51,8 @@ msgid ""
 "<span class=\"oe_inline\" invisible=\"duration == 1\">months</span>\n"
 "                                        <span class=\"oe_inline\" invisible=\"duration != 1\">month</span>"
 msgstr ""
+"<span class=\"oe_inline\" invisible=\"duration == 1\">شهور</span>\n"
+"                                        <span class=\"oe_inline\" invisible=\"duration != 1\">شهر</span>"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
@@ -58,6 +60,8 @@ msgid ""
 "<span class=\"oe_inline\" invisible=\"loan_term == 1\">years</span>\n"
 "                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">year</span>"
 msgstr ""
+"<span class=\"oe_inline\" invisible=\"loan_term == 1\">سنوات</span>\n"
+"                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">سنة</span> "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
@@ -98,22 +102,22 @@ msgstr "نشط"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 msgid "All draft entries after the"
-msgstr ""
+msgstr "تمت إزالة موصل eBay. "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Amortization schedule"
-msgstr ""
+msgstr "جدول الاستهلاك "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed
 msgid "Amount Borrowed"
-msgstr ""
+msgstr "المبلغ المقترض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed_difference
 msgid "Amount Borrowed Difference"
-msgstr ""
+msgstr "فرق المبلغ المقترض "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
@@ -128,7 +132,7 @@ msgstr "تطبيق"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Asset Group"
-msgstr ""
+msgstr "مجموعة الأصول "
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_asset
@@ -138,7 +142,7 @@ msgstr "إثبات الأصل/الإيرادات "
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__payment_end_of_month__at_anniversary
 msgid "At Anniversary"
-msgstr ""
+msgstr "في الذكرى السنوية "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_attachment_count
@@ -177,7 +181,7 @@ msgstr "تاريخ الإغلاق"
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_close_wizard
 #: model:ir.model,name:account_loans.model_account_loan_close_wizard
 msgid "Close Loan Wizard"
-msgstr ""
+msgstr "إغلاق معالج القروض "
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__closed
@@ -190,13 +194,13 @@ msgstr "مغلق"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Closed Loans"
-msgstr ""
+msgstr "القروض المغلقة "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_close_wizard.py:0
 msgid "Closed on the %(date)s"
-msgstr ""
+msgstr "تم إغلاقه في %(date)s "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__company_id
@@ -207,7 +211,7 @@ msgstr "الشركة "
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__compounding_method
 msgid "Compounding Method"
-msgstr ""
+msgstr "طريقة التركيب "
 
 #. module: account_loans
 #. odoo-javascript
@@ -219,7 +223,7 @@ msgstr "احتساب "
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Compute New Loan"
-msgstr ""
+msgstr "حساب قرض جديد "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -229,13 +233,13 @@ msgstr "تأكيد"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__count_linked_assets
 msgid "Count Linked Assets"
-msgstr ""
+msgstr "عدّ الأصول المرتبطة "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__count_linked_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__count_linked_loans
 msgid "Count Linked Loans"
-msgstr ""
+msgstr "عدّ القروض المرتبطة "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__create_uid
@@ -307,7 +311,7 @@ msgstr "المدة"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration_difference
 msgid "Duration Difference"
-msgstr ""
+msgstr "فرق المدة "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__end_date
@@ -322,7 +326,7 @@ msgstr "نهاية الشهر "
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan_line__generated_move_ids
 msgid "Entries that we generated from this loan line"
-msgstr ""
+msgstr "الإدخالات التي قمنا بإنشائها من بند القرض هذا "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__expense_account_id
@@ -332,7 +336,7 @@ msgstr "حساب النفقات "
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__first_payment_date
 msgid "First Payment"
-msgstr ""
+msgstr "الدفعة الأولى "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_follower_ids
@@ -353,7 +357,7 @@ msgstr "القيود المُنشأة "
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__generating_loan_line_id
 #: model:ir.model.fields,field_description:account_loans.field_account_move__generating_loan_line_id
 msgid "Generating Loan Line"
-msgstr ""
+msgstr "إنشاء بند القرض "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
@@ -396,24 +400,24 @@ msgstr "الفائدة "
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__interest_difference
 msgid "Interest Difference"
-msgstr ""
+msgstr "فرق الفوائد "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__interest_rate
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Interest Rate"
-msgstr ""
+msgstr "نسبة الفوائد "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Interest Rate must be between 0 and 100"
-msgstr ""
+msgstr "يجب أن تكون نسبة الفوائد بين 0 و 100 "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Interests"
-msgstr ""
+msgstr "الفوائد "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_is_follower
@@ -424,17 +428,17 @@ msgstr "متابع"
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__is_loan_payment_move
 #: model:ir.model.fields,field_description:account_loans.field_account_move__is_loan_payment_move
 msgid "Is Loan Payment Move"
-msgstr ""
+msgstr "حركة سداد القرض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__is_payment_move_posted
 msgid "Is Payment Move Posted"
-msgstr ""
+msgstr "تم ترحيل حركة الدفع "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__is_wrong_date
 msgid "Is Wrong Date"
-msgstr ""
+msgstr "التاريخ غير صحيح "
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_journal
@@ -450,7 +454,7 @@ msgstr "قيد اليومية"
 #. module: account_loans
 #: model:account.journal,name:account_loans.account_loans_journal_loan
 msgid "Journal Loan Demo"
-msgstr ""
+msgstr "العرض التوضيحي لقرض في دفتر اليومية "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__write_uid
@@ -472,20 +476,20 @@ msgstr "آخر تحديث في"
 #: model:ir.model.fields,help:account_loans.field_account_bank_statement_line__generating_loan_line_id
 #: model:ir.model.fields,help:account_loans.field_account_move__generating_loan_line_id
 msgid "Line of the loan that generated this entry"
-msgstr ""
+msgstr "بند القرض الذي أدى إلى إنشاء هذا القيد "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__linked_assets_ids
 msgid "Linked Assets"
-msgstr ""
+msgstr "الأصول المرتبطة "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_asset.py:0
 msgid "Linked loans"
-msgstr ""
+msgstr "القروض المربطة "
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan
@@ -498,80 +502,80 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Loan"
-msgstr ""
+msgstr "قرض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_amount
 msgid "Loan Amount"
-msgstr ""
+msgstr "مبلغ القرض "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Amount must be positive"
-msgstr ""
+msgstr "يجب أن يكون مبلغ القرض موجباً "
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_compute_wizard
 #: model:ir.model,name:account_loans.model_account_loan_compute_wizard
 msgid "Loan Compute Wizard"
-msgstr ""
+msgstr "معالج حساب القروض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__date
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__loan_date
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 msgid "Loan Date"
-msgstr ""
+msgstr "تاريخ القرض "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Loan Entries"
-msgstr ""
+msgstr "قيود القرض "
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan_line
 msgid "Loan Line"
-msgstr ""
+msgstr "بند القرض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__line_ids
 msgid "Loan Lines"
-msgstr ""
+msgstr "بنود القرض "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan Settings"
-msgstr ""
+msgstr "إعدادات القرض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_term
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Loan Term"
-msgstr ""
+msgstr "مدة القرض "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Term must be positive"
-msgstr ""
+msgstr "يجب أن تكون مدة القرض قيمة موجبة "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Loan lines"
-msgstr ""
+msgstr "بنود القرض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__display_name
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan name"
-msgstr ""
+msgstr "اسم القرض "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.asset_group_form_view_inherit_loan
 msgid "Loan(s)"
-msgstr ""
+msgstr "القروض "
 
 #. module: account_loans
 #. odoo-python
@@ -580,29 +584,29 @@ msgstr ""
 #: model:ir.ui.menu,name:account_loans.menu_action_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Loans"
-msgstr ""
+msgstr "القروض "
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loans_analysis
 #: model:ir.ui.menu,name:account_loans.menu_action_loans_analysis
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_pivot_view
 msgid "Loans Analysis"
-msgstr ""
+msgstr "تحليل القروض "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__long_term_account_id
 msgid "Long Term Account"
-msgstr ""
+msgstr "حساب طويل الأجل "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__long_term_theoretical_balance
 msgid "Long-Term"
-msgstr ""
+msgstr "طويل لأجل "
 
 #. module: account_loans
 #: model_terms:ir.actions.act_window,help:account_loans.action_view_account_loans
 msgid "Manage Your Acquired Loans with Automated Adjustments."
-msgstr ""
+msgstr "قم بإدارة قروضك التي حصلت عليها من خلال التعديلات الآلية. "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_has_error
@@ -617,7 +621,7 @@ msgstr "الرسائل"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_journal__loan_properties_definition
 msgid "Model Properties"
-msgstr ""
+msgstr "خصائص النموذج "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__name
@@ -654,13 +658,13 @@ msgstr "عدد الرسائل الحادث بها خطأ في التسليم"
 #. odoo-python
 #: code:addons/account_loans/models/account_move.py:0
 msgid "Original Loan"
-msgstr ""
+msgstr "القرض الأصلي "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__outstanding_balance
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__outstanding_balance
 msgid "Outstanding Balance"
-msgstr ""
+msgstr "المبلغ المستحق "
 
 #. module: account_loans
 #. odoo-python
@@ -679,7 +683,7 @@ msgstr "المدفوعات"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Please add a name before computing the loan"
-msgstr ""
+msgstr "يرجى إضافة اسم قبل حساب مبلغ القرض "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -697,12 +701,12 @@ msgstr "معاينة"
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
-msgstr ""
+msgstr "أصل الدَّيْن "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Principals"
-msgstr ""
+msgstr "أصول الديون "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__loan_properties
@@ -718,23 +722,23 @@ msgstr "التقييمات "
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Related Asset(s)"
-msgstr ""
+msgstr "الأصول ذات الصلة "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_move_form_inherit_loan
 msgid "Related Loan"
-msgstr ""
+msgstr "القرض ذو الصلة "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_asset_form_inherit_loan
 msgid "Related Loan(s)"
-msgstr ""
+msgstr "القروض ذات الصلة "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__linked_loans_ids
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__linked_loan_ids
 msgid "Related Loans"
-msgstr ""
+msgstr "القرض ذو الصلة "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -745,7 +749,7 @@ msgstr "إعادة الضبط "
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Reversal of %s"
-msgstr ""
+msgstr "عكس %s "
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running
@@ -761,7 +765,7 @@ msgstr "خطأ في تسليم الرسائل النصية القصيرة "
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Search Loan"
-msgstr ""
+msgstr "البحث عن قرض "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -774,21 +778,23 @@ msgid ""
 "Set up your amortization schedule, or import it, and let Odoo handle the "
 "monthly interest and principal adjustments automatically."
 msgstr ""
+"قم بإعداد جدول الاستهلاك الخاص بك، أو قم باستيراده ودع أودو يتعامل مع "
+"تعديلات الفوائد الشهرية وأصل الدين تلقائياً. "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__short_term_account_id
 msgid "Short Term Account"
-msgstr ""
+msgstr "حساب قصير الأجل "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__short_term_theoretical_balance
 msgid "Short-Term"
-msgstr ""
+msgstr "قصير الأجل "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__skip_until_date
 msgid "Skip until"
-msgstr ""
+msgstr "تخطي إلى "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__start_date
@@ -807,31 +813,31 @@ msgstr "الحالة"
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "The First Payment Date must be before the end of the loan."
-msgstr ""
+msgstr "يجب أن يكون تاريخ القسط الأول قبل نهاية القرض. "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The amount borrowed must be positive"
-msgstr ""
+msgstr "يجب أن يكون المبلغ المقترض موجباً "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The duration must be positive"
-msgstr ""
+msgstr "يجب أن تكون المدة موجبة "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The interest must be positive"
-msgstr ""
+msgstr "يجب أن تكون الفوائد قيمة موجبة "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan accounts should be set."
-msgstr ""
+msgstr "يجب أن يتم تعيين حسابات القروض. "
 
 #. module: account_loans
 #. odoo-python
@@ -840,37 +846,39 @@ msgid ""
 "The loan amount %(loan_amount)s should be equal to the sum of the "
 "principals: %(principal_sum)s (difference %(principal_difference)s)"
 msgstr ""
+"يجب أن يكون مبلغ القرض %(loan_amount)s مساوياً لمجموع أصول الدين: "
+"%(principal_sum)s(الفرق %(principal_difference)s) "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan date should be earlier than the loan lines date."
-msgstr ""
+msgstr "يجب أن يكون تاريخ القرض قبل تاريخ بنود القرض. "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan duration should be equal to the number of loan lines."
-msgstr ""
+msgstr "يجب أن تكون مدة القرض مساوية لعدد بنود القرض. "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid ""
 "The loan interest should be equal to the sum of the loan lines interest."
-msgstr ""
+msgstr "يجب أن تكون فائدة القرض مساوية لمجموع فوائد بنود القرض. "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan journal should be set."
-msgstr ""
+msgstr "يجب أن يتم تعيين دفتر يومية القرض. "
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan name should be set."
-msgstr ""
+msgstr "يجب أن يتم تعيين اسم القرض. "
 
 #. module: account_loans
 #. odoo-python
@@ -881,27 +889,27 @@ msgstr "هذا القيد %s "
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Amounts Borrowed"
-msgstr ""
+msgstr "إجمالي المبلغ المقترض "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Outstanding Balance"
-msgstr ""
+msgstr "إجمالي المبلغ المستحق "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total interests"
-msgstr ""
+msgstr "إجمالي الفوائد "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total payments"
-msgstr ""
+msgstr "إجمالي المدفوعات "
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total principals"
-msgstr ""
+msgstr "إجمالي أصول الديون "
 
 #. module: account_loans
 #. odoo-javascript
@@ -913,7 +921,7 @@ msgstr "رفع"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Uploaded file"
-msgstr ""
+msgstr "الملف الذي تم رفعه "
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__skip_until_date
@@ -923,6 +931,9 @@ msgid ""
 "you have already manually created entries prior to the creation of this "
 "loan."
 msgstr ""
+"عند تأكيد القرض، سوف يتجاهل أودو بنود القرض حتى هذا التاريخ ( شاملة لهذا "
+"التاريخ) ولن يقوم بإنشاء قيود لها. يكون ذلك مفيداً إذا كنت قد قمت بالفعل "
+"بإنشاء قيود يدوياً قبل إنشاء هذا القرض. "
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__website_message_ids
@@ -937,4 +948,4 @@ msgstr "سجل تواصل الموقع الإلكتروني "
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 msgid "will be deleted and the loan will be marked as closed."
-msgstr ""
+msgstr "سيتم حذفه وسيتم وضع علامة على القرض على أنه مغلق. "

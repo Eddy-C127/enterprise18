@@ -7,10 +7,10 @@
 # Triine Aavik <triine@avalah.ee>, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Stevin Lilla, 2024
-# Birgit Vijar, 2024
 # JanaAvalah, 2024
 # Kärt Villako, 2024
 # Anna, 2024
+# Birgit Vijar, 2024
 # 
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Birgit Vijar, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +50,7 @@ msgstr "Konto Winbooks Import moodul"
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_account_import_summary
 msgid "Account import summary view"
-msgstr ""
+msgstr "Konto impordi koondvaade"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -179,37 +179,37 @@ msgstr "Impordi partnereid"
 #. odoo-python
 #: code:addons/account_base_import/wizard/account_import_summary.py:0
 msgid "Import Summary"
-msgstr ""
+msgstr "Impordi kokkuvõte"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_account_ids
 msgid "Import Summary Account"
-msgstr ""
+msgstr "Konto importimise kokkuvõte"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_journal_ids
 msgid "Import Summary Journal"
-msgstr ""
+msgstr "Andmike importimise kokkuvõte"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_move_ids
 msgid "Import Summary Move"
-msgstr ""
+msgstr "Kande importimise kokkuvõte"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_name
 msgid "Import Summary Name"
-msgstr ""
+msgstr "Nimede importimise kokkuvõte"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_partner_ids
 msgid "Import Summary Partner"
-msgstr ""
+msgstr "Impordi partnerid"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_tax_ids
 msgid "Import Summary Tax"
-msgstr ""
+msgstr "Impordi koondmakse"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -233,7 +233,7 @@ msgstr "Importige kontoplaan ja algsaldod, kasutades"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "Imported Data"
-msgstr ""
+msgstr "Imporditud andmed"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -290,7 +290,7 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "No data was imported."
-msgstr ""
+msgstr "Andmeid ei imporditud. "
 
 #. module: account_base_import
 #. odoo-javascript
@@ -387,6 +387,7 @@ msgid ""
 "We will setup your charts of accounts and the history of journal entries, "
 "that will stay in draft."
 msgstr ""
+"Seadistame kontoplaani ja ajaloo andmike kannetest, mis jäävad mustandisse. "
 
 #. module: account_base_import
 #. odoo-javascript
@@ -407,7 +408,7 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "accounts imported"
-msgstr ""
+msgstr "imporditud kontod"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -417,16 +418,19 @@ msgid ""
 "                            For general SIE, we will setup your charts of accounts balances, journals, partners, and the history of journal entries (journals data must be present in the file).\n"
 "                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
 msgstr ""
+"on kohustuslik importida SIE ja SIE formaadis failid.\n"
+"                          SIE jaoks seadistame kontoplaanid, bilansi, andmikud, partnerid ja pearaamatu kannete ajaloo  (Andmike andmed peavad olema failis).\n"
+"                            SIE kande jaoks peavad olema loodud ainult kanded ja partnerid, ülejäänu peab olema juba süsteemis"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "journals imported"
-msgstr ""
+msgstr "imporditud andmikud"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "moves imported"
-msgstr ""
+msgstr "imporditud kanded"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -437,12 +441,12 @@ msgstr "või"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "partners imported"
-msgstr ""
+msgstr "imporditud partnerid"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "taxes imported"
-msgstr ""
+msgstr "imporditud maksud"
 
 #. module: account_base_import
 #. odoo-javascript

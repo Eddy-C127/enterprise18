@@ -101,7 +101,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
 msgid "<span> day(s)</span>"
-msgstr ""
+msgstr "<span>日</span>"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -519,7 +519,7 @@ msgstr "エクスポートファイルを生成するには、SEPA口座振替�
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid ""
 "A customer account is required to validate a SEPA Direct Debit mandate."
-msgstr ""
+msgstr "SEPA直接引落委任を検証するには顧客口座が必要です。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.actions.act_window,help:account_sepa_direct_debit.account_sepa_direct_debit_mandate_tree_act
@@ -573,6 +573,8 @@ msgid ""
 "All the payments in the batch must have an active SEPA mandate.\n"
 "Please check the following mandates: %(mandate_list)s."
 msgstr ""
+"バッチ内の全ての支払いは、有効化されたSEPA委任状が必要です。\n"
+"以下の委任状をご確認下さい: %(mandate_list)s。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -811,7 +813,7 @@ msgid ""
 "Date when the company expects to receive the payments of this batch. It "
 "can't be inferior to the sending day + the longest pre-notification period "
 "defined in the mandates linked to this batch."
-msgstr ""
+msgstr " 会社がこのバッチの支払を受け取る予定日。送金日＋このバッチに関連する委任状で定義された最長の事前通知期間を下回ることはできません。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -883,6 +885,11 @@ msgid ""
 "Closed: Expired or manually closed mandates. Previous transactions remain valid.\n"
 "Revoked: Fraudulent mandates. Previous invoices might need reimbursement.\n"
 msgstr ""
+"ドラフト: 使用前に検証して下さい。\n"
+"有効: 支払を回収するのに有効な委任状。\n"
+"取消済: 委任状は検証されていません。\n"
+"クローズ済: 期限切れまたは手動でクローズされた委任状。以前の取引は有効のままです。\n"
+"撤回済: 不正な請求。以前の顧客請求書については、払戻しが必要な場合があります。\n"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__checkbox_send_mail
@@ -956,7 +963,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to settings"
-msgstr ""
+msgstr "管理設定に移動"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1670,7 +1677,7 @@ msgstr ""
 msgid ""
 "The SEPA Direct Debit mandate associated to the payment has been revoked and"
 " cannot be used anymore."
-msgstr "支払いに関連付けられたSEPA口座振替の委任状は取消され、これ以上使用できません。"
+msgstr "支払いに関連付けられたSEPA口座振替の委任状は撤回され、これ以上使用できません。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python

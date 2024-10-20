@@ -110,6 +110,8 @@ msgid ""
 "<span class=\"oe_inline o_form_label mx-3\" "
 "invisible=\"single_currency_mode\"> in </span>"
 msgstr ""
+"<span class=\"oe_inline o_form_label mx-3\" "
+"invisible=\"single_currency_mode\">  </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -283,7 +285,7 @@ msgstr "Kontode sildid"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_from_account_id
 msgid "Account Transfer From"
-msgstr ""
+msgstr "Konto ülekanne"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_auto_reconcile_wizard
@@ -577,7 +579,7 @@ msgstr "Valige rida manuste eelvaateks."
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__zero_balance
 msgid "Clear Account"
-msgstr ""
+msgstr "Tasaarvelda konto"
 
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.actions_account_fiscal_year
@@ -785,7 +787,7 @@ msgstr "Edasilükatud kirjed"
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_entry_type
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_entry_type
 msgid "Deferred Entry Type"
-msgstr "Viittulu/kulu kande tüüp"
+msgstr "Periodiseerimise kande tüüp"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_move__deferred_entry_type__expense
@@ -894,7 +896,7 @@ msgstr "Sõnumid"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__display_allow_partials
 msgid "Display Allow Partials"
-msgstr ""
+msgstr "Kuva lubatud osalised"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__display_name
@@ -909,12 +911,12 @@ msgstr "Kuvatav nimi"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_amount_currency
 msgid "Display Stroked Amount Currency"
-msgstr ""
+msgstr "Kuva muudetud summa valuuta"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_balance
 msgid "Display Stroked Balance"
-msgstr ""
+msgstr "Kuva saldot"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__sign_invoice
@@ -946,22 +948,22 @@ msgstr "Mustand kanded"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__edit_mode
 msgid "Edit Mode"
-msgstr ""
+msgstr "redigeerimisrežiim"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__edit_mode_amount
 msgid "Edit Mode Amount"
-msgstr ""
+msgstr "redigeerimisrežiimi summa"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__edit_mode_reco_currency_id
 msgid "Edit Mode Reco Currency"
-msgstr ""
+msgstr "Redigeerimisrežiim, sobitamise valuuta"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__edit_mode_amount_currency
 msgid "Edit mode amount"
-msgstr ""
+msgstr "redigeerimisrežiimi summa"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_to
@@ -1001,7 +1003,7 @@ msgstr "Erandi põhjus"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_applies_to
 msgid "Exception applies"
-msgstr ""
+msgstr "Erand kehtib"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed
@@ -1071,7 +1073,7 @@ msgstr "Minule:"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
 msgid "Force Partials"
-msgstr ""
+msgstr "Sunni osalisi"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__force_price_included_taxes
@@ -1156,7 +1158,7 @@ msgstr "Tagasipöördumatu lukustus"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
 msgid "Has Deferred Moves"
-msgstr "omab viitkandeid"
+msgstr "omab periodiseeritud kandeid"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__has_message
@@ -1268,7 +1270,7 @@ msgstr "on mitmes valuutas"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_rec_pay_account
 msgid "Is Rec Pay Account"
-msgstr ""
+msgstr "on Rec Pay konto"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_is_reconciled
@@ -1283,17 +1285,17 @@ msgstr "Sobitamiseks on vaja teha mahakandmine"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_transfer_required
 msgid "Is an account transfer required"
-msgstr ""
+msgstr "konto ülekanne on kohustuslik"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__transfer_warning_message
 msgid "Is an account transfer required to reconcile"
-msgstr ""
+msgstr "konto ülekanne on kohustuslik sobitamiseks"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
 msgid "Is the date violating the lock date of moves"
-msgstr ""
+msgstr "kuupäev rikub lukustuskuupäeva"
 
 #. module: account_accountant
 #. odoo-python
@@ -1361,12 +1363,12 @@ msgstr ""
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_journal_id
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_journal_id
 msgid "Journal used for deferred entries"
-msgstr "Andmik viitkulu kanneteks"
+msgstr "Andmik perioodiseeritud kannete kasutamiseks"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_digest_digest__kpi_account_bank_cash_value
 msgid "Kpi Account Bank Cash Value"
-msgstr ""
+msgstr "KPI konto saldo väärtus"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1588,53 +1590,53 @@ msgstr "Sõnum"
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_amount_computation_method
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_revenue_amount_computation_method
 msgid "Method used to compute the amount of deferred entries"
-msgstr "Kasutatud meetod arvutamaks viitkandeid"
+msgstr "Kasutatud meetod arvutamaks periodiseeritud kandeid"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_expense_entries_method
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__generate_deferred_revenue_entries_method
 msgid "Method used to generate deferred entries"
-msgstr "Kasutatud meetod loomaks viitkandeid"
+msgstr "Kasutatud meetod loomaks periodiseeritud kandeid"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_fiscalyear_lock_date_exception_for_everyone_id
 msgid "Min Fiscalyear Lock Date Exception For Everyone"
-msgstr ""
+msgstr "Min majandusaasta sulgemiskuupäeva erand kõigile"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_fiscalyear_lock_date_exception_for_me_id
 msgid "Min Fiscalyear Lock Date Exception For Me"
-msgstr ""
+msgstr "Min majandusaasta sulgemiskuupäeva erand mulle"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_purchase_lock_date_exception_for_everyone_id
 msgid "Min Purchase Lock Date Exception For Everyone"
-msgstr ""
+msgstr "Min ostu sulgemiskuupäeva erand kõigile"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_purchase_lock_date_exception_for_me_id
 msgid "Min Purchase Lock Date Exception For Me"
-msgstr ""
+msgstr "Min ostu sulgemiskuupäeva erand mulle"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_sale_lock_date_exception_for_everyone_id
 msgid "Min Sale Lock Date Exception For Everyone"
-msgstr ""
+msgstr "Min müügi sulgemiskuupäeva erand kõigile"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_sale_lock_date_exception_for_me_id
 msgid "Min Sale Lock Date Exception For Me"
-msgstr ""
+msgstr "Min müügi sulgemiskuupäeva erand mulle"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_tax_lock_date_exception_for_everyone_id
 msgid "Min Tax Lock Date Exception For Everyone"
-msgstr ""
+msgstr "Min maksude sulgemiskuupäeva erand kõigile"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_tax_lock_date_exception_for_me_id
 msgid "Min Tax Lock Date Exception For Me"
-msgstr ""
+msgstr "Min maksude sulgemiskuupäeva erand mulle"
 
 #. module: account_accountant
 #. odoo-python
@@ -1662,7 +1664,7 @@ msgstr "Liiguta manust"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__move_line_ids
 msgid "Move lines to reconcile"
-msgstr ""
+msgstr "Kanderead sobitamiseks "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__name
@@ -1713,7 +1715,7 @@ msgstr "Ei ole sobitatud"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Not locked"
-msgstr ""
+msgstr "Ei ole lukustatud"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1733,7 +1735,7 @@ msgstr "Siin ei ole midagi teha!"
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid "Now, we'll create your first invoice (accountant)"
-msgstr ""
+msgstr "Nüüd me loome Sinu esimese arve (raamatupidaja)"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_needaction_counter
@@ -1774,24 +1776,26 @@ msgid ""
 "Only partial reconciliation is possible. Proceed in multiple steps if you "
 "want to full reconcile."
 msgstr ""
+"Osaline sobitamine on võimalik. Kui soovite täielikult sobitada, jätkake "
+"mitmes etapis."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list/move_line_list.xml:0
 msgid "Open attachment in pop out"
-msgstr ""
+msgstr "Ava manus hüpikaknas"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "Open balance of %(amount)s"
-msgstr ""
+msgstr "Ava saldo %(amount)s"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 msgid "Original Deferred Entries"
-msgstr ""
+msgstr "Esialgsed periodiseeritud kanded"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -1893,19 +1897,19 @@ msgstr "Maksete sobitamine"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__one_to_one
 msgid "Perfect Match"
-msgstr ""
+msgstr "Ideaalne sobivus"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 msgid "Please set the deferred accounts in the accounting settings."
-msgstr ""
+msgstr "Palun määra viittulu/kulu kontod raamatupidamise seadetes."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 msgid "Please set the deferred journal in the accounting settings."
-msgstr ""
+msgstr "Palun määra viittulu/kulu andmik raamatupidamise seadetes."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__predict_bill_product
@@ -1932,6 +1936,9 @@ msgid ""
 "inclusive for all users. As a closed period, all accounting operations are "
 "prohibited."
 msgstr ""
+"Keelab andmiku kannete loomise või muutmise kuni määratud kuupäevani (kaasa "
+"arvatud) kõigi kasutajate jaoks. Kuna periood on suletud, on kõik "
+"raamatupidamistoimingud keelatud."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
@@ -1940,6 +1947,10 @@ msgid ""
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
 " the corresponding Journal Entry is posted."
 msgstr ""
+"Keelab maksudeklaratsioonide muutmise kuni määratud kuupäevani (kaasa "
+"arvatud andmikukanded, mis hõlmavad makse). Maksudeklaratsiooni "
+"lukustuskuupäev määratakse automaatselt, kui vastav andmikukanne "
+"postitatakse."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -1947,6 +1958,8 @@ msgid ""
 "Prevents creation and modification of entries in purchase journals up to the"
 " defined date inclusive"
 msgstr ""
+"Keelab ostu andmikusse kannete loomise ja muutmise kuni määratud kuupäevani "
+"(kaasa arvatud)"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -1954,6 +1967,8 @@ msgid ""
 "Prevents creation and modification of entries in sales journals up to the "
 "defined date inclusive"
 msgstr ""
+"Keelab müügi andmikusse kannete loomise ja muutmise kuni määratud kuupäevani"
+" (kaasa arvatud)"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__rating_ids
@@ -1963,7 +1978,7 @@ msgstr "Hinnangud"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Reason..."
-msgstr ""
+msgstr "Põhjus..."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2006,7 +2021,7 @@ msgstr "Sobitamismudel"
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Reconcile automatically"
-msgstr ""
+msgstr "Sobita automaatselt"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_auto_reconcile_wizard__search_mode
@@ -2014,6 +2029,8 @@ msgid ""
 "Reconcile journal items with opposite balance or clear accounts with a zero "
 "balance"
 msgstr ""
+"Sobita andmiku kanded vastupidise saldoga või tasaarvelda kontod, mille "
+"saldo on null."
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -2070,7 +2087,7 @@ msgstr "Jääk valuutas"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__return_todo_command
 msgid "Return Todo Command"
-msgstr ""
+msgstr "Tagasta Todo käsk"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -2118,6 +2135,7 @@ msgid ""
 "Select a user here to override every signature on invoice by this user's "
 "signature"
 msgstr ""
+"Vali siit kasutaja, et asendada iga arve allkiri selle kasutaja allkirjaga"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_aml_ids
@@ -2138,13 +2156,13 @@ msgstr "Määra kontrollituks"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
 msgid "Show Draft Entries Warning"
-msgstr ""
+msgstr "Näita mustand kannete hoiatusi"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__show_signature_area
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__show_signature_area
 msgid "Show Signature Area"
-msgstr ""
+msgstr "Kuva allkirja väli"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signature
@@ -2155,7 +2173,7 @@ msgstr "Allkiri"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__signing_user
 msgid "Signature used to sign all the invoice"
-msgstr ""
+msgstr "Allkiri, mida kasutatakse kõigi arvete allkirjastamiseks"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signing_user
@@ -2166,7 +2184,7 @@ msgstr "Allkirjastaja"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__signing_user
 msgid "Signing User"
-msgstr ""
+msgstr "Allkirjastav kasutaja"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
@@ -2186,7 +2204,7 @@ msgstr "Liiguta AmI alusdokument"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_move_name
 msgid "Source Aml Move Name"
-msgstr ""
+msgstr "Rahapesu tõkestamiseks päritolu"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_amount_currency
@@ -2216,7 +2234,7 @@ msgstr "St rida"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__st_line_transaction_details
 msgid "St Line Transaction Details"
-msgstr ""
+msgstr "tehingu detailid"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_from
@@ -2330,7 +2348,7 @@ msgstr ""
 msgid ""
 "The amount of the write-off of a single credit line should be strictly "
 "negative."
-msgstr ""
+msgstr "Mahakandmise summa peab olema negatiivne. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2338,13 +2356,13 @@ msgstr ""
 msgid ""
 "The amount of the write-off of a single debit line should be strictly "
 "positive."
-msgstr ""
+msgstr "Mahakandmise summa peab olema positiivne."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 msgid "The amount of the write-off of a single line cannot be 0."
-msgstr ""
+msgstr "Mahakandmise summa ei saa olla 0. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2360,7 +2378,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_move_ids
 msgid "The deferred entries created by this invoice"
-msgstr "Viitkanded loodud selle arve poolt"
+msgstr "Periodiseeritud kanded loodud selle arve poolt"
 
 #. module: account_accountant
 #. odoo-python
@@ -2403,7 +2421,7 @@ msgstr "Valikuline teine valuuta kui see on mitme valuutaga sissekanne."
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
 #: model:ir.model.fields,help:account_accountant.field_account_move__deferred_original_move_ids
 msgid "The original invoices that created the deferred entries"
-msgstr "Arved, mis tekitasid viitkanded"
+msgstr "Arved, mis tekitasid periodiseeritud kanded"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -2411,6 +2429,7 @@ msgid ""
 "The system will try to predict the product on vendor bill lines based on the"
 " label of the line"
 msgstr ""
+"Süsteem püüab ennustada arve ridadel toodet vastavalt rea kirjeldusele"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -2418,6 +2437,8 @@ msgid ""
 "There are still draft entries in the period you want to lock.\n"
 "                                You should either post or delete them."
 msgstr ""
+"Soovitud lukustamise perioodis on mustandkandeid.\n"
+"                                Kinnita või kustuta need kanded."
 
 #. module: account_accountant
 #. odoo-python
@@ -2436,6 +2457,8 @@ msgid ""
 " You can't hit the reset button on it. So, do you want to \"unreconcile\" it"
 " instead?"
 msgstr ""
+"See pangatehing on lukustatud ja seda ei saa lähtestada. Kas soovid "
+"sobitamise eemaldada? "
 
 #. module: account_accountant
 #. odoo-python
@@ -2450,11 +2473,13 @@ msgid ""
 "This reconciliation model can't be used in the manual reconciliation widget "
 "because its configuration is not adapted"
 msgstr ""
+"Seda sobitamise mudelit ei saa kasutada käsitsi sobitamise vidinas, kuna "
+"seda pole seadistatud. "
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_0
 msgid "Tip: Bulk update journal items"
-msgstr ""
+msgstr "Soovitus: Uuenda korraga andmiku kandeid"
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_1
@@ -2482,7 +2507,7 @@ msgstr "Kontrolli üle"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "To enhance authenticity, add a signature to your invoices"
-msgstr ""
+msgstr "Autentsuse suurendamiseks lisa oma arvetele allkiri."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__todo_command
@@ -2587,7 +2612,7 @@ msgstr "Vaade"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "View Reconciled Entries"
-msgstr ""
+msgstr "Vaata sobitatud kandeid"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2645,13 +2670,13 @@ msgstr "Palun parandage majandusaasta algus- ja lõppkuupäev. "
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 msgid "You can only reconcile entries with up to two different accounts: %s"
-msgstr ""
+msgstr "Kandeid saab sobitada kuni kahe errineva kontoga: %s"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "You can't hit the reset button on a secured bank transaction."
-msgstr ""
+msgstr "Lähtestada ei saa kaitstud pangatehingut."
 
 #. module: account_accountant
 #. odoo-python
@@ -2660,12 +2685,14 @@ msgid ""
 "You cannot change the account for a deferred line in %(move_name)s if it has"
 " already been deferred."
 msgstr ""
+"Kontot ei ole võimalik muuta periodiseeritud kande real%(move_name)s kui see"
+" on juba kinnitatud. "
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 msgid "You cannot create a deferred entry with a start date but no end date."
-msgstr "Ei saa luua viitkannet ilma lõpp-kuupäevata. "
+msgstr "Ei saa luua periodiseerimise kandeid ilma lõpp-kuupäevata. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2674,13 +2701,14 @@ msgid ""
 "You cannot create a deferred entry with a start date later than the end "
 "date."
 msgstr ""
+"Periodiseerimise kande alguskuupäev ei saa olla hilisem kui lõpp-kuupäev. "
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
-msgstr ""
+msgstr "Mitmesuguste andmiku kannetesse ei saa luua periodiseeritud kandeid."
 
 #. module: account_accountant
 #. odoo-python
@@ -2695,12 +2723,14 @@ msgid ""
 "You cannot reset to draft an invoice that is grouped in deferral entry. You "
 "can create a credit note instead."
 msgstr ""
+"Mustandisse ei saa lähtestada arvet, millel on periodiseeritud kanded. Loo "
+"vajadusel kreeditarve. "
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You cannot set a Lock Date in the future."
-msgstr ""
+msgstr "Sulgemiskuupäeva ei saa määrata tulevikus. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2721,7 +2751,7 @@ msgstr "Soovi korral tee %(btn_start)sosaline sobitamine %(btn_end)s."
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget_line.py:0
 msgid "You might want to record a %(btn_start)spartial payment%(btn_end)s."
-msgstr ""
+msgstr "Juhul kui on soov alustada %(btn_start)sosalist makset%(btn_end)s."
 
 #. module: account_accountant
 #. odoo-python
@@ -2734,13 +2764,13 @@ msgstr "Soovi korral märgi arve %(btn_start)stäielikult makstuks%(btn_end)s."
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select a duration for the exception."
-msgstr ""
+msgstr "Erandile peab määrama kestuse kuupäeva. "
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select who the exception applies to."
-msgstr ""
+msgstr "Määra, kellele kehtib erand."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2776,32 +2806,32 @@ msgstr "exchange_diff"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__1h
 msgid "for 1 hour"
-msgstr ""
+msgstr "1 tund"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__15min
 msgid "for 15 minutes"
-msgstr ""
+msgstr "15 minutit"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__24h
 msgid "for 24 hours"
-msgstr ""
+msgstr "24 tundi"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__5min
 msgid "for 5 minutes"
-msgstr ""
+msgstr "5 minutit"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_applies_to__everyone
 msgid "for everyone"
-msgstr ""
+msgstr "kõigile"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_applies_to__me
 msgid "for me"
-msgstr ""
+msgstr "mulle"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__forever
@@ -2848,7 +2878,7 @@ msgstr "kontrolli üle"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
 msgid "to reconcile"
-msgstr ""
+msgstr "sobitama"
 
 #. module: account_accountant
 #. odoo-javascript

@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +28,10 @@ msgid ""
 "                        The export of data from Winbooks for closed years might contain unbalanced entries. However if you want to try to import everything, Odoo will set the difference of balance in a Suspense Account.\n"
 "                    </span>"
 msgstr ""
+"<span/>\n"
+"                    <span class=\"text-warning mb4 mt16\" invisible=\"only_open\">\n"
+"                        Eksport danych z Winbooks dla zamkniętych lat może zawierać niezbilansowane wpisy. Jeśli jednak chcesz spróbować zaimportować wszystko, Odoo ustawi różnicę salda na koncie przejściowym\n"
+"                    </span>"
 
 #. module: account_winbooks_import
 #: model:ir.model,name:account_winbooks_import.model_account_winbooks_import_wizard
@@ -36,7 +41,7 @@ msgstr "Kreator importu kont Winbooks"
 #. module: account_winbooks_import
 #: model:ir.model,name:account_winbooks_import.model_account_import_summary
 msgid "Account import summary view"
-msgstr ""
+msgstr "Widok podsumowania importu konta"
 
 #. module: account_winbooks_import
 #. odoo-python
@@ -52,6 +57,9 @@ msgid ""
 "probably an error. Please check entry lines with reference: Counterpart "
 "(generated at import from Winbooks)"
 msgstr ""
+"Podczas importu utworzono co najmniej jeden automatyczny odpowiednik. "
+"Prawdopodobnie jest to wynikiem błędu. Sprawdź wiersze wpisu z referencją: "
+"Odpowiednik (wygenerowany podczas importu z Winbooks)"
 
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
@@ -78,7 +86,7 @@ msgstr "Duplikat (wygenerowany przy imporcie z Winbooks)"
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_winbooks_import_wizard__create_uid
 msgid "Created by"
-msgstr "Utworzył(a)"
+msgstr "Utworzono przez"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_winbooks_import_wizard__create_date
@@ -108,27 +116,27 @@ msgstr "Importuj"
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
 msgid "Import (safe-mode)"
-msgstr "importuj (safe-mode)"
+msgstr "Importuj (tryb bezpieczny)"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
 msgid "Import Summary Analytic"
-msgstr ""
+msgstr "Import podsumowania analitycznego"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_line_ids
 msgid "Import Summary Analytic Line"
-msgstr ""
+msgstr "Import wiersza podsumowania analitycznego"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_len_analytic
 msgid "Import Summary Len Analytic"
-msgstr ""
+msgstr "Import podsumowania analitycznego len"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_len_analytic_line
 msgid "Import Summary Len Analytic Line"
-msgstr ""
+msgstr "Import wiersza podsumowania analitycznego len"
 
 #. module: account_winbooks_import
 #. odoo-javascript
@@ -144,12 +152,12 @@ msgstr "Importuj tylko otwarte lata"
 #. module: account_winbooks_import
 #: model:ir.model,name:account_winbooks_import.model_account_move_line
 msgid "Journal Item"
-msgstr "Pozycja zapisu"
+msgstr "Pozycja dziennika"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_winbooks_import_wizard__write_uid
 msgid "Last Updated by"
-msgstr "Ostatnio aktualizowane przez"
+msgstr "Ostatnio zaktualizowane przez"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_winbooks_import_wizard__write_date
@@ -159,20 +167,20 @@ msgstr "Data ostatniej aktualizacji"
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_move_line__winbooks_line_id
 msgid "Line ID that was used in Winbooks"
-msgstr ""
+msgstr "ID wiersza użytego w Winbooks"
 
 #. module: account_winbooks_import
 #. odoo-python
 #: code:addons/account_winbooks_import/wizard/import_wizard.py:0
 msgid ""
 "No data zip in the main archive. Please use the complete Winbooks export."
-msgstr ""
+msgstr "Brak zipu danych w głównym archiwum. Użyj pełnego eksportu Winbooks."
 
 #. module: account_winbooks_import
 #. odoo-python
 #: code:addons/account_winbooks_import/wizard/import_wizard.py:0
 msgid "Please define the country on your company."
-msgstr "Proszę określić kraj na swojej firmie."
+msgstr "Proszę określić kraj swojej firmy."
 
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
@@ -198,7 +206,7 @@ msgid ""
 "The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
 "%s"
 msgstr ""
-"W Winbooks dla wielu partnerów użyto następujących banków, co jest niedopuszczalne w Odoo. Numer banku został ustawiony tylko na jednym z każdej grupy:\n"
+"W Winbooks użyto następujących banków dla więcej niż jednego partnera, co nie jest dozwolone w Odoo. Numer banku został ustawiony tylko na jednym z każdej grupy:\n"
 "%s"
 
 #. module: account_winbooks_import
@@ -209,8 +217,8 @@ msgid ""
 "account that you created in Odoo before the import."
 msgstr ""
 "To jest numer konta, na którym chcesz umieścić duplikat niezbilansowanych "
-"przesunięć. Może to być konto z danych Winbooks lub konto utworzone w Odoo "
-"przed importem."
+"ruchów. Może to być konto z danych Winbooks lub konto utworzone w Odoo przed"
+" importem."
 
 #. module: account_winbooks_import
 #: model:ir.actions.act_window,name:account_winbooks_import.winbooks_import_action
@@ -220,7 +228,7 @@ msgstr "Import Winbooks"
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_move_line__winbooks_line_id
 msgid "Winbooks Line"
-msgstr ""
+msgstr "Wiersz Winbooks"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__only_open
@@ -240,9 +248,9 @@ msgstr "W pierwszej kolejności należy zainstalować lokalizację fiskalną."
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.account_import_summary_form
 msgid "account analytic lines imported"
-msgstr ""
+msgstr "wiersze analizy konta zaimportowane"
 
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.account_import_summary_form
 msgid "account analytics imported"
-msgstr ""
+msgstr "analiza konta zaimportowana"

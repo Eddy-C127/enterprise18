@@ -14,6 +14,7 @@
 # Triine Aavik <triine@avalah.ee>, 2024
 # Kärt Villako, 2024
 # Anna, 2024
+# Birgit Vijar, 2024
 # 
 msgid ""
 msgstr ""
@@ -21,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Birgit Vijar, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,7 +53,7 @@ msgstr "Konto Ülekande Mudelijoon"
 #. module: account_auto_transfer
 #: model:ir.actions.server,name:account_auto_transfer.ir_cron_auto_transfer_ir_actions_server
 msgid "Account automatic transfers: Perform transfers"
-msgstr ""
+msgstr "Konto automaatsed ülekanded: teosta üleviimised"
 
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
@@ -96,13 +97,13 @@ msgstr "Arhiveeritud"
 #. module: account_auto_transfer
 #: model_terms:ir.ui.view,arch_db:account_auto_transfer.view_transfer_model_form
 msgid "Automated Transfer"
-msgstr "Automatiseeritud Siire"
+msgstr "Automatiseeritud kanne"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "Automatic Transfer (%(percent)s%% from account %(origin_account)s)"
-msgstr ""
+msgstr "Automaane üle kandmine (%(percent)s%% kontolt %(origin_account)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -117,6 +118,8 @@ msgid ""
 "Automatic Transfer (entries with analytic account(s): %(analytic_accounts)s "
 "and partner(s): %(partners)s)"
 msgstr ""
+"Automaane üle kandmine (kanded koos analüütiliste kontode: "
+"%(analytic_accounts)s ja partneritega: %(partners)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -137,6 +140,8 @@ msgid ""
 "Automatic Transfer (from account %(origin_account)s with analytic "
 "account(s): %(analytic_accounts)s and partner(s): %(partners)s)"
 msgstr ""
+"Automaatne üle kandmine (kontolt %(origin_account)s koos analüütiliste "
+"kontode: %(analytic_accounts)s ja partneritega: %(partners)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -145,6 +150,8 @@ msgid ""
 "Automatic Transfer (from account %(origin_account)s with analytic "
 "account(s): %(analytic_accounts)s)"
 msgstr ""
+"Automaatne üle kandmine (kontolt %(origin_account)s koos analüütiliste "
+"kontodega: %(analytic_accounts)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -153,6 +160,8 @@ msgid ""
 "Automatic Transfer (from account %(origin_account)s with partner(s): "
 "%(partners)s)"
 msgstr ""
+"Automaatne üle kandmine (kontolt %(origin_account)s koos partneritega: "
+"%(partners)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -163,7 +172,7 @@ msgstr "Automaatne ülekanne (kontole %s)"
 #. module: account_auto_transfer
 #: model:ir.actions.act_window,name:account_auto_transfer.transfer_model_action
 msgid "Automatic Transfers"
-msgstr "Automaatsed siirded"
+msgstr "Automaatsed kanded"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model__company_id
@@ -253,13 +262,13 @@ msgstr "ID"
 #. odoo-python
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 msgid "IFRS Automatic Transfers"
-msgstr "IFRS Automaatsed siirded"
+msgstr "IFRS Automaatsed kanded"
 
 #. module: account_auto_transfer
 #. odoo-python
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 msgid "IFRS rent expense transfer"
-msgstr ""
+msgstr "IFRS rendikulude üleviimine"
 
 #. module: account_auto_transfer
 #: model:ir.model,name:account_auto_transfer.model_account_journal
@@ -406,6 +415,8 @@ msgid ""
 "The partner filter %(partner_filter)s in combination with the analytic "
 "filter %(analytic_filter)s is duplicated"
 msgstr ""
+"Partneri filter %(partner_filter)s koos analüütilise filtriga "
+"%(analytic_filter)s on dubleeritud"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -444,7 +455,7 @@ msgstr "Aastane"
 #. odoo-python
 #: code:addons/account_auto_transfer/demo/account_demo.py:0
 msgid "Yearly liabilites auto transfers"
-msgstr ""
+msgstr "Automaatsed igaaastased kohustused"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -453,6 +464,8 @@ msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
 "('%s'). Please delete them before deleting this transfer."
 msgstr ""
+"Ei saa kustutada automaatseid kandeid, millel on mustand kanded "
+"manuses('%s'). Palun kõigepealt need kustutada. "
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -461,6 +474,8 @@ msgid ""
 "You cannot delete an automatic transfer that has posted moves attached "
 "('%s')."
 msgstr ""
+"Ei saa kustutada automaatseid kandeid, millel on postitatud kanded manuses "
+"('%s')."
 
 #. module: account_auto_transfer
 #. odoo-python

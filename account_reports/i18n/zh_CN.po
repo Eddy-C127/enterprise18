@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
+# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 12:41+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -267,6 +267,7 @@ msgstr "会计科目表模版"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code"
 msgstr "账户代码"
 
@@ -404,7 +405,7 @@ msgstr "可采取行动的错误"
 msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
 "automatically mark as done when a document is uploaded"
-msgstr "操作可能触发特定行为，如打开日历视图，或上传单据时自动标记"
+msgstr "操作可能触发特定行为，例如打开日历视图或在上传文件时自动标记为已完成"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_mail_activity
@@ -1215,7 +1216,7 @@ msgstr "汇率（%s）"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Currency:"
-msgstr "货币："
+msgstr "币别："
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.deferred_expense_current
@@ -3295,7 +3296,7 @@ msgstr "显示警告分录"
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
-msgstr ""
+msgstr "唯一收件人"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3583,7 +3584,7 @@ msgstr "使用该税务单位对您公司税务报告申报进行分组的国家
 #. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "The currency rate cannot be equal to zero"
-msgstr "货币汇率不能等于零"
+msgstr "币别汇率不能等于零"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3598,7 +3599,7 @@ msgid ""
 "The currently selected dates don't match a tax period. The closing entry "
 "will be created for the closest-matching period according to your "
 "periodicity setup."
-msgstr ""
+msgstr "当前选择的日期与纳税期不匹配。将根据您的周期设置，为最接近的匹配期间创建期末分录。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3654,7 +3655,7 @@ msgstr "有"
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid ""
 "There are currently reports waiting to be sent, please try again later."
-msgstr ""
+msgstr "目前有报告等待发送，请稍后再试。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3757,7 +3758,7 @@ msgstr "该报告仅显示活跃公司的数据。"
 msgid ""
 "This report uses the CTA conversion method to consolidate multiple companies using different currencies,\n"
 "        which can lead the report to be unbalanced."
-msgstr ""
+msgstr "本报告使用 CTA 转换法来合并使用不同货币的多家公司，这可能导致报告不平衡。"
 
 #. module: account_reports
 #. odoo-python
@@ -3904,7 +3905,7 @@ msgstr "未知日期范围：%s"
 #: model:ir.actions.client,name:account_reports.action_account_report_multicurrency_revaluation
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_multicurrency_revaluation
 msgid "Unrealized Currency Gains/Losses"
-msgstr "未实现的货币收益/损失"
+msgstr "未实现的币别收益/损失"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4104,7 +4105,7 @@ msgstr "不能将该期末条目重置为草稿，因为将会删除影响锁定
 #. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "You need to activate more than one currency to access this report."
-msgstr "您需要激活一种以上货币才能访问该报告。"
+msgstr "您需要激活一种以上币别才能访问该报告。"
 
 #. module: account_reports
 #. odoo-python
@@ -4113,7 +4114,7 @@ msgid ""
 "You're about the generate the closing entries of multiple companies at once."
 " Each of them will be created in accordance with its company tax "
 "periodicity."
-msgstr ""
+msgstr "您将同时生成多个公司的期末分录。每个分录都将根据公司的纳税周期创建。"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main
@@ -4301,6 +4302,8 @@ msgid ""
 "{{ (object.company_id or object._get_followup_responsible().company_id).name"
 " }} Statement - {{ object.commercial_company_name }}"
 msgstr ""
+"{{ (object.company_id or object._get_followup_responsible().company_id).name"
+" }} 结单 - {{ object.commercial_company_name }}"
 
 #. module: account_reports
 #. odoo-javascript

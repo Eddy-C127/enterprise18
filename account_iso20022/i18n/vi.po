@@ -24,13 +24,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "A bank account is not defined."
-msgstr "A bank account is not defined."
+msgstr "Tài khoản ngân hàng không được xác định."
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_payment_register.py:0
 msgid "A bank account must be set on the following documents: %s(doc_name)"
 msgstr ""
+"Phải thiết lập một tài khoản ngân hàng trên các chứng từ sau: %s(doc_name)"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03_austrian_004
@@ -40,7 +41,7 @@ msgstr "Áo"
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.view_batch_payment_form_inherit
 msgid "Batch Booking"
-msgstr "Batch Booking"
+msgstr "Cách thức xử lý thanh toán"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_batch_payment
@@ -50,7 +51,7 @@ msgstr "Thanh toán hàng loạt"
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_batch_payment__iso20022_charge_bearer
 msgid "Charge Bearer"
-msgstr ""
+msgstr "Người chịu phí"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_company
@@ -66,7 +67,7 @@ msgstr "Cấu hình"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Configure Journal"
-msgstr ""
+msgstr "Cấu hình sổ nhật ký"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_partner
@@ -88,7 +89,8 @@ msgstr "Bên nợ"
 msgid ""
 "Entity that assigns the identification (eg. KBE-BCO or Finanzamt Muenchen "
 "IV)."
-msgstr "Thực thể gán nhận dạng (ví dụ: KBE-BCO hoặc Finanzamt Muenchen IV)."
+msgstr ""
+"Thực thể gán mã định danh (ví dụ: KBE-BCO hoặc Finanzamt Muenchen IV)."
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03_de
@@ -99,7 +101,7 @@ msgstr "Đức"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Go to settings"
-msgstr ""
+msgstr "Đi đến cài đặt"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__has_sepa_ct_payment_method
@@ -115,19 +117,19 @@ msgstr "ISO20022"
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_id
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_orgid_id
 msgid "Identification"
-msgstr "Nhận dạng"
+msgstr "Mã định danh"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_orgid_id
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_orgid_id
 msgid "Identification assigned by an institution (eg. VAT number)."
-msgstr "Nhận dạng được chỉ định bởi một tổ chức (ví dụ: số VAT)."
+msgstr "Mã định danh được chỉ định bởi một tổ chức (ví dụ: mã số thuế GTGT)."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_issr
 #: model:ir.model.fields,field_description:account_iso20022.field_res_config_settings__iso20022_orgid_issr
 msgid "Issuer"
-msgstr "Nhà phát hành"
+msgstr "Đơn vị phát hành"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_journal
@@ -175,7 +177,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Non-EUR Payments"
-msgstr ""
+msgstr "Thanh toán bằng tiền tệ khác EUR"
 
 #. module: account_iso20022
 #. odoo-python
@@ -187,7 +189,7 @@ msgstr "Chưa xác định mã quốc gia cho đối tác %s."
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Partner %s has not bank account defined."
-msgstr "Partner %s has not bank account defined."
+msgstr "Chưa xác định tài khoản ngân hàng cho đối tác %s."
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment_register
@@ -202,7 +204,7 @@ msgstr "Phương thức thanh toán"
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.account_journal_dashboard_kanban_view_inherited
 msgid "Payment to send via SEPA"
-msgstr "Thanh toán để gửi qua SEPA"
+msgstr "Thanh toán cần gửi qua SEPA"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment
@@ -212,23 +214,23 @@ msgstr "Thanh toán"
 #. module: account_iso20022
 #: model_terms:ir.ui.view,arch_db:account_iso20022.account_journal_dashboard_kanban_view_inherited
 msgid "Payments to send via SEPA"
-msgstr "Thanh toán để gửi qua SEPA"
+msgstr "Thanh toán cần gửi qua SEPA"
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Payments without IBAN"
-msgstr ""
+msgstr "Thanh toán không có IBAN"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_batch_payment__iso20022_batch_booking
 msgid "Request batch booking from the bank for the related bank statements."
-msgstr "Request batch booking from the bank for the related bank statements."
+msgstr "Yêu cầu cách thức xử lý thanh toán cho sao kê liên quan từ ngân hàng."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_batch_payment__iso20022_batch_booking
 msgid "SCT Batch Booking"
-msgstr "SCT Batch Booking"
+msgstr "Cách thức xử lý thanh toán SCT"
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_sepa_ct
@@ -246,7 +248,7 @@ msgstr "Chuyển khoản tín dụng SEPA để gửi"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_payment.py:0
 msgid "SEPA only accepts payments in EUR."
-msgstr ""
+msgstr "SEPA chỉ chấp nhận thanh toán bằng EUR."
 
 #. module: account_iso20022
 #. odoo-python
@@ -254,6 +256,8 @@ msgstr ""
 msgid ""
 "SEPA only accepts payments in EUR. Some payments are using another currency."
 msgstr ""
+"SEPA chỉ chấp nhận thanh toán bằng EUR. Một số khoản thanh toán đang sử dụng"
+" loại tiền tệ khác."
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_journal__sepa_pain_version
@@ -261,11 +265,13 @@ msgstr ""
 msgid ""
 "SEPA version to use to generate Credit Transfer XML files from this journal"
 msgstr ""
+"Phiên bản SEPA sử dụng để tạo tệp XML Chuyển khoản tín dụng từ sổ nhật ký "
+"này"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__slev
 msgid "Service Level"
-msgstr ""
+msgstr "Cấp độ dịch vụ"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__shar
@@ -276,7 +282,7 @@ msgstr "Đã chia sẻ"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Some payments are above the maximum amount allowed."
-msgstr "Some payments are above the maximum amount allowed."
+msgstr "Một số khoản thanh toán vượt quá số tiền tối đa được phép."
 
 #. module: account_iso20022
 #. odoo-python
@@ -292,7 +298,9 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Some payments have no recipient bank account set."
-msgstr "Some payments have no recipient bank account set."
+msgstr ""
+"Tài khoản ngân hàng của người nhận chưa được thiết lập trên một số khoản "
+"thanh toán."
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_batch_payment__iso20022_charge_bearer
@@ -300,6 +308,8 @@ msgid ""
 "Specifies which party/parties will bear the charges associated with the "
 "processing of the payment transaction."
 msgstr ""
+"Xác định bên nào sẽ chịu các khoản phí liên quan đến việc xử lý giao dịch "
+"thanh toán."
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022_se
@@ -322,7 +332,7 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
-"Mã BIC '%(bic_code)s' liên kết với ngân hàng '%(bank)s' của tài khoản ngân hàng '%s%(account)sthuộc đối tác '%(partner)s' không tuân thủ quy ước bắt buộc.\n"
+"Mã BIC '%(bic_code)s' liên kết với ngân hàng '%(bank)s' của tài khoản ngân hàng '%(account)s' thuộc đối tác '%(partner)s' không tuân thủ quy ước bắt buộc.\n"
 "Phải chứa 8 hoặc 11 ký tự và khớp với cấu trúc sau:\n"
 "- 4 chữ cái: mã tổ chức hoặc mã ngân hàng\n"
 "- 2 chữ cái: mã quốc gia\n"
@@ -348,6 +358,8 @@ msgid ""
 "The Name Identification and Issuer details are required to proceed. Please "
 "configure them in the settings."
 msgstr ""
+"Cần phải có thông tin Mã định danh tên và Đơn vị phát hành để tiếp tục. Vui "
+"lòng cấu hình chúng trong phần cài đặt."
 
 #. module: account_iso20022
 #. odoo-python
@@ -356,6 +368,8 @@ msgid ""
 "The bank account %(account)s, of journal '%(journal)s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"Loại tài khoản ngân hàng %(account)s, của sổ nhật ký '%(journal)s', không phải là IBAN.\n"
+"Cần có tài khoản IBAN hợp lệ để sử dụng các tính năng SEPA."
 
 #. module: account_iso20022
 #. odoo-python
@@ -364,6 +378,8 @@ msgid ""
 "The customer bank account set on some payments does not have an IBAN number."
 " This is required for SEPA."
 msgstr ""
+"Tài khoản ngân hàng của khách hàng trên một số khoản thanh toán không có số "
+"IBAN. Đây là thông tin bắt buộc khi sử dụng SEPA."
 
 #. module: account_iso20022
 #. odoo-python
@@ -372,14 +388,14 @@ msgid ""
 "The journal '%s' requires a proper IBAN account to pay via SEPA. Please "
 "configure it first."
 msgstr ""
-"Nhật ký '%s' yêu cầu một tài khoản IBAN thích hợp để thanh toán qua SEPA. "
-"Vui lòng định cấu hình trước."
+"Sổ nhật ký '%s' yêu cầu một tài khoản IBAN thích hợp để thanh toán qua SEPA."
+" Vui lòng cấu hình trước."
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "This journal does not have a bank account defined."
-msgstr ""
+msgstr "Chưa xác định tài khoản ngân hàng cho sổ nhật ký này."
 
 #. module: account_iso20022
 #. odoo-python
@@ -401,7 +417,7 @@ msgstr "Tham chiếu giao dịch đầu cuối duy nhất"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "View Payments"
-msgstr ""
+msgstr "Xem thanh toán"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_initiating_party_name
@@ -409,6 +425,7 @@ msgid ""
 "Will appear as the name of the party initiating the payment. Limited to 70 "
 "characters."
 msgstr ""
+"Sẽ xuất hiện làm tên của bên thực hiện thanh toán. Giới hạn trong 70 ký tự."
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_orgid_issr
@@ -416,8 +433,8 @@ msgid ""
 "Will appear in SEPA payments as the name of the party initiating the "
 "payment. Limited to 70 characters."
 msgstr ""
-"Sẽ xuất hiện trong thanh toán SEPA làm tên của bên bắt đầu thanh toán. Giới "
-"hạn trong 70 ký tự."
+"Sẽ xuất hiện trong thanh toán SEPA làm tên của bên thực hiện thanh toán. "
+"Giới hạn trong 70 ký tự."
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__sepa_pain_version

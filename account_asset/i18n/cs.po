@@ -3,8 +3,8 @@
 # 	* account_asset
 # 
 # Translators:
-# Wil Odoo, 2024
 # Tomáš Píšek, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Tomáš Píšek, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -234,7 +234,7 @@ msgstr "Účetní výkaz"
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__acquisition_date
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_kanban
 msgid "Acquisition Date"
-msgstr "Datum nákupu vozu"
+msgstr "Datum pořízení"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__modify_action
@@ -397,12 +397,12 @@ msgstr "Počet dní odepisování majetku"
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
 msgid "Asset Model"
-msgstr "Model majetku"
+msgstr "Odpisovací model"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Asset Model name"
-msgstr "Název modelu díla"
+msgstr "Název odpisovacího modelu"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_model_form
@@ -583,7 +583,7 @@ msgstr "Zrušeno"
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "Characteristics"
-msgstr "Vlastnosti"
+msgstr "Datum pořízení"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__children_ids
@@ -689,7 +689,7 @@ msgstr "Vytvořit nový majetek"
 #. module: account_asset
 #: model_terms:ir.actions.act_window,help:account_asset.action_account_asset_model_form
 msgid "Create new asset model"
-msgstr "Vytvořit nový model majetku"
+msgstr "Vytvořit nový odpisovací model"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__create_uid
@@ -782,7 +782,7 @@ msgstr "Odpisovatelná hodnota"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciated Amount"
-msgstr "Odepsaná částka"
+msgstr "Již odepsaná částka"
 
 #. module: account_asset
 #. odoo-python
@@ -799,7 +799,7 @@ msgstr "Odpisy"
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_depreciation_id
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 msgid "Depreciation Account"
-msgstr "Odpisový účet"
+msgstr "Odpisovací účet"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -820,7 +820,7 @@ msgstr "Řádky odpisů"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciation Method"
-msgstr "Odpisová metoda"
+msgstr "Odpisovací metoda"
 
 #. module: account_asset
 #: model:account.report,name:account_asset.assets_report
@@ -1326,12 +1326,12 @@ msgstr "Neuplatitelná částka daně"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__salvage_value
 msgid "Not Depreciable Amount"
-msgstr "Neodepisovatelná částka"
+msgstr "Neodepsatelná částka"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__salvage_value
 msgid "Not Depreciable Value"
-msgstr "Neodepisovatelná hodnota"
+msgstr "Neodepsatelná hodnota"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__salvage_value_pct
@@ -1742,7 +1742,7 @@ msgstr "Typ výjimečné aktivity na záznamu."
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Value at Import"
-msgstr "Hodnota při importu"
+msgstr "Hodnota pro import"
 
 #. module: account_asset
 #. odoo-python
@@ -1881,7 +1881,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "You cannot select the same account as the Depreciation Account"
-msgstr "Nelze vybrat stejný účet jako je odpisový účet"
+msgstr "Nelze vybrat stejný účet jako je odpisovací účet"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_balance

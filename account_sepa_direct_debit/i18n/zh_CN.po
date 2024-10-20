@@ -80,6 +80,26 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        <t t-out=\"object.partner_id.display_name or ''\">Azure Interior</t> 您好！\n"
+"                        <br>\n"
+"                        <br>\n"
+"                        SEPA 只接受欧元付款。有些付款使用其他货币。\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        向您的银行发送指示，以便按照\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        的指示从您的账户扣款。\n"
+"                       如有任何疑问，欢迎联系我们。\n"
+"                        <br>\n"
+"                        顺祝  安康\n"
+"                        <t t-if=\"not is_html_empty(user.signature)\">\n"
+"                            <br><br>\n"
+"                            <t t-out=\"user.signature\">--<br>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
@@ -874,7 +894,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to settings"
-msgstr ""
+msgstr "转到配置"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1154,13 +1174,13 @@ msgid ""
 "Only IBAN account numbers can receive SEPA Direct Debit payments. Please "
 "select a journal associated to one or add an IBAN bank account to the "
 "current journal"
-msgstr ""
+msgstr "只有 IBAN 账号可以接收 SEPA 直接借记付款。请选择一个与之相关的日记账，或在当前日记账中添加一个 IBAN 银行账号"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Only mandates in draft state can be deleted."
-msgstr ""
+msgstr "只有处于草案状态的任务才能删除。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1598,6 +1618,7 @@ msgid ""
 "known by them. In this case, the minimum collection date must be the "
 "%(date)s"
 msgstr ""
+"与新委托有关的收款需至少提前 5 天通知银行，如果银行已知道该委托，则需提前 2 天通知银行。在这种情况下，最低收款日期必须是%(date)s。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1609,7 +1630,7 @@ msgstr "债权人标识符超过35个字符的最大长度。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "The customer must have a country"
-msgstr ""
+msgstr "客户必须有一个国家/地区"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1736,7 +1757,7 @@ msgstr "记录中异常活动的类型。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Under B2B SDD Scheme, the customer must be a company."
-msgstr ""
+msgstr "在 B2B SDD 计划下，客户必须是公司。"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields.selection,name:account_sepa_direct_debit.selection__account_journal__debit_sepa_pain_version__pain_008_001_08
@@ -1789,6 +1810,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the longest pre-notification period defined in the mandates linked to this batch.\n"
 "According to these payments mandates, the minimum required date should be the %(minimum_date)s"
 msgstr ""
+"您无法生成所需收款日期晚于发送日 + 与该批次链接的授权中定义的最长预先通知期限的 SEPA 直接借记文件。\n"
+"根据这些付款规定，最低要求日期应为 %(minimum_date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1804,6 +1827,8 @@ msgid ""
 "day(s).\n"
 "                    It will be sent to the debtor's email."
 msgstr ""
+"天。\n"
+"                    它将发送到债务人的电子邮件中。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1815,4 +1840,4 @@ msgstr "以便向银行发送借记账户的指令，以及（B）银行根据�
 #. module: account_sepa_direct_debit
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "{{ object.partner_id.display_name }} SEPA Direct Debit Mandate"
-msgstr ""
+msgstr "{{ object.partner_id.display_name }} SEPA 直接借记授权"

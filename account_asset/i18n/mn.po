@@ -1,46 +1,36 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* account_asset
-#
+# 
 # Translators:
-# Munkhbaatar g <muuguu17@gmail.com>, 2022
-# nurbakhit nurka <nurbakhit@bumanit.mn>, 2022
-# Batmunkh Ganbat <batmunkh.g@bumanit.mn>, 2022
-# Munkhbilguun Altankhuyag <munkhbilguunaltankhuyag@gmail.com>, 2022
-# Батмөнх Ганбат <batmunkh2522@gmail.com>, 2022
-# hish, 2022
-# Батболд <batbold.ts@gmail.com>, 2022
-# tumenjargal hadbaatar <tumenjargal7903@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Onii Onii <onii0223@yahoo.com>, 2022
-# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2023
-# Bayarkhuu Bataa, 2023
-#
+# Munkhbaatar g <muuguu17@gmail.com>, 2024
+# Torbat Jargalsaikhan, 2024
+# tumenjargal hadbaatar <tumenjargal7903@gmail.com>, 2024
+# Onii Onii <onii0223@yahoo.com>, 2024
+# Munkhbilguun Altankhuyag <munkhbilguunaltankhuyag@gmail.com>, 2024
+# Гэрэлтцог Цогтбаатар, 2024
+# Батболд <batbold.ts@gmail.com>, 2024
+# nurbakhit nurka <nurbakhit@bumanit.mn>, 2024
+# Batmunkh Ganbat <batmunkh.g@bumanit.mn>, 2024
+# Bayarkhuu Bataa, 2024
+# Batmunkh Ganbat <batmunkh2522@gmail.com>, 2024
+# hish, 2024
+# Martin Trigaux, 2024
+# Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:44+0000\n"
-"Last-Translator: Bayarkhuu Bataa, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:43+0000\n"
+"Last-Translator: Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2024\n"
 "Language-Team: Mongolian (https://app.transifex.com/odoo/teams/41243/mn/)\n"
-"Language: mn\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: mn\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-msgid " (%s of %s)"
-msgstr " (%s of %s)"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-msgid " (copy)"
-msgstr "(Хуулбарлах)"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__total_depreciation_entries_count
@@ -59,27 +49,49 @@ msgstr "# Батлагдсан элэгдлийн бичилтүүд"
 
 #. module: account_asset
 #. odoo-python
-#: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "%s Future entries will be recomputed to depreciate the asset following the changes."
-msgstr "%s Хөрөнгийн ирээдүйн элэгдлийн бичилтүүд нь дараах өөрчлөлтийн дагуу дахин тооцоологдоно."
+#: code:addons/account_asset/models/account_asset.py:0
+msgid "%(asset)s: Disposal"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
+msgid "%(asset)s: Sale"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_assets_report.py:0
+msgid "%(months)s m"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
-msgid "%s created from invoice: %s"
-msgstr "%s үүсгэгдсэн нэхэмжлэл нь: %s"
+msgid "%(move_line)s (%(current)s of %(total)s)"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
-msgid "%s m"
-msgstr "%s с"
+msgid "%(years)s y"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
-#: code:addons/account_asset/models/account_assets_report.py:0
-msgid "%s y"
-msgstr "%s ж"
+#: code:addons/account_asset/models/account_asset.py:0
+msgid "%s (copy)"
+msgstr "%s (хуулбар)"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid ""
+"%s Future entries will be recomputed to depreciate the asset following the "
+"changes."
+msgstr ""
+"%s Хөрөнгийн ирээдүйн элэгдлийн бичилтүүд нь дараах өөрчлөлтийн дагуу дахин "
+"тооцоологдоно."
 
 #. module: account_asset
 #. odoo-python
@@ -88,21 +100,42 @@ msgid "%s: Depreciation"
 msgstr "%s: Элэгдэл"
 
 #. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_assets_report.py:0
+msgid "(No %s)"
+msgstr ""
+
+#. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "(incl."
 msgstr "(багтсан."
 
 #. module: account_asset
 #. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-msgid "A deferred expense has been created for this move:"
-msgstr "Энэхүү гүйлгээгээр урьдчилж тооцсон зардлын бүртгэл үүслээ:"
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid ""
+"A depreciation entry will be posted on and including the date %(date)s. "
+"<br/> %(extra_text)s Future entries will be recomputed to depreciate the "
+"asset following the changes."
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-msgid "A deferred revenue has been created for this move:"
-msgstr "Энэхүү гүйлгээгээр урьдчилж тооцсон орлогын бүртгэл үүслээ."
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid ""
+"A depreciation entry will be posted on and including the date %(date)s.<br/>"
+" A disposal entry will be posted on the %(account_type)s account "
+"<b>%(account)s</b>."
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid ""
+"A depreciation entry will be posted on and including the date %(date)s.<br/>"
+" A second entry will neutralize the original income and post the  outcome of"
+" this sale on account <b>%(account)s</b>."
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
@@ -112,27 +145,9 @@ msgstr "Элэгдлийн бичилт нь %s огноонд багтаж ба
 
 #. module: account_asset
 #. odoo-python
-#: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "A depreciation entry will be posted on and including the date %s. <br/> %s Future entries will be recomputed to depreciate the asset following the changes."
-msgstr "Элэгдлийн бичилт нь %s огноонд багтаж батлагдана. <br/> %s Ирээдүйд үүсэх элэгдлийн бичилтүүд нь дараах өөрчлөлтийн улмаас дахин тооцоологдоно."
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "A depreciation entry will be posted on and including the date %s.<br/> A disposal entry will be posted on the %s account <b>%s</b>."
-msgstr "Элэгдлийн бичилт нь %s огноогоор батлагдана.<br/> Данснаас хасах бичилт нь %s дансанд хөтлөгдөнө <b>%s</b>."
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "A depreciation entry will be posted on and including the date %s.<br/> A second entry will neutralize the original income and post the  outcome of this sale on account <b>%s</b>."
-msgstr "Элэгдлийн бичилт нь %s огноонд батлагдана.<br/> Хоёрдох бичилт нь орлогын жинхэнэ бичилтийг залруулж борлуулалтын зарлага хэлбэрээр бүртгэгдэнэ <b>%s</b>."
-
-#. module: account_asset
-#. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
-msgid "A document linked to %s has been deleted: %s"
-msgstr "%s-тэй холбоотой баримт устгагдсан байна: %s"
+msgid "A document linked to %(move_line_name)s has been deleted: %(link)s"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
@@ -143,14 +158,16 @@ msgstr "Энэ ажил гүйлгээнд холбогдсон баримт у�
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "A gross increase has been created: "
+msgid "A gross increase has been created: %(link)s"
 msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
-msgid "A non deductible tax value of %s was added to %s's initial value of %s"
-msgstr "%sбүхий хасагдахгүй татварын дүн нь %s-ын эхний үлдэгдэл %s-д нэмж тооцогдсон"
+msgid ""
+"A non deductible tax value of %(tax_value)s was added to %(name)s's initial "
+"value of %(purchase_value)s"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_account
@@ -159,42 +176,35 @@ msgstr "Данс"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_type
-msgid "Account Type is used for information purpose, to generate country-specific legal reports, and set the rules to close a fiscal year and generate opening entries."
-msgstr "Дансны бүлэг нь тухайн улс орны хуулиас хамаарсан тайлангуудыг боловсруулахад хэрэглэгдэхээс гадна санхүүгийн жил өндөрлөх үеийн автомат бичилтүүдийн дүрэм болж хэрэглэгдэнэ."
+msgid ""
+"Account Type is used for information purpose, to generate country-specific "
+"legal reports, and set the rules to close a fiscal year and generate opening"
+" entries."
+msgstr ""
+"Дансны бүлэг нь тухайн улс орны хуулиас хамаарсан тайлангуудыг "
+"боловсруулахад хэрэглэгдэхээс гадна санхүүгийн жил өндөрлөх үеийн автомат "
+"бичилтүүдийн дүрэм болж хэрэглэгдэнэ."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_id
 msgid "Account used in the depreciation entries, to decrease the asset value."
-msgstr "Хөрөнгийн элэгдэлийн бичилт буюу хөрөнгийн өртөгийг хорогдуулах гүйлгээнд ашиглагдах данс."
+msgstr ""
+"Хөрөнгийн элэгдэлийн бичилт буюу хөрөнгийн өртөгийг хорогдуулах гүйлгээнд "
+"ашиглагдах данс."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_expense_id
-msgid "Account used in the periodical entries, to record a part of the asset as expense."
-msgstr "Тогтмол хугацаагаар хөрөнгийн хэсгийг зардалд тусгах ажил гүйлгээнд хэрэглэгдэх данс."
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Account used to recognize the expense"
-msgstr "Зардал бүрдүүлэхэд ашиглагдах данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Account used to recognize the revenue"
-msgstr "Орлого бүрдүүлэхэд ашиглах данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Account used to record the deferred expense"
-msgstr "Урьдчилж тооцсон зардал бүртгэхэд ашиглах данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Account used to record the deferred income"
-msgstr "Орлого хуримтлуулалт бүртгэх данс"
+msgid ""
+"Account used in the periodical entries, to record a part of the asset as "
+"expense."
+msgstr ""
+"Тогтмол хугацаагаар хөрөнгийн хэсгийг зардалд тусгах ажил гүйлгээнд "
+"хэрэглэгдэх данс."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_asset_id
-msgid "Account used to record the purchase of the asset at its original price."
+msgid ""
+"Account used to record the purchase of the asset at its original price."
 msgstr "Хөрөнгийг худалдаж авсан үнэ буюу анхны өртөгийг бүртгэх данс."
 
 #. module: account_asset
@@ -204,7 +214,9 @@ msgstr "Олз бүртгэх үед ашиглагдах данс"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__gain_account_id
-msgid "Account used to write the journal item in case of gain while selling an asset"
+msgid ""
+"Account used to write the journal item in case of gain while selling an "
+"asset"
 msgstr "Хөрөнгийг зарж борлуулах үед үүсэх олзыг бүртгэхэд ашиглагдах данс"
 
 #. module: account_asset
@@ -214,7 +226,9 @@ msgstr "Гарз бүртгэх үед ашиглагдах данс"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_res_company__loss_account_id
-msgid "Account used to write the journal item in case of loss while selling an asset"
+msgid ""
+"Account used to write the journal item in case of loss while selling an "
+"asset"
 msgstr "Хөрөнгийг зарж борлуулах үед үүсэх гарзыг бүртгэхэд ашиглагдах данс"
 
 #. module: account_asset
@@ -242,7 +256,7 @@ msgstr "Үйлдэл"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_needaction
 msgid "Action Needed"
-msgstr "Үйлдэл шаардсан"
+msgstr "Үйлдэл шаардлагатай"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__active
@@ -283,6 +297,12 @@ msgstr "Бүх мөрүүд ижил данстай байх ёстой"
 
 #. module: account_asset
 #. odoo-python
+#: code:addons/account_asset/models/account_move.py:0
+msgid "All the lines should be from the same company"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #: code:addons/account_asset/models/account_move.py:0
 msgid "All the lines should be posted"
@@ -296,7 +316,9 @@ msgstr "Элэгдлийн эхний үлдэгдэл дүн"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__parent_id
 msgid "An asset has a parent when it is the result of gaining value"
-msgstr "Өртөгийг нэмэгдүүлж буй тохиолдол бол энэхүү хөрөнгө нь эцэг хөрөнгөтэй байх болно"
+msgstr ""
+"Өртөгийг нэмэгдүүлж буй тохиолдол бол энэхүү хөрөнгө нь эцэг хөрөнгөтэй байх"
+" болно"
 
 #. module: account_asset
 #. odoo-python
@@ -305,20 +327,23 @@ msgid "An asset has been created for this move:"
 msgstr "Энэхүү гүйлгээгээр үндсэн хөрөнгийн бүртгэл үүслээ."
 
 #. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_account__asset_model_ids
+msgid ""
+"An asset wil be created for each asset model when this account is used on a "
+"vendor bill or a refund"
+msgstr ""
+
+#. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "An asset will be created for the value increase of the asset. <br/>"
-msgstr "Хөрөнгийн өртөгийг нэмэгдүүлвэл шинээр нэмэлт хөрөнгө бүртгэгдэнэ. <br/>"
+msgstr ""
+"Хөрөнгийн өртөгийг нэмэгдүүлвэл шинээр нэмэлт хөрөнгө бүртгэгдэнэ. <br/>"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_distribution
 msgid "Analytic Distribution"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_distribution_search
-msgid "Analytic Distribution Search"
-msgstr ""
+msgstr "Аналитик хуваарилалт"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_precision
@@ -329,7 +354,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Archived"
 msgstr "Архивласан"
 
@@ -339,9 +363,7 @@ msgstr "Архивласан"
 #: code:addons/account_asset/models/account_move.py:0
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_id
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_id
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_id
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__asset_id
-#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__purchase
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Asset"
@@ -364,9 +386,16 @@ msgid "Asset Counterpart Account"
 msgstr "Хөрөнгийн харьсан данс"
 
 #. module: account_asset
+#: model:ir.model,name:account_asset.model_account_asset_group
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_group_id
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_group_form_view
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_group_list_view
+msgid "Asset Group"
+msgstr ""
+
+#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_id_display_name
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_id_display_name
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_id_display_name
 msgid "Asset Id Display Name"
 msgstr "Хөрөнгийн дэлгэрэнгүй нэр"
 
@@ -376,13 +405,11 @@ msgid "Asset Lifetime Days"
 msgstr "Хөрөнгийн ашиглагдах хоногын тоо"
 
 #. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_account__asset_model
+#: model:ir.model.fields,field_description:account_asset.field_account_account__asset_model_ids
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Asset Model"
 msgstr "Хөрөнгийн загвар"
 
@@ -394,9 +421,15 @@ msgstr "Хөрөнгийн загварын нэр"
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_model_form
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_model_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Asset Models"
 msgstr "Хөрөнгийн загвар"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_move_type
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_move_type
+msgid "Asset Move Type"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__name
@@ -404,28 +437,13 @@ msgid "Asset Name"
 msgstr "Хөрөнгийн нэр"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Asset Options"
-msgstr "Хөрөнгийн сонголтууд"
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_paused_days
 msgid "Asset Paused Days"
 msgstr "Хөрөнгө царцаасан хоногын тоо"
 
 #. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_account__asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_asset_type
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_asset_type
-msgid "Asset Type"
-msgstr "Хөрөнгийн төрөл"
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_value_change
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_value_change
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_value_change
 msgid "Asset Value Change"
 msgstr "Хөрөнгийн өртөг өөрчлөлт"
 
@@ -439,6 +457,12 @@ msgstr "Хөрөнгийн утгууд"
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Asset created"
 msgstr "Хөрөнгө бүртгэгдсэн"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_move.py:0
+msgid "Asset created from invoice: %s"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
@@ -465,9 +489,11 @@ msgid "Asset unpaused. %s"
 msgstr "Хөрөнгийг буцааж нээсэн. %s"
 
 #. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_group_form_view
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_form_asset_inherit
 msgid "Asset(s)"
-msgstr ""
+msgstr "Хөрөнгүүд"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_asset
@@ -480,9 +506,8 @@ msgstr "Хөрөнгө/Урьдчилсан орлого"
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_form
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_ids
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_ids
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_ids
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_tree
 msgid "Assets"
 msgstr "Хөрөнгө"
 
@@ -509,7 +534,9 @@ msgstr "Ноорог болон нээлттэй төлөвтэй хөрөнгү
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
-msgid "Atleast one asset (%s) couldn't be set as running because it lacks any required information"
+msgid ""
+"Atleast one asset (%s) couldn't be set as running because it lacks any "
+"required information"
 msgstr ""
 
 #. module: account_asset
@@ -521,16 +548,6 @@ msgstr "Хавсралтын тоо"
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
 msgid "Automate Asset"
 msgstr "Хөрөнгө үүсгэх"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Automate Deferred Expense"
-msgstr "Урьдчилсан зардал үүсгэх"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Automate Deferred Revenue"
-msgstr "Урьдчилсан орлого үүсгэх"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
@@ -611,6 +628,7 @@ msgstr "Компаниуд"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__company_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__company_id
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__company_id
 msgid "Company"
 msgstr "Компани"
@@ -621,22 +639,13 @@ msgid "Computation"
 msgstr "Тооцоололт"
 
 #. module: account_asset
-#: model:ir.actions.server,name:account_asset.action_account_asset_run
+#: model:ir.actions.server,name:account_asset.action_account_asset_compute_depreciations
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Compute Depreciation"
 msgstr "Элэгдэл тооцох"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Compute Expense"
-msgstr "Зардал тооцоолох"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Compute Revenue"
-msgstr "Орлого тооцоолох"
-
-#. module: account_asset
+#: model:ir.actions.server,name:account_asset.action_account_asset_run
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Confirm"
 msgstr "Батлах"
@@ -649,23 +658,23 @@ msgstr "Мөчлөг бүр ижил"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__count_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_move__count_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__count_asset
 msgid "Count Asset"
 msgstr ""
 
 #. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__count_deferred_expense
-#: model:ir.model.fields,field_description:account_asset.field_account_move__count_deferred_expense
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__count_deferred_expense
-msgid "Count Deferred Expense"
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__count_linked_asset
+msgid "Count Linked Asset"
 msgstr ""
 
 #. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__count_deferred_revenue
-#: model:ir.model.fields,field_description:account_asset.field_account_move__count_deferred_revenue
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__count_deferred_revenue
-msgid "Count Deferred Revenue"
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__count_linked_assets
+msgid "Count Linked Assets"
 msgstr ""
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__country_code
+msgid "Country Code"
+msgstr "Улсын код"
 
 #. module: account_asset
 #: model:ir.actions.server,name:account_asset.action_account_aml_to_asset
@@ -695,33 +704,15 @@ msgid "Create new asset model"
 msgstr "Шинэ хөрөнгийн загвар үүсгэх"
 
 #. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_expense_form
-msgid "Create new deferred expense"
-msgstr "Шинэ урьдчилж тооцсон зардал бүртгэх"
-
-#. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_expense_model_form
-msgid "Create new deferred expense model"
-msgstr "Шинэ урьдчилж тооцсон зардлын загвар бүртгэх"
-
-#. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_revenue_form
-msgid "Create new deferred revenue"
-msgstr "Шинэ урьдчилж тооцсон орлого бүртгэх"
-
-#. module: account_asset
-#: model_terms:ir.actions.act_window,help:account_asset.action_account_revenue_model_form
-msgid "Create new deferred revenue model"
-msgstr "Шинэ урьдчилж тооцсон орлогын загвар бүртгэх"
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__create_uid
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__create_uid
 msgid "Created by"
 msgstr "Үүсгэсэн этгээд"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__create_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__create_date
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__create_date
 msgid "Created on"
 msgstr "Үүсгэсэн огноо"
@@ -729,19 +720,8 @@ msgstr "Үүсгэсэн огноо"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_depreciated_value
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_depreciated_value
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_depreciated_value
 msgid "Cumulative Depreciation"
 msgstr "Хуримтлагдсан элэгдэл"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Cumulative Expense"
-msgstr "Хуримтлагдсан элэгдлийн зардал"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Cumulative Revenue"
-msgstr "Хуримтлагдсан орлого"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__currency_id
@@ -752,7 +732,7 @@ msgstr "Валют"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Current"
-msgstr "Ашиглаж буй"
+msgstr "Одоогийн"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -773,7 +753,6 @@ msgstr "Огноо"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_depreciation_beginning_date
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_depreciation_beginning_date
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_depreciation_beginning_date
 msgid "Date of the beginning of the depreciation"
 msgstr "Элэгдэж эхлэх огноо"
 
@@ -801,157 +780,6 @@ msgid "Declining then Straight Line"
 msgstr "Шулуун шугмаар бууруулах"
 
 #. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__expense
-#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__expense
-msgid "Deferred Expense"
-msgstr "Хойшлуулсан зардал"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
-msgid "Deferred Expense Account"
-msgstr "Хойшлуулсан зардлын данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Deferred Expense Amount"
-msgstr "Хойшлуулсан зардлын данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Expense Model"
-msgstr "Хойшлуулсан зардлын загвар"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Deferred Expense Model name"
-msgstr "Хойшлуулсан зардлын загварын нэр"
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_expense_model_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_expense_model_recognition
-msgid "Deferred Expense Models"
-msgstr "Хойшлуулсан зардлын загвар"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Expense Options"
-msgstr "Урьдчилж тооцсон зардлын сонголтууд"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Deferred Expense name"
-msgstr "Хойшлуулсан зардлын нэр"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_move_form_asset_inherit
-msgid "Deferred Expense(s)"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_expense_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_expense_recognition
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_tree
-msgid "Deferred Expenses"
-msgstr "Хойшлуулсан зардал"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-msgid "Deferred Expenses Models"
-msgstr "Хойшлуулсан зардлын загвар"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__sale
-msgid "Deferred Revenue"
-msgstr "Хойшлуулсан орлого"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
-msgid "Deferred Revenue Account"
-msgstr "Хойшлуулсан орлогын данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Deferred Revenue Amount"
-msgstr "Хойшлуулсан орлогын дүн"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Revenue Model"
-msgstr "Хойшлуулсан орлогын загвар"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Deferred Revenue Model name"
-msgstr "Хойшлуулсан орлогын загварын нэр"
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_revenue_model_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_revenue_model_recognition
-msgid "Deferred Revenue Models"
-msgstr "Хойшлуулсан орлогын загвар"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
-msgid "Deferred Revenue Options"
-msgstr "Урьдчилж тооцсон орлогын сонголтууд"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Deferred Revenue name"
-msgstr "Хойшлуулсан орлогын нэр"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_move_form_asset_inherit
-msgid "Deferred Revenue(s)"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.actions.act_window,name:account_asset.action_account_revenue_form
-#: model:ir.ui.menu,name:account_asset.menu_action_account_revenue_recognition
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_sale_tree
-msgid "Deferred Revenues"
-msgstr "Хойшлуулсан орлогууд"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-msgid "Deferred Revenues Models"
-msgstr "Хойшлуулсан орлогын загвар"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-msgid "Deferred expense"
-msgstr "Хойшлуулсан зардал"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-msgid "Deferred expense created"
-msgstr "Хойшлуулсан зардал үүслээ"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-msgid "Deferred revenue"
-msgstr "Хойшлуулсан орлого"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
-msgid "Deferred revenue created"
-msgstr "Хойшлуулсан орлого үүслээ"
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__value_residual
 msgid "Depreciable Amount"
 msgstr "Элэгдвэл зохих дүн"
@@ -960,7 +788,6 @@ msgstr "Элэгдвэл зохих дүн"
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__value_residual
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_remaining_value
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_remaining_value
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_remaining_value
 msgid "Depreciable Value"
 msgstr "Элэгдэх өртөг"
 
@@ -974,7 +801,7 @@ msgstr "Элэгдсэн эхний үлдэгдэл"
 #: code:addons/account_asset/models/account_assets_report.py:0
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__depreciation_value
 #: model:ir.model.fields,field_description:account_asset.field_account_move__depreciation_value
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__depreciation_value
+#: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__depreciation
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciation"
 msgstr "Элэгдэл"
@@ -1023,14 +850,14 @@ msgstr "%s элэгдлийн самбар өөрчлөгдсөн"
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
-msgid "Depreciation entry %s posted (%s)"
-msgstr "Элэгдлийн гүйлгээ %s батлагдсан (%s)"
+msgid "Depreciation entry %(name)s posted (%(value)s)"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
-msgid "Depreciation entry %s reversed (%s)"
-msgstr "Элэгдлийн гүйлгээ %s буцаагдсан (%s)"
+msgid "Depreciation entry %(name)s reversed (%(value)s)"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_account_asset_id
@@ -1039,13 +866,13 @@ msgstr "Хөрөнгийн дансыг харуулах"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__display_name
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__display_name
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__display_name
 msgid "Display Name"
 msgstr "Дэлгэрэнгүй нэр"
 
 #. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__disposal
 msgid "Disposal"
 msgstr "Устгал"
 
@@ -1074,6 +901,11 @@ msgid "Dispose"
 msgstr "Актлах"
 
 #. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__distribution_analytic_account_ids
+msgid "Distribution Analytic Account"
+msgstr ""
+
+#. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__draft
 msgid "Draft"
 msgstr "Ноорог"
@@ -1081,22 +913,7 @@ msgstr "Ноорог"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__draft_asset_exists
 #: model:ir.model.fields,field_description:account_asset.field_account_move__draft_asset_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_asset_exists
 msgid "Draft Asset Exists"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__draft_deferred_expense_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_move__draft_deferred_expense_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_deferred_expense_exists
-msgid "Draft Deferred Expense Exists"
-msgstr ""
-
-#. module: account_asset
-#: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__draft_deferred_revenue_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_move__draft_deferred_revenue_exists
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__draft_deferred_revenue_exists
-msgid "Draft Deferred Revenue Exists"
 msgstr ""
 
 #. module: account_asset
@@ -1113,47 +930,11 @@ msgid "Duration / Rate"
 msgstr "Хугацаа / Харьцаа"
 
 #. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_tree
-msgid "Expense"
-msgstr "Зардал"
-
-#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__account_depreciation_expense_id
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_depreciation_expense_id
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
 msgid "Expense Account"
 msgstr "Зардлын данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Board"
-msgstr "Зардлын самбар"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Date"
-msgstr "Зардлын огноо"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Lines"
-msgstr "Зардлын мөрүүд"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-msgid "Expense Name"
-msgstr "Зардлын нэр"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Expense Recognition"
-msgstr "Зардал хүлээн зөвшөөрөх"
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_first_depreciation
@@ -1231,17 +1012,33 @@ msgstr "Өртөг нэмэгдүүлэлтийн дүн"
 
 #. module: account_asset
 #. odoo-javascript
-#: code:addons/account_asset/static/src/components/depreciation_schedule/filter_extra_options.xml:0
+#: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Account"
 msgstr "Дансаар бүлэглэх"
 
 #. module: account_asset
+#. odoo-javascript
+#: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
+msgid "Group By Asset Group"
+msgstr ""
+
+#. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Group By..."
 msgstr "Бүлэглэх..."
+
+#. module: account_asset
+#. odoo-javascript
+#: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
+msgid "Group by Account"
+msgstr ""
+
+#. module: account_asset
+#. odoo-javascript
+#: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
+msgid "Group by Asset Group"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__has_message
@@ -1250,6 +1047,7 @@ msgstr "Мессежтэй"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__id
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__id
 msgid "ID"
 msgstr "ID"
@@ -1276,14 +1074,15 @@ msgid "If checked, some messages have a delivery error."
 msgstr "Үүнийг сонговол алдаа үүсэх үед зурвасууд ирнэ."
 
 #. module: account_asset
-#: model:ir.model.fields,help:account_asset.field_account_account__asset_model
-msgid "If this is selected, an expense/revenue will be created automatically when Journal Items on this account are posted."
-msgstr "Үүнийг сонговол, энэхүү дансанд бичигдсэн ажил гүйлгээнээс автоматаар урьдчилж тооцсон зардал/орлогын бүртгэл үүснэ.."
-
-#. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__already_depreciated_amount_import
-msgid "In case of an import from another software, you might need to use this field to have the right depreciation table report. This is the value that was already depreciated with entries not computed from this model"
-msgstr "Өөр системээс үндсэн хөрөнгийн эхний үлдэгдэл зөөж оруулсан тохиолдолд, өмнөх системд элэгдсэн дүнгээс үргэлжүүлэн шинэ систем дээр элэгдүүлэх зорилгоор уг талбарт элэгдлийн эхний үлдэгдлийг оруулна"
+msgid ""
+"In case of an import from another software, you might need to use this field"
+" to have the right depreciation table report. This is the value that was "
+"already depreciated with entries not computed from this model"
+msgstr ""
+"Өөр системээс үндсэн хөрөнгийн эхний үлдэгдэл зөөж оруулсан тохиолдолд, "
+"өмнөх системд элэгдсэн дүнгээс үргэлжүүлэн шинэ систем дээр элэгдүүлэх "
+"зорилгоор уг талбарт элэгдлийн эхний үлдэгдлийг оруулна"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__informational_text
@@ -1302,14 +1101,13 @@ msgstr "Дагагч эсэх"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__salvage_value
+#: model:ir.model.fields,help:account_asset.field_account_asset__salvage_value_pct
 msgid "It is the amount you plan to have that you cannot depreciate."
 msgstr "Энэ бол ашиглаж дуусах үед элэгдэхгүй үлдээхээр төлөвлөж буй дүн"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__journal_id
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
 msgid "Journal"
 msgstr "Журнал"
 
@@ -1340,17 +1138,21 @@ msgstr "Журналын бичилтүүд"
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
-msgid "Journal Items of {account} should have a label in order to generate an asset"
-msgstr "Журналын бичилтүүд {account} нь хөрөнгө бүртгэхийн тулд лавлах дугаартай байх ёстой"
+msgid ""
+"Journal Items of %(account)s should have a label in order to generate an "
+"asset"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__write_uid
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__write_uid
 msgid "Last Updated by"
 msgstr "Сүүлд зассан этгээд"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__write_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__write_date
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__write_date
 msgid "Last Updated on"
 msgstr "Сүүлд зассан огноо"
@@ -1365,6 +1167,11 @@ msgstr "Хоцорсон ажилбар"
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "Linear"
 msgstr "Шугаман"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__linked_assets_ids
+msgid "Linked Assets"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__loss
@@ -1406,6 +1213,11 @@ msgid "Model"
 msgstr "Модел"
 
 #. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_properties_definition
+msgid "Model Properties"
+msgstr ""
+
+#. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Modify"
 msgstr "Өөрчлөх"
@@ -1424,16 +1236,6 @@ msgid "Modify Depreciation"
 msgstr "Элэгдэл өөрчлөх"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Modify Expense"
-msgstr "Зардал өөрчлөх"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Modify Revenue"
-msgstr "Орлого өөрчлөх"
-
-#. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method_period__1
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__method_period__1
 msgid "Months"
@@ -1446,13 +1248,39 @@ msgstr "Нэхэмжлэлээс мөрөөс олон хөрөнгө авах"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_account__multiple_assets_per_line
-msgid "Multiple asset items will be generated depending on the bill line quantity instead of 1 global asset."
-msgstr "Худалдан авалтын нэхэмжлэлийн мөр дээр бичигдсэн тоо хэмжээнд үндэслэн ширхэг тус бүрээр нь үндсэн хөрөнгө болгож бүртгэж авна. Хэрэв энэ тохиргоог хийгээгүй тохиолдолд нэхэмжлэлийн мөрөөс багц дүнгээр 1 ширхэг хөрөнгө бүртгэгдэнэ."
+msgid ""
+"Multiple asset items will be generated depending on the bill line quantity "
+"instead of 1 global asset."
+msgstr ""
+"Худалдан авалтын нэхэмжлэлийн мөр дээр бичигдсэн тоо хэмжээнд үндэслэн "
+"ширхэг тус бүрээр нь үндсэн хөрөнгө болгож бүртгэж авна. Хэрэв энэ тохиргоог"
+" хийгээгүй тохиолдолд нэхэмжлэлийн мөрөөс багц дүнгээр 1 ширхэг хөрөнгө "
+"бүртгэгдэнэ."
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__my_activity_date_deadline
 msgid "My Activity Deadline"
 msgstr "Миний ажилбарын эцсийн огноо"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__name
+msgid "Name"
+msgstr "Нэр"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__negative_revaluation
+msgid "Negative revaluation"
+msgstr ""
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__net_gain_on_sale
+msgid "Net gain on sale"
+msgstr ""
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__net_gain_on_sale
+msgid "Net value of gain or loss on sale of an asset"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__value_residual
@@ -1467,7 +1295,7 @@ msgstr "Хөрөнгийн шинэ элэгдэхгүй үлдэх дүн"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Календар дээрх дараагийн Үйл ажиллагаа"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_date_deadline
@@ -1485,20 +1313,16 @@ msgid "Next Activity Type"
 msgstr "Дараагийн ажилбарын төрөл"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Next Period Expense"
-msgstr "Дараагийн мөчлөгийн зардал"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Next Period Revenue"
-msgstr "Дараагийн мөчлөгийн орлого"
-
-#. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_account__create_asset__no
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__no
 msgid "No"
 msgstr "Үгүй"
+
+#. module: account_asset
+#. odoo-javascript
+#: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
+msgid "No Grouping"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__none
@@ -1522,6 +1346,11 @@ msgid "Not Depreciable Value"
 msgstr "Үлдэх өртөг"
 
 #. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__salvage_value_pct
+msgid "Not Depreciable Value Percent"
+msgstr ""
+
+#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__name
 msgid "Note"
 msgstr "Тэмдэглэл"
@@ -1532,7 +1361,7 @@ msgid "Number of Actions"
 msgstr "Үйлдлийн тоо"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Number of Depreciations"
 msgstr "Элэгдэх тоо"
 
@@ -1543,13 +1372,6 @@ msgid "Number of Months in a Period"
 msgstr "Мөчлөг тутмын сарын тоо"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Number of Recognitions"
-msgstr "Хэрэгжилтийн тоо"
-
-#. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__gross_increase_count
 msgid "Number of assets made to increase the value of the asset"
 msgstr "Хөрөнгийн өртөгийг нэмэгдүүлэхээр бүртгэгдсэн дэд хөрөнгийн тоо"
@@ -1557,7 +1379,6 @@ msgstr "Хөрөнгийн өртөгийг нэмэгдүүлэхээр бүр�
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_number_days
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_number_days
-#: model:ir.model.fields,field_description:account_asset.field_account_payment__asset_number_days
 msgid "Number of days"
 msgstr "Хоногийн тоо"
 
@@ -1573,8 +1394,8 @@ msgstr "Алдааны тоо"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Үйлдэл шаардсан зурвасын тоо"
+msgid "Number of messages requiring action"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_has_error_counter
@@ -1605,6 +1426,13 @@ msgstr "Эцэг"
 
 #. module: account_asset
 #. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Parent Asset"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Pause"
@@ -1616,11 +1444,14 @@ msgid "Paused Prorata Date"
 msgstr "Царцаасан огноо"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Period length"
 msgstr "Мөчлөгийн урт"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__positive_revaluation
+msgid "Positive revaluation"
+msgstr ""
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1628,19 +1459,25 @@ msgid "Posted Entries"
 msgstr "Батлагдсан гүйлгээ"
 
 #. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_properties
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Properties"
+msgstr "Шинж чанар"
+
+#. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__prorata_date
 msgid "Prorata Date"
 msgstr "Элэгдэж эхлэх огноо"
 
 #. module: account_asset
-#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__purchase
-msgid "Purchase: Asset"
-msgstr "Худалдан авалт: Хөрөнгө"
+#: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__purchase
+msgid "Purchase"
+msgstr "Худалдан авалт"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Үнэлгээнүүд"
 
 #. module: account_asset
 #. odoo-python
@@ -1649,21 +1486,11 @@ msgid "Re-evaluate"
 msgstr "Дахин үнэлгээ"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Recognition Values"
-msgstr "Хойшлуулсан тооцооны дүн"
-
-#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_group__linked_asset_ids
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_ids
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_line_form_asset_inherit
 msgid "Related Assets"
 msgstr "Холбоотой хөрөнгүүд"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "Related Expenses"
-msgstr "Холбогдох зардлууд"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__related_purchase_value
@@ -1671,21 +1498,10 @@ msgid "Related Purchase Value"
 msgstr "Холбогдсон худалдан авалтын дүн"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Related Sales"
-msgstr "Холбогдох борлуулалт"
-
-#. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Reset to running"
 msgstr "Элэгдүүлж эхлэх"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Residual Amount to Recognize"
-msgstr "Хэрэгжүүлэх дүнгийн үлдэгдэл"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_user_id
@@ -1697,7 +1513,7 @@ msgstr "Эд хариуцагч"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Resume"
-msgstr "Үргэлжлүүлэх"
+msgstr "Намтар"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1706,49 +1522,14 @@ msgstr "Элэгдлүүлж эхлэх"
 
 #. module: account_asset
 #. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue"
-msgstr "Орлого"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
-msgid "Revenue Account"
-msgstr "Орлогын данс"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Board"
-msgstr "Орлогын самбар"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Date"
-msgstr "Орлогын огноо"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Lines"
-msgstr "Орлогын мөрүүд"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_sale_tree
-msgid "Revenue Name"
-msgstr "Орлогын нэр"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "Revenue Recognition"
-msgstr "Орлого хүлээн зөвшөөрөх"
-
-#. module: account_asset
-#. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "Reverse the depreciation entries posted in the future in order to modify the depreciation"
-msgstr "Элэгдлийн өөрчлөлт хийхийн тулд та эхлээд өнөөдрөс хойшхи огноогоор бүртгэгдсэн байгаа элэгдлийн бичилтүүдийг урвуу бичилт үүсгэж цэвэрлэх шаардлагатай"
+msgid ""
+"Reverse the depreciation entries posted in the future in order to modify the"
+" depreciation"
+msgstr ""
+"Элэгдлийн өөрчлөлт хийхийн тулд та эхлээд өнөөдрөс хойшхи огноогоор "
+"бүртгэгдсэн байгаа элэгдлийн бичилтүүдийг урвуу бичилт үүсгэж цэвэрлэх "
+"шаардлагатай"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
@@ -1761,15 +1542,9 @@ msgid "SMS Delivery error"
 msgstr "SMS илгээлтийн алдаа"
 
 #. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__sale
 msgid "Sale"
 msgstr "Борлуулалт"
-
-#. module: account_asset
-#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__sale
-msgid "Sale: Revenue Recognition"
-msgstr "Борлуулалт: Хүлээн зөвшөөрөгдсөн"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1807,19 +1582,28 @@ msgstr "Ашиглаж буй болгох"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Show all records which has next action date is before today"
-msgstr "Өнөөдрийг хүртэлх хугацаанд дараагийн ажилбарын огноо нь тохируулагдсан бүх тэмдэглэлүүд"
+msgstr ""
+"Өнөөдрийг хүртэлх хугацаанд дараагийн ажилбарын огноо нь тохируулагдсан бүх "
+"тэмдэглэлүүд"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
-msgid "Some fields are missing {}"
-msgstr "Зарим талбаруудын утга алга {}"
+msgid "Some fields are missing %s"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Some required values are missing"
 msgstr "Зарим шаардлагатай утгууд алга"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__prorata_date
+msgid ""
+"Starting date of the period used in the prorata calculation of the first "
+"depreciation"
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__state
@@ -1846,13 +1630,28 @@ msgstr "Шулуун шугам"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__book_value
-msgid "Sum of the depreciable value, the salvage value and the book value of all value increase items"
-msgstr "Элэгдэх ёстой дүн, нэмэгдүүлсэн өртөг, элэгдэхгүй үлдэх өртөгийн нийлбэр"
+msgid ""
+"Sum of the depreciable value, the salvage value and the book value of all "
+"value increase items"
+msgstr ""
+"Элэгдэх ёстой дүн, нэмэгдүүлсэн өртөг, элэгдэхгүй үлдэх өртөгийн нийлбэр"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+"Улсын ISO код нь хоёр тэмдэгтэй байна.\n"
+"Та үүнийг хурдан хайлтад хэрэглэх боломжтой."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
-msgid "The account %(exp_acc)s has been credited by %(exp_delta)s, while the account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to %(move_count)s cancelled %(word)s:<br>%(entries)s"
+msgid ""
+"The account %(exp_acc)s has been credited by %(exp_delta)s, while the "
+"account %(dep_acc)s has been debited by %(dep_delta)s. This corresponds to "
+"%(move_count)s cancelled %(word)s:"
 msgstr ""
 
 #. module: account_asset
@@ -1864,8 +1663,11 @@ msgstr "Хоёр элэгдэл хоорондын хугацаа"
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
-msgid "The amount you have entered (%s) does not match the Related Purchase's value (%s). Please make sure this is what you want."
-msgstr "Таны оруулсан дүн (%s) холбоотой худалдан авалтын дүнтэй таарахгүй байна (%s). Ийм зөрүүтэйгээр бүртгэлээ хийхийг зөвшөөрч байна уу."
+msgid ""
+"The amount you have entered (%(entered_amount)s) does not match the Related "
+"Purchase's value (%(purchase_value)s). Please make sure this is what you "
+"want."
+msgstr ""
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id
@@ -1879,13 +1681,19 @@ msgstr "Энэ хөрөнгийн өртөгийг нэмэгдүүлж буй �
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__invoice_ids
-msgid "The disposal invoice is needed in order to generate the closing journal entry."
-msgstr "Устгал хийх үед хаалтын журналын бичилт үүсгэхийн тулд нэхэмжлэл бүртгэх шаардлагатай."
+msgid ""
+"The disposal invoice is needed in order to generate the closing journal "
+"entry."
+msgstr ""
+"Устгал хийх үед хаалтын журналын бичилт үүсгэхийн тулд нэхэмжлэл бүртгэх "
+"шаардлагатай."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_number
 msgid "The number of depreciations needed to depreciate your asset"
-msgstr "Хөрөнгийг ашиглах хугацаанд нийт хэдэн удаа элэгдүүлэх шаардлагатайг илэрхийлнэ"
+msgstr ""
+"Хөрөнгийг ашиглах хугацаанд нийт хэдэн удаа элэгдүүлэх шаардлагатайг "
+"илэрхийлнэ"
 
 #. module: account_asset
 #. odoo-python
@@ -1901,7 +1709,9 @@ msgstr "Энэ хөрөнгөнд холбоотой хэд хэдэн мөрү�
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "There are unposted depreciations prior to the selected operation date, please deal with them first."
+msgid ""
+"There are unposted depreciations prior to the selected operation date, "
+"please deal with them first."
 msgstr ""
 
 #. module: account_asset
@@ -1925,18 +1735,6 @@ msgstr "Нийт дүн"
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__total_depreciable_value
 msgid "Total Depreciable Value"
 msgstr "Нийт элэгдвэл зохих дүн"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-msgid "Turn as a deferred expense"
-msgstr "Хойшлуулсан зардал болгох"
-
-#. module: account_asset
-#. odoo-python
-#: code:addons/account_asset/models/account_move.py:0
-msgid "Turn as a deferred revenue"
-msgstr "Хойшлуулсан орлого болгох"
 
 #. module: account_asset
 #. odoo-python
@@ -1970,6 +1768,11 @@ msgstr "Өртөг хорогдуулалт: %(asset)s"
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "Value increase for: %(asset)s"
 msgstr "Өртөг нэмэгдүүлэлт: %(asset)s"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__warning_count_assets
+msgid "Warning Count Assets"
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
@@ -2011,8 +1814,18 @@ msgstr "Жил"
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
-msgid "You can't post an entry related to a draft asset. Please post the asset before."
-msgstr "Та ноорог хөрөнгөтэй холбоотой байгаа ажил гүйлгээг батлах боломжтой. Эхлээд хөрөнгийг нь батлана уу."
+msgid ""
+"You can't post an entry related to a draft asset. Please post the asset "
+"before."
+msgstr ""
+"Та ноорог хөрөнгөтэй холбоотой байгаа ажил гүйлгээг батлах боломжтой. Эхлээд"
+" хөрөнгийг нь батлана уу."
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid "You can't re-evaluate the asset before the lock date."
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
@@ -2024,14 +1837,23 @@ msgstr "Та хаагдаагүй хөрөнгийг архивлах болом
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #: code:addons/account_asset/wizard/asset_modify.py:0
-msgid "You cannot automate the journal entry for an asset that has a running gross increase. Please use 'Dispose' on the increase(s)."
-msgstr "Өртөг нэмэгдүүлсэн хөрөнгө дээр автомат гүйлгээ болгон тохируулах боломжгүй. Та эхлээд нэмэгдүүлсэн өртөг бүхий хөрөнгө дээр 'Хөрөнгө хаах' үйлдэл хийнэ үү."
+msgid ""
+"You cannot automate the journal entry for an asset that has a running gross "
+"increase. Please use 'Dispose' on the increase(s)."
+msgstr ""
+"Өртөг нэмэгдүүлсэн хөрөнгө дээр автомат гүйлгээ болгон тохируулах боломжгүй."
+" Та эхлээд нэмэгдүүлсэн өртөг бүхий хөрөнгө дээр 'Хөрөнгө хаах' үйлдэл хийнэ"
+" үү."
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
-msgid "You cannot create an asset from lines containing credit and debit on the account or with a null amount"
-msgstr "Та кредит болон дебет аль аль нь утгатай эсвэл ямар ч дүнгүй журналын бичилтээс хөрөнгө үүсгэх боломжгүй"
+msgid ""
+"You cannot create an asset from lines containing credit and debit on the "
+"account or with a null amount"
+msgstr ""
+"Та кредит болон дебет аль аль нь утгатай эсвэл ямар ч дүнгүй журналын "
+"бичилтээс хөрөнгө үүсгэх боломжгүй"
 
 #. module: account_asset
 #. odoo-python
@@ -2045,19 +1867,37 @@ msgstr "Та %s төлөвтэй баримтыг устгах боломжгү�
 msgid ""
 "You cannot delete an asset linked to posted entries.\n"
 "You should either confirm the asset, then, sell or dispose of it, or cancel the linked journal entries."
-msgstr "Та ямар нэг батлагдсан хөрөнгөтэй холбогдсон ажил гүйлгээг устгах боломжгүй. Үүний оронд хөрөнгийг нь зарах эсвэл актлах үйлдэл хийх эсвэл холбогдсон ажил гүйлгээг цуцлах боломжтой."
+msgstr ""
+"Та ямар нэг батлагдсан хөрөнгөтэй холбогдсон ажил гүйлгээг устгах боломжгүй."
+" Үүний оронд хөрөнгийг нь зарах эсвэл актлах үйлдэл хийх эсвэл холбогдсон "
+"ажил гүйлгээг цуцлах боломжтой."
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/models/account_asset.py:0
+msgid "You cannot dispose of an asset before the lock date."
+msgstr ""
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "You cannot reset to draft an entry related to a posted asset"
-msgstr "Та батлагдсан үндсэн хөрөнгөтэй холбоотой ажил гүйлгээг ноороглох боломжгүй"
+msgstr ""
+"Та батлагдсан үндсэн хөрөнгөтэй холбоотой ажил гүйлгээг ноороглох боломжгүй"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "You cannot resume at a date equal to or before the pause date"
-msgstr "Та хөрөнгийг царцаасан огнооноос өмнөх эсвэл ижил огноонд буцаан нээх боломжгүй"
+msgstr ""
+"Та хөрөнгийг царцаасан огнооноос өмнөх эсвэл ижил огноонд буцаан нээх "
+"боломжгүй"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid "You cannot select the same account as the Depreciation Account"
+msgstr ""
 
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_balance
@@ -2082,16 +1922,6 @@ msgid "depreciable)"
 msgstr "элэгдэх боломжит)"
 
 #. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
-msgid "e.g. Annual Subscription"
-msgstr "ж.ш. Жилээр нь төлсөн үйлчилгээ"
-
-#. module: account_asset
-#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
-msgid "e.g. Annually Paid Insurance"
-msgstr "ж.ш. Жилээр нь төлсөн даатгал"
-
-#. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "e.g. Laptop iBook"
 msgstr "ж. Laptop iBook"
@@ -2107,3 +1937,21 @@ msgstr "бичилтүүд"
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "entry"
 msgstr "гүйлгээ"
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid "gain"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid "gain/loss"
+msgstr ""
+
+#. module: account_asset
+#. odoo-python
+#: code:addons/account_asset/wizard/asset_modify.py:0
+msgid "loss"
+msgstr ""

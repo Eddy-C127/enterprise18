@@ -159,6 +159,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">เรียน <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
+"                    <t t-else=\"\">เรียน <t t-out=\"object.name or ''\"></t>,</t>\n"
+"                    <br>\n"
+"                    โปรดดูเอกสารแนบใบแจ้งยอดบัญชีของคุณ\n"
+"                    <br>\n"
+"                    โปรดติดต่อเราหากคุณมีคำถาม\n"
+"                    <br>\n"
+"                    ขอแสดงความนับถือ\n"
+"                    <br>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"></t>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -257,6 +272,7 @@ msgstr "เทมเพลตแผนภูมิบัญชี"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code"
 msgstr "รหัสบัญชี"
 
@@ -3021,7 +3037,7 @@ msgstr "รายได้ที่ไม่ได้ปันส่วนใน
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Print & Send"
-msgstr ""
+msgstr "พิมพ์ & ส่ง"
 
 #. module: account_reports
 #. odoo-python

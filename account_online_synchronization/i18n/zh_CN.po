@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Chloe Wang, 2024
 # 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
@@ -28,12 +29,15 @@ msgid ""
 "\n"
 "If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly."
 msgstr ""
+"\n"
+"\n"
+"如果您已经针对此问题提交了工单，请不要再次报告：支持人员将很快与您联系。"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/wizard/account_journal_duplicate_transactions.py:0
 msgid "%s duplicate transactions"
-msgstr ""
+msgstr "%s 重复交易"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -54,7 +58,7 @@ msgstr "获取 0 个事务"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
 msgid "<i class=\"fa fa-trash me-1\"/> Delete Selected"
-msgstr ""
+msgstr "<i class=\"fa fa-trash me-1\"/> 删除选定"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_form
@@ -347,7 +351,7 @@ msgstr "请参阅使用说明"
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
 msgid ""
 "Choose a date and a journal from which you want to check the transactions."
-msgstr ""
+msgstr "选择要检查交易的日期和日记账。"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
@@ -557,7 +561,7 @@ msgstr "正在获取..."
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #: code:addons/account_online_synchronization/static/src/components/bank_reconciliation/find_duplicate_transactions_cog_menu.xml:0
 msgid "Find Duplicate Transactions"
-msgstr ""
+msgstr "查找重复交易"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -570,7 +574,7 @@ msgstr "查找丢失的交易"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__first_ids_in_group
 msgid "First Ids In Group"
-msgstr ""
+msgstr "组内第一个编号"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_follower_ids
@@ -734,7 +738,7 @@ msgid ""
 "already has existing entries. You can't link selected bank account in "
 "%(currency_name)s to it"
 msgstr ""
-"日记账 %(journal_name)s 设定了不同的货币，并已有记项。所选取的银行账户以 %(currency_name)s "
+"日记账 %(journal_name)s 设定了不同的币别，并已有记项。所选取的银行账户以 %(currency_name)s "
 "记账，不可连接至该日记账。"
 
 #. module: account_online_synchronization
@@ -1111,7 +1115,7 @@ msgstr "设置银行账户"
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "Some transactions"
-msgstr ""
+msgstr "部分交易"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__date
@@ -1252,7 +1256,7 @@ msgstr "网站通信记录"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_duplicate_transaction_wizard
 msgid "Wizard for duplicate transactions"
-msgstr ""
+msgstr "重复交易向导"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_missing_transaction_wizard
@@ -1346,7 +1350,7 @@ msgstr "载入中⋯"
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "may be duplicates."
-msgstr ""
+msgstr "可能是重复的。"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent

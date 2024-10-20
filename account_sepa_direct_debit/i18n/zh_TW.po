@@ -79,6 +79,26 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        <t t-out=\"object.partner_id.display_name or ''\">Azure Interior</t> 你好！\n"
+"                        <br>\n"
+"                        <br>\n"
+"                        附上你的 SEPA 直接扣賬授權書，請簽名以授權\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        向你的銀行發送指示，以便按照\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">YourCompany</t>\n"
+"                        的指示從你的賬戶扣賬。\n"
+"                        如有任何疑問，歡迎聯絡我們。\n"
+"                        <br>\n"
+"                        順祝  安康\n"
+"                        <t t-if=\"not is_html_empty(user.signature)\">\n"
+"                            <br><br>\n"
+"                            <t t-out=\"user.signature\">--<br>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
@@ -794,7 +814,7 @@ msgid ""
 "Date when the company expects to receive the payments of this batch. It "
 "can't be inferior to the sending day + the longest pre-notification period "
 "defined in the mandates linked to this batch."
-msgstr ""
+msgstr "公司預計收到此批次的付款的日期。不可早於發送日期 + 與此批次相關的任務所定義的最長預先通知期限。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -866,6 +886,11 @@ msgid ""
 "Closed: Expired or manually closed mandates. Previous transactions remain valid.\n"
 "Revoked: Fraudulent mandates. Previous invoices might need reimbursement.\n"
 msgstr ""
+"草稿：使用前需要驗證。\n"
+"有效：有效的收款授權。\n"
+"已取消：授權從未完成驗證。\n"
+"已關閉：過期或手動關閉的授權。之前的交易仍然有效。\n"
+"撤銷：欺詐性授權。之前的發票可能需要退款。\n"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__checkbox_send_mail
@@ -1722,7 +1747,7 @@ msgstr ""
 msgid ""
 "The minimum notice period in days, used to inform the customer prior to "
 "collection."
-msgstr ""
+msgstr "最短通知期（以天為單位），用於在收貨前通知客戶。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
