@@ -739,6 +739,7 @@ class TestPlanning(TestCommonPlanning, MockEmail):
         night_shift.auto_plan_id()
         self.assertEqual(night_shift.resource_id, night_employee.resource_id, 'The auto plan should assign the shift to the night employee')
 
+    @freeze_time('2021-01-01')
     def test_allocated_hours_when_template_is_during_a_break(self):
         self.resource_janice.tz = 'UTC'
         template_slot = self.env['planning.slot.template'].create({
