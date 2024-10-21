@@ -739,7 +739,6 @@ class WebStudioReportController(main.WebStudioController):
             xpath_node.append(child)
 
         studio_view_arch.append(xpath_node)
-        etree.indent(studio_view_arch)
         studio_view_arch = etree.tostring(studio_view_arch)
 
         _get_and_write_studio_view(view, {"arch": studio_view_arch})

@@ -1462,3 +1462,27 @@ registry.category("web_tour.tours").add("web_studio.test_translations_are_copied
         },
     ],
 });
+
+registry
+    .category("web_tour.tours")
+    .add("web_studio.test_translations_with_br_nodes_are_still_matched", {
+        test: true,
+        steps: () => [
+            {
+                trigger: "body iframe .odoo-editor-editable#wrapwrap strong:contains(Hi)",
+                run() {
+                    const newNode = document.createElement("div");
+                    (newNode.textContent = "added text"),
+                        this.$anchor[0].insertAdjacentElement("beforebegin", newNode);
+                    return nextTick();
+                },
+            },
+            {
+                trigger: ".o-web-studio-save-report.btn-primary",
+            },
+            {
+                trigger: ".o-web-studio-save-report:not(.btn-primary)",
+                isCheck: true,
+            },
+        ],
+    });

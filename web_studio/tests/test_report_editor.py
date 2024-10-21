@@ -1352,6 +1352,30 @@ class TestReportEditorUIUnit(HttpCase):
         </main>
         """)
 
+    def test_translations_with_br_nodes_are_still_matched(self):
+        self.env["res.lang"]._activate_lang("fr_FR")
+        self.main_view_document.arch = """
+                <t t-name="web_studio.test_report_document">
+                    <strong>Hi</strong><br/>
+                </t>
+            """
+        self.main_view_document.update_field_translations("arch_db", {
+            "fr_FR": {"<strong>Hi</strong><br/>": "<strong>Salut</strong><br/>"}})
+        self.start_tour(self.tour_url, "web_studio.test_translations_with_br_nodes_are_still_matched", login="admin")
+
+        html, _ = self.report.with_context(lang="fr_FR")._render_qweb_html(self.report.id, [1])
+        main = etree.fromstring(html).find(".//main")
+        self.assertXMLEqual(etree.tostring(main), """
+            <main>
+                <div>
+                    <p><br/></p>
+                </div>
+                <div>added text</div>
+                <strong>Salut</strong>
+                <br/>
+            </main>
+            """)
+
     def test_evaluate_bad_queries(self):
         self.main_view_document.arch = """
         <t t-name="web_studio.test_report_document">
