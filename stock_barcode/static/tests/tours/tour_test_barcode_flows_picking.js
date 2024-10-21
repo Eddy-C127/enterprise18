@@ -4399,6 +4399,49 @@ registry.category("web_tour.tours").add('test_scan_line_splitting_preserve_desti
     { trigger: '.o_notification.border-success', isCheck: true },
 ]});
 
+registry.category("web_tour.tours").add('test_split_uncomplete_moves_on_exit', {
+    test: true,
+    steps: () => [
+        {
+            trigger: '.o_barcode_line',
+            run: 'scan product2'
+        },
+        {
+            trigger: ".o_barcode_line[data-barcode='product2'] .qty-done:contains('1')",
+            isCheck: true,
+        },
+        {
+            trigger: ".o_edit .fa-pencil",
+            run: 'click',
+        },
+        {
+            trigger: ".o_field_widget[name='qty_done'] input",
+            isCheck: true,
+        },
+        {
+            content: "Exit the barcode app to look at look at back end data.",
+            trigger: ".o_external_button",
+            run: "click",
+        },
+        {
+            trigger: ".breadcrumb-item.o_back_button",
+            isCheck: true,
+        },
+        {
+            content: "Come back to the record in the barcode App.",
+            trigger: ".breadcrumb-item.o_back_button",
+            run: "click",
+        },
+        {
+            trigger: ".o_barcode_client_action",
+            run: () => {
+                helper.assertLinesCount(2);
+                helper.assertLineQty(0, "0 / 4");
+                helper.assertLineQty(1, "1 / 1");
+            }
+        },
+]});
+
 registry.category("web_tour.tours").add('test_editing_done_picking', {
     test: true, steps: () => [
         { trigger: '.o_barcode_client_action', run: 'scan O-BTN.validate' },
