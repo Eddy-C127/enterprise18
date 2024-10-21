@@ -85,6 +85,22 @@ QUnit.module("spreadsheet pivot view", {}, () => {
         assert.strictEqual(getCellContent(model, "C3"), '=ODOO.PIVOT(1,"probability")');
     });
 
+    QUnit.test("don't insert pivot when user can only read", async (assert) => {
+        const { model } = await createSpreadsheetFromPivotView({
+            mockRPC: function (route, args) {
+                if (args.method === "join_spreadsheet_session") {
+                    return {
+                        name: "My Spreadsheet",
+                        data: {},
+                        revisions: [],
+                        isReadonly: true,
+                    };
+                }
+            },
+        });
+        assert.strictEqual(model.getters.getPivotIds().length, 0);
+    });
+
     QUnit.test("Insert in spreadsheet is disabled when data is empty", async (assert) => {
         assert.expect(1);
 

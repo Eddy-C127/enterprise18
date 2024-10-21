@@ -55,7 +55,7 @@ export function insertPivot(pivotData) {
             definition: defWithoutFields,
         });
         if (!result.isSuccessful) {
-            throw new Error(`Couldn't insert pivot in spreadsheet. Reasons : ${result.reasons}`);
+            return;
         }
         const columns = [];
         for (let col = 0; col <= table.cols[table.cols.length - 1].length; col++) {
