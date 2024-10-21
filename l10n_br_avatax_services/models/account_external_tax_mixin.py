@@ -89,6 +89,10 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             or product.l10n_br_property_service_code_origin_id.code
         )
 
+        # For goods the periods from the code have been removed. For services, they are required but leading zeroes must
+        # be removed instead.
+        descriptor["hsCode"] = (product.l10n_br_ncm_code_id.code or "").lstrip("0")
+
         del descriptor["cest"]
         del descriptor["source"]
         del descriptor["productType"]

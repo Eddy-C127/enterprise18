@@ -125,7 +125,7 @@ class AccountExternalTaxMixinL10nBR(models.AbstractModel):
             'itemDescriptor': {
                 'description': product.display_name or '',
                 'cest': product.l10n_br_cest_code or '',
-                # The periods in the code work during tax calculation, but not EDI. Removing them works in both.
+                # Remove periods from hsCode for goods (standard case).
                 'hsCode': (product.l10n_br_ncm_code_id.code or '').replace('.', ''),
                 'source': product.l10n_br_source_origin or '',
                 'productType': product.l10n_br_sped_type or '',
