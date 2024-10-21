@@ -13,7 +13,7 @@ from dateutil.relativedelta import relativedelta
 from odoo import _, api, fields, models
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.osv import expression
-from odoo.tools import image_process
+from odoo.tools import image_process, create_index
 from odoo.tools.mimetypes import get_extension
 from odoo.tools.misc import clean_context
 from odoo.tools.pdf import PdfFileReader
@@ -101,6 +101,13 @@ class Document(models.Model):
     _sql_constraints = [
         ('attachment_unique', 'unique (attachment_id)', "This attachment is already a document"),
     ]
+
+    def init(self):
+        super().init()
+        create_index(self.env.cr,
+                     indexname='documents_document_res_model_res_id_idx',
+                     tablename=self._table,
+                     expressions=['res_model', 'res_id'])
 
     @api.depends('name', 'type')
     def _compute_file_extension(self):
