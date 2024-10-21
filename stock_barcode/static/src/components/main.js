@@ -126,6 +126,10 @@ class MainComponent extends Component {
         onPatched(() => {
             this._scrollToSelectedLine();
         });
+
+        onWillUnmount(() => {
+            this.env.model._onExit();
+        });
     }
 
     // UI Methods --------------------------------------------------------------

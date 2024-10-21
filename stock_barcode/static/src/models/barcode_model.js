@@ -1768,4 +1768,8 @@ export default class BarcodeModel extends EventBus {
     _getCompanyId() {
         throw new Error('Not Implemented');
     }
+
+    _onExit() {
+        return;
+    }
 }
