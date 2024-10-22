@@ -11,3 +11,12 @@ class PosSwiggyController(PosUrbanPiperController):
             if parent_tax:
                 taxes = parent_tax
         return taxes
+
+    def _tax_amount_to_remove(self, lines, pos_config):
+        if pos_config.company_id.country_id.code != 'IN':
+            return super()._tax_amount_to_remove(lines, pos_config)
+        tax_amt_to_remove = 0
+        for line in lines:
+            if line.get('taxes', [{}])[0].get('rate') == 2.5:
+                tax_amt_to_remove += float(line.get('total_with_tax', 0.0)) - float(line.get('price', 0.0))
+        return tax_amt_to_remove

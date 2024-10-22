@@ -97,6 +97,9 @@ class PosUrbanPiperController(http.Controller):
             pos_config.log_xml("Payload - %s. Error - %s" % (data, error), 'urbanpiper_webhook_%s' % (event_type))
             _logger.warning("UrbanPiper: %r", error)
 
+    def _tax_amount_to_remove(self, lines, pos_config_sudo):
+        return 0
+
     def _create_order(self, data):
         order = data['order']
         customer = data['customer']
@@ -167,6 +170,7 @@ class PosUrbanPiperController(http.Controller):
                 'note': charge.get('title'),
                 'uuid': str(uuid.uuid4()),
             }))
+        tax_amt_to_remove = self._tax_amount_to_remove(order['items'], pos_config_sudo)
         number = str((pos_config_sudo.current_session_id.id % 10) * 100 + pos_config_sudo.current_session_id.sequence_number % 100).zfill(3)
         delivery_order = request.env["pos.order"].sudo().create({
             'name': order_reference,
@@ -181,7 +185,7 @@ class PosUrbanPiperController(http.Controller):
             'lines': lines,
             'amount_paid': float(details['order_subtotal']) + float(details.get('order_level_total_charges')),
             'amount_total': float(details['order_subtotal']) + float(details.get('order_level_total_charges')),
-            'amount_tax': float(details['total_taxes']),
+            'amount_tax': float(details['total_taxes']) - float(tax_amt_to_remove),
             'amount_return': 0.0,
             'delivery_identifier': details['id'],
             'delivery_status': details['order_state'].lower(),
