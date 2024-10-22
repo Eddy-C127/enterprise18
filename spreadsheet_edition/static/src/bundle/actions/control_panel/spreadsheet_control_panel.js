@@ -36,6 +36,10 @@ export class SpreadsheetControlPanel extends Component {
         }
     }
 
+    getBreadcrumbTooltip({ name }) {
+        return _t("Back to “%s”", name);
+    }
+
     syncState() {
         this.collaborative.isSynced = this.props.model.getters.isFullySynchronized();
         this.collaborative.connectedUsers = this.getConnectedUsers();
