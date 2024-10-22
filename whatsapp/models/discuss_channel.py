@@ -117,8 +117,19 @@ class DiscussChannel(models.Model):
             })
         return recipients_data
 
-    def message_post(self, *, message_type='notification', **kwargs):
-        new_msg = super().message_post(message_type=message_type, **kwargs)
+    def message_post(self, *, message_type='notification', parent_id=False, **kwargs):
+        valid_parent_id = False
+        if parent_id and self.whatsapp_number:
+            parent_wa_msg = self.env['mail.message'].browse(parent_id).wa_message_ids
+            if (
+                parent_wa_msg and len(parent_wa_msg) == 1 and
+                parent_wa_msg.message_type == "outbound" and  # replying to an outgoing wa
+                parent_wa_msg.mobile_number_formatted == self.whatsapp_number  # same recipient
+            ):
+                valid_parent_id = parent_id
+        new_msg = super().message_post(message_type=message_type, parent_id=parent_id, **kwargs)
+        if valid_parent_id:
+            new_msg.parent_id = valid_parent_id
         if self.channel_type == 'whatsapp' and message_type == 'whatsapp_message':
             if new_msg.author_id == self.whatsapp_partner_id:
                 self.env['bus.bus']._sendone(self, 'discuss.channel/whatsapp_channel_valid_until_changed', {

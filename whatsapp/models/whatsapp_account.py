@@ -152,7 +152,7 @@ class WhatsAppAccount(models.Model):
                 ('state', 'not in', ['outgoing', 'error', 'cancel']),
             ], limit=1, order='id desc')
         return self.env['discuss.channel'].sudo()._get_whatsapp_channel(
-            whatsapp_number=sender_mobile_formatted,
+            whatsapp_number=sender_mobile_formatted or '',
             wa_account_id=self,
             sender_name=sender_name,
             create_if_not_found=create_if_not_found,
@@ -196,7 +196,7 @@ class WhatsAppAccount(models.Model):
                 'message_type': 'whatsapp_message',
                 'author_id': channel.whatsapp_partner_id.id,
                 'subtype_xmlid': 'mail.mt_comment',
-                'parent_id': parent_id.id if parent_id else None
+                'parent_id': parent_id.id if parent_id else None,
             }
             if message_type == 'text':
                 kwargs['body'] = plaintext2html(messages['text']['body'])
