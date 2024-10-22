@@ -171,6 +171,7 @@ class ShareRoute(http.Controller):
                 if page['old_file_type'] == 'document':
                     document_ids.add(page['old_file_index'])
         documents = request.env['documents.document'].browse(document_ids)
+        documents.check_access_rule('read')
 
         with ExitStack() as stack:
             files = request.httprequest.files.getlist('ufile')
