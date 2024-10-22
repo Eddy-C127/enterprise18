@@ -589,7 +589,13 @@ class SaleOrder(models.Model):
                     invoice.company_id,
                     invoice.date,
                 )
-            order.amount_to_invoice = order.amount_total - amount_invoiced
+
+            amount_invoicable = sum(
+                line.price_total if line.product_id.invoice_policy != 'delivery' else line.price_total * line.qty_to_invoice / (
+                            line.product_uom_qty or 1)
+                for line in order.order_line
+            )
+            order.amount_to_invoice = amount_invoicable - amount_invoiced
 
         super(SaleOrder, non_recurring)._compute_amount_to_invoice()
 
