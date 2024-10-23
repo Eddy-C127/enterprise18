@@ -1,4 +1,4 @@
-import { patchWithCleanup, contains, onRpc } from "@web/../tests/web_test_helpers";
+import { patchWithCleanup, contains, onRpc, makeServerError } from "@web/../tests/web_test_helpers";
 import { animationFrame } from "@odoo/hoot-mock";
 import { defineDocumentSpreadsheetModels } from "@documents_spreadsheet/../tests/helpers/data";
 import { expect, test, beforeEach, getFixture, describe } from "@odoo/hoot";
@@ -337,4 +337,17 @@ test("Show values", async () => {
     expect(model.getters.getChartDefinition(chartId).showValues).toBe(true);
     options = model.getters.getChartRuntime(chartId).chartJsConfig.options;
     expect(options.plugins.chartShowValuesPlugin.showValues).toBe(true);
+});
+
+test("An error is displayed in the side panel if the chart has invalid model", async function () {
+    const { model, env } = await createSpreadsheetFromGraphView({
+        mockRPC: async function (route, { model, method, kwargs }) {
+            if (method === "fields_get") {
+                throw makeServerError({ code: 404 });
+            }
+        },
+    });
+    await openChartSidePanel(model, env);
+
+    expect(".o-validation-error").toHaveCount(1);
 });
