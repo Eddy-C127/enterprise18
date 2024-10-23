@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo import Command
+from dateutil.relativedelta import relativedelta
+
+from odoo import Command, fields
 from .common import TestInterCompanyRulesCommonSOPO
 from odoo.tests import Form
 from odoo.tests import tagged
@@ -125,6 +127,7 @@ class TestInterCompanyPurchaseToSale(TestInterCompanyRulesCommonSOPO):
         self.assertTrue((not sale_order), "Sale order created for company A from Purchase order of company B without configuration")
 
     def test_03_inter_company_sale_purchase_auto_validation(self):
+        today = fields.Datetime.today()
         (self.company_b | self.company_a).update({
             'rule_type': 'sale_purchase',
             'auto_validation': True
@@ -172,6 +175,7 @@ class TestInterCompanyPurchaseToSale(TestInterCompanyRulesCommonSOPO):
             with po.order_line.new() as line:
                 line.product_id = product_storable
 
+        purchase_order.date_planned = today + relativedelta(days=7)
         # Confirm Purchase order
         purchase_order.with_company(self.company_b).button_confirm()
         # Check purchase order state should be purchase.
@@ -184,6 +188,7 @@ class TestInterCompanyPurchaseToSale(TestInterCompanyRulesCommonSOPO):
         self.assertTrue(sale_order)
         self.assertEqual(len(sale_order.order_line), 1)
         self.assertEqual(sale_order.order_line.product_id, product_storable)
+        self.assertEqual(sale_order.commitment_date, today + relativedelta(days=7))
         # Check the MTO purchase, the seller should be the correct one
         po = self.env['purchase.order'].with_company(self.company_a).search([
             ('company_id', '=', self.company_a.id)
