@@ -47,3 +47,12 @@ class MailTestActivitySMSVoip(models.Model):
 
     def _phone_get_number_fields(self):
         return ['phone_nbr', 'mobile_nbr']
+
+
+# This One2many is normally added through `documents_project`.
+# However due to optimisations introduced by https://github.com/odoo/odoo/pull/111651
+# the query count is actually lower when documents_project is installed (compared to just having documents)
+class IrAttachment(models.Model):
+    _inherit = ['ir.attachment']
+
+    document_ids = fields.One2many('documents.document', 'attachment_id')
