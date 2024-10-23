@@ -872,10 +872,10 @@ class L10nMxEdiDocument(models.Model):
             quantity = base_line['quantity']
             price_subtotal = base_line['price_subtotal']
 
-            if discount == 100.0:
-                gross_price_subtotal_before_discount = currency.round(price_unit * quantity)
-            else:
-                gross_price_subtotal_before_discount = currency.round(price_subtotal / (1 - discount / 100.0))
+            discount_factor = 1 - discount / 100.0
+            gross_price_subtotal_before_discount = currency.round(price_unit * quantity)
+            if not currency.is_zero(gross_price_subtotal_before_discount * discount_factor - price_subtotal):
+                gross_price_subtotal_before_discount = currency.round(price_subtotal / discount_factor)
 
             base_line['gross_price_subtotal'] = gross_price_subtotal_before_discount
             base_line['discount_amount_before_dispatching'] = gross_price_subtotal_before_discount - price_subtotal
