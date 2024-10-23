@@ -731,6 +731,48 @@ registry.category("web_tour.tours").add('test_inventory_packaging', {test: true,
     },
 ]});
 
+registry.category("web_tour.tours").add('test_inventory_packaging_button', {test: true, steps: () => [
+    {
+        trigger: ".button_inventory",
+        run: "click",
+    },
+    {
+        trigger: "button.o_add_line",
+        run: "click",
+    },
+    {
+        trigger: ".o_field_widget[name='product_id'] .o_input",
+        run: "click",
+    },
+    {
+        trigger: ".o_field_widget[name='product_id'] .o_input",
+        run: "text Lovely Product",
+    },
+    {
+        trigger: ".dropdown-item:contains('Lovely Product')",
+        run: "click",
+    },
+    {
+        content: "check that the packaging buttons were updated.",
+        trigger: ".o_packaging_button:contains('LP x15')",
+        isCheck: true,
+    },
+    {
+        content: "Add 15 units via the button.",
+        trigger: ".o_packaging_button:contains('LP x15')",
+        run: "click",
+    },
+    {
+        trigger: ".o_save",
+        run: "click",
+    },
+    {
+        content: "Check that the inventory adjustment was registered.",
+        trigger: ".o_barcode_lines .qty-done:contains(16)",
+        isCheck: true,
+    },
+]});
+
 registry.category("web_tour.tours").add('test_inventory_owner_scan_package', {test: true, steps: () => [
     {
         trigger: '.button_inventory',

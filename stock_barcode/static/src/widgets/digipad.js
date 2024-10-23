@@ -1,9 +1,10 @@
 /** @odoo-module **/
 
 import { registry } from "@web/core/registry";
+import { useRecordObserver } from "@web/model/relational_model/utils";
 import { standardWidgetProps } from "@web/views/widgets/standard_widget_props";
 import { useService } from "@web/core/utils/hooks";
-import { Component, onWillStart } from "@odoo/owl";
+import { Component, onWillStart, useState } from "@odoo/owl";
 
 export class Digipad extends Component {
     setup() {
@@ -16,6 +17,16 @@ export class Digipad extends Component {
         this.value = String(this.props.record.data[this.props.quantityField]);
         this.hasDemand = context.hasDemand ?? false;
         this.precision = 2;
+        this.productId = this.props.record.data.product_id[0];
+        this.state = useState({
+            packageButtons: [],
+        });
+        useRecordObserver(async (record) => {
+            if (this.productId != record.data.product_id[0]) {
+                this.productId = record.data.product_id[0];
+                await this._fetchPackagingButtons();
+            }
+        });
         onWillStart(async () => {
             this.displayUOM = await user.hasGroup('uom.group_uom');
             await this._fetchPackagingButtons();
@@ -69,17 +80,20 @@ export class Digipad extends Component {
      */
     async _fetchPackagingButtons() {
         const record = this.props.record.data;
-        const demandQty = record.quantity;
-        const domain = [['product_id', '=', record.product_id[0]]];
-        if (this.hasDemand && demandQty) { // Doesn't fetch packaging with a too high quantity.
-            domain.push(['qty', '<=', demandQty]);
+        if (record.product_id[0]) {
+            const demandQty = record.quantity;
+            const domain = [["product_id", "=", record.product_id[0]]];
+            if (this.hasDemand && demandQty) {
+                // Doesn't fetch packaging with a too high quantity.
+                domain.push(["qty", "<=", demandQty]);
+            }
+            this.state.packageButtons = await this.orm.searchRead(
+                "product.packaging",
+                domain,
+                ["name", "product_uom_id", "qty"],
+                { limit: 3 }
+            );
         }
-        this.packageButtons = await this.orm.searchRead(
-            'product.packaging',
-            domain,
-            ['name', 'product_uom_id', 'qty'],
-            { limit: 3 },
-        );
     }
 
     //--------------------------------------------------------------------------

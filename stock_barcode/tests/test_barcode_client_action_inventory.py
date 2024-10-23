@@ -2,7 +2,7 @@
 
 import logging
 
-from odoo import fields
+from odoo import Command, fields
 from odoo.tests import tagged, loaded_demo_data
 from odoo.addons.stock_barcode.tests.test_barcode_client_action import TestBarcodeClientAction
 
@@ -333,6 +333,27 @@ class TestInventoryAdjustmentBarcodeClientAction(TestBarcodeClientAction):
         action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
         url = "/web#action=" + str(action_id.id)
         self.start_tour(url, 'test_inventory_packaging', login='admin', timeout=180)
+
+    def test_inventory_packaging_button(self):
+        """
+        Check that the product packaging button are correctly dipslayed on the
+        digipad when creating an invetory adjustment.
+        """
+        self.clean_access_rights()
+        grp_pack = self.env.ref('product.group_stock_packaging')
+        self.env.user.write({'groups_id': [Command.link(grp_pack.id)]})
+
+        self.product1.name = "Lovely Product"
+        self.env['product.packaging'].create({
+            'name': 'LP x15',
+            'qty': 15,
+            'product_id': self.product1.id
+        })
+        action_id = self.env.ref('stock_barcode.stock_barcode_action_main_menu')
+        url = "/web#action=" + str(action_id.id)
+        self.start_tour(url, 'test_inventory_packaging_button', login='admin', timeout=180)
+        quant = self.env['stock.quant'].search([("product_id", "=", self.product1.id)], limit=1)
+        self.assertEqual(quant.inventory_quantity, 16.0)
 
     def test_inventory_owner_scan_package(self):
         group_owner = self.env.ref('stock.group_tracking_owner')

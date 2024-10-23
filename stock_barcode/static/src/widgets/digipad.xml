@@ -21,7 +21,7 @@
                  t-on-click="() => this._increment(-1)"
                  t-att-data-button="decrease">-1</div>
             <!-- Product packagings buttons -->
-            <div t-foreach="packageButtons" t-as="button" t-key="button.id" t-att-data-qty="button.qty"
+            <div t-foreach="state.packageButtons" t-as="button" t-key="button.id" t-att-data-qty="button.qty"
                  t-on-click="() => this._increment(button.qty)"
                  class="o_packaging_button btn btn-secondary border w-100 py-2">
                 <div class="text-capitalize">
