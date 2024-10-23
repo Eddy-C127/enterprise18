@@ -947,6 +947,7 @@ class L10nMxEdiDocument(models.Model):
                     'importe': -values['tax_amount_currency'],
                 }
                 if grouping_key['local_tax_name']:
+                    tax_values['tasade'] = tasa_o_cuota * 100.0
                     cfdi_values['local_retenciones_list'].append(tax_values)
                 else:
                     cfdi_values['retenciones_list'].append(tax_values)
@@ -958,6 +959,7 @@ class L10nMxEdiDocument(models.Model):
                     'importe': values['tax_amount_currency'],
                 }
                 if grouping_key['local_tax_name']:
+                    tax_values['tasade'] = tasa_o_cuota * 100.0
                     cfdi_values['local_traslados_list'].append(tax_values)
                 else:
                     cfdi_values['traslados_list'].append(tax_values)
