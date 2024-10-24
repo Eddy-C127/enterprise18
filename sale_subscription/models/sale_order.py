@@ -576,12 +576,20 @@ class SaleOrder(models.Model):
                 non_recurring += order
                 continue
 
-            order.amount_to_invoice = 0
-            for line in order.order_line:
-                if line.recurring_invoice:
-                    order.amount_to_invoice += line.price_total
-                else:
-                    order.amount_to_invoice += line.price_total * line.qty_to_invoice / (line.product_uom_qty or 1)
+            non_recurring_lines = order.order_line.filtered(lambda line: not line.recurring_invoice)
+            amount_invoiced = 0
+            for invoice in order.invoice_ids.filtered(lambda invoice: invoice.state == 'posted'):
+                prices = sum(
+                    invoice_line.price_total for invoice_line in invoice.line_ids
+                    if all(sale_line in non_recurring_lines for sale_line in invoice_line.sale_line_ids)
+                )
+                amount_invoiced += invoice.currency_id._convert(
+                    prices * -invoice.direction_sign,
+                    order.currency_id,
+                    invoice.company_id,
+                    invoice.date,
+                )
+            order.amount_to_invoice = order.amount_total - amount_invoiced
 
         super(SaleOrder, non_recurring)._compute_amount_to_invoice()
 

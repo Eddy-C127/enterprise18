@@ -2915,6 +2915,47 @@ class TestSubscription(TestSubscriptionCommon):
 
         self.assertEqual(sub.amount_to_invoice, 10)
 
+    def test_amount_to_invoice_with_downpayment(self):
+        with freeze_time("2024-10-01"):
+            sub = self.env['sale.order'].create({
+                'partner_id': self.partner.id,
+                'plan_id': self.plan_month.id,
+                'order_line': [
+                    Command.create({
+                        'name': self.product.name,
+                        'product_id': self.product.id,
+                        'product_uom_qty': 10.0,
+                        'product_uom': self.product.uom_id.id,
+                    }),
+                    Command.create({
+                        'name': self.product_a.name,
+                        'product_id': self.product_a.id,
+                        'product_uom_qty': 1,
+                        'product_uom': self.product_a.uom_id.id,
+                    })
+                ],
+            })
+            currency = sub.currency_id
+            sub.order_line.tax_id = [Command.clear()]
+            sub.action_confirm()
+            self.assertTrue(currency.is_zero(sub.amount_to_invoice - 1010), "Both products will be invoiced")
+            sub._create_recurring_invoice()
+            self.assertTrue(currency.is_zero(sub.amount_to_invoice - 10), "Only the recurring product will be invoiced")
+            # downpayment of 5 to reimburse bad prestation
+            self.env['sale.advance.payment.inv'].create({
+                'sale_order_ids': sub.ids,
+                'advance_payment_method': 'fixed',
+                'fixed_amount': 5
+            })._create_invoices(sub).action_post()
+            self.assertTrue(currency.is_zero(sub.amount_to_invoice - 5), "We only have to pay 5")
+
+        with freeze_time("2024-11-01"):
+            sub._create_recurring_invoice()
+            self.assertTrue(currency.is_zero(sub.amount_to_invoice - 10), "We fall back on the normal price")
+
+        with freeze_time("2024-12-01"):
+            sub._create_recurring_invoice()
+            self.assertTrue(currency.is_zero(sub.amount_to_invoice - 10), "Same")
 
     def test_close_reason_end_of_contract(self):
         sub = self.subscription
