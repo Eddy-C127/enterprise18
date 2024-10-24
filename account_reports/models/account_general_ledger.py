@@ -440,6 +440,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                     account_move_line.currency_id,
                     account_move_line.amount_currency,
                     COALESCE(account_move_line.invoice_date, account_move_line.date) AS invoice_date,
+                    account_move_line.date                  AS date,
                     %(debit_select)s                        AS debit,
                     %(credit_select)s                       AS credit,
                     %(balance_select)s                      AS balance,
