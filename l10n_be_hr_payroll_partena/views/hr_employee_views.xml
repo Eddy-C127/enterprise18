@@ -7,7 +7,7 @@
         <field name="priority">41</field>
         <field name="arch" type="xml">
             <page name="hr_settings" position="inside">
-                <group string="Partena">
+                <group string="Partena" invisible="company_country_code != 'BE'">
                     <group>
                         <field name="partena_code"/>
                     </group>
