@@ -171,7 +171,26 @@ class PosUrbanPiperController(http.Controller):
                 'uuid': str(uuid.uuid4()),
             }))
         tax_amt_to_remove = self._tax_amount_to_remove(order['items'], pos_config_sudo)
+        discounts = details.get('ext_platforms', [{}])[0].get('discounts', [])
+        discount_amt = sum(discount['value'] for discount in discounts if discount['is_merchant_discount'])
+        general_note = "\n".join([
+            f"{pos_delivery_provider.name} Discount: {pos_config_sudo.company_id.currency_id.symbol} {discount.get('value')}"
+            for discount in discounts if not discount.get('is_merchant_discount')
+        ])
+        for discount in discounts:
+            if discount.get('is_merchant_discount'):
+                discount_product = request.env.ref('pos_urban_piper.product_merchant_discount', False)
+                lines.append(Command.create({
+                    'product_id': discount_product.sudo().id,
+                    'qty': 1,
+                    'price_unit': -discount.get('value'),
+                    'price_subtotal': -discount.get('value'),
+                    'price_subtotal_incl': -discount.get('value'),
+                    'note': discount.get('code'),
+                    'uuid': str(uuid.uuid4()),
+                }))
         number = str((pos_config_sudo.current_session_id.id % 10) * 100 + pos_config_sudo.current_session_id.sequence_number % 100).zfill(3)
+        amount_total = float(details['order_subtotal']) + float(details.get('order_level_total_charges')) - discount_amt
         delivery_order = request.env["pos.order"].sudo().create({
             'name': order_reference,
             'partner_id': customer_sudo.id,
@@ -183,13 +202,15 @@ class PosUrbanPiperController(http.Controller):
             'company_id': pos_config_sudo.company_id.id,
             'fiscal_position_id': pos_config_sudo.urbanpiper_fiscal_position_id.id,
             'lines': lines,
-            'amount_paid': float(details['order_subtotal']) + float(details.get('order_level_total_charges')),
-            'amount_total': float(details['order_subtotal']) + float(details.get('order_level_total_charges')),
+            'amount_paid': amount_total,
+            'amount_total': amount_total,
             'amount_tax': float(details['total_taxes']) - float(tax_amt_to_remove),
             'amount_return': 0.0,
             'delivery_identifier': details['id'],
             'delivery_status': details['order_state'].lower(),
-            'general_note': details.get('instructions'),
+            'general_note': "\n".join(
+                x.strip() for x in [details.get('instructions'), general_note]
+            ),
             'delivery_provider_id': pos_delivery_provider.id,
             'prep_time': get_prep_time(details),
             'delivery_json': json.dumps(data),
