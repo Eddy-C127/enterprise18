@@ -1,4 +1,6 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from odoo import Command
+
 from odoo.tests import Form
 from odoo.tests.common import HttpCase, tagged
 
@@ -315,3 +317,87 @@ class TestShopFloor(HttpCase):
         action = self.env["ir.actions.actions"]._for_xml_id("mrp_workorder.action_mrp_display")
         url = '/web?#action=%s' % (action['id'])
         self.start_tour(url, "test_updated_quality_checks", login='admin')
+
+    def test_update_tracked_consumed_materials_in_shopfloor(self):
+        """
+        Test that changing the consumed lot in a quality check updates the
+        related moves accordingly and pops up a warning if unavailable.
+
+        Detailed steps:
+        - Create a bom with using a tracked component.
+        - Create a quality check to register the consumed materials.
+        - Put 4 SN in stock: 3 in the warehouse of the MO and 1 elsewhere to be unavailable.
+        - Create and confirm an MO to consume 2 units.
+        - Register: 1 of the reserved unit, 1 of the unreserved one and 1 unavaible one on the QC.
+
+        Check that every update was correctly applied.
+        """
+        warehouse_1 = self.env.ref("stock.warehouse0")
+        locations = self.env['stock.location'].create([
+            {
+            'name': f"Lovely shelf {i + 1}",
+            'location_id': warehouse_1.lot_stock_id.id,
+            'usage': 'internal',
+            'company_id': self.env.company.id
+            } for i in range(3)
+        ]) | self.env['stock.warehouse'].create({'name': 'WH2', 'code': 'WH2', 'company_id': self.env.company.id}).lot_stock_id
+        final_product, component = self.env['product.product'].create([
+            {
+            'name': 'Lovely Product',
+            'type': 'product',
+            'tracking': 'none',
+            },
+            {
+            'name': 'Lovely Component',
+            'type': 'product',
+            'tracking': 'serial',
+            },
+        ])
+        lots = self.env['stock.lot'].create([
+            {'name': f'SN00{i + 1}', 'product_id': component.id}
+            for i in range(4)
+        ])
+        for i in range(4):
+            self.env['stock.quant']._update_available_quantity(component, locations[i], quantity=1, lot_id=lots[i])
+        workcenter = self.env['mrp.workcenter'].create({
+            'name': 'Lovely Workcenter',
+        })
+        bom = self.env['mrp.bom'].create({
+            'product_tmpl_id': final_product.product_tmpl_id.id,
+            'product_qty': 1.0,
+            'operation_ids': [
+                Command.create({'name': 'Lovely Operation', 'workcenter_id': workcenter.id}),
+            ],
+            'bom_line_ids': [
+                Command.create({'product_id': component.id, 'product_qty': 2}),
+            ]
+        })
+        self.env['quality.point'].create([
+            {
+                'picking_type_ids': [Command.link(warehouse_1.manu_type_id.id)],
+                'product_ids': [Command.link(final_product.id)],
+                'operation_id': bom.operation_ids.id,
+                'title': 'Register component',
+                'component_id': component.id,
+                'test_type_id': self.env.ref('mrp_workorder.test_type_register_consumed_materials').id,
+                'sequence': 1,
+            },
+        ])
+        mo = self.env['mrp.production'].create({
+            'product_id': final_product.id,
+            'product_qty': 1,
+            'bom_id': bom.id,
+        })
+        mo.action_confirm()
+        mo.action_assign()
+        mo.button_plan()
+        self.assertEqual(mo.move_raw_ids.lot_ids, lots[:2])
+        action = mo.workorder_ids.action_open_mes()
+        url = '/web?#action=%s' % (action['id'])
+        self.start_tour(url, "test_update_tracked_consumed_materials_in_shopfloor", login='admin')
+        self.assertEqual(mo.move_raw_ids.quantity, 3.0)
+        self.assertEqual(mo.move_raw_ids.lot_ids, lots[1:])
+        self.assertEqual(mo.move_raw_ids.move_line_ids.filtered(lambda m: m.lot_id == lots[1]).location_id, locations[1])
+        self.assertEqual(mo.move_raw_ids.move_line_ids.filtered(lambda m: m.lot_id == lots[2]).location_id, locations[2])
+        # since the production happens in WH1, the update of SN004 should have fall back on that location
+        self.assertEqual(mo.move_raw_ids.move_line_ids.filtered(lambda m: m.lot_id == lots[3]).location_id, warehouse_1.lot_stock_id)

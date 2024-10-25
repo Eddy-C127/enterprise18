@@ -231,3 +231,116 @@ registry.category("web_tour.tours").add('test_updated_quality_checks', {test: tr
         isCheck: true,
     },
 ]})
+
+
+registry.category("web_tour.tours").add("test_update_tracked_consumed_materials_in_shopfloor", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "button:has(input[name='Lovely Workcenter'])",
+            run: "click",
+        },
+        {
+            trigger: "button.active:has(input[name='Lovely Workcenter'])",
+            isCheck: true,
+        },
+        {
+            trigger: "button:contains('Confirm')",
+            run: "click",
+        },
+        {
+            content: "Check that we are in the MO view",
+            trigger: ".o_mrp_display_records button:contains('Lovely Workcenter')",
+            isCheck: true,
+        },
+        {
+            content: "Swap to the WO view of the Lovely Workcenter",
+            trigger: "button.btn-light:contains('Lovely Workcenter')",
+            run: "click",
+        },
+        {
+            content: "Open register production",
+            trigger: '.o_mrp_record_line span:contains("Register component")',
+            run: "click",
+        },
+        {
+            trigger: ".modal-header .modal-title:contains('Register component')",
+            isCheck: true,
+        },
+        {
+            content: "Register SN002",
+            trigger: ".o_workorder_lot input",
+            run: "text SN002",
+        },
+        {
+            trigger: ".dropdown-item:contains('SN002')",
+            run: "click",
+        },
+        {
+            trigger: ".modal-header",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Continue consumption')",
+            run: "click",
+        },
+        {
+            content: "check that the quantity was correctly updated",
+            trigger: "span[name='component_remaining_qty']:contains('1.00')",
+            isCheck: true,
+        },
+        //  Register SN004 => not available so should take from WH/Stock
+        {
+            trigger: ".o_workorder_lot input",
+            run: "text SN004",
+        },
+        {
+            trigger: ".dropdown-item:contains('SN004')",
+            run: "click",
+        },
+        {
+            trigger: ".modal-header",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Continue consumption')",
+            run: "click",
+        },
+        {
+            trigger: ".o_field_widget[name='lot_id'] input:propValue('')",
+            isCheck: true,
+        },
+        {
+            content: "Register SN003",
+            trigger: ".o_workorder_lot input",
+            run: "text SN003",
+        },
+        {
+            trigger: ".dropdown-item:contains('SN003')",
+            run: "click",
+        },
+        {
+            trigger: ".modal-header",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Validate')",
+            run: "click",
+        },
+        {
+            content: "Check that SN002 is well registered",
+            trigger: ".o_mrp_record_line:contains('SN002')",
+            isCheck: true,
+        },
+        {
+            content: "Check that SN003 is well registered",
+            trigger: ".o_mrp_record_line:contains('SN003')",
+            isCheck: true,
+        },
+        {
+            content: "Check that SN004 is well registered",
+            trigger: ".o_mrp_record_line:contains('SN004')",
+            isCheck: true,
+        },
+    ],
+});
