@@ -48,10 +48,14 @@ class AccountMove(models.Model):
                 depreciated = 0
                 remaining = asset.total_depreciable_value - asset.already_depreciated_amount_import
                 for move in asset.depreciation_move_ids.sorted(lambda mv: (mv.date, mv._origin.id)):
-                    remaining -= move.depreciation_value
-                    depreciated += move.depreciation_value
-                    move.asset_remaining_value = remaining
-                    move.asset_depreciated_value = depreciated
+                    if move.state == 'cancel':
+                        move.asset_remaining_value = 0.0
+                        move.asset_depreciated_value = asset.total_depreciable_value
+                    else:
+                        remaining -= move.depreciation_value
+                        depreciated += move.depreciation_value
+                        move.asset_remaining_value = remaining
+                        move.asset_depreciated_value = depreciated
 
     @api.depends('line_ids.balance')
     def _compute_depreciation_value(self):
