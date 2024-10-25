@@ -53,10 +53,10 @@ rider_status_update_schema = object_of({
             'name': True,
             'phone': True,
         }),
-        'order_id': True,
-        'store': object_of({
-            'ref_id': True,
-        }),
+    }),
+    'order_id': True,
+    'store': object_of({
+        'ref_id': True,
     }),
 })
 
@@ -286,6 +286,6 @@ class PosUrbanPiperController(http.Controller):
             return
         current_order_id.delivery_rider_json = json.dumps(data['delivery_info'])
         pos_config_sudo = request.env['pos.config'].sudo().search([
-            ('urbanpiper_store_identifier', '=', data['store_ref_id'])
+            ('urbanpiper_store_identifier', '=', data['store']['ref_id'])
         ])
         pos_config_sudo._send_delivery_order_count()
