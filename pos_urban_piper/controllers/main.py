@@ -160,15 +160,36 @@ class PosUrbanPiperController(http.Controller):
                 _logger.warning("UrbanPiper: Charge product not found for %r", charge_title)
                 pos_config_sudo.log_xml("UrbanPiper: - %s" % (data), 'urbanpiper_charge_product_not_found')
                 continue
+            total_tax = request.env["account.tax"].browse(
+                [
+                    tax_record.id
+                    for tax_payload in charge.get("taxes", [])
+                    if tax_payload.get("value")
+                    and (
+                        tax_record := request.env["account.tax"]
+                        .sudo()
+                        .search(
+                            self._get_tax_domain(
+                                pos_config_sudo,
+                                int((100 * tax_payload["value"]) / charge.get("value")),
+                            ),
+                            limit=1,
+                        )
+                    )
+                ]
+            )
+            tax_ids_after_fiscal_position = pos_config_sudo.urbanpiper_fiscal_position_id.map_tax(total_tax)
+            taxes = tax_ids_after_fiscal_position.compute_all(charge.get('value'), pos_config_sudo.company_id.currency_id, 1, product=charge_product)
             lines.append(Command.create({
                 'product_id': charge_product.sudo().id,
                 'full_product_name': charge.get('title', charge_product.sudo().name),
                 'qty': 1,
                 'price_unit': charge.get('value'),
-                'price_subtotal': charge.get('value'),
-                'price_subtotal_incl': charge.get('value'),
+                'tax_ids': [Command.set(total_tax.ids)],
+                'price_subtotal': taxes['total_excluded'],
+                'price_subtotal_incl': taxes['total_included'],
                 'note': charge.get('title'),
-                'uuid': str(uuid.uuid4()),
+                'uuid': str(uuid.uuid4())
             }))
         tax_amt_to_remove = self._tax_amount_to_remove(order['items'], pos_config_sudo)
         discounts = details.get('ext_platforms', [{}])[0].get('discounts', [])
@@ -190,7 +211,8 @@ class PosUrbanPiperController(http.Controller):
                     'uuid': str(uuid.uuid4()),
                 }))
         number = str((pos_config_sudo.current_session_id.id % 10) * 100 + pos_config_sudo.current_session_id.sequence_number % 100).zfill(3)
-        amount_total = float(details['order_subtotal']) + float(details.get('order_level_total_charges')) - discount_amt
+        amount_tax = float(details['total_taxes']) - float(tax_amt_to_remove)
+        amount_total = float(details['order_subtotal']) + float(details.get('order_level_total_charges')) - discount_amt + amount_tax
         delivery_order = request.env["pos.order"].sudo().create({
             'name': order_reference,
             'partner_id': customer_sudo.id,
@@ -204,7 +226,7 @@ class PosUrbanPiperController(http.Controller):
             'lines': lines,
             'amount_paid': amount_total,
             'amount_total': amount_total,
-            'amount_tax': float(details['total_taxes']) - float(tax_amt_to_remove),
+            'amount_tax': amount_tax,
             'amount_return': 0.0,
             'delivery_identifier': details['id'],
             'delivery_status': details['order_state'].lower(),
@@ -231,6 +253,9 @@ class PosUrbanPiperController(http.Controller):
                 ('amount', '=', tax_line.get('rate'))
             ], limit=1)
         return taxes
+
+    def _get_tax_domain(self, pos_config, tax_percentage):
+        return [('company_id', '=', pos_config.company_id.id), ('amount', '=', tax_percentage)]
 
     def _create_order_line(self, line_data, pos_config_sudo):
         value_ids_lst = []
