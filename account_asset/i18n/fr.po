@@ -39,13 +39,13 @@ msgstr "# Écritures d'amortissement publiées"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Disposal"
-msgstr ""
+msgstr "%(asset)s : Cession"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Sale"
-msgstr ""
+msgstr "%(asset)s : Vente"
 
 #. module: account_asset
 #. odoo-python
@@ -57,7 +57,7 @@ msgstr "%(months)s m"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s sur %(total)s)"
 
 #. module: account_asset
 #. odoo-python
@@ -157,7 +157,7 @@ msgstr "Un document lié à cette écriture a été supprimé : %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "Une augmentation brute a été créée : %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -336,6 +336,8 @@ msgid ""
 "An asset wil be created for each asset model when this account is used on a "
 "vendor bill or a refund"
 msgstr ""
+"Un actif sera créé pour toute catégorie d'actifs lors de l'utilisation de ce"
+" compte sur une facture fournisseur ou un remboursement."
 
 #. module: account_asset
 #. odoo-python
@@ -370,12 +372,12 @@ msgstr "Archivé"
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Asset"
-msgstr "Immobilisation"
+msgstr "Actif"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Asset Account"
-msgstr "Compte d'immobilisation"
+msgstr "Compte d'actifs"
 
 #. module: account_asset
 #. odoo-python
@@ -394,7 +396,7 @@ msgstr "Compte de contrapartie de l'actif"
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_group_form_view
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_group_list_view
 msgid "Asset Group"
-msgstr ""
+msgstr "Groupe d'actifs"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_id_display_name
@@ -414,19 +416,19 @@ msgstr "Durée de vie de l'actif"
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
 msgid "Asset Model"
-msgstr "Catégorie d'immobilisations"
+msgstr "Catégorie d'actifs"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Asset Model name"
-msgstr "Nom de la catégorie d'immobilisations"
+msgstr "Nom de la catégorie d'actifs"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_model_form
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_model_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Asset Models"
-msgstr "Catégories d'immobilisations"
+msgstr "Catégories d'actifs"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_move_type
@@ -437,7 +439,7 @@ msgstr "Types de transferts d'actifs"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__name
 msgid "Asset Name"
-msgstr "Nom de l'immobilisation"
+msgstr "Nom de l'actif"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_paused_days
@@ -459,7 +461,7 @@ msgstr "Valeurs des actifs"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Asset created"
-msgstr "Immobilisation créée"
+msgstr "Actif créé"
 
 #. module: account_asset
 #. odoo-python
@@ -501,7 +503,7 @@ msgstr "Actif(s)"
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_asset
 msgid "Asset/Revenue Recognition"
-msgstr "Comptabilisation des immobilisations/produits"
+msgstr "Comptabilisation des actifs/produits"
 
 #. module: account_asset
 #. odoo-python
@@ -522,7 +524,7 @@ msgstr "Gestionnaire personnalisé des rapports d'actifs"
 #. module: account_asset
 #: model:ir.ui.menu,name:account_asset.menu_finance_config_assets
 msgid "Assets and Revenues"
-msgstr "Immobilisations et produits"
+msgstr "Actifs et produits"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
@@ -532,7 +534,7 @@ msgstr "Amortissements terminés"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 msgid "Assets in draft and open states"
-msgstr "Immobilisations à l'état brouillon et ouvert"
+msgstr "Actifs à l'état brouillon et ouvert"
 
 #. module: account_asset
 #. odoo-python
@@ -589,7 +591,7 @@ msgstr "Annuler"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Cancel Asset"
-msgstr "Annuler l'immobilisation"
+msgstr "Annuler l'actif"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__cancelled
@@ -669,12 +671,12 @@ msgstr "Nombre d'actifs"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__count_linked_asset
 msgid "Count Linked Asset"
-msgstr ""
+msgstr "Nombre d'actifs liés"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__count_linked_assets
 msgid "Count Linked Assets"
-msgstr ""
+msgstr "Nombre d'actifs liés"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__country_code
@@ -701,12 +703,12 @@ msgstr "Créer en brouillon"
 #. module: account_asset
 #: model_terms:ir.actions.act_window,help:account_asset.action_account_asset_form
 msgid "Create new asset"
-msgstr "Créez une nouvelle immobilisation."
+msgstr "Créer un nouvel actif"
 
 #. module: account_asset
 #: model_terms:ir.actions.act_window,help:account_asset.action_account_asset_model_form
 msgid "Create new asset model"
-msgstr "Créer une nouvelle catégorie d'immobilisations"
+msgstr "Créer une nouvelle catégorie d'actifs"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__create_uid
@@ -950,7 +952,7 @@ msgstr "Premier amortissement"
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__account_asset_id
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 msgid "Fixed Asset Account"
-msgstr "Compte d'immobilisations"
+msgstr "Compte d'actifs"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_follower_ids
@@ -1025,7 +1027,7 @@ msgstr "Regrouper par compte"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Asset Group"
-msgstr ""
+msgstr "Regrouper par groupe d'actifs"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
@@ -1037,13 +1039,13 @@ msgstr "Regrouper par..."
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Account"
-msgstr ""
+msgstr "Regrouper par compte"
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Asset Group"
-msgstr ""
+msgstr "Regrouper par groupe d'actifs"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__has_message
@@ -1179,7 +1181,7 @@ msgstr "Linéaire"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__linked_assets_ids
 msgid "Linked Assets"
-msgstr ""
+msgstr "Actifs liés"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__loss
@@ -1223,7 +1225,7 @@ msgstr "Modèle"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_properties_definition
 msgid "Model Properties"
-msgstr ""
+msgstr "Propriétés du modèle"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
@@ -1236,7 +1238,7 @@ msgstr "Modifier"
 #: model:ir.model,name:account_asset.model_asset_modify
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Modify Asset"
-msgstr "Modifier l'immobilisation"
+msgstr "Modifier l'actif"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1252,7 +1254,7 @@ msgstr "Mois"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_account__multiple_assets_per_line
 msgid "Multiple Assets per Line"
-msgstr "Plusieurs immobilisations par ligne"
+msgstr "Plusieurs actifs par ligne"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_account__multiple_assets_per_line
@@ -1260,9 +1262,8 @@ msgid ""
 "Multiple asset items will be generated depending on the bill line quantity "
 "instead of 1 global asset."
 msgstr ""
-"Plutôt qu'une seule immobilisation globale, le nombre d'immobilisations "
-"créées sera égal à la quantité renseignée sur la ligne correspondante de la "
-"facture."
+"Plutôt qu'un seul actif global, le nombre d'actifs créés sera égal à la "
+"quantité renseignée sur la ligne correspondante de la facture."
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__my_activity_date_deadline
@@ -1329,7 +1330,7 @@ msgstr "Non"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "No Grouping"
-msgstr ""
+msgstr "Aucun regroupement"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__none
@@ -1497,7 +1498,7 @@ msgstr "Réévaluez"
 #: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_ids
 #: model_terms:ir.ui.view,arch_db:account_asset.view_move_line_form_asset_inherit
 msgid "Related Assets"
-msgstr "Immobilisations liées"
+msgstr "Actifs liés"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__related_purchase_value
@@ -1706,8 +1707,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_number
 msgid "The number of depreciations needed to depreciate your asset"
-msgstr ""
-"Le nombre d'amortissements nécessaire pour amortir votre immobilisation"
+msgstr "Le nombre d'amortissements nécessaire pour amortir votre actif"
 
 #. module: account_asset
 #. odoo-python
@@ -1789,7 +1789,7 @@ msgstr "Augmentation de valeur pour : %(asset)s"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__warning_count_assets
 msgid "Warning Count Assets"
-msgstr ""
+msgstr "Avertissement Nombre d'actifs"
 
 #. module: account_asset
 #. odoo-python
@@ -1858,9 +1858,9 @@ msgid ""
 "You cannot automate the journal entry for an asset that has a running gross "
 "increase. Please use 'Dispose' on the increase(s)."
 msgstr ""
-"Vous ne pouvez pas automatiser la pièce comptable pour une immobilisation "
-"qui a une valeur augmentée courante. Veuillez utiliser l'option 'Céder' pour"
-" la (ou les) augmentation(s)."
+"Vous ne pouvez pas automatiser la pièce comptable pour un actif qui a une "
+"valeur augmentée courante. Veuillez utiliser l'option 'Céder' pour la (ou "
+"les) augmentation(s)."
 
 #. module: account_asset
 #. odoo-python
@@ -1886,8 +1886,8 @@ msgid ""
 "You cannot delete an asset linked to posted entries.\n"
 "You should either confirm the asset, then, sell or dispose of it, or cancel the linked journal entries."
 msgstr ""
-"Vous ne pouvez pas supprimer une immobilisation liée à des pièces comptabilisées.\n"
-"Vous devez soit confirmer l'immobilisation, puis la vendre ou la céder, soit annuler les pièces liées."
+"Vous ne pouvez pas supprimer un actif lié à des pièces comptabilisées.\n"
+"Vous devez soit confirmer l'actif, puis la vendre ou la céder, soit annuler les pièces liées."
 
 #. module: account_asset
 #. odoo-python

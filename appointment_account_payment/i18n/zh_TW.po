@@ -79,6 +79,8 @@ msgid ""
 "<span invisible=\"resource_manage_capacity\" class=\"ms-1\">per booking</span>\n"
 "                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">per seat</span>"
 msgstr ""
+"<span invisible=\"resource_manage_capacity\" class=\"ms-1\">每次預訂</span>\n"
+"                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">每座位</span>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -295,13 +297,13 @@ msgstr "最後更新於"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make customers pay a fee per person when booking your resources"
-msgstr ""
+msgstr "要求客戶預訂資源時，按人數付費"
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make sure customers pay before they can take a slot in your calendar"
-msgstr ""
+msgstr "要求客戶先付款，才可佔用你日曆中的時段"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__calendar_event_id
@@ -331,7 +333,7 @@ msgstr "網上烹飪課程"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "Oops! Paid appointment cannot be cancelled via our website.<br/>"
-msgstr ""
+msgstr "抱歉，付費預約不可透過網站取消。<br/>"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__staff_user_id
@@ -342,13 +344,13 @@ msgstr "運算符"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Consultation"
-msgstr ""
+msgstr "付費諮詢"
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Seats"
-msgstr ""
+msgstr "付費座位"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -457,12 +459,12 @@ msgstr "這是客戶預約付款表格的預覽。"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "To make any changes, please contact"
-msgstr ""
+msgstr "若有任何更改，請聯絡"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "To make any changes, please contact us."
-msgstr ""
+msgstr "若有任何更改，請聯絡我們。"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -504,4 +506,4 @@ msgstr "人"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_info
 msgid "per seat"
-msgstr ""
+msgstr "每座位"

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 12:41+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
@@ -37,19 +37,19 @@ msgstr "%(journal)s - %(account)s"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and %(remaining)s others"
-msgstr ""
+msgstr "%(names)s et %(remaining)s autres"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and one other"
-msgstr ""
+msgstr "%(names)s et un autre"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "%(report_label)s: %(period)s"
-msgstr ""
+msgstr "%(report_label)s : %(period)s"
 
 #. module: account_reports
 #. odoo-python
@@ -161,6 +161,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">Bonjour <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
+"                    <t t-else=\"\">Bonjour <t t-out=\"object.name or ''\"></t>,</t>\n"
+"                    <br>\n"
+"                    Vous trouverez ci-joint votre relevé de compte.\n"
+"                    <br>\n"
+"                    N'hésitez pas à nous contacter si vous avez des questions.\n"
+"                    <br>\n"
+"                    Cordialement,\n"
+"                    <br>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"></t>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -303,12 +318,12 @@ msgstr "Gestionnaire de rapport de comptes pour les déclarations de TVA"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_send
 msgid "Account Report Send"
-msgstr ""
+msgstr "Envoi du rapport de compte"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_reports_show_per_company_setting
 msgid "Account Reports Show Per Company Setting"
-msgstr ""
+msgstr "Les rapports de compte sont affichés par paramètre de société"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_partner__account_represented_company_ids
@@ -704,7 +719,7 @@ msgstr "Bilan"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_balance_sheet_report_handler
 msgid "Balance Sheet Custom Handler"
-msgstr ""
+msgstr "Gestionnaire personnalisé du bilan"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
@@ -1087,7 +1102,7 @@ msgstr "Paramètres de configuration"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Configure start dates"
-msgstr ""
+msgstr "Configurer les dates de départ"
 
 #. module: account_reports
 #. odoo-python
@@ -1099,7 +1114,7 @@ msgstr "Configurez vos comptes de TAXES - %s"
 #. odoo-python
 #: code:addons/account_reports/models/res_config_settings.py:0
 msgid "Configure your start dates"
-msgstr ""
+msgstr "Configurer vos dates de départ"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1162,7 +1177,7 @@ msgstr "Créer"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_create_composite_report_list
 msgid "Create Composite Report"
-msgstr ""
+msgstr "Créer un rapport de synthèse"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
@@ -1255,7 +1270,7 @@ msgstr "Dettes à court terme"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_1
 msgid "Current Year Retained Earnings"
-msgstr ""
+msgstr "Bénéfices non distribués de l'exercice en cours"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings0
@@ -1486,7 +1501,7 @@ msgstr "Télécharger quand même"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Download Excel"
-msgstr ""
+msgstr "Télécharger le fichier Excel"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1648,12 +1663,12 @@ msgstr "Taux de change"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_move_line__exclude_bank_lines
 msgid "Exclude Bank Lines"
-msgstr ""
+msgstr "Exclure les lignes bancaires"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_search
 msgid "Exclude Bank lines"
-msgstr ""
+msgstr "Exclure les lignes bancaires"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__exclude_provision_currency_ids
@@ -1807,6 +1822,7 @@ msgid "Financial Budgets"
 msgstr "Budgets financiers"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "Fiscal Position"
 msgstr "Position fiscale"
@@ -1987,13 +2003,13 @@ msgstr "Écriture des reports groupés de %s"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Account"
-msgstr ""
+msgstr "Masquer le compte"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Debit/Credit"
-msgstr ""
+msgstr "Masquer le débit/crédit"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2247,6 +2263,8 @@ msgstr "Il semble qu'il y ait un mouvement dépendant de fermeture à afficher"
 msgid ""
 "It's not possible to select a budget with the horizontal group feature."
 msgstr ""
+"Il n'est pas possible de sélectionner un budget avec la fonction de groupe "
+"horizontal."
 
 #. module: account_reports
 #. odoo-javascript
@@ -2254,6 +2272,8 @@ msgstr ""
 msgid ""
 "It's not possible to select a horizontal group with the budget feature."
 msgstr ""
+"Il n'est pas possible de sélectionner un groupe horizontal avec la fonction "
+"budget."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__item_ids
@@ -2276,7 +2296,7 @@ msgstr "Journal"
 #: model:ir.actions.client,name:account_reports.action_account_report_ja
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_ja
 msgid "Journal Audit"
-msgstr ""
+msgstr "Audit du journal"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move
@@ -2413,17 +2433,17 @@ msgstr "Journal"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_cost_sales0
 msgid "Less Costs of Revenue"
-msgstr ""
+msgstr "Moins de coûts de revenus"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_expense0
 msgid "Less Operating Expenses"
-msgstr ""
+msgstr "Moins de frais de fonctionnement"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
 msgid "Less Other Expenses"
-msgstr ""
+msgstr "Moins d'autres dépenses"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__line_id
@@ -2531,13 +2551,13 @@ msgstr "Mois"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Multi-Ledger:"
-msgstr ""
+msgstr "Multiples grands livres comptables :"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Multi-ledger"
-msgstr ""
+msgstr "Multiples grands livres comptables"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_report_handler
@@ -2552,7 +2572,7 @@ msgstr "Assistant de réévaluation des monnaies multi-devises"
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__multi
 msgid "Multiple Recipients"
-msgstr ""
+msgstr "Plusieurs destinataires"
 
 #. module: account_reports
 #. odoo-python
@@ -2635,6 +2655,12 @@ msgstr "Non"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "No Comparison"
 msgstr "Aucune comparaison"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "No Journal"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -2766,7 +2792,7 @@ msgstr "Solde initial de l'exercice fiscal"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_operating_income0
 msgid "Operating Income (or Loss)"
-msgstr ""
+msgstr "Résultat (ou perte) opérationnel(le)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2972,13 +2998,14 @@ msgstr "Plans"
 #: code:addons/account_reports/models/budget.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Please enter a valid budget name."
-msgstr ""
+msgstr "Veuillez saisir un nom de budget valide."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Please select a mail template to send multiple statements."
 msgstr ""
+"Veuillez sélectionner un modèle d'e-mail pour envoyer plusieurs relevés."
 
 #. module: account_reports
 #. odoo-python
@@ -3005,7 +3032,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_fixed_assets_view0
 msgid "Plus Fixed Assets"
-msgstr "Plus immobilisations"
+msgstr "Plus d'actifs"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_assets_view0
@@ -3020,7 +3047,7 @@ msgstr "Plus passif immobilisé"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_other_income0
 msgid "Plus Other Income"
-msgstr ""
+msgstr "Plus d'autres revenus"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_position0
@@ -3058,7 +3085,7 @@ msgstr "Période précédente"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
 msgid "Previous Years Retained Earnings"
-msgstr ""
+msgstr "Bénéfices non distribués des exercices précédents"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3068,7 +3095,7 @@ msgstr "Bénéfices non répartis des exercices précédents"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Print & Send"
-msgstr ""
+msgstr "Imprimer & Envoyer"
 
 #. module: account_reports
 #. odoo-python
@@ -3300,18 +3327,18 @@ msgstr "Envoyer e-mail en lecture seule"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send Partner Ledgers"
-msgstr ""
+msgstr "Envoyer les grands livres des partenaires"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.ir_cron_account_report_send_ir_actions_server
 msgid "Send account reports automatically"
-msgstr ""
+msgstr "Envoi automatique de rapports de compte"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Sending statements"
-msgstr ""
+msgstr "Envoi de relevés"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__sequence
@@ -3338,19 +3365,19 @@ msgstr "Prévisions de trésorerie à court terme"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Account"
-msgstr ""
+msgstr "Afficher le compte"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 msgid "Show All Accounts"
-msgstr ""
+msgstr "Afficher tous les comptes"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Currency"
-msgstr ""
+msgstr "Afficher la devise"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
@@ -3360,7 +3387,7 @@ msgstr "Afficher l'avertissement écriture"
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__single
 msgid "Single Recipient"
-msgstr ""
+msgstr "Destinataire unique"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3418,7 +3445,7 @@ msgstr "Solde initial"
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Statements are being sent in the background."
-msgstr ""
+msgstr "Les relevés sont envoyés en arrière-plan."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3473,7 +3500,7 @@ msgstr "Alerte de clôture fiscale"
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_report_id
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_report_id
 msgid "Tax Closing Report"
-msgstr ""
+msgstr "Rapport de clôture fiscale"
 
 #. module: account_reports
 #. odoo-python
@@ -3507,7 +3534,7 @@ msgstr "Ajustement de l'impôt payé"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/tax_report/filters/filter_date.xml:0
 msgid "Tax Period"
-msgstr ""
+msgstr "Période fiscale"
 
 #. module: account_reports
 #. odoo-python
@@ -3555,7 +3582,7 @@ msgstr "Unités fiscales"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_mail_activity__account_tax_closing_params
 msgid "Tax closing additional params"
-msgstr ""
+msgstr "Paramètres supplémentaires pour la clôture fiscale"
 
 #. module: account_reports
 #: model:mail.activity.type,summary:account_reports.mail_activity_type_tax_report_to_pay
@@ -3571,7 +3598,7 @@ msgstr "Déclaration de TVA"
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "Tax return"
-msgstr ""
+msgstr "Déclaration d'impôt"
 
 #. module: account_reports
 #. odoo-python
@@ -3676,6 +3703,9 @@ msgid ""
 "will be created for the closest-matching period according to your "
 "periodicity setup."
 msgstr ""
+"Les dates actuellement sélectionnées ne correspondent pas à une période "
+"fiscale. L'écriture de clôture sera créée pour la période la plus proche, "
+"conformément à la configuration de la périodicité."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3734,6 +3764,8 @@ msgstr "Il y a"
 msgid ""
 "There are currently reports waiting to be sent, please try again later."
 msgstr ""
+"Des rapports sont actuellement en attente d'envoi, veuillez réessayer plus "
+"tard."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3830,19 +3862,17 @@ msgstr ""
 "par un avertissement."
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
-msgid ""
-"This report is linked to a custom handler.\n"
-"                        You can customize it manually, but make sure your changes don't clash with what the handler does."
-msgstr ""
-"Ce rapport est lié à un gestionnaire personnalisé. \n"
-"Vous pouvez le personnaliser manuellement, mais assurez-vous que vos changements n'entrent pas en conflit avec ce que fait le gestionnaire."
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 msgid "This report only displays the data of the active company."
 msgstr "Ce rapport affiche uniquement les données de l'entreprise active."
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid ""
+"This report uses report-specific code.\n"
+"                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -3851,6 +3881,8 @@ msgid ""
 "This report uses the CTA conversion method to consolidate multiple companies using different currencies,\n"
 "        which can lead the report to be unbalanced."
 msgstr ""
+"Ce rapport utilise la méthode de conversion CTA pour consolider plusieurs entreprises utilisant des devises différentes,\n"
+"        ce qui peut déséquilibrer le rapport."
 
 #. module: account_reports
 #. odoo-python
@@ -4241,6 +4273,9 @@ msgid ""
 " Each of them will be created in accordance with its company tax "
 "periodicity."
 msgstr ""
+"Vous êtes sur le point de générer les écritures de clôture de plusieurs "
+"sociétés à la fois. Chacune d'entre elles sera créée en fonction de sa "
+"périodicité fiscale."
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main
@@ -4428,6 +4463,8 @@ msgid ""
 "{{ (object.company_id or object._get_followup_responsible().company_id).name"
 " }} Statement - {{ object.commercial_company_name }}"
 msgstr ""
+"{{ (object.company_id or object._get_followup_responsible().company_id).name"
+" }} Statement - {{ object.commercial_company_name }}"
 
 #. module: account_reports
 #. odoo-javascript

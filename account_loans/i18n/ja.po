@@ -3,16 +3,16 @@
 # 	* account_loans
 # 
 # Translators:
-# Wil Odoo, 2024
 # Junko Augias, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,12 +38,12 @@ msgstr "30E/360"
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30e/360_isda
 msgid "30E/360 ISDA"
-msgstr ""
+msgstr "30E/360 ISDA"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30u/360
 msgid "30U/360"
-msgstr ""
+msgstr "30U/360"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -300,7 +300,7 @@ msgstr "ドラフト"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Draft & Running Loans"
-msgstr ""
+msgstr "ドラフト & 現行ローン"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration
@@ -664,7 +664,7 @@ msgstr "元のローン"
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__outstanding_balance
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__outstanding_balance
 msgid "Outstanding Balance"
-msgstr ""
+msgstr "未払残高"
 
 #. module: account_loans
 #. odoo-python
@@ -683,7 +683,7 @@ msgstr "支払"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Please add a name before computing the loan"
-msgstr ""
+msgstr "ローンを計算する前に名前を追加して下さい"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -701,12 +701,12 @@ msgstr "プレビュー"
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
-msgstr ""
+msgstr "元本"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Principals"
-msgstr ""
+msgstr "元本"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__loan_properties
@@ -722,34 +722,28 @@ msgstr "評価"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Related Asset(s)"
-msgstr ""
+msgstr "関連資産"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_move_form_inherit_loan
 msgid "Related Loan"
-msgstr ""
+msgstr "関連ローン"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_asset_form_inherit_loan
 msgid "Related Loan(s)"
-msgstr ""
+msgstr "関連ローン"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__linked_loans_ids
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__linked_loan_ids
 msgid "Related Loans"
-msgstr ""
+msgstr "関連ローン"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Reset"
 msgstr "リセット"
-
-#. module: account_loans
-#. odoo-python
-#: code:addons/account_loans/models/account_loan.py:0
-msgid "Reversal of %s"
-msgstr ""
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running
@@ -765,7 +759,7 @@ msgstr "SMS配信エラー"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Search Loan"
-msgstr ""
+msgstr "ローンを検索"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -777,22 +771,22 @@ msgstr "ドラフトとして設定"
 msgid ""
 "Set up your amortization schedule, or import it, and let Odoo handle the "
 "monthly interest and principal adjustments automatically."
-msgstr ""
+msgstr "償却スケジュールを設定するか、インポートすれば、Odooが月次の利息と元本の調整を自動的に処理します。"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__short_term_account_id
 msgid "Short Term Account"
-msgstr ""
+msgstr "短期会計"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__short_term_theoretical_balance
 msgid "Short-Term"
-msgstr ""
+msgstr "短期"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__skip_until_date
 msgid "Skip until"
-msgstr ""
+msgstr "以下までスキップ:"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__start_date
@@ -811,31 +805,31 @@ msgstr "状態"
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "The First Payment Date must be before the end of the loan."
-msgstr ""
+msgstr "初回支払日は、ローンの終了前でなければなりません。"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The amount borrowed must be positive"
-msgstr ""
+msgstr "借入額は正にして下さい"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The duration must be positive"
-msgstr ""
+msgstr "期間は正にして下さい"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The interest must be positive"
-msgstr ""
+msgstr "利息は正にして下さい"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan accounts should be set."
-msgstr ""
+msgstr "借入金勘定を設定して下さい。"
 
 #. module: account_loans
 #. odoo-python
@@ -844,37 +838,39 @@ msgid ""
 "The loan amount %(loan_amount)s should be equal to the sum of the "
 "principals: %(principal_sum)s (difference %(principal_difference)s)"
 msgstr ""
+"借入額 %(loan_amount)sは元本の合計額と一致する必要があります: %(principal_sum)s (差異 "
+"%(principal_difference)s)"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan date should be earlier than the loan lines date."
-msgstr ""
+msgstr "ローン日はローン明細日より前である必要があります。"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan duration should be equal to the number of loan lines."
-msgstr ""
+msgstr "ローンの期間は、ローン明細の数と同じにする必要があります。"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid ""
 "The loan interest should be equal to the sum of the loan lines interest."
-msgstr ""
+msgstr "ローン利息は、ローン明細の利息合計と同等である必要があります。"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan journal should be set."
-msgstr ""
+msgstr "ローン仕訳帳を設定して下さい。"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan name should be set."
-msgstr ""
+msgstr "ローン名を設定して下さい。"
 
 #. module: account_loans
 #. odoo-python
@@ -883,29 +879,35 @@ msgid "This entry has been %s"
 msgstr "この仕訳は%sでした"
 
 #. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "This entry has been reversed from %s"
+msgstr "この仕訳は%sから予約されました"
+
+#. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Amounts Borrowed"
-msgstr ""
+msgstr "借入額合計"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Outstanding Balance"
-msgstr ""
+msgstr "未払残高合計"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total interests"
-msgstr ""
+msgstr "利息合計"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total payments"
-msgstr ""
+msgstr "支払合計"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total principals"
-msgstr ""
+msgstr "元本合計"
 
 #. module: account_loans
 #. odoo-javascript
@@ -917,7 +919,7 @@ msgstr "アップロード"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Uploaded file"
-msgstr ""
+msgstr "アップロード済ファイル"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__skip_until_date
@@ -927,6 +929,7 @@ msgid ""
 "you have already manually created entries prior to the creation of this "
 "loan."
 msgstr ""
+"ローンが確認された時点で、Odooは同日(その日を含む)までのローン明細を無視し、それらの仕訳を作成しません。これは、ローンの作成前にすでに手動で仕訳を作成している場合に便利です。"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__website_message_ids
@@ -941,4 +944,4 @@ msgstr "ウェブサイト通信履歴"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 msgid "will be deleted and the loan will be marked as closed."
-msgstr ""
+msgstr "は削除され、ローンは終了としてマークされます。"

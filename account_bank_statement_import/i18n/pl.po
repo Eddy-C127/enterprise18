@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +35,7 @@ msgstr "1 transakcja została już importowana i została ignorowana."
 #. module: account_bank_statement_import
 #: model:ir.model.constraint,message:account_bank_statement_import.constraint_account_bank_statement_line_unique_import_id
 msgid "A bank account transactions can be imported only once!"
-msgstr ""
+msgstr "Transakcje z konta bankowego mogą być zaimportowane tylko raz!"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_bank_statement_line
@@ -60,7 +61,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_bank_statement.py:0
 msgid "Click \"New\" or upload a %s."
-msgstr ""
+msgstr "Kliknij \"Nowy\" lub prześlij %s."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -69,6 +70,8 @@ msgid ""
 "Could not make sense of the given file.\n"
 "Did you install the module to support this type of file?"
 msgstr ""
+"Nie można przetworzyć podanego pliku.\n"
+"Czy masz zainstalowany moduł wspierający ten typ pliku?"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -79,7 +82,7 @@ msgstr "Idź do listy aplikacji"
 #. module: account_bank_statement_import
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_import.journal_dashboard_view_inherit
 msgid "Import File"
-msgstr ""
+msgstr "Zaimportuj plik"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_line__unique_import_id
@@ -90,7 +93,7 @@ msgstr "Importuj ID"
 #. odoo-javascript
 #: code:addons/account_bank_statement_import/static/src/account_bank_statement_import_model.js:0
 msgid "Import Template for Bank Statements"
-msgstr ""
+msgstr "Zaimportuj szablon wyciągów bankowych"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_journal
@@ -101,7 +104,7 @@ msgstr "Dziennik"
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "Manual (or import %(import_formats)s)"
-msgstr ""
+msgstr "Ręcznie (lub import %(import_formats)s)"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -134,6 +137,7 @@ msgid ""
 "The account of this statement (%(account)s) is not the same as the journal "
 "(%(journal)s)."
 msgstr ""
+"Konto wyciągu (%(account)s) nie pokrywa się z dziennikiem (%(journal)s)."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -142,6 +146,8 @@ msgid ""
 "The currency of the bank statement (%(code)s) is not the same as the "
 "currency of the journal (%(journal)s)."
 msgstr ""
+"Waluta wyciągu bankowego (%(code)s) nie jest taka sama jak waluta dziennika "
+"(%(journal)s)."
 
 #. module: account_bank_statement_import
 #. odoo-python

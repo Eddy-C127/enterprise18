@@ -66,7 +66,7 @@ msgstr "設定"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Configure Journal"
-msgstr ""
+msgstr "配置日記賬"
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_res_partner
@@ -99,7 +99,7 @@ msgstr "德文"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Go to settings"
-msgstr ""
+msgstr "前往設定"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_account_journal__has_sepa_ct_payment_method
@@ -172,7 +172,7 @@ msgstr "債權人參考方姓名。使用規則：長度限制在70字以內。"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Non-EUR Payments"
-msgstr ""
+msgstr "非歐元付款"
 
 #. module: account_iso20022
 #. odoo-python
@@ -215,7 +215,7 @@ msgstr "通過SEPA發送付款"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "Payments without IBAN"
-msgstr ""
+msgstr "無 IBAN 的付款"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_batch_payment__iso20022_batch_booking
@@ -243,14 +243,14 @@ msgstr "SEPA 信用轉帳發送"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_payment.py:0
 msgid "SEPA only accepts payments in EUR."
-msgstr ""
+msgstr "SEPA 只接受歐元（EUR）付款。"
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid ""
 "SEPA only accepts payments in EUR. Some payments are using another currency."
-msgstr ""
+msgstr "SEPA 只接受歐元（EUR）付款。部份付款使用了其他貨幣。"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_journal__sepa_pain_version
@@ -342,7 +342,7 @@ msgstr ""
 msgid ""
 "The Name Identification and Issuer details are required to proceed. Please "
 "configure them in the settings."
-msgstr ""
+msgstr "需要有名稱識別符及發行人詳細資料，才可繼續。請在設定中配置這些資料。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -351,6 +351,7 @@ msgid ""
 "The bank account %(account)s, of journal '%(journal)s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"銀行賬戶 %(account)s（所屬日記賬 %(journal)s）並非 IBAN 類型。使用 SEPA 功能需要有效的 IBAN 賬戶。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -358,7 +359,7 @@ msgstr ""
 msgid ""
 "The customer bank account set on some payments does not have an IBAN number."
 " This is required for SEPA."
-msgstr ""
+msgstr "部份付款所設定的客戶銀行賬戶，沒有 IBAN 號碼。進行 SEPA 交易必須要有此項資料。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -372,7 +373,7 @@ msgstr "日記帳 '%s' 需要一個正確的IBAN 帳號來通過SEPA付費。請
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "This journal does not have a bank account defined."
-msgstr ""
+msgstr "此日記賬未有定義銀行賬戶。"
 
 #. module: account_iso20022
 #. odoo-python
@@ -394,7 +395,7 @@ msgstr "端對端獨特交易參考"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_batch_payment.py:0
 msgid "View Payments"
-msgstr ""
+msgstr "查看付款"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_company__iso20022_initiating_party_name

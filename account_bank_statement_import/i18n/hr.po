@@ -23,18 +23,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "%d transactions had already been imported and were ignored."
-msgstr ""
+msgstr "%d transakcije koje su već uvežene i sad su preskočene."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "1 transaction had already been imported and was ignored."
-msgstr ""
+msgstr "1 transakcija je već uvežena i sad je preskočena."
 
 #. module: account_bank_statement_import
 #: model:ir.model.constraint,message:account_bank_statement_import.constraint_account_bank_statement_line_unique_import_id
 msgid "A bank account transactions can be imported only once!"
-msgstr ""
+msgstr "Bankovne transakcije mogu biti uvežene samo jednom!"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_bank_statement_line
@@ -53,12 +53,14 @@ msgid ""
 "Cannot find in which journal import this statement. Please manually select a"
 " journal."
 msgstr ""
+"Nemogu pronaći dnevnik u koji bi uvezli ovaj izvod. Molimo odabreite dnevnik"
+" ručno."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_bank_statement.py:0
 msgid "Click \"New\" or upload a %s."
-msgstr ""
+msgstr "Kliknite \"Novi\" ili učitajte datoteku %s."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -67,63 +69,65 @@ msgid ""
 "Could not make sense of the given file.\n"
 "Did you install the module to support this type of file?"
 msgstr ""
+"Ne mogu pronaći smisao u učitanoj datoteci.\n"
+"Jeste li instalirali modul koji podržava ovu vrstu datoteke?"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "Go to Apps"
-msgstr ""
+msgstr "Idi na aplikacije"
 
 #. module: account_bank_statement_import
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_import.journal_dashboard_view_inherit
 msgid "Import File"
-msgstr ""
+msgstr "Uvezi datoteku"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_line__unique_import_id
 msgid "Import ID"
-msgstr ""
+msgstr "ID uvoza"
 
 #. module: account_bank_statement_import
 #. odoo-javascript
 #: code:addons/account_bank_statement_import/static/src/account_bank_statement_import_model.js:0
 msgid "Import Template for Bank Statements"
-msgstr ""
+msgstr "Učitaj predložak za bankovne izvode"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_journal
 msgid "Journal"
-msgstr ""
+msgstr "Dnevnik"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "Manual (or import %(import_formats)s)"
-msgstr ""
+msgstr "Ručno (ili uvoz %(import_formats)s)"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "No attachment was provided"
-msgstr ""
+msgstr "Prilog nije dostavljen"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "No currency found matching '%s'."
-msgstr ""
+msgstr "Nije pronađena valuta '%s'."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_bank_statement.py:0
 msgid "No transactions matching your filters were found."
-msgstr ""
+msgstr "Nema nađenih transakcija za vaše filtere."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_bank_statement.py:0
 msgid "Nothing to do here!"
-msgstr ""
+msgstr "Ništa za napraviti ovdje!"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -132,6 +136,8 @@ msgid ""
 "The account of this statement (%(account)s) is not the same as the journal "
 "(%(journal)s)."
 msgstr ""
+"Bankovni rčun ovog izvoda (%(account)s) nije isti kao i bankovni račun na "
+"dnevniku (%(journal)s)."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -140,12 +146,14 @@ msgid ""
 "The currency of the bank statement (%(code)s) is not the same as the "
 "currency of the journal (%(journal)s)."
 msgstr ""
+"Valuta iozvoda banke (%(code)s) nije identična valuti postavljenoj na "
+"dnevniku (%(journal)s)."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "The following files could not be imported:\n"
-msgstr ""
+msgstr "Sljedeće datoteke nije moguće uvesti:\n"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -154,6 +162,8 @@ msgid ""
 "This file doesn't contain any statement for account %s.\n"
 "If it contains transactions for more than one account, it must be imported on each of them."
 msgstr ""
+"Ova datoteka ne sadrži podatke izvoda za račun %s.\n"
+"Ukoliko sadrži podatke za više od jednog računa, mora biti uvežena na svakom od njih."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -162,27 +172,29 @@ msgid ""
 "This file doesn't contain any transaction for account %s.\n"
 "If it contains transactions for more than one account, it must be imported on each of them."
 msgstr ""
+"Ova datoteka ne sadrži podatke izvoda za račun %s.\n"
+"Ukoliko sadrži podatke za više od jednog računa, mora biti uvežena na svakom od njih."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "View successfully imported statements"
-msgstr ""
+msgstr "Pogledajte uspješno uvezene izvode"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You already have imported that file."
-msgstr ""
+msgstr "Već ste uvezli ovu datoteku."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You have to set a Default Account for the journal: %s"
-msgstr ""
+msgstr "Morate postaviti zadani konto za dnevnik: %s"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You uploaded an invalid or empty file."
-msgstr ""
+msgstr "Učitali ste nevažeću ili praznu datoteku."

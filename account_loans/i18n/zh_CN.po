@@ -3,18 +3,18 @@
 # 	* account_loans
 # 
 # Translators:
-# Wil Odoo, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
-# Chloe Wang, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Chloe Wang, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,22 +30,22 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30a/360
 msgid "30A/360"
-msgstr ""
+msgstr "30A/360"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30e/360
 msgid "30E/360"
-msgstr ""
+msgstr "30E/360"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30e/360_isda
 msgid "30E/360 ISDA"
-msgstr ""
+msgstr "30E/360 ISDA"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30u/360
 msgid "30U/360"
-msgstr ""
+msgstr "30U/360"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -53,6 +53,8 @@ msgid ""
 "<span class=\"oe_inline\" invisible=\"duration == 1\">months</span>\n"
 "                                        <span class=\"oe_inline\" invisible=\"duration != 1\">month</span>"
 msgstr ""
+"<span class=\"oe_inline\" invisible=\"duration == 1\">个月</span>\n"
+"                                        <span class=\"oe_inline\" invisible=\"duration != 1\">个月</span>"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
@@ -60,6 +62,8 @@ msgid ""
 "<span class=\"oe_inline\" invisible=\"loan_term == 1\">years</span>\n"
 "                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">year</span>"
 msgstr ""
+"<span class=\"oe_inline\" invisible=\"loan_term == 1\">年</span>\n"
+"                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">年</span>"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
@@ -69,22 +73,22 @@ msgstr "<span class=\"oe_inline\">%</span>"
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/360
 msgid "A/360"
-msgstr ""
+msgstr "A/360"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/365f
 msgid "A/365F"
-msgstr ""
+msgstr "A/365F"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/a_afb
 msgid "A/A AFB"
-msgstr ""
+msgstr "A/A AFB"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__a/a_isda
 msgid "A/A ISDA"
-msgstr ""
+msgstr "A/A ISDA"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_needaction
@@ -260,7 +264,7 @@ msgstr "创建日期"
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__currency_id
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__currency_id
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
@@ -334,7 +338,7 @@ msgstr "费用科目"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__first_payment_date
 msgid "First Payment"
-msgstr ""
+msgstr "首次付款"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_follower_ids
@@ -568,12 +572,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__display_name
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Loan name"
-msgstr ""
+msgstr "贷款名称"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.asset_group_form_view_inherit_loan
 msgid "Loan(s)"
-msgstr ""
+msgstr "贷款"
 
 #. module: account_loans
 #. odoo-python
@@ -582,29 +586,29 @@ msgstr ""
 #: model:ir.ui.menu,name:account_loans.menu_action_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Loans"
-msgstr ""
+msgstr "贷款"
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loans_analysis
 #: model:ir.ui.menu,name:account_loans.menu_action_loans_analysis
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_pivot_view
 msgid "Loans Analysis"
-msgstr ""
+msgstr "贷款分析"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__long_term_account_id
 msgid "Long Term Account"
-msgstr ""
+msgstr "长期账户"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__long_term_theoretical_balance
 msgid "Long-Term"
-msgstr ""
+msgstr "长期"
 
 #. module: account_loans
 #: model_terms:ir.actions.act_window,help:account_loans.action_view_account_loans
 msgid "Manage Your Acquired Loans with Automated Adjustments."
-msgstr ""
+msgstr "利用自动调整功能管理您获得的贷款。"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_has_error
@@ -744,12 +748,6 @@ msgid "Reset"
 msgstr "重置"
 
 #. module: account_loans
-#. odoo-python
-#: code:addons/account_loans/models/account_loan.py:0
-msgid "Reversal of %s"
-msgstr "撤销%s"
-
-#. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running
 msgid "Running"
 msgstr "运行中"
@@ -881,6 +879,12 @@ msgstr "请设置贷款名称"
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "This entry has been %s"
 msgstr "记项已被%s"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "This entry has been reversed from %s"
+msgstr "记项已从%s撤销"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view

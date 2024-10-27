@@ -5,15 +5,15 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 12:41+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -218,7 +218,7 @@ msgstr "具有 \"分组依据 \"值的行不能有子行。"
 msgid ""
 "A tax unit can only be created between companies sharing the same main "
 "currency."
-msgstr "只能为主币种相同的公司创建税务单位。"
+msgstr "只能为主币别相同的公司创建税务单位。"
 
 #. module: account_reports
 #. odoo-python
@@ -562,13 +562,13 @@ msgstr "金额"
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount_currency
 #: model:account.report.column,name:account_reports.partner_ledger_report_amount_currency
 msgid "Amount Currency"
-msgstr "金额币种"
+msgstr "金额币别"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Amount in currency: %s"
-msgstr "币种金额：%s"
+msgstr "币别金额：%s"
 
 #. module: account_reports
 #. odoo-python
@@ -971,7 +971,7 @@ msgstr "更改锁定日期"
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Check Partner(s) Email(s)"
-msgstr "检查合作伙伴电邮"
+msgstr "检查合作伙伴电子邮件"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1044,7 +1044,7 @@ msgstr "公司“%(company)s”已属于 %(country)s 内的税务单位。一家
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Company Currency"
-msgstr "公司币种"
+msgstr "公司币别"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1205,7 +1205,7 @@ msgstr "贷方"
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_currency
 #: model:account.report.column,name:account_reports.general_ledger_report_amount_currency
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: account_reports
 #. odoo-python
@@ -1634,7 +1634,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__exclude_provision_currency_ids
 msgid "Exclude Provision Currency"
-msgstr "排除准备金币种"
+msgstr "排除准备金币别"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_excluded
@@ -1775,6 +1775,7 @@ msgid "Financial Budgets"
 msgstr "财政预算"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "Fiscal Position"
 msgstr "应税设定"
@@ -1947,13 +1948,13 @@ msgstr "%s已分组递延记项"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Account"
-msgstr ""
+msgstr "隐藏账户"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Debit/Credit"
-msgstr ""
+msgstr "隐藏借记/贷记"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2047,7 +2048,7 @@ msgstr "在%s"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Inactive"
-msgstr "未激活"
+msgstr "未启用的"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2197,7 +2198,7 @@ msgstr "似乎有些依赖其他项目的结算分录，有待过账"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid ""
 "It's not possible to select a budget with the horizontal group feature."
-msgstr ""
+msgstr "无法使用水平分组功能选择预算。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2272,7 +2273,7 @@ msgstr "日记账报表自定义处理程序"
 #. odoo-python
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 msgid "Journal items with archived tax tags"
-msgstr "具有存档税项标签的日记账项目"
+msgstr "具有归档税项标签的日记账项目"
 
 #. module: account_reports
 #. odoo-python
@@ -2488,12 +2489,12 @@ msgstr "多个分类账"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_report_handler
 msgid "Multicurrency Revaluation Report Custom Handler"
-msgstr "多币种重新估值报表自定义处理程序"
+msgstr "多币别重新估值报表自定义处理程序"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_wizard
 msgid "Multicurrency Revaluation Wizard"
-msgstr "多币种重新估值向导"
+msgstr "多币别重新估值向导"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__multi
@@ -2581,6 +2582,12 @@ msgstr "否"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "No Comparison"
 msgstr "无对比"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "No Journal"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -2894,7 +2901,7 @@ msgstr "周期"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity
 msgid "Periodicity in month"
-msgstr "以月份表示的周期"
+msgstr "周期（月）"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3093,7 +3100,7 @@ msgstr "应收账款"
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mail_partner_ids
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Recipients"
-msgstr "收款人"
+msgstr "收件人"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -3175,7 +3182,7 @@ msgstr "收入"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__reversal_date
 msgid "Reversal Date"
-msgstr "撤销日期"
+msgstr "冲销日期"
 
 #. module: account_reports
 #. odoo-python
@@ -3274,19 +3281,19 @@ msgstr "短期现金预测"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Account"
-msgstr ""
+msgstr "显示账户"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 msgid "Show All Accounts"
-msgstr ""
+msgstr "显示所有账户"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Currency"
-msgstr ""
+msgstr "显示货币"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
@@ -3350,7 +3357,7 @@ msgstr "初始余额"
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Statements are being sent in the background."
-msgstr ""
+msgstr "报表正在后台发送。"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3405,7 +3412,7 @@ msgstr "税务关闭警报"
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_report_id
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_report_id
 msgid "Tax Closing Report"
-msgstr ""
+msgstr "税务结算报表"
 
 #. module: account_reports
 #. odoo-python
@@ -3422,12 +3429,12 @@ msgstr "税项格"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__vat
 msgid "Tax ID"
-msgstr "税项ID"
+msgstr "税务识别码"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.company_information
 msgid "Tax ID:"
-msgstr ""
+msgstr "税务编号："
 
 #. module: account_reports
 #. odoo-python
@@ -3738,19 +3745,17 @@ msgid ""
 msgstr "该报告存在不一致之处。受影响的资料行已标有警告。"
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
-msgid ""
-"This report is linked to a custom handler.\n"
-"                        You can customize it manually, but make sure your changes don't clash with what the handler does."
-msgstr ""
-"该报告与一个自定义处理程序相关联。\n"
-"                        您可以手动对其进行自定义，但要确保您的更改不会与处理程序的操作冲突。"
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 msgid "This report only displays the data of the active company."
 msgstr "该报告仅显示活跃公司的数据。"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid ""
+"This report uses report-specific code.\n"
+"                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript

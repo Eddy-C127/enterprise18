@@ -3,8 +3,8 @@
 # 	* account_iso20022
 # 
 # Translators:
-# Malaz Abuidris <msea@odoo.com>, 2024
 # Wil Odoo, 2024
+# Malaz Abuidris <msea@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -110,7 +110,7 @@ msgstr "توجد طريقة دفع Sepa Ct "
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022
 msgid "ISO20022"
-msgstr ""
+msgstr "ISO20022"
 
 #. module: account_iso20022
 #: model:ir.model.fields,field_description:account_iso20022.field_res_company__iso20022_orgid_id
@@ -246,7 +246,7 @@ msgstr "تحويلات SEPA الائتمانية بانتظار الإرسال "
 #. odoo-python
 #: code:addons/account_iso20022/models/account_payment.py:0
 msgid "SEPA only accepts payments in EUR."
-msgstr ""
+msgstr "SEPA only accepts payments in EUR."
 
 #. module: account_iso20022
 #. odoo-python
@@ -254,6 +254,7 @@ msgstr ""
 msgid ""
 "SEPA only accepts payments in EUR. Some payments are using another currency."
 msgstr ""
+"SEPA only accepts payments in EUR. Some payments are using another currency."
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_journal__sepa_pain_version
@@ -261,6 +262,7 @@ msgstr ""
 msgid ""
 "SEPA version to use to generate Credit Transfer XML files from this journal"
 msgstr ""
+"SEPA version to use to generate Credit Transfer XML files from this journal"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__slev
@@ -304,12 +306,12 @@ msgstr ""
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022_se
 msgid "Swedish ISO20022"
-msgstr ""
+msgstr "Swedish ISO20022"
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022_ch
 msgid "Swiss ISO20022"
-msgstr ""
+msgstr "Swiss ISO20022"
 
 #. module: account_iso20022
 #. odoo-python
@@ -356,6 +358,8 @@ msgid ""
 "The bank account %(account)s, of journal '%(journal)s', is not of type IBAN.\n"
 "A valid IBAN account is required to use SEPA features."
 msgstr ""
+"The bank account %(account)s, of journal '%(journal)s', is not of type IBAN.\n"
+"A valid IBAN account is required to use SEPA features."
 
 #. module: account_iso20022
 #. odoo-python
@@ -364,6 +368,8 @@ msgid ""
 "The customer bank account set on some payments does not have an IBAN number."
 " This is required for SEPA."
 msgstr ""
+"The customer bank account set on some payments does not have an IBAN number."
+" This is required for SEPA."
 
 #. module: account_iso20022
 #. odoo-python
@@ -434,9 +440,9 @@ msgstr "اسم شركتك "
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03
 msgid "pain.001.001.03"
-msgstr ""
+msgstr "pain.001.001.03"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_09
 msgid "pain.001.001.09"
-msgstr ""
+msgstr "pain.001.001.09"

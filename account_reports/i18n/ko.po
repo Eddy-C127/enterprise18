@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 12:41+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -267,6 +267,7 @@ msgstr "계정과목 일람표 서식"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code"
 msgstr "계정 코드"
 
@@ -1779,6 +1780,7 @@ msgid "Financial Budgets"
 msgstr "재정 예산"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "Fiscal Position"
 msgstr "재정 위치"
@@ -2589,6 +2591,12 @@ msgstr "아니오"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "No Comparison"
 msgstr "비교 안 함"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "No Journal"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -3746,19 +3754,17 @@ msgid ""
 msgstr "이 보고서에는 불일치하는 내용이 포함되어 있으며, 관련 있는 항목에는 경고가 표시됩니다."
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
-msgid ""
-"This report is linked to a custom handler.\n"
-"                        You can customize it manually, but make sure your changes don't clash with what the handler does."
-msgstr ""
-"이 보고서는 사용자 지정 처리기에 연결되어 있습니다.\n"
-"                        수기로 사용자 지정할 있으나, 변경한 내용이 다른 처리기와 충돌하지 않는지 확인하세요."
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 msgid "This report only displays the data of the active company."
 msgstr "이 보고서에서는 활성화된 회사의 정보만 표시됩니다."
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid ""
+"This report uses report-specific code.\n"
+"                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript

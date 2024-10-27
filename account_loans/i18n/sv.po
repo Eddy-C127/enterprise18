@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
@@ -751,12 +751,6 @@ msgid "Reset"
 msgstr "Återställ"
 
 #. module: account_loans
-#. odoo-python
-#: code:addons/account_loans/models/account_loan.py:0
-msgid "Reversal of %s"
-msgstr ""
-
-#. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running
 msgid "Running"
 msgstr "Pågående"
@@ -886,6 +880,12 @@ msgstr ""
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "This entry has been %s"
 msgstr "Denna post har varit %s"
+
+#. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "This entry has been reversed from %s"
+msgstr "Denna post har återförts från %s"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view

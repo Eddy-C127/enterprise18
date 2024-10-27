@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 12:41+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
@@ -1149,7 +1149,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
 msgid "Create Entry"
-msgstr "Utwórz zapis"
+msgstr "Utwórz wpis"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_create_report_menu
@@ -1780,6 +1780,7 @@ msgid "Financial Budgets"
 msgstr ""
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "Fiscal Position"
 msgstr "Obszar podatkowy"
@@ -2249,7 +2250,7 @@ msgstr "Zapis dziennika"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move_line
 msgid "Journal Item"
-msgstr "Pozycja zapisu"
+msgstr "Pozycja wpisu"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2261,7 +2262,7 @@ msgstr "Pozycja zapisu"
 #: code:addons/account_reports/static/src/components/general_ledger/line_name.xml:0
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 msgid "Journal Items"
-msgstr "Pozycje zapisów"
+msgstr "Pozycje wpisów"
 
 #. module: account_reports
 #. odoo-python
@@ -2591,6 +2592,12 @@ msgstr "Nie"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "No Comparison"
 msgstr "Brak porównania"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "No Journal"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -3062,7 +3069,7 @@ msgstr "Rentowność"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "Proposition of tax closing journal entry."
-msgstr "Propozycja zapisu w dzienniku zamknięcia podatkowego."
+msgstr "Propozycja wpisu w dzienniku zamknięcia podatkowego."
 
 #. module: account_reports
 #. odoo-python
@@ -3761,17 +3768,17 @@ msgid ""
 msgstr ""
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
-msgid ""
-"This report is linked to a custom handler.\n"
-"                        You can customize it manually, but make sure your changes don't clash with what the handler does."
-msgstr ""
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 msgid "This report only displays the data of the active company."
 msgstr "Ten raport wyświetla tylko dane aktywnej firmy."
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid ""
+"This report uses report-specific code.\n"
+"                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript
@@ -3937,7 +3944,7 @@ msgstr "Niezrealizowane zyski/straty z tytułu różnic kursowych"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Unreconciled Entries"
-msgstr "Nieuzgodnione zapisy"
+msgstr "Nieuzgodnione wpisy"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_vat
@@ -3982,7 +3989,7 @@ msgstr "Wyświetl linie przeniesienia"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Journal Entry"
-msgstr "Wyświetl zapis dziennika"
+msgstr "Wyświetl wpis dziennika"
 
 #. module: account_reports
 #. odoo-python
@@ -4039,7 +4046,7 @@ msgstr "Czy musimy tworzyć rezerwy na wybrane waluty obce."
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "With Draft Entries"
-msgstr "Wraz z projektami zapisów"
+msgstr "Wraz z projektami wpisów"
 
 #. module: account_reports
 #. odoo-python

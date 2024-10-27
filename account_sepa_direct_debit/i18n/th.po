@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
@@ -574,14 +574,6 @@ msgstr "ไอคอนประเภทกิจกรรม"
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-msgid ""
-"All the payments in the batch must have an active SEPA mandate.\n"
-"Please check the following mandates: %(mandate_list)s."
-msgstr ""
-
-#. module: account_sepa_direct_debit
-#. odoo-python
-#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "All the payments in the batch must have the same SDD scheme."
 msgstr "การชำระเงินทั้งหมดในชุดงานต้องมีรูปแบบ SDD เดียวกัน"
 
@@ -747,7 +739,6 @@ msgid "Create a new direct debit customer mandate"
 msgstr "สร้างข้อบังคับลูกค้าแบบหักบัญชีอัตโนมัติใหม่"
 
 #. module: account_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Create it."
 msgstr "สร้างขึ้นมา"
@@ -959,6 +950,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to mandates"
+msgstr ""
+
+#. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Go to payments"
 msgstr ""
 
 #. module: account_sepa_direct_debit
@@ -1365,6 +1362,12 @@ msgid "Payments to Collect"
 msgstr "การชำระเงินที่ได้รับการชำระแล้ว"
 
 #. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Payments without mandate"
+msgstr ""
+
+#. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
 msgid ""
 "Please do not pay it manually, the payment will be asked to your bank to be processed\n"
@@ -1643,6 +1646,18 @@ msgstr ""
 "เนื่องจากไม่มีข้อบังคับที่ใช้งานอยู่"
 
 #. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Some payments are linked to an inactive mandate."
+msgstr ""
+
+#. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Some payments are not linked to any mandate."
+msgstr ""
+
+#. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__start_date
 msgid "Start Date"
 msgstr "วันที่เริ่ม"
@@ -1703,6 +1718,10 @@ msgid ""
 "known by them. In this case, the minimum collection date must be the "
 "%(date)s"
 msgstr ""
+"ธนาคารจะต้องได้รับแจ้งล่วงหน้าอย่างน้อย 5 วัน "
+"สำหรับการเรียกเก็บเงินที่เกี่ยวข้องกับคำสั่งใหม่ และ 2 วัน "
+"ล่วงหน้าหากธนาคารทราบคำสั่งแล้ว ในกรณีนี้ "
+"วันเรียกเก็บเงินขั้นต่ำจะต้องเป็นวันที่ %(date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1756,6 +1775,9 @@ msgid ""
 "                    you will have to contact us to stop its use. The minimum notification period for creditors\n"
 "                    to inform debtors about an upcoming collection is"
 msgstr ""
+"คำสั่งจะใช้เพื่อชำระเงินตามใบแจ้งหนี้ภายในช่วงเวลาที่กำหนดเท่านั้น หากไม่ได้ระบุวันที่สิ้นสุด\n"
+"                    คุณจะต้องติดต่อเราเพื่อหยุดการใช้งาน ระยะเวลาแจ้งขั้นต่ำสำหรับเจ้าหนี้ในการแจ้ง\n"
+"                    ให้ลูกหนี้ทราบเกี่ยวกับการทวงหนี้ที่กำลังจะมีขึ้นคือ"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
@@ -1901,6 +1923,14 @@ msgstr "ประวัติการสื่อสารของเว็บ
 
 #. module: account_sepa_direct_debit
 #. odoo-python
+#: code:addons/account_sepa_direct_debit/wizard/account_payment_register.py:0
+msgid ""
+"You can't pay any of the selected invoices using the SEPA Direct Debit "
+"method, as no valid mandate is available"
+msgstr ""
+
+#. module: account_sepa_direct_debit
+#. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_partner_bank.py:0
 msgid ""
 "You cannot delete a bank account linked to an active SEPA Direct Debit "
@@ -1916,6 +1946,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the longest pre-notification period defined in the mandates linked to this batch.\n"
 "According to these payments mandates, the minimum required date should be the %(minimum_date)s"
 msgstr ""
+"คุณไม่สามารถสร้างไฟล์ SEPA Direct Debit ที่มีวันที่เรียกเก็บเงินที่กำหนดน้อยกว่าวันที่ส่ง + ช่วงเวลาการแจ้งเตือนล่วงหน้าที่ยาวนานที่สุดซึ่งกำหนดไว้ในคำสั่งที่เชื่อมโยงกับชุดนี้ได้\n"
+"ตามข้อกำหนดการชำระเงินเหล่านี้ วันที่ขั้นต่ำที่จำเป็นควรเป็น %(minimum_date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python

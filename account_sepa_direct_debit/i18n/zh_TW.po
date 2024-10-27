@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:26+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -521,7 +521,7 @@ msgstr "應選擇SEPA直接借記版本來生成匯出文件。"
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid ""
 "A customer account is required to validate a SEPA Direct Debit mandate."
-msgstr ""
+msgstr "若要驗證 SEPA 直接扣賬授權，需要設定客戶賬戶。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.actions.act_window,help:account_sepa_direct_debit.account_sepa_direct_debit_mandate_tree_act
@@ -567,14 +567,6 @@ msgstr "活動狀態"
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__activity_type_icon
 msgid "Activity Type Icon"
 msgstr "活動類型圖示"
-
-#. module: account_sepa_direct_debit
-#. odoo-python
-#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
-msgid ""
-"All the payments in the batch must have an active SEPA mandate.\n"
-"Please check the following mandates: %(mandate_list)s."
-msgstr ""
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -742,7 +734,6 @@ msgid "Create a new direct debit customer mandate"
 msgstr "建立新的直接扣賬客戶授權"
 
 #. module: account_sepa_direct_debit
-#: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Create it."
 msgstr "建立它。"
@@ -900,7 +891,7 @@ msgstr "電郵"
 #. module: account_sepa_direct_debit
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "Email requesting the customer to sign the mandate attached"
-msgstr ""
+msgstr "要求客戶簽署所附上授權的電子郵件"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__template_id
@@ -952,25 +943,31 @@ msgstr "免費參考編號，以識別你公司的付款方。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to journal"
-msgstr ""
+msgstr "前往日記賬"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to mandates"
+msgstr "前往授權"
+
+#. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Go to payments"
 msgstr ""
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to settings"
-msgstr ""
+msgstr "前往設定"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Good news! A valid SEPA Mandate is available."
-msgstr ""
+msgstr "好消息！有可用的有效 SEPA 授權。"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__has_message
@@ -1246,13 +1243,13 @@ msgid ""
 "Only IBAN account numbers can receive SEPA Direct Debit payments. Please "
 "select a journal associated to one or add an IBAN bank account to the "
 "current journal"
-msgstr ""
+msgstr "只限 IBAN 賬戶號碼才可接收 SEPA 直接扣賬付款。請選擇已連結至這種賬戶的日記賬，或為目前日記賬加入一個 IBAN 銀行賬戶。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Only mandates in draft state can be deleted."
-msgstr ""
+msgstr "只限草稿狀態的授權，才可刪除。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1264,13 +1261,13 @@ msgstr "咦？此客戶沒有有效的 SEPA 授權。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customer"
-msgstr ""
+msgstr "開啟客戶"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customers"
-msgstr ""
+msgstr "開啟客戶"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
@@ -1314,7 +1311,7 @@ msgstr "已透過直接扣賬付款"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/wizard/sdd_mandate_send.py:0
 msgid "Partner should have an email address."
-msgstr ""
+msgstr "合作夥伴應該有電郵地址。"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment_register
@@ -1359,6 +1356,12 @@ msgid "Payments to Collect"
 msgstr "待收取付款"
 
 #. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Payments without mandate"
+msgstr ""
+
+#. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
 msgid ""
 "Please do not pay it manually, the payment will be asked to your bank to be processed\n"
@@ -1376,7 +1379,7 @@ msgstr "提前通知"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Problematic mandates"
-msgstr ""
+msgstr "有問題的授權"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__rating_ids
@@ -1453,7 +1456,7 @@ msgstr "SDD 授權"
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_sdd_mandate_send
 msgid "SDD Mandate Send"
-msgstr ""
+msgstr "傳送 SDD 授權"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_scheme
@@ -1492,7 +1495,7 @@ msgstr "SEPA 直接扣賬"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_pre_notification
 msgid "SEPA Direct Debit Customer Pre-Notification mail"
-msgstr ""
+msgstr "SEPA 直接扣賬客戶預先通知郵件"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1507,7 +1510,7 @@ msgstr "SEPA直接借記格式版本"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "SEPA Direct Debit Sending"
-msgstr ""
+msgstr "SEPA 直接扣賬傳送中"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_res_company__sdd_creditor_identifier
@@ -1519,7 +1522,7 @@ msgstr "公司在單一歐元付款區（SEPA）直接付款功能的收款方�
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 msgid "SEPA Direct Debit mandate expiration warning"
-msgstr ""
+msgstr "SEPA 直接扣賬授權到期警告"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1543,13 +1546,13 @@ msgstr "SEPA Pain版本"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "SEPA Scheme operates in Euro."
-msgstr ""
+msgstr "SEPA 計劃以歐元運作。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "SEPA direct debit stateless customer"
-msgstr ""
+msgstr "SEPA 直接扣賬無國家/地區的客戶"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1558,7 +1561,7 @@ msgid ""
 "SEPA regulations set the minimum pre-notification period to a minimum of 2 "
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
-msgstr ""
+msgstr "SEPA 法規將最短預先通知期設為最少 2 天，以便客戶有足夠時間，檢查自己賬戶是否有足夠資金。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1632,6 +1635,18 @@ msgid ""
 msgstr "因缺乏有效授權，部份匯票付款未能過賬。"
 
 #. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Some payments are linked to an inactive mandate."
+msgstr ""
+
+#. module: account_sepa_direct_debit
+#. odoo-python
+#: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
+msgid "Some payments are not linked to any mandate."
+msgstr ""
+
+#. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__start_date
 msgid "Start Date"
 msgstr "開始日期"
@@ -1689,7 +1704,7 @@ msgid ""
 "related to a new mandate and 2 days in advance when the mandate is already "
 "known by them. In this case, the minimum collection date must be the "
 "%(date)s"
-msgstr ""
+msgstr "新授權的收款須最少提早 5 天通知銀行，如果銀行已知悉該授權，也須提早 2 天通知。在此情況下，最早可以收款的日期須為 %(date)s。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1701,7 +1716,7 @@ msgstr "收款方識別碼長度超越 35 個字元上限。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "The customer must have a country"
-msgstr ""
+msgstr "客戶必須有一個國家/地區"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1741,6 +1756,9 @@ msgid ""
 "                    you will have to contact us to stop its use. The minimum notification period for creditors\n"
 "                    to inform debtors about an upcoming collection is"
 msgstr ""
+"該授權只會用於支付指定時間範圍內的發票。若未有指定結束日期，\n"
+"                    你須聯絡我們才可停止使用。債權人通知債務人即將進行\n"
+"                    收數行動的最短通知期為"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
@@ -1828,7 +1846,7 @@ msgstr "記錄的異常活動的類型。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Under B2B SDD Scheme, the customer must be a company."
-msgstr ""
+msgstr "在 B2B SDD 計劃下，客戶必須是一間公司。"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields.selection,name:account_sepa_direct_debit.selection__account_journal__debit_sepa_pain_version__pain_008_001_08
@@ -1868,6 +1886,14 @@ msgstr "網站溝通記錄"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
+#: code:addons/account_sepa_direct_debit/wizard/account_payment_register.py:0
+msgid ""
+"You can't pay any of the selected invoices using the SEPA Direct Debit "
+"method, as no valid mandate is available"
+msgstr ""
+
+#. module: account_sepa_direct_debit
+#. odoo-python
 #: code:addons/account_sepa_direct_debit/models/res_partner_bank.py:0
 msgid ""
 "You cannot delete a bank account linked to an active SEPA Direct Debit "
@@ -1881,6 +1907,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the longest pre-notification period defined in the mandates linked to this batch.\n"
 "According to these payments mandates, the minimum required date should be the %(minimum_date)s"
 msgstr ""
+"若要求收款日期早於以下日期，便不可產生 SEPA 直接扣賬檔案：(傳送日 + 與此批次連結的授權當中，所定義的最長預先通知期)。\n"
+"按這些付款授權計算，最早可要求收款的日期，應為 %(minimum_date)s。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1896,6 +1924,8 @@ msgid ""
 "day(s).\n"
 "                    It will be sent to the debtor's email."
 msgstr ""
+"天。\n"
+"                    它將會發送至債務人的電郵地址。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form

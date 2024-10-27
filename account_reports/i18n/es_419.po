@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 12:41+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
@@ -276,6 +276,7 @@ msgstr "Plantilla de plan de cuentas"
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
+#: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code"
 msgstr "Código de cuenta"
 
@@ -576,7 +577,7 @@ msgstr "Importe"
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount_currency
 #: model:account.report.column,name:account_reports.partner_ledger_report_amount_currency
 msgid "Amount Currency"
-msgstr "Divisa del importe"
+msgstr "Moneda del importe"
 
 #. module: account_reports
 #. odoo-python
@@ -904,7 +905,7 @@ msgstr "Gestor personalizado de los reportes de flujo de caja"
 #: model:ir.actions.client,name:account_reports.action_account_report_cs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_cash_flow
 msgid "Cash Flow Statement"
-msgstr "Estados de cuenta de flujo de efectivo"
+msgstr "Estado de flujo de efectivo"
 
 #. module: account_reports
 #. odoo-python
@@ -1229,7 +1230,7 @@ msgstr "Haber "
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_currency
 #: model:account.report.column,name:account_reports.general_ledger_report_amount_currency
 msgid "Currency"
-msgstr "Divisa"
+msgstr "Moneda"
 
 #. module: account_reports
 #. odoo-python
@@ -1240,7 +1241,7 @@ msgstr "Tasas de cambio (%s)"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Currency:"
-msgstr "Divisa:"
+msgstr "Moneda:"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.deferred_expense_current
@@ -1816,6 +1817,7 @@ msgid "Financial Budgets"
 msgstr "Presupuestos financieros"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "Fiscal Position"
 msgstr "Posición fiscal"
@@ -2645,6 +2647,12 @@ msgstr "No"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "No Comparison"
 msgstr "Sin comparación"
+
+#. module: account_reports
+#. odoo-python
+#: code:addons/account_reports/models/account_report.py:0
+msgid "No Journal"
+msgstr ""
 
 #. module: account_reports
 #. odoo-python
@@ -3841,19 +3849,17 @@ msgstr ""
 "con una advertencia."
 
 #. module: account_reports
-#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
-msgid ""
-"This report is linked to a custom handler.\n"
-"                        You can customize it manually, but make sure your changes don't clash with what the handler does."
-msgstr ""
-"Este reporte está vinculado a un gestor personalizado.\n"
-"                        Puede personalizarlo de forma manual, pero debe asegurarse de que los cambios no interfieran con lo que hace el gestor."
-
-#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 msgid "This report only displays the data of the active company."
 msgstr "Este reporte solo muestra los datos de la empresa activa."
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
+msgid ""
+"This report uses report-specific code.\n"
+"                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
+msgstr ""
 
 #. module: account_reports
 #. odoo-javascript

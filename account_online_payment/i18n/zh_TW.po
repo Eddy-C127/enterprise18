@@ -33,7 +33,7 @@ msgstr "賬戶已線上連結"
 #. module: account_online_payment
 #: model:ir.actions.server,name:account_online_payment.ir_cron_bank_sync_update_payment_status_ir_actions_server
 msgid "Account: Update payment status"
-msgstr ""
+msgstr "賬戶：更新付款狀態"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__payment_identifier
@@ -53,7 +53,7 @@ msgstr "已取消"
 #. module: account_online_payment
 #: model:ir.actions.server,name:account_online_payment.action_account_online_payment_check_status
 msgid "Check Status"
-msgstr ""
+msgstr "檢查狀態"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_payment__end_to_end_id
@@ -63,7 +63,7 @@ msgstr "端對端識別碼"
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
 msgid "Initiate Payment"
-msgstr ""
+msgstr "發起付款"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__payment_online_status
@@ -74,7 +74,7 @@ msgstr "PIS 狀態"
 #. odoo-python
 #: code:addons/account_online_payment/models/account_batch_payment.py:0
 msgid "Payment already been signed"
-msgstr ""
+msgstr "付款已簽署"
 
 #. module: account_online_payment
 #: model:ir.model,name:account_online_payment.model_account_payment
@@ -92,7 +92,7 @@ msgstr "暫停"
 msgid ""
 "Please be aware that signed payments may have already been processed and "
 "sent to the bank."
-msgstr ""
+msgstr "請留意，已簽署的付款，可能已完成處理並已發送至銀行。"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__redirect_url
@@ -107,7 +107,7 @@ msgstr "已拒絕"
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
 msgid "Sign Payment"
-msgstr ""
+msgstr "簽署付款"
 
 #. module: account_online_payment
 #. odoo-python
@@ -115,7 +115,7 @@ msgstr ""
 msgid ""
 "This payment might have already been signed. Refreshing the payment "
 "status..."
-msgstr ""
+msgstr "此付款可能已經簽署。正在重新載入付款狀態⋯"
 
 #. module: account_online_payment
 #: model:ir.model.fields.selection,name:account_online_payment.selection__account_batch_payment__payment_online_status__uninitiated
@@ -136,4 +136,4 @@ msgstr "XML"
 #. odoo-python
 #: code:addons/account_online_payment/models/account_payment.py:0
 msgid "You cannot modify a payment that has already been sent to the bank."
-msgstr ""
+msgstr "不可修改已經發送至銀行的付款。"

@@ -3,16 +3,16 @@
 # 	* account_loans
 # 
 # Translators:
-# Wil Odoo, 2024
 # Rasareeyar Lappiam, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Rasareeyar Lappiam, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -742,12 +742,6 @@ msgid "Reset"
 msgstr "ตั้งค่าใหม่"
 
 #. module: account_loans
-#. odoo-python
-#: code:addons/account_loans/models/account_loan.py:0
-msgid "Reversal of %s"
-msgstr ""
-
-#. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running
 msgid "Running"
 msgstr "การดำเนินการ"
@@ -879,6 +873,12 @@ msgid "This entry has been %s"
 msgstr "รายการนี้ได้รับ %s"
 
 #. module: account_loans
+#. odoo-python
+#: code:addons/account_loans/models/account_loan.py:0
+msgid "This entry has been reversed from %s"
+msgstr "รายการนี้ได้ถูกย้อนหลังจาก %s"
+
+#. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Amounts Borrowed"
 msgstr ""
@@ -923,6 +923,9 @@ msgid ""
 "you have already manually created entries prior to the creation of this "
 "loan."
 msgstr ""
+"เมื่อได้รับการยืนยันการกู้ยืม Odoo จะละเว้นสินเชื่อที่ถึงกำหนดปัจจุบัน "
+"(รวมอยู่ด้วย) และจะไม่สร้างรายการสำหรับสินเชื่อเหล่านี้ "
+"ซึ่งมีประโยชน์หากคุณได้สร้างรายการด้วยตนเองก่อนที่จะสร้างสินเชื่อนี้"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__website_message_ids

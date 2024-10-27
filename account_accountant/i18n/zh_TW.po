@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -56,14 +56,6 @@ msgid ""
 msgstr "<b class=\"tip_title\">提示：尋找會計服務，或登記你的會計公司</b>"
 
 #. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-msgid ""
-"<br>See how to manage your customer invoices in the "
-"<b>Customers/Invoices</b> menu"
-msgstr "<br>請前往<b>「客戶 / 發票」</b>選單，看看如何管理你的客戶發票"
-
-#. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_reconcile_model_form_inherit_account_accountant
 msgid ""
 "<i title=\"Run manually\" role=\"img\" aria-label=\"Run manually\" class=\"fa fa-refresh\"/>\n"
@@ -75,7 +67,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "<i>Lock transactions up to specific dates, inclusive</i>"
-msgstr ""
+msgstr "鎖定截至特定日期（包括當天）的交易<i></i>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -103,6 +95,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_fiscalyear_lock_date_exception_for_me_id                                                  or not min_fiscalyear_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -111,6 +106,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_purchase_lock_date_exception_for_me_id                                                  or not min_purchase_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -119,6 +117,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_sale_lock_date_exception_for_me_id                                                  or not min_sale_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -141,6 +142,12 @@ msgid ""
 "                                    <i>This change is irreversible</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"hard_lock_date != current_hard_lock_date\">\n"
+"                                    以確保不變性<i></i>\n"
+"                                </span>\n"
+"                                <span class=\"text-danger o_form_label\" invisible=\"hard_lock_date == current_hard_lock_date\">\n"
+"                                    此變更將無法撤回<i></i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -149,6 +156,9 @@ msgid ""
 "                                    <i>but allow exceptions</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_fiscalyear_lock_date_exception_for_me_id or min_fiscalyear_lock_date_exception_for_everyone_id\">\n"
+"                                    但容許例外情況<i></i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -157,6 +167,9 @@ msgid ""
 "                                    <i>to lock bills</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
+"                                    以鎖定賬單<i></i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -165,6 +178,9 @@ msgid ""
 "                                    <i>to lock invoices</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
+"                                    以鎖定發票<i></i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -194,18 +210,14 @@ msgid ""
 "            <br>See how to manage your customer invoices in the <b>Customers/Invoices</b> menu\n"
 "        </span>"
 msgstr ""
+"<span><strong><b>做得好！</b>你已完成本次導覽的所有步驟。</strong>\n"
+"            <br>看看如何在<b>客戶/發票</b>選單中，管理客戶發票。\n"
+"        </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "<span>Exception</span>"
 msgstr "<span>例外</span>"
-
-#. module: account_accountant
-#. odoo-javascript
-#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
-msgid ""
-"<strong><b>Good job!</b> You went through all steps of this tour.</strong>"
-msgstr "<strong><b>做得好！</b>您已完成本次導覽的所有步驟。</strong>"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -790,7 +802,7 @@ msgstr "遞延費用"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Deferred expense entries:"
-msgstr ""
+msgstr "遞延開支記項："
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -800,7 +812,7 @@ msgstr "遞延收入"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Deferred revenue entries:"
-msgstr ""
+msgstr "遞延收入記項："
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -1008,12 +1020,12 @@ msgstr "關注人（業務夥伴）"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "For everyone:"
-msgstr ""
+msgstr "適用於所有人："
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "For me:"
-msgstr ""
+msgstr "只適用於我："
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
@@ -1099,6 +1111,11 @@ msgid "Hard Lock"
 msgstr "硬性鎖定"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_abnormal_deferred_dates
+msgid "Has Abnormal Deferred Dates"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
 msgid "Has Deferred Moves"
 msgstr "有遞延分錄"
@@ -1140,7 +1157,7 @@ msgstr "此方格若沒有勾選，表示使用者在建立分錄時，未能確
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "In Currency"
-msgstr ""
+msgstr "使用該貨幣"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
@@ -1240,7 +1257,7 @@ msgstr "日期有否違反分錄鎖定日期"
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "It is not possible to decrease or remove the Hard Lock Date."
-msgstr ""
+msgstr "不可縮短或移除硬性鎖定日期。"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_journal
@@ -1294,7 +1311,7 @@ msgstr "未設定匹配編號的日記帳項目"
 msgid ""
 "Journal items where the account allows reconciliation no matter the residual"
 " amount"
-msgstr ""
+msgstr "賬戶允許對賬的日記賬項目，無論剩餘金額是多少"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_journal_id
@@ -1400,7 +1417,7 @@ msgstr "鎖定所有人，只適用於我"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
 msgid "Lock Journal Entries"
-msgstr ""
+msgstr "鎖定日記賬記項"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -1652,7 +1669,7 @@ msgstr "未配對"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Not locked"
-msgstr ""
+msgstr "未鎖定"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1717,13 +1734,13 @@ msgstr "只能進行部分對賬。如果您想要完全對賬，請繼續進行
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list/move_line_list.xml:0
 msgid "Open attachment in pop out"
-msgstr ""
+msgstr "在彈出視窗中開啟附件"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "Open balance of %(amount)s"
-msgstr ""
+msgstr "期初結餘為 %(amount)s"
 
 #. module: account_accountant
 #. odoo-python
@@ -1943,7 +1960,7 @@ msgstr "對賬模型"
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Reconcile automatically"
-msgstr ""
+msgstr "自動對賬"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_auto_reconcile_wizard__search_mode
@@ -2204,6 +2221,7 @@ msgid "Suggestions"
 msgstr "建議"
 
 #. module: account_accountant
+#: model:ir.model,name:account_accountant.model_account_tax
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__tax_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_ids
 msgid "Tax"
@@ -2348,6 +2366,8 @@ msgid ""
 "There are still draft entries in the period you want to lock.\n"
 "                                You should either post or delete them."
 msgstr ""
+"你想鎖定的期間內，仍有草稿記項。\n"
+"                                你應該先過賬或刪除它們。"
 
 #. module: account_accountant
 #. odoo-python
@@ -2364,7 +2384,7 @@ msgid ""
 "This bank transaction is locked up tighter than a squirrel in a nut factory!"
 " You can't hit the reset button on it. So, do you want to \"unreconcile\" it"
 " instead?"
-msgstr ""
+msgstr "此項銀行交易已牢牢鎖定，你不可按下重設按鈕。想改為「取消對賬」嗎？"
 
 #. module: account_accountant
 #. odoo-python
@@ -2516,7 +2536,7 @@ msgstr "檢視"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "View Reconciled Entries"
-msgstr ""
+msgstr "查看已對賬記項"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2537,7 +2557,7 @@ msgstr "網站溝通記錄"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "With residual"
-msgstr ""
+msgstr "有剩餘金額"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__wizard_id
@@ -2580,7 +2600,7 @@ msgstr "最多只能對賬兩個不同賬戶的記項：%s"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "You can't hit the reset button on a secured bank transaction."
-msgstr ""
+msgstr "已安全鎖定的銀行交易，不可按下重設按鈕。"
 
 #. module: account_accountant
 #. odoo-python
@@ -2629,7 +2649,7 @@ msgstr "您不能重新設置以草稿在延遲輸入中分組的發票。您可
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You cannot set a Lock Date in the future."
-msgstr ""
+msgstr "鎖定日期不可設置於未來。"
 
 #. module: account_accountant
 #. odoo-python
@@ -2663,13 +2683,13 @@ msgstr "你可能想將發票設為 %(btn_start)s全數付清%(btn_end)s 。"
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select a duration for the exception."
-msgstr ""
+msgstr "需要為例外設定持續時間。"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select who the exception applies to."
-msgstr ""
+msgstr "需要為例外設定套用對象。"
 
 #. module: account_accountant
 #. odoo-javascript
