@@ -227,15 +227,8 @@ class TestTaskFlow(TransactionCase):
             - when writing to multiple tasks, write dates as given if any task already had dates
             - otherwise, modify dates according to assignee's or company's schedule
         """
-        def get_hours(task):
-            hours = task.planned_date_begin.hour, task.date_deadline.hour
-            calendar = task.user_ids.resource_calendar_id
-            if len(calendar) != 1:
-                calendar = (task.company_id or self.env.company).resource_calendar_id
-            tz = timezone(calendar.tz)
-            offset = datetime.now(tz).utcoffset().total_seconds() / 3600
-            return tuple((hour + offset) % 24 for hour in hours)
-
+        self.env.user.tz = "UTC"
+        self.env.company.resource_calendar_id.tz = "UTC"
         self.project_user.resource_calendar_id = self.env.company.resource_calendar_id
         self.project_test_user.resource_calendar_id = self.env['resource.calendar'].create({
             'attendance_ids': [Command.create({
@@ -259,30 +252,29 @@ class TestTaskFlow(TransactionCase):
             'name': "Task C - Planned",
             'user_ids': (self.project_user + self.project_test_user).ids,
             'project_id': self.project_test.id,
-            # Wednesday 05:00:00 -> 10:00:00 CET
-            'planned_date_begin': '2024-08-27 03:00:00',
-            'date_deadline': '2024-08-27 08:00:00',
+            'planned_date_begin': '2024-08-27 05:00:00',
+            'date_deadline': '2024-08-27 10:00:00',
         }])
 
-        self.assertEqual(get_hours(task_C), (5, 10), "No overwrite on create")
+        self.assertEqual(task_C.planned_date_begin.hour, 5, "No overwrite on create")
+        self.assertEqual(task_C.date_deadline.hour, 10, "No overwrite on create")
 
         (task_A + task_C).write({
-            # Monday 00:00:00 -> 23:59:59 CET
-            'planned_date_begin': '2024-08-25 22:00:00',
-            'date_deadline': '2024-08-26 21:59:59',
+            'planned_date_begin': '2024-08-25 00:00:00',
+            'date_deadline': '2024-08-26 23:59:59',
         })
-        self.assertListEqual(
-            [get_hours(task_A), get_hours(task_C)],
-            [(0, 23), (0, 23)],
-            "Write as is when batch processing includes task with dates",
-        )
+
+        self.assertEqual(task_A.planned_date_begin.hour, 0, "Write as is when batch processing includes task with dates")
+        self.assertEqual(task_A.date_deadline.hour, 23, "Write as is when batch processing includes task with dates")
+        self.assertEqual(task_C.planned_date_begin.hour, 0, "Write as is when batch processing includes task with dates")
+        self.assertEqual(task_C.date_deadline.hour, 23, "Write as is when batch processing includes task with dates")
 
         task_B.write({
-            # Tuesday 16:00:00 -> 21:00:00 CET
-            'planned_date_begin': '2024-08-27 14:00:00',
-            'date_deadline': '2024-08-27 19:00:00',
+            'planned_date_begin': '2024-08-27 16:00:00',
+            'date_deadline': '2024-08-27 21:00:00',
         })
-        self.assertEqual(get_hours(task_B), (16, 21), "Hand-picked hours shouldn't change")
+        self.assertEqual(task_B.planned_date_begin.hour, 16, "Hand-picked hours shouldn't change")
+        self.assertEqual(task_B.date_deadline.hour, 21, "Hand-picked hours shouldn't change")
 
         tasks.date_deadline = False
         self.assertFalse(
@@ -291,12 +283,11 @@ class TestTaskFlow(TransactionCase):
         )
 
         tasks.write({
-            # Tuesday 16:00:00 -> 22:00:00 CET
-            'planned_date_begin': '2024-08-27 14:00:00',
-            'date_deadline': '2024-08-27 20:00:00',
+            'planned_date_begin': '2024-08-27 16:00:00',
+            'date_deadline': '2024-08-27 22:00:00',
         })
         self.assertListEqual(
-            [get_hours(task) for task in tasks],
+            [(task.planned_date_begin.hour, task.date_deadline.hour) for task in tasks],
             [(16, 17), (16, 19), (16, 17)],
             "Plan tasks using schedule when batch processing",
         )
