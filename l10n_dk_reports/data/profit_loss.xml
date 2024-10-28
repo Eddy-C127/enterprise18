@@ -33,12 +33,12 @@
                                 <field name="hierarchy_level">5</field>
                                 <field name="children_ids">
                                     <record id="account_pnl_report_l10n_dk_1_1_1_1" model="account.report.line">
-                                        <field name="name">1. Net turnover</field>
+                                        <field name="name">a) Net turnover</field>
                                         <field name="code">DK_net_turnover</field>
                                         <field name="aggregation_formula">DK_sale_goods_services.balance + DK_sale_goods_eu.balance + DK_sale_goods_non_eu.balance + DK_sale_service_eu.balance + DK_sale_service_non_eu.balance + DK_regulation_work_progress.balance + DK_value_adjustments_property.balance</field>
                                         <field name="children_ids">
                                             <record id="account_pnl_report_l10n_dk_1_1_1_1_1" model="account.report.line">
-                                                <field name="name">a) Sale of goods and services</field>
+                                                <field name="name">1. Sale of goods and services</field>
                                                 <field name="code">DK_sale_goods_services</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -51,7 +51,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_1_2" model="account.report.line">
-                                                <field name="name">b) Sales of goods abroad, EU</field>
+                                                <field name="name">2. Sales of goods abroad, EU</field>
                                                 <field name="code">DK_sale_goods_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -64,7 +64,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_1_3" model="account.report.line">
-                                                <field name="name">c) Sales of goods abroad, non-EU</field>
+                                                <field name="name">3. Sales of goods abroad, non-EU</field>
                                                 <field name="code">DK_sale_goods_non_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -77,7 +77,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_1_4" model="account.report.line">
-                                                <field name="name">d) Sales of services abroad, EU</field>
+                                                <field name="name">4. Sales of services abroad, EU</field>
                                                 <field name="code">DK_sale_service_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -90,7 +90,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_1_5" model="account.report.line">
-                                                <field name="name">e) Sales of services abroad, non-EU</field>
+                                                <field name="name">5. Sales of services abroad, non-EU</field>
                                                 <field name="code">DK_sale_service_non_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -103,7 +103,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_1_6" model="account.report.line">
-                                                <field name="name">f) Regulation of work in progress</field>
+                                                <field name="name">6. Regulation of work in progress</field>
                                                 <field name="code">DK_regulation_work_progress</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -116,7 +116,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_1_7" model="account.report.line">
-                                                <field name="name">g) Value adjustments on investment property</field>
+                                                <field name="name">7. Value adjustments on investment property</field>
                                                 <field name="code">DK_value_adjustments_property</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -131,12 +131,12 @@
                                         </field>
                                     </record>
                                     <record id="account_pnl_report_l10n_dk_1_1_1_2" model="account.report.line">
-                                        <field name="name">2. Change in stocks of finished goods and work in progress</field>
+                                        <field name="name">b) Change in stocks of finished goods and work in progress</field>
                                         <field name="code">DK_change_in_stocks</field>
                                         <field name="aggregation_formula">DK_inventory_adjustment.balance + DK_write_down_stocks.balance + DK_other_changes_stocks.balance</field>
                                         <field name="children_ids">
                                             <record id="account_pnl_report_l10n_dk_1_1_1_2_1" model="account.report.line">
-                                                <field name="name">a) Inventory adjustment on stocks of finished goods and work in progress</field>
+                                                <field name="name">1. Inventory adjustment on stocks of finished goods and work in progress</field>
                                                 <field name="code">DK_inventory_adjustment</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -149,7 +149,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_2_2" model="account.report.line">
-                                                <field name="name">b) Write-down of stocks of finished goods and work in progress</field>
+                                                <field name="name">2. Write-down of stocks of finished goods and work in progress</field>
                                                 <field name="code">DK_write_down_stocks</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -162,7 +162,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_2_3" model="account.report.line">
-                                                <field name="name">c) Other changes in stocks of finished goods and work in progress</field>
+                                                <field name="name">3. Other changes in stocks of finished goods and work in progress</field>
                                                 <field name="code">DK_other_changes_stocks</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -177,12 +177,12 @@
                                         </field>
                                     </record>
                                     <record id="account_pnl_report_l10n_dk_1_1_1_3" model="account.report.line">
-                                        <field name="name">3. Other operating income</field>
+                                        <field name="name">c) Other operating income</field>
                                         <field name="code">DK_other_operating_income</field>
                                         <field name="aggregation_formula">DK_gain_sale_intangible.balance + DK_gain_sale_tangible.balance + DK_gain_sale_financial.balance + DK_other_misc.balance</field>
                                         <field name="children_ids">
                                             <record id="account_pnl_report_l10n_dk_1_1_1_3_1" model="account.report.line">
-                                                <field name="name">a) Gain on sale of intangible fixed assets</field>
+                                                <field name="name">1. Gain on sale of intangible fixed assets</field>
                                                 <field name="code">DK_gain_sale_intangible</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -195,7 +195,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_3_2" model="account.report.line">
-                                                <field name="name">b) Gain on sale of tangible fixed assets</field>
+                                                <field name="name">2. Gain on sale of tangible fixed assets</field>
                                                 <field name="code">DK_gain_sale_tangible</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -208,7 +208,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_3_3" model="account.report.line">
-                                                <field name="name">c) Gain on sale of financial fixed assets</field>
+                                                <field name="name">3. Gain on sale of financial fixed assets</field>
                                                 <field name="code">DK_gain_sale_financial</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -221,7 +221,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_3_4" model="account.report.line">
-                                                <field name="name">d) Other miscellaneous operating income</field>
+                                                <field name="name">4. Other miscellaneous operating income</field>
                                                 <field name="code">DK_other_misc</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -236,7 +236,7 @@
                                         </field>
                                     </record>
                                     <record id="account_pnl_report_l10n_dk_1_1_1_4" model="account.report.line">
-                                        <field name="name">4. Cost of raw materials, consumables and services</field>
+                                        <field name="name">d) Cost of raw materials, consumables and services</field>
                                         <field name="code">DK_cost_materials</field>
                                         <field name="aggregation_formula" eval="False"/>
                                         <field name="expression_ids">
@@ -258,7 +258,7 @@
                                         </field>
                                         <field name="children_ids">
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_1" model="account.report.line">
-                                                <field name="name">a) Purchase of goods and services</field>
+                                                <field name="name">1. Purchase of goods and services</field>
                                                 <field name="code">DK_purchase_goods</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -272,7 +272,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_2" model="account.report.line">
-                                                <field name="name">b) Purchases of goods and services abroad, EU</field>
+                                                <field name="name">2. Purchases of goods and services abroad, EU</field>
                                                 <field name="code">DK_purchase_goods_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -286,7 +286,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_3" model="account.report.line">
-                                                <field name="name">c) Purchases of goods and services from abroad, non-EU</field>
+                                                <field name="name">3. Purchases of goods and services from abroad, non-EU</field>
                                                 <field name="code">DK_purchase_goods_non_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -300,7 +300,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_4" model="account.report.line">
-                                                <field name="name">d) Benefit purchases</field>
+                                                <field name="name">4. Benefit purchases</field>
                                                 <field name="code">DK_benefit_purchases</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -314,7 +314,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_5" model="account.report.line">
-                                                <field name="name">e) Benefit purchases abroad, EU</field>
+                                                <field name="name">5. Benefit purchases abroad, EU</field>
                                                 <field name="code">DK_benefit_purchases_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -328,7 +328,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_6" model="account.report.line">
-                                                <field name="name">f) Benefit purchases abroad, non-EU</field>
+                                                <field name="name">6. Benefit purchases abroad, non-EU</field>
                                                 <field name="code">DK_benefit_purchases_non_eu</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -342,7 +342,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_7" model="account.report.line">
-                                                <field name="name">g) Inventory adjustment on stocks of raw materials and consumables</field>
+                                                <field name="name">7. Inventory adjustment on stocks of raw materials and consumables</field>
                                                 <field name="code">DK_inventory_adjustment_stocks</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -356,7 +356,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_4_8" model="account.report.line">
-                                                <field name="name">h) Write-down of inventories</field>
+                                                <field name="name">8. Write-down of inventories</field>
                                                 <field name="code">DK_write_down_inventories</field>
                                                 <field name="groupby">account_id</field>
                                                 <field name="foldable" eval="True"/>
@@ -372,7 +372,7 @@
                                         </field>
                                     </record>
                                     <record id="account_pnl_report_l10n_dk_1_1_1_5" model="account.report.line">
-                                        <field name="name">5. Other external costs</field>
+                                        <field name="name">e) Other external costs</field>
                                         <field name="code">DK_other_external_costs</field>
                                         <field name="aggregation_formula" eval="False"/>
                                         <field name="expression_ids">
@@ -385,7 +385,7 @@
                                         </field>
                                         <field name="children_ids">
                                             <record id="account_pnl_report_l10n_dk_1_1_1_5_1" model="account.report.line">
-                                                <field name="name">a) Sales costs</field>
+                                                <field name="name">1. Sales costs</field>
                                                 <field name="code">DK_sales_costs</field>
                                                 <field name="aggregation_formula" eval="False"/>
                                                 <field name="expression_ids">
@@ -407,7 +407,7 @@
                                                 </field>
                                                 <field name="children_ids">
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_1" model="account.report.line">
-                                                        <field name="name">1. Freight costs</field>
+                                                        <field name="name">a) Freight costs</field>
                                                         <field name="code">DK_freight_costs</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -421,7 +421,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_2" model="account.report.line">
-                                                        <field name="name">2. Advertising and publicity</field>
+                                                        <field name="name">b) Advertising and publicity</field>
                                                         <field name="code">DK_advertising_pub</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -435,7 +435,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_3" model="account.report.line">
-                                                        <field name="name">3. Exhibitions and decoration</field>
+                                                        <field name="name">c) Exhibitions and decoration</field>
                                                         <field name="code">DK_exhibitions_decoration</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -449,7 +449,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_4" model="account.report.line">
-                                                        <field name="name">4. Restoration visits</field>
+                                                        <field name="name">d) Restoration visits</field>
                                                         <field name="code">DK_restoration_visits</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -463,7 +463,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_5" model="account.report.line">
-                                                        <field name="name">5. Representation expenses, tax deduction limited</field>
+                                                        <field name="name">e) Representation expenses, tax deduction limited</field>
                                                         <field name="code">DK_representation_expenses</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -477,7 +477,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_6" model="account.report.line">
-                                                        <field name="name">6. Representation expenses, fully deductible for tax purposes</field>
+                                                        <field name="name">f) Representation expenses, fully deductible for tax purposes</field>
                                                         <field name="code">DK_representation_expenses_fully</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -491,7 +491,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_7" model="account.report.line">
-                                                        <field name="name">7. Other selling expenses</field>
+                                                        <field name="name">g) Other selling expenses</field>
                                                         <field name="code">DK_other_selling_expenses</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -505,7 +505,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_8" model="account.report.line">
-                                                        <field name="name">8. Newspapers and magazines</field>
+                                                        <field name="name">h) Newspapers and magazines</field>
                                                         <field name="code">DK_newspapers_magazines</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -519,7 +519,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_1_9" model="account.report.line">
-                                                        <field name="name">9. Gifts and flowers</field>
+                                                        <field name="name">i) Gifts and flowers</field>
                                                         <field name="code">DK_gifts_flowers</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -535,7 +535,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_5_2" model="account.report.line">
-                                                <field name="name">b) Premises costs</field>
+                                                <field name="name">2. Premises costs</field>
                                                 <field name="code">DK_premises_costs</field>
                                                 <field name="aggregation_formula" eval="False"/>
                                                 <field name="expression_ids">
@@ -553,7 +553,7 @@
                                                 </field>
                                                 <field name="children_ids">
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_1" model="account.report.line">
-                                                        <field name="name">1. Rent, excluding electricity, water and heating</field>
+                                                        <field name="name">a) Rent, excluding electricity, water and heating</field>
                                                         <field name="code">DK_rent</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -567,7 +567,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_2" model="account.report.line">
-                                                        <field name="name">2. El</field>
+                                                        <field name="name">b) El</field>
                                                         <field name="code">DK_el</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -581,7 +581,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_3" model="account.report.line">
-                                                        <field name="name">3. Electricity tax</field>
+                                                        <field name="name">c) Electricity tax</field>
                                                         <field name="code">DK_electricity</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -595,7 +595,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_4" model="account.report.line">
-                                                        <field name="name">4. Water</field>
+                                                        <field name="name">d) Water</field>
                                                         <field name="code">DK_water</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -609,7 +609,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_5" model="account.report.line">
-                                                        <field name="name">5. Heat</field>
+                                                        <field name="name">e) Heat</field>
                                                         <field name="code">DK_heat</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -623,7 +623,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_6" model="account.report.line">
-                                                        <field name="name">6. Water tax</field>
+                                                        <field name="name">f) Water tax</field>
                                                         <field name="code">DK_water_tax_pnl</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -637,7 +637,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_7" model="account.report.line">
-                                                        <field name="name">7. Oil and LPG tax</field>
+                                                        <field name="name">g) Oil and LPG tax</field>
                                                         <field name="code">DK_oil_lpg_tax_pnl</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -651,7 +651,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_8" model="account.report.line">
-                                                        <field name="name">8. Coal tax</field>
+                                                        <field name="name">h) Coal tax</field>
                                                         <field name="code">DK_coal_tax_pnl</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -665,7 +665,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_9" model="account.report.line">
-                                                        <field name="name">9. Natural and town gas tax</field>
+                                                        <field name="name">i) Natural and town gas tax</field>
                                                         <field name="code">DK_natural_gas</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -679,7 +679,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_10" model="account.report.line">
-                                                        <field name="name">10. CO2 tax</field>
+                                                        <field name="name">j) CO2 tax</field>
                                                         <field name="code">DK_co2_tax_pnl</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -693,7 +693,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_11" model="account.report.line">
-                                                        <field name="name">11. Other taxes</field>
+                                                        <field name="name">k) Other taxes</field>
                                                         <field name="code">DK_other_taxes</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -707,7 +707,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_12" model="account.report.line">
-                                                        <field name="name">12. Cleaning and sanitation (waste management)</field>
+                                                        <field name="name">l) Cleaning and sanitation (waste management)</field>
                                                         <field name="code">DK_cleaning_sanitation</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -721,7 +721,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_13" model="account.report.line">
-                                                        <field name="name">13. Repair and maintenance</field>
+                                                        <field name="name">m) Repair and maintenance</field>
                                                         <field name="code">DK_repair_maintenance</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -735,7 +735,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_14" model="account.report.line">
-                                                        <field name="name">14. Repair and maintenance, tax depreciable property, building 1</field>
+                                                        <field name="name">n) Repair and maintenance, tax depreciable property, building 1</field>
                                                         <field name="code">DK_repair_maintenance_tax</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -749,7 +749,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_15" model="account.report.line">
-                                                        <field name="name">15. Insurances</field>
+                                                        <field name="name">o) Insurances</field>
                                                         <field name="code">DK_insurances</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -763,7 +763,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_16" model="account.report.line">
-                                                        <field name="name">16. Property taxes</field>
+                                                        <field name="name">p) Property taxes</field>
                                                         <field name="code">DK_property_taxes</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -777,7 +777,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_2_17" model="account.report.line">
-                                                        <field name="name">17. Other premises costs</field>
+                                                        <field name="name">q) Other premises costs</field>
                                                         <field name="code">DK_other_premises</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -793,7 +793,7 @@
                                                 </field>
                                             </record>
                                             <record id="account_pnl_report_l10n_dk_1_1_1_5_3" model="account.report.line">
-                                                <field name="name">c) Administrative costs</field>
+                                                <field name="name">3. Administrative costs</field>
                                                 <field name="code">DK_administrative_costs</field>
                                                 <field name="aggregation_formula" eval="False"/>
                                                 <field name="expression_ids">
@@ -824,7 +824,7 @@
                                                 </field>
                                                 <field name="children_ids">
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_1" model="account.report.line">
-                                                        <field name="name">1. Small acquisitions below the tax threshold for small assets</field>
+                                                        <field name="name">a) Small acquisitions below the tax threshold for small assets</field>
                                                         <field name="code">DK_acquisitions_below</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -838,7 +838,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_2" model="account.report.line">
-                                                        <field name="name">2. Small acquisitions above the tax threshold for small assets</field>
+                                                        <field name="name">b) Small acquisitions above the tax threshold for small assets</field>
                                                         <field name="code">DK_acquisitions_above</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -852,7 +852,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_3" model="account.report.line">
-                                                        <field name="name">3. Subcontractors</field>
+                                                        <field name="name">c) Subcontractors</field>
                                                         <field name="code">DK_subcontractors</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -866,7 +866,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_4" model="account.report.line">
-                                                        <field name="name">4. Research and development costs</field>
+                                                        <field name="name">d) Research and development costs</field>
                                                         <field name="code">DK_research_and_dev</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -880,7 +880,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_5" model="account.report.line">
-                                                        <field name="name">5. Other production costs</field>
+                                                        <field name="name">e) Other production costs</field>
                                                         <field name="code">DK_other_production_costs</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -894,7 +894,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_6" model="account.report.line">
-                                                        <field name="name">6. Recognized losses on trade receivables</field>
+                                                        <field name="name">f) Recognized losses on trade receivables</field>
                                                         <field name="code">DK_recognized_losses</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -908,7 +908,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_7" model="account.report.line">
-                                                        <field name="name">7. Adjustment of impairment loss on trade receivables</field>
+                                                        <field name="name">g) Adjustment of impairment loss on trade receivables</field>
                                                         <field name="code">DK_adjustment_impairment_loss</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -922,7 +922,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_8" model="account.report.line">
-                                                        <field name="name">8. Adjustment of receivables from group and associated enterprises</field>
+                                                        <field name="name">h) Adjustment of receivables from group and associated enterprises</field>
                                                         <field name="code">DK_adjustment_receivables</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -936,7 +936,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_9" model="account.report.line">
-                                                        <field name="name">9. IT equipment, etc.</field>
+                                                        <field name="name">i) IT equipment, etc.</field>
                                                         <field name="code">DK_it_equipment</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -950,7 +950,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_10" model="account.report.line">
-                                                        <field name="name">10. Tax-free travel and transport allowances</field>
+                                                        <field name="name">j) Tax-free travel and transport allowances</field>
                                                         <field name="code">DK_tax_free_travel</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -964,7 +964,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_11" model="account.report.line">
-                                                        <field name="name">11. Canteen costs</field>
+                                                        <field name="name">k) Canteen costs</field>
                                                         <field name="code">DK_canteen</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -978,7 +978,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_12" model="account.report.line">
-                                                        <field name="name">12. Contingents</field>
+                                                        <field name="name">l) Contingents</field>
                                                         <field name="code">DK_contigents</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -992,7 +992,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_13" model="account.report.line">
-                                                        <field name="name">13. Non-fiction</field>
+                                                        <field name="name">m) Non-fiction</field>
                                                         <field name="code">DK_non_fiction</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1006,7 +1006,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_14" model="account.report.line">
-                                                        <field name="name">14. Postage and charges</field>
+                                                        <field name="name">n) Postage and charges</field>
                                                         <field name="code">DK_postage_charges</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1020,7 +1020,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_15" model="account.report.line">
-                                                        <field name="name">15. Telephone and internet etc. (business only)</field>
+                                                        <field name="name">o) Telephone and internet etc. (business only)</field>
                                                         <field name="code">DK_telephone_internet_business</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1034,7 +1034,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_16" model="account.report.line">
-                                                        <field name="name">16. Telephone and internet etc. (partly private)</field>
+                                                        <field name="name">p) Telephone and internet etc. (partly private)</field>
                                                         <field name="code">DK_telephone_internet_private</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1048,7 +1048,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_17" model="account.report.line">
-                                                        <field name="name">17. Office supplies</field>
+                                                        <field name="name">q) Office supplies</field>
                                                         <field name="code">DK_office_supplies</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1062,7 +1062,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_18" model="account.report.line">
-                                                        <field name="name">18. Rent and operating lease payments (excluding rentals)</field>
+                                                        <field name="name">r) Rent and operating lease payments (excluding rentals)</field>
                                                         <field name="code">DK_rent_operating</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1076,7 +1076,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_19" model="account.report.line">
-                                                        <field name="name">19. Travel expenses</field>
+                                                        <field name="name">s) Travel expenses</field>
                                                         <field name="code">DK_travel_expenses</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1090,7 +1090,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_20" model="account.report.line">
-                                                        <field name="name">20. Temporary assistance</field>
+                                                        <field name="name">t) Temporary assistance</field>
                                                         <field name="code">DK_temporary_assistance</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1104,7 +1104,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_21" model="account.report.line">
-                                                        <field name="name">21. Consulting services</field>
+                                                        <field name="name">u) Consulting services</field>
                                                         <field name="code">DK_consulting_services</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1118,7 +1118,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_22" model="account.report.line">
-                                                        <field name="name">22. Course costs</field>
+                                                        <field name="name">v) Course costs</field>
                                                         <field name="code">DK_course_costs</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1132,7 +1132,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_23" model="account.report.line">
-                                                        <field name="name">23. Leasing costs, passenger cars</field>
+                                                        <field name="name">w) Leasing costs, passenger cars</field>
                                                         <field name="code">DK_leasing_costs_passenger</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1146,7 +1146,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_24" model="account.report.line">
-                                                        <field name="name">24. Operating costs, passenger cars</field>
+                                                        <field name="name">x) Operating costs, passenger cars</field>
                                                         <field name="code">DK_operating_costs</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1160,7 +1160,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_25" model="account.report.line">
-                                                        <field name="name">25. Operating costs, vans</field>
+                                                        <field name="name">y) Operating costs, vans</field>
                                                         <field name="code">DK_operating_costs_vans</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1174,7 +1174,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_26" model="account.report.line">
-                                                        <field name="name">26. Parking costs</field>
+                                                        <field name="name">z) Parking costs</field>
                                                         <field name="code">DK_parking_costs</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1188,7 +1188,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_27" model="account.report.line">
-                                                        <field name="name">27. Car expenses according to government tariffs</field>
+                                                        <field name="name">aa) Car expenses according to government tariffs</field>
                                                         <field name="code">DK_car_expenses_gov</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1202,7 +1202,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_28" model="account.report.line">
-                                                        <field name="name">28. Free car</field>
+                                                        <field name="name">bb) Free car</field>
                                                         <field name="code">DK_free_car</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1216,7 +1216,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_29" model="account.report.line">
-                                                        <field name="name">29. Employment injury insurance</field>
+                                                        <field name="name">cc) Employment injury insurance</field>
                                                         <field name="code">DK_employment_injury_insurance</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1230,7 +1230,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_30" model="account.report.line">
-                                                        <field name="name">30. Government fees and fines (not tax deductible)</field>
+                                                        <field name="name">dd) Government fees and fines (not tax deductible)</field>
                                                         <field name="code">DK_government_fees</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1244,7 +1244,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_31" model="account.report.line">
-                                                        <field name="name">31. Audit and accounting assistance</field>
+                                                        <field name="name">ee) Audit and accounting assistance</field>
                                                         <field name="code">DK_audit_accounting</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1258,7 +1258,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_32" model="account.report.line">
-                                                        <field name="name">32. Legal assistance</field>
+                                                        <field name="name">ff) Legal assistance</field>
                                                         <field name="code">DK_legal_assistance</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1272,7 +1272,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_33" model="account.report.line">
-                                                        <field name="name">33. Other consultancy fees</field>
+                                                        <field name="name">gg) Other consultancy fees</field>
                                                         <field name="code">DK_other_consultancy</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1286,7 +1286,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_34" model="account.report.line">
-                                                        <field name="name">34. Non-tax-deductible consultancy fees</field>
+                                                        <field name="name">hh) Non-tax-deductible consultancy fees</field>
                                                         <field name="code">DK_non_tax_deductible</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1300,7 +1300,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_35" model="account.report.line">
-                                                        <field name="name">35. Administration/management fee</field>
+                                                        <field name="name">ii) Administration/management fee</field>
                                                         <field name="code">DK_administration_management</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1314,7 +1314,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_36" model="account.report.line">
-                                                        <field name="name">36. Penny rounding/cash differences</field>
+                                                        <field name="name">jj) Penny rounding/cash differences</field>
                                                         <field name="code">DK_penny_rounding</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -1328,7 +1328,7 @@
                                                         </field>
                                                     </record>
                                                     <record id="account_pnl_report_l10n_dk_1_1_1_5_3_37" model="account.report.line">
-                                                        <field name="name">37. Other external costs</field>
+                                                        <field name="name">kk) Other external costs</field>
                                                         <field name="code">DK_other_external</field>
                                                         <field name="groupby">account_id</field>
                                                         <field name="foldable" eval="True"/>
@@ -2155,7 +2155,7 @@
                         </field>
                         <field name="children_ids">
                             <record id="account_pnl_report_l10n_dk_1_2_1" model="account.report.line">
-                                <field name="name">a) Current tax</field>
+                                <field name="name">1. Current tax</field>
                                 <field name="code">DK_current_tax</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>
@@ -2169,7 +2169,7 @@
                                 </field>
                             </record>
                             <record id="account_pnl_report_l10n_dk_1_2_2" model="account.report.line">
-                                <field name="name">b) Change in deferred tax</field>
+                                <field name="name">2. Change in deferred tax</field>
                                 <field name="code">DK_change_deffered</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>
@@ -2183,7 +2183,7 @@
                                 </field>
                             </record>
                             <record id="account_pnl_report_l10n_dk_1_2_3" model="account.report.line">
-                                <field name="name">c) Adjustment relating to previous years</field>
+                                <field name="name">3. Adjustment relating to previous years</field>
                                 <field name="code">DK_adjustment</field>
                                 <field name="groupby">account_id</field>
                                 <field name="foldable" eval="True"/>

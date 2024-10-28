@@ -1652,7 +1652,7 @@
                                 <field name="aggregation_formula">DK_cash_cash_equival.balance + DK_bank_account.balance</field>
                                 <field name="children_ids">
                                     <record id="account_balance_report_l10n_dk_active_2_4_1" model="account.report.line">
-                                        <field name="name">a) Cash and cash equivalents</field>
+                                        <field name="name">1. Cash and cash equivalents</field>
                                         <field name="code">DK_cash_cash_equival</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
@@ -1665,7 +1665,7 @@
                                         </field>
                                     </record>
                                     <record id="account_balance_report_l10n_dk_active_2_4_2" model="account.report.line">
-                                        <field name="name">b) Bank account</field>
+                                        <field name="name">2. Bank account</field>
                                         <field name="code">DK_bank_account</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
@@ -2093,7 +2093,7 @@
                                 <field name="aggregation_formula">DK_owed_credit_institutions.balance + DK_owed_bank.balance + DK_other_credit_institutions.balance</field>
                                 <field name="children_ids">
                                     <record id="account_balance_report_l10n_dk_passiv_1_4_1_1" model="account.report.line">
-                                        <field name="name">1) Amounts owed to credit institutions</field>
+                                        <field name="name">1. Amounts owed to credit institutions</field>
                                         <field name="code">DK_owed_credit_institutions</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
@@ -2106,7 +2106,7 @@
                                         </field>
                                     </record>
                                     <record id="account_balance_report_l10n_dk_passiv_1_4_1_2" model="account.report.line">
-                                        <field name="name">2) Amounts owed to banks</field>
+                                        <field name="name">2. Amounts owed to banks</field>
                                         <field name="code">DK_owed_bank</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
@@ -2119,7 +2119,7 @@
                                         </field>
                                     </record>
                                     <record id="account_balance_report_l10n_dk_passiv_1_4_1_3" model="account.report.line">
-                                        <field name="name">3) Other credit institutions</field>
+                                        <field name="name">3. Other credit institutions</field>
                                         <field name="code">DK_other_credit_institutions</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
@@ -2165,7 +2165,7 @@
                                 <field name="aggregation_formula">DK_owed_short_term.balance + DK_payable_short_term.balance</field>
                                 <field name="children_ids">
                                     <record id="account_balance_report_l10n_dk_passiv_1_4_4_1" model="account.report.line">
-                                        <field name="name">1) Amounts owed to affiliated enterprises</field>
+                                        <field name="name">1. Amounts owed to affiliated enterprises</field>
                                         <field name="code">DK_owed_short_term</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
@@ -2178,7 +2178,7 @@
                                         </field>
                                     </record>
                                     <record id="account_balance_report_l10n_dk_passiv_1_4_4_2" model="account.report.line">
-                                        <field name="name">2) Amounts payable to participating interests</field>
+                                        <field name="name">2. Amounts payable to participating interests</field>
                                         <field name="code">DK_payable_short_term</field>
                                         <field name="groupby">account_id</field>
                                         <field name="foldable" eval="True"/>
