@@ -147,7 +147,7 @@ class AccountJournal(models.Model):
             else:
                 if len(line) != 200:
                     raise UserError(_('Incorrect transaction length: %(length)s', length=len(line)))
-                payment_type = 'desposit' if line[21:22] == '1' else 'withdrawal'
+                payment_type = 'deposit' if line[21:22] == '1' else 'withdrawal'
                 sign = -1 if payment_type == 'withdrawal' else 1
                 transaction = {
                     'date': parsedate(line[9:15]),
