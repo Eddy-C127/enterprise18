@@ -200,7 +200,19 @@ class PosUrbanPiperController(http.Controller):
         ])
         for discount in discounts:
             if discount.get('is_merchant_discount'):
-                discount_product = request.env.ref('pos_urban_piper.product_merchant_discount', False)
+                discount_product = request.env['product.product'].sudo().search([
+                    ('name', '=', 'Merchant Discount'),
+                    ('default_code', '=', 'MRDT')
+                ], limit=1)
+                if not discount_product:
+                    discount_product = request.env['product.product'].sudo().create({
+                        'name': 'Merchant Discount',
+                        'type': 'service',
+                        'list_price': 0,
+                        'available_in_pos': True,
+                        'taxes_id': [(5, 0, 0)],
+                        'default_code': 'MRDT'
+                    })
                 lines.append(Command.create({
                     'product_id': discount_product.sudo().id,
                     'qty': 1,

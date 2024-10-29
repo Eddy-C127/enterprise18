@@ -22,13 +22,5 @@
             <field name="available_in_pos">1</field>
             <field name="taxes_id" eval="[(5,)]"/>
         </record>
-        <record id="product_merchant_discount" model="product.product">
-            <field name="name">Merchant Discount</field>
-            <field name="type">service</field>
-            <field name="list_price">0</field>
-            <field name="available_in_pos">1</field>
-            <field name="taxes_id" eval="[(5,)]"/>
-            <field name="default_code">MRDT</field>
-        </record>
     </data>
 </odoo>
