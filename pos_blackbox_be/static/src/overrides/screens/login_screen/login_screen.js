@@ -14,7 +14,8 @@ patch(LoginScreen.prototype, {
         if (
             !this.pos.shouldShowCashControl() &&
             this.pos.useBlackBoxBe() &&
-            !this.pos.checkIfUserClocked()
+            !this.pos.checkIfUserClocked() &&
+            result
         ) {
             await this.pos.clock(this.printer, true);
         }
