@@ -48,11 +48,11 @@ export class BarcodeObject {
         };
         this.missingRecords = [];
         for (const barcodeData of this.parsedBarcode) {
-            const { type, value } = barcodeData;
+            const { type, code } = barcodeData;
             if (type === "product") {
-                await this.fetchProduct(value, options);
+                await this.fetchProduct(code, options);
             } else if (type === "lot") {
-                await this.fetchTrackingNumber(value, options);
+                await this.fetchTrackingNumber(code, options);
             }
         }
     }

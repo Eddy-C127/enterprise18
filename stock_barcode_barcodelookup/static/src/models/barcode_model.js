@@ -84,7 +84,8 @@ patch(BarcodeModel.prototype, {
     },
 
     async createNewProductLine(barcodeData) {
-        const params = {barcode: barcodeData.barcode, model_name: "product.product"};
+        const barcodes_by_model = { "product.product": [barcodeData.barcode] };
+        const params = { barcodes_by_model };
         try {
             const result = await rpc("/stock_barcode/get_specific_barcode_data", params);
             if (Object.keys(result).length === 0) {

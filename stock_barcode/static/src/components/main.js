@@ -11,6 +11,7 @@ import PackageLineComponent from '@stock_barcode/components/package_line';
 import { rpc } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { useService, useBus } from "@web/core/utils/hooks";
+import { Mutex } from "@web/core/utils/concurrency";
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { View } from "@web/views/view";
 import { BarcodeVideoScanner, isBarcodeScannerSupported } from '@web/core/barcode/barcode_video_scanner';
@@ -75,6 +76,7 @@ class MainComponent extends Component {
         this.notification = useService('notification');
         this.dialog = useService('dialog');
         this.action = useService('action');
+        this.actionMutex = new Mutex();
         this.resModel = this.props.action.res_model;
         this.resId = this.props.action.context.active_id || false;
         const model = this._getModel();
@@ -336,7 +338,9 @@ class MainComponent extends Component {
 
     onBarcodeScanned(barcode) {
         if (barcode) {
-            this.env.model.processBarcode(barcode);
+            this.actionMutex.exec(async () => {
+                return this.env.model.processBarcode(barcode);
+            });
             if ('vibrate' in window.navigator) {
                 window.navigator.vibrate(100);
             }
