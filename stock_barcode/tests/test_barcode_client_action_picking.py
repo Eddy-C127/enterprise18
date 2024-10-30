@@ -1565,6 +1565,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
 
     def test_put_in_pack_float_rounding(self):
         """ Test that qtyDemand and qtyDone with the value 10.1000001 is rounded to 10.10 """
+        self.env.ref('base.group_user').implied_ids += self.env.ref('stock.group_production_lot')
         self.clean_access_rights()
         self.env['res.config.settings'].create({'group_stock_tracking_lot': True}).execute()
 
@@ -2864,6 +2865,7 @@ class TestPickingBarcodeClientAction(TestBarcodeClientAction):
         This test ensures that products of the same lot can be
         packed in different packages.
         """
+        self.env.ref('base.group_user').implied_ids += self.env.ref('stock.group_production_lot')
         self.clean_access_rights()
         group_tracking = self.env.ref('stock.group_tracking_lot')
         self.env.user.write({'groups_id': [Command.link(group_tracking.id)]})
