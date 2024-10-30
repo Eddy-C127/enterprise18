@@ -400,9 +400,11 @@ class SignRequest(models.Model):
             'subject': subject,
             'body': Markup('<p style="white-space: pre">{}</p>').format(refusal_reason),
         }, lang=partner_lang, minimal_qcontext=True)
-
+        notification_template = 'mail.mail_notification_light'
+        if self.env.ref('sign.sign_mail_notification_light', raise_if_not_found=False):
+            notification_template = 'sign.sign_mail_notification_light'
         self._message_send_mail(
-            body, 'mail.mail_notification_light',
+            body, notification_template,
             {'record_name': self.reference},
             {'model_description': 'signature', 'company': self.communication_company_id or self.create_uid.company_id},
             {'email_from': self.create_uid.email_formatted,
@@ -547,9 +549,11 @@ class SignRequest(models.Model):
             'signers': signers,
             'request_edited': request_edited,
             }, lang=partner_lang, minimal_qcontext=True)
-
+        notification_template = 'mail.mail_notification_light'
+        if self.env.ref('sign.sign_mail_notification_light', raise_if_not_found=False):
+            notification_template = 'sign.sign_mail_notification_light'
         self.env['sign.request']._message_send_mail(
-            body, 'mail.mail_notification_light',
+            body, notification_template,
             {'record_name': self.reference},
             {'model_description': 'signature', 'company': self.communication_company_id or self.create_uid.company_id},
             {'email_from': self.create_uid.email_formatted,
@@ -985,8 +989,11 @@ class SignRequestItem(models.Model):
             }, lang=signer_lang, minimal_qcontext=True)
 
             attachment_ids = signer.sign_request_id.attachment_ids.ids
+            notification_template = 'mail.mail_notification_light'
+            if self.env.ref('sign.sign_mail_notification_light', raise_if_not_found=False):
+                notification_template = 'sign.sign_mail_notification_light'
             self.env['sign.request']._message_send_mail(
-                body, 'mail.mail_notification_light',
+                body, notification_template,
                 {'record_name': signer.sign_request_id.reference},
                 {'model_description': _('Signature'), 'company': signer.communication_company_id or signer.sign_request_id.create_uid.company_id},
                 {'email_from': signer.create_uid.email_formatted,
@@ -1085,9 +1092,11 @@ class SignRequestItem(models.Model):
             'signer': self.partner_id,
             'auth_method': dict(self.role_id._fields['auth_method']._description_selection(self.env))[self.role_id.auth_method]
         }, lang=partner_lang, minimal_qcontext=True)
-
+        notification_template = 'mail.mail_notification_light'
+        if self.env.ref('sign.sign_mail_notification_light', raise_if_not_found=False):
+            notification_template = 'sign.sign_mail_notification_light'
         self.env['sign.request']._message_send_mail(
-            body, 'mail.mail_notification_light',
+            body, notification_template,
             {'record_name': self.reference},
             {'model_description': 'signature', 'company': self.communication_company_id or self.create_uid.company_id},
             {
