@@ -94,8 +94,8 @@ class Employee(models.Model):
             return result
         # Collect the number of hours that an employee should work according to their schedule
         calendar = current_employee.resource_calendar_id or current_employee.company_id.resource_calendar_id
-        datetime_min = timezone(self.env.user.tz or calendar.tz).localize(datetime.combine(date_start_date, time.min)).astimezone(UTC)
-        datetime_max = timezone(self.env.user.tz or calendar.tz).localize(datetime.combine(date_stop_date, time.max)).astimezone(UTC)
+        datetime_min = timezone(self.env.user.tz or calendar.tz or 'UTC').localize(datetime.combine(date_start_date, time.min)).astimezone(UTC)
+        datetime_max = timezone(self.env.user.tz or calendar.tz or 'UTC').localize(datetime.combine(date_stop_date, time.max)).astimezone(UTC)
         employee_work_days_data = calendar._work_intervals_batch(
             datetime_min, datetime_max,
             resources=current_employee.resource_id, compute_leaves=False
