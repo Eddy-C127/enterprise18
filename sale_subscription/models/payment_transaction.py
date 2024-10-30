@@ -140,8 +140,10 @@ class PaymentTransaction(models.Model):
 
         :return: None
         """
-        self.filtered(lambda tx: tx.operation == 'validation' and tx.sale_order_ids.is_subscription)._reconcile_after_done()
-        super()._finalize_post_processing()
+        # Avoid post processing tx whose SO is still being processed by the invoice cron
+        process_tx = self.filtered(lambda tx: not any(tx.sale_order_ids.mapped('is_invoice_cron')))
+        process_tx.filtered(lambda tx: tx.operation == 'validation' and tx.sale_order_ids.is_subscription)._reconcile_after_done()
+        super(PaymentTransaction, process_tx)._finalize_post_processing()
 
     def _post_subscription_action(self):
         """

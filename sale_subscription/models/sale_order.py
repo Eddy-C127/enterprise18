@@ -84,7 +84,9 @@ class SaleOrder(models.Model):
     #############
     payment_token_id = fields.Many2one('payment.token', 'Payment Token', check_company=True, help='If not set, the automatic payment will fail.',
                                        domain="[('partner_id', 'child_of', commercial_partner_id), ('company_id', '=', company_id)]", copy=False)
+    # technical, flag the contract failing for unknown reason (!= payment_exception) to avoid process them again and again
     is_batch = fields.Boolean(default=False, copy=False) # technical, batch of invoice processed at the same time
+    # technical flag to avoid process the same subscription in several parallel crons
     is_invoice_cron = fields.Boolean(string='Is a Subscription invoiced in cron', default=False, copy=False)
     payment_exception = fields.Boolean("Contract in exception",
                                        help="Automatic payment with token failed. The payment provider configuration and token should be checked",
@@ -1377,13 +1379,9 @@ class SaleOrder(models.Model):
 
     def _post_invoice_hook(self):
         # This method allow a hook after invoicing
-        if self:
-            sub = self.filtered('is_subscription')
-        else:
-            sub = self.search([('is_invoice_cron', '=', True)])
-        if sub:
-            sub.order_line._reset_subscription_quantity_post_invoice()
-            sub.update({'is_invoice_cron': False})
+        self.order_line._reset_subscription_quantity_post_invoice()
+        # Trigger the amount_to_invoice recomputation now that all updates on sale.order have been made
+        self.env.add_to_compute(self.env['sale.order']._fields['amount_to_invoice'], self)
 
     def _handle_subscription_payment_failure(self, invoice, transaction):
         current_date = fields.Date.today()
@@ -1413,6 +1411,8 @@ class SaleOrder(models.Model):
                     _logger.debug("Sending Payment Failure Mail to %s for contract %s and setting contract to pending", order.partner_id.email, order.id)
                     msg_body = _('Automatic payment failed. Email sent to customer. Error: %s', transaction and transaction.state_message or _('No Payment Method'))
                 order.message_post(body=msg_body)
+                # payment failed (not catched in exception) but we should not retry directly.
+                # flag with is_batch to avoid processing it again in another batch
                 subscription_values = {'payment_exception': False, 'is_batch': True}
             subscription_values.update(order._update_subscription_payment_failure_values())
             order.write(subscription_values)
@@ -1584,7 +1584,8 @@ class SaleOrder(models.Model):
                     continue
 
                 try:
-                    invoice = subscription.with_context(recurring_automatic=True)._create_invoices(final=True)
+                    with self.env.protecting([subscription._fields['amount_to_invoice']], subscription):
+                        invoice = subscription.with_context(recurring_automatic=True)._create_invoices(final=True)
                     lines_to_reset_qty |= invoiceable_lines
                 except Exception as e:
                     # We only raise the error in test, if the transaction is broken we should raise the exception
@@ -1604,7 +1605,8 @@ class SaleOrder(models.Model):
                     continue
                 self._subscription_commit_cursor(auto_commit)
                 # Handle automatic payment or invoice posting
-                existing_invoices = subscription.with_context(recurring_automatic=True)._handle_automatic_invoices(invoice, auto_commit) or self.env['account.move']
+                with self.env.protecting([subscription._fields['amount_to_invoice']], subscription):
+                    existing_invoices = subscription.with_context(recurring_automatic=True)._handle_automatic_invoices(invoice, auto_commit) or self.env['account.move']
                 account_moves |= existing_invoices
                 if all(inv.state != 'draft' for inv in existing_invoices):
                     # when the invoice is not confirmed, we keep it and keep the payment_exception flag
@@ -1612,6 +1614,7 @@ class SaleOrder(models.Model):
                     subscription.with_context(mail_notrack=True).payment_exception = False
                 if not subscription.mapped('payment_token_id'): # _get_auto_invoice_grouping_keys groups by token too
                     move_to_send_ids += existing_invoices.ids
+                self._subscription_commit_cursor(auto_commit)
             except Exception:
                 name_list = [f"{sub.name} {sub.client_order_ref}" for sub in subscription]
                 _logger.exception("Error during renewal of contract %s", "; ".join(name_list))
@@ -1622,10 +1625,14 @@ class SaleOrder(models.Model):
         if need_cron_trigger:
             self._subscription_launch_cron_parallel(batch_size)
         else:
-            self.env['sale.order']._post_invoice_hook()
+            if self:
+                invoice_sub = self.filtered('is_subscription')
+            else:
+                invoice_sub = self.search([('is_invoice_cron', '=', True)])
+            invoice_sub._post_invoice_hook()
             failing_subscriptions = self.search([('is_batch', '=', True)])
-            failing_subscriptions.write({'is_batch': False})
-
+            (failing_subscriptions | invoice_sub).write({'is_batch': False, 'is_invoice_cron': False})
+            self._subscription_commit_cursor(auto_commit)
         return account_moves
 
     def _create_invoices(self, grouped=False, final=False, date=None):
@@ -1896,6 +1903,10 @@ class SaleOrder(models.Model):
         transactions_sudo = self.env['payment.transaction'].sudo().create(values)
         self._subscription_commit_cursor(auto_commit)
         for tx_sudo in transactions_sudo:
+            # Protect the transaction row to prevent sql concurrent updates.
+            # This cron is having the lead and can update the transaction values from the value returned from the API.
+            # No other cursor should be able to update the transaction while this cron is handling this TX
+            self.env.cr.execute("SELECT 1 FROM payment_transaction WHERE id=%s FOR UPDATE", [tx_sudo.id])
             tx_sudo._send_payment_request()
         return transactions_sudo
 
@@ -1958,8 +1969,7 @@ class SaleOrder(models.Model):
             'currency': invoice.currency_id.name,
             'no_new_invoice': True}}
         auto_commit = not bool(config['test_enable'] or config['test_file'])
-        if auto_commit:
-            self.env.cr.commit()
+        self._subscription_commit_cursor(auto_commit)
         if self.plan_id.invoice_mail_template_id:
             _logger.debug("Sending Invoice Mail to %s for subscription %s", self.partner_id.mapped('email'), self.ids)
             invoice.with_context(email_context)._generate_pdf_and_send_invoice(self.plan_id.invoice_mail_template_id)
