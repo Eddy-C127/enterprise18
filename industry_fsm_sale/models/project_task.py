@@ -27,7 +27,7 @@ class Task(models.Model):
                 ('is_service', '=', True), ('is_expense', '=', False), ('state', '=', 'sale'),
             ],
         ])
-        return str(domain)
+        return domain
 
     allow_material = fields.Boolean(related='project_id.allow_material')
     allow_quotations = fields.Boolean(related='project_id.allow_quotations')
