@@ -1064,7 +1064,7 @@ class Document(models.Model):
 
         raise UserError(_("Unavailable action."))
 
-    def action_link_to_record(self, model):
+    def action_link_to_record(self, model=False):
         """Open the `link_to_record_wizard` to choose a record to link to the current documents.
 
         This method can be used inside server actions.
@@ -1089,11 +1089,12 @@ class Document(models.Model):
                 }
             }
 
-        self.env[model].check_access('write')
-        context['default_is_readonly_model'] = True
-        context['default_model_id'] = self.env['ir.model']._get_id(model)
-        first_valid_id = self.env[model].search([], limit=1).id
-        context['default_resource_ref'] = f'{model},{first_valid_id}'
+        if model:
+            self.env[model].check_access('write')
+            context['default_is_readonly_model'] = True
+            context['default_model_id'] = self.env['ir.model']._get_id(model)
+            first_valid_id = self.env[model].search([], limit=1).id
+            context['default_resource_ref'] = f'{model},{first_valid_id}'
 
         return {
             'name': _('Choose a record to link'),
