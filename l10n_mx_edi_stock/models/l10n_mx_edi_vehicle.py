@@ -144,6 +144,7 @@ class Figure(models.Model):
             ('02', 'Propietario'),
             ('03', 'Arrendador'),
             ('04', 'Notificado'),
+            ('05', 'Integrante de Coordinados'),
         ])
     operator_id = fields.Many2one(
         comodel_name='res.partner',
