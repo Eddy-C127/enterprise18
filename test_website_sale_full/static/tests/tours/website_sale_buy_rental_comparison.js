@@ -12,17 +12,17 @@ registry.category("web_tour.tours").add('shop_buy_rental_product_comparison', {
             trigger: '.o_add_compare',
         },
         {
-            content: "Search Warranty write text",
+            content: "Search Color T-Shirt write text",
             trigger: 'form input[name="search"]',
-            run: "text Warranty",
+            run: "text Color T-Shirt",
         },
         {
-            content: "Search Warranty click",
+            content: "Search Color T-Shirt click",
             trigger: 'form:has(input[name="search"]) .oe_search_button',
         },
         {
-            content: "add first product 'Warranty' in a comparison list",
-            trigger: '.oe_product_cart:contains("Warranty") .o_add_compare',
+            content: "add first product 'Color T-Shirt' in a comparison list",
+            trigger: '.oe_product_cart:contains("Color T-Shirt") .o_add_compare',
         },
         {
             content: "check popover is now open and compare button contains two products",
