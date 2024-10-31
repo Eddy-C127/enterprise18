@@ -585,7 +585,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
                         ],
                     },
                     'public_transport': {
-                        'header': _('Public Transportion'),
+                        'header': _('Public Transportation'),
                         'values': [
                             report_data['102']['public_transport']['male']['full']
                             + report_data['102']['public_transport']['female']['full'],
@@ -681,7 +681,7 @@ class L10nBeSocialBalanceSheet(models.TransientModel):
                         ],
                     },
                     'public_transport': {
-                        'header': _('Public Transportion'),
+                        'header': _('Public Transportation'),
                         'values': [
                             report_data['102']['public_transport']['male']['part']
                             + report_data['102']['public_transport']['female']['part'],
