@@ -10,3 +10,9 @@ class Vehicle(models.Model):
         string="Gross Vehicle Weight",
         help="Permitted weight of the vehicle (in tons) in accordance with NOM-SCT-012-2017.",
     )
+
+
+class Figure(models.Model):
+    _inherit = 'l10n_mx_edi.figure'
+
+    type = fields.Selection(selection_add=[('05', 'Integrante de Coordinados')])
