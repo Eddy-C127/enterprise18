@@ -11,7 +11,7 @@ from odoo.addons.l10n_br_edi.tests.data_invoice_1 import (
     invoice_1_submit_fail_response,
     invoice_1_cancel_success_response,
     invoice_1_correct_success_response,
-    invoice_1_correct_fail_response,
+    invoice_1_correct_fail_response, invoice_1_cancel_fail_response,
 )
 from odoo.exceptions import UserError, ValidationError, AccessError
 from odoo.tests import tagged
@@ -202,6 +202,15 @@ class TestL10nBREDI(TestL10nBREDICommon):
 
         self.assertEqual(self.invoice.state, "cancel", "Invoice should be cancelled.")
         self.assertEqual(self.invoice.l10n_br_last_edi_status, "cancelled", "Invoice should be EDI cancelled.")
+
+    def test_update_cancel_error(self):
+        wizard = self.env["l10n_br_edi.invoice.update"].create(
+            {"move_id": self.invoice.id, "mode": "cancel", "reason": "test reason with at least 15 characters"}
+        )
+
+        with self.with_patched_account_move("_l10n_br_iap_cancel_invoice_goods", invoice_1_cancel_fail_response), \
+             self.assertRaisesRegex(UserError, "Rejei\u00e7\u00e3o: Evento n\u00e3o atende o Schema XML espec\u00edfico"):
+            wizard.action_submit()
 
     def test_update_correction(self):
         wizard = self.env["l10n_br_edi.invoice.update"].create(
