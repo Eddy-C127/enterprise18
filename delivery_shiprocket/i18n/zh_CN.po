@@ -33,7 +33,7 @@ msgstr "<b>点击添加新频道</b>"
 msgid ""
 "<b>Copy your API User's Email and Password and paste into Shipping method's "
 "configuration.</b>"
-msgstr "<b>复制 API 用户的电子邮件和密码，然后在发货方式设置中进行粘贴。</b>"
+msgstr "<b>复制 API 用户的电子邮件和密码，然后在交货方式设置中进行粘贴。</b>"
 
 #. module: delivery_shiprocket
 #: model_terms:ir.ui.view,arch_db:delivery_shiprocket.view_delivery_carrier_form_inherit_delivery_shiprocket
@@ -81,7 +81,7 @@ msgid ""
 "days."
 msgstr ""
 "<i class=\"fa fa-exclamation-"
-"triangle\"/>在测试环境中，为避免产生费用，您的发货将在创建标签后自动<b>取消</b>。取消发货的金额将在接下来 3 - 4天内退还。"
+"triangle\"/>在测试环境中，为避免产生费用，您的交货将在创建标签后自动<b>取消</b>。取消交货的金额将在接下来 3 - 4天内退还。"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields,help:delivery_shiprocket.field_delivery_carrier__shiprocket_manifests_generate
@@ -261,7 +261,7 @@ msgstr "输入您在 Shiprocket 账户（API）的用户名。"
 msgid ""
 "Eway Bill number is required to ship an order if order amount is more than "
 "50,000 INR."
-msgstr "如果订单金额超过 50,000 印度卢比，则需要电子货运单单号才能发货。"
+msgstr "如果订单金额超过 50,000 印度卢比，则需要电子货运单单号才能交货。"
 
 #. module: delivery_shiprocket
 #. odoo-python
@@ -461,7 +461,7 @@ msgstr "ShipRocket Domestic"
 #. module: delivery_shiprocket
 #: model:ir.model,name:delivery_shiprocket.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr "送货方式"
+msgstr "交货方式"
 
 #. module: delivery_shiprocket
 #: model:ir.model.fields.selection,name:delivery_shiprocket.selection__delivery_carrier__delivery_type__shiprocket

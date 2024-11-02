@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2023
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2023\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -131,14 +132,14 @@ msgstr "Dziennik"
 #: model:ir.model.fields,field_description:account_sepa.field_res_partner__account_sepa_lei
 #: model:ir.model.fields,field_description:account_sepa.field_res_users__account_sepa_lei
 msgid "LEI"
-msgstr ""
+msgstr "LEI"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__account_sepa_lei
 #: model:ir.model.fields,help:account_sepa.field_res_partner__account_sepa_lei
 #: model:ir.model.fields,help:account_sepa.field_res_users__account_sepa_lei
 msgid "Legal Entity Identifier"
-msgstr ""
+msgstr "Identyfikator Podmiotu Prawnego"
 
 #. module: account_sepa
 #. odoo-python
@@ -266,6 +267,8 @@ msgid ""
 "Some payments are missing a value for 'UETR', required for the SEPA "
 "Pain.001.001.09 format."
 msgstr ""
+"U niektórych płatności brakuje wartości dla 'UETR' wymaganej do formatu SEPA"
+" Pain.001.001.09."
 
 #. module: account_sepa
 #. odoo-python
@@ -347,6 +350,9 @@ msgid ""
 "- 18 alphanumeric characters with capital letters\n"
 "- 2 digits in the end\n"
 msgstr ""
+"Numer LEI musi zawierać 20 znaków i pasować do następującej struktury:\n"
+"- 18 alfanumerycznych znaków z wielkimi literami\n"
+"- 2 cyfry na końcu\n"
 
 #. module: account_sepa
 #. odoo-python
@@ -413,12 +419,12 @@ msgstr "Zbyt dużo transakcji dla pojedynczego pliku."
 #. module: account_sepa
 #: model:ir.model.fields,field_description:account_sepa.field_account_payment__sepa_uetr
 msgid "UETR"
-msgstr ""
+msgstr "UETR"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_account_payment__sepa_uetr
 msgid "Unique end-to-end transaction reference"
-msgstr ""
+msgstr "Unikalny identyfikator transakcji płatniczej"
 
 #. module: account_sepa
 #: model:ir.model.fields,help:account_sepa.field_res_company__sepa_initiating_party_name

@@ -3867,7 +3867,7 @@ msgstr "Rodyti įrašų juodraščius"
 #: code:addons/account_reports/models/account_general_ledger.py:0
 #, python-format
 msgid "Wrong ID for general ledger line to expand: %s"
-msgstr ""
+msgstr "Netinkamas ID didžiosios knygos eilutės, kurią reikia išskleisti: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3905,7 +3905,7 @@ msgstr "Taip"
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 #, python-format
 msgid "You are using custom exchange rates."
-msgstr ""
+msgstr "Galite naudoti įprastą valiutų kursą."
 
 #. module: account_reports
 #. odoo-python
@@ -3913,6 +3913,8 @@ msgstr ""
 #, python-format
 msgid "You can't open a tax report from a move without a VAT closing date."
 msgstr ""
+"Negalite atidaryti mokesčių ataskaitos iš įrašo nepriskyrę PVM uždarymo "
+"datos."
 
 #. module: account_reports
 #. odoo-python
@@ -3929,13 +3931,15 @@ msgid ""
 "You cannot generate entries for a period that does not end at the end of the"
 " month."
 msgstr ""
+"Negalite generuoti įrašų laikotarpiui, kurio pabaiga nesutampa su mėnesio "
+"pabaiga."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 #, python-format
 msgid "You cannot generate entries for a period that is locked."
-msgstr ""
+msgstr "Negalite generuoti įrašų laikotarpiui, kuris yra užrakintas."
 
 #. module: account_reports
 #. odoo-python
@@ -3990,7 +3994,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year
 msgid "annually"
-msgstr ""
+msgstr "kasmetinis"
 
 #. module: account_reports
 #. odoo-python
@@ -3998,7 +4002,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_aged_partner_balance.py:0
 #, python-format
 msgid "any"
-msgstr ""
+msgstr "bet kuris"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -4016,12 +4020,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
 msgid "every 2 months"
-msgstr ""
+msgstr "kas 2 mėnesius"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__4_months
 msgid "every 4 months"
-msgstr ""
+msgstr "kas 4 mėnesius"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4035,7 +4039,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/carryover_popover.xml:0
 #, python-format
 msgid "in the next period."
-msgstr ""
+msgstr "kitame laikotarpyje."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4058,12 +4062,12 @@ msgstr "DK įrašai"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "paskutinis banko išrašas"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
 msgid "monthly"
-msgstr ""
+msgstr "mėnesinis"
 
 #. module: account_reports
 #. odoo-python
@@ -4091,12 +4095,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__trimester
 msgid "quarterly"
-msgstr ""
+msgstr "ketvirtinis"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__semester
 msgid "semi-annually"
-msgstr ""
+msgstr "pusmetinis"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4137,7 +4141,7 @@ msgstr "iki"
 #: code:addons/account_reports/static/src/components/account_report/warnings.xml:0
 #, python-format
 msgid "unposted Journal Entries"
-msgstr ""
+msgstr "nepatvirtinti žurnalų įrašai"
 
 #. module: account_reports
 #. odoo-javascript

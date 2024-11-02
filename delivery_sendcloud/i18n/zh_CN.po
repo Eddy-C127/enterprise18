@@ -4,10 +4,9 @@
 # 
 # Translators:
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
-# Jeffery CHEN <jeffery9@gmail.com>, 2023
-# 湘子 南 <1360857908@qq.com>, 2024
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# Jeffery CHEN <jeffery9@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -80,7 +79,7 @@ msgid ""
 "creation."
 msgstr ""
 "<i class=\"fa fa-exclamation-triangle\"/> "
-"在测试环境中，为避免产生费用，您的发货会在创建标签后自动<b>取消</b>。"
+"在测试环境中，为避免产生费用，您的交货会在创建标签后自动<b>取消</b>。"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_delivery_carrier_form
@@ -140,7 +139,7 @@ msgstr "从可用的发送云运输方式中进行选择"
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_sendcloud_shipping_product
 msgid "Choose from the available sendcloud shipping products"
-msgstr "从可用的 sendcloud 发货产品中选择"
+msgstr "从可用的 sendcloud 交货产品中选择"
 
 #. module: delivery_sendcloud
 #: model_terms:ir.ui.view,arch_db:delivery_sendcloud.view_shipping_method_sendcloud
@@ -199,8 +198,8 @@ msgid ""
 "Depending your Sendcloud account type, through rules you can define the shipping method to use depending on different conditions like destination, weight, value, etc.\n"
 "Rules can override shipping product selected in Odoo"
 msgstr ""
-"根据您的 Sendcloud 账户类型，您可以通过规则根据目的地、重量、价值等不同条件定义要使用的发货方法。\n"
-"规则可覆盖在 ERP 中选择的发货产品"
+"根据您的 Sendcloud 账户类型，您可以通过规则根据目的地、重量、价值等不同条件定义要使用的交货方法。\n"
+"规则可覆盖在 ERP 中选择的交货产品"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__display_name
@@ -492,7 +491,7 @@ msgstr "发送云运输产品"
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__country_id
 msgid "Ship From"
-msgstr "发货地"
+msgstr "交货地"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -509,7 +508,7 @@ msgstr "承运商"
 #. module: delivery_sendcloud
 #: model:ir.model,name:delivery_sendcloud.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr "送货方式"
+msgstr "交货方式"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_sendcloud_shipping_product__name
@@ -579,8 +578,8 @@ msgid ""
 "delivery partner via the delivery order and make sure the parent of the "
 "delivery partner is the partner you want to ship to."
 msgstr ""
-"客户的送货地址已从取货地点中删除，但 Sendcloud "
-"要求提供此信息。请通过送货订单转到送货合作伙伴页面，并确保送货合作伙伴的母项是您要发货的合作伙伴。"
+"客户的交货地址已从取货地点中删除，但 Sendcloud "
+"要求提供此信息。请通过交货订单转到交货合作伙伴页面，并确保交货合作伙伴的母项是您要交货的合作伙伴。"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -598,7 +597,7 @@ msgstr ""
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "The shipping product actually configured can't handle this delivery"
-msgstr "实际配置的航运产品无法处理此次交付"
+msgstr "实际配置的航运产品无法处理此次交货"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -664,7 +663,7 @@ msgstr ""
 msgid ""
 "There's no shipping method matching all your selected filters for this "
 "picking/order."
-msgstr "没有符合您所选筛选条件的送货方式。"
+msgstr "没有符合您所选筛选条件的交货方式。"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -681,7 +680,7 @@ msgstr "调拨"
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_use_batch_shipping
 msgid "Use Batch Shipping"
-msgstr "使用批量发货"
+msgstr "使用批量交货"
 
 #. module: delivery_sendcloud
 #: model:ir.model.fields,field_description:delivery_sendcloud.field_delivery_carrier__sendcloud_shipping_rules
@@ -707,7 +706,7 @@ msgstr "发送多个包裹时，请将它们合并到一个包裹中。不支持
 #: code:addons/delivery_sendcloud/models/delivery_carrier.py:0
 #, python-format
 msgid "You must add your public and secret key for sendcloud delivery type!"
-msgstr "您必须为发送云交付类型添加公钥和私钥！"
+msgstr "您必须为发送云交货类型添加公钥和私钥！"
 
 #. module: delivery_sendcloud
 #. odoo-python
@@ -716,7 +715,7 @@ msgstr "您必须为发送云交付类型添加公钥和私钥！"
 msgid ""
 "You must assign the required 'Shipping From' field in order to search for "
 "available products"
-msgstr "您必须指定所需的 \"发货地 \"字段，以便搜索可用产品"
+msgstr "您必须指定所需的 \"交货地 \"字段，以便搜索可用产品"
 
 #. module: delivery_sendcloud
 #. odoo-python
