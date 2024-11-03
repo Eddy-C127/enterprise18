@@ -3,16 +3,16 @@
 # 	* hr_contract_salary
 # 
 # Translators:
-# Wil Odoo, 2024
 # Junko Augias, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -283,7 +283,7 @@ msgstr "セクションを追加"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__benefit_type_id
 msgid "Allow to define the periodicity and output type of the advantage"
-msgstr ""
+msgstr "福利厚生の周期設定と出力タイプを定義できるようにします。"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__always
@@ -294,21 +294,21 @@ msgstr "常に選択済"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__always_show_description
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit_value__always_show_description
 msgid "Always Show Description"
-msgstr ""
+msgstr "常に説明を表示"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_applicant.py:0
 msgid ""
 "An %(offer)s has been sent by %(user)s to the applicant (mail: %(email)s)"
-msgstr ""
+msgstr " %(offer)s が %(user)s により応募者に送信されました (メール: %(email)s)"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract.py:0
 msgid ""
 "An %(offer)s has been sent by %(user)s to the employee (mail: %(email)s)"
-msgstr ""
+msgstr "%(offer)s が %(user)s により従業員に送信されました (メール: %(email)s)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_employee_report__final_yearly_costs
@@ -395,7 +395,7 @@ msgstr "福利厚生"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit_value__benefit_display_type
 msgid "Benefit Display Type"
-msgstr ""
+msgstr "福利厚生表示タイプ"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_public
@@ -405,7 +405,7 @@ msgstr "福利厚生フィールド"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__benefit_type_id
 msgid "Benefit Type"
-msgstr ""
+msgstr "福利厚生タイプ"
 
 #. module: hr_contract_salary
 #: model:ir.actions.act_window,name:hr_contract_salary.hr_contract_benefit_action
@@ -429,11 +429,6 @@ msgstr "生年月日"
 #: model:ir.model,name:hr_contract_salary.model_hr_candidate
 msgid "Candidate"
 msgstr "候補者"
-
-#. module: hr_contract_salary
-#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__applicant_name
-msgid "Candidates's Name"
-msgstr "候補者名"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__category_id
@@ -523,7 +518,7 @@ msgstr "契約情報："
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid "Contract Related Field"
-msgstr ""
+msgstr "契約関連フィールド"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_signatory__sign_role_id
@@ -621,7 +616,7 @@ msgstr "原価フィールド"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_public
 msgid "Cost Field (Public)"
-msgstr ""
+msgstr "原価フィールド(公開)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_field
@@ -866,7 +861,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Doesn't impact net salary"
-msgstr ""
+msgstr "基本給には影響しません"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__dropdown
@@ -993,7 +988,7 @@ msgstr "固定値"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
 msgid "Fold Condition"
-msgstr ""
+msgstr "条件を折畳む"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__fold_field
@@ -1058,7 +1053,7 @@ msgstr "人事担当者"
 msgid ""
 "HR Responsible %s should be a user of Sign when New Contract Document "
 "Template is specified"
-msgstr ""
+msgstr "新規契約テンプレートが定義される際、人事責任者 %sは署名のユーザである必要があります。"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1066,7 +1061,7 @@ msgstr ""
 msgid ""
 "HR Responsible %s should have a valid email address when New Contract "
 "Document Template is specified"
-msgstr ""
+msgstr "人事責任者%sは、新規契約書テンプレートが定義される際には、有効なEメールアドレスを持っている必要があります。"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__has_admin_access
@@ -1146,7 +1141,7 @@ msgstr "チェックした場合、この情報の値は月次合計として設
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__always_show_description
 msgid "If unchecked, Description will only be shown when Benefit is selected"
-msgstr ""
+msgstr "チェックを外すと、説明は福利厚生が選択された場合にのみ表示されます。"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__image_1920
@@ -1549,7 +1544,7 @@ msgstr "オファー有効日"
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 msgid "Offer for %(recipient)s"
-msgstr ""
+msgstr "%(recipient)sへのオファー"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1591,7 +1586,7 @@ msgstr "元のリンク"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__originated_offer_id
 msgid "Originated Offer"
-msgstr ""
+msgstr "発生オファー"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:hr_contract_salary.hr_contract_salary_personal_info_certificate_other
@@ -1618,6 +1613,11 @@ msgstr "一部署名済"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_signatory__partner_id
 msgid "Partner"
 msgstr "取引先"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__applicant_name
+msgid "Partner Name"
+msgstr "取引先名"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__uom__percent
@@ -1813,7 +1813,7 @@ msgstr "要求済ドキュメント"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__requested_documents_field_ids
 msgid "Requested Documents (IDs)"
-msgstr ""
+msgstr "要求済ドキュメント(ID)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__requested_documents
@@ -1872,7 +1872,7 @@ msgstr "給与コンフィギュレーター"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Salary Configurator Display"
-msgstr ""
+msgstr "給与コンフィギュレータディスプレイ"
 
 #. module: hr_contract_salary
 #: model:ir.actions.server,name:hr_contract_salary.ir_cron_update_offer_state_ir_actions_server
@@ -1997,18 +1997,18 @@ msgstr "州・都道府県を選択"
 msgid ""
 "Select other Benefits that need to be selected to make this Benefit "
 "available"
-msgstr ""
+msgstr "選択が必要なその他の福利厚生を選択してこの福利厚生を利用可能にする"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_id
 msgid "Select the contract's field to consider in salary computation"
-msgstr ""
+msgstr "給与計算で考慮する契約フィールドを選択"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid ""
 "Select the contract's field where the value of the benefit will be written"
-msgstr ""
+msgstr "福利厚生の金額を書き込む契約のフィールドを選択"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__display_type__dropdown
@@ -2023,7 +2023,7 @@ msgstr "選択の性質"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit_value__selector_highlight
 msgid "Selector Highlight"
-msgstr ""
+msgstr "セレクタハイライト"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_sidebar
@@ -2247,7 +2247,7 @@ msgstr "従業員が既存のユーザにリンクされていません。管理
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
 msgid ""
 "The field here needs to be set for this benefit to be folded by default."
-msgstr ""
+msgstr "この福利厚生をデフォルトで折畳むには、このフィールドを設定する必要があります。"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2271,7 +2271,7 @@ msgstr "リンク先の申請者が辞退した場合、オファーは拒否さ
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__originated_offer_id
 msgid "The original offer"
-msgstr ""
+msgstr "元のオファー"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__activity_type_id
@@ -2360,7 +2360,7 @@ msgstr "契約書テンプレート更新"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__validity_days_count
 msgid "Validity Days Count"
-msgstr ""
+msgstr "有効日数"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form_hr
@@ -2479,7 +2479,7 @@ msgstr "同じ役割を複数の人が担当することはできません。"
 msgid ""
 "You have to define contract templates to be used for offers. Go to "
 "Configuration / Contract Templates to define a contract template"
-msgstr ""
+msgstr "オファーに使用する契約テンプレートを定義する必要があります。契約テンプレートを定義するには、設定/契約テンプレートに移動します。"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_personal_information
@@ -2523,6 +2523,7 @@ msgid ""
 "{{ object.company_id.name }}: Job Offer - {{ "
 "object.applicant_id.partner_name }}"
 msgstr ""
+"{{ object.company_id.name }}: 採用通知 - {{ object.applicant_id.partner_name }}"
 
 #. module: hr_contract_salary
 #: model:mail.template,subject:hr_contract_salary.mail_template_send_offer

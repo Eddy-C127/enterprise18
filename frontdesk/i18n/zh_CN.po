@@ -4,6 +4,9 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Chloe Wang, 2024
+# Raymond Yu <cl_yu@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:24+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,19 +26,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/frontdesk/models/frontdesk_visitor.py:0
 msgid "%(name)s just checked-in. Requested Drink: %(drink)s."
-msgstr "%(name)s刚登记入住。要求喝: %(drink)s."
+msgstr "%(name)s刚刚签到。他要求: %(drink)s."
 
 #. module: frontdesk
 #. odoo-python
 #: code:addons/frontdesk/models/frontdesk_visitor.py:0
 msgid "%(station)s Check-In: %(visitor)s"
-msgstr ""
+msgstr "%(station)s签到: %(visitor)s"
 
 #. module: frontdesk
 #. odoo-python
 #: code:addons/frontdesk/models/frontdesk_visitor.py:0
 msgid "%(station)s Check-In: %(visitor)s to meet %(host)s"
-msgstr ""
+msgstr "%(station)s签到: %(visitor)s与%(host)s会面"
 
 #. module: frontdesk
 #. odoo-python
@@ -51,7 +54,7 @@ msgstr "'Badge - %s' % (object.name).replace('/', '')"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.print_visitor_badge
 msgid "22 Oct 24 14:20:10"
-msgstr ""
+msgstr "2024 年 10 月 22 日 14:20:10"
 
 #. module: frontdesk
 #: model:mail.template,body_html:frontdesk.frontdesk_mail_template
@@ -74,18 +77,20 @@ msgid ""
 "<span><b>Congratulations!!!</b> You have created your first visitor.\n"
 "        </span>"
 msgstr ""
+"<span><b>恭喜！！！</b> 您已创建了第一位访客。\n"
+"        </span>"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.print_visitor_badge
 msgid "<strong>Visiting:</strong>"
-msgstr ""
+msgstr "<strong>到访：</strong>"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_drink__active
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_frontdesk__active
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__active
 msgid "Active"
-msgstr "启用"
+msgstr "有效"
 
 #. module: frontdesk
 #: model:ir.actions.client,name:frontdesk.frontdesk_visitor_action_configure_properties_field
@@ -115,7 +120,7 @@ msgstr "允许访客从列表中选择会议主持人"
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_form
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_visitor_view_search
 msgid "Archived"
-msgstr "已存档"
+msgstr "已归档"
 
 #. module: frontdesk
 #. odoo-javascript
@@ -434,7 +439,7 @@ msgstr ""
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.print_visitor_badge
 msgid "Henry"
-msgstr ""
+msgstr "亨利"
 
 #. module: frontdesk
 #. odoo-javascript
@@ -484,7 +489,7 @@ msgstr "已收藏"
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.print_visitor_badge
 msgid "Karen"
-msgstr ""
+msgstr "凯伦"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_kanban
@@ -557,7 +562,7 @@ msgstr ""
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.print_visitor_badge
 msgid "MY PVT LTD"
-msgstr ""
+msgstr "我的私人有限公司"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__message
@@ -730,7 +735,7 @@ msgstr "打印徽标"
 #. module: frontdesk
 #: model:ir.actions.report,name:frontdesk.frontdesk_visitor_print_badge
 msgid "Print Visitor Badge"
-msgstr ""
+msgstr "打印访客徽标"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__visitor_properties
@@ -770,7 +775,7 @@ msgstr "注册时索取更多信息"
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_frontdesk__ask_email__required
 #: model:ir.model.fields.selection,name:frontdesk.selection__frontdesk_frontdesk__ask_phone__required
 msgid "Required"
-msgstr "必需"
+msgstr "必填"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.frontdesk_frontdesk_view_search
@@ -1015,7 +1020,7 @@ msgstr "例如：可口可乐"
 #. odoo-javascript
 #: code:addons/frontdesk/static/src/visitor_form/visitor_form.xml:0
 msgid "e.g. John Doe"
-msgstr "例如 John Doe"
+msgstr "例如： John Doe"
 
 #. module: frontdesk
 #. odoo-javascript

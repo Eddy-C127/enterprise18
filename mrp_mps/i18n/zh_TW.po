@@ -354,11 +354,16 @@ msgid "ID"
 msgstr "識別號"
 
 #. module: mrp_mps
+#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__bom_id
+msgid "If set, the bill of materials components will also be imported."
+msgstr ""
+
+#. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__batch_size
 msgid ""
 "If set, the generated manufacturing orders will be split in quantities of "
 "this value at maximum."
-msgstr ""
+msgstr "如果設置，產生的製造訂單會最多分拆為此值的數目。"
 
 #. module: mrp_mps
 #. odoo-python
@@ -387,7 +392,7 @@ msgstr "間接需求產品"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__is_manufacture_route
 msgid "Is Manufacture Route"
-msgstr ""
+msgstr "是製造路線"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__write_uid
@@ -525,12 +530,12 @@ msgstr "不會從 MPS 補充"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_day
 msgid "Number of Daily Manufacturing Period Columns"
-msgstr ""
+msgstr "每日製造周期欄數"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_month
 msgid "Number of Monthly Manufacturing Period Columns"
-msgstr ""
+msgstr "每月製造周期欄數"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
@@ -540,40 +545,40 @@ msgstr ""
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_week
 msgid "Number of Weekly Manufacturing Period Columns"
-msgstr ""
+msgstr "每週製造周期欄數"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_year
 msgid "Number of Yearly Manufacturing Period Columns"
-msgstr ""
+msgstr "每年製造周期欄數"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_day
 msgid ""
 "Number of columns for the daily period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "主生產計劃顯示的每日周期欄數"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_month
 msgid ""
 "Number of columns for the monthly period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "主生產計劃顯示的每月周期欄數"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_week
 msgid ""
 "Number of columns for the weekly period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "主生產計劃顯示的每週周期欄數"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_year
 msgid ""
 "Number of columns for the yearly period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "主生產計劃顯示的每年周期欄數"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -941,6 +946,12 @@ msgstr "第%(week_num)s 週(%(start_date)s-%(end_date)s/%(month)s)"
 #: model:ir.model.fields.selection,name:mrp_mps.selection__res_company__manufacturing_period__week
 msgid "Weekly"
 msgstr "每週"
+
+#. module: mrp_mps
+#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__is_indirect
+msgid ""
+"When checked, this product will not appear in the 'To Forecast' filter."
+msgstr ""
 
 #. module: mrp_mps
 #. odoo-javascript

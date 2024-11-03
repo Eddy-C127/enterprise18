@@ -32,7 +32,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -1508,6 +1508,8 @@ msgid "Favorite of"
 msgstr "Suosikki"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__binary
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "File"
@@ -1601,6 +1603,7 @@ msgstr "Keskity edellinen sivu"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1937,6 +1940,7 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
 msgid "Link"
 msgstr "Linkki"
@@ -2880,6 +2884,8 @@ msgid "Sharing..."
 msgstr ""
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__shortcut_ids
 msgid "Shortcut"
 msgstr "Oikotie"
@@ -3424,19 +3430,25 @@ msgstr ""
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-msgid "You are not allowed to execute embedded actions."
-msgstr ""
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to delete all these items."
 msgstr ""
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to execute embedded actions."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to perform this operation."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to pin/unpin embedded Actions."
 msgstr ""
 
 #. module: documents
@@ -3490,6 +3502,12 @@ msgstr ""
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid ""
 "You can't create shortcuts in or move documents to this special folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot change the owner of documents you do not own."
 msgstr ""
 
 #. module: documents

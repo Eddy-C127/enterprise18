@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -697,7 +697,7 @@ msgstr "Toegang tot al je documenten"
 #. odoo-python
 #: code:addons/documents/models/documents_access.py:0
 msgid "Access documents and partners cannot be changed."
-msgstr "Toegangsdocumenten en partners kunnen niet worden gewijzigd."
+msgstr "Toegang tot documenten en relaties kan niet worden gewijzigd."
 
 #. module: documents
 #. odoo-python
@@ -1395,7 +1395,7 @@ msgstr "Document"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_access
 msgid "Document / Partner"
-msgstr "Document / Partner"
+msgstr "Document / Relatie"
 
 #. module: documents
 #. odoo-javascript
@@ -1702,6 +1702,8 @@ msgid "Favorite of"
 msgstr "Favoriet van"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__binary
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "File"
@@ -1795,6 +1797,7 @@ msgstr "Richten op vorige pagina"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1956,7 +1959,8 @@ msgstr ""
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
 msgstr ""
-"Onmogelijk om partners voor meerdere documenten tegelijk uit te nodigen."
+"Onmogelijk om Verstuur partnergrootboekens voor meerdere documenten tegelijk"
+" uit te nodigen."
 
 #. module: documents
 #. odoo-python
@@ -2145,6 +2149,7 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
 msgid "Link"
 msgstr "Link"
@@ -2865,7 +2870,7 @@ msgstr "Aangevraagde documenten"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__requestee_partner_id
 msgid "Requestee Partner"
-msgstr "Gevraagde partner"
+msgstr "Gevraagde Verstuur partnergrootboeken"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_model_name
@@ -3094,6 +3099,8 @@ msgid "Sharing..."
 msgstr "Delen bezig..."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__shortcut_ids
 msgid "Shortcut"
 msgstr "Sneltoets"
@@ -3385,7 +3392,7 @@ msgstr "Dit is een snelkoppeling"
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_unique_document_access_partner
 msgid "This partner is already set on this document."
-msgstr "Deze partner is al ingesteld op dit document."
+msgstr "Deze relatie is al ingesteld op dit document."
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3651,20 +3658,26 @@ msgstr ""
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-msgid "You are not allowed to execute embedded actions."
-msgstr "Het is niet toegestaan ​​om ingesloten acties uit te voeren."
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to delete all these items."
 msgstr "Je mag niet al deze items verwijderen."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to execute embedded actions."
+msgstr "Het is niet toegestaan ​​om ingesloten acties uit te voeren."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to perform this operation."
 msgstr "Je mag deze handeling niet uitvoeren."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to pin/unpin embedded Actions."
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3724,6 +3737,12 @@ msgstr ""
 
 #. module: documents
 #. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot change the owner of documents you do not own."
+msgstr ""
+
+#. module: documents
+#. odoo-python
 #: code:addons/documents/models/documents_tag.py:0
 msgid "You cannot delete tags used in server actions."
 msgstr "Je kunt geen tags verwijderen die gebruikt worden in serveracties."
@@ -3738,7 +3757,7 @@ msgstr "Je kunt documenten niet dupliceren in de Prullenbak."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "You cannot remove this partner"
-msgstr "Je kunt deze partner niet verwijderen"
+msgstr "Je kunt deze relatie niet verwijderen"
 
 #. module: documents
 #. odoo-javascript

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:24+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Marianna Ciofani, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
@@ -2007,7 +2007,6 @@ msgstr "Assente per più di un giorno"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 msgid "Access Denied"
 msgstr "Accesso negato"
@@ -2090,21 +2089,33 @@ msgstr "Aggiungi campi proprietà"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.js:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
 msgid "Add a Comment..."
 msgstr "Aggiungi un commento..."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 msgid "Add a clipboard section"
 msgstr "Aggiungi una sezione appunti"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
+msgid "Add a comment to an image"
+msgstr "Aggiungi un commento all'immagine"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Add a comment to selection"
 msgstr "Aggiungi un commento alla selezione"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_popover/comments_popover.xml:0
+msgid "Add a comment..."
+msgstr "Aggiungi un commento..."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2129,12 +2140,6 @@ msgid ""
 msgstr ""
 "Aggiungi articoli all'elenco dei preferiti facendo clic su <i class=\"fa fa-"
 "star-o\"></i>, accanto al nome dell'articolo."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/table_of_content_behavior/table_of_content_behavior.xml:0
-msgid "Add headings in this Article to create a Table of Content"
-msgstr "Aggiungi dei titoli all'articolo per creare un indice"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
@@ -2273,9 +2278,9 @@ msgstr "Età: 42"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "All Comments"
-msgstr "Tutti i commenti"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "All Discussions"
+msgstr "Tutte le discussioni"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -2461,8 +2466,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_favorite__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__article_id
@@ -2495,7 +2499,7 @@ msgstr "Proprietà elemento articolo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_item_calendar
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action_stages
@@ -2731,19 +2735,19 @@ msgstr "Correzione di bug 🔨"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Calendar"
 msgstr "Crea un calendario"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Kanban"
 msgstr "Crea una vista Kanban"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item List"
 msgstr "Crea un elenco"
 
@@ -2768,13 +2772,13 @@ msgstr "Procedimento di acquisto"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of %s"
 msgstr "Calendario di %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of Article Items"
 msgstr "Calendario elementi articolo"
 
@@ -2835,10 +2839,9 @@ msgstr "L'utente può vedere l'articolo?"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.xml:0
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
 msgid "Cancel"
 msgstr "Annulla"
@@ -2866,11 +2869,6 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Car Policy"
 msgstr "Politica automobile aziendale"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "Car_Catalog.png"
-msgstr "Catalogo_auto.png"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2951,7 +2949,7 @@ msgstr "Scegli una copertina "
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 msgid "Choose an Article..."
 msgstr "Scegli un articolo..."
@@ -2964,14 +2962,8 @@ msgstr "Fai clic e mantieni per riposizionare"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "Click here to update the source"
-msgstr "Fai clic qui per aggiornare l'origine"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2980,8 +2972,6 @@ msgstr "Appunti"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
@@ -2990,17 +2980,7 @@ msgstr "Chiudi"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid ""
-"Collaborative Links require joining, while Embed Links directly show the "
-"drawing."
-msgstr ""
-"Per i link collaborativi è necessario partecipare, i link integrati mostrano"
-" direttamente il disegno."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Comment"
 msgstr "Commenta"
 
@@ -3084,7 +3064,7 @@ msgstr "Contattare l'avvocato"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.js:0
 msgid "Content copied to clipboard."
 msgstr "Contenuto copiato negli appunti."
 
@@ -3107,19 +3087,19 @@ msgstr "Converti in un elemento dell'articolo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy"
 msgstr "Copia"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Copy Link"
 msgstr "Copia collegamento"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy to Clipboard"
 msgstr "Copia negli appunti"
 
@@ -3178,7 +3158,7 @@ msgstr "Crea \""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 msgid "Create \"%s\""
 msgstr "Crea \"%s\""
 
@@ -3378,11 +3358,10 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.xml:0
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Discard"
 msgstr "Abbandona"
 
@@ -3438,18 +3417,6 @@ msgstr "Completata"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-msgid "Download"
-msgstr "Download"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Drawing Board"
-msgstr "Lavagna da disegno"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 msgid "Drop here to delete this article"
 msgstr "Trascina qui l'articolo per eliminarlo"
@@ -3473,8 +3440,8 @@ msgstr "Modifica"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Edit Link"
 msgstr "Modifica collegamento"
 
@@ -3518,12 +3485,6 @@ msgstr "E-mail:"
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.js:0
 msgid "Embed a View"
 msgstr "Incorpora una vista"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
-msgid "Embed a video"
-msgstr "Incorpora un video"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__icon
@@ -3617,12 +3578,6 @@ msgid "Favorites"
 msgstr "Preferite"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "File"
-msgstr "File"
-
-#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
 msgid "Find all articles shared with you"
 msgstr "Trova tutti gli articoli condivisi con te"
@@ -3688,7 +3643,7 @@ msgstr "Genere: F"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Generate an Article with AI"
 msgstr "Genera un articolo con l'IA"
 
@@ -3803,15 +3758,9 @@ msgstr "Nascosta"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Highlight content and use the"
 msgstr "Evidenzia il contenuto e utilizza il"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Highlight the structure of this article"
-msgstr "Evidenzia la struttura dell'articolo"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history
@@ -4017,7 +3966,7 @@ msgstr "Esperienza cliente non costante"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Index"
 msgstr "Indice"
 
@@ -4062,22 +4011,9 @@ msgstr "Inserisci"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "Insert Drawing"
-msgstr "Inserisci disegno"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Insert Link"
 msgstr "Inserisci link"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
-msgid "Insert Video"
-msgstr "Inserisci video"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4087,13 +4023,13 @@ msgstr "Inserisci vista calendario"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Calendar view of article items"
 msgstr "Inserisci una vista calendario degli elementi dell'articolo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Card view of article items"
 msgstr "Inserisci una vista carte per gli elementi dell'articolo"
 
@@ -4105,7 +4041,7 @@ msgstr "Inserisci vista kanban"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Kanban view of article items"
 msgstr "Inserisci una vista kanban degli elementi dell'articolo"
 
@@ -4117,34 +4053,15 @@ msgstr "Inserisci vista elenco"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a List view of article items"
 msgstr "Inserisci visualizzazione a elenco degli elementi dell'articolo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Insert a Video"
-msgstr "Inserisci un video"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "Insert a drawing board"
-msgstr "Inserisci lavagna da disegno"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Insert an Article shortcut"
 msgstr "Inserisci scorciatoia articolo"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Insert an Excalidraw Board"
-msgstr "Inserisci lavagna Excalidraw"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4300,25 +4217,25 @@ msgstr "Elemento 4"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Calendar"
 msgstr "Elemento calendario"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Cards"
 msgstr "Carte elemento"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Kanban"
 msgstr "Elemento Kanban"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item List"
 msgstr "Elemento elenco"
 
@@ -4331,11 +4248,6 @@ msgstr "Fase elemento"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_calendar_items
 msgid "Items"
 msgstr "movimenti"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "JPG"
-msgstr "JPG"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -4360,13 +4272,13 @@ msgstr "Julius"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of %s"
 msgstr "Kanban di %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of Article Items"
 msgstr "Kanban degli elementi dell'articolo"
 
@@ -4389,7 +4301,7 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/external_embedded_view_favorite_menu/insert_embedded_view.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_root
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_technical
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
@@ -4405,12 +4317,6 @@ msgstr "Articolo Knowledge"
 #: model:ir.model,name:knowledge.model_knowledge_cover
 msgid "Knowledge Cover"
 msgstr "Copertina Knowledge"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Knowledge Databases"
-msgstr "Database Knowledge"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_invite
@@ -4500,34 +4406,39 @@ msgstr "Avvisa il tuo team leader in anticipo."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Link"
 msgstr "Collega"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Link an Article"
 msgstr "Collega un articolo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_link_plugin/embedded_view_link_plugin.js:0
 msgid "Link copied to clipboard."
 msgstr "Link copiato negli appunti."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of %s"
 msgstr "Elenco di %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of Article Items"
 msgstr "Elenco elementi articolo"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Load More Discussions"
+msgstr "Carica più discussioni"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4537,7 +4448,7 @@ msgstr "Carica modello"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Load a Template"
 msgstr "Carica un modello"
 
@@ -4599,6 +4510,12 @@ msgid "Mark Comment as Closed"
 msgstr "Segna commento come chiuso"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Mark the discussion as resolved"
+msgstr "Segna la discussione come risolta"
+
+#. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_marketing
 msgid "Marketing"
 msgstr "Marketing"
@@ -4608,12 +4525,6 @@ msgstr "Marketing"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "Marketing Campaign Brief"
 msgstr "Riassunto campagna di marketing"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Media"
-msgstr "Media"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar_meeting
@@ -4676,6 +4587,18 @@ msgid "Message Delivery error"
 msgstr "Errore di consegna messaggio"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copied!"
+msgstr "Link messaggio copiato!"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copy Failed (Permission denied?)!"
+msgstr "Copia link messaggio non riuscita (permesso negato?)!"
+
+#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_ids
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__message_ids
 msgid "Messages"
@@ -4686,12 +4609,6 @@ msgstr "Messaggi"
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 msgid "Missing Calendar configuration."
 msgstr "Configurazione calendario mancante."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "Missing File"
-msgstr "File mancante"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4797,7 +4714,7 @@ msgstr "Il mio nuovo elemento"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__name
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_tree
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree
@@ -4815,12 +4732,6 @@ msgstr "Stile naturale ☘ -"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Navigation Basics 🐣"
 msgstr "Concetti base della navigazione 🐣"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
-msgid "Nest articles under this one to generate a structure"
-msgstr "Collega articoli per creare una struttura"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4923,6 +4834,12 @@ msgid "No article found."
 msgstr "Nessun articolo trovato."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/core/article_index/readonly_article_index.xml:0
+msgid "No article to display"
+msgstr "Nessun articolo da mostrare"
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "No article yet."
 msgstr "Ancora nessun articolo."
@@ -4940,7 +4857,7 @@ msgstr "Ancora nessun modello!"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Nothing going on!"
 msgstr "Niente da leggere!"
 
@@ -4993,24 +4910,9 @@ msgid "Odoo Experience 🎉"
 msgstr "Odoo Experience 🎉"
 
 #. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Odoo Logo"
-msgstr "Logo Odoo"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Odoo Survival Guide"
-msgstr "Guida di sopravvivenza Odoo"
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Odoo: Manage your SME online"
 msgstr "Odoo: gestisci la tua azienda online"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Onboarding.pdf"
-msgstr "Onboarding.pdf"
 
 #. module: knowledge
 #. odoo-python
@@ -5018,12 +4920,6 @@ msgstr "Onboarding.pdf"
 #: model:knowledge.article.stage,name:knowledge.knowledge_article_template_stage_ongoing
 msgid "Ongoing"
 msgstr "In corso"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
-msgid "Only Internal Users can access this view."
-msgstr "Solo gli utenti interni possono accedere a questa vista."
 
 #. module: knowledge
 #. odoo-python
@@ -5063,16 +4959,6 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid ""
-"Oops, the file %s could not be found. Please replace this file box by a new "
-"one to re-upload the file."
-msgstr ""
-"Ops, non è stato possibile trovare il file %s. Sostituisci il box del file "
-"con un altro e carica di nuovo il file."
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 msgid "Oops, there's nothing here. Try another search."
 msgstr "Ops, non c'è nulla qui. Prova con una nuova ricerca."
@@ -5087,9 +4973,9 @@ msgstr "Apri"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_plugin.js:0
-msgid "Open Video"
-msgstr "Apri video"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Open Discussions"
+msgstr "Apri discussioni"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5102,12 +4988,6 @@ msgstr "Apri sezione commenti"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 msgid "Open history"
 msgstr "Apri cronologia"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "Open in new Window"
-msgstr "Apri in nuova finestra"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5281,7 +5161,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Preview"
 msgstr "Anteprima"
 
@@ -5344,7 +5224,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Primary"
 msgstr "Primario"
 
@@ -5434,22 +5314,16 @@ msgid "Ratings"
 msgstr "Valutazioni"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Re-open the discussion"
+msgstr "Apri di nuovo la discussione"
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Read"
 msgstr "Leggi"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Read Less"
-msgstr "Leggi meno"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Read More"
-msgstr "Leggi di più"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__partner_ids
@@ -5463,7 +5337,7 @@ msgstr "Soluzione"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Refresh"
 msgstr "Aggiorna"
 
@@ -5492,13 +5366,13 @@ msgstr "Elimina copertina"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
-#: code:addons/knowledge/static/src/emoji_picker/emoji_picker_patch.xml:0
+#: code:addons/knowledge/static/src/mail/emoji_picker/emoji_picker_patch.xml:0
 msgid "Remove Icon"
 msgstr "Elimina icona"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Remove Link"
 msgstr "Elimina collegamento"
 
@@ -5529,12 +5403,6 @@ msgstr "Rinomina"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Reopen the Thread"
-msgstr "Riapri thread"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 msgid "Replace"
 msgstr "Sostituisci"
@@ -5544,12 +5412,6 @@ msgstr "Sostituisci"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 msgid "Replace cover"
 msgstr "Sostituisci copertina"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Reply"
-msgstr "Rispondi"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5565,15 +5427,9 @@ msgstr "Riposiziona copertina"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Resolve the Thread"
-msgstr "Risolvi thread"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Resolved Comments"
-msgstr "Commenti con risposta"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Resolved Discussions"
+msgstr "Discussioni risolte"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_user_id
@@ -5656,8 +5512,8 @@ msgstr "Strategie di vendita"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Save"
 msgstr "Salva"
 
@@ -5730,7 +5586,7 @@ msgstr "Risultati di ricerca"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Secondary"
 msgstr "Secondario"
 
@@ -5758,8 +5614,8 @@ msgstr "Seleziona un articolo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Send as Message"
 msgstr "Invia come messaggio"
 
@@ -5806,15 +5662,22 @@ msgstr "Elenco to-do condiviso"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show All"
 msgstr "Mostra tutto"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show Less"
 msgstr "Mostra di meno"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+msgid "Show More"
+msgstr "Mostra di più"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5830,7 +5693,7 @@ msgstr "Mostrare fine settimana?"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Show nested articles"
 msgstr "Mostra articoli annidati"
 
@@ -5912,8 +5775,7 @@ msgstr "Alcuni articoli sono stati inviati al cestino"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "Something went wrong!"
 msgstr "Qualcosa è andato storto!"
 
@@ -5921,14 +5783,6 @@ msgstr "Qualcosa è andato storto!"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Sonya"
 msgstr "Sonya"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid ""
-"Sorry, we could not find your drawing, please verify that the URL is valid."
-msgstr ""
-"Non è stato possibile trovare il tuo disegno, verifica la validità dell'URL."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -6036,7 +5890,7 @@ msgstr "Inizia a scrivere"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid ""
 "Start typing to continue with an empty page or pick an option below to get "
 "started."
@@ -6074,15 +5928,9 @@ msgstr "Data fine"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Switch Mode"
 msgstr "Cambia modalità"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Table Of Content"
-msgstr "Indice"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -6201,12 +6049,6 @@ msgid "The Article you are trying to access has been deleted"
 msgstr "L'articolo a cui sta cercando di accedere è stato eliminato"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "The Excalidraw URL is not valid."
-msgstr "L'URL Excalidraw non è valido."
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "The Future Entrepreneurship Fair"
 msgstr "La fiera per il futuro dell'imprenditoria"
@@ -6221,7 +6063,6 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 msgid ""
 "The article you are trying to open has either been removed or is "
@@ -6310,7 +6151,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "The view does not exist or you are not allowed to access to it."
 msgstr "La vista non esiste o non hai l'autorizzazione per accedervi."
 
@@ -6452,7 +6293,7 @@ msgstr "Tentativo di rimozione del membro sbagliato."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Type"
 msgstr "Scrivi"
 
@@ -6475,12 +6316,6 @@ msgid "Unlock"
 msgstr "Sblocca"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Unresolved Comments"
-msgstr "Commenti senza risposta"
-
-#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Unsupported search operation"
@@ -6492,6 +6327,7 @@ msgstr "Operazione di ricerca non supportata"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #: code:addons/knowledge/static/src/components/hierarchy/hierarchy.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
+#: code:addons/knowledge/static/src/editor/html_migrations/migration-1.0.js:0
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_hierarchy
@@ -6501,15 +6337,9 @@ msgstr "Senza titolo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Update"
 msgstr "Aggiorna"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Upload a file"
-msgstr "Carica un file"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6518,13 +6348,13 @@ msgstr "Utilizzo"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.js:0
 msgid "Use as %s"
 msgstr "Utilizza come %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Use as Attachment"
 msgstr "Usa come allegato"
 
@@ -6590,18 +6420,6 @@ msgstr "Autorizzazione utente"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "VersionName - ReleaseDate"
 msgstr "Nome versione - Data di rilascio"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Video"
-msgstr "Video"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Video player"
-msgstr "Lettore video"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6799,7 +6617,7 @@ msgstr "Scrivi"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Write an article about"
 msgstr "Scrivi un articolo riguardo"
 
@@ -6836,6 +6654,12 @@ msgid "You are not allowed to create a new template."
 msgstr "Non ti è consentito creare un nuovo modello."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to delete a favorite filter in this article."
+msgstr "Non puoi eliminare un filtro preferito in questo articolo."
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to delete a template."
@@ -6863,6 +6687,12 @@ msgid "You are not allowed to move '%(article_name)s'."
 msgstr "Non ti è permesso spostare l'articolo \"%(article_name)s\"."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to save a favorite filter in this article."
+msgstr "Non puoi salvare un filtro preferito in questo articolo."
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to update a template."
@@ -6873,18 +6703,6 @@ msgstr "Non ti è consentito aggiornare un modello."
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to update the type of a article or a template."
 msgstr "Non ti è consentito aggiornare il tipo di articolo o un modello."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not delete favorite from this article"
-msgstr "Non è possibile eliminare il preferito da questo articolo"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not save favorite on this article"
-msgstr "Non è possibile salvare il preferito su questo articolo"
 
 #. module: knowledge
 #. odoo-javascript
@@ -7042,12 +6860,6 @@ msgid "Your Access: %s"
 msgstr "Il tuo accesso: %s"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Your browser does not support iframe."
-msgstr "Il tuo browser non supporta iframe."
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid ""
 "Your car can be driven by <strong>you, your spouse and by any person living "
@@ -7075,7 +6887,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "all"
 msgstr "tutto"
 
@@ -7097,7 +6909,7 @@ msgstr "è stato inviato al cestino.<br/><br/>"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "button to add comments"
 msgstr "pulsante per aggiungere commenti"
 
@@ -7136,12 +6948,6 @@ msgid "e.g. Todos"
 msgstr "ad es. Lista delle cose da fare"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "e.g. https://link.excalidraw.com/..."
-msgstr "ad es. https://link.excalidraw.com/..."
-
-#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "has"
 msgstr "ha"
@@ -7163,17 +6969,12 @@ msgstr "ti ha invitato ad accedere ad un articolo.<br/>"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
+#: code:addons/knowledge/static/src/components/with_lazy_loading/with_lazy_loading.xml:0
 msgid "loader"
 msgstr "caricamento"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "logo.jpg"
-msgstr "logo.jpg"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_mail_notification_layout
@@ -7191,23 +6992,13 @@ msgid "or"
 msgstr "oppure"
 
 #. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "pdf"
-msgstr "pdf"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "png"
-msgstr "png"
-
-#. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__read
 msgid "read"
 msgstr "legge"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "resolved"
 msgstr "risolto"
 
@@ -7229,15 +7020,9 @@ msgstr "per scoprire il potere di Knowledge!"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "unresolved"
 msgstr "non risolto"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "untitled"
-msgstr "senza titolo"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__write
@@ -7309,6 +7094,21 @@ msgid "🎯 Target Audience"
 msgstr "🎯 Pubblico target"
 
 #. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏘️ House Model - Incanto"
+msgstr "🏘️ Modello casa - Incanto"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏠 House Model - Cielo"
+msgstr "🏠 Modello casa - Cielo"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏢 House Model - Serenità"
+msgstr "🏢 Modello casa - Serenità"
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "📊 KPIs"
 msgstr "📊 KPI"
@@ -7354,6 +7154,11 @@ msgstr "🙌🏼 Decisioni prese"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "🚀 Objective"
 msgstr "🚀 Obiettivi"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🛕 House Model - Dolcezza"
+msgstr "🛕 Modello casa - Dolcezza"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification

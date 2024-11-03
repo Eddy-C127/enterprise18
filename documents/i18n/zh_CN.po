@@ -6,14 +6,17 @@
 # Tiffany Chang, 2024
 # 稀饭~~ <wangwhai@qq.com>, 2024
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Chloe Wang, 2024
+# Raymond Yu <cl_yu@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,13 +28,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid " (%s locked)"
-msgstr ""
+msgstr "(%s已锁定 )"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid " Perhaps you mean to use the pin action."
-msgstr ""
+msgstr "也许您的意思是使用固定动作。"
 
 #. module: documents
 #. odoo-python
@@ -55,13 +58,13 @@ msgstr "%s 文件"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "%s Folders"
-msgstr ""
+msgstr "%s文件夹"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/document_count_field.js:0
 msgid "%s documents"
-msgstr ""
+msgstr "%s文件"
 
 #. module: documents
 #. odoo-javascript
@@ -85,7 +88,7 @@ msgstr "%s页已删除"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "%s shared with you"
-msgstr ""
+msgstr "%s与您分享"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -105,19 +108,19 @@ msgstr ".<br/>"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "1 File"
-msgstr ""
+msgstr "1 文件"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "1 Folder"
-msgstr ""
+msgstr "1 文件夹"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/document_count_field.js:0
 msgid "1 document"
-msgstr ""
+msgstr "1 文件"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_previous
@@ -127,7 +130,7 @@ msgstr "2023年"
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_current
 msgid "2024"
-msgstr "2024"
+msgstr "2024年"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -144,7 +147,7 @@ msgstr "<b>取消选择此页面</b>，因为我们计划先处理所有账单�
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 msgid "<b>Select</b> this page to continue."
-msgstr "选择此页继续"
+msgstr "<b>选择</b>此页继续"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_page_layout
@@ -154,17 +157,17 @@ msgstr "<br/> 技术提供"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "<i class=\"fa fa-download fa-fw\"/> Download All"
-msgstr ""
+msgstr "<i class=\"fa fa-download fa-fw\"/> 全部下载"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
 msgid "<i class=\"fa fa-download fa-fw\"/> Download file"
-msgstr ""
+msgstr "<i class=\"fa fa-download fa-fw\"/> 下载文件"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "<i class=\"fa fa-external-link me-1\" title=\"This is a shortcut\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-external-link me-1\" title=\"这是一个快捷方式 \"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
@@ -184,21 +187,21 @@ msgstr "<i class=\"fa fa-upload\"/>  上传"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
 msgid "<i class=\"fa fa-upload\"/> Replace file"
-msgstr ""
+msgstr "<i class=\"fa fa-upload\"/> 替换文件"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid ""
 "<i class=\"me-1 fa fa-external-link text-gray-500\" title=\"This is a "
 "shortcut\"/>"
-msgstr ""
+msgstr "<i class=\"me-1 fa fa-external-link text-gray-500\" title=\"这是一个快捷方式\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid ""
 "<i class=\"me-1 fa fa-eye-slash text-gray-500\" title=\"Except for members, "
 "only discoverable the first time by clicking on the url\"/>"
-msgstr ""
+msgstr "<i class=\"me-1 fa fa-eye-slash text-gray-500\" title=\"除会员外，只能通过首次点击网址发现\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_document_res_partner_view
@@ -228,7 +231,7 @@ msgstr "<span><b>请求</b></span>"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "<span><b>Requested Document</b></span>"
-msgstr "<span><b>请求的文档</b></span>"
+msgstr "<span><b>请求的文件</b></span>"
 
 #. module: documents
 #: model:mail.template,body_html:documents.mail_template_document_request
@@ -331,6 +334,103 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                    <tbody>\n"
+"                        <!-- HEADER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\">\n"
+"                                        <span style=\"font-size: 10px;\">\n"
+"                                            文件请求：<br>\n"
+"                                            <t t-if=\"object.name\">\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">收件箱财务</span>\n"
+"                                            </t>\n"
+"                                        </span><br>\n"
+"                                    </td><td valign=\"middle\" align=\"right\" t-if=\"not object.create_uid.company_id.uses_default_logo\">\n"
+"                                        <img t-attf-src=\"/logo.png?company={{ object.create_uid.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.create_uid.company_id.name\">\n"
+"                                    </td></tr>\n"
+"                                    <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- CONTENT -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                        <div>\n"
+"                                            <t t-out=\"object.owner_id.name or ''\">OdooBot</t> 您好！\n"
+"                                            <br><br>\n"
+"                                            <t t-out=\"object.create_uid.name or ''\">OdooBot</t>（<t t-out=\"object.create_uid.email or ''\">odoobot@example.com</t>）要求您提供以下文件：\n"
+"                                            <br><br>\n"
+"                                            <center>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.name\">\n"
+"                                                        <b t-out=\"object.name or ''\">收件箱财务</b>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.request_activity_id.note\">\n"
+"                                                        <i t-out=\"object.request_activity_id.note or ''\">备注示例文字。</i>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <br>\n"
+"                                                <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                    <a t-att-href=\"object.access_url\" style=\"background-color: #875A7B; padding: 20px 30px 20px 30px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                        上传要求的文件\n"
+"                                                    </a>\n"
+"                                                </div>\n"
+"                                            </center><br>\n"
+"                                            请在 <t t-out=\"object.request_activity_id.date_deadline\">2021-05-17</t> 之前，向我们提供缺漏的文件。\n"
+"                                            <t t-if=\"user and user.signature\">\n"
+"                                                <br>\n"
+"                                                <t t-out=\"user.signature or ''\">--<br>Mitchell Admin</t>\n"
+"                                                <br>\n"
+"                                            </t>\n"
+"                                        </div>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- FOOTER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\" align=\"left\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.name or ''\">YourCompany</t>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.email\">\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                                        </t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.website\">\n"
+"                                            | <a t-attf-href=\"'%s' % {{ object.create_uid.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website or ''\">http://www.example.com</a>\n"
+"                                        </t>\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                    </table>\n"
+"                    </td></tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                          <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"                            由 <a target=\"_blank\" href=\"https://www.odoo.com/app/documents\" style=\"color: #875A7B;\">Odoo 文件管理</a> 驱动\n"
+"                          </td></tr>\n"
+"                        </table>\n"
+"                    </td></tr>\n"
+"                </table>\n"
+"            "
 
 #. module: documents
 #: model:mail.template,body_html:documents.mail_template_document_request_reminder
@@ -435,6 +535,105 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                    <tbody>\n"
+"                        <!-- HEADER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\">\n"
+"                                        <span style=\"font-size: 10px;\">\n"
+"                                            文件请求：<br>\n"
+"                                            <t t-if=\"object.name\">\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">收件箱财务</span>\n"
+"                                            </t>\n"
+"                                        </span><br>\n"
+"                                    </td><td valign=\"middle\" align=\"right\">\n"
+"                                        <img t-attf-src=\"/logo.png?company={{ object.create_uid.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.create_uid.company_id.name\">\n"
+"                                    </td></tr>\n"
+"                                    <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- CONTENT -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                        <div>\n"
+"                                            <t t-out=\"object.owner_id.name or ''\">OdooBot</t> 您好！\n"
+"                                            <br><br>\n"
+"                                            温馨提醒，请上传要求的文件：\n"
+"                                            <br><br>\n"
+"                                            <center>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.name\">\n"
+"                                                        <b t-out=\"object.name or ''\">收件箱财务</b>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.request_activity_id.note\">\n"
+"                                                        <i t-out=\"object.request_activity_id.note or ''\">备注示例文字。</i>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <br>\n"
+"                                                <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                    <a t-att-href=\"object.access_url\" style=\"background-color: #875A7B; padding: 20px 30px 20px 30px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                        上传要求的文件\n"
+"                                                    </a>\n"
+"                                                </div>\n"
+"                                            </center><br>\n"
+"                                            请在 <t t-out=\"object.request_activity_id.date_deadline or ''\">2021-05-17</t> 之前，向我们提供缺漏的文件。\n"
+"                                            <br><br>\n"
+"                                            谢谢。\n"
+"                                            <t t-if=\"user and user.signature\">\n"
+"                                                <br>\n"
+"                                                <t t-out=\"user.signature\">--<br>Mitchell Admin</t>\n"
+"                                                <br>\n"
+"                                            </t>\n"
+"                                        </div>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- FOOTER -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\" align=\"left\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.name or ''\">YourCompany</t>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.email\">\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email\">info@yourcompany.com</a>\n"
+"                                        </t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.website\">\n"
+"                                            | <a t-att-href=\"object.create_uid.company_id.website\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website\">http://www.example.com</a>\n"
+"                                        </t>\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                    </table>\n"
+"                    </td></tr>\n"
+"                    <!-- POWERED BY -->\n"
+"                    <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                          <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"                            由 <a target=\"_blank\" href=\"https://www.odoo.com/app/documents\" style=\"color: #875A7B;\">Odoo 文件管理</a> 驱动\n"
+"                          </td></tr>\n"
+"                        </table>\n"
+"                    </td></tr>\n"
+"                </table>\n"
+"            "
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_defaults
@@ -447,17 +646,17 @@ msgstr "为该别名创建新记录时，将对其进行评估以提供默认值
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "A destination is required when creating multiple shortcuts at once."
-msgstr ""
+msgstr "同时创建多个快捷方式时需要目的地。"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_folder_id_not_id
 msgid "A folder cannot be included in itself"
-msgstr ""
+msgstr "文件夹本身不能包括在内"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_shortcut_document_id_not_id
 msgid "A shortcut cannot point to itself"
-msgstr ""
+msgstr "快捷方式不能指向自身"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -479,29 +678,29 @@ msgstr "访问令牌"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.portal_my_home_documents
 msgid "Access all your documents"
-msgstr ""
+msgstr "访问您的所有文件"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_access.py:0
 msgid "Access documents and partners cannot be changed."
-msgstr ""
+msgstr "访问文件和业务伙伴不可更改。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Access to a folder or a document"
-msgstr ""
+msgstr "访问文件夹或文件"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_document_token_unique
 msgid "Access tokens already used."
-msgstr ""
+msgstr "访问令牌已使用"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_url
 msgid "Access url"
-msgstr ""
+msgstr "访问URL"
 
 #. module: documents
 #. odoo-javascript
@@ -519,7 +718,7 @@ msgstr "所需操作"
 #: model:ir.model.fields,field_description:documents.field_documents_document__active
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_new_folder
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__activity_ids
@@ -571,7 +770,7 @@ msgid ""
 "                    (e.g. \"NDA signature process\", \"Workspace workflow\", ...)"
 msgstr ""
 "只需点击几下，活动计划就可用于分配活动列表\n"
-"                    （例如，“NDA 签名流程”、“工作区工作流程”等）"
+"                    （例如：“NDA 签名流程”、“工作区工作流程”等）"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_type_id
@@ -593,17 +792,17 @@ msgstr "添加文件"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_folder_form
 msgid "Add Folder"
-msgstr ""
+msgstr "添加文件夹"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_bill
 msgid "Add Tag Bill"
-msgstr ""
+msgstr "添加账单标签"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "添加已验证标签"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_url_form
@@ -626,13 +825,13 @@ msgstr "添加人员或电子邮件地址…"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Add people or email addresses:"
-msgstr ""
+msgstr "添加人员或电子邮件地址："
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_shortcut.js:0
 msgid "Add shortcut"
-msgstr ""
+msgstr "添加快捷方式"
 
 #. module: documents
 #. odoo-javascript
@@ -664,7 +863,7 @@ msgstr "别名"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_contact
 msgid "Alias Contact Security"
-msgstr "安全联系人别名"
+msgstr "别名授权于"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_domain_id
@@ -694,7 +893,7 @@ msgstr "别名状态"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
-msgstr ""
+msgstr "别名标记"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_status
@@ -723,13 +922,13 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_ids
 msgid "Allowed Access"
-msgstr ""
+msgstr "允许访问"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Already linked Documents: %s"
-msgstr ""
+msgstr "已经链接的文档：%s"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -759,7 +958,7 @@ msgstr "上传时发生错误。"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can %(action)s"
-msgstr ""
+msgstr "互联网上任何拥有该链接的人都可以%(action)s"
 
 #. module: documents
 #. odoo-javascript
@@ -819,7 +1018,7 @@ msgstr "附件"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__description
@@ -839,7 +1038,7 @@ msgstr "附件类型"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__available_embedded_actions_ids
 msgid "Available Embedded Actions"
-msgstr ""
+msgstr "可用的嵌入操作"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_bill
@@ -912,7 +1111,7 @@ msgstr "单击<b>页面分隔符</b>：我们不想拆分这两个页面，因�
 #. odoo-javascript
 #: code:addons/documents/static/src/js/tours/documents.js:0
 msgid "Click the cross to <b>exit preview</b>."
-msgstr "按一下交叉图示，以<b>离开预览</b>。"
+msgstr "点击交叉图示，以<b>离开预览</b>。"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__client_generated
@@ -995,7 +1194,7 @@ msgstr "复制链接"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Copy Links"
-msgstr ""
+msgstr "复制链接"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_create_activity
@@ -1006,7 +1205,7 @@ msgstr "创建活动"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Create Shortcut"
-msgstr ""
+msgstr "创建快捷方式"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
@@ -1022,13 +1221,13 @@ msgstr "创建新‎‎活动"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Create and edit new contact \""
-msgstr ""
+msgstr "创建和编辑新联系人“"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Create new contact \""
-msgstr ""
+msgstr "创建新联系人”"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_uid
@@ -1121,7 +1320,7 @@ msgstr "已弃用"
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_details.js:0
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Details"
-msgstr "细节"
+msgstr "详情"
 
 #. module: documents
 #. odoo-javascript
@@ -1163,19 +1362,19 @@ msgstr "单据"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_access
 msgid "Document / Partner"
-msgstr ""
+msgstr "文件/合作伙伴"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Internal"
-msgstr ""
+msgstr "内部的文件访问"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Link"
-msgstr ""
+msgstr "文件访问链接"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_count
@@ -1197,7 +1396,7 @@ msgstr "文档计划<br>"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "文件重定向"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1225,7 +1424,7 @@ msgstr "文档请求：提醒"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_token
 msgid "Document Token"
-msgstr ""
+msgstr "文件令牌"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -1236,7 +1435,7 @@ msgstr "文档预览"
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
 msgid "Document uploaded by %(user)s"
-msgstr ""
+msgstr "文件由%(user)s上传"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request
@@ -1280,7 +1479,7 @@ msgstr "文档创建混合"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Documents in the Trash cannot be shared"
-msgstr ""
+msgstr "回收站里的文件无法分享"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_unlink_mixin
@@ -1325,12 +1524,12 @@ msgstr "下载文件"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download folder as zip"
-msgstr ""
+msgstr "将文件夹下载为 zip"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download zip #{subfolder.name}"
-msgstr ""
+msgstr "下载zip文件 #{subfolder.name}"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_draft
@@ -1393,7 +1592,7 @@ msgstr "EMail别名"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
 msgid "Email Upload"
-msgstr ""
+msgstr "电子邮件上传"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
@@ -1408,7 +1607,7 @@ msgstr "电子邮件域名，例如 'odoo@example.com' 中的 'example.com'"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_alias_action
 msgid "Email links"
-msgstr ""
+msgstr "电子邮件链接"
 
 #. module: documents
 #. odoo-javascript
@@ -1450,7 +1649,7 @@ msgstr "费用"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__expiration_date
 msgid "Expiration"
-msgstr "到期"
+msgstr "到期日"
 
 #. module: documents
 #. odoo-javascript
@@ -1469,6 +1668,8 @@ msgid "Favorite of"
 msgstr "收藏"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__binary
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "File"
@@ -1559,6 +1760,7 @@ msgstr "聚焦上一页"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1571,7 +1773,7 @@ msgstr "文件夹"
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Folders"
-msgstr ""
+msgstr "文件夹"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_follower_ids
@@ -1603,12 +1805,12 @@ msgstr "通用"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "General access"
-msgstr ""
+msgstr "一般访问"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -1628,7 +1830,7 @@ msgstr "有消息"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Hide shortcuts"
-msgstr ""
+msgstr "隐藏快捷方式"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__previous_attachment_ids
@@ -1675,7 +1877,7 @@ msgid ""
 "If \"True\", only people given direct access to this document will be able "
 "to view it. If \"False\", access with the link also given to all who can "
 "access the parent folder."
-msgstr ""
+msgstr "如果 “True”，则只有直接访问此文档的人员才能查看它。如果为 “False”，则还向所有可以访问母文件夹的人提供链接访问。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction
@@ -1704,13 +1906,13 @@ msgstr "图像"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to delete folders used by other applications."
-msgstr ""
+msgstr "无法删除其他应用程序使用的文件夹。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
-msgstr ""
+msgstr "无法同时在多个文件上邀请合作伙伴。"
 
 #. module: documents
 #. odoo-python
@@ -1719,11 +1921,13 @@ msgid ""
 "Impossible to move the following items as this would create a recursive hierarchy:\n"
 "- %(documents)s"
 msgstr ""
+"无法移动以下项目，因为这会创建递归层次结构：\n"
+"- %(documents)s"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__restricted
 msgid "Inaccessible"
-msgstr ""
+msgstr "不可访问"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_inbox
@@ -1737,7 +1941,7 @@ msgstr "收件箱"
 msgid ""
 "Incorrect values. Use one of the following for the following fields: "
 "%(hints)s.)"
-msgstr ""
+msgstr "不正确的值。对以下字段使用以下选项之一：%(hints)s)"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__index_content
@@ -1753,31 +1957,31 @@ msgstr "内部用户"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_internal
 msgid "Internal Users Rights"
-msgstr ""
+msgstr "内部用户权限"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can  %(action)s"
-msgstr ""
+msgstr "内部用户可以%(action)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid folder id"
-msgstr ""
+msgstr "无效文件夹ID"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
-msgstr ""
+msgstr "无效操作"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid role."
-msgstr ""
+msgstr "无效角色。"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_editable_attachment
@@ -1805,7 +2009,7 @@ msgstr "为多页"
 msgid ""
 "It is not possible to move archived documents or documents to archived "
 "folders."
-msgstr ""
+msgstr "无法将存档文件或文件移动到存档文件夹。"
 
 #. module: documents
 #. odoo-python
@@ -1814,6 +2018,8 @@ msgid ""
 "Item(s) you wish to restore are included in archived folders. To restore these items, you must restore the following including folders instead:\n"
 "- %(folders_list)s"
 msgstr ""
+"您要还原的项目包含在存档文件夹中。要还原这些项目，必须还原以下文件夹：\n"
+"- %(folders_list)s"
 
 #. module: documents
 #. odoo-python
@@ -1831,7 +2037,7 @@ msgstr "移至垃圾箱的项目将在 %s 天后被永久删除。"
 #: model:ir.model.fields,field_description:documents.field_documents_access__last_access_date
 #: model:ir.model.fields,field_description:documents.field_documents_document__last_access_date_group
 msgid "Last Accessed On"
-msgstr ""
+msgstr "最后访问时间"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__write_uid
@@ -1885,6 +2091,7 @@ msgstr "让我们把这封邮件标记为法律<br/> <i>提示：根据工作空
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
 msgid "Link"
 msgstr "链接"
@@ -1892,12 +2099,12 @@ msgstr "链接"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_access_via_link_hidden
 msgid "Link Access Hidden"
-msgstr ""
+msgstr "链接访问隐藏"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_via_link
 msgid "Link Access Rights"
-msgstr ""
+msgstr "链接访问权限"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url
@@ -1914,18 +2121,18 @@ msgstr "链接被复制到剪贴板!"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Link copied to the clipboard."
-msgstr ""
+msgstr "链接已复制到剪贴板。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Links copied to clipboard!"
-msgstr ""
+msgstr "链接已复制到剪贴板！"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_incoming_local
 msgid "Local-part based incoming detection"
-msgstr "基于本地部件的来件检测"
+msgstr "收件时检测本地的别名域"
 
 #. module: documents
 #. odoo-javascript
@@ -1963,18 +2170,18 @@ msgstr "注销"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Mail: %s"
-msgstr ""
+msgstr "邮件：%s"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
 msgid "Mark activities as completed"
-msgstr ""
+msgstr "将活动标记为已完成"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Merge PDFs"
-msgstr ""
+msgstr "合并PDF"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_note
@@ -1994,7 +2201,7 @@ msgstr "消息"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__mimetype
@@ -2005,7 +2212,7 @@ msgstr "MIME 类型"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Missing documents reference."
-msgstr ""
+msgstr "缺少参考文档。"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__model_id
@@ -2060,7 +2267,7 @@ msgstr "移动到垃圾箱"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Must have the link to access"
-msgstr ""
+msgstr "必须具有访问链接"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2081,12 +2288,12 @@ msgstr "我的文档"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "My Drive"
-msgstr ""
+msgstr "我的驱动器"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_role_or_last_access_date
 msgid "NULL roles must have a set last_access_date"
-msgstr ""
+msgstr "NULL 角色必须有一组 last_access_date"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__name
@@ -2117,7 +2324,7 @@ msgstr "新建文件"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "New Folder"
-msgstr ""
+msgstr "新文件夹"
 
 #. module: documents
 #. odoo-javascript
@@ -2166,13 +2373,13 @@ msgstr "尚未选择文档"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/chatter/documents_chatter_overlay.xml:0
 msgid "No item selected"
-msgstr ""
+msgstr "未选择项目"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "No one on the internet can access"
-msgstr ""
+msgstr "互联网上无人可以访问"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_alias_action
@@ -2196,7 +2403,7 @@ msgstr "不是文件"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Not a folder."
-msgstr ""
+msgstr "不是文件夹"
 
 #. module: documents
 #. odoo-python
@@ -2207,7 +2414,7 @@ msgstr "未连接"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_activity_note
 msgid "Note"
-msgstr "注释"
+msgstr "备注"
 
 #. module: documents
 #. odoo-javascript
@@ -2254,47 +2461,47 @@ msgstr "过时"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
-msgstr ""
+msgstr "只有文档管理员可以固定文件夹。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can set aliases."
-msgstr ""
+msgstr "只有文档管理员可以设置别名。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents managers can set an alias."
-msgstr ""
+msgstr "只有文档管理员才能设置别名。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only OdooBot-owned root folders can be pinned."
-msgstr ""
+msgstr "只能固定 OdooBot 拥有的根文件夹。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Only people with access can open with the link"
-msgstr ""
+msgstr "只有有权访问的人才能打开该链接"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open #{document_url.name}"
-msgstr ""
+msgstr "开启 #{document_url.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open folder #{subfolder.name}"
-msgstr ""
+msgstr "打开文件夹 #{subfolder.name}"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Open the permissions panel"
-msgstr ""
+msgstr "打开权限面板"
 
 #. module: documents
 #. odoo-python
@@ -2302,7 +2509,7 @@ msgstr ""
 msgid ""
 "Operation not supported. Please use \"Move to Trash\" / `action_archive` "
 "instead."
-msgstr ""
+msgstr "不支持操作。请改用 “移至垃圾箱”/“action_archive”。"
 
 #. module: documents
 #. odoo-python
@@ -2310,7 +2517,7 @@ msgstr ""
 msgid ""
 "Operation not supported. Please use \"Restore\" / `action_unarchive` "
 "instead."
-msgstr ""
+msgstr "不支持操作。请使用 “还原”/“action_unarchive ”。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_force_thread_id
@@ -2324,7 +2531,7 @@ msgstr "无论是否回复，所有的接收的邮件都将附上一条线索（
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.js:0
 msgid "Optional message..."
-msgstr ""
+msgstr "可选消息…"
 
 #. module: documents
 #. odoo-javascript
@@ -2354,12 +2561,12 @@ msgstr "拥有人: #{document.owner_id.name}"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{document_url.owner_id.name}"
-msgstr ""
+msgstr "所有者: #{document_url.owner_id.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{subfolder.owner_id.name}"
-msgstr ""
+msgstr "所有者: #{subfolder.owner_id.name}"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__folder_id
@@ -2374,7 +2581,7 @@ msgstr "上级模型"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__parent_path
 msgid "Parent Path"
-msgstr "父级路径"
+msgstr "上级路径"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_parent_thread_id
@@ -2406,7 +2613,7 @@ msgstr "合作伙伴"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "People with access"
-msgstr ""
+msgstr "有权限的人"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -2416,14 +2623,14 @@ msgstr "置顶"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_pinned_folder
 msgid "Pinned to Company roots"
-msgstr ""
+msgstr "置顶于公司根级资料册"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
 msgid ""
 "Please login or contact the person that shared this link for more "
 "information."
-msgstr ""
+msgstr "请登录或联系共享此链接的人员以获取更多信息。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_contact
@@ -2473,7 +2680,7 @@ msgstr "最近"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Recently accessed documents."
-msgstr ""
+msgstr "最近访问的文件。"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__resource_ref
@@ -2508,7 +2715,7 @@ msgstr "提醒上传文件{{ 对象.名称和 ' : ' + 对象.名称或 '' }}"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "Remove Access"
-msgstr ""
+msgstr "删除访问"
 
 #. module: documents
 #. odoo-javascript
@@ -2519,23 +2726,23 @@ msgstr "移除成员"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_inbox
 msgid "Remove Tag Inbox"
-msgstr ""
+msgstr "删除标签收件箱"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "移除标签以进行验证"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_tags
 msgid "Remove all tags"
-msgstr ""
+msgstr "删除所有标签"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_star.js:0
 msgid "Remove star"
-msgstr ""
+msgstr "删除星标"
 
 #. module: documents
 #. odoo-javascript
@@ -2594,7 +2801,7 @@ msgstr "要求提供的文件"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__requestee_partner_id
 msgid "Requestee Partner"
-msgstr ""
+msgstr "被请求业务伙伴"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_model_name
@@ -2652,7 +2859,7 @@ msgstr "限制的文件夹"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Revert changes"
-msgstr ""
+msgstr "还原变更"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__role
@@ -2681,13 +2888,13 @@ msgstr "保存"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid "Save or discard changes first"
-msgstr ""
+msgstr "先保存或放弃更改"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Saving..."
-msgstr ""
+msgstr "正在保存"
 
 #. module: documents
 #. odoo-javascript
@@ -2741,7 +2948,7 @@ msgstr "发送"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_send_to_finance
 msgid "Send To Finance"
-msgstr ""
+msgstr "发送给财务"
 
 #. module: documents
 #. odoo-javascript
@@ -2804,21 +3011,23 @@ msgstr "分享"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid "Share: %(documentName)s"
-msgstr ""
+msgstr "分享：%(documentName)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shared with me"
-msgstr ""
+msgstr "请与我分享"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Sharing..."
-msgstr ""
+msgstr "分享"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__shortcut_ids
 msgid "Shortcut"
 msgstr "快捷"
@@ -2827,32 +3036,32 @@ msgstr "快捷"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Shortcut created"
-msgstr ""
+msgstr "已创建快捷方式"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcut created in My Drive"
-msgstr ""
+msgstr "已创建在我的驱动器中的快捷方式"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Shortcuts can only be created one at a time."
-msgstr ""
+msgstr "快捷方式一次只能创建一个。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcuts cannot change target document."
-msgstr ""
+msgstr "快捷方式不能改变目标文件。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcuts cannot contain documents."
-msgstr ""
+msgstr "快捷方式不包含文件。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
@@ -2874,7 +3083,7 @@ msgstr "源单据"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Special folders cannot be shared"
-msgstr ""
+msgstr "特殊的文件夹不能分享"
 
 #. module: documents
 #. odoo-javascript
@@ -2951,7 +3160,7 @@ msgstr "标签名称"
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_tag_tag_name_unique
 msgid "Tag name already used"
-msgstr ""
+msgstr "标签名称已被使用"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.tag_action
@@ -2969,7 +3178,7 @@ msgstr "文本"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_tag__tooltip
 msgid "Text shown when hovering on this tag"
-msgstr ""
+msgstr "将鼠标悬停在此标签上时显示的文本"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_res_config_settings_check_deletion_delay
@@ -2981,13 +3190,13 @@ msgstr "删除延迟应为正值。"
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.js:0
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.xml:0
 msgid "The document URL has been copied to your clipboard."
-msgstr ""
+msgstr "文件URL已复制到剪贴板。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "The document has been moved."
-msgstr ""
+msgstr "该文件已被移除。"
 
 #. module: documents
 #. odoo-python
@@ -3015,7 +3224,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following shortcuts cannot be set as documents parents: \n"
-msgstr ""
+msgstr "以下快捷方式不能被设置为文件上级：\n"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_model_id
@@ -3024,14 +3233,14 @@ msgid ""
 " email that does not reply to an existing record will cause the creation of "
 "a new record of this model (e.g. a Project Task)"
 msgstr ""
-"相应于这个别名对应的模型(Odoo单据种类)。任何一封不属于对某个已存在的记录的到来邮件，将导致此模块中新记录的创建(例如，一个新的项目任务)。"
+"相应于这个别名对应的模型(Odoo单据种类)。任何一封不属于对某个已存在的记录的到来邮件，将导致此模块中新记录的创建(例如：一个新的项目任务)。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_name
 msgid ""
 "The name of the email alias, e.g. 'jobs' if you want to catch emails for "
 "<jobs@example.odoo.com>"
-msgstr "邮件别名的名称，例如，如果您要收取 <jobs@example.odoo.com> 的EMail,别名就要设为：\"jobs\""
+msgstr "邮件别名的名称，例如：如果您要收取 <jobs@example.odoo.com> 的EMail,别名就要设为：\"jobs\""
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__last_access_date_group__1_month
@@ -3047,7 +3256,7 @@ msgstr "本周"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This action does not exist."
-msgstr ""
+msgstr "这个动作不存在。"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_attachment_unique
@@ -3057,7 +3266,7 @@ msgstr "此附件已是文档"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
 msgid "This document does not exist or is not publicly available."
-msgstr ""
+msgstr "此文件不存在或未公开提供。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_request_page
@@ -3072,7 +3281,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This document has been restored."
-msgstr ""
+msgstr "此文件已恢复。"
 
 #. module: documents
 #. odoo-python
@@ -3085,25 +3294,25 @@ msgstr "该文件已被发送到垃圾箱，并将在 %s 上被永久删除。"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This folder does not exist."
-msgstr ""
+msgstr "此目录不存在。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "This is a shortcut"
-msgstr ""
+msgstr "这是一个快捷方式"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_unique_document_access_partner
 msgid "This partner is already set on this document."
-msgstr ""
+msgstr "该合作伙伴已在本文档中设置。"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
 msgid ""
 "Those represent the different categories of things you have to do (e.g. "
 "\"Call\" or \"Send email\")."
-msgstr "这些代表了你必须做的不同类别的事情（例如，\"打电话 \"或 \"发送电子邮件\"）"
+msgstr "这些代表了你必须做的不同类别的事情（例如：\"打电话 \"或 \"发送电子邮件\"）"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__thumbnail
@@ -3134,7 +3343,7 @@ msgstr "待验证"
 #. module: documents
 #: model:mail.activity.type,name:documents.mail_documents_activity_data_tv
 msgid "To validate"
-msgstr "‎来验证‎"
+msgstr "‎待核准‎"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__last_access_date_group__3_day
@@ -3203,7 +3412,7 @@ msgstr "URL预览图像"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Unavailable action."
-msgstr ""
+msgstr "无法执行的操作。"
 
 #. module: documents
 #. odoo-javascript
@@ -3257,7 +3466,7 @@ msgstr "用户"
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "User Access Role"
-msgstr ""
+msgstr "用户访问角色"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__user_permission
@@ -3323,7 +3532,7 @@ msgstr "您想如何处理剩余页面？"
 msgid ""
 "Wow... 6 documents processed in a few seconds, You're good.<br>The tour is "
 "complete. Try uploading your own documents now."
-msgstr ""
+msgstr "哇... 几秒钟内处理了 6 个文档。<br>浏览结束。现在尝试上传您自己的文档。"
 
 #. module: documents
 #. odoo-javascript
@@ -3335,43 +3544,49 @@ msgstr "您"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to (un)archive documents."
-msgstr ""
+msgstr "不允许（取消）归档文件。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to (un)pin folders"
-msgstr ""
+msgstr "不得固定（取消）文件夹"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to change ownerships of documents you do not own."
-msgstr ""
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You are not allowed to execute embedded actions."
-msgstr ""
+msgstr "不允许更改不属于您的文件的所有权。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to delete all these items."
-msgstr ""
+msgstr "您不能删除所有这些项目。"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to execute embedded actions."
+msgstr "不允许执行嵌入式操作。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to perform this operation."
-msgstr ""
+msgstr "不允许执行此操作。"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to pin/unpin embedded Actions."
+msgstr "不允许固定/取消固定嵌入的操作。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
-msgstr ""
+msgstr "不允许在此文件夹中写入内容。"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__attachment_type
@@ -3384,75 +3599,81 @@ msgstr "您可以从您的电脑上传一个文件或者复制/粘贴一个 Inte
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
-msgstr ""
+msgstr "您无法固定该文件夹的操作。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can not ping an action on that document."
-msgstr ""
+msgstr "您无法固定该文档的操作。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can not ping that type of action."
-msgstr ""
+msgstr "您无法固定此类操作。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid ""
 "You can not update the access of a shortcut, update its target instead."
-msgstr ""
+msgstr "您不能更新快捷方式的访问权限，只能更新其目标。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can't access that folder_id."
-msgstr ""
+msgstr "您无法访问 folder_id。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid ""
 "You can't create shortcuts in or move documents to this special folder."
-msgstr ""
+msgstr "您无法在此特殊文件夹中创建快捷方式，或将文档移动到此特殊文件夹。"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot change the owner of documents you do not own."
+msgstr "无法更改不属于您的文档的所有者。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_tag.py:0
 msgid "You cannot delete tags used in server actions."
-msgstr ""
+msgstr "您无法删除服务器操作中使用的标签。"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
-msgstr ""
+msgstr "您不能复制回收站中的文档。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "You cannot remove this partner"
-msgstr ""
+msgstr "您不能移除该合作伙伴"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "You cannot share multiple documents at the same time"
-msgstr ""
+msgstr "您不能同时共享多个文档"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You do not have sufficient access rights to delete these documents."
-msgstr ""
+msgstr "您没有足够的访问权限删除这些文件。"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "You don't have the rights to move documents to that folder."
-msgstr ""
+msgstr "您无权将文件移动到该文件夹。"
 
 #. module: documents
 #. odoo-javascript
@@ -3464,13 +3685,13 @@ msgstr "您必须在特定的可写工作区才能上传文件"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your Role: %s"
-msgstr ""
+msgstr "您的角色：%s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your individual space."
-msgstr ""
+msgstr "您的个人空间。"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
@@ -3480,7 +3701,7 @@ msgstr "别名"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "bytes"
-msgstr ""
+msgstr "字节"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
@@ -3501,7 +3722,7 @@ msgstr "文档"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "e.g. Discuss proposal"
-msgstr "例如.讨论提案"
+msgstr "例如：讨论提案"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_new_folder
@@ -3517,7 +3738,7 @@ msgstr "例如：缺失的费用"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_form
 msgid "e.g. To Validate"
-msgstr "例如，为了验证"
+msgstr "例如：为了验证"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_upload_url_view
@@ -3543,7 +3764,7 @@ msgstr "纸夹"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "folders,"
-msgstr ""
+msgstr "文件夹、"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__is_readonly_model
@@ -3554,12 +3775,12 @@ msgstr "is_readonly_model"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/chatter/documents_chatter_overlay.xml:0
 msgid "items selected"
-msgstr ""
+msgstr "所选项目"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "kiB"
-msgstr ""
+msgstr "千字节"
 
 #. module: documents
 #. odoo-javascript
@@ -3570,12 +3791,12 @@ msgstr "选择"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a document with you.<br/>"
-msgstr ""
+msgstr "与您分享了一份文件。<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a folder with you.<br/>"
-msgstr ""
+msgstr "与您分享了一个文件夹。<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -3585,12 +3806,12 @@ msgstr "分享者"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this document with you:"
-msgstr ""
+msgstr "与您分享这份文件："
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this folder with you:"
-msgstr ""
+msgstr "与您分享这个文件夹："
 
 #. module: documents
 #. odoo-javascript
@@ -3616,3 +3837,5 @@ msgid ""
 "•\n"
 "                                        <b>URL</b>"
 msgstr ""
+"•\n"
+"                                      <b>URL</b>"

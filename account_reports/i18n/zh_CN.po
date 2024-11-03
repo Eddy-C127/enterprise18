@@ -6,6 +6,7 @@
 # Wil Odoo, 2024
 # Chloe Wang, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Raymond Yu <cl_yu@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -306,12 +307,12 @@ msgstr "用于税务报告的科目报告处理程序"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_send
 msgid "Account Report Send"
-msgstr ""
+msgstr "账户报告发送"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_reports_show_per_company_setting
 msgid "Account Reports Show Per Company Setting"
-msgstr ""
+msgstr "账户报告按公司设置显示"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_partner__account_represented_company_ids
@@ -701,7 +702,7 @@ msgstr "资产负债表"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_balance_sheet_report_handler
 msgid "Balance Sheet Custom Handler"
-msgstr ""
+msgstr "资产负债表自处理程序"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
@@ -1073,7 +1074,7 @@ msgstr "配置设置"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Configure start dates"
-msgstr ""
+msgstr "配置开始日期"
 
 #. module: account_reports
 #. odoo-python
@@ -1085,7 +1086,7 @@ msgstr "配置税项科目—%s"
 #. odoo-python
 #: code:addons/account_reports/models/res_config_settings.py:0
 msgid "Configure your start dates"
-msgstr ""
+msgstr "配置您的开始日期"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1146,7 +1147,7 @@ msgstr "创建"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_create_composite_report_list
 msgid "Create Composite Report"
-msgstr ""
+msgstr "创建综合报告"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
@@ -1239,7 +1240,7 @@ msgstr "流动负债"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_1
 msgid "Current Year Retained Earnings"
-msgstr ""
+msgstr "本年度留存收益"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings0
@@ -1488,7 +1489,7 @@ msgstr "分录草稿"
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Due"
-msgstr "到期"
+msgstr "截止"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2048,7 +2049,7 @@ msgstr "在%s"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Inactive"
-msgstr "未启用的"
+msgstr "无效的"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3756,6 +3757,8 @@ msgid ""
 "This report uses report-specific code.\n"
 "                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
 msgstr ""
+"本报告使用特定的报告代码。\n"
+"                        您可以手动进行自定义，但对其计算参数的任何更改都可能导致错误。"
 
 #. module: account_reports
 #. odoo-javascript

@@ -1,39 +1,53 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* iot
-#
+# 
 # Translators:
-# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2022
-# Hrvoje Sić <hrvoje.sic@gmail.com>, 2022
-# Vladimir Olujić <olujic.vladimir@storm.hr>, 2022
-# Ivica Dimjašević <ivica.dimjasevic@storm.hr>, 2022
-# Karolina Tonković <karolina.tonkovic@storm.hr>, 2022
-# Bole <bole@dajmi5.com>, 2022
-# Vojislav Opačić <vojislav.opacic@gmail.com>, 2022
-# Martin Trigaux, 2022
-#
+# Martin Trigaux, 2024
+# Bole <bole@dajmi5.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
-"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: hr\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
-"0. Power on the IoT Box<br/><br/>\n"
+".\n"
 "\n"
-"                    <strong>A. Ethernet Connection</strong><br/>\n"
-"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box.<br/>\n"
-"                    2. Enter the code below and click on \"Pair\".<br/>"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Option A. Pairing Code</strong><br/>\n"
+"                    1. Read the pairing code from a display or thermal printer connected to the IoT Box. You can also find it on the IoT Box Homepage<br/>\n"
+"                    2. Enter the code below and click on \"Pair\".<br/>\n"
+"                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"0. Power on the IoT Box and connect it to the internet through ethernet"
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid ""
+"<br/>\n"
+"                    1. Copy the token below<br/>\n"
+"                    2. While on the same network as the IoT Box open a web browser and go to the IoT Box ip address<br/>\n"
+"                    3. In the \"Server\" section click on \"Configure\" button<br/>\n"
+"                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
+"                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
 msgstr ""
 
 #. module: iot
@@ -44,17 +58,6 @@ msgstr ""
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
 msgid "<span class=\"badge text-bg-success\">Connected</span>"
-msgstr ""
-
-#. module: iot
-#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
-msgid ""
-"<strong>B. WiFi Connection (or Ethernet Connection doesn't work)</strong><br/>\n"
-"                    1. Make sure no ethernet cable is connected to the IoT Box<br/>\n"
-"                    2. Copy the token that is below<br/>\n"
-"                    3. Connect to the IoT Box WiFi network (you should see it in your available WiFi networks)<br/>\n"
-"                    4. You will be redirected to the IoT Box Homepage<br/>\n"
-"                    5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>"
 msgstr ""
 
 #. module: iot
@@ -92,24 +95,24 @@ msgstr "Barkod čitač"
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__bluetooth
 msgid "Bluetooth"
-msgstr "Bluetooth"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__camera
 msgid "Camera"
-msgstr "Kamera"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+msgid "Check IoT Box connection. Try restarting if needed."
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/views/iot_device_form.js:0
 msgid "Check if the device is still connected"
-msgstr "Provjerite da li je uređaj još spojen"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/iot_report_action.js:0
-msgid "Check if the printer is still connected"
-msgstr "Provjerite da li je pisač još spojen"
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
@@ -126,13 +129,15 @@ msgstr ""
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
-msgid "Click on Proceed to .../Add Exception/Visit this website/Go on to the webpage"
+msgid ""
+"Click on Proceed to .../Add Exception/Visit this website/Go on to the "
+"webpage"
 msgstr ""
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "Click on the"
-msgstr "Kliknite na"
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
@@ -154,10 +159,15 @@ msgid "Company"
 msgstr "Tvrtka"
 
 #. module: iot
+#: model:ir.ui.menu,name:iot.view_iot_selected_printer_local_action
+msgid "Configuration"
+msgstr "Postavke"
+
+#. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_box_view_kanban
 #: model_terms:ir.ui.view,arch_db:iot.iot_box_view_list
 msgid "Connect"
-msgstr "Poveži"
+msgstr ""
 
 #. module: iot
 #: model:ir.actions.act_window,name:iot.action_add_iot_box
@@ -169,13 +179,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:iot.field_iot_device__connection
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "Connection"
-msgstr "Veza"
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.js:0
 msgid "Connection to IoT Box failed"
-msgstr "Greška u povezivanju s IoT Box-om"
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
@@ -185,8 +195,8 @@ msgstr ""
 
 #. module: iot
 #. odoo-javascript
-#: code:addons/iot/static/src/iot_report_action.js:0
-msgid "Connection to printer failed"
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+msgid "Connection to printer failed "
 msgstr ""
 
 #. module: iot
@@ -194,6 +204,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:iot.field_iot_box__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_device__create_uid
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__create_uid
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__create_uid
 msgid "Created by"
 msgstr "Kreirao"
 
@@ -202,24 +213,26 @@ msgstr "Kreirao"
 #: model:ir.model.fields,field_description:iot.field_iot_box__create_date
 #: model:ir.model.fields,field_description:iot.field_iot_device__create_date
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__create_date
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__create_date
 msgid "Created on"
 msgstr "Kreirano"
 
 #. module: iot
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__device_ids
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__device
 msgid "Device"
-msgstr "Uređaj"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__device_count
 #: model_terms:ir.ui.view,arch_db:iot.iot_box_view_kanban
 msgid "Device Count"
-msgstr "Broj uređaja"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "Device type"
-msgstr "Tip uređaja"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -233,7 +246,7 @@ msgstr ""
 #: model:ir.ui.menu,name:iot.iot_device_menu_action
 #: model_terms:ir.ui.view,arch_db:iot.iot_box_view_form
 msgid "Devices"
-msgstr "Uređaji"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__display
@@ -241,12 +254,18 @@ msgid "Display"
 msgstr "Prikaži"
 
 #. module: iot
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__display_device_ids
+msgid "Display Device"
+msgstr ""
+
+#. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__display_name
 #: model:ir.model.fields,field_description:iot.field_iot_box__display_name
 #: model:ir.model.fields,field_description:iot.field_iot_device__display_name
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__display_name
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__display_name
 msgid "Display Name"
-msgstr "Naziv"
+msgstr "Naziv za prikaz"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__display_url
@@ -269,6 +288,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_download_logs.xml:0
 msgid "Download logs"
+msgstr "Preuzmi logove"
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_report_action.js:0
+msgid "Failed to send to printer."
 msgstr ""
 
 #. module: iot
@@ -289,7 +314,7 @@ msgstr "Grupiraj po"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__hdmi
-msgid "Hdmi"
+msgid "HDMI"
 msgstr ""
 
 #. module: iot
@@ -297,18 +322,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:iot.field_iot_box__id
 #: model:ir.model.fields,field_description:iot.field_iot_device__id
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__id
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__id
 msgid "ID"
 msgstr "ID"
 
 #. module: iot
 #: model:ir.model,name:iot.model_iot_device
 msgid "IOT Device"
-msgstr "IOT Uređaj"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__identifier
 msgid "Identifier"
-msgstr "Identifikator"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__identifier
@@ -323,7 +349,8 @@ msgstr ""
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
-msgid "If you are on a secure server (HTTPS) check if you accepted the certificate:"
+msgid ""
+"If you are on a secure server (HTTPS) check if you accepted the certificate:"
 msgstr ""
 
 #. module: iot
@@ -341,7 +368,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:iot.field_iot_device__iot_id
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "IoT Box"
-msgstr "IoT Box"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__ip_url
@@ -355,26 +382,40 @@ msgid "IoT Boxes"
 msgstr ""
 
 #. module: iot
-#: model:ir.model.fields,field_description:iot.field_ir_actions_report__device_id
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_search
 msgid "IoT Device"
 msgstr ""
 
 #. module: iot
+#: model:ir.model.fields,field_description:iot.field_ir_actions_report__device_ids
+msgid "IoT Devices"
+msgstr ""
+
+#. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__is_scanner
 msgid "Is Scanner"
-msgstr "Je scaner"
+msgstr ""
+
+#. module: iot
+#: model:ir.model.fields,field_description:iot.field_iot_box__is_websocket_active
+msgid "Is Websocket active?"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__keyboard
 msgid "Keyboard"
-msgstr "Tipkovnica"
+msgstr ""
 
 #. module: iot
 #: model:ir.model,name:iot.model_iot_keyboard_layout
 #: model:ir.model.fields,field_description:iot.field_iot_device__keyboard_layout
 msgid "Keyboard Layout"
-msgstr "Raspored tipkovnice"
+msgstr ""
+
+#. module: iot
+#: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__label_printer
+msgid "Label Printer"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_form
@@ -386,6 +427,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:iot.field_iot_box__write_uid
 #: model:ir.model.fields,field_description:iot.field_iot_device__write_uid
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__write_uid
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__write_uid
 msgid "Last Updated by"
 msgstr "Promijenio"
 
@@ -394,8 +436,9 @@ msgstr "Promijenio"
 #: model:ir.model.fields,field_description:iot.field_iot_box__write_date
 #: model:ir.model.fields,field_description:iot.field_iot_device__write_date
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__write_date
+#: model:ir.model.fields,field_description:iot.field_select_printers_wizard__write_date
 msgid "Last Updated on"
-msgstr "Vrijeme promjene"
+msgstr "Promijenjeno"
 
 #. module: iot
 #. odoo-javascript
@@ -406,7 +449,7 @@ msgstr ""
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__layout
 msgid "Layout"
-msgstr "Izgled"
+msgstr "Raspored"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__manual_measurement
@@ -426,7 +469,7 @@ msgstr ""
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__manufacturer
 msgid "Manufacturer"
-msgstr "Proizvođač"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_box__name
@@ -438,11 +481,35 @@ msgstr "Naziv"
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__network
 msgid "Network"
-msgstr "Mreža"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+msgid "New IoT Box connected!"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "No IoT Box found!"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+msgid "No new IoT Box found."
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_wizard.js:0
+msgid "No printer selected"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+msgid "No report to display"
 msgstr ""
 
 #. module: iot
@@ -452,48 +519,73 @@ msgid "Odoo cannot reach the IoT Box."
 msgstr ""
 
 #. module: iot
+#: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__office_printer
+msgid "Office Printer"
+msgstr ""
+
+#. module: iot
+#. odoo-python
+#: code:addons/iot/models/ir_actions_report.py:0
+msgid ""
+"One of the printer used to print document have been removed. Please retry "
+"the operation to choose new printers to print."
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "Option B. Connection Token"
+msgstr ""
+
+#. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "Pair"
-msgstr "Upari"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__pairing_code
 msgid "Pairing Code"
-msgstr "Šifra za uparivanje"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__payment
 msgid "Payment Terminal"
-msgstr "Terminal za plaćanje"
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
-msgid "Please accept the certificate of your IoT Box (procedure depends on your browser):"
+msgid ""
+"Please accept the certificate of your IoT Box (procedure depends on your "
+"browser):"
 msgstr ""
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/iot_connection_error_dialog.xml:0
 msgid "Please check if the IoT Box is still connected."
-msgstr "Molimo provjerite je li IoT Box i dalje spojen."
+msgstr ""
+
+#. module: iot
+#. odoo-python
+#: code:addons/iot/wizard/add_iot_box.py:0
+msgid "Please enter a pairing code."
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
 #: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
 msgid "Please wait"
-msgstr "Molimo sačekajte"
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
+msgid "Print"
+msgstr "Ispis"
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__printer
 msgid "Printer"
-msgstr "Pisač"
-
-#. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/iot_report_action.js:0
-msgid "Printer "
-msgstr "Pisač"
+msgstr ""
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_form
@@ -501,8 +593,24 @@ msgid "Printer Reports"
 msgstr ""
 
 #. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
+msgid "Printers"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+msgid "Printing operation completed on printer %s"
+msgstr ""
+
+#. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
 msgid "Publisher Warranty Contract For IoT Box"
+msgstr ""
+
+#. module: iot
+#: model:ir.model.fields.selection,name:iot.selection__iot_device__subtype__receipt_printer
+msgid "Receipt Printer"
 msgstr ""
 
 #. module: iot
@@ -513,12 +621,26 @@ msgstr "Akcija izvještaja"
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.act_report_xml_view_tree_iot
 msgid "Report xml"
-msgstr "Xml izvješća"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__report_ids
+#: model:ir.ui.menu,name:iot.iot_settings_menu_action
 msgid "Reports"
-msgstr "Izvještaji"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+msgid "Reports with linked printers"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/client_action/delete_local_storage.xml:0
+#: model:ir.ui.menu,name:iot.iot_clear_selected_devices
+msgid "Reset Linked Printers"
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
@@ -539,9 +661,32 @@ msgid "Restarting"
 msgstr ""
 
 #. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_select_printers_wizard
+msgid "Sales Details"
+msgstr ""
+
+#. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__type__scale
 msgid "Scale"
-msgstr "Razmjer"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/select_printer_wizard.js:0
+msgid "Select at least one printer"
+msgstr ""
+
+#. module: iot
+#: model:ir.model,name:iot.model_select_printers_wizard
+msgid "Selection of printers"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/iot_report_action.js:0
+#: code:addons/iot/static/src/iot_websocket_service.js:0
+msgid "Sending to printer %s..."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -554,21 +699,37 @@ msgid "Status"
 msgstr "Status"
 
 #. module: iot
-#. odoo-javascript
-#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
-msgid "Success"
-msgstr "Uspjeh"
+#: model:ir.model.fields,field_description:iot.field_iot_device__subtype
+msgid "Subtype"
+msgstr ""
+
+#. module: iot
+#: model:ir.model.fields,help:iot.field_iot_device__subtype
+msgid "Subtype of device."
+msgstr ""
 
 #. module: iot
 #. odoo-javascript
-#: code:addons/iot/static/src/iot_report_action.js:0
-msgid "Successfully sent to printer!"
-msgstr "Uspješno poslano na pisač!"
+#: code:addons/iot/static/src/view_widgets/iot_restart_odoo.js:0
+msgid "Success"
+msgstr ""
+
+#. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.iot_box_view_form
+msgid "Technical Information"
+msgstr ""
+
+#. module: iot
+#: model:ir.model,name:iot.model_iot_channel
+msgid "The Websocket Iot Channel"
+msgstr ""
 
 #. module: iot
 #. odoo-python
 #: code:addons/iot/wizard/add_iot_box.py:0
-msgid "The pairing code you provided was not found in our system. Please check that you entered it correctly."
+msgid ""
+"The pairing code you provided was not found in our system. Please check that"
+" you entered it correctly."
 msgstr ""
 
 #. module: iot
@@ -590,7 +751,7 @@ msgstr ""
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__token
 msgid "Token"
-msgstr "Token"
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_device__type
@@ -600,27 +761,41 @@ msgstr "Vrsta"
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__connection
 msgid "Type of connection."
-msgstr "Tip konencije."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__type
 msgid "Type of device."
-msgstr "Tip uređaja."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,help:iot.field_iot_device__display_url
-msgid "URL of the page that will be displayed by the device, leave empty to use the customer facing display of the POS."
+msgid ""
+"URL of the page that will be displayed by the device, leave empty to use the"
+" customer facing display of the POS."
 msgstr ""
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__direct
 msgid "USB"
-msgstr "USB"
+msgstr ""
+
+#. module: iot
+#. odoo-python
+#: code:addons/iot/wizard/add_iot_box.py:0
+msgid "Using Pairing Code to connect..."
+msgstr ""
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_iot_keyboard_layout__variant
 msgid "Variant"
-msgstr "Inačica"
+msgstr ""
+
+#. module: iot
+#. odoo-javascript
+#: code:addons/iot/static/src/views/add_iot_box_form_controller.js:0
+msgid "Waiting for a new IoT Box..."
+msgstr ""
 
 #. module: iot
 #. odoo-python
@@ -629,8 +804,10 @@ msgid "We had troubles pairing your IoT Box. Please try again later."
 msgstr ""
 
 #. module: iot
-#: model:ir.model.fields,help:iot.field_ir_actions_report__device_id
-msgid "When setting a device here, the report will be printed through this device on the IoT Box"
+#: model:ir.model.fields,help:iot.field_ir_actions_report__device_ids
+msgid ""
+"When setting a device here, the report will be printed through this device "
+"on the IoT Box"
 msgstr ""
 
 #. module: iot
@@ -639,6 +816,21 @@ msgid "connect"
 msgstr ""
 
 #. module: iot
+#: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
+msgid "or wifi"
+msgstr ""
+
+#. module: iot
+#: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
+msgid "reset.linked.printers"
+msgstr ""
+
+#. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action
 msgid "to add an IoT Box."
 msgstr ""
+
+#. module: iot
+#: model:ir.model,name:iot.model_ir_websocket
+msgid "websocket message handling"
+msgstr "upravljanje porukama websocketa"

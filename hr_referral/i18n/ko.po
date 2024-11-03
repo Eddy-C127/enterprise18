@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -47,6 +47,9 @@ msgid ""
 "            <br/>\n"
 "            <br/>"
 msgstr ""
+",\n"
+"            <br/>\n"
+"            <br/>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_sms_template
@@ -74,6 +77,9 @@ msgid ""
 "            <br/>\n"
 "            Thanks!"
 msgstr ""
+"<br/>\n"
+"            <br/>\n"
+"            감사합니다,"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -82,6 +88,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"Send by Mail\">Send Email</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-envelope-o\" role=\"img\" aria-label=\"Send by Mail\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"메일로 전송\">메일로 전송</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -90,6 +99,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"More info\">Job Page</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-globe\" role=\"img\" aria-label=\"채용 페이지\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"자세한 정보\">채용 페이지</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -98,6 +110,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"Send by SMS\">Send SMS</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-mobile\" role=\"img\" aria-label=\"Send by SMS\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"SMS로 전송\">SMS로 전송</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
@@ -147,6 +162,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-facebook\" role=\"img\" aria-label=\"Share on facebook\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"페이스북에 공유\">\n"
+"                                        <i class=\"fa fa-lg fa-facebook\" role=\"img\" aria-label=\"페이스북에 공유\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -155,6 +173,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-linkedin\" role=\"img\" aria-label=\"Share on linkedin\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"링크드인에 공유\">\n"
+"                                        <i class=\"fa fa-lg fa-linkedin\" role=\"img\" aria-label=\"링크드인에 공유\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -163,6 +184,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-twitter\" role=\"img\" aria-label=\"Share on twitter\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"트위터에 공유\">\n"
+"                                        <i class=\"fa fa-lg fa-twitter\" role=\"img\" aria-label=\"트위터에 공유\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #. odoo-python
@@ -314,11 +338,6 @@ msgid "Cancel"
 msgstr "취소"
 
 #. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
-msgid "Candidates's Name"
-msgstr "지원자 이름"
-
-#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__channel
 msgid "Channel"
 msgstr "채널"
@@ -384,7 +403,7 @@ msgstr "설정"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_campaign_wizard__target
 msgid "Contacted Employees"
-msgstr ""
+msgstr "연락한 직원"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__cost
@@ -836,7 +855,7 @@ msgstr "직무"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_campaign_wizard.py:0
 msgid "Job Offer for a %(job_title)s at %(company_name)s"
-msgstr ""
+msgstr "%(company_name)s의 %(job_title)s에 대한 채용 공고입니다. "
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_job
@@ -1054,7 +1073,7 @@ msgstr "현재 공유할 수 있는 채용 정보가 없습니다."
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_campaign_wizard.py:0
 msgid "No users to send the campaign to. Please adapt your target."
-msgstr ""
+msgstr "캠페인을 보낼 수 있는 사용자가 없습니다. 대상을 조정하세요."
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_alert__onclick__no
@@ -1132,7 +1151,12 @@ msgstr "진행 중인 포지션"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_email_body_template
 msgid "Our company is hiring for a"
-msgstr ""
+msgstr "회사에서 직원을 채용하고 있습니다."
+
+#. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
+msgid "Partner Name"
+msgstr "협력사 이름"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1251,7 +1275,7 @@ msgstr "인재 추천"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral %(user)s: %(job_url)s"
-msgstr ""
+msgstr "추천 %(user)s: %(job_url)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_alert_mail_wizard
@@ -1273,18 +1297,18 @@ msgstr "추천 배경"
 #: model:ir.actions.server,name:hr_referral.action_hr_job_launch_referral_campaign
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_kanban_inherit_referral
 msgid "Referral Campaign"
-msgstr ""
+msgstr "추천 캠페인"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_campaign_wizard
 msgid "Referral Campaign Wizard"
-msgstr ""
+msgstr "추천 캠페인 마법사"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral Campaign for %(job)s"
-msgstr ""
+msgstr "%(job)s에 대한 추천 캠페인"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_link_to_share
@@ -1332,7 +1356,7 @@ msgstr "추천 링크: %s가 클립보드에 복사되었습니다."
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(name)s"
-msgstr ""
+msgstr "추천: %(name)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1344,7 +1368,7 @@ msgstr "추천인: %(partner)s (%(applicant)s)"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(url)s"
-msgstr ""
+msgstr "추천: %(url)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1451,7 +1475,7 @@ msgstr "채용 정보 보기"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_campaign_wizard_view_form
 msgid "Select employees"
-msgstr ""
+msgstr "직원 선택"
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_campaign_wizard__target__selection
@@ -1499,7 +1523,7 @@ msgstr "SMS 보내기"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_campaign_wizard__sending_method
 msgid "Sending Method"
-msgstr ""
+msgstr "전송 방법"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_onboarding__sequence
@@ -1649,6 +1673,8 @@ msgid ""
 "This job position is not published. \n"
 "                    The referral campaign will automatically publish it."
 msgstr ""
+"이 채용 공고가 게시되지 않았습니다.\n"
+"                    추천 캠페인에서 자동으로 게시됩니다."
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_link_to_share_view_form
@@ -1842,13 +1868,13 @@ msgstr "귀하는 다른 게 필요합니다"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Your referrer got a step further! %(message)s"
-msgstr ""
+msgstr "추천인이 한 단계 더 나아갔습니다! %(message)s"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Your referrer is hired! %(message)s"
-msgstr ""
+msgstr "추천인이 채용되었습니다! %(message)s"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -1878,7 +1904,7 @@ msgstr ""
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_sms_template
 msgid "is hiring for a position"
-msgstr ""
+msgstr "직책 채용 중"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_email_body_template

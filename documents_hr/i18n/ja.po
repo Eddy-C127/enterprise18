@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -34,7 +34,7 @@ msgid ""
 "            You'll find all your personal HR documents in this folder.<br><br>\n"
 "            Please keep this link secure.<br><br>\n"
 "            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
-"                <a t-attf-href=\"{{ object.sudo().documents_link_url }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                <a t-attf-href=\"{{ object._get_documents_link_url() }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
 "                    Your Documents\n"
 "                </a>\n"
 "            </div>\n"
@@ -44,21 +44,6 @@ msgid ""
 "    </tbody></table>\n"
 "                "
 msgstr ""
-"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
-"        <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
-"             <t t-esc=\"object.name\"></t>様、 あなた個人のドキュメントアクセスリンクの用意ができました。<br><br>\n"
-"            あなた個人の人事関連ドキュメントはこのフォルダに入っています。<br><br>\n"
-"            このリンクを安全に保管して下さい。<br><br>\n"
-"            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
-"                <a t-attf-href=\"{{ object.sudo().documents_link_url }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
-"                    あなたのドキュメント\n"
-"                </a>\n"
-"            </div>\n"
-"            宜しくお願い致します。<br>\n"
-"            人事チーム\n"
-"        </td></tr>\n"
-"    </tbody></table>\n"
-"                "
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_absences
@@ -158,7 +143,7 @@ msgstr "人事"
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
 msgid "My documents"
-msgstr ""
+msgstr "自分のドキュメント"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__private_email
@@ -212,7 +197,7 @@ msgstr "ワークスペース"
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 msgid "You can not send the documents link to the employee."
-msgstr ""
+msgstr "従業員にドキュメントリンクを送信することはできません。"
 
 #. module: documents_hr
 #. odoo-python

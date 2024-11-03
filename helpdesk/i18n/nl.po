@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Martin Trigaux, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -500,23 +501,23 @@ msgstr "<span class=\"o_stat_text\">Beoordeling</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Failed</span>"
-msgstr "<span class=\"text-muted\">Mislukt</span>"
+msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
+msgstr "<span class=\"text-muted text-nowrap\">Mislukt</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Open</span>"
-msgstr "<span class=\"text-muted\">Open</span>"
+msgid "<span class=\"text-muted text-nowrap\">Open</span>"
+msgstr "<span class=\"text-muted text-nowrap\">Open</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Unassigned</span>"
-msgstr "<span class=\"text-muted\">Niet toegewezen</span>"
+msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
+msgstr "<span class=\"text-muted text-nowrap\">Niet toegwezen</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Urgent</span>"
-msgstr "<span class=\"text-muted\">Urgent</span>"
+msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
+msgstr "<span class=\"text-muted text-nowrap\">Urgent</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -803,12 +804,6 @@ msgstr "Weet je zeker dat je door wilt gaan?"
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
 msgstr "Weet je zeker dat je deze fases wilt verwijderen?"
-
-#. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "Wijs het ticket toe aan een <b>lid van je team</b>."
 
 #. module: helpdesk
 #. odoo-python
@@ -2473,6 +2468,12 @@ msgid "Open Time (hours)"
 msgstr "Open tijd (uren)"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Open the ticket."
+msgstr "Open het ticket."
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -2516,7 +2517,7 @@ msgstr ""
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__partner_ticket_ids
 msgid "Partner Tickets"
-msgstr "Partnertickets"
+msgstr "Tickets"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__privacy_visibility
@@ -2976,6 +2977,12 @@ msgstr "Voorbeeld"
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Satisfied"
 msgstr "Tevreden"
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "Bewaar dit ticket en de wijzigingen die je hierop hebt gemaakt."
 
 #. module: helpdesk
 #. odoo-javascript

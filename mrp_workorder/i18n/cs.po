@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -223,7 +223,7 @@ msgstr "Binární soubor"
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 msgid "Block"
-msgstr "Blok"
+msgstr "Zablokovat výrobu"
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1028,6 +1028,7 @@ msgstr "Pozastavit"
 
 #. module: mrp_workorder
 #. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #: code:addons/mrp_workorder/static/src/mrp_display/search_model.js:0
 msgid "Pending"
 msgstr "Čeká"
@@ -1305,21 +1306,9 @@ msgstr "Výsledek"
 
 #. module: mrp_workorder
 #. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-msgid "STARTED work on workorder %s"
-msgstr ""
-
-#. module: mrp_workorder
-#. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-msgid "STOPPED work on workorder %s"
-msgstr ""
-
-#. module: mrp_workorder
-#. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 msgid "Scrap"
-msgstr "Vyřazení zásob"
+msgstr "Vyřazení materiálu"
 
 #. module: mrp_workorder
 #: model:ir.actions.act_window,name:mrp_workorder.action_open_employee_list

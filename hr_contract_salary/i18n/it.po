@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Marianna Ciofani, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
@@ -435,11 +435,6 @@ msgstr "Data di nascita"
 #: model:ir.model,name:hr_contract_salary.model_hr_candidate
 msgid "Candidate"
 msgstr "Candidato"
-
-#. module: hr_contract_salary
-#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__applicant_name
-msgid "Candidates's Name"
-msgstr ""
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__category_id
@@ -883,7 +878,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Doesn't impact net salary"
-msgstr ""
+msgstr "Non influisce sulla retribuzione netta"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__dropdown
@@ -1084,6 +1079,8 @@ msgid ""
 "HR Responsible %s should have a valid email address when New Contract "
 "Document Template is specified"
 msgstr ""
+"Il responsabile delle Risorse Umane %s deve avere un indirizzo e-mail valido"
+" quando viene specificato il modello di documento per il nuovo contratto"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__has_admin_access
@@ -1574,7 +1571,7 @@ msgstr "Data validità offerta"
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 msgid "Offer for %(recipient)s"
-msgstr ""
+msgstr "Offerta per %(recipient)s"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1645,6 +1642,11 @@ msgstr "Firmato parzialmente"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_signatory__partner_id
 msgid "Partner"
 msgstr "Partner"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__applicant_name
+msgid "Partner Name"
+msgstr "Nome partner"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__uom__percent
@@ -2306,7 +2308,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__originated_offer_id
 msgid "The original offer"
-msgstr ""
+msgstr "L'offerta originale"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__activity_type_id
@@ -2570,6 +2572,8 @@ msgid ""
 "{{ object.company_id.name }}: Job Offer - {{ "
 "object.applicant_id.partner_name }}"
 msgstr ""
+"{{ object.company_id.name }}: Offerta di lavoro - {{ "
+"object.applicant_id.partner_name }}"
 
 #. module: hr_contract_salary
 #: model:mail.template,subject:hr_contract_salary.mail_template_send_offer

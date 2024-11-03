@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -25,13 +25,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid " (%s locked)"
-msgstr ""
+msgstr " (%s đã bị khoá)"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid " Perhaps you mean to use the pin action."
-msgstr ""
+msgstr "Có lẽ bạn muốn sử dụng thao tác ghim."
 
 #. module: documents
 #. odoo-python
@@ -55,13 +55,13 @@ msgstr "%s tệp"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "%s Folders"
-msgstr ""
+msgstr "%s thư mục"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/document_count_field.js:0
 msgid "%s documents"
-msgstr ""
+msgstr "%s tài liệu"
 
 #. module: documents
 #. odoo-javascript
@@ -85,7 +85,7 @@ msgstr "%s trang đã bị xoá"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "%s shared with you"
-msgstr ""
+msgstr "%s được chia sẻ với bạn"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -107,19 +107,19 @@ msgstr ".<br/>"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "1 File"
-msgstr ""
+msgstr "1 tệp"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "1 Folder"
-msgstr ""
+msgstr "1 thư mục`"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/document_count_field.js:0
 msgid "1 document"
-msgstr ""
+msgstr "1 tài liệu"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_year_previous
@@ -156,17 +156,17 @@ msgstr "<br/>Cung cấp bởi"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "<i class=\"fa fa-download fa-fw\"/> Download All"
-msgstr ""
+msgstr "<i class=\"fa fa-download fa-fw\"/> Tải xuống tất cả"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
 msgid "<i class=\"fa fa-download fa-fw\"/> Download file"
-msgstr ""
+msgstr "<i class=\"fa fa-download fa-fw\"/> Tải tệp xuống"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "<i class=\"fa fa-external-link me-1\" title=\"This is a shortcut\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-external-link me-1\" title=\"Đây là một lối tắt\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
@@ -186,7 +186,7 @@ msgstr "<i class=\"fa fa-upload\"/>Tải lên"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
 msgid "<i class=\"fa fa-upload\"/> Replace file"
-msgstr ""
+msgstr "<i class=\"fa fa-upload\"/> Thay thế tệp"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -194,6 +194,8 @@ msgid ""
 "<i class=\"me-1 fa fa-external-link text-gray-500\" title=\"This is a "
 "shortcut\"/>"
 msgstr ""
+"<i class=\"me-1 fa fa-external-link text-gray-500\" title=\"Đây là một lối "
+"tắt\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -201,6 +203,8 @@ msgid ""
 "<i class=\"me-1 fa fa-eye-slash text-gray-500\" title=\"Except for members, "
 "only discoverable the first time by clicking on the url\"/>"
 msgstr ""
+"<i class=\"me-1 fa fa-eye-slash text-gray-500\" title=\"Ngoại trừ thành "
+"viên, chỉ có thể khám phá lần đầu tiên bằng cách nhấp vào url\"/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_document_res_partner_view
@@ -647,17 +651,17 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "A destination is required when creating multiple shortcuts at once."
-msgstr ""
+msgstr "Cần phải có đích khi tạo nhiều lối tắt cùng lúc."
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_folder_id_not_id
 msgid "A folder cannot be included in itself"
-msgstr ""
+msgstr "Một thư mục không thể được bao gồm trong chính nó"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_shortcut_document_id_not_id
 msgid "A shortcut cannot point to itself"
-msgstr ""
+msgstr "Một lối tắt không thể trỏ đến chính nó"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -679,29 +683,29 @@ msgstr "Token truy cập"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.portal_my_home_documents
 msgid "Access all your documents"
-msgstr ""
+msgstr "Truy cập tất cả tài liệu của bạn"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_access.py:0
 msgid "Access documents and partners cannot be changed."
-msgstr ""
+msgstr "Không thể thay đổi đối tác và tài liệu truy cập."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Access to a folder or a document"
-msgstr ""
+msgstr "Truy cập một thư mục hoặc tài liệu"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_document_token_unique
 msgid "Access tokens already used."
-msgstr ""
+msgstr "Token truy cập đã được sử dụng."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_url
 msgid "Access url"
-msgstr ""
+msgstr "URL truy cập"
 
 #. module: documents
 #. odoo-javascript
@@ -793,17 +797,17 @@ msgstr "Thêm tệp"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_folder_form
 msgid "Add Folder"
-msgstr ""
+msgstr "Thêm thư mục"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_bill
 msgid "Add Tag Bill"
-msgstr ""
+msgstr "Add Tag Bill"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "Đã xác thực"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_url_form
@@ -826,25 +830,25 @@ msgstr "Thêm người hoặc địa chỉ email..."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Add people or email addresses:"
-msgstr ""
+msgstr "Thêm người hoặc địa chỉ email:"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_shortcut.js:0
 msgid "Add shortcut"
-msgstr ""
+msgstr "Thêm lối tắt"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_star.js:0
 msgid "Add star"
-msgstr ""
+msgstr "Thêm sao"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Additional documents you have access to."
-msgstr ""
+msgstr "Các tài liệu bổ sung mà bạn có quyền truy cập."
 
 #. module: documents
 #: model:res.groups,name:documents.group_documents_manager
@@ -894,7 +898,7 @@ msgstr "Trạng thái bí danh"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
-msgstr ""
+msgstr "Thẻ bí danh"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_status
@@ -919,17 +923,19 @@ msgid ""
 "All users with access to this %(documentType)s or its parent will have edit "
 "permissions."
 msgstr ""
+"Tất cả người dùng có quyền truy cập vào %(documentType)s này hoặc phần chính"
+" của nó sẽ có quyền chỉnh sửa."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_ids
 msgid "Allowed Access"
-msgstr ""
+msgstr "Quyền truy cập được phép"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Already linked Documents: %s"
-msgstr ""
+msgstr "Tài liệu đã liên kết: %s"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -965,7 +971,7 @@ msgstr "Đã xảy ra lỗi khi tải lên."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can %(action)s"
-msgstr ""
+msgstr "Bất kỳ ai trên internet có liên kết đều có thể %(action)s"
 
 #. module: documents
 #. odoo-javascript
@@ -1045,7 +1051,7 @@ msgstr "Loại tệp đính kèm"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__available_embedded_actions_ids
 msgid "Available Embedded Actions"
-msgstr ""
+msgstr "Tác vụ nhúng khả dụng"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_bill
@@ -1150,7 +1156,7 @@ msgstr "Màu"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
-msgstr ""
+msgstr "Gốc chung cho tất cả người dùng công ty."
 
 #. module: documents
 #. odoo-python
@@ -1204,7 +1210,7 @@ msgstr "Copy Link"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Copy Links"
-msgstr ""
+msgstr "Sao chép liên kết"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_create_activity
@@ -1215,7 +1221,7 @@ msgstr "Tạo hoạt động"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Create Shortcut"
-msgstr ""
+msgstr "Tạo lối tắt"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
@@ -1231,13 +1237,13 @@ msgstr "Tạo một hoạt động mới"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Create and edit new contact \""
-msgstr ""
+msgstr "Tạo và chỉnh sửa liên hệ mới \""
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Create new contact \""
-msgstr ""
+msgstr "Tạo liên hệ mới \""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_uid
@@ -1374,19 +1380,19 @@ msgstr "Tài liệu"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_access
 msgid "Document / Partner"
-msgstr ""
+msgstr "Tài liệu/Đối tác"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Internal"
-msgstr ""
+msgstr "Quyền truy cập nội bộ"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Link"
-msgstr ""
+msgstr "Liên kết truy cập tài liệu"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_count
@@ -1408,7 +1414,7 @@ msgstr "Kế hoạch tài liệu"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "Chuyển hướng tài liệu"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1437,7 +1443,7 @@ msgstr "Yêu cầu tài liệu: Nhắc nhở"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_token
 msgid "Document Token"
-msgstr ""
+msgstr "Token tài liệu"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -1448,7 +1454,7 @@ msgstr "Xem trước tài liệu"
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
 msgid "Document uploaded by %(user)s"
-msgstr ""
+msgstr "Tài liệu được tải lên bởi %(user)s"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request
@@ -1492,7 +1498,7 @@ msgstr "Mixin tạo tài liệu"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Documents in the Trash cannot be shared"
-msgstr ""
+msgstr "Không thể chia sẻ tài liệu trong Thùng rác"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_unlink_mixin
@@ -1537,12 +1543,12 @@ msgstr "Tải tệp xuống"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download folder as zip"
-msgstr ""
+msgstr "Tải thư mục xuống dưới dạng zip"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download zip #{subfolder.name}"
-msgstr ""
+msgstr "Tải xuống zip #{subfolder.name}"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_draft
@@ -1605,7 +1611,7 @@ msgstr "Bí danh Email"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
 msgid "Email Upload"
-msgstr ""
+msgstr "Tải lên email"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
@@ -1620,7 +1626,7 @@ msgstr "Ví dụ miền email 'example.com' trong 'odoo@example.com'"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_alias_action
 msgid "Email links"
-msgstr ""
+msgstr "Liên kết email"
 
 #. module: documents
 #. odoo-javascript
@@ -1652,7 +1658,7 @@ msgstr "Thoát mà không lưu"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "Exp:"
-msgstr ""
+msgstr "Ngày hết hạn:"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_expense
@@ -1673,7 +1679,7 @@ msgstr "Xuất"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_request_form_view
 msgid "Extra comments..."
-msgstr "Thêm bình luận..."
+msgstr "Bình luận bổ sung..."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__favorited_ids
@@ -1681,6 +1687,8 @@ msgid "Favorite of"
 msgstr "Yêu thích của"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__binary
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "File"
@@ -1771,6 +1779,7 @@ msgstr "Tập trung vào trang trước đó"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1783,7 +1792,7 @@ msgstr "Thư mục"
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Folders"
-msgstr ""
+msgstr "Thư mục"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_follower_ids
@@ -1815,7 +1824,7 @@ msgstr "Chung"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "General access"
-msgstr ""
+msgstr "Quyền truy cập chung"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -1840,7 +1849,7 @@ msgstr "Có tin nhắn"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Hide shortcuts"
-msgstr ""
+msgstr "Ẩn lối tắt"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__previous_attachment_ids
@@ -1889,6 +1898,9 @@ msgid ""
 "to view it. If \"False\", access with the link also given to all who can "
 "access the parent folder."
 msgstr ""
+"Nếu \"Đúng\", chỉ những người được cấp quyền truy cập trực tiếp vào tài liệu"
+" này mới có thể xem. Nếu \"Sai\", quyền truy cập qua liên kết cũng được cấp "
+"cho tất cả những người có thể truy cập vào thư mục chính."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction
@@ -1919,13 +1931,13 @@ msgstr "Hình ảnh"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to delete folders used by other applications."
-msgstr ""
+msgstr "Không thể xóa các thư mục được các ứng dụng khác sử dụng."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
-msgstr ""
+msgstr "Không thể mời đối tác vào nhiều tài liệu cùng một lúc."
 
 #. module: documents
 #. odoo-python
@@ -1934,11 +1946,13 @@ msgid ""
 "Impossible to move the following items as this would create a recursive hierarchy:\n"
 "- %(documents)s"
 msgstr ""
+"Không thể di chuyển các mục sau vì điều này sẽ tạo ra hệ thống phân cấp đệ quy:\n"
+"- %(documents)s"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__restricted
 msgid "Inaccessible"
-msgstr ""
+msgstr "Không thể truy cập"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_inbox
@@ -1953,6 +1967,8 @@ msgid ""
 "Incorrect values. Use one of the following for the following fields: "
 "%(hints)s.)"
 msgstr ""
+"Giá trị không chính xác. Sử dụng một trong những giá trị sau cho các trường "
+"sau: %(hints)s.)"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__index_content
@@ -1968,31 +1984,31 @@ msgstr "Người dùng Nội bộ"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_internal
 msgid "Internal Users Rights"
-msgstr ""
+msgstr "Quyền người dùng nội bộ"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can  %(action)s"
-msgstr ""
+msgstr "Người dùng nội bộ có thể %(action)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid folder id"
-msgstr ""
+msgstr "ID thư mục không hợp lệ"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
-msgstr ""
+msgstr "Thao tác không hợp lệ"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid role."
-msgstr ""
+msgstr "Vai trò không hợp lệ."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_editable_attachment
@@ -2021,6 +2037,8 @@ msgid ""
 "It is not possible to move archived documents or documents to archived "
 "folders."
 msgstr ""
+"Không thể di chuyển tài liệu đã lưu trữ hoặc tài liệu vào thư mục đã lưu "
+"trữ."
 
 #. module: documents
 #. odoo-python
@@ -2029,6 +2047,8 @@ msgid ""
 "Item(s) you wish to restore are included in archived folders. To restore these items, you must restore the following including folders instead:\n"
 "- %(folders_list)s"
 msgstr ""
+"Những mục bạn muốn khôi phục nằm trong các thư mục lưu trữ. Để khôi phục chúng, bạn phải khôi phục các mục sau bao gồm các thư mục:\n"
+"- %(folders_list)s"
 
 #. module: documents
 #. odoo-python
@@ -2046,7 +2066,7 @@ msgstr "Các mục được đưa vào thùng rác sẽ bị xóa vĩnh viễn s
 #: model:ir.model.fields,field_description:documents.field_documents_access__last_access_date
 #: model:ir.model.fields,field_description:documents.field_documents_document__last_access_date_group
 msgid "Last Accessed On"
-msgstr ""
+msgstr "Được truy cập lần cuối vào"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__write_uid
@@ -2104,6 +2124,7 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
 msgid "Link"
 msgstr "Liên kết"
@@ -2111,12 +2132,12 @@ msgstr "Liên kết"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_access_via_link_hidden
 msgid "Link Access Hidden"
-msgstr ""
+msgstr "Truy cập qua liên kết bị ẩn"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_via_link
 msgid "Link Access Rights"
-msgstr ""
+msgstr "Quyền truy cập qua liên kết"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url
@@ -2127,19 +2148,19 @@ msgstr "URL liên kết"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Link copied to clipboard!"
-msgstr "Liên kết được sao chép vào khay nhớ tạm!"
+msgstr "Liên kết được sao chép vào bộ nhớ tạm!"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Link copied to the clipboard."
-msgstr ""
+msgstr "Liên kết được sao chép vào bộ nhớ tạm."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Links copied to clipboard!"
-msgstr ""
+msgstr "Liên kết được sao chép vào bộ nhớ tạm!"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_incoming_local
@@ -2182,18 +2203,18 @@ msgstr "Đăng xuất"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Mail: %s"
-msgstr ""
+msgstr "Email: %s"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
 msgid "Mark activities as completed"
-msgstr ""
+msgstr "Đánh dấu hoạt động là đã hoàn thành"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Merge PDFs"
-msgstr ""
+msgstr "Gộp PDF"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_note
@@ -2224,7 +2245,7 @@ msgstr "Loại Mime"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Missing documents reference."
-msgstr ""
+msgstr "Thiếu tham chiếu tài liệu."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__model_id
@@ -2279,7 +2300,7 @@ msgstr "Đã chuyển vào thùng rác"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Must have the link to access"
-msgstr ""
+msgstr "Phải có liên kết để truy cập"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2300,12 +2321,12 @@ msgstr "Tài liệu của tôi"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "My Drive"
-msgstr ""
+msgstr "Drive của tôi"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_role_or_last_access_date
 msgid "NULL roles must have a set last_access_date"
-msgstr ""
+msgstr "Vai trò NULL phải có last_access_date được thiết lập"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__name
@@ -2336,7 +2357,7 @@ msgstr "Tệp mới"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "New Folder"
-msgstr ""
+msgstr "Thư mục mới"
 
 #. module: documents
 #. odoo-javascript
@@ -2385,13 +2406,13 @@ msgstr "Không có tài liệu nào được chọn"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/chatter/documents_chatter_overlay.xml:0
 msgid "No item selected"
-msgstr ""
+msgstr "Chưa chọn mục nào"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "No one on the internet can access"
-msgstr ""
+msgstr "Không ai trên internet có thể truy cập"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_alias_action
@@ -2415,7 +2436,7 @@ msgstr "Không phải tệp"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Not a folder."
-msgstr ""
+msgstr "Không phải tệp."
 
 #. module: documents
 #. odoo-python
@@ -2473,47 +2494,47 @@ msgstr "Cũ hơn"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
-msgstr ""
+msgstr "Chỉ Quản lý tài liệu mới có thể ghim thư mục."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can set aliases."
-msgstr ""
+msgstr "Chỉ Quản lý tài liệu mới có thể đặt bí danh."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents managers can set an alias."
-msgstr ""
+msgstr "Chỉ Quản lý tài liệu mới có thể đặt bí danh."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only OdooBot-owned root folders can be pinned."
-msgstr ""
+msgstr "Chỉ có thể ghim các thư mục gốc do OdooBot sở hữu."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Only people with access can open with the link"
-msgstr ""
+msgstr "Chỉ những người có quyền truy cập mới có thể mở bằng liên kết"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open #{document_url.name}"
-msgstr ""
+msgstr "Mở #{document_url.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open folder #{subfolder.name}"
-msgstr ""
+msgstr "Mở thư mục #{subfolder.name}"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Open the permissions panel"
-msgstr ""
+msgstr "Mở bảng điều khiển quyền"
 
 #. module: documents
 #. odoo-python
@@ -2522,6 +2543,8 @@ msgid ""
 "Operation not supported. Please use \"Move to Trash\" / `action_archive` "
 "instead."
 msgstr ""
+"Thao tác không được hỗ trợ. Thay vào đó, vui lòng sử dụng \"Chuyển vào Thùng"
+" rác\"/`action_archive`."
 
 #. module: documents
 #. odoo-python
@@ -2530,6 +2553,8 @@ msgid ""
 "Operation not supported. Please use \"Restore\" / `action_unarchive` "
 "instead."
 msgstr ""
+"Thao tác không được hỗ trợ. Thay vào đó, vui lòng sử dụng \"Khôi "
+"phục\"/`action_unarchive`."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_force_thread_id
@@ -2546,7 +2571,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.js:0
 msgid "Optional message..."
-msgstr ""
+msgstr "Tin nhắn tùy chọn..."
 
 #. module: documents
 #. odoo-javascript
@@ -2576,17 +2601,17 @@ msgstr "Người sở hữu: #{document.owner_id.name}"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{document_url.owner_id.name}"
-msgstr ""
+msgstr "Chủ sở hữu: #{document_url.owner_id.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{subfolder.owner_id.name}"
-msgstr ""
+msgstr "Chủ sở hữu: #{subfolder.owner_id.name}"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__folder_id
 msgid "Parent Folder"
-msgstr ""
+msgstr "Thư mục chính"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_parent_model_id
@@ -2629,7 +2654,7 @@ msgstr "Đối tác"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "People with access"
-msgstr ""
+msgstr "Mọi người có quyền truy cập"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -2639,7 +2664,7 @@ msgstr "Ghim"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_pinned_folder
 msgid "Pinned to Company roots"
-msgstr ""
+msgstr "Đã ghim vào gốc của công ty"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
@@ -2647,6 +2672,8 @@ msgid ""
 "Please login or contact the person that shared this link for more "
 "information."
 msgstr ""
+"Vui lòng đăng nhập hoặc liên hệ với người đã chia sẻ liên kết này để biết "
+"thêm thông tin."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_contact
@@ -2696,7 +2723,7 @@ msgstr "Gần đây"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Recently accessed documents."
-msgstr ""
+msgstr "Tài liệu được truy cập gần đây"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__resource_ref
@@ -2733,7 +2760,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "Remove Access"
-msgstr ""
+msgstr "Gỡ bỏ quyền truy cập"
 
 #. module: documents
 #. odoo-javascript
@@ -2744,23 +2771,23 @@ msgstr "Gỡ thành viên"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_inbox
 msgid "Remove Tag Inbox"
-msgstr ""
+msgstr "Hộp thư đến"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "Cần xác thực"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_tags
 msgid "Remove all tags"
-msgstr ""
+msgstr "Gỡ tất cả thẻ"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_star.js:0
 msgid "Remove star"
-msgstr ""
+msgstr "Gỡ sao"
 
 #. module: documents
 #. odoo-javascript
@@ -2819,7 +2846,7 @@ msgstr "Tài liệu yêu cầu"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__requestee_partner_id
 msgid "Requestee Partner"
-msgstr ""
+msgstr "Đối tác được yêu cầu"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_model_name
@@ -2877,7 +2904,7 @@ msgstr "Thư mục bị hạn chế"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Revert changes"
-msgstr ""
+msgstr "Hoàn nguyên thay đổi"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__role
@@ -2906,13 +2933,13 @@ msgstr "Lưu"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid "Save or discard changes first"
-msgstr ""
+msgstr "Lưu hoặc hủy bỏ các thay đổi trước"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Saving..."
-msgstr ""
+msgstr "Đang lưu..."
 
 #. module: documents
 #. odoo-javascript
@@ -2966,7 +2993,7 @@ msgstr "Gửi"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_send_to_finance
 msgid "Send To Finance"
-msgstr ""
+msgstr "Gửi đến tài chính"
 
 #. module: documents
 #. odoo-javascript
@@ -2988,7 +3015,7 @@ msgstr "Trình tự"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
 msgid "Set actions"
-msgstr ""
+msgstr "Thiết lập tác vụ"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
@@ -2999,7 +3026,7 @@ msgstr "Đặt độ trễ hành động xóa cho tài liệu trong Thùng rác"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_expiration_date_btn.xml:0
 msgid "Set expiration date"
-msgstr ""
+msgstr "Thiết lập ngày hết hạn"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -3031,55 +3058,57 @@ msgstr "Chia sẻ"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid "Share: %(documentName)s"
-msgstr ""
+msgstr "Chia sẻ: %(documentName)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shared with me"
-msgstr ""
+msgstr "Được chia sẻ với tôi"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Sharing..."
-msgstr ""
+msgstr "Đang chia sẻ..."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__shortcut_ids
 msgid "Shortcut"
-msgstr "Phím tắt"
+msgstr "Lối tắt"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Shortcut created"
-msgstr ""
+msgstr "Lối tắt đã tạo"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcut created in My Drive"
-msgstr ""
+msgstr "Lối tắt đã tạo trong Drive của tôi"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Shortcuts can only be created one at a time."
-msgstr ""
+msgstr "Mỗi lần chỉ có thể tạo một lối tắt."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcuts cannot change target document."
-msgstr ""
+msgstr "Lối tắt không thể thay đổi tài liệu đích."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcuts cannot contain documents."
-msgstr ""
+msgstr "Lối tắt không thể chứa tài liệu."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
@@ -3101,7 +3130,7 @@ msgstr "Chứng từ gốc"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Special folders cannot be shared"
-msgstr ""
+msgstr "Không thể chia sẻ các thư mục đặc biệt"
 
 #. module: documents
 #. odoo-javascript
@@ -3178,7 +3207,7 @@ msgstr "Tên thẻ"
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_tag_tag_name_unique
 msgid "Tag name already used"
-msgstr ""
+msgstr "Tên thẻ đã được sử dụng"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.tag_action
@@ -3196,7 +3225,7 @@ msgstr "Văn bản"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_tag__tooltip
 msgid "Text shown when hovering on this tag"
-msgstr ""
+msgstr "Văn bản hiển thị khi di chuột qua thẻ này"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_res_config_settings_check_deletion_delay
@@ -3208,13 +3237,13 @@ msgstr "Độ trễ hành động xóa phải dương."
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.js:0
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.xml:0
 msgid "The document URL has been copied to your clipboard."
-msgstr ""
+msgstr "URL tài liệu đã được sao chép vào bộ nhớ tạm của bạn."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "The document has been moved."
-msgstr ""
+msgstr "Tài liệu đã được di chuyển."
 
 #. module: documents
 #. odoo-python
@@ -3223,6 +3252,8 @@ msgid ""
 "The following documents can't have alias: \n"
 "- %(records)s"
 msgstr ""
+"Các tài liệu sau đây không thể có bí danh:\n"
+"- %(records)s"
 
 #. module: documents
 #. odoo-python
@@ -3231,18 +3262,21 @@ msgid ""
 "The following documents/folders can't be owned by a Portal User: \n"
 "- %(partners)s"
 msgstr ""
+"Người dùng Cổng thông tin không thể sở hữu các tài liệu/thư mục sau:\n"
+"- %(partners)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following documents/shortcuts have a type mismatch: \n"
-msgstr ""
+msgstr "Các tài liệu/lối tắt sau đây có loại không khớp:\n"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following shortcuts cannot be set as documents parents: \n"
 msgstr ""
+"Các lối tắt sau đây không thể được thiết lập làm phần chính của tài liệu:\n"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_model_id
@@ -3278,7 +3312,7 @@ msgstr "Tuần này"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This action does not exist."
-msgstr ""
+msgstr "Hành động này không tồn tại."
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_attachment_unique
@@ -3288,7 +3322,7 @@ msgstr "Tệp đính kèm đã là một tài liệu"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
 msgid "This document does not exist or is not publicly available."
-msgstr ""
+msgstr "Tài liệu này không tồn tại hoặc không công khai."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_request_page
@@ -3303,7 +3337,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This document has been restored."
-msgstr ""
+msgstr "Tài liệu này đã được khôi phục."
 
 #. module: documents
 #. odoo-python
@@ -3316,18 +3350,18 @@ msgstr "Tệp này đã được đưa vào thùng rác và sẽ bị xóa vĩnh
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This folder does not exist."
-msgstr ""
+msgstr "Thư mục này không tồn tại."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "This is a shortcut"
-msgstr ""
+msgstr "Đây là một lối tắt"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_unique_document_access_partner
 msgid "This partner is already set on this document."
-msgstr ""
+msgstr "Đối tác này đã được thiết lập trên tài liệu này."
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3437,7 +3471,7 @@ msgstr "Hình ảnh xem trước URL"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Unavailable action."
-msgstr ""
+msgstr "Tác vụ không khả dụng."
 
 #. module: documents
 #. odoo-javascript
@@ -3491,7 +3525,7 @@ msgstr "Người dùng"
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "User Access Role"
-msgstr ""
+msgstr "Vai trò truy cập của người dùng"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__user_permission
@@ -3506,7 +3540,7 @@ msgstr "Mã số thuế"
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_validated
 msgid "Validated"
-msgstr "Đã xác nhận"
+msgstr "Đã xác thực"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_videos
@@ -3560,6 +3594,8 @@ msgid ""
 "Wow... 6 documents processed in a few seconds, You're good.<br>The tour is "
 "complete. Try uploading your own documents now."
 msgstr ""
+"Tuyệt vời... 6 tài liệu được xử lý trong vài giây. Bạn rất xuất sắc.<br> "
+"Tour đã hoàn thành. Bây giờ, hãy thử tải lên tài liệu của bạn."
 
 #. module: documents
 #. odoo-javascript
@@ -3571,43 +3607,51 @@ msgstr "Bạn"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to (un)archive documents."
-msgstr ""
+msgstr "Bạn không được phép (hủy) lưu trữ tài liệu."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to (un)pin folders"
-msgstr ""
+msgstr "Bạn không được phép (bỏ) ghim thư mục"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to change ownerships of documents you do not own."
 msgstr ""
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You are not allowed to execute embedded actions."
-msgstr ""
+"Bạn không được phép thay đổi quyền sở hữu những tài liệu mà bạn không sở "
+"hữu."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to delete all these items."
-msgstr ""
+msgstr "Bạn không được phép xóa tất cả các mục này."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to execute embedded actions."
+msgstr "Bạn không được phép thực hiện các tác vụ nhúng."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to perform this operation."
+msgstr "Bạn không được phép thực hiện thao tác này."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to pin/unpin embedded Actions."
 msgstr ""
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
-msgstr ""
+msgstr "Bạn không được phép viết trong thư mục này."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__attachment_type
@@ -3622,19 +3666,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
-msgstr ""
+msgstr "Bạn không thể ghim các tác vụ cho thư mục đó."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can not ping an action on that document."
-msgstr ""
+msgstr "Bạn không thể thực hiện tác vụ ping nào trên tài liệu đó."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can not ping that type of action."
-msgstr ""
+msgstr "Bạn không thể ping loại tác vụ đó."
 
 #. module: documents
 #. odoo-python
@@ -3642,12 +3686,14 @@ msgstr ""
 msgid ""
 "You can not update the access of a shortcut, update its target instead."
 msgstr ""
+"Bạn không thể cập nhật quyền truy cập của lối tắt, thay vào đó hãy cập nhật "
+"mục tiêu của lối tắt đó."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can't access that folder_id."
-msgstr ""
+msgstr "Bạn không thể truy cập folder_id đó. "
 
 #. module: documents
 #. odoo-javascript
@@ -3655,42 +3701,49 @@ msgstr ""
 msgid ""
 "You can't create shortcuts in or move documents to this special folder."
 msgstr ""
+"Bạn không thể tạo lối tắt hoặc di chuyển tài liệu vào thư mục đặc biệt này."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot change the owner of documents you do not own."
+msgstr ""
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_tag.py:0
 msgid "You cannot delete tags used in server actions."
-msgstr ""
+msgstr "Bạn không thể xóa các thẻ được sử dụng trong các tác vụ máy chủ."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
-msgstr ""
+msgstr "Bạn không thể sao chép (các) tài liệu trong Thùng rác."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "You cannot remove this partner"
-msgstr ""
+msgstr "Bạn không thể gỡ bỏ đối tác này"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "You cannot share multiple documents at the same time"
-msgstr ""
+msgstr "Bạn không thể chia sẻ nhiều tài liệu cùng một lúc"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You do not have sufficient access rights to delete these documents."
-msgstr ""
+msgstr "Bạn không có đủ quyền truy cập để xóa những tài liệu này."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "You don't have the rights to move documents to that folder."
-msgstr ""
+msgstr "Bạn không có quyền di chuyển tài liệu đến thư mục đó."
 
 #. module: documents
 #. odoo-javascript
@@ -3703,13 +3756,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your Role: %s"
-msgstr ""
+msgstr "Vai trò của bạn: %s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your individual space."
-msgstr ""
+msgstr "Không gian riêng của bạn."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
@@ -3719,7 +3772,7 @@ msgstr "bí danh"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "bytes"
-msgstr ""
+msgstr "byte"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
@@ -3782,7 +3835,7 @@ msgstr "thư mục"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "folders,"
-msgstr ""
+msgstr "thư mục,"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__is_readonly_model
@@ -3793,7 +3846,7 @@ msgstr "is_readonly_model"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/chatter/documents_chatter_overlay.xml:0
 msgid "items selected"
-msgstr ""
+msgstr "mục đã được chọn"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
@@ -3809,12 +3862,12 @@ msgstr "chọn"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a document with you.<br/>"
-msgstr ""
+msgstr "đã chia sẻ một tài liệu với bạn.<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a folder with you.<br/>"
-msgstr ""
+msgstr "đã chia sẻ một thư mục với bạn.<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -3824,12 +3877,12 @@ msgstr "được chia sẻ bởi"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this document with you:"
-msgstr ""
+msgstr "đã chia sẻ tài liệu này với bạn:"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this folder with you:"
-msgstr ""
+msgstr "đã chia sẻ thư mục này với bạn:"
 
 #. module: documents
 #. odoo-javascript
@@ -3855,3 +3908,5 @@ msgid ""
 "•\n"
 "                                        <b>URL</b>"
 msgstr ""
+"•\n"
+"                                        <b>URL</b>"

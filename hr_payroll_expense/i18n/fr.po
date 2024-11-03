@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -93,12 +94,22 @@ msgstr "Pièce comptable"
 msgid ""
 "No debit account found in the '%(rule_name)s' payslip salary rule. Please "
 "add a payable debit account to be able to create an accounting entry for the"
-" expense report linked to this payslip '%(expense_report_name)s'."
+" expense reports linked to this payslip."
 msgstr ""
 "Aucun compte de débit n'a été trouvé dans la règle salariale de la fiche de "
 "paie '%(rule_name)s'. Veuillez ajouter un compte de débit afin de pouvoir "
-"créer une écriture comptable dans le rapport de notes de frais lié à cette "
-"fiche de paie '%(expense_report_name)s'."
+"créer une écriture comptable dans les rapports de notes de frais liés à "
+"cette fiche de paie."
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_payslip.py:0
+msgid ""
+"No salary rule was found to handle expenses in structure "
+"'%(structure_name)s'."
+msgstr ""
+"Aucune règle salariale n'a été trouvée pour gérer les dépenses dans la "
+"structure. '%(structure_name)s'."
 
 #. module: hr_payroll_expense
 #. odoo-python

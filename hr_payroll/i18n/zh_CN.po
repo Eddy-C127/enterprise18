@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -352,52 +352,52 @@ msgstr ""
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Contract Type:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">合同类型：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Department:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">部门：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Email:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">电子邮件：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">ID:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">ID：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Job Position:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">工作岗位：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Marital Status:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">婚姻状况：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Name:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">名称：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Pay Period:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">付款期限：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Private Address:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">私人地址：</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Working Schedule:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">工作日程：</strong>"
 
 #. module: hr_payroll
 #: model_terms:web_tour.tour,rainbow_man_message:hr_payroll.payroll_tours
@@ -419,7 +419,7 @@ msgstr "<strong>总计</strong>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "<strong>YTD</strong>"
-msgstr ""
+msgstr "<strong>年初至今</strong>"
 
 #. module: hr_payroll
 #: model:mail.template,body_html:hr_payroll.mail_template_new_payslip
@@ -468,7 +468,7 @@ msgstr "所需操作"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__active
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_search
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__active_amount
@@ -577,7 +577,7 @@ msgstr "金额"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__amount_other_input_id
 msgid "Amount Other Input"
-msgstr ""
+msgstr "其他输入金额"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__amount_select
@@ -606,7 +606,7 @@ msgstr "此工资单的支付金额，工资单金额或更少，取决于剩余
 #. module: hr_payroll
 #: model:ir.model.constraint,message:hr_payroll.constraint_hr_payroll_employee_declaration_unique_employee_sheet
 msgid "An employee can only have one declaration per sheet."
-msgstr "一名雇员每张纸只能申报一项。"
+msgstr "一名员工每张纸只能申报一项。"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -657,7 +657,7 @@ msgstr "四月"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payroll_structure_filter
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_rule_filter
 msgid "Archived"
-msgstr "已存档"
+msgstr "已归档"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -684,7 +684,7 @@ msgstr "至少可以在此工资单上报告一个以前的负净值%s"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_run__message_attachment_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__attachment_name
@@ -722,7 +722,7 @@ msgstr "结构中的可用性"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__available_in_attachments
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_search
 msgid "Available in attachments"
-msgstr ""
+msgstr "可作附件使用"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__avatar_1920
@@ -1262,7 +1262,7 @@ msgstr "创建新的工资结构"
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/components/dashboard/todo_list/todo_list.xml:0
 msgid "Create new todo note"
-msgstr "创建新的待办事项注释"
+msgstr "创建新的待办事项备注"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_dashboard_warning__create_uid
@@ -1350,7 +1350,7 @@ msgstr "信用时间"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__currency_id
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__currency_id
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_report_view_search
@@ -1827,7 +1827,7 @@ msgstr "未结批次中缺少的员工（具有正在运行的合同）"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 msgid "Employees Selection"
-msgstr ""
+msgstr "员工选拔"
 
 #. module: hr_payroll
 #: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_ambiguous_contract
@@ -1924,17 +1924,17 @@ msgstr "导出与此薪资单相关的 .csv 文件"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_list_view
 msgid "Export Employee Work Entries"
-msgstr ""
+msgstr "导出员工工作记录"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__export_file
 msgid "Export File"
-msgstr ""
+msgstr "导出文件"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__export_filename
 msgid "Export Filename"
-msgstr ""
+msgstr "导出文件名"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__export_format
@@ -2030,7 +2030,7 @@ msgstr "生成"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
 msgid "Generate Export File"
-msgstr ""
+msgstr "生成导出文件"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_tree
@@ -2205,7 +2205,7 @@ msgstr "每小时工资"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Hours / Week"
-msgstr ""
+msgstr "小时 / 周"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__hours_per_week
@@ -2296,14 +2296,14 @@ msgstr "如果收件人居住在国外"
 msgid ""
 "If set, hide currency and consider the manual input as a quantity for every "
 "rule computation using this input."
-msgstr "如果设置，则隐藏货币，并将手动输入视为使用此输入的每个规则计算的数量。"
+msgstr "如果设置，则隐藏币别，并将手动输入视为使用此输入的每个规则计算的数量。"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__active
 msgid ""
 "If the active field is set to false, it will allow you to hide the salary "
 "rule without removing it."
-msgstr "如果去掉了“启用”这个字段上的勾，你可以不必删除就停用这个工资规则。"
+msgstr "如果去掉了“有效”这个字段上的勾，你可以不必删除就停用这个工资规则。"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_employee__disabled
@@ -2412,7 +2412,7 @@ msgid ""
 "Meal Voucher having fixed amount of 1€ per worked day can have its quantity "
 "defined in expression like worked_days['WORK100'].number_of_days."
 msgstr ""
-"它用于计算百分比和固定金额。例如，一个餐券规则的固定金额为每个工作日 1 欧元，其数量可以用 "
+"它用于计算百分比和固定金额。例如：一个餐券规则的固定金额为每个工作日 1 欧元，其数量可以用 "
 "worked_days['WORK100'].number_of_days.这样的表达式来定义。"
 
 #. module: hr_payroll
@@ -2422,7 +2422,7 @@ msgid ""
 " basic salary per product can defined in expression like: result = "
 "inputs['SALEURO'].amount * contract.wage * 0.01."
 msgstr ""
-"它用于计算。例如，对于每个产品有 1%% 底薪提成的销售员，可以用表达式定义如下：result = inputs['SALEURO'].amount *"
+"它用于计算。例如：对于每个产品有 1%% 底薪提成的销售员，可以用表达式定义如下：result = inputs['SALEURO'].amount *"
 " contract.wage * 0.01。"
 
 #. module: hr_payroll
@@ -2836,7 +2836,7 @@ msgstr "非本地居民"
 #: code:addons/hr_payroll/models/res_company.py:0
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_note__note
 msgid "Note"
-msgstr "注释"
+msgstr "备注"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_rule_parameter_view_form
@@ -3094,7 +3094,7 @@ msgstr "合作伙伴"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "Pay Period:"
-msgstr ""
+msgstr "付款期限："
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip
@@ -3196,7 +3196,7 @@ msgstr "工资申报混合组件"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payroll_employee_declaration
 msgid "Payroll Employee Declaration"
-msgstr "工资雇员申报"
+msgstr "工资员工申报"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
@@ -3830,12 +3830,12 @@ msgstr "工资附件"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_history__salary_attachment_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__salary_attachment_count
 msgid "Salary Attachment Count"
-msgstr "工资附件计数"
+msgstr "工资附件数量"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__salary_attachment_count
 msgid "Salary Attachment count"
-msgstr "工资附件计数"
+msgstr "工资附件数量"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4273,7 +4273,7 @@ msgstr "这个工作日的合同应适用于"
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payslip__paid_date
 msgid "The date on which the payment is made to the employee."
-msgstr "向雇员付款的日期。"
+msgstr "向员工付款的日期。"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4359,7 +4359,7 @@ msgstr "生成工作条目以适应全职工作计划时使用的工作条目类
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_work_entry_type__unpaid_structure_ids
 msgid "The work entry won’t grant any money to employee in payslip."
-msgstr "工作条目不会在工资单上给予雇员任何金钱。"
+msgstr "工作条目不会在工资单上给予员工任何金钱。"
 
 #. module: hr_payroll
 #. odoo-python
@@ -4808,7 +4808,7 @@ msgstr "当工作条目显示在工资单上时，数值会相应地四舍五入
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_contract__calendar_changed
 msgid "Whether the previous or next contract has a different schedule or not"
-msgstr "前一个或下一个合同是否有不同的时间表"
+msgstr "上一个或下一个合同是否有不同的时间表"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_index__description

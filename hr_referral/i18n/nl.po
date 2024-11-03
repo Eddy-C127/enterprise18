@@ -3,16 +3,17 @@
 # 	* hr_referral
 # 
 # Translators:
-# Wil Odoo, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Manon Rondou, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -196,8 +197,8 @@ msgid ""
 "A new alert has been added to the Referrals app! Check your <a "
 "href=%(url)s>dashboard</a> now!"
 msgstr ""
-"Er is een nieuwe waarschuwing toegevoegd aan de verwijzingen-app! Controleer"
-" nu je <a href=%(url)s>dashboard</a>!"
+"Er is een nieuwe waarschuwing toegevoegd aan de Aanbevelingen-app! "
+"Controleer nu je <a href=%(url)s>dashboard</a>!"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__message_needaction
@@ -238,7 +239,7 @@ msgstr "Waarschuwing"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_alert
 msgid "Alert in Referral App"
-msgstr "Waarschuwing in verwijzingen app"
+msgstr "Waarschuwing in Aanbevelingen-app"
 
 #. module: hr_referral
 #: model:ir.actions.act_window,name:hr_referral.action_hr_referral_alert_configuration
@@ -343,11 +344,6 @@ msgstr "Campagne"
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_send_sms_view_form
 msgid "Cancel"
 msgstr "Annuleren"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
-msgid "Candidates's Name"
-msgstr "Naam kandidaat"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__channel
@@ -692,7 +688,7 @@ msgstr "Vrienden"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_friend
 msgid "Friends for Referrals"
-msgstr "Vrienden voor verwijzingen"
+msgstr "Vrienden voor aanbevelingen"
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_friend__position__front
@@ -735,7 +731,7 @@ msgstr "Groeperen op"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_alert_view_search
 msgid "HR Referral Alert Search"
-msgstr "HR verwijzingen waarschuwingen zoeken"
+msgstr "HR aanbevelingen waarschuwingen zoeken"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__has_message
@@ -792,12 +788,12 @@ msgstr "Aangenomen"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__hr_referral_level_id
 msgid "Hr Referral Level"
-msgstr "HR verwijzingen niveau"
+msgstr "HR aanbevelingen niveau"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_res_users__hr_referral_onboarding_page
 msgid "Hr Referral Onboarding Page"
-msgstr "HR verwijzingen onboarding pagina"
+msgstr "HR aanbevelingen onboarding pagina"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_alert__id
@@ -890,7 +886,7 @@ msgstr "Functies"
 #. odoo-javascript
 #: code:addons/hr_referral/static/src/views/dashboard.xml:0
 msgid "Job Referral Program"
-msgstr "Vacature verwijzingenprogramma"
+msgstr "Vacature aanbevelingsprogramma"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_job__job_open_date
@@ -967,7 +963,7 @@ msgstr "Naam niveau"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_level
 msgid "Level for referrals"
-msgstr "Niveau voor verwijzingen"
+msgstr "Niveau voor aanbevelingen"
 
 #. module: hr_referral
 #: model:ir.actions.act_window,name:hr_referral.action_hr_referral_level_configuration
@@ -1037,13 +1033,13 @@ msgstr "Mijn activiteit deadline"
 #: model:ir.actions.act_window,name:hr_referral.action_hr_applicant_employee_referral
 #: model:ir.actions.act_window,name:hr_referral.action_hr_refused_applicant_employee_referral
 msgid "My Referral"
-msgstr "Mijn verwijzingen"
+msgstr "Mijn aanbevelingen"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_alert_mail_wizard.py:0
 msgid "New Alert In Referrals App"
-msgstr "Nieuwe waarschuwing in de app voor verwijzingen"
+msgstr "Nieuwe waarschuwing in de app voor aanbevelingen"
 
 #. module: hr_referral
 #. odoo-python
@@ -1172,6 +1168,11 @@ msgid "Our company is hiring for a"
 msgstr "Ons bedrijf is op zoek naar een"
 
 #. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
+msgid "Partner Name"
+msgstr "Relatienaam"
+
+#. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
 msgid "Point icon"
 msgstr "Punt pictogram"
@@ -1214,7 +1215,7 @@ msgstr "Punten pictogram"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_points
 msgid "Points line for referrals"
-msgstr "Puntenregel voor verwijzingen"
+msgstr "Puntenregel voor aanbevelingen"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1304,7 +1305,7 @@ msgstr "Aanbevelingsanalyse"
 #: model:ir.model.fields,field_description:hr_referral.field_res_company__hr_referral_background
 #: model:ir.model.fields,field_description:hr_referral.field_res_config_settings__hr_referral_background
 msgid "Referral Background"
-msgstr "Achtergrond verwijzingen"
+msgstr "Achtergrond aanbevelingen"
 
 #. module: hr_referral
 #: model:ir.actions.server,name:hr_referral.action_hr_job_launch_referral_campaign
@@ -1395,7 +1396,7 @@ msgstr "Verwijzing: %s"
 #: model:ir.ui.menu,name:hr_referral.menu_hr_referral_root
 #: model_terms:ir.ui.view,arch_db:hr_referral.res_config_settings_view__form
 msgid "Referrals"
-msgstr "Verwijzingen"
+msgstr "Aanbevelingen"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_applicant_view_search_bis_inherit_referral
@@ -1443,7 +1444,7 @@ msgstr "Beloning"
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_reward
 msgid "Reward for Referrals"
-msgstr "Beloning voor verwijzingen"
+msgstr "Beloning voor aanbevelingen"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1576,7 +1577,7 @@ msgstr "Gedeelde iteminformatie"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_recruitment_stage__use_in_referral
 msgid "Show in Referrals"
-msgstr "Weergeven in verwijzingen"
+msgstr "Weergeven in aanbevelingen"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1712,15 +1713,15 @@ msgid ""
 "This option is used in app 'Referrals'. If checked, the stage is displayed "
 "in 'Referrals Dashboard' and points are given to the employee."
 msgstr ""
-"Deze optie wordt gebruikt in app 'Verwijzingen'. Indien aangevinkt wordt de "
-"stage getoond in het 'Verwijzingen Dashboard' en worden punten toegekend aan"
-" de werknemer."
+"Deze optie wordt gebruikt in app 'Aanbevelingen'. Indien aangevinkt wordt de"
+" stage getoond in het 'Aanbevelingen Dashboard' en worden punten toegekend "
+"aan de werknemer."
 
 #. module: hr_referral
 #: model_terms:ir.actions.act_window,help:hr_referral.employee_referral_report_action
 msgid "This reports allow you to follow the referrals and their evolution."
 msgstr ""
-"Deze rapporten laten je toe de verwijzingen en hun vooruitgang te volgen."
+"Deze rapporten laten je toe de aanbevelingen en hun vooruitgang te volgen."
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_onboarding_tree
@@ -1799,7 +1800,7 @@ msgstr "Gebruiker verantwoordelijk voor dit cadeau."
 #. module: hr_referral
 #: model:res.groups,name:hr_referral.group_hr_recruitment_referral_user
 msgid "User: Referral only"
-msgstr "Gebruiker: Enkel verwijzingen"
+msgstr "Gebruiker: Enkel aanbevelingen"
 
 #. module: hr_referral
 #. odoo-javascript
@@ -1858,7 +1859,7 @@ msgid ""
 "You cannot delete these UTM Campaigns as they are linked to the following jobs in Referral:\n"
 "%(job_names)s"
 msgstr ""
-"Je kan deze UTM-campagnes niet verwijderen omdat ze zijn gekoppeld aan de volgende vacatures in de verwijzingen app:\n"
+"Je kan deze UTM-campagnes niet verwijderen omdat ze zijn gekoppeld aan de volgende vacatures in de Aanbevelingen-app:\n"
 "%(job_names)s"
 
 #. module: hr_referral
@@ -1868,7 +1869,7 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to the following users in Referral:\n"
 "%(employee_names)s"
 msgstr ""
-"Je kan deze UTM-bronnen niet verwijderen omdat ze zijn gekoppeld aan de volgende gebruikers in Verwijzingen:\n"
+"Je kan deze UTM-bronnen niet verwijderen omdat ze zijn gekoppeld aan de volgende gebruikers in Aanbevelingen:\n"
 "%(employee_names)s"
 
 #. module: hr_referral

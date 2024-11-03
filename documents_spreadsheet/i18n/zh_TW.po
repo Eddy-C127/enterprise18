@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -46,7 +46,7 @@ msgstr "試算表和用戶的組合已經存在"
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_frozen_spreadsheet_access_via_link_access_internal
 msgid "A frozen spreadsheet can not be editable"
-msgstr ""
+msgstr "試算表凍結後，不可編輯"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.save_spreadsheet_template_view_form
@@ -142,13 +142,13 @@ msgstr "文件"
 #. module: documents_spreadsheet
 #: model:ir.model,name:documents_spreadsheet.model_documents_access
 msgid "Document / Partner"
-msgstr ""
+msgstr "文件 / 合作夥伴"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_res_company__document_spreadsheet_folder_id
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_res_config_settings__document_spreadsheet_folder_id
 msgid "Document Spreadsheet Folder"
-msgstr ""
+msgstr "文件試算表資料夾"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.spreadsheet_template_view_tree
@@ -184,35 +184,40 @@ msgstr "檔案名稱"
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_freeze_and_share/spreadsheet_freeze_and_share.xml:0
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.xml:0
 msgid "Freeze and share"
-msgstr ""
+msgstr "凍結並分享"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_folder
 msgid "Frozen Folder"
-msgstr ""
+msgstr "已凍結資料夾"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_spreadsheet
 msgid "Frozen Spreadsheet"
-msgstr ""
+msgstr "已凍結試算表"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Frozen Spreadsheets can not be editable."
-msgstr ""
+msgstr "凍結的試算表不可編輯。"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen at %(date)s: %(name)s"
-msgstr ""
+msgstr "凍結時間 %(date)s：%(name)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen spreadsheets"
-msgstr ""
+msgstr "已凍結的試算表"
+
+#. module: documents_spreadsheet
+#: model:ir.model,name:documents_spreadsheet.model_ir_http
+msgid "HTTP Routing"
+msgstr "http路由"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__handler
@@ -308,7 +313,7 @@ msgstr "儲存為範本"
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.js:0
 msgid "Select one and only one spreadsheet"
-msgstr ""
+msgstr "請只選擇一張試算表"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -422,7 +427,7 @@ msgstr "試算表"
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Spreadsheets can not be shared in edit mode to non-internal users."
-msgstr ""
+msgstr "試算表不可以編輯模式分享給非內部使用者。"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_cell_thread__template_id
@@ -446,7 +451,7 @@ msgstr "此檔案不是 XLSX 文件"
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_member_invite.js:0
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "The frozen spreadsheets are readonly."
-msgstr ""
+msgstr "凍結的試算表只限唯讀。"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -460,7 +465,7 @@ msgstr "你嘗試存取的試算表不存在。"
 msgid ""
 "The spreadsheets can not be shared in edit mode with a link, change Internal"
 " to give write access."
-msgstr ""
+msgstr "試算表不可透過連結以編輯模式分享。請更改內部設定，授予寫入權限。"
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -477,7 +482,7 @@ msgstr "XLSX 文件太大"
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.documents_error_live_data
 msgid "This spreadsheet contains live data, only internal users can view it."
-msgstr ""
+msgstr "此試算表包含實時數據，只供內部使用者查看。"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__thumbnail
@@ -489,7 +494,7 @@ msgstr "縮圖"
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_spreadsheet_access_via_link
 msgid "To share a spreadsheet in edit mode, add the user in the accesses"
-msgstr ""
+msgstr "若要以編輯模式分享試算表，請將有關使用者加入存取權限清單"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -525,20 +530,20 @@ msgstr "工作空間"
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "You can not edit a frozen spreadsheet"
-msgstr ""
+msgstr "你不可編輯已凍結的試算表"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_action.js:0
 msgid "You can not freeze a frozen spreadsheet"
-msgstr ""
+msgstr "你不可凍結一張已凍結的試算表"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_member_invite.js:0
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "You can not share spreadsheet in edit mode to non-internal user."
-msgstr ""
+msgstr "你不可以編輯模式將試算表分享給非內部使用者。"
 
 #. module: documents_spreadsheet
 #. odoo-python

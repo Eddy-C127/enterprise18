@@ -3,8 +3,9 @@
 # 	* appointment
 # 
 # Translators:
-# Wil Odoo, 2024
+# Sarah Park, 2024
 # Daye Jeong, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +35,7 @@ msgstr "# 약속"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_request
 msgid "# Appointments To Confirm"
-msgstr ""
+msgstr "확정할 예약 수"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_count
@@ -61,7 +62,7 @@ msgstr "# 직원 사용자"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_upcoming
 msgid "# Upcoming Appointments"
-msgstr ""
+msgstr "예정된 예약 수"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_calendar
@@ -84,13 +85,13 @@ msgstr "%(attendee_name)s - %(appointment_name)s 예약"
 #. odoo-python
 #: code:addons/appointment/controllers/calendar_view.py:0
 msgid "%(name)s - Let's meet anytime"
-msgstr ""
+msgstr "%(name)s - 언제든 미팅 가능"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/calendar_view.py:0
 msgid "%(name)s - My availabilities"
-msgstr ""
+msgstr "%(name)s - 가능 여부"
 
 #. module: appointment
 #. odoo-python
@@ -141,6 +142,8 @@ msgid ""
 "<br/>\n"
 "                                <span>To Confirm</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>확정 예정</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -1146,7 +1149,7 @@ msgstr "조치 필요"
 msgid ""
 "Activate manual confirmation only if the resource total capacity reserved "
 "exceeds this percentage."
-msgstr ""
+msgstr "리소스에 예약된 총 용량이 이 비율을 초과하는 경우에만 수동 확인을 활성화하세요."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__active
@@ -1566,7 +1569,7 @@ msgstr "보관됨"
 msgid ""
 "Are you sure you want to delete this Booking? Once it's gone, it's gone for "
 "good!"
-msgstr ""
+msgstr "이 예약을 삭제하시겠습니까? 삭제를 누르면 영원히 사라집니다! "
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__resources_choice
@@ -1666,13 +1669,13 @@ msgstr "기본 링크 URL"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Book a Resource"
-msgstr ""
+msgstr "리소스 예약"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Book a resource for a specific time slot (e.g. tennis court, etc.)"
-msgstr ""
+msgstr "특정 시간대에 대한 리소스 (예: 테니스 코트 등) 예약"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__calendar_event__appointment_status__booked
@@ -1958,7 +1961,7 @@ msgstr "종료일 생성"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_type_action_helper/appointment_type_action_helper.xml:0
 msgid "Create a Schedule from scratch or use one of our templates:"
-msgstr ""
+msgstr "일정을 처음부터 새로 만들거나 템플릿 중 하나를 사용하세요:"
 
 #. module: appointment
 #. odoo-javascript
@@ -1966,7 +1969,7 @@ msgstr ""
 #: code:addons/appointment/models/appointment_type.py:0
 #: code:addons/appointment/static/src/views/appointment_invite/appointment_share_link_list_controller.js:0
 msgid "Create a Share Link"
-msgstr ""
+msgstr "공유 링크 만들기"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
@@ -2088,7 +2091,7 @@ msgstr "치과 치료"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Describe what you need"
-msgstr ""
+msgstr "필요한 사항 설명하기"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__description
@@ -2580,7 +2583,7 @@ msgstr "참석자가 미팅을 등록할 때 게스트를 초대할 수 있도�
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Let customers book tables (bars, restaurants, etc.)"
-msgstr ""
+msgstr "고객이 테이블 (바, 레스토랑 등)을 예약할 수 있도록 허용합니다. "
 
 #. module: appointment
 #. odoo-javascript
@@ -2746,7 +2749,7 @@ msgstr "탐색"
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 msgid "Need to reschedule?"
-msgstr ""
+msgstr "일정을 변경해야 하나요?"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_alarm__default_for_new_appointment_type
@@ -2895,7 +2898,7 @@ msgstr "특정 사용자에게는 상시 약속 유형은 하나만 허용됩니
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Oops! Your appointment is scheduled in less than"
-msgstr ""
+msgstr "앗, 일정이 다음 시간 미만으로 예약되어 있습니다."
 
 #. module: appointment
 #. odoo-javascript
@@ -3033,7 +3036,7 @@ msgstr "평가"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_type_action_helper/appointment_type_action_helper.xml:0
 msgid "Ready to make scheduling easy?"
-msgstr ""
+msgstr "간편하게 일정을 관리할 준비가 되었나요?"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__reason
@@ -3218,7 +3221,7 @@ msgstr "예약"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Schedule 30-minute calls in virtual rooms"
-msgstr ""
+msgstr "가상 회의실에서 30분 통화 예약하기"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__schedule_based_on
@@ -3387,7 +3390,7 @@ msgstr "공유 링크"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Share this link to let others book a meeting in your calendar"
-msgstr ""
+msgstr "이 링크를 공유하여 다른 사람들이 캘린더에서 미팅을 예약할 수 있도록 합니다."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
@@ -3419,6 +3422,11 @@ msgstr "고유 코드 짧음 경고"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__show
 msgid "Show Pictures"
 msgstr "이미지 표시"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_form
+msgid "Sign in"
+msgstr "로그인"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__char
@@ -3562,7 +3570,7 @@ msgstr "증상"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Synchronize your Calendar to avoid double-booking"
-msgstr ""
+msgstr "이중 예약을 피하기 위해 캘린더를 동기화하기"
 
 #. module: appointment
 #. odoo-python
@@ -3624,7 +3632,7 @@ msgstr "사용한 인원 수는 예약한 인원 수보다 적을 수 없습니�
 msgid ""
 "The configuration has changed and synchronization is not possible anymore. "
 "Please reload the page."
-msgstr ""
+msgstr "설정이 변경되어 더 이상 동기화할 수 없습니다. 페이지를 새로고침하세요. "
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
@@ -3643,7 +3651,7 @@ msgstr "일정 예약 유형 없이는 행사 %s리소스를 예약할 수 없�
 msgid ""
 "The event %s cannot have an appointment status without being linked to an "
 "appointment type."
-msgstr ""
+msgstr "행사 %s는 예약 유형에 연결되지 않으면 예약 상태를 가질 수 없습니다. "
 
 #. module: appointment
 #. odoo-python
@@ -3784,12 +3792,12 @@ msgstr "종료 시간"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "To make any changes, please contact"
-msgstr ""
+msgstr "변경하려면 다음으로 문의하세요."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "To make any changes, please contact us."
-msgstr ""
+msgstr "변경 사항이 있으면 문의해 주세요."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__access_token
@@ -3878,7 +3886,7 @@ msgstr "예정된 일정"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_invite/appointment_share_link_list_controller.js:0
 msgid "Update a Share Link"
-msgstr ""
+msgstr "공유 링크 업데이트"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_alarm__default_for_new_appointment_type
@@ -4003,7 +4011,7 @@ msgstr "내 약속"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_sync_button/appointment_sync_button.js:0
 msgid "Your calendar is already configured and was successfully synchronized."
-msgstr ""
+msgstr "캘린더가 이미 구성되어 있으며 성공적으로 동기화되었습니다."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -4121,7 +4129,7 @@ msgstr "이번 달에는 예약 가능한 자리가 더 이상 없습니다."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "hour(s) and cannot be cancelled at this time.<br/>"
-msgstr ""
+msgstr "시간 이내에만 가능하며 지금은 취소할 수 없습니다.<br/>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -4135,6 +4143,7 @@ msgid "on"
 msgstr "on"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "or"
 msgstr "또는"

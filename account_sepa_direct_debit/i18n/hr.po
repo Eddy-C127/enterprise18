@@ -3,6 +3,7 @@
 # 	* account_sepa_direct_debit
 # 
 # Translators:
+# Martin Trigaux, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
 msgid ""
@@ -907,7 +908,7 @@ msgstr "Promijenjeno"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "Glavni prilog"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__mandate_id
@@ -1186,7 +1187,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Ocjene"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__recipient_ids
@@ -1426,7 +1427,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
 msgid "Signature"
-msgstr ""
+msgstr "Potpis"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1451,7 +1452,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__start_date
 msgid "Start Date"
-msgstr ""
+msgstr "Početni datum"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__state
@@ -1466,12 +1467,16 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Status po aktivnostima\n"
+"U kašnjenju: Datum aktivnosti je već prošao\n"
+"Danas: Datum aktivnosti je danas\n"
+"Planirano: Buduće aktivnosti."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__subject
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_send_form
 msgid "Subject"
-msgstr ""
+msgstr "Predmet"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_account_batch_payment__sdd_scheme
@@ -1667,7 +1672,7 @@ msgstr "Upozorenja"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Poruke webstranica"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__website_message_ids

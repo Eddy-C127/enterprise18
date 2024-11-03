@@ -93,12 +93,16 @@ msgstr "Asiento contable"
 msgid ""
 "No debit account found in the '%(rule_name)s' payslip salary rule. Please "
 "add a payable debit account to be able to create an accounting entry for the"
-" expense report linked to this payslip '%(expense_report_name)s'."
+" expense reports linked to this payslip."
 msgstr ""
-"No se encontró cuenta de débito en la regla de salario de la nómina de pago "
-"'%(rule_name)s'. Agregue una cuenta de débito a la que se le pueda pagar "
-"para poder crear un asiento contable para el informe de gastos vinculado a "
-"este recibo de nómina \"%(expense_report_name)s\"."
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_payslip.py:0
+msgid ""
+"No salary rule was found to handle expenses in structure "
+"'%(structure_name)s'."
+msgstr ""
 
 #. module: hr_payroll_expense
 #. odoo-python

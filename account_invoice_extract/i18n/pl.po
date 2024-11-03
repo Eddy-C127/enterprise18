@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -70,7 +71,7 @@ msgstr "Utwórz"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__create_uid
 msgid "Created by"
-msgstr "Utworzył(a)"
+msgstr "Utworzono przez"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_invoice_extract_words__create_date
@@ -80,7 +81,7 @@ msgstr "Data utworzenia"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_config_settings__extract_out_invoice_digitalization_mode
 msgid "Customer Invoices"
-msgstr "Faktury sprzedaży"
+msgstr "Faktury klienta"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_res_company__extract_out_invoice_digitalization_mode
@@ -101,7 +102,7 @@ msgstr "Digitalizacja automatyczna"
 #. module: account_invoice_extract
 #: model_terms:ir.ui.view,arch_db:account_invoice_extract.view_move_form_inherit_ocr
 msgid "Digitize document"
-msgstr ""
+msgstr "Digitalizuj dokument"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields.selection,name:account_invoice_extract.selection__res_company__extract_in_invoice_digitalization_mode__manual_send
@@ -140,40 +141,40 @@ msgstr "Wyciągnij załącznik"
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_detected_layout
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_detected_layout
 msgid "Extract Detected Layout Id"
-msgstr ""
+msgstr "Wyodrębnij wykryte ID układu"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_partner_name
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_partner_name
 msgid "Extract Detected Partner Name"
-msgstr ""
+msgstr "Wyodrębnij wykrytą nazwę partnera"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_prefill_data
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_prefill_data
 msgid "Extract Prefill Data"
-msgstr ""
+msgstr "Wyodrębnij wstępnie wypełnione dane"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_state_processed
 msgid "Extract State Processed"
-msgstr ""
+msgstr "Przetworzono status ekstrakcji"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_bank_statement_line__extract_word_ids
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_word_ids
 msgid "Extract Word"
-msgstr "Wyciągnij słowo"
+msgstr "Wyodrębnij słowo"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_state
 msgid "Extract state"
-msgstr "Wyciągnij stan"
+msgstr "Wyodbrębnij stan"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_status
 msgid "Extract status"
-msgstr ""
+msgstr "Status ekstrakcji"
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_invoice_extract_words
@@ -193,12 +194,12 @@ msgstr "Pole"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_follower_ids
 msgid "Followers"
-msgstr "Obserwatorzy"
+msgstr "Obserwujący"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Obserwatorzy (partnerzy)"
+msgstr "Obserwujący (partnerzy)"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__has_message
@@ -213,7 +214,7 @@ msgstr "ID"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__extract_document_uuid
 msgid "ID of the request to IAP-OCR"
-msgstr ""
+msgstr "ID wniosku do IAP-OCR"
 
 #. module: account_invoice_extract
 #: model:ir.model.fields,help:account_invoice_extract.field_account_move__message_needaction
@@ -250,7 +251,7 @@ msgstr "Jest obserwatorem"
 #. module: account_invoice_extract
 #: model:ir.model.fields,field_description:account_invoice_extract.field_account_move__is_in_extractable_state
 msgid "Is In Extractable State"
-msgstr ""
+msgstr "Jest w stanie ekstraktowalnym"
 
 #. module: account_invoice_extract
 #: model:ir.model,name:account_invoice_extract.model_account_move

@@ -5,14 +5,15 @@
 # Translators:
 # Wil Odoo, 2024
 # Manon Rondou, 2024
+# Jolien De Paepe, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Jolien De Paepe, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -203,6 +204,63 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"access_token\" t-value=\"object._rating_get_access_token()\"></t>\n"
+"    <t t-set=\"partner\" t-value=\"object._rating_get_partner()\"></t>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0;\">\n"
+"    <tbody>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            <t t-if=\"partner.name\">\n"
+"                Bonjour <t t-out=\"partner.name or ''\">Brandon Freeman</t>,<br><br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                Bonjour,<br>\n"
+"            </t>\n"
+"            Veuillez prendre un moment pour évaluer nos services liés au ticket \"<strong t-out=\"object.name or ''\">Les pieds de table ne sont pas équilibrés</strong>\"\n"
+"            <t t-if=\"object._rating_get_operator().name\">\n"
+"                assigné à <strong t-out=\"object._rating_get_operator().name or ''\">Mitchell Admin</strong>.<br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                .<br><br>\n"
+"            </t>\n"
+"        </td></tr>\n"
+"        <tr><td style=\"text-align: center;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin: 32px 0px 32px 0px; display: inline-table;\">\n"
+"                <tr><td style=\"font-size: 14px; text-align:center;\">\n"
+"                    <strong>Dites-nous ce que vous pensez de notre prestation de services</strong><br>\n"
+"                    <span style=\"text-color: #888888\">(cliquez sur l'un des smileys)</span>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <table style=\"width:100%;text-align:center;margin-top:2rem;\">\n"
+"                        <tr>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/5\" t-att-class=\"'pe-none' if object._rating_get_operator() else ''\">\n"
+"                                    <img alt=\"Satisfied\" src=\"/rating/static/src/img/rating_5.png\" title=\"Satisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/3\" t-att-class=\"'pe-none' if object._rating_get_operator() else ''\">\n"
+"                                    <img alt=\"Okay\" src=\"/rating/static/src/img/rating_3.png\" title=\"Okay\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/1\" t-att-class=\"'pe-none' if object._rating_get_operator() else ''\">\n"
+"                                    <img alt=\"Dissatisfied\" src=\"/rating/static/src/img/rating_1.png\" title=\"Dissatisfied\">\n"
+"                                </a>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td></tr>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            Nous apprécions votre retour. Il nous aide à nous améliorer en permanence.\n"
+"            <br><br><span style=\"margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;\">Cette enquête de satisfaction vous a été envoyée parce que votre ticket a été déplacé vers l'étape <b t-out=\"object.stage_id.name or ''\">En cours</b>.</span>\n"
+"        </td></tr>\n"
+"    </tbody>\n"
+"    </table>\n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.new_ticket_request_email_template
@@ -338,6 +396,8 @@ msgid ""
 "<i class=\"fa fa-lightbulb-o\"/>\n"
 "                                    <span class=\"ms-2\">A rating request will automatically be sent by email to the customer when their ticket reaches the corresponding stage with the email template set.</span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/>\n"
+"                                    <span class=\"ms-2\">Une demande d'évaluation sera automatiquement envoyée par e-mail au client à l'aide du modèle d'e-mail défini, lorsque son ticket atteindra l'étape correspondante.</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -367,7 +427,7 @@ msgstr "<i class=\"fa fa-warning\"/>&amp;nbsp;"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "<i class=\"oi oi-arrow-right\"/> Set an Alias Domain"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right\"/> Indiquer un alias de domaine"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -444,23 +504,23 @@ msgstr "<span class=\"o_stat_text\">Évaluation</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Failed</span>"
-msgstr "<span class=\"text-muted\">Echoués</span>"
+msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Open</span>"
-msgstr "<span class=\"text-muted\">Ouverts</span>"
+msgid "<span class=\"text-muted text-nowrap\">Open</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Unassigned</span>"
-msgstr "<span class=\"text-muted\">Non attribué</span>"
+msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Urgent</span>"
-msgstr "<span class=\"text-muted\">Urgents</span>"
+msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -516,6 +576,8 @@ msgstr "<strong class=\"col-lg-3\">Reporté le</strong>"
 msgid ""
 "<strong><b>Good job!</b> You walked through all steps of this tour.</strong>"
 msgstr ""
+"<strong><b>Bien joué !</b> Vous venez de terminer toutes les étapes de cette"
+" visite.</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -620,7 +682,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Add details about this ticket..."
-msgstr ""
+msgstr "Ajouter des détails sur ce ticket..."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -748,12 +810,6 @@ msgid "Are you sure you want to delete these stages?"
 msgstr "Êtes-vous sûr de vouloir supprimer ces étapes ?"
 
 #. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "Attribuez le ticket à un <b>membre de votre équipe</b>."
-
-#. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_main
@@ -864,7 +920,7 @@ msgstr "Évaluation moyenne (%)"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Average Rating for the Past 7 Days"
-msgstr ""
+msgstr "Évaluation moyenne des 7 derniers jours"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -888,7 +944,7 @@ msgstr "Évaluation moyenne : Satisfait"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Average rating daily target"
-msgstr ""
+msgstr "Objectif quotidien de l'évaluation moyenne"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -970,7 +1026,7 @@ msgstr "Canaux"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Click to Set Your Daily Rating Target"
-msgstr ""
+msgstr "Cliquez pour définir votre objectif d'évaluation quotidienne"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2422,6 +2478,12 @@ msgid "Open Time (hours)"
 msgstr "Temps ouvert (heures)"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Open the ticket."
+msgstr ""
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -2568,7 +2630,7 @@ msgstr "Veuillez saisir une valeur positive."
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Please enter a value less than or equal to 5."
-msgstr ""
+msgstr "Veuillez saisir une valeur inférieure ou égale à 5."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_contact
@@ -2931,6 +2993,12 @@ msgstr "Satisfait"
 #. module: helpdesk
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "Sauvegarder ce ticket et les modifications que vous avez apportées."
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 msgid "Schedule your <b>activity</b>."
 msgstr "Planifiez votre <b>activité</b>."
 
@@ -3224,7 +3292,7 @@ msgstr "Membres de l'équipe"
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_stage_team_action
 msgid "Team Stages"
-msgstr ""
+msgstr "Étapes de l'équipe"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.email_template_action_helpdesk
@@ -3563,7 +3631,7 @@ msgstr "Activités du jour"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Today's Average Rating"
-msgstr ""
+msgstr "Évaluation moyenne du jour"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__total_response_hours

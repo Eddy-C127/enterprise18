@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,27 +24,27 @@ msgstr ""
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_draft
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_draft
 msgid "Add Tag Draft"
-msgstr ""
+msgstr "Stichwort „Entwurf“ hinzufügen"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_to_validate
 msgid "Add Tag To Validate"
-msgstr ""
+msgstr "Stichwort „Zu validieren“ hinzufügen"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "Stichwort „Validiert“ hinzufügen"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation_code
 msgid "Ask For Validation - Check conditions"
-msgstr ""
+msgstr "Um Validierung bitten – Bedingungen prüfen"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation
 msgid "Ask for validation"
-msgstr ""
+msgstr "Um Validierung bitten"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_ir_attachment
@@ -76,7 +77,7 @@ msgstr "Nicht mehr verwenden"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_deprecate_code
 msgid "Deprecate - Check conditions"
-msgstr ""
+msgstr "Veraltet – Bedingungen prüfen"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_document
@@ -109,7 +110,7 @@ msgstr "Dokumente &amp; Analysen"
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Documents already linked to a task."
-msgstr ""
+msgstr "Bereits mit einer Aufgabe verknüpfte Dokumente."
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__documents_folder_id
@@ -124,12 +125,16 @@ msgid ""
 "All of the attachments of your tasks will be automatically added as "
 "documents in this workspace as well."
 msgstr ""
+"Ordner, in dem alle Dokumente dieses Projekts kategorisiert werden. Alle "
+"Anhänge Ihrer Aufgaben werden auch automatisch als Dokumente in diesen "
+"Arbeitsbereich eingefügt."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
 msgstr ""
+"Es ist unmöglich, eine Aufgabe zu einem veralteten Dokument zu erstellen"
 
 #. module: documents_project
 #. odoo-python
@@ -146,12 +151,12 @@ msgstr "Ungültige Aufgabensuche"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft_code
 msgid "Mark As Draft - Check conditions"
-msgstr ""
+msgstr "Als Entwurf markieren – Bedingungen prüfen"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft
 msgid "Mark as draft"
-msgstr ""
+msgstr "Als Entwurf markieren"
 
 #. module: documents_project
 #. odoo-python
@@ -173,12 +178,12 @@ msgstr "Projekte"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "Stichwort „Zu validieren“ hinzufügen"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_validated
 msgid "Remove Tag Validated"
-msgstr ""
+msgstr "Stichwort „Validiert“ entfernen"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_project_task
@@ -211,6 +216,8 @@ msgid ""
 "The \"%(folder)s\" folder should either be in the \"%(company)s\" company "
 "like this project or be open to all companies."
 msgstr ""
+"Der Ordner „%(folder)s“ sollte sich entweder im Unternehmen „%(company)s“ "
+"befinden, wie dieses Projekt, oder für alle Unternehmen zugänglich sein."
 
 #. module: documents_project
 #. odoo-python
@@ -219,6 +226,8 @@ msgid ""
 "The \"%s\" folder is required by the Project application and cannot be "
 "deleted."
 msgstr ""
+"Der Ordner „%s“ ist für die Projekte-App erforderlich und kann nicht "
+"gelöscht werden."
 
 #. module: documents_project
 #. odoo-python
@@ -228,6 +237,10 @@ msgid ""
 " to which it is linked. Please update the company of the \"%(project)s\" "
 "project, or leave the company of this workspace empty."
 msgstr ""
+"Dieser Ordner sollte im selben Unternehmen bleiben wie das Projekt "
+"„%(project)s“, mit dem er verknüpft ist. Bitte aktualisieren Sie das "
+"Unternehmen des Projekts „%(project)s“ oder lassen Sie das Unternehmen "
+"dieses Arbeitsbereichs leer."
 
 #. module: documents_project
 #. odoo-python
@@ -238,6 +251,10 @@ msgid ""
 "\n"
 "Please update the company of those projects, or leave the company of this workspace empty."
 msgstr ""
+"Dieser Ordner sollte im selben Unternehmen bleiben wie das folgende Projekt, mit dem er verknüpft ist:\n"
+"%s\n"
+"\n"
+"Bitte aktualisieren Sie das Unternehmen der Projekte oder lassen Sie das Unternehmen dieses Arbeitsbereichs leer."
 
 #. module: documents_project
 #: model_terms:ir.actions.act_window,help:documents_project.action_view_documents_project_project
@@ -262,7 +279,7 @@ msgstr "Validieren"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_validate_code
 msgid "Validate - Check conditions"
-msgstr ""
+msgstr "Validieren – Bedingungen prüfen"
 
 #. module: documents_project
 #. odoo-python
@@ -282,13 +299,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot create a task from a folder."
-msgstr ""
+msgstr "Sie können keine Aufgabe aus einem Ordner erstellen."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot set a company on the %s folder."
-msgstr ""
+msgstr "Sie können kein Unternehmen im Ordner %s einstellen."
 
 #. module: documents_project
 #. odoo-python

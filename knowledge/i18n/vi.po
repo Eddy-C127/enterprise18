@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:24+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -2001,7 +2001,6 @@ msgstr "Vắng mặt trên một ngày"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 msgid "Access Denied"
 msgstr "Truy cập bị từ chối"
@@ -2084,21 +2083,33 @@ msgstr "Thêm trường thuộc tính"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.js:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
 msgid "Add a Comment..."
 msgstr "Thêm một bình luận..."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 msgid "Add a clipboard section"
 msgstr "Thêm một phần bộ nhớ tạm"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
+msgid "Add a comment to an image"
+msgstr ""
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Add a comment to selection"
 msgstr "Thêm một bình luận vào lựa chọn"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_popover/comments_popover.xml:0
+msgid "Add a comment..."
+msgstr "Thêm nhận xét..."
 
 #. module: knowledge
 #. odoo-javascript
@@ -2123,12 +2134,6 @@ msgid ""
 msgstr ""
 "Thêm bài viết vào danh sách yêu thích của bạn bằng cách nhấp vào <i "
 "class=\"fa fa-star-o\"></i> bên cạnh tên bài viết. "
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/table_of_content_behavior/table_of_content_behavior.xml:0
-msgid "Add headings in this Article to create a Table of Content"
-msgstr "Thêm thẻ tiêu đề trong Bài viết này để tạo Mục lục"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
@@ -2266,9 +2271,9 @@ msgstr "Tuổi: 42"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "All Comments"
-msgstr "Tất cả bình luận"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "All Discussions"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -2458,8 +2463,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_favorite__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__article_id
@@ -2492,7 +2496,7 @@ msgstr "Thuộc tính hạng mục bài viết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_item_calendar
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action_stages
@@ -2733,19 +2737,19 @@ msgstr "Sửa lỗi 🔨"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Calendar"
 msgstr "Tạo lịch hạng mục"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Kanban"
 msgstr "Tạo kanban hạng mục"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item List"
 msgstr "Tạo danh sách hạng mục"
 
@@ -2770,13 +2774,13 @@ msgstr "Quá trình mua hàng"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of %s"
 msgstr "Lịch %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of Article Items"
 msgstr "Lịch hạng mục bài viết"
 
@@ -2835,10 +2839,9 @@ msgstr "Người dùng có thể xem bài viết không?"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.xml:0
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
 msgid "Cancel"
 msgstr "Hủy"
@@ -2866,11 +2869,6 @@ msgstr ""
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Car Policy"
 msgstr "Chính sách xe"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "Car_Catalog.png"
-msgstr "Car_Catalog.png"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2951,7 +2949,7 @@ msgstr "Chọn một ảnh bìa đẹp mắt"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 msgid "Choose an Article..."
 msgstr "Chọn một bài viết..."
@@ -2964,14 +2962,8 @@ msgstr "Bấm và giữ để căn chỉnh"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "Click here to update the source"
-msgstr "Bấm vào đây để cập nhật nguồn"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2980,8 +2972,6 @@ msgstr "Bộ nhớ tạm"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
@@ -2990,17 +2980,7 @@ msgstr "Đóng"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid ""
-"Collaborative Links require joining, while Embed Links directly show the "
-"drawing."
-msgstr ""
-"Liên kết cộng tác yêu cầu tham gia, trong khi Liên kết nhúng trực tiếp hiển "
-"thị bản vẽ."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Comment"
 msgstr "Bình luận"
 
@@ -3084,7 +3064,7 @@ msgstr "Liên hệ với luật sư của chúng tôi"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.js:0
 msgid "Content copied to clipboard."
 msgstr "Nội dung đã được sao chép vào bộ nhớ tạm."
 
@@ -3107,19 +3087,19 @@ msgstr "Chuyển thành hạng mục bài viết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy"
 msgstr "Sao chép"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Copy Link"
 msgstr "Copy Link"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy to Clipboard"
 msgstr "Sao chép vào bộ nhớ tạm"
 
@@ -3178,7 +3158,7 @@ msgstr "Tạo \""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 msgid "Create \"%s\""
 msgstr "Tạo \"%s\""
 
@@ -3375,11 +3355,10 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.xml:0
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Discard"
 msgstr "Huỷ bỏ"
 
@@ -3435,18 +3414,6 @@ msgstr "Hoàn tất"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-msgid "Download"
-msgstr "Tải xuống"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Drawing Board"
-msgstr "Bảng vẽ"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 msgid "Drop here to delete this article"
 msgstr "Thả vào đây để xóa bài viết này"
@@ -3470,8 +3437,8 @@ msgstr "Chỉnh sửa"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Edit Link"
 msgstr "Chỉnh sửa liên kết"
 
@@ -3515,12 +3482,6 @@ msgstr "Email:"
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.js:0
 msgid "Embed a View"
 msgstr "Nhúng một chế độ xem"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
-msgid "Embed a video"
-msgstr "Nhúng một video"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__icon
@@ -3580,7 +3541,7 @@ msgstr "Xuất"
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
 msgid "Extra Comment"
-msgstr "Thêm lời nhắn"
+msgstr "Bình luận bổ sung"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -3611,12 +3572,6 @@ msgstr "Bài viết yêu thích"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_favorite_view_tree
 msgid "Favorites"
 msgstr "Danh sách yêu thích"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "File"
-msgstr "Tệp"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
@@ -3684,7 +3639,7 @@ msgstr "Giới tính: Nữ"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Generate an Article with AI"
 msgstr "Tạo một bài viết bằng AI"
 
@@ -3801,15 +3756,9 @@ msgstr "Ẩn"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Highlight content and use the"
 msgstr "Tô màu nội dung và sử dụng"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Highlight the structure of this article"
-msgstr "Tô màu cấu trúc của bài viết này"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history
@@ -4016,7 +3965,7 @@ msgstr "Trải nghiệm khách hàng không nhất quán"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Index"
 msgstr "Chỉ số"
 
@@ -4062,22 +4011,9 @@ msgstr "Chèn"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "Insert Drawing"
-msgstr "Chèn hình vẽ"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Insert Link"
 msgstr "Chèn liên kết"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
-msgid "Insert Video"
-msgstr "Chèn video"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4087,13 +4023,13 @@ msgstr "Chèn chế độ xem lịch"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Calendar view of article items"
 msgstr "Chèn chế độ xem lịch của các hạng mục bài viết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Card view of article items"
 msgstr "Chèn chế độ xem thẻ của các hạng mục bài viết"
 
@@ -4105,7 +4041,7 @@ msgstr "Chèn chế độ xem Kanban"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Kanban view of article items"
 msgstr "Chèn chế độ xem kanban của các hạng mục bài viết"
 
@@ -4117,34 +4053,15 @@ msgstr "Chèn chế độ xem danh sách"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a List view of article items"
 msgstr "Chèn chế độ xem danh sách của các hạng mục bài viết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Insert a Video"
-msgstr "Chèn video"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "Insert a drawing board"
-msgstr "Chèn một bảng vẽ"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Insert an Article shortcut"
 msgstr "Chèn lối tắt bài viết"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Insert an Excalidraw Board"
-msgstr "Chèn một bảng Excalidraw"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4299,25 +4216,25 @@ msgstr "Mục 4"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Calendar"
 msgstr "Lịch hạng mục"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Cards"
 msgstr "Thẻ hạng mục"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Kanban"
 msgstr "Kanban hạng mục"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item List"
 msgstr "Danh sách hạng mục"
 
@@ -4330,11 +4247,6 @@ msgstr "Giai đoạn hạng mục"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_calendar_items
 msgid "Items"
 msgstr "Hạng mục"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "JPG"
-msgstr "JPG"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -4359,13 +4271,13 @@ msgstr "Julius"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of %s"
 msgstr "Kanban %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of Article Items"
 msgstr "Kanban hạng mục bài viết"
 
@@ -4387,7 +4299,7 @@ msgstr ""
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/external_embedded_view_favorite_menu/insert_embedded_view.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_root
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_technical
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
@@ -4403,12 +4315,6 @@ msgstr "Bài viết kiến thức"
 #: model:ir.model,name:knowledge.model_knowledge_cover
 msgid "Knowledge Cover"
 msgstr "Ảnh bìa Kiến thức"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Knowledge Databases"
-msgstr "Cơ sở dữ liệu Kiến thức"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_invite
@@ -4498,34 +4404,39 @@ msgstr "Hãy báo trước cho Trưởng nhóm của bạn."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Link"
 msgstr "Liên kết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Link an Article"
 msgstr "Liên kết một bài viết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_link_plugin/embedded_view_link_plugin.js:0
 msgid "Link copied to clipboard."
-msgstr "Liên kết được sao chép vào khay nhớ tạm."
+msgstr "Liên kết được sao chép vào bộ nhớ tạm."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of %s"
 msgstr "Danh sách %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of Article Items"
 msgstr "Danh sách của hạng mục bài viết"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Load More Discussions"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -4535,7 +4446,7 @@ msgstr "Tải mẫu"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Load a Template"
 msgstr "Tải một mẫu"
 
@@ -4597,6 +4508,12 @@ msgid "Mark Comment as Closed"
 msgstr "Đánh dấu bình luận là đã đóng"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Mark the discussion as resolved"
+msgstr ""
+
+#. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_marketing
 msgid "Marketing"
 msgstr "Marketing"
@@ -4606,12 +4523,6 @@ msgstr "Marketing"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "Marketing Campaign Brief"
 msgstr "Tóm tắt chiến dịch marketing"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Media"
-msgstr "Truyền thông"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar_meeting
@@ -4674,6 +4585,18 @@ msgid "Message Delivery error"
 msgstr "Lỗi gửi tin nhắn"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copied!"
+msgstr "Liên kết tin nhắn đã được sao chép!"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copy Failed (Permission denied?)!"
+msgstr "Sao chép liên kết tin nhắn không thành công (Quyền bị từ chối?)!"
+
+#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_ids
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__message_ids
 msgid "Messages"
@@ -4684,12 +4607,6 @@ msgstr "Tin nhắn"
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 msgid "Missing Calendar configuration."
 msgstr "Thiếu cấu hình lịch."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "Missing File"
-msgstr "Thiếu tệp"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4795,7 +4712,7 @@ msgstr "Hạng mục mới của tôi"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__name
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_tree
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree
@@ -4813,12 +4730,6 @@ msgstr "Phong cách thiên nhiên ☘ -"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Navigation Basics 🐣"
 msgstr "Điều hướng cơ bản 🐣"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
-msgid "Nest articles under this one to generate a structure"
-msgstr "Lồng các bài viết trong bài viết này để tạo ra một cấu trúc"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4921,6 +4832,12 @@ msgid "No article found."
 msgstr "Không tìm thấy bài viết nào."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/core/article_index/readonly_article_index.xml:0
+msgid "No article to display"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "No article yet."
 msgstr "Chưa có bài viết nào."
@@ -4938,7 +4855,7 @@ msgstr "Chưa có mẫu nào."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Nothing going on!"
 msgstr "Không có gì xảy ra!"
 
@@ -4991,24 +4908,9 @@ msgid "Odoo Experience 🎉"
 msgstr "Odoo Experience 🎉"
 
 #. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Odoo Logo"
-msgstr "Logo Odoo"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Odoo Survival Guide"
-msgstr "Hướng dẫn sinh tồn của Odoo"
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Odoo: Manage your SME online"
 msgstr "Odoo: Quản lý online SME của bạn"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Onboarding.pdf"
-msgstr "Onboarding.pdf"
 
 #. module: knowledge
 #. odoo-python
@@ -5016,12 +4918,6 @@ msgstr "Onboarding.pdf"
 #: model:knowledge.article.stage,name:knowledge.knowledge_article_template_stage_ongoing
 msgid "Ongoing"
 msgstr "Đang diễn ra"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
-msgid "Only Internal Users can access this view."
-msgstr "Chỉ Người dùng nội bộ mới có thể truy cập chế độ xem này."
 
 #. module: knowledge
 #. odoo-python
@@ -5061,16 +4957,6 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid ""
-"Oops, the file %s could not be found. Please replace this file box by a new "
-"one to re-upload the file."
-msgstr ""
-"Rất tiếc, không tìm thấy tập tin %s. Vui lòng thay thế ô tệp này bằng ô tệp "
-"mới để tải lại tệp lên."
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 msgid "Oops, there's nothing here. Try another search."
 msgstr "Rất tiếc, không có gì ở đây cả. Hãy thử từ khoá tìm kiếm khác."
@@ -5085,9 +4971,9 @@ msgstr "Mở"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_plugin.js:0
-msgid "Open Video"
-msgstr "Mở video"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Open Discussions"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -5100,12 +4986,6 @@ msgstr "Mở bảng bình luận"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 msgid "Open history"
 msgstr "Mở lịch sử"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "Open in new Window"
-msgstr "Mở trong Cửa sổ mới"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5281,7 +5161,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Preview"
 msgstr "Xem trước"
 
@@ -5344,7 +5224,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Primary"
 msgstr "Chủ đạo"
 
@@ -5436,22 +5316,16 @@ msgid "Ratings"
 msgstr "Đánh giá"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Re-open the discussion"
+msgstr ""
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Read"
 msgstr "Đọc"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Read Less"
-msgstr "Đọc ít hơn"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Read More"
-msgstr "Tìm hiểu thêm"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__partner_ids
@@ -5465,7 +5339,7 @@ msgstr "Khắc phục"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Refresh"
 msgstr "Làm mới"
 
@@ -5494,13 +5368,13 @@ msgstr "Gỡ ảnh bìa"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
-#: code:addons/knowledge/static/src/emoji_picker/emoji_picker_patch.xml:0
+#: code:addons/knowledge/static/src/mail/emoji_picker/emoji_picker_patch.xml:0
 msgid "Remove Icon"
 msgstr "Xoá biểu tượng"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Remove Link"
 msgstr "Xoá liên kết"
 
@@ -5531,12 +5405,6 @@ msgstr "Đổi tên"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Reopen the Thread"
-msgstr "Mở lại chuỗi"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 msgid "Replace"
 msgstr "Thay thế"
@@ -5546,12 +5414,6 @@ msgstr "Thay thế"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 msgid "Replace cover"
 msgstr "Thay đổi ảnh bìa"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Reply"
-msgstr "Trả lời"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5567,15 +5429,9 @@ msgstr "Căn chỉnh ảnh bìa"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Resolve the Thread"
-msgstr "Xử lý chuỗi"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Resolved Comments"
-msgstr "Bình luận đã xử lý"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Resolved Discussions"
+msgstr ""
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_user_id
@@ -5658,8 +5514,8 @@ msgstr "Cẩm nang kinh doanh"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Save"
 msgstr "Lưu"
 
@@ -5732,7 +5588,7 @@ msgstr "Kết quả tìm kiếm"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Secondary"
 msgstr "Secondary"
 
@@ -5760,8 +5616,8 @@ msgstr "Chọn một bài viết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Send as Message"
 msgstr "Gửi dưới dạng tin nhắn"
 
@@ -5808,15 +5664,22 @@ msgstr "Danh sách việc cần làm chung"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show All"
 msgstr "Hiện thị tất cả"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show Less"
 msgstr "Hiển thị ít hơn"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+msgid "Show More"
+msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
@@ -5832,7 +5695,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Show nested articles"
 msgstr "Hiển thị bài viết lồng nhau"
 
@@ -5913,8 +5776,7 @@ msgstr "Một số bài viết đã được đưa vào thùng rác"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "Something went wrong!"
 msgstr "Đã xảy ra lỗi!"
 
@@ -5922,15 +5784,6 @@ msgstr "Đã xảy ra lỗi!"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Sonya"
 msgstr "Sonya"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid ""
-"Sorry, we could not find your drawing, please verify that the URL is valid."
-msgstr ""
-"Rất tiếc, chúng tôi không thể tìm thấy hình vẽ của bạn, vui lòng xác minh "
-"rằng URL hợp lệ."
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -6038,7 +5891,7 @@ msgstr "Bắt đầu nhập"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid ""
 "Start typing to continue with an empty page or pick an option below to get "
 "started."
@@ -6074,15 +5927,9 @@ msgstr "Ngày dừng"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Switch Mode"
 msgstr "Đổi chế độ"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Table Of Content"
-msgstr "Mục lục"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -6201,12 +6048,6 @@ msgid "The Article you are trying to access has been deleted"
 msgstr "Bài viết bạn đang cố truy cập đã bị xóa"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "The Excalidraw URL is not valid."
-msgstr "URL Excalidraw không hợp lệ."
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "The Future Entrepreneurship Fair"
 msgstr "Hội chợ khởi nghiệp tương lai"
@@ -6219,7 +6060,6 @@ msgstr "Bài viết '%s' cần ít nhất một thành viên có quyền 'Viết
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 msgid ""
 "The article you are trying to open has either been removed or is "
@@ -6304,7 +6144,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "The view does not exist or you are not allowed to access to it."
 msgstr "Chế độ xem không tồn tại hoặc bạn không được phép truy cập vào nó."
 
@@ -6445,7 +6285,7 @@ msgstr "Đang cố gắng gỡ thành viên không phù hợp."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Type"
 msgstr "Loại"
 
@@ -6468,12 +6308,6 @@ msgid "Unlock"
 msgstr "Mở khoá"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Unresolved Comments"
-msgstr "Bình luận chưa xử lý"
-
-#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Unsupported search operation"
@@ -6485,6 +6319,7 @@ msgstr "Thao tác tìm kiếm không được hỗ trợ"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #: code:addons/knowledge/static/src/components/hierarchy/hierarchy.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
+#: code:addons/knowledge/static/src/editor/html_migrations/migration-1.0.js:0
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_hierarchy
@@ -6494,15 +6329,9 @@ msgstr "Không có tiêu đề"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Update"
 msgstr "Cập nhật"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Upload a file"
-msgstr "Tải tệp lên"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6511,13 +6340,13 @@ msgstr "Cách dùng"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.js:0
 msgid "Use as %s"
 msgstr "Sử dụng làm %s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Use as Attachment"
 msgstr "Dùng làm tệp đính kèm"
 
@@ -6582,18 +6411,6 @@ msgstr "Quyền của người dùng"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "VersionName - ReleaseDate"
 msgstr "Tênphiênbản - Ngàypháthành"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Video"
-msgstr "Video"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Video player"
-msgstr "Trình phát video"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6792,7 +6609,7 @@ msgstr "Viết"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Write an article about"
 msgstr "Viết một bài viết về"
 
@@ -6829,6 +6646,12 @@ msgid "You are not allowed to create a new template."
 msgstr "Bạn không được phép tạo mẫu mới."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to delete a favorite filter in this article."
+msgstr ""
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to delete a template."
@@ -6855,6 +6678,12 @@ msgid "You are not allowed to move '%(article_name)s'."
 msgstr "Bạn không được phép chuyển '%(article_name)s'."
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to save a favorite filter in this article."
+msgstr ""
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to update a template."
@@ -6865,18 +6694,6 @@ msgstr "Bạn không được phép cập nhật mẫu."
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to update the type of a article or a template."
 msgstr "Bạn không được phép cập nhật loại bài viết hoặc mẫu."
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not delete favorite from this article"
-msgstr "Bạn không thể bỏ đánh dấu yêu thích khỏi bài viết này"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not save favorite on this article"
-msgstr "Bạn không thể đánh dấu yêu thích trên bài viết này"
 
 #. module: knowledge
 #. odoo-javascript
@@ -7037,12 +6854,6 @@ msgid "Your Access: %s"
 msgstr "Quyền truy cập của bạn: %s"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Your browser does not support iframe."
-msgstr "Trình duyệt của bạn không hỗ trợ khung nội tuyến."
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid ""
 "Your car can be driven by <strong>you, your spouse and by any person living "
@@ -7069,7 +6880,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "all"
 msgstr "tất cả"
 
@@ -7091,7 +6902,7 @@ msgstr "đã được đưa vào thùng rác.<br/><br/>"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "button to add comments"
 msgstr "để thêm bình luận"
 
@@ -7130,12 +6941,6 @@ msgid "e.g. Todos"
 msgstr "VD: Việc cần làm"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "e.g. https://link.excalidraw.com/..."
-msgstr "VD: https://link.excalidraw.com/..."
-
-#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "has"
 msgstr "has"
@@ -7157,17 +6962,12 @@ msgstr "mời bạn truy cập một bài viết.<br/>"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
+#: code:addons/knowledge/static/src/components/with_lazy_loading/with_lazy_loading.xml:0
 msgid "loader"
 msgstr "bộ tải"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "logo.jpg"
-msgstr "logo.jpg"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_mail_notification_layout
@@ -7185,23 +6985,13 @@ msgid "or"
 msgstr "hoặc"
 
 #. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "pdf"
-msgstr "pdf"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "png"
-msgstr "png"
-
-#. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__read
 msgid "read"
 msgstr "đọc"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "resolved"
 msgstr "đã được xử lý"
 
@@ -7223,15 +7013,9 @@ msgstr "giải phóng tiềm lực Kiến thức!"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "unresolved"
 msgstr "chưa được xử lý"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "untitled"
-msgstr "không có tiêu đề"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__write
@@ -7303,6 +7087,21 @@ msgid "🎯 Target Audience"
 msgstr "🎯 Đối tượng mục tiêu"
 
 #. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏘️ House Model - Incanto"
+msgstr ""
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏠 House Model - Cielo"
+msgstr ""
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏢 House Model - Serenità"
+msgstr ""
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "📊 KPIs"
 msgstr "📊 KPI"
@@ -7348,6 +7147,11 @@ msgstr "🙌🏼 Quyết định đã ra"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "🚀 Objective"
 msgstr "🚀 Mục tiêu"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🛕 House Model - Dolcezza"
+msgstr ""
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification

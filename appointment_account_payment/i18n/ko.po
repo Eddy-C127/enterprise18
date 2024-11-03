@@ -79,6 +79,8 @@ msgid ""
 "<span invisible=\"resource_manage_capacity\" class=\"ms-1\">per booking</span>\n"
 "                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">per seat</span>"
 msgstr ""
+"<span invisible=\"resource_manage_capacity\" class=\"ms-1\">예약 건당</span>\n"
+"                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">좌석 당</span>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -295,13 +297,13 @@ msgstr "최근 업데이트 일자"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make customers pay a fee per person when booking your resources"
-msgstr ""
+msgstr "리소스를 예약할 때 고객에게 1인당 요금을 부과합니다."
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make sure customers pay before they can take a slot in your calendar"
-msgstr ""
+msgstr "캘린더 슬롯을 예약하기 전에 고객이 결제를 완료했는지 확인하세요."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__calendar_event_id
@@ -331,7 +333,7 @@ msgstr "온라인 쿠킹 레슨"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "Oops! Paid appointment cannot be cancelled via our website.<br/>"
-msgstr ""
+msgstr "죄송합니다! 유료 예약은 웹사이트를 통해 취소할 수 없습니다.<br/>"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__staff_user_id
@@ -457,12 +459,12 @@ msgstr "고객용 예약 결제 양식의 미리보기입니다."
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "To make any changes, please contact"
-msgstr ""
+msgstr "변경하려면 다음으로 문의하세요."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "To make any changes, please contact us."
-msgstr ""
+msgstr "변경 사항이 있으면 문의해 주세요."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view

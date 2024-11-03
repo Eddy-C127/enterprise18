@@ -4,16 +4,17 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
+# Raymond Yu <cl_yu@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:24+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1954,7 +1955,6 @@ msgstr "缺勤一天以上"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 msgid "Access Denied"
 msgstr "访问被拒绝"
@@ -1989,7 +1989,7 @@ msgstr "计划"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__active
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_ids
@@ -2037,21 +2037,33 @@ msgstr "添加属性字段"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.js:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
 msgid "Add a Comment..."
 msgstr "添加评论..."
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 msgid "Add a clipboard section"
 msgstr "添加剪贴板部分"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
+msgid "Add a comment to an image"
+msgstr "给图像添加备注"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Add a comment to selection"
 msgstr "为选择添加评论"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_popover/comments_popover.xml:0
+msgid "Add a comment..."
+msgstr "添加评论"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2072,12 +2084,6 @@ msgid ""
 "Add articles in your list of favorites by clicking on the <i class=\"fa fa-"
 "star-o\"></i> next to the article name."
 msgstr "通过点击文章名称旁边的 <i class=\"fa fa-star-o\"></i>，在您的收藏夹列表中添加文章。"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/table_of_content_behavior/table_of_content_behavior.xml:0
-msgid "Add headings in this Article to create a Table of Content"
-msgstr "在这篇文章中添加标题以创建一个内容表"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
@@ -2209,9 +2215,9 @@ msgstr "年龄： 42"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "All Comments"
-msgstr "所有评论"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "All Discussions"
+msgstr "所有讨论"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -2267,7 +2273,7 @@ msgstr "回答员工经常提出的问题"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_search_items
 msgid "Archived"
-msgstr "已存档"
+msgstr "已归档"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2372,8 +2378,7 @@ msgstr "您确定要将权限设置为\"无\"吗？ 如果您这样做，您将�
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_favorite__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_member__article_id
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__article_id
@@ -2404,7 +2409,7 @@ msgstr "文章项目属性"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_action_item_calendar
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action
 #: model:ir.actions.act_window,name:knowledge.knowledge_article_item_action_stages
@@ -2509,7 +2514,7 @@ msgstr "作为管理员，您可以随时修改这篇文章及其成员。"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_attachment_count
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
@@ -2636,19 +2641,19 @@ msgstr "错误修复 🔨"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Calendar"
 msgstr "创建项目日历"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item Kanban"
 msgstr "创建项目看板"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Build an Item List"
 msgstr "创建项目清单"
 
@@ -2671,13 +2676,13 @@ msgstr "购买过程"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of %s"
 msgstr "%s的日历"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Calendar of Article Items"
 msgstr "文章项目的日历"
 
@@ -2736,10 +2741,9 @@ msgstr "用户能否看到文章？"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.xml:0
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_invite_view_form
 msgid "Cancel"
 msgstr "取消"
@@ -2763,11 +2767,6 @@ msgstr "请将<strong>YourCompany</strong>大写，除非它是URL的一部分�
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid "Car Policy"
 msgstr "车辆政策"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "Car_Catalog.png"
-msgstr "Car_Catalog.png"
 
 #. module: knowledge
 #. odoo-javascript
@@ -2844,7 +2843,7 @@ msgstr "选择漂亮的封面"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 #: code:addons/knowledge/static/src/components/move_article_dialog/move_article_dialog.js:0
 msgid "Choose an Article..."
 msgstr "选择文章..."
@@ -2857,14 +2856,8 @@ msgstr "单击并按住以重新定位"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "Click here to update the source"
-msgstr "单击此处更新消息来源"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_clipboard_plugin/embedded_clipboard_plugin.js:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -2873,8 +2866,6 @@ msgstr "剪贴板"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 #: code:addons/knowledge/static/src/macros/abstract_macro.js:0
@@ -2883,22 +2874,14 @@ msgstr "关闭"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid ""
-"Collaborative Links require joining, while Embed Links directly show the "
-"drawing."
-msgstr "协作链接需要加入，而嵌入链接则直接显示绘图。"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/xml/knowledge_wysiwyg.xml:0
+#: code:addons/knowledge/static/src/editor/plugins/comments_plugin/comments_plugin.js:0
 msgid "Comment"
 msgstr "评论"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
 msgid "Company Abbreviations"
-msgstr "公司缩写"
+msgstr "公司简称"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -2972,7 +2955,7 @@ msgstr "联系我们的律师"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.js:0
 msgid "Content copied to clipboard."
 msgstr "内容已复制到剪贴板。"
 
@@ -2995,19 +2978,19 @@ msgstr "转换为文章项目"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy"
 msgstr "复制"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Copy Link"
 msgstr "复制链接"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/clipboard/embedded_clipboard.xml:0
 msgid "Copy to Clipboard"
 msgstr "复制到剪贴板"
 
@@ -3065,7 +3048,7 @@ msgstr "创建 ”"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior_dialog/article_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/components/article_selection_dialog/article_selection_dialog.js:0
 msgid "Create \"%s\""
 msgstr "创建\"%s\""
 
@@ -3259,11 +3242,10 @@ msgstr "您知道可以在任何知识文章上为每个用户定义访问权限
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/article_template_picker_dialog/article_template_picker_dialog.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover_dialog.xml:0
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Discard"
 msgstr "丢弃"
 
@@ -3313,18 +3295,6 @@ msgstr "已完成"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-msgid "Download"
-msgstr "下载"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Drawing Board"
-msgstr "绘图板"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 msgid "Drop here to delete this article"
 msgstr "拖到此处删除该文章"
@@ -3348,8 +3318,8 @@ msgstr "编辑"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Edit Link"
 msgstr "编辑链接"
 
@@ -3393,12 +3363,6 @@ msgstr "电子邮件："
 #: code:addons/knowledge/static/src/components/prompt_embedded_view_name_dialog/prompt_embedded_view_name_dialog.js:0
 msgid "Embed a View"
 msgstr "嵌入视图"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
-msgid "Embed a video"
-msgstr "嵌入视频"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__icon
@@ -3489,12 +3453,6 @@ msgid "Favorites"
 msgstr "收藏夹"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "File"
-msgstr "文件"
-
-#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
 msgid "Find all articles shared with you"
 msgstr "查找与您分享的所有文章"
@@ -3502,7 +3460,7 @@ msgstr "查找与您分享的所有文章"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__fold
 msgid "Folded in kanban view"
-msgstr "在看板视图中收起"
+msgstr "在看板视图中折叠"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_follower_ids
@@ -3558,7 +3516,7 @@ msgstr "性别：男"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Generate an Article with AI"
 msgstr "使用 AI 生成文章"
 
@@ -3576,7 +3534,7 @@ msgstr "分组方式"
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 msgid "Guest"
-msgstr "游客"
+msgstr "访客"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_hr_faq
@@ -3671,15 +3629,9 @@ msgstr "隐藏"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Highlight content and use the"
 msgstr "突出显示内容并使用"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Highlight the structure of this article"
-msgstr "突出本文的结构"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__html_field_history
@@ -3880,14 +3832,14 @@ msgstr "客户体验不一致"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Index"
 msgstr "索引"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
 msgid "Industrial ⚙-"
-msgstr "工业 ⚙-"
+msgstr "行业 ⚙-"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_account_management
@@ -3924,22 +3876,9 @@ msgstr "插入"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "Insert Drawing"
-msgstr "插入图纸"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Insert Link"
 msgstr "插入链接"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/video_selector_dialog/video_selector_dialog.xml:0
-msgid "Insert Video"
-msgstr "插入视频"
 
 #. module: knowledge
 #. odoo-javascript
@@ -3949,13 +3888,13 @@ msgstr "插入日历视图"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Calendar view of article items"
 msgstr "插入文章项目的日历视图"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Card view of article items"
 msgstr "插入文章项目的卡片视图"
 
@@ -3967,7 +3906,7 @@ msgstr "插入看板视图"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a Kanban view of article items"
 msgstr "插入文章项目的看板视图"
 
@@ -3979,34 +3918,15 @@ msgstr "插入列表视图"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Insert a List view of article items"
 msgstr "插入文章项目的列表视图"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Insert a Video"
-msgstr "插入视频"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "Insert a drawing board"
-msgstr "插入绘图板"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Insert an Article shortcut"
 msgstr "插入文章快捷方式"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Insert an Excalidraw Board"
-msgstr "插入 Excalidraw 板"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4077,7 +3997,7 @@ msgstr "邀请"
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 msgid "Invite People"
-msgstr "邀请人"
+msgstr "邀请人员"
 
 #. module: knowledge
 #: model:ir.actions.act_window,name:knowledge.knowledge_invite_action_from_article
@@ -4158,25 +4078,25 @@ msgstr "项目4"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Calendar"
 msgstr "日历"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Cards"
 msgstr "卡片"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item Kanban"
 msgstr "看板"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_plugin/embedded_view_plugin.js:0
 msgid "Item List"
 msgstr "列表"
 
@@ -4189,11 +4109,6 @@ msgstr "项目阶段"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_calendar_items
 msgid "Items"
 msgstr "项目"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "JPG"
-msgstr "JPG"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -4218,13 +4133,13 @@ msgstr "朱利叶斯"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of %s"
 msgstr "%s的看板"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Kanban of Article Items"
 msgstr "文章项目看板"
 
@@ -4243,7 +4158,7 @@ msgstr "通过定期更新，让同事了解公司的最新发展和活动。"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/external_embedded_view_favorite_menu/insert_embedded_view.xml:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_root
 #: model:ir.ui.menu,name:knowledge.knowledge_menu_technical
 #: model_terms:ir.ui.view,arch_db:knowledge.portal_my_home_knowledge
@@ -4259,12 +4174,6 @@ msgstr "知识性文章"
 #: model:ir.model,name:knowledge.model_knowledge_cover
 msgid "Knowledge Cover"
 msgstr "知识封面"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Knowledge Databases"
-msgstr "知识数据库"
 
 #. module: knowledge
 #: model:ir.model,name:knowledge.model_knowledge_invite
@@ -4354,34 +4263,39 @@ msgstr "请提前告知您的团队经理。"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Link"
 msgstr "链接"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/editor/article_plugin/article_plugin.js:0
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/plugins/article_plugin/article_plugin.js:0
 msgid "Link an Article"
 msgstr "链接文章"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/embedded_view_link_plugin/embedded_view_link_plugin.js:0
 msgid "Link copied to clipboard."
 msgstr "链接已复制到剪贴板。"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of %s"
 msgstr "%s列表"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "List of Article Items"
 msgstr "文章项目列表"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Load More Discussions"
+msgstr "加载更多讨论"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4391,7 +4305,7 @@ msgstr "加载模板"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid "Load a Template"
 msgstr "加载模板"
 
@@ -4449,6 +4363,12 @@ msgid "Mark Comment as Closed"
 msgstr "将评论标记为已关闭"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Mark the discussion as resolved"
+msgstr "将讨论标记为已解决"
+
+#. module: knowledge
 #: model:knowledge.article.template.category,name:knowledge.knowledge_article_template_category_marketing
 msgid "Marketing"
 msgstr "营销"
@@ -4458,12 +4378,6 @@ msgstr "营销"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "Marketing Campaign Brief"
 msgstr "营销活动简介"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Media"
-msgstr "媒介"
 
 #. module: knowledge
 #: model:knowledge.article,template_name:knowledge.knowledge_article_template_sprint_calendar_meeting
@@ -4526,6 +4440,18 @@ msgid "Message Delivery error"
 msgstr "消息发送错误"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copied!"
+msgstr "已复制消息链接"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_model_patch.js:0
+msgid "Message Link Copy Failed (Permission denied?)!"
+msgstr "消息链接复制失败（可能是权限问题？）"
+
+#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_ids
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_thread__message_ids
 msgid "Messages"
@@ -4536,12 +4462,6 @@ msgstr "消息"
 #: code:addons/knowledge/static/src/views/item_calendar/item_calendar_views.xml:0
 msgid "Missing Calendar configuration."
 msgstr "日历配置缺失。"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "Missing File"
-msgstr "缺少文件"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4647,7 +4567,7 @@ msgstr "我的新项目"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_stage__name
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_tree
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_tree
@@ -4665,12 +4585,6 @@ msgstr "自然风格 ☘ -"
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
 msgid "Navigation Basics 🐣"
 msgstr "导航基础知识🐣"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
-msgid "Nest articles under this one to generate a structure"
-msgstr "在此下嵌套文章以生成结构"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4773,6 +4687,12 @@ msgid "No article found."
 msgstr "未找到文章。"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/core/article_index/readonly_article_index.xml:0
+msgid "No article to display"
+msgstr "无文章显示"
+
+#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_form
 msgid "No article yet."
 msgstr "还没有文章。"
@@ -4790,7 +4710,7 @@ msgstr "尚无模板。"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "Nothing going on!"
 msgstr "没什么事"
 
@@ -4801,7 +4721,7 @@ msgid ""
 "                            <em>E.g. Q4 starts on Oct. 1 and ends on Dec. 31.</em>"
 msgstr ""
 "<strong>财政年度<br>的第 N 个季度</strong>。\n"
-"                            <em>例如，第四季度从 10 月 1 日开始，到 12 月 31 日结束。</em>"
+"                            <em>例如：第四季度从 10 月 1 日开始，到 12 月 31 日结束。</em>"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__message_needaction_counter
@@ -4843,24 +4763,9 @@ msgid "Odoo Experience 🎉"
 msgstr "Odoo 体验 🎉"
 
 #. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "Odoo Logo"
-msgstr "Odoo 徽标"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Odoo Survival Guide"
-msgstr "Odoo生存指南"
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_meeting_example_branding
 msgid "Odoo: Manage your SME online"
 msgstr "Odoo在线管理您的中小企业"
-
-#. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "Onboarding.pdf"
-msgstr "Onboarding.pdf"
 
 #. module: knowledge
 #. odoo-python
@@ -4868,12 +4773,6 @@ msgstr "Onboarding.pdf"
 #: model:knowledge.article.stage,name:knowledge.knowledge_article_template_stage_ongoing
 msgid "Ongoing"
 msgstr "正在进行"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior.js:0
-msgid "Only Internal Users can access this view."
-msgstr "只有内部用户才能访问该视图。"
 
 #. module: knowledge
 #. odoo-python
@@ -4909,14 +4808,6 @@ msgstr "只允许内部用户恢复原始文章访问信息。"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid ""
-"Oops, the file %s could not be found. Please replace this file box by a new "
-"one to re-upload the file."
-msgstr "哎呀，无法找到文件%s。请用一个新的文件框替换这个文件框，重新上传文件。"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 msgid "Oops, there's nothing here. Try another search."
 msgstr "哎呀，这里什么都没有。试试其他搜索。"
@@ -4931,9 +4822,9 @@ msgstr "打开"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_plugin.js:0
-msgid "Open Video"
-msgstr "打开视频"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Open Discussions"
+msgstr "开启讨论"
 
 #. module: knowledge
 #. odoo-javascript
@@ -4946,12 +4837,6 @@ msgstr "公开评论面板"
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
 msgid "Open history"
 msgstr "開啟歷程"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "Open in new Window"
-msgstr "在新窗口开启"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5009,12 +4894,12 @@ msgstr "痛点（<em>请勾选符合选项</em>）"
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_id
 msgid "Parent Article"
-msgstr "父级文章"
+msgstr "上级文章"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__parent_path
 msgid "Parent Path"
-msgstr "父级路径"
+msgstr "上级路径"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_template_view_form
@@ -5120,7 +5005,7 @@ msgstr "提前准备演示，并融入潜在客户的实例"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Preview"
 msgstr "预览"
 
@@ -5182,7 +5067,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Primary"
 msgstr "首要的"
 
@@ -5268,27 +5153,21 @@ msgid "Ratings"
 msgstr "点评"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/mail/message/message_actions.js:0
+msgid "Re-open the discussion"
+msgstr "重新开始讨论"
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Read"
 msgstr "读取"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Read Less"
-msgstr "阅读更少"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Read More"
-msgstr "阅读更多"
-
-#. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_invite__partner_ids
 msgid "Recipients"
-msgstr "收款人"
+msgstr "收件人"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_post_mortem
@@ -5297,7 +5176,7 @@ msgstr "恢复"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Refresh"
 msgstr "刷新"
 
@@ -5326,13 +5205,13 @@ msgstr "移除封面"
 #. module: knowledge
 #. odoo-javascript
 #: code:addons/knowledge/static/src/components/topbar/topbar.xml:0
-#: code:addons/knowledge/static/src/emoji_picker/emoji_picker_patch.xml:0
+#: code:addons/knowledge/static/src/mail/emoji_picker/emoji_picker_patch.xml:0
 msgid "Remove Icon"
 msgstr "移除图标"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior/view_link_behavior_popover.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_popover.xml:0
 msgid "Remove Link"
 msgstr "移除链接"
 
@@ -5363,12 +5242,6 @@ msgstr "重命名"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Reopen the Thread"
-msgstr "重开主题"
-
-#. module: knowledge
-#. odoo-javascript
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 msgid "Replace"
 msgstr "替换"
@@ -5378,12 +5251,6 @@ msgstr "替换"
 #: code:addons/knowledge/static/src/components/knowledge_cover/knowledge_cover.xml:0
 msgid "Replace cover"
 msgstr "替换封面"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comment/comment.xml:0
-msgid "Reply"
-msgstr "回复"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5399,15 +5266,9 @@ msgstr "重新定位封面"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/discuss/message_actions.js:0
-msgid "Resolve the Thread"
-msgstr "解决主题"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Resolved Comments"
-msgstr "已解决的意见"
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
+msgid "Resolved Discussions"
+msgstr "已解决的讨论"
 
 #. module: knowledge
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__activity_user_id
@@ -5490,8 +5351,8 @@ msgstr "销售指南"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
 #: code:addons/knowledge/static/src/components/item_calendar_props_dialog/item_calendar_props_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Save"
 msgstr "保存"
 
@@ -5564,7 +5425,7 @@ msgstr "搜索结果"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/core/embedded_view_link/embedded_view_link_style.js:0
 msgid "Secondary"
 msgstr "次要的"
 
@@ -5592,8 +5453,8 @@ msgstr "选择文章"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Send as Message"
 msgstr "作为信息发送"
 
@@ -5640,15 +5501,22 @@ msgstr "共享待办清单"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show All"
 msgstr "显示所有"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Show Less"
 msgstr "显示更少"
+
+#. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/comments/comment/comment.xml:0
+msgid "Show More"
+msgstr "显示更多"
 
 #. module: knowledge
 #. odoo-javascript
@@ -5664,7 +5532,7 @@ msgstr "显示周末？"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/plugins/article_index_plugin/article_index_plugin.js:0
 msgid "Show nested articles"
 msgstr "显示嵌套文章"
 
@@ -5744,8 +5612,7 @@ msgstr "有些文章被发送到回收站"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "Something went wrong!"
 msgstr "出现一些问题。"
 
@@ -5753,13 +5620,6 @@ msgstr "出现一些问题。"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_customer_persona_1
 msgid "Sonya"
 msgstr "索尼娅"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid ""
-"Sorry, we could not find your drawing, please verify that the URL is valid."
-msgstr "抱歉，我们找不到您的绘图，请验证 URL 是否有效。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification
@@ -5863,7 +5723,7 @@ msgstr "开始输入"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/knowledge_article_html_field/knowledge_article_html_field.xml:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.xml:0
 msgid ""
 "Start typing to continue with an empty page or pick an option below to get "
 "started."
@@ -5897,15 +5757,9 @@ msgstr "结束日期"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Switch Mode"
 msgstr "切换模式"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Table Of Content"
-msgstr "目录"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -6024,12 +5878,6 @@ msgid "The Article you are trying to access has been deleted"
 msgstr "您要访问的文章已被删除"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior/draw_behavior.xml:0
-msgid "The Excalidraw URL is not valid."
-msgstr "Excalidraw 网址无效無。"
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_company_newsletter
 msgid "The Future Entrepreneurship Fair"
 msgstr "未来创业博览会"
@@ -6042,7 +5890,6 @@ msgstr "文章”%s“需要至少一位有“写入”权限的成员。"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/article_behavior/article_behavior.js:0
 #: code:addons/knowledge/static/src/js/knowledge_controller.js:0
 msgid ""
 "The article you are trying to open has either been removed or is "
@@ -6120,7 +5967,7 @@ msgstr "参加 Odoo Experience 23 的门票现已开始发售，现在预订会�
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/embedded_view.xml:0
 msgid "The view does not exist or you are not allowed to access to it."
 msgstr "视图不存在或您没有被允许访问。"
 
@@ -6189,19 +6036,19 @@ msgstr "小型房屋目录"
 #: model:digest.tip,name:knowledge.digest_tip_knowledge_0
 #: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_0
 msgid "Tip: A Knowledge well kept"
-msgstr ""
+msgstr "提示：保存完好的知识"
 
 #. module: knowledge
 #: model:digest.tip,name:knowledge.digest_tip_knowledge_2
 #: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_2
 msgid "Tip: Be on the same page"
-msgstr ""
+msgstr "提示：保持同步"
 
 #. module: knowledge
 #: model:digest.tip,name:knowledge.digest_tip_knowledge_1
 #: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_1
 msgid "Tip: Use Clipboards to easily inject repetitive content"
-msgstr ""
+msgstr "提示：使用剪贴板轻松注入重复内容"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_sales_playbook
@@ -6212,7 +6059,7 @@ msgstr "达成更多交易的秘诀"
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article__name
 #: model:ir.model.fields,field_description:knowledge.field_knowledge_article_template_category__name
 msgid "Title"
-msgstr "称谓"
+msgstr "标题"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
@@ -6258,7 +6105,7 @@ msgstr "尝试移除错误的成员。"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/view_link_behavior_dialog/view_link_behavior_dialog.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/embedded_view_link/embedded_view_link_edit_dialog.xml:0
 msgid "Type"
 msgstr "类型"
 
@@ -6281,12 +6128,6 @@ msgid "Unlock"
 msgstr "解锁"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
-msgid "Unresolved Comments"
-msgstr "未解析的注释"
-
-#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "Unsupported search operation"
@@ -6298,6 +6139,7 @@ msgstr "不支持搜索操作"
 #: code:addons/knowledge/models/knowledge_article.py:0
 #: code:addons/knowledge/static/src/components/hierarchy/hierarchy.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
+#: code:addons/knowledge/static/src/editor/html_migrations/migration-1.0.js:0
 #: code:addons/knowledge/static/src/webclient/commands/knowledge_providers.js:0
 #: code:addons/knowledge/static/src/xml/knowledge_command_palette.xml:0
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_view_hierarchy
@@ -6307,15 +6149,9 @@ msgstr "未命名的"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/articles_structure_behavior/articles_structure_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/article_index/article_index.xml:0
 msgid "Update"
 msgstr "更新"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Upload a file"
-msgstr "上传一个文件"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6324,20 +6160,20 @@ msgstr "用途"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/template_behavior/template_behavior.js:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/clipboard/macros_embedded_clipboard.js:0
 msgid "Use as %s"
 msgstr "用来%s"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.xml:0
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/file/macros_file_mixin.xml:0
 msgid "Use as Attachment"
 msgstr "用作附件"
 
 #. module: knowledge
 #: model_terms:digest.tip,tip_description:knowledge.digest_tip_knowledge_1
 msgid "Use the /clipboard command on a Knowledge Article and get going."
-msgstr ""
+msgstr "对知识文章使用 /clipboard 命令，然后开始。"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
@@ -6393,18 +6229,6 @@ msgstr "用户权限"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_release_note
 msgid "VersionName - ReleaseDate"
 msgstr "版本名称 - 发布日期"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/js/wysiwyg.js:0
-msgid "Video"
-msgstr "视频"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Video player"
-msgstr "视频播放器"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6587,7 +6411,7 @@ msgstr "写入"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/js/knowledge_wysiwyg.js:0
+#: code:addons/knowledge/static/src/components/wysiwyg_article_helper/wysiwyg_article_helper.js:0
 msgid "Write an article about"
 msgstr "写一篇关于"
 
@@ -6622,6 +6446,12 @@ msgid "You are not allowed to create a new template."
 msgstr "不允许创建新模板。"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to delete a favorite filter in this article."
+msgstr "不允许在本文章删除收藏的过滤器。"
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to delete a template."
@@ -6647,6 +6477,12 @@ msgid "You are not allowed to move '%(article_name)s'."
 msgstr "您无法移动 '%(article_name)s'。"
 
 #. module: knowledge
+#. odoo-javascript
+#: code:addons/knowledge/static/src/editor/embedded_components/backend/view/readonly_embedded_view.js:0
+msgid "You are not allowed to save a favorite filter in this article."
+msgstr "不允许在本文章保存收藏的过滤器。"
+
+#. module: knowledge
 #. odoo-python
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to update a template."
@@ -6657,18 +6493,6 @@ msgstr "不允许更新模板。"
 #: code:addons/knowledge/models/knowledge_article.py:0
 msgid "You are not allowed to update the type of a article or a template."
 msgstr "您不能更新文章或模板的类型。"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not delete favorite from this article"
-msgstr "您不能从本文中删除收藏夹"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_manager.js:0
-msgid "You can not save favorite on this article"
-msgstr "您不能保存本文的收藏夹"
 
 #. module: knowledge
 #. odoo-javascript
@@ -6811,12 +6635,6 @@ msgid "Your Access: %s"
 msgstr "您的访问权限：%s"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/video_behavior/video_behavior.xml:0
-msgid "Your browser does not support iframe."
-msgstr "您的浏览器不支持 iframe。"
-
-#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
 msgid ""
 "Your car can be driven by <strong>you, your spouse and by any person living "
@@ -6841,7 +6659,7 @@ msgstr ""
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "all"
 msgstr "所有"
 
@@ -6863,7 +6681,7 @@ msgstr "被发送到回收站。<br/><br/>"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "button to add comments"
 msgstr "按钮添加评论"
 
@@ -6902,12 +6720,6 @@ msgid "e.g. Todos"
 msgstr "例如：待办事项"
 
 #. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/excalidraw_behavior_dialog/draw_behavior_dialog.xml:0
-msgid "e.g. https://link.excalidraw.com/..."
-msgstr "例：https://link.excalidraw.com/..."
-
-#. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_trash_notification
 msgid "has"
 msgstr "有"
@@ -6929,17 +6741,12 @@ msgstr "邀请您访问一篇文章。<br/>"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/embedded_view_behavior/embedded_view_behavior.xml:0
 #: code:addons/knowledge/static/src/components/permission_panel/permission_panel.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar.xml:0
 #: code:addons/knowledge/static/src/components/sidebar/sidebar_row.xml:0
+#: code:addons/knowledge/static/src/components/with_lazy_loading/with_lazy_loading.xml:0
 msgid "loader"
 msgstr "装载器"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_brand_assets
-msgid "logo.jpg"
-msgstr "标识.jpg"
 
 #. module: knowledge
 #: model_terms:ir.ui.view,arch_db:knowledge.knowledge_mail_notification_layout
@@ -6957,23 +6764,13 @@ msgid "or"
 msgstr "或"
 
 #. module: knowledge
-#: model_terms:ir.ui.view,arch_db:knowledge.knowledge_article_user_onboarding
-msgid "pdf"
-msgstr "pdf"
-
-#. module: knowledge
-#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_hr_faq
-msgid "png"
-msgstr "png"
-
-#. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__read
 msgid "read"
 msgstr "读取"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "resolved"
 msgstr "已解决"
 
@@ -6995,15 +6792,9 @@ msgstr "去释放知识力量吧！"
 
 #. module: knowledge
 #. odoo-javascript
-#: code:addons/knowledge/static/src/components/comments_panel/comments_panel.xml:0
+#: code:addons/knowledge/static/src/comments/comments_panel/comments_panel.xml:0
 msgid "unresolved"
 msgstr "未解决"
-
-#. module: knowledge
-#. odoo-javascript
-#: code:addons/knowledge/static/src/components/behaviors/file_behavior/file_behavior.js:0
-msgid "untitled"
-msgstr "无标题"
 
 #. module: knowledge
 #: model:ir.model.fields.selection,name:knowledge.selection__knowledge_article__user_permission__write
@@ -7075,6 +6866,21 @@ msgid "🎯 Target Audience"
 msgstr "🎯 目标受众"
 
 #. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏘️ House Model - Incanto"
+msgstr "🏘️房屋模型 - Incanto"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏠 House Model - Cielo"
+msgstr "🏠房屋模型 - Cielo"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🏢 House Model - Serenità"
+msgstr "🏢房屋模型 - Serenità"
+
+#. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "📊 KPIs"
 msgstr "📊 关键绩效指标"
@@ -7120,6 +6926,11 @@ msgstr "🙌🏼 已作出的决定"
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_marketing_campaign_brief
 msgid "🚀 Objective"
 msgstr "🚀 目标"
+
+#. module: knowledge
+#: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_product_catalog
+msgid "🛕 House Model - Dolcezza"
+msgstr "🛕房屋模型 - Dolcezza"
 
 #. module: knowledge
 #: model_terms:knowledge.article,template_body:knowledge.knowledge_article_template_software_specification

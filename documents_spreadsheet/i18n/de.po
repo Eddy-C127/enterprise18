@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -47,7 +47,7 @@ msgstr ""
 #. module: documents_spreadsheet
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_frozen_spreadsheet_access_via_link_access_internal
 msgid "A frozen spreadsheet can not be editable"
-msgstr ""
+msgstr "Eine eingefrorene Tabellenkalkulation kann nicht bearbeitet werden"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.save_spreadsheet_template_view_form
@@ -151,7 +151,7 @@ msgstr "Dokument/Partner"
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_res_company__document_spreadsheet_folder_id
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_res_config_settings__document_spreadsheet_folder_id
 msgid "Document Spreadsheet Folder"
-msgstr ""
+msgstr "Ordner für Dokumente mit Tabellenkalkulationen"
 
 #. module: documents_spreadsheet
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.spreadsheet_template_view_tree
@@ -190,35 +190,40 @@ msgstr "Dateiname"
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_freeze_and_share/spreadsheet_freeze_and_share.xml:0
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.xml:0
 msgid "Freeze and share"
-msgstr ""
+msgstr "Einfrieren und teilen"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_folder
 msgid "Frozen Folder"
-msgstr ""
+msgstr "Eingefrorener Ordner"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields.selection,name:documents_spreadsheet.selection__documents_document__handler__frozen_spreadsheet
 msgid "Frozen Spreadsheet"
-msgstr ""
+msgstr "Eingefrorene Tabellenkalkulation"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Frozen Spreadsheets can not be editable."
-msgstr ""
+msgstr "Eingefrorene Tabellenkalkulationen können nicht bearbeitet werden."
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen at %(date)s: %(name)s"
-msgstr ""
+msgstr "Eingefroren am %(date)s: %(name)s"
 
 #. module: documents_spreadsheet
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "Frozen spreadsheets"
-msgstr ""
+msgstr "Eingefrorene Tabellenkalkulationen"
+
+#. module: documents_spreadsheet
+#: model:ir.model,name:documents_spreadsheet.model_ir_http
+msgid "HTTP Routing"
+msgstr "HTTP-Routing"
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__handler
@@ -314,7 +319,7 @@ msgstr "Als Vorlage speichern"
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/documents_control_panel/documents_control_panel.js:0
 msgid "Select one and only one spreadsheet"
-msgstr ""
+msgstr "Wählen Sie nur eine einzige Tabellenkalkulation aus"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -431,6 +436,8 @@ msgstr "Tabellenkalkulationen"
 #: code:addons/documents_spreadsheet/models/documents_access.py:0
 msgid "Spreadsheets can not be shared in edit mode to non-internal users."
 msgstr ""
+"Tabellenkalkulationen können im Bearbeitungsmodus nicht mit nicht-internen "
+"Benutzern geteilt werden."
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_spreadsheet_cell_thread__template_id
@@ -454,7 +461,7 @@ msgstr "Die Datei ist keine xlsx-Datei"
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_member_invite.js:0
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "The frozen spreadsheets are readonly."
-msgstr ""
+msgstr "Die eingefrorenen Tabellenkalkulationen sind schreibgeschützt."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -470,6 +477,9 @@ msgid ""
 "The spreadsheets can not be shared in edit mode with a link, change Internal"
 " to give write access."
 msgstr ""
+"Die Tabellenkalkulationen können im Bearbeitungsmodus nicht mit einem Link "
+"geteilt werden, ändern Sie den internen Zugriff, um Schreibzugriff zu "
+"gewähren."
 
 #. module: documents_spreadsheet
 #. odoo-python
@@ -487,6 +497,8 @@ msgstr "Die xlsx-Datei ist zu groß"
 #: model_terms:ir.ui.view,arch_db:documents_spreadsheet.documents_error_live_data
 msgid "This spreadsheet contains live data, only internal users can view it."
 msgstr ""
+"Diese Tabellenkalkulation enthält Live-Daten, nur interne Benutzer können "
+"sie sehen."
 
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_documents_document__thumbnail
@@ -499,6 +511,8 @@ msgstr "Vorschaubild"
 #: model:ir.model.constraint,message:documents_spreadsheet.constraint_documents_document_spreadsheet_access_via_link
 msgid "To share a spreadsheet in edit mode, add the user in the accesses"
 msgstr ""
+"Um eine Tabellenkalkulation im Bearbeitungsmodus zu teilen, geben Sie dem "
+"Benutzer den Zugriff"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -534,13 +548,13 @@ msgstr "Arbeitsbereich"
 #. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 msgid "You can not edit a frozen spreadsheet"
-msgstr ""
+msgstr "Sie können eine eingefrorene Tabellenkalkulation nicht bearbeiten"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
 #: code:addons/documents_spreadsheet/static/src/bundle/actions/spreadsheet_action.js:0
 msgid "You can not freeze a frozen spreadsheet"
-msgstr ""
+msgstr "Sie können eine eingefrorene Tabellenkalkulation nicht einfrieren"
 
 #. module: documents_spreadsheet
 #. odoo-javascript
@@ -548,6 +562,8 @@ msgstr ""
 #: code:addons/documents_spreadsheet/static/src/documents_permission_panel/documents_partner_access.js:0
 msgid "You can not share spreadsheet in edit mode to non-internal user."
 msgstr ""
+"Sie können eine Tabellenkalkulationen im Bearbeitungsmodus nicht mit nicht-"
+"internen teilen."
 
 #. module: documents_spreadsheet
 #. odoo-python

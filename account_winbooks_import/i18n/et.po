@@ -32,6 +32,10 @@ msgid ""
 "                        The export of data from Winbooks for closed years might contain unbalanced entries. However if you want to try to import everything, Odoo will set the difference of balance in a Suspense Account.\n"
 "                    </span>"
 msgstr ""
+"<span/>\n"
+"                    <span class=\"text-warning mb4 mt16\" invisible=\"only_open\">\n"
+"                        Suletud aastate andmete eksport Wibnooks-ist võib sisaldada tasakaalustamata kandeid. Kui soovite kõike importida, määrab Odoo erinevuse vahekontole.\n"
+"                    </span>"
 
 #. module: account_winbooks_import
 #: model:ir.model,name:account_winbooks_import.model_account_winbooks_import_wizard
@@ -57,6 +61,9 @@ msgid ""
 "probably an error. Please check entry lines with reference: Counterpart "
 "(generated at import from Winbooks)"
 msgstr ""
+"Importimisel on loodud vähemalt üks automaatne vastaspoolt. See on "
+"tõenäoliselt viga. Kontrollige sisestusridu viitega: Vastaspool (loodud "
+"importimisel Winbooks-ist)"
 
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.winbooks_import_form
@@ -118,22 +125,22 @@ msgstr "Import (turvarežiim)"
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_ids
 msgid "Import Summary Analytic"
-msgstr ""
+msgstr "Impordi analüütika kokkuvõte"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_analytic_line_ids
 msgid "Import Summary Analytic Line"
-msgstr ""
+msgstr "Impordi analüütiliste ridade kokkuvõte"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_len_analytic
 msgid "Import Summary Len Analytic"
-msgstr ""
+msgstr "Impordi Len analüütika kokkuvõte"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,field_description:account_winbooks_import.field_account_import_summary__import_summary_len_analytic_line
 msgid "Import Summary Len Analytic Line"
-msgstr ""
+msgstr "Impordi Len analüütiliste ridade kokkuvõte"
 
 #. module: account_winbooks_import
 #. odoo-javascript
@@ -164,7 +171,7 @@ msgstr "Viimati uuendatud"
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_move_line__winbooks_line_id
 msgid "Line ID that was used in Winbooks"
-msgstr ""
+msgstr "Rea ID, mis oli kasutusel Winbooks-is"
 
 #. module: account_winbooks_import
 #. odoo-python
@@ -172,6 +179,7 @@ msgstr ""
 msgid ""
 "No data zip in the main archive. Please use the complete Winbooks export."
 msgstr ""
+"Põhiarhiivis andmete zip puudub. Kasutage täielikku Winbooks eksporti."
 
 #. module: account_winbooks_import
 #. odoo-python
@@ -194,7 +202,7 @@ msgstr "Vahekonto kood"
 #: code:addons/account_winbooks_import/wizard/import_wizard.py:0
 msgid ""
 "The code for the Suspense Account you entered doesn't match any account"
-msgstr ""
+msgstr "Vahekonto kood, mis sisestati ei sobitu ühegi kontoga"
 
 #. module: account_winbooks_import
 #. odoo-python
@@ -203,6 +211,8 @@ msgid ""
 "The following banks were used for multiple partners in Winbooks, which is not allowed in Odoo. The bank number has been only set on one of each group:\n"
 "%s"
 msgstr ""
+"Järgmisi panku kasutati mitme partneri jaoks Winbooks-is, mis ei ole Odoos lubatud. Panga number on määratud ainult ühele igast grupist. :\n"
+"%s"
 
 #. module: account_winbooks_import
 #: model:ir.model.fields,help:account_winbooks_import.field_account_winbooks_import_wizard__suspense_code
@@ -211,6 +221,9 @@ msgid ""
 "unbalanced moves. This might be an account from your Winbooks data, or an "
 "account that you created in Odoo before the import."
 msgstr ""
+"See on selle konto kood, kuhu soovite tasakaalustamata kanded luua. See võib"
+" olla konto Winbooks andmetest või konto, mille lõite Odoos enne "
+"importimist."
 
 #. module: account_winbooks_import
 #: model:ir.actions.act_window,name:account_winbooks_import.winbooks_import_action
@@ -228,6 +241,8 @@ msgid ""
 "Years closed in Winbooks are likely to have incomplete data. The counter "
 "part of incomplete entries will be set in a suspense account"
 msgstr ""
+"Winbooks-is on suletud aastate jooksul puudulikke andmeid. Vastaspoole "
+"puuduvad kanded määratakse vahekontole"
 
 #. module: account_winbooks_import
 #. odoo-python
@@ -238,9 +253,9 @@ msgstr "Esmalt peaksite installima maksukeskkond. "
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.account_import_summary_form
 msgid "account analytic lines imported"
-msgstr ""
+msgstr "konto analüütilised read imporditud"
 
 #. module: account_winbooks_import
 #: model_terms:ir.ui.view,arch_db:account_winbooks_import.account_import_summary_form
 msgid "account analytics imported"
-msgstr ""
+msgstr "konto analüütika imporditud"

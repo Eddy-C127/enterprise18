@@ -17,6 +17,7 @@
 # Martin Trigaux, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
 # Yihya Hugirat <hugirat@gmail.com>, 2024
+# yotam linder <linder@laylinetech.com>, 2024
 # yael terner, 2024
 # 
 msgid ""
@@ -36,13 +37,13 @@ msgstr ""
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_kanban
 msgid "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Period\" title=\"Period\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Period\" title=\"Period\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"to\" title=\"to\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-long-arrow-right mx-2\" aria-label=\"to\" title=\"to\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
@@ -57,12 +58,12 @@ msgstr "חשבון"
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_line_pivot
 msgid "Achieved"
-msgstr ""
+msgstr "מומש"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__achieved_percentage
 msgid "Achieved (%)"
-msgstr ""
+msgstr "מומש (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_needaction
@@ -116,7 +117,7 @@ msgstr "חשבון אנליטי"
 #. module: account_budget
 #: model:ir.ui.menu,name:account_budget.menu_act_budget_analytic_view
 msgid "Analytic Budget"
-msgstr ""
+msgstr "תקציב אנליטי"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_purchase_order_line__analytic_json
@@ -156,13 +157,13 @@ msgstr "תקציב"
 #. odoo-python
 #: code:addons/account_budget/wizards/budget_split_wizard.py:0
 msgid "Budget %s"
-msgstr ""
+msgstr "תקציב %s"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_analytic_id
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__budget_analytic_id
 msgid "Budget Analytic"
-msgstr ""
+msgstr "תקציב אנליטי"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_budget_line
@@ -201,7 +202,7 @@ msgstr "שם התקציב"
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Budget Report"
-msgstr ""
+msgstr "דו\"ח תקציב"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_budget_split_wizard
@@ -211,7 +212,7 @@ msgstr ""
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_analytic_state
 msgid "Budget State"
-msgstr "מצב תקציב"
+msgstr "שלב תקציב"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__budget_type
@@ -221,7 +222,7 @@ msgstr "סוג תקציב"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_amount
 msgid "Budgeted"
-msgstr ""
+msgstr "תוקצב"
 
 #. module: account_budget
 #. odoo-python
@@ -255,7 +256,7 @@ msgstr "בוטל"
 #. module: account_budget
 #: model_terms:ir.actions.act_window,help:account_budget.act_budget_analytic_view
 msgid "Click to create a new budget."
-msgstr "לחץ כדי ליצור תקציב חדש."
+msgstr "לחץ כדי ליצור תקציב חדש"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__committed_amount
@@ -264,12 +265,12 @@ msgstr "לחץ כדי ליצור תקציב חדש."
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Committed"
-msgstr ""
+msgstr "הוקצה"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__committed_percentage
 msgid "Committed (%)"
-msgstr ""
+msgstr "הוקצה (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__company_id
@@ -318,7 +319,7 @@ msgstr "תיאור"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Details..."
-msgstr ""
+msgstr "פירוט..."
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__display_name
@@ -441,7 +442,7 @@ msgstr "אם מסומן, בחלק מההודעות קיימת שגיאת משל�
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 msgid "In a Budget"
-msgstr ""
+msgstr "שייך לתקציב"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__is_above_budget
@@ -559,12 +560,12 @@ msgstr "מספר הודעות עם שגיאת משלוח"
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_analytic__state__confirmed
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Open"
-msgstr "פתח"
+msgstr "הפעל"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_search
 msgid "Open Budget"
-msgstr ""
+msgstr "תקציב פעיל"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_split_wizard__period
@@ -632,17 +633,17 @@ msgstr "הכנסה"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Revise"
-msgstr ""
+msgstr "עדכן"
 
 #. module: account_budget
 #: model:ir.model.fields.selection,name:account_budget.selection__budget_analytic__state__revised
 msgid "Revised"
-msgstr ""
+msgstr "מעודכן"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__parent_id
 msgid "Revision Of"
-msgstr ""
+msgstr "עדכון של"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__children_ids
@@ -698,12 +699,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Theoretical"
-msgstr ""
+msgstr "סכום תיאורטי"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_percentage
 msgid "Theoretical (%)"
-msgstr ""
+msgstr "סכום תיאורטי (%)"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_search
@@ -713,17 +714,17 @@ msgstr "פעילויות היום"
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Achieved"
-msgstr ""
+msgstr "סה\"כ מומש"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Budget"
-msgstr ""
+msgstr "סה\"כ תוקצב"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_report_view_tree
 msgid "Total Committed"
-msgstr ""
+msgstr "סה\"כ הוקצה"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_report__line_type
@@ -772,4 +773,4 @@ msgstr ""
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "e.g. Budget 2023"
-msgstr ""
+msgstr "לדוגמא, תקציב 2023"

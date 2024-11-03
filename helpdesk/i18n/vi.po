@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -497,23 +497,23 @@ msgstr "<span class=\"o_stat_text\">Đánh giá</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Failed</span>"
-msgstr "<span class=\"text-muted\">Không đạt</span>"
+msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Open</span>"
-msgstr "<span class=\"text-muted\">Mở</span>"
+msgid "<span class=\"text-muted text-nowrap\">Open</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Unassigned</span>"
-msgstr "<span class=\"text-muted\">Chưa phân công</span>"
+msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Urgent</span>"
-msgstr "<span class=\"text-muted\">Khẩn cấp</span>"
+msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -797,12 +797,6 @@ msgstr "Bạn có chắc chắn muốn tiếp tục không?"
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
 msgstr "Bạn có chắc chắn muốn xóa các giai đoạn này không?"
-
-#. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "Phân công phiếu hỗ trợ cho <b>một thành viên của đội</b>."
 
 #. module: helpdesk
 #. odoo-python
@@ -2468,6 +2462,12 @@ msgid "Open Time (hours)"
 msgstr "Thời gian mở (giờ)"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Open the ticket."
+msgstr ""
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -2971,6 +2971,13 @@ msgstr "Mẫu"
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Satisfied"
 msgstr "Hài lòng"
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Save this ticket and the modifications you've made to it."
+msgstr ""
+"Lưu phiếu hỗ trợ và các sửa đổi bạn đã thực hiện trên phiếu hỗ trợ này."
 
 #. module: helpdesk
 #. odoo-javascript

@@ -264,6 +264,10 @@ msgid ""
 "                        for you to reach your goals and look for the best collaboration.\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        あなたがゴール達成し、最良の協力関係を築くため\n"
+"                        会社はあなたのニーズと目標に対してどのようにサポートできるでしょうか。\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -273,6 +277,10 @@ msgid ""
 "                        employee's desire?\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        従業員の将来像をどのように考えていますか、あなたのビジョンは、\n"
+"                        従業員の願望に沿っているでしょうか？\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -282,6 +290,10 @@ msgid ""
 "                        issues.\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        過去の実績が、仕事の困難に立ち向かう力を\n"
+"                        与えてくれます。\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -296,6 +308,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>文化/ふるまい:</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-1\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -320,6 +336,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>内部コミュニケーション:</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-2\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -329,6 +349,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>仕事内容:</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-3\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -343,6 +367,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>報酬:</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-5\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -367,6 +395,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>仕事組織:</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-4\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -391,11 +423,13 @@ msgid ""
 "<small role=\"img\" class=\"fa fa-circle text-success\" invisible=\"state !="
 " 'pending' or waiting_feedback\" aria-label=\"Ready\" title=\"Ready\"/>"
 msgstr ""
+"<small role=\"img\" class=\"fa fa-circle text-success\" invisible=\"state !="
+" 'pending' or waiting_feedback\" aria-label=\"Ready\" title=\"Ready\"/>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_kanban
 msgid "<span class=\"fw-bold\">Meeting: </span>"
-msgstr ""
+msgstr "<span class=\"fw-bold\">ミーティング: </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_view_form
@@ -480,6 +514,9 @@ msgid ""
 "                        Evaluation\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        評価\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -488,6 +525,9 @@ msgid ""
 "                        Feedback\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        フィードバック\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -496,6 +536,9 @@ msgid ""
 "                        Improvements\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        改善\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -504,6 +547,9 @@ msgid ""
 "                        My feelings\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        自分の思い\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -512,6 +558,9 @@ msgid ""
 "                        My future\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        自分の未来\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -520,6 +569,9 @@ msgid ""
 "                        My work\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        自分の業務\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_report_view_gantt
@@ -580,7 +632,7 @@ msgstr "活動種別アイコン"
 #. module: hr_appraisal
 #: model_terms:ir.actions.act_window,help:hr_appraisal.hr_appraisal_config_templates_action
 msgid "Add a new template"
-msgstr ""
+msgstr "新規テンプレートを追加"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.request_appraisal_view_form
@@ -711,7 +763,7 @@ msgstr "査定統計"
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_template_form
 msgid "Appraisal Template"
-msgstr ""
+msgstr "査定テンプレート"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_department__custom_appraisal_template_id
@@ -719,6 +771,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Appraisal Templates"
 msgstr "査定テンプレート"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/wizard/request_appraisal.py:0
+msgid ""
+"Appraisal for %(appraisal_title)s should be using template "
+"\"%(template_name)s\" instead of \"%(wrong_template_name)s\""
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python
@@ -768,7 +828,7 @@ msgstr "評価"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Appraisals Automation"
-msgstr ""
+msgstr "査定自動化"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
@@ -899,12 +959,12 @@ msgstr "取消済"
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_appraisal__date_close
 msgid "Closing date of the current appraisal"
-msgstr ""
+msgstr "現行の査定の終了日"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_appraisal__previous_appraisal_date
 msgid "Closing date of the previous appraisal"
-msgstr ""
+msgstr "前回の査定の終了日"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_goal_tag__color
@@ -997,7 +1057,7 @@ msgstr "新規目標を作成"
 #. module: hr_appraisal
 #: model_terms:ir.actions.act_window,help:hr_appraisal.hr_appraisal_goal_tag_action
 msgid "Create new tags to use on Employee's goals"
-msgstr ""
+msgstr "従業員の目標管理に使う新しいタグを作成する"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_view_search
@@ -1038,7 +1098,7 @@ msgstr "作成日"
 #. module: hr_appraisal
 #: model:ir.model.fields,help:hr_appraisal.field_hr_appraisal__next_appraisal_date
 msgid "Date where the new appraisal will be automatically created"
-msgstr ""
+msgstr "新規査定が自動的に作成される日"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_goal__deadline
@@ -1149,7 +1209,7 @@ msgstr "従業員の査定"
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_hr_appraisal_template
 msgid "Employee Appraisal Template"
-msgstr ""
+msgstr "従業員査定テンプレート"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__employee_autocomplete_ids
@@ -1268,6 +1328,8 @@ msgid ""
 "Give one positive achievement that convinced you of the employee's\n"
 "                    value."
 msgstr ""
+"その従業員の価値を裏付ける、ポジティブな業績を1つ挙げて\n"
+"                    下さい。"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_view_form
@@ -1512,6 +1574,8 @@ msgid ""
 "Long term (&gt; 6 months) career discussion, where does the employee\n"
 "                    wants to go, how to help them reach this path?"
 msgstr ""
+"長期的 (&gt; 6 か月以上) キャリアについての話し合い、\n"
+"                    従業員がどこを目指したいか、どうすればその道に到達できるのでしょうか？"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_request_appraisal__template_id
@@ -1925,7 +1989,7 @@ msgstr "シーケンス"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Set default appraisal template"
-msgstr ""
+msgstr "デフォルト査定テンプレートの設定"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_config_settings_action
@@ -2004,6 +2068,14 @@ msgstr "件名..."
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_tag_view_tree
 msgid "Tags"
 msgstr "タグ"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/models/mail_template.py:0
+msgid ""
+"Template %(template_name)s is necessary for appraisal requests and may not "
+"be removed."
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2154,6 +2226,7 @@ msgid ""
 "                                         You can use a lot of options with "
 "the html editor, accessible by pressing / on the keyboard."
 msgstr ""
+"このエリアを使用して、従業員に表示される内容を入力します。キーボードの / を押してアクセスできるHTMLエディタでは、多くのオプションを使用できます。"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_template_form
@@ -2162,6 +2235,8 @@ msgid ""
 "                                         You can use a lot of options with "
 "the html editor, accessible by pressing / on the keyboard."
 msgstr ""
+"このエリアを使用して、マネジャーに表示される内容を入力します。キーボードの / "
+"を押してアクセスできるHTMLエディタでは、多くのオプションを使用できます。"
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_res_users
@@ -2202,6 +2277,8 @@ msgid ""
 "What are my short and long-term goals with the company, and for my\n"
 "                    career?"
 msgstr ""
+"会社での、そして自分のキャリアでの短期的、長期的な目標は\n"
+"                    何か？"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -2209,6 +2286,8 @@ msgid ""
 "What has been the most challenging aspect of my work this past year and\n"
 "                    why?"
 msgstr ""
+"この1年、自分の仕事で最も困難だったことは何か？\n"
+"                    その理由は？"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -2277,12 +2356,12 @@ msgstr "新しく作成して下さい"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_template_form
 msgid "e.g. Annual Appraisal"
-msgstr ""
+msgstr "例: 年度査定"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_view_form
 msgid "e.g. Improve your English level"
-msgstr ""
+msgstr "例: 英語のレベルを向上させる"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
@@ -2292,7 +2371,7 @@ msgstr "例: 鈴木 一郎"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_tag_view_tree
 msgid "e.g. Remediation, Team, Improvement plan, Career change, ..."
-msgstr ""
+msgstr "例: 修正、チーム、改善計画、キャリア変更、 ..."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form

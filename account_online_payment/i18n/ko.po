@@ -28,12 +28,12 @@ msgstr "수락됨"
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__account_online_linked
 msgid "Account Online Linked"
-msgstr ""
+msgstr "온라인 계좌 연결"
 
 #. module: account_online_payment
 #: model:ir.actions.server,name:account_online_payment.ir_cron_bank_sync_update_payment_status_ir_actions_server
 msgid "Account: Update payment status"
-msgstr ""
+msgstr "계정: 결제 상태 업데이트"
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__payment_identifier
@@ -58,7 +58,7 @@ msgstr "상태 확인"
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_payment__end_to_end_id
 msgid "End to End ID"
-msgstr ""
+msgstr "엔드 투 엔드 ID"
 
 #. module: account_online_payment
 #: model_terms:ir.ui.view,arch_db:account_online_payment.view_batch_payment_form_inherit
@@ -74,7 +74,7 @@ msgstr "PIS 상태"
 #. odoo-python
 #: code:addons/account_online_payment/models/account_batch_payment.py:0
 msgid "Payment already been signed"
-msgstr ""
+msgstr "결제가 이미 서명됨"
 
 #. module: account_online_payment
 #: model:ir.model,name:account_online_payment.model_account_payment
@@ -92,7 +92,7 @@ msgstr "보류 중"
 msgid ""
 "Please be aware that signed payments may have already been processed and "
 "sent to the bank."
-msgstr ""
+msgstr "서명된 결제가 이미 처리되어 은행으로 송금되었을 수 있습니다."
 
 #. module: account_online_payment
 #: model:ir.model.fields,field_description:account_online_payment.field_account_batch_payment__redirect_url
@@ -115,7 +115,7 @@ msgstr "결제 서명"
 msgid ""
 "This payment might have already been signed. Refreshing the payment "
 "status..."
-msgstr ""
+msgstr "이 결제는 이미 서명되었을 수 있습니다. 결제 상태를 새로 고침합니다..."
 
 #. module: account_online_payment
 #: model:ir.model.fields.selection,name:account_online_payment.selection__account_batch_payment__payment_online_status__uninitiated
@@ -136,4 +136,4 @@ msgstr "XML"
 #. odoo-python
 #: code:addons/account_online_payment/models/account_payment.py:0
 msgid "You cannot modify a payment that has already been sent to the bank."
-msgstr ""
+msgstr "이미 은행에서 송금된 결제는 수정할 수 없습니다."

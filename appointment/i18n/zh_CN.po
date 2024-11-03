@@ -3,9 +3,10 @@
 # 	* appointment
 # 
 # Translators:
-# Wil Odoo, 2024
 # Chloe Wang, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Raymond Yu <cl_yu@hotmail.com>, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1155,7 +1156,7 @@ msgstr "只有当预留的资源总容量超过此百分比时，才激活手动
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__active
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__active
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__activity_ids
@@ -1568,7 +1569,7 @@ msgstr "已归档"
 msgid ""
 "Are you sure you want to delete this Booking? Once it's gone, it's gone for "
 "good!"
-msgstr ""
+msgstr "您确定要删除此预订吗？一旦它消失了，它就永远消失了！"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__resources_choice
@@ -1590,7 +1591,7 @@ msgstr "至少有一个时间段时长比会议时长短 (%s 小时)"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__partner_ids
@@ -2437,14 +2438,14 @@ msgstr "如果设置了该功能，则会在确认预约时向客户发送电子
 msgid ""
 "If the active field is set to False, it will allow you to hide the resource "
 "record without removing it."
-msgstr "如果该启用字段设置为错误，则可以隐藏而非删除源记录。"
+msgstr "如果该有效字段设置为假，则可以隐藏而非删除源记录。"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__active
 msgid ""
 "If the active field is set to false, it will allow you to hide the event "
 "alarm information without removing it."
-msgstr "如果启用字段设为false，它将允许您隐藏提醒信息而不需要删除它。"
+msgstr "如果有效字段设为false，它将允许您隐藏提醒信息而不需要删除它。"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__image_1920
@@ -2510,7 +2511,7 @@ msgstr "邀请链接"
 #. module: appointment
 #: model:mail.template,description:appointment.attendee_invitation_mail_template
 msgid "Invitation email to new attendees of an appointment"
-msgstr "向新的预约参加者发送邀请电子邮件"
+msgstr "向新的预约参会者发送邀请电子邮件"
 
 #. module: appointment
 #: model:mail.template,subject:appointment.attendee_invitation_mail_template
@@ -2895,7 +2896,7 @@ msgstr "特定用户只允许一种随时预约类型。"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Oops! Your appointment is scheduled in less than"
-msgstr ""
+msgstr "哎呀！您的预约安排时间少于"
 
 #. module: appointment
 #. odoo-javascript
@@ -2950,7 +2951,7 @@ msgstr "预约人"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Personal Meeting"
-msgstr ""
+msgstr "私人会议"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3033,7 +3034,7 @@ msgstr "点评"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_type_action_helper/appointment_type_action_helper.xml:0
 msgid "Ready to make scheduling easy?"
-msgstr ""
+msgstr "准备好让排程变得简单吗?"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__reason
@@ -3218,7 +3219,7 @@ msgstr "安排"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Schedule 30-minute calls in virtual rooms"
-msgstr ""
+msgstr "在虚拟会议室中安排 30 分钟的通话"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__schedule_based_on
@@ -3387,7 +3388,7 @@ msgstr "‎共享链接‎"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Share this link to let others book a meeting in your calendar"
-msgstr ""
+msgstr "分享此链接，让其他人在您的日历中预订会议"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
@@ -3419,6 +3420,11 @@ msgstr "简码唯一警告"
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__avatars_display__show
 msgid "Show Pictures"
 msgstr "展示图片"
+
+#. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_form
+msgid "Sign in"
+msgstr "登录"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__char
@@ -3562,7 +3568,7 @@ msgstr "症状"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Synchronize your Calendar to avoid double-booking"
-msgstr ""
+msgstr "同步您的日历防止重复预订"
 
 #. module: appointment
 #. odoo-python
@@ -3574,7 +3580,7 @@ msgstr "餐桌"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Table %s"
-msgstr ""
+msgstr "%s号桌"
 
 #. module: appointment
 #. odoo-python
@@ -4120,7 +4126,7 @@ msgstr "本月我们没有更多的空位。"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "hour(s) and cannot be cancelled at this time.<br/>"
-msgstr ""
+msgstr "小时，这次不能取消。<br/>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -4134,6 +4140,7 @@ msgid "on"
 msgstr "在"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "or"
 msgstr "或"
@@ -4186,4 +4193,4 @@ msgstr "使用"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_type_action_helper/appointment_type_action_helper.xml:0
 msgid "{{templateInfo.title}}"
-msgstr ""
+msgstr "{{templateInfo.title}}"

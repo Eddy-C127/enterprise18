@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # Martin Trigaux, 2024
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
@@ -1248,6 +1248,8 @@ msgid ""
 "Are you sure you want to delete this Booking? Once it's gone, it's gone for "
 "good!"
 msgstr ""
+"Ви впевнені, що хочете видалити це бронювання? Раз це зникло, воно зникло "
+"назавжди!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__resources_choice
@@ -3130,6 +3132,11 @@ msgid "Show Pictures"
 msgstr "Показати зображення"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_form
+msgid "Sign in"
+msgstr "Увійти"
+
+#. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__char
 msgid "Single line text"
 msgstr "Однорядковий текст"
@@ -3859,6 +3866,7 @@ msgid "on"
 msgstr "на"
 
 #. module: appointment
+#: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "or"
 msgstr "або"

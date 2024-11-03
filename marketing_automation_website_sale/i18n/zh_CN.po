@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,7 +24,7 @@ msgstr ""
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_purchase_followup_arch
 msgid "! It's been a few days since your purchase. We hope you like it!"
-msgstr ""
+msgstr "! 您已经购买几天时间了。希望您喜欢！"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_purchase_followup_arch
@@ -41,21 +42,24 @@ msgid ""
 "            <span style=\"font-size: 12px\" class=\"o_default_snippet_text\">\n"
 "              <font style=\"color: rgb(183, 191, 199)\">To unsubscribe,</font></span>"
 msgstr ""
+"<br/>\n"
+"            <span style=\"font-size: 12px\" class=\"o_default_snippet_text\">\n"
+"              <font style=\"color: rgb(183, 191, 199)\">取消订阅</font></span>"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_purchase_followup_arch
 msgid "<font style=\"color: rgb(0, 0, 255)\">How's everything going?</font>"
-msgstr ""
+msgstr "<font style=\"color: rgb(0, 0, 255)\">一切进展如何？</font>"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_repeat_customer_new_purchase_arch
 msgid "<font style=\"color: rgb(255, 0, 0)\">THANK YOU FOR CHOOSING US</font>"
-msgstr ""
+msgstr "<font style=\"color: rgb(255, 0, 0)\">感谢您选择我们</font>"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_repeat_customer_new_purchase_arch
 msgid "<span style=\"font-size: 1.07143rem\">THANKS FOR YOUR PURCHASE</span>"
-msgstr ""
+msgstr "<span style=\"font-size: 1.07143rem\">感谢您的购买</span>"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_repeat_customer_new_purchase_arch
@@ -63,6 +67,8 @@ msgid ""
 "<span style=\"font-size: 1.07143rem\">YOU MAKE OUR SUCCESS POSSIBLE</span>\n"
 "              <font style=\"font-size: 12px\">​</font><br/>"
 msgstr ""
+"<span style=\"font-size: 1.07143rem\">您让我们的成功成为可能</span>\n"
+"              <font style=\"font-size: 12px\">​</font><br/>"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_purchase_followup_arch
@@ -184,7 +190,7 @@ msgstr "Instagram"
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_purchase_followup_arch
 msgid "John Doe, from all of us at MyCompany"
-msgstr ""
+msgstr "约翰·多伊，来自我们全体在MyCompany的人"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_repeat_customer_new_arrivals_arch
@@ -203,29 +209,31 @@ msgid ""
 "Michael Fletcher<br/>\n"
 "              <span style=\"font-size: 12px; font-weight: bolder\">CEO</span>"
 msgstr ""
+"迈克尔·弗莱彻<br/>\n"
+"              <span style=\"font-size: 12px; font-weight: bolder\">CEO</span>"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_purchase_followup_arch
 msgid "Need anything?"
-msgstr ""
+msgstr "需要什么吗？"
 
 #. module: marketing_automation_website_sale
 #. odoo-python
 #: code:addons/marketing_automation_website_sale/models/marketing_campaign.py:0
 msgid "New Arrivals"
-msgstr ""
+msgstr "新到商品"
 
 #. module: marketing_automation_website_sale
 #. odoo-python
 #: code:addons/marketing_automation_website_sale/models/marketing_campaign.py:0
 msgid "Purchase Follow-up"
-msgstr ""
+msgstr "跟进购买"
 
 #. module: marketing_automation_website_sale
 #. odoo-python
 #: code:addons/marketing_automation_website_sale/models/marketing_campaign.py:0
 msgid "Purchase Thanks"
-msgstr ""
+msgstr "感谢购买"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_repeat_customer_new_purchase_arch
@@ -236,7 +244,7 @@ msgstr "阅读更多"
 #. odoo-python
 #: code:addons/marketing_automation_website_sale/models/marketing_campaign.py:0
 msgid "Recent Purchase Follow-up"
-msgstr ""
+msgstr "最近跟进购买"
 
 #. module: marketing_automation_website_sale
 #. odoo-python
@@ -326,6 +334,8 @@ msgid ""
 "              here to assist you with any questions or concerns you may\n"
 "              have."
 msgstr ""
+"我们真诚地希望您对最近的购买感到满意。\n"
+"您的满意是我们的首要任务，我们将在这里协助您解决任何疑问或问题。"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_repeat_customer_new_purchase_arch
@@ -337,6 +347,9 @@ msgid ""
 "              have to say. After all, making people happy is what drives us\n"
 "              at MyCompany."
 msgstr ""
+"我们非常高兴并欢迎加入我们公司这个大家庭。 \n"
+"我们迫不及待地想让您体验我们的产品/服务并听取您的反馈！ \n"
+"请随时在网上分享您的想法。 我们真心期待看到您的评价。毕竟，让顾客满意是我们全公司人员的动力。"
 
 #. module: marketing_automation_website_sale
 #: model_terms:ir.ui.view,arch_db:marketing_automation_website_sale.mailing_repeat_customer_new_purchase_arch
@@ -346,6 +359,9 @@ msgid ""
 "              incredible journey it’s been... A journey that wouldn’t have been\n"
 "              possible without the support of customers like you."
 msgstr ""
+"起初只是在我车库里的一个小项目， \n"
+"现在已经发展成为全球性的业务，将包裹运往世界各地。\n"
+"这真是一段不可思议的旅程…… 如果没有像您这样的客户的支持，这一切都不可能实现。"
 
 #. module: marketing_automation_website_sale
 #. odoo-python

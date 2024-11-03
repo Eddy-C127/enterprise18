@@ -6,6 +6,7 @@
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
 # Daye Jeong, 2024
+# Sarah Park, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Daye Jeong, 2024\n"
+"Last-Translator: Sarah Park, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -37,13 +38,13 @@ msgstr "%(journal)s - %(account)s"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and %(remaining)s others"
-msgstr ""
+msgstr "%(names)s 및 기타 %(remaining)s"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and one other"
-msgstr ""
+msgstr "%(names)s 및 기타 1"
 
 #. module: account_reports
 #. odoo-python
@@ -306,12 +307,12 @@ msgstr "세무 신고서에 대한 계정 보고서 처리기"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_send
 msgid "Account Report Send"
-msgstr ""
+msgstr "계정 보고서 보내기"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_reports_show_per_company_setting
 msgid "Account Reports Show Per Company Setting"
-msgstr ""
+msgstr "계정 보고서 회사별 설정 표시"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_partner__account_represented_company_ids
@@ -701,7 +702,7 @@ msgstr "재무상태표"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_balance_sheet_report_handler
 msgid "Balance Sheet Custom Handler"
-msgstr ""
+msgstr "재무상태표 커스텀 핸들러"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
@@ -1075,7 +1076,7 @@ msgstr "환경 설정"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Configure start dates"
-msgstr ""
+msgstr "시작일 설정"
 
 #. module: account_reports
 #. odoo-python
@@ -1087,7 +1088,7 @@ msgstr "세금 계정 구성 - %s"
 #. odoo-python
 #: code:addons/account_reports/models/res_config_settings.py:0
 msgid "Configure your start dates"
-msgstr ""
+msgstr "내 시작일 설정"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1148,7 +1149,7 @@ msgstr "생성"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_create_composite_report_list
 msgid "Create Composite Report"
-msgstr ""
+msgstr "종합 보고서 만들기"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
@@ -1241,7 +1242,7 @@ msgstr "유동부채"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_1
 msgid "Current Year Retained Earnings"
-msgstr ""
+msgstr "당기 이익잉여금"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings0
@@ -1628,12 +1629,12 @@ msgstr "환율"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_move_line__exclude_bank_lines
 msgid "Exclude Bank Lines"
-msgstr ""
+msgstr "은행 내역 제외"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_search
 msgid "Exclude Bank lines"
-msgstr ""
+msgstr "은행 내역 제외"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__exclude_provision_currency_ids
@@ -2207,14 +2208,14 @@ msgstr "등록해야 할 종속 마감 항목이 몇 가지 존재하는 것 같
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid ""
 "It's not possible to select a budget with the horizontal group feature."
-msgstr ""
+msgstr "가로 그룹 기능으로는 예산을 선택할 수 없습니다."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid ""
 "It's not possible to select a horizontal group with the budget feature."
-msgstr ""
+msgstr "예산 기능으로는 수평 그룹을 선택할 수 없습니다."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__item_ids
@@ -2374,17 +2375,17 @@ msgstr "원장"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_cost_sales0
 msgid "Less Costs of Revenue"
-msgstr ""
+msgstr "수익 원가 차감"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_expense0
 msgid "Less Operating Expenses"
-msgstr ""
+msgstr "영업비용 차감"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
 msgid "Less Other Expenses"
-msgstr ""
+msgstr "영업 외 비용 차감"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__line_id
@@ -2596,7 +2597,7 @@ msgstr "비교 안 함"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "No Journal"
-msgstr ""
+msgstr "전표 없음"
 
 #. module: account_reports
 #. odoo-python
@@ -2714,7 +2715,7 @@ msgstr "청구 관리자만 잠금 날짜를 변경할 수 있습니다!"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_account_reports_customer_statements
 msgid "Open Customer Statements"
-msgstr ""
+msgstr "고격 명세서 열기"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_financial_year_op
@@ -2724,7 +2725,7 @@ msgstr "회계연도 기초 잔액"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_operating_income0
 msgid "Operating Income (or Loss)"
-msgstr ""
+msgstr "영업이익 (또는 손실)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2930,13 +2931,13 @@ msgstr "계획"
 #: code:addons/account_reports/models/budget.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Please enter a valid budget name."
-msgstr ""
+msgstr "유효한 예산 이름을 입력하세요."
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Please select a mail template to send multiple statements."
-msgstr ""
+msgstr "여러 건의 명세서를 발송하려면 메일 템플릿을 선택하세요."
 
 #. module: account_reports
 #. odoo-python
@@ -2974,7 +2975,7 @@ msgstr "비유동부채 추가"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_other_income0
 msgid "Plus Other Income"
-msgstr ""
+msgstr "영업 외 수익 추가"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_position0
@@ -3012,7 +3013,7 @@ msgstr "이전 기간"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
 msgid "Previous Years Retained Earnings"
-msgstr ""
+msgstr "전기 이익잉여금"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3022,7 +3023,7 @@ msgstr "전년도 미할당 순이익"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Print & Send"
-msgstr ""
+msgstr "인쇄 후 보내기"
 
 #. module: account_reports
 #. odoo-python
@@ -3252,12 +3253,12 @@ msgstr "읽기전용으로 메일 전송"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send Partner Ledgers"
-msgstr ""
+msgstr "협력서 원장 보내기"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.ir_cron_account_report_send_ir_actions_server
 msgid "Send account reports automatically"
-msgstr ""
+msgstr "계정 보고서 자동으로 보내기"
 
 #. module: account_reports
 #. odoo-python
@@ -3296,7 +3297,7 @@ msgstr "계정 보기"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 msgid "Show All Accounts"
-msgstr ""
+msgstr "모든 계정 표시"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3366,7 +3367,7 @@ msgstr "개시 잔액"
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Statements are being sent in the background."
-msgstr ""
+msgstr "명세서가 백그라운드에서 전송되고 있습니다."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3421,7 +3422,7 @@ msgstr "세금 마감 알림"
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_report_id
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_report_id
 msgid "Tax Closing Report"
-msgstr ""
+msgstr "세금 마감 보고서"
 
 #. module: account_reports
 #. odoo-python
@@ -3503,7 +3504,7 @@ msgstr "세금 단위"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_mail_activity__account_tax_closing_params
 msgid "Tax closing additional params"
-msgstr ""
+msgstr "세금 마감 추가 매개변수"
 
 #. module: account_reports
 #: model:mail.activity.type,summary:account_reports.mail_activity_type_tax_report_to_pay
@@ -3671,7 +3672,7 @@ msgstr "다음 내역에는"
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid ""
 "There are currently reports waiting to be sent, please try again later."
-msgstr ""
+msgstr "현재 전송 대기 중인 보고서가 있습니다. 나중에 다시 시도하세요."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3765,6 +3766,8 @@ msgid ""
 "This report uses report-specific code.\n"
 "                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
 msgstr ""
+"이 보고서는 보고서 전용 코드를 사용하고 있습니다.\n"
+"                        수동으로 사용자 지정할 수 있으나 계산에 사용된 매개변수를 변경할 경우 오류가 발생할 수 있습니다."
 
 #. module: account_reports
 #. odoo-javascript

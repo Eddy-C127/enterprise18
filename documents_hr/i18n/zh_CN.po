@@ -4,14 +4,16 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +24,7 @@ msgstr ""
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
 msgid "<i class=\"fa fa-download fa-fw\"/> Download file"
-msgstr ""
+msgstr "<i class=\"fa fa-download fa-fw\"/> 下载文件"
 
 #. module: documents_hr
 #: model:mail.template,body_html:documents_hr.mail_template_document_folder_link
@@ -33,7 +35,7 @@ msgid ""
 "            You'll find all your personal HR documents in this folder.<br><br>\n"
 "            Please keep this link secure.<br><br>\n"
 "            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
-"                <a t-attf-href=\"{{ object.sudo().documents_link_url }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                <a t-attf-href=\"{{ object._get_documents_link_url() }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
 "                    Your Documents\n"
 "                </a>\n"
 "            </div>\n"
@@ -43,6 +45,21 @@ msgid ""
 "    </tbody></table>\n"
 "                "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0px auto;\"><tbody>\n"
+"        <tr><td valign=\"top\" style=\"text-align: left; font-size: 14px;\">\n"
+"            <t t-esc=\"object.name\"></t> 您好！您的个人文件访问链接已准备好。<br><br>\n"
+"            该资料夹会存放你所有与人力资源用途相关的个人文件。<br><br>\n"
+"            请紧记确保此链接的保安。<br><br>\n"
+"            <div style=\"text-align: center; padding: 16px 0px 16px 0px; font-size: 14px;\">\n"
+"                <a t-attf-href=\"{{ object._get_documents_link_url() }}\" target=\"_blank\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                    您的文件\n"
+"                </a>\n"
+"            </div>\n"
+"            祝工作顺利！<br>\n"
+"            人力资源团队\n"
+"        </td></tr>\n"
+"    </tbody></table>\n"
+"                "
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_absences
@@ -87,7 +104,7 @@ msgstr "文档数"
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "文件重定向"
 
 #. module: documents_hr
 #. odoo-python
@@ -121,7 +138,7 @@ msgid ""
 "Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
-"工相关用户和私人电邮必须设置为使用 “发送访问链接” 功能。\n"
+"工相关用户和私人电子邮件必须设置为使用 “发送访问链接” 功能。\n"
 "%s"
 
 #. module: documents_hr
@@ -142,12 +159,12 @@ msgstr "人力资源"
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
 msgid "My documents"
-msgstr ""
+msgstr "我的文档"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__private_email
 msgid "Private Email"
-msgstr "私人电邮"
+msgstr "私人电子邮箱"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
@@ -196,7 +213,7 @@ msgstr "工作区"
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 msgid "You can not send the documents link to the employee."
-msgstr ""
+msgstr "您不能将文件链接发送给员工。"
 
 #. module: documents_hr
 #. odoo-python

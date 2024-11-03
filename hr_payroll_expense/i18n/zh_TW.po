@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,9 +90,17 @@ msgstr "日記賬記項"
 msgid ""
 "No debit account found in the '%(rule_name)s' payslip salary rule. Please "
 "add a payable debit account to be able to create an accounting entry for the"
-" expense report linked to this payslip '%(expense_report_name)s'."
+" expense reports linked to this payslip."
 msgstr ""
-"工資單薪酬規則「%(rule_name)s」中，沒有找到扣賬賬戶。請新增一個應付款項扣賬賬戶，以便能夠為以下已連結至此工資單的開支報告，建立會計記項：%(expense_report_name)s。"
+"工資單薪酬規則「%(rule_name)s」中，沒有找到扣賬賬戶。請新增一個應付款項扣賬賬戶，以便能夠為已連結至此工資單的開支報告，建立會計記項。"
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_payslip.py:0
+msgid ""
+"No salary rule was found to handle expenses in structure "
+"'%(structure_name)s'."
+msgstr "找不到薪酬規則可處理以下薪酬結構中的報銷開支：%(structure_name)s。"
 
 #. module: hr_payroll_expense
 #. odoo-python

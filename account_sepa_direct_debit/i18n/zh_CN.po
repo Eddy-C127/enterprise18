@@ -547,7 +547,7 @@ msgstr "所需操作"
 #: model:ir.model.fields.selection,name:account_sepa_direct_debit.selection__sdd_mandate__state__active
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_mandate_search_view
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__activity_ids
@@ -595,7 +595,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__author_id
@@ -944,19 +944,19 @@ msgstr "识别公司债务人的免费参考号。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to journal"
-msgstr ""
+msgstr "前往日记账"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to mandates"
-msgstr ""
+msgstr "前往授权"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to payments"
-msgstr ""
+msgstr "前往付款"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -968,7 +968,7 @@ msgstr "转到配置"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Good news! A valid SEPA Mandate is available."
-msgstr ""
+msgstr "好消息！有可用的有效 SEPA 授权。"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__has_message
@@ -1105,7 +1105,7 @@ msgstr "授权"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__mandate_pdf_file
 msgid "Mandate Form PDF"
-msgstr ""
+msgstr "授权表格 PDF"
 
 #. module: account_sepa_direct_debit
 #: model:ir.actions.report,name:account_sepa_direct_debit.sdd_mandate_form_report_main
@@ -1216,7 +1216,7 @@ msgid ""
 "                    and send it to your bank to effectively get paid."
 msgstr ""
 "发票开具后\n"
-"                    在Odoo中，对于在发票日期授权启用的客户，\n"
+"                    在Odoo中，对于在发票日期授权有效的客户，\n"
 "                    验证将触发自动付款，您将\n"
 "                    只需要生成包含该操作的单一欧元支付区（SEPA）直接借记（SDD）XML文件\n"
 "                    并发送至银行，以有效获得付款。"
@@ -1260,13 +1260,13 @@ msgstr "哎呀！该客户没有有效单一欧元支付区（SEPA）授权。"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customer"
-msgstr ""
+msgstr "开启客户"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customers"
-msgstr ""
+msgstr "开启客户"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
@@ -1310,7 +1310,7 @@ msgstr "通过直接借记付款"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/wizard/sdd_mandate_send.py:0
 msgid "Partner should have an email address."
-msgstr ""
+msgstr "合作伙伴应有电子邮件地址。"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment_register
@@ -1358,7 +1358,7 @@ msgstr "待收付款"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Payments without mandate"
-msgstr ""
+msgstr "无授权付款"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1372,13 +1372,13 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
 msgid "Pre-notification"
-msgstr ""
+msgstr "预先通知"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Problematic mandates"
-msgstr ""
+msgstr "有问题的授权"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__rating_ids
@@ -1455,7 +1455,7 @@ msgstr "单一欧元支付区直接借记（SDD）授权"
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_sdd_mandate_send
 msgid "SDD Mandate Send"
-msgstr ""
+msgstr "传送 SDD 授权"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_scheme
@@ -1494,7 +1494,7 @@ msgstr "单一欧元支付区（SEPA）直接借记"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_pre_notification
 msgid "SEPA Direct Debit Customer Pre-Notification mail"
-msgstr ""
+msgstr "SEPA 直接借记客户预先通知邮件"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1509,7 +1509,7 @@ msgstr "SEPA 直接借记格式版本"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "SEPA Direct Debit Sending"
-msgstr ""
+msgstr "SEPA 直接扣账传送中"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_res_company__sdd_creditor_identifier
@@ -1521,7 +1521,7 @@ msgstr "银行授予该公司的单一欧元支付区（SEPA）直接借记债�
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 msgid "SEPA Direct Debit mandate expiration warning"
-msgstr ""
+msgstr "SEPA 直接扣账授权到期警告"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1545,13 +1545,13 @@ msgstr "SEPA支付格式版本"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "SEPA Scheme operates in Euro."
-msgstr ""
+msgstr "SEPA 计划以欧元运作。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "SEPA direct debit stateless customer"
-msgstr ""
+msgstr "SEPA 直接扣账无国籍/地区的客户"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1560,7 +1560,7 @@ msgid ""
 "SEPA regulations set the minimum pre-notification period to a minimum of 2 "
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
-msgstr ""
+msgstr "SEPA 法规将最低预通知期设为最少 2 天，以便客户有足够的时间检查其账户是否有足够的资金。"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1613,7 +1613,7 @@ msgstr "发送和打印"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__is_sent
 msgid "Sent to the customer"
-msgstr ""
+msgstr "已发送给客户"
 
 #. module: account_sepa_direct_debit
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_pre_notification
@@ -1631,13 +1631,13 @@ msgstr "签名"
 msgid ""
 "Some draft payments could not be posted because of the lack of any active "
 "mandate."
-msgstr "某些汇票付款无法过账，因为没有任何启用授权。"
+msgstr "某些汇票付款无法过账，因为没有任何有效授权。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Some payments are linked to an inactive mandate."
-msgstr ""
+msgstr "有些付款与无效授权相关。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1809,7 +1809,7 @@ msgid ""
 "True if and only if this mandate can be used for only one transaction. It "
 "will automatically go from 'active' to 'closed' after its first use in "
 "payment if this option is set.\n"
-msgstr "当且仅当只该授权仅可用于一笔交易时为正确。如果设置此项，首次用于付款后自动从“启用”变为“关闭”。\n"
+msgstr "仅当此授权仅用于一次交易时为真。如果设置了此选项，在首次用于支付后，其状态将自动从“活动”变为“关闭”。\n"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1895,7 +1895,7 @@ msgstr ""
 msgid ""
 "You cannot delete a bank account linked to an active SEPA Direct Debit "
 "mandate."
-msgstr "不能删除链接至启用单一欧元支付区（SEPA）直接借记授权的银行账户。"
+msgstr "不能删除链接至有效单一欧元支付区（SEPA）直接借记授权的银行账户。"
 
 #. module: account_sepa_direct_debit
 #. odoo-python

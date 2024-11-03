@@ -1,35 +1,42 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* documents_account
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2022
-#
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2022\n"
+"POT-Creation-Date: 2024-09-26 09:15+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
-"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: uk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
 msgid "<b>Deselect this page</b> as we plan to process all bills first."
-msgstr "<b>Скасуйте вибір цієї сторінки</b> оскільки ми плануємо спочатку обробити всі рахунки."
+msgstr ""
+"<b>Скасуйте вибір цієї сторінки</b> оскільки ми плануємо спочатку обробити "
+"всі рахунки."
 
 #. module: documents_account
-#: model:ir.model,name:documents_account.model_documents_workflow_rule
-msgid "A set of condition and actions which will be available to all attachments matching the conditions"
-msgstr "Набір дій та умов, які будуть доступні всім прикріпленням, що відповідають умовам"
+#. odoo-javascript
+#: code:addons/documents_account/static/src/js/tour.js:0
+msgid "<b>Select</b> this page to continue."
+msgstr "<b>Оберіть</b> цю сторінку, щоби продовжити."
+
+#. module: documents_account
+#: model_terms:ir.ui.view,arch_db:documents_account.account_move_view_form
+msgid "<span class=\"o_stat_text\">Documents</span>"
+msgstr "<span class=\"o_stat_text\">Документи</span>"
 
 #. module: documents_account
 #: model:ir.model.constraint,message:documents_account.constraint_documents_account_folder_setting_journal_unique
@@ -42,25 +49,29 @@ msgid "Accounting "
 msgstr "Бухоблік"
 
 #. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_res_company__account_folder
+#: model:ir.model,name:documents_account.model_account_report
+msgid "Accounting Report"
+msgstr "Звіт бухобліку"
+
+#. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__company_account_folder_id
+#: model:ir.model.fields,field_description:documents_account.field_res_company__account_folder_id
 msgid "Accounting Workspace"
 msgstr "Папка бухобліку"
 
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "As this PDF contains multiple documents, let's split and process in bulk."
-msgstr "Оскільки цей PDF містить кілька документів, давайте розділимо їх і обробимо групою."
+msgid ""
+"As this PDF contains multiple documents, let's split and process in bulk."
+msgstr ""
+"Оскільки цей PDF містить кілька документів, давайте розділимо їх і обробимо "
+"групою."
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_ir_attachment
 msgid "Attachment"
 msgstr "Прикріплення"
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_bank_statement
-msgid "Bank Statement"
-msgstr ""
 
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.res_config_settings_view_form
@@ -87,8 +98,18 @@ msgstr "Клікніть на мініатюру, щоби <b>перегляну
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Click on the <b>page separator</b>: we don't want to split these two pages as they belong to the same document."
-msgstr "Натисніть на <b>роздільник сторінок</b>: ми не хочемо розділяти ці дві сторінки, оскільки вони належать до одного документу."
+msgid ""
+"Click on the <b>page separator</b>: we don't want to split these two pages "
+"as they belong to the same document."
+msgstr ""
+"Натисніть на <b>роздільник сторінок</b>: ми не хочемо розділяти ці дві "
+"сторінки, оскільки вони належать до одного документу."
+
+#. module: documents_account
+#. odoo-javascript
+#: code:addons/documents_account/static/src/js/tour.js:0
+msgid "Click the cross to <b>exit preview</b>."
+msgstr "Натисніть на хрестик, щоби <b>закрити превʼю</b>."
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_res_company
@@ -106,34 +127,45 @@ msgid "Config Settings"
 msgstr "Налаштування"
 
 #. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__create_model
-msgid "Create"
-msgstr "Створити"
-
-#. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.credit_note_rule
-msgid "Create Customer Credit Note"
+#. odoo-python
+#: code:addons/documents_account/models/account_report.py:0
+msgid "Copy to Documents"
 msgstr ""
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.customer_invoice_rule
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_credit_note
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_credit_note_code
+msgid "Create Customer Credit Note"
+msgstr "Створити сторно клієнта"
+
+#. module: documents_account
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_customer_invoice
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_customer_invoice_code
 msgid "Create Customer Invoice"
 msgstr "Створити рахунок клієнта"
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.misc_entry_rule
-msgid "Create Miscellaneous Operations"
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_misc_entry
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_misc_entry_code
+msgid "Create Misc Entry"
 msgstr ""
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.vendor_bill_rule_financial
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_bill
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_bill_code
 msgid "Create Vendor Bill"
-msgstr ""
+msgstr "Створити рахунок від постачальника"
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.vendor_refund_rule
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_receipt
+msgid "Create Vendor Receipt"
+msgstr "Створити квитанцію від постачальника"
+
+#. module: documents_account
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_refund
+#: model:ir.actions.server,name:documents_account.ir_actions_server_create_vendor_refund_code
 msgid "Create Vendor Refund"
-msgstr ""
+msgstr "Створити Повернення постачальника"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__create_uid
@@ -146,29 +178,25 @@ msgid "Created on"
 msgstr "Створено"
 
 #. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_out_refund
-msgid "Credit note"
-msgstr "Сторно"
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_out_invoice
-msgid "Customer invoice"
-msgstr "Рахунок клієнта"
-
-#. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__display_journal_id
-msgid "Display Journal"
-msgstr ""
-
-#. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__display_name
 msgid "Display Name"
 msgstr "Назва для відображення"
 
 #. module: documents_account
+#: model:ir.model,name:documents_account.model_documents_document
+msgid "Document"
+msgstr "Документ"
+
+#. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_res_company__documents_account_settings
 msgid "Documents Account Settings"
 msgstr "Налаштування обліку документів"
+
+#. module: documents_account
+#. odoo-python
+#: code:addons/documents_account/models/account_report.py:0
+msgid "Export"
+msgstr "Експорт"
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_account_reports_export_wizard_format
@@ -202,18 +230,35 @@ msgid "Generated Documents"
 msgstr "Згенеровані документи"
 
 #. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_account_bank_statement_line__has_documents
+#: model:ir.model.fields,field_description:documents_account.field_account_move__has_documents
+msgid "Has Documents"
+msgstr ""
+
+#. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_documents_document__has_embedded_pdf
+msgid "Has Embedded PDF"
+msgstr ""
+
+#. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__id
 msgid "ID"
 msgstr "ID"
 
 #. module: documents_account
-#: model:documents.workflow.rule,name:documents_account.bank_statement_rule
+#: model:ir.actions.server,name:documents_account.ir_actions_server_bank_statement
+#: model:ir.actions.server,name:documents_account.ir_actions_server_bank_statement_code
 msgid "Import Bank Statement"
-msgstr ""
+msgstr "Імпортувати виписку"
+
+#. module: documents_account
+#. odoo-python
+#: code:addons/documents_account/models/documents_document.py:0
+msgid "Invoices"
+msgstr "Рахунки"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__journal_id
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__journal_id
 msgid "Journal"
 msgstr "Журнал"
 
@@ -250,8 +295,13 @@ msgstr "Останнє оновлення"
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter documents and structure your process.</i>"
-msgstr "Давайте обробимо документи у вашій вхідній пошті.<br/><i>Примітка: Використовуйте теги, щоби фільтрувати документи та структурувати ваш процес.</i>"
+msgid ""
+"Let's process documents in your Inbox.<br/><i>Tip: Use Tags to filter "
+"documents and structure your process.</i>"
+msgstr ""
+"Давайте обробимо документи у вашій вхідній пошті.<br/><i>Примітка: "
+"Використовуйте теги, щоби фільтрувати документи та структурувати ваш "
+"процес.</i>"
 
 #. module: documents_account
 #. odoo-javascript
@@ -268,23 +318,16 @@ msgstr "Давайте обробимо цей документ, що надій
 #. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your process, according to the workspace.</i>"
-msgstr "Позначте цей лист, як юридичний<br/> <i>Порада: дії можна адаптувати до вашого процесу, відповідно до папки.</i>"
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_entry
-msgid "Miscellaneous Operations"
+msgid ""
+"Let's tag this mail as legal<br/> <i>Tips: actions can be tailored to your "
+"process, according to the workspace.</i>"
 msgstr ""
-
-#. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__move_type
-msgid "Move Type"
-msgstr ""
+"Позначте цей лист, як юридичний<br/> <i>Порада: дії можна адаптувати до "
+"вашого процесу, відповідно до папки.</i>"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_account_bank_statement_line__suspense_statement_line_id
 #: model:ir.model.fields,field_description:documents_account.field_account_move__suspense_statement_line_id
-#: model:ir.model.fields,field_description:documents_account.field_account_payment__suspense_statement_line_id
 msgid "Request document from a bank statement line"
 msgstr "Запитати документ з рядка банківської виписки"
 
@@ -293,11 +336,6 @@ msgstr "Запитати документ з рядка банківської �
 #: code:addons/documents_account/static/src/js/tour.js:0
 msgid "Send this letter to the legal department, by assigning the right tags."
 msgstr "Надішліть цей лист до юридичного відділу, додавши теги справа."
-
-#. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_documents_workflow_rule__suitable_journal_ids
-msgid "Suitable Journal"
-msgstr ""
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_account_reports_export_wizard__tag_ids
@@ -316,20 +354,13 @@ msgid "This invoice has been initiated by a bank transaction."
 msgstr "Цей рахунок було ініційовано банківською транзакцією."
 
 #. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_in_refund
-msgid "Vendor Credit Note"
-msgstr "Сторно продавця"
-
-#. module: documents_account
-#: model:ir.model.fields.selection,name:documents_account.selection__documents_workflow_rule__create_model__account_move_in_invoice
-msgid "Vendor bill"
-msgstr "Рахунок постачальника"
-
-#. module: documents_account
 #. odoo-javascript
 #: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
-msgstr "Хочете стати <b>безпаперовою компанією</b>? Відкрийте для себе Odoo Документи."
+msgid ""
+"Want to become a <b>paperless company</b>? Let's discover Odoo Documents."
+msgstr ""
+"Хочете стати <b>безпаперовою компанією</b>? Відкрийте для себе Odoo "
+"Документи."
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__folder_id
@@ -338,13 +369,20 @@ msgid "Workspace"
 msgstr "Папка"
 
 #. module: documents_account
-#. odoo-javascript
-#: code:addons/documents_account/static/src/js/tour.js:0
-msgid "Wow... 6 documents processed in a few seconds, You're good.<br/>The tour is complete. Try uploading your own documents now."
-msgstr "Вау... 6 документів оброблені за кілька секунд, Ви молодці.<br/>Тур завершено. Тепер спробуйте завантажити ваші власні документи."
+#: model_terms:web_tour.tour,rainbow_man_message:documents_account.documents_account_tour
+msgid ""
+"Wow... 6 documents processed in a few seconds, You're good.<br>The tour is "
+"complete. Try uploading your own documents now."
+msgstr ""
 
 #. module: documents_account
-#: model:ir.model.fields,field_description:documents_account.field_res_config_settings__account_folder
+#. odoo-python
+#: code:addons/documents_account/models/documents_document.py:0
+msgid "You can not create account move on folder."
+msgstr ""
+
+#. module: documents_account
+#: model:ir.model.fields,field_description:documents_account.field_res_config_settings__account_folder_id
 msgid "account default folder"
 msgstr "типова папка для бухобліку"
 

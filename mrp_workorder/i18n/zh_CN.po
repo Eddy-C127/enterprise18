@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -180,7 +180,7 @@ msgstr "允许的员工"
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_view_employee_filter
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.view_routing_steps_search
 msgid "Archived"
-msgstr "已存档"
+msgstr "已归档"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__employee_assigned_ids
@@ -394,7 +394,7 @@ msgstr "创建新序列号/批号"
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workcenter__currency_id
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workcenter_productivity__currency_id
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__current_quality_check_id
@@ -570,7 +570,7 @@ msgstr "Font Awesome图标，例如：fa-tasks"
 #. odoo-python
 #: code:addons/mrp_workorder/models/quality.py:0
 msgid "Google Doc"
-msgstr "Google 文档"
+msgstr "谷歌 文档"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.quality_point_view_form_inherit_mrp
@@ -802,7 +802,7 @@ msgstr "标记为完成"
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
 msgid "Mark as Done and Close MO"
-msgstr "标记为已完成并关闭生产订单（MO）"
+msgstr "标记为已完成并关闭制造订单（MO）"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1122,7 +1122,7 @@ msgstr "生产"
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_alert__production_id
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__production_id
 msgid "Production Order"
-msgstr "生产订单"
+msgstr "制造订单"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet
@@ -1271,7 +1271,7 @@ msgstr "登记附加产品"
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_point__bom_active
 msgid "Related Bill of Material Active"
-msgstr "相关物料清单启用"
+msgstr "相关物料清单有效"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__component_remaining_qty
@@ -1302,18 +1302,6 @@ msgstr "责任用户"
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__result
 msgid "Result"
 msgstr "结果"
-
-#. module: mrp_workorder
-#. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-msgid "STARTED work on workorder %s"
-msgstr "开始工作单上的工作 %s"
-
-#. module: mrp_workorder
-#. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-msgid "STOPPED work on workorder %s"
-msgstr "已停止工作单上的工作 %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1589,7 +1577,7 @@ msgstr "记录中异常活动的类型。"
 #: code:addons/mrp_workorder/models/mrp_production.py:0
 msgid ""
 "Unable to load samples when you already have existing manufacturing orders"
-msgstr "当您已有现有的生产订单时，无法加载示例。"
+msgstr "当您已有现有的制造订单时，无法加载示例。"
 
 #. module: mrp_workorder
 #. odoo-javascript

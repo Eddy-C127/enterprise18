@@ -564,7 +564,7 @@ msgstr "アクション数"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job__job_post_count
 msgid "Number of Job Posts"
-msgstr ""
+msgstr "求人情報の数"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__message_has_error_counter
@@ -619,33 +619,33 @@ msgstr "投稿"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_delete
 msgid "Price to Delete"
-msgstr ""
+msgstr "削除価格"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_get
 msgid "Price to Get"
-msgstr ""
+msgstr "取得価格"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_publish
 msgid "Price to Publish"
-msgstr ""
+msgstr "公開価格"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_update
 msgid "Price to Update"
-msgstr ""
+msgstr "更新価格"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
 msgid "Publish on Job Board"
-msgstr ""
+msgstr "求人ボードに公開"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job.py:0
 msgid "Publish on a Job Board"
-msgstr ""
+msgstr "求人ボードに公開"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban_search
@@ -676,7 +676,7 @@ msgstr "担当ユーザ"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Reuse Job Post"
-msgstr ""
+msgstr "求人情報を再利用"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__message_has_sms_error
@@ -686,12 +686,12 @@ msgstr "SMS配信エラー"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
 msgid "Salary Range"
-msgstr ""
+msgstr "給与幅"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job__payment_interval
 msgid "Salary Time Unit"
-msgstr ""
+msgstr "給与時間単位"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_base.selection__hr_recruitment_post_job_wizard__apply_method__email
@@ -718,7 +718,7 @@ msgstr "ステータスメッセージ"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Status Message:"
-msgstr ""
+msgstr "ステータスメッセージ:"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__activity_state
@@ -742,7 +742,7 @@ msgstr "ステータス:"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_list
 msgid "Stop Campaigns"
-msgstr ""
+msgstr "キャンペーンを中止する"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_list
@@ -769,18 +769,18 @@ msgstr ""
 msgid ""
 "The date when the campaign will end. If not set, the campaign will run "
 "indefinitely or to the maximum allowed by a platform."
-msgstr ""
+msgstr "キャンペーンが終了する日付です。設定されていない場合、キャンペーンは無期限、またはプラットフォームが許可する最大期間まで継続されます。"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__campaign_start_date
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_recruitment_post_job_wizard__campaign_start_date
 msgid "The date when the campaign will start."
-msgstr ""
+msgstr "キャンペーン開始の日付。"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__apply_vector
 msgid "The email address, phone number, url to send applications to."
-msgstr ""
+msgstr "メールアドレス、電話番号、応募書類を送信するURL。"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
@@ -789,6 +789,7 @@ msgid ""
 "This action will update the job post on the platform. This action will cost "
 "%(price)s credits. Do you want to continue?"
 msgstr ""
+"このアクションにより、プラットフォーム上の求人情報が更新されます。 このアクションには %(price)s クレジットがかかります。続けますか?"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__activity_exception_decoration
@@ -841,13 +842,13 @@ msgstr "年"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "created"
-msgstr ""
+msgstr "作成済"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_recruitment_platform.py:0
 msgid "failure"
-msgstr ""
+msgstr "失敗"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
@@ -857,10 +858,10 @@ msgstr "／"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban
 msgid "plateform icon"
-msgstr ""
+msgstr "プラットフォームアイコン"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/wizard/hr_recruitment_post.py:0
 msgid "updated"
-msgstr ""
+msgstr "更新済"

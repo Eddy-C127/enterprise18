@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
@@ -164,7 +164,7 @@ msgstr ""
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
 msgid "<i class=\"fa fa-download fa-fw\"/> Download file"
-msgstr ""
+msgstr "<i class=\"fa fa-download fa-fw\"/> ดาวน์โหลดไฟล์"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -806,7 +806,7 @@ msgstr ""
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "เพิ่มแท็กที่ได้รับการตรวจสอบ"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_url_form
@@ -1374,7 +1374,7 @@ msgstr "เอกสาร"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_access
 msgid "Document / Partner"
-msgstr ""
+msgstr "เอกสาร / พาร์ทเนอร์"
 
 #. module: documents
 #. odoo-javascript
@@ -1680,6 +1680,8 @@ msgid "Favorite of"
 msgstr "รายการโปรดของ"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__binary
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "File"
@@ -1770,6 +1772,7 @@ msgstr "โฟกัสหน้าก่อนหน้า"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1888,6 +1891,9 @@ msgid ""
 "to view it. If \"False\", access with the link also given to all who can "
 "access the parent folder."
 msgstr ""
+"หาก \"True\" เฉพาะผู้ที่ได้รับสิทธิ์เข้าถึงเอกสารนี้โดยตรงเท่านั้นที่จะดูได้"
+" หาก \"False\" "
+"การเข้าถึงด้วยลิงก์จะมอบให้กับทุกคนที่สามารถเข้าถึงโฟลเดอร์หลักด้วย"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction
@@ -2104,6 +2110,7 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
 msgid "Link"
 msgstr "ลิงก์"
@@ -2749,7 +2756,7 @@ msgstr ""
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "ลบแท็กเพื่อตรวจสอบ"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_tags
@@ -3045,6 +3052,8 @@ msgid "Sharing..."
 msgstr ""
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__shortcut_ids
 msgid "Shortcut"
 msgstr "ทางลัด"
@@ -3589,19 +3598,25 @@ msgstr ""
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
-msgid "You are not allowed to execute embedded actions."
-msgstr ""
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to delete all these items."
 msgstr ""
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to execute embedded actions."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to perform this operation."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to pin/unpin embedded Actions."
 msgstr ""
 
 #. module: documents
@@ -3655,6 +3670,12 @@ msgstr ""
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid ""
 "You can't create shortcuts in or move documents to this special folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot change the owner of documents you do not own."
 msgstr ""
 
 #. module: documents

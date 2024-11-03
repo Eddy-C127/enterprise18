@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -140,7 +140,7 @@ msgstr "金额"
 #. module: industry_fsm_sale
 #: model:ir.model.constraint,message:industry_fsm_sale.constraint_project_project_fsm_imply_task_rate
 msgid "An FSM project must be billed at task rate or employee rate."
-msgstr "一个FSM项目必须按任务费率或雇员费率计费。"
+msgstr "一个FSM项目必须按任务费率或员工费率计费。"
 
 #. module: industry_fsm_sale
 #. odoo-python
@@ -164,7 +164,7 @@ msgstr "计费"
 msgid ""
 "By saving this change, all timesheet entries will be linked to the selected "
 "Sales Order Item without distinction."
-msgstr "通过保存这一更改，所有的考勤表条目将不加区分地与选定的销售订单项目相联系。"
+msgstr "通过保存这一更改，所有的考勤表条目将不加区分地与选定的销售订单行相联系。"
 
 #. module: industry_fsm_sale
 #. odoo-javascript
@@ -172,7 +172,7 @@ msgstr "通过保存这一更改，所有的考勤表条目将不加区分地与
 msgid ""
 "Choose a <b>name</b> for your product <i>(e.g. Bolts, Screws, Boiler, "
 "etc.).</i>"
-msgstr "为您的产品选择一个<b>名称</b> <i>（例如，螺栓、螺钉、锅炉等）</i>。"
+msgstr "为您的产品选择一个<b>名称</b> <i>（例如：螺栓、螺钉、锅炉等）</i>。"
 
 #. module: industry_fsm_sale
 #. odoo-javascript
@@ -207,7 +207,7 @@ msgstr "直接从任务创建新报价"
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_task__currency_id
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: industry_fsm_sale
 #. odoo-javascript
@@ -374,7 +374,6 @@ msgstr "门户报价计数"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_product_template
-#: model_terms:ir.ui.view,arch_db:industry_fsm_sale.industry_fsm_sale_product_catalog_kanban_view
 #: model_terms:ir.ui.view,arch_db:industry_fsm_sale.worksheet_time_and_material
 msgid "Product"
 msgstr "产品"
@@ -455,12 +454,12 @@ msgstr "销售订单"
 #. module: industry_fsm_sale
 #: model:ir.model.fields,field_description:industry_fsm_sale.field_project_project__sale_line_id
 msgid "Sales Order Item"
-msgstr "销售订单项目"
+msgstr "销售订单行"
 
 #. module: industry_fsm_sale
 #: model:ir.model,name:industry_fsm_sale.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "销售订单行"
+msgstr "销售订单明细"
 
 #. module: industry_fsm_sale
 #: model:ir.model.fields,help:industry_fsm_sale.field_project_project__sale_line_id
@@ -468,8 +467,8 @@ msgid ""
 "Sales order item that will be selected by default on the tasks and timesheets of this project, except if the employee set on the timesheets is explicitely linked to another sales order item on the project.\n"
 "It can be modified on each task and timesheet entry individually if necessary."
 msgstr ""
-"在这个项目的任务和工时表上默认选择的销售订单项目，除非工时表上设置的雇员与项目上的另一个销售订单项目有明确的联系。\n"
-"如果有必要，可以在每个任务和工时表条目上单独修改。"
+"此项目任务和工时表中默认选择的销售订单行，除非工时表上的员工明确链接到项目中的另一个销售订单行。 \n"
+"如有必要，可以在每个任务和工时表条目上单独修改。"
 
 #. module: industry_fsm_sale
 #. odoo-javascript
@@ -541,7 +540,7 @@ msgstr "待开票"
 #. module: industry_fsm_sale
 #: model:ir.actions.server,name:industry_fsm_sale.project_task_to_invoice_fsm_server_action
 msgid "To Invoice Server Action"
-msgstr ""
+msgstr "到发票的服务器动作"
 
 #. module: industry_fsm_sale
 #: model_terms:ir.actions.act_window,help:industry_fsm_sale.product_action_fsm

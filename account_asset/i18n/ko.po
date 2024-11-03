@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Sarah Park, 2024
 # Daye Jeong, 2024
 # 
 msgid ""
@@ -57,7 +58,7 @@ msgstr "%(months)s월"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s, 총 %(total)s)"
 
 #. module: account_asset
 #. odoo-python
@@ -151,7 +152,7 @@ msgstr "이 작업에 연결된 문서가 삭제되었습니다: %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "총 금액 증가분이 생성되었습니다: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -647,12 +648,12 @@ msgstr "자산 계산"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__count_linked_asset
 msgid "Count Linked Asset"
-msgstr ""
+msgstr "연결된 자산 개수"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__count_linked_assets
 msgid "Count Linked Assets"
-msgstr ""
+msgstr "연결된 자산 계산"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__country_code
@@ -1003,7 +1004,7 @@ msgstr "계정별 그룹"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Asset Group"
-msgstr ""
+msgstr "자산 그룹별 그룹"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
@@ -1015,13 +1016,13 @@ msgstr "그룹별..."
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Account"
-msgstr ""
+msgstr "계정별 그룹"
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Asset Group"
-msgstr ""
+msgstr "자산 그룹별 그룹"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__has_message
@@ -1744,7 +1745,7 @@ msgstr "금액증가자산: %(asset)s"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__warning_count_assets
 msgid "Warning Count Assets"
-msgstr ""
+msgstr "경고 자산 수"
 
 #. module: account_asset
 #. odoo-python

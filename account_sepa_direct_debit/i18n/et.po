@@ -15,6 +15,7 @@
 # Leaanika Randmets, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Anna, 2024
+# Birgit Vijar, 2024
 # 
 msgid ""
 msgstr ""
@@ -22,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Birgit Vijar, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,7 +93,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
 msgid "<span> day(s)</span>"
-msgstr ""
+msgstr "<span> päev(i)</span>"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -745,7 +746,7 @@ msgstr "Kõik selle partneri mandaadid."
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__expiration_warning_already_sent
 msgid "Expiration warning sent"
-msgstr ""
+msgstr "Aegumise hoiatus saadetud"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -771,19 +772,19 @@ msgstr "Tasuta viide oma ettevõtte võlgniku tuvastamiseks."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to journal"
-msgstr ""
+msgstr "Mine andmikku"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to mandates"
-msgstr ""
+msgstr "Mine mandaatidesse"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to payments"
-msgstr ""
+msgstr "Mine maksetesse"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -795,7 +796,7 @@ msgstr "Mine seadistustesse"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Good news! A valid SEPA Mandate is available."
-msgstr ""
+msgstr "Head uudised! Kehtiv SEPA mandaat on saadaval."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__has_message
@@ -1088,13 +1089,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customer"
-msgstr ""
+msgstr "Avatud klient"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customers"
-msgstr ""
+msgstr "Avatud kliendid"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
@@ -1140,7 +1141,7 @@ msgstr "Makstud otsekorraldusega"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/wizard/sdd_mandate_send.py:0
 msgid "Partner should have an email address."
-msgstr ""
+msgstr "Partneritel peaks olema e-maili aadress."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment_register
@@ -1155,7 +1156,7 @@ msgstr "Maksmise meetodid"
 #. module: account_sepa_direct_debit
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_pre_notification
 msgid "Payment notification {{ object.memo }}"
-msgstr ""
+msgstr "Makse teavitus {{ object.memo }}"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment
@@ -1373,7 +1374,7 @@ msgstr "SEPA \"Pain\"-koodi versioon"
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.view_account_journal_form
 msgid "SEPA Pain version"
-msgstr ""
+msgstr "SEPA Pain versioon"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1430,7 +1431,7 @@ msgstr "\"Sdd\" mandaat"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_payment.py:0
 msgid "Select a SEPA Direct Debit version before generating the XML."
-msgstr ""
+msgstr "Vali SEPA Direct Debit versioon enne XML loomist. "
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1447,7 +1448,7 @@ msgstr "Saada ja prindi"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__is_sent
 msgid "Sent to the customer"
-msgstr ""
+msgstr "Saadetud kliendile"
 
 #. module: account_sepa_direct_debit
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_pre_notification
@@ -1546,7 +1547,7 @@ msgstr "Kreeditori tunnus ületab maksimaalse pikkuse, mis on 35 tähemärki."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "The customer must have a country"
-msgstr ""
+msgstr "Kliendil peab olema määratud riik"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1762,6 +1763,8 @@ msgid ""
 "day(s).\n"
 "                    It will be sent to the debtor's email."
 msgstr ""
+"päev(i).\n"
+"                   See saadetakse võlgnike e-mailile."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form

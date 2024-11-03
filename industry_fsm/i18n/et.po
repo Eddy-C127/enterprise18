@@ -4,7 +4,6 @@
 # 
 # Translators:
 # Tairi Tiimann, 2024
-# Siim Raasuke, 2024
 # Katrin Kampura, 2024
 # Egon Raamat <egon@avalah.ee>, 2024
 # Piia Paurson <piia@avalah.ee>, 2024
@@ -16,14 +15,15 @@
 # Leaanika Randmets, 2024
 # Stevin Lilla, 2024
 # Anna, 2024
+# Siim Raasuke, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Siim Raasuke, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -851,6 +851,16 @@ msgid "Reporting"
 msgstr "Aruandlus"
 
 #. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__sale_order_id
+msgid "Sales Order"
+msgstr "Müügitellimus"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__sale_line_id
+msgid "Sales Order Item"
+msgstr "Müügiartikkel"
+
+#. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_location
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_location2
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_project
@@ -1103,6 +1113,11 @@ msgstr "Aega jäänud"
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__remaining_hours_percentage
 msgid "Time Remaining Percentage"
 msgstr "Järelejäänud aja protsent"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__remaining_hours_so
+msgid "Time Remaining on SO"
+msgstr "Järelejäänud aeg müügitellimusel"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__effective_hours

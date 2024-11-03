@@ -5,7 +5,6 @@
 # Translators:
 # Martin Trigaux, 2024
 # Arma Gedonsky <armagedonsky@hot.ee>, 2024
-# Stevin Lilla, 2024
 # Anna, 2024
 # Siim Raasuke, 2024
 # Piia Paurson <piia@avalah.ee>, 2024
@@ -14,6 +13,7 @@
 # Katrin Kampura, 2024
 # Mihkel avalah, 2024
 # Leaanika Randmets, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -21,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Leaanika Randmets, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,12 +33,12 @@ msgstr ""
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_draft
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_draft
 msgid "Add Tag Draft"
-msgstr ""
+msgstr "Lisa silt Mustand"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_to_validate
 msgid "Add Tag To Validate"
-msgstr ""
+msgstr "Lisa silt Kinnitamiseks"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_validated
@@ -48,12 +48,12 @@ msgstr "Lisa Kinnitatud silt"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation_code
 msgid "Ask For Validation - Check conditions"
-msgstr ""
+msgstr "Küsi kinnitamist - kontrolli tingimusi"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation
 msgid "Ask for validation"
-msgstr ""
+msgstr "Küsi kinnitamist"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_ir_attachment
@@ -86,7 +86,7 @@ msgstr "Amortiseerige"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_deprecate_code
 msgid "Deprecate - Check conditions"
-msgstr ""
+msgstr "Lõpeta - kontrolli tingimusi"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_document
@@ -119,7 +119,7 @@ msgstr "Dokumendid &amp; analüütika"
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Documents already linked to a task."
-msgstr ""
+msgstr "Dokumendid on juba seotud ülesandega."
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__documents_folder_id
@@ -134,12 +134,14 @@ msgid ""
 "All of the attachments of your tasks will be automatically added as "
 "documents in this workspace as well."
 msgstr ""
+"Tööala, kuhu kõik selle projekti dokumendid kategoriseeritakse. Kõik teie "
+"ülesannete manused lisatakse automaatselt dokumentidena ka sellele tööalale."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
-msgstr ""
+msgstr "Pole võimalik luua ülesandeid lõpetatud dokumendilt"
 
 #. module: documents_project
 #. odoo-python
@@ -156,12 +158,12 @@ msgstr "Vigane ülesande otsing"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft_code
 msgid "Mark As Draft - Check conditions"
-msgstr ""
+msgstr "Märgi mustandiks - kontrolli tingimusi"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft
 msgid "Mark as draft"
-msgstr ""
+msgstr "Märgi mustandiks"
 
 #. module: documents_project
 #. odoo-python
@@ -188,7 +190,7 @@ msgstr "Eemalda silt Kinnitamiseks"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_validated
 msgid "Remove Tag Validated"
-msgstr ""
+msgstr "Eemalda silt Kinnitatud"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_project_task
@@ -221,6 +223,8 @@ msgid ""
 "The \"%(folder)s\" folder should either be in the \"%(company)s\" company "
 "like this project or be open to all companies."
 msgstr ""
+"Kaust \"%(folder)s\" peaks asuma ettevõttes \"%(company)s\" nagu see projekt"
+" või olema avatud kõigile ettevõtetele."
 
 #. module: documents_project
 #. odoo-python
@@ -228,7 +232,7 @@ msgstr ""
 msgid ""
 "The \"%s\" folder is required by the Project application and cannot be "
 "deleted."
-msgstr ""
+msgstr "Projektide rakendus nõuab kausta \"%s\" ja seda ei saa kustutada."
 
 #. module: documents_project
 #. odoo-python
@@ -238,6 +242,9 @@ msgid ""
 " to which it is linked. Please update the company of the \"%(project)s\" "
 "project, or leave the company of this workspace empty."
 msgstr ""
+"See kaust peaks jääma samale ettevõttele kui project \"%(project)s\", "
+"millega see seotud on. Palun uuendage projekti \"%(project)s\" ettevõtet või"
+" jätke selle tööala ettevõte tühjaks."
 
 #. module: documents_project
 #. odoo-python
@@ -248,6 +255,10 @@ msgid ""
 "\n"
 "Please update the company of those projects, or leave the company of this workspace empty."
 msgstr ""
+"See kaust peaks jääma samale ettevõttele, millega järgnevad projektid seotud on:\n"
+"%s\n"
+"\n"
+"Uuendage projektidel ettevõtet või jätke ettevõtte väli tööalal tühjaks."
 
 #. module: documents_project
 #: model_terms:ir.actions.act_window,help:documents_project.action_view_documents_project_project
@@ -272,7 +283,7 @@ msgstr "Valideeri"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_validate_code
 msgid "Validate - Check conditions"
-msgstr ""
+msgstr "Valideeri - kontrolli tingimusi"
 
 #. module: documents_project
 #. odoo-python
@@ -283,21 +294,25 @@ msgid ""
 "\n"
 "Please update the company of all projects so that they remain in the same company as their workspace, or leave the company of the \"%(workspace)s\" workspace blank."
 msgstr ""
+"Ei saa muuta selle projekti ettevõtet, sest selle tööala on seotud teiste järgmiste projektidega, mis on ikka ettevõttes \"%(other_company)s\":\n"
+"%(other_workspaces)s\n"
+"\n"
+"Uuendage kõigi projektide ettevõtteid, et need jääksid tööalaga samasse ettevõttesse või jätke tööala \"%(workspace)s\" ettevõte väli tühjaks."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot create a task from a folder."
-msgstr ""
+msgstr "Ei saa luua ülesannet kaustast."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot set a company on the %s folder."
-msgstr ""
+msgstr "Kaustale %s ei saa määrata ettevõtet"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "new %(model)s from %(new_record)s"
-msgstr ""
+msgstr "Uus %(model)s kirjest %(new_record)s"

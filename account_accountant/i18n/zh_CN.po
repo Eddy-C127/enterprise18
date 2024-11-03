@@ -6,9 +6,9 @@
 # Jeffery CHEN <jeffery9@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Chloe Wang, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1899,14 +1899,14 @@ msgstr "防止在规定日期（含）之前修改纳税申报表（涉及税项
 msgid ""
 "Prevents creation and modification of entries in purchase journals up to the"
 " defined date inclusive"
-msgstr ""
+msgstr "禁止在采购日记账内，创建或修改在设定日期（含）之前的记项"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid ""
 "Prevents creation and modification of entries in sales journals up to the "
 "defined date inclusive"
-msgstr ""
+msgstr "禁止在销售日记账内，创建或修改在设定日期（含）之前的记项"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__rating_ids
@@ -1966,7 +1966,7 @@ msgstr "自动核对"
 msgid ""
 "Reconcile journal items with opposite balance or clear accounts with a zero "
 "balance"
-msgstr ""
+msgstr "调节余额相反的日记账项目，或清除余额为零的账户"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -2365,6 +2365,8 @@ msgid ""
 "There are still draft entries in the period you want to lock.\n"
 "                                You should either post or delete them."
 msgstr ""
+"您要锁定的时段内仍有草稿条目。\n"
+"                                您应该发布或删除它们。"
 
 #. module: account_accountant
 #. odoo-python
@@ -2381,7 +2383,7 @@ msgid ""
 "This bank transaction is locked up tighter than a squirrel in a nut factory!"
 " You can't hit the reset button on it. So, do you want to \"unreconcile\" it"
 " instead?"
-msgstr ""
+msgstr "这笔银行交易已牢牢锁定！您无法按下重置键。您想 “取消对账” 吗？"
 
 #. module: account_accountant
 #. odoo-python
@@ -2597,7 +2599,7 @@ msgstr "您最多只能对账两个不同账户的账目：%s"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "You can't hit the reset button on a secured bank transaction."
-msgstr ""
+msgstr "已安全锁定的银行交易，不可按下重置按钮。"
 
 #. module: account_accountant
 #. odoo-python
@@ -2680,13 +2682,13 @@ msgstr "您可能希望将发票设置为%(btn_start)s已全额支付 %(btn_end)
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select a duration for the exception."
-msgstr ""
+msgstr "您需要选择例外情况的持续时间。"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select who the exception applies to."
-msgstr ""
+msgstr "您需要选择例外情况的适用对象。"
 
 #. module: account_accountant
 #. odoo-javascript

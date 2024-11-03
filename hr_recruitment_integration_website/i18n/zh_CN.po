@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -56,7 +57,7 @@ msgstr "生成"
 #. module: hr_recruitment_integration_website
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_view_form
 msgid "Generate Description (<i class=\"fa fa-fw fa-magic\"/>AI)"
-msgstr ""
+msgstr "生成说明（<i class=\"fa fa-fw fa-magic\"/>AI）"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -80,7 +81,7 @@ msgstr ""
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__platform_ids
 msgid "Job Board"
-msgstr ""
+msgstr "招聘版面"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model,name:hr_recruitment_integration_website.model_hr_job
@@ -90,12 +91,12 @@ msgstr "工作岗位"
 #. module: hr_recruitment_integration_website
 #: model:ir.model,name:hr_recruitment_integration_website.model_hr_job_post
 msgid "Job Post"
-msgstr ""
+msgstr "工作职位"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__job_apply_url
 msgid "Job url"
-msgstr ""
+msgstr "职位网址"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -119,7 +120,7 @@ msgstr "发布职位"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Post is required."
-msgstr ""
+msgstr "岗位是必需的。"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_job_post__apply_method__redirect
@@ -174,13 +175,13 @@ msgstr "该职位必须在网站上发布，才能使用重定向应用方法生
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid ""
 "URL is required if the apply method is 'Redirect to company's website'."
-msgstr ""
+msgstr "如果申请方式是“重定向到公司网站”，则需要提供URL。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "You can only generate a post for a published job offer."
-msgstr ""
+msgstr "您只能为已发布的职位生成帖子。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python

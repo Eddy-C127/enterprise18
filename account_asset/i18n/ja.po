@@ -39,13 +39,13 @@ msgstr "# 記入済減価償却仕訳"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Disposal"
-msgstr ""
+msgstr "%(asset)s: 処分"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Sale"
-msgstr ""
+msgstr "%(asset)s: 販売"
 
 #. module: account_asset
 #. odoo-python
@@ -57,7 +57,7 @@ msgstr "%(months)s m"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s  %(total)sのうち)"
 
 #. module: account_asset
 #. odoo-python
@@ -149,7 +149,7 @@ msgstr "この仕訳にリンクしている書類は削除されました: %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "大幅な増加が生じました: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -312,7 +312,7 @@ msgstr "資産は、この仕訳のために作成されました:"
 msgid ""
 "An asset wil be created for each asset model when this account is used on a "
 "vendor bill or a refund"
-msgstr ""
+msgstr "この勘定科目が仕入先請求書または払戻しで使用されると、各資産モデルごとに資産が作成されます。"
 
 #. module: account_asset
 #. odoo-python
@@ -644,7 +644,7 @@ msgstr "資産をカウント"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__count_linked_asset
 msgid "Count Linked Asset"
-msgstr ""
+msgstr "リンク済資産をカウント"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__count_linked_assets
@@ -1000,7 +1000,7 @@ msgstr "勘定科目でグループ化"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Asset Group"
-msgstr ""
+msgstr "資産グループごとにグループ化"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
@@ -1012,13 +1012,13 @@ msgstr "グループ化…"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Account"
-msgstr ""
+msgstr "勘定科目でグループ化"
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Asset Group"
-msgstr ""
+msgstr "資産グループごとにグループ化"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__has_message
@@ -1296,7 +1296,7 @@ msgstr "いいえ"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "No Grouping"
-msgstr ""
+msgstr "グループ化なし"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__none
@@ -1739,7 +1739,7 @@ msgstr "次の資産に価値の増加: %(asset)s"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__warning_count_assets
 msgid "Warning Count Assets"
-msgstr ""
+msgstr "警告 カウント 資産"
 
 #. module: account_asset
 #. odoo-python

@@ -29,7 +29,7 @@ msgstr "適用方法"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "At least one platform must be selected"
-msgstr ""
+msgstr "少なくとも1つのプラットフォームを選択して下さい"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
@@ -40,7 +40,7 @@ msgstr "キャンペーン開始日"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Campaign Start Date is required."
-msgstr ""
+msgstr "キャンペーン開始日が必要です。"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_job_post__apply_method
@@ -56,7 +56,7 @@ msgstr "作成"
 #. module: hr_recruitment_integration_website
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_view_form
 msgid "Generate Description (<i class=\"fa fa-fw fa-magic\"/>AI)"
-msgstr ""
+msgstr "説明を生成 (<i class=\"fa fa-fw fa-magic\"/>AI)"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -70,6 +70,13 @@ msgid ""
 "It's your last chance to make a good impression and attract the best candidates to our company so make it count!\n"
 "Here is the data to generate the job description:\n"
 msgstr ""
+"これまでのプロンプトは無視し、HTML形式で、ハイパーリンクなしでフォーマットします。\n"
+"あなたは当社で最高の採用担当者であり、当社は新しい従業員の採用を検討しています。\n"
+"あなたは、新しい求人募集のための最高の職務内容を作成する任務を任されました。\n"
+"以下の情報を踏まえて、潜在的な候補者を惹きつけるため、魅力的な求人情報を作成\n"
+"して下さい (プラットフォームとは、LinkedIn、Indeed、Glassdoor、Monsterなどのことです)\n"
+"当社に良い印象を与え、優秀な候補者を惹きつける最後のチャンスです。このチャンスを活かしましょう!\n"
+"ジョブディスクリプションを生成するためのデータは次のとおりです:\n"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__platform_ids
@@ -89,7 +96,7 @@ msgstr "役職"
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__job_apply_url
 msgid "Job url"
-msgstr ""
+msgstr "求人 url"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -113,28 +120,28 @@ msgstr "求人を投稿"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Post is required."
-msgstr ""
+msgstr "投稿が必要です。"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_job_post__apply_method__redirect
 msgid "Redirect to Website"
-msgstr ""
+msgstr "ウェブサイトにリダイレクト"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_recruitment_post_job_wizard__apply_method__redirect
 msgid "Redirect to company's website"
-msgstr ""
+msgstr "会社ウェブサイトにリダイレクト"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.actions.server,name:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_action_regenerate_post
 msgid "Regenerate Post"
-msgstr ""
+msgstr "投稿を再生成"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "Sorry, the web page is too long for our AI to process."
-msgstr ""
+msgstr "このウェブページは長すぎるため、当社のAIで処理できません。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -148,12 +155,12 @@ msgstr "回答を生成できませんでした。後ほど試して下さい。
 msgid ""
 "The Job Description will be replaced with the generated one, do you want to "
 "continue?"
-msgstr ""
+msgstr "ジョブディスクリプションが生成されたものに置換えられます。続行しますか？"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,help:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
 msgid "The date when the campaign will start."
-msgstr ""
+msgstr "キャンペーン開始の日付。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -161,20 +168,20 @@ msgstr ""
 msgid ""
 "The job must be published on the website to generate a post with a redirect "
 "apply method."
-msgstr ""
+msgstr "リダイレクト応募方法を使用した投稿を作成するには、その求人情報をウェブサイトに掲載する必要があります。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid ""
 "URL is required if the apply method is 'Redirect to company's website'."
-msgstr ""
+msgstr "応募方法が'自社ウェブサイトへリダイレクト' の場合、URLが必要です。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "You can only generate a post for a published job offer."
-msgstr ""
+msgstr "公開された求人情報に対してのみ投稿を作成できます。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python

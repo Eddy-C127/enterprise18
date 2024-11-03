@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,12 +23,12 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "$1000.0"
-msgstr ""
+msgstr "1000.0 USD"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "2023-08-14"
-msgstr ""
+msgstr "2023-08-14"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -37,7 +38,7 @@ msgstr "2023-08-15"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "3956012345678"
-msgstr ""
+msgstr "3956012345678"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_move_kanban
@@ -55,6 +56,8 @@ msgid ""
 "<strong invisible=\"not warning_line_ids\">The following warnings were also "
 "raised; they do not impeach validation</strong>"
 msgstr ""
+"<strong invisible=\"not warning_line_ids\">Podniesiono również następujące "
+"ostrzeżenia; nie podważają one zatwierdzenia</strong>"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_form
@@ -71,12 +74,12 @@ msgstr "<strong>Wystąpiły następujące błędy</strong>"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "ABC Holder Name"
-msgstr ""
+msgstr "Imię i nazwisko posiadacza ABC"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "ABC Suppliers"
-msgstr ""
+msgstr "Dostawcy ABC"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
@@ -126,6 +129,7 @@ msgstr ""
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 msgid "All payments must be posted to validate the batch."
 msgstr ""
+"Wszystkie płatności muszą zostać opublikowane, aby zatwierdzić tę partię."
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__amount
@@ -172,7 +176,7 @@ msgstr "Dziennik bankowy"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Bank Transfer"
-msgstr ""
+msgstr "Przelew bankowy"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -512,7 +516,7 @@ msgstr "Wiadomości"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Monthly Payment"
-msgstr ""
+msgstr "Płatność miesięczna"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__my_activity_date_deadline
@@ -592,7 +596,7 @@ msgstr "Liczba wiadomości z błędami przy doręczeniu"
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.print_batch_payment
 msgid "Odoo Payments LLC"
-msgstr ""
+msgstr "Płatności Odoo LLC"
 
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__batch_type__outbound
@@ -704,7 +708,7 @@ msgstr "Wysłane"
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 msgid "Set payments state to \"In Process\"."
-msgstr ""
+msgstr "Ustaw stan płatności na \"w trakcie\"."
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.batch_error_wizard_line_tree

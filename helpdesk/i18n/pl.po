@@ -5,14 +5,16 @@
 # Translators:
 # Wil Odoo, 2024
 # Interactive AV-IT, 2024
+# Marta Wacławek, 2024
+# Tomasz Leppich <t.leppich@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Interactive AV-IT, 2024\n"
+"Last-Translator: Tomasz Leppich <t.leppich@gmail.com>, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -389,23 +391,23 @@ msgstr "<span class=\"o_stat_text\">Ocena</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Failed</span>"
-msgstr "<span class=\"text-muted\">Nieudane</span>"
+msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Open</span>"
-msgstr "<span class=\"text-muted\">Otwarte</span>"
+msgid "<span class=\"text-muted text-nowrap\">Open</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Unassigned</span>"
-msgstr "<span class=\"text-muted\">Nieprzypisane</span>"
+msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Urgent</span>"
-msgstr "<span class=\"text-muted\">Pilne</span>"
+msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -687,12 +689,6 @@ msgstr "Czy na pewno chcesz kontynuować?"
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
 msgstr "Czy na pewno chcesz usunąć te etapy?"
-
-#. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "Przypisz zgłoszenie do <b>członka swojego zespołu</b>."
 
 #. module: helpdesk
 #. odoo-python
@@ -1835,13 +1831,13 @@ msgstr "Okres nieaktywności (dni)"
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__invited_internal
 msgid "Invited internal users (private)"
-msgstr "Zaproszeni użytkownicy wewnętrzni (prywatni)"
+msgstr "Zaproszeni użytkownicy wewnętrzni (prywatne)"
 
 #. module: helpdesk
 #: model:ir.model.fields.selection,name:helpdesk.selection__helpdesk_team__privacy_visibility__portal
 msgid "Invited portal users and all internal users (public)"
 msgstr ""
-"Zaproszeni użytkownicy portalu i wszyscy użytkownicy wewnętrzni (publiczni)"
+"Zaproszeni użytkownicy portalu i wszyscy użytkownicy wewnętrzni (publiczne)"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__message_is_follower
@@ -2356,6 +2352,12 @@ msgid "Open Time (hours)"
 msgstr "Czas otwarcia (ilość godzin)"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Open the ticket."
+msgstr ""
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -2866,6 +2868,12 @@ msgstr "Usatysfakcjonowany"
 #. module: helpdesk
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "Zapisz to zgłoszenie i modyfikacje, które do niego wprowadziłeś."
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 msgid "Schedule your <b>activity</b>."
 msgstr "Zaplanuj swoją <b>aktywność</b>."
 
@@ -2981,7 +2989,7 @@ msgid ""
 " their questions."
 msgstr ""
 "Udostępniaj prezentacje i filmy oraz organizuj je w kursy. Zezwalaj klientom"
-" na przeszukiwanie kursów e-learningowych w centrum pomocy w celu uzyskania "
+" na przeszukiwanie kursów eLearningowych w centrum pomocy w celu uzyskania "
 "odpowiedzi na ich pytania."
 
 #. module: helpdesk
@@ -3765,12 +3773,12 @@ msgstr "Wypełniłeś wszystkie zgłoszenia na czas."
 #. odoo-python
 #: code:addons/helpdesk/models/helpdesk_ticket.py:0
 msgid "You have been invited to follow %s"
-msgstr "Zostałeś zaproszony do obserwowania"
+msgstr "Zostałeś zaproszony do obserwowania %s"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.ticket_invitation_follower
 msgid "You have been invited to follow Ticket Document :"
-msgstr ""
+msgstr "Zostałeś zaproszony do śledzenia dokumentu Zgłoszenia :"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -3806,7 +3814,7 @@ msgstr "np. mojafirma.pl"
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_team__use_website_helpdesk_slides
 msgid "eLearning"
-msgstr "eNauka"
+msgstr "eLearning"
 
 #. module: helpdesk
 #: model_terms:digest.tip,tip_description:helpdesk.digest_tip_helpdesk_0

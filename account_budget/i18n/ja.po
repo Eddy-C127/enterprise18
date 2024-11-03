@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_kanban
 msgid "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Period\" title=\"Period\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Period\" title=\"Period\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
@@ -48,7 +49,7 @@ msgstr "達成済"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__achieved_percentage
 msgid "Achieved (%)"
-msgstr ""
+msgstr "アーカイブ済 (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__message_needaction
@@ -78,19 +79,19 @@ msgstr "活動種別アイコン"
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__committed_amount
 msgid "Already Billed amount + Confirmed purchase orders."
-msgstr ""
+msgstr "請求済金額＋購買オーダ確認済。"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__achieved_amount
 msgid "Amount Billed/Invoiced."
-msgstr ""
+msgstr "仕入先請求/顧客請求済金額"
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__theoritical_amount
 msgid ""
 "Amount supposed to be Billed/Invoiced, formula = (Budget Amount / Budget "
 "Days) x Budget Days Completed"
-msgstr ""
+msgstr "仕入先請求/顧客請求予定の金額, 計算式 = (予算金額 / 予算日数) x 完了済予算日数"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_account_analytic_account
@@ -102,7 +103,7 @@ msgstr "分析勘定"
 #. module: account_budget
 #: model:ir.ui.menu,name:account_budget.menu_act_budget_analytic_view
 msgid "Analytic Budget"
-msgstr ""
+msgstr "分析予算"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_purchase_order_line__analytic_json
@@ -207,7 +208,7 @@ msgstr "予算タイプ"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_amount
 msgid "Budgeted"
-msgstr ""
+msgstr "予算化済"
 
 #. module: account_budget
 #. odoo-python
@@ -255,7 +256,7 @@ msgstr "コミット済"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__committed_percentage
 msgid "Committed (%)"
-msgstr ""
+msgstr "コミット済 (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__company_id
@@ -684,12 +685,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Theoretical"
-msgstr ""
+msgstr "理論上"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_percentage
 msgid "Theoretical (%)"
-msgstr ""
+msgstr "理論上 (%)"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_search

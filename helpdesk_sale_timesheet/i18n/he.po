@@ -1,26 +1,29 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* helpdesk_sale_timesheet
-#
+# 
 # Translators:
-# Yihya Hugirat <hugirat@gmail.com>, 2022
-# Lilach Gilliam <lilach.gilliam@gmail.com>, 2022
-# Martin Trigaux, 2022
-# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2022
-#
+# Yihya Hugirat <hugirat@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Lilach Gilliam <lilach.gilliam@gmail.com>, 2024
+# NoaFarkash, 2024
+# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# david danilov, 2024
+# hed shefer <hed@laylinetech.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:02+0000\n"
-"PO-Revision-Date: 2022-09-22 05:46+0000\n"
-"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: hed shefer <hed@laylinetech.com>, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
-"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Language: he\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: helpdesk_sale_timesheet
 #: model:helpdesk.sla,name:helpdesk_sale_timesheet.helpdesk_sla_4
@@ -28,9 +31,24 @@ msgid "4 hours to finish"
 msgstr ""
 
 #. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
+msgid ""
+"<span class=\"fa fa-exclamation-triangle text-warning\" title=\"The sales "
+"order associated with this ticket has been cancelled. We recommend either "
+"updating the sales order item or cancelling this ticket in alignment with "
+"the cancellation of the sales order.\" invisible=\"sale_order_state != "
+"'cancel'\"/>"
+msgstr ""
+
+#. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "חשבון אנליטי"
+msgid "Analytic Line"
+msgstr "שורה אנליטית"
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_sale_order_line__color
+msgid "Color"
+msgstr "צבע"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket_convert_wizard
@@ -48,39 +66,14 @@ msgid "Date"
 msgstr "תאריך"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
-msgid "Days"
-msgstr "ימים"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Days Spent"
-msgstr ""
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Days:"
-msgstr "ימים:"
-
-#. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Description"
 msgstr "תיאור"
 
 #. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_account_analytic_line__display_sol
-msgid "Display Sol"
-msgstr ""
-
-#. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Employee"
 msgstr "עובד"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.product_template_form_view_invoice_policy_inherit_helpdesk
-msgid "Helpdesk"
-msgstr "מוקד תמיכה ללקוחות"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla
@@ -98,34 +91,31 @@ msgid "Helpdesk Ticket"
 msgstr "קריאת שירות מוקד תמיכה"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
-msgid "Hours"
-msgstr "שעות"
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
+msgid "Invoices"
+msgstr "חשבוניות"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Hours Spent"
-msgstr "זמן עבודה"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Hours:"
-msgstr "שעות:"
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_my_timesheets_inherit
+msgid "No Ticket"
+msgstr ""
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
 msgid "Non-billable"
-msgstr ""
+msgstr "לא ניתן לחיוב"
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_inherit
+msgid "Not Billed"
+msgstr "לא חויב"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_sla_view_form_inherit_sale_timesheet
 msgid "OR"
-msgstr ""
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model,name:helpdesk_sale_timesheet.model_product_template
-msgid "Product"
-msgstr "מוצר"
+msgstr "או"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_team__project_id
@@ -134,13 +124,10 @@ msgstr "פרויקט"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_team__project_id
-msgid "Project to which the timesheets of this helpdesk team's tickets will be linked."
+msgid ""
+"Project to which the timesheets of this helpdesk team's tickets will be "
+"linked."
 msgstr ""
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
-msgid "Project's sale order"
-msgstr "הזמנת מכירה של הפרויקט"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_order_id
@@ -153,42 +140,15 @@ msgid "Reinvoicing Timesheet activated on Team"
 msgstr "חיוב מחדש דיווח שעות מופעל בצוות"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
-msgid "Remaining Days on SO"
-msgstr "ימים שנשארו בהזמנת עבודה:"
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Remaining Days on SO:"
-msgstr ""
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_available
-msgid "Remaining Hours Available"
-msgstr "שעות שנותרו"
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_so
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__remaining_hours_so
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__remaining_hours_so
 msgid "Remaining Hours on SO"
 msgstr "שעות שנשארו בהזמנת עבודה"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Remaining Hours on SO:"
-msgstr ""
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_product__sla_id
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_product_template__sla_id
-msgid "SLA Policy"
-msgstr "מדיניות הסכם תנאי שירות"
-
-#. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,help:helpdesk_sale_timesheet.field_product_product__sla_id
-#: model:ir.model.fields,help:helpdesk_sale_timesheet.field_product_template__sla_id
-msgid "SLA Policy that will automatically apply to the tickets linked to a sales order item containing this service."
-msgstr ""
+#: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_sla_report_analysis
+msgid "SLA Status Analysis"
+msgstr "ניתוח סטטוס הסכם תנאי שירות"
 
 #. module: helpdesk_sale_timesheet
 #. odoo-python
@@ -200,8 +160,9 @@ msgid "Sales Order"
 msgstr "הזמנת לקוח"
 
 #. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla_report_analysis__sale_line_id
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__sale_line_id
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_search_inherit_helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket_report_analysis__sale_line_id
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
 msgid "Sales Order Item"
 msgstr "פריט הזמנת לקוח"
@@ -216,19 +177,43 @@ msgid ""
 msgstr ""
 
 #. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__sale_line_ids
-msgid "Sales Order Items"
-msgstr "פריט הזמנת לקוח"
+#: model:ir.model,name:helpdesk_sale_timesheet.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "שורת הזמנת לקוח"
 
 #. module: helpdesk_sale_timesheet
-#: model:ir.model.fields,help:helpdesk_sale_timesheet.field_helpdesk_ticket__project_sale_order_id
-msgid "Sales order to which the project is linked."
-msgstr "הזמנת לקוח שאליה מקושר הפרויקט."
-
-#. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
-msgid "Spent"
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
+msgid "Search in Sales Order"
 msgstr ""
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
+msgid "Search in Ticket"
+msgstr ""
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__product_ids
+msgid "Services"
+msgstr "שירותים"
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_my_timesheets_inherit
+msgid "Task/Ticket"
+msgstr ""
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/controllers/portal.py:0
+#: code:addons/helpdesk_sale_timesheet/models/sale_order.py:0
+msgid "Ticket"
+msgstr "קריאת שירות"
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model,name:helpdesk_sale_timesheet.model_helpdesk_ticket_report_analysis
+msgid "Ticket Analysis"
+msgstr "ניתוח נתוני קריאות שירות"
 
 #. module: helpdesk_sale_timesheet
 #: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_sale_order__ticket_count
@@ -241,9 +226,25 @@ msgid "Tickets"
 msgstr "קריאות שירות"
 
 #. module: helpdesk_sale_timesheet
-#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.helpdesk_ticket_view_search_inherit_helpdesk_sale_timesheet
-msgid "Tickets in Overtime"
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_sla__use_helpdesk_sale_timesheet
+msgid "Time Billing"
+msgstr "חיוב זמנים"
+
+#. module: helpdesk_sale_timesheet
+#: model:ir.model.fields,field_description:helpdesk_sale_timesheet.field_helpdesk_ticket__remaining_hours_so
+msgid "Time Remaining on SO"
 msgstr ""
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
+msgid "Time Remaining on SO:"
+msgstr ""
+
+#. module: helpdesk_sale_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.portal_helpdesk_ticket_timesheet
+#: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
+msgid "Time Spent"
+msgstr "זמן עבודה"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
@@ -252,5 +253,13 @@ msgstr "דיווחי שעות"
 
 #. module: helpdesk_sale_timesheet
 #: model_terms:ir.ui.view,arch_db:helpdesk_sale_timesheet.tickets_followup_timesheet
-msgid "Total"
-msgstr "סה\"כ"
+msgid "Total Time Spent:"
+msgstr ""
+
+#. module: helpdesk_sale_timesheet
+#. odoo-python
+#: code:addons/helpdesk_sale_timesheet/models/helpdesk_ticket.py:0
+msgid ""
+"You cannot link order item %(order_id)s - %(product_id)s to this ticket "
+"because it is not a service product."
+msgstr ""

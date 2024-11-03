@@ -105,6 +105,13 @@ msgid ""
 "                \n"
 "* When the user cancels a payslip, the status is 'Canceled'."
 msgstr ""
+"* เมื่อสร้างสลิปเงินเดือนแล้ว สถานะจะเป็น 'ร่าง'\n"
+"                \n"
+"* หากสลิปเงินเดือนอยู่ระหว่างการตรวจสอบ สถานะจะเป็น 'รอ'\n"
+"                \n"
+"* หากสลิปเงินเดือนได้รับการยืนยันสถานะจะเป็น 'เสร็จสิ้น'\n"
+"                \n"
+"* เมื่อผู้ใช้ยกเลิกสลิปเงินเดือน สถานะจะเป็น 'ยกเลิก'"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -1418,6 +1425,8 @@ msgid ""
 "Day where the YTD will be reset every year. If zero or negative, then the first day of the month will be selected instead.\n"
 "        If greater than the last day of a month, then the last day of the month will be selected instead."
 msgstr ""
+"วันที่ YTD จะถูกรีเซ็ตทุกปี หากเป็นศูนย์หรือติดลบ ระบบจะเลือกวันที่ 1 ของเดือนแทน\n"
+"        หากมากกว่าวันสุดท้ายของเดือน ระบบจะเลือกวันสุดท้ายของเดือนแทน"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__number_of_days

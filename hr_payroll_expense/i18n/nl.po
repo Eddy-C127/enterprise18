@@ -93,12 +93,16 @@ msgstr "Boeking"
 msgid ""
 "No debit account found in the '%(rule_name)s' payslip salary rule. Please "
 "add a payable debit account to be able to create an accounting entry for the"
-" expense report linked to this payslip '%(expense_report_name)s'."
+" expense reports linked to this payslip."
 msgstr ""
-"Er is geen debetrekening gevonden in de loonstrookregel '%(rule_name)s'. "
-"Gelieve een geldige betaalrekening toe te voegen om een boeking te maken "
-"voor de onkostendeclaratie gekoppeld aan deze loonstrook "
-"'%(expense_report_name)s'."
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_payslip.py:0
+msgid ""
+"No salary rule was found to handle expenses in structure "
+"'%(structure_name)s'."
+msgstr ""
 
 #. module: hr_payroll_expense
 #. odoo-python

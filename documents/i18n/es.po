@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -544,6 +544,105 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"                    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                    <tbody>\n"
+"                        <!-- ENCABEZADO -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\">\n"
+"                                        <span style=\"font-size: 10px;\">\n"
+"                                            Solicitud de documento: <br>\n"
+"                                            <t t-if=\"object.name\">\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">Bandeja de entrada financiera</span>\n"
+"                                            </t>\n"
+"                                        </span><br>\n"
+"                                    </td><td valign=\"middle\" align=\"right\">\n"
+"                                        <img t-attf-src=\"/logo.png?company={{ object.create_uid.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.create_uid.company_id.name\">\n"
+"                                    </td></tr>\n"
+"                                    <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- CONTENIDO -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                        <div>\n"
+"                                            Hola <t t-out=\"object.owner_id.name or ''\">OdooBot</t>,\n"
+"                                            <br><br>\n"
+"                                            Este es un recordatorio para que suba el documento solicitado:\n"
+"                                            <br><br>\n"
+"                                            <center>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.name\">\n"
+"                                                        <b t-out=\"object.name or ''\">Bandeja de entrada financiera</b>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <div>\n"
+"                                                    <t t-if=\"object.request_activity_id.note\">\n"
+"                                                        <i t-out=\"object.request_activity_id.note or ''\">Ejemplo de una nota.</i>\n"
+"                                                    </t>\n"
+"                                                </div>\n"
+"                                                <br>\n"
+"                                                <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                    <a t-att-href=\"object.access_url\" style=\"background-color: #875A7B; padding: 20px 30px 20px 30px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                        Subir el documento solicitado\n"
+"                                                    </a>\n"
+"                                                </div>\n"
+"                                            </center><br>\n"
+"                                             Proporcione el documento que le pedimos antes del <t t-out=\"object.request_activity_id.date_deadline or ''\">17-05-2021</t>.\n"
+"                                            <br><br>\n"
+"                                            Gracias,\n"
+"                                            <t t-if=\"user and user.signature\">\n"
+"                                                <br>\n"
+"                                                <t t-out=\"user.signature\">--<br>Mitchell Admin</t>\n"
+"                                                <br>\n"
+"                                            </t>\n"
+"                                        </div>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td style=\"text-align:center;\">\n"
+"                                      <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                        <!-- PIE DE PÁGINA -->\n"
+"                        <tr>\n"
+"                            <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                    <tr><td valign=\"middle\" align=\"left\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.name or ''\">SuCompañía</t>\n"
+"                                    </td></tr>\n"
+"                                    <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                        <t t-out=\"object.create_uid.company_id.phone or ''\">+1 650-123-4567</t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.email\">\n"
+"                                            | <a t-attf-href=\"'mailto:%s' % {{ object.create_uid.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.email\">info@sucompañía.com</a>\n"
+"                                        </t>\n"
+"                                        <t t-if=\"object.create_uid.company_id.website\">\n"
+"                                            | <a t-att-href=\"object.create_uid.company_id.website\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.create_uid.company_id.website\">http://www.ejemplo.com</a>\n"
+"                                        </t>\n"
+"                                    </td></tr>\n"
+"                                </table>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </tbody>\n"
+"                    </table>\n"
+"                    </td></tr>\n"
+"                    <!-- CON LA TECNOLOGÍA DE -->\n"
+"                    <tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                          <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"                            Con la tecnología de <a target=\"_blank\" href=\"https://www.odoo.com/app/documents\" style=\"color: #875A7B;\">Documentos de Odoo</a>\n"
+"                          </td></tr>\n"
+"                        </table>\n"
+"                    </td></tr>\n"
+"                </table>\n"
+"            "
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_defaults
@@ -558,17 +657,17 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "A destination is required when creating multiple shortcuts at once."
-msgstr ""
+msgstr "Se necesita un destino cuando cree varios atajos a la vez."
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_folder_id_not_id
 msgid "A folder cannot be included in itself"
-msgstr ""
+msgstr "No se puede incluir una carpeta en sí misma"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_shortcut_document_id_not_id
 msgid "A shortcut cannot point to itself"
-msgstr ""
+msgstr "Un atajo no puede llevar al atajo en sí"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -602,17 +701,17 @@ msgstr "Los documentos de acceso y los contactos no se pueden cambiar."
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Access to a folder or a document"
-msgstr ""
+msgstr "Acceso a una carpeta o un documento"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_document_token_unique
 msgid "Access tokens already used."
-msgstr ""
+msgstr "Ya se usaron los tokens de acceso."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_url
 msgid "Access url"
-msgstr ""
+msgstr "URL de acceso"
 
 #. module: documents
 #. odoo-javascript
@@ -704,17 +803,17 @@ msgstr "Agregar archivo"
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_folder_form
 msgid "Add Folder"
-msgstr ""
+msgstr "Agregar carpeta"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_bill
 msgid "Add Tag Bill"
-msgstr ""
+msgstr "Agregar una etiqueta “Factura”"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "Agregar etiqueta “Validado”"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.action_url_form
@@ -737,25 +836,25 @@ msgstr "Agregue personas o correos electrónicos..."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Add people or email addresses:"
-msgstr ""
+msgstr "Agregar personas o direcciones de correo electrónico:"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_shortcut.js:0
 msgid "Add shortcut"
-msgstr ""
+msgstr "Agregar atajo"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_star.js:0
 msgid "Add star"
-msgstr ""
+msgstr "Agregar estrella"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Additional documents you have access to."
-msgstr ""
+msgstr "Documentos adicionales a los que tiene acceso."
 
 #. module: documents
 #: model:res.groups,name:documents.group_documents_manager
@@ -805,7 +904,7 @@ msgstr "Estado del alias"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_tag_ids
 msgid "Alias Tags"
-msgstr ""
+msgstr "Etiquetas de alias"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_status
@@ -830,17 +929,19 @@ msgid ""
 "All users with access to this %(documentType)s or its parent will have edit "
 "permissions."
 msgstr ""
+"Todos los usuarios que tengan acceso a %(documentType)s o el documento "
+"principal tendrán permisos de edición."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_ids
 msgid "Allowed Access"
-msgstr ""
+msgstr "Acceso permitido"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Already linked Documents: %s"
-msgstr ""
+msgstr "Documentos ya vinculados: %s"
 
 #. module: documents
 #: model_terms:digest.tip,tip_description:documents.digest_tip_documents_0
@@ -877,7 +978,7 @@ msgstr "Ocurrió un error durante la subida."
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Anyone on the internet with the link can %(action)s"
-msgstr ""
+msgstr "Cualquier persona en el internet con un enlace puede %(action)s"
 
 #. module: documents
 #. odoo-javascript
@@ -959,7 +1060,7 @@ msgstr "Tipo de archivo adjunto"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__available_embedded_actions_ids
 msgid "Available Embedded Actions"
-msgstr ""
+msgstr "Acciones incrustadas disponibles"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_bill
@@ -1066,7 +1167,7 @@ msgstr "Color"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
-msgstr ""
+msgstr "Raíz común para todos los usuarios de la compañía."
 
 #. module: documents
 #. odoo-python
@@ -1120,7 +1221,7 @@ msgstr "Copiar enlace"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Copy Links"
-msgstr ""
+msgstr "Copiar enlaces"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_create_activity
@@ -1131,7 +1232,7 @@ msgstr "Crear actividad"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Create Shortcut"
-msgstr ""
+msgstr "Crear atajo"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_plan_action_document
@@ -1147,13 +1248,13 @@ msgstr "Crear una nueva actividad"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Create and edit new contact \""
-msgstr ""
+msgstr "Crear y editar contacto nuevo \""
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Create new contact \""
-msgstr ""
+msgstr "Crear contacto nuevo \""
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__create_uid
@@ -1291,19 +1392,19 @@ msgstr "Documento"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_access
 msgid "Document / Partner"
-msgstr ""
+msgstr "Documento / Contacto"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Internal"
-msgstr ""
+msgstr "Acceso interno a los documentos"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "Document Access Link"
-msgstr ""
+msgstr "Enlace de acceso al documento"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_count
@@ -1325,7 +1426,7 @@ msgstr "Planes de documento"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "Redirección de documento"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1355,7 +1456,7 @@ msgstr "Solicitud de documento: recordatorio"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__document_token
 msgid "Document Token"
-msgstr ""
+msgstr "Token de documento"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
@@ -1366,7 +1467,7 @@ msgstr "Vista previa del documento"
 #. odoo-python
 #: code:addons/documents/controllers/documents.py:0
 msgid "Document uploaded by %(user)s"
-msgstr ""
+msgstr "Documento subido por %(user)s"
 
 #. module: documents
 #: model:mail.template,name:documents.mail_template_document_request
@@ -1377,7 +1478,7 @@ msgstr "Documento: solicitud de documento"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/document_count_field.js:0
 msgid "DocumentCountIntegerField"
-msgstr ""
+msgstr "DocumentCountIntegerField"
 
 #. module: documents
 #. odoo-python
@@ -1410,7 +1511,7 @@ msgstr "Mixin de creación de documentos "
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Documents in the Trash cannot be shared"
-msgstr ""
+msgstr "Los documentos que estén en la papelera no se pueden compartir"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_unlink_mixin
@@ -1455,12 +1556,12 @@ msgstr "Descargar archivo"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download folder as zip"
-msgstr ""
+msgstr "Descargar carpeta como zip"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Download zip #{subfolder.name}"
-msgstr ""
+msgstr "Descargar zip #{subfolder.name}"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_draft
@@ -1523,7 +1624,7 @@ msgstr "Alias de correo electrónico"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
 msgid "Email Upload"
-msgstr ""
+msgstr "Subir correo electrónico"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__email_cc
@@ -1540,7 +1641,7 @@ msgstr ""
 #. module: documents
 #: model:ir.actions.act_window,name:documents.mail_alias_action
 msgid "Email links"
-msgstr ""
+msgstr "Enlaces de correo electrónico"
 
 #. module: documents
 #. odoo-javascript
@@ -1572,7 +1673,7 @@ msgstr "Salir sin guardar"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "Exp:"
-msgstr ""
+msgstr "Previsto:"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_expense
@@ -1601,6 +1702,8 @@ msgid "Favorite of"
 msgstr "Favorito de"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__binary
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
 msgid "File"
@@ -1695,6 +1798,7 @@ msgstr "Enfocar la página anterior"
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__folder_id
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__folder_id
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__type__folder
@@ -1707,7 +1811,7 @@ msgstr "Carpeta"
 #: code:addons/documents/static/src/views/kanban/documents_kanban_renderer.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Folders"
-msgstr ""
+msgstr "Carpetas"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__message_follower_ids
@@ -1739,12 +1843,12 @@ msgstr "General"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.xml:0
 msgid "General access"
-msgstr ""
+msgstr "Acceso general"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "GiB"
-msgstr ""
+msgstr "GiB"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -1764,7 +1868,7 @@ msgstr "Tiene un mensaje"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
 msgid "Hide shortcuts"
-msgstr ""
+msgstr "Ocultar atajos"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__previous_attachment_ids
@@ -1814,6 +1918,9 @@ msgid ""
 "to view it. If \"False\", access with the link also given to all who can "
 "access the parent folder."
 msgstr ""
+"Si “True” solo las personas que tengan acceso directo a este documento "
+"podrán verlo. Si “False”, todas las personas que tengan acceso a la carpeta "
+"principal podrán acceder por medio de un enlace."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__message_needaction
@@ -1844,13 +1951,13 @@ msgstr "Imagenes"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to delete folders used by other applications."
-msgstr ""
+msgstr "No es posible eliminar carpetas que se usen en otras aplicaciones."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Impossible to invite partners on multiple documents at once."
-msgstr ""
+msgstr "No es posible invitar contactos a varios documentos a la vez."
 
 #. module: documents
 #. odoo-python
@@ -1859,11 +1966,13 @@ msgid ""
 "Impossible to move the following items as this would create a recursive hierarchy:\n"
 "- %(documents)s"
 msgstr ""
+"No es posible mover los siguientes elementos ya que crearía una jerarquía recursiva:\n"
+"- %(documents)s"
 
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__restricted
 msgid "Inaccessible"
-msgstr ""
+msgstr "No se puede acceder"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_inbox
@@ -1878,6 +1987,8 @@ msgid ""
 "Incorrect values. Use one of the following for the following fields: "
 "%(hints)s.)"
 msgstr ""
+"Valores incorrectos. Use uno de los siguientes valores para los campos a "
+"continuación: %(hints)s.)"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__index_content
@@ -1893,31 +2004,31 @@ msgstr "Usuarios internos"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_internal
 msgid "Internal Users Rights"
-msgstr ""
+msgstr "Permisos para usuarios internos"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Internal users can  %(action)s"
-msgstr ""
+msgstr "Los usuarios internos pueden %(action)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid folder id"
-msgstr ""
+msgstr "ID de carpeta no válido"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
-msgstr ""
+msgstr "Operación no válida"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Invalid role."
-msgstr ""
+msgstr "Rol no válido"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_editable_attachment
@@ -1946,6 +2057,8 @@ msgid ""
 "It is not possible to move archived documents or documents to archived "
 "folders."
 msgstr ""
+"No es posible mover documentos archivados o documentos a carpetas "
+"archivadas."
 
 #. module: documents
 #. odoo-python
@@ -1954,6 +2067,8 @@ msgid ""
 "Item(s) you wish to restore are included in archived folders. To restore these items, you must restore the following including folders instead:\n"
 "- %(folders_list)s"
 msgstr ""
+"Los elementos que quiere restaurar están incluidos en carpetas archivadas. Para restaurar estos elementos, debe restaurar las siguientes carpetas:\n"
+"- %(folders_list)s"
 
 #. module: documents
 #. odoo-python
@@ -1975,7 +2090,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents.field_documents_access__last_access_date
 #: model:ir.model.fields,field_description:documents.field_documents_document__last_access_date_group
 msgid "Last Accessed On"
-msgstr ""
+msgstr "Último acceso el"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__write_uid
@@ -2034,6 +2149,7 @@ msgstr ""
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model_terms:ir.ui.view,arch_db:documents.documents_link_to_record_form_view
 msgid "Link"
 msgstr "Enlace"
@@ -2041,12 +2157,12 @@ msgstr "Enlace"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_access_via_link_hidden
 msgid "Link Access Hidden"
-msgstr ""
+msgstr "Acceso por enlace oculto"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_via_link
 msgid "Link Access Rights"
-msgstr ""
+msgstr "Permisos de acceso con el enlace"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__url
@@ -2063,13 +2179,13 @@ msgstr "¡Enlace copiado al portapapeles!"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Link copied to the clipboard."
-msgstr ""
+msgstr "Enlace copiado al portapapeles."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Links copied to clipboard!"
-msgstr ""
+msgstr "¡Enlace copiado al portapapeles!"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_incoming_local
@@ -2112,18 +2228,18 @@ msgstr "Cerrar sesión"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Mail: %s"
-msgstr ""
+msgstr "Correo electrónico: %s"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_activities
 msgid "Mark activities as completed"
-msgstr ""
+msgstr "Marcar actividades como completadas"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_control_panel.xml:0
 msgid "Merge PDFs"
-msgstr ""
+msgstr "Fusionar PDFs"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_request_wizard__activity_note
@@ -2143,7 +2259,7 @@ msgstr "Mensajes"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "MiB"
-msgstr ""
+msgstr "MiB"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__mimetype
@@ -2154,7 +2270,7 @@ msgstr "Tipo de MIME"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Missing documents reference."
-msgstr ""
+msgstr "Referencia de los documentos faltantes."
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__model_id
@@ -2209,7 +2325,7 @@ msgstr "Movido a la papelera"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_kanban
 msgid "Must have the link to access"
-msgstr ""
+msgstr "Debe tener el enlace para acceder"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_search
@@ -2230,12 +2346,12 @@ msgstr "Mis documentos"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "My Drive"
-msgstr ""
+msgstr "Mi Drive"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_role_or_last_access_date
 msgid "NULL roles must have a set last_access_date"
-msgstr ""
+msgstr "Los roles NULL deben tener una last_access_date configurada"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__name
@@ -2266,7 +2382,7 @@ msgstr "Nuevo archivo"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "New Folder"
-msgstr ""
+msgstr "Nueva carpeta"
 
 #. module: documents
 #. odoo-javascript
@@ -2315,13 +2431,13 @@ msgstr "No se ha seleccionado ningún documento"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/chatter/documents_chatter_overlay.xml:0
 msgid "No item selected"
-msgstr ""
+msgstr "Ningún elemento seleccionado"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "No one on the internet can access"
-msgstr ""
+msgstr "Nadie en el internet puede acceder"
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_alias_action
@@ -2345,7 +2461,7 @@ msgstr "No es un archivo"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Not a folder."
-msgstr ""
+msgstr "No es una carpeta."
 
 #. module: documents
 #. odoo-python
@@ -2403,47 +2519,47 @@ msgstr "Más antiguos"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
-msgstr ""
+msgstr "Solo los gerentes de Documentos pueden fijar carpetas."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can set aliases."
-msgstr ""
+msgstr "Solo los gerentes de Documentos pueden configurar los alias."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents managers can set an alias."
-msgstr ""
+msgstr "Solo los gerentes de Documentos pueden configurar un alias."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Only OdooBot-owned root folders can be pinned."
-msgstr ""
+msgstr "Solo las carpetas de raíz que pertenezcan a OdooBot pueden fijarse."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_settings.js:0
 msgid "Only people with access can open with the link"
-msgstr ""
+msgstr "Solo personas con acceso pueden abrir el enlace"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open #{document_url.name}"
-msgstr ""
+msgstr "Abrir #{document_url.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Open folder #{subfolder.name}"
-msgstr ""
+msgstr "Abrir carpeta #{subfolder.name}"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Open the permissions panel"
-msgstr ""
+msgstr "Abrir el panel de permisos"
 
 #. module: documents
 #. odoo-python
@@ -2452,6 +2568,8 @@ msgid ""
 "Operation not supported. Please use \"Move to Trash\" / `action_archive` "
 "instead."
 msgstr ""
+"La operación no es compatible. Use \"Mover a la papelera\" `action_archive` "
+"en su lugar."
 
 #. module: documents
 #. odoo-python
@@ -2460,6 +2578,8 @@ msgid ""
 "Operation not supported. Please use \"Restore\" / `action_unarchive` "
 "instead."
 msgstr ""
+"La operación no es compatible. Use \"Restaurar\" `action_unarchive` en su "
+"lugar."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_force_thread_id
@@ -2476,7 +2596,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.js:0
 msgid "Optional message..."
-msgstr ""
+msgstr "Mensaje opcional..."
 
 #. module: documents
 #. odoo-javascript
@@ -2506,12 +2626,12 @@ msgstr "Propietario: #{document.owner_id.name}"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{document_url.owner_id.name}"
-msgstr ""
+msgstr "Propietario: #{document_url.owner_id.name}"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "Owner: #{subfolder.owner_id.name}"
-msgstr ""
+msgstr "Propietario: #{subfolder.owner_id.name}"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__folder_id
@@ -2559,7 +2679,7 @@ msgstr "Contacto"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "People with access"
-msgstr ""
+msgstr "Personas con acceso"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form
@@ -2569,7 +2689,7 @@ msgstr "Fijar"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__is_pinned_folder
 msgid "Pinned to Company roots"
-msgstr ""
+msgstr "Fijado a la raíz de la compañía"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
@@ -2577,6 +2697,8 @@ msgid ""
 "Please login or contact the person that shared this link for more "
 "information."
 msgstr ""
+"Inicie sesión o póngase en contacto con la persona que compartió este enlace"
+" para más información."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_contact
@@ -2626,7 +2748,7 @@ msgstr "Reciente"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Recently accessed documents."
-msgstr ""
+msgstr "Documentos recientemente abiertos"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__resource_ref
@@ -2663,7 +2785,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "Remove Access"
-msgstr ""
+msgstr "Eliminar acceso"
 
 #. module: documents
 #. odoo-javascript
@@ -2674,23 +2796,23 @@ msgstr "Eliminar miembro"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_inbox
 msgid "Remove Tag Inbox"
-msgstr ""
+msgstr "Eliminar etiqueta de bandeja de entrada"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "Eliminar etiqueta a validar"
 
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_remove_tags
 msgid "Remove all tags"
-msgstr ""
+msgstr "Eliminar todas las etiquetas"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_star.js:0
 msgid "Remove star"
-msgstr ""
+msgstr "Eliminar estrella"
 
 #. module: documents
 #. odoo-javascript
@@ -2749,7 +2871,7 @@ msgstr "Documentos solicitados"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__requestee_partner_id
 msgid "Requestee Partner"
-msgstr ""
+msgstr "Contacto solicitante"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__res_model_name
@@ -2807,7 +2929,7 @@ msgstr "Carpeta restringida"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Revert changes"
-msgstr ""
+msgstr "Revertir cambios"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_access__role
@@ -2836,13 +2958,13 @@ msgstr "Guardar"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid "Save or discard changes first"
-msgstr ""
+msgstr "Guardar o descartar cambios primero"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.xml:0
 msgid "Saving..."
-msgstr ""
+msgstr "Guardando..."
 
 #. module: documents
 #. odoo-javascript
@@ -2896,7 +3018,7 @@ msgstr "Enviar"
 #. module: documents
 #: model:ir.actions.server,name:documents.ir_actions_server_send_to_finance
 msgid "Send To Finance"
-msgstr ""
+msgstr "Enviar a finanzas"
 
 #. module: documents
 #. odoo-javascript
@@ -2919,7 +3041,7 @@ msgstr "Secuencia"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
 msgid "Set actions"
-msgstr ""
+msgstr "Establecer acciones"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
@@ -2930,7 +3052,7 @@ msgstr "Establecer plazo de eliminación para los documentos en la papelera"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_expiration_date_btn.xml:0
 msgid "Set expiration date"
-msgstr ""
+msgstr "Establecer fecha de vencimiento"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -2962,21 +3084,23 @@ msgstr "Compartir"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_permission_panel.js:0
 msgid "Share: %(documentName)s"
-msgstr ""
+msgstr "Compartir: %(documentName)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shared with me"
-msgstr ""
+msgstr "Compartido conmigo"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 msgid "Sharing..."
-msgstr ""
+msgstr "Compartiendo..."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_type_icon/documents_type_icon.xml:0
 #: model:ir.model.fields,field_description:documents.field_documents_document__shortcut_ids
 msgid "Shortcut"
 msgstr "Acceso rápido"
@@ -2985,32 +3109,32 @@ msgstr "Acceso rápido"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Shortcut created"
-msgstr ""
+msgstr "Atajo creado"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcut created in My Drive"
-msgstr ""
+msgstr "Atajo creado en Mi Drive"
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/core/document_service.js:0
 #: code:addons/documents/static/src/views/search/documents_control_panel.js:0
 msgid "Shortcuts can only be created one at a time."
-msgstr ""
+msgstr "Solo puede crear un atajo a la vez."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcuts cannot change target document."
-msgstr ""
+msgstr "No puede cambiar el documento objetivo de los atajos."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Shortcuts cannot contain documents."
-msgstr ""
+msgstr "Los atajos no pueden contener documentos."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.share_file
@@ -3032,7 +3156,7 @@ msgstr "Documento de origen"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "Special folders cannot be shared"
-msgstr ""
+msgstr "No se pueden compartir las carpetas especiales"
 
 #. module: documents
 #. odoo-javascript
@@ -3109,7 +3233,7 @@ msgstr "Nombre de etiqueta"
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_tag_tag_name_unique
 msgid "Tag name already used"
-msgstr ""
+msgstr "El nombre de la etiqueta ya está en uso"
 
 #. module: documents
 #: model:ir.actions.act_window,name:documents.tag_action
@@ -3127,7 +3251,7 @@ msgstr "Texto"
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_tag__tooltip
 msgid "Text shown when hovering on this tag"
-msgstr ""
+msgstr "El texto que se muestra al pasar el cursor por esta etiqueta"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_res_config_settings_check_deletion_delay
@@ -3139,13 +3263,13 @@ msgstr "El plazo de eliminación debe ser positivo."
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.js:0
 #: code:addons/documents/static/src/web/error_dialog/error_dialog_patch.xml:0
 msgid "The document URL has been copied to your clipboard."
-msgstr ""
+msgstr "La URL del documento se ha copiado a su portapapeles."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "The document has been moved."
-msgstr ""
+msgstr "Se ha movido el documento."
 
 #. module: documents
 #. odoo-python
@@ -3154,6 +3278,8 @@ msgid ""
 "The following documents can't have alias: \n"
 "- %(records)s"
 msgstr ""
+"Los siguientes documentos no pueden tener un alias:\n"
+"- %(records)s"
 
 #. module: documents
 #. odoo-python
@@ -3162,18 +3288,21 @@ msgid ""
 "The following documents/folders can't be owned by a Portal User: \n"
 "- %(partners)s"
 msgstr ""
+"Los siguientes documentos o carpetas no pueden ser propiedad de un usuario del portal:\n"
+"- %(partners)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following documents/shortcuts have a type mismatch: \n"
-msgstr ""
+msgstr "El tipo de los siguientes documentos o atajos no coincide:\n"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following shortcuts cannot be set as documents parents: \n"
 msgstr ""
+"Los siguientes atajos no pueden establecerse como documentos principales:\n"
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__alias_model_id
@@ -3210,7 +3339,7 @@ msgstr "Esta semana"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This action does not exist."
-msgstr ""
+msgstr "Esta acción no existe."
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_document_attachment_unique
@@ -3220,7 +3349,7 @@ msgstr "Este archivo adjunto ya es un documento"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.not_available
 msgid "This document does not exist or is not publicly available."
-msgstr ""
+msgstr "Este documento no existe o no está disponible al público."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_request_page
@@ -3235,7 +3364,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This document has been restored."
-msgstr ""
+msgstr "Se ha restaurado este documento."
 
 #. module: documents
 #. odoo-python
@@ -3250,18 +3379,18 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "This folder does not exist."
-msgstr ""
+msgstr "Esta carpeta no existe."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.xml:0
 msgid "This is a shortcut"
-msgstr ""
+msgstr "Este es un atajo"
 
 #. module: documents
 #: model:ir.model.constraint,message:documents.constraint_documents_access_unique_document_access_partner
 msgid "This partner is already set on this document."
-msgstr ""
+msgstr "Este contacto ya está configurado en este documento."
 
 #. module: documents
 #: model_terms:ir.actions.act_window,help:documents.mail_activity_type_action_document
@@ -3374,7 +3503,7 @@ msgstr "Imagen de la vista previa de la URL"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Unavailable action."
-msgstr ""
+msgstr "Acción no disponible."
 
 #. module: documents
 #. odoo-javascript
@@ -3428,7 +3557,7 @@ msgstr "Usuario"
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_member_invite.xml:0
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "User Access Role"
-msgstr ""
+msgstr "Rol de acceso de usuario"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__user_permission
@@ -3497,6 +3626,8 @@ msgid ""
 "Wow... 6 documents processed in a few seconds, You're good.<br>The tour is "
 "complete. Try uploading your own documents now."
 msgstr ""
+"Guau... 6 documentos procesados en pocos segundos. Eres bueno.<br>El "
+"recorrido está completo. Intente subir sus propios documentos ahora."
 
 #. module: documents
 #. odoo-javascript
@@ -3508,43 +3639,50 @@ msgstr "Usted"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to (un)archive documents."
-msgstr ""
+msgstr "No está permitido archivar o desarchivar documentos."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to (un)pin folders"
-msgstr ""
+msgstr "No está permitido fijar o desfijar carpetas"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to change ownerships of documents you do not own."
 msgstr ""
-
-#. module: documents
-#. odoo-python
-#: code:addons/documents/models/documents_document.py:0
-msgid "You are not allowed to execute embedded actions."
-msgstr ""
+"No puede cambiar quién es el propietario de documentos que no le pertenecen."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to delete all these items."
-msgstr ""
+msgstr "No está permitido eliminar todos estos elementos."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to execute embedded actions."
+msgstr "No está permitido ejecutar acciones incrustadas."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to perform this operation."
-msgstr ""
+msgstr "No está permitido realizar esta operación."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You are not allowed to pin/unpin embedded Actions."
+msgstr "No está permitido fijar o desfijar acciones incrustadas."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to write in this folder."
-msgstr ""
+msgstr "No está permitido escribir en esta carpeta."
 
 #. module: documents
 #: model:ir.model.fields,help:documents.field_documents_document__attachment_type
@@ -3559,19 +3697,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
-msgstr ""
+msgstr "No está permitido fijar acciones para esa carpeta."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can not ping an action on that document."
-msgstr ""
+msgstr "No está permitido fijar una acción a ese documento."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can not ping that type of action."
-msgstr ""
+msgstr "No está permitido fijar ese tipo de acción."
 
 #. module: documents
 #. odoo-python
@@ -3579,55 +3717,65 @@ msgstr ""
 msgid ""
 "You can not update the access of a shortcut, update its target instead."
 msgstr ""
+"No puede actualizar el acceso de un atajo, en su lugar, actualice el "
+"objetivo."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You can't access that folder_id."
-msgstr ""
+msgstr "No puede acceder a folder_id."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid ""
 "You can't create shortcuts in or move documents to this special folder."
-msgstr ""
+msgstr "No puede crear atajos en o mover documentos a esta carpeta especial."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot change the owner of documents you do not own."
+msgstr "No puede cambiar el propietario de documentos que no son suyos."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_tag.py:0
 msgid "You cannot delete tags used in server actions."
-msgstr ""
+msgstr "No puede eliminar las etiquetas que se usen en acciones del servidor."
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
-msgstr ""
+msgstr "No puede duplicar documentos que estén en la papelera."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_remove_partner_button.xml:0
 msgid "You cannot remove this partner"
-msgstr ""
+msgstr "No puede eliminar este contacto."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_controller_mixin.xml:0
 msgid "You cannot share multiple documents at the same time"
-msgstr ""
+msgstr "No puede compartir varios documentos al mismo tiempo"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You do not have sufficient access rights to delete these documents."
 msgstr ""
+"No tiene los permisos de acceso suficientes para eliminar estos documentos."
 
 #. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "You don't have the rights to move documents to that folder."
 msgstr ""
+"No tiene los permisos de acceso para mover los documentos a esa carpeta."
 
 #. module: documents
 #. odoo-javascript
@@ -3641,13 +3789,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your Role: %s"
-msgstr ""
+msgstr "Su rol: %s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Your individual space."
-msgstr ""
+msgstr "Su espacio individual."
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.document_view_form_details
@@ -3657,7 +3805,7 @@ msgstr "alias"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "bytes"
-msgstr ""
+msgstr "bytes"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.folder_deletion_form
@@ -3720,7 +3868,7 @@ msgstr "carpeta "
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
 msgid "folders,"
-msgstr ""
+msgstr "carpetas,"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_link_to_record_wizard__is_readonly_model
@@ -3731,12 +3879,12 @@ msgstr "is_readonly_model"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/chatter/documents_chatter_overlay.xml:0
 msgid "items selected"
-msgstr ""
+msgstr "elementos seleccionados"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.format_file_size
 msgid "kiB"
-msgstr ""
+msgstr "kiB"
 
 #. module: documents
 #. odoo-javascript
@@ -3747,12 +3895,12 @@ msgstr "seleccionar"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a document with you.<br/>"
-msgstr ""
+msgstr "ha compartido un documento con usted.<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared a folder with you.<br/>"
-msgstr ""
+msgstr "ha compartido una carpeta con usted.<br/>"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.public_folder_page
@@ -3762,12 +3910,12 @@ msgstr "compartidos por"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this document with you:"
-msgstr ""
+msgstr "ha compartido este documento con usted:"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.mail_template_document_share
 msgid "shared this folder with you:"
-msgstr ""
+msgstr "ha compartido esta carpeta con usted:"
 
 #. module: documents
 #. odoo-javascript
@@ -3793,3 +3941,5 @@ msgid ""
 "•\n"
 "                                        <b>URL</b>"
 msgstr ""
+"•\n"
+"                                        <b>URL</b>"

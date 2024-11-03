@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marianna Ciofani, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marianna Ciofani, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -85,6 +86,8 @@ msgid ""
 "<span invisible=\"resource_manage_capacity\" class=\"ms-1\">per booking</span>\n"
 "                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">per seat</span>"
 msgstr ""
+"<span invisible=\"resource_manage_capacity\" class=\"ms-1\">per prenotazione</span>\n"
+"                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">per posto</span>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -193,7 +196,7 @@ msgstr "Righe prenotazione"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__product_id
 msgid "Booking Product"
-msgstr ""
+msgstr "Prenotazione prodotto"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_answer_input__calendar_event_id
@@ -306,12 +309,15 @@ msgstr "Ultimo aggiornamento il"
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make customers pay a fee per person when booking your resources"
 msgstr ""
+"Fai pagare ai clienti un costo per persona quando prenotato le tue risorse"
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make sure customers pay before they can take a slot in your calendar"
 msgstr ""
+"Assicurati che i clienti paghino prima di poter prenotare uno slot nel tuo "
+"calendario"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__calendar_event_id
@@ -342,6 +348,8 @@ msgstr "Lezione di cucina online"
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "Oops! Paid appointment cannot be cancelled via our website.<br/>"
 msgstr ""
+"Ops! Gli appuntamenti pagati non possono essere annullati tramite il sito "
+"web.<br/>"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__staff_user_id
@@ -352,13 +360,13 @@ msgstr "Operatore"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Consultation"
-msgstr ""
+msgstr "Consulenza a pagamento"
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Seats"
-msgstr ""
+msgstr "Posti pagati"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -400,7 +408,7 @@ msgstr "Risorse"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Room %s"
-msgstr ""
+msgstr "Stanza %s"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__product_lst_price
@@ -477,12 +485,12 @@ msgstr ""
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "To make any changes, please contact"
-msgstr ""
+msgstr "Per apportare modifiche, contatta"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "To make any changes, please contact us."
-msgstr ""
+msgstr "Per apportare modifiche, contattaci."
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -526,4 +534,4 @@ msgstr "persone"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_info
 msgid "per seat"
-msgstr ""
+msgstr "per posto"

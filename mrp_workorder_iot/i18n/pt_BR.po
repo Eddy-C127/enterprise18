@@ -4,14 +4,16 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# a75f12d3d37ea5bf159c4b3e85eb30e7_0fa6927, 2024
+# Maitê Dietze, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Maitê Dietze, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,6 +37,12 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+msgid "Check IoT Box connection. Try restarting if needed."
+msgstr "Verifique a conexão da IoT Box. Tente reiniciar, se necessário."
+
+#. module: mrp_workorder_iot
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clmo
 msgid "Close MO"
 msgstr "Fechar OP"
@@ -43,6 +51,12 @@ msgstr "Fechar OP"
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clwo
 msgid "Close WO"
 msgstr "Fechar OT"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+msgid "Connection failed "
+msgstr "Falha na conexão"
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields,field_description:mrp_workorder_iot.field_iot_trigger__create_uid
@@ -119,6 +133,12 @@ msgstr "Embalagem"
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__paus
 msgid "Pause"
 msgstr "Pausa"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/pedal_status_button.xml:0
+msgid "Pedal Status"
+msgstr "Status do pedal"
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__prev

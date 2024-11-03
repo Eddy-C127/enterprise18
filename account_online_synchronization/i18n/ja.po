@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,12 +28,15 @@ msgid ""
 "\n"
 "If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly."
 msgstr ""
+"\n"
+"\n"
+"すでにこの問題のチケットを開始している場合は、再度報告する必要はありません。"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/wizard/account_journal_duplicate_transactions.py:0
 msgid "%s duplicate transactions"
-msgstr ""
+msgstr "%s 重複取引"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -53,7 +57,7 @@ msgstr "0取引の取得"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
 msgid "<i class=\"fa fa-trash me-1\"/> Delete Selected"
-msgstr ""
+msgstr "<i class=\"fa fa-trash me-1\"/> 選択済を削除"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_form
@@ -346,7 +350,7 @@ msgstr "ドキュメンテーションを確認する"
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
 msgid ""
 "Choose a date and a journal from which you want to check the transactions."
-msgstr ""
+msgstr "取引を確認したい日付と仕訳帳を選択します。"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
@@ -395,7 +399,7 @@ msgstr "銀行に接続する"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 msgid "Connect bank"
-msgstr ""
+msgstr "銀行接続"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
@@ -561,7 +565,7 @@ msgstr "取得中..."
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #: code:addons/account_online_synchronization/static/src/components/bank_reconciliation/find_duplicate_transactions_cog_menu.xml:0
 msgid "Find Duplicate Transactions"
-msgstr ""
+msgstr "重複取引を探す"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -574,7 +578,7 @@ msgstr "不明な取引を見つける"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__first_ids_in_group
 msgid "First Ids In Group"
-msgstr ""
+msgstr "グループ内の始めのID"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_follower_ids
@@ -1114,7 +1118,7 @@ msgstr "銀行口座を設定する"
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "Some transactions"
-msgstr ""
+msgstr "いくつかの取引"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__date
@@ -1171,7 +1175,7 @@ msgstr "第3者プロバイダー"
 msgid ""
 "This action will delete all selected transactions. Are you sure you want to "
 "proceed?"
-msgstr ""
+msgstr "この操作により、選択した取引が全て削除されます。 本当に続けますか?"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1256,7 +1260,7 @@ msgstr "ウェブサイト通信履歴"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_duplicate_transaction_wizard
 msgid "Wizard for duplicate transactions"
-msgstr ""
+msgstr "不明な重複用ウィザード"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_missing_transaction_wizard
@@ -1350,7 +1354,7 @@ msgstr "ロード中..."
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "may be duplicates."
-msgstr ""
+msgstr "重複の可能性があります。"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent

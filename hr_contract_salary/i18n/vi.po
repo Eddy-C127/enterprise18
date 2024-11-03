@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -38,13 +38,13 @@ msgstr "# Chữ ký"
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 msgid "%(company)s: Job Offer - %(job_title)s"
-msgstr "%(company)s: Lời mời nhận việc - %(job_title)s"
+msgstr "%(company)s: Đề xuất nhận việc - %(job_title)s"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 msgid "%s manually set the Offer to Refused"
-msgstr "%s đã chuyển Lời mời thành Đã từ chối"
+msgstr "%s đã chuyển Đề xuất thành Đã từ chối"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info,helper:hr_contract_salary.hr_contract_salary_personal_info_name
@@ -142,7 +142,7 @@ msgstr "<span class=\"o_stat_text\">Hợp đồng</span>"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_candidate_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "<span class=\"o_stat_text\">Offers</span>"
-msgstr "<span class=\"o_stat_text\">Lời mời</span>"
+msgstr "<span class=\"o_stat_text\">Đề xuất</span>"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
@@ -287,7 +287,7 @@ msgstr "Thêm phân đoạn"
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__benefit_type_id
 msgid "Allow to define the periodicity and output type of the advantage"
-msgstr ""
+msgstr "Cho phép xác định chu kỳ và loại đầu ra của quyền lợi"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__always
@@ -298,21 +298,21 @@ msgstr "Luôn được chọn"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__always_show_description
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit_value__always_show_description
 msgid "Always Show Description"
-msgstr ""
+msgstr "Luôn hiện mô tả"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_applicant.py:0
 msgid ""
 "An %(offer)s has been sent by %(user)s to the applicant (mail: %(email)s)"
-msgstr ""
+msgstr "Một %(offer)s đã được %(user)s gửi đến ứng viên (email: %(email)s)"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract.py:0
 msgid ""
 "An %(offer)s has been sent by %(user)s to the employee (mail: %(email)s)"
-msgstr ""
+msgstr "Một %(offer)s đã được %(user)s gửi đến nhân viên (email: %(email)s)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_employee_report__final_yearly_costs
@@ -399,7 +399,7 @@ msgstr "Quyền lợi"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit_value__benefit_display_type
 msgid "Benefit Display Type"
-msgstr ""
+msgstr "Loại hiển thị quyền lợi"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_public
@@ -409,7 +409,7 @@ msgstr "Trường quyền lợi"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__benefit_type_id
 msgid "Benefit Type"
-msgstr ""
+msgstr "Loại quyền lợi"
 
 #. module: hr_contract_salary
 #: model:ir.actions.act_window,name:hr_contract_salary.hr_contract_benefit_action
@@ -434,11 +434,6 @@ msgstr "Ngày sinh"
 #: model:ir.model,name:hr_contract_salary.model_hr_candidate
 msgid "Candidate"
 msgstr "Ứng viên"
-
-#. module: hr_contract_salary
-#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__applicant_name
-msgid "Candidates's Name"
-msgstr ""
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_resume__category_id
@@ -528,7 +523,7 @@ msgstr "Thông tin hợp đồng:"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid "Contract Related Field"
-msgstr ""
+msgstr "Trường liên quan đến hợp đồng"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_signatory__sign_role_id
@@ -627,7 +622,7 @@ msgstr "Trường chi phí"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_public
 msgid "Cost Field (Public)"
-msgstr ""
+msgstr "Trường chi phí (Công khai)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__cost_field
@@ -653,7 +648,7 @@ msgstr "Nơi sinh (quốc gia)"
 #. module: hr_contract_salary
 #: model_terms:ir.actions.act_window,help:hr_contract_salary.hr_contract_salary_offer_recruitment_action
 msgid "Create new offer"
-msgstr "Tạo đề nghị mới"
+msgstr "Tạo đề xuất mới"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__hash_token
@@ -735,14 +730,14 @@ msgid ""
 "Default contract used to generate an offer. If empty, benefits will be taken"
 " from current contract of the employee/nothing for an applicant."
 msgstr ""
-"Hợp đồng mặc định được sử dụng để tạo một lời mời. Nếu trống, quyền lợi sẽ "
+"Hợp đồng mặc định được sử dụng để tạo một đề xuất. Nếu trống, quyền lợi sẽ "
 "được lấy từ hợp đồng hiện tại của nhân viên/không áp dụng cho ứng viên."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__default_contract_id
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_history__default_contract_id
 msgid "Default contract used when making an offer to an applicant."
-msgstr "Hợp đồng mặc định được sử dụng khi gửi lời mời cho ứng viên."
+msgstr "Hợp đồng mặc định được sử dụng khi gửi đề xuất cho ứng viên."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__sign_template_id
@@ -751,7 +746,7 @@ msgid ""
 "Default document that the applicant will have to sign to accept a contract "
 "offer."
 msgstr ""
-"Tài liệu mặc định mà ứng viên sẽ phải ký để chấp nhận lời mời nhận việc."
+"Tài liệu mặc định mà ứng viên sẽ phải ký để chấp nhận đề xuất nhận việc."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__contract_update_template_id
@@ -807,7 +802,7 @@ msgid ""
 "Did you know that you can create an offer for any applicant?<br>\n"
 "                Why don't you try? They're listed"
 msgstr ""
-"Bạn có biết rằng bạn có thể tạo một thư mời nhận việc cho bất kỳ ứng viên nào không?<br>\n"
+"Bạn có biết rằng bạn có thể tạo một đề xuất nhận việc cho bất kỳ ứng viên nào không?<br>\n"
 "                Hãy thử xem nhé. Chúng được liệt kê"
 
 #. module: hr_contract_salary
@@ -878,7 +873,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Doesn't impact net salary"
-msgstr ""
+msgstr "Không ảnh hưởng đến lương thực nhận"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__dropdown
@@ -1005,7 +1000,7 @@ msgstr "Giá trị cố định"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
 msgid "Fold Condition"
-msgstr ""
+msgstr "Điều kiện được thu gọn"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__fold_field
@@ -1051,7 +1046,7 @@ msgstr "Giới tính"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_applicant_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "Generate Offer"
-msgstr "Tạo lời mời"
+msgstr "Tạo đề xuất"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_search
@@ -1071,6 +1066,8 @@ msgid ""
 "HR Responsible %s should be a user of Sign when New Contract Document "
 "Template is specified"
 msgstr ""
+"Nhân viên nhân sự %s phải là người dùng ứng dụng Ký tên khi Mẫu tài liệu hợp"
+" đồng mới được chỉ định"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1079,6 +1076,8 @@ msgid ""
 "HR Responsible %s should have a valid email address when New Contract "
 "Document Template is specified"
 msgstr ""
+"Nhân viên nhân sự %s phải có địa chỉ email hợp lệ khi Mẫu tài liệu hợp đồng "
+"mới được chỉ định"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__has_admin_access
@@ -1161,6 +1160,7 @@ msgstr ""
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__always_show_description
 msgid "If unchecked, Description will only be shown when Benefit is selected"
 msgstr ""
+"Nếu không được chọn, Mô tả sẽ chỉ được hiển thị khi Quyền lợi được chọn"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__image_1920
@@ -1495,7 +1495,7 @@ msgstr "Không tìm thấy mẫu nào"
 #. odoo-python
 #: code:addons/hr_contract_salary/wizard/refuse_offer_wizard.py:0
 msgid "No offer selected"
-msgstr "Chưa chọn thư mời nhận việc nào"
+msgstr "Chưa chọn đề xuất nào"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1552,31 +1552,31 @@ msgstr "Số tin nhắn bị gửi lỗi"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__offer_create_date
 msgid "Offer Create Date"
-msgstr "Ngày tạo thư mời nhận việc"
+msgstr "Ngày tạo đề xuất"
 
 #. module: hr_contract_salary
 #: model:ir.actions.act_window,name:hr_contract_salary.hr_contract_salary_offer_refusal_reasons
 #: model:ir.ui.menu,name:hr_contract_salary.menu_hr_contract_salary_offer_refusal_reasons
 msgid "Offer Refusal Reasons"
-msgstr "Lý do từ chối nhận việc"
+msgstr "Lý do từ chối đề xuất"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__offer_end_date
 msgid "Offer Validity Date"
-msgstr "Thời hạn hiệu lực của lời mời"
+msgstr "Thời hạn hiệu lực của đề xuất"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 msgid "Offer for %(recipient)s"
-msgstr ""
+msgstr "Đề xuất cho %(recipient)s"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_applicant.py:0
 msgid ""
 "Offer link can not be send. The applicant needs to have a name and email."
-msgstr "Không thể gửi liên kết thư mời. Ứng viên cần có tên và email."
+msgstr "Không thể gửi liên kết đề xuất. Ứng viên cần có tên và email."
 
 #. module: hr_contract_salary
 #: model:ir.actions.act_window,name:hr_contract_salary.hr_contract_salary_offer_action
@@ -1584,13 +1584,13 @@ msgstr "Không thể gửi liên kết thư mời. Ứng viên cần có tên v�
 #: model:ir.ui.menu,name:hr_contract_salary.menu_hr_contract_salary_job_offer
 #: model:ir.ui.menu,name:hr_contract_salary.menu_salary_package_offer
 msgid "Offers"
-msgstr "Thư mời nhận việc"
+msgstr "Đề xuất"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 msgid "Oops"
-msgstr "Oops"
+msgstr "Rất tiếc"
 
 #. module: hr_contract_salary
 #: model:sign.template,redirect_url_text:hr_contract_salary.sign_template_cdi_developer
@@ -1611,7 +1611,7 @@ msgstr "Liên kết gốc"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__originated_offer_id
 msgid "Originated Offer"
-msgstr ""
+msgstr "Đề xuất gốc"
 
 #. module: hr_contract_salary
 #: model:hr.contract.salary.personal.info.value,name:hr_contract_salary.hr_contract_salary_personal_info_certificate_other
@@ -1638,6 +1638,11 @@ msgstr "Đã ký một phần"
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_signatory__partner_id
 msgid "Partner"
 msgstr "Đối tác"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__applicant_name
+msgid "Partner Name"
+msgstr "Tên đối tác"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__uom__percent
@@ -1796,7 +1801,7 @@ msgstr "Từ chối"
 #: model:ir.actions.act_window,name:hr_contract_salary.open_refuse_wizard
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.refuse_offer_wizard_view_form
 msgid "Refuse Offer"
-msgstr "Từ chối thư mời"
+msgstr "Từ chối đề xuất"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_refusal_reasons_view_tree
@@ -1806,7 +1811,7 @@ msgstr "Lý do từ chối"
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_refuse_offer_wizard
 msgid "Refuse an Offer"
-msgstr "Từ chối một thư mời"
+msgstr "Từ chối một đề xuất"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_offer__state__refused
@@ -1833,7 +1838,7 @@ msgstr "Tài liệu yêu cầu"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__requested_documents_field_ids
 msgid "Requested Documents (IDs)"
-msgstr ""
+msgstr "Tài liệu yêu cầu (ID)"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit__requested_documents
@@ -1892,7 +1897,7 @@ msgstr "Trình cấu hình lương"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Salary Configurator Display"
-msgstr ""
+msgstr "Hiển thị trình cấu hình lương"
 
 #. module: hr_contract_salary
 #: model:ir.actions.server,name:hr_contract_salary.ir_cron_update_offer_state_ir_actions_server
@@ -1908,7 +1913,7 @@ msgstr "Đề xuất lương"
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_offer_refusal_reason
 msgid "Salary Offer Refusal Reasons"
-msgstr "Salary Offer Refusal Reasons"
+msgstr "Lý do từ chối đề xuất lương"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__salary_offers_count
@@ -1935,12 +1940,12 @@ msgstr "Trình cấu hình gói lương"
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_offer
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_form
 msgid "Salary Package Offer"
-msgstr "Gói lương Đề xuất"
+msgstr "Đề xuất gói lương"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_tree
 msgid "Salary Package Offers"
-msgstr "Gói lương Đề xuất"
+msgstr "Đề xuất gói lương"
 
 #. module: hr_contract_salary
 #: model:ir.model,name:hr_contract_salary.model_hr_contract_salary_personal_info
@@ -1993,7 +1998,7 @@ msgstr "Trường học"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_offer_view_search
 msgid "Search Offers"
-msgstr "Tìm kiếm lời mời"
+msgstr "Tìm kiếm đề xuất"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit_value__display_type__section
@@ -2017,18 +2022,18 @@ msgstr "Chọn một tỉnh/TP"
 msgid ""
 "Select other Benefits that need to be selected to make this Benefit "
 "available"
-msgstr ""
+msgstr "Chọn các Quyền lợi khác cần chọn để Quyền lợi này trở nên khả dụng"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__cost_res_field_id
 msgid "Select the contract's field to consider in salary computation"
-msgstr ""
+msgstr "Chọn trường hợp đồng cần xem xét khi tính lương"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__res_field_id
 msgid ""
 "Select the contract's field where the value of the benefit will be written"
-msgstr ""
+msgstr "Chọn trường hợp đồng nơi giá trị quyền lợi sẽ được ghi"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_personal_info__display_type__dropdown
@@ -2043,7 +2048,7 @@ msgstr "Bản chất lựa chọn"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_benefit_value__selector_highlight
 msgid "Selector Highlight"
-msgstr ""
+msgstr "Selector Highlight"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_sidebar
@@ -2065,12 +2070,12 @@ msgstr "Gửi bản sao đến"
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_candidate_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
 msgid "Sent Offers"
-msgstr "Gửi lời mời"
+msgstr "Đề xuất đã gửi"
 
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer_applicant
 msgid "Sent automatically when you generate an offer for an application"
-msgstr "Được gửi tự động khi bạn tạo lời mời cho một đơn ứng tuyển"
+msgstr "Được gửi tự động khi bạn tạo đề xuất cho một đơn ứng tuyển"
 
 #. module: hr_contract_salary
 #: model:mail.template,description:hr_contract_salary.mail_template_send_offer
@@ -2269,7 +2274,7 @@ msgstr ""
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__fold_res_field_id
 msgid ""
 "The field here needs to be set for this benefit to be folded by default."
-msgstr ""
+msgstr "Cần thiết lập trường này để quyền lợi này được thu gọn theo mặc định."
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -2289,12 +2294,12 @@ msgstr "Số lượng chữ ký trên hợp đồng pdf có nhiều chữ ký nh
 msgid ""
 "The offer has been marked as refused when the linked applicant was declined."
 msgstr ""
-"Thư mời đã được đánh dấu là bị từ chối khi ứng viên liên kết bị từ chối."
+"Đề xuất đã được đánh dấu là bị từ chối khi ứng viên liên kết bị từ chối."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__originated_offer_id
 msgid "The original offer"
-msgstr ""
+msgstr "Đề xuất gốc"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,help:hr_contract_salary.field_hr_contract_salary_benefit__activity_type_id
@@ -2337,13 +2342,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 msgid "This offer has been updated, please request an updated link.."
-msgstr "Lời mời này đã được cập nhật, vui lòng yêu cầu liên kết mới nhất."
+msgstr "Đề xuất này đã được cập nhật, vui lòng yêu cầu liên kết mới nhất."
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/controllers/main.py:0
 msgid "This offer is outdated, please request an updated link..."
-msgstr "Lời mời này đã hết hạn, vui lòng yêu cầu liên kết mới nhất."
+msgstr "Đề xuất này đã hết hạn, vui lòng yêu cầu liên kết mới nhất."
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__display_name
@@ -2389,7 +2394,7 @@ msgstr "Cập nhật mẫu hợp đồng"
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_salary_offer__validity_days_count
 msgid "Validity Days Count"
-msgstr ""
+msgstr "Số ngày hiệu lực"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form_hr
@@ -2509,6 +2514,8 @@ msgid ""
 "You have to define contract templates to be used for offers. Go to "
 "Configuration / Contract Templates to define a contract template"
 msgstr ""
+"Bạn phải xác định mẫu hợp đồng được sử dụng cho các đề xuất. Đi đến Cấu "
+"hình/Mẫu hợp đồng để xác định mẫu hợp đồng"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_personal_information
@@ -2552,6 +2559,8 @@ msgid ""
 "{{ object.company_id.name }}: Job Offer - {{ "
 "object.applicant_id.partner_name }}"
 msgstr ""
+"{{ object.company_id.name }}: Đề xuất Nhận việc - {{ "
+"object.applicant_id.partner_name }}"
 
 #. module: hr_contract_salary
 #: model:mail.template,subject:hr_contract_salary.mail_template_send_offer
@@ -2559,5 +2568,5 @@ msgid ""
 "{{ object.company_id.name }}: Job Offer - {{ "
 "object.employee_contract_id.name }}"
 msgstr ""
-"{{ object.company_id.name }}: Lời mời Nhận việc - {{ "
+"{{ object.company_id.name }}: Đề xuất Nhận việc - {{ "
 "object.employee_contract_id.name }}"

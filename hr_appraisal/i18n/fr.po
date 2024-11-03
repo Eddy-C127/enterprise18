@@ -306,6 +306,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>Communication interne :</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-2\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -315,6 +319,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>Contenu du poste :</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-3\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -329,6 +337,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>Rémunération :</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-5\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -353,6 +365,10 @@ msgid ""
 "                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
 "                        </span>"
 msgstr ""
+"<em>Organisation de travail :</em>\n"
+"                        <span class=\"o_stars o_five_stars\" id=\"checkId-4\">\n"
+"                            <i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i><i class=\"fa fa-star-o\"></i>\n"
+"                        </span>"
 
 #. module: hr_appraisal
 #. odoo-python
@@ -466,6 +482,9 @@ msgid ""
 "                        Evaluation\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        Évaluation\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -474,6 +493,9 @@ msgid ""
 "                        Feedback\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        Feedback\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -482,6 +504,9 @@ msgid ""
 "                        Improvements\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        Améliorations\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -490,6 +515,9 @@ msgid ""
 "                        My feelings\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        Mes impressions\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -498,6 +526,9 @@ msgid ""
 "                        My future\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        Mon avenir\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -506,6 +537,9 @@ msgid ""
 "                        My work\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        Mon travail\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_report_view_gantt
@@ -705,6 +739,14 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Appraisal Templates"
 msgstr "Modèles d'évaluation"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/wizard/request_appraisal.py:0
+msgid ""
+"Appraisal for %(appraisal_title)s should be using template "
+"\"%(template_name)s\" instead of \"%(wrong_template_name)s\""
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2006,6 +2048,14 @@ msgstr "Sujet..."
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_tag_view_tree
 msgid "Tags"
 msgstr "Étiquettes"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/models/mail_template.py:0
+msgid ""
+"Template %(template_name)s is necessary for appraisal requests and may not "
+"be removed."
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python

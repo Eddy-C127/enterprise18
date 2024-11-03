@@ -266,6 +266,10 @@ msgid ""
 "                        issues.\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        一些讓你感到安慰、肯定他們有能力面對工作問題\n"
+"                        的成就。\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -375,6 +379,8 @@ msgid ""
 "<small role=\"img\" class=\"fa fa-circle text-success\" invisible=\"state !="
 " 'pending' or waiting_feedback\" aria-label=\"Ready\" title=\"Ready\"/>"
 msgstr ""
+"<small role=\"img\" class=\"fa fa-circle text-success\" invisible=\"state !="
+" 'pending' or waiting_feedback\" aria-label=\"就緒\" title=\"就緒\"/>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_kanban
@@ -472,6 +478,9 @@ msgid ""
 "                        Feedback\n"
 "                    </span>"
 msgstr ""
+"<span style=\"font-weight: bolder;\">\n"
+"                        回應意見\n"
+"                    </span>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -703,6 +712,14 @@ msgstr "表現評核範本"
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Appraisal Templates"
 msgstr "評核範本"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/wizard/request_appraisal.py:0
+msgid ""
+"Appraisal for %(appraisal_title)s should be using template "
+"\"%(template_name)s\" instead of \"%(wrong_template_name)s\""
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1496,6 +1513,8 @@ msgid ""
 "Long term (&gt; 6 months) career discussion, where does the employee\n"
 "                    wants to go, how to help them reach this path?"
 msgstr ""
+"長期（多於 6 個月）的職業討論：員工想達成甚麼？\n"
+"                    如何幫助他們達成這個目標？"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_request_appraisal__template_id
@@ -1987,6 +2006,14 @@ msgstr "主題..."
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_tag_view_tree
 msgid "Tags"
 msgstr "標籤"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/models/mail_template.py:0
+msgid ""
+"Template %(template_name)s is necessary for appraisal requests and may not "
+"be removed."
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python

@@ -4,6 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Chloe Wang, 2024
+# Raymond Yu <cl_yu@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,27 +25,27 @@ msgstr ""
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_draft
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_draft
 msgid "Add Tag Draft"
-msgstr ""
+msgstr "添加草稿标签"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_to_validate
 msgid "Add Tag To Validate"
-msgstr ""
+msgstr "添加待验证标签"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "添加已验证标签"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation_code
 msgid "Ask For Validation - Check conditions"
-msgstr ""
+msgstr "请求验证-检查条件"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation
 msgid "Ask for validation"
-msgstr ""
+msgstr "请求验证"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_ir_attachment
@@ -76,7 +78,7 @@ msgstr "不赞成"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_deprecate_code
 msgid "Deprecate - Check conditions"
-msgstr ""
+msgstr "废弃-检查条件"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_document
@@ -109,7 +111,7 @@ msgstr "文档和分析"
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Documents already linked to a task."
-msgstr ""
+msgstr "文档已链接到任务。"
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__documents_folder_id
@@ -123,13 +125,13 @@ msgid ""
 "Folder in which all of the documents of this project will be categorized. "
 "All of the attachments of your tasks will be automatically added as "
 "documents in this workspace as well."
-msgstr ""
+msgstr "此项目所有文件进行分类的文件夹。 所有任务附件也会以文件形式，自动加入此工作区。"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
-msgstr ""
+msgstr "无法在已弃用的文件上创建任务"
 
 #. module: documents_project
 #. odoo-python
@@ -146,12 +148,12 @@ msgstr "无效任务搜索"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft_code
 msgid "Mark As Draft - Check conditions"
-msgstr ""
+msgstr "标记为草稿 - 检查条件"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft
 msgid "Mark as draft"
-msgstr ""
+msgstr "标记为草稿"
 
 #. module: documents_project
 #. odoo-python
@@ -173,12 +175,12 @@ msgstr "项目"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "移除标签以进行验证"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_validated
 msgid "Remove Tag Validated"
-msgstr ""
+msgstr "移除已验证的标签"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_project_task
@@ -210,7 +212,7 @@ msgstr "任务文档"
 msgid ""
 "The \"%(folder)s\" folder should either be in the \"%(company)s\" company "
 "like this project or be open to all companies."
-msgstr ""
+msgstr "%(folder)s 文件夹应与本项目一样位于%(company)s公司内，或者对所有公司开放。"
 
 #. module: documents_project
 #. odoo-python
@@ -218,7 +220,7 @@ msgstr ""
 msgid ""
 "The \"%s\" folder is required by the Project application and cannot be "
 "deleted."
-msgstr ""
+msgstr "%s文件夹是项目应用程序所需的，无法删除。"
 
 #. module: documents_project
 #. odoo-python
@@ -228,6 +230,7 @@ msgid ""
 " to which it is linked. Please update the company of the \"%(project)s\" "
 "project, or leave the company of this workspace empty."
 msgstr ""
+"该文件夹应与所链接的 “%(project)s” 项目位于同一公司。请更新 “%(project)s” 项目的公司，或将此工作区的公司留空。"
 
 #. module: documents_project
 #. odoo-python
@@ -238,6 +241,10 @@ msgid ""
 "\n"
 "Please update the company of those projects, or leave the company of this workspace empty."
 msgstr ""
+"该文件夹应与它所链接的下列项目位于同一公司：\n"
+"%s\n"
+"\n"
+"请更新这些项目的公司，或将此工作区的公司留空。"
 
 #. module: documents_project
 #: model_terms:ir.actions.act_window,help:documents_project.action_view_documents_project_project
@@ -262,7 +269,7 @@ msgstr "验证"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_validate_code
 msgid "Validate - Check conditions"
-msgstr ""
+msgstr "验证 - 检查条件"
 
 #. module: documents_project
 #. odoo-python
@@ -282,13 +289,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot create a task from a folder."
-msgstr ""
+msgstr "您无法从文件夹创建任务。"
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot set a company on the %s folder."
-msgstr ""
+msgstr "不能在%s文件夹中设置公司。"
 
 #. module: documents_project
 #. odoo-python

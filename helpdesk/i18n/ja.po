@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Martin Trigaux, 2024
 # Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -386,6 +387,8 @@ msgid ""
 "<i class=\"fa fa-lightbulb-o\"/>\n"
 "                                    <span class=\"ms-2\">A rating request will automatically be sent by email to the customer when their ticket reaches the corresponding stage with the email template set.</span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/>\n"
+"                                    <span class=\"ms-2\">チケットが該当する段階に達すると、設定されたEメールテンプレートに従って、顧客に自動的に評価依頼がEメールで送信されます。</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -415,7 +418,7 @@ msgstr "<i class=\"fa fa-warning\"/>&amp;nbsp;"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "<i class=\"oi oi-arrow-right\"/> Set an Alias Domain"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right\"/> エイリアスドメインを設定"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -491,23 +494,23 @@ msgstr "<span class=\"o_stat_text\">評価</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Failed</span>"
-msgstr "<span class=\"text-muted\">失敗</span>"
+msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
+msgstr "<span class=\"text-muted text-nowrap\">失敗</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Open</span>"
-msgstr "<span class=\"text-muted\">オープン</span>"
+msgid "<span class=\"text-muted text-nowrap\">Open</span>"
+msgstr "<span class=\"text-muted text-nowrap\">オープン</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Unassigned</span>"
-msgstr "<span class=\"text-muted\">未割当</span>"
+msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
+msgstr "<span class=\"text-muted text-nowrap\">割当解除</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Urgent</span>"
-msgstr "<span class=\"text-muted\">緊急</span>"
+msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
+msgstr "<span class=\"text-muted text-nowrap\">緊急</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -560,7 +563,7 @@ msgstr "<strong class=\"col-lg-3\">報告日</strong>"
 #: model_terms:web_tour.tour,rainbow_man_message:helpdesk.helpdesk_tour
 msgid ""
 "<strong><b>Good job!</b> You walked through all steps of this tour.</strong>"
-msgstr ""
+msgstr "<strong><b>Good job!</b> このツアーのすべてのステップを通過しました。</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -660,7 +663,7 @@ msgstr "パイプラインをワークフローに適応させて、チケット
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Add details about this ticket..."
-msgstr ""
+msgstr "このチケットに詳細を追加します..."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -784,12 +787,6 @@ msgid "Are you sure you want to delete these stages?"
 msgstr "本当にこれらのステージを削除しますか？"
 
 #. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "<b>チームのメンバー</b>にチケットを割り当てます。"
-
-#. module: helpdesk
 #. odoo-python
 #: code:addons/helpdesk/controllers/portal.py:0
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_graph_main
@@ -896,7 +893,7 @@ msgstr "平均評価（％）"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Average Rating for the Past 7 Days"
-msgstr ""
+msgstr "過去7日間の平均評価"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -920,7 +917,7 @@ msgstr "平均評価：満足"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Average rating daily target"
-msgstr ""
+msgstr "平均評価 日次目標"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -998,7 +995,7 @@ msgstr "チャネル"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Click to Set Your Daily Rating Target"
-msgstr ""
+msgstr " クリックして日次評価目標を設定"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2410,6 +2407,12 @@ msgid "Open Time (hours)"
 msgstr "オープン時間（時間）"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Open the ticket."
+msgstr "チケットをオープン。"
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -2547,7 +2550,7 @@ msgstr "正の値を入力して下さい。"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Please enter a value less than or equal to 5."
-msgstr ""
+msgstr "5以下の数値を入力して下さい。"
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_contact
@@ -2904,6 +2907,12 @@ msgstr "満足"
 #. module: helpdesk
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "このチケットとそれに加えた変更を保存します。"
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 msgid "Schedule your <b>activity</b>."
 msgstr "<b>活動</b>をスケジュールします。"
 
@@ -3184,7 +3193,7 @@ msgstr "チームメンバ"
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_stage_team_action
 msgid "Team Stages"
-msgstr ""
+msgstr "チームステージ"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.email_template_action_helpdesk
@@ -3502,7 +3511,7 @@ msgstr "本日の活動"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Today's Average Rating"
-msgstr ""
+msgstr "今日の平均評価"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__total_response_hours

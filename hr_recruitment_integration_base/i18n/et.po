@@ -186,7 +186,7 @@ msgstr "Kampaania alguskuupäev:"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/wizard/hr_recruitment_post.py:0
 msgid "Campaign start date can't be after campaign end date"
-msgstr ""
+msgstr "Alguskuupäev peab olema enne lõpukuupäeva."
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
@@ -799,6 +799,8 @@ msgid ""
 "This action will update the job post on the platform. This action will cost "
 "%(price)s credits. Do you want to continue?"
 msgstr ""
+"Antud tegevus uuendab platvormil töökuulutust. Tegevus maksab %(price)s "
+"krediiti. Kas soovid jätkata?"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__activity_exception_decoration

@@ -3,16 +3,16 @@
 # 	* hr_referral
 # 
 # Translators:
-# Wil Odoo, 2024
 # Tony Ng, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tony Ng, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,6 +45,9 @@ msgid ""
 "            <br/>\n"
 "            <br/>"
 msgstr ""
+"，\n"
+"            <br/>\n"
+"            <br/>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_sms_template
@@ -70,6 +73,9 @@ msgid ""
 "            <br/>\n"
 "            Thanks!"
 msgstr ""
+"<br/>\n"
+"            <br/>\n"
+"            謝謝！"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -78,6 +84,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"Send by Mail\">Send Email</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-envelope-o\" role=\"img\" aria-label=\"以電郵傳送\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"以電郵傳送\">傳送電郵</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -86,6 +95,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"More info\">Job Page</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-globe\" role=\"img\" aria-label=\"職位頁面\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"更多資訊\">職位頁面</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -94,6 +106,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"Send by SMS\">Send SMS</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-mobile\" role=\"img\" aria-label=\"以電話短訊傳送\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"以電話短訊傳送\">傳送短訊</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
@@ -308,11 +323,6 @@ msgstr "行銷活動"
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_send_sms_view_form
 msgid "Cancel"
 msgstr "取消"
-
-#. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
-msgid "Candidates's Name"
-msgstr "應徵者姓名"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__channel
@@ -1126,6 +1136,11 @@ msgstr "開放職位"
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_email_body_template
 msgid "Our company is hiring for a"
 msgstr ""
+
+#. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
+msgid "Partner Name"
+msgstr "合作夥伴名稱"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban

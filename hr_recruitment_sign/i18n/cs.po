@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:27+0000\n"
+"POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -66,11 +66,6 @@ msgstr "Příloha"
 #. module: hr_recruitment_sign
 #: model:ir.model,name:hr_recruitment_sign.model_hr_candidate
 msgid "Candidate"
-msgstr ""
-
-#. module: hr_recruitment_sign
-#: model:ir.model.fields,field_description:hr_recruitment_sign.field_hr_recruitment_sign_document_wizard__partner_name
-msgid "Candidates's Name"
 msgstr ""
 
 #. module: hr_recruitment_sign
@@ -178,6 +173,11 @@ msgid "Optional Message..."
 msgstr "Volitelná zpráva ..."
 
 #. module: hr_recruitment_sign
+#: model:ir.model.fields,field_description:hr_recruitment_sign.field_hr_recruitment_sign_document_wizard__partner_name
+msgid "Partner Name"
+msgstr "Název partnera"
+
+#. module: hr_recruitment_sign
 #: model:ir.model.fields,field_description:hr_recruitment_sign.field_hr_recruitment_sign_document_wizard__possible_template_ids
 msgid "Possible Template"
 msgstr "Možná šablona"
@@ -195,7 +195,7 @@ msgstr "Odpovědný"
 #. module: hr_recruitment_sign
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_sign.hr_recruitment_sign_view
 msgid "Send"
-msgstr "Odchozí"
+msgstr "Odeslat"
 
 #. module: hr_recruitment_sign
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_sign.hr_recruitment_sign_view

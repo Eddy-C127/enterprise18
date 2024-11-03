@@ -24,13 +24,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "%d transactions had already been imported and were ignored."
-msgstr "%d transakcji już zaimportowanych oraz zignorowanych."
+msgstr "%d transakcji zostało już zaimportowanych oraz zignorowanych."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "1 transaction had already been imported and was ignored."
-msgstr "1 transakcja została już importowana i została ignorowana."
+msgstr "1 transakcja została już zaimportowana i została zignorowana."
 
 #. module: account_bank_statement_import
 #: model:ir.model.constraint,message:account_bank_statement_import.constraint_account_bank_statement_line_unique_import_id
@@ -54,7 +54,7 @@ msgid ""
 "Cannot find in which journal import this statement. Please manually select a"
 " journal."
 msgstr ""
-"Nie można odnaleźć dziennika do którego chcesz importować to świadczenie. "
+"Nie można odnaleźć dziennika do którego chcesz zaimportować ten wyciąg. "
 "Wybierz ręcznie dziennik."
 
 #. module: account_bank_statement_import
@@ -162,6 +162,8 @@ msgid ""
 "This file doesn't contain any statement for account %s.\n"
 "If it contains transactions for more than one account, it must be imported on each of them."
 msgstr ""
+"Ten plik nie zawiera żadnego wyciągu dla konta %s.\n"
+"Jeśli zawiera transakcje dla więcej niż jednego konta, musi być zaimportowany do każdego z nich."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -170,6 +172,8 @@ msgid ""
 "This file doesn't contain any transaction for account %s.\n"
 "If it contains transactions for more than one account, it must be imported on each of them."
 msgstr ""
+"Ten plik nie zawiera żadnej transakcji dla konta %s.\n"
+"Jeśli zawiera transakcje dla więcej niż jednego konta, musi być zaimportowany do każdego z nich."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -181,7 +185,7 @@ msgstr "Wyświetl pomyślnie zaimportowane wyciągi"
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You already have imported that file."
-msgstr "Masz już zaimportowany ten plik."
+msgstr "Ten plik był już zaimportowany."
 
 #. module: account_bank_statement_import
 #. odoo-python

@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Wichanon Jamwutthipreecha, 2024
+# Rasareeyar Lappiam, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wichanon Jamwutthipreecha, 2024\n"
+"Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -705,6 +706,14 @@ msgstr "เทมเพลตการประเมิน"
 
 #. module: hr_appraisal
 #. odoo-python
+#: code:addons/hr_appraisal/wizard/request_appraisal.py:0
+msgid ""
+"Appraisal for %(appraisal_title)s should be using template "
+"\"%(template_name)s\" instead of \"%(wrong_template_name)s\""
+msgstr ""
+
+#. module: hr_appraisal
+#. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 msgid "Appraisal for %(employee)s on %(date)s"
 msgstr "การประเมิน %(employee)s เมื่อวันที่ %(date)s"
@@ -1309,7 +1318,7 @@ msgstr ""
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal_report__has_department_manager_access
 msgid "Has Department Manager Access"
-msgstr ""
+msgstr "มีสิทธิ์เข้าถึงผู้จัดการแผนก"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_appraisal__has_message
@@ -1992,6 +2001,14 @@ msgstr "แท็ก"
 
 #. module: hr_appraisal
 #. odoo-python
+#: code:addons/hr_appraisal/models/mail_template.py:0
+msgid ""
+"Template %(template_name)s is necessary for appraisal requests and may not "
+"be removed."
+msgstr ""
+
+#. module: hr_appraisal
+#. odoo-python
 #: code:addons/hr_appraisal/models/hr_appraisal.py:0
 msgid ""
 "Thanks to your Appraisal Plan, without any new manual Appraisal, the new "
@@ -2149,6 +2166,9 @@ msgid ""
 "                                         You can use a lot of options with "
 "the html editor, accessible by pressing / on the keyboard."
 msgstr ""
+"ใช้พื้นที่นี้เพื่อเขียนเนื้อหาที่จะแสดงให้พนักงานเห็น "
+"คุณสามารถใช้ตัวเลือกต่างๆ มากมายกับโปรแกรมแก้ไข HTML โดยเข้าถึงได้ด้วยการกด "
+"/ บนแป้นพิมพ์"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_template_form
@@ -2157,6 +2177,9 @@ msgid ""
 "                                         You can use a lot of options with "
 "the html editor, accessible by pressing / on the keyboard."
 msgstr ""
+"ใช้พื้นที่นี้เพื่อเขียนเนื้อหาที่จะแสดงให้ผู้จัดการเห็น "
+"คุณสามารถใช้ตัวเลือกต่างๆ มากมายกับตัวแก้ไข HTML ได้ โดยเข้าถึงได้ด้วยการกด "
+"/ บนแป้นพิมพ์"
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_res_users

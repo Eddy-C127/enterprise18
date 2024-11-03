@@ -215,6 +215,10 @@ msgid ""
 "                        the company.\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        Descrivi qualcosa che ti ha reso orgoglioso/a, un lavoro svolto, positivo\n"
+"                        per l'azienda.\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -224,6 +228,10 @@ msgid ""
 "                        obstacles?\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        Hai affrontato nuove difficoltà? Hai dovuto superare nuovi\n"
+"                        ostacoli?\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -233,6 +241,10 @@ msgid ""
 "                        you enjoy the most/the least?\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        Ogni lavoro ha punti di forza. Quali sono secondo te le attività che\n"
+"                        ti piacciono di più/di meno?\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -242,6 +254,10 @@ msgid ""
 "                        overcome their weaknesses?\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        Dal punto di vista di manager, come potresti aiutare il dipendente a\n"
+"                        superare le sue debolezze?\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_employee_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -251,6 +267,10 @@ msgid ""
 "                        for you to reach your goals and look for the best collaboration.\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        In che modo l'azienda può aiutarti relativamente a bisogni e obiettivi per\n"
+"                        raggiungerli e instaurare la migliore collaborazione di sempre?\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -260,6 +280,10 @@ msgid ""
 "                        employee's desire?\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        Come vedi il dipendente nel futuro, la tua visione combacia con\n"
+"                        i desideri del dipendente?\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -269,6 +293,10 @@ msgid ""
 "                        issues.\n"
 "                    </em>"
 msgstr ""
+"<em>\n"
+"                        Alcuni traguardi che ti rassicurano nei loro punti di forza per affrontare i problemi\n"
+"                        legati al lavoro.\n"
+"                    </em>"
 
 #. module: hr_appraisal
 #: model_terms:hr.appraisal.template,appraisal_manager_feedback_template:hr_appraisal.hr_appraisal_default_template
@@ -748,6 +776,14 @@ msgstr "Modello valutazione"
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Appraisal Templates"
 msgstr "Template di valutazione"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/wizard/request_appraisal.py:0
+msgid ""
+"Appraisal for %(appraisal_title)s should be using template "
+"\"%(template_name)s\" instead of \"%(wrong_template_name)s\""
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python
@@ -1972,7 +2008,7 @@ msgstr "Sequenza"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Set default appraisal template"
-msgstr ""
+msgstr "Configura modello valutazione predefinito"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_config_settings_action
@@ -2051,6 +2087,14 @@ msgstr "Oggetto..."
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_tag_view_tree
 msgid "Tags"
 msgstr "Etichette"
+
+#. module: hr_appraisal
+#. odoo-python
+#: code:addons/hr_appraisal/models/mail_template.py:0
+msgid ""
+"Template %(template_name)s is necessary for appraisal requests and may not "
+"be removed."
+msgstr ""
 
 #. module: hr_appraisal
 #. odoo-python
@@ -2214,6 +2258,9 @@ msgid ""
 "                                         You can use a lot of options with "
 "the html editor, accessible by pressing / on the keyboard."
 msgstr ""
+"Usa questo spazio per scrivere il contenuto che verrà mostrato al "
+"dipendente.                                         Puoi utilizzare varie "
+"opzioni grazie all'editor HTML, accessibile cliccando / sulla tastiera."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_template_form
@@ -2222,6 +2269,9 @@ msgid ""
 "                                         You can use a lot of options with "
 "the html editor, accessible by pressing / on the keyboard."
 msgstr ""
+"Usa questo spazio per scrivere il contenuto che verrà mostrato al manager."
+"                                         Puoi utilizzare varie opzioni "
+"grazie all'editor HTML, accessibile cliccando / sulla tastiera."
 
 #. module: hr_appraisal
 #: model:ir.model,name:hr_appraisal.model_res_users
@@ -2369,6 +2419,7 @@ msgstr "es. Mario Rossi"
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_appraisal_goal_tag_view_tree
 msgid "e.g. Remediation, Team, Improvement plan, Career change, ..."
 msgstr ""
+"ad es. Correzione, team, piano di miglioramento, cambio di carriera..."
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form

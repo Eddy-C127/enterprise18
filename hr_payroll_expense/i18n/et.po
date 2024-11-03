@@ -4,11 +4,11 @@
 # 
 # Translators:
 # Siim Raasuke, 2024
-# Stevin Lilla, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # JanaAvalah, 2024
 # Birgit Vijar, 2024
 # Anna, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,6 +31,9 @@ msgid ""
 "                            The expenses will already be reimbursed in a payslip. Make sure this payment is intended.\n"
 "                        </span>"
 msgstr ""
+"<span class=\"fw-bold\">\n"
+"Kulud kaetakse palgalehel. Veenduge et see makse on õige.\n"
+"</span>"
 
 #. module: hr_payroll_expense
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_expense_sheet_view_form_inherit_payroll
@@ -46,13 +49,13 @@ msgstr "Kuluaruanne"
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "Expense report (\"%(name)s\") was removed from the next payslip."
-msgstr ""
+msgstr "Kuluaruanne (\"%(name)s\") eemaldati järgmiselt palgalehelt."
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "Expense report (\"%(name)s\") will be added to the next payslip."
-msgstr ""
+msgstr "Kuluaruanne (\"%(name)s\") lisati järgmisele palgalehele."
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
@@ -78,7 +81,7 @@ msgstr "Töötajale hüvitatavad kulud."
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_account_payment_register__is_already_paid_through_a_payslip
 msgid "Is Already Paid Through A Payslip"
-msgstr ""
+msgstr "On juba tasutud palgalehel."
 
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_account_move
@@ -91,7 +94,15 @@ msgstr "Andmiku kanne"
 msgid ""
 "No debit account found in the '%(rule_name)s' payslip salary rule. Please "
 "add a payable debit account to be able to create an accounting entry for the"
-" expense report linked to this payslip '%(expense_report_name)s'."
+" expense reports linked to this payslip."
+msgstr ""
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_payslip.py:0
+msgid ""
+"No salary rule was found to handle expenses in structure "
+"'%(structure_name)s'."
 msgstr ""
 
 #. module: hr_payroll_expense
@@ -101,6 +112,8 @@ msgid ""
 "Only approved expense reports that were paid by an employee can be "
 "reimbursed in a payslip."
 msgstr ""
+"Ainult töötaja poolt makstud ja kinnitatuid kuluaruandeid saab hüvitada "
+"palgalehel."
 
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_account_payment_register
@@ -133,7 +146,7 @@ msgstr "Hüvitatud kulud"
 #. module: hr_payroll_expense
 #: model_terms:ir.ui.view,arch_db:hr_payroll_expense.hr_expense_sheet_view_form_inherit_payroll
 msgid "Remove from Payslip"
-msgstr ""
+msgstr "Eemalda palgalehelt"
 
 #. module: hr_payroll_expense
 #: model:ir.actions.server,name:hr_payroll_expense.hr_expense_add_to_payslip_action_server

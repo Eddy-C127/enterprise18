@@ -4,18 +4,18 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
-# Leaanika Randmets, 2024
 # Algo Kärp <algokarp@gmail.com>, 2024
 # Stevin Lilla, 2024
 # Siim Raasuke, 2024
+# Leaanika Randmets, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Siim Raasuke, 2024\n"
+"Last-Translator: Leaanika Randmets, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -500,23 +500,23 @@ msgstr "<span class=\"o_stat_text\">Hinnang</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Failed</span>"
-msgstr "<span class=\"text-muted\">Ebaõnnestunud</span>"
+msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Open</span>"
-msgstr "<span class=\"text-muted\">Avatud</span>"
+msgid "<span class=\"text-muted text-nowrap\">Open</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Unassigned</span>"
-msgstr "<span class=\"text-muted\">Määramata</span>"
+msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
-msgid "<span class=\"text-muted\">Urgent</span>"
-msgstr "<span class=\"text-muted\">Kiireloomuline</span>"
+msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
+msgstr ""
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -799,12 +799,6 @@ msgstr "Kas olete kindel, et soovid jätkata?"
 #: model_terms:ir.ui.view,arch_db:helpdesk.view_helpdesk_stage_delete_wizard
 msgid "Are you sure you want to delete these stages?"
 msgstr "Kas oled kindel, et tahad neid etappe kustutada?"
-
-#. module: helpdesk
-#. odoo-javascript
-#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
-msgid "Assign the ticket to a <b>member of your team</b>."
-msgstr "Määra pilet mõnele oma <b>meeskonnaliikmele.</b>"
 
 #. module: helpdesk
 #. odoo-python
@@ -2471,6 +2465,12 @@ msgid "Open Time (hours)"
 msgstr "Avatud aeg (tunnid)"
 
 #. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Open the ticket."
+msgstr ""
+
+#. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
 msgid ""
 "Optional ID of a thread (record) to which all incoming messages will be "
@@ -2974,6 +2974,12 @@ msgstr "Näidis"
 #: model_terms:ir.ui.view,arch_db:helpdesk.team_rating_progress_data
 msgid "Satisfied"
 msgstr "Rahul"
+
+#. module: helpdesk
+#. odoo-javascript
+#: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
+msgid "Save this ticket and the modifications you've made to it."
+msgstr "Salvesta pilet ja tehtud muudatused."
 
 #. module: helpdesk
 #. odoo-javascript

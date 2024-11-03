@@ -3,13 +3,14 @@
 # 	* industry_fsm
 # 
 # Translators:
+# Tony Ng, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -150,7 +151,7 @@ msgstr ""
 #. module: industry_fsm
 #: model_terms:web_tour.tour,rainbow_man_message:industry_fsm.industry_fsm_tour
 msgid "<span><b>Good job!</b> You went through all steps of this tour.</span>"
-msgstr ""
+msgstr "<span><b>做得好！</b>你已完成本次導覽的所有步驟。</span>"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.worksheet_custom_page
@@ -858,6 +859,16 @@ msgid "Reporting"
 msgstr "報告"
 
 #. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__sale_order_id
+msgid "Sales Order"
+msgstr "銷售訂單"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__sale_line_id
+msgid "Sales Order Item"
+msgstr "銷售訂單項目"
+
+#. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_location
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_location2
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_project
@@ -1104,6 +1115,11 @@ msgstr "剩餘時數"
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__remaining_hours_percentage
 msgid "Time Remaining Percentage"
 msgstr "剩餘時間百分比"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__remaining_hours_so
+msgid "Time Remaining on SO"
+msgstr "銷售訂單剩餘時數"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__effective_hours

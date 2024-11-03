@@ -23,7 +23,7 @@ msgstr ""
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
 msgid "<span invisible=\"enable_batch_size\">No Batch Size</span>"
-msgstr ""
+msgstr "<span invisible=\"enable_batch_size\">일괄 크기 없음</span>"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
@@ -130,7 +130,7 @@ msgstr "약속 가능 재고 수량"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__batch_size
 msgid "Batch Size"
-msgstr ""
+msgstr "배치 크기"
 
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_mrp_bom
@@ -206,7 +206,7 @@ msgstr "일"
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
 msgid "Default Time Range"
-msgstr ""
+msgstr "기본 시간 범위"
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__product_uom_id
@@ -293,7 +293,7 @@ msgstr "보충 대기 표시"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_batch_size
 msgid "Enable Batch Size"
-msgstr ""
+msgstr "일괄 처리 크기 사용"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_max_replenish
@@ -354,17 +354,22 @@ msgid "ID"
 msgstr "ID"
 
 #. module: mrp_mps
+#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__bom_id
+msgid "If set, the bill of materials components will also be imported."
+msgstr ""
+
+#. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__batch_size
 msgid ""
 "If set, the generated manufacturing orders will be split in quantities of "
 "this value at maximum."
-msgstr ""
+msgstr "이 값을 설정하면 생성된 제조 주문이 이 값을 초과하지 않는 수량으로 분할됩니다. "
 
 #. module: mrp_mps
 #. odoo-python
 #: code:addons/mrp_mps/models/mrp_mps.py:0
 msgid "Import Template for Master Production Schedule"
-msgstr ""
+msgstr "마스터 생산 스케줄의 템플릿 가져오기"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
@@ -387,7 +392,7 @@ msgstr "간접 수요 제품"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__is_manufacture_route
 msgid "Is Manufacture Route"
-msgstr ""
+msgstr "제조 경로"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__write_uid
@@ -464,7 +469,7 @@ msgstr "제조 기간"
 msgid ""
 "Manufacturing Settings: Your Master Production Schedule must always display "
 "at least 1 period."
-msgstr ""
+msgstr "제조 설정: 마스터 생산 일정에는 항상 하나 이상의 기간이 표시되어야 합니다."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -525,55 +530,55 @@ msgstr "MPS에서 보충하지 않음"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_day
 msgid "Number of Daily Manufacturing Period Columns"
-msgstr ""
+msgstr "일별 제조 기간 열 수"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_month
 msgid "Number of Monthly Manufacturing Period Columns"
-msgstr ""
+msgstr "월별 제조 기간 열 수"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
 msgid "Number of Periods"
-msgstr ""
+msgstr "기간 수"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_week
 msgid "Number of Weekly Manufacturing Period Columns"
-msgstr ""
+msgstr "주별 제조 기간 열 수"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_year
 msgid "Number of Yearly Manufacturing Period Columns"
-msgstr ""
+msgstr "연간 제조 기간 열 수"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_day
 msgid ""
 "Number of columns for the daily period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "마스터 생산 스케줄에서 일별 기간에 표시할 열 수"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_month
 msgid ""
 "Number of columns for the monthly period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "마스터 생산 스케줄에서 월별 기간에 표시할 열의 수"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_week
 msgid ""
 "Number of columns for the weekly period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "마스터 생산 스케줄에서 주 단위 기간에 표시할 열의 수"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_year
 msgid ""
 "Number of columns for the yearly period to display in Master Production "
 "Schedule"
-msgstr ""
+msgstr "마스터 생산 스케줄에서 연간 기간에 표시할 열의 수"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -942,6 +947,12 @@ msgstr "%(week_num)s 주 (%(start_date)s-%(end_date)s/%(month)s)"
 #: model:ir.model.fields.selection,name:mrp_mps.selection__res_company__manufacturing_period__week
 msgid "Weekly"
 msgstr "매주"
+
+#. module: mrp_mps
+#: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__is_indirect
+msgid ""
+"When checked, this product will not appear in the 'To Forecast' filter."
+msgstr ""
 
 #. module: mrp_mps
 #. odoo-javascript

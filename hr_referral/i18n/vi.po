@@ -3,16 +3,16 @@
 # 	* hr_referral
 # 
 # Translators:
-# Wil Odoo, 2024
 # Thi Huong Nguyen, 2024
+# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,6 +48,9 @@ msgid ""
 "            <br/>\n"
 "            <br/>"
 msgstr ""
+",\n"
+"            <br/>\n"
+"            <br/>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_sms_template
@@ -55,6 +58,8 @@ msgid ""
 ".\n"
 "If you know someone who would be a great fit for this position, please share this link with them:"
 msgstr ""
+".\n"
+"Nếu bạn biết ai đó phù hợp với vị trí này, vui lòng chia sẻ liên kết này với họ:"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
@@ -73,6 +78,9 @@ msgid ""
 "            <br/>\n"
 "            Thanks!"
 msgstr ""
+"<br/>\n"
+"            <br/>\n"
+"            Cảm ơn!"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -81,6 +89,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"Send by Mail\">Send Email</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-envelope-o\" role=\"img\" aria-label=\"Gửi qua email\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"Gửi qua email\">Gửi qua email</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -89,6 +100,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"More info\">Job Page</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-globe\" role=\"img\" aria-label=\"Trang Việc làm\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"Thêm thông tin\">Trang Việc làm</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -97,6 +111,9 @@ msgid ""
 "                                    <br/>\n"
 "                                    <span title=\"Send by SMS\">Send SMS</span>"
 msgstr ""
+"<i class=\"fa fa-2x fa-mobile\" role=\"img\" aria-label=\"Gửi qua SMS\"/>\n"
+"                                    <br/>\n"
+"                                    <span title=\"Gửi qua SMS\">Gửi qua SMS</span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_applicant_employee_referral_kanban
@@ -146,6 +163,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-facebook\" role=\"img\" aria-label=\"Share on facebook\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"Chia sẻ trên Facebook\">\n"
+"                                        <i class=\"fa fa-lg fa-facebook\" role=\"img\" aria-label=\"Chia sẻ trên Facebook\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -154,6 +174,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-linkedin\" role=\"img\" aria-label=\"Share on linkedin\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"Chia sẻ trên Linkedin\">\n"
+"                                        <i class=\"fa fa-lg fa-linkedin\" role=\"img\" aria-label=\"Chia sẻ trên Linkedin\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -162,6 +185,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-twitter\" role=\"img\" aria-label=\"Share on twitter\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"Chia sẻ trên Twitter\">\n"
+"                                        Chia sẻ trên Twitter\n"
+"                                    </span>"
 
 #. module: hr_referral
 #. odoo-python
@@ -321,11 +347,6 @@ msgid "Cancel"
 msgstr "Hủy"
 
 #. module: hr_referral
-#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
-msgid "Candidates's Name"
-msgstr ""
-
-#. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_link_to_share__channel
 msgid "Channel"
 msgstr "Kênh"
@@ -392,7 +413,7 @@ msgstr "Cấu hình"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_campaign_wizard__target
 msgid "Contacted Employees"
-msgstr ""
+msgstr "Nhân viên được liên hệ"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_reward__cost
@@ -849,7 +870,7 @@ msgstr "Chức vụ"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_campaign_wizard.py:0
 msgid "Job Offer for a %(job_title)s at %(company_name)s"
-msgstr ""
+msgstr "Tin tuyển dụng cho %(job_title)s tại %(company_name)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_job
@@ -1068,6 +1089,8 @@ msgstr "Không có Chức vụ nào có sẵn để chia sẻ."
 #: code:addons/hr_referral/wizard/hr_referral_campaign_wizard.py:0
 msgid "No users to send the campaign to. Please adapt your target."
 msgstr ""
+"Không có người dùng nào để gửi chiến dịch. Vui lòng điều chỉnh mục tiêu của "
+"bạn."
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_alert__onclick__no
@@ -1145,7 +1168,12 @@ msgstr "Vị trí đang tuyển"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_email_body_template
 msgid "Our company is hiring for a"
-msgstr ""
+msgstr "Công ty đang tuyển dụng một"
+
+#. module: hr_referral
+#: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
+msgid "Partner Name"
+msgstr "Tên đối tác"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_referral_reward_kanban
@@ -1264,7 +1292,7 @@ msgstr "Giới thiệu"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral %(user)s: %(job_url)s"
-msgstr ""
+msgstr "Lượt giới thiệu %(user)s: %(job_url)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_alert_mail_wizard
@@ -1286,18 +1314,18 @@ msgstr "Hình nền giới thiệu"
 #: model:ir.actions.server,name:hr_referral.action_hr_job_launch_referral_campaign
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_kanban_inherit_referral
 msgid "Referral Campaign"
-msgstr ""
+msgstr "Chiến dịch giới thiệu"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_campaign_wizard
 msgid "Referral Campaign Wizard"
-msgstr ""
+msgstr "Công cụ chiến dịch giới thiệu"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral Campaign for %(job)s"
-msgstr ""
+msgstr "Chiến dịch giới thiệu cho %(job)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_link_to_share
@@ -1345,7 +1373,7 @@ msgstr "Liên kết giới thiệu: %s đã được sao chép vào bộ nhớ t
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(name)s"
-msgstr ""
+msgstr "Lượt giới thiệu: %(name)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1357,7 +1385,7 @@ msgstr "Giới thiệu: %(partner)s (%(applicant)s)"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(url)s"
-msgstr ""
+msgstr "Lượt giới thiệu: %(url)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1464,7 +1492,7 @@ msgstr "Xem cơ hội việc làm"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_campaign_wizard_view_form
 msgid "Select employees"
-msgstr ""
+msgstr "Chọn nhân viên"
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_campaign_wizard__target__selection
@@ -1512,7 +1540,7 @@ msgstr "Gửi SMS"
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_campaign_wizard__sending_method
 msgid "Sending Method"
-msgstr ""
+msgstr "Phương thức gửi"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_onboarding__sequence
@@ -1670,6 +1698,8 @@ msgid ""
 "This job position is not published. \n"
 "                    The referral campaign will automatically publish it."
 msgstr ""
+"Vị trí này chưa được đăng.\n"
+"Chiến dịch giới thiệu sẽ tự động đăng vị trí này."
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_link_to_share_view_form
@@ -1876,13 +1906,13 @@ msgstr "Bạn cần cái khác"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Your referrer got a step further! %(message)s"
-msgstr ""
+msgstr "Lượt giới thiệu của bạn đã tiến thêm một bước nữa! %(message)s"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Your referrer is hired! %(message)s"
-msgstr ""
+msgstr "Người bạn giới thiệu đã được tuyển! %(message)s"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -1912,7 +1942,7 @@ msgstr ""
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_sms_template
 msgid "is hiring for a position"
-msgstr ""
+msgstr "đang tuyển một vị trí"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_email_body_template
@@ -1920,6 +1950,8 @@ msgid ""
 "position.\n"
 "                If you know someone who would be a great fit for this position, please share this link with them:"
 msgstr ""
+"vị trí.\n"
+"Nếu bạn biết ai đó phù hợp với vị trí này, vui lòng chia sẻ liên kết này với họ:"
 
 #. module: hr_referral
 #. odoo-javascript

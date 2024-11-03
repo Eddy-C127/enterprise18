@@ -89,12 +89,16 @@ msgstr "Bút toán"
 msgid ""
 "No debit account found in the '%(rule_name)s' payslip salary rule. Please "
 "add a payable debit account to be able to create an accounting entry for the"
-" expense report linked to this payslip '%(expense_report_name)s'."
+" expense reports linked to this payslip."
 msgstr ""
-"Không tìm thấy tài khoản ghi nợ nào trong quy tắc lương phiếu lương "
-"'%(rule_name)s'. Vui lòng thêm tài khoản ghi nợ phải trả để có thể tạo bút "
-"toán kế toán cho báo cáo chi phí liên kết với phiếu lương này "
-"'%(expense_report_name)s'."
+
+#. module: hr_payroll_expense
+#. odoo-python
+#: code:addons/hr_payroll_expense/models/hr_payslip.py:0
+msgid ""
+"No salary rule was found to handle expenses in structure "
+"'%(structure_name)s'."
+msgstr ""
 
 #. module: hr_payroll_expense
 #. odoo-python

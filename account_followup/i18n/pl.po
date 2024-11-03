@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-26 12:48+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -23,13 +24,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_followup/models/account_followup_report.py:0
 msgid "%(company)s Payment Reminder - %(partner)s"
-msgstr ""
+msgstr "%(company)s Przypomnienie o płatności - %(partner)s"
 
 #. module: account_followup
 #. odoo-python
 #: code:addons/account_followup/models/account_followup.py:0
 msgid "%(delay)s days (copy of %(name)s)"
-msgstr ""
+msgstr "%(delay)s dni (kopia %(name)s)"
 
 #. module: account_followup
 #: model:ir.actions.report,print_report_name:account_followup.action_report_followup
@@ -44,7 +45,7 @@ msgstr "15 dni"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
 msgid "2023-09-06"
-msgstr ""
+msgstr "2023-09-06"
 
 #. module: account_followup
 #: model:account_followup.followup.line,name:account_followup.demo_followup_line2
@@ -101,6 +102,37 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px;\">\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">Drogi/Droga <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
+"                        <t t-else=\"\">Drogi/Droga <t t-out=\"object.name or ''\"></t>,</t>\n"
+"                        <br>\n"
+"                        Dostrzegliśmy, że masz nieopłaconą kwotę w wysokości <t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"></t>\n"
+"                        <br>\n"
+"                        Uprzejmie prosimy o podjęcie niezbędnych działań w celu uregulowania tej kwoty w ciągu najbliższych 8 dni.\n"
+"                        <br>\n"
+"                        <div t-if=\"object._show_pay_now_button()\" class=\"d-flex\">\n"
+"                            <a t-att-href=\"'/my/invoices/overdue'\" class=\"btn btn-primary\">Zapłać teraz</a>\n"
+"                        </div>\n"
+"                        Jeśli dokonałeś/-aś płatności przed otrzymaniem tej wiadomości, możesz ją zignorować.\n"
+"                        Nasz dział księgowości jest dostępny, jeśli potrzebujesz wsparcia, lub masz jakiekolwiek pytania.\n"
+"                        <br>\n"
+"                        Dziękujemy za współpracę.\n"
+"                        <br>\n"
+"                        Z poważaniem,\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"></t>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br>\n"
+"                            --\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"></t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_4
@@ -131,6 +163,31 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">Drogi/Droga <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
+"                        <t t-else=\"\">Drogi/Droga <t t-out=\"object.name or ''\"></t>,</t>\n"
+"                        <br>\n"
+"                        Pomimo wielokrotnych przypomnień, Twoje konto nadal nie zostało uregulowane.\n"
+"                        Jeśli pełna płatność nie zostanie dokonana w ciągu następnych 8 dni, zostaną podjęte działania prawne w celu odzyskania długu bez dalszego powiadomienia.\n"
+"                        Wierzymy, że to działanie nie będzie konieczne, a szczegóły dotyczące należnych płatności są zamieszczone poniżej.\n"
+"                        W przypadku jakichkolwiek pytań dotyczących tej kwestii, nie wahaj się skontaktować z naszym działem księgowości.\n"
+"                        <br>\n"
+"                        Z wyrazami szacunku,\n"
+"                        <br>\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"></t>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br>\n"
+"                            --\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"></t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_2
@@ -163,11 +220,38 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p>\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">Drogi/Droga <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
+"                        <t t-else=\"\">Drogi/Droga <t t-out=\"object.name or ''\"></t>,</t>\n"
+"                        <br>\n"
+"                        Z przykrością zauważamy, że pomimo wysłanego przypomnienia Twoje konto jest poważnie zadłużone.\n"
+"                        <br>\n"
+"                        Niezbędne jest dokonanie natychmiastowej płatności, w przeciwnym razie będziemy musieli rozważyć zablokowanie Twojego konta, co oznacza, że nie będziemy już w stanie dostarczać Twojej firmie (towarów/usług). Podejmij odpowiednie kroki, aby dokonać płatności w ciągu najbliższych 8 dni.\n"
+"                        <br>\n"
+"                        Jeśli występuje problem z opłaceniem faktury, o którym nie wiemy, nie wahaj się skontaktować z naszym działem księgowości, abyśmy mogli szybko rozwiązać ten problem.\n"
+"                        <br>\n"
+"                        Szczegóły zaległych płatności znajdziesz poniżej.\n"
+"                        <br>\n"
+"                        Z poważaniem,\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"></t>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br>\n"
+"                            --\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"></t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
 msgid "<span class=\"o_stat_text\">Customer Statement</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Wyciąg klienta</span>"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
@@ -186,7 +270,7 @@ msgid ""
 "                            </strong>"
 msgstr ""
 "<strong>\n"
-"                                Przypomnienie o Płatności\n"
+"                                Oczekujące faktury do opłacenia\n"
 "                            </strong>"
 
 #. module: account_followup
@@ -201,7 +285,7 @@ msgstr ""
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__account_followup_followup_line__activity_default_responsible_type__account_manager
 msgid "Account Manager"
-msgstr "Menedżer kontraktu"
+msgstr "Menedżer konta"
 
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.ir_cron_auto_post_draft_entry_ir_actions_server
@@ -212,7 +296,7 @@ msgstr ""
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
 msgid "Actions"
-msgstr "Akcje"
+msgstr "Działania"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
@@ -228,7 +312,7 @@ msgstr "Uwagi dotyczące aktywności"
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_type_id
 msgid "Activity Type"
-msgstr "Typ aktywności"
+msgstr "Typ czynności"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -243,7 +327,7 @@ msgstr "Dodaj kontakty do powiadomienia..."
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__additional_follower_ids
 msgid "Add followers"
-msgstr ""
+msgstr "Dodaj obserwujących"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
@@ -260,7 +344,7 @@ msgstr "Typ adresu"
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__join_invoices
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__join_invoices
 msgid "Attach Invoices"
-msgstr "Załączanie faktur"
+msgstr "Załącz faktury"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__attachment_ids
@@ -326,7 +410,7 @@ msgstr "Zawartość"
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__create_uid
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_missing_information_wizard__create_uid
 msgid "Created by"
-msgstr "Utworzył(a)"
+msgstr "Utworzono przez"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__create_date
@@ -375,10 +459,10 @@ msgid ""
 "Best Regards,\n"
 "\n"
 msgstr ""
-"Drogi %s,\n"
+"Drogi/Droga %s,\n"
 "\n"
 "\n"
-"Jeśli popełniliśmy błąd, wydaje się, że poniższa kwota pozostaje niezapłacona. Prosimy o podjęcie odpowiednich kroków w celu dokonania płatności w ciągu najbliższych 8 dni.\n"
+"O ile nie zaszła żadna pomyłka, to wygląda na to, że poniższa kwota nie została opłacona. Prosimy o podjęcie odpowiednich kroków w celu dokonania płatności w ciągu najbliższych 8 dni.\n"
 "\n"
 "Jeśli płatność została dokonana po wysłaniu tej wiadomości, prosimy o jej zignorowanie. Nie wahaj się skontaktować z naszym działem księgowości.\n"
 "\n"
@@ -464,7 +548,7 @@ msgstr "Dodatkowi odbiorcy"
 #. odoo-python
 #: code:addons/account_followup/models/account_followup_report.py:0
 msgid "Follow-up %(partner)s - %(date)s"
-msgstr ""
+msgstr "Follow-up %(partner)s - %(date)s"
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__type__followup
@@ -535,7 +619,7 @@ msgid ""
 "            possible to use print and e-mail templates to send specific messages to\n"
 "            the customer."
 msgstr ""
-"Dla każdego kroku należy określić działania, które należy podjąć i opóźnienie w dniach.\n"
+"Dla każdego kroku należy określić działania do podjęcia i opóźnienie w dniach.\n"
 "Możliwe jest użycie szablonów wydruku i wiadomości e-mail w celu wysłania określonych wiadomości do klienta."
 
 #. module: account_followup
@@ -557,6 +641,9 @@ msgid ""
 "notifications about any email reply made by the partner on the reminder "
 "email."
 msgstr ""
+"Jeśli ustawione, użytkownicy ci zostaną dodani jako obserwujący partnera i "
+"będą otrzymywać powiadomienia o wszelkich odpowiedziach udzielonych przez "
+"partnera w wiadomości e-mail z przypomnieniem."
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__in_need_of_action
@@ -566,7 +653,7 @@ msgstr "W potrzebie działania"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_partner_property_form_followup
 msgid "Invoice Follow-ups"
-msgstr ""
+msgstr "Przypomnienia o fakturach"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -581,7 +668,7 @@ msgstr "Jest edytorem"
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_move_line
 msgid "Journal Item"
-msgstr "Pozycja zapisu"
+msgstr "Pozycja dziennika"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
@@ -622,7 +709,7 @@ msgstr "Szablon wiadomości"
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_reminder_type__manual
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_line_filter
 msgid "Manual"
-msgstr "Manualna"
+msgstr "Ręczna"
 
 #. module: account_followup
 #. odoo-python
@@ -691,7 +778,7 @@ msgstr "Pochodzenie"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view
 msgid "Overdue Invoices"
-msgstr "Przeterminowane faktury"
+msgstr "Faktury po terminie"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__partner_id
@@ -717,7 +804,7 @@ msgstr "Drukowanie listu monitorującego"
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.action_account_reports_customer_statements_do_followup
 msgid "Process Follow-ups"
-msgstr ""
+msgstr "Monity procesu"
 
 #. module: account_followup
 #. odoo-python
@@ -749,7 +836,7 @@ msgstr "Zgłoś akcję"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view
 msgid "Requires Follow-up"
-msgstr ""
+msgstr "Wymaga przypomnienia"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_default_responsible_type

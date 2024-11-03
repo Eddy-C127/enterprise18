@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -209,7 +209,7 @@ msgstr "全てのタスク"
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_all_fsm_server_action
 msgid "All Tasks Server Action"
-msgstr ""
+msgstr "全タスクサーバアクション"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__allocated_hours
@@ -422,7 +422,7 @@ msgstr "説明"
 msgid ""
 "Design tailored worksheet templates for various interventions, and analyze "
 "collected intervention data."
-msgstr ""
+msgstr "さまざまな介入に合わせたワークシートテンプレートを設計し、収集した介入データを分析します。"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_project_view_form_simplified_footer_fsm
@@ -658,7 +658,7 @@ msgstr "マップ"
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_fsm_map_server_action
 msgid "Map Server Action"
-msgstr ""
+msgstr "サーバアクションをマップ"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.worksheet_custom_page
@@ -689,7 +689,7 @@ msgstr "マイルストン"
 #. odoo-python
 #: code:addons/industry_fsm/controllers/webmanifest.py:0
 msgid "My Calendar"
-msgstr ""
+msgstr "自分のカレンダ"
 
 #. module: industry_fsm
 #. odoo-python
@@ -703,12 +703,12 @@ msgstr "自分のタスク"
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_fsm_server_action
 msgid "My Tasks Server Action"
-msgstr ""
+msgstr "自分のタスクサーバアクション"
 
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_fsm_mobile_server_action
 msgid "My Tasks in mobile Server Action"
-msgstr ""
+msgstr "自分のタスク モバイルサーバアクション内"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.view_partner_address_form_industry_fsm
@@ -719,7 +719,7 @@ msgstr "ナビゲーション"
 #. odoo-python
 #: code:addons/industry_fsm/controllers/webmanifest.py:0
 msgid "New task"
-msgstr ""
+msgstr "新規タスク"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_user_action_report_fsm
@@ -789,7 +789,7 @@ msgstr "ロケーションごと計画"
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_fsm_planning_groupby_location_server_action
 msgid "Planning by Location Server Action"
-msgstr ""
+msgstr "ロケーションサーバアクションによる計画"
 
 #. module: industry_fsm
 #: model:ir.actions.act_window,name:industry_fsm.project_task_action_fsm_planning_groupby_project
@@ -800,7 +800,7 @@ msgstr "プロジェクト別の計画"
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_fsm_planning_groupby_project_server_action
 msgid "Planning by Project Server Action"
-msgstr ""
+msgstr "プロジェクトサーバアクションによる計画"
 
 #. module: industry_fsm
 #: model:ir.actions.act_window,name:industry_fsm.project_task_action_fsm_planning_groupby_user
@@ -811,7 +811,7 @@ msgstr "ユーザ別の計画"
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_fsm_planning_groupby_user_server_action
 msgid "Planning by User Action"
-msgstr ""
+msgstr "ユーザアクションによる計画"
 
 #. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__priority
@@ -857,6 +857,16 @@ msgstr "レポートアクション"
 #: model:ir.ui.menu,name:industry_fsm.fsm_menu_reporting
 msgid "Reporting"
 msgstr "レポーティング"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__sale_order_id
+msgid "Sales Order"
+msgstr "販売オーダ"
+
+#. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__sale_line_id
+msgid "Sales Order Item"
+msgstr "販売オーダ項目"
 
 #. module: industry_fsm
 #: model_terms:ir.actions.act_window,help:industry_fsm.project_task_action_fsm_planning_groupby_location
@@ -1107,6 +1117,11 @@ msgid "Time Remaining Percentage"
 msgstr "残時間%"
 
 #. module: industry_fsm
+#: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__remaining_hours_so
+msgid "Time Remaining on SO"
+msgstr "販売オーダ残時間"
+
+#. module: industry_fsm
 #: model:ir.model.fields,field_description:industry_fsm.field_report_project_task_user_fsm__effective_hours
 #: model_terms:ir.ui.view,arch_db:industry_fsm.timesheet_view_form
 #: model_terms:ir.ui.view,arch_db:industry_fsm.worksheet_custom_page
@@ -1165,7 +1180,7 @@ msgstr "スケジュール対象"
 #. module: industry_fsm
 #: model:ir.actions.server,name:industry_fsm.project_task_to_schedule_fsm_server_action
 msgid "To Schedule Server Action"
-msgstr ""
+msgstr "サーバアクションをスケジュールする"
 
 #. module: industry_fsm
 #: model_terms:ir.ui.view,arch_db:industry_fsm.project_task_view_search_fsm

@@ -812,6 +812,8 @@ msgid ""
 "can't be inferior to the sending day + the longest pre-notification period "
 "defined in the mandates linked to this batch."
 msgstr ""
+"วันที่บริษัทคาดว่าจะได้รับเงินของล็อตนี้ ซึ่งไม่สามารถน้อยกว่าวันส่ง + "
+"ระยะเวลาแจ้งล่วงหน้าที่ยาวนานที่สุดที่กำหนดไว้ในเอกสารที่เชื่อมโยงกับล็อตนี้ได้"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -883,6 +885,11 @@ msgid ""
 "Closed: Expired or manually closed mandates. Previous transactions remain valid.\n"
 "Revoked: Fraudulent mandates. Previous invoices might need reimbursement.\n"
 msgstr ""
+"ร่าง: ตรวจสอบก่อนใช้งาน\n"
+"ใช้งานอยู่: คำสั่งที่ถูกต้องในการเรียกเก็บเงิน\n"
+"ยกเลิก: คำสั่งไม่เคยตรวจสอบ\n"
+"ปิด: คำสั่งหมดอายุหรือปิดด้วยตนเอง ธุรกรรมก่อนหน้ายังคงถูกต้อง\n"
+"เพิกถอน: คำสั่งที่ฉ้อโกง ใบแจ้งหนี้ก่อนหน้าอาจต้องได้รับการชดใช้\n"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__checkbox_send_mail
