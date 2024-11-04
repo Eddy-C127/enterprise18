@@ -39,7 +39,7 @@
         </xpath>
         <!-- By products page buttons -->
         <xpath expr="//div[hasclass('o_action_buttons')]" position="after">
-            <div t-if="state.displayByProduct" class="o_action_buttons o_barcode_control d-flex">
+            <div t-if="state.displayByProduct and state.view == 'barcodeLines'" class="o_action_buttons o_barcode_control d-flex">
                 <button class="o_add_byproduct btn btn-secondary" t-on-click="onOpenProductPage">
                     <i class="fa fa-plus me-1"/> Add By Product
                 </button>
