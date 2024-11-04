@@ -1009,7 +1009,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         vendor_bill.action_post()
         self.env.flush_all()
 
-        move_line_ids = vendor_bill.mapped('line_ids').filtered(lambda x: 'Laptop' in x.name)
+        move_line_ids = vendor_bill.mapped('line_ids').filtered(lambda x: x.name and 'Laptop' in x.name)
         asset_form = Form(self.env['account.asset'].with_context(
             default_original_move_line_ids=move_line_ids.ids,
             asset_type='purchase'
@@ -1800,7 +1800,7 @@ class TestAccountAsset(TestAccountReportsCommon):
         # from the right environment.
         self.env.flush_all()
 
-        move_line_ids = vendor_bill_manu.mapped('line_ids').filtered(lambda x: 'Laptop' in x.name)
+        move_line_ids = vendor_bill_manu.mapped('line_ids').filtered(lambda x: x.name and 'Laptop' in x.name)
         asset_form = Form(self.env['account.asset'].with_context(
             default_original_move_line_ids=move_line_ids.ids,
         ))

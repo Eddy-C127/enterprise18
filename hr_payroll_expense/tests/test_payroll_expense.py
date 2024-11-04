@@ -489,7 +489,7 @@ class TestPayrollExpense(TestExpenseCommon, TestHrPayrollAccountCommon):
         ])
 
         # Edit the total_amount on the expense move
-        sheet.account_move_ids.line_ids.filtered(lambda line: 'Expense To Delete' in line.name).unlink()
+        sheet.account_move_ids.line_ids.filtered(lambda line: 'Expense To Delete' in (line.name or '')).unlink()
         self.assertEqual(1000.0, sheet.account_move_ids.amount_total)
 
         payslip = self.create_payslip()
