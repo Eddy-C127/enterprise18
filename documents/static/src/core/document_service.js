@@ -157,6 +157,7 @@ export class DocumentService {
         return new Promise((resolve) => {
             this.action.doAction(
                 {
+                    name: _t("Rename"),
                     type: "ir.actions.act_window",
                     res_model: "documents.document",
                     res_id: documentId,
@@ -164,6 +165,7 @@ export class DocumentService {
                     target: "new",
                     context: {
                         active_id: documentId,
+                        dialog_size: "medium",
                         form_view_ref: "documents.document_view_form_rename",
                     },
                 },
