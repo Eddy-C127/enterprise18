@@ -12,6 +12,7 @@ patch(LoginScreen.prototype, {
     async selectCashier(pin = false, login = false, list = false) {
         const result = await super.selectCashier(...arguments);
         if (
+            result &&
             !this.pos.shouldShowOpeningControl() &&
             this.pos.useBlackBoxBe() &&
             !this.pos.checkIfUserClocked() &&

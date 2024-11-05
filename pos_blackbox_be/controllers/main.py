@@ -10,6 +10,7 @@ from odoo import http
 from odoo.http import request
 
 from odoo.modules import get_module_path
+from odoo.addons.point_of_sale.controllers.main import PosController
 
 
 BLACKBOX_MODULES = ['pos_blackbox_be']
@@ -64,3 +65,12 @@ class GovCertificationController(http.Controller):
         }
 
         return request.render("pos_blackbox_be.journal_file", data, mimetype="text/plain")
+
+
+class BlackboxPosController(PosController):
+    @http.route()
+    def pos_web(self, config_id=False, from_backend=False, **k):
+        pos_session = request.env['pos.config'].sudo().browse(int(config_id)).current_session_id
+        if pos_session.state == "opened":
+            pos_session._log_ip(request.geoip.ip)
+        return super().pos_web(config_id=config_id, from_backend=from_backend, **k)

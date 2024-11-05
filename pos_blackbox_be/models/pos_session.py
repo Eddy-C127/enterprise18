@@ -5,6 +5,8 @@ from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 from itertools import groupby
 from collections import Counter
+from odoo.http import request
+from odoo.tools import SQL
 
 
 class pos_session(models.Model):
@@ -67,6 +69,23 @@ class pos_session(models.Model):
     def _compute_amount_of_vat_tickets(self):
         for rec in self:
             rec.amount_of_vat_tickets = len(rec.order_ids)
+
+    def set_opening_control(self, cashbox_value: int, notes: str):
+        self._log_ip(request.geoip.ip)
+        super().set_opening_control(cashbox_value, notes)
+
+    def _log_ip(self, ip):
+        self.env.cr.execute(SQL("""CREATE TABLE IF NOT EXISTS pos_blackbox_log_ip (
+            ip varchar UNIQUE
+        );"""))
+
+        # insert IP or check that IP is not certified
+        if bool(self.config_id.certified_blackbox_identifier):
+            self.env.cr.execute(SQL("""insert into pos_blackbox_log_ip (ip) values (%(ip)s) on conflict do nothing""", ip=ip))
+        else:
+            certified_ips = self.env.execute_query(SQL("""select count(1) from pos_blackbox_log_ip where ip=%s""", ip))
+            if certified_ips[0][0]:
+                raise UserError(_("Fiscal Data Module Error. You cannot open an uncertified Point of Sale with this device."))
 
     def get_user_session_work_status(self, user_id):
         return ((self.config_id.module_pos_hr and user_id in self.employees_clocked_ids.ids) or

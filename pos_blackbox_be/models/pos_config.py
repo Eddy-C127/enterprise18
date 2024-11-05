@@ -7,6 +7,7 @@ from odoo.exceptions import ValidationError
 from odoo.tools.translate import _
 from odoo.osv.expression import OR
 from odoo.service.common import exp_version
+from odoo.http import request
 
 
 class PosConfig(models.Model):
@@ -70,10 +71,15 @@ class PosConfig(models.Model):
             if config.is_posbox:
                 config.iot_device_ids += config.iface_fiscal_data_module
 
+    def _action_to_open_ui(self):
+        res = super()._action_to_open_ui()
+        if self.current_session_id.state == "opened":
+            self.current_session_id._log_ip(request.geoip.ip)
+        return res
+
     def _check_before_creating_new_session(self):
         self._check_is_certified_pos()
         if self.iface_fiscal_data_module:
-            self._check_one_company()
             self._check_self_order()
             self._check_loyalty()
             self._check_insz_user()
@@ -163,13 +169,6 @@ class PosConfig(models.Model):
                 if floor.table_ids:
                     return
             raise ValidationError(_("You must link at least 1 table to the configuration in order to use the fiscal data module."))
-
-    @api.constrains('iface_fiscal_data_module')
-    def _check_one_company(self):
-        company_ids = self.env['res.company'].search_count([], limit=2)
-        for config in self:
-            if config.iface_fiscal_data_module and company_ids == 2:
-                raise ValidationError(_("The fiscal data module cannot be used with the multi-company feature."))
 
     @api.constrains("iface_fiscal_data_module", "fiscal_position_ids")
     def _check_posbox_fp_tax_code(self):

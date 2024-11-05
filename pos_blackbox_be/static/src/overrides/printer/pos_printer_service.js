@@ -16,7 +16,7 @@ patch(PosPrinterService.prototype, {
         }
         return super.printWeb(...arguments);
     },
-    async printHtmlAlternative(error) {
+    async printHtmlAlternative(error, ...printArguments) {
         if (this.hardware_proxy.pos.useBlackBoxBe()) {
             this.dialog.add(AlertDialog, {
                 title: _t("Fiscal data module error"),
