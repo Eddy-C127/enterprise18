@@ -1770,8 +1770,7 @@ class AccountReport(models.Model):
         domain = self._get_options_domain(options, date_scope) + (domain or [])
 
         self.env['account.move.line'].check_access_rights('read')
-
-        query = self.env['account.move.line']._where_calc(domain)
+        query = self.env['account.move.line']._where_calc(domain, options=options)
 
         # Wrap the query with 'company_id IN (...)' to avoid bypassing company access rights.
         self.env['account.move.line']._apply_ir_rules(query)

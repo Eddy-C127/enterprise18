@@ -88,7 +88,7 @@ class AccountReport(models.AbstractModel):
             ]
 
     @api.model
-    def _prepare_lines_for_analytic_groupby(self):
+    def _prepare_lines_for_analytic_groupby(self, analytic_distribution=False):
         """Prepare the analytic_temp_account_move_line
 
         This method should be used once before all the SQL queries using the
@@ -127,6 +127,7 @@ class AccountReport(models.AbstractModel):
             "credit": sql.SQL("CASE WHEN (amount > 0) THEN amount else 0 END"),
         }
         selected_fields = []
+        where_clause = sql.SQL('account_analytic_line.general_account_id IS NOT NULL')
         for fname in stored_move_line_fields:
             if fname in changed_equivalence_dict:
                 selected_fields.append(sql.SQL('{original} AS "account_move_line.{asname}"').format(
@@ -137,6 +138,7 @@ class AccountReport(models.AbstractModel):
                 project_plan, other_plans = self.env['account.analytic.plan']._get_all_plans()
                 analytic_cols = ", ".join(n._column_name() for n in (project_plan+other_plans))
                 selected_fields.append(sql.SQL(f'to_jsonb(UNNEST(ARRAY[account_analytic_line.{analytic_cols}])) AS "account_move_line.analytic_distribution"'))
+                where_clause = sql.SQL(f'ARRAY[account_analytic_line.{analytic_cols}] && ARRAY[{analytic_distribution}] AND account_analytic_line.general_account_id IS NOT NULL')
             else:
                 selected_fields.append(sql.SQL('{table}."{fname}" AS "account_move_line.{fname}"').format(
                     table=sql.SQL("account_analytic_line") if fname in stored_analytic_line_fields else sql.SQL("account_move_line"),
@@ -160,7 +162,7 @@ class AccountReport(models.AbstractModel):
             ON
                 account_analytic_line.move_line_id = account_move_line.id
             WHERE
-                account_analytic_line.general_account_id IS NOT NULL;
+                {where_clause};
 
             -- Create a supporting index to avoid seq.scans
             CREATE INDEX IF NOT EXISTS analytic_temp_account_move_line__composite_idx ON analytic_temp_account_move_line (analytic_distribution, journal_id, date, company_id);
@@ -169,6 +171,7 @@ class AccountReport(models.AbstractModel):
         """).format(
             all_fields=sql.SQL(', ').join(sql.Identifier(fname) for fname in stored_move_line_fields),
             table=sql.SQL(', ').join(selected_fields),
+            where_clause=where_clause,
         )
 
         self.env.cr.execute(query)
@@ -264,14 +267,19 @@ class AccountReport(models.AbstractModel):
 class AccountMoveLine(models.Model):
     _inherit = "account.move.line"
 
-    def _where_calc(self, domain, active_test=True):
+    def _where_calc(self, domain, active_test=True, options=False):
         """ In case we need an analytic column in an account_report, we shadow the account_move_line table
         with a temp table filled with analytic data, that will be used for the analytic columns.
         We do it in this function to only create and fill it once for all computations of a report.
         The following analytic columns and computations will just query the shadowed table instead of the real one.
         """
         query = super()._where_calc(domain, active_test)
-        if self.env.context.get('account_report_analytic_groupby') and not self.env.context.get('account_report_cash_basis'):
-            self.env['account.report']._prepare_lines_for_analytic_groupby()
+        if options and self.env.context.get('account_report_analytic_groupby') and not self.env.context.get('account_report_cash_basis'):
+            distribution_vals = set()
+            for analytic_group in options['column_groups'].values():
+                if 'analytic_accounts_list' not in analytic_group['forced_options']:
+                    continue
+                distribution_vals.update([str(x) for x in analytic_group['forced_options']['analytic_accounts_list']])
+            self.env['account.report']._prepare_lines_for_analytic_groupby(", ".join(distribution_vals))
             query._tables['account_move_line'] = SQL.identifier('analytic_temp_account_move_line')
         return query
