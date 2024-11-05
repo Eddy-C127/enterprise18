@@ -87,7 +87,7 @@ class L10nInReportAccount(models.Model):
             return details_pos_line['account_id'] == account_move_line.account_id.id \
                 and ((account_move_line.credit > 0.00 and details_pos_line['price_subtotal'] > 0.00) \
                 or (account_move_line.debit > 0.00 and details_pos_line['price_subtotal'] < 0.00)) \
-                and details_pos_line['tax_ids'] == account_move_line.tax_ids.ids
+                and sorted(details_pos_line['tax_ids']) == sorted(account_move_line.tax_ids.ids)
 
         pos_journal_items = journal_items.filtered(lambda l: l.move_id.l10n_in_pos_session_ids and l.move_id.move_type == "entry")
         hsn_json = super()._get_gstr1_hsn_json(journal_items - pos_journal_items, tax_details_by_move)
