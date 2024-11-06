@@ -73,7 +73,7 @@ class sale_order(models.Model):
             'partner_id': company_partner.id,
             'date_order': self.date_order,
             'company_id': company.id,
-            'fiscal_position_id': company_partner.property_account_position_id.id,
+            'fiscal_position_id': self.env['account.fiscal.position']._get_fiscal_position(company_partner).id,
             'payment_term_id': company_partner.property_supplier_payment_term_id.id,
             'auto_generated': True,
             'auto_sale_order_id': self.id,
