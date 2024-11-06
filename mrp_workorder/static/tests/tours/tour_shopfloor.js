@@ -344,3 +344,81 @@ registry.category("web_tour.tours").add("test_update_tracked_consumed_materials_
         },
     ],
 });
+
+registry.category("web_tour.tours").add("test_under_consume_materials_in_shopfloor", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "button:has(input[name='Lovely Workcenter'])",
+            run: "click",
+        },
+        {
+            trigger: "button.active:has(input[name='Lovely Workcenter'])",
+            isCheck: true,
+        },
+        {
+            trigger: "button:contains('Confirm')",
+            run: "click",
+        },
+        {
+            content: "Check that we are in the MO view",
+            trigger: ".o_mrp_display_records button:contains('Lovely Workcenter')",
+            isCheck: true,
+        },
+        {
+            content: "Swap to the WO view of the Lovely Workcenter",
+            trigger: "button.btn-light:contains('Lovely Workcenter')",
+            run: "click",
+        },
+        {
+            content: "Open register production",
+            trigger: '.o_mrp_record_line span:contains("Register component")',
+            run: "click",
+        },
+        {
+            trigger: ".modal-header .modal-title:contains('Register component')",
+            isCheck: true,
+        },
+        {
+            trigger: ".o_field_widget[name='qty_done'] input",
+            run: "click",
+        },
+        {
+            trigger: ".o_field_widget[name='qty_done'] input",
+            run: "text 3",
+        },
+        {
+            trigger: ".modal-header",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Continue consumption')",
+            run: "click",
+        },
+        {
+            trigger: "span[name='component_remaining_qty']:contains('7.00')",
+            isCheck: true,
+        },
+        {
+            trigger: ".o_field_widget[name='qty_done'] input",
+            run: "click",
+        },
+        {
+            trigger: ".o_field_widget[name='qty_done'] input",
+            run: "text 2",
+        },
+        {
+            trigger: ".modal-header",
+            run: "click",
+        },
+        {
+            trigger: "button:contains('Validate')",
+            run: "click",
+        },
+        {
+            content: "Check that the componenet registration has been completed",
+            trigger: ".btn:contains('Mark as Done')",
+            isCheck: true,
+        },
+    ],
+});
