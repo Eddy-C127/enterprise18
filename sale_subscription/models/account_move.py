@@ -56,7 +56,8 @@ class AccountMove(models.Model):
                             'next_invoice_date': next_invoice_date,
                             'start_date': next_invoice_date,
                         })
-            self.env['sale.order'].browse(post_hook_subscription_ids)._post_invoice_hook()
+            if post_hook_subscription_ids:
+                self.env['sale.order'].browse(post_hook_subscription_ids)._post_invoice_hook()
 
         return posted_moves
 
