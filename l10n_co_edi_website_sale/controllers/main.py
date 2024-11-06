@@ -74,9 +74,9 @@ class L10nCOWebsiteSale(WebsiteSale):
 
         if request.website.sudo().company_id.account_fiscal_country_id.code == "CO":
             values = render_values["checkout"]
-            state = values.get("state_id") and request.env["res.country.state"].browse(int(values["state_id"]))
-            city = values.get("city_id") and request.env["res.city"].browse(int(values["city_id"]))
-            fiscal_regimen = values.get("l10n_co_edi_fiscal_regimen")
+            state = "state_id" in values and request.env["res.country.state"].browse(int(values["state_id"]))
+            city = "city_id" in values and request.env["res.city"].browse(int(values["city_id"]))
+            fiscal_regimen = "l10n_co_edi_fiscal_regimen" in values and values["l10n_co_edi_fiscal_regimen"]
             selected_obligation_types_ids = request.httprequest.form.getlist('l10n_co_edi_obligation_type_ids', int) or []
             to_include = {
                 "identification": kw.get("l10n_latam_identification_type_id"),
