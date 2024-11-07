@@ -500,3 +500,54 @@ class TestSubscriptionStockOnOrder(TestSubscriptionStockCommon):
         move_2 = subscription_order_2.order_line.move_ids
         self.assertTrue(bool(move_1))
         self.assertTrue(bool(move_2))
+
+    def test_picking_done_in_another_period(self):
+        """ In this test, we trigger 2 periods the same day.
+            The goal is to ensure that the picking of the first period does not interfere with the second period.
+            It happened when the first period picking was validated in the second period.
+            Then, when you triggered the second period, it would find one picking already done,
+            and skip the picking creation.
+        """
+
+        self.storable_product = self.env['product.product'].create({
+            'name': 'Storable Product',
+            'type': 'product',
+            'uom_id': self.uom_unit.id,
+            'recurring_invoice': True,
+        })
+        self.inventory_wizard = self.env['stock.change.product.qty'].create({
+            'product_id': self.storable_product.id,
+            'product_tmpl_id': self.storable_product.product_tmpl_id.id,
+            'new_quantity': 100.0,
+        })
+        self.inventory_wizard.change_product_qty()
+
+        sub = self.env['sale.order'].create({
+            'name': "Order",
+            'is_subscription': True,
+            'partner_id': self.user_portal.partner_id.id,
+            'plan_id': self.plan_month.id,
+            'start_date': "2024-10-01",
+            'next_invoice_date': False,
+            'order_line': [Command.create({'product_id': self.storable_product.id, 'product_uom_qty': 1})]
+        })
+        sub.action_confirm()
+
+        with freeze_time("2024-11-15"):
+            # Period = "2024-10-01" -> "2024-10-31"
+            self.env["sale.order"]._create_recurring_invoice()
+            first_picking = sub.picking_ids
+            self.assertTrue(bool(first_picking))
+            first_picking.move_ids.write({'quantity': 1, 'picked': True})
+            first_picking.button_validate()
+            quantity_delivered = sum(sub.order_line.move_ids.mapped("quantity"))
+            self.assertEqual(quantity_delivered, 1)
+
+            # Period = "2024-11-01" -> "2024-11-30"
+            self.env["sale.order"]._create_recurring_invoice()
+            second_picking = sub.picking_ids - first_picking
+            self.assertTrue(bool(second_picking))
+            second_picking.move_ids.write({'quantity': 1, 'picked': True})
+            second_picking.button_validate()
+            quantity_delivered = sum(sub.order_line.move_ids.mapped("quantity"))
+            self.assertEqual(quantity_delivered, 2)
