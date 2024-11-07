@@ -145,7 +145,7 @@ class AccountBatchPayment(models.Model):
             batch.amount = amount
             batch.amount_residual_currency = amount_residual_currency
 
-    @api.constrains('batch_type', 'journal_id', 'payment_ids', 'payment_method_id')
+    @api.constrains('batch_type', 'journal_id', 'payment_ids')
     def _check_payments_constrains(self):
         for record in self:
             all_companies = set(record.payment_ids.mapped('company_id'))
