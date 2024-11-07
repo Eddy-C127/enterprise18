@@ -1457,7 +1457,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'l10n_us_filing_status': 'single',
         })
 
-        payslip = self._generate_payslip(datetime.date(2023, 4, 1), datetime.date(2023, 4, 1))
+        payslip = self._generate_payslip(datetime.date(2023, 4, 3), datetime.date(2023, 4, 3))
         payslip.compute_sheet()
 
         payslip_results = {
@@ -1601,7 +1601,7 @@ class TestPayslipValidation(AccountTestInvoicingCommon):
             'l10n_us_filing_status': 'jointly',
         })
 
-        payslip = self._generate_payslip(datetime.date(2023, 4, 1), datetime.date(2023, 4, 1))
+        payslip = self._generate_payslip(datetime.date(2023, 4, 3), datetime.date(2023, 4, 3))
         payslip.compute_sheet()
 
         payslip_results = {
