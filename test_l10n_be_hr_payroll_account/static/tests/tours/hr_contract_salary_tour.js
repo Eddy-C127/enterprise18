@@ -146,7 +146,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose a car",
-            trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
+            trigger: "input[name=fold_company_car_total_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -154,7 +154,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unchoose a car",
-            trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
+            trigger: "input[name=fold_company_car_total_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -162,7 +162,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose Public Transportation",
-            trigger: 'input[name="fold_public_transport_reimbursed_amount"]',
+            trigger: "input[name=fold_public_transport_reimbursed_amount]:not(:visible)",
             run: "click",
         },
         {
@@ -175,7 +175,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unchoose Public Transportation",
-            trigger: 'input[name="fold_public_transport_reimbursed_amount"]',
+            trigger: "input[name=fold_public_transport_reimbursed_amount]:not(:visible)",
             run: "click",
         },
         {
@@ -183,7 +183,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose Train Transportation",
-            trigger: 'input[name="fold_train_transport_reimbursed_amount"]',
+            trigger: "input[name=fold_train_transport_reimbursed_amount]:not(:visible)",
             run: "click",
         },
         {
@@ -196,7 +196,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unchoose Public Transportation",
-            trigger: 'input[name="fold_train_transport_reimbursed_amount"]',
+            trigger: "input[name=fold_train_transport_reimbursed_amount]:not(:visible)",
             run: "click",
         },
         {
@@ -204,7 +204,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose Private Car Transportation",
-            trigger: 'input[name="fold_private_car_reimbursed_amount"]',
+            trigger: "input[name=fold_private_car_reimbursed_amount]:not(:visible)",
             run: "click",
         },
         {
@@ -233,7 +233,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unchoose Private Car Transportation",
-            trigger: 'input[name="fold_private_car_reimbursed_amount"]',
+            trigger: "input[name=fold_private_car_reimbursed_amount]:not(:visible)",
             run: "click",
         },
         {
@@ -241,7 +241,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose a Bike",
-            trigger: 'input[name="fold_company_bike_depreciated_cost"]',
+            trigger: "input[name=fold_company_bike_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -265,7 +265,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unchoose Bike",
-            trigger: 'input[name="fold_company_bike_depreciated_cost"]',
+            trigger: "input[name=fold_company_bike_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -289,7 +289,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unset Mobile",
-            trigger: 'input[name="mobile_radio"]:eq(0)',
+            trigger: "input[name=mobile_radio]:eq(0):not(:visible)",
             run: "click",
         },
         {
@@ -297,7 +297,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Reset Mobile",
-            trigger: 'input[name="mobile_radio"]:eq(1)',
+            trigger: "input[name=mobile_radio]:eq(1):not(:visible)",
             run: "click",
         },
         {
@@ -321,7 +321,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Take IP",
-            trigger: 'input[name="ip_value_radio"]:eq(1)',
+            trigger: "input[name=ip_value_radio]:eq(1):not(:visible)",
             run: "click",
         },
         {
@@ -329,7 +329,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Untake IP",
-            trigger: 'input[name="ip_value_radio"]:eq(0)',
+            trigger: "input[name=ip_value_radio]:eq(0):not(:visible)",
             run: "click",
         },
         {
@@ -337,7 +337,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Untake Rep Fees",
-            trigger: 'input[name="representation_fees_radio"]:eq(0)',
+            trigger: "input[name=representation_fees_radio]:eq(0):not(:visible)",
             run: "click",
         },
         {
@@ -345,7 +345,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Retake Rep Fees",
-            trigger: 'input[name="representation_fees_radio"]:eq(1)',
+            trigger: "input[name=representation_fees_radio]:eq(1):not(:visible)",
             run: "click",
         },
         // In order to choose Fuel card, the mandatory advantage, company car, should be selected first
@@ -354,7 +354,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose a car",
-            trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
+            trigger: "input[name=fold_company_car_total_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -378,7 +378,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Unchoose a car",
-            trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
+            trigger: "input[name=fold_company_car_total_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -395,10 +395,8 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Gender",
-            trigger: '[name="gender"] input',
-            run: function () {
-                document.querySelector('input[value="female"]').checked = true;
-            },
+            trigger: '[name="gender"] input[value="female"]:not(:visible)',
+            run: "check",
         },
         {
             content: "National Identification Number",
@@ -497,7 +495,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Check Disabled",
-            trigger: "input[name='disabled']",
+            trigger: "input[name=disabled]:not(:visible)",
             run: "click",
         },
         {
@@ -505,7 +503,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Uncheck Disabled",
-            trigger: "input[name='disabled']",
+            trigger: "input[name=disabled]:not(:visible)",
             run: "click",
         },
         {
@@ -521,7 +519,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Check Disabled Spouse Bool",
-            trigger: "input[name=disabled_spouse_bool]",
+            trigger: "input[name=disabled_spouse_bool]:not(:visible)",
             run: "click",
         },
         {
@@ -529,7 +527,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Uncheck Disabled Spouse Bool",
-            trigger: "input[name=disabled_spouse_bool]",
+            trigger: "input[name=disabled_spouse_bool]:not(:visible)",
             run: "click",
         },
         {
@@ -561,7 +559,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Check Disabled Children",
-            trigger: "input[name=disabled_children_bool]",
+            trigger: "input[name=disabled_children_bool]:not(:visible)",
             run: "click",
         },
         {
@@ -585,7 +583,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Uncheck Disabled Children",
-            trigger: "input[name=disabled_children_bool]",
+            trigger: "input[name=disabled_children_bool]:not(:visible)",
             run: "click",
         },
         {
@@ -601,7 +599,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Check Other Dependent People",
-            trigger: "input[name=other_dependent_people]",
+            trigger: "input[name=other_dependent_people]:not(:visible)",
             run: "click",
         },
         {
@@ -673,7 +671,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Uncheck Other Dependent People",
-            trigger: "input[name=other_dependent_people]",
+            trigger: "input[name=other_dependent_people]:not(:visible)",
             run: "click",
         },
         {
@@ -681,7 +679,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour", {
         },
         {
             content: "Choose a car",
-            trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
+            trigger: "input[name=fold_company_car_total_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -1188,12 +1186,12 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Unchoose default car",
-            trigger: 'input[name="fold_company_car_total_depreciated_cost"]',
+            trigger: "input[name=fold_company_car_total_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
             content: "Choose to be in waiting list for car",
-            trigger: 'input[name="fold_wishlist_car_total_depreciated_cost"]',
+            trigger: "input[name=fold_wishlist_car_total_depreciated_cost]:not(:visible)",
             run: "click",
         },
         {
@@ -1213,7 +1211,7 @@ registry.category("web_tour.tours").add("hr_contract_salary_tour_2", {
         },
         {
             content: "Gender",
-            trigger: 'input[name="gender"]',
+            trigger: "input[name=gender]:not(:visible)",
             run: function () {
                 document.querySelector('input[value="female"]').checked = true;
             },
