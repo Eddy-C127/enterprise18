@@ -1300,7 +1300,7 @@ registry.category("web_tour.tours").add("web_studio_approval_tour", {
             run: "click",
         },
         {
-            trigger: ".o-dropdown-item:contains(Not Installed)",
+            trigger: ".o-dropdown-item:contains(Installed)",
             run: "click",
         },
         {
