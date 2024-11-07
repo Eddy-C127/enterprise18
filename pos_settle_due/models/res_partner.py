@@ -13,12 +13,23 @@ class ResPartner(models.Model):
         total_settled = sum(pos_payments.filtered_domain(
             [('payment_method_id.type', '=', 'pay_later')]).mapped('amount'))
 
-        total_due = self.parent_id.total_due if self.parent_id else self.total_due
+        self_sudo = self
+        group_pos_user = self.env.ref('point_of_sale.group_pos_user')
+        if group_pos_user in self.env.user.groups_id:
+            self_sudo = self.sudo()  # allow POS users without accounting rights to settle dues
+
+        total_due = self_sudo.parent_id.total_due if self.parent_id else self_sudo.total_due
         total_due += total_settled
         if self.env.company.currency_id.id != pos_currency:
             pos_currency = self.env['res.currency'].browse(pos_currency)
             return self.env.company.currency_id._convert(total_due, pos_currency, self.env.company, fields.Date.today())
         return total_due
+
+    def get_all_total_due(self, pos_currency):
+        due_amounts = {}
+        for partner in self:
+            due_amounts[partner.id] = partner.get_total_due(pos_currency)
+        return due_amounts
 
     @api.model
     def _load_pos_data_fields(self, config_id):

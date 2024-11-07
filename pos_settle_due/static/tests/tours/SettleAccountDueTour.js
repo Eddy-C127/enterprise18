@@ -63,3 +63,33 @@ registry.category("web_tour.tours").add("pos_settle_account_due_update_instantly
             },
         ].flat(),
 });
+
+registry.category("web_tour.tours").add("SettleDueAmountMoreCustomers", {
+    steps: () =>
+        [
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
+            ProductScreen.clickPartnerButton(),
+            {
+                trigger: ".modal-header .input-container input",
+                run: `fill BPartner`,
+            },
+            {
+                /**
+                 * Manually trigger keyup event to show the search field list
+                 * because the previous step do not trigger keyup event.
+                 */
+                trigger: ".modal-header .input-container input",
+                run: function () {
+                    document
+                        .querySelector(".modal-header .input-container input")
+                        .dispatchEvent(new KeyboardEvent("keyup", { key: "" }));
+                },
+            },
+            Utils.selectButton("Search more"),
+            {
+                trigger: ".partner-line-balance:contains('10.00')",
+                run: () => {},
+            },
+        ].flat(),
+});
