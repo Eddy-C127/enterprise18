@@ -21,8 +21,16 @@ class PosSession(models.Model):
 
     def _get_pos_ui_res_partner(self, params):
         partners_list = super()._get_pos_ui_res_partner(params)
+        self._set_partner_due(partners_list)
+        return partners_list
+
+    def _set_partner_due(self, partners_list):
         if self.config_id.currency_id != self.env.company.currency_id and self.user_has_groups('account.group_account_readonly') or self.env.ref('point_of_sale.group_pos_user') in self.env.user.groups_id:
             for partner in partners_list:
                 partner_id = self.env['res.partner'].browse(partner['id'])
                 partner['total_due'] = partner_id.get_total_due(self.config_id.currency_id.id)
-        return partners_list
+
+    def get_pos_ui_res_partner_by_params(self, custom_search_params):
+        partners = super().get_pos_ui_res_partner_by_params(custom_search_params)
+        self._set_partner_due(partners)
+        return partners
