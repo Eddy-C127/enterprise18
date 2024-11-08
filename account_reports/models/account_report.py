@@ -2460,7 +2460,7 @@ class AccountReport(models.Model):
             'blank_if_zero': blank_if_zero,
             'column_group_key': col_data.get('column_group_key'),
             'currency': currency.id if currency else None,
-            'currency_symbol': self.env.company.currency_id.symbol if options.get('multi_currency') else None,
+            'currency_symbol': (currency or self.env.company.currency_id).symbol if options.get('multi_currency') else None,
             'digits': digits,
             'expression_label': col_data.get('expression_label'),
             'figure_type': figure_type,
