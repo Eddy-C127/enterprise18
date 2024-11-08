@@ -27,6 +27,11 @@ registry.category("web_tour.tours").add('account_reports_sections', {
             run: function(){},
         },
         {
+            content: "Open panel main buttons dropdown",
+            trigger: ".o_control_panel_main_buttons .dropdown-toggle",
+            run: 'click',
+        },
+        {
             content: "Check the export buttons belong to the composite report",
             trigger: ".btn:contains('composite_report_custom_button')",
             run: function(){},
@@ -55,6 +60,11 @@ registry.category("web_tour.tours").add('account_reports_sections', {
             content: "Check the columns of section 2 are displayed",
             trigger: "#table_header th:last():contains('Column 2')",
             run: function(){},
+        },
+        {
+            content: "Open panel main buttons dropdown",
+            trigger: ".o_control_panel_main_buttons .dropdown-toggle",
+            run: 'click',
         },
         {
             content: "Check the export buttons belong to the composite report",
