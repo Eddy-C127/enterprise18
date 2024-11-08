@@ -243,7 +243,7 @@ class PosUrbanPiperController(http.Controller):
             'delivery_identifier': details['id'],
             'delivery_status': details['order_state'].lower(),
             'general_note': "\n".join(
-                x.strip() for x in [details.get('instructions'), general_note]
+                x for x in [details.get('instructions'), general_note] if x and x.strip()
             ),
             'delivery_provider_id': pos_delivery_provider.id,
             'prep_time': get_prep_time(details),
