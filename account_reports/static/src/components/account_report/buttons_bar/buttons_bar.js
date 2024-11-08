@@ -21,8 +21,24 @@ export class AccountReportButtonsBar extends Component {
     //------------------------------------------------------------------------------------------------------------------
     // Buttons
     //------------------------------------------------------------------------------------------------------------------
-    get groupedButtons() {
-        const buttons= [];
+    get buttons() {
+        const buttons = {
+            'single': this.singleButtons(),
+            'grouped': this.groupedButtons(),
+        };
+
+        // If we don't have any button with the 'always_show' at 'True',
+        // we take the first one by default.
+        if (!buttons.single.length && buttons.grouped.length) {
+            buttons.single[0] = buttons.grouped[0];
+            buttons.grouped.shift();
+        }
+
+        return buttons;
+    }
+
+    groupedButtons() {
+        const buttons = [];
 
         for (const button of this.controller.buttons)
             if (!button.always_show)
@@ -31,8 +47,8 @@ export class AccountReportButtonsBar extends Component {
         return buttons;
     }
 
-    get singleButtons() {
-        const buttons= [];
+    singleButtons() {
+        const buttons = [];
 
         for (const button of this.controller.buttons)
             if (button.always_show)
