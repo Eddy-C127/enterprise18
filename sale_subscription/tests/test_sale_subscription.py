@@ -16,6 +16,11 @@ from odoo.exceptions import AccessError, ValidationError, UserError
 @tagged('post_install', '-at_install')
 class TestSubscription(TestSubscriptionCommon, MockEmail):
 
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.product_a.recurring_invoice = False
+
     def flush_tracking(self):
         """ Force the creation of tracking values. """
         self.env.flush_all()
