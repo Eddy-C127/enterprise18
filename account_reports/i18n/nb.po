@@ -4,12 +4,12 @@
 # 
 # Translators:
 # Thor Arne Hvidsten <thor.arne.hvidsten@gmail.com>, 2024
-# Henning Fyllingsnes, 2024
 # Jorunn D. Newth, 2024
 # Martin Trigaux, 2024
 # cecilieflyt, 2024
 # Marius Stedjan <marius@stedjan.com>, 2024
 # Rune Restad, 2024
+# Henning Fyllingsnes, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rune Restad, 2024\n"
+"Last-Translator: Henning Fyllingsnes, 2024\n"
 "Language-Team: Norwegian Bokmål (https://app.transifex.com/odoo/teams/41243/nb/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1259,7 +1259,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_expense
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_deferred_expense
 msgid "Deferred Expense"
-msgstr ""
+msgstr "Utsatt kostnad"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_expense_report_handler
@@ -1269,7 +1269,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report,name:account_reports.deferred_expense_report
 msgid "Deferred Expense Report"
-msgstr ""
+msgstr "Utsatt kostnadsrapport"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_report_handler
@@ -1280,7 +1280,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_revenue
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_deferred_revenue
 msgid "Deferred Revenue"
-msgstr ""
+msgstr "Utsatt inntekt"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_revenue_report_handler
@@ -1290,7 +1290,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report,name:account_reports.deferred_revenue_report
 msgid "Deferred Revenue Report"
-msgstr ""
+msgstr "Utsatt inntektsrapport"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
@@ -1861,6 +1861,11 @@ msgid "Grouped Deferral Entry of %s"
 msgstr ""
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Grouped by month"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
@@ -1901,7 +1906,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_report__horizontal_group_ids
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_horizontal_groups
 msgid "Horizontal Groups"
-msgstr ""
+msgstr "Horisontale grupper"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_horizontal_group
@@ -1989,6 +1994,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr ""
@@ -2650,6 +2656,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
 msgstr ""
@@ -2842,7 +2849,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic_groupby.xml:0
 #, python-format
 msgid "Plans"
-msgstr ""
+msgstr "Planer"
 
 #. module: account_reports
 #. odoo-python
@@ -2898,6 +2905,16 @@ msgstr "Poster"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "Kun posterte bilag"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted Entries only"
+msgstr ""
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted and Draft Entries"
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3151,6 +3168,16 @@ msgstr ""
 #, python-format
 msgid "Sort By Date"
 msgstr "Sortert etter dato"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by date"
+msgstr "Sortert etter dato"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by number"
+msgstr "Sortert etter nummer"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3840,6 +3867,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "With Draft Entries"
 msgstr ""

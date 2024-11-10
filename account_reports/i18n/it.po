@@ -3,9 +3,9 @@
 # 	* account_reports
 # 
 # Translators:
-# Sergio Zanchetta <primes2h@gmail.com>, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Sergio Zanchetta <primes2h@gmail.com>, 2024
 # Marianna Ciofani, 2024
 # 
 msgid ""
@@ -1908,6 +1908,11 @@ msgid "Grouped Deferral Entry of %s"
 msgstr "Registrazione differimenti raggruppati di %s"
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Grouped by month"
+msgstr "Raggruppato per mese"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
@@ -2036,6 +2041,7 @@ msgstr "Includi pagamenti"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr "simulazioni analitiche incluse"
@@ -2715,6 +2721,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
 msgstr "mostra solo registrazioni non riconciliate"
@@ -2966,6 +2973,16 @@ msgstr "Conferma"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "Solo registrazioni confermate"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted Entries only"
+msgstr "Solo registrazioni confermate"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted and Draft Entries"
+msgstr "Registrazioni confermate e in bozza"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3224,6 +3241,16 @@ msgstr ""
 #, python-format
 msgid "Sort By Date"
 msgstr "Ordina per data"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by date"
+msgstr "Ordinati per data"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by number"
+msgstr "Ordinati per numero"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3964,6 +3991,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "With Draft Entries"
 msgstr "Con registrazioni in bozza"

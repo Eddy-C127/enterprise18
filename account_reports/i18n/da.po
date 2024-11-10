@@ -1869,6 +1869,11 @@ msgid "Grouped Deferral Entry of %s"
 msgstr ""
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Grouped by month"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
@@ -1997,6 +2002,7 @@ msgstr "Inkludér betalinger"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr ""
@@ -2659,6 +2665,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
 msgstr "Vis kun ikke udlignede posteringer"
@@ -2907,6 +2914,16 @@ msgstr "Bogfør"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "Kun bogførte posteringer"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted Entries only"
+msgstr "Kun bogførte posteringer"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted and Draft Entries"
+msgstr "Bogførte og kladde posteringer"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3162,6 +3179,16 @@ msgstr ""
 #, python-format
 msgid "Sort By Date"
 msgstr "Sortér efter dato"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by date"
+msgstr ""
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by number"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3855,6 +3882,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "With Draft Entries"
 msgstr "Med kladdeposteringer"

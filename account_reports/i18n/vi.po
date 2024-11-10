@@ -3,9 +3,9 @@
 # 	* account_reports
 # 
 # Translators:
-# Martin Trigaux, 2024
 # Wil Odoo, 2024
 # Thi Huong Nguyen, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Thi Huong Nguyen, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,12 +102,12 @@ msgstr "(%s dòng)"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_receipts
 msgid "(+) Outstanding Receipts"
-msgstr "(+) Biên nhận trước"
+msgstr "(+) Biên lai chưa thanh toán"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_payments
 msgid "(-) Outstanding Payments"
-msgstr "(-) Thanh toán trả trước"
+msgstr "(-) Khoản chưa thanh toán"
 
 #. module: account_reports
 #. odoo-python
@@ -1894,6 +1894,11 @@ msgid "Grouped Deferral Entry of %s"
 msgstr "Bút toán hoãn lại đã nhóm của %s"
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Grouped by month"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
@@ -2022,6 +2027,7 @@ msgstr "Bao gồm thanh toán"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr "Bao gồm mô phỏng phân tích"
@@ -2693,6 +2699,7 @@ msgstr "Chỉ có quản trị kế toán mới được phép thay đỏi ngày
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
 msgstr "Chỉ hiện bút toán chưa đối soát"
@@ -2741,7 +2748,7 @@ msgstr "Doanh thu khác"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr "tThanh toán/biên lai chưa liên kết"
+msgstr "Khoản/Biên lai chưa thanh toán"
 
 #. module: account_reports
 #. odoo-python
@@ -2941,6 +2948,16 @@ msgstr "Vào sổ"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "Chỉ bút toán vào sổ"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted Entries only"
+msgstr "Chỉ bút toán đã vào sổ"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted and Draft Entries"
+msgstr "Bút toán đã vào sổ và Nháp"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3196,6 +3213,16 @@ msgstr "Có vẻ một số hạng mục bút toán cho thấy những dòng bá
 #, python-format
 msgid "Sort By Date"
 msgstr "Sắp xếp theo ngày"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by date"
+msgstr ""
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by number"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3926,6 +3953,7 @@ msgstr "Có phải trích lập dự phòng cho các loại ngoại tệ đã ch
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "With Draft Entries"
 msgstr "Với bút toán nháp"

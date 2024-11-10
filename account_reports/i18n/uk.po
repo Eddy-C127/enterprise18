@@ -3,8 +3,8 @@
 # 	* account_reports
 # 
 # Translators:
-# Martin Trigaux, 2024
 # Wil Odoo, 2024
+# Martin Trigaux, 2024
 # Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
@@ -1894,6 +1894,11 @@ msgid "Grouped Deferral Entry of %s"
 msgstr "Згруповано записи майбутніх періодів %s"
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Grouped by month"
+msgstr "Згруповано за місяцем"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
@@ -2022,6 +2027,7 @@ msgstr "Включно з платежами"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr "Включно з аналітичним моделюванням"
@@ -2693,6 +2699,7 @@ msgstr "Лише адміністратори рахунків можуть пе
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
 msgstr "Відображати лише незмінні записи"
@@ -2943,6 +2950,16 @@ msgstr "Опублікувати"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "Тільки опубліковані записи"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted Entries only"
+msgstr "Лише опубліковані записи"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted and Draft Entries"
+msgstr "Опубліковані записи та у чернетці"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3197,6 +3214,16 @@ msgstr "Здається, деякі елементи журналу вказу�
 #, python-format
 msgid "Sort By Date"
 msgstr "Сортувати за датою"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by date"
+msgstr "Відсортовано за датою"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by number"
+msgstr "Відсортовано за номером"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3925,6 +3952,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "With Draft Entries"
 msgstr "З проектом записів"

@@ -13,6 +13,7 @@
 # Martin Trigaux, 2023
 # Maria Boyadjieva <marabo2000@gmail.com>, 2023
 # Rumena Georgieva <rumena.georgieva@gmail.com>, 2024
+# Petko Karamotchev, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +21,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:21+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rumena Georgieva <rumena.georgieva@gmail.com>, 2024\n"
+"Last-Translator: Petko Karamotchev, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -231,6 +232,8 @@ msgid ""
 "It won't be possible to plan work orders or other maintenances on this "
 "workcenter during this time."
 msgstr ""
+"През това време няма да е възможно да се планират работни поръчки или други "
+"дейности по поддръжката на този работен център."
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
@@ -245,7 +248,7 @@ msgstr "Дата на последен неуспех"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__leave_ids
 msgid "Leaves"
-msgstr ""
+msgstr "Напуска"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__mtbf
@@ -361,7 +364,7 @@ msgstr "Нова заявка за поддръжка"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Следващото събитие от календара на дейностите"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_date_deadline
@@ -396,7 +399,7 @@ msgstr "Брой заявки за поддръжки"
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Брой съобщения, изискващи действие"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_has_error_counter
@@ -411,7 +414,7 @@ msgstr "Операция"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__production_company_id
 msgid "Production Company"
-msgstr ""
+msgstr "Производствена компания"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_production
@@ -432,14 +435,14 @@ msgstr "Заявка"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_stage__create_leaves
 msgid "Request Confirmed"
-msgstr ""
+msgstr "Заявката е потвърдена"
 
 #. module: mrp_maintenance
 #. odoo-javascript
 #: code:addons/mrp_maintenance/static/src/components/menuPopup.xml:0
 #, python-format
 msgid "Request Maintenance"
-msgstr ""
+msgstr "Заяви поддръжка"
 
 #. module: mrp_maintenance
 #. odoo-python
@@ -491,7 +494,7 @@ msgstr "Техник"
 #: code:addons/mrp_maintenance/static/src/components/maintenance_request_form_view.js:0
 #, python-format
 msgid "The maintenance request has successfully been created."
-msgstr ""
+msgstr "Заявката за поддръжка е създадена успешно."
 
 #. module: mrp_maintenance
 #. odoo-python

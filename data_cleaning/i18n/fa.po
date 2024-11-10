@@ -35,6 +35,9 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_model_form
 msgid "<span class=\"me-1\">Every</span>"
 msgstr ""
+"```html\n"
+"<span class=\"me-1\">هر</span>\n"
+"```"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_rule__action
@@ -145,7 +148,7 @@ msgstr "شرکت"
 #: model_terms:ir.actions.act_window,help:data_cleaning.action_data_cleaning_record
 #: model_terms:ir.actions.act_window,help:data_cleaning.action_data_cleaning_record_notification
 msgid "Configure rules to identify records to clean"
-msgstr ""
+msgstr "قوانین را پیکربندی کنید تا سوابقی که باید پاک شوند شناسایی شوند"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__country_id
@@ -196,7 +199,7 @@ msgstr "رها کردن"
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_cleaning_record_search
 msgid "Discarded"
-msgstr ""
+msgstr "کالای دور ریخته‌شده"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__display_name
@@ -278,7 +281,7 @@ msgstr "شناسه"
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__last_notification
 msgid "Last Notification"
-msgstr ""
+msgstr "آخرین اعلان"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__write_uid
@@ -332,22 +335,22 @@ msgstr "نام"
 #: model_terms:ir.actions.act_window,help:data_cleaning.action_data_cleaning_record
 #: model_terms:ir.actions.act_window,help:data_cleaning.action_data_cleaning_record_notification
 msgid "No cleaning suggestions"
-msgstr ""
+msgstr "هیچ پیشنهادی برای پاکسازی وجود ندارد"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__notify_frequency
 msgid "Notify"
-msgstr ""
+msgstr "اطلاع دهید"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__notify_frequency_period
 msgid "Notify Frequency Period"
-msgstr ""
+msgstr "تناوب زمان اعلان"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__notify_user_ids
 msgid "Notify Users"
-msgstr ""
+msgstr "اطلاع‌رسانی به کاربران"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__res_id
@@ -363,7 +366,7 @@ msgstr "نام رکورد"
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_cleaning_record_search
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_model_form
 msgid "Records"
-msgstr ""
+msgstr "سوابق"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__records_to_clean_count
@@ -436,7 +439,7 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.constraint,message:data_cleaning.constraint_data_cleaning_model_check_notif_freq
 msgid "The notification frequency should be greater than 0"
-msgstr ""
+msgstr "فرکانس اعلان باید بیشتر از 0 باشد"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_rule__action_trim
@@ -456,7 +459,7 @@ msgstr ""
 #: code:addons/data_cleaning/static/src/views/data_cleaning_list_view.xml:0
 #, python-format
 msgid "Unselect"
-msgstr ""
+msgstr "انتخاب‌نشده"
 
 #. module: data_cleaning
 #. odoo-javascript
@@ -486,4 +489,4 @@ msgstr "اینجا"
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.notification
 msgid "records to clean with the '"
-msgstr ""
+msgstr "سوابق برای پاکسازی با '"

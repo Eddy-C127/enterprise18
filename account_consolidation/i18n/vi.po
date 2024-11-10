@@ -190,28 +190,28 @@ msgstr "Nhóm tài khoản"
 #: model:ir.actions.act_window,name:account_consolidation.account_mapping_action
 #: model:ir.actions.act_window,name:account_consolidation.account_mapping_from_period_action
 msgid "Account Mapping"
-msgstr "Tài khoản tương ứng"
+msgstr "Mapping tài khoản"
 
 #. module: account_consolidation
 #. odoo-python
 #: code:addons/account_consolidation/models/consolidation_coa.py:0
 #, python-format
 msgid "Account Mapping: %(chart)s"
-msgstr "Thay thế tài khoản: %(chart)s"
+msgstr "Mapping tài khoản: %(chart)s"
 
 #. module: account_consolidation
 #. odoo-python
 #: code:addons/account_consolidation/models/res_company.py:0
 #, python-format
 msgid "Account Mapping: %(company)s"
-msgstr "Account Mapping: %(company)s"
+msgstr "Mapping tài khoản: %(company)s"
 
 #. module: account_consolidation
 #. odoo-python
 #: code:addons/account_consolidation/models/consolidation_period.py:0
 #, python-format
 msgid "Account Mapping: %s (for %s)"
-msgstr "Ánh xạ tài khoản: %s (cho %s)"
+msgstr "Mapping tài khoản: %s (cho %s)"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_form
@@ -269,7 +269,7 @@ msgstr "Tổng hợp nâng cao"
 #: model_terms:ir.ui.view,arch_db:account_consolidation.account_mapping_search
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_search_mapping
 msgid "Already Mapped"
-msgstr "Đã ánh xạ"
+msgstr "Đã map"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_journal_line__amount
@@ -479,7 +479,7 @@ msgstr "Chu kì công ty"
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period__company_unmapped_accounts_counts
 msgid "Company Unmapped Accounts Counts"
-msgstr "Số lượng tài khoản chưa ánh xạ với công ty"
+msgstr "Số lượng tài khoản chưa map"
 
 #. module: account_consolidation
 #. odoo-javascript
@@ -1076,18 +1076,18 @@ msgstr "Manually Created"
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_chart_form
 msgid "Map Accounts"
-msgstr "Map Accounts"
+msgstr "Map tài khoản"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_tree
 msgid "Mapped Accounts"
-msgstr "Mapped Accounts"
+msgstr "Tài khoản đã map"
 
 #. module: account_consolidation
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_search_mapping
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_tree_mapping
 msgid "Mapped In"
-msgstr "Mapped In"
+msgstr "Đã map trong"
 
 #. module: account_consolidation
 #: model:ir.model.fields,field_description:account_consolidation.field_consolidation_period__message_has_error
@@ -1126,7 +1126,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_consolidation.account_mapping_search
 #: model_terms:ir.ui.view,arch_db:account_consolidation.consolidation_account_search_mapping
 msgid "Not Mapped"
-msgstr "Not Mapped"
+msgstr "Chưa map"
 
 #. module: account_consolidation
 #: model:ir.model.fields.selection,name:account_consolidation.selection__consolidation_company_period__consolidation_method__none
@@ -1324,8 +1324,8 @@ msgid ""
 "Setup your consolidated accounts and their currency conversion method.\n"
 "                Then map them with the companies accounts."
 msgstr ""
-"Setup your consolidated accounts and their currency conversion method.\n"
-"                Then map them with the companies accounts."
+"Thiết lập các tài khoản hợp nhất của bạn và phương thức chuyển đổi tiền tệ của chúng.\n"
+"                  Sau đó map chúng bằng các tài khoản công ty."
 
 #. module: account_consolidation
 #: model:ir.model.fields,help:account_consolidation.field_consolidation_company_period__rate_consolidation
@@ -1601,4 +1601,4 @@ msgstr "n/a"
 #: code:addons/account_consolidation/static/src/components/dashboard_widget/dashboard_widget.xml:0
 #, python-format
 msgid "unmapped accounts"
-msgstr "tài khoản đã ngừng ánh xạ"
+msgstr "tài khoản chưa map"

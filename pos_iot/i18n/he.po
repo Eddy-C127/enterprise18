@@ -12,6 +12,7 @@
 # ExcaliberX <excaliberx@gmail.com>, 2023
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2023
 # Orel Nahmany, 2024
+# tomerlayline, 2024
 # 
 msgid ""
 msgstr ""
@@ -19,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Orel Nahmany, 2024\n"
+"Last-Translator: tomerlayline, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,7 +31,7 @@ msgstr ""
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
 msgid "Accept payments with a Worldline payment terminal"
-msgstr ""
+msgstr "קבל תשלומים עם טרמינל תשלום Worldline"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -165,6 +166,8 @@ msgid ""
 "Enable barcode scanning with a remotely connected barcode scanner and card "
 "swiping with a Vantiv card reader."
 msgstr ""
+"הפעל סריקת ברקוד עם סורק ברקוד מחובר מרחוק והחלקת כרטיסים עם קורא כרטיסים של"
+" Vantiv."
 
 #. module: pos_iot
 #: model:ir.model.fields,help:pos_iot.field_pos_config__iface_electronic_scale
@@ -344,14 +347,14 @@ msgstr "אנא בדוק אם הטרמינל עדיין מחובר."
 msgid ""
 "Please check the network connection and then check the status of the last "
 "transaction manually."
-msgstr ""
+msgstr "אנא בדוק את חיבור הרשת ואז בדוק ידנית את מצב העסקה האחרונה."
 
 #. module: pos_iot
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/overrides/models/pos_store.js:0
 #, python-format
 msgid "Please process or cancel the current transaction."
-msgstr ""
+msgstr "אנא עבד או בטל את העסקה הנוכחית."
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_config
@@ -366,7 +369,7 @@ msgstr "אמצעי תשלום קופה"
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_printer
 msgid "Point of Sale Printer"
-msgstr ""
+msgstr "מדפסת קופה"
 
 #. module: pos_iot
 #: model:ir.model,name:pos_iot.model_pos_session
@@ -441,6 +444,8 @@ msgid ""
 "The transactions are processed by Worldline. Set your Worldline device on "
 "the related payment method."
 msgstr ""
+"העסקאות מעובדות על ידי Worldline. הגדר את המכשיר שלך של Worldline על שיטת "
+"התשלום הקשורה."
 
 #. module: pos_iot
 #. odoo-javascript
@@ -454,14 +459,14 @@ msgstr ""
 #: code:addons/pos_iot/static/src/app/payment.js:0
 #, python-format
 msgid "Transaction could not be cancelled"
-msgstr ""
+msgstr "לא ניתן לבטל עסקה"
 
 #. module: pos_iot
 #. odoo-javascript
 #: code:addons/pos_iot/static/src/overrides/models/pos_store.js:0
 #, python-format
 msgid "Transaction in progress"
-msgstr ""
+msgstr "עסקה בתהליך"
 
 #. module: pos_iot
 #: model_terms:ir.ui.view,arch_db:pos_iot.res_config_view_form_inherit_pos_iot
@@ -478,7 +483,7 @@ msgstr ""
 #. module: pos_iot
 #: model:ir.model.fields,field_description:pos_iot.field_res_config_settings__worldline_payment_terminal
 msgid "Worldline Payment Terminal"
-msgstr ""
+msgstr "טרמינל תשלום Worldline"
 
 #. module: pos_iot
 #. odoo-javascript

@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Bohdan Lisnenko, 2023
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # Wil Odoo, 2024
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,12 +33,20 @@ msgid ""
 "                    2. Enter the code below and click on \"Pair\".<br/>\n"
 "                    3. After some time the IoT Box should appear in the list along with the connected devices.<br/>"
 msgstr ""
+".\n"
+"\n"
+"                    <br/><br/>\n"
+"\n"
+"                    <strong>Варіант А. Код співставлення</strong><br/>\n"
+"                    1. Прочитайте код співставлення з дисплея або термопринтера, підключеного до IoT Box. Ви також можете знайти його на домашній сторінці IoT Box<br/>\n"
+"                    2. Введіть код нижче та натисніть «Співставити».<br/>\n"
+"                    3. Через деякий час IoT Box має з’явитися в списку разом із підключеними пристроями.<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid ""
 "0. Power on the IoT Box and connect it to the internet through ethernet"
-msgstr ""
+msgstr "0. Увімкніть IoT Box і підключіть його до Інтернету через Ethernet"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -50,6 +58,12 @@ msgid ""
 "                    4. Paste the token in the \"Server token\" section and click on \"Connect\" button<br/>\n"
 "                    5. After some time the IoT Box should appear in the list along with the connected devices<br/>"
 msgstr ""
+"<br/>\n"
+"                    1. Скопіюйте токен нижче<br/>\n"
+"                    2. Перебуваючи в одній мережі з IoT Box, відкрийте веб-браузер і перейдіть до ip-адреси IoT Box<br/>\n"
+"                    3. У розділі «Сервер» натисніть кнопку «Налаштувати».<br/>\n"
+"                    4. Вставте токен у розділ «Токен сервера» та натисніть кнопку «Підключити».<br/>\n"
+"                    5. Через деякий час IoT Box має з’явитися в списку разом із підключеними пристроями<br/>"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.iot_device_view_kanban
@@ -122,7 +136,7 @@ msgstr "Перевірте, чи пристрій все ще підключен
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Check the IoT connection. Try restarting if needed."
-msgstr ""
+msgstr "Перевірте підключення IoT. Спробуйте перезапустити, якщо потрібно."
 
 #. module: iot
 #: model:ir.actions.client,name:iot.action_iot_delete_linked_devices_menu
@@ -226,7 +240,7 @@ msgstr "З'єднання з пристроєм не вдалося"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Connection to printer failed "
-msgstr ""
+msgstr "Підключення до принтера не вдалося"
 
 #. module: iot
 #: model:ir.model.fields,field_description:iot.field_add_iot_box__create_uid
@@ -526,7 +540,7 @@ msgstr "Не знайдено IoT Box!"
 #: code:addons/iot/static/src/select_printer_form.js:0
 #, python-format
 msgid "No printer selected"
-msgstr ""
+msgstr "Не вибрано жодного принтера"
 
 #. module: iot
 #. odoo-javascript
@@ -550,11 +564,13 @@ msgid ""
 "One of the printer used to print document have been removed. Please retry "
 "the operation to choose new printers to print."
 msgstr ""
+"Один із принтерів, які використовувалися для друку документа, видалено. "
+"Повторіть операцію, щоб вибрати нові принтери для друку."
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "Option B. Connection Token"
-msgstr ""
+msgstr "Варіант B. Токен підключення"
 
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
@@ -621,7 +637,7 @@ msgstr "Принтери"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Printing operation completed on printer %s"
-msgstr ""
+msgstr "Друк на принтері завершено %s"
 
 #. module: iot
 #: model:ir.model,name:iot.model_publisher_warranty_contract
@@ -681,7 +697,7 @@ msgstr "Шкала"
 #: code:addons/iot/static/src/select_printer_form.js:0
 #, python-format
 msgid "Select at least one printer"
-msgstr ""
+msgstr "Оберіть принаймні один принтер"
 
 #. module: iot
 #: model:ir.model,name:iot.model_select_printers_wizard
@@ -693,7 +709,7 @@ msgstr "Вибір принтерів"
 #: code:addons/iot/static/src/iot_websocket_service.js:0
 #, python-format
 msgid "Sending to printer %s..."
-msgstr ""
+msgstr "Надсилання на принтер %s..."
 
 #. module: iot
 #: model:ir.model.fields.selection,name:iot.selection__iot_device__connection__serial
@@ -827,7 +843,7 @@ msgstr "підключити"
 #. module: iot
 #: model_terms:ir.ui.view,arch_db:iot.view_add_iot_box
 msgid "or wifi"
-msgstr ""
+msgstr "або wifi"
 
 #. module: iot
 #: model_terms:ir.actions.act_window,help:iot.iot_box_action

@@ -9,7 +9,6 @@
 # Vasiliy Korobatov <korobatov@gmail.com>, 2023
 # alenafairy, 2023
 # Sergey Vilizhanin, 2023
-# Сергей Шебанин <sergey@shebanin.ru>, 2024
 # Collex100, 2024
 # Martin Trigaux, 2024
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2024
@@ -17,6 +16,7 @@
 # Nadia Martynova, 2024
 # Wil Odoo, 2024
 # Olga Gutorova, 2024
+# Сергей Шебанин <sergey@shebanin.ru>, 2024
 # 
 msgid ""
 msgstr ""
@@ -24,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Olga Gutorova, 2024\n"
+"Last-Translator: Сергей Шебанин <sergey@shebanin.ru>, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1906,6 +1906,11 @@ msgid "Grouped Deferral Entry of %s"
 msgstr "Группированная запись отсрочки %s"
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Grouped by month"
+msgstr ""
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
@@ -2034,6 +2039,7 @@ msgstr "Включить платежи"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr "Включая аналитическое моделирование"
@@ -2708,6 +2714,7 @@ msgstr "Только администраторы биллинга могут и
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
 msgstr "Показывать только неоткорректированные записи"
@@ -2958,6 +2965,16 @@ msgstr "Запись"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "Только проведенные записи"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted Entries only"
+msgstr "Только проведенные записи"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted and Draft Entries"
+msgstr ""
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3213,6 +3230,16 @@ msgstr ""
 #, python-format
 msgid "Sort By Date"
 msgstr "Сортировать по дате"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by date"
+msgstr ""
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by number"
+msgstr ""
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3947,6 +3974,7 @@ msgstr "Нужно ли создавать резервы по выбранны�
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "With Draft Entries"
 msgstr "С черновыми записями"

@@ -9,7 +9,6 @@
 # MichaelHadar, 2023
 # שהאב חוסיין <shhab89@gmail.com>, 2023
 # Adi Sharashov <Adi@laylinetech.com>, 2023
-# Netta Waizer, 2023
 # david danilov, 2023
 # Jonathan Spier, 2023
 # NoaFarkash, 2023
@@ -22,8 +21,9 @@
 # Yihya Hugirat <hugirat@gmail.com>, 2024
 # hed shefer <hed@laylinetech.com>, 2024
 # ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
-# Ha Ketem <haketem@gmail.com>, 2024
 # yael terner, 2024
+# Netta Waizer, 2024
+# Ha Ketem <haketem@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -31,7 +31,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: yael terner, 2024\n"
+"Last-Translator: Ha Ketem <haketem@gmail.com>, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1879,6 +1879,11 @@ msgid "Grouped Deferral Entry of %s"
 msgstr ""
 
 #. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Grouped by month"
+msgstr "קיבוץ לפי חודש"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
@@ -2007,6 +2012,7 @@ msgstr "כולל תשלומים"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Including Analytic Simulations"
 msgstr ""
@@ -2668,6 +2674,7 @@ msgstr "רק משתמשים המוגדרים כמנהלי חשבונות יכו�
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
 msgstr "הצג פקודות לא מתואמות"
@@ -2916,6 +2923,16 @@ msgstr "שלח"
 #, python-format
 msgid "Posted Entries Only"
 msgstr "רשומות שנרשמו בלבד"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted Entries only"
+msgstr "ערכים שפורסמו בלבד"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Posted and Draft Entries"
+msgstr "פורסם וערכי טיוטה"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3169,6 +3186,16 @@ msgstr ""
 #, python-format
 msgid "Sort By Date"
 msgstr "מיון לפי תאריך"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by date"
+msgstr "מויין לפי תאריך"
+
+#. module: account_reports
+#: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
+msgid "Sorted by number"
+msgstr "מויין לפי מספר"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3858,6 +3885,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "With Draft Entries"
 msgstr "כלול פקודות שטרם נרשמו"

@@ -240,6 +240,11 @@ msgid ""
 "                            Work Entries\n"
 "                            </span>"
 msgstr ""
+"```html\n"
+"<span class=\"o_stat_text\">\n"
+"                            ورودی های کاری\n"
+"                            </span>\n"
+"```"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form
@@ -754,6 +759,8 @@ msgid ""
 "Careful, the Code is used in many references, changing it could lead to "
 "unwanted changes."
 msgstr ""
+"مراقب باشید، کد در بسیاری از منابع استفاده می‌شود، تغییر آن ممکن است منجر به"
+" تغییرات ناخواسته شود."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__category_id
@@ -1037,7 +1044,7 @@ msgstr ""
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Contract Expiration Notice Period"
-msgstr ""
+msgstr "دوره اطلاع‌رسانی انقضای قرارداد"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_search
@@ -2266,7 +2273,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__master_department_id
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_report_view_search
 msgid "Master Department"
-msgstr ""
+msgstr "دپارتمان اصلی"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__condition_range_max
@@ -2557,13 +2564,15 @@ msgid ""
 "Number of days prior to the contract end date that a contract expiration "
 "warning is triggered."
 msgstr ""
+"تعداد روزهایی که قبل از تاریخ پایان قرارداد، هشدار انقضای قرارداد فعال "
+"می‌شود."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid ""
 "Number of days prior to the work permit expiration date that a warning is "
 "triggered."
-msgstr ""
+msgstr "تعداد روزهایی که قبل از تاریخ انقضای مجوز کار، هشدار فعال می‌شود."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__message_has_error_counter
@@ -4369,7 +4378,7 @@ msgstr "تحلیل سند کارکرد"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__work_entry_source
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__work_entry_source
 msgid "Work Entry Source"
-msgstr ""
+msgstr "منبع ورودی کار"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_worked_days_line__work_entry_type_id
@@ -4386,7 +4395,7 @@ msgstr "ساعات کار"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Work Permit Expiration Notice Period"
-msgstr ""
+msgstr "مدت زمان اطلاع‌رسانی انقضای مجوز کار"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_resource_calendar__work_time_rate
