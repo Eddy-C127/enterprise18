@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -127,6 +128,8 @@ msgstr "測試人員"
 #. odoo-python
 #: code:addons/project_forecast/models/project.py:0
 msgid ""
-"You cannot update the company for project %(project_name)s as it's linked to shifts in another company.\n"
-"If you want to change the company for another, leave the project's company blank, transfer shifts %(slots_names)s to the destination company and then change the project's company."
+"You cannot update the company for the %(project_name)s project because it’s tied to shifts in another company.\n"
+"To change it, first clear the company field for the project. Then move the shifts to the new company, and update the project's company."
 msgstr ""
+"你不可更新專案 %(project_name)s 的公司，因為它已連結至另一公司的輪班。\n"
+"若要更改，請先清除該專案的公司欄位，然後將已連結的輪班移至新公司，最後返回專案更新公司資料。"

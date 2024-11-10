@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -22,20 +22,41 @@ msgstr ""
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Agent"
 msgstr "Đại diện"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Cancelled"
+msgstr "Đã hủy"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Changes Requested"
+msgstr "Đã yêu cầu thay đổi"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Current"
 msgstr "Hiện tại"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Customer"
 msgstr "Khách hàng"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Customer Care"
+msgstr "Chăm sóc khách hàng"
 
 #. module: spreadsheet_dashboard_helpdesk
 #: model:spreadsheet.dashboard,name:spreadsheet_dashboard_helpdesk.spreadsheet_dashboard_helpdesk
@@ -45,26 +66,42 @@ msgstr "Hỗ trợ"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to assign"
 msgstr "Giờ để phân công"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to close"
 msgstr "Giờ để đóng"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to respond"
 msgstr "Giờ để phản hồi"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "In Progress"
+msgstr "Đang thực hiện"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "KPI"
 msgstr "KPI"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "New"
+msgstr "Mới"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
@@ -75,12 +112,14 @@ msgstr "Giai đoạn"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Previous"
 msgstr "Trước đó"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Rating"
 msgstr "Đánh giá"
 
@@ -93,125 +132,103 @@ msgstr "Thẻ"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Team"
 msgstr "Bộ phận"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Assigned To"
-msgstr "Phân tích phiếu hỗ trợ theo Phân công cho"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Customer"
-msgstr "Phân tích phiếu hỗ trợ theo Khách hàng"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Tags"
-msgstr "Phân tích phiếu hỗ trợ theo Thẻ"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Team"
-msgstr "Phân tích phiếu hỗ trợ theo Bộ phận"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Ticket Stage"
-msgstr "Phân tích phiếu hỗ trợ theo Giai đoạn phiếu hỗ trợ"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Ticket Stage"
 msgstr "Giai đoạn phiếu hỗ trợ"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Ticket Tags"
 msgstr "Từ khóa thẻ"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets"
 msgstr "Phiếu hỗ trợ"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets by Stage"
 msgstr "Phiếu hỗ trợ theo giai đoạn"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets by Tags"
 msgstr "Phiếu hỗ trợ theo thẻ"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Assign"
 msgstr "Thời gian để phân công"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Close"
 msgstr "Thời gian để đóng"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Respond"
 msgstr "Thời gian để phản hồi"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Assignees"
 msgstr "Người được phân công tiêu biểu"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Customers"
 msgstr "Khách hàng tiêu biểu"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Teams"
 msgstr "Bộ phận tiêu biểu"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "VIP Support"
+msgstr "Hỗ trợ VIP"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "last period"
 msgstr "kỳ trước"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "since last period"
 msgstr "kể từ kỳ trước"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "stats - current"
-msgstr "thống kê - hiện tại"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "stats - previous"
-msgstr "thống kê - trước đó"

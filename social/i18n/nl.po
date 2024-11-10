@@ -5,14 +5,16 @@
 # Translators:
 # Wil Odoo, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Jolien De Paepe, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1542,12 +1544,8 @@ msgstr "Social: Geplande berichten publiceren"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comments_reply.js:0
-msgid ""
-"Something went wrong while posting the comment. \n"
-"%s"
-msgstr ""
-"Er is een fout opgetreden tijdens het plaatsen van de reactie.\n"
-"%s"
+msgid "Something went wrong while posting the comment."
+msgstr "Er is een fout opgetreden tijdens het plaatsen van de reactie."
 
 #. module: social
 #. odoo-javascript
@@ -1771,6 +1769,12 @@ msgstr "UTM Bron"
 
 #. module: social
 #. odoo-python
+#: code:addons/social/controllers/main.py:0
+#, python-format
+msgid "Uh-oh! It looks like this message has been deleted from X."
+msgstr "Uh-oh! Het lijkt erop dat dit bericht van X is verwijderd."
+
+#. module: social
 #: code:addons/social/models/social_post.py:0
 msgid "Unknown error"
 msgstr "Onbekende fout"

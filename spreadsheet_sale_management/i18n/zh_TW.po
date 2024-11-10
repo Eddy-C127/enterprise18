@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -19,6 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: zh_TW\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+
+#. module: spreadsheet_sale_management
+#: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_spreadsheet_view_search
+msgid "Calculator Templates"
+msgstr "計算機範本"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -130,7 +135,7 @@ msgstr "本地送貨"
 msgid ""
 "Multiple cells are updating the same field of the same record! Unable to "
 "determine which one to choose: %s"
-msgstr ""
+msgstr "多個儲存格正嘗試更新同一記錄的相同欄位！系統無法確定選用哪一個：%s"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__name
@@ -157,7 +162,7 @@ msgstr "記錄在清單中的位置"
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order_spreadsheet
 msgid "Quotation Spreadsheet"
-msgstr ""
+msgstr "報價單試算表"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order_template
@@ -175,6 +180,11 @@ msgstr "報價單範本"
 #: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
 msgid "Quote"
 msgstr "引用"
+
+#. module: spreadsheet_sale_management
+#: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_spreadsheet_view_search
+msgid "Quote Sheets"
+msgstr "報價表"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order__spreadsheet_template_id
@@ -195,10 +205,16 @@ msgid "Sale Order Spreadsheet"
 msgstr "銷售訂單試算表"
 
 #. module: spreadsheet_sale_management
+#: model:ir.actions.act_window,name:spreadsheet_sale_management.sale_order_spreadsheet_action
+#: model:ir.ui.menu,name:spreadsheet_sale_management.menu_technical_spreadsheet_sale_order_template
+msgid "Sale Order Spreadsheets"
+msgstr "銷售訂單試算表"
+
+#. module: spreadsheet_sale_management
 #. odoo-python
 #: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
 msgid "Sale order lines"
-msgstr ""
+msgstr "銷售單資料行"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order

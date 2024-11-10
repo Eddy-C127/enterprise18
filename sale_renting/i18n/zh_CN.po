@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -45,7 +45,7 @@ msgstr "%(amount)s / %(duration)s"
 
 #. module: sale_renting
 #. odoo-python
-#: code:addons/sale_renting/controllers/utils.py:0
+#: code:addons/sale_renting/models/product_template.py:0
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 msgid "%(duration)s %(unit)s"
 msgstr "%(duration)s %(unit)s"
@@ -181,7 +181,7 @@ msgstr "租赁组合产品只能包含租赁产品。"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_temporal_recurrence__active
 msgid "Active"
-msgstr "启用"
+msgstr "有效"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.product_template_form_view_rental
@@ -367,7 +367,7 @@ msgstr "创建日期"
 #: model:ir.model.fields,field_description:sale_renting.field_product_pricing__currency_id
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_report__currency_id
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_product_product__product_pricing_ids
@@ -778,7 +778,7 @@ msgstr "单据日期"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_rental_order_wizard_line__order_line_id
 msgid "Order Line"
-msgstr "订单行"
+msgstr "订单明细"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__name
@@ -788,7 +788,7 @@ msgstr "订单关联"
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__order_line_id
 msgid "Order line #"
-msgstr "订单行"
+msgstr "订单明细"
 
 #. module: sale_renting
 #: model:ir.ui.menu,name:sale_renting.rental_order_menu
@@ -1243,7 +1243,7 @@ msgstr "销售订单"
 #. module: sale_renting
 #: model:ir.model,name:sale_renting.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "销售订单行"
+msgstr "销售订单明细"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__team_id
@@ -1400,16 +1400,16 @@ msgstr "没有计划中的借出或归还。"
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_day
 msgid ""
-"This is the default extra cost per day set on newly created products. You "
-"can change this value for existing products directly on the product itself."
-msgstr "这是新建租赁产品时，默认的每天附加价格。 对已存在产品，你可以直接在产品窗体直接更改金额。"
+"This is the default extra cost per day set on newly created products.You can"
+" change this value for existing products directly on the product itself."
+msgstr "这是为新创建的产品设置的默认每日额外费用。您可以直接在产品上更改现有产品的此值。"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_hour
 msgid ""
-"This is the default extra cost per hour set on newly created products. You "
+"This is the default extra cost per hour set on newly created products.You "
 "can change this value for existing products directly on the product itself."
-msgstr "这是新建租赁产品时，默认的每小时附加价格。 对已存在产品，你可以直接在产品窗体直接更改金额。"
+msgstr "这是为新创建的产品设置的默认每小时额外费用。您可以直接在产品上更改现有产品的这一数值。"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_product
@@ -1575,7 +1575,7 @@ msgstr "归还数量不得大于借出数量。"
 msgid ""
 "You cannot have multiple pricing for the same variant, recurrence and "
 "pricelist"
-msgstr "同一变体、递归和价目表不能有多个定价"
+msgstr "同一变体、递归和价格表不能有多个定价"
 
 #. module: sale_renting
 #: model:ir.model.constraint,message:sale_renting.constraint_sale_order_line_rental_stock_coherence

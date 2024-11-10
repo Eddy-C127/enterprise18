@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Junko Augias, 2024
+# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -230,7 +231,7 @@ msgstr "カテゴリー"
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target_commission__amount
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__commission
 msgid "Commission"
-msgstr "手数料"
+msgstr "コミッション"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_achievement_view_search
@@ -253,7 +254,7 @@ msgstr "コミッション詳細: %(name)s"
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Commission Plan"
-msgstr "手数料プラン"
+msgstr "コミッション計画"
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_achievement
@@ -284,7 +285,7 @@ msgstr "コミッション計画ユーザ"
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_plan
 #: model:ir.ui.menu,name:sale_commission.sale_commission_plan_menu
 msgid "Commission Plans"
-msgstr "手数料プラン"
+msgstr "コミッション計画"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
@@ -304,7 +305,7 @@ msgstr "コミッション計画"
 #: model:ir.ui.menu,name:sale_commission.sale_commission_plan_report_menu_report
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Commissions"
-msgstr "手数料"
+msgstr "コミッション"
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__company_id
@@ -337,7 +338,7 @@ msgstr "コンフィグ設定"
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_plan
 msgid "Create a new commission plan"
-msgstr "新しいコミッションプランを作成"
+msgstr "新しいコミッション計画を作成"
 
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_achievement
@@ -495,7 +496,7 @@ msgstr "from"
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan_user.py:0
 msgid "From must be before To"
-msgstr ""
+msgstr "開始は終了より前である必要があります"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
@@ -757,7 +758,7 @@ msgstr "関連"
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement_report__related_res_model
 msgid "Related Res Model"
-msgstr ""
+msgstr "関連RESモデル"
 
 #. module: sale_commission
 #. odoo-python

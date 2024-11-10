@@ -1,28 +1,28 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* website_helpdesk
-#
+# 
 # Translators:
-# Jakob Krabbe <jakob.krabbe@vertel.se>, 2022
-# Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2022
-# Christelle Wehbe <libanon_cristelle@hotmail.com>, 2022
-# Kim Asplund <kim.asplund@gmail.com>, 2022
-# Chrille Hedberg <hedberg.chrille@gmail.com>, 2022
-# Anders Wallenquist <anders.wallenquist@vertel.se>, 2022
-# Martin Trigaux, 2022
-#
+# Martin Trigaux, 2024
+# Kim Asplund <kim.asplund@gmail.com>, 2024
+# Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
+# Mikael Åkerberg <mikael.akerberg@mariaakerberg.com>, 2024
+# Lasse L, 2024
+# Chrille Hedberg <hedberg.chrille@gmail.com>, 2024
+# Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:50+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Jakob Krabbe <jakob.krabbe@vertel.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: website_helpdesk
@@ -31,70 +31,69 @@ msgid "<b>About our team</b>"
 msgstr "<b>Om vårt team</b>"
 
 #. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "<i class=\"fa fa-check-circle fa-1x text-success me-2\" role=\"img\" aria-label=\"Success\" title=\"Success\"/>"
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar
+msgid "<i class=\"fa fa-chevron-left me-2\"/>Back to help"
 msgstr ""
 
 #. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar
-msgid "<span class=\"navbar-brand h4 my-0 me-auto\">Help Center</span>"
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
+msgid ""
+"<span class=\"s_website_form_label_content\">Ask Your Question</span>\n"
+"                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
 msgid "<span class=\"s_website_form_label_content\">Attachment</span>"
-msgstr ""
+msgstr "<span class=\"s_website_form_label_content\">Bifogat fil</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
-msgid "<span class=\"s_website_form_label_content\">Description</span>"
-msgstr "<span class=\"s_website_form_label_content\">Beskrivning</span>"
-
-#. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
-msgid ""
-"<span class=\"s_website_form_label_content\">Subject</span>\n"
-"                                            <span class=\"s_website_form_mark\"> *</span>"
+msgid "<span class=\"s_website_form_label_content\">Company Name</span>"
 msgstr ""
-"<span class=\"s_website_form_label_content\">Ämne</span>\n"
-"                                            <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
 msgid ""
-"<span class=\"s_website_form_label_content\">Your Email</span>\n"
+"<span class=\"s_website_form_label_content\">Email Address</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
-"<span class=\"s_website_form_label_content\">Din e-post</span>\n"
-"                                            <span class=\"s_website_form_mark\"> *</span>"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
 msgid ""
-"<span class=\"s_website_form_label_content\">Your Name</span>\n"
+"<span class=\"s_website_form_label_content\">Full Name</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
 msgstr ""
-"<span class=\"s_website_form_label_content\">Ditt namn</span>\n"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
+msgid "<span class=\"s_website_form_label_content\">Helpdesk Team</span>"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
+msgid ""
+"<span class=\"s_website_form_label_content\">Message Subject</span>\n"
 "                                            <span class=\"s_website_form_mark\"> *</span>"
-
-#. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
-msgid "<span class=\"text-600\">Search results for</span>"
 msgstr ""
 
 #. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.footer
-msgid "<span style=\"font-size: 24px;\">Can't find your answer? Our support team is here to help.</span>"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submit_form
+msgid "<span class=\"s_website_form_label_content\">Phone Number</span>"
+msgstr "<span class=\"s_website_form_label_content\">Telefon</span>"
 
 #. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
-msgid "<span style=\"font-size: 48px; font-weight: bolder;\">How can we help you?</span>"
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar
+msgid "<span class=\"text-muted\">Results for</span>"
 msgstr ""
 
 #. module: website_helpdesk
@@ -110,6 +109,11 @@ msgstr "Alla etiketter"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_type
 msgid "All Types"
+msgstr "Alla typer"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
+msgid "All dates"
 msgstr ""
 
 #. module: website_helpdesk
@@ -119,25 +123,47 @@ msgid "All results"
 msgstr "Alla resultat"
 
 #. module: website_helpdesk
-#. odoo-javascript
-#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
-msgid "Attachment"
-msgstr "Bilaga"
-
-#. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
-msgid "By Date"
-msgstr ""
-
-#. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_tag
-msgid "By Tags"
+msgid "All tags"
 msgstr ""
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_type
-msgid "By Type"
+msgid "All types"
 msgstr ""
+
+#. module: website_helpdesk
+#. odoo-javascript
+#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
+msgid "Ask Your Question"
+msgstr ""
+
+#. module: website_helpdesk
+#. odoo-javascript
+#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
+msgid "Attach File"
+msgstr "Lägg till fil"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
+msgid "Back to help"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
+msgid "By Date"
+msgstr "Efter datum"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_tag
+msgid "By Tags"
+msgstr "Efter etiketter"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_type
+msgid "By Type"
+msgstr "Efter typer"
 
 #. module: website_helpdesk
 #: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__can_publish
@@ -146,35 +172,86 @@ msgstr "Kan publicera"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.footer
-msgid "Contact Us"
-msgstr "Kontakta oss"
-
-#. module: website_helpdesk
-#. odoo-python
-#: code:addons/website_helpdesk/__init__.py:0
-msgid "Customer Care"
-msgstr "Kundvård"
-
-#. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
-msgid "Date Filter"
+msgid "Can't find your answer?"
 msgstr ""
 
 #. module: website_helpdesk
 #. odoo-javascript
 #: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
-msgid "Description"
-msgstr "Beskrivning"
+#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_ticket__partner_company_name
+msgid "Company Name"
+msgstr "Företagsnamn"
 
 #. module: website_helpdesk
-#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__website_form_view_id
-msgid "Form"
-msgstr "Formulär"
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.footer
+msgid "Contact Us"
+msgstr "Kontakta oss"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.footer
+msgid "Contact us"
+msgstr "Kontakta oss"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
+msgid "Contact us <i class=\"oi oi-arrow-right\"/>"
+msgstr ""
+
+#. module: website_helpdesk
+#. odoo-python
+#: code:addons/website_helpdesk/__init__.py:0
+msgid "Customer Care (Public)"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.team
+msgid ""
+"DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS ALL HELPDESK TEAMS"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
+msgid ""
+"DROP BUILDING BLOCKS HERE TO MAKE THEM AVAILABLE ACROSS THE KNOWLEDGE PAGE "
+"OF ALL HELPDESK TEAMS"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
+msgid "Date Filter"
+msgstr "Datumfilter"
+
+#. module: website_helpdesk
+#. odoo-javascript
+#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
+msgid "Email Address"
+msgstr "E-postadress"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_date
+msgid "Filter by date"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_tag
+msgid "Filter by tags"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.navbar_search_type
+msgid "Filter by type"
+msgstr ""
+
+#. module: website_helpdesk
+#. odoo-javascript
+#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
+msgid "Full Name"
+msgstr "Fullständigt namn"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "Go to the Homepage"
-msgstr ""
+msgid "Go to Homepage"
+msgstr "Gå till hemsidan"
 
 #. module: website_helpdesk
 #. odoo-python
@@ -186,7 +263,7 @@ msgstr "Hjälp"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
 msgid "Help Center Page"
-msgstr ""
+msgstr "Sidan för kundtjänst"
 
 #. module: website_helpdesk
 #. odoo-python
@@ -200,6 +277,21 @@ msgstr "Kundnöjdhet hos Kundtjänst"
 #: model:ir.model,name:website_helpdesk.model_helpdesk_team
 msgid "Helpdesk Team"
 msgstr "Kundtjänstteam"
+
+#. module: website_helpdesk
+#: model:ir.model,name:website_helpdesk.model_helpdesk_ticket
+msgid "Helpdesk Ticket"
+msgstr "Kundtjänstärende"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
+msgid "How can we help you?"
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
+msgid "Image"
+msgstr "Bild"
 
 #. module: website_helpdesk
 #: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__is_published
@@ -226,21 +318,61 @@ msgstr "Förra året"
 
 #. module: website_helpdesk
 #. odoo-javascript
-#: code:addons/website_helpdesk/static/src/xml/website_helpdesk.xml:0
+#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
+msgid "Message Subject"
+msgstr ""
+
+#. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
+msgid "No results found for"
+msgstr ""
+
+#. module: website_helpdesk
+#. odoo-javascript
+#: code:addons/website_helpdesk/static/src/xml/website_helpdesk.xml:0
 msgid "No results found. Please try another search."
 msgstr "Inga resultat hittade. Försök göra en ny sökning."
 
 #. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
-msgid "Search for articles, best practices and more..."
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.footer
+msgid "Our support team is here to help."
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
+msgid "Our team will get right on it."
 msgstr ""
 
 #. module: website_helpdesk
 #. odoo-javascript
 #: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
-msgid "Subject"
-msgstr "Ämne"
+msgid "Phone Number"
+msgstr "Telefonnummer"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
+msgid "Please try another search  or"
+msgstr ""
+
+#. module: website_helpdesk
+#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__is_seo_optimized
+msgid "SEO optimized"
+msgstr "SEO optimerad"
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.knowledge_base
+msgid "Search for articles, best practices and more..."
+msgstr "Sök efter artiklar, bästa praxis och mycket mer..."
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.helpdesk_all_team
+msgid "Select your Team for help"
+msgstr ""
+
+#. module: website_helpdesk
+#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__seo_name
+msgid "Seo name"
+msgstr "SEO titel"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.team_form_1
@@ -258,11 +390,17 @@ msgstr "Skicka in ett ärende"
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
 msgid "Tags Filter"
-msgstr ""
+msgstr "Etiketter Filter"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "Thank you for contacting us, our team will get right on it!"
+msgid "Thank you!"
+msgstr "Tack!"
+
+#. module: website_helpdesk
+#. odoo-python
+#: code:addons/website_helpdesk/models/helpdesk.py:0
+msgid "The companies of the team and the website should match."
 msgstr ""
 
 #. module: website_helpdesk
@@ -271,30 +409,19 @@ msgid "The full URL to access the document through the website."
 msgstr "Fullständig URL för åtkomst av dokument via webbplatsen."
 
 #. module: website_helpdesk
-#. odoo-python
-#: code:addons/website_helpdesk/models/helpdesk.py:0
-msgid "The team company and the website company should match"
-msgstr ""
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
+msgid "Ticket #"
+msgstr "Biljett #"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.snippet_options
 msgid "Type Filter"
-msgstr ""
-
-#. module: website_helpdesk
-#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__feature_form_url
-msgid "URL to Submit Issue"
-msgstr "URL för att supportärende"
-
-#. module: website_helpdesk
-#: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "View Ticket"
-msgstr ""
+msgstr "Typfilter"
 
 #. module: website_helpdesk
 #: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__website_published
 msgid "Visible on current website"
-msgstr "Synlig på vald webbplats"
+msgstr "Synlig på nuvarande webbplats"
 
 #. module: website_helpdesk
 #: model:ir.model,name:website_helpdesk.model_website
@@ -303,7 +430,7 @@ msgid "Website"
 msgstr "Webbplats"
 
 #. module: website_helpdesk
-#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__website_menu_id
+#: model:ir.model,name:website_helpdesk.model_website_menu
 msgid "Website Menu"
 msgstr "Webbplatsens meny"
 
@@ -313,18 +440,31 @@ msgid "Website URL"
 msgstr "Webbplatsens URL"
 
 #. module: website_helpdesk
-#. odoo-javascript
-#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
-msgid "Your Email"
-msgstr "Din e-post"
+#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__website_meta_description
+msgid "Website meta description"
+msgstr "Webbplatsens metabeskrivning"
 
 #. module: website_helpdesk
-#. odoo-javascript
-#: code:addons/website_helpdesk/static/src/js/website_helpdesk_form_editor.js:0
-msgid "Your Name"
-msgstr "Ditt namn"
+#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__website_meta_keywords
+msgid "Website meta keywords"
+msgstr "Webbplatsens metanyckelord"
+
+#. module: website_helpdesk
+#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__website_meta_title
+msgid "Website meta title"
+msgstr "Webbplatsens metatitel"
+
+#. module: website_helpdesk
+#: model:ir.model.fields,field_description:website_helpdesk.field_helpdesk_team__website_meta_og_img
+msgid "Website opengraph image"
+msgstr "Webbplats opengraph-bild"
 
 #. module: website_helpdesk
 #: model_terms:ir.ui.view,arch_db:website_helpdesk.ticket_submited
-msgid "Your Ticket Number is"
-msgstr "Ditt ärendenummer är"
+msgid "Your ticket has been sent."
+msgstr ""
+
+#. module: website_helpdesk
+#: model_terms:ir.ui.view,arch_db:website_helpdesk.search_results
+msgid "go back to help page"
+msgstr ""

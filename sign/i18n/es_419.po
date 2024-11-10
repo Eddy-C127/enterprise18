@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Fernanda Alvarez, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -338,6 +338,14 @@ msgid "<span>This is a preview of your Terms &amp; Conditions.</span>"
 msgstr "<span>Esta es una vista previa de sus términos y condiciones.</span>"
 
 #. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid ""
+"<span>You won't receive any notification for this signature request "
+"anymore.</span>"
+msgstr ""
+"<span>Ya no recibirá notificaciones para esta solicitud de firma.</span>"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
 msgstr "<strong>Fecha de creación:</strong>"
@@ -615,16 +623,16 @@ msgid "Archive"
 msgstr "Archivar"
 
 #. module: sign
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
-msgid "Are you sure you want to cancel the sign request?"
-msgstr ""
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Archived"
 msgstr "Archivado"
+
+#. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Are you sure you want to cancel the sign request?"
+msgstr "¿Está seguro de que desea cancelar la solicitud de firma?"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
@@ -752,7 +760,7 @@ msgstr "Cancelar"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "Cancel Sign Request"
-msgstr ""
+msgstr "Cancelar solicitud de firma"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -3546,7 +3554,7 @@ msgstr "Faltan firmas en la solicitud de firma."
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr ""
+msgstr "%(partner)s (%(role)s) canceló la firma"
 
 #. module: sign
 #. odoo-python
@@ -4189,7 +4197,6 @@ msgstr "Recibirá el documento final firmado por correo electrónico."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "You won't receive any notification for this signature request anymore."
 msgstr "Ya no recibirá ninguna notificación para esta solicitud de firma."
 

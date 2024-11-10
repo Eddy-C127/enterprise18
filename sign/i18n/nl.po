@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -338,6 +338,15 @@ msgid "<span>This is a preview of your Terms &amp; Conditions.</span>"
 msgstr "<span>Dit is een voorbeeld van je algemene voorwaarden.</span>"
 
 #. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid ""
+"<span>You won't receive any notification for this signature request "
+"anymore.</span>"
+msgstr ""
+"<span>Je zult geen melding meer ontvangen voor dit "
+"handtekeningverzoek.</span>"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
 msgstr "<strong>Aanmaakdatum:</strong>"
@@ -611,16 +620,16 @@ msgid "Archive"
 msgstr "Archiveren"
 
 #. module: sign
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
-msgid "Are you sure you want to cancel the sign request?"
-msgstr ""
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Archived"
 msgstr "Gearchiveerd"
+
+#. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Are you sure you want to cancel the sign request?"
+msgstr "Weet je zeker dat je de tekenaanvraag wilt annuleren?"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
@@ -720,7 +729,7 @@ msgid ""
 " all purposes when it is used on documents, including legally binding "
 "contracts."
 msgstr ""
-"Door op Aannemen & Ondertekenen te klikken, ga ik ermee akkoord dat de "
+"Door op Bevestigen & Ondertekenen te klikken, ga ik ermee akkoord dat de "
 "gekozen handtekening/initialen een geldige elektronische weergave zijn van "
 "mijn handgeschreven handtekening/initialen voor alle doeleinden wanneer deze"
 " wordt gebruikt op documenten, inclusief juridisch bindende contracten."
@@ -748,7 +757,7 @@ msgstr "Annuleren"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "Cancel Sign Request"
-msgstr ""
+msgstr "Aanvraag annuleren"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -3549,7 +3558,7 @@ msgstr "Het ondertekenverzoek is niet volledig ondertekend"
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr ""
+msgstr "De handtekening is geannuleerd door %(partner)s(%(role)s)"
 
 #. module: sign
 #. odoo-python
@@ -4197,7 +4206,6 @@ msgstr "Je ontvangt het definitieve ondertekende document per e-mail."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "You won't receive any notification for this signature request anymore."
 msgstr "Je zal geen meldingen meer ontvangen voor dit hantekeningsverzoek."
 

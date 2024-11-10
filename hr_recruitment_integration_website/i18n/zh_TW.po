@@ -29,7 +29,7 @@ msgstr "申請方式"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "At least one platform must be selected"
-msgstr ""
+msgstr "必須選擇最少一個平台"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
@@ -40,7 +40,7 @@ msgstr "活動開始日期"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Campaign Start Date is required."
-msgstr ""
+msgstr "必須填寫活動開始日期。"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_job_post__apply_method
@@ -56,7 +56,7 @@ msgstr "生成"
 #. module: hr_recruitment_integration_website
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_view_form
 msgid "Generate Description (<i class=\"fa fa-fw fa-magic\"/>AI)"
-msgstr ""
+msgstr "產生描述（<i class=\"fa fa-fw fa-magic\"/> 人工智能）"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -81,7 +81,7 @@ msgstr ""
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__platform_ids
 msgid "Job Board"
-msgstr "招聘版面"
+msgstr "招聘平台"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model,name:hr_recruitment_integration_website.model_hr_job
@@ -120,7 +120,7 @@ msgstr "發佈職位"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Post is required."
-msgstr ""
+msgstr "必須填寫職位。"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_job_post__apply_method__redirect
@@ -135,13 +135,13 @@ msgstr "重新導向至公司網站"
 #. module: hr_recruitment_integration_website
 #: model:ir.actions.server,name:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_action_regenerate_post
 msgid "Regenerate Post"
-msgstr ""
+msgstr "重新產生帖文"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "Sorry, the web page is too long for our AI to process."
-msgstr ""
+msgstr "抱歉，網頁太長，我們的人工智能無法處理。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -155,7 +155,7 @@ msgstr "抱歉，我們未能生成回覆。請稍後再試。"
 msgid ""
 "The Job Description will be replaced with the generated one, do you want to "
 "continue?"
-msgstr ""
+msgstr "職位描述將以生成的版本取代。繼續操作？"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,help:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
@@ -168,20 +168,20 @@ msgstr "活動將會開始的日期。"
 msgid ""
 "The job must be published on the website to generate a post with a redirect "
 "apply method."
-msgstr ""
+msgstr "職位必須在網站上發佈，才可產生使用重新導向申請方式的帖文。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid ""
 "URL is required if the apply method is 'Redirect to company's website'."
-msgstr ""
+msgstr "若申請方法是「重新導向至公司網站」，便需要指定網址。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "You can only generate a post for a published job offer."
-msgstr ""
+msgstr "你只可為已發佈的職位產生帖文。"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
@@ -96,14 +96,6 @@ msgstr "3 měsíce"
 #. module: sale_subscription
 #: model:sale.subscription.plan,name:sale_subscription.subscription_plan_6_month
 msgid "6 Months"
-msgstr ""
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-msgid ""
-"<b>Congratulations</b>, you sent your first quote.</br>Wait for your "
-"customer to validate it from the email or confirm it manually."
 msgstr ""
 
 #. module: sale_subscription
@@ -653,6 +645,11 @@ msgid "ARR Change (normalized)"
 msgstr ""
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
+msgid "Abandoned Cart"
+msgstr "Opuštěný košík"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_move_send
 msgid "Account Move Send"
 msgstr "Poslání účetního záznamu"
@@ -726,6 +723,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
 msgstr ""
 
@@ -875,6 +873,7 @@ msgstr "Automatické zavírání"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr ""
 
@@ -1124,6 +1123,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr ""
 
@@ -1836,8 +1836,8 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
-msgstr "Existuje-li, musí být podmínka spolněna po aktualizaci záznamu."
+"record. Not checked on record creation."
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -1932,7 +1932,7 @@ msgstr "Šablona e-mailové faktury"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__line_invoice_status
 msgid "Invoice Status"
-msgstr "Stav faktury"
+msgstr "Stav fakturace"
 
 #. module: sale_subscription
 #. odoo-python
@@ -2632,7 +2632,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Pay now"
-msgstr "Zaplať nyní"
+msgstr "Zaplaťte nyní"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -2824,6 +2824,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Products"
 msgstr "Produkty"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__project_id
+msgid "Project"
+msgstr "Projekty"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
@@ -3074,6 +3079,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Renew"
 msgstr "Obnovit"
@@ -4363,6 +4369,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
 msgstr "Webhook UUID"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
+msgid "Website"
+msgstr "Webová stránka"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids

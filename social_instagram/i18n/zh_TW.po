@@ -278,10 +278,17 @@ msgstr "訊息"
 
 #. module: social_instagram
 #. odoo-python
+#: code:addons/social_instagram/models/social_stream_post.py:0
+msgid ""
+"Please confirm that commenting is enabled for this post on the platform."
+msgstr "請確認此帖文在相關平台上，已啟用留言功能。"
+
+#. module: social_instagram
+#. odoo-python
 #: code:addons/social_instagram/models/social_post_template.py:0
 msgid ""
 "Please specify either a Instagram Message or upload some Instagram Images."
-msgstr ""
+msgstr "請指定一個 Instagram 訊息，或上載一些 Instagram 圖片。"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -349,6 +356,9 @@ msgid ""
 "\n"
 "%(images)s"
 msgstr ""
+"以下圖片並非使用正確的格式（jpg/jpeg）。\n"
+"\n"
+"%(images)s"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -363,6 +373,9 @@ msgid ""
 "\n"
 "%(images)s"
 msgstr ""
+"以下圖片不符合寬高比要求（須介乎 1.91:1 至 4:5 之間）。\n"
+"\n"
+"%(images)s"
 
 #. module: social_instagram
 #. odoo-python

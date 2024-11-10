@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -103,14 +103,6 @@ msgstr "3 Meses"
 #: model:sale.subscription.plan,name:sale_subscription.subscription_plan_6_month
 msgid "6 Months"
 msgstr "6 meses"
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-msgid ""
-"<b>Congratulations</b>, you sent your first quote.</br>Wait for your "
-"customer to validate it from the email or confirm it manually."
-msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
@@ -863,6 +855,11 @@ msgid "ARR Change (normalized)"
 msgstr "Cambio de ARR (normalizado)"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
+msgid "Abandoned Cart"
+msgstr "Cesta abandonada"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_move_send
 msgid "Account Move Send"
 msgstr "Enviar movimiento de cuenta"
@@ -938,6 +935,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
 msgstr "Agregar productos"
 
@@ -1096,6 +1094,7 @@ msgstr "Cierre automático"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr "Cierre automático después de"
 
@@ -1364,6 +1363,7 @@ msgstr "Haga clic aquí para agregar algún producto o servicio"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "Se puede cerrar"
 
@@ -2086,10 +2086,11 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
-"Si está presente, esta condición debe satisfacerse antes de la actualización"
-" del registro."
+"Si la casilla está seleccionada, entonces es necesario cumplir esta "
+"condición antes de actualizar el registro. No está seleccionada al crear un "
+"registro."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -3090,6 +3091,11 @@ msgid "Products"
 msgstr "Productos"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__project_id
+msgid "Project"
+msgstr "Proyecto"
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
 msgid "Qty Delivered"
 msgstr "Ctd. entregada"
@@ -3340,6 +3346,7 @@ msgstr "Cuota de inscripción"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Renew"
 msgstr "Renovar"
@@ -4676,6 +4683,11 @@ msgstr "No nos gustaría que se fuera ahora"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
 msgstr "UUID de Webhook"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
+msgid "Website"
+msgstr "Sitio web"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids

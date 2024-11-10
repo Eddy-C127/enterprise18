@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
@@ -22,20 +22,41 @@ msgstr ""
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Agent"
 msgstr "Agente"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Cancelled"
+msgstr "Cancelado"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Changes Requested"
+msgstr "Cambios solicitados"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Current"
 msgstr "Actual"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Customer"
 msgstr "Cliente"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Customer Care"
+msgstr "Atención al cliente"
 
 #. module: spreadsheet_dashboard_helpdesk
 #: model:spreadsheet.dashboard,name:spreadsheet_dashboard_helpdesk.spreadsheet_dashboard_helpdesk
@@ -45,26 +66,42 @@ msgstr "Soporte al cliente"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to assign"
 msgstr "Horas por asignar"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to close"
 msgstr "Horas para cerrar"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to respond"
 msgstr "Horas para responder"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "In Progress"
+msgstr "En progreso"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "KPI"
 msgstr "KPI"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "New"
+msgstr "Nuevo"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
@@ -75,12 +112,14 @@ msgstr "Periodo"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Previous"
 msgstr "Anterior"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Rating"
 msgstr "Calificación"
 
@@ -93,125 +132,103 @@ msgstr "Etiquetas"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Team"
 msgstr "Equipo"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Assigned To"
-msgstr "Análisis de ticket por asignación"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Customer"
-msgstr "Análisis de ticket por cliente"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Tags"
-msgstr "Análisis de ticket por etiquetas"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Team"
-msgstr "Análisis de ticket por equipo"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Ticket Stage"
-msgstr "Análisis de etiqueta por etapa de ticket"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Ticket Stage"
 msgstr "Etapa de ticket"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Ticket Tags"
 msgstr "Etiquetas de ticket"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets"
 msgstr "Tickets"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets by Stage"
 msgstr "Tickets por etapa"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets by Tags"
 msgstr "Tickets por etiquetas"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Assign"
 msgstr "Tiempo por asignar"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Close"
 msgstr "Tiempo para cerrar"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Respond"
 msgstr "Tiempo para responder"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Assignees"
 msgstr "Asignados principales"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Customers"
 msgstr "Mejores clientes"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Teams"
 msgstr "Mejores equipos"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "VIP Support"
+msgstr "Soporte VIP"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "last period"
 msgstr "último periodo"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "since last period"
 msgstr "desde el último periodo"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "stats - current"
-msgstr "estadísticas - actuales"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "stats - previous"
-msgstr "estadísticas - previas"

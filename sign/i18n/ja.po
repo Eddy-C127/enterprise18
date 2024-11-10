@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -61,7 +61,7 @@ msgstr "%sが編集され、署名されました。 "
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "%s has been linked to this sign request."
-msgstr ""
+msgstr "%s がこの署名依頼にリンクされています。"
 
 #. module: sign
 #. odoo-python
@@ -322,6 +322,13 @@ msgid "<span>This is a preview of your Terms &amp; Conditions.</span>"
 msgstr "<span>これは利用規約のプレビューです。</span>"
 
 #. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid ""
+"<span>You won't receive any notification for this signature request "
+"anymore.</span>"
+msgstr "<span>この署名依頼に対する通知はもう届きません。</span>"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
 msgstr "<strong>作成日:</strong>"
@@ -354,7 +361,7 @@ msgstr "以下の電話番号にSMSが送信されます。関係ない場合は
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.message_signature_link
 msgid "A document has been signed and a copy attached to"
-msgstr ""
+msgstr "ドキュメントは署名され、コピーが以下に添付されました:"
 
 #. module: sign
 #. odoo-python
@@ -581,16 +588,16 @@ msgid "Archive"
 msgstr "アーカイブ"
 
 #. module: sign
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
-msgid "Are you sure you want to cancel the sign request?"
-msgstr ""
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Archived"
 msgstr "アーカイブ済"
+
+#. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Are you sure you want to cancel the sign request?"
+msgstr "署名依頼を本当に取消しますか?"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
@@ -659,7 +666,7 @@ msgstr "新規テンプレートで利用可能"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "Back to %s"
-msgstr ""
+msgstr "%sに戻る"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -715,7 +722,7 @@ msgstr "キャンセル"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "Cancel Sign Request"
-msgstr ""
+msgstr "署名依頼を取消"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -1253,7 +1260,7 @@ msgstr "編集"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Edit Template"
-msgstr ""
+msgstr "テンプレートを編集"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -1655,6 +1662,11 @@ msgid ""
 "                        </code>\n"
 "                        menu."
 msgstr ""
+"これらの通知を受け取りたくない場合は\n"
+"                        <code>\n"
+"                            署名 &gt; 設定 &gt; 役割\n"
+"                        </code>\n"
+"                        メニューから追加認証ステップを無効にすることができます。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -2147,7 +2159,7 @@ msgstr "アクション数"
 #: model:ir.model.fields,field_description:sign.field_sign_item__num_options
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__num_options
 msgid "Number of Radio Button options"
-msgstr ""
+msgstr "ラジオボタンオプション数"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -2366,17 +2378,17 @@ msgstr "ラジオボタン"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__radio_items
 msgid "Radio Items"
-msgstr ""
+msgstr "ラジオ項目"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__radio_set_id
 msgid "Radio button options"
-msgstr ""
+msgstr "ラジオボタンオプション"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_radio_set
 msgid "Radio button set for keeping radio button items together"
-msgstr ""
+msgstr "ラジオボタン項目をまとめるためのラジオボタンセット"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__rating_ids
@@ -3431,7 +3443,7 @@ msgstr "%(partner)sのメールアドレスが更新されました。依頼は�
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The mail has been sent to contacts in copy: %(contacts)s"
-msgstr ""
+msgstr "メールは連絡先にコピーで送信されました: %(contacts)s"
 
 #. module: sign
 #. odoo-python
@@ -3455,7 +3467,7 @@ msgstr "署名依頼の署名が完了していません。"
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr ""
+msgstr "%(partner)s(%(role)s) によって署名が取消されました"
 
 #. module: sign
 #. odoo-python
@@ -4067,7 +4079,6 @@ msgstr "署名された最終ドキュメントがEメールで届きます。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "You won't receive any notification for this signature request anymore."
 msgstr "この署名依頼に対する通知はもう届きません。"
 
@@ -4144,6 +4155,8 @@ msgid ""
 "because you don't have enough credits for this operation.\n"
 "                    The signatory was able to finish signing, but was not asked to authenticate fully."
 msgstr ""
+"この操作に必要なクレジットが不足しているためです。\n"
+"                    署名者は署名を終えることができましたが、完全な認証は求められませんでした。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container

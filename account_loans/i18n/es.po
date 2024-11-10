@@ -3,8 +3,8 @@
 # 	* account_loans
 # 
 # Translators:
-# Larissa Manderfeld, 2024
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -223,7 +223,7 @@ msgstr "Calcular"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Compute New Loan"
-msgstr ""
+msgstr "Calcular nuevo préstamo"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -233,13 +233,13 @@ msgstr "Confirmar"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__count_linked_assets
 msgid "Count Linked Assets"
-msgstr ""
+msgstr "Número de activos vinculados"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset__count_linked_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_asset_group__count_linked_loans
 msgid "Count Linked Loans"
-msgstr ""
+msgstr "Número de préstamos vinculados"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__create_uid
@@ -300,7 +300,7 @@ msgstr "Borrador"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Draft & Running Loans"
-msgstr ""
+msgstr "Préstamos en borrador y en curso"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration
@@ -483,13 +483,13 @@ msgstr ""
 #: code:addons/account_loans/models/account_loan.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__linked_assets_ids
 msgid "Linked Assets"
-msgstr ""
+msgstr "Activos vinculados"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_asset.py:0
 msgid "Linked loans"
-msgstr ""
+msgstr "Préstamos vinculados"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_loan
@@ -502,24 +502,24 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Loan"
-msgstr ""
+msgstr "Préstamo"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_amount
 msgid "Loan Amount"
-msgstr ""
+msgstr "Importe del préstamo"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Amount must be positive"
-msgstr ""
+msgstr "El importe del préstamo debe ser positivo"
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_compute_wizard
 #: model:ir.model,name:account_loans.model_account_loan_compute_wizard
 msgid "Loan Compute Wizard"
-msgstr ""
+msgstr "Asistente para calcular el préstamo"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__date
@@ -805,19 +805,19 @@ msgstr "Estado"
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "The First Payment Date must be before the end of the loan."
-msgstr ""
+msgstr "La primera fecha de pago debe ser antes del fin del préstamo."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The amount borrowed must be positive"
-msgstr ""
+msgstr "El importe prestado debe ser positivo"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The duration must be positive"
-msgstr ""
+msgstr "La duración debe ser positiva "
 
 #. module: account_loans
 #. odoo-python
@@ -829,7 +829,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan accounts should be set."
-msgstr ""
+msgstr "Debe establecer las cuentas de préstamo."
 
 #. module: account_loans
 #. odoo-python
@@ -917,7 +917,7 @@ msgstr "Subir"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Uploaded file"
-msgstr ""
+msgstr "Archivo subido"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__skip_until_date

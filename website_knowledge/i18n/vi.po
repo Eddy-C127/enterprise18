@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
@@ -20,24 +20,20 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
-msgid "<i class=\"fa fa-circle-o-notch fa-2x fa-spin\" title=\"loader\" role=\"img\"/>"
-msgstr "<i class=\"fa fa-circle-o-notch fa-2x fa-spin\" title=\"bộ tải\" role=\"img\"/>"
-
-#. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article not Published"
 msgstr "Bài viết chưa đăng"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Article not found"
 msgstr "Không tìm thấy bài viết"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article shared to web"
 msgstr "Bài viết được chia sẻ lên web"
 
@@ -45,12 +41,6 @@ msgstr "Bài viết được chia sẻ lên web"
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__can_publish
 msgid "Can Publish"
 msgstr "Có thể đăng"
-
-#. module: website_knowledge
-#. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
-msgid "Download"
-msgstr "Tải xuống"
 
 #. module: website_knowledge
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__is_published
@@ -61,7 +51,7 @@ msgstr "Được đăng"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "It and its published children can be read by anyone"
 msgstr "Bất cứ ai cũng có thể đọc nó và phần phụ được đăng của nó"
 
@@ -77,7 +67,7 @@ msgstr "Tải thêm"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
+#: code:addons/website_knowledge/static/src/frontend/editor/embedded_components/view/view_placeholder.xml:0
 msgid "Log in"
 msgstr "Đăng nhập"
 
@@ -88,7 +78,7 @@ msgstr "Không tìm thấy bài viết nào"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Only specific people can access"
 msgstr "Chỉ những người nhất định có thể truy cập"
 
@@ -99,25 +89,27 @@ msgstr "Đăng bài viết"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Publish this Article and its children on the web"
 msgstr "Đăng bài viết này và các bài viết phụ của nó trên web"
 
 #. module: website_knowledge
-#: model:ir.model,name:website_knowledge.model_ir_qweb
-msgid "Qweb"
-msgstr "Qweb"
-
-#. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Search an article..."
 msgstr "Tìm kiếm một bài viết..."
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Share to web"
 msgstr "Chia sẻ lên trang web"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "Sign in"
+msgstr "Đăng nhập"
 
 #. module: website_knowledge
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__summary
@@ -126,12 +118,7 @@ msgstr "Tóm tắt"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
-msgid "The Excalidraw URL is not valid. Ask an internal user to update it."
-msgstr "URL Excalidraw không hợp lệ. Hãy báo người dùng nội bộ cập nhật nó."
-
-#. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid ""
 "The article you are trying the read has either been removed or you do not "
 "have access to it."
@@ -156,9 +143,15 @@ msgstr ""
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
+#: code:addons/website_knowledge/static/src/frontend/editor/embedded_components/view/view_placeholder.xml:0
 msgid "This view is only available for internal users"
 msgstr "Chế độ xem này chỉ khả dụng với người dùng nội bộ"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "Toggle aside menu"
+msgstr "Chuyển đổi menu sang bên"
 
 #. module: website_knowledge
 #: model:ir.actions.server,name:website_knowledge.knowledge_action_unpublish_articles
@@ -166,7 +159,8 @@ msgid "Unpublish Articles"
 msgstr "Huỷ đăng bài viết"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Untitled"
 msgstr "Không có tiêu đề"
 
@@ -184,3 +178,9 @@ msgstr "Trang web"
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__website_url
 msgid "Website URL"
 msgstr "URL trang web"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "loader"
+msgstr "bộ tải"

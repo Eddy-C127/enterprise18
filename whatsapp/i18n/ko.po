@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:24+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -68,7 +69,7 @@ msgstr ""
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.view_partner_form
 msgid "<span class=\"o_stat_text\">Chats</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">채팅</span>"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -102,7 +103,7 @@ msgstr "이 문서에 대한 새 WhatsApp 채널이 생성됩니다."
 msgid ""
 "A new template was sent on %(record_link)s.<br>Future replies will be "
 "transferred to a new chat."
-msgstr ""
+msgstr "%(record_link)s에 새 템플릿이 전송되었습니다. <br>향후 답장은 새 채팅으로 연결됩니다."
 
 #. module: whatsapp
 #. odoo-python
@@ -1012,7 +1013,7 @@ msgstr "여러 개의 레코드입니다."
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__whatsapp_channel_active
 msgid "Is Whatsapp Channel Active"
-msgstr ""
+msgstr "왓츠앱 채널 활성화 여부"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__it
@@ -1089,7 +1090,7 @@ msgstr "최근 업데이트 일자"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__last_wa_mail_message_id
 msgid "Last WA Partner Mail Message"
-msgstr ""
+msgstr "마지막 WA 파트너 메일 메시지"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_search
@@ -1614,7 +1615,7 @@ msgstr "초안으로 재설정"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__parent_id
 msgid "Response To"
-msgstr ""
+msgstr "응답 대상"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_tree
@@ -2258,12 +2259,12 @@ msgstr "WhatsApp 카테고리 열기"
 #: model:ir.model.fields,field_description:whatsapp.field_res_partner__wa_channel_count
 #: model:ir.model.fields,field_description:whatsapp.field_res_users__wa_channel_count
 msgid "WhatsApp Channel Count"
-msgstr ""
+msgstr "WhatsApp 채널 수"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__whatsapp_channel_valid_until
 msgid "WhatsApp Channel Valid Until Datetime"
-msgstr ""
+msgstr "날짜까지 유효한 WhatsApp 채널"
 
 #. module: whatsapp
 #. odoo-python
@@ -2271,7 +2272,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:whatsapp.discuss_channel_view_list_whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.view_partner_form
 msgid "WhatsApp Chats"
-msgstr ""
+msgstr "왓츠앱 채팅"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__discuss_channel__channel_type__whatsapp
@@ -2332,7 +2333,7 @@ msgstr "WhatsApp 서식 속성"
 #: code:addons/whatsapp/static/src/core/common/im_status_patch.xml:0
 #: code:addons/whatsapp/static/src/discuss/core/common/channel_member_list_patch.xml:0
 msgid "WhatsApp User"
-msgstr ""
+msgstr "WhatsApp 사용자"
 
 #. module: whatsapp
 #. odoo-python
@@ -2440,7 +2441,7 @@ msgstr "줄루어"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 msgid "another document"
-msgstr ""
+msgstr "다른 문서"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form

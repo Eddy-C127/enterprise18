@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -44,7 +44,7 @@ msgstr "%(amount)s / %(duration)s"
 
 #. module: sale_renting
 #. odoo-python
-#: code:addons/sale_renting/controllers/utils.py:0
+#: code:addons/sale_renting/models/product_template.py:0
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 msgid "%(duration)s %(unit)s"
 msgstr "%(duration)s %(unit)s"
@@ -240,7 +240,7 @@ msgstr "Cancelado"
 #. odoo-javascript
 #: code:addons/sale_renting/static/src/js/tours/rental.js:0
 msgid "Click here to create a new quotation."
-msgstr "Haga clic aquí para crear una nueva presupuesto."
+msgstr "Haga clic aquí para crear un nuevo presupuesto."
 
 #. module: sale_renting
 #. odoo-javascript
@@ -1412,22 +1412,16 @@ msgstr "No hay ninguna recogida o devolución programada."
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_day
 msgid ""
-"This is the default extra cost per day set on newly created products. You "
-"can change this value for existing products directly on the product itself."
+"This is the default extra cost per day set on newly created products.You can"
+" change this value for existing products directly on the product itself."
 msgstr ""
-"Este es el coste adicional por día por defecto en los productos recién "
-"creados. Puede cambiar este valor para los productos existentes directamente"
-" en el producto."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_hour
 msgid ""
-"This is the default extra cost per hour set on newly created products. You "
+"This is the default extra cost per hour set on newly created products.You "
 "can change this value for existing products directly on the product itself."
 msgstr ""
-"Este es el coste adicional por hora por defecto en los productos recién "
-"creados. Puede cambiar este valor para los productos existentes directamente"
-" en el producto."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_product

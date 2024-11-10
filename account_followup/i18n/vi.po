@@ -35,7 +35,7 @@ msgstr "%(delay)s ngày (bản sao của %(name)s)"
 #. module: account_followup
 #: model:ir.actions.report,print_report_name:account_followup.action_report_followup
 msgid "'Follow-up ' + object.display_name"
-msgstr "'Theo dõi ' + object.display_name"
+msgstr "'Follow-up' + object.display_name"
 
 #. module: account_followup
 #: model:account_followup.followup.line,name:account_followup.demo_followup_line1
@@ -251,7 +251,7 @@ msgstr ""
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
 msgid "<span class=\"o_stat_text\">Customer Statement</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Báo cáo khách hàng</span>"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.res_partner_view_form
@@ -442,7 +442,7 @@ msgstr "Ngày:"
 #. module: account_followup
 #: model:ir.model.constraint,message:account_followup.constraint_account_followup_followup_line_days_uniq
 msgid "Days of the follow-up lines must be different per company"
-msgstr "Ngày của các dòng theo dõi phải khác nhau đối với mỗi công ty"
+msgstr "Ngày của các dòng follow-up phải khác nhau đối với mỗi công ty"
 
 #. module: account_followup
 #. odoo-python
@@ -481,8 +481,7 @@ msgstr ""
 #. module: account_followup
 #: model_terms:ir.actions.act_window,help:account_followup.action_account_followup_line_definition_form
 msgid "Define follow-up levels and their related actions"
-msgstr ""
-"Định nghĩa các mức độ theo dõi và các tác vụ tương ứng cho từng mức độ"
+msgstr "Xác định cấp độ follow-up và các tác vụ liên quan cho từng cấp độ"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
@@ -503,9 +502,9 @@ msgid ""
 "- Account Manager: Sales Person defined on the customer"
 msgstr ""
 "Xác định ai sẽ được chỉ định cho hoạt động:\n"
-"- Chịu trách nhiệm theo dõi (mặc định)\n"
-"- Nhân viên bán hàng: Nhân viên bán hàng được xác định trên hóa đơn\n"
-"- Quản lý tài khoản: Chuyên viên sales được xác định trên khách hàng"
+"- Người phụ trách follow-up (mặc định)\n"
+"- Chuyên viên sales: Chuyên viên sales được xác định trên hóa đơn\n"
+"- Chuyên viên quản lý tài khoản: Chuyên viên sales được xác định trên khách hàng"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__display_name
@@ -554,25 +553,25 @@ msgstr "Follow-up %(partner)s - %(date)s"
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__type__followup
 msgid "Follow-up Address"
-msgstr "Địa chỉ theo dõi"
+msgstr "Địa chỉ follow-up"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_followup_line
 msgid "Follow-up Criteria"
-msgstr "Tiêu chí tiếp theo"
+msgstr "Tiêu chí follow-up"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_line_id
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__followup_line_id
 #: model:ir.model.fields,field_description:account_followup.field_res_users__followup_line_id
 msgid "Follow-up Level"
-msgstr "Mức độ theo dõi"
+msgstr "Cấp độ follow-up"
 
 #. module: account_followup
 #: model:ir.actions.act_window,name:account_followup.action_account_followup_line_definition_form
 #: model:ir.ui.menu,name:account_followup.account_followup_menu
 msgid "Follow-up Levels"
-msgstr "Mức độ theo dõi"
+msgstr "Cấp độ follow-up"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_report
@@ -582,19 +581,19 @@ msgstr "Báo cáo Follow-up"
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__account_followup_followup_line__activity_default_responsible_type__followup
 msgid "Follow-up Responsible"
-msgstr "Chịu trách nhiệm theo dõi"
+msgstr "Người phụ trách follow-up"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__followup_status
 #: model:ir.model.fields,field_description:account_followup.field_res_users__followup_status
 msgid "Follow-up Status"
-msgstr "Follow-up Status"
+msgstr "Trạng thái follow-up"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_tree
 msgid "Follow-up Steps"
-msgstr "Các bước theo dõi"
+msgstr "Các bước follow-up"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.report_followup_print_all
@@ -605,7 +604,7 @@ msgstr "Thông tin follow-up"
 #. odoo-python
 #: code:addons/account_followup/models/account_followup_report.py:0
 msgid "Follow-up letter generated"
-msgstr "Thư theo dõi được tạo"
+msgstr "Thư follow-up được tạo"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_missing_information_wizard
@@ -654,7 +653,7 @@ msgstr "Có nhu cầu thực hiện"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_partner_property_form_followup
 msgid "Invoice Follow-ups"
-msgstr ""
+msgstr "Follow-up hoá đơn"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -799,12 +798,12 @@ msgstr "In"
 #. module: account_followup
 #: model:ir.actions.report,name:account_followup.action_report_followup
 msgid "Print Follow-up Letter"
-msgstr "In Thư  Follow-up"
+msgstr "In Thư follow-up"
 
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.action_account_reports_customer_statements_do_followup
 msgid "Process Follow-ups"
-msgstr ""
+msgstr "Theo dõi quá trình"
 
 #. module: account_followup
 #. odoo-python
@@ -836,7 +835,7 @@ msgstr "Báo cáo tác vụ"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view
 msgid "Requires Follow-up"
-msgstr ""
+msgstr "Follow-up yêu cầu"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_default_responsible_type
@@ -863,7 +862,7 @@ msgstr "Lịch làm việc"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_line_filter
 msgid "Search Follow-up"
-msgstr "Tìm theo dõi"
+msgstr "Tìm kiếm follow-up"
 
 #. module: account_followup
 #: model:mail.template,name:account_followup.demo_followup_email_template_2

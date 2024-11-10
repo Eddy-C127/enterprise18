@@ -4,16 +4,16 @@
 # 
 # Translators:
 # Yenthe Van Ginneken <yenthespam@gmail.com>, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,6 +116,11 @@ msgid "Countries where this provider is available"
 msgstr "Landen waar deze aanbieder beschikbaar is"
 
 #. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Create Store"
+msgstr "Winkel creëren"
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__create_uid
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_urban_piper_status__create_uid
 msgid "Created by"
@@ -162,6 +167,11 @@ msgstr "Afleveradres"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Channel"
 msgstr "Afleverkanaal"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
+msgid "Delivery Charges"
+msgstr "Bezorgkosten"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_identifier
@@ -297,6 +307,12 @@ msgid "Fulfilment Mode"
 msgstr "Vervulmodus"
 
 #. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid "Go to Company configuration"
+msgstr "Ga naar Bedrijfsconfiguratie"
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urban_piper_status_ids
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__urban_piper_status_ids
 msgid ""
@@ -310,7 +326,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "HungerStation Code"
-msgstr ""
+msgstr "HongerStation code"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__id
@@ -503,6 +519,11 @@ msgid "Order does not load from server"
 msgstr "Bestelling wordt niet geladen vanaf de server"
 
 #. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
+msgid "Other Charges"
+msgstr "Overige toeslagen"
+
+#. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Others"
@@ -524,6 +545,11 @@ msgstr "Filiaal"
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "POS ID"
 msgstr "POS ID"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
+msgid "Packaging Charges"
+msgstr "Verpakkingskosten"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
@@ -668,6 +694,7 @@ msgstr "Order afwijzen"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Rejecting this order is not allowed for \"%(providerName)s\""
 msgstr ""
+"Het afwijzen van deze opdracht is niet toegestaan voor \"%(providerName)s\""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_provider_id
@@ -754,13 +781,13 @@ msgstr "Systeemparameter"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Code"
-msgstr ""
+msgstr "Code Talabat"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Short Code"
-msgstr ""
+msgstr "Talabat korte code"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__technical_name
@@ -891,11 +918,6 @@ msgid "UrbanPiper API Key is required.\n"
 msgstr "UrbanPiper API Key is vereist.\n"
 
 #. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
-msgid "UrbanPiper Delivery Charges"
-msgstr "UrbanPiper Bezorgkosten"
-
-#. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/res_config_settings.py:0
 msgid "UrbanPiper Delivery Providers are required."
@@ -905,16 +927,6 @@ msgstr "UrbanPiper Leveranciers zijn vereist."
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
 msgid "UrbanPiper Fiscal Position"
 msgstr "UrbanPiper Fiscale positie"
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
-msgid "UrbanPiper Other Charges"
-msgstr "UrbanPiper Overige Kosten"
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
-msgid "UrbanPiper Packaging Charges"
-msgstr "UrbanPiper Verpakkingskosten"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_pricelist_id
@@ -965,3 +977,11 @@ msgstr "Vegetarisch"
 #: code:addons/pos_urban_piper/models/ir_config_parameter.py:0
 msgid "You cannot change the pos_urban_piper.uuid."
 msgstr "Je kunt de pos_urban_piper.uuid niet wijzigen."
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid ""
+"Your company %s needs to have a correct city in order create the store."
+msgstr ""
+"Je bedrijf %s moet een correcte stad hebben om de winkel te kunnen maken."

@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Sarah Park, 2024
 # Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -61,7 +62,7 @@ msgstr "%s가 수정 및 서명되었습니다"
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "%s has been linked to this sign request."
-msgstr ""
+msgstr "%s가 이 서명 요청에 연결되었습니다."
 
 #. module: sign
 #. odoo-python
@@ -321,6 +322,13 @@ msgid "<span>This is a preview of your Terms &amp; Conditions.</span>"
 msgstr "<span>이용약관의 미리보기 항목입니다.</span>"
 
 #. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid ""
+"<span>You won't receive any notification for this signature request "
+"anymore.</span>"
+msgstr "<span>더 이상 이 서명 요청에 대한 알림을 수신하지 않습니다.</span>"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
 msgstr "<strong>작성일:</strong>"
@@ -353,7 +361,7 @@ msgstr "다음 전화 번호로 SMS가 발송됩니다. 관련이 없는 경우 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.message_signature_link
 msgid "A document has been signed and a copy attached to"
-msgstr ""
+msgstr "문서에 서명하고 사본을 첨부했습니다."
 
 #. module: sign
 #. odoo-python
@@ -579,16 +587,16 @@ msgid "Archive"
 msgstr "보관"
 
 #. module: sign
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
-msgid "Are you sure you want to cancel the sign request?"
-msgstr ""
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Archived"
 msgstr "보관됨"
+
+#. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Are you sure you want to cancel the sign request?"
+msgstr "서명 요청을 취소하시겠습니까?"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
@@ -657,7 +665,7 @@ msgstr "새 템플릿에서 사용 가능"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "Back to %s"
-msgstr ""
+msgstr "%s 뒤로"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -714,7 +722,7 @@ msgstr "취소"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "Cancel Sign Request"
-msgstr ""
+msgstr "서명 요청 취소"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -1251,7 +1259,7 @@ msgstr "편집"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Edit Template"
-msgstr ""
+msgstr "템플릿 편집"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
@@ -2149,7 +2157,7 @@ msgstr "작업 수"
 #: model:ir.model.fields,field_description:sign.field_sign_item__num_options
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__num_options
 msgid "Number of Radio Button options"
-msgstr ""
+msgstr "라디오 버튼 옵션 수"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -2368,17 +2376,17 @@ msgstr "단일 선택 버튼"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__radio_items
 msgid "Radio Items"
-msgstr ""
+msgstr "라디오 항목"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__radio_set_id
 msgid "Radio button options"
-msgstr ""
+msgstr "라디오 버튼 옵션"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_radio_set
 msgid "Radio button set for keeping radio button items together"
-msgstr ""
+msgstr "라디오 버튼 항목을 함께 보관할 수 있는 라디오 버튼 세트"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__rating_ids
@@ -3435,7 +3443,7 @@ msgstr "%(partner)s의 메일 주소가 업데이트되었습니다. 서명 요�
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The mail has been sent to contacts in copy: %(contacts)s"
-msgstr ""
+msgstr "메일이 사본으로 연락처에 전송되었습니다: %(contacts)s"
 
 #. module: sign
 #. odoo-python
@@ -3459,7 +3467,7 @@ msgstr "요청한 서명이 완전히 완료되지 않았습니다."
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr ""
+msgstr "%(partner)s(%(role)s)에 의해 서명이 취소되었습니다."
 
 #. module: sign
 #. odoo-python
@@ -4071,7 +4079,6 @@ msgstr "최종 서명된 문서를 이메일로 받아보실 수 있습니다."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "You won't receive any notification for this signature request anymore."
 msgstr "이 서명 요청에 대한 알림은 더 이상 수신되지 않습니다."
 

@@ -11,7 +11,6 @@
 # Arma Gedonsky <armagedonsky@hot.ee>, 2024
 # Patrick-Jordan Kiudorv, 2024
 # Piia Paurson <piia@avalah.ee>, 2024
-# Stevin Lilla, 2024
 # Rivo Zängov <eraser@eraser.ee>, 2024
 # Wanradt Koell <wanradt@gmail.com>, 2024
 # Leaanika Randmets, 2024
@@ -20,14 +19,15 @@
 # Anna, 2024
 # JanaAvalah, 2024
 # Tairi Tiimann, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tairi Tiimann, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -348,6 +348,13 @@ msgid "<span>This is a preview of your Terms &amp; Conditions.</span>"
 msgstr "<span>See on Teie tingimuste eelvaade &amp; Tingimused.</span>"
 
 #. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid ""
+"<span>You won't receive any notification for this signature request "
+"anymore.</span>"
+msgstr ""
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
 msgstr "<strong>Loomise kuupäev:</strong>"
@@ -618,16 +625,16 @@ msgid "Archive"
 msgstr "Arhiveeri"
 
 #. module: sign
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
-msgid "Are you sure you want to cancel the sign request?"
-msgstr ""
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Archived"
 msgstr "Arhiveeritud"
+
+#. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Are you sure you want to cancel the sign request?"
+msgstr "Olete kindlad et soovite tühistada selle allkirjastamise taotluse?"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
@@ -755,7 +762,7 @@ msgstr "Tühista"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "Cancel Sign Request"
-msgstr ""
+msgstr "Tühista allkirjastamis taotlus"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -808,7 +815,7 @@ msgstr "Märkeruut"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_template__is_sharing
 msgid "Checked if this template has created a shared document for you"
-msgstr ""
+msgstr "Kontrollitud kas see mall loob jagatud dokumendi"
 
 #. module: sign
 #. odoo-javascript
@@ -907,6 +914,9 @@ msgid ""
 "auto-completion, ...), as well as the values for selection fields in "
 "signable documents."
 msgstr ""
+"Seadista välja tüübid mida saab kasutada dokumentide allkirjastamiseks "
+"(paigahoidja, automaattäitmine, ...) ning lisaks väärtused valitavates "
+"väljades allkirjastatavates dokumentides."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_duplicate_template_with_pdf_view_form
@@ -1285,7 +1295,7 @@ msgstr "VIGA: vigane PDF-fail!"
 #. module: sign
 #: model:ir.actions.report,name:sign.sign_report_green_savings_action
 msgid "Ecological Savings by using Electronic Signatures"
-msgstr ""
+msgstr "Ökoloogiline kokkuhoid elektrooniliste allkirjade kasutamisel"
 
 #. module: sign
 #. odoo-javascript
@@ -1538,22 +1548,22 @@ msgstr "Geolokatsioon"
 #. module: sign
 #: model:ir.ui.menu,name:sign.sign_report_green_savings
 msgid "Green Savings"
-msgstr ""
+msgstr "Rohelised säästud"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Green Savings Report"
-msgstr ""
+msgstr "Roheliste säästude aruanne"
 
 #. module: sign
 #: model:ir.model,name:sign.model_report_sign_green_savings_report
 msgid "Green Savings Report model"
-msgstr ""
+msgstr "Roheliste säästude aruande mudel"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 msgid "Green Savings Summary"
-msgstr ""
+msgstr "Roheliste säästude kokkuvõte"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1744,7 +1754,7 @@ msgstr "Muutmatuse räsi"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.xml:0
 msgid "Include a visual security frame around your signature"
-msgstr ""
+msgstr "Lisa visuaalne turvaraam oma allkirja ümber"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_view_form
@@ -1790,7 +1800,7 @@ msgstr "On jagatud"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Is Signing"
-msgstr ""
+msgstr "Allkirjastamine"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__is_user_signer
@@ -1811,7 +1821,7 @@ msgstr "John Smith"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "L of water saved"
-msgstr ""
+msgstr "L vett säästetud"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__last_action_date
@@ -2152,7 +2162,7 @@ msgstr "Järgmine dokument"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.xml:0
 msgid "Next signatory ("
-msgstr ""
+msgstr "Järgmine allkirjastaja ("
 
 #. module: sign
 #. odoo-python
@@ -2203,7 +2213,7 @@ msgstr "Tegevuste arv"
 #: model:ir.model.fields,field_description:sign.field_sign_item__num_options
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__num_options
 msgid "Number of Radio Button options"
-msgstr ""
+msgstr "Ringidega valikute arv"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -2249,7 +2259,7 @@ msgstr "Üks liiter gaasikütust toodab 8,9 kg CO²"
 #. odoo-python
 #: code:addons/sign/models/sign_template.py:0
 msgid "One or more selection items have no associated options"
-msgstr ""
+msgstr "Ühel või rohkemal valikul pole seotud valikut"
 
 #. module: sign
 #. odoo-python
@@ -2375,7 +2385,7 @@ msgstr "Palun seadistage saatjate (%s) e-posti aadressid"
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "Please select recipients for the following roles: %(roles)s"
-msgstr ""
+msgstr "Palun määra inimene järgmistele rollidele: %(roles)s"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__access_url
@@ -2422,12 +2432,12 @@ msgstr "Ringidega valikud"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__radio_items
 msgid "Radio Items"
-msgstr ""
+msgstr "Ringidega valikud"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__radio_set_id
 msgid "Radio button options"
-msgstr ""
+msgstr "Ringidega valikute seaded"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_radio_set
@@ -2512,7 +2522,7 @@ msgstr "Taotleja allkiri"
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "Request expiration date must be set in the future."
-msgstr ""
+msgstr "Taotluse aegumiskuupäev peab olema tulevikus."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_total
@@ -2785,7 +2795,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Show standard terms & conditions on signature requests"
-msgstr ""
+msgstr "Näita standard tingimusi allkirja toatluses"
 
 #. module: sign
 #. odoo-javascript
@@ -2934,7 +2944,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 msgid ""
 "Sign up for Odoo Sign to manage your own documents and signature requests."
-msgstr ""
+msgstr "Liituga Odoo Sign et hallata oma dokumente ja allkirja taotlusi."
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_reminder_cron_ir_actions_server
@@ -2949,7 +2959,7 @@ msgstr "Allkirjastaja"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Signatory's hash:"
-msgstr ""
+msgstr "Allkirjastaja räsi:"
 
 #. module: sign
 #. odoo-javascript
@@ -2980,7 +2990,7 @@ msgstr "Allkirja üksus"
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_option_action
 msgid "Signature Item Options"
-msgstr ""
+msgstr "ALlkirja valid"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_role
@@ -3074,6 +3084,8 @@ msgid ""
 "Signature requested for template: %(template)s\n"
 "Signatories: %(signatories)s"
 msgstr ""
+"Allkiri taodeldud mallile: %(template)s\n"
+"Allkirjastajad: %(signatories)s"
 
 #. module: sign
 #. odoo-python
@@ -3134,7 +3146,7 @@ msgstr "Allkirjastaja"
 #. odoo-javascript
 #: code:addons/sign/static/src/fields/signer_x2many.js:0
 msgid "Signer One 2 Many"
-msgstr ""
+msgstr "Allkirjastaja One 2 Many"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__request_item_ids
@@ -3162,7 +3174,7 @@ msgstr "Sündmuste allkirjastamine"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__set_sign_order
 msgid "Signing Order"
-msgstr ""
+msgstr "Allkirjastamise järjekord"
 
 #. module: sign
 #. odoo-javascript
@@ -3218,6 +3230,9 @@ msgid ""
 "Specify the order for each signer. The signature request only gets sent to                                     the next signers in the sequence when all signers from the previous level have                                     signed the document.\n"
 "                                    "
 msgstr ""
+"Täpsusta allkirjastajate järjekord. Allkirja taotlus saadetakse ainult "
+"järgmisel allkirjastajale järjekorras kui eelnevad allkirjastajad on oma "
+"allkirja andnud."
 
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_default
@@ -3308,6 +3323,8 @@ msgid ""
 "Technical name of the field on the partner model to auto-complete this "
 "signature field at the time of signature."
 msgstr ""
+"Välja tehniline nimi partneri mudelil, et oleks võimalik automaatselt täita "
+"see allkirjaväli."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__template_id
@@ -3334,7 +3351,7 @@ msgstr "Malli rekvisiidid"
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_template_tour_trigger_action
 msgid "Template Sample Contract.pdf trigger"
-msgstr ""
+msgstr "Malli näide Contract.pdf trigger"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -3526,7 +3543,7 @@ msgstr "Allkirjataotlus ei ole lõplikult allkirjastatud"
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr ""
+msgstr "Allkirjastamine on tühistatud%(partner)s(%(role)s) poolt"
 
 #. module: sign
 #. odoo-python
@@ -3548,7 +3565,7 @@ msgstr "Kiri allkirjastamiseks on saadetud."
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
 msgid "The signature request has been cancelled"
-msgstr ""
+msgstr "Allkirjataotlus on tühistatud."
 
 #. module: sign
 #. odoo-python
@@ -3577,6 +3594,10 @@ msgid ""
 "number of contacts in copy if the sign request is signed) = total of pages. "
 "We assume that one page weights 0.005 kilograms."
 msgstr ""
+"Paberilehtede arv mille sa kokku hoidsid põhineb: saadetud allkirjataotlused"
+" x dokumendi lehekülgede arv x (kontaktid kes peavad allkirjastama + "
+"kontaktid koopias kui on allkirjastatud) = kogu lehtede arv. Me eeldame et "
+"üks leht kaalub 0,005 kg."
 
 #. module: sign
 #. odoo-python
@@ -3612,6 +3633,8 @@ msgid ""
 "There's no reason to panic, <br/>\n"
 "                        you can still sign your document in a few clicks!"
 msgstr ""
+"Pole põhjust paanikaks, <br/>\n"
+"saate ikkagi allkirjastada oma dokumendi mõne klikiga!"
 
 #. module: sign
 #. odoo-javascript
@@ -3629,7 +3652,7 @@ msgstr "Need eemaldatakse üleslaetud failidest"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "This function can only be called with sudo."
-msgstr ""
+msgstr "Seda funktsiooni saab ainult välja kutsuda sudoga."
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__reference
@@ -3684,6 +3707,8 @@ msgid ""
 "This will keep all the already completed signature of this request and "
 "disable every sent access, are you sure?"
 msgstr ""
+"See jätab alles kõik allkirjad selles taotluses ja peatab saadetud "
+"ligipääsud, olete te kindlad?"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__tip
@@ -3774,6 +3799,8 @@ msgid ""
 "Unable to sign the document due to missing required data. Please contact an "
 "administrator."
 msgstr ""
+"Ei ole võimalik allkirjastada puuduvate andmete tõttu. Võta ühendust "
+"administraatoriga."
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_role__auth_method__sms
@@ -3965,6 +3992,8 @@ msgid ""
 "We can only send reminders in the future - as soon as we find a way to send reminders in the past we'll notify you.\n"
 "In the mean time, please make sure to input a positive number of days for the reminder interval."
 msgstr ""
+"Meeldetuletusi saab saata ainult tulevatel kuupäevadel. \n"
+"Sisesta positiivne number meeldetuletuse intervalliks."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
@@ -3976,7 +4005,7 @@ msgstr "Me ei leidnud Teie otsitavat allkirjataotlust!"
 msgid ""
 "We display to you a ratio based on the saved weight versus 1000 kg of paper "
 "usage."
-msgstr ""
+msgstr "Me kuvame säästetud massi ja 1000kg paberi kasutuse vahekorda."
 
 #. module: sign
 #. odoo-javascript
@@ -3992,6 +4021,8 @@ msgid ""
 "We'll send an email to warn other contacts in copy & signers with the reason"
 " you provided."
 msgstr ""
+"Me saadame, ekirja et hoiatada teisi kontakte koopias ja allkirjastamas "
+"kirjutatud põhjusega."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__website_message_ids
@@ -4072,6 +4103,8 @@ msgid ""
 "You can request a new link to access your document and sign it, it will  be "
 "delivered in your inbox right away."
 msgstr ""
+"Saad taotleda oma dokumendile uue ligipääsu lingi ja selle allkirjastada, "
+"see toimetatakse emaili postkasti koheselt."
 
 #. module: sign
 #. odoo-python
@@ -4096,6 +4129,8 @@ msgid ""
 "You cannot share this document by link, because it has fields to be filled "
 "by different roles. Use Send button instead."
 msgstr ""
+"Seda dokumendi ei saa jagada lingiga, sest väljasid peavad täitma erinevad "
+"rollid. Kasutage saada nuppu."
 
 #. module: sign
 #. odoo-python
@@ -4104,6 +4139,8 @@ msgid ""
 "You do not have access to these documents, please contact a Sign "
 "Administrator."
 msgstr ""
+"Teil pole ligipääsu nendele dokumentidele, palun võtma ühendust Sign "
+"administraatoriga."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_refused
@@ -4131,19 +4168,18 @@ msgstr "Peate määrama allkirjastaja"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "You should select at least one document to download."
-msgstr ""
+msgstr "Te peaksite valima vähemalt ühe dokumendi allalaadimiseks."
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 msgid "You will receive the final signed document by email."
-msgstr ""
+msgstr "Saate lõpliku allkirjastatud dokumendi koopia e-maili teel."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "You won't receive any notification for this signature request anymore."
-msgstr ""
+msgstr "Te ei saa rohkem teavitusi selle allkirjatoatluse kohta."
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_all_request_action
@@ -4189,7 +4225,7 @@ msgstr "Sinu nimi"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/next_direct_sign_dialog.xml:0
 msgid "Your signature has been saved. Next signatory is"
-msgstr ""
+msgstr "Teie allkiri on salvestatud. Järgmine allkirjastaja on"
 
 #. module: sign
 #. odoo-javascript
@@ -4220,6 +4256,8 @@ msgid ""
 "because you don't have enough credits for this operation.\n"
 "                    The signatory was able to finish signing, but was not asked to authenticate fully."
 msgstr ""
+"kuna Teil ei ole selle tegevuse jaoks piisavalt krediiti. \n"
+"                    Allkirjastaja suutis allkirjastamise lõpetada, kuid temalt ei palutud täielikku autentimist."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
@@ -4231,7 +4269,7 @@ msgstr "can"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "cans"
-msgstr ""
+msgstr "cans"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request

@@ -3,7 +3,6 @@
 # 	* pos_iot_six
 # 
 # Translators:
-# Wil Odoo, 2024
 # Tony Ng, 2024
 # 
 msgid ""
@@ -23,7 +22,7 @@ msgstr ""
 #. module: pos_iot_six
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.view_add_six_terminal
 msgid "Add Terminal"
-msgstr ""
+msgstr "加入終端機"
 
 #. module: pos_iot_six
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.view_add_six_terminal
@@ -33,12 +32,12 @@ msgstr "取消"
 #. module: pos_iot_six
 #: model:ir.model,name:pos_iot_six.model_pos_iot_six_add_six_terminal
 msgid "Connect a Six Payment Terminal"
-msgstr ""
+msgstr "連線至 Six 付款終端機"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__create_uid
 msgid "Created by"
-msgstr "建立人員"
+msgstr "建立者"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__create_date
@@ -54,12 +53,12 @@ msgstr "顯示名稱"
 #. odoo-python
 #: code:addons/pos_iot_six/wizard/add_six_terminal.py:0
 msgid "Failed to save Six Terminal ID to IoT Box"
-msgstr ""
+msgstr "未能儲存 Six 終端機識別碼至 IoT Box"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__id
 msgid "ID"
-msgstr "識別號"
+msgstr "識別碼"
 
 #. module: pos_iot_six
 #: model:ir.model,name:pos_iot_six.model_iot_box
@@ -70,7 +69,7 @@ msgstr "IoT Box 物聯網盒子"
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__iot_box_url
 msgid "IoT Box Home Page"
-msgstr "物聯網盒子首頁"
+msgstr "IoT Box 物聯網盒子首頁"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__write_uid
@@ -85,18 +84,18 @@ msgstr "最後更新於"
 #. module: pos_iot_six
 #: model:ir.model,name:pos_iot_six.model_pos_payment_method
 msgid "Point of Sale Payment Methods"
-msgstr "POS付款條件"
+msgstr "POS 銷售點付款方式"
 
 #. module: pos_iot_six
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.pos_payment_method_view_form_six_iot
 msgid "Setup Six Terminal"
-msgstr ""
+msgstr "設定 Six 終端機"
 
 #. module: pos_iot_six
 #: model:ir.actions.act_window,name:pos_iot_six.action_add_six_terminal
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.view_add_six_terminal
 msgid "Setup a Six Payment Terminal"
-msgstr ""
+msgstr "設定 Six 付款終端機"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_iot_box__six_terminal_id
@@ -108,7 +107,7 @@ msgstr "Six 終端機識別碼（TID）"
 #. odoo-python
 #: code:addons/pos_iot_six/wizard/add_six_terminal.py:0
 msgid "Six Terminal ID must only contain digits."
-msgstr ""
+msgstr "Six 終端機識別碼只可包含數字。"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__terminal_device_id
@@ -122,12 +121,12 @@ msgid ""
 "The ID of your Six payment terminal. Please note that after entering this, "
 "you will have to wait several seconds before the terminal will appear in "
 "your device list."
-msgstr "你的 Six 付款終端機的識別碼。請留意，輸入此資料後，需要等待幾秒，終端機才會出現在你的裝置清單中。"
+msgstr "你的 Six 付款終端機的識別碼。請留意，輸入此內容後，需要等幾秒，終端機才會出現在你的裝置清單中。"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,help:pos_iot_six.field_pos_iot_six_add_six_terminal__iot_box_id
 msgid "The IoT Box that your Six terminal is connected to."
-msgstr "你的 Six 終端機連接至的 IoT Box。"
+msgstr "你的 Six 終端機已連線至的 IoT Box。"
 
 #. module: pos_iot_six
 #. odoo-python

@@ -3,13 +3,14 @@
 # 	* room
 # 
 # Translators:
+# Manon Rondou, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:24+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -305,7 +306,9 @@ msgstr "Indien aangevinkt vragen nieuwe berichten je aandacht."
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
+#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
+#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Indien aangevinkt hebben sommige berichten een leveringsfout."
 
@@ -366,7 +369,7 @@ msgstr "Beheer kamers"
 #. module: room
 #: model:ir.ui.menu,name:room.room_menu_root
 msgid "Meeting Rooms"
-msgstr "Vergaderzalen"
+msgstr "Vergaderruimtes"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_search
@@ -554,6 +557,12 @@ msgid "Rooms"
 msgstr "Ruimtes"
 
 #. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
+#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "SMS fout bij versturen"
+
+#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_form
 msgid "Select a Room..."
 msgstr "Selecteer een zaal ..."
@@ -626,6 +635,18 @@ msgstr "T/m"
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 msgid "Update Meeting"
 msgstr "Afspraak updaten"
+
+#. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
+#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
+msgid "Website Messages"
+msgstr "Websiteberichten"
+
+#. module: room
+#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
+#: model:ir.model.fields,help:room.field_room_room__website_message_ids
+msgid "Website communication history"
+msgstr "Website communicatie geschiedenis"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form

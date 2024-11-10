@@ -6,7 +6,6 @@
 # Helen Sulaoja <helen@avalah.ee>, 2024
 # Tairi Tiimann, 2024
 # Katrin Kampura, 2024
-# Triine Aavik <triine@avalah.ee>, 2024
 # Martin Aavastik <martin@avalah.ee>, 2024
 # Birgit Vijar, 2024
 # Wanradt Koell <wanradt@gmail.com>, 2024
@@ -17,7 +16,6 @@
 # Egon Raamat <egon@avalah.ee>, 2024
 # Leaanika Randmets, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
-# Stevin Lilla, 2024
 # Marek Pontus, 2024
 # Algo Kärp <algokarp@gmail.com>, 2024
 # Patrick-Jordan Kiudorv, 2024
@@ -25,14 +23,16 @@
 # JanaAvalah, 2024
 # Siim Raasuke, 2024
 # Anna, 2024
+# Triine Aavik <triine@avalah.ee>, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,13 +62,13 @@ msgstr "% rõõmus"
 #. odoo-python
 #: code:addons/sale_subscription/models/product.py:0
 msgid "%(price)s %(billing_period_display_sentence)s"
-msgstr ""
+msgstr "%(price)s %(billing_period_display_sentence)s"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order_line.py:0
 msgid "%(start)s to %(next)s"
-msgstr ""
+msgstr "%(start)s kuni  %(next)s"
 
 #. module: sale_subscription
 #. odoo-python
@@ -120,17 +120,9 @@ msgid "6 Months"
 msgstr "6 kuud"
 
 #. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-msgid ""
-"<b>Congratulations</b>, you sent your first quote.</br>Wait for your "
-"customer to validate it from the email or confirm it manually."
-msgstr ""
-
-#. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "<b>Payment Method</b>"
-msgstr ""
+msgstr "<b>Makseviis</b>"
 
 #. module: sale_subscription
 #: model:mail.template,body_html:sale_subscription.mail_template_subscription_alert
@@ -276,7 +268,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "<i class=\"fa fa-download me-1\"/> Download"
-msgstr ""
+msgstr "<i class=\"fa fa-download me-1\"/> Laadi alla"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -291,7 +283,7 @@ msgstr "<i class=\"fa fa-fw fa-check\"/> Peatatud"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "<i class=\"fa fa-fw fa-check\"/> Renewed"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-check\"/> Uuendatud"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -301,7 +293,7 @@ msgstr "<i class=\"fa fa-fw fa-remove\"/>Suletud"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "<i class=\"fa fa-fw fa-remove\"/> Closing"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-remove\"/> Sulgemine"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -390,12 +382,12 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "<span class=\"o_stat_text\">MRR</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Igakuine korduv tulu</span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
 msgid "<span class=\"o_stat_text\">Subscription Items</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Tellimuse read</span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
@@ -405,7 +397,7 @@ msgstr "<span class=\"o_stat_text\">Tellimused</span>"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "<span class=\"text-muted\">Next Billing</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\">Järgmine arveldus</span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.recurring_details
@@ -457,12 +449,12 @@ msgstr "<strong> ja </strong>"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.report_saleorder_document
 msgid "<strong>Recurring Plan</strong>"
-msgstr ""
+msgstr "<strong>Korduv plaan</strong>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.report_saleorder_document
 msgid "<strong>Start Date</strong>"
-msgstr ""
+msgstr "<strong>Alguskuupäev</strong>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
@@ -802,6 +794,11 @@ msgid "ARR Change (normalized)"
 msgstr "ARR muutus (normaliseeritud)"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
+msgid "Abandoned Cart"
+msgstr "Hüljatud ostukorv"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_move_send
 msgid "Account Move Send"
 msgstr "Konto teisaldamise saatmine"
@@ -990,12 +987,12 @@ msgstr "Kellele määrata"
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__payment_transaction__subscription_action__assign_token
 msgid "Assign Token"
-msgstr ""
+msgstr "Määra token"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_plan__user_closable_options__at_date
 msgid "At date"
-msgstr ""
+msgstr "Kuupäeval"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_attachment_count
@@ -1010,7 +1007,7 @@ msgstr "Authorized"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Automate Payment"
-msgstr ""
+msgstr "Automatiseeri makse"
 
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action
@@ -1029,7 +1026,7 @@ msgstr "Automaatne sulgemine"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
-msgstr ""
+msgstr "Automaatne sulgemine pärast"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1089,7 +1086,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_auto_close_limit_reached
 msgid "Automatic renewal failed"
-msgstr ""
+msgstr "Automaatne uuendamine ebaõnnestus"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1161,7 +1158,7 @@ msgstr "Arveldusperiood"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__billing_period_value
 msgid "Billing Period "
-msgstr ""
+msgstr "Arveldusperiood"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__billing_period_display_sentence
@@ -1241,7 +1238,7 @@ msgstr "Kontrolli uuesti avatud tellimust"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "Choose a closing reason before submitting"
-msgstr ""
+msgstr "Vali sulgemise põhjus enne esitamist"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -1282,8 +1279,8 @@ msgstr "Kliki siia toote või teenuse lisamiseks"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
-#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "Suletav"
 
@@ -1385,7 +1382,7 @@ msgstr "Kontakt"
 #. module: sale_subscription
 #: model:sale.order.close.reason,retention_button_text:sale_subscription.close_reason_1
 msgid "Contact Marc"
-msgstr ""
+msgstr "Võta ühendust Marciga"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_template__duration_unit
@@ -1524,7 +1521,7 @@ msgstr "Valuuta"
 #: model:ir.model.fields,field_description:sale_subscription.field_product_product__product_subscription_pricing_ids
 #: model:ir.model.fields,field_description:sale_subscription.field_product_template__product_subscription_pricing_ids
 msgid "Custom Subscription Pricings"
-msgstr ""
+msgstr "Kohandatud tellimuse hinnad"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__partner_id
@@ -1678,7 +1675,7 @@ msgstr "Kuvatav nimi"
 #: model:ir.model.fields,field_description:sale_subscription.field_product_product__display_subscription_pricing
 #: model:ir.model.fields,field_description:sale_subscription.field_product_template__display_subscription_pricing
 msgid "Display Price"
-msgstr ""
+msgstr "Kuva hind"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
@@ -1743,7 +1740,7 @@ msgstr "Lõppkuupäev"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "End Date:"
-msgstr ""
+msgstr "Lõppkuupäev:"
 
 #. module: sale_subscription
 #: model:sale.order.close.reason,name:sale_subscription.close_reason_end_of_contract
@@ -1753,7 +1750,7 @@ msgstr "Lepingu lõpp"
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_plan__user_closable_options__end_of_period
 msgid "End of period"
-msgstr ""
+msgstr " Perioodi lõpp"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1921,7 +1918,7 @@ msgstr "On sõnum"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__has_recurring_line
 msgid "Has Recurring Line"
-msgstr ""
+msgstr "Sisaldab korduvat rida"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__health
@@ -2000,9 +1997,8 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
+"record. Not checked on record creation."
 msgstr ""
-"Kui see on olemas, peab see tingimus olema täidetud enne kirje uuendamist."
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -2076,7 +2072,7 @@ msgstr "Sisemised märkused"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__internal_note_display
 msgid "Internal Note Display"
-msgstr ""
+msgstr "Sisemise märkuse kuvamine"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -2087,7 +2083,7 @@ msgstr "Sisemised märkmed"
 #. odoo-python
 #: code:addons/sale_subscription/controllers/portal.py:0
 msgid "Invalid access token."
-msgstr ""
+msgstr "Kehtetu ligipääsutoken."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__invoice_mail_template_id
@@ -2103,12 +2099,12 @@ msgstr "Arve staatus"
 #. odoo-python
 #: code:addons/sale_subscription/controllers/portal.py:0
 msgid "Invoice not found."
-msgstr ""
+msgstr "Arvet ei leitud."
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__is_batch
 msgid "Is Batch"
-msgstr ""
+msgstr "On koond"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_is_follower
@@ -2118,12 +2114,12 @@ msgstr "On jälgija"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_close_reason__is_protected
 msgid "Is Protected"
-msgstr ""
+msgstr "On kaitstud"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__is_renewing
 msgid "Is Renewing"
-msgstr ""
+msgstr "On uuendamisel"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_base_automation__is_sale_order_alert
@@ -2187,17 +2183,17 @@ msgstr "KPI 3 kuud MRR Delta"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_template__is_unlimited
 msgid "Last Forever"
-msgstr ""
+msgstr "Kehtib igavesti"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_line__last_invoiced_date
 msgid "Last Invoiced Date"
-msgstr ""
+msgstr "Viimase arve kuupäev"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__last_reminder_date
 msgid "Last Reminder Date"
-msgstr ""
+msgstr "Viimase meeldetuletuse kuupäev"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__last_run
@@ -2293,7 +2289,7 @@ msgstr "Logi kõned"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__log_currency_id
 msgid "Log Currency"
-msgstr ""
+msgstr "Logi valuuta"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
@@ -2368,13 +2364,13 @@ msgstr "MRR ulatus (min)"
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_order_log_analysis_report
 msgid "MRR Timeline"
-msgstr ""
+msgstr "Igakuise tulu ajatelg"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log__amount_signed
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
 msgid "MRR change"
-msgstr ""
+msgstr "Igakuise tulu muutus"
 
 #. module: sale_subscription
 #. odoo-python
@@ -2600,7 +2596,7 @@ msgstr "Makseviis puudub"
 #. module: sale_subscription
 #: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_upsell
 msgid "No Upsell Found"
-msgstr ""
+msgstr "Lisamüüki ei leitud"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
@@ -2875,7 +2871,7 @@ msgstr "Plaan"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Plan:"
-msgstr ""
+msgstr "Plaan:"
 
 #. module: sale_subscription
 #. odoo-python
@@ -2978,7 +2974,7 @@ msgstr "Toote variatsioonid"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_sale_order_line_list
 msgid "Product Varient"
-msgstr ""
+msgstr "Toote variatsioon"
 
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.product_action_subscription
@@ -2988,6 +2984,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Products"
 msgstr "Tooted"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__project_id
+msgid "Project"
+msgstr "Projektid"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
@@ -3230,7 +3231,7 @@ msgstr "Tagasi lükatud"
 #: model:product.template,name:sale_subscription.product_fee_product_template
 #: model:sale.order.template.line,name:sale_subscription.montly_template_line2
 msgid "Registration fee"
-msgstr ""
+msgstr "Registreerimistasu"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3294,7 +3295,7 @@ msgstr "Taasavama"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Reopen your subscription"
-msgstr ""
+msgstr "Ava oma tellimus uuesti"
 
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_report
@@ -3399,7 +3400,7 @@ msgstr "Müügi tellimus: liitumise aegumine"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_sales_order_line_filter
 msgid "Sale order"
-msgstr ""
+msgstr "Müügitellimus"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3498,7 +3499,7 @@ msgstr "Valige tooted, mille suhtes seda hinnakujundust rakendatakse."
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
 msgid "Selectable in Portal"
-msgstr ""
+msgstr "Portaalis valitav"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
@@ -3663,7 +3664,7 @@ msgstr "Alguskuupäev:"
 #. module: sale_subscription
 #: model:mail.message.subtype,name:sale_subscription.subtype_state_change
 msgid "State Change"
-msgstr ""
+msgstr "Oleku muudatus"
 
 #. module: sale_subscription
 #. odoo-python
@@ -3759,7 +3760,7 @@ msgstr "Tellimuste arv"
 #: code:addons/sale_subscription/models/sale_subscription_plan.py:0
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_sale_order_line_list
 msgid "Subscription Items"
-msgstr ""
+msgstr "Tellimuse üksused"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
@@ -3774,7 +3775,7 @@ msgstr "Tellimuste logid"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Subscription Manager:"
-msgstr ""
+msgstr "Tellimuse haldur:"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_subscription_plan
@@ -3811,7 +3812,7 @@ msgstr "Tellimuse müügikontakt"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__subscription_state
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
 msgid "Subscription State"
-msgstr ""
+msgstr "Tellimuse olek"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__subscription_state
@@ -4539,6 +4540,11 @@ msgid "Webhook UUID"
 msgstr "Webhook UUID"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
+msgid "Website"
+msgstr "Veebileht"
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids
 msgid "Website Messages"
 msgstr "Veebilehe sõnumid"
@@ -4758,7 +4764,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Your Subscription"
-msgstr ""
+msgstr "Sinu tellimus"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.payment_method_form

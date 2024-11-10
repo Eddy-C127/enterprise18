@@ -5,6 +5,7 @@
 # Translators:
 # marcescu, 2024
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -256,6 +257,96 @@ msgid ""
 "</table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <t t-set=\"company\" t-value=\"object.company_id\"></t>\n"
+"                    <span style=\"font-size: 10px;\">Su transacción de domiciliación bancaria SEPA</span><br>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
+"                    <img t-attf-src=\"/logo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    Estimado/a <t t-out=\"object.partner_id.name or ''\">Azure Interior</t><br>\n"
+"                    <br>\n"
+"                    Se enviará una solicitud de pago de domiciliación bancaria a su banco por un importe de\n"
+"                    <span style=\"font-weight:bold;\" t-out=\"format_amount(object.amount, object.currency_id) or ''\">0,00 €</span>\n"
+"                    .<br>\n"
+"                    Se realizará el cargo a su cuenta con terminación <t t-out=\"ctx.get('iban_last_4') or ''\">1234</t> el\n"
+"                    <span style=\"font-weight:bold;\" t-out=\"format_date(ctx.get('collection_date'))\">18-04-2020</span>,\n"
+"                    o poco después.<br>\n"
+"                    Asegúrese de disponer de los fondos solicitados.<br>\n"
+"                    <br>\n"
+"                    <t t-if=\"ctx.get('creditor_iban') or ctx.get('mandate_ref')\">\n"
+"                        Datos del comerciante:<br>\n"
+"                        <ul>\n"
+"                            <t t-if=\"ctx.get('creditor_iban')\">\n"
+"                                <li>IBAN: <t t-out=\"ctx['creditor_iban'] or ''\">NO 93 8601 1117947</t></li>\n"
+"                            </t>\n"
+"                            <t t-if=\"ctx.get('mandate_ref')\">\n"
+"                                <li>REFERENCIA DE MANDATO DE DOMICILIACIÓN BANCARIA SEPA: <t t-out=\"ctx['mandate_ref'] or ''\"></t></li>\n"
+"                            </t>\n"
+"                        </ul>\n"
+"                    </t>\n"
+"                    <br>\n"
+"                    En caso de tener alguna pregunta, no dude en contactarnos.\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"company.name or ''\">SuCompañía</t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    <t t-if=\"company.phone\">\n"
+"                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
+"                    </t>\n"
+"                    <t t-if=\"company.email\">\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@sucompania.com</a> |\n"
+"                    </t>\n"
+"                    <t t-if=\"company.website\">\n"
+"                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.ejemplo.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Con la tecnología de <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model:mail.template,body_html:account_sepa_direct_debit.email_template_sdd_mandate_expiring
@@ -353,6 +444,8 @@ msgstr ""
 msgid ""
 "A customer account is required to validate a SEPA Direct Debit mandate."
 msgstr ""
+"Necesita una cuenta de cliente para validar un mandato de domiciliación "
+"bancaria SEPA."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.actions.act_window,help:account_sepa_direct_debit.account_sepa_direct_debit_mandate_tree_act
@@ -774,31 +867,31 @@ msgstr "Referencia gratuita que identifica al deudor en su empresa."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to journal"
-msgstr ""
+msgstr "Ir al diario"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to mandates"
-msgstr ""
+msgstr "Ir a los mandatos"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to payments"
-msgstr ""
+msgstr "Ir a los pagos"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to settings"
-msgstr ""
+msgstr "Ir a los ajustes"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Good news! A valid SEPA Mandate is available."
-msgstr ""
+msgstr "¡Buenas noticias! Un mandato SEPA válido está disponible."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__has_message
@@ -938,7 +1031,7 @@ msgstr "Mandato"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__mandate_pdf_file
 msgid "Mandate Form PDF"
-msgstr ""
+msgstr "PDF de formulario del mandato"
 
 #. module: account_sepa_direct_debit
 #: model:ir.actions.report,name:account_sepa_direct_debit.sdd_mandate_form_report_main
@@ -1082,12 +1175,15 @@ msgid ""
 "select a journal associated to one or add an IBAN bank account to the "
 "current journal"
 msgstr ""
+"Solo números de cuenta IBAN pueden recibir pagos de domiciliación bancaria "
+"SEPA. Seleccione un diario asociado a una cuenta bancaria IBAN o agregue una"
+" al diario actual."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Only mandates in draft state can be deleted."
-msgstr ""
+msgstr "Solo los mandatos en estado de borrador se pueden eliminar."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1152,7 +1248,7 @@ msgstr "Pagado a través de domiciliación bancaria"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/wizard/sdd_mandate_send.py:0
 msgid "Partner should have an email address."
-msgstr ""
+msgstr "El contacto debe tener una dirección de correo electrónico."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment_register
@@ -1167,7 +1263,7 @@ msgstr "Métodos de pago"
 #. module: account_sepa_direct_debit
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_pre_notification
 msgid "Payment notification {{ object.memo }}"
-msgstr ""
+msgstr "Notificación de pago {{ object.memo }}"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_account_payment
@@ -1200,7 +1296,7 @@ msgstr "Pagos por cobrar"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Payments without mandate"
-msgstr ""
+msgstr "Pagos sin mandato"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1220,7 +1316,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Problematic mandates"
-msgstr ""
+msgstr "Mandatos problemáticos"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__rating_ids
@@ -1496,7 +1592,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Some payments are not linked to any mandate."
-msgstr ""
+msgstr "Algunos pagos no están vinculados a ningún mandato."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__start_date
@@ -1804,6 +1900,8 @@ msgid ""
 "day(s).\n"
 "                    It will be sent to the debtor's email."
 msgstr ""
+"día(s).\n"
+"                    Se enviará al correo electrónico del deudor."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1818,3 +1916,4 @@ msgstr ""
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "{{ object.partner_id.display_name }} SEPA Direct Debit Mandate"
 msgstr ""
+"{{ object.partner_id.display_name }} Mandato de domiciliación bancaria SEPA."

@@ -2024,6 +2024,7 @@ msgstr "ID de carpeta no válida"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
 msgstr "Operación no válida"
@@ -3736,6 +3737,12 @@ msgid ""
 msgstr "No puede crear atajos en o mover documentos a esta carpeta especial."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot access folders in the trash."
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
@@ -3752,6 +3759,12 @@ msgstr "No puede borrar las etiquetas que se usen en acciones del servidor."
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
 msgstr "No puede duplicar documentos que estén en la papelera."
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot move folders or files when in the trash."
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

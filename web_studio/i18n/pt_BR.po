@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Maitê Dietze, 2024\n"
 "Language-Team: Portuguese (Brazil) (https://app.transifex.com/odoo/teams/41243/pt_BR/)\n"
@@ -137,6 +137,11 @@ msgid "%s record(s)"
 msgstr "%s registro(s)"
 
 #. module: web_studio
+#: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
+msgid "<i role=\"img\" class=\"fa fa-user-times\" title=\"Exclusive approval\"/>"
+msgstr "<i role=\"img\" class=\"fa fa-user-times\" title=\"Exclusive approval\"/>"
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid ""
@@ -149,6 +154,12 @@ msgstr ""
 "                Adicionar nova lista de controle de acesso\n"
 "            </p>\n"
 "            "
+
+#. module: web_studio
+#: model_terms:web_tour.tour,rainbow_man_message:web_studio.web_studio_new_app_tour
+msgid "<span><b>Good job!</b> You went through all steps of this tour.</span>"
+msgstr ""
+"<span><b>Muito bem!</b> Você passou por todas as etapas deste tour.</span>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -439,6 +450,14 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"All set? You are just one click away from <b>generating your first app</b>."
+msgstr ""
+"Tudo pronto? Você está a um clique de </b>criar seu primeiro aplicativo</b>."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Allow Resequencing"
 msgstr "Permitir ressequenciamento"
@@ -630,6 +649,8 @@ msgstr "Como demonstração"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Ascending"
 msgstr "Crescente"
@@ -891,6 +912,12 @@ msgstr "Classe"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Click to edit messaging features on your model."
+msgstr "Clique para editar recursos de mensagem no seu modelo."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 msgid "Click to see all approval rules."
 msgstr "Clique para ver todas as regras de aprovação."
@@ -1053,6 +1080,14 @@ msgstr "Contexto"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Continue to configure some typical behaviors for your new type of object."
+msgstr ""
+"Continue a configurar comportamentos comuns do seu novo tipo de objeto."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/navbar/home_menu_customizer/home_menu_customizer.js:0
 msgid "Could not change the background"
 msgstr "Não foi possível alterar o plano de fundo"
@@ -1074,6 +1109,14 @@ msgstr "Criar modelo"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 msgid "Create a new Model"
 msgstr "Criar novo modelo"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Create your <b>selection values</b> (e.g.: Romance, Polar, Fantasy, etc.)"
+msgstr ""
+"Crie seus <b>valores de seleção</b> (Ex: Romance, Polar, Fantasia, etc.)"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1377,6 +1420,8 @@ msgstr "Denso"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Descending"
 msgstr "Decrescente"
@@ -1447,6 +1492,12 @@ msgstr "Exibir indisponibilidade"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
+msgid "Displays a textual hint that helps the user when the field is empty."
+msgstr "Exibe uma dica textual que ajuda o usuário quando o campo está vazio."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_record_legacy.js:0
 msgid "Do you want to add a dropdown with colors?"
 msgstr "Quer adicionar um menu suspensa com cores?"
@@ -1465,6 +1516,15 @@ msgstr "Domínio"
 #: code:addons/web_studio/models/ir_model.py:0
 msgid "Done"
 msgstr "Concluído"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Drag & drop <b>another field</b>. Let's try with a <i>selection field</i>."
+msgstr ""
+"Arraste e solte <b>outro campo</b>. Vamos tentar com um <i>campo de "
+"seleção</i>."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1696,7 +1756,7 @@ msgstr "Campo"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 msgid "Field Properties"
-msgstr "Propiedades do campo"
+msgstr "Propriedades do campo"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1849,6 +1909,20 @@ msgid "Go back"
 msgstr "Volte"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Go on, you are almost done!"
+msgstr "Continue, você está quase terminando!"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Good job! To add more <b>fields</b>, come back to the <i>Add tab</i>."
+msgstr ""
+"Bom trabalho! Para adicionar mais <b>campos</b>, volte para a <i>aba "
+"Adicionar</i>."
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #: model:ir.model.fields.selection,name:web_studio.selection__mail_activity_type__category__grant_approval
@@ -1939,6 +2013,16 @@ msgstr "Dica de ajuda"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Here, you can <b>name</b> your field (e.g. Book reference, ISBN, Internal "
+"Note, etc.)."
+msgstr ""
+"Aqui, você pode <b>nomear</b> seu campo (ex: Referência do livro, ISBN, Nota"
+" interna, etc.)"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Hide Address"
 msgstr "Ocultar endereço"
@@ -1977,6 +2061,28 @@ msgstr "Imagem de fundo do menu inicial"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 msgid "Hour"
 msgstr "Hora"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to <b>name</b> your app? Library, Academy, …?"
+msgstr "Como você quer <b>chamar</b> seu aplicativo? Biblioteca, Academia…?"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to name your first <b>menu</b>? My books, My courses?"
+msgstr ""
+"Como você quer chamar o seu primeiro <b>menu</b>? Meus livros, Meus cursos…?"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"I bet you can <b>build an app</b> in 5 minutes. Ready for the challenge?"
+msgstr ""
+"Aposto que você consegue </b>criar um aplicativo</b> em 5 minutos. Pronto "
+"para o desafio?"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__id
@@ -2271,6 +2377,16 @@ msgstr "Sair do Estúdio com outra ação"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Let's check the result. Close Odoo Studio to get an <b>overview of your "
+"app</b>."
+msgstr ""
+"Vamos ver o resultado. Feche o Odoo Estúdio para ter uma <b>visão geral do "
+"seu aplicativo</b>."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
@@ -2522,6 +2638,7 @@ msgstr "Precisão de mês"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "More"
@@ -2654,6 +2771,16 @@ msgstr "Próximo"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Nicely done! Let's build your screen now; <b>drag</b> a <i>text field</i> "
+"and <b>drop</b> it in your view, on the right."
+msgstr ""
+"Muito bem! Vamos construir sua tela agora: <b>arraste</b> um <i>campo de "
+"texto</i> e <b>solte-o</b> na sua visão, à direita."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
 msgid "No aggregation"
 msgstr "Sem agregação"
@@ -2696,6 +2823,18 @@ msgstr "Notas"
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
 msgstr "Notificar para"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now you're on your own. Enjoy your <b>super power</b>."
+msgstr "Agora é com você. Aproveite seu <b>superpoder</b>."
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now, customize your icon. Make it yours."
+msgstr "Agora, personalize seu ícone. Deixe-o com a sua cara."
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_needaction_counter
@@ -2777,6 +2916,8 @@ msgstr "Opcional"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Order"
 msgstr "Ordem"
@@ -3240,6 +3381,12 @@ msgstr "Salvar"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Save."
+msgstr "Salve."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor_snackbar.xml:0
 msgid "Saved"
 msgstr "Salvo"
@@ -3404,6 +3551,16 @@ msgstr "Definir preço ou custo nos registros"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Set an <b>email alias</b>. Then, try to send an email to this address; it "
+"will create a document automatically for you. Pretty cool, huh?"
+msgstr ""
+"Defina um <b>alias de e-mail</b>. Então, tente enviar um e-mail para esse "
+"endereço; isso gerará um documento automaticamente. Legal, não é?"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "Show Invisible Elements"
 msgstr "Mostrar elementos invisíveis"
@@ -3470,6 +3627,8 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Sort By"
 msgstr "Ordenar por"
@@ -4003,6 +4162,12 @@ msgstr "Visões da linha do tempo"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "To <b>customize a field</b>, click on its <i>label</i>."
+msgstr "Para <b>personalizar um campo</b>, clique neste <i>rótulo</i>."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/systray_item/systray_item.xml:0
 msgid "Toggle Studio"
 msgstr "Ativar/desativar Estúdio"
@@ -4140,6 +4305,12 @@ msgid "Waiting for approval"
 msgstr "Aguardando aprovação"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Want more fun? Let's create more <b>views</b>."
+msgstr "Quer continuar se divertindo? Vamos criar mais <b>visualizações</b>."
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid "Webhook Automations"
@@ -4188,6 +4359,12 @@ msgstr "Bem-vindo a"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "What about a <b>Kanban view</b>?"
+msgstr "Quem sabe uma <b>visão Kanban?</b>"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "What should the button do"
 msgstr "O que o botão deve fazer"
@@ -4222,6 +4399,16 @@ msgstr "Widget"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Wow, nice! And I'm sure you can make it even better! Use this icon to open "
+"<b>Odoo Studio</b> and customize any screen."
+msgstr ""
+"Muito bem! E você pode melhor mais ainda: Isse esse ícone para abrir o "
+"<b>Odoo Estúdio</b> e personalizar qualquer tela."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 msgid "Write additional notes or comments"
 msgstr "Escreva notas ou comentários adicionais"
@@ -4252,6 +4439,8 @@ msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
 msgstr ""
+"Não é possível cancelar uma aprovação que não tenha sido definida por você "
+"ou que não pertença aos aprovadores de uma regra de nível superior."
 
 #. module: web_studio
 #. odoo-javascript

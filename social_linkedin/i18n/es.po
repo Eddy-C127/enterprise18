@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -111,6 +112,16 @@ msgstr "Mostrar la vista previa de LinkedIn"
 #: code:addons/social_linkedin/models/social_stream_post.py:0
 msgid "Failed to post the comment: “%(error_description)s”"
 msgstr "Ocurrió un error al publicar el comentario: “%(error_description)s”"
+
+#. module: social_linkedin
+#. odoo-python
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+msgid ""
+"Failed to retrieve the post. It might have been deleted or you may not have "
+"permission to view it."
+msgstr ""
+"No se pudo recuperar la publicación. Es posible que haya sido eliminada o "
+"que no tenga permiso para verla."
 
 #. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_social_post__has_linkedin_account

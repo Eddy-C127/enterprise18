@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Sarah Park, 2024
 # Daye Jeong, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Daye Jeong, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
@@ -45,12 +46,12 @@ msgstr "<b>계정을 연결하는 중에 오류가 발생했습니다</b>"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"캘린더\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"캘린더\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
@@ -171,7 +172,7 @@ msgstr "이미지 첨부"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_live_post__image_ids
 msgid "Attached Images"
-msgstr ""
+msgstr "첨부 이미지"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_attachment_count
@@ -442,7 +443,7 @@ msgstr "취소"
 #: model:ir.model.fields,field_description:social.field_social_post__display_message
 #: model:ir.model.fields,field_description:social.field_social_post_template__display_message
 msgid "Display Message"
-msgstr ""
+msgstr "메시지 표시"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__display_name
@@ -896,7 +897,7 @@ msgstr "매체"
 #: model:ir.model.fields,field_description:social.field_social_post__media_count
 #: model:ir.model.fields,field_description:social.field_social_post_template__media_count
 msgid "Media Count"
-msgstr ""
+msgstr "미디어 수"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__media_type
@@ -1142,7 +1143,7 @@ msgstr "게시할 계정을 하나 이상 지정해 주세요 (게시글 ID %s).
 #. odoo-python
 #: code:addons/social/models/social_post_template.py:0
 msgid "Please specify either a message or upload some images."
-msgstr ""
+msgstr "메시지를 지정하거나 이미지를 업로드하세요."
 
 #. module: social
 #. odoo-python
@@ -1227,7 +1228,7 @@ msgstr "계정별 게시물"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Posts Preview"
-msgstr ""
+msgstr "게시물 미리보기"
 
 #. module: social
 #. odoo-javascript
@@ -1491,12 +1492,8 @@ msgstr "소셜 : 예약된 게시물 게시"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comments_reply.js:0
-msgid ""
-"Something went wrong while posting the comment. \n"
-"%s"
-msgstr ""
-"댓글을 게시하는 동안 문제가 발생했습니다.  \n"
-"%s"
+msgid "Something went wrong while posting the comment."
+msgstr "댓글 작성 중 문제가 발생했습니다."
 
 #. module: social
 #. odoo-javascript
@@ -1522,13 +1519,13 @@ msgstr "미디어 ID (kanban보기에 사용)별로 실시간 게시물 이름�
 #. odoo-javascript
 #: code:addons/social/static/src/js/fields/social_post_split_per_media.xml:0
 msgid "Split Per Media"
-msgstr ""
+msgstr "미디어별 분할"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__is_split_per_media
 #: model:ir.model.fields,field_description:social.field_social_post_template__is_split_per_media
 msgid "Split Per Network"
-msgstr ""
+msgstr "네트워크별 분할"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__stats_link
@@ -1706,6 +1703,12 @@ msgstr "UTM 소스"
 
 #. module: social
 #. odoo-python
+#: code:addons/social/controllers/main.py:0
+#, python-format
+msgid "Uh-oh! It looks like this message has been deleted from X."
+msgstr ""
+
+#. module: social
 #: code:addons/social/models/social_post.py:0
 msgid "Unknown error"
 msgstr "알 수 없는 오류"

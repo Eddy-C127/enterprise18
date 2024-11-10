@@ -121,7 +121,7 @@ msgstr "(1 บรรทัด)"
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "(No %s)"
-msgstr ""
+msgstr "(ไม่ %s)"
 
 #. module: account_reports
 #. odoo-python
@@ -2083,6 +2083,8 @@ msgstr "รวมการชำระเงิน"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr "รวมถึงการจำลองเชิงวิเคราะห์"
 
@@ -2390,7 +2392,7 @@ msgstr "ภายหลัง"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/line_name/line_name.xml:0
 msgid "Ledger"
-msgstr ""
+msgstr "บัญชีแยกประเภท"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_cost_sales0
@@ -2514,7 +2516,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Multi-ledger"
-msgstr ""
+msgstr "บัญชีแยกประเภทหลายบัญชี"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_report_handler
@@ -3641,6 +3643,8 @@ msgid ""
 "will be created for the closest-matching period according to your "
 "periodicity setup."
 msgstr ""
+"วันที่ที่เลือกในปัจจุบันไม่ตรงกับช่วงของภาษี "
+"รายการปิดบัญชีจะถูกสร้างขึ้นสำหรับช่วงที่ตรงกันมากที่สุดตามการตั้งค่าช่วงระยะเวลาของคุณ"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3961,6 +3965,7 @@ msgstr "กำไร/ขาดทุนจากสกุลเงินที�
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "รายการที่ไม่ได้กระทบยอด"
 
@@ -4059,6 +4064,8 @@ msgstr "เราจะต้องสำรองสกุลเงินต่
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "ด้วยรายการฉบับร่าง"
 
@@ -4169,6 +4176,8 @@ msgid ""
 " Each of them will be created in accordance with its company tax "
 "periodicity."
 msgstr ""
+"คุณกำลังจะสร้างรายการปิดบัญชีของบริษัทหลายแห่งพร้อมกัน "
+"แต่ละรายการจะถูกสร้างขึ้นตามระยะเวลาการเสียภาษีของบริษัทนั้นๆ"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main

@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,7 +135,7 @@ msgstr "创建日期"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__pdis_general_note
 msgid "Current general-note displayed on preparation display"
-msgstr "准备工作显示屏上，目前显示的一般备注"
+msgstr "准备显示屏上，目前显示的一般备注"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_order__displayed
@@ -293,7 +294,7 @@ msgstr "订单"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__preparation_display_order_line_ids
 msgid "Order Lines"
-msgstr "订单行"
+msgstr "订单明细"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__order_stage_ids
@@ -318,13 +319,13 @@ msgstr "订单已显示"
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_orderline__pos_order_line_uuid
 msgid "Original pos order line UUID"
-msgstr "原始销售订单行唯一的识别码"
+msgstr "原始销售订单明细唯一的识别码"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__pos_config_ids
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__pos_config_id
 msgid "Point of Sale"
-msgstr "销售点"
+msgstr "POS"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_order
@@ -339,12 +340,12 @@ msgstr "POS会话"
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_orderline
 msgid "Point of Sale preparation order line"
-msgstr "销售点准备订单行"
+msgstr "POS准备订单明细"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_stage
 msgid "Point of Sale preparation stage"
-msgstr "销售点准备阶段"
+msgstr "POS准备阶段"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_order__pos_order_id
@@ -354,7 +355,7 @@ msgstr "Pos 订单"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__pos_order_line_uuid
 msgid "Pos Order Line Uuid"
-msgstr "销售点订单行唯一识别码"
+msgstr "销售点订单明细唯一识别码"
 
 #. module: pos_preparation_display
 #: model:ir.actions.act_url,name:pos_preparation_display.action_pos_preparation_display_bar_restaurant_filter_link
@@ -365,12 +366,12 @@ msgstr "销售点订单行唯一识别码"
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_search
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_tree
 msgid "Preparation Display"
-msgstr "准备工作显示"
+msgstr "准备显示屏"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__preparation_display_order_id
 msgid "Preparation Display Order"
-msgstr "订单准备工作显示"
+msgstr "准备显示屏订单"
 
 #. module: pos_preparation_display
 #: model_terms:ir.ui.view,arch_db:pos_preparation_display.preparation_display_view_kanban
@@ -381,7 +382,7 @@ msgstr "准备工作画面"
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_stage__preparation_display_id
 msgid "Preparation display"
-msgstr "准备工作显示"
+msgstr "准备显示屏"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_order
@@ -430,7 +431,7 @@ msgstr "重置"
 #. odoo-python
 #: code:addons/pos_preparation_display/models/preparation_display.py:0
 msgid "Reset Preparation Display"
-msgstr "重置准备工作显示"
+msgstr "重置准备显示屏"
 
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_reset_wizard
@@ -466,7 +467,7 @@ msgstr "阶段"
 #. module: pos_preparation_display
 #: model:ir.model,name:pos_preparation_display.model_pos_preparation_display_order_stage
 msgid "Stage of orders by preparation display"
-msgstr "按准备工作显示的订单阶段"
+msgstr "按准备显示屏的订单阶段"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_display__stage_ids
@@ -477,7 +478,7 @@ msgstr "阶段"
 #. module: pos_preparation_display
 #: model:ir.model.fields,field_description:pos_preparation_display.field_pos_preparation_display_orderline__todo
 msgid "Status of the orderline"
-msgstr "订单行的状态"
+msgstr "订单明细的状态"
 
 #. module: pos_preparation_display
 #: model:ir.model.fields,help:pos_preparation_display.field_pos_preparation_display_orderline__todo
@@ -492,7 +493,7 @@ msgstr "定时器，定时器后订单将突出显示"
 #. module: pos_preparation_display
 #: model:ir.actions.server,name:pos_preparation_display.preparation_display_delete_cron_ir_actions_server
 msgid "delete_preparation_display_order"
-msgstr "delete_preparation_display_order"
+msgstr "删除准备显示屏订单"
 
 #. module: pos_preparation_display
 #. odoo-javascript

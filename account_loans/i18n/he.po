@@ -69,6 +69,8 @@ msgid ""
 "<span class=\"oe_inline\" invisible=\"loan_term == 1\">years</span>\n"
 "                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">year</span>"
 msgstr ""
+"<span class=\"oe_inline\" invisible=\"loan_term == 1\">שנים</span>\n"
+"                                    <span class=\"oe_inline\" invisible=\"loan_term != 1\">שנה</span>"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
@@ -139,7 +141,7 @@ msgstr "החל"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Asset Group"
-msgstr ""
+msgstr "קבוצת נכס"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_asset
@@ -218,7 +220,7 @@ msgstr "חברה"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__compounding_method
 msgid "Compounding Method"
-msgstr ""
+msgstr "שיטת חיבור"
 
 #. module: account_loans
 #. odoo-javascript
@@ -230,7 +232,7 @@ msgstr "חשב"
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "Compute New Loan"
-msgstr ""
+msgstr "צור הלוואה חדשה"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -413,18 +415,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__interest_rate
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Interest Rate"
-msgstr ""
+msgstr "אחוז ריבית"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Interest Rate must be between 0 and 100"
-msgstr ""
+msgstr "אחוז ריבית חייב להיות בין 0 ל 100"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Interests"
-msgstr ""
+msgstr "ריבית"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_is_follower
@@ -514,13 +516,13 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_amount
 msgid "Loan Amount"
-msgstr ""
+msgstr "סכום ההלוואה"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Amount must be positive"
-msgstr ""
+msgstr "סכום ההלוואה חייב להיות חיובי"
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_compute_wizard
@@ -560,13 +562,13 @@ msgstr "הגדרות"
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__loan_term
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Loan Term"
-msgstr ""
+msgstr "תנאי הלוואה"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Loan Term must be positive"
-msgstr ""
+msgstr "תנאי הלוואה חייב להיות חיובי"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
@@ -608,7 +610,7 @@ msgstr "חשבון להלוואה לזמן ארוך"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__long_term_theoretical_balance
 msgid "Long-Term"
-msgstr ""
+msgstr "טווח ארוך"
 
 #. module: account_loans
 #: model_terms:ir.actions.act_window,help:account_loans.action_view_account_loans
@@ -708,12 +710,12 @@ msgstr "תצוגה מקדימה"
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
-msgstr ""
+msgstr "קרן"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Principals"
-msgstr ""
+msgstr "קרן"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__loan_properties
@@ -788,7 +790,7 @@ msgstr "חשבון להלוואה לטווח קצר"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__short_term_theoretical_balance
 msgid "Short-Term"
-msgstr ""
+msgstr "טווח קצר"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__skip_until_date
@@ -836,7 +838,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan accounts should be set."
-msgstr ""
+msgstr "יש להגדיר חשבון הלוואה"
 
 #. module: account_loans
 #. odoo-python
@@ -845,6 +847,8 @@ msgid ""
 "The loan amount %(loan_amount)s should be equal to the sum of the "
 "principals: %(principal_sum)s (difference %(principal_difference)s)"
 msgstr ""
+"סכום ההלוואה %(loan_amount)sצריך להיות שווה לסכום הקרנות %(principal_sum)s "
+"(הפרש %(principal_difference)s)"
 
 #. module: account_loans
 #. odoo-python
@@ -902,7 +906,7 @@ msgstr "סה\"כ יתרה"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total interests"
-msgstr ""
+msgstr "סה\"כ ריבית"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
@@ -912,7 +916,7 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total principals"
-msgstr ""
+msgstr "סה\"כ קרן"
 
 #. module: account_loans
 #. odoo-javascript

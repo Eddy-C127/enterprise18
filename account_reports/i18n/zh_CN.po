@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Chloe Wang, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -38,19 +38,19 @@ msgstr "%(journal)s - %(account)s"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and %(remaining)s others"
-msgstr ""
+msgstr "%(names)s 及另外 %(remaining)s 项"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and one other"
-msgstr ""
+msgstr "%(names)s 及另一项"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "%(report_label)s: %(period)s"
-msgstr ""
+msgstr "%(report_label)s：%(period)s"
 
 #. module: account_reports
 #. odoo-python
@@ -1280,7 +1280,7 @@ msgstr "自订引擎_report_custom_engine_last_statement_balance_amount 不支�
 #. module: account_reports
 #: model:mail.template,name:account_reports.email_template_customer_statement
 msgid "Customer Statement"
-msgstr ""
+msgstr "客户结单"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1625,12 +1625,12 @@ msgstr "汇率"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_move_line__exclude_bank_lines
 msgid "Exclude Bank Lines"
-msgstr ""
+msgstr "排除银行资料行"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_search
 msgid "Exclude Bank lines"
-msgstr ""
+msgstr "排除银行资料行"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__exclude_provision_currency_ids
@@ -2062,6 +2062,8 @@ msgstr "包括付款"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr "包括分析模拟"
 
@@ -2206,7 +2208,7 @@ msgstr "无法使用水平分组功能选择预算。"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid ""
 "It's not possible to select a horizontal group with the budget feature."
-msgstr ""
+msgstr "使用预算功能时，无法选取水平分组。"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__item_ids
@@ -2229,7 +2231,7 @@ msgstr "日记账"
 #: model:ir.actions.client,name:account_reports.action_account_report_ja
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_ja
 msgid "Journal Audit"
-msgstr ""
+msgstr "日记账审计"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move
@@ -2366,17 +2368,17 @@ msgstr "分类账"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_cost_sales0
 msgid "Less Costs of Revenue"
-msgstr ""
+msgstr "减：收入成本"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_expense0
 msgid "Less Operating Expenses"
-msgstr ""
+msgstr "减：营运开支"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
 msgid "Less Other Expenses"
-msgstr ""
+msgstr "减：其他开支"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__line_id
@@ -2479,7 +2481,7 @@ msgstr "个月"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Multi-Ledger:"
-msgstr ""
+msgstr "多个分类账："
 
 #. module: account_reports
 #. odoo-python
@@ -2500,7 +2502,7 @@ msgstr "多币别重新估值向导"
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__multi
 msgid "Multiple Recipients"
-msgstr ""
+msgstr "多名收件人"
 
 #. module: account_reports
 #. odoo-python
@@ -2588,7 +2590,7 @@ msgstr "无对比"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "No Journal"
-msgstr ""
+msgstr "无日记账"
 
 #. module: account_reports
 #. odoo-python
@@ -2706,7 +2708,7 @@ msgstr "仅允许财务管理员更改锁定日期！"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_account_reports_customer_statements
 msgid "Open Customer Statements"
-msgstr ""
+msgstr "开启客户结单"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_financial_year_op
@@ -2716,7 +2718,7 @@ msgstr "会计年度期初余额"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_operating_income0
 msgid "Operating Income (or Loss)"
-msgstr ""
+msgstr "营运收入（亏损）"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2922,13 +2924,13 @@ msgstr "计划"
 #: code:addons/account_reports/models/budget.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Please enter a valid budget name."
-msgstr ""
+msgstr "请输入有效的预算名称。"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Please select a mail template to send multiple statements."
-msgstr ""
+msgstr "请选择一个邮件模板，以传送多份报表。"
 
 #. module: account_reports
 #. odoo-python
@@ -2966,7 +2968,7 @@ msgstr "加非流动负债"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_other_income0
 msgid "Plus Other Income"
-msgstr ""
+msgstr "加：其他收入"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_position0
@@ -3004,7 +3006,7 @@ msgstr "上一期间"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
 msgid "Previous Years Retained Earnings"
-msgstr ""
+msgstr "之前年度保留收益"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
@@ -3244,18 +3246,18 @@ msgstr "发送只读邮件"
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send Partner Ledgers"
-msgstr ""
+msgstr "发送合作伙伴分类账"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.ir_cron_account_report_send_ir_actions_server
 msgid "Send account reports automatically"
-msgstr ""
+msgstr "自动发送账户报表"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/wizard/account_report_send.py:0
 msgid "Sending statements"
-msgstr ""
+msgstr "发送结单"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__sequence
@@ -3447,7 +3449,7 @@ msgstr "已付税款调整"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/tax_report/filters/filter_date.xml:0
 msgid "Tax Period"
-msgstr ""
+msgstr "课税期间"
 
 #. module: account_reports
 #. odoo-python
@@ -3495,7 +3497,7 @@ msgstr "税务单位"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_mail_activity__account_tax_closing_params
 msgid "Tax closing additional params"
-msgstr ""
+msgstr "税务结算附加参数"
 
 #. module: account_reports
 #: model:mail.activity.type,summary:account_reports.mail_activity_type_tax_report_to_pay
@@ -3511,7 +3513,7 @@ msgstr "税务报表"
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "Tax return"
-msgstr ""
+msgstr "报税表"
 
 #. module: account_reports
 #. odoo-python
@@ -3921,6 +3923,7 @@ msgstr "未实现的币别收益/损失"
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "未对账的分录"
 
@@ -4019,6 +4022,8 @@ msgstr "是否必须为选定外币提供准备金。"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "带有草稿分录"
 

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -23,7 +23,7 @@ msgstr ""
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__accounts_count
 msgid "# Accounts"
-msgstr "# Accounts"
+msgstr "帳戶數目"
 
 #. module: social
 #. odoo-python
@@ -45,12 +45,12 @@ msgstr "<b>嘗試連結你的帳戶時，發生錯誤</b>"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"日曆\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"日曆\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
@@ -1140,7 +1140,7 @@ msgstr "請指定最少一個發佈用的帳號（對於帖文識別碼：%s）�
 #. odoo-python
 #: code:addons/social/models/social_post_template.py:0
 msgid "Please specify either a message or upload some images."
-msgstr ""
+msgstr "請指定一個訊息，或上載一些圖片。"
 
 #. module: social
 #. odoo-python
@@ -1225,7 +1225,7 @@ msgstr "帖文（按帳戶）"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Posts Preview"
-msgstr ""
+msgstr "帖文預覽"
 
 #. module: social
 #. odoo-javascript
@@ -1489,12 +1489,8 @@ msgstr "社交媒體：發佈預先排期帖文"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comments_reply.js:0
-msgid ""
-"Something went wrong while posting the comment. \n"
-"%s"
-msgstr ""
-"發佈留言時出現錯誤。 \n"
-"%s"
+msgid "Something went wrong while posting the comment."
+msgstr "發佈留言時，出現錯誤。"
 
 #. module: social
 #. odoo-javascript
@@ -1704,6 +1700,12 @@ msgstr "UTM來源"
 
 #. module: social
 #. odoo-python
+#: code:addons/social/controllers/main.py:0
+#, python-format
+msgid "Uh-oh! It looks like this message has been deleted from X."
+msgstr ""
+
+#. module: social
 #: code:addons/social/models/social_post.py:0
 msgid "Unknown error"
 msgstr "未知的錯誤"

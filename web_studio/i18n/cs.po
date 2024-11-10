@@ -3,18 +3,18 @@
 # 	* web_studio
 # 
 # Translators:
-# Jiří Podhorecký <jirka.p@volny.cz>, 2024
 # Wil Odoo, 2024
-# Aleš Fiala <f.ales1@seznam.cz>, 2024
 # Tereza Mokrá, 2024
+# Aleš Fiala <f.ales1@seznam.cz>, 2024
+# Jiří Podhorecký <jirka.p@volny.cz>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tereza Mokrá, 2024\n"
+"Last-Translator: Jiří Podhorecký <jirka.p@volny.cz>, 2024\n"
 "Language-Team: Czech (https://app.transifex.com/odoo/teams/41243/cs/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -134,6 +134,11 @@ msgid "%s record(s)"
 msgstr ""
 
 #. module: web_studio
+#: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
+msgid "<i role=\"img\" class=\"fa fa-user-times\" title=\"Exclusive approval\"/>"
+msgstr ""
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid ""
@@ -146,6 +151,11 @@ msgstr ""
 "                Přidat nový seznam řízení přístupu\n"
 "            </p>\n"
 "            "
+
+#. module: web_studio
+#: model_terms:web_tour.tour,rainbow_man_message:web_studio.web_studio_new_app_tour
+msgid "<span><b>Good job!</b> You went through all steps of this tour.</span>"
+msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
@@ -430,6 +440,15 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"All set? You are just one click away from <b>generating your first app</b>."
+msgstr ""
+"Vše připraveno? Od <b>vygenerování první aplikace</b> vás dělí jen jedno "
+"kliknutí."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Allow Resequencing"
 msgstr ""
@@ -620,6 +639,8 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Ascending"
 msgstr "Vzestupně"
@@ -881,6 +902,12 @@ msgstr "Třída"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Click to edit messaging features on your model."
+msgstr "Kliknutím upravíte funkce zasílání zpráv na modelu."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 msgid "Click to see all approval rules."
 msgstr "Kliknutím zobrazíte všechna pravidla schválení."
@@ -1041,6 +1068,15 @@ msgstr "Kontext"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Continue to configure some typical behaviors for your new type of object."
+msgstr ""
+"Pokračujte v konfiguraci některých typických chování pro váš nový typ "
+"objektu."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/navbar/home_menu_customizer/home_menu_customizer.js:0
 msgid "Could not change the background"
 msgstr "Nepodařilo se změnit pozadí"
@@ -1062,6 +1098,14 @@ msgstr "Vytvořit Model"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 msgid "Create a new Model"
 msgstr "Vytvořit nový model"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Create your <b>selection values</b> (e.g.: Romance, Polar, Fantasy, etc.)"
+msgstr ""
+"Vytvořte si <b>hodnoty výběru</b> (např.: Romantika, Polární, Fantasy atd.)"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1363,6 +1407,8 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Descending"
 msgstr "Klesající"
@@ -1399,7 +1445,7 @@ msgstr "Zrušit"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/field_configuration/selection_content_dialog.xml:0
 msgid "Discard changes"
-msgstr ""
+msgstr "Neukládat změny a pokračovat"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1433,6 +1479,12 @@ msgstr "Nedostupnost zobrazení"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
+msgid "Displays a textual hint that helps the user when the field is empty."
+msgstr ""
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_record_legacy.js:0
 msgid "Do you want to add a dropdown with colors?"
 msgstr "Chcete přidat rozevírací seznam s barvami?"
@@ -1451,6 +1503,13 @@ msgstr "Doména"
 #: code:addons/web_studio/models/ir_model.py:0
 msgid "Done"
 msgstr "Hotovo"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Drag & drop <b>another field</b>. Let's try with a <i>selection field</i>."
+msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
@@ -1832,6 +1891,20 @@ msgid "Go back"
 msgstr "Vrátit se"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Go on, you are almost done!"
+msgstr "Pokračujte, už jste téměř o konce."
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Good job! To add more <b>fields</b>, come back to the <i>Add tab</i>."
+msgstr ""
+"Dobrá práce! Chcete-li přidat další <b>pole</b>, vraťte se na kartu "
+"<i>Přidat</i>."
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #: model:ir.model.fields.selection,name:web_studio.selection__mail_activity_type__category__grant_approval
@@ -1920,6 +1993,16 @@ msgstr "Kontextová nápověda"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Here, you can <b>name</b> your field (e.g. Book reference, ISBN, Internal "
+"Note, etc.)."
+msgstr ""
+"Zde můžete <b>pojmenovat</b> své pole (např. odkaz na knihu, ISBN, interní "
+"poznámka atd.)."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Hide Address"
 msgstr "Skrýt adresu"
@@ -1958,6 +2041,27 @@ msgstr "Obrázek pozadí nabídky home"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 msgid "Hour"
 msgstr "Hodina"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to <b>name</b> your app? Library, Academy, …?"
+msgstr "Jak chcete <b>pojmenovat</b> svou aplikaci? Knihovna, akademie, ...?"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to name your first <b>menu</b>? My books, My courses?"
+msgstr "Jak chcete pojmenovat své první <b>menu</b>? Moje knihy, Moje kurzy?"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"I bet you can <b>build an app</b> in 5 minutes. Ready for the challenge?"
+msgstr ""
+"Vsadím se, že můžete <b>vytvořit aplikaci</b> za 5 minut. Připraveni na "
+"výzvu?"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__id
@@ -2250,6 +2354,14 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Let's check the result. Close Odoo Studio to get an <b>overview of your "
+"app</b>."
+msgstr ""
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
@@ -2498,6 +2610,7 @@ msgstr "Přesnost měsíce"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "More"
@@ -2630,6 +2743,14 @@ msgstr "Další"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Nicely done! Let's build your screen now; <b>drag</b> a <i>text field</i> "
+"and <b>drop</b> it in your view, on the right."
+msgstr ""
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
 msgid "No aggregation"
 msgstr ""
@@ -2672,6 +2793,18 @@ msgstr "Poznámky"
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
 msgstr ""
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now you're on your own. Enjoy your <b>super power</b>."
+msgstr ""
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now, customize your icon. Make it yours."
+msgstr "Nyní si přizpůsobte ikonu. Udělej si vlastní."
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_needaction_counter
@@ -2753,6 +2886,8 @@ msgstr "Volitelný"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Order"
 msgstr "Objednávka"
@@ -3217,6 +3352,12 @@ msgstr "Uložit"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Save."
+msgstr "Uložit."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor_snackbar.xml:0
 msgid "Saved"
 msgstr "Uloženo"
@@ -3381,6 +3522,16 @@ msgstr "Nastavit cenu nebo cenu záznamů"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Set an <b>email alias</b>. Then, try to send an email to this address; it "
+"will create a document automatically for you. Pretty cool, huh?"
+msgstr ""
+"Nastavte <b>e-mailový alias</b>. Poté zkuste odeslat e-mail na tuto adresu; "
+"automaticky za vás vytvoří dokument. Docela cool, co?"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "Show Invisible Elements"
 msgstr "Zobrazit neviditelné prvky"
@@ -3425,7 +3576,7 @@ msgstr "Podpis"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.js:0
 msgid "Slow"
-msgstr "Pomalý"
+msgstr "Zobrazit"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3445,6 +3596,8 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Sort By"
 msgstr "Řadit podle"
@@ -3963,6 +4116,12 @@ msgstr "Zobrazení časové osy"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "To <b>customize a field</b>, click on its <i>label</i>."
+msgstr "Chcete-li <b>upravit pole</b>, klikněte na jeho <i>štítek</i>."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/systray_item/systray_item.xml:0
 msgid "Toggle Studio"
 msgstr "Přepnout Studio"
@@ -4098,6 +4257,12 @@ msgid "Waiting for approval"
 msgstr "Čekání na schválení"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Want more fun? Let's create more <b>views</b>."
+msgstr ""
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid "Webhook Automations"
@@ -4146,6 +4311,12 @@ msgstr "Vítejte v"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "What about a <b>Kanban view</b>?"
+msgstr "A co třeba <b>pohled Kanban</b>?"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "What should the button do"
 msgstr ""
@@ -4177,6 +4348,14 @@ msgstr "Jaký typ přehledu chcete vytvořit?"
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_widget_properties.xml:0
 msgid "Widget"
 msgstr "Widget"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Wow, nice! And I'm sure you can make it even better! Use this icon to open "
+"<b>Odoo Studio</b> and customize any screen."
+msgstr ""
 
 #. module: web_studio
 #. odoo-javascript

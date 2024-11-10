@@ -38,19 +38,19 @@ msgstr "%(journal)s - %(account)s"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and %(remaining)s others"
-msgstr ""
+msgstr "%(names)s y otras %(remaining)s"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and one other"
-msgstr ""
+msgstr "%(names)s y una más"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/res_company.py:0
 msgid "%(report_label)s: %(period)s"
-msgstr ""
+msgstr "%(report_label)s: %(period)s"
 
 #. module: account_reports
 #. odoo-python
@@ -161,6 +161,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">Estimado/a <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
+"                    <t t-else=\"\">Estimado/a <t t-out=\"object.name or ''\"></t>,</t>\n"
+"                    <br>\n"
+"                    Adjunto al correo encontrará el extracto de su cuenta.\n"
+"                    <br>\n"
+"                    Si tiene preguntas, póngase en contacto con nosotros.\n"
+"                    <br>\n"
+"                    Saludos,\n"
+"                    <br>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"></t>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -302,7 +317,7 @@ msgstr "Gestor de informes contables para informes de impuestos"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_send
 msgid "Account Report Send"
-msgstr ""
+msgstr "Enviar informe de cuenta"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__account_reports_show_per_company_setting
@@ -1081,7 +1096,7 @@ msgstr "Ajustes de configuración"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Configure start dates"
-msgstr ""
+msgstr "Configurar fechas de inicio"
 
 #. module: account_reports
 #. odoo-python
@@ -1093,7 +1108,7 @@ msgstr "Configure los impuestos de sus cuentas - %s"
 #. odoo-python
 #: code:addons/account_reports/models/res_config_settings.py:0
 msgid "Configure your start dates"
-msgstr ""
+msgstr "Configure sus fechas de inicio"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1156,7 +1171,7 @@ msgstr "Crear"
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_create_composite_report_list
 msgid "Create Composite Report"
-msgstr ""
+msgstr "Crear un informe compuesto"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
@@ -1480,7 +1495,7 @@ msgstr "Descargar de todos modos"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Download Excel"
-msgstr ""
+msgstr "Descargar Excel"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1641,12 +1656,12 @@ msgstr "Tipos de cambio"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_move_line__exclude_bank_lines
 msgid "Exclude Bank Lines"
-msgstr ""
+msgstr "Excluir líneas del banco"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_search
 msgid "Exclude Bank lines"
-msgstr ""
+msgstr "Excluir líneas del banco"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__exclude_provision_currency_ids
@@ -1982,13 +1997,13 @@ msgstr "Asiento agrupado diferido de %s"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Account"
-msgstr ""
+msgstr "Ocultar cuenta"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Debit/Credit"
-msgstr ""
+msgstr "Ocultar debe/haber"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2095,6 +2110,8 @@ msgstr "Incluir pagos"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr "Simulaciones analíticas incluidas"
 
@@ -2242,6 +2259,7 @@ msgstr "Parece que hay un asiento de cierre a publicar"
 msgid ""
 "It's not possible to select a budget with the horizontal group feature."
 msgstr ""
+"No es posible seleccionar un presupuesto con la función de grupo horizontal."
 
 #. module: account_reports
 #. odoo-javascript
@@ -2249,6 +2267,7 @@ msgstr ""
 msgid ""
 "It's not possible to select a horizontal group with the budget feature."
 msgstr ""
+"No es posible seleccionar un grupo horizontal con la función de presupuesto."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__item_ids
@@ -2271,7 +2290,7 @@ msgstr "Diario"
 #: model:ir.actions.client,name:account_reports.action_account_report_ja
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_ja
 msgid "Journal Audit"
-msgstr ""
+msgstr "Auditoría de diario"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move
@@ -3338,19 +3357,19 @@ msgstr "Pronóstico de efectivo a corto plazo"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Account"
-msgstr ""
+msgstr "Mostrar cuenta"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 msgid "Show All Accounts"
-msgstr ""
+msgstr "Mostrar todas las cuentas"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_extra_options.xml:0
 msgid "Show Currency"
-msgstr ""
+msgstr "Mostrar moneda"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__show_warning_move_id
@@ -3472,7 +3491,7 @@ msgstr "Alerta de cierre de impuestos"
 #: model:ir.model.fields,field_description:account_reports.field_account_bank_statement_line__tax_closing_report_id
 #: model:ir.model.fields,field_description:account_reports.field_account_move__tax_closing_report_id
 msgid "Tax Closing Report"
-msgstr ""
+msgstr "Informe de cierre de impuestos"
 
 #. module: account_reports
 #. odoo-python
@@ -4013,6 +4032,7 @@ msgstr "Ganancias/pérdidas de moneda no realizadas"
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "Apuntes no conciliados"
 
@@ -4116,6 +4136,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "Con entradas en borrador"
 

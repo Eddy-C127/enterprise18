@@ -23,7 +23,7 @@ msgstr ""
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_kanban
 msgid "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Period\" title=\"Period\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-clock-o me-1\" role=\"img\" aria-label=\"Kỳ\" title=\"Kỳ\"/>"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.budget_split_wizard_form_view
@@ -79,7 +79,7 @@ msgstr "Biểu tượng loại hoạt động"
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__committed_amount
 msgid "Already Billed amount + Confirmed purchase orders."
-msgstr ""
+msgstr "Số tiền đã lập hoá đơn + Đơn mua hàng đã xác nhận."
 
 #. module: account_budget
 #: model:ir.model.fields,help:account_budget.field_budget_line__achieved_amount
@@ -92,6 +92,8 @@ msgid ""
 "Amount supposed to be Billed/Invoiced, formula = (Budget Amount / Budget "
 "Days) x Budget Days Completed"
 msgstr ""
+"Số tiền được cho là sẽ được Lập hóa đơn, công thức = (Số tiền ngân sách/Số "
+"ngày ngân sách) x Số ngày ngân sách đã hoàn thành"
 
 #. module: account_budget
 #: model:ir.model,name:account_budget.model_account_analytic_account
@@ -208,7 +210,7 @@ msgstr "Loại ngân sách"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__budget_amount
 msgid "Budgeted"
-msgstr ""
+msgstr "Đã lập ngân sách"
 
 #. module: account_budget
 #. odoo-python
@@ -256,7 +258,7 @@ msgstr "Đã cam kết"
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__committed_percentage
 msgid "Committed (%)"
-msgstr ""
+msgstr "Đã cam kết (%)"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_analytic__company_id
@@ -685,12 +687,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_amount
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_form
 msgid "Theoretical"
-msgstr ""
+msgstr "Lý thuyết"
 
 #. module: account_budget
 #: model:ir.model.fields,field_description:account_budget.field_budget_line__theoritical_percentage
 msgid "Theoretical (%)"
-msgstr ""
+msgstr "Lý thuyết (%)"
 
 #. module: account_budget
 #: model_terms:ir.ui.view,arch_db:account_budget.view_budget_analytic_search

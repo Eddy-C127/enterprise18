@@ -337,17 +337,17 @@ msgstr "<span>版本</span>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Children:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">子女</strong>："
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Computed On:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">计算日期</strong>："
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Contract Start Date:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">合约开始日期</strong>："
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -2802,7 +2802,7 @@ msgstr "无结束日期"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "No ID number on the employee !!!"
-msgstr ""
+msgstr "员工没有身份证号码/编号。"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days__no
@@ -2817,7 +2817,7 @@ msgstr "不允许重复注册号码"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__default_no_end_date
 msgid "No end date by default"
-msgstr ""
+msgstr "预设无结束日期"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3284,7 +3284,7 @@ msgstr "工资单的 \"起始日期\" 必须早于 \"截止日期\"。"
 #. module: hr_payroll
 #: model:ir.actions.report,name:hr_payroll.action_report_light_payslip
 msgid "Payslip (Light)"
-msgstr ""
+msgstr "工资单（简单）"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__monthly_amount
@@ -3310,7 +3310,7 @@ msgstr "薪资统计"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 msgid "Payslip Generation"
-msgstr ""
+msgstr "生成工资单"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_input
@@ -3338,7 +3338,7 @@ msgstr "工资单输入"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.payroll_hr_employee_view_form
 msgid "Payslip Language"
-msgstr ""
+msgstr "工资单语言"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip_line
@@ -3480,12 +3480,12 @@ msgstr "期间"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_start
 msgid "Period Start"
-msgstr ""
+msgstr "期间开始"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_stop
 msgid "Period Stop"
-msgstr ""
+msgstr "期间结束"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
@@ -3649,12 +3649,12 @@ msgstr "参考号"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__reference_month
 msgid "Reference Month"
-msgstr ""
+msgstr "参考月份"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__reference_year
 msgid "Reference Year"
-msgstr ""
+msgstr "参考年份"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -3697,7 +3697,7 @@ msgstr "报销"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_tree
 msgid "Related Payslips"
-msgstr ""
+msgstr "相关工资单"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__remaining_amount
@@ -3718,7 +3718,7 @@ msgstr "剩余的要支付的金额。"
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Remove \"Conflicting\" filter"
-msgstr ""
+msgstr "移除 “有冲突” 筛选器"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3736,7 +3736,7 @@ msgstr "报表"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "Resolve Conflicts"
-msgstr ""
+msgstr "解决冲突"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_resource_calendar
@@ -4873,12 +4873,12 @@ msgstr "工作条目分析"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_work_entry_export_employee_mixin
 msgid "Work Entry Export Employee"
-msgstr ""
+msgstr "汇出员工工作记项"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_work_entry_export_mixin
 msgid "Work Entry Export Mixin"
-msgstr ""
+msgstr "导出工作记项混入程序"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__work_entry_source
@@ -5060,19 +5060,19 @@ msgstr "YTD"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "YTD Reset Date"
-msgstr ""
+msgstr "年初至今重设日期"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_company__ytd_reset_day
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__ytd_reset_day
 msgid "YTD Reset Day of the month"
-msgstr ""
+msgstr "年初至今重设日子"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_company__ytd_reset_month
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__ytd_reset_month
 msgid "YTD Reset Month"
-msgstr ""
+msgstr "年初至今重设月份"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__year
@@ -5084,7 +5084,7 @@ msgstr "年"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__ytd_computation
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__ytd_computation
 msgid "Year to Date Computation"
-msgstr ""
+msgstr "“年初至今” 计算"
 
 #. module: hr_payroll
 #. odoo-python
@@ -5198,7 +5198,7 @@ msgstr "例如：2021年4月"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_form
 msgid "e.g. Child Support"
-msgstr ""
+msgstr "例：供养子女"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_form

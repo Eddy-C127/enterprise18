@@ -7,8 +7,8 @@
 # 稀饭~~ <wangwhai@qq.com>, 2024
 # Wil Odoo, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
-# Chloe Wang, 2024
 # Raymond Yu <cl_yu@hotmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -16,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -837,13 +837,13 @@ msgstr "添加快捷方式"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_item_star.js:0
 msgid "Add star"
-msgstr ""
+msgstr "加入星号"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Additional documents you have access to."
-msgstr ""
+msgstr "您有权访问的其他文件。"
 
 #. module: documents
 #: model:res.groups,name:documents.group_documents_manager
@@ -917,7 +917,7 @@ msgstr "全部"
 msgid ""
 "All users with access to this %(documentType)s or its parent will have edit "
 "permissions."
-msgstr ""
+msgstr "所有有权存取此 %(documentType)s 类型或其母级文件的使用者，都将会拥有编辑权限。"
 
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__access_ids
@@ -1140,7 +1140,7 @@ msgstr "颜色"
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "Common roots for all company users."
-msgstr ""
+msgstr "所有公司使用者的共同根位置。"
 
 #. module: documents
 #. odoo-python
@@ -1446,7 +1446,7 @@ msgstr "文档：文档请求"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/list/document_count_field.js:0
 msgid "DocumentCountIntegerField"
-msgstr ""
+msgstr "DocumentCountIntegerField"
 
 #. module: documents
 #. odoo-python
@@ -1639,7 +1639,7 @@ msgstr "退出时不保存"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_partner_access.xml:0
 msgid "Exp:"
-msgstr ""
+msgstr "到期："
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_expense
@@ -1973,6 +1973,7 @@ msgstr "无效文件夹ID"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
 msgstr "无效操作"
@@ -2970,7 +2971,7 @@ msgstr "序列"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.xml:0
 msgid "Set actions"
-msgstr ""
+msgstr "设定操作"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.res_config_settings_view_form
@@ -2981,7 +2982,7 @@ msgstr "设置删除回收站中文件的延迟时间"
 #. odoo-javascript
 #: code:addons/documents/static/src/components/documents_permission_panel/documents_access_expiration_date_btn.xml:0
 msgid "Set expiration date"
-msgstr ""
+msgstr "设定到期日"
 
 #. module: documents
 #: model:mail.template,description:documents.mail_template_document_request_reminder
@@ -3205,6 +3206,8 @@ msgid ""
 "The following documents can't have alias: \n"
 "- %(records)s"
 msgstr ""
+"以下文件不可有別名：\n"
+"- %(records)s"
 
 #. module: documents
 #. odoo-python
@@ -3213,12 +3216,14 @@ msgid ""
 "The following documents/folders can't be owned by a Portal User: \n"
 "- %(partners)s"
 msgstr ""
+"以下文件/资料夹不可由门户网站使用者拥有：\n"
+"- %(partners)s"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "The following documents/shortcuts have a type mismatch: \n"
-msgstr ""
+msgstr "以下文件/捷径的类型不相符：\n"
 
 #. module: documents
 #. odoo-python
@@ -3634,6 +3639,12 @@ msgid ""
 msgstr "您无法在此特殊文件夹中创建快捷方式，或将文档移动到此特殊文件夹。"
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot access folders in the trash."
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
@@ -3650,6 +3661,12 @@ msgstr "您无法删除服务器操作中使用的标签。"
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
 msgstr "您不能复制回收站中的文档。"
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot move folders or files when in the trash."
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

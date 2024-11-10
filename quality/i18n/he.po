@@ -1,34 +1,37 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* quality
-#
+# 
 # Translators:
-# Fishfur A Banter <fishfurbanter@gmail.com>, 2022
-# Lilach Gilliam <lilach@apprcase.com>, 2022
-# Amit Spilman <amit@laylinetech.com>, 2022
-# שהאב חוסיין <shhab89@gmail.com>, 2022
-# ExcaliberX <excaliberx@gmail.com>, 2022
-# hed shefer <hed@laylinetech.com>, 2022
-# Martin Trigaux, 2022
-# Yihya Hugirat <hugirat@gmail.com>, 2022
-# דודי מלכה <Dudimalka6@gmail.com>, 2022
-# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2022
-# Lilach Gilliam <lilach.gilliam@gmail.com>, 2022
-# Ha Ketem <haketem@gmail.com>, 2022
-#
+# Roy Sayag, 2024
+# hed shefer <hed@laylinetech.com>, 2024
+# Mor Kir <morki@013.net.il>, 2024
+# ExcaliberX <excaliberx@gmail.com>, 2024
+# Lilach Gilliam <lilach.gilliam@gmail.com>, 2024
+# Lilach Gilliam <lilach@apprcase.com>, 2024
+# Fishfur A Banter <fishfurbanter@gmail.com>, 2024
+# Amit Spilman <amit@laylinetech.com>, 2024
+# שהאב חוסיין <shhab89@gmail.com>, 2024
+# Yihya Hugirat <hugirat@gmail.com>, 2024
+# Martin Trigaux, 2024
+# דודי מלכה <Dudimalka6@gmail.com>, 2024
+# Ha Ketem <haketem@gmail.com>, 2024
+# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2024
+# yael terner, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Ha Ketem <haketem@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: yael terner, 2024\n"
 "Language-Team: Hebrew (https://app.transifex.com/odoo/teams/41243/he/)\n"
-"Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+"Language: he\n"
+"Plural-Forms: nplurals=3; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: 2;\n"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alert_count
@@ -43,8 +46,12 @@ msgstr "מס' בדיקות איכות"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_defaults
-msgid "A Python dictionary that will be evaluated to provide default values when creating new records for this alias."
-msgstr "מילון פייתון שיוערך כדי לספק ערכי ברירת מחדל בעת יצירת רשומות חדשות לכינוי זה."
+msgid ""
+"A Python dictionary that will be evaluated to provide default values when "
+"creating new records for this alias."
+msgstr ""
+"מילון פייתון שיוערך כדי לספק ערכי ברירת מחדל בעת יצירת רשומות חדשות לכינוי "
+"זה."
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__message_needaction
@@ -89,6 +96,11 @@ msgid "Activity Type Icon"
 msgstr "סוג פעילות"
 
 #. module: quality
+#: model_terms:ir.ui.view,arch_db:quality.quality_check_view_activity
+msgid "Activity view"
+msgstr ""
+
+#. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_check__additional_note
 msgid "Additional Note"
 msgstr "הערה נוספת"
@@ -124,6 +136,21 @@ msgid "Alias Contact Security"
 msgstr "כינוי אבטחה של איש קשר"
 
 #. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_domain_id
+msgid "Alias Domain"
+msgstr "שם-מתחם (דומיין)"
+
+#. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_domain
+msgid "Alias Domain Name"
+msgstr "כינוי שם (דומיין)"
+
+#. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_full_name
+msgid "Alias Email"
+msgstr "קידומת מייל"
+
+#. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_name
 msgid "Alias Name"
 msgstr "שם כינוי"
@@ -131,12 +158,7 @@ msgstr "שם כינוי"
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_status
 msgid "Alias Status"
-msgstr ""
-
-#. module: quality
-#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_domain
-msgid "Alias domain"
-msgstr "כינוי תחום"
+msgstr "סטטוס"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_status
@@ -308,9 +330,19 @@ msgid "Done"
 msgstr "בוצע"
 
 #. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_email
+msgid "Email Alias"
+msgstr "קידומת מייל"
+
+#. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__email_cc
 msgid "Email cc"
 msgstr "עותק דוא\"ל"
+
+#. module: quality
+#: model:ir.model.fields,help:quality.field_quality_alert_team__alias_domain
+msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
+msgstr ""
 
 #. module: quality
 #: model:ir.model.fields.selection,name:quality.selection__quality_check__quality_state__fail
@@ -381,8 +413,12 @@ msgstr "מזהה"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_parent_thread_id
-msgid "ID of the parent record holding the alias (example: project holding the task creation alias)"
-msgstr "מזהה של רשומת האב המחזיקה בכינוי (דוגמה: פרויקט המחזיק בכינוי ליצירת המשימות)"
+msgid ""
+"ID of the parent record holding the alias (example: project holding the task"
+" creation alias)"
+msgstr ""
+"מזהה של רשומת האב המחזיקה בכינוי (דוגמה: פרויקט המחזיק בכינוי ליצירת "
+"המשימות)"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__activity_exception_icon
@@ -418,8 +454,11 @@ msgstr "אם מסומן, בחלק מההודעות קיימת שגיאת משל�
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_bounced_content
-msgid "If set, this content will automatically be sent out to unauthorized users instead of the default message."
-msgstr "אם מוגדר, תוכן זה יישלח אוטומטית למשתמשים לא מורשים במקום להודעת ברירת המחדל."
+msgid ""
+"If set, this content will automatically be sent out to unauthorized users "
+"instead of the default message."
+msgstr ""
+"אם מוגדר, תוכן זה יישלח אוטומטית למשתמשים לא מורשים במקום הודעת ברירת המחדל."
 
 #. module: quality
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
@@ -427,6 +466,7 @@ msgid "In Progress"
 msgstr "בתהליך"
 
 #. module: quality
+#: model:quality.point.test_type,name:quality.test_type_instructions
 #: model_terms:ir.ui.view,arch_db:quality.quality_point_view_form
 msgid "Instructions"
 msgstr "הוראות"
@@ -467,6 +507,11 @@ msgstr "עדכון אחרון ב"
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
 msgid "Late Activities"
 msgstr "פעילויות באיחור"
+
+#. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_incoming_local
+msgid "Local-part based incoming detection"
+msgstr "זיהוי נכנסות מבוסס חלק מקומי"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__lot_id
@@ -598,8 +643,8 @@ msgstr "מספר השגיאות"
 #: model:ir.model.fields,help:quality.field_quality_alert_team__message_needaction_counter
 #: model:ir.model.fields,help:quality.field_quality_check__message_needaction_counter
 #: model:ir.model.fields,help:quality.field_quality_point__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "מספר הודעות המחייבות פעולה"
+msgid "Number of messages requiring action"
+msgstr "מספר הודעות הדורשות פעולה"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert__message_has_error_counter
@@ -622,18 +667,18 @@ msgstr "פעולות"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_force_thread_id
-msgid "Optional ID of a thread (record) to which all incoming messages will be attached, even if they did not reply to it. If set, this will disable the creation of new records completely."
-msgstr "מזהה אפשרי של שרשור (רשומה) שאליו יצורפו כל ההודעות הנכנסות, גם אם לא השיבו אליו. אם מוגדר, הדבר יבטל את יצירת הרשומות החדשות לחלוטין."
+msgid ""
+"Optional ID of a thread (record) to which all incoming messages will be "
+"attached, even if they did not reply to it. If set, this will disable the "
+"creation of new records completely."
+msgstr ""
+"מזהה אפשרי של שרשור (רשומה) שאליו יצורפו כל ההודעות הנכנסות, גם אם לא השיבו "
+"אליו. אם מוגדר, הדבר יבטל את יצירת הרשומות החדשות לחלוטין."
 
 #. module: quality
 #: model:quality.reason,name:quality.reason_other
 msgid "Others"
 msgstr "אחר"
-
-#. module: quality
-#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_user_id
-msgid "Owner"
-msgstr "אחראי"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_parent_model_id
@@ -647,8 +692,13 @@ msgstr "מזהה רשומת שרשור אב "
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_parent_model_id
-msgid "Parent model holding the alias. The model holding the alias reference is not necessarily the model given by alias_model_id (example: project (parent_model) and task (model))"
-msgstr "מודל אב המחזיק בכינוי. המודל המחזיק במזהה לכינוי אינו בהכרח המודל שניתן על ידי alias_model_id (דוגמה: project (parent_model) ומשימה (model))"
+msgid ""
+"Parent model holding the alias. The model holding the alias reference is not"
+" necessarily the model given by alias_model_id (example: project "
+"(parent_model) and task (model))"
+msgstr ""
+"מודל אב המחזיק בכינוי. המודל המחזיק במזהה לכינוי אינו בהכרח המודל שניתן על "
+"ידי alias_model_id (דוגמה: project (parent_model) ומשימה (model))"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_check__partner_id
@@ -693,6 +743,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:quality.field_quality_alert__action_preventive
 msgid "Preventive Action"
 msgstr "פעולה מונעת"
+
+#. module: quality
+#. odoo-javascript
+#: code:addons/quality/static/src/tablet_image_field/tablet_image_field.xml:0
+msgid "Preview"
+msgstr "תצוגה מקדימה"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__priority
@@ -754,7 +810,9 @@ msgstr "סוג בדיקת בקרת איכות"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_point__product_category_ids
-msgid "Quality Point will apply to every Products in the selected Product Categories."
+msgid ""
+"Quality Point will apply to every Products in the selected Product "
+"Categories."
 msgstr ""
 
 #. module: quality
@@ -778,7 +836,7 @@ msgstr "צוות איכות"
 #: model:ir.model.fields,field_description:quality.field_quality_check__rating_ids
 #: model:ir.model.fields,field_description:quality.field_quality_point__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "דירוגים"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_force_thread_id
@@ -879,6 +937,7 @@ msgstr "תגיות"
 #. module: quality
 #. odoo-javascript
 #: code:addons/quality/static/src/tablet_image_field/tablet_image_field.xml:0
+#: model:quality.point.test_type,name:quality.test_type_picture
 msgid "Take a Picture"
 msgstr "צלם תמונה"
 
@@ -909,18 +968,22 @@ msgstr "סוג בדיקה"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_model_id
-msgid "The model (Odoo Document Kind) to which this alias corresponds. Any incoming email that does not reply to an existing record will cause the creation of a new record of this model (e.g. a Project Task)"
-msgstr "המודל (סוג מסמך Odoo) שאליו הכינוי הזה תואם. כל דוא\"ל נכנס שלא יענה לרשומה קיימת יביא ליצירת רשומה חדשה של מודל זה (למשל משימת פרויקט)"
+msgid ""
+"The model (Odoo Document Kind) to which this alias corresponds. Any incoming"
+" email that does not reply to an existing record will cause the creation of "
+"a new record of this model (e.g. a Project Task)"
+msgstr ""
+"המודל (סוג מסמך Odoo) שאליו הכינוי הזה תואם. כל דוא\"ל נכנס שלא יענה לרשומה "
+"קיימת יביא ליצירת רשומה חדשה של מודל זה (למשל משימת פרויקט)"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_name
-msgid "The name of the email alias, e.g. 'jobs' if you want to catch emails for <jobs@example.odoo.com>"
-msgstr "שם כינוי הדוא\"ל, למשל 'עבודות' אם ברצונך לקבל הודעות דוא\"ל ל <jobs@example.odoo.com>"
-
-#. module: quality
-#: model:ir.model.fields,help:quality.field_quality_alert_team__alias_user_id
-msgid "The owner of records created upon receiving emails on this alias. If this field is not set the system will attempt to find the right owner based on the sender (From) address, or will use the Administrator account if no system user is found for that address."
-msgstr "הבעלים של רשומות שנוצרו עם קבלת דוא\"ל בכינוי זה. אם שדה זה לא מוגדר, המערכת תנסה למצוא את הבעלים הנכון על סמך כתובת השולח (מ), או שתשתמש בחשבון מנהל המערכת אם לא נמצא משתמש מערכת עבור אותה כתובת."
+msgid ""
+"The name of the email alias, e.g. 'jobs' if you want to catch emails for "
+"<jobs@example.odoo.com>"
+msgstr ""
+"שם כינוי הדוא\"ל, למשל 'עבודות' אם ברצונך לקבל הודעות דוא\"ל ל "
+"<jobs@example.odoo.com>"
 
 #. module: quality
 #: model:res.groups,comment:quality.group_quality_manager

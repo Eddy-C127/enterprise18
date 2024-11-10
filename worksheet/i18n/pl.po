@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Marta Wacławek, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marta Wacławek, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +29,7 @@ msgstr "%s (kopiuj)"
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form
 msgid "<span class=\"o_stat_text\">Worksheets</span>"
-msgstr "Arkusz roboczy"
+msgstr "<span class=\"o_stat_text\">Arkusze robocze</span>"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__action_id
@@ -63,7 +64,7 @@ msgstr "Firma"
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__create_uid
 msgid "Created by"
-msgstr "Utworzył(a)"
+msgstr "Utworzono przez"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__create_date
@@ -103,6 +104,8 @@ msgid ""
 "Keep track of and analyze intervention data. Identify recurring patterns and"
 " take preventive measures accordingly."
 msgstr ""
+"Śledź i analizuj dane interwencji. Identyfikuj powtarzające się wzory "
+"zachowań i podejmuj odpowiednie działania zapobiegawcze."
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__write_uid
@@ -122,7 +125,7 @@ msgstr "Model"
 #. module: worksheet
 #: model:ir.model,name:worksheet.model_ir_model
 msgid "Models"
-msgstr "Models"
+msgstr "Modele"
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__name
@@ -162,7 +165,7 @@ msgstr "Model korzystający z tego szablonu"
 msgid ""
 "The template to print this worksheet template should be a QWeb template."
 msgstr ""
-"Szablon wydruku tego szablonu karty pracy powinien być szablonem QWeb."
+"Szablon wydruku tego szablonu arkusza roboczego powinien być szablonem QWeb."
 
 #. module: worksheet
 #. odoo-python
@@ -171,26 +174,28 @@ msgid ""
 "Unfortunately, you cannot unlink this worksheet template from %s because the"
 " template is still connected to tasks within the company."
 msgstr ""
+"Niestety, nie możesz odłączyć tego szablonu arkusza roboczego od %s, "
+"ponieważ szablon jest wciąż powiązany z zadaniami wewnątrz firmy."
 
 #. module: worksheet
 #: model:ir.model.fields,field_description:worksheet.field_worksheet_template__worksheet_count
 msgid "Worksheet Count"
-msgstr "Liczba kart pracy"
+msgstr "Liczba arkuszy roboczych"
 
 #. module: worksheet
 #: model:ir.model,name:worksheet.model_worksheet_template
 msgid "Worksheet Template"
-msgstr "Szablon karty pracy"
+msgstr "Szablon arkusza roboczego"
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_search
 msgid "Worksheet Template Search"
-msgstr "Wyszukaj w szablonie karty pracy"
+msgstr "Wyszukaj w szablonie arkusza roboczego"
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_list
 msgid "Worksheets"
-msgstr "Karty pracy"
+msgstr "Arkusze robocze"
 
 #. module: worksheet
 #. odoo-python
@@ -202,6 +207,12 @@ msgid ""
 "move them to a project for the right company, or keep this worksheet "
 "template open to all companies."
 msgstr ""
+"Nie możesz ograniczyć tego szablonu arkusza roboczego do "
+"'%(selected_company)s', ponieważ jest wciąż powiązany z zadaniami w "
+"'%(tasks_company)s' (i potencjalnie innych firmach). Możesz albo odłączyć "
+"zadania od tego szablonu arkusza roboczego, przenieść je do projektu "
+"odpowiedniej firmy, lub zachować te szablony arkuszy roboczych otwarte dla "
+"wszystkich firm."
 
 #. module: worksheet
 #: model_terms:ir.ui.view,arch_db:worksheet.worksheet_template_view_form

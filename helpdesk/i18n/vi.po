@@ -392,6 +392,8 @@ msgid ""
 "<i class=\"fa fa-lightbulb-o\"/>\n"
 "                                    <span class=\"ms-2\">A rating request will automatically be sent by email to the customer when their ticket reaches the corresponding stage with the email template set.</span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/>\n"
+"                                    <span class=\"ms-2\">Yêu cầu đánh giá sẽ tự động được gửi qua email tới khách hàng khi phiếu hỗ trợ của họ đạt đến giai đoạn tương ứng với mẫu email đã thiết lập.</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -421,7 +423,7 @@ msgstr "<i class=\"fa fa-warning\"/>&amp;nbsp;"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "<i class=\"oi oi-arrow-right\"/> Set an Alias Domain"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right\"/> Thiết lập miền bí danh"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -498,22 +500,22 @@ msgstr "<span class=\"o_stat_text\">Đánh giá</span>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Không thành công</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Open</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Mở</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Chưa phân công</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Gấp</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -569,6 +571,8 @@ msgstr "<strong class=\"col-lg-3\">Báo cáo về</strong>"
 msgid ""
 "<strong><b>Good job!</b> You walked through all steps of this tour.</strong>"
 msgstr ""
+"<strong><b>Tốt lắm!</b> Bạn đã xem qua tất cả các bước của tour hướng dẫn "
+"này.</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -671,7 +675,7 @@ msgstr "Điều chỉnh chu trình công việc và theo dõi tiến độ của
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Add details about this ticket..."
-msgstr ""
+msgstr "Thêm thông tin về phiếu hỗ trợ này..."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -909,7 +913,7 @@ msgstr "Đánh giá trung bình (%)"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Average Rating for the Past 7 Days"
-msgstr ""
+msgstr "Đánh giá trung bình trong 7 ngày qua"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -933,7 +937,7 @@ msgstr "Đánh giá trung bình: Hài lòng"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Average rating daily target"
-msgstr ""
+msgstr "Chỉ tiêu đánh giá trung bình hàng ngày"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -1014,7 +1018,7 @@ msgstr "Kênh"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Click to Set Your Daily Rating Target"
-msgstr ""
+msgstr "Nhấp để đặt chỉ tiêu đánh giá hàng ngày của bạn"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2465,7 +2469,7 @@ msgstr "Thời gian mở (giờ)"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 msgid "Open the ticket."
-msgstr ""
+msgstr "Mở phiếu hỗ trợ."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
@@ -2612,7 +2616,7 @@ msgstr "Vui lòng nhập giá trị lớn hơn 0."
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Please enter a value less than or equal to 5."
-msgstr ""
+msgstr "Vui lòng nhập giá trị nhỏ hơn hoặc bằng 5."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_contact
@@ -3272,7 +3276,7 @@ msgstr "Thành viên"
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_stage_team_action
 msgid "Team Stages"
-msgstr ""
+msgstr "Giai đoạn của bộ phận"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.email_template_action_helpdesk
@@ -3610,7 +3614,7 @@ msgstr "Hoạt động hôm nay"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Today's Average Rating"
-msgstr ""
+msgstr "Đánh giá trung bình hôm nay"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__total_response_hours

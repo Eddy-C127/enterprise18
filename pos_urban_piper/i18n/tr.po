@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Murat Kaplan <muratk@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
@@ -125,6 +125,11 @@ msgid "Countries where this provider is available"
 msgstr ""
 
 #. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Create Store"
+msgstr ""
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__create_uid
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_urban_piper_status__create_uid
 msgid "Created by"
@@ -170,6 +175,11 @@ msgstr "Teslim Adresi"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Channel"
+msgstr ""
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
+msgid "Delivery Charges"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -303,6 +313,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Fulfilment Mode"
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid "Go to Company configuration"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -510,6 +526,11 @@ msgid "Order does not load from server"
 msgstr ""
 
 #. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
+msgid "Other Charges"
+msgstr ""
+
+#. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Others"
@@ -530,6 +551,11 @@ msgstr ""
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "POS ID"
+msgstr ""
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
+msgid "Packaging Charges"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -893,11 +919,6 @@ msgid "UrbanPiper API Key is required.\n"
 msgstr ""
 
 #. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
-msgid "UrbanPiper Delivery Charges"
-msgstr ""
-
-#. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/res_config_settings.py:0
 msgid "UrbanPiper Delivery Providers are required."
@@ -906,16 +927,6 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
 msgid "UrbanPiper Fiscal Position"
-msgstr ""
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
-msgid "UrbanPiper Other Charges"
-msgstr ""
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
-msgid "UrbanPiper Packaging Charges"
 msgstr ""
 
 #. module: pos_urban_piper
@@ -966,4 +977,11 @@ msgstr "Vejetaryen"
 #. odoo-python
 #: code:addons/pos_urban_piper/models/ir_config_parameter.py:0
 msgid "You cannot change the pos_urban_piper.uuid."
+msgstr ""
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid ""
+"Your company %s needs to have a correct city in order create the store."
 msgstr ""

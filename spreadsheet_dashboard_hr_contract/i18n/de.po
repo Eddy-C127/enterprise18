@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
@@ -21,25 +21,35 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
+msgid "3 years"
+msgstr "3 Jahre"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Avg Duration"
 msgstr "Durchschn. Dauer"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Avg contract duration"
 msgstr "Durchschn. Vertragsdauer"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Avg. Salary"
 msgstr "Durchschn. Gehalt"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Cancelled contracts"
 msgstr "Abgebrochene Verträge"
 
@@ -52,14 +62,15 @@ msgstr "Unternehmen"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "Contract history by Job Position"
-msgstr "Vertragsverlauf nach Stellen"
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
+msgid "Contracts"
+msgstr "Verträge"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "Contracts"
-msgstr "Verträge"
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
+msgid "Current period"
+msgstr "Aktueller Zeitraum"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
@@ -70,42 +81,42 @@ msgstr "Datum"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Departed"
 msgstr "Austritt"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Departed employees"
 msgstr "Mitarbeiteraustritte"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Department"
 msgstr "Abteilung"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Departure Reason"
 msgstr "Austrittsgrund"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Departure employees"
 msgstr "Austritte von Mitarbeitern"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "Employee Contract by Status"
-msgstr "Arbeitsvertrag nach Status"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 #: model:spreadsheet.dashboard,name:spreadsheet_dashboard_hr_contract.spreadsheet_dashboard_employees
 msgid "Employees"
 msgstr "Mitarbeiter"
@@ -113,78 +124,68 @@ msgstr "Mitarbeiter"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "Employees Analysis"
-msgstr "Mitarbeiteranalyse"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "Employees Analysis by Department"
-msgstr "Mitarbeiteranalyse nach Abteilung"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Expired contracts"
 msgstr "Abgelaufene Verträge"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Hires"
 msgstr "Einstellungen"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Job Position"
 msgstr "Stelle"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "New + Running"
 msgstr "Neu + Laufend"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "New Employees Over Time by Departure Date (Month)"
-msgstr "Überstunden neuer Mitarbeiter nach Austrittsdatum (Monat)"
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
+msgid "New Employees"
+msgstr "Neue Mitarbeiter"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "New Employees Over Time by Departure Reason"
-msgstr "Überstunden neuer Mitarbeiter nach Austrittsgrund"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
-msgid "New Employees Over Time by First Contract Date (Month)"
-msgstr "Überstunden neuer Mitarbeiter nach Datum des ersten Vertrags (Monat)"
-
-#. module: spreadsheet_dashboard_hr_contract
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "New contracts"
 msgstr "Neue Verträge"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "New employees"
 msgstr "Neue Mitarbeiter"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
+msgid "Previous period"
+msgstr "Vorheriger Zeitraum"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Reason"
 msgstr "Grund"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Running contracts"
 msgstr "Laufende Verträge"
 
@@ -203,41 +204,54 @@ msgstr "Heute"
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Top Departments"
 msgstr "Top-Abteilungen"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Top Paid Job Positions"
 msgstr "Bestbezahlte Stellen"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Total Duration"
 msgstr "Gesamtdauer"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
+msgid "Turnover"
+msgstr "Umsatz"
+
+#. module: spreadsheet_dashboard_hr_contract
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Turnover Rate"
 msgstr "Mitarbeiterfluktuation"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Turnover by Month"
 msgstr "Mitarbeiterfluktuation nach Monat"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Turnover rate"
 msgstr "Mitarbeiterfluktuation"
 
 #. module: spreadsheet_dashboard_hr_contract
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_hr_contract/data/files/employees_sample_dashboard.json:0
 msgid "Variation on Employees by Month"
 msgstr "Variation für Mitarbeiter nach Monat"

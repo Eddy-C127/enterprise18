@@ -5,12 +5,12 @@
 # Translators:
 # Maidu Targama <m.targama@gmail.com>, 2024
 # Siim Raasuke, 2024
-# Stevin Lilla, 2024
 # Algo Kärp <algokarp@gmail.com>, 2024
 # Eneli Õigus <enelioigus@gmail.com>, 2024
 # Martin Trigaux, 2024
 # JanaAvalah, 2024
 # Anna, 2024
+# Stevin Lilla, 2024
 # 
 msgid ""
 msgstr ""
@@ -18,7 +18,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Stevin Lilla, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -54,25 +54,25 @@ msgstr "%(percentage)s%"
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(totalTime)s d"
-msgstr ""
+msgstr "%(totalTime)s p"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(totalTime)s days"
-msgstr ""
+msgstr "%(totalTime)s päevad"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(totalTime)s h"
-msgstr ""
+msgstr "%(totalTime)s t"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
 #: code:addons/sale_timesheet_enterprise/static/src/components/timesheet_leaderboard/timesheet_leaderboard.js:0
 msgid "%(totalTime)s hours"
-msgstr ""
+msgstr "%(totalTime)s tunnid"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -86,6 +86,8 @@ msgid ""
 "<span class=\"m-14 w-100\" "
 "groups=\"hr_timesheet.group_hr_timesheet_approver\">per month</span>"
 msgstr ""
+"<span class=\"m-14 w-100\" "
+"groups=\"hr_timesheet.group_hr_timesheet_approver\">kuus</span>"
 
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.sale_timesheet_enterprise_advance_payment_inv_timesheet_view_form
@@ -119,7 +121,7 @@ msgstr "Avatar"
 #. module: sale_timesheet_enterprise
 #: model:ir.model.fields,field_description:sale_timesheet_enterprise.field_res_config_settings__timesheet_show_rates
 msgid "Billing Rate Indicators"
-msgstr ""
+msgstr "Arveldustaseme näitajad"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -329,7 +331,7 @@ msgstr ""
 #. module: sale_timesheet_enterprise
 #: model_terms:ir.ui.view,arch_db:sale_timesheet_enterprise.res_config_settings_view_form
 msgid "Set employee billable time targets"
-msgstr ""
+msgstr "Määra töötajale arveldatava aja eesmärgid"
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript
@@ -368,6 +370,7 @@ msgstr "Arveldatav aeg ei saa olla negatiivne."
 #: code:addons/sale_timesheet_enterprise/models/project_task.py:0
 msgid "This Sale Order Item doesn't have a target value of planned hours."
 msgstr ""
+"Sellel müügitellimuse artiklil ei ole planeeritud tundide sihtväärtust. "
 
 #. module: sale_timesheet_enterprise
 #. odoo-javascript

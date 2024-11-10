@@ -85,6 +85,8 @@ msgid ""
 "<span invisible=\"resource_manage_capacity\" class=\"ms-1\">per booking</span>\n"
 "                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">per seat</span>"
 msgstr ""
+"<span invisible=\"resource_manage_capacity\" class=\"ms-1\">trên mỗi lượt đặt lịch</span>\n"
+"                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">trên mỗi chỗ</span>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -174,7 +176,7 @@ msgstr "Sức chứa yêu cầu"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
 msgid "Attendees"
-msgstr "Học viên"
+msgstr "Người tham dự"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view_form
@@ -194,7 +196,7 @@ msgstr "Dòng đặt trước"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__product_id
 msgid "Booking Product"
-msgstr ""
+msgstr "Đặt lịch sản phẩm"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_answer_input__calendar_event_id
@@ -306,13 +308,15 @@ msgstr "Cập nhật lần cuối vào"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make customers pay a fee per person when booking your resources"
-msgstr ""
+msgstr "Yêu cầu khách hàng trả phí theo người khi đặt tài nguyên của bạn"
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make sure customers pay before they can take a slot in your calendar"
 msgstr ""
+"Đảm bảo khách hàng thanh toán trước khi họ có thể đặt được một khung giờ "
+"trong lịch của bạn"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__calendar_event_id
@@ -343,6 +347,8 @@ msgstr "Lớp học nấu ăn online"
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "Oops! Paid appointment cannot be cancelled via our website.<br/>"
 msgstr ""
+"Rất tiếc! Không thể hủy cuộc hẹn đã thanh toán qua trang web của chúng "
+"tôi.<br/>"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__staff_user_id
@@ -353,13 +359,13 @@ msgstr "Tổng đài viên"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Consultation"
-msgstr ""
+msgstr "Dịch vụ tư vấn trả phí"
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Seats"
-msgstr ""
+msgstr "Chỗ đã thanh toán "
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment

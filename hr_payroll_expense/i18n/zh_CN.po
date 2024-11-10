@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -92,6 +93,7 @@ msgid ""
 "add a payable debit account to be able to create an accounting entry for the"
 " expense reports linked to this payslip."
 msgstr ""
+"工资单薪酬规则 “%(rule_name)s” 中，没有找到扣账账户。请新增一个应付款项扣账账户，以便能够为已连接至此工资单的开支报告，创建会计记项。"
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -99,7 +101,7 @@ msgstr ""
 msgid ""
 "No salary rule was found to handle expenses in structure "
 "'%(structure_name)s'."
-msgstr ""
+msgstr "找不到薪酬规则可处理以下薪酬结构中的报销开支：%(structure_name)s。"
 
 #. module: hr_payroll_expense
 #. odoo-python

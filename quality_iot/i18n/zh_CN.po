@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +28,7 @@ msgstr "截图..."
 
 #. module: quality_iot
 #. odoo-javascript
+#: code:addons/quality_iot/static/src/iot_measure.js:0
 #: code:addons/quality_iot/static/src/iot_picture/iot_picture.js:0
 msgid "Connection to device failed"
 msgstr "连接到设备失败"
@@ -58,6 +60,7 @@ msgstr "标识"
 
 #. module: quality_iot
 #. odoo-javascript
+#: code:addons/quality_iot/static/src/iot_measure.js:0
 #: code:addons/quality_iot/static/src/iot_picture/iot_picture.js:0
 msgid "Please check if the device is still connected."
 msgstr "请检查设备是否仍连接。"
@@ -86,3 +89,15 @@ msgstr "质量控制点"
 #: model:ir.model.fields,field_description:quality_iot.field_iot_device__quality_point_ids
 msgid "Quality Point"
 msgstr "质量点"
+
+#. module: quality_iot
+#. odoo-javascript
+#: code:addons/quality_iot/static/src/iot_measure.xml:0
+msgid "Take Measure"
+msgstr "称量"
+
+#. module: quality_iot
+#. odoo-javascript
+#: code:addons/quality_iot/static/src/iot_measure.js:0
+msgid "Take measure..."
+msgstr "称量..."

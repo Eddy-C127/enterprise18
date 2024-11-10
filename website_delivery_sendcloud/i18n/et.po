@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -27,19 +27,14 @@ msgid ""
 msgstr "Võimaldab e-poe kasutajal valida tarneaadressiks kättesaamise koha."
 
 #. module: website_delivery_sendcloud
-#: model:ir.model.fields,field_description:website_delivery_sendcloud.field_delivery_carrier__sendcloud_locations_radius_unit
-msgid "Distance Unit"
-msgstr "Kaugusühik"
-
-#. module: website_delivery_sendcloud
-#: model:ir.model.fields,field_description:website_delivery_sendcloud.field_delivery_carrier__sendcloud_locations_radius_value
-msgid "Locations Distance Radius"
-msgstr "Asukohtade kauguse raadius"
-
-#. module: website_delivery_sendcloud
 #: model:ir.model.fields,field_description:website_delivery_sendcloud.field_delivery_carrier__sendcloud_locations_id
 msgid "Locations Id"
 msgstr "Asukohtade Id"
+
+#. module: website_delivery_sendcloud
+#: model_terms:ir.ui.view,arch_db:website_delivery_sendcloud.view_delivery_carrier_form
+msgid "Locations Radius"
+msgstr "Asukohade raadius"
 
 #. module: website_delivery_sendcloud
 #: model:ir.model.fields,help:website_delivery_sendcloud.field_delivery_carrier__sendcloud_locations_radius_value
@@ -50,6 +45,21 @@ msgstr "Maksimaalne asukohtade kauguse raadius."
 #: model:ir.model.fields,field_description:website_delivery_sendcloud.field_delivery_carrier__sendcloud_can_customize_use_locations
 msgid "Sendcloud Can Customize Use Locations"
 msgstr "Sendcloudiga saab kohandada kasutatavaid asukohti. "
+
+#. module: website_delivery_sendcloud
+#: model:ir.model.fields,field_description:website_delivery_sendcloud.field_delivery_carrier__sendcloud_locations_radius_value
+msgid "Sendcloud Locations Radius"
+msgstr ""
+
+#. module: website_delivery_sendcloud
+#: model:ir.model.fields,field_description:website_delivery_sendcloud.field_delivery_carrier__sendcloud_locations_radius_unit
+msgid "Sendcloud Locations Radius Unit"
+msgstr ""
+
+#. module: website_delivery_sendcloud
+#: model:ir.model.fields,field_description:website_delivery_sendcloud.field_delivery_carrier__sendcloud_locations_radius_unit_name
+msgid "Sendcloud Radius Unit Name"
+msgstr ""
 
 #. module: website_delivery_sendcloud
 #: model:ir.model,name:website_delivery_sendcloud.model_delivery_carrier

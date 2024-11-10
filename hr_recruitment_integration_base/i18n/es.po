@@ -26,22 +26,22 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "%(job)s on %(platform)s"
-msgstr ""
+msgstr "%(job)s en %(platform)s"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban
 msgid "<span class=\"px-2\">-</span>"
-msgstr ""
+msgstr "<span class=\"px-2\">-</span>"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban
 msgid "<span class=\"text-muted\" invisible=\"campaign_end_date\">No limit</span>"
-msgstr ""
+msgstr "<span class=\"text-muted\" invisible=\"campaign_end_date\">Sin límite</span>"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban
 msgid "<strong class=\"o_kanban_label_width\">From:</strong>"
-msgstr ""
+msgstr "<strong class=\"o_kanban_label_width\">De:</strong>"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban
@@ -66,7 +66,7 @@ msgstr "<strong>a</strong>"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__api_data
 msgid "API Data"
-msgstr ""
+msgstr "Datos API"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__message_needaction
@@ -146,49 +146,51 @@ msgstr ""
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_form
 msgid "Campaign Duration"
-msgstr ""
+msgstr "Duración de la campaña"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__campaign_end_date
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_post_job_wizard__campaign_end_date
 msgid "Campaign End Date"
-msgstr ""
+msgstr "Fecha de finalización de la campaña"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Campaign End Date:"
-msgstr ""
+msgstr "Fecha de finalización de la campaña:"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__campaign_start_date
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_post_job_wizard__campaign_start_date
 msgid "Campaign Start Date"
-msgstr ""
+msgstr "Fecha de inicio de la campaña"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Campaign Start Date:"
-msgstr ""
+msgstr "Fecha de inicio de la campaña:"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/wizard/hr_recruitment_post.py:0
 msgid "Campaign start date can't be after campaign end date"
 msgstr ""
+"La fecha de inicio de la campaña no puede ser después de la fecha final de "
+"la campaña"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/wizard/hr_recruitment_post.py:0
 msgid "Campaign will start on %(start_date)s"
-msgstr ""
+msgstr "La campaña iniciará el %(start_date)s"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/wizard/hr_recruitment_post.py:0
 msgid "Can't postpone posts that are already posted"
-msgstr ""
+msgstr "No se pueden posponer las publicaciones que ya se realizaron"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_recruitment_post_job_wizard_view_form
@@ -211,24 +213,24 @@ msgstr "Compañía:"
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__apply_method
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban_search
 msgid "Contact Method"
-msgstr ""
+msgstr "Método de contacto"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Contact Method:"
-msgstr ""
+msgstr "Método de contacto:"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__apply_vector
 msgid "Contact Point"
-msgstr ""
+msgstr "Punto de contacto"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Contact Point:"
-msgstr ""
+msgstr "Punto de contacto:"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__create_uid
@@ -491,7 +493,7 @@ msgstr "Última actualización el"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job__salary_max
 msgid "Maximum Salary"
-msgstr ""
+msgstr "Salario máximo"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__message_has_error
@@ -506,7 +508,7 @@ msgstr "Mensajes"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job__salary_min
 msgid "Minimum Salary"
-msgstr ""
+msgstr "Salario mínimo"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_base.selection__hr_job__payment_interval__monthly
@@ -548,6 +550,8 @@ msgstr "Tipo de la siguiente actividad"
 #: code:addons/hr_recruitment_integration_base/models/hr_recruitment_platform.py:0
 msgid "No API call defined for this platform please contact the administrator"
 msgstr ""
+"No hay una llamada API definida para esta plataforma, contacte al "
+"administrador"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
@@ -620,22 +624,22 @@ msgstr "Publicaciones"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_delete
 msgid "Price to Delete"
-msgstr ""
+msgstr "Precio a eliminar"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_get
 msgid "Price to Get"
-msgstr ""
+msgstr "Precio a obtener"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_publish
 msgid "Price to Publish"
-msgstr ""
+msgstr "Precio a publicar"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__price_to_update
 msgid "Price to Update"
-msgstr ""
+msgstr "Precio a actualizar"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
@@ -666,7 +670,7 @@ msgstr "Reclutador"
 #. module: hr_recruitment_integration_base
 #: model:ir.model,name:hr_recruitment_integration_base.model_hr_recruitment_platform
 msgid "Recruitment Platform"
-msgstr ""
+msgstr "Plataforma de reclutamiento"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__activity_user_id
@@ -687,12 +691,12 @@ msgstr "Error de envío del SMS"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
 msgid "Salary Range"
-msgstr ""
+msgstr "Rango de salario"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job__payment_interval
 msgid "Salary Time Unit"
-msgstr ""
+msgstr "Unidad de tiempo para salario"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_base.selection__hr_recruitment_post_job_wizard__apply_method__email
@@ -719,7 +723,7 @@ msgstr "Mensaje de estado"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Status Message:"
-msgstr ""
+msgstr "Estado del mensaje:"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__activity_state
@@ -743,7 +747,7 @@ msgstr "Estado:"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_list
 msgid "Stop Campaigns"
-msgstr ""
+msgstr "Detener campañas"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_list
@@ -773,17 +777,22 @@ msgid ""
 "The date when the campaign will end. If not set, the campaign will run "
 "indefinitely or to the maximum allowed by a platform."
 msgstr ""
+"La fecha en la que la campaña se detendrá. Si no está configurada, la "
+"campaña funcionará indefinidamente o hasta lo máximo que permite una "
+"plataforma."
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__campaign_start_date
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_recruitment_post_job_wizard__campaign_start_date
 msgid "The date when the campaign will start."
-msgstr ""
+msgstr "La fecha en la que comenzará la campaña."
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__apply_vector
 msgid "The email address, phone number, url to send applications to."
 msgstr ""
+"La dirección de correo, el número de teléfono y la URL a los que enviar las "
+"solicitudes."
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
@@ -860,7 +869,7 @@ msgstr "por"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban
 msgid "plateform icon"
-msgstr ""
+msgstr "icono de la plataforma"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python

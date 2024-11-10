@@ -3,18 +3,18 @@
 # 	* web_studio
 # 
 # Translators:
+# Wil Odoo, 2024
+# Martin Trigaux, 2024
 # Nancy Momoland <thanh.np2502@gmail.com>, 2024
 # Thi Huong Nguyen, 2024
-# Martin Trigaux, 2024
-# Wil Odoo, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -96,7 +96,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid " until %s"
-msgstr ""
+msgstr " cho đến %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -108,7 +108,7 @@ msgstr "\" không thành công."
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s delegated approval rights to %(delegate_to)s"
-msgstr ""
+msgstr "%(user_name)s ủy quyền phê duyệt cho %(delegate_to)s"
 
 #. module: web_studio
 #. odoo-python
@@ -117,12 +117,14 @@ msgid ""
 "%(user_name)s has set approval rights from %(previous_approvers)s to "
 "%(next_approvers)s"
 msgstr ""
+"%(user_name)s đã đặt quyền phê duyệt từ %(previous_approvers)s thành "
+"%(next_approvers)s"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s revoked their delegation to %(revoked_users)s"
-msgstr ""
+msgstr "%(user_name)s thu hồi uỷ quyền cho %(revoked_users)s"
 
 #. module: web_studio
 #. odoo-python
@@ -134,7 +136,12 @@ msgstr "%s Báo cáo"
 #. odoo-python
 #: code:addons/web_studio/models/studio_export_model.py:0
 msgid "%s record(s)"
-msgstr ""
+msgstr "%s bản ghi"
+
+#. module: web_studio
+#: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
+msgid "<i role=\"img\" class=\"fa fa-user-times\" title=\"Exclusive approval\"/>"
+msgstr "<i role=\"img\" class=\"fa fa-user-times\" title=\"Phê duyệt độc quyền\"/>"
 
 #. module: web_studio
 #. odoo-python
@@ -149,6 +156,13 @@ msgstr ""
 "                Thêm danh sách kiểm soát truy cập mới\n"
 "            </p>\n"
 "            "
+
+#. module: web_studio
+#: model_terms:web_tour.tour,rainbow_man_message:web_studio.web_studio_new_app_tour
+msgid "<span><b>Good job!</b> You went through all steps of this tour.</span>"
+msgstr ""
+"<span><b>Tốt lắm!</b> Bạn đã xem qua tất cả các bước của tour hướng dẫn "
+"này.</span>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -253,7 +267,7 @@ msgstr "Tiêu đề tác vụ"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Action: %s"
-msgstr ""
+msgstr "Tác vụ: %s"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
@@ -346,7 +360,7 @@ msgstr "Thêm mức độ ưu tiên"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Add an approval step"
-msgstr ""
+msgstr "Thêm bước phê duyệt"
 
 #. module: web_studio
 #. odoo-javascript
@@ -387,7 +401,7 @@ msgstr "Thêm thẻ"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_export_data
 msgid "Additional Export Data"
-msgstr ""
+msgstr "Xuất dữ liệu bổ sung"
 
 #. module: web_studio
 #. odoo-javascript
@@ -398,12 +412,12 @@ msgstr "Trường bổ sung"
 #. module: web_studio
 #: model_terms:ir.actions.act_window,help:web_studio.action_models_to_export
 msgid "Additional Studio Exports"
-msgstr ""
+msgstr "Xuất studio bổ sung"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_models
 msgid "Additional models to export"
-msgstr ""
+msgstr "Mô hình bổ sung cần xuất"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_wizard__additional_models
@@ -411,6 +425,7 @@ msgid ""
 "Additional models you may choose to export in addition to the Studio "
 "customizations"
 msgstr ""
+"Các mô hình bổ sung bạn có thể chọn để xuất ngoài các tùy chỉnh Studio"
 
 #. module: web_studio
 #. odoo-javascript
@@ -436,6 +451,15 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"All set? You are just one click away from <b>generating your first app</b>."
+msgstr ""
+"Tất cả đã được thiết lập xong? Bạn chỉ cần một cú nhấp chuột để <b>tạo ứng "
+"dụng đầu tiên</b>."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Allow Resequencing"
 msgstr "Cho phép sắp xếp lại thứ tự"
@@ -446,7 +470,7 @@ msgstr "Cho phép sắp xếp lại thứ tự"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "An approval is missing"
-msgstr ""
+msgstr "Thiếu phê duyệt"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
@@ -473,7 +497,7 @@ msgstr "Nhóm phê duyệt"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approval Order"
-msgstr ""
+msgstr "Thứ tự phê duyệt"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__rule_id
@@ -485,12 +509,12 @@ msgstr "Quy tắc phê duyệt"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_approver
 msgid "Approval Rule Approvers Enriched"
-msgstr ""
+msgstr "Approval Rule Approvers Enriched"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_delegate
 msgid "Approval Rule Delegate"
-msgstr ""
+msgstr "Approval Rule Delegate"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_button_configuration_search_view
@@ -507,7 +531,7 @@ msgstr "Phê duyệt"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals %(model_name)s"
-msgstr ""
+msgstr "Phê duyệt %(model_name)s"
 
 #. module: web_studio
 #. odoo-python
@@ -538,7 +562,7 @@ msgstr "Đã phê duyệt"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Approved <i class=\"fa fa-thumbs-up text-success\"/>"
-msgstr ""
+msgstr "Đã phê duyệt <i class=\"fa fa-thumbs-up text-success\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -555,12 +579,12 @@ msgstr "Được phê duyệt/từ chối bởi"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approver Group"
-msgstr ""
+msgstr "Nhóm người phê duyệt"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__approver_log_ids
 msgid "Approver Log"
-msgstr ""
+msgstr "Nhật ký người phê duyệt"
 
 #. module: web_studio
 #. odoo-javascript
@@ -622,12 +646,14 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__is_demo_data
 msgid "As Demo"
-msgstr ""
+msgstr "Demo"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Ascending"
 msgstr "Tăng dần"
@@ -889,6 +915,12 @@ msgstr "Lớp"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Click to edit messaging features on your model."
+msgstr "Nhấp để chỉnh sửa các tính năng nhắn tin trên model của bạn."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 msgid "Click to see all approval rules."
 msgstr "Nhấp để xem tất cả các quy tắc phê duyệt."
@@ -985,11 +1017,13 @@ msgid ""
 "Configure additional models to export with Studio, such as records that hold"
 " configuration information or demo data."
 msgstr ""
+"Cấu hình các mô hình bổ sung để xuất bằng Studio, chẳng hạn như các bản ghi "
+"chứa thông tin cấu hình hoặc dữ liệu demo."
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Configure data and demo data to export"
-msgstr ""
+msgstr "Cấu hình dữ liệu và dữ liệu demo để xuất"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1049,6 +1083,14 @@ msgstr "Ngữ cảnh"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Continue to configure some typical behaviors for your new type of object."
+msgstr ""
+"Tiếp tục cấu hình một số hành vi điển hình cho loại đối tượng mới của bạn."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/navbar/home_menu_customizer/home_menu_customizer.js:0
 msgid "Could not change the background"
 msgstr "Không thể thay đổi hình nền"
@@ -1070,6 +1112,14 @@ msgstr "Tạo mô hình"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 msgid "Create a new Model"
 msgstr "Tạo một mô hình mới"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Create your <b>selection values</b> (e.g.: Romance, Polar, Fantasy, etc.)"
+msgstr ""
+"Tạo <b>giá trị lựa chọn</b> của bạn (ví dụ: Lãng mạn, Cực, Giả tưởng,...)"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1266,7 +1316,7 @@ msgstr "Chế độ hiển thị mặc định"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__default_export_data
 msgid "Default Export Data"
-msgstr ""
+msgstr "Xuất dữ liệu mặc định"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1320,13 +1370,15 @@ msgstr ""
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__updatable
 msgid "Defines if the records would be updated during a module update."
 msgstr ""
+"Xác định xem các bản ghi có được cập nhật trong quá trình cập nhật phân hệ "
+"hay không."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__notification_order
 msgid "Defines the sequential order in which the approvals are requested."
-msgstr ""
+msgstr "Xác định thứ tự tuần tự mà các yêu cầu phê duyệt được yêu cầu."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1338,13 +1390,13 @@ msgstr "Trường trễ"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
 msgid "Delegate"
-msgstr ""
+msgstr "Uỷ quyền"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Delegate to"
-msgstr ""
+msgstr "Uỷ quyền cho"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1370,6 +1422,8 @@ msgstr "Dense"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Descending"
 msgstr "Giảm dần"
@@ -1440,6 +1494,12 @@ msgstr "Hiển thị không khả dụng"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
+msgid "Displays a textual hint that helps the user when the field is empty."
+msgstr "Hiển thị gợi ý bằng văn bản để trợ giúp người dùng khi trường trống."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_record_legacy.js:0
 msgid "Do you want to add a dropdown with colors?"
 msgstr "Bạn có muốn thêm menu thả xuống có màu không?"
@@ -1458,6 +1518,14 @@ msgstr "Miền"
 #: code:addons/web_studio/models/ir_model.py:0
 msgid "Done"
 msgstr "Hoàn tất"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Drag & drop <b>another field</b>. Let's try with a <i>selection field</i>."
+msgstr ""
+"Kéo và thả <b>một trường khác</b>. Hãy thử với một <i>trường lựa chọn</i>."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1537,8 +1605,8 @@ msgid ""
 "Editing a built-in file through this editor is not advised, as it will "
 "prevent it from being updated during future App upgrades."
 msgstr ""
-"Editing a built-in file through this editor is not advised, as it will "
-"prevent it from being updated during future App upgrades."
+"Không nên chỉnh sửa tệp tích hợp thông qua trình chỉnh sửa này vì sẽ không "
+"cập nhật được tệp đó trong các lần nâng cấp Ứng dụng trong tương lai."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1705,7 +1773,7 @@ msgstr "Trường "
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_model__excluded_fields
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 msgid "Fields to exclude"
-msgstr ""
+msgstr "Trường cần loại trừ"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1841,6 +1909,19 @@ msgid "Go back"
 msgstr "Trở lại"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Go on, you are almost done!"
+msgstr "Tiếp tục, bạn sắp hoàn tất rồi!"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Good job! To add more <b>fields</b>, come back to the <i>Add tab</i>."
+msgstr ""
+"Làm tốt lắm! Để thêm các <b>trường</b> khác, hãy quay lại <i>Thêm tab</i>."
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #: model:ir.model.fields.selection,name:web_studio.selection__mail_activity_type__category__grant_approval
@@ -1921,14 +2002,24 @@ msgid ""
 "Header and footer are shared with other reports which may be impacted by the"
 " reset."
 msgstr ""
-"Việc đặt lại có thể ảnh hưởng đến đầu trang và chân trang được chia sẻ với "
-"các báo cáo khác."
+"Việc đặt lại có thể ảnh hưởng đến header và footer được chia sẻ với các báo "
+"cáo khác."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/field_properties/field_properties.xml:0
 msgid "Help Tooltip"
 msgstr "Tooltip trợ giúp"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Here, you can <b>name</b> your field (e.g. Book reference, ISBN, Internal "
+"Note, etc.)."
+msgstr ""
+"Tại đây, bạn có thể <b>đặt tên</b> cho trường của mình (ví dụ: Tham chiếu "
+"sách, ISBN, Ghi chú nội bộ,...)."
 
 #. module: web_studio
 #. odoo-javascript
@@ -1972,6 +2063,30 @@ msgid "Hour"
 msgstr "Giờ"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to <b>name</b> your app? Library, Academy, …?"
+msgstr ""
+"Bạn muốn <b>đặt tên</b> ứng dụng của mình như thế nào? Thư viện, Học viện,…?"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to name your first <b>menu</b>? My books, My courses?"
+msgstr ""
+"Bạn muốn đặt tên cho <b>menu</b> đầu tiên của mình như thế nào? Sách của "
+"tôi, khóa học của tôi?"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"I bet you can <b>build an app</b> in 5 minutes. Ready for the challenge?"
+msgstr ""
+"Cá là bạn có thể <b>tạo một ứng dụng</b> trong vòng 5 phút. Bạn đã sẵn sàng "
+"cho thử thách này chưa?"
+
+#. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__id
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_request__id
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__id
@@ -2012,6 +2127,8 @@ msgid ""
 "If set, the attachments related to the exported records will be included in "
 "the export."
 msgstr ""
+"Nếu được thiết lập, các tệp đính kèm liên quan đến bản ghi đã xuất sẽ được "
+"bao gồm trong bản xuất."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_export_model__is_demo_data
@@ -2019,6 +2136,8 @@ msgid ""
 "If set, the exported records will be considered as demo data during the "
 "import."
 msgstr ""
+"Nếu được thiết lập, các bản ghi đã xuất sẽ được coi là dữ liệu demo trong "
+"quá trình nhập."
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__domain
@@ -2076,18 +2195,18 @@ msgstr "Đang thực hiện"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_additional_data
 msgid "Include Data"
-msgstr ""
+msgstr "Bao gồm dữ liệu"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__include_demo_data
 msgid "Include Demo Data"
-msgstr ""
+msgstr "Bao gồm dữ liệu demo"
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 msgid "Include header and footer"
-msgstr "Bao gồm đầu trang và chân trang"
+msgstr "Bao gồm header và footer"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_ir_ui_menu__is_studio_configuration
@@ -2160,7 +2279,7 @@ msgstr "Không hiển thị"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_approver__is_delegation
 msgid "Is Delegation"
-msgstr ""
+msgstr "Là uỷ quyền"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_is_follower
@@ -2194,7 +2313,7 @@ msgstr "Kanban"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__kanban_color
 msgid "Kanban Color"
-msgstr ""
+msgstr "Màu kanban"
 
 #. module: web_studio
 #. odoo-python
@@ -2255,7 +2374,17 @@ msgstr "Leave DIFF"
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.action_web_studio_leave_with
 msgid "Leave Studio with another action"
+msgstr "Rời khỏi Studio với một hành động khác"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Let's check the result. Close Odoo Studio to get an <b>overview of your "
+"app</b>."
 msgstr ""
+"Hãy kiểm tra kết quả. Đóng Odoo Studio để xem <b>tổng quan ứng dụng của "
+"bạn</b>."
 
 #. module: web_studio
 #. odoo-javascript
@@ -2393,7 +2522,7 @@ msgstr "Phương thức cần chạy"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Method: %s"
-msgstr ""
+msgstr "Phương pháp: %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2423,7 +2552,7 @@ msgstr "Mô hình"
 #. odoo-python
 #: code:addons/web_studio/wizard/studio_export_wizard.py:0
 msgid "Model '%s' should not contain records with the same ID."
-msgstr ""
+msgstr "Mô hình '%s' không được chứa các bản ghi có cùng ID."
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_model_access
@@ -2509,6 +2638,7 @@ msgstr "Độ chính xác theo tháng"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "More"
@@ -2641,6 +2771,16 @@ msgstr "Tiếp theo"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Nicely done! Let's build your screen now; <b>drag</b> a <i>text field</i> "
+"and <b>drop</b> it in your view, on the right."
+msgstr ""
+"Tuyệt vời! Bây giờ, hãy tạo màn hình của bạn; <b>kéo</b> một <i>trường văn "
+"bản</i> và <b>thả</b> trường này trong chế độ xem, ở bên phải."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
 msgid "No aggregation"
 msgstr "Không có tổng hợp"
@@ -2681,7 +2821,21 @@ msgstr "Ghi chú"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
+msgstr "Thông báo cho"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now you're on your own. Enjoy your <b>super power</b>."
 msgstr ""
+"Bây giờ bạn đang ở không gian của riêng bạn. Hãy tận hưởng <b>sức mạnh siêu "
+"việt</b> của mình."
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now, customize your icon. Make it yours."
+msgstr "Bây giờ, hãy tùy chỉnh biểu tượng và biến nó thành của bạn."
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_needaction_counter
@@ -2753,7 +2907,7 @@ msgstr "Mở chế độ xem biểu mẫu"
 #: code:addons/web_studio/static/src/approval/approval_infos.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Open kanban view of approvals"
-msgstr ""
+msgstr "Mở chế độ xem kanban của các phê duyệt"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2763,6 +2917,8 @@ msgstr "Tuỳ chọn"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Order"
 msgstr "Đơn hàng"
@@ -2858,7 +3014,7 @@ msgstr "Bài viết"
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard_data__pre
 msgid "Pre"
-msgstr ""
+msgstr "Trước"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
@@ -3008,7 +3164,7 @@ msgstr "Bị từ chối"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Rejected <i class=\"fa fa-thumbs-down text-danger\"/>"
-msgstr ""
+msgstr "Bị từ chối <i class=\"fa fa-thumbs-down text-danger\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3226,6 +3382,12 @@ msgstr "Lưu"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Save."
+msgstr "Lưu."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor_snackbar.xml:0
 msgid "Saved"
 msgstr "Đã lưu"
@@ -3288,7 +3450,7 @@ msgstr "Chọn một trường"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select a group..."
-msgstr ""
+msgstr "Chọn một nhóm..."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3305,7 +3467,7 @@ msgstr "Chọn một trường liên quan."
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 msgid "Select group"
-msgstr ""
+msgstr "Chọn nhóm"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3331,7 +3493,7 @@ msgstr "Chọn trường ManyToOne đối ứng"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select users..."
-msgstr ""
+msgstr "Chọn người dùng..."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3389,6 +3551,16 @@ msgstr "Thiết lập giá hoặc chi phí trên bản ghi"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Set an <b>email alias</b>. Then, try to send an email to this address; it "
+"will create a document automatically for you. Pretty cool, huh?"
+msgstr ""
+"Thiết lập một <b>bí danh email</b>. Khi đó, thử gửi một email đến địa chỉ "
+"này; điều đó sẽ tự động tạo một tài liệu cho bạn. Thật tuyệt, đúng không?"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "Show Invisible Elements"
 msgstr "Hiển thị các thành phần ẩn"
@@ -3441,7 +3613,7 @@ msgstr "Chậm"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "Some approvals are missing"
-msgstr ""
+msgstr "Thiếu một số phê duyệt"
 
 #. module: web_studio
 #. odoo-python
@@ -3454,6 +3626,8 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Sort By"
 msgstr "Sắp xếp theo"
@@ -3533,47 +3707,47 @@ msgstr "Bước"
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__1
 msgid "Step 1"
-msgstr ""
+msgstr "Bước 1"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__2
 msgid "Step 2"
-msgstr ""
+msgstr "Bước 2"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__3
 msgid "Step 3"
-msgstr ""
+msgstr "Bước 3"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__4
 msgid "Step 4"
-msgstr ""
+msgstr "Bước 4"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__5
 msgid "Step 5"
-msgstr ""
+msgstr "Bước 5"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__6
 msgid "Step 6"
-msgstr ""
+msgstr "Bước 6"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__7
 msgid "Step 7"
-msgstr ""
+msgstr "Bước 7"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__8
 msgid "Step 8"
-msgstr ""
+msgstr "Bước 8"
 
 #. module: web_studio
 #: model:ir.model.fields.selection,name:web_studio.selection__studio_approval_rule__notification_order__9
 msgid "Step 9"
-msgstr ""
+msgstr "Bước 9"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3637,7 +3811,7 @@ msgstr "Tùy chỉnh Studio"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Studio Customizations will be exported"
-msgstr ""
+msgstr "Tùy chỉnh studio sẽ được xuất"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.action_models_to_export
@@ -3646,27 +3820,27 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
 msgid "Studio Export"
-msgstr ""
+msgstr "Xuất Studio"
 
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.studio_export_action
 msgid "Studio Export Action"
-msgstr ""
+msgstr "Tác vụ xuất"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard_data
 msgid "Studio Export Data"
-msgstr ""
+msgstr "Xuất dữ liệu Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_model
 msgid "Studio Export Models"
-msgstr ""
+msgstr "Mô hình xuất Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard
 msgid "Studio Export Wizard"
-msgstr ""
+msgstr "Công cụ xuất Studio"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_mixin
@@ -3833,7 +4007,7 @@ msgstr ""
 msgid ""
 "The step description will be displayed on the button on which an approval is"
 " requested."
-msgstr ""
+msgstr "Mô tả bước sẽ được hiển thị trên nút yêu cầu phê duyệt."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3842,13 +4016,15 @@ msgid ""
 "The user who approves this step will not be able to approve other steps for "
 "the same record."
 msgstr ""
+"Người dùng phê duyệt bước này sẽ không thể phê duyệt các bước khác cho cùng "
+"một bản ghi."
 
 #. module: web_studio
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__approval_group_id
 msgid "The users in this group are able to approve or reject the step."
-msgstr ""
+msgstr "Người dùng trong nhóm này có thể phê duyệt hoặc từ chối bước này."
 
 #. module: web_studio
 #. odoo-python
@@ -3892,6 +4068,8 @@ msgid ""
 "These users are able to approve or reject the step and will be assigned to "
 "an activity when their approval is requested."
 msgstr ""
+"Những người dùng này có thể phê duyệt hoặc từ chối bước này và sẽ được phân "
+"công cho một hoạt động khi được yêu cầu phê duyệt."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3901,6 +4079,8 @@ msgid ""
 "These users will receive a notification via internal note when the step is "
 "approved or rejected"
 msgstr ""
+"Những người dùng này sẽ nhận được thông báo qua ghi chú nội bộ khi bước này "
+"được phê duyệt hoặc từ chối"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3944,7 +4124,7 @@ msgstr "Điều này có thể là do sai cú pháp trong các phần đã chỉ
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_export_model_unique_model
 msgid "This model is already being exported."
-msgstr ""
+msgstr "Mô hình này hiện đang được xuất."
 
 #. module: web_studio
 #. odoo-javascript
@@ -3976,6 +4156,12 @@ msgstr "Dòng thời gian"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 msgid "Timeline views"
 msgstr "Chế độ xem dòng thời gian"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "To <b>customize a field</b>, click on its <i>label</i>."
+msgstr "Để <b>tùy chỉnh một trường</b>, bấm vào <i>nhãn</i> của trường đó."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4012,7 +4198,7 @@ msgstr "Hoàn tác"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Unsupported operator '%s' to search action_xmlid"
-msgstr ""
+msgstr "Toán tử '%s' không được hỗ trợ để tìm kiếm action_xmlid"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__date_to
@@ -4062,7 +4248,7 @@ msgstr "Phần giữ chỗ ảnh đại diện người dùng"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__users_to_notify
 msgid "Users to Notify"
-msgstr ""
+msgstr "Người dùng cần thông báo"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4095,7 +4281,7 @@ msgstr "Chế độ xem"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor.js:0
 msgid "View Editor"
-msgstr ""
+msgstr "Trình chỉnh sửa chế độ xem"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4114,6 +4300,12 @@ msgstr "Lượt xem"
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 msgid "Waiting for approval"
 msgstr "Chờ phê duyệt"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Want more fun? Let's create more <b>views</b>."
+msgstr "Bạn muốn tăng sự thú vị? Hãy tạo nhiều <b>chế độ xem</b> hơn."
 
 #. module: web_studio
 #. odoo-python
@@ -4164,6 +4356,12 @@ msgstr "Chào mừng bạn đến"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "What about a <b>Kanban view</b>?"
+msgstr "<b>Chế độ xem Kanban</b> thì sao?"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "What should the button do"
 msgstr "Nút này nên làm gì"
@@ -4198,6 +4396,16 @@ msgstr "Tiện ích"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Wow, nice! And I'm sure you can make it even better! Use this icon to open "
+"<b>Odoo Studio</b> and customize any screen."
+msgstr ""
+"Wow, tuyệt vời! Chắc chắn rằng bạn có thể làm tốt hơn nữa! Sử dụng biểu "
+"tượng này để mở <b>Odoo Studio</b> và tùy chỉnh bất kỳ màn hình nào."
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/model_configurator/model_configurator.js:0
 msgid "Write additional notes or comments"
 msgstr "Viết thêm ghi chú hoặc nhận xét"
@@ -4219,7 +4427,7 @@ msgstr "Năm"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "You can not approve this rule."
-msgstr ""
+msgstr "Bạn không thể phê duyệt quy tắc này."
 
 #. module: web_studio
 #. odoo-python
@@ -4228,6 +4436,8 @@ msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
 msgstr ""
+"Bạn không thể hủy bỏ phê duyệt mà bạn không tự thiết lập hoặc bạn không "
+"thuộc nhóm người phê duyệt của quy tắc cấp cao hơn."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4260,7 +4470,7 @@ msgstr "tác vụ"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "delegates to %s."
-msgstr ""
+msgstr "uỷ quyền cho %s."
 
 #. module: web_studio
 #. odoo-javascript
@@ -4284,7 +4494,7 @@ msgstr "VD: Bất động sản"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "no one"
-msgstr ""
+msgstr "không có ai"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4316,7 +4526,7 @@ msgstr "kiểm thử email"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "to %s."
-msgstr ""
+msgstr "đến %s."
 
 #. module: web_studio
 #. odoo-javascript

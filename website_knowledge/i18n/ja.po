@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -20,24 +20,20 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
-msgid "<i class=\"fa fa-circle-o-notch fa-2x fa-spin\" title=\"loader\" role=\"img\"/>"
-msgstr "<i class=\"fa fa-circle-o-notch fa-2x fa-spin\" title=\"loader\" role=\"img\"/>"
-
-#. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article not Published"
 msgstr "未公開の記事"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Article not found"
 msgstr "記事が見つかりません"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article shared to web"
 msgstr "記事がウェブに共有されました"
 
@@ -45,12 +41,6 @@ msgstr "記事がウェブに共有されました"
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__can_publish
 msgid "Can Publish"
 msgstr "公開可"
-
-#. module: website_knowledge
-#. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
-msgid "Download"
-msgstr "ダウンロード"
 
 #. module: website_knowledge
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__is_published
@@ -61,7 +51,7 @@ msgstr "公開済"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "It and its published children can be read by anyone"
 msgstr "その記事と公開済の子は、誰でも読むことができます。"
 
@@ -77,7 +67,7 @@ msgstr "もっと読み込む"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
+#: code:addons/website_knowledge/static/src/frontend/editor/embedded_components/view/view_placeholder.xml:0
 msgid "Log in"
 msgstr "ログイン"
 
@@ -88,7 +78,7 @@ msgstr "記事が見つかりません"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Only specific people can access"
 msgstr "特定の人だけがアクセスできる"
 
@@ -99,25 +89,27 @@ msgstr "記事を公開"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Publish this Article and its children on the web"
 msgstr "この記事とその子をウェブで公開"
 
 #. module: website_knowledge
-#: model:ir.model,name:website_knowledge.model_ir_qweb
-msgid "Qweb"
-msgstr "Qweb"
-
-#. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Search an article..."
 msgstr "記事を検索..."
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Share to web"
 msgstr "Web共有"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "Sign in"
+msgstr "サインイン"
 
 #. module: website_knowledge
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__summary
@@ -126,12 +118,7 @@ msgstr "概要"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
-msgid "The Excalidraw URL is not valid. Ask an internal user to update it."
-msgstr "ExcalidrawのURLが無効です。内部ユーザに更新を依頼して下さい。"
-
-#. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid ""
 "The article you are trying the read has either been removed or you do not "
 "have access to it."
@@ -152,9 +139,15 @@ msgstr "この記事は展開できません。アクセスできなくなった
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
+#: code:addons/website_knowledge/static/src/frontend/editor/embedded_components/view/view_placeholder.xml:0
 msgid "This view is only available for internal users"
 msgstr "このビューは内部ユーザのみ利用可能です。"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "Toggle aside menu"
+msgstr "サイドメニュー切替"
 
 #. module: website_knowledge
 #: model:ir.actions.server,name:website_knowledge.knowledge_action_unpublish_articles
@@ -162,7 +155,8 @@ msgid "Unpublish Articles"
 msgstr "記事を非公開にする"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Untitled"
 msgstr "無題"
 
@@ -180,3 +174,9 @@ msgstr "ウェブサイト"
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__website_url
 msgid "Website URL"
 msgstr "サイトURL"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "loader"
+msgstr "ローダ"

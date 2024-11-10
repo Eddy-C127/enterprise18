@@ -47,6 +47,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
 "                At least one image is required when posting on Instagram."
 msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                Instagrami postitamisel on vajalik vähemalt üks pilt."
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -54,6 +56,8 @@ msgid ""
 "<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
 "                You can only post up to 10 images at once."
 msgstr ""
+"<i class=\"fa fa-exclamation-triangle me-1\"/>\n"
+"                Sa saad korraga postitada kuni 10 pilti."
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -97,7 +101,7 @@ msgstr "App Secret"
 #. odoo-python
 #: code:addons/social_instagram/models/social_post.py:0
 msgid "At least one image is required when posting on Instagram."
-msgstr ""
+msgstr "Instagrami postitamisel on vajalik vähemalt üks pilt."
 
 #. module: social_instagram
 #. odoo-javascript
@@ -145,7 +149,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__has_instagram_account
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__has_instagram_account
 msgid "Has Instagram Account"
-msgstr ""
+msgstr "On Instagrami konto"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_post_template_view_form
@@ -223,7 +227,7 @@ msgstr "Instagram'i Facebook'i autori ID"
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_image_ids
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_image_ids
 msgid "Instagram Images"
-msgstr ""
+msgstr "Instagrami pildid"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_likes_count
@@ -234,7 +238,7 @@ msgstr "Instagram'i meeldimised"
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_message
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_message
 msgid "Instagram Message"
-msgstr ""
+msgstr "Instagrami sõnum"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_live_post__instagram_post_id
@@ -279,6 +283,13 @@ msgstr "Meedia tüüp"
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_post_template_view_form
 msgid "Message"
 msgstr "Sõnum"
+
+#. module: social_instagram
+#. odoo-python
+#: code:addons/social_instagram/models/social_stream_post.py:0
+msgid ""
+"Please confirm that commenting is enabled for this post on the platform."
+msgstr ""
 
 #. module: social_instagram
 #. odoo-python
@@ -345,7 +356,7 @@ msgstr ""
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 msgid "The following images are not in the correct format (jpg/jpeg)."
-msgstr ""
+msgstr "Järgmised pildid pole õiges formaadis (jpg/jpeg)."
 
 #. module: social_instagram
 #. odoo-python
@@ -355,11 +366,14 @@ msgid ""
 "\n"
 "%(images)s"
 msgstr ""
+"Järgmised pildid pole õiges formaadis (jpg/jpeg).\n"
+"\n"
+"%(images)s"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
 msgid "The following images do not meet the"
-msgstr ""
+msgstr "Järgmised pildid ei vasta..."
 
 #. module: social_instagram
 #. odoo-python

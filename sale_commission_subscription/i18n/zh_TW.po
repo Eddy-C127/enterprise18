@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: sale_commission_subscription
 #: model:ir.model,name:sale_commission_subscription.model_sale_commission_plan_achievement
 msgid "Commission Plan Achievement"
-msgstr ""
+msgstr "佣金計劃成就"
 
 #. module: sale_commission_subscription
 #: model:ir.model.fields.selection,name:sale_commission_subscription.selection__sale_commission_achievement__type__mrr
@@ -33,7 +34,7 @@ msgstr "MRR（每月經常收入）"
 #. module: sale_commission_subscription
 #: model:ir.model,name:sale_commission_subscription.model_sale_commission_achievement
 msgid "Manual Commission Achievement"
-msgstr ""
+msgstr "手動佣金成就"
 
 #. module: sale_commission_subscription
 #: model:ir.model.fields,field_description:sale_commission_subscription.field_sale_commission_plan_achievement__recurring_plan_id
@@ -43,7 +44,7 @@ msgstr "循環計劃"
 #. module: sale_commission_subscription
 #: model:ir.model,name:sale_commission_subscription.model_sale_commission_achievement_report
 msgid "Sales Achievement Report"
-msgstr ""
+msgstr "銷售成就報表"
 
 #. module: sale_commission_subscription
 #: model:ir.model.fields,field_description:sale_commission_subscription.field_sale_commission_achievement__type
@@ -55,10 +56,10 @@ msgstr "類型"
 #. odoo-python
 #: code:addons/sale_commission_subscription/model/commission_plan_achievement.py:0
 msgid "You cannot have Product or Category constraints on MRR achievements."
-msgstr ""
+msgstr "您不能對 MRR 每月經常收入成就，設置產品或類別限制。"
 
 #. module: sale_commission_subscription
 #. odoo-python
 #: code:addons/sale_commission_subscription/model/commission_plan_achievement.py:0
 msgid "You cannot have Recurring Plan constraint on non MRR achievements."
-msgstr ""
+msgstr "您不能對並非 MRR 每月經常收入的成就，設置定期計劃限制。"

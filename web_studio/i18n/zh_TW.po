@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
@@ -94,7 +94,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid " until %s"
-msgstr ""
+msgstr "直至 %s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -132,7 +132,12 @@ msgstr "%s 報告"
 #. odoo-python
 #: code:addons/web_studio/models/studio_export_model.py:0
 msgid "%s record(s)"
-msgstr ""
+msgstr "%s 項記錄"
+
+#. module: web_studio
+#: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_kanban_view
+msgid "<i role=\"img\" class=\"fa fa-user-times\" title=\"Exclusive approval\"/>"
+msgstr "<i role=\"img\" class=\"fa fa-user-times\" title=\"獨家認可\"/>"
 
 #. module: web_studio
 #. odoo-python
@@ -147,6 +152,11 @@ msgstr ""
 "                新增存取控制列表\n"
 "            </p>\n"
 "            "
+
+#. module: web_studio
+#: model_terms:web_tour.tour,rainbow_man_message:web_studio.web_studio_new_app_tour
+msgid "<span><b>Good job!</b> You went through all steps of this tour.</span>"
+msgstr "<span><b>做得好！</b>你已完成本次導覽的所有步驟。</span>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -249,7 +259,7 @@ msgstr "動作的標題"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Action: %s"
-msgstr ""
+msgstr "動作：%s"
 
 #. module: web_studio
 #: model:ir.model.fields,help:web_studio.field_mail_activity_type__category
@@ -392,7 +402,7 @@ msgstr "額外欄位"
 #. module: web_studio
 #: model_terms:ir.actions.act_window,help:web_studio.action_models_to_export
 msgid "Additional Studio Exports"
-msgstr ""
+msgstr "額外的 Studio 匯出"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_export_wizard__additional_models
@@ -425,6 +435,13 @@ msgid ""
 "All changes done to the report's structure will be discarded and the report "
 "will be reset to its factory settings."
 msgstr "對報告結構所做的所有變更，都將會捨棄，而報告會重設為出廠設定。"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"All set? You are just one click away from <b>generating your first app</b>."
+msgstr "一切都準備好了嗎？現在只需簡單按一下，即可<b>產生你的第一個應用程式</b>。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -618,6 +635,8 @@ msgstr "作為模擬數據"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Ascending"
 msgstr "升序"
@@ -879,6 +898,12 @@ msgstr "類"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Click to edit messaging features on your model."
+msgstr "按一下以編輯模型上的訊息功能。"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/approval/studio_approval.xml:0
 msgid "Click to see all approval rules."
 msgstr "按一下查看所有批核規則。"
@@ -974,7 +999,7 @@ msgstr "配置模型"
 msgid ""
 "Configure additional models to export with Studio, such as records that hold"
 " configuration information or demo data."
-msgstr ""
+msgstr "配置額外的模型，以使用 Studio 進行匯出，例如匯出載有配置資料或模擬數據的記錄。"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
@@ -1039,6 +1064,13 @@ msgstr "上下文"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Continue to configure some typical behaviors for your new type of object."
+msgstr "繼續為新類型的物件，配置一些常見行為。"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/navbar/home_menu_customizer/home_menu_customizer.js:0
 msgid "Could not change the background"
 msgstr "未能更改背景"
@@ -1060,6 +1092,13 @@ msgstr "建立模型"
 #: code:addons/web_studio/static/src/client_action/editor/new_model_item/new_model_item.xml:0
 msgid "Create a new Model"
 msgstr "建立一個新模型"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Create your <b>selection values</b> (e.g.: Romance, Polar, Fantasy, etc.)"
+msgstr "建立你的<b>選項值</b>（例如：愛情、極地、奇幻等）"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1358,6 +1397,8 @@ msgstr "緊密"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/graph/graph_editor.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.js:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.js:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.js:0
 msgid "Descending"
 msgstr "降序"
@@ -1428,6 +1469,12 @@ msgstr "顯示不可用"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
+msgid "Displays a textual hint that helps the user when the field is empty."
+msgstr "欄位空白時，顯示文字提示幫助使用者。"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_record_legacy.js:0
 msgid "Do you want to add a dropdown with colors?"
 msgstr "你想加入有不同顏色的下拉式選單嗎？"
@@ -1446,6 +1493,13 @@ msgstr "篩選範圍"
 #: code:addons/web_studio/models/ir_model.py:0
 msgid "Done"
 msgstr "完成"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Drag & drop <b>another field</b>. Let's try with a <i>selection field</i>."
+msgstr "拖放<b>另一個欄位</b>。試試拖放<b>選項欄位</b>吧。<i></i>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1552,7 +1606,7 @@ msgstr "電子信件範本"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_mail_thread
 msgid "Email Thread"
-msgstr "電子郵件行程"
+msgstr "電郵對話串"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1825,6 +1879,18 @@ msgid "Go back"
 msgstr "返回"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Go on, you are almost done!"
+msgstr "繼續，就快完成了！"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Good job! To add more <b>fields</b>, come back to the <i>Add tab</i>."
+msgstr "做得好！要加入更多<b>欄位</b>，可返回此處並選擇「加入標籤」。<i></i>"
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 #: model:ir.model.fields.selection,name:web_studio.selection__mail_activity_type__category__grant_approval
@@ -1913,6 +1979,14 @@ msgstr "幫助提示"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Here, you can <b>name</b> your field (e.g. Book reference, ISBN, Internal "
+"Note, etc.)."
+msgstr "在此處，你可為欄位<b>命名</b>（例如：書籍參考、ISBN、內部備註等）。"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/map/map_editor_sidebar.xml:0
 msgid "Hide Address"
 msgstr "隱藏地址"
@@ -1951,6 +2025,25 @@ msgstr "主頁選單背景圖片"
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/gantt/gantt_editor_sidebar.js:0
 msgid "Hour"
 msgstr "小時"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to <b>name</b> your app? Library, Academy, …?"
+msgstr "你想如何<b>命名</b>你的應用程式？例如：圖書館、學院⋯⋯等等？"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "How do you want to name your first <b>menu</b>? My books, My courses?"
+msgstr "你想如何命名你的首個<b>選單</b>？例如：我的書籍、我的課程⋯⋯等等？"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"I bet you can <b>build an app</b> in 5 minutes. Ready for the challenge?"
+msgstr "我猜你能在 5 分鐘內<b>構建一個應用程式</b>。準備好接受挑戰嗎？"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__id
@@ -2234,6 +2327,14 @@ msgstr ""
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Let's check the result. Close Odoo Studio to get an <b>overview of your "
+"app</b>."
+msgstr "我們一起看看結果吧。請關閉 Odoo Studio，以查看<b>應用程式概覽</b>。"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/limit_group_visibility/limit_group_visibility.xml:0
@@ -2366,7 +2467,7 @@ msgstr "待運行方法"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Method: %s"
-msgstr ""
+msgstr "方法：%s"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2482,6 +2583,7 @@ msgstr "月份精確度"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.xml:0
 #: code:addons/web_studio/static/src/client_action/report_editor/report_editor_wysiwyg/report_editor_wysiwyg.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_renderer/form_editor_renderer_components.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/sidebar_properties_toolbox/sidebar_properties_toolbox.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "More"
@@ -2614,6 +2716,14 @@ msgstr "下一頁"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Nicely done! Let's build your screen now; <b>drag</b> a <i>text field</i> "
+"and <b>drop</b> it in your view, on the right."
+msgstr "做得好！現在讓我們構建顯示畫面。<b>拖曳</b>一個文字欄位<i></i>，將它<b>放置</b>在檢視畫面右方。"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_specific_and_computed_properties.js:0
 msgid "No aggregation"
 msgstr "不作匯合"
@@ -2654,6 +2764,18 @@ msgstr "備註"
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__users_to_notify
 msgid "Notify to"
 msgstr "通知至"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now you're on your own. Enjoy your <b>super power</b>."
+msgstr "現在你可自己操作了。盡情發揮你的<b>超能力</b>吧！"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Now, customize your icon. Make it yours."
+msgstr "現在，你可隨你所好，自訂你專屬的圖示。"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__message_needaction_counter
@@ -2733,6 +2855,8 @@ msgstr "選填"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Order"
 msgstr "訂單"
@@ -2910,7 +3034,7 @@ msgstr "彩虹效果"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/rainbow_effect.xml:0
 msgid "Rainbow Man"
-msgstr "彩虹人"
+msgstr "彩虹小精靈"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__rating_ids
@@ -3189,6 +3313,12 @@ msgstr "儲存"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Save."
+msgstr "儲存。"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor_snackbar.xml:0
 msgid "Saved"
 msgstr "已儲存"
@@ -3351,6 +3481,14 @@ msgstr "設定記錄的價格或成本"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Set an <b>email alias</b>. Then, try to send an email to this address; it "
+"will create a document automatically for you. Pretty cool, huh?"
+msgstr "設定一個<b>電郵別名</b>，然後嘗試向此地址傳送電子郵件。系統會自動為你建立一個文件。很酷吧？"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/sidebar_view_toolbox/sidebar_view_toolbox.xml:0
 msgid "Show Invisible Elements"
 msgstr "顯示隱藏項目"
@@ -3415,6 +3553,8 @@ msgstr "由於缺漏繼續處理你的請求所需的批准，因此已跳過部
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban/kanban_editor_sidebar/kanban_editor_sidebar.xml:0
+#: code:addons/web_studio/static/src/client_action/view_editor/editors/kanban_legacy/kanban_editor_sidebar_legacy/kanban_editor_sidebar_legacy.xml:0
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/list/list_editor_sidebar/list_editor_sidebar.xml:0
 msgid "Sort By"
 msgstr "排序方式"
@@ -3617,7 +3757,7 @@ msgstr ""
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard_data
 msgid "Studio Export Data"
-msgstr ""
+msgstr "Studio 匯出數據"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_model
@@ -3789,7 +3929,7 @@ msgstr "要求的變更引致檢視畫面中出現錯誤。可能是因為某個
 msgid ""
 "The step description will be displayed on the button on which an approval is"
 " requested."
-msgstr ""
+msgstr "步驟描述將顯示在請求批准的按鈕上。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3804,7 +3944,7 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 #: model:ir.model.fields,help:web_studio.field_studio_approval_rule__approval_group_id
 msgid "The users in this group are able to approve or reject the step."
-msgstr ""
+msgstr "此群組的使用者，可批准或拒絕該步驟。"
 
 #. module: web_studio
 #. odoo-python
@@ -3844,7 +3984,7 @@ msgstr "沒有記錄可以預覽"
 msgid ""
 "These users are able to approve or reject the step and will be assigned to "
 "an activity when their approval is requested."
-msgstr ""
+msgstr "這些使用者可批准或拒絕該步驟，並在他們請求批准時，獲指派至一項活動。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3853,7 +3993,7 @@ msgstr ""
 msgid ""
 "These users will receive a notification via internal note when the step is "
 "approved or rejected"
-msgstr ""
+msgstr "步驟獲批准或被拒絕時，這些使用者將透過內部備註收到通知"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3927,6 +4067,12 @@ msgstr "時間軸"
 #: code:addons/web_studio/static/src/client_action/action_editor/action_editor.js:0
 msgid "Timeline views"
 msgstr "時間線檢視畫面"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "To <b>customize a field</b>, click on its <i>label</i>."
+msgstr "若想<b>對欄位進行自訂</b>，請按下其<b>標籤</b>。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4065,6 +4211,12 @@ msgid "Waiting for approval"
 msgstr "等待批核"
 
 #. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "Want more fun? Let's create more <b>views</b>."
+msgstr "想要更多樂趣嗎？讓我們建立其他<b>檢視畫面</b>。"
+
+#. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/controllers/main.py:0
 msgid "Webhook Automations"
@@ -4113,6 +4265,12 @@ msgstr "歡迎來到"
 
 #. module: web_studio
 #. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid "What about a <b>Kanban view</b>?"
+msgstr "不如試試<b>看板檢視畫面</b>？"
+
+#. module: web_studio
+#. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/action_button/action_button.xml:0
 msgid "What should the button do"
 msgstr "按鈕應該做的行為"
@@ -4144,6 +4302,14 @@ msgstr ""
 #: code:addons/web_studio/static/src/client_action/view_editor/interactive_editor/properties/type_widget_properties/type_widget_properties.xml:0
 msgid "Widget"
 msgstr "小工具"
+
+#. module: web_studio
+#. odoo-javascript
+#: code:addons/web_studio/static/src/js/tours/web_studio_tour.js:0
+msgid ""
+"Wow, nice! And I'm sure you can make it even better! Use this icon to open "
+"<b>Odoo Studio</b> and customize any screen."
+msgstr "嘩，做得很好！相信你可以令它的功能再提升！請使用此圖示開啟 <b>Odoo Studio</b>，以自訂任何畫面。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4260,7 +4426,7 @@ msgstr "測試電郵"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "to %s."
-msgstr ""
+msgstr "至 %s。"
 
 #. module: web_studio
 #. odoo-javascript

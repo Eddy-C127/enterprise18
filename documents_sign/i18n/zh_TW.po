@@ -25,7 +25,7 @@ msgstr ""
 msgid ""
 "Base folder for the folders created on-the-fly in the Sign App. Permission "
 "of the created folders will be inherited from this base folder."
-msgstr ""
+msgstr "在電子簽名應用程式即時建立資料夾時，會使用此基礎資料夾。新建立的資料夾會從這個基礎資料夾繼承存取權限。"
 
 #. module: documents_sign
 #: model:ir.model,name:documents_sign.model_res_company
@@ -47,7 +47,7 @@ msgstr "文件"
 msgid ""
 "Each document template can be configured to centralize signed documents into"
 " a specific folder."
-msgstr ""
+msgstr "每個文件範本都可配置，將完成簽名的文件集中放在指定資料夾中。"
 
 #. module: documents_sign
 #: model_terms:ir.ui.view,arch_db:documents_sign.res_config_settings_view_form_inherit_documents_sign
@@ -91,7 +91,7 @@ msgstr "簽名資料夾"
 #. module: documents_sign
 #: model:ir.actions.server,name:documents_sign.ir_actions_server_create_sign_template_direct_create
 msgid "Sign create"
-msgstr ""
+msgstr "建立電子簽名"
 
 #. module: documents_sign
 #: model:ir.model,name:documents_sign.model_sign_request
@@ -122,10 +122,10 @@ msgstr "已簽名文件標籤"
 #. odoo-python
 #: code:addons/documents_sign/models/documents_document.py:0
 msgid "This action can only be applied on a single record."
-msgstr ""
+msgstr "此操作只可套用至單一項記錄。"
 
 #. module: documents_sign
 #. odoo-python
 #: code:addons/documents_sign/models/documents_document.py:0
 msgid "This action can only be applied on pdf document."
-msgstr ""
+msgstr "此操作只可套用至 pdf 文件。"

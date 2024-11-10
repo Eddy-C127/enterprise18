@@ -112,6 +112,14 @@ msgid "Failed to post the comment: “%(error_description)s”"
 msgstr "未能發佈留言。錯誤：%(error_description)s"
 
 #. module: social_linkedin
+#. odoo-python
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+msgid ""
+"Failed to retrieve the post. It might have been deleted or you may not have "
+"permission to view it."
+msgstr "未能讀取帖文。它可能已被刪除，或者你沒有查看權限。"
+
+#. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_social_post__has_linkedin_account
 #: model:ir.model.fields,field_description:social_linkedin.field_social_post_template__has_linkedin_account
 msgid "Has LinkedIn Account"
@@ -232,7 +240,7 @@ msgstr "訊息"
 #: code:addons/social_linkedin/models/social_post_template.py:0
 msgid ""
 "Please specify either a LinkedIn Message or upload some LinkedIn Images."
-msgstr ""
+msgstr "請指定一個 LinkedIn 訊息，或上載一些 LinkedIn 圖片。"
 
 #. module: social_linkedin
 #: model_terms:ir.ui.view,arch_db:social_linkedin.linkedin_preview

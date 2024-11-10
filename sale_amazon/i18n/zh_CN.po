@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Chloe Wang, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -305,7 +306,7 @@ msgstr "科目名称"
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__active
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_search
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -799,7 +800,7 @@ msgstr "亚马逊正在处理中"
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_search
 msgid "Inactive"
-msgstr "未启用的"
+msgstr "无效的"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__is_follow_up_displayed
@@ -915,7 +916,7 @@ msgstr "只能选择可用的市场"
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__order_count
 msgid "Order Count"
-msgstr "订购计数"
+msgstr "订单数"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
@@ -1026,7 +1027,7 @@ msgstr "销售订单"
 #. module: sale_amazon
 #: model:ir.model,name:sale_amazon.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "销售订单行"
+msgstr "销售订单明细"
 
 #. module: sale_amazon
 #: model:ir.model.fields,field_description:sale_amazon.field_amazon_account__team_id
@@ -1147,7 +1148,7 @@ msgstr "亚马逊订单参考号须为3-7-7格式。"
 msgid ""
 "The Amazon order with reference %(ref)s was not recovered because its "
 "currency was missing from the Amazon order data."
-msgstr "由于亚马逊订单数据中缺少货币，因此无法恢复包含参考%(ref)s 的亚马逊订单。"
+msgstr "由于亚马逊订单数据中缺少币别，因此无法恢复包含参考%(ref)s 的亚马逊订单。"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1369,7 +1370,7 @@ msgstr "对于一个给定的亚马逊订单参考，只能存在一个销售订
 #: model:ir.model.constraint,message:sale_amazon.constraint_sale_order_line_unique_amazon_item_ref
 msgid ""
 "There can only exist one sale order line for a given Amazon Item Reference."
-msgstr "对于一个给定的亚马逊项目参考，只能存在一个销售订单行。"
+msgstr "对于一个给定的亚马逊项目参考，只能存在一个销售订单明细。"
 
 #. module: sale_amazon
 #. odoo-python

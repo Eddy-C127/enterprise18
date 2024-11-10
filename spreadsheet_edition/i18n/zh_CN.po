@@ -6,6 +6,7 @@
 # Martin Trigaux, 2024
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2024
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
 # 
 msgid ""
@@ -62,7 +63,7 @@ msgstr "%(pivot_title)s 依据 %(group_by)s（%(granularity)s）"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.js:0
 msgid "%s threads"
-msgstr ""
+msgstr "%s 个对话串"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -80,7 +81,7 @@ msgstr "- 数字：%s"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/comments/side_panel/comment_threads_side_panel.js:0
 msgid "1 thread"
-msgstr ""
+msgstr "1 个对话串"
 
 #. module: spreadsheet_edition
 #: model:ir.model.constraint,message:spreadsheet_edition.constraint_spreadsheet_revision_parent_unique
@@ -95,7 +96,7 @@ msgstr "待处理"
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__active
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -149,7 +150,7 @@ msgstr "升序"
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -269,7 +270,7 @@ msgstr "累积数据"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/hooks.js:0
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -417,7 +418,7 @@ msgstr "筛选属性"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
 msgid "Filter value"
-msgstr ""
+msgstr "筛选值"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -823,7 +824,7 @@ msgstr "订单"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/actions/version_history/version_history_action.js:0
 msgid "Original data"
-msgstr ""
+msgstr "原始数据"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__parent_revision_id
@@ -871,13 +872,13 @@ msgstr "多项式"
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/text_filter_editor_side_panel.xml:0
 msgid "Possible values"
-msgstr ""
+msgstr "正数值"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_field_offset.js:0
 msgid "Previous"
-msgstr "前一"
+msgstr "上一页"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -902,7 +903,7 @@ msgstr "季度 & 年份"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
 msgid "Quarters"
-msgstr ""
+msgstr "季度"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_cell_thread__rating_ids
@@ -938,7 +939,7 @@ msgstr "重开此对话串"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/plugins/list_autofill_plugin.js:0
 msgid "Record #%(record_number)s"
-msgstr ""
+msgstr "记录 #%(record_number)s"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__res_id
@@ -1016,7 +1017,7 @@ msgstr "将数值限制在一定范围内"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/relation_filter_editor_side_panel.xml:0
 msgid "Restrict values with a domain"
-msgstr ""
+msgstr "域内受限值"
 
 #. module: spreadsheet_edition
 #: model:ir.model.fields,field_description:spreadsheet_edition.field_spreadsheet_revision__revision_uuid
@@ -1133,13 +1134,13 @@ msgstr "设置为筛选"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Show trend line"
-msgstr ""
+msgstr "显示趋势线"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "Show values"
-msgstr ""
+msgstr "显示值"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1308,7 +1309,7 @@ msgstr "类型"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/global_filters/components/filter_editor/date_filter_editor_side_panel.xml:0
 msgid "Value options"
-msgstr ""
+msgstr "选项值"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1409,7 +1410,7 @@ msgstr "指数"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/list/side_panels/edit_list_sorting_section/edit_list_sorting_section.xml:0
 msgid "false"
-msgstr "错误"
+msgstr "假"
 
 #. module: spreadsheet_edition
 #. odoo-javascript
@@ -1476,7 +1477,7 @@ msgstr "pivot"
 #. odoo-javascript
 #: code:addons/spreadsheet_edition/static/src/bundle/chart/side_panels/odoo_chart_with_axis/design_panel.xml:0
 msgid "polynomial"
-msgstr ""
+msgstr "多项式"
 
 #. module: spreadsheet_edition
 #. odoo-javascript

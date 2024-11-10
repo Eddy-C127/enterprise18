@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
@@ -51,13 +51,19 @@ msgstr "قم بالتفعيل لاستخدام عمليات توصيل المخ�
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__padding_time
-#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
 msgid ""
 "Amount of time (in hours) during which a product is considered unavailable "
 "prior to renting (preparation time)."
 msgstr ""
 "الوقت (بالساعات) الذي يتم اعتبار المنتج فيه غير متاح قبل التأجير (وقت "
 "التجهيز). "
+
+#. module: sale_stock_renting
+#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
+msgid ""
+"Amount of time (in hours) during which a product is considered "
+"unavailableprior to renting (preparation time)."
+msgstr ""
 
 #. module: sale_stock_renting
 #. odoo-javascript
@@ -156,11 +162,6 @@ msgid ""
 msgstr ""
 "لم يتم العثور على كمية صالحة في الموقع %(location)s للرقم التسلسلي "
 "%(serial_number)s! "
-
-#. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "التأجير (التأجيرات) الأخرى المتعارضة. "
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
@@ -313,6 +314,11 @@ msgstr "حركة المخزون"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
 msgstr "جعل هذا المنتج غير متاح مؤقتاً قبل الاستلام. "
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

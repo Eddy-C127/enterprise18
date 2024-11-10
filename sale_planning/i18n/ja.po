@@ -148,6 +148,10 @@ msgid ""
 "                 You can also manually schedule open shifts for your Sales "
 "Order or assign them to any employee you prefer."
 msgstr ""
+"有効にすると、販売オーダを確認する際に、選択した役割に対してシフトが自動的に作成されます。                 '自動計画' "
+"機能により、この役割を持つ従業員のみに、このサービスを含む販売オーダのシフトが自動的に割当てられます。                 "
+"システムは、従業員の稼働状況と計画予定の残時間を考慮します。                 "
+"販売オーダに対して手動でオープンシフトをスケジュールしたり、優先する従業員に割当たりすることも可能です。"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -175,13 +179,13 @@ msgstr "計画可能なサービスを持つ販売オーダにリンクされた
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders assigned"
-msgstr ""
+msgstr "オープンシフトと販売オーダが割当てられました"
 
 #. module: sale_planning
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders unscheduled"
-msgstr ""
+msgstr "スケジュールされていないオープンシフトと販売オーダ"
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template
@@ -368,6 +372,8 @@ msgid ""
 "You cannot update the company for sales order %(order_name)s as it's linked to shifts in another company.\n"
 "Please transfer shifts %(slots_names)s to the destination company first."
 msgstr ""
+"販売オーダ %(order_name)s 用に会社を更新することはできません。他の会社のシフトにリンクしているためです。\n"
+"シフト %(slots_names)s をまず、宛先の会社に移行して下さい。"
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_role_view_tree_inherit_sale_planning

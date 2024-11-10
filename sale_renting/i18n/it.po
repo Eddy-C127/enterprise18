@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Marianna Ciofani, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
@@ -44,7 +44,7 @@ msgstr "%(amount)s / %(duration)s"
 
 #. module: sale_renting
 #. odoo-python
-#: code:addons/sale_renting/controllers/utils.py:0
+#: code:addons/sale_renting/models/product_template.py:0
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 msgid "%(duration)s %(unit)s"
 msgstr "%(duration)s %(unit)s"
@@ -177,6 +177,7 @@ msgstr "<strong>Status — </strong>"
 #: code:addons/sale_renting/models/product_template.py:0
 msgid "A rental combo product can only contain rental products."
 msgstr ""
+"Una combo di prodotti a noleggio può contenere solo prodotti a noleggio."
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_temporal_recurrence__active
@@ -861,7 +862,7 @@ msgstr "Ritirato"
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_order_form_view
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
 msgid "Pickup"
-msgstr "Ritiro"
+msgstr "Consegna"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_rental_schedule__pickup_date
@@ -1410,22 +1411,22 @@ msgstr "Non è presente alcun prelievo o riconsegna programmati."
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_day
 msgid ""
-"This is the default extra cost per day set on newly created products. You "
-"can change this value for existing products directly on the product itself."
+"This is the default extra cost per day set on newly created products.You can"
+" change this value for existing products directly on the product itself."
 msgstr ""
-"Questo è il costo extra al giorno predefinito impostato sui prodotti appena "
-"creati. Puoi cambiare questo valore per i prodotti esistenti direttamente "
-"sul prodotto stesso."
+"Costo supplementare giornaliero predefinito impostato sui prodotti appena "
+"creati. Per i prodotti esistenti, questo valore può essere cambiato "
+"direttamente sul prodotto."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_hour
 msgid ""
-"This is the default extra cost per hour set on newly created products. You "
+"This is the default extra cost per hour set on newly created products.You "
 "can change this value for existing products directly on the product itself."
 msgstr ""
-"Questo è il costo extra orario predefinito impostato sui prodotti appena "
-"creati. Puoi cambiare questo valore per i prodotti esistenti direttamente "
-"sul prodotto stesso."
+"Costo supplementare orario predefinito impostato sui prodotti appena creati."
+" Per i prodotti esistenti, questo valore può essere cambiato direttamente "
+"sul prodotto."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_product

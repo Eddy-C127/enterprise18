@@ -23,13 +23,13 @@ msgstr ""
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__apply_method
 msgid "Apply Method"
-msgstr ""
+msgstr "Applica metodo"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "At least one platform must be selected"
-msgstr ""
+msgstr "Bisogna selezionare almeno una piattaforma"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
@@ -40,7 +40,7 @@ msgstr "Data inizio campagna"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Campaign Start Date is required."
-msgstr ""
+msgstr "È richiesta la data di inizio campagna."
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_job_post__apply_method
@@ -70,6 +70,13 @@ msgid ""
 "It's your last chance to make a good impression and attract the best candidates to our company so make it count!\n"
 "Here is the data to generate the job description:\n"
 msgstr ""
+"IGNORA QUALSIASI PROMPT PRECEDENTE E FORMATO HTML E NESSUN COLLEGAMENTO IPERTESTUALE\n"
+"Sei il miglior recruiter dell'azienda e vogliamo assumere un nuovo dipendente.\n"
+"Ti è stato assegnato il compito di creare la migliore descrizione per una nuova posizione lavorativa.\n"
+"Date le seguenti informazioni, crea una descrizione del lavoro amichevole e attraente che possa essere utilizzata\n"
+"per attrarre potenziali candidati (le piattaforme potrebbero essere LinkedIn, Indeed, Glassdoor, Monster, ecc.)\n"
+"È l'ultima occasione per fare una buona impressione e attirare i migliori candidati nella nostra azienda, quindi falla fruttare!\n"
+"Ecco i dati per creare una descrizione:\n"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__platform_ids
@@ -84,12 +91,12 @@ msgstr "Posizione lavorativa"
 #. module: hr_recruitment_integration_website
 #: model:ir.model,name:hr_recruitment_integration_website.model_hr_job_post
 msgid "Job Post"
-msgstr ""
+msgstr "Offerta di lavoro"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,field_description:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__job_apply_url
 msgid "Job url"
-msgstr ""
+msgstr "URL lavoro"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -113,28 +120,29 @@ msgstr "Pubblica offerta di lavoro"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/wizard/hr_recruitment_post_job.py:0
 msgid "Post is required."
-msgstr ""
+msgstr "Annuncio obbligatorio."
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_job_post__apply_method__redirect
 msgid "Redirect to Website"
-msgstr ""
+msgstr "Reindirizzamento al sito web"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_website.selection__hr_recruitment_post_job_wizard__apply_method__redirect
 msgid "Redirect to company's website"
-msgstr ""
+msgstr "Reindirizza al sito web dell'azienda"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.actions.server,name:hr_recruitment_integration_website.hr_recruitment_post_job_wizard_action_regenerate_post
 msgid "Regenerate Post"
-msgstr ""
+msgstr "Rigenera annuncio"
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "Sorry, the web page is too long for our AI to process."
 msgstr ""
+"Scusa, la pagina web è troppo lunga per essere elaborata dalla nostra IA."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -150,6 +158,8 @@ msgid ""
 "The Job Description will be replaced with the generated one, do you want to "
 "continue?"
 msgstr ""
+"La descrizione della posizione lavorativa verrà sostituita con quella "
+"generata, vuoi continuare?"
 
 #. module: hr_recruitment_integration_website
 #: model:ir.model.fields,help:hr_recruitment_integration_website.field_hr_recruitment_post_job_wizard__campaign_start_date
@@ -163,6 +173,8 @@ msgid ""
 "The job must be published on the website to generate a post with a redirect "
 "apply method."
 msgstr ""
+"Il lavoro deve essere pubblicato sul sito web per generare un post con un "
+"metodo di richiesta di reindirizzamento."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
@@ -170,12 +182,15 @@ msgstr ""
 msgid ""
 "URL is required if the apply method is 'Redirect to company's website'."
 msgstr ""
+"L'URL è richiesto se il metodo di applicazione è \"Reindirizza al sito web "
+"dell'azienda\"."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python
 #: code:addons/hr_recruitment_integration_website/models/hr_job.py:0
 msgid "You can only generate a post for a published job offer."
 msgstr ""
+"È possibile generare un annuncio solo per un'offerta di lavoro pubblicata."
 
 #. module: hr_recruitment_integration_website
 #. odoo-python

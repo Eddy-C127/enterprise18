@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -100,15 +100,6 @@ msgstr "3か月"
 #: model:sale.subscription.plan,name:sale_subscription.subscription_plan_6_month
 msgid "6 Months"
 msgstr "6か月"
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-msgid ""
-"<b>Congratulations</b>, you sent your first quote.</br>Wait for your "
-"customer to validate it from the email or confirm it manually."
-msgstr ""
-"<b>おめでとうございます</b>。初めての見積を送信しました。</br>顧客がEメールから検証するか、または手動で確認するまでお待ち下さい。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
@@ -956,6 +947,11 @@ msgid "ARR Change (normalized)"
 msgstr "ARR変更 (正規化)"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
+msgid "Abandoned Cart"
+msgstr "カゴ落ち"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_move_send
 msgid "Account Move Send"
 msgstr "会計仕訳送付"
@@ -1409,7 +1405,7 @@ msgstr "サブスクリプションの顧客請求書の期間を選択します
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order_log_report__event_type__2_churn
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_log_report_search
 msgid "Churn"
-msgstr "チャーン"
+msgstr "解約"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_state__6_churn
@@ -1431,8 +1427,8 @@ msgstr "ここをクリックしてプロダクトやサービスを追加しま
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
-#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "クローズ可能"
 
@@ -2142,8 +2138,8 @@ msgstr "存在する場合、この条件は、自動化規則を実行する前
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
-msgstr "存在する場合、この条件は、レコードの更新前に満たされなければなりません。"
+"record. Not checked on record creation."
+msgstr "この条件が存在する場合、レコードの更新前にこの条件を満たす必要があります。レコード作成時にはチェックされません。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -3129,6 +3125,11 @@ msgid "Products"
 msgstr "プロダクト"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__project_id
+msgid "Project"
+msgstr "プロジェクト"
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
 msgid "Qty Delivered"
 msgstr "配送済数量"
@@ -3189,17 +3190,17 @@ msgstr "見積テンプレート"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_template_line
 msgid "Quotation Template Line"
-msgstr "見積書テンプレート明細"
+msgstr "見積テンプレート明細"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_template_option
 msgid "Quotation Template Option"
-msgstr "見積書テンプレートオプション"
+msgstr "見積テンプレートオプション"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_digest
 msgid "Quotation Template:"
-msgstr "見積書テンプレート："
+msgstr "見積テンプレート："
 
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.sale_subscription_template_action
@@ -4651,6 +4652,11 @@ msgstr "このようにお客様に去って頂きたくないと思っており
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
 msgstr "Webhook UUID"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
+msgid "Website"
+msgstr "ウェブサイト"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids

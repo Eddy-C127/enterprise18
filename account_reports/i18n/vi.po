@@ -104,12 +104,12 @@ msgstr "(%s dòng)"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_receipts
 msgid "(+) Outstanding Receipts"
-msgstr "(+) Biên nhận trước"
+msgstr "(+) Biên lai chưa thanh toán"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_payments
 msgid "(-) Outstanding Payments"
-msgstr "(-) Thanh toán trả trước"
+msgstr "(-) Khoản chưa thanh toán"
 
 #. module: account_reports
 #. odoo-python
@@ -941,13 +941,13 @@ msgstr "Dòng tiền từ hoạt động không xác định"
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash in"
-msgstr "Tiền vào"
+msgstr "Tiền thu"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash out"
-msgstr "Tiền ra"
+msgstr "Tiền chi"
 
 #. module: account_reports
 #. odoo-python
@@ -2096,6 +2096,8 @@ msgstr "Bao gồm thanh toán"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr "Bao gồm mô phỏng phân tích"
 
@@ -2631,7 +2633,7 @@ msgstr "Không so sánh"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "No Journal"
-msgstr ""
+msgstr "Không có sổ nhật ký"
 
 #. module: account_reports
 #. odoo-python
@@ -2782,7 +2784,7 @@ msgstr "Tuỳ chọn:"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr "Thanh toán/biên lai chưa liên kết"
+msgstr "Khoản/Biên lai chưa thanh toán"
 
 #. module: account_reports
 #. odoo-python
@@ -3827,6 +3829,8 @@ msgid ""
 "This report uses report-specific code.\n"
 "                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
 msgstr ""
+"Báo cáo này sử dụng mã báo cáo cụ thể.\n"
+"Bạn có thể tùy chỉnh thủ công, nhưng bất kỳ thay đổi nào trong các tham số được sử dụng để tính toán đều có thể gây ra lỗi."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4001,6 +4005,7 @@ msgstr "Lãi / lỗ tỷ giá chưa thực hiện"
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "Bút toán chưa đối chiếu"
 
@@ -4102,6 +4107,8 @@ msgstr "Có phải trích lập dự phòng cho các loại ngoại tệ đã ch
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "Với bút toán nháp"
 

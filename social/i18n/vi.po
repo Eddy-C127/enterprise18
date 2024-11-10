@@ -4,14 +4,15 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,12 +45,12 @@ msgstr "<b>Đã xảy ra lỗi khi cố gắng liên kết tài khoản của b�
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"Lịch\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"Calendar\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"Lịch\"/>"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
@@ -172,7 +173,7 @@ msgstr "Đính kèm hình ảnh"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_live_post__image_ids
 msgid "Attached Images"
-msgstr ""
+msgstr "Hình ảnh đính kèm"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_attachment_count
@@ -284,7 +285,7 @@ msgstr "Lượt nhấp"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "Clicks:"
-msgstr ""
+msgstr "Lượt nhấp:"
 
 #. module: social
 #. odoo-javascript
@@ -455,7 +456,7 @@ msgstr "Huỷ bỏ"
 #: model:ir.model.fields,field_description:social.field_social_post__display_message
 #: model:ir.model.fields,field_description:social.field_social_post_template__display_message
 msgid "Display Message"
-msgstr ""
+msgstr "Hiển thị nội dung"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__display_name
@@ -542,7 +543,7 @@ msgstr "Xu hướng tương tác"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "Engagement:"
-msgstr ""
+msgstr "Tương tác:"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__utm_medium_id
@@ -918,7 +919,7 @@ msgstr "Phương tiện truyền thông"
 #: model:ir.model.fields,field_description:social.field_social_post__media_count
 #: model:ir.model.fields,field_description:social.field_social_post_template__media_count
 msgid "Media Count"
-msgstr ""
+msgstr "Số MXH"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__media_type
@@ -1176,7 +1177,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/social/models/social_post_template.py:0
 msgid "Please specify either a message or upload some images."
-msgstr ""
+msgstr "Vui lòng viết nội dung hoặc tải lên một vài hình ảnh."
 
 #. module: social
 #. odoo-python
@@ -1263,7 +1264,7 @@ msgstr "Bài viết theo tài khoản"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Posts Preview"
-msgstr ""
+msgstr "Xem trước bài viết"
 
 #. module: social
 #. odoo-javascript
@@ -1533,12 +1534,8 @@ msgstr "Mạng xã hội: Đăng bài viết đã lên lịch"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comments_reply.js:0
-msgid ""
-"Something went wrong while posting the comment. \n"
-"%s"
-msgstr ""
-"Đã xảy ra lỗi khi đăng bình luận. \n"
-"%s"
+msgid "Something went wrong while posting the comment."
+msgstr "Đã xảy ra lỗi khi đăng bình luận."
 
 #. module: social
 #. odoo-javascript
@@ -1568,13 +1565,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/social/static/src/js/fields/social_post_split_per_media.xml:0
 msgid "Split Per Media"
-msgstr ""
+msgstr "Chia cho mỗi MXH"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__is_split_per_media
 #: model:ir.model.fields,field_description:social.field_social_post_template__is_split_per_media
 msgid "Split Per Network"
-msgstr ""
+msgstr "Chia cho mỗi mạng"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__stats_link
@@ -1761,6 +1758,12 @@ msgstr "Nguồn UTM"
 
 #. module: social
 #. odoo-python
+#: code:addons/social/controllers/main.py:0
+#, python-format
+msgid "Uh-oh! It looks like this message has been deleted from X."
+msgstr ""
+
+#. module: social
 #: code:addons/social/models/social_post.py:0
 msgid "Unknown error"
 msgstr "Lỗi không xác định"

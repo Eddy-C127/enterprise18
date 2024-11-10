@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Rasareeyar Lappiam, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -127,6 +128,8 @@ msgstr "ผู้ทดสอบ"
 #. odoo-python
 #: code:addons/project_forecast/models/project.py:0
 msgid ""
-"You cannot update the company for project %(project_name)s as it's linked to shifts in another company.\n"
-"If you want to change the company for another, leave the project's company blank, transfer shifts %(slots_names)s to the destination company and then change the project's company."
+"You cannot update the company for the %(project_name)s project because it’s tied to shifts in another company.\n"
+"To change it, first clear the company field for the project. Then move the shifts to the new company, and update the project's company."
 msgstr ""
+"คุณไม่สามารถอัปเดตบริษัทสำหรับโปรเจ็กต์ %(project_name)s ได้เนื่องจากบริษัทดังกล่าวเชื่อมโยงกับกะงานในบริษัทอื่น\n"
+"หากต้องการเปลี่ยนแปลง ให้ล้างข้อมูลบริษัทสำหรับโปรเจ็กต์ก่อน จากนั้นย้ายกะงานไปยังบริษัทใหม่ และอัปเดตบริษัทของโปรเจ็กต์"

@@ -4,16 +4,16 @@
 # 
 # Translators:
 # 敬雲 林 <chingyun@yuanchih-consult.com>, 2024
-# Tony Ng, 2024
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,6 +28,8 @@ msgid ""
 "(%(provider_name)s) delivery is only available in the following countries: \n"
 "%(country_names)s"
 msgstr ""
+"%(provider_name)s 送貨服務只適用於以下國家/地區：\n"
+"%(country_names)s"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -43,7 +45,7 @@ msgstr "已確認收到"
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Api Key"
-msgstr ""
+msgstr "Api 密鑰"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__available_country_ids
@@ -105,12 +107,17 @@ msgstr "配置設定"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Connectivity Issue"
-msgstr ""
+msgstr "連線問題"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__available_country_ids
 msgid "Countries where this provider is available"
 msgstr "可使用此服務商的國家/地區"
+
+#. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Create Store"
+msgstr "建立商店"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__create_uid
@@ -134,7 +141,7 @@ msgstr "客戶信件"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Customer Info"
-msgstr ""
+msgstr "客戶資訊"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -158,7 +165,12 @@ msgstr "收貨地址"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Channel"
-msgstr ""
+msgstr "送貨渠道"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
+msgid "Delivery Charges"
+msgstr "運費"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_identifier
@@ -174,13 +186,13 @@ msgstr "送貨 JSON"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Order Status"
-msgstr ""
+msgstr "送貨單狀態"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
 msgid "Delivery Partner"
-msgstr ""
+msgstr "送貨合作夥伴"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_payment_method__is_delivery_payment
@@ -191,7 +203,7 @@ msgstr "送貨付款"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Delivery Person"
-msgstr ""
+msgstr "送貨員"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_provider_id
@@ -218,7 +230,7 @@ msgstr "送貨狀態"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Delivery Time/Time-Slot"
-msgstr ""
+msgstr "送貨時間/時段"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -265,7 +277,7 @@ msgstr "錯誤"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Error to send in preparation display."
-msgstr ""
+msgstr "要發送至準備顯示屏的錯誤。"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -291,7 +303,13 @@ msgstr "食物已準備好"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Fulfilment Mode"
-msgstr ""
+msgstr "履行方式"
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid "Go to Company configuration"
+msgstr "前往公司配置"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urban_piper_status_ids
@@ -305,7 +323,7 @@ msgstr "請使用 UrbanPiper 及 POS 銷售點配置去處理產品。產品已�
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "HungerStation Code"
-msgstr ""
+msgstr "HungerStation 代碼"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__id
@@ -329,13 +347,13 @@ msgstr "資訊"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Invalid Product"
-msgstr ""
+msgstr "產品無效"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Invalid Variant/Addons"
-msgstr ""
+msgstr "款式變體/加購產品無效"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__is_alcoholic_on_urbanpiper
@@ -397,7 +415,7 @@ msgstr "餐牌上次同步日期。"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
 msgid "Mark as ready"
-msgstr ""
+msgstr "標記為準備好"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__urbanpiper_meal_type
@@ -432,7 +450,7 @@ msgstr "新增"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "New online order received."
-msgstr ""
+msgstr "收到新的線上訂單。"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__2
@@ -442,7 +460,7 @@ msgstr "非素食"
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Not available for online orders."
-msgstr ""
+msgstr "不適用於線上訂單。"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -471,13 +489,13 @@ msgstr "訂單識別碼"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Order Info"
-msgstr ""
+msgstr "訂單資訊"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Order OTP"
-msgstr ""
+msgstr "訂單一次密碼"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -495,7 +513,12 @@ msgstr "訂單時間"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Order does not load from server"
-msgstr ""
+msgstr "未能從伺服器載入訂單"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
+msgid "Other Charges"
+msgstr "其他收費"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -507,7 +530,7 @@ msgstr "其他"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Out of Delivery Radius"
-msgstr ""
+msgstr "超出送貨範圍"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -518,7 +541,12 @@ msgstr "分店"
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "POS ID"
-msgstr ""
+msgstr "POS 銷售點識別碼"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
+msgid "Packaging Charges"
+msgstr "包裝費"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
@@ -602,7 +630,7 @@ msgstr "UrbanPiper 上的產品狀態。"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Product is out of Stock"
-msgstr ""
+msgstr "產品缺貨"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urbanpiper_meal_type
@@ -623,7 +651,7 @@ msgstr "服務商名稱"
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_delivery_provider_technical_name_uniq
 msgid "Provider Name must be unique."
-msgstr ""
+msgstr "提供者名稱必須獨一無二。"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__is_recommended_on_urbanpiper
@@ -634,7 +662,7 @@ msgstr "美食平台推介的產品。"
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Refresh webhooks"
-msgstr ""
+msgstr "更新網絡鈎子"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_webhook_url
@@ -656,20 +684,20 @@ msgstr "拒絕"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Reject Order"
-msgstr ""
+msgstr "拒絕訂單"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Rejecting this order is not allowed for \"%(providerName)s\""
-msgstr ""
+msgstr "%(providerName)s 不允許拒絕此訂單"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_provider_id
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_payment_method__delivery_provider_id
 msgid ""
 "Responsible delivery provider for online order, e.g., UberEats, Zomato."
-msgstr ""
+msgstr "負責為網上訂單送貨的服務商，例如 UberEats、Zomato。"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -681,7 +709,7 @@ msgstr "檢視訂單"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Rider is Not Available"
-msgstr ""
+msgstr "外送車手不可用"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -691,7 +719,7 @@ msgstr "在「位置」中，設定 UrbanPiper 銷售點識別碼。"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__journal_code
 msgid "Short code of the journal to be used for journal creation"
-msgstr ""
+msgstr "日記賬簡短代碼，用於建立日記賬"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -707,24 +735,24 @@ msgstr "訂單的狀態，由 UrbanPiper 提供。"
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_config_urbanpiper_store_identifier_uniq
 msgid "Store ID must be unique for every pos configuration."
-msgstr ""
+msgstr "在每個 pos 銷售點配置中，商店識別碼必須獨一無二。"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Store is Busy"
-msgstr ""
+msgstr "商店繁忙"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Store is Closed"
-msgstr ""
+msgstr "商店已關閉"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_webhook_url
 msgid "Store webhook url (base url) for security."
-msgstr ""
+msgstr "為安全起見，會儲存網絡鈎子的網址（基礎網址）。"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__urban_piper_status_ids
@@ -735,7 +763,7 @@ msgstr "商店"
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Sync Menu"
-msgstr ""
+msgstr "同步餐牌"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_ir_config_parameter
@@ -746,13 +774,13 @@ msgstr "系統參數"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Code"
-msgstr ""
+msgstr "Talabat 代碼"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Short Code"
-msgstr ""
+msgstr "Talabat 簡短代碼"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__technical_name
@@ -804,13 +832,13 @@ msgstr "UrbanPiper 帳戶的使用者名稱。"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/delivery_button/delivery_button.xml:0
 msgid "There are no active order(s)."
-msgstr ""
+msgstr "沒有生效訂單。"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Total Missmatch"
-msgstr ""
+msgstr "完全不相符"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_identifier
@@ -881,11 +909,6 @@ msgid "UrbanPiper API Key is required.\n"
 msgstr "需要有 UrbanPiper API 金鑰。\n"
 
 #. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
-msgid "UrbanPiper Delivery Charges"
-msgstr "UrbanPiper 運費"
-
-#. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/res_config_settings.py:0
 msgid "UrbanPiper Delivery Providers are required."
@@ -895,16 +918,6 @@ msgstr "需要有 UrbanPiper 送貨服務商。"
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
 msgid "UrbanPiper Fiscal Position"
 msgstr "UrbanPiper 財務規則"
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
-msgid "UrbanPiper Other Charges"
-msgstr "UrbanPiper 其他收費"
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
-msgid "UrbanPiper Packaging Charges"
-msgstr "UrbanPiper 包裝收費"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_pricelist_id
@@ -943,7 +956,7 @@ msgstr "使用者名"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Variants/Addons out of Stock"
-msgstr ""
+msgstr "款式變體/加購產品缺貨"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__1
@@ -955,3 +968,10 @@ msgstr "素食"
 #: code:addons/pos_urban_piper/models/ir_config_parameter.py:0
 msgid "You cannot change the pos_urban_piper.uuid."
 msgstr "你不可更改 pos_urban_piper.uuid。"
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid ""
+"Your company %s needs to have a correct city in order create the store."
+msgstr "你的公司「%s」需要設定正確的城市，才可建立商店。"

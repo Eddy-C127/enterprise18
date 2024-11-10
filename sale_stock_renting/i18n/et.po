@@ -10,16 +10,16 @@
 # Martin Trigaux, 2024
 # JanaAvalah, 2024
 # Leaanika Randmets, 2024
-# Anna, 2024
 # Piia Paurson <piia@avalah.ee>, 2024
+# Anna, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Piia Paurson <piia@avalah.ee>, 2024\n"
+"Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,13 +59,19 @@ msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__padding_time
-#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
 msgid ""
 "Amount of time (in hours) during which a product is considered unavailable "
 "prior to renting (preparation time)."
 msgstr ""
 "Ajavahemik(tundides) mille jooksul toode loetakse mittesaadavaks enne "
 "rentimist (ettevalmistusaeg)."
+
+#. module: sale_stock_renting
+#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
+msgid ""
+"Amount of time (in hours) during which a product is considered "
+"unavailableprior to renting (preparation time)."
+msgstr ""
 
 #. module: sale_stock_renting
 #. odoo-javascript
@@ -81,7 +87,7 @@ msgstr "Saadaval"
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_sale_order_line__available_reserved_lots
 msgid "Available Reserved Lots"
-msgstr ""
+msgstr "Saadaval reserveeritud partiid"
 
 #. module: sale_stock_renting
 #. odoo-javascript
@@ -164,11 +170,6 @@ msgid ""
 msgstr ""
 
 #. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "Muu rentimine on konfliktis."
-
-#. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
 msgid "Padding"
 msgstr "Varuaeg"
@@ -240,7 +241,7 @@ msgstr "Renditehingud"
 #. odoo-python
 #: code:addons/sale_stock_renting/models/sale_order_line.py:0
 msgid "Rental move: %(order)s"
-msgstr ""
+msgstr "Rentimine: %(order)s"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__group_rental_stock_picking
@@ -261,7 +262,7 @@ msgstr "Reserveeritud partii"
 #. odoo-javascript
 #: code:addons/sale_stock_renting/static/src/widgets/qty_at_date_widget.xml:0
 msgid "Reserved lots unavailable"
-msgstr ""
+msgstr "Reserveeritud partiid pole saadaval"
 
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_stock_return_picking
@@ -319,6 +320,11 @@ msgstr "Laoliikumine"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
 msgstr "Tee see toode ajutiselt mittesaadavaks enne siiret."
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

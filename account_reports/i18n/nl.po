@@ -1523,7 +1523,7 @@ msgstr "Vervaldatum"
 #: model:ir.actions.client,name:account_reports.action_account_report_sales
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_sales
 msgid "EC Sales List"
-msgstr "Btw-opgave van de intracommunautaire handelingen"
+msgstr "ICP-Rapportage"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_ec_sales_report_handler
@@ -2101,6 +2101,8 @@ msgstr "Inclusief betalingen"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr "Inclusief analytische simulaties"
 
@@ -2644,7 +2646,7 @@ msgstr "Geen vergelijking"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "No Journal"
-msgstr ""
+msgstr "Geen dagboek"
 
 #. module: account_reports
 #. odoo-python
@@ -3847,6 +3849,8 @@ msgid ""
 "This report uses report-specific code.\n"
 "                        You can customize it manually, but any change in the parameters used for its computation could lead to errors."
 msgstr ""
+"Dit rapport gebruikt rapportspecifieke code.\n"
+"Je kunt het handmatig aanpassen, maar elke wijziging in de parameters die voor de berekening worden gebruikt, kan tot fouten leiden."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4024,6 +4028,7 @@ msgstr "Ongerealiseerde koerswinsten/-verliezen"
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "Niet-afgestemde invoer"
 
@@ -4127,6 +4132,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "Met conceptboekingen"
 

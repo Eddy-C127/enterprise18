@@ -4,14 +4,16 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Jolien De Paepe, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: French (https://app.transifex.com/odoo/teams/41243/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1535,12 +1537,8 @@ msgstr "Social : publier des posts programmés"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comments_reply.js:0
-msgid ""
-"Something went wrong while posting the comment. \n"
-"%s"
-msgstr ""
-"Une erreur s'est produite lors de la publication de la réaction. \n"
-"%s"
+msgid "Something went wrong while posting the comment."
+msgstr "Une erreur s'est produite lors de la publication du commentaire."
 
 #. module: social
 #. odoo-javascript
@@ -1762,6 +1760,12 @@ msgstr "Source UTM"
 
 #. module: social
 #. odoo-python
+#: code:addons/social/controllers/main.py:0
+#, python-format
+msgid "Uh-oh! It looks like this message has been deleted from X."
+msgstr "Oh, oh ! Il semble que ce message ait été supprimé de X."
+
+#. module: social
 #: code:addons/social/models/social_post.py:0
 msgid "Unknown error"
 msgstr "Erreur inconnue"

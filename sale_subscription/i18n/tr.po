@@ -19,7 +19,6 @@
 # ANIL TAN SAĞIR <anils@projetgrup.com>, 2024
 # Ozlem Cikrikci <ozlemc@eskayazilim.com.tr>, 2024
 # Ahmet Altinisik <aaltinisik@altinkaya.com.tr>, 2024
-# Umur Akın <umura@projetgrup.com>, 2024
 # abc Def <hdogan1974@gmail.com>, 2024
 # Tugay Hatıl <tugayh@projetgrup.com>, 2024
 # Murat Durmuş <muratd@projetgrup.com>, 2024
@@ -28,16 +27,17 @@
 # Levent Karakaş <levent@mektup.at>, 2024
 # Melih Melik Sonmez, 2024
 # Halil, 2024
-# Murat Kaplan <muratk@projetgrup.com>, 2024
 # Ediz Duman <neps1192@gmail.com>, 2024
+# Umur Akın <umura@projetgrup.com>, 2024
+# Murat Kaplan <muratk@projetgrup.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ediz Duman <neps1192@gmail.com>, 2024\n"
+"Last-Translator: Murat Kaplan <muratk@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -122,14 +122,6 @@ msgstr "3 ay"
 #. module: sale_subscription
 #: model:sale.subscription.plan,name:sale_subscription.subscription_plan_6_month
 msgid "6 Months"
-msgstr ""
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-msgid ""
-"<b>Congratulations</b>, you sent your first quote.</br>Wait for your "
-"customer to validate it from the email or confirm it manually."
 msgstr ""
 
 #. module: sale_subscription
@@ -681,6 +673,11 @@ msgid "ARR Change (normalized)"
 msgstr ""
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
+msgid "Abandoned Cart"
+msgstr "Vazgeçilen Sepet"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_move_send
 msgid "Account Move Send"
 msgstr "Hesap Hareketi Yollandı"
@@ -1160,8 +1157,8 @@ msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
-#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr ""
 
@@ -1441,12 +1438,12 @@ msgstr "Müşteri Referansı"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__state_id
 msgid "Customer State"
-msgstr ""
+msgstr "Müşteri Şehri"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__partner_zip
 msgid "Customer ZIP"
-msgstr ""
+msgstr "Müşteri Posta Kodu"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__user_closable
@@ -1871,8 +1868,8 @@ msgstr ""
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
-msgstr "Koşul varsa, kayıt güncelleştirilmeden önce bu koşula uyulmalıdır."
+"record. Not checked on record creation."
+msgstr ""
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -2864,6 +2861,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Products"
 msgstr "Ürünler"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__project_id
+msgid "Project"
+msgstr "Proje"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
@@ -4405,6 +4407,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
 msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
+msgid "Website"
+msgstr "Websitesi"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids

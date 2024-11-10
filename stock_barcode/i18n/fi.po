@@ -24,7 +24,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-27 07:48+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -56,7 +56,7 @@ msgstr "<i class=\"fa fa-fw fa-lg fa-cube me-3\" title=\"Määrä\"/>"
 msgid ""
 "<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Scrap "
 "Location\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-lg fa-long-arrow-right me-3\" title=\"Poistopaikka\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
@@ -92,12 +92,12 @@ msgstr "<i class=\"fa fa-print\"/> Tulosta varastointipaikat"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
 msgid "<i class=\"fa fs-4 fa-tags me-1\" title=\"Product\"/>"
-msgstr ""
+msgstr "<i class=\"fa fs-4 fa-tags me-1\" title=\"Tuote\"/>"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
 msgid "<span>Replenish Quantities</span>"
-msgstr ""
+msgstr "<span>Täydennä määriä</span>"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -134,12 +134,6 @@ msgid "After group of Products"
 msgstr "Joka tuotteiden ryhmän jälkeen"
 
 #. module: stock_barcode
-#. odoo-python
-#: code:addons/stock_barcode/models/stock_picking.py:0
-msgid "All products have been returned already"
-msgstr "Kaikki tuotteet on jo palautettu"
-
-#. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "All products need to be packed"
@@ -153,7 +147,7 @@ msgstr "Varaus"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_allow_extra_product
 msgid "Allow extra products"
-msgstr ""
+msgstr "Salli ylimääräiset tuotteet"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__barcode_validation_full
@@ -173,7 +167,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid ""
 "Allow users to see the expected quantity of a product to count in a location"
-msgstr ""
+msgstr "Salli käyttäjien nähdä tuotteen odotettu määrä laskettavaksi paikassa"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__show_reserved_sns
@@ -181,6 +175,9 @@ msgid ""
 "Allows to display reserved lots/serial numbers. When non active, it is clear"
 " for the picker that they can pick the lots/serials they want."
 msgstr ""
+"Mahdollistaa varattujen erien/sarjanumeroiden näyttämisen. Kun se ei ole "
+"aktiivinen, poimijalle on selvää, että hän voi valita haluamansa "
+"erät/sarjanumerot."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -339,7 +336,7 @@ msgstr "Kontakti"
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__group_barcode_count_entire_location
 #: model:res.groups,name:stock_barcode.group_barcode_count_entire_location
 msgid "Count Entire Locations"
-msgstr ""
+msgstr "Laske kokonaiset sijainnit"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_quant_barcode
@@ -404,7 +401,7 @@ msgstr "Määränpään sijainti on skannattava"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "Disable sound effect while scanning a barcode."
-msgstr ""
+msgstr "Poista äänitehoste käytöstä viivakoodia skannattaessa."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -466,13 +463,13 @@ msgstr "Tehty /"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Download demo data sheet"
-msgstr ""
+msgstr "Lataa demotietolomake"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Download operation barcodes"
-msgstr ""
+msgstr "Lataa toimintojen viivakoodit"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__dummy_id
@@ -489,7 +486,7 @@ msgstr "Tyhjien siirtojen määrä"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/manual_barcode.xml:0
 msgid "Enter a barcode..."
-msgstr ""
+msgstr "Syötä viivakoodi..."
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
@@ -512,6 +509,7 @@ msgstr "Luotiin seuraavat jälkitoimitukset:"
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__barcode_allow_extra_product
 msgid "For planned transfers, allow to add non-reserved products"
 msgstr ""
+"Suunniteltuja siirtoja varten voidaan lisätä muita kuin varattuja tuotteita"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
@@ -551,7 +549,7 @@ msgstr "Pakta laittaminen pakettiin?"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_move_line__formatted_product_barcode
 msgid "Formatted Product Barcode"
-msgstr ""
+msgstr "Muotoiltu tuotteen viivakoodi"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_product_product__has_image
@@ -630,7 +628,7 @@ msgstr "Inventaariopaikat"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Inventory count"
-msgstr ""
+msgstr "Varaston laskenta"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__is_barcode_picking_type
@@ -702,22 +700,24 @@ msgstr "Pakollinen lähdesijainti"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_max_time_between_keys_in_ms
 msgid "Max time between each key"
-msgstr ""
+msgstr "Enimmäisaika kunkin näppäimen välillä"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_res_config_settings__barcode_max_time_between_keys_in_ms
 msgid "Maximum delay between each key in ms (100 ms by default)"
 msgstr ""
+"Maksimiviive kunkin näppäimen välillä millisekunteina (oletusarvoisesti 100 "
+"ms)"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_separator_regex
 msgid "Multiscan Separator"
-msgstr ""
+msgstr "Usean skannauksen erottaja"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__stock_barcode_mute_sound_notifications
 msgid "Mute Barcode application sounds"
-msgstr ""
+msgstr "Mykistä viivakoodisovelluksen äänet"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_put_in_pack__no
@@ -735,7 +735,7 @@ msgstr "Ei %(picking_type)s valmiina %(barcode_type)s"
 #. odoo-python
 #: code:addons/stock_barcode/models/stock_move_line.py:0
 msgid "No Barcode"
-msgstr ""
+msgstr "Ei viivakoodia"
 
 #. module: stock_barcode
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_source_location__no
@@ -773,7 +773,7 @@ msgstr "Viivakoodille %s ei löytynyt tuotetta, erää tai pakkausta"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/apply_quant_dialog.xml:0
 msgid "No, I'll count them later"
-msgstr ""
+msgstr "Ei, lasken ne myöhemmin"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_nomenclature_id
@@ -828,7 +828,7 @@ msgstr "Paketti"
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 #: code:addons/stock_barcode/static/src/models/barcode_quant_model.js:0
 msgid "Package type %(type)s applied to the package %(package)s"
-msgstr ""
+msgstr "Pakettityyppi %(type)s, jota sovelletaan pakettiin %(package)s"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_quant_package
@@ -928,13 +928,13 @@ msgstr "Tulosta poimintatoiminnot"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Print the"
-msgstr ""
+msgstr "Tulosta"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/main.js:0
 msgid "Processing %(processed)s/%(toProcess)s barcodes"
-msgstr ""
+msgstr "Käsitellään %(processed)s/%(toProcess)s viivakoodia"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1013,7 +1013,7 @@ msgstr "Siirretty määrä"
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_move_line_product_selector
 msgid "Quantity in stock"
-msgstr ""
+msgstr "Varastossa oleva määrä"
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_stock_move_line__product_packaging_uom_qty
@@ -1028,19 +1028,19 @@ msgstr "Määrät"
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__barcode_rfid_batch_time
 msgid "RFID Timer"
-msgstr ""
+msgstr "RFID-ajastin"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/count_screen_rfid.xml:0
 msgid "Read Rate"
-msgstr ""
+msgstr "Lukunopeus"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/count_screen_rfid.xml:0
 msgid "Read Time"
-msgstr ""
+msgstr "Lukuaika"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1253,7 +1253,7 @@ msgstr "Skannaa lisää tuotteita tai skannaa uusi lähdepaikka"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "Scan or tap"
-msgstr ""
+msgstr "Skannaa tai napauta"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1302,6 +1302,8 @@ msgid ""
 "Scanned quantity uses %(unit)s as its Unit of Measure (UoM), but it is not "
 "compatible with the line's UoM (%(lineUnit)s)."
 msgstr ""
+"Skannattu määrä käyttää mittayksikkönä (UoM) %(unit)s, mutta se ei ole "
+"yhteensopiva rivin mittayksikön (%(lineUnit)s) kanssa."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1311,6 +1313,8 @@ msgid ""
 "Scanned quantity uses %(unit)s as its Unit of Measure (UoM), but it is not "
 "compatible with the product's UoM (%(productUnit)s)."
 msgstr ""
+"Skannattu määrä käyttää mittayksikkönä (UoM) %(unit)s, mutta se ei ole "
+"yhteensopiva tuotteen mittayksikön (%(productUnit)s) kanssa."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1347,6 +1351,8 @@ msgstr "Sarjanumero/eränumero"
 #: model_terms:ir.ui.view,arch_db:stock_barcode.res_config_settings_view_form
 msgid "Set the maximum delay between each key in ms (100 ms by default.)"
 msgstr ""
+"Aseta kunkin näppäimen välinen enimmäisviive millisekunteina "
+"(oletusarvoisesti 100 ms)"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__show_barcode_nomenclature
@@ -1362,12 +1368,12 @@ msgstr "Näytä viivakoodin vahvistus"
 #: model:ir.model.fields,field_description:stock_barcode.field_res_config_settings__group_barcode_show_quantity_count
 #: model:res.groups,name:stock_barcode.group_barcode_show_quantity_count
 msgid "Show Quantity to Count"
-msgstr ""
+msgstr "Näytä määrä joka lasketaan"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__show_reserved_sns
 msgid "Show reserved lots/SN"
-msgstr ""
+msgstr "Näytä varatut erät / sarjanumerot"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1379,7 +1385,7 @@ msgstr "Allekirjoita"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/apply_quant_dialog.xml:0
 msgid "Some serials where not counted, set them as missing?"
-msgstr ""
+msgstr "Joitakin sarjanumeroita ei laskettu, aseta ne puuttuviksi?"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.stock_barcode_view_picking_type_form
@@ -1443,7 +1449,7 @@ msgstr "Varaston oikaisu on vahvistettu"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_picking_model.js:0
 msgid "The product %s should not be picked in this operation."
-msgstr ""
+msgstr "Tuotetta %s ei saa poimia tässä toiminnossa."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1461,7 +1467,7 @@ msgstr "Skannattu sijainti ei kuulu tämän operaation sijaintiin"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 msgid "The scanned serial number %s is already used."
-msgstr ""
+msgstr "Skannattu sarjanumero %s on jo käytössä."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1510,7 +1516,7 @@ msgstr "Tämä poiminta on peruttu"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/models/barcode_model.js:0
 msgid "This product doesn't exist."
-msgstr ""
+msgstr "Tätä tuotetta ei ole olemassa."
 
 #. module: stock_barcode
 #: model:ir.model.fields,help:stock_barcode.field_res_config_settings__barcode_separator_regex
@@ -1520,6 +1526,9 @@ msgid ""
 "barcodes when an aggregate barcode (i.e. single barcode consisting of "
 "multiple barcode encodings) is scanned."
 msgstr ""
+"Tätä regexiä käytetään viivakoodisovelluksessa erottamaan yksittäiset "
+"viivakoodit toisistaan, kun yhteenlaskettu viivakoodi (eli yksi viivakoodi, "
+"joka koostuu useista viivakoodien koodeista) skannataan."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1533,6 +1542,9 @@ msgid ""
 "Time before processing a batch. Used to group communication to the server "
 "and improve global performance at the cost of reactivity."
 msgstr ""
+"Aika ennen erän käsittelyä. Käytetään palvelimelle tapahtuvan viestinnän "
+"ryhmittelyyn ja yleisen suorituskyvyn parantamiseen reaktiivisuuden "
+"kustannuksella."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1550,7 +1562,7 @@ msgstr "Jos haluat käyttää paketteja, ota 'Paketit' käyttöön asetuksissa"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/count_screen_rfid.xml:0
 msgid "Total Reads"
-msgstr ""
+msgstr "Yhteensä luettu"
 
 #. module: stock_barcode
 #: model:ir.model,name:stock_barcode.model_stock_picking
@@ -1572,7 +1584,7 @@ msgstr "Siirtojen avulla voit siirtää tuotteita paikasta toiseen."
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/components/count_screen_rfid.xml:0
 msgid "Unique Tags"
-msgstr ""
+msgstr "Ainutlaatuiset tunnisteet"
 
 #. module: stock_barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcode.scrap_product_selector
@@ -1614,6 +1626,8 @@ msgid ""
 "When scanning a location in inventory adjustments, you will be assigned to "
 "count all products from this location"
 msgstr ""
+"Kun skannaat sijainnin inventaarion säätöjen yhteydessä, sinulle annetaan "
+"tehtäväksi laskea kaikki kyseisen sijainnin tuotteet"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1698,19 +1712,19 @@ msgstr "Sinun on skannattava tuote"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "barcodes"
-msgstr ""
+msgstr "viivakoodit"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "demo data sheet"
-msgstr ""
+msgstr "demo data sheet"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "for operations."
-msgstr ""
+msgstr "toimintaa varten."
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1722,7 +1736,7 @@ msgstr "sijainti"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "lot"
-msgstr ""
+msgstr "erä"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1748,7 +1762,7 @@ msgstr "paketti"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "picking"
-msgstr ""
+msgstr "poiminta"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1771,46 +1785,46 @@ msgstr "tuotteet on käsitelty osittain."
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "to filter your records"
-msgstr ""
+msgstr "tietueiden suodattamista varten"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to initiate a transfer"
-msgstr ""
+msgstr "siirron aloittamiseksi"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to locate it"
-msgstr ""
+msgstr "sen paikallistamiseksi"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to open it"
-msgstr ""
+msgstr "sen avaamiseksi"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to start it"
-msgstr ""
+msgstr "sen käynnistämiseksi"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "to test or"
-msgstr ""
+msgstr "testattavaksi tai"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/main_menu/main_menu.xml:0
 msgid "tracking number"
-msgstr ""
+msgstr "seurantanumero"
 
 #. module: stock_barcode
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "transfer"
-msgstr ""
+msgstr "siirto"

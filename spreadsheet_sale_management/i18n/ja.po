@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -22,10 +22,15 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: spreadsheet_sale_management
+#: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_spreadsheet_view_search
+msgid "Calculator Templates"
+msgstr "計算機テンプレート"
+
+#. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Cell to sync"
-msgstr ""
+msgstr "同期対象セル"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__company_id
@@ -51,7 +56,7 @@ msgstr "現在の改訂Uuid"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Delete field syncing"
-msgstr ""
+msgstr "削除フィールド同期"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__display_name
@@ -62,19 +67,19 @@ msgstr "表示名"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Edit sync"
-msgstr ""
+msgstr "編集同期"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Field syncing"
-msgstr ""
+msgstr "フィールド同期"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Field to sync"
-msgstr ""
+msgstr "同期対象フィールド"
 
 #. module: spreadsheet_sale_management
 #: model:sale.order.template.line,name:spreadsheet_sale_management.sale_order_template_line_assembly
@@ -90,25 +95,25 @@ msgstr "ID"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be a boolean."
-msgstr ""
+msgstr "ブーリアンにして下さい。"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be a number."
-msgstr ""
+msgstr "数字にして下さい。"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be an id."
-msgstr ""
+msgstr "IDにして下さい。"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be an integer."
-msgstr ""
+msgstr "整数にして下さい。"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__write_uid
@@ -131,7 +136,7 @@ msgstr "地域配送"
 msgid ""
 "Multiple cells are updating the same field of the same record! Unable to "
 "determine which one to choose: %s"
-msgstr ""
+msgstr "複数のセルが同じレコードの同じフィールドを更新しています！どれを選択すべきか判断できません: %s"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__name
@@ -142,7 +147,7 @@ msgstr "名称"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/action/field_sync_action.js:0
 msgid "New quote calculator created"
-msgstr ""
+msgstr "新しい見積計算機が作成されました"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__order_id
@@ -153,12 +158,12 @@ msgstr "オーダ"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Position of the record in the list"
-msgstr ""
+msgstr "リスト内でのレコードのポジション"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order_spreadsheet
 msgid "Quotation Spreadsheet"
-msgstr ""
+msgstr "見積スプレッドシート"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order_template
@@ -169,7 +174,7 @@ msgstr "見積テンプレート"
 #. odoo-python
 #: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
 msgid "Quotation templates"
-msgstr "見積書テンプレート"
+msgstr "見積テンプレート"
 
 #. module: spreadsheet_sale_management
 #. odoo-python
@@ -178,28 +183,39 @@ msgid "Quote"
 msgstr "引用"
 
 #. module: spreadsheet_sale_management
+#: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_spreadsheet_view_search
+msgid "Quote Sheets"
+msgstr "見積シート"
+
+#. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order__spreadsheet_template_id
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_template__spreadsheet_template_id
 #: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_view_form
 msgid "Quote calculator"
-msgstr ""
+msgstr "見積計算機"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Record to sync (position)"
-msgstr ""
+msgstr "同期対象レコード(ポジション)"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_spreadsheet_cell_thread__sale_order_spreadsheet_id
 msgid "Sale Order Spreadsheet"
-msgstr ""
+msgstr "販売オーダスプレッドシート"
+
+#. module: spreadsheet_sale_management
+#: model:ir.actions.act_window,name:spreadsheet_sale_management.sale_order_spreadsheet_action
+#: model:ir.ui.menu,name:spreadsheet_sale_management.menu_technical_spreadsheet_sale_order_template
+msgid "Sale Order Spreadsheets"
+msgstr "販売オーダスプレッドシート"
 
 #. module: spreadsheet_sale_management
 #. odoo-python
 #: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
 msgid "Sale order lines"
-msgstr ""
+msgstr "販売オーダ明細"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order
@@ -210,7 +226,7 @@ msgstr "販売オーダ"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/action/field_sync_action.xml:0
 msgid "Save in"
-msgstr ""
+msgstr "以下に保存"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -252,7 +268,7 @@ msgstr "スプレッドシートファイル"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Sync with field"
-msgstr ""
+msgstr "フィールドと同期"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -260,7 +276,7 @@ msgstr ""
 msgid ""
 "The value of %(cell_reference)s (%(cell_value)s) can't be used for field "
 "\"%(field_name)s\"."
-msgstr ""
+msgstr "%(cell_reference)sの値 (%(cell_value)s) はフィールド\"%(field_name)s\"用には使用できません。"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__thumbnail

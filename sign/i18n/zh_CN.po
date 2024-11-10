@@ -5,15 +5,15 @@
 # Translators:
 # Wil Odoo, 2024
 # Chloe Wang, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Odoo哥 <vnsoft.he@gmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,7 +62,7 @@ msgstr "%s 已经被编辑和签署"
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "%s has been linked to this sign request."
-msgstr ""
+msgstr "%s已链接到此签名请求。"
 
 #. module: sign
 #. odoo-python
@@ -321,6 +321,13 @@ msgid "<span>This is a preview of your Terms &amp; Conditions.</span>"
 msgstr "<span>条款和条件预览</span>"
 
 #. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid ""
+"<span>You won't receive any notification for this signature request "
+"anymore.</span>"
+msgstr "<span>您将不再收到该签名请求的任何通知。</span>"
+
+#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<strong>Creation Date:</strong>"
 msgstr "<strong>创建日期。</strong>"
@@ -353,7 +360,7 @@ msgstr "短信息将发送到以下电话号码。如果有误，请更新。"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.message_signature_link
 msgid "A document has been signed and a copy attached to"
-msgstr ""
+msgstr "文件已签署，并将副本附加到"
 
 #. module: sign
 #. odoo-python
@@ -433,13 +440,13 @@ msgstr "动作已执行"
 msgid ""
 "Actions may trigger specific behavior like opening calendar view or "
 "automatically mark as done when a document is uploaded"
-msgstr "操作可能触发特定的行为，如打开日历视图或在上传单据时自动标记"
+msgstr "操作可能触发特定行为，例如打开日历视图或在上传文件时自动标记为已完成"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__active
 #: model:ir.model.fields,field_description:sign.field_sign_template__active
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__activity_ids
@@ -579,16 +586,16 @@ msgid "Archive"
 msgstr "存档"
 
 #. module: sign
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
-msgid "Are you sure you want to cancel the sign request?"
-msgstr ""
-
-#. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Archived"
-msgstr "已存档"
+msgstr "已归档"
+
+#. module: sign
+#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
+msgid "Are you sure you want to cancel the sign request?"
+msgstr "您确定要取消签名请求吗？"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__start_sign
@@ -608,7 +615,7 @@ msgstr "附件"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__attachment_ids
@@ -657,7 +664,7 @@ msgstr "新模板中可用"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "Back to %s"
-msgstr ""
+msgstr "返回到%s"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -713,7 +720,7 @@ msgstr "取消"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "Cancel Sign Request"
-msgstr ""
+msgstr "取消签署申请"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
@@ -802,7 +809,7 @@ msgstr "颜色指标"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "Communication history"
-msgstr "传播历史"
+msgstr "沟通历程"
 
 #. module: sign
 #: model:ir.model,name:sign.model_res_company
@@ -1072,7 +1079,7 @@ msgstr "演示合作伙伴"
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
 msgid "Details"
-msgstr "细节"
+msgstr "详情"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_users__sign_initials
@@ -1651,6 +1658,11 @@ msgid ""
 "                        </code>\n"
 "                        menu."
 msgstr ""
+"如果你不再希望接收这些通知，你可以在\n"
+"                        <code>\n"
+"                            签署 &gt; 配置 &gt; 角色\n"
+"                        </code>\n"
+"                        菜单中禁用额外的验证步骤。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -1992,7 +2004,7 @@ msgstr "我的收藏夹"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "My Requests"
-msgstr "我的请求"
+msgstr "我的申请"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_search
@@ -2143,7 +2155,7 @@ msgstr "操作数量"
 #: model:ir.model.fields,field_description:sign.field_sign_item__num_options
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__num_options
 msgid "Number of Radio Button options"
-msgstr ""
+msgstr "单选项数目"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
@@ -2362,17 +2374,17 @@ msgstr "单选按钮"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_radio_set__radio_items
 msgid "Radio Items"
-msgstr ""
+msgstr "单选项"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__radio_set_id
 msgid "Radio button options"
-msgstr ""
+msgstr "单选按钮选项"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_radio_set
 msgid "Radio button set for keeping radio button items together"
-msgstr ""
+msgstr "单选按钮组，用于将单选按钮项保持在一起"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__rating_ids
@@ -2795,7 +2807,7 @@ msgstr "签名发送请求"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Sign Settings"
-msgstr "标志设置"
+msgstr "签名设置"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_template_tag
@@ -3425,7 +3437,7 @@ msgstr "%(partner)s的邮件地址已更新。将自动重新发送请求。"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "The mail has been sent to contacts in copy: %(contacts)s"
-msgstr ""
+msgstr "邮件已发送给副本联系人: %(contacts)s"
 
 #. module: sign
 #. odoo-python
@@ -3449,7 +3461,7 @@ msgstr "签名申请尚未完全签署"
 #. odoo-python
 #: code:addons/sign/controllers/main.py:0
 msgid "The signature has been canceled by %(partner)s(%(role)s)"
-msgstr ""
+msgstr "该签署申请已被 %(partner)s(%(role)s)取消"
 
 #. module: sign
 #. odoo-python
@@ -4058,7 +4070,6 @@ msgstr "您将通过电子邮件收到最终签署的文档。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
-#: model_terms:ir.ui.view,arch_db:sign.cancel_sign_request_item_with_confirmation
 msgid "You won't receive any notification for this signature request anymore."
 msgstr "您将不再收到有关该签名请求的任何通知。"
 
@@ -4135,6 +4146,8 @@ msgid ""
 "because you don't have enough credits for this operation.\n"
 "                    The signatory was able to finish signing, but was not asked to authenticate fully."
 msgstr ""
+"因为你没有足够的积分用于此操作。\n"
+"                    签字人能够完成签字，但没有被要求完全完成身份验证。"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
@@ -4168,13 +4181,13 @@ msgstr "demo@email.com"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 msgid "e.g. +1 415 555 0100"
-msgstr "例如+1 415 555 0100"
+msgstr "例如：+1 415 555 0100"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 msgid "e.g. 314159"
-msgstr "例如 314159"
+msgstr "例如： 314159"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_role_view_form
@@ -4327,7 +4340,7 @@ msgstr "淋浴设备"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "sign"
-msgstr "标志"
+msgstr "签署"
 
 #. module: sign
 #: model:sign.item.type,tip:sign.sign_item_type_signature

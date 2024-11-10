@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-27 07:48+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
@@ -122,12 +122,6 @@ msgstr "Na elk product"
 #: model:ir.model.fields.selection,name:stock_barcode.selection__stock_picking_type__restrict_scan_dest_location__optional
 msgid "After group of Products"
 msgstr "Na een groep producten"
-
-#. module: stock_barcode
-#. odoo-python
-#: code:addons/stock_barcode/models/stock_picking.py:0
-msgid "All products have been returned already"
-msgstr "Alle producten zijn reeds geretourneerd"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -507,8 +501,8 @@ msgstr "Volgende backorders werden aangemaakt:"
 #: model:ir.model.fields,help:stock_barcode.field_stock_picking_type__barcode_allow_extra_product
 msgid "For planned transfers, allow to add non-reserved products"
 msgstr ""
-"Geef bij geplande transfers toestemming om niet-gereserveerde producten toe "
-"te voegen"
+"Geef bij geplande verplaatsingen toestemming om niet-gereserveerde producten"
+" toe te voegen"
 
 #. module: stock_barcode
 #: model:ir.model.fields,field_description:stock_barcode.field_stock_picking_type__restrict_scan_dest_location
@@ -1746,7 +1740,7 @@ msgstr "locatie"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "lot"
-msgstr "kavel"
+msgstr "partij"
 
 #. module: stock_barcode
 #. odoo-javascript
@@ -1837,4 +1831,4 @@ msgstr "volgnummer"
 #. odoo-javascript
 #: code:addons/stock_barcode/static/src/kanban/stock_barcode_kanban_renderer.xml:0
 msgid "transfer"
-msgstr "transfer"
+msgstr "picking"

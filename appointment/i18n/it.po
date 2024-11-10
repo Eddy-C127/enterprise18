@@ -3,8 +3,8 @@
 # 	* appointment
 # 
 # Translators:
-# Marianna Ciofani, 2024
 # Wil Odoo, 2024
+# Marianna Ciofani, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marianna Ciofani, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -36,7 +36,7 @@ msgstr "N. appuntamenti"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_request
 msgid "# Appointments To Confirm"
-msgstr ""
+msgstr "# Appuntamenti da confermare"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__calendar_event_count
@@ -63,7 +63,7 @@ msgstr "N. utenti personale"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_count_upcoming
 msgid "# Upcoming Appointments"
-msgstr ""
+msgstr "# Appuntamenti imminenti"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_calendar
@@ -86,7 +86,7 @@ msgstr "%(attendee_name)s - Prenotazione %(appointment_name)s"
 #. odoo-python
 #: code:addons/appointment/controllers/calendar_view.py:0
 msgid "%(name)s - Let's meet anytime"
-msgstr ""
+msgstr "%(name)s - Incontriamoci quando vuoi"
 
 #. module: appointment
 #. odoo-python
@@ -143,6 +143,8 @@ msgid ""
 "<br/>\n"
 "                                <span>To Confirm</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>Da confermare</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -150,6 +152,8 @@ msgid ""
 "<br/>\n"
 "                                <span>Total</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>Totale</span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
@@ -157,6 +161,8 @@ msgid ""
 "<br/>\n"
 "                                <span>Upcoming</span>"
 msgstr ""
+"<br/>\n"
+"                                <span>Imminente</span>"
 
 #. module: appointment
 #: model:mail.template,body_html:appointment.attendee_invitation_mail_template
@@ -1091,7 +1097,7 @@ msgstr "<strong>Data Inizio: </strong>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "<strong>Status: </strong>"
-msgstr ""
+msgstr "<strong>Stato: </strong>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -1160,6 +1166,8 @@ msgid ""
 "Activate manual confirmation only if the resource total capacity reserved "
 "exceeds this percentage."
 msgstr ""
+"Attiva la conferma manuale solo se la capacità totale della risorsa "
+"prenotata supera questa percentuale."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_booking_line__active
@@ -1482,7 +1490,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_status
 msgid "Appointment Status"
-msgstr ""
+msgstr "Stato appuntamento"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__name
@@ -1685,13 +1693,14 @@ msgstr "Url link di base"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Book a Resource"
-msgstr ""
+msgstr "Prenota una risorsa"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Book a resource for a specific time slot (e.g. tennis court, etc.)"
 msgstr ""
+"Prenota una risorsa per uno slot specifico (ad es. campo da tennis, ecc.)"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__calendar_event__appointment_status__booked
@@ -1844,7 +1853,7 @@ msgstr "Check-in effettuato"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_search_booking
 msgid "Checked-in"
-msgstr ""
+msgstr "Check-in effettuato"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
@@ -1929,7 +1938,7 @@ msgstr "Collega"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__connectors_displayed
 msgid "Connectors Displayed"
-msgstr ""
+msgstr "Connettori visualizzati"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_res_partner
@@ -1979,7 +1988,7 @@ msgstr "Crea giorno/i di chiusura"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_type_action_helper/appointment_type_action_helper.xml:0
 msgid "Create a Schedule from scratch or use one of our templates:"
-msgstr ""
+msgstr "Crea una programmazione da zero o utilizza uno dei nostri modelli:"
 
 #. module: appointment
 #. odoo-javascript
@@ -1987,7 +1996,7 @@ msgstr ""
 #: code:addons/appointment/models/appointment_type.py:0
 #: code:addons/appointment/static/src/views/appointment_invite/appointment_share_link_list_controller.js:0
 msgid "Create a Share Link"
-msgstr ""
+msgstr "Crea un link di condivisione"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
@@ -2116,7 +2125,7 @@ msgstr "Dentista"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Describe what you need"
-msgstr ""
+msgstr "Descrivi di cosa hai bisogno"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__description
@@ -2186,6 +2195,8 @@ msgid ""
 "Do not automatically accept meetings created from the appointment.\n"
 "            The appointment is still considered as reserved for the slots availability."
 msgstr ""
+"Non accettare automaticamente i meeting creati dall'appuntamento.\n"
+"            L'appuntamento viene ancora considerato come prenotato secondo gli slot disponibili."
 
 #. module: appointment
 #. odoo-python
@@ -2628,7 +2639,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Let customers book tables (bars, restaurants, etc.)"
-msgstr ""
+msgstr "Permetti ai clienti di prenotare tavoli (bar, ristoranti, ecc.)"
 
 #. module: appointment
 #. odoo-javascript
@@ -2798,7 +2809,7 @@ msgstr "Navigazione"
 #. odoo-python
 #: code:addons/appointment/models/calendar_event.py:0
 msgid "Need to reschedule?"
-msgstr ""
+msgstr "Hai bisogno di riprogrammare?"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_alarm__default_for_new_appointment_type
@@ -2856,7 +2867,7 @@ msgstr "Non ci sono ancora link condivisi!"
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_search_booking
 msgid "No Show"
-msgstr ""
+msgstr "No show"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_info_msg
@@ -2952,7 +2963,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Oops! Your appointment is scheduled in less than"
-msgstr ""
+msgstr "Ops! L'appuntamento è previsto in meno di"
 
 #. module: appointment
 #. odoo-javascript
@@ -3007,7 +3018,7 @@ msgstr "Persona che sta prenotando l'appuntamento"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Personal Meeting"
-msgstr ""
+msgstr "Riunione personale"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -3090,7 +3101,7 @@ msgstr "Valutazioni"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_type_action_helper/appointment_type_action_helper.xml:0
 msgid "Ready to make scheduling easy?"
-msgstr ""
+msgstr "Pronto a semplificare la programmazione?"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__reason
@@ -3147,7 +3158,7 @@ msgstr "Risorsa"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Resource %s"
-msgstr ""
+msgstr "Risorsa %s"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.calendar_event_action_view_bookings_resources
@@ -3275,7 +3286,7 @@ msgstr "Pianifica"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Schedule 30-minute calls in virtual rooms"
-msgstr ""
+msgstr "Prenota chiamate di 30 minuti in sale virtuali"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__schedule_based_on
@@ -3448,6 +3459,8 @@ msgstr "Condividere link"
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Share this link to let others book a meeting in your calendar"
 msgstr ""
+"Condividi questo link per permettere agli altri di prenotare un meeting nel "
+"tuo calendario"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__shareable
@@ -3629,7 +3642,7 @@ msgstr "Sintomi"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Synchronize your Calendar to avoid double-booking"
-msgstr ""
+msgstr "Sincronizza il calendario per evitare prenotazioni doppie"
 
 #. module: appointment
 #. odoo-python
@@ -3641,7 +3654,7 @@ msgstr "Tavolo"
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Table %s"
-msgstr ""
+msgstr "Tavolo %s"
 
 #. module: appointment
 #. odoo-python
@@ -3693,6 +3706,8 @@ msgid ""
 "The configuration has changed and synchronization is not possible anymore. "
 "Please reload the page."
 msgstr ""
+"La configurazione è cambiata e la sincronizzazione non è più possibile. "
+"Ricarica la pagina."
 
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
@@ -3714,6 +3729,8 @@ msgid ""
 "The event %s cannot have an appointment status without being linked to an "
 "appointment type."
 msgstr ""
+"L'evento %s non può avere uno stato appuntamento senza essere collegato a un"
+" tipo di appuntamento."
 
 #. module: appointment
 #. odoo-python
@@ -3964,7 +3981,7 @@ msgstr "Appuntamenti futuri"
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_invite/appointment_share_link_list_controller.js:0
 msgid "Update a Share Link"
-msgstr ""
+msgstr "Aggiorna link di condivisione"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_alarm__default_for_new_appointment_type
@@ -4093,6 +4110,7 @@ msgstr "Il tuo appuntamento"
 #: code:addons/appointment/static/src/components/appointment_sync_button/appointment_sync_button.js:0
 msgid "Your calendar is already configured and was successfully synchronized."
 msgstr ""
+"Il tuo calendario è già configurato ed è stato sincronizzato con successo."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
@@ -4210,7 +4228,7 @@ msgstr "non ha più slot disponibili per il mese corrente."
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "hour(s) and cannot be cancelled at this time.<br/>"
-msgstr ""
+msgstr "ora(e) e non può essere annullato in questo momento.<br/>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -4277,4 +4295,4 @@ msgstr "con"
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_type_action_helper/appointment_type_action_helper.xml:0
 msgid "{{templateInfo.title}}"
-msgstr ""
+msgstr "{{templateInfo.title}}"

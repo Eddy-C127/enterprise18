@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: German (https://app.transifex.com/odoo/teams/41243/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: pos_iot_six
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.view_add_six_terminal
 msgid "Add Terminal"
-msgstr ""
+msgstr "Terminal hinzufügen"
 
 #. module: pos_iot_six
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.view_add_six_terminal
@@ -32,7 +33,7 @@ msgstr "Stornieren"
 #. module: pos_iot_six
 #: model:ir.model,name:pos_iot_six.model_pos_iot_six_add_six_terminal
 msgid "Connect a Six Payment Terminal"
-msgstr ""
+msgstr "Verbinden Sie ein Six-Zahlungsterminal"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__create_uid
@@ -53,7 +54,7 @@ msgstr "Anzeigename"
 #. odoo-python
 #: code:addons/pos_iot_six/wizard/add_six_terminal.py:0
 msgid "Failed to save Six Terminal ID to IoT Box"
-msgstr ""
+msgstr "Six-Terminal-ID konnte nicht in IoT-Box gespeichert werden"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__id
@@ -89,30 +90,30 @@ msgstr "Zahlungsmethoden des Kassensystems"
 #. module: pos_iot_six
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.pos_payment_method_view_form_six_iot
 msgid "Setup Six Terminal"
-msgstr ""
+msgstr "Einrichtung eines Six-Terminals"
 
 #. module: pos_iot_six
 #: model:ir.actions.act_window,name:pos_iot_six.action_add_six_terminal
 #: model_terms:ir.ui.view,arch_db:pos_iot_six.view_add_six_terminal
 msgid "Setup a Six Payment Terminal"
-msgstr ""
+msgstr "Einrichtung eines Six-Zahlungsterminals"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_iot_box__six_terminal_id
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__six_terminal_id
 msgid "Six Terminal ID (TID)"
-msgstr ""
+msgstr "Six-Terminal-ID (TID)"
 
 #. module: pos_iot_six
 #. odoo-python
 #: code:addons/pos_iot_six/wizard/add_six_terminal.py:0
 msgid "Six Terminal ID must only contain digits."
-msgstr ""
+msgstr "Die Six-Terminal-ID darf nur Ziffern enthalten."
 
 #. module: pos_iot_six
 #: model:ir.model.fields,field_description:pos_iot_six.field_pos_iot_six_add_six_terminal__terminal_device_id
 msgid "Terminal Device"
-msgstr ""
+msgstr "Terminalgerät"
 
 #. module: pos_iot_six
 #: model:ir.model.fields,help:pos_iot_six.field_iot_box__six_terminal_id
@@ -122,11 +123,14 @@ msgid ""
 "you will have to wait several seconds before the terminal will appear in "
 "your device list."
 msgstr ""
+"Die ID Ihre Six-Zahlungsterminals. Bitte beachten Sie, dass Sie nach der "
+"Eingabe einige Sekunden warten müssen, bevor das Terminal in Ihrer "
+"Geräteliste erscheint."
 
 #. module: pos_iot_six
 #: model:ir.model.fields,help:pos_iot_six.field_pos_iot_six_add_six_terminal__iot_box_id
 msgid "The IoT Box that your Six terminal is connected to."
-msgstr ""
+msgstr "Die IoT-Box, mit der Ihr Six-Terminal verbunden ist."
 
 #. module: pos_iot_six
 #. odoo-python

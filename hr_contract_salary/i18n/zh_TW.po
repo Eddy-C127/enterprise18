@@ -3,8 +3,8 @@
 # 	* hr_contract_salary
 # 
 # Translators:
-# Tony Ng, 2024
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -301,14 +301,14 @@ msgstr "總是顯示描述"
 #: code:addons/hr_contract_salary/models/hr_applicant.py:0
 msgid ""
 "An %(offer)s has been sent by %(user)s to the applicant (mail: %(email)s)"
-msgstr ""
+msgstr "已向申請人傳送 %(offer)s 的聘用邀約，發件人：%(user)s，申請人電郵：%(email)s"
 
 #. module: hr_contract_salary
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract.py:0
 msgid ""
 "An %(offer)s has been sent by %(user)s to the employee (mail: %(email)s)"
-msgstr ""
+msgstr "已向員工傳送 %(offer)s 的聘用邀約，發件人：%(user)s，員工電郵：%(email)s"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract_employee_report__final_yearly_costs
@@ -860,7 +860,7 @@ msgstr ""
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Doesn't impact net salary"
-msgstr ""
+msgstr "不會影響薪金淨額"
 
 #. module: hr_contract_salary
 #: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract_salary_benefit__display_type__dropdown
@@ -1543,7 +1543,7 @@ msgstr "聘用邀約有效期"
 #. odoo-python
 #: code:addons/hr_contract_salary/models/hr_contract_salary_offer.py:0
 msgid "Offer for %(recipient)s"
-msgstr ""
+msgstr "聘用邀約：%(recipient)s"
 
 #. module: hr_contract_salary
 #. odoo-python
@@ -1871,7 +1871,7 @@ msgstr "薪酬配置工具"
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_benefit_view_form
 msgid "Salary Configurator Display"
-msgstr ""
+msgstr "薪酬配置器顯示"
 
 #. module: hr_contract_salary
 #: model:ir.actions.server,name:hr_contract_salary.ir_cron_update_offer_state_ir_actions_server
@@ -2478,7 +2478,7 @@ msgstr "不可指派多人負責同一角色"
 msgid ""
 "You have to define contract templates to be used for offers. Go to "
 "Configuration / Contract Templates to define a contract template"
-msgstr ""
+msgstr "你必須為聘用邀約設定使用的合約範本。請前往「配置 / 合約範本」設定。"
 
 #. module: hr_contract_salary
 #: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_personal_information

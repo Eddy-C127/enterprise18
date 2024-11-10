@@ -268,6 +268,8 @@ msgid ""
 "<span class=\"o_stat_text\">Salary Attachments</span>\n"
 "                            <span class=\"o_stat_value\">New</span>"
 msgstr ""
+"<span class=\"o_stat_text\">Embargos de salario</span>\n"
+"                            <span class=\"o_stat_value\">Nuevo</span>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
@@ -379,12 +381,12 @@ msgstr "<strong class=\"me-2\">Puesto de trabajo:</strong>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Marital Status:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">Estado civil:</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Name:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">Nombre:</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
@@ -1547,7 +1549,7 @@ msgstr "Departamento"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "Department:"
-msgstr ""
+msgstr "Departamento:"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_index__description
@@ -1718,12 +1720,12 @@ msgstr "Edición de líneas de recibo de nómina en la nómina"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__eligible_employee_line_ids
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_employee_mixin_list_view
 msgid "Eligible Employees"
-msgstr ""
+msgstr "Empleados elegibles"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__eligible_employee_count
 msgid "Eligible Employees Count"
-msgstr ""
+msgstr "Conteo de empleados elegibles"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__email_cc
@@ -1852,7 +1854,7 @@ msgstr "Faltan empleados (con contratos activos) en los lotes abiertos"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
 msgid "Employees Selection"
-msgstr ""
+msgstr "Selección de empleados"
 
 #. module: hr_payroll
 #: model:hr.payroll.dashboard.warning,name:hr_payroll.hr_payroll_dashboard_warning_employee_ambiguous_contract
@@ -1954,17 +1956,17 @@ msgstr "Exportar archivo .csv relacionado a este recibo de nómina"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_list_view
 msgid "Export Employee Work Entries"
-msgstr ""
+msgstr "Exportar las entradas de trabajo del empleado"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__export_file
 msgid "Export File"
-msgstr ""
+msgstr "Exportar archivo"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__export_filename
 msgid "Export Filename"
-msgstr ""
+msgstr "Exportar nombre del archivo"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_payment_report_wizard__export_format
@@ -2060,7 +2062,7 @@ msgstr "Generar"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_mixin_form_view
 msgid "Generate Export File"
-msgstr ""
+msgstr "Generar archivo de exportación"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_employee_declaration_view_tree
@@ -2237,7 +2239,7 @@ msgstr "Salario por hora"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Hours / Week"
-msgstr ""
+msgstr "Horas / semana"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__hours_per_week
@@ -2437,7 +2439,7 @@ msgstr "Es duración incorrecta "
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__is_quantity
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__is_quantity
 msgid "Is quantity?"
-msgstr ""
+msgstr "¿Es una cantidad?"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__quantity
@@ -2490,7 +2492,7 @@ msgstr "Título del trabajo"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "Job Title:"
-msgstr ""
+msgstr "Puesto de trabajo:"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_export_mixin__reference_month__7
@@ -2761,7 +2763,7 @@ msgstr "Neto negativo que informar"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__is_refund
 msgid "Negative Value"
-msgstr ""
+msgstr "Valor negativo"
 
 #. module: hr_payroll
 #: model:hr.salary.rule.category,name:hr_payroll.NET
@@ -2842,7 +2844,7 @@ msgstr "Sin fecha de finalización "
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "No ID number on the employee !!!"
-msgstr ""
+msgstr "No hay un número de identificación en el empleado."
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_work_entry_type__round_days__no
@@ -2857,7 +2859,7 @@ msgstr "No se permite la duplicación de números de registro"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__default_no_end_date
 msgid "No end date by default"
-msgstr ""
+msgstr "Por defecto no hay fecha de finalización"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3153,7 +3155,7 @@ msgstr "Contacto"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "Pay Period:"
-msgstr ""
+msgstr "Periodo de paga:"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_payslip
@@ -3540,7 +3542,7 @@ msgstr "Periodo"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_start
 msgid "Period Start"
-msgstr ""
+msgstr "Inicio del periodo"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_stop
@@ -3711,12 +3713,12 @@ msgstr "Referencia"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__reference_month
 msgid "Reference Month"
-msgstr ""
+msgstr "Mes de referencia"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__reference_year
 msgid "Reference Year"
-msgstr ""
+msgstr "Año de referencia"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
@@ -3759,7 +3761,7 @@ msgstr "Reembolso"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_tree
 msgid "Related Payslips"
-msgstr ""
+msgstr "Nóminas de pago relacionadas"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_attachment__remaining_amount
@@ -3780,7 +3782,7 @@ msgstr "El importe restante que debe ser pagado."
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Remove \"Conflicting\" filter"
-msgstr ""
+msgstr "Eliminar el filtro “Conflicto”"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3798,7 +3800,7 @@ msgstr "Informes"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "Resolve Conflicts"
-msgstr ""
+msgstr "Resolver conflictos"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_resource_calendar
@@ -4147,6 +4149,8 @@ msgid ""
 "Some work entries are in conflict. Please resolve the conflicts before "
 "exporting."
 msgstr ""
+"Algunas entradas de trabajo están en conflicto. Resuélvalos antes de "
+"exportarlos."
 
 #. module: hr_payroll
 #. odoo-python
@@ -5212,6 +5216,8 @@ msgstr ""
 msgid ""
 "You can't delete a batch with payslips if they are not draft or cancelled."
 msgstr ""
+"No puede eliminar un lote de recibos de nómina si no está en borrador o "
+"cancelado."
 
 #. module: hr_payroll
 #. odoo-python
@@ -5279,7 +5285,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "You must be logged in a %(country_code)s company to use this feature"
-msgstr ""
+msgstr "Debe iniciar sesión en una compañía de %s para utilizar esta función."
 
 #. module: hr_payroll
 #. odoo-python
@@ -5310,7 +5316,7 @@ msgstr ""
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_work_entry_export_employee_mixin_list_view
 msgid "contracts"
-msgstr ""
+msgstr "contratos"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_run_form

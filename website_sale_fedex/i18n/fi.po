@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -25,7 +25,23 @@ msgstr ""
 msgid ""
 "Allows the ecommerce user to choose a pick-up point as delivery address."
 msgstr ""
-"Mahdollistaa verkkokaupan käyttäjän valita noutopaikan toimitusosoitteeksi."
+"Mahdollistaa verkkokaupan käyttäjälle valinnan noutopaikan "
+"toimitusosoitteeksi."
+
+#. module: website_sale_fedex
+#: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_value
+msgid "Fedex Locations Radius"
+msgstr "Fedexin toimipisteiden säde"
+
+#. module: website_sale_fedex
+#: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_unit
+msgid "Fedex Locations Radius Unit"
+msgstr "Fedexin toimipisteet säteen yksikkö"
+
+#. module: website_sale_fedex
+#: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_unit_name
+msgid "Fedex Radius Unit Name"
+msgstr "Fedex säteen yksikön nimi"
 
 #. module: website_sale_fedex
 #. odoo-python
@@ -34,12 +50,7 @@ msgid "Fedex Server Not Found"
 msgstr "Fedex-palvelinta ei löydy"
 
 #. module: website_sale_fedex
-#: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_unit
-msgid "Locations Distance Unit"
-msgstr "Sijaintien etäisyyden yksikkö"
-
-#. module: website_sale_fedex
-#: model:ir.model.fields,field_description:website_sale_fedex.field_delivery_carrier__fedex_locations_radius_value
+#: model_terms:ir.ui.view,arch_db:website_sale_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Locations Radius"
 msgstr "Sijainnin säde"
 

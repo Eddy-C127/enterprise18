@@ -1,32 +1,34 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_cohort
-#
+# 
 # Translators:
-# Chrille Hedberg <hedberg.chrille@gmail.com>, 2022
-# Kim Asplund <kim.asplund@gmail.com>, 2022
-# Anders Wallenquist <anders.wallenquist@vertel.se>, 2022
-# Kristoffer Grundström <lovaren@gmail.com>, 2022
-# Martin Trigaux, 2022
-#
+# Robin Calvin, 2024
+# Kristoffer Grundström <lovaren@gmail.com>, 2024
+# Chrille Hedberg <hedberg.chrille@gmail.com>, 2024
+# Jakob Krabbe <jakob.krabbe@vertel.se>, 2024
+# Martin Trigaux, 2024
+# Kim Asplund <kim.asplund@gmail.com>, 2024
+# Anders Wallenquist <anders.wallenquist@vertel.se>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Martin Trigaux, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Anders Wallenquist <anders.wallenquist@vertel.se>, 2024\n"
 "Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
-"Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: sv\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: web_cohort
 #. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
-msgid "%s - By %s"
+msgid "%(date_stop)s - By %(interval)s"
 msgstr ""
 
 #. module: web_cohort
@@ -41,12 +43,12 @@ msgid "Action Window View"
 msgstr "Vy för åtgärdsfönster"
 
 #. module: web_cohort
-#. odoo-python
 #. odoo-javascript
+#. odoo-python
 #: code:addons/web_cohort/controllers/main.py:0
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "Average"
-msgstr "Medel"
+msgstr "Genomsnitt"
 
 #. module: web_cohort
 #: model:ir.model,name:web_cohort.model_base
@@ -57,7 +59,7 @@ msgstr "Bas"
 #: model:ir.model.fields.selection,name:web_cohort.selection__ir_actions_act_window_view__view_mode__cohort
 #: model:ir.model.fields.selection,name:web_cohort.selection__ir_ui_view__type__cohort
 msgid "Cohort"
-msgstr "Klass"
+msgstr "Kohort"
 
 #. module: web_cohort
 #. odoo-python
@@ -105,7 +107,7 @@ msgstr "Månad"
 #. odoo-javascript
 #: code:addons/web_cohort/static/src/cohort_renderer.xml:0
 msgid "No data available."
-msgstr ""
+msgstr "Inga tillgängliga data."
 
 #. module: web_cohort
 #. odoo-javascript
@@ -113,6 +115,29 @@ msgstr ""
 msgid ""
 "Period: %(period)s\n"
 "%(measure)s: %(count)s"
+msgstr ""
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(interval)s is not a valid interval. Here are the intervals: "
+"%(intervals)s"
+msgstr ""
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(mode)s is not a valid mode. Here are the modes: %(modes)s"
+msgstr ""
+
+#. module: web_cohort
+#. odoo-javascript
+#: code:addons/web_cohort/static/src/cohort_arch_parser.js:0
+msgid ""
+"The argument %(timeline)s is not a valid timeline. Here are the timelines: "
+"%(timelines)s"
 msgstr ""
 
 #. module: web_cohort

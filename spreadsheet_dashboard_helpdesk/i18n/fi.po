@@ -6,6 +6,8 @@
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Martin Trigaux, 2024
+# Tomi Tiainen, 2024
+# Tiffany Chang, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
@@ -13,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -26,20 +28,41 @@ msgstr ""
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Agent"
 msgstr "Asiakaspalvelija"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Cancelled"
+msgstr "Peruttu"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Changes Requested"
+msgstr "Pyydetyt muutokset"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Current"
 msgstr "Nykyinen"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Customer"
 msgstr "Asiakas"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "Customer Care"
+msgstr "Asiakkuuden hoito"
 
 #. module: spreadsheet_dashboard_helpdesk
 #: model:spreadsheet.dashboard,name:spreadsheet_dashboard_helpdesk.spreadsheet_dashboard_helpdesk
@@ -49,26 +72,42 @@ msgstr "Asiakaspalvelu"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to assign"
 msgstr "Vastuuttamiseen tarvittavat tunnit"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to close"
 msgstr "Sulkemiseen tarvittavat tunnit"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Hours to respond"
 msgstr "Vastaamiseen tarvittavat tunnit"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "In Progress"
+msgstr "Käynnissä"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "KPI"
 msgstr "KPI"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "New"
+msgstr "Uusi"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
@@ -79,12 +118,14 @@ msgstr "Jakso"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Previous"
 msgstr "Edellinen"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Rating"
 msgstr "Arvostelu"
 
@@ -97,125 +138,103 @@ msgstr "Tunnisteet"
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Team"
 msgstr "Tiimi"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Assigned To"
-msgstr "Analyysi tukipyynnöistä vastuutettujen mukaan"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Customer"
-msgstr "Analyysi tukipyynnöistä asiakkaiden mukaan"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Tags"
-msgstr ""
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Team"
-msgstr "Analyysi tukipyynnöistä tiimien mukaan"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "Ticket Analysis by Ticket Stage"
-msgstr ""
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Ticket Stage"
 msgstr "Tukipyynnön tila"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Ticket Tags"
 msgstr ""
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets"
 msgstr "Liput"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets by Stage"
 msgstr "Tukipyynnöt vaiheittain"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Tickets by Tags"
 msgstr ""
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Assign"
 msgstr "Aika vastuuttamiseen"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Close"
 msgstr "Aika sulkemiseen"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Time to Respond"
 msgstr "Aika vastaamiseen"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Assignees"
 msgstr "Parhaat vastaanottajat"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Customers"
 msgstr "Parhaat asiakkaat"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "Top Teams"
 msgstr "Parhaat tiimit"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
+msgid "VIP Support"
+msgstr "VIP-tuki"
+
+#. module: spreadsheet_dashboard_helpdesk
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "last period"
 msgstr "edellinen ajanjakso"
 
 #. module: spreadsheet_dashboard_helpdesk
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_sample_dashboard.json:0
 msgid "since last period"
 msgstr "edellisen kauden jälkeen"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "stats - current"
-msgstr "tilastot - nykyinen"
-
-#. module: spreadsheet_dashboard_helpdesk
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_helpdesk/data/files/helpdesk_dashboard.json:0
-msgid "stats - previous"
-msgstr "tilastot - edellinen"

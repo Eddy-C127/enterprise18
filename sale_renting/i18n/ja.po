@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
@@ -44,7 +44,7 @@ msgstr "%(amount)s / %(duration)s"
 
 #. module: sale_renting
 #. odoo-python
-#: code:addons/sale_renting/controllers/utils.py:0
+#: code:addons/sale_renting/models/product_template.py:0
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 msgid "%(duration)s %(unit)s"
 msgstr "%(duration)s %(unit)s"
@@ -175,7 +175,7 @@ msgstr "<strong>ステータス — </strong>"
 #. odoo-python
 #: code:addons/sale_renting/models/product_template.py:0
 msgid "A rental combo product can only contain rental products."
-msgstr ""
+msgstr "レンタルコンボプロダクトにはレンタルプロダクトのみを含めることができます。"
 
 #. module: sale_renting
 #: model:ir.model.fields,field_description:sale_renting.field_sale_temporal_recurrence__active
@@ -1400,18 +1400,17 @@ msgstr "予定されている集荷または返却はありません。"
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_day
 msgid ""
-"This is the default extra cost per day set on newly created products. You "
-"can change this value for existing products directly on the product itself."
+"This is the default extra cost per day set on newly created products.You can"
+" change this value for existing products directly on the product itself."
 msgstr ""
-"これは、新しく作成されたプロダクトに設定されている1日あたりのデフォルトの追加費用です。既存のプロダクトについては、プロダクトで直接この値を変更することができます。"
+"これは、新しく作成されたプロダクトに設定された1日あたりのデフォルトの追加原価です。既存のプロダクトについては、プロダクト自体でこの値を直接変更することができます。"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_hour
 msgid ""
-"This is the default extra cost per hour set on newly created products. You "
+"This is the default extra cost per hour set on newly created products.You "
 "can change this value for existing products directly on the product itself."
 msgstr ""
-"これは、新しく作成されたプロダクトに設定された時間あたりのデフォルトの追加費用です。既存のプロダクトについては、プロダクトで直接この値を変更することができます。"
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_product

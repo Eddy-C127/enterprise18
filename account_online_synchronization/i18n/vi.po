@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,12 +28,15 @@ msgid ""
 "\n"
 "If you've already opened a ticket for this issue, don't report it again: a support agent will contact you shortly."
 msgstr ""
+"\n"
+"\n"
+"Nếu bạn đã mở một phiếu hỗ trợ cho vấn đề này, vui lòng không báo cáo lại nữa: đại diện hỗ trợ sẽ sớm liên hệ với bạn."
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/wizard/account_journal_duplicate_transactions.py:0
 msgid "%s duplicate transactions"
-msgstr ""
+msgstr "%s giao dịch trùng lặp"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -53,7 +57,7 @@ msgstr "0 giao dịch được lấy"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
 msgid "<i class=\"fa fa-trash me-1\"/> Delete Selected"
-msgstr ""
+msgstr "<i class=\"fa fa-trash me-1\"/> Xoá"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_form
@@ -347,7 +351,7 @@ msgstr "Xem tài liệu"
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_duplicate_transaction_wizard_view_form
 msgid ""
 "Choose a date and a journal from which you want to check the transactions."
-msgstr ""
+msgstr "Chọn ngày và sổ nhật ký mà bạn muốn kiểm tra giao dịch"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_missing_transaction_wizard_view_form
@@ -398,7 +402,7 @@ msgstr "Kết nối ngân hàng"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_journal_dashboard_inherit_online_sync
 msgid "Connect bank"
-msgstr ""
+msgstr "Kết nối ngân hàng"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
@@ -564,7 +568,7 @@ msgstr "Đang lấy dữ liệu..."
 #: code:addons/account_online_synchronization/models/account_journal.py:0
 #: code:addons/account_online_synchronization/static/src/components/bank_reconciliation/find_duplicate_transactions_cog_menu.xml:0
 msgid "Find Duplicate Transactions"
-msgstr ""
+msgstr "Tìm kiếm giao dịch trùng lặp"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -577,7 +581,7 @@ msgstr "Tìm kiếm giao dịch bị thiếu"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__first_ids_in_group
 msgid "First Ids In Group"
-msgstr ""
+msgstr "ID đầu tiên trong nhóm"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_follower_ids
@@ -1121,7 +1125,7 @@ msgstr "Thiết lập tài khoản ngân hàng"
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "Some transactions"
-msgstr ""
+msgstr "Một số giao dịch"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__date
@@ -1181,6 +1185,8 @@ msgid ""
 "This action will delete all selected transactions. Are you sure you want to "
 "proceed?"
 msgstr ""
+"Tác vụ này sẽ xóa tất cả các giao dịch đã chọn. Bạn có chắc chắn muốn tiếp "
+"tục không?"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1268,7 +1274,7 @@ msgstr "Lịch sử trao đổi qua trang web"
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_duplicate_transaction_wizard
 msgid "Wizard for duplicate transactions"
-msgstr ""
+msgstr "Công cụ cho giao dịch trùng lặp"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_missing_transaction_wizard
@@ -1367,7 +1373,7 @@ msgstr "đang tải..."
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/views/account_online_authorization_kanban_controller.xml:0
 msgid "may be duplicates."
-msgstr ""
+msgstr "có thể trùng lặp."
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent

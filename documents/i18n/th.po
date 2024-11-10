@@ -1408,7 +1408,7 @@ msgstr "แผนการจัดทำเอกสาร"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "การเปลี่ยนเส้นทางเอกสาร"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -1989,6 +1989,7 @@ msgstr ""
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
 msgstr ""
@@ -3673,6 +3674,12 @@ msgid ""
 msgstr ""
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot access folders in the trash."
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
@@ -3688,6 +3695,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot move folders or files when in the trash."
 msgstr ""
 
 #. module: documents

@@ -2000,6 +2000,7 @@ msgstr "ID thư mục không hợp lệ"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
 msgstr "Thao tác không hợp lệ"
@@ -3645,7 +3646,7 @@ msgstr "Bạn không được phép thực hiện thao tác này."
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to pin/unpin embedded Actions."
-msgstr ""
+msgstr "Bạn không được phép ghim/bỏ ghim các Tác vụ nhúng."
 
 #. module: documents
 #. odoo-python
@@ -3704,10 +3705,17 @@ msgstr ""
 "Bạn không thể tạo lối tắt hoặc di chuyển tài liệu vào thư mục đặc biệt này."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot access folders in the trash."
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
 msgstr ""
+"Bạn không thể thay đổi chủ sở hữu của những tài liệu mà bạn không sở hữu."
 
 #. module: documents
 #. odoo-python
@@ -3720,6 +3728,12 @@ msgstr "Bạn không thể xóa các thẻ được sử dụng trong các tác 
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
 msgstr "Bạn không thể sao chép (các) tài liệu trong Thùng rác."
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot move folders or files when in the trash."
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

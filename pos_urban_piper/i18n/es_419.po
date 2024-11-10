@@ -3,16 +3,17 @@
 # 	* pos_urban_piper
 # 
 # Translators:
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Wil Odoo, 2024
+# Fernanda Alvarez, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -116,6 +117,11 @@ msgid "Countries where this provider is available"
 msgstr "Países donde este proveedor está disponible"
 
 #. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Create Store"
+msgstr "Crear tienda"
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__create_uid
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_urban_piper_status__create_uid
 msgid "Created by"
@@ -162,6 +168,11 @@ msgstr "Dirección de entrega"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Channel"
 msgstr "Canal de entrega"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
+msgid "Delivery Charges"
+msgstr "Cargos por envío"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_identifier
@@ -297,6 +308,12 @@ msgid "Fulfilment Mode"
 msgstr "Modo de logística"
 
 #. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid "Go to Company configuration"
+msgstr "Ir a la configuración de la empresa"
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urban_piper_status_ids
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__urban_piper_status_ids
 msgid ""
@@ -310,7 +327,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "HungerStation Code"
-msgstr ""
+msgstr "Código de HungerStation"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__id
@@ -503,6 +520,11 @@ msgid "Order does not load from server"
 msgstr "La orden no carga en el servidor"
 
 #. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
+msgid "Other Charges"
+msgstr "Otros cargos"
+
+#. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Others"
@@ -524,6 +546,11 @@ msgstr "Salida"
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "POS ID"
 msgstr "ID del PdV"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
+msgid "Packaging Charges"
+msgstr "Cargos por empaque"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
@@ -667,7 +694,7 @@ msgstr "Rechazar orden"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Rejecting this order is not allowed for \"%(providerName)s\""
-msgstr ""
+msgstr "No se permite rechazar la orden para \"%(providerName)s\""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_provider_id
@@ -753,13 +780,13 @@ msgstr "Parámetro del sistema"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Code"
-msgstr ""
+msgstr "Código de Talabat"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Short Code"
-msgstr ""
+msgstr "Código corto de Talabat"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__technical_name
@@ -892,11 +919,6 @@ msgid "UrbanPiper API Key is required.\n"
 msgstr "Se requiere la clave API para UrbanPiper.\n"
 
 #. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
-msgid "UrbanPiper Delivery Charges"
-msgstr "Cargos por envío de UrbanPiper"
-
-#. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/res_config_settings.py:0
 msgid "UrbanPiper Delivery Providers are required."
@@ -906,16 +928,6 @@ msgstr "Se necesitan proveedores de entrega de UrbanPiper."
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
 msgid "UrbanPiper Fiscal Position"
 msgstr "Posición fiscal de UrbanPiper"
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
-msgid "UrbanPiper Other Charges"
-msgstr "Otros cambios de UrbanPiper"
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
-msgid "UrbanPiper Packaging Charges"
-msgstr "Cargos por embalaje de UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_pricelist_id
@@ -966,3 +978,11 @@ msgstr "Vegetariano"
 #: code:addons/pos_urban_piper/models/ir_config_parameter.py:0
 msgid "You cannot change the pos_urban_piper.uuid."
 msgstr "No puede cambiar el pos_urban_piper.uuid."
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid ""
+"Your company %s needs to have a correct city in order create the store."
+msgstr ""
+"Si empresa %s debe tener una ciudad correcta para poder crear una tienda."

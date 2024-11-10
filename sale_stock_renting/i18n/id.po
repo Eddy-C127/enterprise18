@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Abe Manyo, 2024\n"
 "Language-Team: Indonesian (https://app.transifex.com/odoo/teams/41243/id/)\n"
@@ -53,10 +53,18 @@ msgstr ""
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__padding_time
-#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
 msgid ""
 "Amount of time (in hours) during which a product is considered unavailable "
 "prior to renting (preparation time)."
+msgstr ""
+"Jumlah waktu (dalam jam) di mana produk akan dianggap tidak tersedia sebelum"
+" dirental (waktu persiapan)."
+
+#. module: sale_stock_renting
+#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
+msgid ""
+"Amount of time (in hours) during which a product is considered "
+"unavailableprior to renting (preparation time)."
 msgstr ""
 "Jumlah waktu (dalam jam) di mana produk akan dianggap tidak tersedia sebelum"
 " dirental (waktu persiapan)."
@@ -158,11 +166,6 @@ msgid ""
 msgstr ""
 "Tidak ada kuantitas valid yang ditemukan di lokasi %(location)s untuk nomor "
 "seri %(serial_number)s!"
-
-#. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "Rental-rental lain sedang konflik."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
@@ -316,6 +319,11 @@ msgstr "Pergerakan Stok"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
 msgstr "Untuk sementara buat produk ini tidak tersedia sebelum pickup."
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr "Produk tidak tersedia selama periode ini."
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

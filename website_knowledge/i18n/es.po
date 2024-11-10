@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"POT-Creation-Date: 2024-10-25 09:16+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
@@ -20,24 +20,20 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
-msgid "<i class=\"fa fa-circle-o-notch fa-2x fa-spin\" title=\"loader\" role=\"img\"/>"
-msgstr "<i class=\"fa fa-circle-o-notch fa-2x fa-spin\" title=\"loader\" role=\"img\"/>"
-
-#. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article not Published"
 msgstr "Artículo no publicado"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Article not found"
 msgstr "No se encontró el artículo"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Article shared to web"
 msgstr "Artículo compartido a la web"
 
@@ -45,12 +41,6 @@ msgstr "Artículo compartido a la web"
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__can_publish
 msgid "Can Publish"
 msgstr "Puede publicar"
-
-#. module: website_knowledge
-#. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
-msgid "Download"
-msgstr "Descargar"
 
 #. module: website_knowledge
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__is_published
@@ -61,7 +51,7 @@ msgstr "Está publicado"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "It and its published children can be read by anyone"
 msgstr "Todo el mundo puede leer el artículo y sus hijos publicados"
 
@@ -77,7 +67,7 @@ msgstr "Cargar mas"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
+#: code:addons/website_knowledge/static/src/frontend/editor/embedded_components/view/view_placeholder.xml:0
 msgid "Log in"
 msgstr "Iniciar sesión"
 
@@ -88,7 +78,7 @@ msgstr "No se encontró ningún artículo"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Only specific people can access"
 msgstr "Solo personas específicas tienen acceso"
 
@@ -99,25 +89,27 @@ msgstr "Publicar artículos"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Publish this Article and its children on the web"
 msgstr "Publicar este artículo y sus hijos en el sitio web"
 
 #. module: website_knowledge
-#: model:ir.model,name:website_knowledge.model_ir_qweb
-msgid "Qweb"
-msgstr "Qweb"
-
-#. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Search an article..."
 msgstr "Buscar un artículo..."
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/js/components/website_knowledge.xml:0
+#: code:addons/website_knowledge/static/src/backend/components/permission_panel/permission_panel.xml:0
 msgid "Share to web"
 msgstr "Compartir en la web"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "Sign in"
+msgstr "Iniciar sesión"
 
 #. module: website_knowledge
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__summary
@@ -126,14 +118,7 @@ msgstr "Resumen"
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
-msgid "The Excalidraw URL is not valid. Ask an internal user to update it."
-msgstr ""
-"La URL de Excalidraw no es válida. Pídale a un usuario interno que la "
-"actualice."
-
-#. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid ""
 "The article you are trying the read has either been removed or you do not "
 "have access to it."
@@ -157,9 +142,15 @@ msgstr ""
 
 #. module: website_knowledge
 #. odoo-javascript
-#: code:addons/website_knowledge/static/src/xml/knowledge_public.xml:0
+#: code:addons/website_knowledge/static/src/frontend/editor/embedded_components/view/view_placeholder.xml:0
 msgid "This view is only available for internal users"
 msgstr "Esta vista solo está disponible para usuarios internos"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "Toggle aside menu"
+msgstr "Alternar menú lateral"
 
 #. module: website_knowledge
 #: model:ir.actions.server,name:website_knowledge.knowledge_action_unpublish_articles
@@ -167,7 +158,8 @@ msgid "Unpublish Articles"
 msgstr "Anular publicación de artículos"
 
 #. module: website_knowledge
-#: model_terms:ir.ui.view,arch_db:website_knowledge.article_view_public
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
 msgid "Untitled"
 msgstr "Sin título"
 
@@ -185,3 +177,9 @@ msgstr "Sitio web"
 #: model:ir.model.fields,field_description:website_knowledge.field_knowledge_article__website_url
 msgid "Website URL"
 msgstr "URL del sitio web"
+
+#. module: website_knowledge
+#. odoo-javascript
+#: code:addons/website_knowledge/static/src/frontend/knowledge_public_view/knowledge_public_view.xml:0
+msgid "loader"
+msgstr "loader"

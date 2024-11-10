@@ -13,19 +13,20 @@
 # Johanna Valkonen <miujohanna@gmail.com>, 2024
 # Jenni Heikkilä <jenni.heikkila@sv-oy.fi>, 2024
 # Mikko Salmela <salmemik@gmail.com>, 2024
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Eino Mäkitalo <eino.makitalo@netitbe.fi>, 2024
 # Martin Trigaux, 2024
 # Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:24+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
+"Last-Translator: Pekko Tuomisto <pekko.tuomisto@web-veistamo.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -319,7 +320,9 @@ msgstr "Jos valittu, uudet viestit vaativat huomiotasi."
 
 #. module: room
 #: model:ir.model.fields,help:room.field_room_booking__message_has_error
+#: model:ir.model.fields,help:room.field_room_booking__message_has_sms_error
 #: model:ir.model.fields,help:room.field_room_room__message_has_error
+#: model:ir.model.fields,help:room.field_room_room__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr "Jos valittu, joitakin viestejä ei ole toimitettu."
 
@@ -566,6 +569,12 @@ msgid "Rooms"
 msgstr "Huoneet"
 
 #. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__message_has_sms_error
+#: model:ir.model.fields,field_description:room.field_room_room__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Tekstiviestin toimitusvirhe"
+
+#. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_booking_view_form
 msgid "Select a Room..."
 msgstr ""
@@ -639,6 +648,18 @@ msgstr "Kunnes"
 #: code:addons/room/static/src/room_booking/room_booking_form/room_booking_form.xml:0
 msgid "Update Meeting"
 msgstr ""
+
+#. module: room
+#: model:ir.model.fields,field_description:room.field_room_booking__website_message_ids
+#: model:ir.model.fields,field_description:room.field_room_room__website_message_ids
+msgid "Website Messages"
+msgstr "Verkkosivun ilmoitukset"
+
+#. module: room
+#: model:ir.model.fields,help:room.field_room_booking__website_message_ids
+#: model:ir.model.fields,help:room.field_room_room__website_message_ids
+msgid "Website communication history"
+msgstr "Verkkosivun viestihistoria"
 
 #. module: room
 #: model_terms:ir.ui.view,arch_db:room.room_room_view_form

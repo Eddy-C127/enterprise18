@@ -3,22 +3,25 @@
 # 	* spreadsheet_dashboard_marketing_automation
 # 
 # Translators:
-# Mikko Salmela <salmemik@gmail.com>, 2024
 # Johanna Valkonen <miujohanna@gmail.com>, 2024
 # Miika Nissi <miika.nissi@tawasta.fi>, 2024
-# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Veikko Väätäjä <veikko.vaataja@gmail.com>, 2024
-# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
+# Sanna Edelman <direct@generare.com>, 2024
+# Svante Suominen <svante.suominen@web-veistamo.fi>, 2024
+# Miku Laitinen <miku.laitinen@gmail.com>, 2024
+# Mikko Salmela <salmemik@gmail.com>, 2024
+# Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Martin Trigaux, 2024
+# Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,12 +32,14 @@ msgstr ""
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "# of mails opened"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "# of mails sent"
 msgstr ""
 
@@ -47,6 +52,7 @@ msgstr ""
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Bounce Rate"
 msgstr ""
 
@@ -58,31 +64,48 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Bounced"
+msgstr "Hylätty"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Bounced (%)"
 msgstr "Pompanneet (%)"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Cancelled"
+msgstr "Peruttu"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Click-Through Rate (CTR)"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Click-to-open Rate (CTOR)"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Clicked"
 msgstr "Klikattu"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Clicks (%)"
 msgstr ""
 
@@ -95,18 +118,33 @@ msgstr "Muuntokurssi"
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Count"
 msgstr "Määrä"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Created on"
+msgstr "Luotu"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Delivered"
+msgstr "Toimitettu"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Delivery  Rate"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Delivery Rate"
 msgstr ""
 
@@ -118,14 +156,15 @@ msgstr "Sähköpostimarkkinointi"
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Engagement Rate"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Link Tracker by Number of Clicks"
-msgstr ""
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Exception"
+msgstr "Poikkeus"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
@@ -136,87 +175,29 @@ msgstr "Posituskampanja"
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing Click Statistics by Clicked on (Month) and Status"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing Click Statistics by Clicked on (Month) and Status (previous)"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing List Subscriptions by Mailing List & Failure Type"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing List Subscriptions by Mailing List & Failure Type (previous)"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing Statistics by Opened on (Month) and Status"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing Statistics by Opened on (Month) and Status (previous)"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing Statistics by Sent Date (Month) and Failed Reason"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Mailing campaigns in preparation"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mailing sent Statistics by Created on (Month & Year) & status"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid ""
-"Mailing sent Statistics by Created on (Month & Year) & status (previous)"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Mails sent over previous period"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Mails sent per month"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mass mailing list (draft)"
-msgstr ""
-
-#. module: spreadsheet_dashboard_marketing_automation
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
-msgid "Mass mailing list per launch date (active)"
-msgstr ""
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Mass Mailing"
+msgstr "Massapostitus"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
@@ -227,6 +208,7 @@ msgstr "Media"
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "N-1"
 msgstr ""
 
@@ -238,6 +220,18 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "None"
+msgstr "Ei mitään"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Number of Clicks"
+msgstr "Klikkausten lukumäärä"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
 msgid "Number of orders"
 msgstr ""
@@ -245,14 +239,28 @@ msgstr ""
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Open Rate"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Opened"
+msgstr "Avattu"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Opened (%)"
 msgstr "Avattu (%)"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Page Title"
+msgstr "Sivun otsikko"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
@@ -263,18 +271,33 @@ msgstr "Jakso"
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Reason"
 msgstr "Syy"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Received (%)"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Recipients Model"
+msgstr "Vastaanottajien mall"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Replied"
+msgstr "Vastauksia"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Replied (%)"
 msgstr "Vastattu (%)"
 
@@ -287,6 +310,7 @@ msgstr ""
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Responsible"
 msgstr "Vastuuhenkilö"
 
@@ -298,9 +322,39 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Scheduled for"
+msgstr "Ajastettu"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Sent"
+msgstr "Lähetetty"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Sent Date"
+msgstr "Lähetyspäivä"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
 msgid "Source"
 msgstr "Lähde"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Status"
+msgstr "Tila"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Subject"
+msgstr "Aihe"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
@@ -310,19 +364,28 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Target URL"
+msgstr "Kohde URL"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Top 10 best link trackers"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Top 10 recent mailing campaigns"
 msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Top 5 failed reasons"
 msgstr ""
 
@@ -334,6 +397,12 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
+msgid "Total"
+msgstr "Yhteensä"
+
+#. module: spreadsheet_dashboard_marketing_automation
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
 msgid "Unsubscribe Rate"
 msgstr ""
@@ -341,12 +410,14 @@ msgstr ""
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Unsubscribed"
 msgstr "Erottu"
 
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "Unsubscribers"
 msgstr ""
 
@@ -359,5 +430,6 @@ msgstr "Käyntiä"
 #. module: spreadsheet_dashboard_marketing_automation
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_marketing_automation/data/files/marketing_automation_sample_dashboard.json:0
 msgid "vs last period"
 msgstr ""

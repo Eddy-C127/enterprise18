@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Rasareeyar Lappiam, 2024\n"
 "Language-Team: Thai (https://app.transifex.com/odoo/teams/41243/th/)\n"
@@ -27,6 +27,8 @@ msgid ""
 "\n"
 "- You are trying to invoice recurring orders. Please verify the delivered quantity of product based on invoicing policy, next invoice date and end date of the contract."
 msgstr ""
+"\n"
+"- คุณกำลังพยายามออกใบแจ้งหนี้สำหรับคำสั่งซื้อที่เกิดขึ้นซ้ำ โปรดตรวจสอบปริมาณผลิตภัณฑ์ที่จัดส่งตามนโยบายการออกใบแจ้งหนี้ วันออกใบแจ้งหนี้ครั้งต่อไป และวันสิ้นสุดสัญญา"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__nbr
@@ -98,14 +100,6 @@ msgstr "3 เดือน"
 #: model:sale.subscription.plan,name:sale_subscription.subscription_plan_6_month
 msgid "6 Months"
 msgstr "6 เดือน"
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-msgid ""
-"<b>Congratulations</b>, you sent your first quote.</br>Wait for your "
-"customer to validate it from the email or confirm it manually."
-msgstr ""
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
@@ -948,6 +942,11 @@ msgid "ARR Change (normalized)"
 msgstr "การเปลี่ยนแปลง ARR (ทำให้เป็นมาตรฐาน)"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
+msgid "Abandoned Cart"
+msgstr "รถเข็นที่ถูกละทิ้ง"
+
+#. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_move_send
 msgid "Account Move Send"
 msgstr "ส่งย้ายบัญชี"
@@ -1023,6 +1022,7 @@ msgstr ""
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_quantity
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Add Products"
 msgstr "เพิ่มสินค้า"
 
@@ -1178,6 +1178,7 @@ msgstr "ปิดอัตโนมัติ"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit_display
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Automatic Closing After"
 msgstr "ปิดอัตโนมัติหลังจาก"
 
@@ -1439,6 +1440,7 @@ msgstr "คลิกที่นี่เพื่อเพิ่มผลิต
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "ปิดได้"
 
@@ -2155,8 +2157,9 @@ msgstr "หากมี ต้องปฏิบัติตามเงื่�
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
-msgstr "หากมี จะต้องเป็นไปตามเงื่อนไขนี้ก่อนที่จะอัปเดตบันทึก"
+"record. Not checked on record creation."
+msgstr ""
+"หากมี เงื่อนไขนี้ต้องเป็นไปตามก่อนอัปเดตบันทึก ไม่ได้ตรวจสอบเมื่อสร้างบันทึก"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -3153,6 +3156,11 @@ msgid "Products"
 msgstr "สินค้า"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__project_id
+msgid "Project"
+msgstr "โปรเจ็กต์"
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
 msgid "Qty Delivered"
 msgstr "จำนวนที่จะจัดส่งแล้ว"
@@ -3401,6 +3409,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_extend
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_extend
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "Renew"
 msgstr "ต่ออายุ"
@@ -4713,6 +4722,11 @@ msgstr "เราไม่อยากให้คุณจากเราไป
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__webhook_uuid
 msgid "Webhook UUID"
 msgstr "Webhook UUID"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
+msgid "Website"
+msgstr "เว็บไซต์"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids

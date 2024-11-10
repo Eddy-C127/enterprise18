@@ -51,13 +51,13 @@ msgstr "Postituse tegelik LinkedIn ID"
 #. odoo-python
 #: code:addons/social_linkedin/models/social_account.py:0
 msgid "An error occurred when fetching your pages data: “%s”."
-msgstr ""
+msgstr "Sinu lehe andmete laadimine ebaõnnestus: “%s”."
 
 #. module: social_linkedin
 #. odoo-python
 #: code:addons/social_linkedin/models/social_account.py:0
 msgid "An error occurred when fetching your pages: “%s”."
-msgstr ""
+msgstr "Sinu lehe andmete laadimine ebaõnnestus: “%s”."
 
 #. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_res_config_settings__linkedin_app_id
@@ -94,19 +94,19 @@ msgstr "Seadistused"
 #. odoo-python
 #: code:addons/social_linkedin/models/social_stream_post.py:0
 msgid "Could not like / dislike this comment."
-msgstr ""
+msgstr "Ei saanud seda kommentaari meeldivaks/mittemeeldivaks märkida."
 
 #. module: social_linkedin
 #. odoo-python
 #: code:addons/social_linkedin/models/social_stream_post.py:0
 msgid "Couldn't delete the post: “%s”."
-msgstr ""
+msgstr "Ei saanud postitust kustutada: “%s”."
 
 #. module: social_linkedin
 #. odoo-python
 #: code:addons/social_linkedin/models/social_stream_post.py:0
 msgid "Couldn't update the post: “%s”."
-msgstr ""
+msgstr "Ei saanud postitust uuendada: “%s”."
 
 #. module: social_linkedin
 #: model:ir.model.fields,field_description:social_linkedin.field_social_post__display_linkedin_preview
@@ -118,6 +118,14 @@ msgstr "Kuva LinkedIni eelvaadet"
 #. odoo-python
 #: code:addons/social_linkedin/models/social_stream_post.py:0
 msgid "Failed to post the comment: “%(error_description)s”"
+msgstr "Kommentaari postitamine ebaõnnestus: “%(error_description)s”"
+
+#. module: social_linkedin
+#. odoo-python
+#: code:addons/social_linkedin/models/social_stream_post.py:0
+msgid ""
+"Failed to retrieve the post. It might have been deleted or you may not have "
+"permission to view it."
 msgstr ""
 
 #. module: social_linkedin

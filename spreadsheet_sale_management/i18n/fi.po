@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
@@ -25,10 +25,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: spreadsheet_sale_management
+#: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_spreadsheet_view_search
+msgid "Calculator Templates"
+msgstr "Laskimen mallit"
+
+#. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Cell to sync"
-msgstr ""
+msgstr "Synkronoitavat solut"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__company_id
@@ -48,13 +53,13 @@ msgstr "Luotu"
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__current_revision_uuid
 msgid "Current Revision Uuid"
-msgstr ""
+msgstr "Nykyisen version UUID"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Delete field syncing"
-msgstr ""
+msgstr "Poista kentän synkronointi"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__display_name
@@ -65,24 +70,24 @@ msgstr "Näyttönimi"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Edit sync"
-msgstr ""
+msgstr "Muokkaa synkronointia"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Field syncing"
-msgstr ""
+msgstr "Kenttien synkronointi"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Field to sync"
-msgstr ""
+msgstr "Synkronoitava kenttä"
 
 #. module: spreadsheet_sale_management
 #: model:sale.order.template.line,name:spreadsheet_sale_management.sale_order_template_line_assembly
 msgid "Furniture Assembly"
-msgstr ""
+msgstr "Huonekalujen kokoaminen"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__id
@@ -93,25 +98,25 @@ msgstr "ID"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be a boolean."
-msgstr ""
+msgstr "Sen pitää olla boolean."
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be a number."
-msgstr ""
+msgstr "Sen pitää olla numero."
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be an id."
-msgstr ""
+msgstr "Sen pitää olla id."
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/model/field_sync_ui_plugin.js:0
 msgid "It should be an integer."
-msgstr ""
+msgstr "Sen pitää olla kokonaisluku."
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__write_uid
@@ -135,6 +140,8 @@ msgid ""
 "Multiple cells are updating the same field of the same record! Unable to "
 "determine which one to choose: %s"
 msgstr ""
+"Useat solut päivittävät saman tietueen samaa kenttää. Ei pysty määrittämään,"
+" kumpi valitaan: %s"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__name
@@ -145,7 +152,7 @@ msgstr "Nimi"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/action/field_sync_action.js:0
 msgid "New quote calculator created"
-msgstr ""
+msgstr "Uusi tarjouslaskuri luotu"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__order_id
@@ -156,12 +163,12 @@ msgstr "Tilaus"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Position of the record in the list"
-msgstr ""
+msgstr "Tietueen sijainti luettelossa"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order_spreadsheet
 msgid "Quotation Spreadsheet"
-msgstr ""
+msgstr "Tarjouslaskentataulukko"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order_template
@@ -181,28 +188,39 @@ msgid "Quote"
 msgstr "Sitaatti"
 
 #. module: spreadsheet_sale_management
+#: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_spreadsheet_view_search
+msgid "Quote Sheets"
+msgstr "Tarjouslomakkeet"
+
+#. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order__spreadsheet_template_id
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_template__spreadsheet_template_id
 #: model_terms:ir.ui.view,arch_db:spreadsheet_sale_management.sale_order_view_form
 msgid "Quote calculator"
-msgstr ""
+msgstr "Tarjouslaskuri"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/side_panel/field_sync_side_panel.xml:0
 msgid "Record to sync (position)"
-msgstr ""
+msgstr "Tallenna synkronoitavaksi (sijainti)"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_spreadsheet_cell_thread__sale_order_spreadsheet_id
 msgid "Sale Order Spreadsheet"
-msgstr ""
+msgstr "Myyntitilauksen laskentataulukko"
+
+#. module: spreadsheet_sale_management
+#: model:ir.actions.act_window,name:spreadsheet_sale_management.sale_order_spreadsheet_action
+#: model:ir.ui.menu,name:spreadsheet_sale_management.menu_technical_spreadsheet_sale_order_template
+msgid "Sale Order Spreadsheets"
+msgstr "Myyntitilausten laskentataulukot"
 
 #. module: spreadsheet_sale_management
 #. odoo-python
 #: code:addons/spreadsheet_sale_management/models/sale_order_spreadsheet.py:0
 msgid "Sale order lines"
-msgstr ""
+msgstr "Myyntitilausrivit"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_sale_order
@@ -213,7 +231,7 @@ msgstr "Myyntitilaus"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/action/field_sync_action.xml:0
 msgid "Save in"
-msgstr ""
+msgstr "Tallenna kohteeseen"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -229,7 +247,7 @@ msgstr "Taulukkolaskentataulukon data"
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__spreadsheet_file_name
 msgid "Spreadsheet File Name"
-msgstr ""
+msgstr "Taulukkolaskentataulukon tiedoston nimi"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__spreadsheet_revision_ids
@@ -244,7 +262,7 @@ msgstr "Taulukkolaskennan tilannekuva"
 #. module: spreadsheet_sale_management
 #: model:ir.model,name:spreadsheet_sale_management.model_spreadsheet_cell_thread
 msgid "Spreadsheet discussion thread"
-msgstr ""
+msgstr "Taulukkolaskennan keskusteluketju"
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__spreadsheet_binary_data
@@ -255,7 +273,7 @@ msgstr "Taulukkolaskentatiedosto"
 #. odoo-javascript
 #: code:addons/spreadsheet_sale_management/static/src/bundle/field_sync/field_sync_extension_hook.js:0
 msgid "Sync with field"
-msgstr ""
+msgstr "Synkronoi kentän kanssa"
 
 #. module: spreadsheet_sale_management
 #. odoo-javascript
@@ -264,6 +282,8 @@ msgid ""
 "The value of %(cell_reference)s (%(cell_value)s) can't be used for field "
 "\"%(field_name)s\"."
 msgstr ""
+"Arvoa %(cell_reference)s (%(cell_value)s) ei voi käyttää kentässä "
+"\"%(field_name)s\"."
 
 #. module: spreadsheet_sale_management
 #: model:ir.model.fields,field_description:spreadsheet_sale_management.field_sale_order_spreadsheet__thumbnail

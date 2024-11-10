@@ -2023,6 +2023,7 @@ msgstr "Ongeldige map-id"
 
 #. module: documents
 #. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
 #: code:addons/documents/static/src/views/search/documents_search_panel.js:0
 msgid "Invalid operation"
 msgstr "Ongeldige bewerking"
@@ -3678,6 +3679,8 @@ msgstr "Je mag deze handeling niet uitvoeren."
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to pin/unpin embedded Actions."
 msgstr ""
+"Het is niet toegestaan ​​om ingesloten acties vast te pinnen of los te "
+"pinnen."
 
 #. module: documents
 #. odoo-python
@@ -3736,10 +3739,18 @@ msgstr ""
 "speciale map."
 
 #. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot access folders in the trash."
+msgstr ""
+
+#. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
 msgstr ""
+"Je kunt de eigenaar van documenten waarvan je niet de eigenaar bent, niet "
+"wijzigen."
 
 #. module: documents
 #. odoo-python
@@ -3752,6 +3763,12 @@ msgstr "Je kunt geen tags verwijderen die gebruikt worden in serveracties."
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot duplicate document(s) in the Trash."
 msgstr "Je kunt documenten niet dupliceren in de Prullenbak."
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/documents_model_mixin.js:0
+msgid "You cannot move folders or files when in the trash."
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

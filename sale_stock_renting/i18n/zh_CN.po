@@ -4,15 +4,16 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -52,11 +53,17 @@ msgstr "激活使用库存交付和租赁订单收据"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__padding_time
-#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
 msgid ""
 "Amount of time (in hours) during which a product is considered unavailable "
 "prior to renting (preparation time)."
 msgstr "产品在出租前被认为无法使用的时间（小时）（准备时间）。"
+
+#. module: sale_stock_renting
+#: model:ir.model.fields,help:sale_stock_renting.field_res_config_settings__padding_time
+msgid ""
+"Amount of time (in hours) during which a product is considered "
+"unavailableprior to renting (preparation time)."
+msgstr "产品在租用前被视为不可用的时间（以小时为单位）（准备时间）。"
 
 #. module: sale_stock_renting
 #. odoo-javascript
@@ -153,11 +160,6 @@ msgid ""
 "No valid quant has been found in location %(location)s for serial number "
 "%(serial_number)s!"
 msgstr "在位置 %(location)s 中，序号 %(serial_number)s 找不到有效数量！"
-
-#. module: sale_stock_renting
-#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
-msgid "Other rental(s) in conflict."
-msgstr "其他冲突中的租赁。"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_res_config_settings__padding_time
@@ -278,7 +280,7 @@ msgstr "销售订单"
 #. module: sale_stock_renting
 #: model:ir.model,name:sale_stock_renting.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "销售订单行"
+msgstr "销售订单明细"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,field_description:sale_stock_renting.field_product_product__preparation_time
@@ -310,6 +312,11 @@ msgstr "库存移动"
 #: model:ir.model.fields,help:sale_stock_renting.field_product_template__preparation_time
 msgid "Temporarily make this product unavailable before pickup."
 msgstr "在取货前，暂时让这个产品无法使用。"
+
+#. module: sale_stock_renting
+#: model_terms:ir.ui.view,arch_db:sale_stock_renting.rental_schedule_view_gantt_inherit_stock
+msgid "The product is not available during this period."
+msgstr "该产品在此期间不可用。"
 
 #. module: sale_stock_renting
 #: model:ir.model.fields,help:sale_stock_renting.field_res_company__rental_loc_id

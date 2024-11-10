@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:24+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -71,7 +72,7 @@ msgstr ""
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.view_partner_form
 msgid "<span class=\"o_stat_text\">Chats</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Chat</span>"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.template_message_preview
@@ -106,6 +107,8 @@ msgid ""
 "A new template was sent on %(record_link)s.<br>Future replies will be "
 "transferred to a new chat."
 msgstr ""
+"Một mẫu mới đã được gửi qua %(record_link)s.<br>Các câu trả lời sau này sẽ "
+"được chuyển đến một cuộc trò chuyện mới."
 
 #. module: whatsapp
 #. odoo-python
@@ -345,7 +348,7 @@ msgstr "Các nút chỉ có thể chứa một phần giữ chỗ."
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template_button__call_number
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_button__button_type__phone_number
 msgid "Call Number"
-msgstr "Gọi điện"
+msgstr "Điện thoại"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_account__callback_url
@@ -467,7 +470,7 @@ msgstr "Ngày tạo"
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
 msgid "Create an Account on the"
-msgstr "Tạo một tài khoản trên"
+msgstr "Tạo một tài khoản trên nền tảng"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.discuss_channel_view_list_whatsapp
@@ -702,7 +705,7 @@ msgstr "Các biến mẫu trường %(var_names)s phải được liên kết v�
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "File type %(file_type)s not supported for header type %(header_type)s"
 msgstr ""
-"Loại tệp %(file_type)s không được hỗ trợ cho loại đầu trang %(header_type)s"
+"Loại tệp %(file_type)s không được hỗ trợ cho loại header %(header_type)s"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__fil
@@ -729,7 +732,7 @@ msgstr "Người theo dõi (Đối tác)"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__footer_text
 msgid "Footer Message"
-msgstr "Nội dung chân trang"
+msgstr "Nội dung footer"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_variable__field_type__free_text
@@ -801,7 +804,7 @@ msgstr "Các biến mẫu văn bản tự do phải có giá trị demo."
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "Free text variable in the header should be {{1}}"
-msgstr "Biến văn bản tự do trong phần đầu trang phải là {{1}}"
+msgstr "Biến văn bản tự do trong phần header phải là {{1}}"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__fr
@@ -877,29 +880,29 @@ msgstr "Hausa"
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template_variable__line_type__header
 msgid "Header"
-msgstr "Đầu trang"
+msgstr "Header"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__header_text_1
 msgid "Header Free Text"
-msgstr "Văn bản tự do đầu trang"
+msgstr "Văn bản tự do header"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__header_type
 msgid "Header Type"
-msgstr "Loại đầu trang"
+msgstr "Loại header"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "Header document is required"
-msgstr "Tài liệu đầu trang là bắt buộc"
+msgstr "Tài liệu header là bắt buộc"
 
 #. module: whatsapp
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "Header document or report is required"
-msgstr "Tài liệu hoặc báo cáo đầu trang là bắt buộc"
+msgstr "Tài liệu hoặc báo cáo header là bắt buộc"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__he
@@ -1011,7 +1014,7 @@ msgstr "Là người theo dõi"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__is_header_free_text
 msgid "Is Header Free Text"
-msgstr "Đầu trang là văn bản tự do"
+msgstr "Header là văn bản tự do"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_composer__batch_mode
@@ -1021,7 +1024,7 @@ msgstr "Là đa bản ghi"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__whatsapp_channel_active
 msgid "Is Whatsapp Channel Active"
-msgstr ""
+msgstr "Kênh WhatsApp đang hoạt động"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__it
@@ -1098,7 +1101,7 @@ msgstr "Cập nhật lần cuối vào"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__last_wa_mail_message_id
 msgid "Last WA Partner Mail Message"
-msgstr ""
+msgstr "Nội dung email WA cuối cùng"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_search
@@ -1158,7 +1161,7 @@ msgstr ""
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid ""
 "Location variables should only exist when a \"location\" header is selected."
-msgstr "Biến vị trí chỉ nên tồn tại khi đầu trang \"vị trí\" được chọn."
+msgstr "Biến vị trí chỉ nên tồn tại khi header \"vị trí\" được chọn."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__lang_code__mk
@@ -1194,7 +1197,7 @@ msgstr "Marketing"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "Maximum 1 Call Number button allowed."
-msgstr "Cho phép tối đa 1 nút Gọi điện."
+msgstr "Cho phép tối đa 1 nút Điện thoại."
 
 #. module: whatsapp
 #. odoo-python
@@ -1305,7 +1308,7 @@ msgstr "Lỗi mạng"
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
 msgid "No Account Configured yet!"
-msgstr "Chưa có tài khoản nào được cấu hình!"
+msgstr "Chưa có tài khoản nào được cấu hình!"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_template_action
@@ -1413,8 +1416,7 @@ msgstr "Chỉ cho phép một tệp đính kèm cho mỗi tin nhắn"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "Only templates using media header types may have header documents"
 msgstr ""
-"Chỉ các mẫu sử dụng loại đầu trang đa phương tiện mới có thể có tài liệu đầu"
-" trang"
+"Chỉ các mẫu sử dụng loại header đa phương tiện mới có thể có tài liệu header"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__whatsapp_unrecoverable
@@ -1628,7 +1630,7 @@ msgstr "Đặt lại thành nháp"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_message__parent_id
 msgid "Response To"
-msgstr ""
+msgstr "Trả lời đến"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_message_view_tree
@@ -1860,7 +1862,7 @@ msgstr "Hướng dẫn về mẫu"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__header_text
 msgid "Template Header Text"
-msgstr "Văn bản đầu trang mẫu"
+msgstr "Văn bản header mẫu"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__template_name
@@ -1880,17 +1882,17 @@ msgstr "Đánh giá chất lượng mẫu quá thấp"
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__header_attachment_ids
 msgid "Template Static Header"
-msgstr "Đầu trang tĩnh của mẫu"
+msgstr "Header tĩnh của mẫu"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__variable_ids
 msgid "Template Variables"
-msgstr "Biến mẫu"
+msgstr "Biến"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_whatsapp_template__body
 msgid "Template body"
-msgstr "Nội dung mẫu"
+msgstr "Nội dung"
 
 #. module: whatsapp
 #. odoo-python
@@ -1953,7 +1955,7 @@ msgstr "Thái"
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid ""
 "The Header Text must either contain no variable or the first one {{1}}."
-msgstr "Văn bản đầu trang không được chứa biến hoặc biến đầu tiên {{1}}."
+msgstr "Văn bản header không được chứa biến hoặc biến đầu tiên {{1}}."
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
@@ -1986,7 +1988,7 @@ msgstr "Có thể có các mẫu khác vẫn cần Multi"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "There should be at most 1 variable in the header of the template."
-msgstr "Chỉ được có tối đa 1 biến trong đầu trang của mẫu."
+msgstr "Chỉ được có tối đa 1 biến trong header của mẫu."
 
 #. module: whatsapp
 #. odoo-python
@@ -2282,12 +2284,12 @@ msgstr "Danh mục WhatsApp mở"
 #: model:ir.model.fields,field_description:whatsapp.field_res_partner__wa_channel_count
 #: model:ir.model.fields,field_description:whatsapp.field_res_users__wa_channel_count
 msgid "WhatsApp Channel Count"
-msgstr ""
+msgstr "Số kênh WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model.fields,field_description:whatsapp.field_discuss_channel__whatsapp_channel_valid_until
 msgid "WhatsApp Channel Valid Until Datetime"
-msgstr ""
+msgstr "Kênh WhatsApp Ngày giờ hợp lệ cho đến"
 
 #. module: whatsapp
 #. odoo-python
@@ -2295,7 +2297,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:whatsapp.discuss_channel_view_list_whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.view_partner_form
 msgid "WhatsApp Chats"
-msgstr ""
+msgstr "Chat WhatsApp"
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__discuss_channel__channel_type__whatsapp
@@ -2356,7 +2358,7 @@ msgstr "Biến mẫu WhatsApp"
 #: code:addons/whatsapp/static/src/core/common/im_status_patch.xml:0
 #: code:addons/whatsapp/static/src/discuss/core/common/channel_member_list_patch.xml:0
 msgid "WhatsApp User"
-msgstr ""
+msgstr "Người dùng WhatsApp"
 
 #. module: whatsapp
 #. odoo-python
@@ -2376,7 +2378,7 @@ msgstr "Không thể truy cập WhatsApp hoặc truy vấn không đúng định
 msgid ""
 "When using a \"location\" header, there should 4 location variables not "
 "%(count)d."
-msgstr "Khi sử dụng đầu trang \"vị trí\", không nên có 4 biến vị trí %(count)d."
+msgstr "Khi sử dụng header \"vị trí\", không nên có 4 biến vị trí %(count)d."
 
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_message__failure_type__phone_invalid
@@ -2454,7 +2456,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_template.py:0
 msgid "You may only use one header attachment for each template"
-msgstr "Bạn chỉ có thể sử dụng một tệp đính kèm đầu trang cho một mẫu"
+msgstr "Bạn chỉ có thể sử dụng một tệp đính kèm header cho một mẫu"
 
 #. module: whatsapp
 #. odoo-python
@@ -2471,7 +2473,7 @@ msgstr "Zulu"
 #. odoo-python
 #: code:addons/whatsapp/models/whatsapp_message.py:0
 msgid "another document"
-msgstr ""
+msgstr "tài liệu khác"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_account_view_form
@@ -2511,7 +2513,7 @@ msgstr "VD: https://www.example.com"
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
 msgid "platform then connect it to your Odoo database"
-msgstr "nền tảng sau đó kết nối nó với cơ sở dữ liệu Odoo của bạn"
+msgstr "sau đó kết nối tài khoản đó với cơ sở dữ liệu Odoo của bạn"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_composer_view_form

@@ -13,17 +13,17 @@
 # Tuomas Lyyra <tuomas.lyyra@legenda.fi>, 2024
 # Jarmo Kortetjärvi <jarmo.kortetjarvi@gmail.com>, 2024
 # Martin Trigaux, 2024
-# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # Kari Lindgren <kari.lindgren@emsystems.fi>, 2024
 # Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024
+# Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Tuomo Aura <tuomo.aura@web-veistamo.fi>, 2024\n"
+"Last-Translator: Ossi Mantylahti <ossi.mantylahti@obs-solutions.fi>, 2024\n"
 "Language-Team: Finnish (https://app.transifex.com/odoo/teams/41243/fi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,7 +55,7 @@ msgstr "%(amount)s / %(duration)s"
 
 #. module: sale_renting
 #. odoo-python
-#: code:addons/sale_renting/controllers/utils.py:0
+#: code:addons/sale_renting/models/product_template.py:0
 #: code:addons/sale_renting/models/sale_order_recurrence.py:0
 msgid "%(duration)s %(unit)s"
 msgstr "%(duration)s %(unit)s"
@@ -151,6 +151,7 @@ msgstr ""
 #: model_terms:web_tour.tour,rainbow_man_message:sale_renting.rental_tour
 msgid "<span><b>Good job!</b> You went through all steps of this tour.</span>"
 msgstr ""
+"<span><b>Hyvää työtä!</b> Kävit läpi kaikki tämän kiertueen vaiheet.</span>"
 
 #. module: sale_renting
 #: model_terms:ir.ui.view,arch_db:sale_renting.rental_schedule_view_gantt
@@ -1416,22 +1417,16 @@ msgstr "Noutoa tai paluuta ei ole aikataulutettu."
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_day
 msgid ""
-"This is the default extra cost per day set on newly created products. You "
-"can change this value for existing products directly on the product itself."
+"This is the default extra cost per day set on newly created products.You can"
+" change this value for existing products directly on the product itself."
 msgstr ""
-"Tämä on uusille tuotteille asetettu oletusarvoinen lisäkustannus päivää "
-"kohden. Voit muuttaa tätä arvoa olemassa oleville tuotteille suoraan "
-"tuotteessa."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_hour
 msgid ""
-"This is the default extra cost per hour set on newly created products. You "
+"This is the default extra cost per hour set on newly created products.You "
 "can change this value for existing products directly on the product itself."
 msgstr ""
-"Tämä on uusille tuotteille asetettu oletusarvoinen tuntikohtainen "
-"lisäkustannus. Voit muuttaa tätä arvoa olemassa oleville tuotteille suoraan "
-"tuotteessa."
 
 #. module: sale_renting
 #: model:ir.model.fields,help:sale_renting.field_res_config_settings__extra_product

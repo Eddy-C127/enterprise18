@@ -1,28 +1,64 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_gantt
-#
+# 
 # Translators:
-# Milan Tribuson <one.mile.code@gmail.com>, 2022
-# Vladimir Olujić <olujic.vladimir@storm.hr>, 2022
-# Karolina Tonković <karolina.tonkovic@storm.hr>, 2022
-# Bole <bole@dajmi5.com>, 2022
-# Tina Milas, 2022
-# Martin Trigaux, 2023
-#
+# Bole <bole@dajmi5.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Martin Trigaux, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
-"Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: hr\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_model.js:0
+msgid "%(hour)sh%(minute)s"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "%s cannot be scheduled in the past"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_model.js:0
+msgid "%sh"
+msgstr ""
+
+#. module: web_gantt
+#: model:ir.model,name:web_gantt.model_ir_actions_act_window_view
+msgid "Action Window View"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Activate dense mode"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Activate sparse mode"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Apply"
+msgstr "Primjeni"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -37,46 +73,51 @@ msgstr "Osnovica"
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Collapse rows"
 msgstr ""
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_cell_buttons.xml:0
 #: code:addons/web_gantt/static/src/gantt_controller.js:0
 msgid "Create"
 msgstr "Kreiraj"
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Day"
-msgstr "Dan"
-
-#. module: web_gantt
-#. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 msgid "Edit"
-msgstr ""
+msgstr "Uredi"
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
 msgid "Expand rows"
 msgstr ""
 
 #. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_view.js:0
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Focus Today"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "From"
+msgstr "Od"
+
+#. module: web_gantt
+#: model:ir.model.fields.selection,name:web_gantt.selection__ir_actions_act_window_view__view_mode__gantt
+#: model:ir.model.fields.selection,name:web_gantt.selection__ir_ui_view__type__gantt
 msgid "Gantt"
-msgstr "Gantogram"
+msgstr ""
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "Gantt View"
-msgstr "Gantogram"
+msgstr ""
 
 #. module: web_gantt
 #. odoo-python
@@ -99,7 +140,21 @@ msgstr ""
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
-msgid "Gantt must have a 'dependency_inverted_field' attribute once the 'dependency_field' is specified"
+msgid ""
+"Gantt must have a 'dependency_inverted_field' attribute once the "
+"'dependency_field' is specified"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
+msgid "Gantt start date"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.js:0
+msgid "Gantt stop date"
 msgstr ""
 
 #. module: web_gantt
@@ -109,9 +164,9 @@ msgid "Gantt view can contain only one templates tag"
 msgstr ""
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_model.js:0
-msgid "Grouping by date is not supported"
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "Impossible to schedule in the past."
 msgstr ""
 
 #. module: web_gantt
@@ -123,7 +178,15 @@ msgstr ""
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/ir_ui_view.py:0
-msgid "Invalid attributes (%s) in gantt view. Attributes must be in (%s)"
+msgid ""
+"Invalid attributes (%(invalid_attributes)s) in gantt view. Attributes must "
+"be in (%(valid_attributes)s)"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/ir_ui_view.py:0
+msgid "Invalid default_range '%s' in gantt"
 msgstr ""
 
 #. module: web_gantt
@@ -133,28 +196,22 @@ msgid "Invalid default_scale '%s' in gantt"
 msgstr ""
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Month"
-msgstr "Mjesec"
+#. odoo-python
+#: code:addons/web_gantt/models/ir_ui_view.py:0
+msgid "Invalid display_mode '%s' in gantt"
+msgstr ""
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_popover.xml:0
 msgid "Name"
-msgstr ""
+msgstr "Naziv"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_controller.xml:0
 msgid "New"
 msgstr "Novi"
-
-#. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
-msgid "Next"
-msgstr "Sljedeći"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -169,21 +226,9 @@ msgid "Plan"
 msgstr "Plan"
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_cell_buttons.xml:0
-msgid "Plan existing"
-msgstr ""
-
-#. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
-msgid "Previous"
-msgstr "Prethodni"
-
-#. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
-msgid "Records that are in the past cannot be automatically rescheduled. They should be manually rescheduled instead."
+msgid "Reschedule done successfully."
 msgstr ""
 
 #. module: web_gantt
@@ -199,16 +244,58 @@ msgid "Stop"
 msgstr ""
 
 #. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "The dependencies are not valid, there is a cycle."
+msgstr ""
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "There are no valid candidates to re-plan"
+msgstr ""
+
+#. module: web_gantt
 #. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_renderer.xml:0
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This month"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This quarter"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This week"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
+msgid "This year"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "Today"
 msgstr "Danas"
 
 #. module: web_gantt
 #. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "Toolbar menu"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 msgid "Total"
-msgstr ""
+msgstr "Ukupno"
 
 #. module: web_gantt
 #. odoo-javascript
@@ -221,30 +308,24 @@ msgstr ""
 #: code:addons/web_gantt/static/src/gantt_renderer.js:0
 #: model:ir.model,name:web_gantt.model_ir_ui_view
 msgid "View"
-msgstr "Pogledaj"
+msgstr ""
 
 #. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Week"
-msgstr "Tjedan"
-
-#. module: web_gantt
-#. odoo-javascript
-#: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
-msgid "Year"
-msgstr "Godina"
-
-#. module: web_gantt
-#. odoo-python
-#: code:addons/web_gantt/models/models.py:0
-msgid "You cannot reschedule %s towards %s."
+#: model:ir.model.fields,field_description:web_gantt.field_ir_actions_act_window_view__view_mode
+#: model:ir.model.fields,field_description:web_gantt.field_ir_ui_view__type
+msgid "View Type"
 msgstr ""
 
 #. module: web_gantt
 #. odoo-python
 #: code:addons/web_gantt/models/models.py:0
-msgid "You cannot reschedule tasks that do not follow a direct dependency path. Only the first task has been automatically rescheduled."
+msgid "You cannot move %(record)s towards %(related_record)s."
+msgstr ""
+
+#. module: web_gantt
+#. odoo-python
+#: code:addons/web_gantt/models/models.py:0
+msgid "You cannot reschedule %(main_record)s towards %(other_record)s."
 msgstr ""
 
 #. module: web_gantt
@@ -257,10 +338,22 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "minutes"
-msgstr ""
+msgstr "minuta"
 
 #. module: web_gantt
 #. odoo-javascript
 #: code:addons/web_gantt/static/src/gantt_arch_parser.js:0
 msgid "months"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_renderer_controls.xml:0
+msgid "to"
+msgstr ""
+
+#. module: web_gantt
+#. odoo-javascript
+#: code:addons/web_gantt/static/src/gantt_row_progress_bar.xml:0
+msgid "{{ props.progressBar.warning }}"
 msgstr ""

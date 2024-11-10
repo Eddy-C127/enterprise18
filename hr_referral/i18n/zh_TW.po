@@ -3,8 +3,8 @@
 # 	* hr_referral
 # 
 # Translators:
-# Tony Ng, 2024
 # Wil Odoo, 2024
+# Tony Ng, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Tony Ng, 2024\n"
 "Language-Team: Chinese (Taiwan) (https://app.transifex.com/odoo/teams/41243/zh_TW/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -55,6 +55,8 @@ msgid ""
 ".\n"
 "If you know someone who would be a great fit for this position, please share this link with them:"
 msgstr ""
+"。\n"
+"如果你的親友十分適合該職位，請與他們分享以下連結："
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_email_body_template
@@ -158,6 +160,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-facebook\" role=\"img\" aria-label=\"Share on facebook\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"分享至 Facebook\">\n"
+"                                        <i class=\"fa fa-lg fa-facebook\" role=\"img\" aria-label=\"分享至 facebook\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -166,6 +171,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-linkedin\" role=\"img\" aria-label=\"Share on linkedin\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"分享至 Linkedin\">\n"
+"                                        <i class=\"fa fa-lg fa-linkedin\" role=\"img\" aria-label=\"分享至 linkedin\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -174,6 +182,9 @@ msgid ""
 "                                        <i class=\"fa fa-lg fa-twitter\" role=\"img\" aria-label=\"Share on twitter\"/>\n"
 "                                    </span>"
 msgstr ""
+"<span title=\"分享至 Twitter\">\n"
+"                                        <i class=\"fa fa-lg fa-twitter\" role=\"img\" aria-label=\"分享至 twitter\"/>\n"
+"                                    </span>"
 
 #. module: hr_referral
 #. odoo-python
@@ -839,7 +850,7 @@ msgstr "工作"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_campaign_wizard.py:0
 msgid "Job Offer for a %(job_title)s at %(company_name)s"
-msgstr ""
+msgstr "工作機會：%(job_title)s，公司：%(company_name)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_job
@@ -1057,7 +1068,7 @@ msgstr "沒有工作職位可供分享。"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_campaign_wizard.py:0
 msgid "No users to send the campaign to. Please adapt your target."
-msgstr ""
+msgstr "沒有可以向其發送活動的使用者。請調整你的目標受眾群。"
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_alert__onclick__no
@@ -1135,7 +1146,7 @@ msgstr "開放職位"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_email_body_template
 msgid "Our company is hiring for a"
-msgstr ""
+msgstr "我們公司正在招聘一名"
 
 #. module: hr_referral
 #: model:ir.model.fields,field_description:hr_referral.field_hr_referral_points__applicant_name
@@ -1259,7 +1270,7 @@ msgstr "內部推薦"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral %(user)s: %(job_url)s"
-msgstr ""
+msgstr "推薦 %(user)s：%(job_url)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_alert_mail_wizard
@@ -1281,18 +1292,18 @@ msgstr "推薦背景"
 #: model:ir.actions.server,name:hr_referral.action_hr_job_launch_referral_campaign
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_kanban_inherit_referral
 msgid "Referral Campaign"
-msgstr ""
+msgstr "推薦活動"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_campaign_wizard
 msgid "Referral Campaign Wizard"
-msgstr ""
+msgstr "推薦活動精靈"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_job.py:0
 msgid "Referral Campaign for %(job)s"
-msgstr ""
+msgstr "推薦活動 - 職位：%(job)s"
 
 #. module: hr_referral
 #: model:ir.model,name:hr_referral.model_hr_referral_link_to_share
@@ -1340,7 +1351,7 @@ msgstr "推薦連結已複製至剪貼簿"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(name)s"
-msgstr ""
+msgstr "推薦：%(name)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1352,7 +1363,7 @@ msgstr "轉介：%(partner)s（%(applicant)s）"
 #. odoo-python
 #: code:addons/hr_referral/wizard/hr_referral_link_to_share.py:0
 msgid "Referral: %(url)s"
-msgstr ""
+msgstr "推薦：%(url)s"
 
 #. module: hr_referral
 #. odoo-python
@@ -1459,7 +1470,7 @@ msgstr "查看工作機會"
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_campaign_wizard_view_form
 msgid "Select employees"
-msgstr ""
+msgstr "選取員工"
 
 #. module: hr_referral
 #: model:ir.model.fields.selection,name:hr_referral.selection__hr_referral_campaign_wizard__target__selection
@@ -1657,6 +1668,8 @@ msgid ""
 "This job position is not published. \n"
 "                    The referral campaign will automatically publish it."
 msgstr ""
+"此職位尚未發佈。\n"
+"                    推薦活動將會自動將它發佈。"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.hr_referral_link_to_share_view_form
@@ -1848,13 +1861,13 @@ msgstr "你需要另一個"
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Your referrer got a step further! %(message)s"
-msgstr ""
+msgstr "你的推薦對象向前邁進一步了！%(message)s"
 
 #. module: hr_referral
 #. odoo-python
 #: code:addons/hr_referral/models/hr_applicant.py:0
 msgid "Your referrer is hired! %(message)s"
-msgstr ""
+msgstr "你的推薦對象已獲聘！%(message)s"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.view_hr_job_employee_referral_kanban
@@ -1884,7 +1897,7 @@ msgstr ""
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_sms_template
 msgid "is hiring for a position"
-msgstr ""
+msgstr "正在招募一個職位"
 
 #. module: hr_referral
 #: model_terms:ir.ui.view,arch_db:hr_referral.referral_campaign_email_body_template
@@ -1892,6 +1905,8 @@ msgid ""
 "position.\n"
 "                If you know someone who would be a great fit for this position, please share this link with them:"
 msgstr ""
+"職位。\n"
+"                如果你的親友十分適合該職位，請與他們分享以下連結："
 
 #. module: hr_referral
 #. odoo-javascript

@@ -5,16 +5,16 @@
 # Translators:
 # mrshelly <mrshelly@hotmail.com>, 2024
 # Wil Odoo, 2024
+# Odoo哥 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
-# 何彬 <vnsoft.he@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-26 09:13+0000\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: 何彬 <vnsoft.he@gmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -102,14 +102,6 @@ msgstr "3 个月"
 #: model:sale.subscription.plan,name:sale_subscription.subscription_plan_6_month
 msgid "6 Months"
 msgstr "6个月"
-
-#. module: sale_subscription
-#. odoo-javascript
-#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
-msgid ""
-"<b>Congratulations</b>, you sent your first quote.</br>Wait for your "
-"customer to validate it from the email or confirm it manually."
-msgstr "<b>恭喜您</b>，您发送了第一个报价。</br>等待您的客户通过电子邮件验证或手动确认。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
@@ -354,7 +346,7 @@ msgstr "<i class=\"fa fa-fw fa-remove\"/> 已关闭"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "<i class=\"fa fa-fw fa-remove\"/> Closing"
-msgstr ""
+msgstr "<i class=\"fa fa-fw fa-remove\"/> 结算"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -442,7 +434,7 @@ msgstr ""
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
 msgid "<span class=\"badge rounded-pill text-bg-warning\">Closing</span>"
-msgstr ""
+msgstr "<span class=\"badge rounded-pill text-bg-warning\">结算</span>"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -819,6 +811,102 @@ msgid ""
 "</table>\n"
 "        "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <t t-set=\"company\" t-value=\"object.company_id or object.user_id.company_id or user.company_id\"></t>\n"
+"                    <span style=\"font-size: 10px;\">您的服务计划</span><br>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">办公室清洁服务</span>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"right\" t-if=\"not company.uses_default_logo\">\n"
+"                    <img t-attf-src=\"/logo.png?company={{ company.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"company.name\">\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <t t-out=\"object.partner_id.name or ''\">Brandon Freeman</t> 您好！<br><br>\n"
+"                    <t t-if=\"ctx.get('payment_token') and ctx.get('total_amount')\">\n"
+"                        我们曾尝试以您的付款方法\n"
+"                        <t t-out=\"ctx['payment_token'] or ''\">TOKEN</t>\n"
+"                        ，就您的服务计划收取 <t t-out=\"ctx['total_amount'] or ''\">10</t> <t t-out=\"ctx.get('currency_name') or ''\">$</t> 费用，但未能成功。\n"
+"                        <t t-if=\"ctx.get('error')\">\n"
+"                            对于有关问题，您的银行或信用卡发卡机构提供了以下详情： <pre t-out=\"ctx['error'] or ''\"></pre>。\n"
+"                        </t>\n"
+"                    </t>\n"
+"                    <t t-else=\"\">\n"
+"                        您的服务计划 <t t-out=\"ctx.get('code') or ''\">CODE</t> 已到期需要续订，但我们尚未收到您的付款。为保持服务计划生效，请尽快付款。\n"
+"                    </t>\n"
+"                    <br><br>\n"
+"                    您的服务计划 <t t-out=\"ctx.get('code') or ''\">CODE</t> 目前仍然生效，但将会在 \n"
+"                    <t t-out=\"format_date(ctx.get('date_close')) or ''\">05/05/2021</t> <strong>暂停运作</strong>。<br>\n"
+"                    <div style=\"margin: 16px 0px; text-align: center;\">\n"
+"                        <a t-attf-href=\"{{ ctx.get('payment_link', object.get_portal_url()) }}\" style=\"display: inline-block; padding: 10px 30px; text-decoration: none; background-color: #875A7B; color: #fff; border-radius: 5px;\">\n"
+"                            现在付款\n"
+"                        </a>\n"
+"                    </div>\n"
+"                    <br>\n"
+"                    如有任何疑问，请联络我们。<br><br>\n"
+"                    多谢选用 <t t-out=\"company.name or ''\">YourCompany</t>！\n"
+"                    <div>\n"
+"                    <t t-if=\"user.signature\">\n"
+"                        <br><br>\n"
+"                        <t t-out=\"user.signature or ''\">--<br>Mitchell Admin</t>\n"
+"                    </t>\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"company.name or ''\">YourCompany</t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    <t t-if=\"company.phone\">\n"
+"                        <t t-out=\"company.phone or ''\">+1 650-123-4567</t> |\n"
+"                    </t>\n"
+"                    <t t-if=\"company.email\">\n"
+"                        <a t-attf-href=\"'mailto:%s' % {{ company.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.email or ''\">info@yourcompany.com</a> |\n"
+"                    </t>\n"
+"                    <t t-if=\"company.website\">\n"
+"                        <a t-attf-href=\"'%s' % {{ company.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"company.website or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        由 <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a> 驱动\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"        "
 
 #. module: sale_subscription
 #. odoo-python
@@ -844,7 +932,7 @@ msgstr "已创建续订报价%s"
 #. odoo-python
 #: code:addons/sale_subscription/models/product.py:0
 msgid "A subscription combo product can only contain subscription products."
-msgstr ""
+msgstr "订阅组合产品只能包含订阅产品。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_analysis_graph
@@ -857,6 +945,11 @@ msgstr "ARR 变动"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__arr_change_normalized
 msgid "ARR Change (normalized)"
 msgstr "平均房价变化（正常化）"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__is_abandoned_cart
+msgid "Abandoned Cart"
+msgstr "遗弃的购物车"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_account_move_send
@@ -893,7 +986,7 @@ msgstr "操作"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__active
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_pricing__active
 msgid "Active"
-msgstr "已启用"
+msgstr "有效"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__contract_number
@@ -968,12 +1061,12 @@ msgstr "为该产品添加重复性计划，或按所需的重复周期（例如
 #: model:ir.model.fields,help:sale_subscription.field_sale_subscription_plan__billing_first_day
 msgid ""
 "Align all subscription invoices on the first day of each billing period."
-msgstr ""
+msgstr "将所有订阅发票协调至每个账单周期的第一天。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__billing_first_day
 msgid "Align to Period Start"
-msgstr ""
+msgstr "协调至期间开首"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1037,7 +1130,7 @@ msgstr "应用于"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
 msgid "Archived"
-msgstr "已存档"
+msgstr "已归档"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__activity_user
@@ -1052,12 +1145,12 @@ msgstr "指派令牌"
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_plan__user_closable_options__at_date
 msgid "At date"
-msgstr ""
+msgstr "于指定日期"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__message_attachment_count
 msgid "Attachment Count"
-msgstr "附件计数"
+msgstr "附件数量"
 
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__payment_transaction__renewal_state__authorized
@@ -1075,7 +1168,7 @@ msgstr "自动化付款"
 msgid ""
 "Automate invoices and payments, simplify upsell quotes, reduce churn and get"
 " insights (MRR, churn, CLTV, ...)"
-msgstr ""
+msgstr "自动化发票及付款、简化追加销售报价、减少客户流失，并获得见解（MRR、客户流失情况、CLTV 客户终身价值等）。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__auto_close_limit
@@ -1213,7 +1306,7 @@ msgstr "计费周期"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__billing_period_value
 msgid "Billing Period "
-msgstr ""
+msgstr "账单期"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__billing_period_display_sentence
@@ -1291,7 +1384,7 @@ msgstr "检查重新开放的订阅"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
 msgid "Choose a closing reason before submitting"
-msgstr ""
+msgstr "提交前，请选择关闭原因"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -1332,8 +1425,8 @@ msgstr "点击此处添加产品或服务"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__user_closable
-#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_search
 msgid "Closable"
 msgstr "关闭"
 
@@ -1369,7 +1462,7 @@ msgstr "关闭订阅"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__user_closable_options
 msgid "Closeable Plan Options"
-msgstr ""
+msgstr "可关闭计划选项"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1566,7 +1659,7 @@ msgstr "定时下一个电话"
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__currency_id
 #: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_order_log_growth_tree
 msgid "Currency"
-msgstr "币种"
+msgstr "币别"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_product_product__product_subscription_pricing_ids
@@ -1798,7 +1891,7 @@ msgstr "合约终止"
 #. module: sale_subscription
 #: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_plan__user_closable_options__end_of_period
 msgid "End of period"
-msgstr ""
+msgstr "服务期完结时"
 
 #. module: sale_subscription
 #. odoo-python
@@ -1836,7 +1929,7 @@ msgstr "加大"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
 msgid "Expiration Date:"
-msgstr "过期日期："
+msgstr "到期日期："
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -2043,8 +2136,8 @@ msgstr "如果存在，则在执行自动化规则前必须满足该条件。"
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_alert__filter_pre_domain
 msgid ""
 "If present, this condition must be satisfied before the update of the "
-"record."
-msgstr "如果存在，记录更新前必须满足此条件。"
+"record. Not checked on record creation."
+msgstr "如果存在，此条件必须在记录更新前得到满足。在记录创建时不进行检查。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__end_date
@@ -2067,7 +2160,7 @@ msgstr "如果设置了，在确认带有这个产品的订单的时候会创建
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order_line__pricelist_id
 msgid "If you change the pricelist, only newly added lines will be affected."
-msgstr "如果更改价目表，则只会影响新添加的行。"
+msgstr "如果更改价格表，则只会影响新添加的行。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_content
@@ -2113,7 +2206,7 @@ msgstr "内部备注"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__internal_note_display
 msgid "Internal Note Display"
-msgstr "内部注释显示"
+msgstr "内部备注显示"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_order_view_form
@@ -2124,7 +2217,7 @@ msgstr "内部说明"
 #. odoo-python
 #: code:addons/sale_subscription/controllers/portal.py:0
 msgid "Invalid access token."
-msgstr ""
+msgstr "访问令牌无效。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_plan__invoice_mail_template_id
@@ -2140,7 +2233,7 @@ msgstr "发票状态"
 #. odoo-python
 #: code:addons/sale_subscription/controllers/portal.py:0
 msgid "Invoice not found."
-msgstr ""
+msgstr "未找到发票。"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__is_batch
@@ -2231,12 +2324,12 @@ msgstr "最后的永恒"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_line__last_invoiced_date
 msgid "Last Invoiced Date"
-msgstr ""
+msgstr "最后开具发票日期"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__last_reminder_date
 msgid "Last Reminder Date"
-msgstr ""
+msgstr "最后提醒日期"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__last_run
@@ -2273,7 +2366,7 @@ msgstr "最后结算日期"
 #. module: sale_subscription
 #: model:ir.model.fields,help:sale_subscription.field_sale_order__last_reminder_date
 msgid "Last time when we sent a payment reminder"
-msgstr ""
+msgstr "上次发送付款提醒的时间"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
@@ -2332,7 +2425,7 @@ msgstr "通话记录"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_log_report__log_currency_id
 msgid "Log Currency"
-msgstr "日志货币"
+msgstr "日志币别"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
@@ -2458,7 +2551,7 @@ msgstr "毛利"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__medium_id
 msgid "Medium"
-msgstr "媒介"
+msgstr "中等"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__starred_user_ids
@@ -2681,7 +2774,7 @@ msgstr "非周期性"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__activity_note
 msgid "Note"
-msgstr "注释"
+msgstr "备注"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__note_order
@@ -2861,7 +2954,7 @@ msgstr "支付令牌"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_payment_transaction
 msgid "Payment Transaction"
-msgstr "支付交易"
+msgstr "付款交易"
 
 #. module: sale_subscription
 #. odoo-python
@@ -2921,7 +3014,7 @@ msgstr "计划："
 msgid ""
 "Please add a recurring plan on the subscription or remove the recurring "
 "product."
-msgstr ""
+msgstr "请在订购中添加定期计划或删除定期产品。"
 
 #. module: sale_subscription
 #. odoo-python
@@ -2929,7 +3022,7 @@ msgstr ""
 msgid ""
 "Please add a recurring product in the subscription or remove the recurring "
 "plan."
-msgstr ""
+msgstr "请在订购中添加定期产品或删除定期计划。"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -2943,14 +3036,14 @@ msgstr "请先为这些订阅提供另一种付款方式。"
 msgid ""
 "Please remove the recurring plan on the subscription before sending the "
 "email."
-msgstr ""
+msgstr "请在发送电子邮件之前取消订阅的定期计划。"
 
 #. module: sale_subscription
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid ""
 "Please set a recurring plan on the subscription before sending the email."
-msgstr ""
+msgstr "请在发送电子邮件之前设置订阅的定期计划。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
@@ -2975,7 +3068,7 @@ msgstr "价格表"
 #. module: sale_subscription
 #: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_pricelist
 msgid "Pricelists"
-msgstr "价目表"
+msgstr "价格表"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_plan_view_form
@@ -3026,6 +3119,11 @@ msgstr "产品变体"
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "Products"
 msgstr "产品"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__project_id
+msgid "Project"
+msgstr "项目"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__qty_delivered
@@ -3398,7 +3496,7 @@ msgstr "销售订单提醒"
 #. module: sale_subscription
 #: model:ir.actions.act_window,name:sale_subscription.action_sale_order_lines
 msgid "Sale Order Lines"
-msgstr "销售订单行"
+msgstr "销售订单明细"
 
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_log
@@ -3473,7 +3571,7 @@ msgstr "销售订单"
 #. module: sale_subscription
 #: model:ir.model,name:sale_subscription.model_sale_order_line
 msgid "Sales Order Line"
-msgstr "销售订单行"
+msgstr "销售订单明细"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__team_ids
@@ -4015,7 +4113,7 @@ msgid ""
 "This allows comparison of invoice lines created by subscriptions with different temporalities.\n"
 "The computation assumes that 1 month is comprised of exactly 30 days, regardless  of the actual length of the month."
 msgstr ""
-"MRR的计算方法是将签署的金额（以公司货币计算）除以以月为单位的开始和结束日期之间的时间。\n"
+"MRR的计算方法是将签署的金额（以公司币别计算）除以以月为单位的开始和结束日期之间的时间。\n"
 "这允许比较不同时间性的订阅所产生的结算单项目。\n"
 "计算时假定1个月正好由30天组成，而不考虑该月的实际长度。"
 
@@ -4030,7 +4128,7 @@ msgstr "如果为空，则所有字段都会被监视。"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 msgid "The company of the plan is different from the company of the pricelist"
-msgstr "计划公司与价目表公司不同"
+msgstr "计划公司与价格表公司不同"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4172,7 +4270,7 @@ msgstr "追加销售%s已获确认。"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_subscription_pricing.py:0
 msgid "There are multiple pricings for an unique product, plan and pricelist."
-msgstr "一个独特的产品、计划和价目表有多种定价。"
+msgstr "一个独特的产品、计划和价格表有多种定价。"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -4198,7 +4296,7 @@ msgid ""
 "This message will be displayed to convince the customer to stay (e.g., We "
 "don't want you to leave, can we offer to schedule a meeting with your "
 "account manager?)"
-msgstr "将显示此信息以挽留客户（例如，我们不希望您离开，我们可以安排与您的客户经理会面吗？）"
+msgstr "将显示此信息以挽留客户（例如：我们不希望您离开，我们可以安排与您的客户经理会面吗？）"
 
 #. module: sale_subscription
 #. odoo-javascript
@@ -4297,7 +4395,7 @@ msgstr "转账"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trigger
 msgid "Trigger"
-msgstr "触发器"
+msgstr "触发方式"
 
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order_alert__trg_date_id
@@ -4406,7 +4504,7 @@ msgstr "未含税待开票金额"
 #. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__price_subtotal
 msgid "Untaxed Total"
-msgstr "未征税总计"
+msgstr "未税总计"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_digest
@@ -4553,6 +4651,11 @@ msgid "Webhook UUID"
 msgstr "Webhook UUID"
 
 #. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__website_id
+msgid "Website"
+msgstr "网站"
+
+#. module: sale_subscription
 #: model:ir.model.fields,field_description:sale_subscription.field_sale_order__website_message_ids
 msgid "Website Messages"
 msgstr "网站消息"
@@ -4697,7 +4800,7 @@ msgstr "您不能将草稿销售订单作为已确认订阅。"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid "You cannot renew a contract that already has an active subscription. "
-msgstr "不能续订已激活的合同。"
+msgstr "您不能续订已经有一个有效订阅的合同。"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4730,7 +4833,7 @@ msgstr "不能设置为草稿已确认的订阅。请创建新报价"
 #. odoo-python
 #: code:addons/sale_subscription/models/sale_order.py:0
 msgid "You cannot upsell a subscription using a different currency."
-msgstr "不可使用不同的货币对定期订购进行追加销售。"
+msgstr "不可使用不同的币别对定期订购进行追加销售。"
 
 #. module: sale_subscription
 #. odoo-python
@@ -4822,7 +4925,7 @@ msgstr "例如：关闭订阅"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
 msgid "e.g. Discuss proposal"
-msgstr "例如.讨论提案"
+msgstr "例如：讨论提案"
 
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_template
@@ -4857,7 +4960,7 @@ msgstr "缺失的付款（来自"
 #. module: sale_subscription
 #: model_terms:ir.ui.view,arch_db:sale_subscription.subscription_portal_sidebar
 msgid "on"
-msgstr "开启"
+msgstr "在"
 
 #. module: sale_subscription
 #. odoo-python

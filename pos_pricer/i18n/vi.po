@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -158,7 +159,7 @@ msgstr "Không tìm thấy sản phẩm nào có mã vạch '%s'"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__on_sale_price
 msgid "On Sale Price"
-msgstr ""
+msgstr "Trên giá bán"
 
 #. module: pos_pricer
 #: model:ir.actions.server,name:pos_pricer.pricer_sync_cron_ir_actions_server
@@ -178,7 +179,7 @@ msgstr "Cấu hình điểm bán hàng"
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_product_product__on_sale_price
 msgid "Price after setting a Pricer Sales Pricelist"
-msgstr ""
+msgstr "Giá sau khi thiết lập Bảng giá bán Pricer"
 
 #. module: pos_pricer
 #: model:ir.ui.menu,name:pos_pricer.pos_menu_pricer_configuration
@@ -214,7 +215,7 @@ msgstr "Pricer Sản phẩm cần liên kết"
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_sale_pricelist_id
 msgid "Pricer Sales Pricelist"
-msgstr ""
+msgstr "Bảng giá bán Pricer"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_product_product__pricer_store_id
@@ -340,7 +341,7 @@ msgstr "Thông báo trạng thái của lần đồng bộ hóa cuối cùng v�
 #. module: pos_pricer
 #: model:ir.model,name:pos_pricer.model_stock_move
 msgid "Stock Move"
-msgstr "Dịch chuyển tồn kho"
+msgstr "Điều chuyển tồn kho"
 
 #. module: pos_pricer
 #: model:ir.model.fields,field_description:pos_pricer.field_pricer_store__name
@@ -379,6 +380,8 @@ msgstr ""
 msgid ""
 "This pricelist will be used to set sales on Pricer tags for this product"
 msgstr ""
+"Bảng giá này sẽ được sử dụng để thiết lập giá bán trên nhãn Pricer cho sản "
+"phẩm này"
 
 #. module: pos_pricer
 #: model:ir.model.fields,help:pos_pricer.field_pricer_tag__pricer_store_id

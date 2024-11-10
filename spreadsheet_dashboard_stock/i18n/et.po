@@ -6,12 +6,12 @@
 # Martin Aavastik <martin@avalah.ee>, 2024
 # Leaanika Randmets, 2024
 # Patrick-Jordan Kiudorv, 2024
-# Stevin Lilla, 2024
-# Siim Raasuke, 2024
-# Martin Trigaux, 2024
 # Piia Paurson <piia@avalah.ee>, 2024
 # Triine Aavik <triine@avalah.ee>, 2024
 # Mihkel avalah, 2024
+# Martin Trigaux, 2024
+# Siim Raasuke, 2024
+# Stevin Lilla, 2024
 # JanaAvalah, 2024
 # Anna, 2024
 # 
@@ -19,7 +19,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
 "Last-Translator: Anna, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
@@ -31,14 +31,58 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "All / Rental"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "All / Saleable"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "All / Saleable / Office Furniture"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Amazon"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Apple Pie"
+msgstr "Õunakook"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Avg  Delay"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Avg Cycle Time"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Bagel"
+msgstr "Bagel"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "BlueWave Solar"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
@@ -46,6 +90,12 @@ msgstr ""
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
 msgid "Bottom"
 msgstr "Alumine osa"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Cabinet with Doors"
+msgstr "Ustega kabinet"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
@@ -68,12 +118,14 @@ msgstr "Loendus"
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Count orders on time"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Current"
 msgstr "Praegune"
 
@@ -92,12 +144,14 @@ msgstr ""
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Customer"
 msgstr "Klient"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Cycle Time (Days)"
 msgstr "Tsükli aeg (päevades)"
 
@@ -110,26 +164,48 @@ msgstr ""
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Delay (Days)"
 msgstr "Viivitus (päevades)"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Deliveries next 7 days"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Delivery Orders"
+msgstr "Kauba väljastus"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Demand"
 msgstr "Soovitud kogus"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Departmental Transfer"
+msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
 msgid "Destination locations"
 msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Drawer"
+msgstr "Sahtel"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
@@ -145,7 +221,14 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Elisabeth Wild"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Fill rate"
 msgstr "Täitmismäär"
 
@@ -157,63 +240,112 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Fill rate sort by Top Demand"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
 msgid "Filter"
 msgstr "Filter"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Internal Transfers"
+msgstr "Sisemised laosiirded"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Internal lead time"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "John Stones"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Julia Denver"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "KPI"
 msgstr "KPI"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
-msgid "Late Deliveries"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Late deliveries"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Late internal transfer"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Late internal transfers"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
-msgid "Late receipts"
-msgstr "Hilinevad saadetised"
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Late receptions"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Location Transfer"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Manufacturing"
+msgstr "Tootmine"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Moves lines count by operation"
 msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Multigrain Bread"
+msgstr "Mitmeviljaleib"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Nvidia"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Office Chair Black"
+msgstr "Must kontoritool"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
@@ -224,6 +356,7 @@ msgstr ""
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "On Time delivery"
 msgstr ""
 
@@ -236,6 +369,7 @@ msgstr ""
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "On time deliveries"
 msgstr "Õigeaegsed tarned"
 
@@ -253,44 +387,63 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "On time rate sort by Top Demand"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Open deliveries to date"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Open internal transfers to date"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Open late deliveries"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Open late internal transfers"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Open late receipts"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Open receptions to date"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Open transfers to date"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "OpenAI"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
@@ -330,9 +483,27 @@ msgstr "Tellimuste arv"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Pack"
+msgstr "Pakkimine"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Patagonia"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
 msgid "Period"
 msgstr "Periood"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Pick"
+msgstr "Nopi"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
@@ -342,7 +513,14 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "PoS Orders"
+msgstr "Kassa tellimused"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Previous"
 msgstr "Eelmine"
 
@@ -374,32 +552,56 @@ msgstr "Toote kategooria"
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Qty scrapped product by category"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Quantity"
 msgstr "Kogus"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Quantity of stock adjustments by category"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Receipts"
+msgstr "Tšekid"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Receptions next 7 days"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Repairs"
+msgstr "Parandustööd"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Responsible"
 msgstr "Vastutaja"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Rivian"
+msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
@@ -410,6 +612,7 @@ msgstr "Rida"
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Scheduled on"
 msgstr "Plaaneeritud"
 
@@ -417,6 +620,12 @@ msgstr "Plaaneeritud"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
 msgid "Selected filter"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Slack Technologies"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
@@ -429,6 +638,18 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
 msgid "Source location"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Storage"
+msgstr "Ladu"
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "Test Batch Product"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
@@ -452,6 +673,7 @@ msgstr ""
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Total orders"
 msgstr "Tellimusi kokku"
 
@@ -459,42 +681,28 @@ msgstr "Tellimusi kokku"
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Transfer"
 msgstr "Siirded"
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
-msgid "Transfer - Late deliveries"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
-msgid "Transfer - Late internal transfers"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
-msgid "Transfer - Late receptions"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Transfer to be assigned"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Transfers count by responsible and operation"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
 msgid "Vendor"
 msgstr "Tarnija"
 
@@ -511,120 +719,38 @@ msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/warehouse_operations_sample_dashboard.json:0
+msgid "Warehouse-to-Warehouse Transfer"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "Weekly Stock Moves Lines by operation"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE]  stock.report - by Is Late - sort top by count"
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "[E-COM11] Cabinet with Doors"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "[FURN_0269] Office Chair Black"
+msgstr ""
+
+#. module: spreadsheet_dashboard_stock
+#. odoo-javascript
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
+msgid "[FURN_8855] Drawer"
 msgstr ""
 
 #. module: spreadsheet_dashboard_stock
 #. odoo-javascript
 #: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE] stock.move -  by Product sort by Top Count"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE] stock.move -  by Product sort by Top Demand"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE] stock.move - by Product sort by Bottom Count"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE] stock.move - by Product sort by Bottom Demand"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE] stock.report - by Is Late - sort bottom by count"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE] stock.report - by Is Late - sort bottom by quantity"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "[NO DELETE] stock.report - by Is Late - sort top by quantity"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
+#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_sample_dashboard.json:0
 msgid "last period"
 msgstr "viimane periood"
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move -  DC Operations"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move -  DC Operations (Comparison)"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move -  Fill rate"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move - Fill rate -  Previous"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move.line  -   by category - Previous"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move.line  -  Sent to scrap  by product category"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move.line  -  by category"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.move.line  - Sent to scrap  by product category Previous"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.report -  Cycles"
-msgstr ""
-
-#. module: spreadsheet_dashboard_stock
-#. odoo-javascript
-#: code:addons/spreadsheet_dashboard_stock/data/files/operation_analysis_dashboard.json:0
-msgid "stock.report - Cycles - Previous"
-msgstr ""

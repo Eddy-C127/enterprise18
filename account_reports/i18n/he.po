@@ -1773,7 +1773,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_reports.action_account_report_budget_tree
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_budget_tree
 msgid "Financial Budgets"
-msgstr ""
+msgstr "תקציבים"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_fiscal_position
@@ -2062,6 +2062,8 @@ msgstr "כולל תשלומים"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr ""
 
@@ -2479,13 +2481,13 @@ msgstr "חודשים"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Multi-Ledger:"
-msgstr ""
+msgstr "קבוצות יומנים:"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Multi-ledger"
-msgstr ""
+msgstr "קבוצות יומנים"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_report_handler
@@ -3913,6 +3915,7 @@ msgstr "רווח והפסד מט\"ח לא ממומש"
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "רשומות שלא עברו התאמה"
 
@@ -4011,6 +4014,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "כלול פקודות שטרם נרשמו"
 

@@ -1,30 +1,24 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* timesheet_grid
-#
+# 
 # Translators:
-# Martin Trigaux, 2022
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
-#
+# Wil Odoo, 2024
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:24+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
-"Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: uk\n"
 "Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-
-#. module: timesheet_grid
-#. odoo-python
-#: code:addons/timesheet_grid/models/analytic.py:0
-msgid "%s Spent"
-msgstr "%s витрачено"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_kanban
@@ -39,6 +33,11 @@ msgstr "<i class=\"fa fa-play text-success\" title=\"Timer is Running\"/>"
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
 msgid "<span class=\"col-auto ms-2\">min</span>"
+msgstr "<span class=\"col-auto ms-2\">мін.</span>"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_gantt_timesheet
+msgid "<strong>Time Spent — </strong>"
 msgstr ""
 
 #. module: timesheet_grid
@@ -122,6 +121,83 @@ msgid ""
 "</table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <span style=\"font-size: 10px;\">Ваші табелі</span><br>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">Abigail Peterson</span>\n"
+"                </td><td valign=\"middle\" align=\"right\" t-if=\"not object.company_id.uses_default_logo\">\n"
+"                    <img t-attf-src=\"/logo.png?company={{ object.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.company_id.name\">\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                  <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <t t-set=\"timesheet_hours\" t-value=\"ctx.get('timesheet_hours', 0)\"></t>\n"
+"                    <t t-set=\"working_hours\" t-value=\"ctx.get('working_hours', 0)\"></t>\n"
+"                    <div>\n"
+"                        Вітаємо <t t-out=\"object.name or ''\">Abigail Peterson</t>,<br><br>\n"
+"                        Це дружнє нагадування про те, щоб зареєструвати свої години для наступного періоду: <t t-out=\"ctx.get('date_start') or ''\">05/05/2021</t> <i class=\"fa fa-long-arrow-right\"></i> <t t-out=\"ctx.get('date_stop') or ''\">05/06/2021</t>.\n"
+"                        На даний момент ви <t t-if=\"timesheet_hours != 0\">записали</t> лише <t t-out=\"'%d' %int(timesheet_hours)\">2</t><t t-if=\"timesheet_hours % 1 != 0\" t-out=\"':%02d' % (round(timesheet_hours % 1 * 60))\">:30</t> години замість запитуваних <t t-out=\"'%d' %int(working_hours)\">8</t><t t-if=\"working_hours % 1 != 0\" t-out=\"':%02d' % (round(working_hours % 1 * 60))\">:30</t>.<br>\n"
+"                        <div t-if=\"ctx.get('action_url')\" style=\"margin: 16px 0px 16px 0px;\">\n"
+"                            <a t-att-href=\"ctx.get('action_url')\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 13px;\">Заповніть ваш табель</a>\n"
+"                        </div>\n"
+"                        <br>Дякуємо,<br>\n"
+"                        <t t-if=\"user.signature\">\n"
+"                            <t t-out=\"user.signature or ''\">--<br>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"object.company_id.name or ''\">YourCompany</t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</t>\n"
+"                    <t t-if=\"object.company_id.email\">\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                    </t>\n"
+"                    <t t-if=\"object.company_id.website\">\n"
+"                        | <a t-attf-href=\"'%s' % {{ object.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Зроблено <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
 
 #. module: timesheet_grid
 #: model:mail.template,body_html:timesheet_grid.mail_template_timesheet_reminder
@@ -201,17 +277,91 @@ msgid ""
 "</table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <span style=\"font-size: 10px;\">Ваші табелі</span><br>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\" t-out=\"object.name or ''\">Abigail Peterson</span>\n"
+"                </td><td valign=\"middle\" align=\"right\" t-if=\"not object.company_id.uses_default_logo\">\n"
+"                    <img t-attf-src=\"/logo.png?company={{ object.company_id.id }}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" t-att-alt=\"object.company_id.name\">\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <div>\n"
+"                        Вітаємо <t t-out=\"object.name or ''\">Abigail Peterson</t>,<br><br>\n"
+"                        Це дружнє нагадування про затвердження табелів вашої команди на наступний період: <t t-out=\"ctx.get('date_start') or ''\">05/05/2021</t> - <t t-out=\"ctx.get('date_stop') or ''\">06/05/2021</t>.<br>\n"
+"                        <div t-if=\"ctx.get('action_url')\" style=\"margin: 16px 0px 16px 0px;\">\n"
+"                            <a t-att-href=\"ctx.get('action_url')\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 13px;\">Затвердіть табелі</a>\n"
+"                        </div>\n"
+"                        <br>Дякуємо,<br>\n"
+"                        <t t-if=\"user.signature\">\n"
+"                            <t t-out=\"user.signature or ''\">--<br>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    <t t-out=\"object.company_id.name or ''\">YourCompany</t>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    <t t-out=\"object.company_id.phone or ''\">+1 650-123-4567</t>\n"
+"                    <t t-if=\"object.company_id.email\">\n"
+"                        | <a t-attf-href=\"'mailto:%s' % {{ object.company_id.email }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.email or ''\">info@yourcompany.com</a>\n"
+"                    </t>\n"
+"                    <t t-if=\"object.company_id.website\">\n"
+"                        | <a t-attf-href=\"'%s' % {{ object.company_id.website }}\" style=\"text-decoration:none; color: #454748;\" t-out=\"object.company_id.website or ''\">http://www.example.com</a>\n"
+"                    </t>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Зроблено <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 msgid "A timer is running in another company."
-msgstr ""
+msgstr "Таймер запущено в іншій компанії"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_all_timesheets
 msgid "All Timesheets"
-msgstr "Усі розклади"
+msgstr "Усі табелі"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__amount
@@ -222,46 +372,42 @@ msgstr "Сума"
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
 msgid "An employee must be linked to your user to record time."
-msgstr "Щоб записувати час, працівник повинен бути пов’язаний з вашим користувачем."
+msgstr ""
+"Щоб записувати час, працівник повинен бути пов’язаний з вашим користувачем."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_account_analytic_line
-msgid "Analytic Account"
-msgstr "Аналітичний рахунок"
+msgid "Analytic Line"
+msgstr "Рядок аналітики"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_allow
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_allow
 msgid "Approver Reminder"
-msgstr ""
+msgstr "Нагадування про затвердження"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_delay
-msgid "Approver Reminder Days"
-msgstr ""
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_interval
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_interval
 msgid "Approver Reminder Frequency"
-msgstr ""
+msgstr "Частота нагадувань для затверджувача"
 
 #. module: timesheet_grid
 #: model_terms:ir.actions.act_window,help:timesheet_grid.timesheet_grid_to_validate_action
-msgid "Check that your employees correctly filled in their timesheets and that their time is billable."
+#: model_terms:ir.actions.act_window,help:timesheet_grid.timesheet_grid_to_validate_all_timesheets_action
+msgid ""
+"Check that your employees correctly filled in their timesheets and that "
+"their time is billable."
 msgstr ""
-
-#. module: timesheet_grid
-#. odoo-javascript
-#: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
-msgid "Click on"
-msgstr ""
+"Перевірте, чи ваші працівники правильно заповнили свої табелі та чи "
+"оплачується їх час."
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
-msgid "Click on the cell to set the number of hours you spent on this project."
+msgid ""
+"Click on the cell to set the number of hours you spent on this project."
 msgstr ""
+"Клікніть на клітинку, щоб встановити кількість годин, які ви витратили на "
+"цей проект."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_res_company
@@ -275,8 +421,12 @@ msgstr "Налаштування"
 
 #. module: timesheet_grid
 #: model:mail.template,description:timesheet_grid.mail_template_timesheet_reminder
-msgid "Configure reminders in timesheet settings to remind approvers to validate timesheets"
+msgid ""
+"Configure reminders in timesheet settings to remind approvers to validate "
+"timesheets"
 msgstr ""
+"Налаштуйте нагадування в налаштуваннях табеля, щоб нагадувати тим, хто "
+"затверджує табелі"
 
 #. module: timesheet_grid
 #. odoo-python
@@ -285,20 +435,9 @@ msgid "Confirm Time Spent"
 msgstr "Підтвердити витрачений час"
 
 #. module: timesheet_grid
-#. odoo-javascript
-#: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
+#: model_terms:web_tour.tour,rainbow_man_message:timesheet_grid.timesheet_tour
 msgid "Congratulations, you are now a master of Timesheets."
-msgstr ""
-
-#. module: timesheet_grid
-#: model_terms:ir.actions.act_window,help:timesheet_grid.action_timesheet_previous_month
-#: model_terms:ir.actions.act_window,help:timesheet_grid.action_timesheet_previous_week
-msgid ""
-"Congratulations, you are up to date. <br>\n"
-"                    Let's wait for your employees to start new activities."
-msgstr ""
-"Вітаємо, ви в темі. <br>\n"
-"                    Давайте дочекаємося, коли ваші співробітники почнуть нову діяльність."
+msgstr "Вітаємо, тепер ви майстер Табелів."
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_project_task_create_timesheet
@@ -321,7 +460,7 @@ msgstr "Створено"
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/views/timer_timesheet_grid/timer_timesheet_grid_renderer.xml:0
 msgid "Daily overtime"
-msgstr ""
+msgstr "Щодня понаднормово"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__date
@@ -336,24 +475,14 @@ msgid "Day"
 msgstr "День"
 
 #. module: timesheet_grid
-#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_gantt_timesheet
-msgid "Days Spent —"
-msgstr "Витрачені дні —"
-
-#. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_delay
 msgid "Days to Remind Approver"
-msgstr ""
+msgstr "Дні для нагадування затверджувача"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_user_delay
 msgid "Days to Remind User"
 msgstr "Днів до нагадування користувачу"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__employee_id
-msgid "Define an 'hourly cost' on the employee to track the cost of their time."
-msgstr "Визначте «погодинну вартість» для працівника, щоб відстежувати вартість його часу."
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
@@ -368,8 +497,12 @@ msgstr "Опишіть свою діяльність"
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
-msgid "Describe your activity <i>(e.g. sent an e-mail, meeting with the customer...)</i>."
-msgstr "Опишіть вашу дії <i>(напр., надіслав електронний лист, зустріч із замовником...)</i>."
+msgid ""
+"Describe your activity <i>(e.g. sent an e-mail, meeting with the "
+"customer...)</i>."
+msgstr ""
+"Опишіть вашу дії <i>(напр., надіслав електронний лист, зустріч із "
+"замовником...)</i>."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -388,31 +521,38 @@ msgstr "Опис"
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_overtime_indication/timesheet_overtime_indication.js:0
-msgid "Difference between the number of %s allocated to the project and the number of %s recorded"
+msgid ""
+"Difference between the allocated %(uom)s (%(allocated_hours)s) and the "
+"%(uom)s spent (%(worked_hours)s) on the project"
 msgstr ""
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_overtime_indication/timesheet_overtime_indication.js:0
-msgid "Difference between the number of %s allocated to the task and the number of %s recorded"
+msgid ""
+"Difference between the allocated %(uom)s (%(allocated_hours)s) and the "
+"%(uom)s spent (%(worked_hours)s) on the task"
 msgstr ""
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/employee_overtime_indication/employee_overtime_indication.xml:0
-msgid "Difference between the number of hours recorded and the number of hours the employee was supposed to work according to his contract"
+msgid ""
+"Difference between the number of hours recorded and the number of hours the "
+"employee was supposed to work according to his contract"
 msgstr ""
+"Різниця між кількістю зареєстрованих годин і кількістю годин, які працівник "
+"повинен був відпрацювати згідно з його контрактом"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_overtime_indication/timesheet_overtime_indication.js:0
 msgid "Difference between the time allocated and the time recorded"
-msgstr ""
+msgstr "Різниця між розподіленим і записаним часом"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
-#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_merge_wizard_view_form
 msgid "Discard"
 msgstr "Відмінити"
@@ -424,77 +564,22 @@ msgid "Display Name"
 msgstr "Назва для відображення"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer
-msgid "Display Timer"
-msgstr "Відображати таймер"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_pause
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_pause
-msgid "Display Timer Pause"
-msgstr "Відобразити паузу таймера"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_resume
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_resume
-msgid "Display Timer Resume"
-msgstr "Відобразити відновлення таймера"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_start_primary
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_start_primary
-msgid "Display Timer Start Primary"
-msgstr "Відобразити початок основного таймера"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_start_secondary
-msgid "Display Timer Start Secondary"
-msgstr "Відобразити початок другого таймера"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__display_timer_stop
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timer_stop
-msgid "Display Timer Stop"
-msgstr "Відобразити зупинку таймера"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__display_timesheet_timer
-msgid "Display Timesheet Time"
-msgstr "Відобразити час табеля"
-
-#. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__account_analytic_line__validated_status__draft
+#: model:ir.model.fields.selection,name:timesheet_grid.selection__timesheets_analysis_report__validated_status__draft
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
 msgid "Draft"
 msgstr "Чернетка"
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_hr_employee
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__employee_id
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__employee_id
 msgid "Employee"
 msgstr "Співробітник"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_interval
-msgid "Employee Frequency"
-msgstr "Частота працівників"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_allow
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_user_allow
 msgid "Employee Reminder"
 msgstr "Нагадування співробітників"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_delay
-msgid "Employee Reminder Days"
-msgstr "Дні нагадування працівникам"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__encoding_uom_id
-msgid "Encoding Uom"
-msgstr "Кодування одиниці вимірювання"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -514,32 +599,15 @@ msgid "Grouping by date is not supported"
 msgstr "Групування за датою не підтримується"
 
 #. module: timesheet_grid
-#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
-msgid "Hours Spent"
-msgstr "Витрачені години"
-
-#. module: timesheet_grid
-#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_gantt_timesheet
-msgid "Hours Spent —"
-msgstr "Витрачені години —"
-
-#. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__id
 #: model:ir.model.fields,field_description:timesheet_grid.field_project_task_create_timesheet__id
 msgid "ID"
 msgstr "ID"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__is_timer_running
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__is_timer_running
-#: model:ir.model.fields,field_description:timesheet_grid.field_timesheets_analysis_report__is_timer_running
-msgid "Is Timer Running"
-msgstr "Таймер запущено"
-
-#. module: timesheet_grid
-#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_month
-msgid "Last Month"
-msgstr "Останній місяць"
+#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
+msgid "Last Period"
+msgstr ""
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__write_uid
@@ -556,24 +624,32 @@ msgstr "Останнє оновлення"
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee__last_validated_timesheet_date
 msgid "Last Validated Timesheet Date"
-msgstr ""
-
-#. module: timesheet_grid
-#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
-msgid "Last Week"
-msgstr "Останній тиждень"
+msgstr "Остання дата затвердженого табелю"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
-msgid "Launch the <b>timer</b> for this project by pressing the <b>[a] key</b>. Easily switch from one project to another by using those keys. <i>Tip: you can also directly add 15 minutes to this project by hitting the <b>shift + [A] keys</b>.</i>"
+msgid ""
+"Launch the <b>timer</b> for this project by pressing the <b>[a] key</b>. "
+"Easily switch from one project to another by using those keys. <i>Tip: you "
+"can also directly add 15 minutes to this project by hitting the <b>shift + "
+"[A] keys</b>.</i>"
 msgstr ""
+"Запустіть <b>таймер</b> цього проекту, натиснувши <b>клавішу [a]</b>. Легко "
+"переключайтеся між одним проектом та іншим, використовуючи гарячі клавіши. "
+"<i>Порада: ви можете додати 15 хвилин до цього проекту натиснувши <b>shift +"
+" клавішу [A]</b>.</i>"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
 msgid "Launch the <b>timer</b> to start a new activity."
 msgstr "Запустіть <b>таймер</b>, щоб розпочати нову дію."
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
+msgid "Log Time"
+msgstr ""
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_merge_wizard_view_form
@@ -583,7 +659,7 @@ msgstr "З’єднати"
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_merge_wizard_view_form
 msgid "Merge Timesheet"
-msgstr ""
+msgstr "Об'єднати табель"
 
 #. module: timesheet_grid
 #. odoo-python
@@ -591,7 +667,7 @@ msgstr ""
 #: model:ir.actions.server,name:timesheet_grid.merge_timesheet_action
 #: model:ir.model,name:timesheet_grid.model_hr_timesheet_merge_wizard
 msgid "Merge Timesheets"
-msgstr ""
+msgstr "Об'єднати табелі"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__timesheet_min_duration
@@ -609,6 +685,15 @@ msgstr "Модуль"
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
 msgid "Month"
 msgstr "Місяць"
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/task.py:0
+msgid ""
+"Moving this task to a project without timesheet support will retain "
+"timesheet drafts in the original project. Although they won't be visible "
+"here, you can still edit them using the Timesheets app."
+msgstr ""
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
@@ -631,41 +716,48 @@ msgid "My Team"
 msgstr "Моя команда"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_nextdate
-msgid "Next scheduled date for approver reminder"
-msgstr ""
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_nextdate
-msgid "Next scheduled date for employee reminder"
-msgstr "Наступна запланована дата для нагадування співробітнику"
-
-#. module: timesheet_grid
-#: model_terms:ir.actions.act_window,help:timesheet_grid.action_timesheet_previous_month
-#: model_terms:ir.actions.act_window,help:timesheet_grid.action_timesheet_previous_week
-msgid "No activities to validate."
-msgstr "Немає дій для підтвердження."
-
-#. module: timesheet_grid
 #: model_terms:ir.actions.act_window,help:timesheet_grid.timesheet_grid_to_validate_action
+#: model_terms:ir.actions.act_window,help:timesheet_grid.timesheet_grid_to_validate_all_timesheets_action
 msgid "No timesheets to validate"
-msgstr ""
+msgstr "Немає табелів для затвердження"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_res_config_settings__reminder_delay
-msgid "Number of days after the end of the week/month after which an automatic email reminder will be sent to timesheet managers that still have timesheets to validate."
+msgid ""
+"Number of days after the end of the week/month after which an automatic "
+"email reminder will be sent to timesheet managers that still have timesheets"
+" to validate."
 msgstr ""
+"Кількість днів після закінчення тижня/місяця, після якої автоматичне "
+"нагадування електронною поштою буде надіслано менеджерам табелів, які ще "
+"мають табелі для перевірки."
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_res_config_settings__reminder_user_delay
-msgid "Numbers of days after the end of the week/month after which an automatic email reminder will be sent to timesheet users that still have timesheets to encode (according to their working hours)."
+msgid ""
+"Numbers of days after the end of the week/month after which an automatic "
+"email reminder will be sent to timesheet users that still have timesheets to"
+" encode (according to their working hours)."
 msgstr ""
+"Кількість днів після закінчення тижня/місяця, після яких буде надіслано "
+"автоматичне нагадування електронною поштою користувачам табелів, у яких ще є"
+" табелі для кодування (відповідно до їхніх робочих годин)."
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-msgid "Only a Timesheets Approver or Manager is allowed to modify a validated entry."
-msgstr "Дозволено змінювати затверджений запис лише тому, схвалює або менеджеру табеля."
+msgid ""
+"Only a Timesheets Approver or Manager is allowed to modify a validated "
+"entry."
+msgstr ""
+"Дозволено змінювати затверджений запис лише тому, схвалює або менеджеру "
+"табеля."
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+msgid "Open Form"
+msgstr ""
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_view_form
@@ -676,7 +768,7 @@ msgstr "Пауза"
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 msgid "Press"
-msgstr ""
+msgstr "Натисніть"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -722,6 +814,11 @@ msgid "Resume"
 msgstr "Продовжити"
 
 #. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
+msgid "Resume Timer"
+msgstr ""
+
+#. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__timesheet_rounding
 msgid "Round up"
 msgstr "Округлення"
@@ -729,12 +826,8 @@ msgstr "Округлення"
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
 msgid "Rounding applied when tracking your time using the timer"
-msgstr "Під час відстеження часу за допомогою таймера застосовується округлення"
-
-#. module: timesheet_grid
-#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
-msgid "Save"
-msgstr "Зберегти"
+msgstr ""
+"Під час відстеження часу за допомогою таймера застосовується округлення"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
@@ -754,28 +847,46 @@ msgid ""
 "Select the user responsible for approving \"Timesheet\" of this employee.\n"
 "If empty, the approval is done by a Timesheets > Administrator or a Timesheets > User: all timesheets (as determined in the users settings)."
 msgstr ""
+"Виберіть користувача, відповідального за затвердження «Табелю» цього співробітника.\n"
+"Якщо поле пусте, затвердження здійснюється за допомогою Табелів > Адміністратор або Табелі > Користувач: усі табелі (як визначено в налаштуваннях користувача)."
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__is_timesheet
 msgid "Set if this analytic line represents a line of timesheet."
-msgstr "Встановіть, якщо цей аналітичний рядок являє собою рядок розкладу."
+msgstr "Встановіть, якщо цей аналітичний рядок являє собою рядок табелю."
 
 #. module: timesheet_grid
 #: model:mail.template,description:timesheet_grid.mail_template_timesheet_reminder_user
-msgid "Set reminders in settings to notify employees who didn't record their timesheet"
+msgid ""
+"Set reminders in settings to notify employees who didn't record their "
+"timesheet"
 msgstr ""
+"Встановіть нагадування в налаштуваннях, щоби повідомити співробітників, які "
+"не записали свій табель"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
-msgid "Set the number of hours you spent on this project (e.g. 1:30 or 1.5). <i>Tip: use the tab keys to easily navigate from one cell to another.</i>"
-msgstr "Встановіть кількість годин, які ви витратили на цей проект (напр., 1:30 або 1.5). <i>Порада: використовуйте клавіші на клавіатурі для легшої навігації з однієї клітинки до іншої.</i>"
+msgid ""
+"Set the number of hours you spent on this project (e.g. 1:30 or 1.5). "
+"<i>Tip: use the tab keys to easily navigate from one cell to another.</i>"
+msgstr ""
+"Встановіть кількість годин, які ви витратили на цей проект (напр., 1:30 або "
+"1.5). <i>Порада: використовуйте клавіші на клавіатурі для легшої навігації з"
+" однієї клітинки до іншої.</i>"
+
+#. module: timesheet_grid
+#. odoo-javascript
+#: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
+msgid "Shift"
+msgstr "Зміна"
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
 msgid "Sorry, you cannot use a timer for a validated timesheet"
-msgstr "Вибачте, але ви не можете використовувати таймер для підтвердженого табеля"
+msgstr ""
+"Вибачте, але ви не можете використовувати таймер для підтвердженого табеля"
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -796,8 +907,12 @@ msgstr "Зупинити"
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
-msgid "Stop the <b>timer</b> when you are done. <i>Tip: hit <b>[Enter]</b> in the description to automatically log your activity.</i>"
+msgid ""
+"Stop the <b>timer</b> when you are done. <i>Tip: hit <b>[Enter]</b> in the "
+"description to automatically log your activity.</i>"
 msgstr ""
+"Зупиніть <b>таймер</b> коли ви закінчите. <i>Порада: натисніть "
+"<b>[Enter]</b> в описі, щоби автоматично записати вашу дію.</i>"
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_project_task
@@ -812,20 +927,25 @@ msgid "Task for which we are creating a sales order"
 msgstr "Завдання, для якого ми створюємо замовлення на продаж"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__display_timer
-msgid "Technical field used to display the timer if the encoding unit is 'Hours'."
-msgstr "Технічне поле використовується для відображення таймера, якщо закодована одиниця це Години."
-
-#. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
-msgid "The duration of timesheets encoded through the timer will automatically be rounded up to this number. For instance, if you stop your timer at 00:16:56, the duration of the timesheet entry will automatically be rounded up to 00:30 (assuming you have a round up of 15 min). We recommend having the same value for the minimal duration and for the round up."
+msgid ""
+"The duration of timesheets encoded through the timer will automatically be "
+"rounded up to this number. For instance, if you stop your timer at 00:16:56,"
+" the duration of the timesheet entry will automatically be rounded up to "
+"00:30 (assuming you have a round up of 15 min). We recommend having the same"
+" value for the minimal duration and for the round up."
 msgstr ""
+"Тривалість табелів, закодованих за допомогою таймера, буде автоматично "
+"округлено до цього числа. Наприклад, якщо ви зупините свій таймер о "
+"00:16:56, тривалість запису в табелі буде автоматично округлено до 00:30 "
+"(припустимо, що ви округлите 15 хвилин). Ми рекомендуємо мати однакове "
+"значення для мінімальної тривалості та для округлення."
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/views/timesheet_grid/timesheet_grid_controller.js:0
 msgid "The timesheet entry has successfully been created."
-msgstr ""
+msgstr "Запис табеля успішно створено."
 
 #. module: timesheet_grid
 #: model:ir.model.constraint,message:timesheet_grid.constraint_project_task_create_timesheet_time_positive
@@ -836,7 +956,7 @@ msgstr "Час табеля має бути позитивним"
 #. odoo-python
 #: code:addons/timesheet_grid/wizard/timesheet_merge_wizard.py:0
 msgid "The timesheets have successfully been merged."
-msgstr ""
+msgstr "Табель успішно об’єднано."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -854,24 +974,27 @@ msgstr "Табелі успішно затверджено."
 #. odoo-python
 #: code:addons/timesheet_grid/wizard/timesheet_merge_wizard.py:0
 msgid "The timesheets must have the same encoding unit"
-msgstr ""
+msgstr "Табель повинен мати однакову одиницю кодування"
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
 msgid "There are no timesheets to merge."
-msgstr ""
+msgstr "Немає табелів для об'єднання."
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-msgid "There are no timesheets to reset to draft or they have already been invoiced."
+msgid ""
+"There are no timesheets to reset to draft or they have already been "
+"invoiced."
 msgstr ""
+"Немає табелів, які можна скинути до чернетки, або вони вже були виставлені."
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/task.py:0
-msgid "This project isn't expected to have task during this period. Planned hours :"
+msgid "This project isn't expected to have task during this period."
 msgstr ""
 
 #. module: timesheet_grid
@@ -882,24 +1005,17 @@ msgstr "Час"
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
 msgid "Time Rounding"
-msgstr ""
+msgstr "Округлення часу"
 
 #. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.project_task_create_timesheet_view_form
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_kanban_view
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_merge_wizard_view_form
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
 msgid "Time Spent"
 msgstr "Витрачений час"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__timer_pause
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__timer_pause
-msgid "Timer Last Pause"
-msgstr "Остання пауза таймера"
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__timer_start
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__timer_start
-msgid "Timer Start"
-msgstr "Початок таймера"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee__timesheet_manager_id
@@ -916,12 +1032,7 @@ msgstr "Затверджувач табелів"
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_timesheet_grid_mixin
 msgid "Timesheet Grid mixin"
-msgstr ""
-
-#. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__duration_unit_amount
-msgid "Timesheet Init Amount"
-msgstr "Початкова сума табеля"
+msgstr "Сітка mixin табелю"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__is_timesheet
@@ -930,14 +1041,9 @@ msgid "Timesheet Line"
 msgstr "Рядок табелю"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__unit_amount_validate
-msgid "Timesheet Unit Time"
-msgstr "Одиниця часу табеля"
-
-#. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_ir_actions_server
 msgid "Timesheet: Approvers Email Reminder"
-msgstr ""
+msgstr "Табелі: нагадування електронною поштою для затверджувачів"
 
 #. module: timesheet_grid
 #: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_user_ir_actions_server
@@ -945,7 +1051,6 @@ msgid "Timesheet: Employees Email Reminder"
 msgstr "Табель: Нагадування працівникам електронною поштою"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_hr_timesheet_merge_wizard__timesheet_ids
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
@@ -960,30 +1065,51 @@ msgstr "Звіт аналізу табелів"
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-msgid "Timesheets before the %s (included) have been validated, and can no longer be %s."
+msgid ""
+"Timesheets before the %(date)s (included) have been validated, and can no "
+"longer be deleted."
+msgstr ""
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+msgid ""
+"Timesheets before the %(date)s (included) have been validated, and can no "
+"longer be modified."
 msgstr ""
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
-msgid "Timesheets encoded via the timer that do not meet the minimal duration will automatically be rounded up to the defined value. For instance, if you stop your timer at 00:04:36, the duration of the timesheet entry will automatically be rounded up to 00:15 (assuming you have a minimal duration of 15 min). We recommend having the same value for the minimal duration and for the round up."
+msgid ""
+"Timesheets encoded via the timer that do not meet the minimal duration will "
+"automatically be rounded up to the defined value. For instance, if you stop "
+"your timer at 00:04:36, the duration of the timesheet entry will "
+"automatically be rounded up to 00:15 (assuming you have a minimal duration "
+"of 15 min). We recommend having the same value for the minimal duration and "
+"for the round up."
 msgstr ""
+"Розклади, закодовані за допомогою таймера, які не відповідають мінімальній "
+"тривалості, будуть автоматично округлені до визначеного значення. Наприклад,"
+" якщо ви зупините свій таймер о 00:04:36, тривалість запису в табелі буде "
+"автоматично округлено до 00:15 (за умови, що у вас мінімальна тривалість 15 "
+"хвилин). Ми рекомендуємо мати однакове значення для мінімальної тривалості "
+"та для округлення."
 
 #. module: timesheet_grid
-#: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_month
-#: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_week
 #: model:ir.actions.act_window,name:timesheet_grid.timesheet_grid_to_validate_action
+#: model:ir.actions.act_window,name:timesheet_grid.timesheet_grid_to_validate_all_timesheets_action
 msgid "Timesheets to Validate"
 msgstr "Табелі для затвердження"
 
 #. module: timesheet_grid
 #: model:mail.template,name:timesheet_grid.mail_template_timesheet_reminder
 msgid "Timesheets: Approver Reminder"
-msgstr ""
+msgstr "Табелі: Нагадування затвердження"
 
 #. module: timesheet_grid
 #: model:mail.template,name:timesheet_grid.mail_template_timesheet_reminder_user
 msgid "Timesheets: Employee Reminder"
-msgstr ""
+msgstr "Табелі: Нагадування співробітника"
 
 #. module: timesheet_grid
 #: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate
@@ -994,7 +1120,9 @@ msgstr "Перевірити"
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
 msgid "Track the <b>time spent</b> on your projects. <i>It starts here.</i>"
-msgstr "Відстежуйте <b>витрачений час</b> на ваших проектах. <i>Це починається тут.</i>"
+msgstr ""
+"Відстежуйте <b>витрачений час</b> на ваших проектах. <i>Це починається "
+"тут.</i>"
 
 #. module: timesheet_grid
 #: model:ir.model,name:timesheet_grid.model_res_users
@@ -1012,15 +1140,10 @@ msgid "User Reminder Frequency"
 msgstr "Частота нагадування користувача"
 
 #. module: timesheet_grid
-#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__user_timer_id
-#: model:ir.model.fields,field_description:timesheet_grid.field_project_task__user_timer_id
-msgid "User Timer"
-msgstr "Таймер користувача"
-
-#. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_hr_employee_public__timesheet_manager_id
 msgid "User responsible of timesheet validation. Should be Timesheet Manager."
-msgstr "Користувач, відповідальний за перевірку табеля. Має бути керівником табеля."
+msgstr ""
+"Користувач, відповідальний за перевірку табеля. Має бути керівником табеля."
 
 #. module: timesheet_grid
 #. odoo-javascript
@@ -1035,12 +1158,14 @@ msgstr "Підтвердити"
 
 #. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__account_analytic_line__validated_status__validated
+#: model:ir.model.fields.selection,name:timesheet_grid.selection__timesheets_analysis_report__validated_status__validated
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
 msgid "Validated"
 msgstr "Підтверджено"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__validated_status
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheets_analysis_report__validated_status
 msgid "Validated Status"
 msgstr "Підтверджений статус"
 
@@ -1051,19 +1176,10 @@ msgid "Validated line"
 msgstr "Перевірені рядки"
 
 #. module: timesheet_grid
-#: model:ir.actions.server,name:timesheet_grid.timesheet_grid_all_timesheets_action_server
-msgid "Validation All Timesheet Server Action"
-msgstr ""
-
-#. module: timesheet_grid
-#: model:ir.actions.server,name:timesheet_grid.timesheet_grid_week_action_server
-msgid "Validation Timesheet Week_view Server Action"
-msgstr "Дія сервера підтвердження Week_view на табелі"
-
-#. module: timesheet_grid
-#: model:ir.actions.server,name:timesheet_grid.timesheet_grid_month_action_server
-msgid "Validation Timesheet month_view Server Action"
-msgstr "Дія сервера підтвердження month_view на табелі"
+#. odoo-python
+#: code:addons/timesheet_grid/models/task.py:0
+msgid "Warning"
+msgstr "Попередження"
 
 #. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid
@@ -1076,24 +1192,46 @@ msgstr "Тиждень"
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/views/timer_timesheet_grid/timer_timesheet_grid_renderer.xml:0
 msgid "Weekly overtime"
-msgstr ""
+msgstr "Щотижня понаднормово"
 
 #. module: timesheet_grid
 #: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__user_can_validate
-msgid "Whether or not the current user can validate/reset to draft the record."
+msgid ""
+"Whether or not the current user can validate/reset to draft the record."
 msgstr "Чи може поточний користувач підтвердити/скинути до чернетки запис."
 
 #. module: timesheet_grid
 #. odoo-python
-#: code:addons/timesheet_grid/models/analytic.py:0
-msgid "You can only reset to draft the timesheets of employees of whom you are the manager or the timesheet approver."
-msgstr "Ви можете скинути до чернетки лише табелі працівників, керівником яких ви є або затверджувачем табелю."
+#: code:addons/timesheet_grid/models/hr_employee.py:0
+#: code:addons/timesheet_grid/models/res_users.py:0
+msgid "You are not allowed to see timesheets."
+msgstr "Вам заборонено переглядати табелі."
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-msgid "You can only validate the timesheets of employees of whom you are the manager or the timesheet approver."
-msgstr "Ви можете перевіряти табелі лише тих працівників, керівником яких ви є або затверджувачем табелю."
+msgid ""
+"You can only reset to draft the timesheets of employees of whom you are the "
+"manager or the timesheet approver."
+msgstr ""
+"Ви можете скинути до чернетки лише табелі працівників, керівником яких ви є "
+"або затверджувачем табелю."
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+msgid ""
+"You can only validate the timesheets of employees of whom you are the "
+"manager or the timesheet approver."
+msgstr ""
+"Ви можете перевіряти табелі лише тих працівників, керівником яких ви є або "
+"затверджувачем табелю."
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+msgid "You can't encode numbers with more than six digits."
+msgstr "Ви не можете закодувати числа, які містять більше шести цифр."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1104,20 +1242,29 @@ msgstr "Ви не можете отримати доступ до чужих т�
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-msgid "You cannot adjust the time of the timesheet for a project with timesheets disabled."
+msgid ""
+"You cannot adjust the time of the timesheet for a project with timesheets "
+"disabled."
 msgstr ""
+"Ви не можете налаштувати час у табелі для проекту з вимкненими табелями."
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-msgid "You cannot delete a validated entry. Please, contact your manager or your timesheet approver."
-msgstr "Ви не можете видалити затверджені записи. Будь ласка, зв’яжіться зі своїм менеджером або затверджувачем табелю."
+msgid ""
+"You cannot delete a validated entry. Please contact your manager or your "
+"timesheet approver."
+msgstr ""
 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/project.py:0
-msgid "You cannot start the timer for a project in a company encoding its timesheets in days."
-msgstr "Ви не можете запустити таймер для проекту в компанії, яка кодує свої табелі в днях."
+msgid ""
+"You cannot start the timer for a project in a company encoding its "
+"timesheets in days."
+msgstr ""
+"Ви не можете запустити таймер для проекту в компанії, яка кодує свої табелі "
+"в днях."
 
 #. module: timesheet_grid
 #. odoo-python
@@ -1128,8 +1275,23 @@ msgstr "Ви не можете використовувати таймер на 
 #. module: timesheet_grid
 #. odoo-python
 #: code:addons/timesheet_grid/models/analytic.py:0
-msgid "You cannot validate the timesheets from employees that are not part of your team or there are no timesheets to validate."
-msgstr "Ви не можете перевіряти табелі робочого часу від співробітників, які не входять до вашої команди, або немає табелів для перевірки."
+msgid ""
+"You cannot validate the selected timesheets as they either belong to "
+"employees who are not part of your team or are not in a state that can be "
+"validated. This may be due to the fact that they are dated in the future."
+msgstr ""
+"Ви не можете підтвердити вибрані табелі, оскільки вони або належать "
+"працівникам, які не є частиною вашої команди, або не перебувають у стані, "
+"який можна перевірити. Можливо, це пов’язано з тим, що вони датовані "
+"майбутнім часом.'"
+
+#. module: timesheet_grid
+#. odoo-python
+#: code:addons/timesheet_grid/models/analytic.py:0
+msgid ""
+"Your timesheet entry is missing a project. Please either group the Grid view"
+" by project or enter your timesheets by adding a line via the Form view."
+msgstr ""
 
 #. module: timesheet_grid
 #: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_employee_interval__months
@@ -1144,42 +1306,48 @@ msgid "after the end of the week"
 msgstr "після закінчення тижня"
 
 #. module: timesheet_grid
+#. odoo-javascript
+#: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
+msgid "and click on"
+msgstr "та натисніть на"
+
+#. module: timesheet_grid
 #: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
 msgid "days"
 msgstr "дні"
 
 #. module: timesheet_grid
-#. odoo-python
-#: code:addons/timesheet_grid/models/analytic.py:0
-msgid "deleted"
-msgstr ""
-
-#. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 msgid "min"
-msgstr "мінімум"
-
-#. module: timesheet_grid
-#. odoo-python
-#: code:addons/timesheet_grid/models/analytic.py:0
-msgid "modified"
-msgstr "змінено"
+msgstr "хв"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
-msgid "or a letter to start the timer"
-msgstr ""
+msgid "or"
+msgstr "або"
+
+#. module: timesheet_grid
+#. odoo-javascript
+#: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
+msgid "or click on"
+msgstr "або натисніть на"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
 msgid "to add"
-msgstr ""
+msgstr "додати"
 
 #. module: timesheet_grid
 #. odoo-javascript
 #: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
-msgid "to start the timer"
-msgstr ""
+msgid "to add 15 min"
+msgstr "щоб додати 15 хв."
+
+#. module: timesheet_grid
+#. odoo-javascript
+#: code:addons/timesheet_grid/static/src/components/timesheet_timer_header/timesheet_timer_header.xml:0
+msgid "to launch the timer"
+msgstr "щоб запустити таймер"

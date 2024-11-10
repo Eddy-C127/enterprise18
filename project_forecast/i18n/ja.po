@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Junko Augias, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Junko Augias, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -127,6 +128,8 @@ msgstr "テスター"
 #. odoo-python
 #: code:addons/project_forecast/models/project.py:0
 msgid ""
-"You cannot update the company for project %(project_name)s as it's linked to shifts in another company.\n"
-"If you want to change the company for another, leave the project's company blank, transfer shifts %(slots_names)s to the destination company and then change the project's company."
+"You cannot update the company for the %(project_name)s project because it’s tied to shifts in another company.\n"
+"To change it, first clear the company field for the project. Then move the shifts to the new company, and update the project's company."
 msgstr ""
+"%(project_name)s プロジェクト用に会社を更新することはできません。他の会社のシフトに紐づいているためです。\n"
+"変更するには、まずプロジェクトの会社フィールドをクリアします。次に、シフトを新しい会社に仕訳し、プロジェクトの会社を更新します。"

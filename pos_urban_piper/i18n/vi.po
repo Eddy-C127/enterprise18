@@ -5,14 +5,15 @@
 # Translators:
 # Trinh Tran Thi Phuong <trinhttp@trobz.com>, 2024
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-25 09:28+0000\n"
+"POT-Creation-Date: 2024-10-25 09:15+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -27,6 +28,8 @@ msgid ""
 "(%(provider_name)s) delivery is only available in the following countries: \n"
 "%(country_names)s"
 msgstr ""
+"Dịch vụ giao hàng (%(provider_name)s) chỉ khả dụng ở các quốc gia sau: \n"
+"%(country_names)s"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -37,23 +40,23 @@ msgstr "Chấp nhận"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
-msgstr ""
+msgstr "Đã xác nhận"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Api Key"
-msgstr ""
+msgstr "Mã khóa API"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__available_country_ids
 msgid "Available Countries"
-msgstr ""
+msgstr "Quốc gia áp dụng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__urbanpiper_pos_config_ids
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_template__urbanpiper_pos_config_ids
 msgid "Available on Food Delivery"
-msgstr ""
+msgstr "Có trên Giao đồ ăn"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -77,12 +80,14 @@ msgstr "Kênh"
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urbanpiper_pos_config_ids
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__urbanpiper_pos_config_ids
 msgid "Check this if the product is available for food delivery."
-msgstr ""
+msgstr "Đánh dấu nếu sản phẩm khả dụng cho giao đồ ăn."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_payment_method__is_delivery_payment
 msgid "Check this if this payment method is used for online delivery orders."
 msgstr ""
+"Đánh dấu nếu phương thức thanh toán này được sử dụng cho đơn giao hàng "
+"online."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -104,12 +109,17 @@ msgstr "Cài đặt cấu hình"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Connectivity Issue"
-msgstr ""
+msgstr "Vấn đề kết nối"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__available_country_ids
 msgid "Countries where this provider is available"
-msgstr ""
+msgstr "Quốc gia mà nhà cung cấp này khả dụng"
+
+#. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Create Store"
+msgstr "Tạo cửa hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__create_uid
@@ -133,7 +143,7 @@ msgstr "Email khách hàng"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Customer Info"
-msgstr ""
+msgstr "Thông tin khách hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -157,56 +167,61 @@ msgstr "Địa chỉ giao hàng"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Channel"
-msgstr ""
+msgstr "Kênh giao hàng"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
+msgid "Delivery Charges"
+msgstr "Phí giao hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_identifier
 msgid "Delivery ID"
-msgstr ""
+msgstr "ID giao hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_json
 msgid "Delivery JSON"
-msgstr ""
+msgstr "JSON giao hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Delivery Order Status"
-msgstr ""
+msgstr "Trạng thái đơn giao hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
 msgid "Delivery Partner"
-msgstr ""
+msgstr "Đối tác giao hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_payment_method__is_delivery_payment
 msgid "Delivery Payment"
-msgstr ""
+msgstr "Thanh toán giao hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Delivery Person"
-msgstr ""
+msgstr "Người giao hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_provider_id
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_payment_method__delivery_provider_id
 msgid "Delivery Provider"
-msgstr ""
+msgstr "Nhà cung cấp dịch vụ giao hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_delivery_provider_ids
 msgid "Delivery Providers"
-msgstr ""
+msgstr "Nhà cung cấp dịch vụ giao hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_rider_json
 msgid "Delivery Rider JSON"
-msgstr ""
+msgstr "JSON nhân viên giao hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__delivery_status
@@ -217,7 +232,7 @@ msgstr "Trạng thái giao hàng"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Delivery Time/Time-Slot"
-msgstr ""
+msgstr "Thời gian/Khung thời gian giao hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -228,7 +243,7 @@ msgstr "Chi tiết"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__dispatched
 msgid "Dispatched"
-msgstr ""
+msgstr "Đã giao"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__display_name
@@ -251,7 +266,7 @@ msgstr "Chỉnh sửa"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__3
 msgid "Eggetarian"
-msgstr ""
+msgstr "Ăn chay có trứng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -264,7 +279,7 @@ msgstr "Lỗi"
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Error to send in preparation display."
-msgstr ""
+msgstr "Lỗi khi gửi trong màn hình khâu chuẩn bị."
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -274,23 +289,29 @@ msgstr "Vị trí tài chính"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_fiscal_position_id
 msgid "Fiscal position for Urban Piper sync menu."
-msgstr ""
+msgstr "Vị trí tài chính cho menu đồng bộ UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__prep_time
 msgid "Food Preparation Time"
-msgstr ""
+msgstr "Thời gian chuẩn bị đồ ăn"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__food_ready
 msgid "Food Ready"
-msgstr ""
+msgstr "Đồ ăn đã sẵn sàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Fulfilment Mode"
-msgstr ""
+msgstr "Chế độ hoàn thành"
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid "Go to Company configuration"
+msgstr "Đi đến cấu hình Công ty"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urban_piper_status_ids
@@ -299,12 +320,14 @@ msgid ""
 "Handle products with urban piper and pos config - Product is linked or not "
 "with appropriate store."
 msgstr ""
+"Xử lý sản phẩm bằng UrbanPiper và cấu hình POS - Sản phẩm được liên kết với "
+"cửa hàng phù hợp hoặc không."
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "HungerStation Code"
-msgstr ""
+msgstr "Mã HungerStation"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__id
@@ -316,7 +339,7 @@ msgstr "ID"
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__is_alcoholic_on_urbanpiper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__is_alcoholic_on_urbanpiper
 msgid "Indicates if the product contains alcohol."
-msgstr ""
+msgstr "Cho biết sản phẩm có chứa cồn hay không."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -328,52 +351,52 @@ msgstr "Thông tin"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Invalid Product"
-msgstr ""
+msgstr "Sản phẩm không hợp lệ"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Invalid Variant/Addons"
-msgstr ""
+msgstr "Biến thể/Addon không hợp lệ"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__is_alcoholic_on_urbanpiper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_template__is_alcoholic_on_urbanpiper
 msgid "Is Alchoholic"
-msgstr ""
+msgstr "Đồ có cồn"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_urban_piper_status__is_product_linked
 msgid "Is Product Linked?"
-msgstr ""
+msgstr "Sản phẩm có được liên kết không?"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__is_recommended_on_urbanpiper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_template__is_recommended_on_urbanpiper
 msgid "Is Recommended"
-msgstr ""
+msgstr "Được đề xuất"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_rider_json
 msgid "JSON data of the delivery rider."
-msgstr ""
+msgstr "Dữ liệu JSON của nhân viên giao hàng."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_json
 msgid "JSON data of the order."
-msgstr ""
+msgstr "Dữ liệu JSON của đơn hàng."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__journal_code
 msgid "Journal Short Code"
-msgstr ""
+msgstr "Mã ngắn của sổ nhật ký"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_last_sync_date
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_last_sync_date
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Last Sync on"
-msgstr ""
+msgstr "Đồng bộ lần cuối vào"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__write_uid
@@ -390,13 +413,13 @@ msgstr "Cập nhật lần cuối vào"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_last_sync_date
 msgid "Last sync date for menu sync."
-msgstr ""
+msgstr "Ngày đồng bộ lần cuối cho đồng bộ menu."
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.xml:0
 msgid "Mark as ready"
-msgstr ""
+msgstr "Đánh dấu là sẵn sàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__urbanpiper_meal_type
@@ -419,7 +442,7 @@ msgstr "Tên"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__name
 msgid "Name of the delivery provider i.e. Zomato, UberEats, etc."
-msgstr ""
+msgstr "Tên của nhà cung cấp dịch vụ giao hàng, VD: Zomato, UberEats,..."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -431,17 +454,17 @@ msgstr "Mới"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "New online order received."
-msgstr ""
+msgstr "Đã nhận được đơn hàng online mới."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__2
 msgid "Non-Vegetarian"
-msgstr ""
+msgstr "Không ăn chay"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Not available for online orders."
-msgstr ""
+msgstr "Không khả dụng cho đơn hàng online"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -452,13 +475,13 @@ msgstr "Đang diễn ra"
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_payment_methods_ids
 msgid "Online Delivery Payment Methods"
-msgstr ""
+msgstr "Phương thức thanh toán giao hàng online"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_delivery_provider
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_delivery_provider_ids
 msgid "Online Delivery Providers"
-msgstr ""
+msgstr "Nhà cung cấp dịch vụ giao hàng online"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -470,13 +493,13 @@ msgstr "ID đơn hàng"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Order Info"
-msgstr ""
+msgstr "Thông tin đơn hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Order OTP"
-msgstr ""
+msgstr "OTP đơn hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -488,13 +511,18 @@ msgstr "Trạng thái đơn hàng"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Order Time"
-msgstr "Thời gian phục vụ"
+msgstr "Thời gian đặt hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/store/pos_store.js:0
 msgid "Order does not load from server"
-msgstr ""
+msgstr "Không tải được đơn hàng từ máy chủ"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
+msgid "Other Charges"
+msgstr "Phí khác"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -506,23 +534,28 @@ msgstr "Khác"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Out of Delivery Radius"
-msgstr ""
+msgstr "Bán kính giao hàng ngoài dự kiến"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Outlet"
-msgstr ""
+msgstr "Outlet"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "POS ID"
-msgstr ""
+msgstr "ID POS"
+
+#. module: pos_urban_piper
+#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
+msgid "Packaging Charges"
+msgstr "Phí bao bì"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
 msgid "Payment methods for Urban Piper sync menu."
-msgstr ""
+msgstr "Phương thức thanh toán cho menu đồng bộ UrbanPiper."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -533,7 +566,7 @@ msgstr "Điện thoại"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__placed
 msgid "Placed"
-msgstr ""
+msgstr "Đã đặt"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_config
@@ -563,7 +596,7 @@ msgstr "Phiên POS"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_store_identifier
 msgid "Pos ID from Urban Piper (Atlas)"
-msgstr ""
+msgstr "ID Pos từ UrbanPiper (Atlas)"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_preparation_display_order
@@ -573,7 +606,7 @@ msgstr "Preparation orders"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__prep_time
 msgid "Preparation time for the food as provided by UrbanPiper."
-msgstr ""
+msgstr "Thời gian chuẩn bị đồ ăn theo UrbanPiper cung cấp."
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_product_pricelist
@@ -584,7 +617,7 @@ msgstr "Bảng giá"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_pricelist_id
 msgid "Pricelist for Urban Piper sync menu."
-msgstr ""
+msgstr "Bảng giá cho menu đồng bộ UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_product_template
@@ -595,55 +628,55 @@ msgstr "Sản phẩm"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_urban_piper_status__is_product_linked
 msgid "Product Status on Urban piper."
-msgstr ""
+msgstr "Trạng thái sản phẩm trên UrbanPiper"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Product is out of Stock"
-msgstr ""
+msgstr "Sản phẩm đã hết hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__urbanpiper_meal_type
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__urbanpiper_meal_type
 msgid "Product type i.e. Veg, Non-Veg, etc."
-msgstr ""
+msgstr "Loại sản phẩm, VD: Đồ chay, đồ mặn,..."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__image_128
 msgid "Provider Image"
-msgstr ""
+msgstr "Hình ảnh nhà cung cấp"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__technical_name
 msgid "Provider Name"
-msgstr ""
+msgstr "Tên nhà cung cấp"
 
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_delivery_provider_technical_name_uniq
 msgid "Provider Name must be unique."
-msgstr ""
+msgstr "Tên nhà cung cấp không được trùng lặp."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_product__is_recommended_on_urbanpiper
 #: model:ir.model.fields,help:pos_urban_piper.field_product_template__is_recommended_on_urbanpiper
 msgid "Recommended products on food platforms."
-msgstr ""
+msgstr "Sản phẩm được đề xuất trên nền tảng giao đồ ăn."
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Refresh webhooks"
-msgstr ""
+msgstr "Làm mới webhook"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_webhook_url
 msgid "Register Urbanpiper Webhook URL"
-msgstr ""
+msgstr "Đăng ký URL Webhook UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_webhook_url
 msgid "Register webhook with Urbanpiper."
-msgstr ""
+msgstr "Đăng ký webhook với UrbanPiper."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -655,13 +688,13 @@ msgstr "Từ chối"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Reject Order"
-msgstr ""
+msgstr "Từ chối đơn hàng"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Rejecting this order is not allowed for \"%(providerName)s\""
-msgstr ""
+msgstr "Không được phép từ chối đơn hàng này đối với \"%(providerName)s\""
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_provider_id
@@ -669,6 +702,8 @@ msgstr ""
 msgid ""
 "Responsible delivery provider for online order, e.g., UberEats, Zomato."
 msgstr ""
+"Nhà cung cấp dịch vụ giao hàng chịu trách nhiệm cho đơn hàng online, VD: "
+"UberEats, Zomato."
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -680,17 +715,17 @@ msgstr "Xem lại đơn hàng"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Rider is Not Available"
-msgstr ""
+msgstr "Không có nhân viên giao hàng"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Set the POS ID in Urban Piper in Locations."
-msgstr ""
+msgstr "Thiết lập ID POS trong UrbanPiper ở mục Địa điểm."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__journal_code
 msgid "Short code of the journal to be used for journal creation"
-msgstr ""
+msgstr "Mã ngắn của sổ nhật ký được sử dụng để tạo sổ nhật ký"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -701,29 +736,29 @@ msgstr "Trạng thái"
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_status
 msgid "Status of the order as provided by UrbanPiper."
-msgstr ""
+msgstr "Trạng thái đơn hàng được cung cấp bởi UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.constraint,message:pos_urban_piper.constraint_pos_config_urbanpiper_store_identifier_uniq
 msgid "Store ID must be unique for every pos configuration."
-msgstr ""
+msgstr "ID cửa hàng phải là duy nhất cho mọi cấu hình POS."
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Store is Busy"
-msgstr ""
+msgstr "Cửa hàng đang bận"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Store is Closed"
-msgstr ""
+msgstr "Cửa hàng đã đóng cửa"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_webhook_url
 msgid "Store webhook url (base url) for security."
-msgstr ""
+msgstr "Lưu trữ url webhook (url cơ sở) vì mục đích bảo mật."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_product__urban_piper_status_ids
@@ -734,7 +769,7 @@ msgstr "Cửa hàng"
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Sync Menu"
-msgstr ""
+msgstr "Menu đồng bộ"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_ir_config_parameter
@@ -745,192 +780,181 @@ msgstr "Tham số hệ thống"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Code"
-msgstr ""
+msgstr "Mã Talabat"
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/order_info_popup/order_info_popup.xml:0
 msgid "Talabat Short Code"
-msgstr ""
+msgstr "Mã ngắn Talabat"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_delivery_provider__technical_name
 msgid "Technical name of the provider used by UrbanPiper"
-msgstr ""
+msgstr "Tên kỹ thuật của nhà cung cấp được UrbanPiper sử dụng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__urbanpiper_apikey
 msgid "The API key for accessing the UrbanPiper services."
-msgstr ""
+msgstr "Mã khóa API để truy cập dịch vụ UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_store_identifier
 msgid "The POS ID associated with UrbanPiper."
-msgstr ""
+msgstr "ID POS liên kết với UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_last_sync_date
 msgid "The date and time of the last synchronization with UrbanPiper."
-msgstr ""
+msgstr "Ngày và giờ đồng bộ hóa lần cuối với UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_config__urbanpiper_delivery_provider_ids
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_delivery_provider_ids
 msgid "The delivery providers used for online delivery through UrbanPiper."
 msgstr ""
+"Các nhà cung cấp dịch vụ giao hàng được sử dụng để giao hàng online thông "
+"qua UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
 msgid "The fiscal position used for UrbanPiper transactions."
-msgstr ""
+msgstr "Vị trí tài chính được sử dụng cho các giao dịch UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_payment_methods_ids
 msgid "The payment methods used for online delivery through UrbanPiper."
 msgstr ""
+"Các phương thức thanh toán được sử dụng để giao hàng online thông qua "
+"UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__pos_urbanpiper_pricelist_id
 msgid "The pricelist used for UrbanPiper orders."
-msgstr ""
+msgstr "Bảng giá được sử dụng cho đơn hàng UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_res_config_settings__urbanpiper_username
 msgid "The username for the UrbanPiper account."
-msgstr ""
+msgstr "Tên người dùng cho tài khoản UrbanPiper."
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/app/delivery_button/delivery_button.xml:0
 msgid "There are no active order(s)."
-msgstr ""
+msgstr "Không có đơn hàng đang hoạt động nào "
 
 #. module: pos_urban_piper
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Total Missmatch"
-msgstr ""
+msgstr "Tổng không khớp"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,help:pos_urban_piper.field_pos_order__delivery_identifier
 msgid "Unique delivery ID provided by UrbanPiper."
-msgstr ""
+msgstr "Mã giao hàng duy nhất do UrbanPiper cung cấp."
 
 #. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/pos_config.py:0
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
 msgid "Urban Piper"
-msgstr ""
+msgstr "UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_product_urban_piper_status__config_id
 msgid "Urban Piper Config"
-msgstr ""
+msgstr "Cấu hình UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_fiscal_position_id
 msgid "Urban Piper Fiscal Position"
-msgstr ""
+msgstr "Vị trí tài chính UrbanPiper"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Urban Piper Location"
-msgstr ""
+msgstr "Địa điểm UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_store_identifier
 msgid "Urban Piper POS ID"
-msgstr ""
+msgstr "ID POS UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_payment_methods_ids
 msgid "Urban Piper Payment Methods"
-msgstr ""
+msgstr "Phương thức thanh toán UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_config__urbanpiper_pricelist_id
 msgid "Urban Piper Pricelist"
-msgstr ""
+msgstr "Bảng giá UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_webhook_url
 msgid "Urban Piper Webhook URL"
-msgstr ""
+msgstr "URL Webhook UrbanPiper"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
 msgid "Urban piper Delivery providers"
-msgstr ""
+msgstr "Nhà cung cấp dịch vụ giao hàng UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_product_urban_piper_status
 msgid "Urban piper product status"
-msgstr ""
+msgstr "Trạng thái sản phẩm UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__urbanpiper_apikey
 msgid "UrbanPiper API Key"
-msgstr ""
+msgstr "Mã khóa API UrbanPiper"
 
 #. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/pos_config.py:0
 msgid "UrbanPiper API Key is required.\n"
-msgstr ""
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_delivery_charges_product_template
-msgid "UrbanPiper Delivery Charges"
-msgstr ""
+msgstr "Yêu cầu mã khóa API UrbanPiper.\n"
 
 #. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/res_config_settings.py:0
 msgid "UrbanPiper Delivery Providers are required."
-msgstr ""
+msgstr "Yêu cầu Nhà cung cấp dịch vụ giao hàng UrbanPiper."
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_fiscal_position_id
 msgid "UrbanPiper Fiscal Position"
-msgstr ""
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_other_charges_product_template
-msgid "UrbanPiper Other Charges"
-msgstr ""
-
-#. module: pos_urban_piper
-#: model:product.template,name:pos_urban_piper.product_packaging_charges_product_template
-msgid "UrbanPiper Packaging Charges"
-msgstr ""
+msgstr "Vị trí tài chính UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_pricelist_id
 msgid "UrbanPiper Pricelist"
-msgstr ""
+msgstr "Bảng giá UrbanPiper"
 
 #. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/pos_config.py:0
 msgid "UrbanPiper Store ID is required.\n"
-msgstr ""
+msgstr "Yêu cầu ID cửa hàng UrbanPiper.\n"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_store_identifier
 msgid "UrbanPiper Store Identifier"
-msgstr ""
+msgstr "Mã cửa hàng UrbanPiper"
 
 #. module: pos_urban_piper
 #. odoo-python
 #: code:addons/pos_urban_piper/models/pos_config.py:0
 msgid "UrbanPiper Username is required.\n"
-msgstr ""
+msgstr "Yêu cầu tên người dùng UrbanPiper.\n"
 
 #. module: pos_urban_piper
 #: model:account.fiscal.position,name:pos_urban_piper.pos_account_fiscal_position_urbanpiper
 msgid "Urbanpiper"
-msgstr ""
+msgstr "UrbanPiper"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__urbanpiper_username
@@ -942,7 +966,7 @@ msgstr "Tên đăng nhập"
 #. odoo-javascript
 #: code:addons/pos_urban_piper/static/src/point_of_sale_overrirde/override/screens/ticket_screen/ticket_screen.js:0
 msgid "Variants/Addons out of Stock"
-msgstr ""
+msgstr "Biến thể/Addon hết hàng"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__1
@@ -953,4 +977,11 @@ msgstr "Đồ chay"
 #. odoo-python
 #: code:addons/pos_urban_piper/models/ir_config_parameter.py:0
 msgid "You cannot change the pos_urban_piper.uuid."
-msgstr ""
+msgstr "Bạn không thể thay đổi pos_urban_piper.uuid."
+
+#. module: pos_urban_piper
+#. odoo-python
+#: code:addons/pos_urban_piper/models/res_config_settings.py:0
+msgid ""
+"Your company %s needs to have a correct city in order create the store."
+msgstr "Công ty của bạn %s cần phải có thành phố chính xác để tạo cửa hàng."

@@ -4,6 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Daye Jeong, 2024
+# Sarah Park, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Sarah Park, 2024\n"
 "Language-Team: Korean (https://app.transifex.com/odoo/teams/41243/ko/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -142,7 +144,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__has_instagram_account
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__has_instagram_account
 msgid "Has Instagram Account"
-msgstr ""
+msgstr "인스타그램 계정 있음"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_post_template_view_form
@@ -218,7 +220,7 @@ msgstr "인스타그램 페이스북 작성자 ID"
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_image_ids
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_image_ids
 msgid "Instagram Images"
-msgstr ""
+msgstr "인스타그램 이미지"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_likes_count
@@ -229,7 +231,7 @@ msgstr "인스타그램 좋아요"
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_message
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_message
 msgid "Instagram Message"
-msgstr ""
+msgstr "인스타그램 메시지"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_live_post__instagram_post_id
@@ -277,10 +279,17 @@ msgstr "메시지"
 
 #. module: social_instagram
 #. odoo-python
+#: code:addons/social_instagram/models/social_stream_post.py:0
+msgid ""
+"Please confirm that commenting is enabled for this post on the platform."
+msgstr "플랫폼에 이 게시물에 대한 댓글 기능이 활성화되어 있는지 확인하세요."
+
+#. module: social_instagram
+#. odoo-python
 #: code:addons/social_instagram/models/social_post_template.py:0
 msgid ""
 "Please specify either a Instagram Message or upload some Instagram Images."
-msgstr ""
+msgstr "인스타그램 메시지를 지정하거나 이미지를 업로드하세요."
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -348,6 +357,9 @@ msgid ""
 "\n"
 "%(images)s"
 msgstr ""
+"다음 이미지는 올바른 형식 (jpg/jpeg)이 아닙니다.\n"
+"\n"
+"%(images)s"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -362,6 +374,9 @@ msgid ""
 "\n"
 "%(images)s"
 msgstr ""
+"다음 이미지의 가로 및 세로 비율이 필수 범위 (1.91:1 ~ 4:5 사이)에 있지 않습니다.\n"
+"\n"
+"%(images)s"
 
 #. module: social_instagram
 #. odoo-python
@@ -397,7 +412,7 @@ msgstr "일부 기능을 특정 미디어 ( 'facebook', 'x' 등)로 제한해야
 #: model:ir.model.fields,help:social_instagram.field_social_post__instagram_image_ids
 #: model:ir.model.fields,help:social_instagram.field_social_post_template__instagram_image_ids
 msgid "Will attach images to your posts."
-msgstr ""
+msgstr "게시물에 이미지를 첨부합니다."
 
 #. module: social_instagram
 #. odoo-python

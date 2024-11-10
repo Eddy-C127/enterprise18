@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Thi Huong Nguyen, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:28+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Thi Huong Nguyen, 2024\n"
 "Language-Team: Vietnamese (https://app.transifex.com/odoo/teams/41243/vi/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -144,7 +145,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__has_instagram_account
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__has_instagram_account
 msgid "Has Instagram Account"
-msgstr ""
+msgstr "Có Tài khoản Instagram"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.social_post_template_view_form
@@ -222,7 +223,7 @@ msgstr "ID tác giả Facebook Instagram"
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_image_ids
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_image_ids
 msgid "Instagram Images"
-msgstr ""
+msgstr "Hình ảnh"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_stream_post__instagram_likes_count
@@ -233,7 +234,7 @@ msgstr "Lượt thích Instagram"
 #: model:ir.model.fields,field_description:social_instagram.field_social_post__instagram_message
 #: model:ir.model.fields,field_description:social_instagram.field_social_post_template__instagram_message
 msgid "Instagram Message"
-msgstr ""
+msgstr "Nội dung"
 
 #. module: social_instagram
 #: model:ir.model.fields,field_description:social_instagram.field_social_live_post__instagram_post_id
@@ -281,10 +282,20 @@ msgstr "Tin nhắn"
 
 #. module: social_instagram
 #. odoo-python
+#: code:addons/social_instagram/models/social_stream_post.py:0
+msgid ""
+"Please confirm that commenting is enabled for this post on the platform."
+msgstr ""
+"Hãy xác nhận rằng bạn đã bật tính năng bình luận cho bài đăng này trên nền "
+"tảng."
+
+#. module: social_instagram
+#. odoo-python
 #: code:addons/social_instagram/models/social_post_template.py:0
 msgid ""
 "Please specify either a Instagram Message or upload some Instagram Images."
 msgstr ""
+"Vui lòng viết nội dung Instagram hoặc tải lên một vài hình ảnh Instagram."
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -354,6 +365,9 @@ msgid ""
 "\n"
 "%(images)s"
 msgstr ""
+"Các hình ảnh sau đây không đúng định dạng (jpg/jpeg).\n"
+"\n"
+"%(images)s"
 
 #. module: social_instagram
 #: model_terms:ir.ui.view,arch_db:social_instagram.instagram_preview
@@ -368,6 +382,9 @@ msgid ""
 "\n"
 "%(images)s"
 msgstr ""
+"Các hình ảnh sau đây không đáp ứng tỷ lệ khung hình yêu cầu (từ 1.91:1 đến 4:5).\n"
+"\n"
+"%(images)s"
 
 #. module: social_instagram
 #. odoo-python
@@ -405,7 +422,7 @@ msgstr ""
 #: model:ir.model.fields,help:social_instagram.field_social_post__instagram_image_ids
 #: model:ir.model.fields,help:social_instagram.field_social_post_template__instagram_image_ids
 msgid "Will attach images to your posts."
-msgstr ""
+msgstr "Sẽ đính kèm hình ảnh vào bài viết của bạn."
 
 #. module: social_instagram
 #. odoo-python
