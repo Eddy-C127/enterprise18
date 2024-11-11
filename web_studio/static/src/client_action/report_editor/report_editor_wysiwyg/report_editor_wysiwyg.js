@@ -412,6 +412,7 @@ export class ReportEditorWysiwyg extends Component {
             savableSelector: "[ws-view-id]",
             autostart: true,
             sideAttach: true,
+            iframe: iframe,
             getContextFromParentRect: () => {
                 return this.iframeRef.el.getBoundingClientRect();
             },
