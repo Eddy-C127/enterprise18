@@ -992,7 +992,7 @@ QUnit.module("Knowledge - Silenced Failure Cases (Recoverable)", (hooks) => {
         // Ensure that the Behavior is not in the editable but in the Handler
         assert.notOk(editor.editable.querySelector('.o_knowledge_behavior_type_template'), "The Behavior cannot be mounted in the editable since its target anchor was removed.");
         const behavior = htmlField.behaviorState.handlerRef.el.querySelector('.o_knowledge_behavior_type_template');
-        assert.equal(status(behavior.oKnowledgeBehavior.root.component), "mounted");
+        assert.equal(status(behavior.oKnowledgeBehavior.node.component), "mounted");
 
         // Put the anchor blueprint in the editable again, this time we'll allow
         // it to be mounted in the editable
@@ -1007,7 +1007,7 @@ QUnit.module("Knowledge - Silenced Failure Cases (Recoverable)", (hooks) => {
         // mounted in the editable
         assert.notOk(htmlField.behaviorState.handlerRef.el.querySelector('.o_knowledge_behavior_type_template'), "The obsolete Behavior should have been destroyed.");
         const newBehavior = editor.editable.querySelector('.o_knowledge_behavior_type_template');
-        assert.equal(status(newBehavior.oKnowledgeBehavior.root.component), "mounted");
+        assert.equal(status(newBehavior.oKnowledgeBehavior.node.component), "mounted");
         assert.notEqual(behavior, newBehavior);
     });
 

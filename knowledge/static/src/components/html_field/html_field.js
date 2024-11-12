@@ -2,7 +2,7 @@
 
 import { HtmlField, htmlField } from "@web_editor/js/backend/html_field";
 import { patch } from "@web/core/utils/patch";
-import { templates, loadBundle } from "@web/core/assets";
+import { loadBundle } from "@web/core/assets";
 import {
     copyOids,
     decodeDataBehaviorProps,
@@ -13,7 +13,6 @@ import { Deferred, Mutex } from "@web/core/utils/concurrency";
 import { useService } from "@web/core/utils/hooks";
 import { useRecordObserver } from "@web/model/relational_model/utils";
 import {
-    App,
     markup,
     onWillDestroy,
     onWillUnmount,
@@ -67,12 +66,12 @@ const HtmlFieldPatch = {
         };
         this.uiService = useService('ui');
         this.behaviorState = {
-            // Set of anchor elements with an active Behavior (Owl App) used to
+            // Set of anchor elements with an active Behavior (Owl Root) used to
             // keep track of them.
             appAnchors: new Set(),
             // Observer responsible for mounting Behaviors coming to the DOM,
             // and destroying those that are removed.
-            appAnchorsObserver: new MutationObserver(() => {
+            appAnchorsObserver: new MutationObserver((records) => {
                 // Clean Behaviors that are not currently in the DOM.
                 const anchors = this.behaviorState.observedElement.querySelectorAll('.o_knowledge_behavior_anchor');
                 // If the DOM is altered manually (i.e. in a tour when using
@@ -95,9 +94,9 @@ const HtmlFieldPatch = {
                 this.debouncedTriggerCommentsPositioning.cancel();
                 this.debouncedTriggerCommentsPositioning();
             }),
-            // Owl does not support destroying an App when its container node is
+            // Owl does not support destroying an Root when its container node is
             // not in the DOM. This reference is a `d-none` element used to
-            // re-insert anchors of live Behavior App before calling `destroy`
+            // re-insert anchors of live Behavior Root before calling `destroy`
             // to circumvent the Owl limitation.
             handlerRef: useRef("behaviorHandler"),
             // Element currently being observed for Behaviors Components.
@@ -325,20 +324,20 @@ const HtmlFieldPatch = {
     },
 
     /**
-     * Destroy a Behavior App.
+     * Destroy a Behavior Root.
      *
      * Considerations:
-     * - To mount the Behavior App at a later time based on the same anchor
+     * - To mount the Behavior Root at a later time based on the same anchor
      * where it was destroyed, it is necessary to keep some Component nodes
-     * inside. Since Owl:App.destroy removes all its Component nodes, this
+     * inside. Since Owl:ComponentNode.destroy removes all its DOM nodes, this
      * method has to clone them beforehand to preserve them.
-     * - An Owl App has to be destroyed in the DOM (Owl constraint), but the
+     * - An Owl Root has to be destroyed in the DOM (Owl constraint), but the
      * OdooEditor has no hook to tell if a node will be removed or not.
      * Therefore this method can be called by a MutationObserver, at which point
      * the anchor is not in the DOM anymore and it has to be reinserted before
-     * the App can be destroyed. It is done in a custom `d-none` element aside
+     * the Root can be destroyed. It is done in a custom `d-none` element aside
      * the editable.
-     * - Cloned child nodes can be re-inserted after the App destruction in the
+     * - Cloned child nodes can be re-inserted after the Root destruction in the
      * anchor. It is important to do it even if the anchor is not in the DOM
      * anymore since that same anchor can be re-inserted in the DOM with an
      * editor `undo`.
@@ -349,7 +348,7 @@ const HtmlFieldPatch = {
         // Deactivate the Element in UI service to prevent unwanted behaviors
         this.uiService.deactivateElement(anchor);
         // Preserve the anchor children since they will be removed by the
-        // App destruction.
+        // Root destruction.
         const clonedAnchor = anchor.cloneNode(true);
         for (const node of clonedAnchor.querySelectorAll('[data-oe-transient-content=""], [data-oe-transient-content="true"]')) {
             node.remove();
@@ -401,11 +400,11 @@ const HtmlFieldPatch = {
     },
 
     /**
-     * Destroy all currently active Behavior Apps except those which anchor
+     * Destroy all currently active Behavior Roots except those which anchor
      * is in `ignoredAnchors`.
      *
      * @param {Set<Element>} ignoredAnchors optional - Set of anchors to ignore
-     *        for the destruction of Behavior Apps
+     *        for the destruction of Behavior Roots
      */
     destroyBehaviorApps(ignoredAnchors=new Set()) {
         for (const anchor of Array.from(this.behaviorState.appAnchors)) {
@@ -523,28 +522,27 @@ const HtmlFieldPatch = {
                 continue;
             }
             // Extract the configuration from the Odoo main Owl App to use it
-            // for the Behavior App.
-            const config = (({env, dev, translatableAttributes, translateFn}) => {
-                return { env, dev, translatableAttributes, translateFn };
-            })(this.__owl__.app);
-            anchor.oKnowledgeBehavior = new App(Behavior, {
-                ...config,
-                templates,
+            // for the Behavior Root.
+            const app = this.__owl__.app;
+            const { env } = app;
+            anchor.oKnowledgeBehavior = app.createRoot(Behavior, {
                 props,
+                env,
             });
             this.behaviorState.appAnchors.add(anchor);
             anchor.oKnowledgeBehavior.validator = this.behaviorState.validator;
-            // App.mount is not resolved if the App is destroyed before it
+            // App.mountNode promise is not resolved if the Root is destroyed before it
             // is mounted, so instead, await a Deferred that is resolved
-            // when the App is mounted (true) or destroyed (false).
-            anchor.oKnowledgeBehavior.mountedPromise = new Deferred();
+            // when the Root is mounted (true) or destroyed (false).
+            const mountedPromise = new Deferred();
+            anchor.oKnowledgeBehavior.mountedPromise = mountedPromise;
             anchor.oKnowledgeBehavior.mount(anchor).then(
-                // Resolve the mounting promise if the App was not already
+                // Resolve the mounting promise if the Root was not already
                 // destroyed.
-                () => anchor.oKnowledgeBehavior?.mountedPromise.resolve(true)
+                () => mountedPromise.resolve(true)
             );
             const promise = anchor.oKnowledgeBehavior.mountedPromise.then(async (isMounted) => {
-                // isMounted is true if the App was mounted and false if it
+                // isMounted is true if the Root was mounted and false if it
                 // was destroyed before being mounted. If it was mounted,
                 // update child behaviors inside anchor
                 if (isMounted) {
@@ -674,8 +672,8 @@ const HtmlFieldPatch = {
                 if (!insertedNodes) {
                     return cancelInsertion();
                 }
-                if (behaviorData.shouldSetCursor && anchor.oKnowledgeBehavior.root.component.setCursor) {
-                    anchor.oKnowledgeBehavior.root.component.setCursor();
+                if (behaviorData.shouldSetCursor && anchor.oKnowledgeBehavior.node.component.setCursor) {
+                    anchor.oKnowledgeBehavior.node.component.setCursor();
                 }
                 return insertedNodes;
             };

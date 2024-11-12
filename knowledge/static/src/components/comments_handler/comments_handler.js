@@ -74,7 +74,12 @@ export class KnowledgeCommentsHandler extends Component {
                         ["id", "article_id", "is_resolved", "write_date"]
                     )
                 );
+                const searchArticleId = record.resId;
                 this.allCommentsThreadRecords = await this.currentArticleThreadSearch;
+                if (searchArticleId !== record.resId) {
+                    return;
+                }
+                this.filterComments();
                 this.env.bus.trigger("KNOWLEDGE_COMMENTS_PANEL:SYNCHRONIZE_THREADS", {
                     allCommentsThread: this.allCommentsThreadRecords,
                 });
@@ -109,11 +114,6 @@ export class KnowledgeCommentsHandler extends Component {
         });
 
         useEffect(() => {
-            this.filterComments().then(() => {
-                this.allComments = document.querySelectorAll(
-                    ".knowledge-thread-highlighted-comment"
-                );
-            });
             // add listeners for commented text
             const editable = document.querySelector(
                 '.o_field_html .note-editable,.o_field_knowledge_article_html_field .note-editable,.o_field_knowledge_article_html_field .o_readonly'
@@ -212,10 +212,9 @@ export class KnowledgeCommentsHandler extends Component {
         }
     }
 
-    async toggleHandler(ev) {
+    toggleHandler(ev) {
         this.state.displayCommentsHandler = ev.detail.displayCommentsHandler;
         if (this.state.displayCommentsHandler) {
-            await this.filterComments();
             delete this.state.comments['undefined'];
         }
     }
@@ -290,11 +289,8 @@ export class KnowledgeCommentsHandler extends Component {
      * the ones that are represented in the body of the article. Meaning that there is an anchor in the
      * body with the id of a thread.
      */
-    async filterComments() {
+    filterComments() {
         this.state.comments = {};
-        // ensure that allCommentsThreadRecords is ready before filtering
-        // comments
-        await this.currentArticleThreadSearch;
         this.allComments = document.querySelectorAll('.knowledge-thread-comment');
         if (this.allComments.length) {
             const rootTop = document.querySelector('.o_knowledge_body').getBoundingClientRect().top;
@@ -318,7 +314,7 @@ export class KnowledgeCommentsHandler extends Component {
                 this.state.comments[commentThread.id] = comment;
             });
             this.allComments.forEach((node) => {
-                if (document.contains(node) && node.dataset.id &&!encounteredThreadIds[parseInt(node.dataset.id)]) {
+                if (document.contains(node) && node.dataset.id && !encounteredThreadIds[parseInt(node.dataset.id)]) {
                     const text = document.createTextNode(node.textContent);
                     node.replaceWith(text);
                 }
@@ -383,6 +379,8 @@ export class KnowledgeCommentsHandler extends Component {
         }
         const commentToToggle = this.state.comments[id];
         if (commentToToggle) {
+            this.allCommentsThreadRecords.find((record) => record.id === id)["is_resolved"] =
+                newResolvedState;
             this.state.comments[id].isResolved = newResolvedState;
             this.changeStyling(commentToToggle.anchors, newResolvedState);
         }

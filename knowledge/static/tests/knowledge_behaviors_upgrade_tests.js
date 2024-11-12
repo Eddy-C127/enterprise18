@@ -162,7 +162,7 @@ QUnit.module("Knowledge - Behaviors Full Upgrade from original version", (hooks)
         // Verify that there is no `data-prop-name` left
         let propNameNodes = getPropNameNodes(anchor);
         assert.equal(propNameNodes.length, 0);
-        assert.equal(status(anchor.oKnowledgeBehavior.root.component), "mounted");
+        assert.equal(status(anchor.oKnowledgeBehavior.node.component), "mounted");
 
         // File with an href that can be fully parsed
         const editor = htmlField.wysiwyg.odooEditor;
@@ -197,6 +197,6 @@ QUnit.module("Knowledge - Behaviors Full Upgrade from original version", (hooks)
         }, anchor, assert);
         propNameNodes = getPropNameNodes(anchor);
         assert.equal(propNameNodes.length, 0);
-        assert.equal(status(anchor.oKnowledgeBehavior.root.component), "mounted");
+        assert.equal(status(anchor.oKnowledgeBehavior.node.component), "mounted");
     });
 });
