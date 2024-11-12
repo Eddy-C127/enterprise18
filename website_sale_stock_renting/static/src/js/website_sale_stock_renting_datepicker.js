@@ -15,11 +15,9 @@ WebsiteSaleDaterangePicker.include({
      *
      * @override
      */
-    willStart: function () {
-        return Promise.all([
-            this._super.apply(this, arguments),
-            this._updateRentingProductAvailabilities(),
-        ]);
+    async start() {
+        await this._super(...arguments);
+        await this._updateRentingProductAvailabilities();
     },
 
     // ------------------------------------------
