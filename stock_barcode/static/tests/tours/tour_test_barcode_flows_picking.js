@@ -4333,6 +4333,7 @@ registry.category("web_tour.tours").add('test_show_entire_package', { steps: () 
             const line = helper.getLine();
             helper.assertLineIsHighlighted(line, false);
             helper.assertButtonIsVisible(line, "package_content");
+            helper.assertButtonIsVisible(line, "add_remaining_quantity", false);
             helper.assert(line.querySelector('[name="package"]').innerText, "package001package001");
             helper.assertLineQty(line, "0/1");
         },
