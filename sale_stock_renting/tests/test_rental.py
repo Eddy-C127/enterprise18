@@ -310,6 +310,7 @@ class TestRentalWizard(TestRentalCommon):
         rental_transfers_group = self.env.ref('sale_stock_renting.group_rental_stock_picking')
         self.env.user.groups_id = [(4, rental_transfers_group.id)]
         so = self.lots_rental_order
+        so.company_id._create_rental_location()
         self.order_line_id2.product_uom_qty = 1.0
         so.order_line = [(6, 0, [self.order_line_id2.id])]
         so.action_confirm()
