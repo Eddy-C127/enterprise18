@@ -42,11 +42,6 @@ class AccountReconcileModel(models.Model):
             query = self.env['sale.order']._where_calc(domain)
             tables, where_clause, where_params = query.get_sql()
 
-            additional_conditions = []
-            for token in text_tokens:
-                additional_conditions.append(r"%s ~ sub.name")
-                where_params.append(token.lower())
-
             self._cr.execute(
                 rf'''
                     WITH sale_order_name AS (
@@ -58,9 +53,9 @@ class AccountReconcileModel(models.Model):
                     )
                     SELECT sub.id
                     FROM sale_order_name sub
-                    WHERE {' OR '.join(additional_conditions)}
+                    WHERE sub.name LIKE ANY(ARRAY[%s])
                     ''',
-                where_params,
+                where_params + [[t.lower() for t in set(text_tokens)]],
             )
             sale_order_ids = [r[0] for r in self._cr.fetchall()]
             if sale_order_ids:
