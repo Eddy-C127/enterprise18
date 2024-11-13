@@ -108,7 +108,7 @@ class TestProject(TestProjectCommon):
                     'action': {
                         'name': 'action_view_budget_lines',
                         'type': 'object',
-                        'domain': f'[["id", "in", {budgets.crossovered_budget_line.ids}]]',
+                        'args': f'[[["id", "in", {budgets.crossovered_budget_line.ids}]]]',
                     }
                 },
             ],
