@@ -45,7 +45,7 @@
                                 </td>
                                 <td class="text-end align-middle" t-att-class="budgetary_position.allocated === 0 ? 'text-500' : ''"><t t-out="formatMonetary(budgetary_position.allocated)"/></td>
                                 <td class="text-end align-middle" t-att-class="budgetary_position.spent === 0 ? 'text-500' : ''"><t t-out="formatMonetary(budgetary_position.spent)"/></td>
-                                <t t-set="budget_remaining" t-value="budgetary_position.allocated - budgetary_position.spent"/>
+                                <t t-set="budget_remaining" t-value="budgetary_position.spent - budgetary_position.allocated"/>
                                 <td class="text-end align-middle" t-attf-class="text-bold text-{{ budgetary_position.progress &gt;= 0.25 ? 'success' : budgetary_position.progress &gt;= 0 ? 'warning' : 'danger' }}">
                                     <t t-out="formatMonetary(budget_remaining)"/>
                                 </td>
@@ -55,7 +55,7 @@
                                     <td><span class="ms-3"><small t-out="budget.name"/></span></td>
                                     <td class="text-end align-middle" t-att-class="budget.allocated === 0 ? 'text-500' : ''"><small t-out="formatMonetary(budget.allocated)"/></td>
                                     <td class="text-end align-middle" t-att-class="budget.spent === 0 ? 'text-500' : ''"><small t-out="formatMonetary(budget.spent)"/></td>
-                                    <t t-set="budget_remaining" t-value="budget.allocated - budget.spent"/>
+                                    <t t-set="budget_remaining" t-value="budget.spent - budget.allocated"/>
                                     <td class="text-end align-middle" t-attf-class="text-bold text-{{ budget.progress &gt;= 0.25 ? 'success' : budget.progress &gt;= 0 ? 'warning' : 'danger' }}">
                                         <small t-out="formatMonetary(budget_remaining)"/>
                                     </td>
