@@ -108,7 +108,7 @@ class TestProject(TestProjectCommon):
                     'action': {
                         'name': 'action_view_budget_lines',
                         'type': 'object',
-                        'domain': f'[["id", "in", {budgets[0].budget_line_ids.ids}]]',
+                        'args': f'[[["id", "in", {budgets[0].budget_line_ids.ids}]]]',
                     }
                 },
                 {
@@ -119,7 +119,7 @@ class TestProject(TestProjectCommon):
                     'action': {
                         'name': 'action_view_budget_lines',
                         'type': 'object',
-                        'domain': f'[["id", "in", {budgets[1].budget_line_ids.ids}]]',
+                        'args': f'[[["id", "in", {budgets[1].budget_line_ids.ids}]]]',
                     }
                 },
             ],
