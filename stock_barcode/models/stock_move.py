@@ -35,6 +35,8 @@ class StockMove(models.Model):
         # The new moves are not yet in their own picking. We do not want to check entire packs for those
         # ones as it could messed up the result_package_id of the moves being currently validated
         new_moves.with_context(bypass_entire_pack=True)._action_confirm(merge=False)
+        # mto move should be assigned manually as they are not by the _action_confirm
+        new_moves.with_context(bypass_entire_pack=True).filtered(lambda m: m.procure_method == 'make_to_order')._action_assign()
         if new_moves:
             # In some case, we already split the move lines in the front end.
             # Those move lines are linked to the original move. If their quantity
