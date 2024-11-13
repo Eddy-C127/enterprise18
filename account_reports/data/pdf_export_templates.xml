@@ -179,7 +179,7 @@
 
                     <!-- Other columns -->
                     <t t-foreach="column_header * column_headers_render_data['level_repetitions'][column_header_index]" t-as="header">
-                        <th t-att-colspan="column_headers_render_data['level_colspan'][column_header_index]">
+                        <th t-att-colspan="column_headers_render_data['level_colspan'][column_header_index]" class="o_overflow_name">
                             <t t-out="header.get('name')"/>
                         </th>
                     </t>
