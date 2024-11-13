@@ -19,13 +19,13 @@ export class AttendanceGanttModel extends GanttModel {
             const domain = Domain.and([
                 this.searchParams.domain,
                 [
-                    "|",
-                    '&',
-                    [dateStartField, "<=", serializeDateTime(dateNow)],
-                    [dateStopField, "=", false],
                     "&",
-                    [dateStartField, "<=", serializeDateTime(stopDate)],
-                    [dateStopField, ">=", serializeDateTime(startDate)],
+                    [dateStartField, "<", serializeDateTime(stopDate)],
+                    "|",
+                    "&",
+                    [dateStartField, "<", serializeDateTime(dateNow)],
+                    [dateStopField, "=", false],
+                    [dateStopField, ">", serializeDateTime(startDate)],
                 ],
             ])
             return domain.toList()

@@ -469,3 +469,37 @@ QUnit.test(
     ]);
   }
 );
+
+QUnit.test(
+    "records outside the current range are not fetched",
+    async (assert) => {
+        patchDate(2018, 10, 2, 20, 0, 0);
+        serverData.models.attendances.records = [
+            {
+                id: 8,
+                check_in: "2018-11-01 14:00:00",
+                check_out: false,
+                name: "a record",
+                user_id: 1,
+            },
+        ];
+        await makeView({
+            type: "gantt",
+            resModel: "attendances",
+            serverData,
+            arch: `<gantt js_class="attendance_gantt" date_start="check_in" default_group_by='user_id' default_scale="week" date_stop="check_out" total_row="1"/>`,
+            mockRPC: async function (route, args, performRPC) {
+                if (args.method === "get_gantt_data") {
+                    const result = await performRPC(...arguments);
+                    assert.step(`received ${result.records.length} records`);
+                    return result;
+                }
+            },
+        });
+        await click(target, SELECTORS.prevButton);
+        assert.verifySteps([
+           "received 1 records",
+           "received 0 records",
+        ]);
+    }
+);
