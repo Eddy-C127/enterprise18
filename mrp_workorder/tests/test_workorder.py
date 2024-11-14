@@ -635,6 +635,9 @@ class TestShopFloor(HttpCase, TestMrpWorkorderCommon):
         Check that components added to a WO from the shopfloor are visible
         on both the WO and the MO.
         """
+        self.env.ref('base.group_user').implied_ids += (
+            self.env.ref('mrp.group_mrp_routings')
+        )
         mo_form = Form(self.env['mrp.production'])
         mo_form.product_id = self.bom_2.product_id
         mo_form.bom_id = self.bom_2
