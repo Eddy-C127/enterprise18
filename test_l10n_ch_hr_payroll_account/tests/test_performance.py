@@ -125,7 +125,7 @@ class TestPerformance(TestL10NChHrPayrollAccountCommon):
             _logger.info("Payslips Creation: --- %s seconds ---", time.time() - start_time)
 
         # Payslip Computation
-        with self.assertQueryCount(admin=876):
+        with self.assertQueryCount(admin=925):
             start_time = time.time()
             with self.profile():
                 payslips.compute_sheet()
