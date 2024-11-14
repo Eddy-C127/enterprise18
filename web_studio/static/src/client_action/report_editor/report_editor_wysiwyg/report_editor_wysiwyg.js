@@ -313,6 +313,7 @@ export class ReportEditorWysiwyg extends Component {
                     user_commands: this.getUserCommands(),
                     powerbox_items: this.getPowerboxCommands(),
                 },
+                disableVideo: true,
             },
             this.env.services
         );
