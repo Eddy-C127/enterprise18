@@ -131,6 +131,8 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
 
         if self.env.user.has_group('base.group_multi_currency'):
             options['multi_currency'] = True
+        else:
+            options['columns'] = [col for col in options['columns'] if col['expression_label'] != 'amount_currency']
 
         if not self.env.ref('account_reports.customer_statement_report', raise_if_not_found=False):
             # Deprecated, will be removed in master
