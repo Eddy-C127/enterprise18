@@ -154,10 +154,7 @@ export class PlanningControllerActions {
                                 ),
                                 { type: "success" }
                             );
-                            this.toggleHighlightPlannedFilter([
-                                ...open_shift_assigned,
-                                ...sale_line_planned,
-                            ]);
+                            this.toggleHighlightPlannedFilter(false);
                             notificationRemove();
                         },
                     },
