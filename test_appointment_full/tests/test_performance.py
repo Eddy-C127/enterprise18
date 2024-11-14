@@ -45,6 +45,15 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
             'work_hours_activated': True,
         })
 
+        # The query count below are with demo data.
+        # When website_sale is installed, rendering the web page
+        # fetches the user's current sales order leading to a loading
+        # of available pricelists for that user.
+        # A fallback mechanism is in place in pricelists (see `_get_partner_pricelist_multi`)
+        # causing the queryCount to go up when a first pricelist is not found.
+        if 'product.pricelist' in cls.env:
+            cls.env['product.pricelist'].search([]).write({'active': False})
+
     def setUp(self):
         super().setUp()
         # Flush everything, notably tracking values, as it may impact performances
@@ -99,7 +108,7 @@ class OnelineWAppointmentPerformance(AppointmentUIPerformanceCase, AppointmenHrP
         t0 = time.time()
         with freeze_time(self.reference_now):
             self.authenticate('staff_user_bxls', 'staff_user_bxls')
-            with self.assertQueryCount(default=45):  # apt only: 36 / +1 for no-demo
+            with self.assertQueryCount(default=46):  # apt only: 36 / +1 for no-demo
                 self._test_url_open('/appointment/%i' % self.test_apt_type_resource.id)
         t1 = time.time()
 
