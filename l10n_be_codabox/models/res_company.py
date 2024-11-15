@@ -18,8 +18,9 @@ class ResCompany(models.Model):
 
     def _compute_l10n_be_codabox_fiduciary_vat(self):
         for company in self:
-            if "account_representative_id" in self.env['res.company']._fields:
-                company.l10n_be_codabox_fiduciary_vat = re.sub("[^0-9]", "", company.account_representative_id.vat or "")
+            codabox_contract_sys_param = self.env['ir.config_parameter'].sudo().get_param("l10n_be_codabox.codabox_contract")
+            if codabox_contract_sys_param or "account_representative_id" in self.env['res.company']._fields:
+                company.l10n_be_codabox_fiduciary_vat = re.sub("[^0-9]", "", codabox_contract_sys_param or company.account_representative_id.vat or "")
             else:
                 company.l10n_be_codabox_fiduciary_vat = False
 
