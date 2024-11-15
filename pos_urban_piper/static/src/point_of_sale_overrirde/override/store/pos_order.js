@@ -19,6 +19,16 @@ patch(PosOrder.prototype, {
         const data = super.export_for_printing(baseUrl, headerData);
         data.headerData.deliveryId = this.delivery_identifier;
         data.headerData.deliveryChannel = this.delivery_provider_id?.name;
+        data.partner = this.partner_id;
         return data;
+    },
+
+    get deliveryOrderType() {
+        const deliveryJson = JSON.parse(this?.delivery_json || "{}");
+        return deliveryJson?.order?.details?.ext_platforms?.[0]?.delivery_type;
+    },
+
+    isFutureOrder() {
+        return false;
     },
 });
