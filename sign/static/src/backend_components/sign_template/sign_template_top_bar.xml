@@ -38,7 +38,7 @@
                 </div>
             </Record>
 
-            <button class="btn btn-secondary float-end o_sign_template_edit_form" t-on-click="onTemplatePropertiesClick">Template Properties</button>
+            <button t-if="props.signTemplate.active" class="btn btn-secondary float-end o_sign_template_edit_form" t-on-click="onTemplatePropertiesClick">Template Properties</button>
         </div>
     </t>
 </templates>

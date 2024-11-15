@@ -37,7 +37,7 @@ export class SignTemplate extends Component {
     async fetchTemplateData() {
         const template = await this.orm.call("sign.template", "read", [
             [this.templateID],
-            ["id", "attachment_id", "has_sign_requests", "responsible_count", "display_name"],
+            ["id", "attachment_id", "has_sign_requests", "responsible_count", "display_name", "active"],
         ]);
         if (!template.length) {
             this.templateID = undefined;
