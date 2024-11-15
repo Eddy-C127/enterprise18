@@ -16,7 +16,7 @@ import { View } from "@web/views/view";
 import { ManualBarcodeScanner } from './manual_barcode';
 import { url } from '@web/core/utils/urls';
 import { utils as uiUtils } from "@web/core/ui/ui_service";
-import { Component, EventBus, onPatched, onWillStart, onWillDestroy, useState, useSubEnv } from "@odoo/owl";
+import { Component, EventBus, onPatched, onWillStart, onWillUnmount, useState, useSubEnv } from "@odoo/owl";
 
 // Lets `barcodeGenericHandlers` knows those commands exist so it doesn't warn when scanned.
 COMMANDS["O-CMD.MAIN-MENU"] = () => {};
@@ -102,7 +102,7 @@ class MainComponent extends Component {
             this._scrollToSelectedLine();
         });
 
-        onWillDestroy(() => {
+        onWillUnmount(() => {
             this.env.model._onExit();
         });
     }

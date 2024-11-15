@@ -4420,7 +4420,7 @@ registry.category("web_tour.tours").add('test_split_uncomplete_moves_on_exit', {
         },
         {
             content: "Exit the barcode app to look at look at back end data.",
-            trigger: ".o_external_button",
+            trigger: ".o_field_widget[name=product_id] > a",
             run: "click",
         },
         {
@@ -4459,7 +4459,7 @@ registry.category("web_tour.tours").add('test_split_uncomplete_moves_on_exit', {
         },
         {
             content: "Exit the barcode app to look at look at back end data.",
-            trigger: ".o_external_button",
+            trigger: ".o_field_widget[name=product_id] > a",
             run: "click",
         },
         {
