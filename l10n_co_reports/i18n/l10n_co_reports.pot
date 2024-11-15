@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.1alpha1+e\n"
+"Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-12-06 09:36+0000\n"
 "PO-Revision-Date: 2022-12-06 09:36+0000\n"
@@ -248,7 +248,6 @@ msgid "Current Liabilities"
 msgstr ""
 
 #. module: l10n_co_reports
-#: model:account.report.expression,report_line_name:l10n_co_reports.l10n_co_bs_report_year_earnings_line_1_balance
 #: model:account.report.line,name:l10n_co_reports.l10n_co_bs_report_year_earnings
 msgid "Current Year Unallocated Earnings"
 msgstr ""
@@ -312,8 +311,8 @@ msgstr ""
 #. module: l10n_co_reports
 #: model_terms:ir.ui.view,arch_db:l10n_co_reports.report_certification
 msgid ""
-"El presente certificado se expide on concordancia con las disposiciones "
-"legales contenidas en al artículo 381 del Estatuto Tributario."
+"El presente certificado se expide en concordancia con las disposiciones "
+"legales contenidas en el artículo 381 del Estatuto Tributario."
 msgstr ""
 
 #. module: l10n_co_reports
@@ -437,11 +436,6 @@ msgid "Labor Obligations"
 msgstr ""
 
 #. module: l10n_co_reports
-#: model:ir.model.fields,field_description:l10n_co_reports.field_l10n_co_reports_retention_report_wizard____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: l10n_co_reports
 #: model:ir.model.fields,field_description:l10n_co_reports.field_l10n_co_reports_retention_report_wizard__write_uid
 msgid "Last Updated by"
 msgstr ""
@@ -452,7 +446,7 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: l10n_co_reports
-#: model:account.report.column,name:l10n_co_reports.l10n_co_reports_iva_balance
+#: model:account.report.column,name:l10n_co_reports.l10n_co_reports_iva_tax_base_amount
 msgid "Monto Total Operación"
 msgstr ""
 
@@ -607,7 +601,7 @@ msgstr ""
 
 #. module: l10n_co_reports
 #: model:account.report.column,name:l10n_co_reports.l10n_co_reports_fuente_balance
-#: model:account.report.column,name:l10n_co_reports.l10n_co_reports_iva_tax_base_amount
+#: model:account.report.column,name:l10n_co_reports.l10n_co_reports_iva_balance
 msgid "Retenido Consignado"
 msgstr ""
 
@@ -687,6 +681,7 @@ msgstr ""
 #. module: l10n_co_reports
 #. odoo-python
 #: code:addons/l10n_co_reports/report/certification_report.py:0
+#, python-format
 msgid "You have to expand at least one partner."
 msgstr ""
 
