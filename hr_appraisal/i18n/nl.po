@@ -490,8 +490,8 @@ msgid ""
 "                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state != 'new'\">Visible &amp; Editable by Manager</span>"
 msgstr ""
 "<span class=\"text-end\" invisible=\"employee_feedback_published\">Niet zichtbaar voor manager</span>\n"
-"                                            Zichtbaar voor manager</span>\n"
-"                                            Zichtbaar &amp; Bewerkbaar door manager</span>"
+"                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state == 'new'\">Zichtbaar voor manager</span>\n"
+"                                            <span class=\"text-end\" invisible=\"not employee_feedback_published or state != 'new'\">Zichtbaar &amp; Bewerkbaar door manager</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_form
@@ -500,7 +500,7 @@ msgid ""
 "                                            <span class=\"text-end\" invisible=\"not manager_feedback_published or not can_see_manager_publish\">Visible to Employee</span>"
 msgstr ""
 "<span class=\"text-end\" invisible=\"manager_feedback_published or not can_see_manager_publish\">Niet zichtbaar voor werknemer</span>\n"
-"                                            Zichtbaar voor werknemer</span>"
+"                                            <span class=\"text-end\" invisible=\"not manager_feedback_published or not can_see_manager_publish\">Zichtbaar voor werknemer</span>"
 
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.hr_employee_public_view_form
@@ -769,7 +769,7 @@ msgstr "Statistieken evaluatie"
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.view_hr_appraisal_template_form
 msgid "Appraisal Template"
-msgstr "Beoordelingssjabloon"
+msgstr "Evaluatiesjabloon"
 
 #. module: hr_appraisal
 #: model:ir.model.fields,field_description:hr_appraisal.field_hr_department__custom_appraisal_template_id
@@ -2011,7 +2011,7 @@ msgstr "Reeks"
 #. module: hr_appraisal
 #: model_terms:ir.ui.view,arch_db:hr_appraisal.res_config_settings_view_employee_form
 msgid "Set default appraisal template"
-msgstr "Standaard beoordelingssjabloon instellen"
+msgstr "Standaard evaluatiesjabloon instellen"
 
 #. module: hr_appraisal
 #: model:ir.actions.act_window,name:hr_appraisal.hr_appraisal_config_settings_action

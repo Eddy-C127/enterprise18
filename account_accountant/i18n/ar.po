@@ -72,7 +72,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "<i>Lock transactions up to specific dates, inclusive</i>"
-msgstr ""
+msgstr "<i>قفل المعاملات حتى تواريخ محددة، شاملة التواريخ نفسها</i> "
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -100,6 +100,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_fiscalyear_lock_date_exception_for_me_id                                                  or not min_fiscalyear_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -108,6 +111,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_purchase_lock_date_exception_for_me_id                                                  or not min_purchase_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -116,6 +122,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_sale_lock_date_exception_for_me_id                                                  or not min_sale_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -124,6 +133,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_tax_lock_date_exception_for_me_id                                                  or not min_tax_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -135,6 +147,12 @@ msgid ""
 "                                    <i>This change is irreversible</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"hard_lock_date != current_hard_lock_date\">\n"
+"                                    <i>حتى نضمن عدم قابلية التعديل</i>\n"
+"                                </span>\n"
+"                                <span class=\"text-danger o_form_label\" invisible=\"hard_lock_date == current_hard_lock_date\">\n"
+"                                    <i>لا يمكن التراجع عن هذا التغيير</i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -143,6 +161,9 @@ msgid ""
 "                                    <i>but allow exceptions</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_fiscalyear_lock_date_exception_for_me_id or min_fiscalyear_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>ولكن يُسمَح بالاستثناءات</i>\n"
+"                                </span> "
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -151,6 +172,9 @@ msgid ""
 "                                    <i>to lock bills</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>لقفل فواتير المورّدين</i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -159,6 +183,9 @@ msgid ""
 "                                    <i>to lock invoices</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>لقفل فواتير العملاء</i>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -167,6 +194,9 @@ msgid ""
 "                                    <i>after a tax closing</i>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted\" invisible=\"min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id\">\n"
+"                                    <i>بعد الإقفال الضريبي</i>\n"
+"                                </span> "
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
@@ -185,11 +215,14 @@ msgid ""
 "            <br>See how to manage your customer invoices in the <b>Customers/Invoices</b> menu\n"
 "        </span>"
 msgstr ""
+"<span><strong><b>عمل رائع!</b> لقد اجتزت كافة خطوات هذه الجولة.</strong>\n"
+"            <br>تعرّف على كيفية إدارة فواتير العملاء من قائمة <b>العملاء/فواتير العملاء</b>\n"
+"        </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "<span>Exception</span>"
-msgstr ""
+msgstr "<span>استثناء</span> "
 
 #. module: account_accountant
 #. odoo-javascript
@@ -515,7 +548,7 @@ msgstr "قم بتحديد بند لمعاينة مرفقاته. "
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__zero_balance
 msgid "Clear Account"
-msgstr ""
+msgstr "تصفية الحساب "
 
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.actions_account_fiscal_year
@@ -655,7 +688,7 @@ msgstr "العملة لاستخدامها في التسوية "
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__current_hard_lock_date
 msgid "Current Hard Lock"
-msgstr ""
+msgstr "تاريخ القفل الثابت الحالي "
 
 #. module: account_accountant
 #. odoo-python
@@ -778,7 +811,7 @@ msgstr "النفقة المؤجلة "
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Deferred expense entries:"
-msgstr ""
+msgstr "قيود النفقات المؤجلة: "
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -788,7 +821,7 @@ msgstr "الإيرادات المؤجلة "
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Deferred revenue entries:"
-msgstr ""
+msgstr "قيود الإيرادات المؤجلة: "
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -928,22 +961,22 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_duration
 msgid "Exception Duration"
-msgstr ""
+msgstr "مدة الاستثناء "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
 msgid "Exception Reason"
-msgstr ""
+msgstr "سبب الاستثناء "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_applies_to
 msgid "Exception applies"
-msgstr ""
+msgstr "يمكن تطبيق الاستثناء "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed
 msgid "Exception needed"
-msgstr ""
+msgstr "بحاجة إلى استثناء "
 
 #. module: account_accountant
 #. odoo-python
@@ -998,12 +1031,12 @@ msgstr "المتابعين (الشركاء) "
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "For everyone:"
-msgstr ""
+msgstr "للجميع: "
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "For me:"
-msgstr ""
+msgstr "لي: "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__force_partials
@@ -1089,12 +1122,12 @@ msgstr "مجموعة الضريبة "
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid "Hard Lock"
-msgstr ""
+msgstr "تاريخ القفل الثابت "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_abnormal_deferred_dates
 msgid "Has Abnormal Deferred Dates"
-msgstr ""
+msgstr "يحتوي على تواريخ مؤجلة غير معتادة "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_deferred_moves
@@ -1243,7 +1276,7 @@ msgstr "التاريخ يتعدى على تاريخ إقفال الحركات "
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "It is not possible to decrease or remove the Hard Lock Date."
-msgstr ""
+msgstr "لا يمكن تقديم تاريخ القفل الثابت أو إزالته. "
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_journal
@@ -1363,7 +1396,7 @@ msgstr "فلنعد إلى لوحة البيانات. "
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid "Like the \"Everyone Lock\", but no exceptions are possible."
-msgstr ""
+msgstr "مثل ”تاريخ الإقفال للجميع“، ولكن لا توجد استثناءات ممكنة. "
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__current_hard_lock_date
@@ -1389,67 +1422,67 @@ msgstr "تواريخ الإقفال"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everyone"
-msgstr ""
+msgstr "قفل الجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
 msgid "Lock Everyone For Everyone"
-msgstr ""
+msgstr "إقفال الجميع للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
 msgid "Lock Everyone For Me"
-msgstr ""
+msgstr "إقفال الجميع بالنسبة لي "
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
 msgid "Lock Journal Entries"
-msgstr ""
+msgstr "إقفال قيود اليومية "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid "Lock Purchases"
-msgstr ""
+msgstr "إقفال المشتريات "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date_for_everyone
 msgid "Lock Purchases For Everyone"
-msgstr ""
+msgstr "إقفال المشتريات للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date_for_me
 msgid "Lock Purchases For Me"
-msgstr ""
+msgstr "إقفال المشتريات بالنسبة لي "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid "Lock Sales"
-msgstr ""
+msgstr "إقفال المبيعات "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__sale_lock_date_for_everyone
 msgid "Lock Sales For Everyone"
-msgstr ""
+msgstr "إقفال المبيعات للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__sale_lock_date_for_me
 msgid "Lock Sales For Me"
-msgstr ""
+msgstr "إقفال المبيعات بالنسبة لي "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid "Lock Tax Return"
-msgstr ""
+msgstr "إقفال الإقرار الضريبي "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_everyone
 msgid "Lock Tax Return For Everyone"
-msgstr ""
+msgstr "إقفال الإقرار الضريبي للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_me
 msgid "Lock Tax Return For Me"
-msgstr ""
+msgstr "إقفال الإقرار الضريبي بالنسبة لي "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_main_attachment_id
@@ -1542,42 +1575,42 @@ msgstr "الطريقة المستخدمة لإنشاء القيود المؤجل
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_fiscalyear_lock_date_exception_for_everyone_id
 msgid "Min Fiscalyear Lock Date Exception For Everyone"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ إقفال السنة المالية للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_fiscalyear_lock_date_exception_for_me_id
 msgid "Min Fiscalyear Lock Date Exception For Me"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ إقفال السنة المالية بالنسبة لي "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_purchase_lock_date_exception_for_everyone_id
 msgid "Min Purchase Lock Date Exception For Everyone"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ إقفال المشتريات للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_purchase_lock_date_exception_for_me_id
 msgid "Min Purchase Lock Date Exception For Me"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ إقفال المشتريات بالنسبة لي "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_sale_lock_date_exception_for_everyone_id
 msgid "Min Sale Lock Date Exception For Everyone"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ إقفال المبيعات للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_sale_lock_date_exception_for_me_id
 msgid "Min Sale Lock Date Exception For Me"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ إقفال المبيعات بالنسبة لي "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_tax_lock_date_exception_for_everyone_id
 msgid "Min Tax Lock Date Exception For Everyone"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ الإقفال الضريبي للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__min_tax_lock_date_exception_for_me_id
 msgid "Min Tax Lock Date Exception For Me"
-msgstr ""
+msgstr "الحد الأدنى لاستثناء تاريخ الإقفال الضريبي بالنسبة لي "
 
 #. module: account_accountant
 #. odoo-python
@@ -1656,7 +1689,7 @@ msgstr "غير مطابق "
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Not locked"
-msgstr ""
+msgstr "لم يتم إقفاله "
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1723,7 +1756,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/move_line_list/move_line_list.xml:0
 msgid "Open attachment in pop out"
-msgstr ""
+msgstr "فتح المرفق في نافذة منبثقة "
 
 #. module: account_accountant
 #. odoo-python
@@ -1837,7 +1870,7 @@ msgstr "مطابقة المدفوعات"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__one_to_one
 msgid "Perfect Match"
-msgstr ""
+msgstr "مطابق تماماً "
 
 #. module: account_accountant
 #. odoo-python
@@ -1895,6 +1928,8 @@ msgid ""
 "Prevents creation and modification of entries in purchase journals up to the"
 " defined date inclusive"
 msgstr ""
+"يمنع إنشاء وتعديل القيود في دفاتر يوميات الشراء حتى التاريخ المحدد بما في "
+"ذلك التاريخ نفسه "
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -1902,6 +1937,8 @@ msgid ""
 "Prevents creation and modification of entries in sales journals up to the "
 "defined date inclusive"
 msgstr ""
+"يمنع إنشاء وتعديل القيود في دفاتر يوميات المبيعات حتى التاريخ المحدد بما في "
+"ذلك التاريخ نفسه "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__rating_ids
@@ -1954,7 +1991,7 @@ msgstr "نموذج التسوية "
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Reconcile automatically"
-msgstr ""
+msgstr "التسوية تلقائياً "
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_auto_reconcile_wizard__search_mode
@@ -1962,6 +1999,8 @@ msgid ""
 "Reconcile journal items with opposite balance or clear accounts with a zero "
 "balance"
 msgstr ""
+"تسوية بنود دفتر اليومية ذات الرصيد المعاكس أو تصفية الحسابات ذات الرصيد "
+"الصفري "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -2087,7 +2126,7 @@ msgstr "التعيين كتمّ التحقق منه "
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
 msgid "Show Draft Entries Warning"
-msgstr ""
+msgstr "إظهار تحذير القيود بحالة المسودة "
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__show_signature_area
@@ -2368,6 +2407,8 @@ msgid ""
 "There are still draft entries in the period you want to lock.\n"
 "                                You should either post or delete them."
 msgstr ""
+"لا تزال هناك قيود بحالة المسودة في الفترة التي تريد إقفالها.\n"
+"                                عليك إما ترحيلها أو حذفها. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2386,6 +2427,8 @@ msgid ""
 " You can't hit the reset button on it. So, do you want to \"unreconcile\" it"
 " instead?"
 msgstr ""
+"هذه المعاملة البنكية مغلقة بإحكام أكثر من السنجاب في مصنع الجوز! لا يمكنك "
+"الضغط على زر إعادة ضبطها. لذا، أترغب في \"إلغاءها\" عوضاً عن ذلك؟ "
 
 #. module: account_accountant
 #. odoo-python
@@ -2538,7 +2581,7 @@ msgstr "أداة العرض"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "View Reconciled Entries"
-msgstr ""
+msgstr "عرض القيود المسواة "
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2604,7 +2647,7 @@ msgstr "يمكنك فقط تسوية القيود حتى حسابين مختلف
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "You can't hit the reset button on a secured bank transaction."
-msgstr ""
+msgstr "لا يمكنك الضغط على زر إعادة الضبط في معاملة بنكية مؤمَّنة. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2656,7 +2699,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You cannot set a Lock Date in the future."
-msgstr ""
+msgstr "لا يمكنك تعيين تاريخ إقفال في المستقبل. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2690,13 +2733,13 @@ msgstr "قد ترغب بتعيين الفاتورة كـ %(btn_start)sمدفوع
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select a duration for the exception."
-msgstr ""
+msgstr "عليك تحديد مدة للاستثناء. "
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "You need to select who the exception applies to."
-msgstr ""
+msgstr "عليك تحديد الأفراد الذين ينطبق عليهم الاستثناء. "
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2732,32 +2775,32 @@ msgstr "exchange_diff"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__1h
 msgid "for 1 hour"
-msgstr ""
+msgstr "لمدة ساعة واحدة "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__15min
 msgid "for 15 minutes"
-msgstr ""
+msgstr "لمدة 15 دقيقة "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__24h
 msgid "for 24 hours"
-msgstr ""
+msgstr "لمدة 24 ساعة "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__5min
 msgid "for 5 minutes"
-msgstr ""
+msgstr "لمدة 5 دقائق "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_applies_to__everyone
 msgid "for everyone"
-msgstr ""
+msgstr "للجميع "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_applies_to__me
 msgid "for me"
-msgstr ""
+msgstr "لي "
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_change_lock_date__exception_duration__forever

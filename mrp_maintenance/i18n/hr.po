@@ -3,6 +3,9 @@
 # 	* mrp_maintenance
 # 
 # Translators:
+# Tina Milas, 2024
+# Milan Tribuson <one.mile.code@gmail.com>, 2024
+# KRISTINA PALAŠ <kristina.palas@storm.hr>, 2024
 # Martin Trigaux, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
@@ -23,7 +26,7 @@ msgstr ""
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_production_view_form_inherit_maintenance
 msgid "<span class=\"o_stat_text\">Maintenance</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Održavanje</span>"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_equipment_view_form_inherit_mrp
@@ -58,7 +61,7 @@ msgstr "Ikona tipa aktivnosti"
 #. module: mrp_maintenance
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
 msgid "Add a new maintenance request"
-msgstr ""
+msgstr "Dodaj novi zahtjev za održavanje"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__recurring_leaves_count
@@ -105,7 +108,7 @@ msgstr ""
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_open_count
 msgid "Current Maintenance"
-msgstr ""
+msgstr "Tekuće održavanje"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_request_view_form_inherit_mrp
@@ -115,7 +118,7 @@ msgstr "Odbaci"
 #. module: mrp_maintenance
 #: model:maintenance.equipment,name:mrp_maintenance.equipment_furniture3
 msgid "Drill Machine"
-msgstr ""
+msgstr "Bušilica"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__effective_date
@@ -132,17 +135,17 @@ msgstr "Oprema"
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Est. Next Failure"
-msgstr ""
+msgstr "Predviđen sljedeći kvar"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Estimated Next Failure"
-msgstr ""
+msgstr "Predviđen sljedeći kvar"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__estimated_next_failure
 msgid "Estimated time before next failure (in days)"
-msgstr ""
+msgstr "Predviđeno vrijeme prije sljedećeg kvara (u danima)"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__expected_mtbf
@@ -159,7 +162,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
 msgid ""
 "Follow the process of the request and communicate with the collaborator."
-msgstr ""
+msgstr "Pratite tijek procesuiranja zahtjeva i obavještavajte kolaboratora."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_follower_ids
@@ -199,7 +202,7 @@ msgstr "Ikona"
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Ikona za prikaz iznimki."
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_needaction
@@ -227,12 +230,12 @@ msgstr ""
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Latest Failure"
-msgstr ""
+msgstr "Zadnji kvar"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__latest_failure_date
 msgid "Latest Failure Date"
-msgstr ""
+msgstr "Datum zadnjeg kvara"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__leave_ids
@@ -252,19 +255,19 @@ msgstr ""
 #. module: mrp_maintenance
 #: model:ir.ui.menu,name:mrp_maintenance.menu_equipment_dashboard
 msgid "Machines & Tools"
-msgstr ""
+msgstr "Strojevi i alati"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_ids
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_kanban_inherit_maintenance
 msgid "Maintenance"
-msgstr ""
+msgstr "Održavanje"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_count
 msgid "Maintenance Count"
-msgstr ""
+msgstr "Broj održavanja"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_maintenance_equipment
@@ -283,17 +286,17 @@ msgstr "Zahtjev za održavanjem"
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 #: model:ir.actions.act_window,name:mrp_maintenance.mrp_workcenter_request_action_from_workcenter
 msgid "Maintenance Requests"
-msgstr ""
+msgstr "Zahtjevi za održavanjem"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_maintenance_stage
 msgid "Maintenance Stage"
-msgstr ""
+msgstr "Faza održavanja"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__maintenance_team_id
 msgid "Maintenance Team"
-msgstr ""
+msgstr "Tim održavanja"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_production
@@ -323,7 +326,7 @@ msgstr ""
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__mttr
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.mrp_workcenter_view_form_inherit_maintenance
 msgid "Mean Time To Repair"
-msgstr ""
+msgstr "Glavno vrijeme popravka"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_has_error
@@ -344,7 +347,7 @@ msgstr "Rok za moju aktivnost"
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 msgid "New Maintenance Request"
-msgstr ""
+msgstr "Novi zahtjev za održavanjem"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_calendar_event_id
@@ -379,7 +382,7 @@ msgstr "Broj grešaka"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_production__maintenance_count
 msgid "Number of maintenance requests"
-msgstr ""
+msgstr "Broj zahtjeva za održavanjem"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,help:mrp_maintenance.field_mrp_workcenter__message_needaction_counter
@@ -394,7 +397,7 @@ msgstr "Broj poruka sa greškama pri isporuci"
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_request_view_search_inherit_mrp
 msgid "Operation"
-msgstr ""
+msgstr "Operacija"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_request__production_company_id
@@ -410,7 +413,7 @@ msgstr "Ocjene"
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_production__request_ids
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_workcenter_view_kanban_inherit_mrp
 msgid "Request"
-msgstr ""
+msgstr "Zahtjev"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_maintenance_stage__create_leaves
@@ -427,7 +430,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 msgid "Request planned for %s"
-msgstr ""
+msgstr "Zahtjev planiran za %s"
 
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__activity_user_id
@@ -437,7 +440,7 @@ msgstr "Odgovorna osoba"
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Greška u slanju SMSa"
 
 #. module: mrp_maintenance
 #: model_terms:ir.ui.view,arch_db:mrp_maintenance.maintenance_request_view_form_inherit_mrp
@@ -465,7 +468,7 @@ msgstr ""
 #. module: mrp_maintenance
 #: model:ir.model.fields,field_description:mrp_maintenance.field_mrp_workcenter__technician_user_id
 msgid "Technician"
-msgstr ""
+msgstr "Tehničar"
 
 #. module: mrp_maintenance
 #. odoo-javascript
@@ -526,7 +529,7 @@ msgstr "Radni centar"
 #: model:ir.actions.act_window,name:mrp_maintenance.maintenance_workcenter_action
 #: model:ir.ui.menu,name:mrp_maintenance.menu_workcenter_tree
 msgid "Work Centers"
-msgstr ""
+msgstr "Radni centri"
 
 #. module: mrp_maintenance
 #: model:ir.model,name:mrp_maintenance.model_mrp_workorder
@@ -548,4 +551,4 @@ msgstr "dana"
 #. odoo-python
 #: code:addons/mrp_maintenance/models/mrp_maintenance.py:0
 msgid "work centers"
-msgstr ""
+msgstr "radni centri"

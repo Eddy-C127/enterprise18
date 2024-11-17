@@ -6,6 +6,7 @@
 # Tiffany Chang, 2024
 # Jolien De Paepe, 2024
 # Wil Odoo, 2024
+# allanot nicolas <n.allanot@free.fr>, 2024
 # Manon Rondou, 2024
 # 
 msgid ""
@@ -1418,7 +1419,7 @@ msgstr "Plans de document"
 #. module: documents
 #: model:ir.model,name:documents.model_documents_redirect
 msgid "Document Redirect"
-msgstr ""
+msgstr "Redirection de document"
 
 #. module: documents
 #: model:ir.model,name:documents.model_documents_request_wizard
@@ -2495,6 +2496,12 @@ msgstr "Plus de 120 jours"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
 msgstr ""
 
@@ -3191,6 +3198,11 @@ msgid "Summary"
 msgstr "Résumé"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3257,6 +3269,12 @@ msgstr ""
 msgid ""
 "The following documents/folders can't be owned by a Portal User: \n"
 "- %(partners)s"
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
 msgstr ""
 
 #. module: documents
@@ -3639,6 +3657,7 @@ msgstr ""
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to pin/unpin embedded Actions."
 msgstr ""
+"Vous n'êtes pas autorisé à épingler/désépingler des actions intégrées."
 
 #. module: documents
 #. odoo-python
@@ -3654,6 +3673,18 @@ msgid ""
 msgstr ""
 "Vous pouvez soit charger un fichier depuis votre ordinateur, soit "
 "copier/coller une adresse internet qui y renvoie."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Larissa Manderfeld, 2024
 # Óscar Fonseca <tecnico@pyming.com>, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Óscar Fonseca <tecnico@pyming.com>, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -202,6 +202,63 @@ msgid ""
 "</div>\n"
 "        "
 msgstr ""
+"<div>\n"
+"    <t t-set=\"access_token\" t-value=\"object._rating_get_access_token()\"></t>\n"
+"    <t t-set=\"partner\" t-value=\"object._rating_get_partner()\"></t>\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin:0;\">\n"
+"    <tbody>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            <t t-if=\"partner.name\">\n"
+"                Estimado/a <t t-out=\"partner.name or ''\">Brandon Freeman</t>,<br><br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                Hola,<br>\n"
+"            </t>\n"
+"             Nos gustaría que se tomara un momento para calificar los servicios que le brindamos para solucionar el ticket “<strong t-out=\"object.name or ''\">Las patas de la mesa no están balanceadas</strong>”\n"
+"            <t t-if=\"object._rating_get_operator().name\">\n"
+"                asignado a <strong t-out=\"object._rating_get_operator().name or ''\">Mitchell Admin</strong>.<br>\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                .<br><br>\n"
+"            </t>\n"
+"        </td></tr>\n"
+"        <tr><td style=\"text-align: center;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"width:100%; margin: 32px 0px 32px 0px; display: inline-table;\">\n"
+"                <tr><td style=\"font-size: 14px; text-align:center;\">\n"
+"                    <strong>Díganos cómo sintió nuestro servicio</strong><br>\n"
+"                    <span style=\"text-color: #888888\">(haga clic en cualquiera de estas caras)</span>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"font-size: 14px;\">\n"
+"                    <table style=\"width:100%;text-align:center;margin-top:2rem;\">\n"
+"                        <tr>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/5\" t-att-class=\"'pe-none' if object._rating_get_operator() else ''\">\n"
+"                                    <img alt=\"Satisfactorio\" src=\"/rating/static/src/img/rating_5.png\" title=\"Satisfactorio\"/>\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/3\" t-att-class=\"'pe-none' if object._rating_get_operator() else ''\">\n"
+"                                    <img alt=\"Regular\" src=\"/rating/static/src/img/rating_3.png\" title=\"Regular\"/>\n"
+"                                </a>\n"
+"                            </td>\n"
+"                            <td>\n"
+"                                <a t-attf-href=\"/rate/{{ access_token }}/1\" t-att-class=\"'pe-none' if object._rating_get_operator() else ''\">\n"
+"                                    <img alt=\"Insatisfactorio\" src=\"/rating/static/src/img/rating_1.png\" title=\"Insatisfactorio\"/>\n"
+"                                </a>\n"
+"                            </td>\n"
+"                        </tr>\n"
+"                    </table>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td></tr>\n"
+"        <tr><td valign=\"top\" style=\"font-size: 14px;\">\n"
+"            Su retroalimentación nos ayuda a seguir mejorando.\n"
+"            <br><br><span style=\"margin: 0px 0px 0px 0px; font-size: 12px; opacity: 0.5; color: #454748;\">Recibió esta encuesta ya que su ticket se movió a la etapa <b t-out=\"object.stage_id.name or ''\">En proceso</b>.</span>\n"
+"        </td></tr>\n"
+"    </tbody>\n"
+"    </table>\n"
+"</div>\n"
+"        "
 
 #. module: helpdesk
 #: model:mail.template,body_html:helpdesk.new_ticket_request_email_template
@@ -336,6 +393,8 @@ msgid ""
 "<i class=\"fa fa-lightbulb-o\"/>\n"
 "                                    <span class=\"ms-2\">A rating request will automatically be sent by email to the customer when their ticket reaches the corresponding stage with the email template set.</span>"
 msgstr ""
+"<i class=\"fa fa-lightbulb-o\"/>\n"
+"                                    <span class=\"ms-2\">El cliente recibirá automáticamente una solicitud de calificación por correo cuando su ticket llegue a la etapa que tiene la plantilla de correo configurada.</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -365,7 +424,7 @@ msgstr "<i class=\"fa fa-warning\"/>&amp;nbsp;"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
 msgid "<i class=\"oi oi-arrow-right\"/> Set an Alias Domain"
-msgstr ""
+msgstr "<i class=\"oi oi-arrow-right\"/> Configurar un alias de dominio"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.tickets_followup
@@ -443,22 +502,22 @@ msgstr "<span class=\"o_stat_text\">Calificación</span>"
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Failed</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Fallido</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Open</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Abierto</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Unassigned</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Sin asignar</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
 msgid "<span class=\"text-muted text-nowrap\">Urgent</span>"
-msgstr ""
+msgstr "<span class=\"text-muted text-nowrap\">Urgente</span>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -513,6 +572,8 @@ msgstr "<strong class=\"col-lg-3\">Informado el</strong>"
 msgid ""
 "<strong><b>Good job!</b> You walked through all steps of this tour.</strong>"
 msgstr ""
+"<strong><b>¡Buen trabajo!</b> Pasó por todos los pasos de este "
+"recorrido.</strong>"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_form
@@ -617,7 +678,7 @@ msgstr ""
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_ticket_view_form
 msgid "Add details about this ticket..."
-msgstr ""
+msgstr "Agregar detalles sobre el ticket..."
 
 #. module: helpdesk
 #. odoo-javascript
@@ -856,7 +917,7 @@ msgstr "Calificación promedio (%)"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Average Rating for the Past 7 Days"
-msgstr ""
+msgstr "Calificación media de los últimos 7 días"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -880,7 +941,7 @@ msgstr "Calificación promedio: Satisfecho"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Average rating daily target"
-msgstr ""
+msgstr "Objetivo diario de calificación media"
 
 #. module: helpdesk
 #: model_terms:ir.ui.view,arch_db:helpdesk.helpdesk_team_view_kanban
@@ -961,7 +1022,7 @@ msgstr "Canales"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Click to Set Your Daily Rating Target"
-msgstr ""
+msgstr "Haga clic para configurar su objetivo diario de calificación media"
 
 #. module: helpdesk
 #. odoo-javascript
@@ -2414,7 +2475,7 @@ msgstr "Tiempo disponible (horas)"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/js/tours/helpdesk.js:0
 msgid "Open the ticket."
-msgstr ""
+msgstr "Abra el ticket."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_force_thread_id
@@ -2562,7 +2623,7 @@ msgstr "Introduzca un valor positivo."
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_target/helpdesk_team_target.js:0
 msgid "Please enter a value less than or equal to 5."
-msgstr ""
+msgstr "Ingrese un valor igual o menor que 5."
 
 #. module: helpdesk
 #: model:ir.model.fields,help:helpdesk.field_helpdesk_team__alias_contact
@@ -3224,7 +3285,7 @@ msgstr "Miembros del equipo"
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.helpdesk_stage_team_action
 msgid "Team Stages"
-msgstr ""
+msgstr "Etapas del equipo"
 
 #. module: helpdesk
 #: model:ir.actions.act_window,name:helpdesk.email_template_action_helpdesk
@@ -3565,7 +3626,7 @@ msgstr "Actividades de hoy"
 #. odoo-javascript
 #: code:addons/helpdesk/static/src/components/helpdesk_team_dashboard/helpdesk_team_dashboard.xml:0
 msgid "Today's Average Rating"
-msgstr ""
+msgstr "Calificación media de hoy"
 
 #. module: helpdesk
 #: model:ir.model.fields,field_description:helpdesk.field_helpdesk_ticket__total_response_hours

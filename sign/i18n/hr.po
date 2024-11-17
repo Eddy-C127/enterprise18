@@ -3,10 +3,23 @@
 # 	* sign
 # 
 # Translators:
+# Vojislav Opačić <vojislav.opacic@gmail.com>, 2024
+# Stjepan Lovasić <stjepan.lovasic@gmail.com>, 2024
+# Milan Tribuson <one.mile.code@gmail.com>, 2024
+# Tina Milas, 2024
+# Luka Carević <luka@uvid.hr>, 2024
+# 0ba0ac30481a756f36528ba6f9a4317e_6443a87 <52eefe24349934c364624ef40611b7a3_1010754>, 2024
+# Alen Komljen, 2024
 # Đurđica Žarković <durdica.zarkovic@storm.hr>, 2024
-# Martin Trigaux, 2024
-# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Davor Bojkić <davor.bojkic@storm.hr>, 2024
 # Bole <bole@dajmi5.com>, 2024
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Matija Gudlin, 2024
+# Vladimir Vrgoč, 2024
+# Martin Trigaux, 2024
+# Servisi RAM d.o.o. <support@servisiram.hr>, 2024
+# Kristina Palaš, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +27,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
+"Last-Translator: Karolina Tonković <karolina.tonkovic@storm.hr>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +45,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_res_partner__signature_count
 #: model:ir.model.fields,field_description:sign.field_res_users__signature_count
 msgid "# Signatures"
-msgstr ""
+msgstr "# Potpisa"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -57,7 +70,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "%s has been edited and signed"
-msgstr ""
+msgstr "%s je uređen i potpisan"
 
 #. module: sign
 #. odoo-python
@@ -69,7 +82,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "%s has been signed"
-msgstr ""
+msgstr "%s je potpisan"
 
 #. module: sign
 #. odoo-python
@@ -95,6 +108,8 @@ msgid ""
 ")\n"
 "        has requested your signature on the document"
 msgstr ""
+")\n"
+"        traži Vaš potpis na dokumentu"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -147,22 +162,22 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Created by:</b>"
-msgstr ""
+msgstr "<b>Kreirao:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Created on:</b>"
-msgstr ""
+msgstr "<b>Datum kreiranja:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Creation IP Address:</b>"
-msgstr ""
+msgstr "<b>IP Adresa kreiranja:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Document ID:</b>"
-msgstr ""
+msgstr "<b>Dokument ID:</b>"
 
 #. module: sign
 #. odoo-javascript
@@ -178,12 +193,12 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Signature:</b>"
-msgstr ""
+msgstr "<b>Potpis:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<b>Signers:</b>"
-msgstr ""
+msgstr "<b>Potpisnici:</b>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -208,7 +223,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "<br/>(the email access has not been sent)"
-msgstr ""
+msgstr "<br/>(e-mail pristup nije poslan)"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -218,7 +233,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<i class=\"fa fa-check\"/> The document's integrity is valid."
-msgstr ""
+msgstr "<i class=\"fa fa-check\"/> Cjelovitost dokumenta je važeća."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -226,11 +241,13 @@ msgid ""
 "<i class=\"fa fa-exclamation-circle\"/> The document's integrity could not "
 "be verified."
 msgstr ""
+"<i class=\"fa fa-exclamation-circle\"/> Cjelovitost dokumenta ne može biti "
+"potvrđena."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "<i class=\"fa fa-globe\"/> View"
-msgstr ""
+msgstr "<i class=\"fa fa-globe\"/> Pogledaj"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_expired
@@ -278,12 +295,12 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_partner_view_form
 msgid "<span class=\"o_stat_text\">Signature Requested</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Potpis zatražen</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "<span class=\"o_stat_text\">Signed Document</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Potpisani dokumenti</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_share_view_form
@@ -303,7 +320,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_type_view_form
 msgid "<span>(1.0 = full page size)</span>"
-msgstr ""
+msgstr "<span>(1.0 = maksimalna veličina stranice)</span>"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_terms_conditions_setting_banner
@@ -335,6 +352,9 @@ msgid ""
 "            They will be able to access this document and sign it as yourself.<br/>\n"
 "            <span>Your IP address and localization are associated to your signature to ensure traceability.</span>"
 msgstr ""
+"<strong>Oprez</strong> ne prosljeđujte ovaj email drugim osobama!<br/>\n"
+"            Druge osobe će moći pristupiti dokumentu i potpisati ga u Vaše ime!.<br/>\n"
+"            <span>Vaša IP adresa i lokalizacija su povezane s Vašim potpisom kako bi se osigurala sljedivost.</span>"
 
 #. module: sign
 #. odoo-javascript
@@ -479,7 +499,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/initials_all_pages_dialog.js:0
 msgid "Add Initials"
-msgstr ""
+msgstr "Dodaj inicijale"
 
 #. module: sign
 #. odoo-javascript
@@ -507,7 +527,7 @@ msgstr "Administrator"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sign_name_and_signature_dialog.js:0
 msgid "Adopt Your Signature"
-msgstr ""
+msgstr "Usvoji svoj potpis"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__signed
@@ -531,7 +551,7 @@ msgstr "Sve"
 #: model:ir.actions.act_window,name:sign.sign_all_request_action
 #: model:ir.ui.menu,name:sign.sign_request_documents
 msgid "All Documents"
-msgstr ""
+msgstr "Svi dokumenti"
 
 #. module: sign
 #. odoo-javascript
@@ -551,12 +571,16 @@ msgid ""
 "Allow signatories to provide their identity using itsme® (available in "
 "Belgium and the Netherlands)."
 msgstr ""
+"Dopustite potpisnicima da se identificiraju koristeći itsme® (dostupno u "
+"Belgiji i Nizozemskoj)."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid ""
 "Allow users to define the users or groups which have access to the template."
 msgstr ""
+"Dopustite korisnicima da definiraju korisnike ili grupe koje imaju pristup "
+"predlošku."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -615,7 +639,7 @@ msgstr "Prilozi"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Authenticate by SMS"
-msgstr ""
+msgstr "Autentifikacija SMS-om"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__group_ids
@@ -626,12 +650,12 @@ msgstr "Autorizirane grupe"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 msgid "Authorized Groups:"
-msgstr ""
+msgstr "Ovlaštene grupe"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__authorized_ids
 msgid "Authorized Users"
-msgstr ""
+msgstr "Ovlašteni korisnici"
 
 #. module: sign
 #. odoo-javascript
@@ -673,7 +697,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "By"
-msgstr ""
+msgstr "Od"
 
 #. module: sign
 #. odoo-javascript
@@ -734,7 +758,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
 msgid "Center"
-msgstr ""
+msgstr "Centar"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
@@ -750,13 +774,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__change_authorized
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__change_authorized
 msgid "Change Authorized"
-msgstr ""
+msgstr "Promjena odobrena"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__checkbox
 #: model:sign.item.type,name:sign.sign_item_type_checkbox
 msgid "Checkbox"
-msgstr ""
+msgstr "Potvrdni okvir"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_template__is_sharing
@@ -767,7 +791,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/components/sign_request/sign_item_navigator.js:0
 msgid "Click to start"
-msgstr ""
+msgstr "Klikni za početak"
 
 #. module: sign
 #. odoo-javascript
@@ -821,12 +845,12 @@ msgstr ""
 #: code:addons/sign/controllers/portal.py:0
 #: model:ir.model.fields.selection,name:sign.selection__sign_request_item__state__completed
 msgid "Completed"
-msgstr ""
+msgstr "Završeno"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completed_document
 msgid "Completed Document"
-msgstr ""
+msgstr "Završeni dokument"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completed_document_attachment_ids
@@ -836,12 +860,12 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_closed
 msgid "Completed Signatures"
-msgstr ""
+msgstr "Završeni potpisi"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__completion_date
 msgid "Completion Date"
-msgstr ""
+msgstr "Datum završetka"
 
 #. module: sign
 #: model:ir.model,name:sign.model_res_config_settings
@@ -908,7 +932,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_sign_request__cc_partner_ids
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__cc_partner_ids
 msgid "Copy to"
-msgstr ""
+msgstr "Kopiraj u"
 
 #. module: sign
 #: model_terms:ir.actions.act_window,help:sign.sign_template_tag_action
@@ -918,7 +942,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_tree
 msgid "Create date"
-msgstr ""
+msgstr "Datum kreiranja"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__create_uid
@@ -959,7 +983,7 @@ msgstr "Kreirano"
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__create
 msgid "Creation"
-msgstr ""
+msgstr "Kreirano"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
@@ -997,7 +1021,7 @@ msgstr "Zadano"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__default_height
 msgid "Default Height"
-msgstr ""
+msgstr "Zadana visina"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_mail_activity_type__default_sign_template_id
@@ -1007,7 +1031,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__default_width
 msgid "Default Width"
-msgstr ""
+msgstr "Zadana širina"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__sequence
@@ -1037,6 +1061,8 @@ msgid ""
 "Deliver one-time codes by SMS to identify signatories when signing a "
 "document."
 msgstr ""
+"Dostavite jednokratne kodove SMS-om za identifikaciju potpisnika prilikom "
+"potpisivanja dokumenta."
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
@@ -1093,7 +1119,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.res_users_view_form
 #: model_terms:ir.ui.view,arch_db:sign.view_users_form_simple_modif
 msgid "Digital Signatures"
-msgstr ""
+msgstr "Digitalni potpisi"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_view_form
@@ -1150,12 +1176,12 @@ msgstr "Naziv dokumenta"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__page
 msgid "Document Page"
-msgstr ""
+msgstr "Stranica dokumenta"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__template_id
 msgid "Document Template"
-msgstr ""
+msgstr "Predložak dokumenta"
 
 #. module: sign
 #. odoo-javascript
@@ -1188,7 +1214,7 @@ msgstr "Preuzimanje"
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.xml:0
 msgid "Download Certificate"
-msgstr ""
+msgstr "Preuzmi certifikat"
 
 #. module: sign
 #. odoo-javascript
@@ -1196,13 +1222,13 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.js:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Download Document"
-msgstr ""
+msgstr "Preuzmi dokument"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 msgid "Drag & Drop a field in the PDF"
-msgstr ""
+msgstr "Povuci i pusti polje u PDF-u"
 
 #. module: sign
 #. odoo-javascript
@@ -1221,7 +1247,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
 msgid "Dropdown menu"
-msgstr ""
+msgstr "Padajući izbornik"
 
 #. module: sign
 #. odoo-python
@@ -1261,7 +1287,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 msgid "Edit template name"
-msgstr ""
+msgstr "Uredi naziv predloška"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__signer_email
@@ -1303,12 +1329,12 @@ msgstr ""
 #: code:addons/sign/static/src/components/sign_request/signable_PDF_iframe.js:0
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.js:0
 msgid "Error"
-msgstr ""
+msgstr "Greška"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.deleted_sign_request
 msgid "Error 404"
-msgstr ""
+msgstr "Greška 404"
 
 #. module: sign
 #. odoo-python
@@ -1320,27 +1346,27 @@ msgstr ""
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__expired
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__expired
 msgid "Expired"
-msgstr ""
+msgstr "Isteklo"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Expiring Soon"
-msgstr ""
+msgstr "Uskoro ističe"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_role__auth_method
 msgid "Extra Authentication Step"
-msgstr ""
+msgstr "Dodatna autentifikacija"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__favorited_ids
 msgid "Favorite of"
-msgstr ""
+msgstr "Omiljeni"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__favorited_ids
 msgid "Favorited Users"
-msgstr ""
+msgstr "Omiljeni korisnici"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__name
@@ -1352,14 +1378,14 @@ msgstr "Naziv polja"
 #: model:ir.ui.menu,name:sign.sign_item_type_menu
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Field Types"
-msgstr ""
+msgstr "Vrste polja"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_type_buttons.xml:0
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_form
 msgid "Fields"
-msgstr ""
+msgstr "Polja"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item
@@ -1380,12 +1406,12 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_duplicate_template_pdf__new_pdf
 msgid "File name"
-msgstr ""
+msgstr "Naziv datoteke"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__filename
 msgid "Filename"
-msgstr ""
+msgstr "Naziv datoteke"
 
 #. module: sign
 #. odoo-javascript
@@ -1398,7 +1424,7 @@ msgstr ""
 #: code:addons/sign/static/src/dialogs/public_signer_dialog.js:0
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.js:0
 msgid "Final Validation"
-msgstr ""
+msgstr "Finalna validacija"
 
 #. module: sign
 #. odoo-javascript
@@ -1462,7 +1488,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Fully Signed"
-msgstr ""
+msgstr "Potpuno  potpisano"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1478,27 +1504,27 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Geolocation"
-msgstr ""
+msgstr "Geolokacija"
 
 #. module: sign
 #: model:ir.ui.menu,name:sign.sign_report_green_savings
 msgid "Green Savings"
-msgstr ""
+msgstr "Zelena ušteda"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Green Savings Report"
-msgstr ""
+msgstr "Izvještaj zelene uštede"
 
 #. module: sign
 #: model:ir.model,name:sign.model_report_sign_green_savings_report
 msgid "Green Savings Report model"
-msgstr ""
+msgstr "Model izvješća zelene štednje"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 msgid "Green Savings Summary"
-msgstr ""
+msgstr "Sažetak zelene štednje"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1508,7 +1534,7 @@ msgstr "Grupiraj po"
 #. module: sign
 #: model:sign.template.tag,name:sign.sign_template_tag_1
 msgid "HR"
-msgstr ""
+msgstr "HR"
 
 #. module: sign
 #: model:ir.model,name:sign.model_ir_http
@@ -1528,7 +1554,7 @@ msgstr "Ima poruku"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__has_sign_requests
 msgid "Has Sign Requests"
-msgstr ""
+msgstr "Ima zahtjev za potpis"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__height
@@ -1551,7 +1577,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
 msgid "Home"
-msgstr ""
+msgstr "Naslovna"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
@@ -1610,12 +1636,12 @@ msgstr "Ikona"
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Ikona za prikaz iznimki."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__module_sign_itsme
 msgid "Identify with itsme®"
-msgstr ""
+msgstr "Identifikacija putem itsme®"
 
 #. module: sign
 #: model:ir.model.fields,help:sign.field_sign_request__message_needaction
@@ -1673,7 +1699,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__log_hash
 msgid "Inalterability Hash"
-msgstr ""
+msgstr "Hash nepromjenjivosti"
 
 #. module: sign
 #. odoo-javascript
@@ -1684,23 +1710,23 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_view_form
 msgid "Information"
-msgstr ""
+msgstr "Informacija"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__initial
 msgid "Initial"
-msgstr ""
+msgstr "Inicijal"
 
 #. module: sign
 #: model:sign.item.type,name:sign.sign_item_type_initial
 #: model:sign.item.type,placeholder:sign.sign_item_type_initial
 msgid "Initials"
-msgstr ""
+msgstr "Inicijali"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Insert your terms & conditions here..."
-msgstr ""
+msgstr "Umetnite ovdje svoje uvijete i pravila..."
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__integrity
@@ -1720,7 +1746,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__is_sharing
 msgid "Is Sharing"
-msgstr ""
+msgstr "U dijeljenju"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
@@ -1831,7 +1857,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__redirect_url_text
 msgid "Link Label"
-msgstr ""
+msgstr "Labela retka"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__activity_id
@@ -1874,7 +1900,7 @@ msgstr "Logo"
 #: model:ir.model.fields,field_description:sign.field_sign_request__sign_log_ids
 #: model_terms:ir.ui.view,arch_db:sign.sign_log_view_tree
 msgid "Logs"
-msgstr ""
+msgstr "Praćenja"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__longitude
@@ -1902,18 +1928,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__group_manage_template_access
 #: model:res.groups,name:sign.manage_template_access
 msgid "Manage template access"
-msgstr ""
+msgstr "Upravljanje pristupom predlošku"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 msgid "Mandatory field"
-msgstr ""
+msgstr "Obavezno polje"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Marc Demo"
-msgstr ""
+msgstr "Marc Demo"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__message
@@ -1960,12 +1986,12 @@ msgstr ""
 #: model:sign.item.type,name:sign.sign_item_type_multiline_text
 #: model:sign.item.type,placeholder:sign.sign_item_type_multiline_text
 msgid "Multiline Text"
-msgstr ""
+msgstr "Višelinijski tekst"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_share_view_form
 msgid "Multiple Signature Requests"
-msgstr ""
+msgstr "Višestruki zahtjevi za potpis"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__my_activity_date_deadline
@@ -1982,7 +2008,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_search
 msgid "My Favorites"
-msgstr ""
+msgstr "Moji favoriti"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -1992,7 +2018,7 @@ msgstr "Moji zahtjevi"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_search
 msgid "My Templates"
-msgstr ""
+msgstr "Moji predlošci"
 
 #. module: sign
 #: model:sign.template.tag,name:sign.sign_template_tag_2
@@ -2168,7 +2194,7 @@ msgstr "Broj poruka sa greškama pri isporuci"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__num_pages
 msgid "Number of pages"
-msgstr ""
+msgstr "Broj stranica"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -2197,7 +2223,7 @@ msgstr ""
 #: code:addons/sign/controllers/main.py:0
 #: code:addons/sign/controllers/terms.py:0
 msgid "Oops"
-msgstr ""
+msgstr "Oops"
 
 #. module: sign
 #: model:sign.template,redirect_url_text:sign.template_sign_1
@@ -2207,7 +2233,7 @@ msgstr ""
 #: model:sign.template,redirect_url_text:sign.template_sign_5
 #: model:sign.template,redirect_url_text:sign.template_sign_tour
 msgid "Open Link"
-msgstr ""
+msgstr "Otvori link"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -2217,7 +2243,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_option__value
 msgid "Option"
-msgstr ""
+msgstr "Opcija"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_option
@@ -2267,7 +2293,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "Participants"
-msgstr ""
+msgstr "Prisutni"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_log__partner_id
@@ -2291,14 +2317,14 @@ msgstr "Telefon"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 msgid "Phone Number"
-msgstr ""
+msgstr "Broj telefona"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.xml:0
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__placeholder
 msgid "Placeholder"
-msgstr ""
+msgstr "Rezervirano"
 
 #. module: sign
 #. odoo-python
@@ -2320,12 +2346,12 @@ msgstr "URL za pristup portalu"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__posX
 msgid "Position X"
-msgstr ""
+msgstr "Pozicija X"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__posY
 msgid "Position Y"
-msgstr ""
+msgstr "Pozicija Y"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -2346,7 +2372,7 @@ msgstr "Napredak"
 #. odoo-python
 #: code:addons/sign/models/sign_request.py:0
 msgid "Public User"
-msgstr ""
+msgstr "Javni korisnik"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_item_type__item_type__radio
@@ -2383,7 +2409,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__redirect_url
 msgid "Redirect Link"
-msgstr ""
+msgstr "Poveznica za preusmjeravanje"
 
 #. module: sign
 #. odoo-javascript
@@ -2416,7 +2442,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Reminder"
-msgstr ""
+msgstr "Podsjetnik"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__reminder_enabled
@@ -2427,12 +2453,12 @@ msgstr ""
 #. module: sign
 #: model:ir.ui.menu,name:sign.sign_reports
 msgid "Reports"
-msgstr ""
+msgstr "Izvještaji"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__request_item_infos
 msgid "Request Item Infos"
-msgstr ""
+msgstr "Zatraži informacije o stavkama"
 
 #. module: sign
 #. odoo-javascript
@@ -2452,12 +2478,12 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_total
 msgid "Requested Signatures"
-msgstr ""
+msgstr "Zatraženi potpisi"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__required
 msgid "Required"
-msgstr ""
+msgstr "Obavezno"
 
 #. module: sign
 #. odoo-javascript
@@ -2471,7 +2497,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_request/sign_request_control_panel.js:0
 msgid "Resend the invitation"
-msgstr ""
+msgstr "Ponovno pošaljite pozivnicu"
 
 #. module: sign
 #. odoo-javascript
@@ -2485,7 +2511,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_sign_item__responsible_id
 #: model:ir.model.fields,field_description:sign.field_sign_template__user_id
 msgid "Responsible"
-msgstr ""
+msgstr "Odgovoran"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__responsible_count
@@ -2501,29 +2527,29 @@ msgstr "Odgovorna osoba"
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 msgid "Restore"
-msgstr ""
+msgstr "Obnovi"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_item_custom_popover.js:0
 msgid "Right"
-msgstr ""
+msgstr "Desno"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__role_id
 #: model:ir.model.fields,field_description:sign.field_sign_send_request_signer__role_id
 msgid "Role"
-msgstr ""
+msgstr "Uloga"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_role_view_tree
 msgid "Role Name"
-msgstr ""
+msgstr "Naziv uloge"
 
 #. module: sign
 #: model:ir.ui.menu,name:sign.sign_item_role_menu
 msgid "Roles"
-msgstr ""
+msgstr "Uloge"
 
 #. module: sign
 #. odoo-javascript
@@ -2534,7 +2560,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Greška u slanju SMSa"
 
 #. module: sign
 #. odoo-javascript
@@ -2570,7 +2596,7 @@ msgstr ""
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.js:0
 msgid "Saved"
-msgstr ""
+msgstr "Spremljeno"
 
 #. module: sign
 #. odoo-python
@@ -2602,7 +2628,7 @@ msgstr ""
 #: model:sign.item.type,name:sign.sign_item_type_selection
 #: model:sign.item.type,placeholder:sign.sign_item_type_selection
 msgid "Selection"
-msgstr ""
+msgstr "Odabir"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__option_ids
@@ -2618,13 +2644,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
 msgid "Send"
-msgstr ""
+msgstr "Pošalji"
 
 #. module: sign
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 msgid "Send SMS"
-msgstr ""
+msgstr "Pošalji SMS"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__signer_id
@@ -2651,12 +2677,12 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Sent"
-msgstr ""
+msgstr "Poslano"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__nb_wait
 msgid "Sent Requests"
-msgstr ""
+msgstr "Poslan zahtjev"
 
 #. module: sign
 #. odoo-javascript
@@ -2692,7 +2718,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__share_link
 msgid "Share Link"
-msgstr ""
+msgstr "Podijeli link"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
@@ -2706,7 +2732,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__request_state__shared
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__shared
 msgid "Shared"
-msgstr ""
+msgstr "Podijeljeni"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -2728,7 +2754,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "Sign"
-msgstr ""
+msgstr "Potpiši"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_res_config_settings__use_sign_terms
@@ -2765,7 +2791,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_view_tree
 msgid "Sign Now"
-msgstr ""
+msgstr "Potpiši odmah"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request_signer__mail_sent_order
@@ -2790,7 +2816,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.res_config_settings_view_form
 msgid "Sign Settings"
-msgstr ""
+msgstr "Postavke potpisa"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_template_tag
@@ -2828,7 +2854,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
 msgid "Sign document"
-msgstr ""
+msgstr "Potpiši dokument"
 
 #. module: sign
 #. odoo-python
@@ -2904,7 +2930,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__sign_item_id
 msgid "Signature Item"
-msgstr ""
+msgstr "Potpis stavke"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_option_action
@@ -2914,18 +2940,18 @@ msgstr ""
 #. module: sign
 #: model:ir.model,name:sign.model_sign_item_role
 msgid "Signature Item Party"
-msgstr ""
+msgstr "Stranka potpisa stavke"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_role_action
 msgid "Signature Item Role"
-msgstr ""
+msgstr "Uloga potpisa stavke"
 
 #. module: sign
 #: model:ir.actions.act_window,name:sign.sign_item_type_action
 #: model:ir.model,name:sign.model_sign_item_type
 msgid "Signature Item Type"
-msgstr ""
+msgstr "Vrsta potpisa stavke"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_request_item_value
@@ -2935,7 +2961,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__sign_item_ids
 msgid "Signature Items"
-msgstr ""
+msgstr "Potpis stavke"
 
 #. module: sign
 #. odoo-javascript
@@ -2946,7 +2972,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__sign_request_id
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Signature Request"
-msgstr ""
+msgstr "Zahtjev za potpis"
 
 #. module: sign
 #. odoo-python
@@ -2958,7 +2984,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/sign/wizard/sign_send_request.py:0
 msgid "Signature Request - %s"
-msgstr ""
+msgstr "Zahtjev za potpis - %s"
 
 #. module: sign
 #: model:ir.model,name:sign.model_sign_request_item
@@ -2978,7 +3004,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__sign_request_ids
 msgid "Signature Requests"
-msgstr ""
+msgstr "Zahtjevi za potpis"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__start_sign
@@ -2988,7 +3014,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model,name:sign.model_sign_template
 msgid "Signature Template"
-msgstr ""
+msgstr "Predložak potpisa"
 
 #. module: sign
 #. odoo-javascript
@@ -3025,7 +3051,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.doc_sign
 msgid "Signed"
-msgstr ""
+msgstr "Potpisan"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template__signed_count
@@ -3052,7 +3078,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 #: model_terms:ir.ui.view,arch_db:sign.signer_status_wrapper
 msgid "Signed on"
-msgstr ""
+msgstr "Potpisali u"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__partner_id
@@ -3070,7 +3096,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__signer_ids
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
 msgid "Signers"
-msgstr ""
+msgstr "Potpisnici"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_send_request__signers_count
@@ -3125,7 +3151,7 @@ msgstr ""
 #: code:addons/sign/models/sign_template.py:0
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_body.js:0
 msgid "Somebody is already filling a document which uses this template"
-msgstr ""
+msgstr "Netko već puni dokument koji koristi ovaj predložak"
 
 #. module: sign
 #. odoo-javascript
@@ -3149,7 +3175,7 @@ msgstr ""
 #. module: sign
 #: model:sign.item.role,name:sign.sign_item_role_default
 msgid "Standard"
-msgstr ""
+msgstr "Standard"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_request__state
@@ -3199,7 +3225,7 @@ msgstr "Predmet"
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
 msgid "Summary"
-msgstr ""
+msgstr "Sažetak"
 
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_template_tag__name
@@ -3242,7 +3268,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_kanban
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Template"
-msgstr ""
+msgstr "Predložak"
 
 #. module: sign
 #. odoo-javascript
@@ -3256,7 +3282,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/backend_components/sign_template/sign_template_top_bar.xml:0
 msgid "Template Properties"
-msgstr ""
+msgstr "Svojstva predloška"
 
 #. module: sign
 #: model:ir.actions.server,name:sign.sign_template_tour_trigger_action
@@ -3274,7 +3300,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:sign.sign_template_action
 #: model:ir.ui.menu,name:sign.sign_template_menu
 msgid "Templates"
-msgstr ""
+msgstr "Predlošci"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_request
@@ -3306,7 +3332,7 @@ msgstr ""
 #: model:sign.item.type,name:sign.sign_item_type_text
 #: model:sign.item.type,placeholder:sign.sign_item_type_text
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #. module: sign
 #. odoo-javascript
@@ -3595,13 +3621,13 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item_type__tip
 msgid "Tip"
-msgstr ""
+msgstr "Savjet"
 
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_request__state__sent
 #: model:ir.model.fields.selection,name:sign.selection__sign_request_item__state__sent
 msgid "To Sign"
-msgstr ""
+msgstr "Za potpisati"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_savings_report
@@ -3622,7 +3648,7 @@ msgstr "Današnje aktivnosti"
 #. module: sign
 #: model:ir.model.fields,field_description:sign.field_sign_item__transaction_id
 msgid "Transaction"
-msgstr ""
+msgstr "Transakcija"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.canceled_sign_request_item
@@ -3690,7 +3716,7 @@ msgstr ""
 #. module: sign
 #: model:ir.model.fields.selection,name:sign.selection__sign_log__action__update
 msgid "Update"
-msgstr ""
+msgstr "Ažuriraj"
 
 #. module: sign
 #. odoo-javascript
@@ -3781,7 +3807,7 @@ msgstr "Odobri"
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/public_signer_dialog.xml:0
 msgid "Validate & Send"
-msgstr ""
+msgstr "Potvrdi i pošalji"
 
 #. module: sign
 #. odoo-javascript
@@ -3792,7 +3818,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign._doc_sign
 msgid "Validate &amp; Send Completed Document"
-msgstr ""
+msgstr "Potvrdi &amp; Pošalji dovršeni dokument"
 
 #. module: sign
 #. odoo-javascript
@@ -3804,7 +3830,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:sign.field_sign_request_item__sign_item_value_ids
 #: model:ir.model.fields,field_description:sign.field_sign_request_item_value__value
 msgid "Value"
-msgstr ""
+msgstr "Vrijednost"
 
 #. module: sign
 #: model:ir.model.constraint,message:sign.constraint_sign_item_option_value_uniq
@@ -3815,7 +3841,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/sms_signer_dialog.xml:0
 msgid "Verify"
-msgstr ""
+msgstr "Ovjeriti"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_portal_my_request
@@ -3840,7 +3866,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
 msgid "Waiting for me"
-msgstr ""
+msgstr "Dokumenti na čekanju"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_search
@@ -3863,7 +3889,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 msgid "Water"
-msgstr ""
+msgstr "Voda"
 
 #. module: sign
 #. odoo-python
@@ -3937,12 +3963,12 @@ msgstr "Širina"
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container
 #: model_terms:ir.ui.view,arch_db:sign.green_report_container_pdf
 msgid "Wood"
-msgstr ""
+msgstr "Drvo"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_send_request_view_form
 msgid "Write email or search contact..."
-msgstr ""
+msgstr "Napišite e-mail ili pretražite kontakte..."
 
 #. module: sign
 #. odoo-python
@@ -4066,7 +4092,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/public_signer_dialog.xml:0
 msgid "Your email"
-msgstr ""
+msgstr "Vaš e-mail "
 
 #. module: sign
 #. odoo-javascript
@@ -4080,7 +4106,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/public_signer_dialog.xml:0
 msgid "Your name"
-msgstr ""
+msgstr "Vaše ime "
 
 #. module: sign
 #. odoo-javascript
@@ -4098,7 +4124,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_template_mail_completed
 msgid "and"
-msgstr ""
+msgstr "i"
 
 #. module: sign
 #. odoo-javascript
@@ -4144,7 +4170,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_logs_user
 msgid "demo@email.com"
-msgstr ""
+msgstr "demo@email.com"
 
 #. module: sign
 #. odoo-javascript
@@ -4161,7 +4187,7 @@ msgstr ""
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_item_role_view_form
 msgid "e.g. Employee"
-msgstr ""
+msgstr "Npr. Zaposlenik"
 
 #. module: sign
 #: model_terms:ir.ui.view,arch_db:sign.sign_request_view_form
@@ -4280,7 +4306,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/sign/static/src/dialogs/thank_you_dialog.xml:0
 msgid "on"
-msgstr ""
+msgstr "na"
 
 #. module: sign
 #. odoo-javascript

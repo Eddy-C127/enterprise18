@@ -1,26 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_map
-#
+# 
 # Translators:
-# sharkutz <sharkutz4life@yahoo.com>, 2022
-# Dorin Hongu <dhongu@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-#
+# Lyall Kindmurr, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Hongu Cosmin <cosmin513@gmail.com>, 2022\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: web_map
@@ -41,13 +38,14 @@ msgstr ""
 #. module: web_map
 #: model:ir.model,name:web_map.model_ir_actions_act_window_view
 msgid "Action Window View"
-msgstr "Vizualizare Acțiune Fereastră"
+msgstr "Acțiune Vizualizare Fereastră"
 
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.js:0
+#: model_terms:ir.ui.view,arch_db:web_map.view_res_partner_filter_inherit_map
 msgid "Address"
-msgstr "Adresa"
+msgstr "Adresă"
 
 #. module: web_map
 #: model:ir.model,name:web_map.model_base
@@ -68,7 +66,7 @@ msgstr "Setări de configurare"
 #. module: web_map
 #: model:ir.model,name:web_map.model_res_partner
 msgid "Contact"
-msgstr "Contact"
+msgstr "Contactați"
 
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_res_partner__contact_address_complete
@@ -94,8 +92,6 @@ msgid "Locating new addresses..."
 msgstr "Se găsesc adrese noi ..."
 
 #. module: web_map
-#. odoo-javascript
-#: code:addons/web_map/static/src/map_view/map_view.js:0
 #: model:ir.model.fields.selection,name:web_map.selection__ir_actions_act_window_view__view_mode__map
 #: model:ir.model.fields.selection,name:web_map.selection__ir_ui_view__type__map
 msgid "Map"
@@ -145,7 +141,7 @@ msgstr "Fără"
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
 msgid "Open"
-msgstr ""
+msgstr "Afișare"
 
 #. module: web_map
 #. odoo-javascript
@@ -185,8 +181,11 @@ msgstr "Intrarea simbolică nu este validă"
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_model.js:0
-msgid "The view has switched to another provider but functionalities will be limited"
-msgstr "Vizualizarea a trecut la alt furnizor, dar funcționalitățile vor fi limitate"
+msgid ""
+"The view has switched to another provider but functionalities will be "
+"limited"
+msgstr ""
+"Vizualizarea a trecut la alt furnizor, dar funcționalitățile vor fi limitate"
 
 #. module: web_map
 #. odoo-python
@@ -197,13 +196,15 @@ msgstr "Acest rezultat nu este autorizat"
 #. module: web_map
 #. odoo-javascript
 #: code:addons/web_map/static/src/map_view/map_renderer.xml:0
-msgid "To get routing on your map, you first need to set up your MapBox token. It's free."
+msgid ""
+"To get routing on your map, you first need to set up your MapBox token. It's"
+" free."
 msgstr ""
 
 #. module: web_map
 #: model_terms:ir.ui.view,arch_db:web_map.res_config_settings_view_form
 msgid "Token"
-msgstr "Jeton"
+msgstr "Token"
 
 #. module: web_map
 #: model:ir.model.fields,field_description:web_map.field_res_config_settings__map_box_token
@@ -279,4 +280,6 @@ msgstr "Da"
 #. odoo-python
 #: code:addons/web_map/models/models.py:0
 msgid "You need to set a Contact field on this model to use the Map View"
-msgstr "Trebuie să setați un câmp de contact pe acest model pentru a utiliza vizualizarea hartă"
+msgstr ""
+"Trebuie să setați un câmp de contact pe acest model pentru a utiliza "
+"vizualizarea hartă"

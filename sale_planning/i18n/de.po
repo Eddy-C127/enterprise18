@@ -151,6 +151,15 @@ msgid ""
 "                 You can also manually schedule open shifts for your Sales "
 "Order or assign them to any employee you prefer."
 msgstr ""
+"Wenn diese Option aktiviert ist, wird bei der Bestätigung des "
+"Verkaufsauftrags automatisch eine Schicht für die ausgewählte Rolle "
+"generiert.                 Mit der Funktion „Automatisch planen“ werden nur "
+"Mitarbeitern mit dieser Rolle automatisch Schichten für Verkaufsaufträge, "
+"die diese Dienstleistung, zugewiesen.                 Das System "
+"berücksichtigt die Verfügbarkeit der Mitarbeiter und die verbleibende Zeit, "
+"die eingeplant werden muss.                 Sie können offene Schichten für "
+"Ihren Verkaufsauftrag auch manuell planen oder sie einem beliebigen "
+"Mitarbeiter zuweisen."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -186,7 +195,7 @@ msgstr "Offene Schichten und Verkaufsaufträge zugewiesen"
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders unscheduled"
-msgstr ""
+msgstr "Offene Schichten und Verkaufsaufträge nicht geplant"
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template

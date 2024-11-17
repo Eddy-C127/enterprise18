@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Fernanda Alvarez, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,7 +43,7 @@ msgstr "%(names)s y otras %(remaining)s"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "%(names)s and one other"
-msgstr "%(names)s y una más"
+msgstr "%(names)s y otra"
 
 #. module: account_reports
 #. odoo-python
@@ -122,7 +122,7 @@ msgstr "(1 línea)"
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "(No %s)"
-msgstr "(No %s)"
+msgstr "(Sin %s)"
 
 #. module: account_reports
 #. odoo-python
@@ -234,8 +234,8 @@ msgid ""
 "A tax unit must contain a minimum of two companies. You might want to delete"
 " the unit."
 msgstr ""
-"Una unidad fiscal debe contener al menos dos empresas. Es posible que desee "
-"eliminar la unidad."
+"Una unidad tributaria debe contener al menos dos empresas. Es posible que "
+"desee eliminar la unidad."
 
 #. module: account_reports
 #. odoo-python
@@ -2111,6 +2111,8 @@ msgstr "Incluir pagos"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr "Simulaciones analíticas incluidas"
 
@@ -4038,6 +4040,7 @@ msgstr "Ganancias/pérdidas de divisa no realizadas"
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "Asientos sin conciliar"
 
@@ -4142,6 +4145,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "Con entradas en borrador"
 

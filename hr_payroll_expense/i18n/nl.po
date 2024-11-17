@@ -39,23 +39,20 @@ msgstr "<span class=\"o_stat_text\">Loonstrook</span>"
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_hr_expense_sheet
 msgid "Expense Report"
-msgstr "Onkostendeclaratie"
+msgstr "Declaratieraportage"
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "Expense report (\"%(name)s\") was removed from the next payslip."
-msgstr ""
-"Onkostendeclaratie (\"%(name)s\") werd verwijderd van de volgende "
-"loonstrook."
+msgstr "Declaratie (\"%(name)s\") werd verwijderd van de volgende loonstrook."
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "Expense report (\"%(name)s\") will be added to the next payslip."
 msgstr ""
-"Onkostendeclaratie (\"%(name)s\") zal aan de volgende loonstrook worden "
-"toegevoegd."
+"Declaratie (\"%(name)s\") zal aan de volgende loonstrook worden toegevoegd."
 
 #. module: hr_payroll_expense
 #: model:ir.model.fields,field_description:hr_payroll_expense.field_hr_payslip__expense_sheet_ids
@@ -97,8 +94,8 @@ msgid ""
 " expense reports linked to this payslip."
 msgstr ""
 "Geen debetrekening gevonden in de salarisregel '%(rule_name)s'. Voeg een te "
-"betalen debetrekening toe om een boeking te kunnen maken voor de "
-"onkostendeclaraties die aan deze salarisstrook zijn gekoppeld."
+"betalen debetrekening toe om een boeking te kunnen maken voor de declaraties"
+" die aan deze salarisstrook zijn gekoppeld."
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -117,8 +114,8 @@ msgid ""
 "Only approved expense reports that were paid by an employee can be "
 "reimbursed in a payslip."
 msgstr ""
-"Alleen goedgekeurde onkostendeclaraties die door een werknemer zijn betaald,"
-" kunnen worden vergoed in een loonstrook."
+"Alleen goedgekeurde declaraties die door een werknemer zijn betaald, kunnen "
+"worden vergoed in een loonstrook."
 
 #. module: hr_payroll_expense
 #: model:ir.model,name:hr_payroll_expense.model_account_payment_register
@@ -193,15 +190,14 @@ msgid ""
 "The state of the accounting entries linked to this expense report do not "
 "allow it to be reimbursed through a payslip."
 msgstr ""
-"De status van de boekingen die aan deze onkostendeclaratie zijn gekoppeld, "
-"maken het niet mogelijk om de onkostendeclaratie via een loonstrook te "
-"vergoeden."
+"De status van de boekingen die aan deze declaratie zijn gekoppeld, maken het"
+" niet mogelijk om de declaratie via een loonstrook te vergoeden."
 
 #. module: hr_payroll_expense
 #. odoo-python
 #: code:addons/hr_payroll_expense/models/hr_expense_sheet.py:0
 msgid "There are no valid expense sheets selected."
-msgstr "Er zijn geen geldige onkostendocumenten geselecteerd."
+msgstr "Er zijn geen geldige declaratiedocumenten geselecteerd."
 
 #. module: hr_payroll_expense
 #. odoo-python
@@ -220,8 +216,8 @@ msgid ""
 "You don't have the access rights to link an expense report to a payslip. You"
 " need to be a payroll officer to do that."
 msgstr ""
-"Je hebt geen toegangsrechten om een onkostendeclaratie aan een loonstrook te"
-" koppelen. Daarvoor moet je loonadministrateur zijn."
+"Je hebt geen toegangsrechten om een declaratie aan een loonstrook te "
+"koppelen. Daarvoor moet je loonadministrateur zijn."
 
 #. module: hr_payroll_expense
 #. odoo-python

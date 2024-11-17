@@ -2493,6 +2493,12 @@ msgstr "Precedente"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
 msgstr ""
 
@@ -3188,6 +3194,11 @@ msgid "Summary"
 msgstr "Riepilogo"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3254,6 +3265,12 @@ msgstr ""
 msgid ""
 "The following documents/folders can't be owned by a Portal User: \n"
 "- %(partners)s"
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
 msgstr ""
 
 #. module: documents
@@ -3651,6 +3668,18 @@ msgid ""
 msgstr ""
 "Puoi inviare un file dal computer o copiare/incollare un indirizzo Internet "
 "che è collegato al tuo file."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

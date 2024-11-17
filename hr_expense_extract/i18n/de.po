@@ -34,6 +34,8 @@ msgid ""
 "<span><b>Congratulations</b>, you are now an expert of Expenses.\n"
 "        </span>"
 msgstr ""
+"<span><b>Herzlichen Glückwunsch!</b> Sie sind jetzt ein Meister der Spesenabrechnung.\n"
+"        </span>"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields,field_description:hr_expense_extract.field_hr_expense__message_needaction
@@ -281,6 +283,12 @@ msgid ""
 "SEPA Credit Transfer: Pay in the SEPA zone by submitting a SEPA Credit Transfer file to your bank. Module account_iso20022 is necessary.\n"
 "SEPA Direct Debit: Get paid in the SEPA zone thanks to a mandate your partner will have granted to you. Module account_iso20022 is necessary.\n"
 msgstr ""
+"Manuell: Bezahlen oder bezahlt werden mit einer beliebigen Methode außerhalb von Odoo.\n"
+"Zahlungsanbieter: Jeder Zahlungsanbieter hat seine eigene Zahlungsmethode. Beantragen Sie eine Transaktion mithilfe eines Zahlungstokens, das der Partner beim Online-Kauf oder -Abonnement gespeichert hat.\n"
+"Scheck: Bezahlen Sie Rechnungen per Scheck und drucken Sie ihn aus Odoo aus.\n"
+"Sammeleinzahlung: Sammeln Sie mehrere Kundenschecks auf einmal, indem Sie eine Sammeleinzahlung erstellen und an Ihre Bank übermitteln. Das Modul account_batch_payment ist erforderlich.\n"
+"SEPA-Überweisung: Zahlen Sie im SEPA-Raum, indem Sie eine SEPA-Überweisungsdatei an Ihre Bank übermitteln. Das Modul account_iso20022 ist erforderlich.\n"
+"SEPA-Lastschrift: Bezahlen Sie in der SEPA-Zone dank eines Mandats, das Ihnen Ihr Partner erteilt hat. Das Modul account_iso20022 ist erforderlich.\n"
 
 #. module: hr_expense_extract
 #: model:ir.model.fields.selection,name:hr_expense_extract.selection__expense_sample_register__partial_mode__paid

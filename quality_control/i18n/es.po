@@ -341,7 +341,7 @@ msgstr "Control por"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_point_kanban
 msgid "Control per:"
-msgstr ""
+msgstr "Control por:"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_wizard_form_failure
@@ -730,7 +730,7 @@ msgstr "Nuevo"
 #. odoo-javascript
 #: code:addons/quality_control/static/src/spreadsheet_bundle/quality_spreadsheet_template_action/quality_spreadsheet_template_action.js:0
 msgid "New quality spreadsheet template created"
-msgstr ""
+msgstr "Nueva plantilla de hoja de cálculo de calidad creada"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_check_wizard
@@ -815,7 +815,7 @@ msgstr "Bajo pedido"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_check_wizard
 msgid "Open spreadsheet"
-msgstr ""
+msgstr "Abrir la hoja de cálculo"
 
 #. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_check__measure_on__operation
@@ -1147,7 +1147,7 @@ msgstr "Puntos de calidad"
 #: model:ir.actions.act_window,name:quality_control.quality_spreadsheet_template_action_config
 #: model:ir.ui.menu,name:quality_control.menu_config_quality_spreadsheet_template
 msgid "Quality Spreadsheet Templates"
-msgstr ""
+msgstr "Plantillas de hoja de cálculo de calidad"
 
 #. module: quality_control
 #: model:ir.actions.act_window,name:quality_control.quality_tag_action
@@ -1183,12 +1183,12 @@ msgstr "Informe de la hoja de trabajo de calidad"
 #. module: quality_control
 #: model:ir.model,name:quality_control.model_quality_check_spreadsheet
 msgid "Quality check spreadsheet"
-msgstr ""
+msgstr "Hoja de cálculo de control de calidad"
 
 #. module: quality_control
 #: model:ir.model,name:quality_control.model_quality_spreadsheet_template
 msgid "Quality check template spreadsheet"
-msgstr ""
+msgstr "Plantilla de hoja de cálculo para control de calidad"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_point_action
@@ -1216,7 +1216,7 @@ msgstr "Cantidad fallida"
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__qty_passed
 msgid "Quantity Passed"
-msgstr ""
+msgstr "Cantidad aprobada"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__qty_tested
@@ -1233,12 +1233,12 @@ msgstr "Cantidad probada del producto dentro del lote"
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check__qty_failed
 msgid "Quantity of product that failed the quality check"
-msgstr ""
+msgstr "Cantidad de producto que no ha aprobado el control de calidad"
 
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check__qty_passed
 msgid "Quantity of product that passed the quality check"
-msgstr ""
+msgstr "Cantidad de producto que ha aprobado el control de calidad"
 
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check__qty_to_test
@@ -1276,7 +1276,7 @@ msgstr "Responsable"
 #. odoo-javascript
 #: code:addons/quality_control/static/src/spreadsheet_bundle/quality_check_spreadsheet_action/quality_check_spreadsheet_action.xml:0
 msgid "Save in"
-msgstr ""
+msgstr "Guardar en"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__show_lot_number
@@ -1373,7 +1373,7 @@ msgstr "Línea de movimiento de stock"
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__spreadsheet_check_cell
 #: model:ir.model.fields,field_description:quality_control.field_quality_spreadsheet_template__check_cell
 msgid "Success cell"
-msgstr ""
+msgstr "Celda de éxito"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_tag_view_search
@@ -1395,7 +1395,7 @@ msgstr "Nombre del equipo"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_point_kanban
 msgid "Team:"
-msgstr ""
+msgstr "Equipo:"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_tree
@@ -1434,6 +1434,10 @@ msgid ""
 "several sheets, specify which one you want to use (e.g. Sheet2!C4). If not "
 "specified, the first sheet is selected by default."
 msgstr ""
+"Si el valor de la celda de éxito es VERDADERO quiere decir que el control "
+"fue exitoso. Si hay varias hojas, debe especificar cuál quiere usar (por "
+"ejemplo, Hoja2!C4). Si no se especifica, la primera hoja se selecciona por "
+"defecto."
 
 #. module: quality_control
 #. odoo-python

@@ -39,13 +39,13 @@ msgstr "# Asientos de depreciación publicados"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Disposal"
-msgstr ""
+msgstr "%(asset)s: Enajenación"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "%(asset)s: Sale"
-msgstr ""
+msgstr "%(asset)s: Venta"
 
 #. module: account_asset
 #. odoo-python
@@ -57,7 +57,7 @@ msgstr "%(months)s m"
 #. odoo-python
 #: code:addons/account_asset/models/account_move.py:0
 msgid "%(move_line)s (%(current)s of %(total)s)"
-msgstr ""
+msgstr "%(move_line)s (%(current)s de %(total)s)"
 
 #. module: account_asset
 #. odoo-python
@@ -156,7 +156,7 @@ msgstr "Se ha eliminado un documento vinculado a este movimiento: %s"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "A gross increase has been created: %(link)s"
-msgstr ""
+msgstr "Se ha creado un incremento bruto: %(link)s"
 
 #. module: account_asset
 #. odoo-python
@@ -340,6 +340,8 @@ msgid ""
 "An asset wil be created for each asset model when this account is used on a "
 "vendor bill or a refund"
 msgstr ""
+"Un activo se creará para cada modelo de activo cuando esta cuenta se use en "
+"una factura de proveedor o en un reembolso"
 
 #. module: account_asset
 #. odoo-python
@@ -398,7 +400,7 @@ msgstr "Cuenta de contrapartida de activos"
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_group_form_view
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_group_list_view
 msgid "Asset Group"
-msgstr ""
+msgstr "Grupo de activos"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_id_display_name
@@ -673,7 +675,7 @@ msgstr "Número de activos"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__count_linked_asset
 msgid "Count Linked Asset"
-msgstr ""
+msgstr "Número de activos vinculados"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__count_linked_assets
@@ -1029,7 +1031,7 @@ msgstr "Agrupar por cuenta"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Asset Group"
-msgstr ""
+msgstr "Agrupar por grupo de activo"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
@@ -1041,13 +1043,13 @@ msgstr "Agrupar por..."
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Account"
-msgstr ""
+msgstr "Agrupar por cuenta"
 
 #. module: account_asset
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group by Asset Group"
-msgstr ""
+msgstr "Agrupar por grupo de activo"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__has_message
@@ -1332,7 +1334,7 @@ msgstr "No"
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "No Grouping"
-msgstr ""
+msgstr "No agrupamiento"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__prorata_computation_type__none
@@ -1790,7 +1792,7 @@ msgstr "Aumento en el valor para: %(asset)s"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__warning_count_assets
 msgid "Warning Count Assets"
-msgstr ""
+msgstr "Advertencia del número de activos"
 
 #. module: account_asset
 #. odoo-python

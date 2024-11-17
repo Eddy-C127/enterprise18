@@ -324,6 +324,8 @@ msgstr "<i class=\"fa fa-phone\" title=\"Phone\" role=\"img\" style=\"padding-ri
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_kanban
 msgid "<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Date\" title=\"Date\"/>"
 msgstr ""
+"<i class=\"me-1 mt-1 fa fa-clock-o\" role=\"img\" aria-label=\"Fecha\" "
+"title=\"Fecha\"/>"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -498,6 +500,8 @@ msgid ""
 "<span><b>Congratulations!</b> You are now a master of planning.\n"
 "        </span>"
 msgstr ""
+"<span><b>¡Enhorabuena!</b> Ahora domina la planificación.\n"
+"        </span>"
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
@@ -1254,6 +1258,11 @@ msgid ""
 "                    Several activities are often organized all over the year, such as weekly\n"
 "                    sports sessions, team building events, monthly drink, and much more"
 msgstr ""
+"Cada empleado tiene la oportunidad de ver el impacto de su trabajo.\n"
+"                     Usted puede hacer una contribución real al éxito de la compañía.\n"
+"                     <br>\n"
+"                     Se organizan varias actividades a lo largo del año, como actividades deportivas\n"
+"                        semanales, eventos para fomentar el trabajo en equipo, una convivencia al mes, ¡y mucho más!"
 
 #. module: planning
 #: model_terms:hr.job,website_description:planning.job_maintenance_technician
@@ -1925,7 +1934,7 @@ msgstr "Turnos abiertos asignados"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts unscheduled"
-msgstr ""
+msgstr "Turnos abiertos sin programación"
 
 #. module: planning
 #. odoo-javascript
@@ -2133,6 +2142,8 @@ msgid ""
 "Please add a work email for the following employee so that they can receive "
 "their planning:"
 msgstr ""
+"Agregue un correo electrónico de trabajo al siguiente empleado para que "
+"pueda recibir su horario:"
 
 #. module: planning
 #. odoo-javascript
@@ -2445,7 +2456,7 @@ msgstr "Planificar por rol"
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "Schedule sent to your employees"
-msgstr ""
+msgstr "Horario enviado a los empleados"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_schedule_by_resource
@@ -2761,7 +2772,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "The work email is missing for the following employees:"
-msgstr ""
+msgstr "Los siguientes empleados no tienen un correo electrónico de trabajo:"
 
 #. module: planning
 #. odoo-python
@@ -2827,7 +2838,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "This method must take two slots in argument."
-msgstr ""
+msgstr "Este método debe tomar dos espacios en conflicto."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template

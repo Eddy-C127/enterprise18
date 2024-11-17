@@ -3,6 +3,12 @@
 # 	* quality_control
 # 
 # Translators:
+# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2024
+# Sven ServisiRAM <sven@servisiram.hr>, 2024
+# Ivica Dimjašević <ivica.dimjasevic@storm.hr>, 2024
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
+# Tina Milas, 2024
 # Martin Trigaux, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
@@ -44,7 +50,7 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "2023-08-15"
-msgstr ""
+msgstr "2023-08-15"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_dashboard_view_kanban
@@ -52,6 +58,8 @@ msgid ""
 "<i class=\"fa fa-envelope-o\" role=\"img\" aria-label=\"Domain alias\" "
 "title=\"Domain alias\"/>&amp;nbsp;"
 msgstr ""
+"<i class=\"fa fa-envelope-o\" role=\"img\" aria-label=\"Domain alias\" "
+"title=\"Domain alias\"/>&amp;nbsp;"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
@@ -76,6 +84,8 @@ msgid ""
 "<span class=\"o_stat_text\">AVG:</span>\n"
 "                        <span class=\"o_stat_text\">STD:</span>"
 msgstr ""
+"<span class=\"o_stat_text\">PROS:</span>\n"
+"                        <span class=\"o_stat_text\">UKUP:</span>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.product_product_form_view_quality_control
@@ -84,11 +94,13 @@ msgid ""
 "<span class=\"o_stat_text\">Pass:</span>\n"
 "                        <span class=\"o_stat_text\">Fail:</span>"
 msgstr ""
+"<span class=\"o_stat_text\">Prolazi:</span>\n"
+"                        <span class=\"o_stat_text\">Ne prolazi:</span>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.stock_picking_view_form_inherit_quality
 msgid "<span class=\"o_stat_text\">Quality Alert</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Upozorenje kvalitete</span>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.stock_production_lot_view_form
@@ -98,7 +110,7 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
 msgid "<span class=\"o_stat_text\">Quality Check</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Kontrola kvalitete</span>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.stock_picking_view_form_inherit_quality
@@ -125,12 +137,12 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
 msgid "<span>from </span>"
-msgstr ""
+msgstr "<span> od </span>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
 msgid "<span>to </span>"
-msgstr ""
+msgstr "<span> do </span>"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
@@ -180,7 +192,7 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_form
 msgid "Accept Emails From"
-msgstr ""
+msgstr "Prihvati email od"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_tag_action
@@ -195,7 +207,7 @@ msgstr "Dodatna napomena"
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check_wizard__additional_note
 msgid "Additional remarks concerning this check."
-msgstr ""
+msgstr "Dodatne napomene vezane za ovu kontrolu."
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_picking__quality_alert_ids
@@ -246,7 +258,7 @@ msgstr "Natrag"
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__check_ids
 msgid "Check"
-msgstr ""
+msgstr "Čekovi"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_move_line__check_state
@@ -256,13 +268,13 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_tree
 msgid "Checked By"
-msgstr ""
+msgstr "Provjerio"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_search
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_tree
 msgid "Checked Date"
-msgstr ""
+msgstr "Datum provjere"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_move_line__check_ids
@@ -273,7 +285,7 @@ msgstr "Kontrole"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_dashboard_view_kanban
 msgid "Checks In Progress"
-msgstr ""
+msgstr "Kontrole u tijeku"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_spreadsheet__company_id
@@ -296,29 +308,29 @@ msgstr "Potrvdi"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_wizard_form_failure
 msgid "Confirm Measure"
-msgstr ""
+msgstr "Potvrdi mjeru"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__measure_frequency_type
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
 msgid "Control Frequency"
-msgstr ""
+msgstr "Učestalost kontrole"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
 msgid "Control Person"
-msgstr ""
+msgstr "Osoba za kontrolu"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_search
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_search
 msgid "Control Point"
-msgstr ""
+msgstr "Točka kontrole"
 
 #. module: quality_control
 #: model:ir.ui.menu,name:quality_control.menu_quality_control_points
 msgid "Control Points"
-msgstr ""
+msgstr "Točke kontrole"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__measure_on
@@ -336,22 +348,22 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_wizard_form_failure
 msgid "Correct Measure"
-msgstr ""
+msgstr "Ispravna mjera"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
 msgid "Corrective Actions"
-msgstr ""
+msgstr "Korektivne radnje"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
 msgid "Create Alert"
-msgstr ""
+msgstr "Kreiraj alarm"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_alert_action_check
 msgid "Create a new quality alert"
-msgstr ""
+msgstr "Kreiraj novo upozorenje kvalitete"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_alert_stage_action
@@ -388,7 +400,7 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_spreadsheet_template_view_list
 msgid "Data"
-msgstr ""
+msgstr "Podaci"
 
 #. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_frequency_unit__day
@@ -419,12 +431,12 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
 msgid "Describe the corrective actions you did..."
-msgstr ""
+msgstr "Opišite poduzete korektivne radnje..."
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
 msgid "Describe the preventive actions you did..."
-msgstr ""
+msgstr "Opišite poduzete preventivne radnje..."
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
@@ -434,7 +446,7 @@ msgstr "Opis"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
 msgid "Description of the issue..."
-msgstr ""
+msgstr "Opis problema..."
 
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check__is_lot_tested_fractionally
@@ -464,7 +476,7 @@ msgstr "Uredi"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_form
 msgid "Email Alias"
-msgstr ""
+msgstr "E-mail alias"
 
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check__product_tracking
@@ -477,12 +489,12 @@ msgstr "Osigurava sljedivost uskladištivog proizvoda u vašem skladištu."
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_check_wizard
 msgid "Fail"
-msgstr ""
+msgstr "Pao"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_search
 msgid "Failed"
-msgstr ""
+msgstr "Neuspjelo"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
@@ -506,7 +518,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__failure_message
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__failure_message
 msgid "Failure Message"
-msgstr ""
+msgstr "Poruka greške"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
@@ -516,7 +528,7 @@ msgstr "Učestalost"
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__measure_frequency_unit_value
 msgid "Frequency Unit Value"
-msgstr ""
+msgstr "Vrijednost frekvencije jedinice"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_search
@@ -565,7 +577,7 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
 msgid "Instructions"
-msgstr ""
+msgstr "upute"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__is_last_check
@@ -646,7 +658,7 @@ msgstr "Lotovi/Serijski brojevi"
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__tolerance_max
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__tolerance_max
 msgid "Max Tolerance"
-msgstr ""
+msgstr "Maksimalna tolerancija"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__measure
@@ -654,7 +666,7 @@ msgstr ""
 #: model:quality.point.test_type,name:quality_control.test_type_measure
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
 msgid "Measure"
-msgstr ""
+msgstr "Mjera"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__measure_frequency_unit
@@ -664,18 +676,18 @@ msgstr ""
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__measure_success
 msgid "Measure Success"
-msgstr ""
+msgstr "Mjerenje uspješno"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
 msgid "Message If Failure"
-msgstr ""
+msgstr "Mjeri ako ne zadovolji"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__tolerance_min
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__tolerance_min
 msgid "Min Tolerance"
-msgstr ""
+msgstr "MInimalna tolerancija"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
@@ -713,7 +725,7 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_check_wizard
 msgid "Next"
-msgstr ""
+msgstr "Sljedeći"
 
 #. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__stock_move_line__check_state__no_checks
@@ -728,23 +740,23 @@ msgstr "Još nema podataka!"
 #. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_check__measure_success__none
 msgid "No measure"
-msgstr ""
+msgstr "Nema mjere"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_alert_action_report
 msgid "No quality alert"
-msgstr ""
+msgstr "Nema upozorenja kvalitete"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_check_action_main
 #: model_terms:ir.actions.act_window,help:quality_control.quality_check_action_team
 msgid "No quality check found"
-msgstr ""
+msgstr "Nije pronađena projvera kontrole"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_check_action_report
 msgid "No quality checks"
-msgstr ""
+msgstr "Bez kvalitativne provjere"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_point_action
@@ -754,14 +766,14 @@ msgstr ""
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__norm
 msgid "Norm"
-msgstr ""
+msgstr "Norm"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__norm_unit
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__norm_unit
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__norm_unit
 msgid "Norm Unit"
-msgstr ""
+msgstr "Norm jedinica"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__note
@@ -776,7 +788,7 @@ msgstr "Bilješke"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_wizard_form_failure
 msgid "OK"
-msgstr ""
+msgstr "U redu"
 
 #. module: quality_control
 #. odoo-python
@@ -799,7 +811,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_check__measure_on__operation
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_on__operation
 msgid "Operation"
-msgstr ""
+msgstr "Operacija"
 
 #. module: quality_control
 #: model:ir.model.fields,help:quality_control.field_quality_check__measure_on
@@ -838,7 +850,7 @@ msgstr "Partner"
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_form
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_check_wizard
 msgid "Pass"
-msgstr ""
+msgstr "Prošao"
 
 #. module: quality_control
 #: model:quality.point.test_type,name:quality_control.test_type_passfail
@@ -849,12 +861,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_search
 #: model_terms:ir.ui.view,arch_db:quality_control.worksheet_page
 msgid "Passed"
-msgstr ""
+msgstr "Prošao"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_picking__quality_check_todo
 msgid "Pending checks"
-msgstr ""
+msgstr "Predstojeće provjere"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__measure_frequency_value
@@ -864,7 +876,7 @@ msgstr "Postotak"
 #. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_frequency_type__periodical
 msgid "Periodically"
-msgstr ""
+msgstr "Periodično"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_on_demand__picking_id
@@ -874,13 +886,13 @@ msgstr "Skladišnica"
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__picture
 msgid "Picture"
-msgstr ""
+msgstr "Slika"
 
 #. module: quality_control
 #. odoo-python
 #: code:addons/quality_control/models/quality.py:0
 msgid "Picture Uploaded"
-msgstr ""
+msgstr "Slika učitana"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__position_current_check
@@ -890,12 +902,12 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_form
 msgid "Preventive Actions"
-msgstr ""
+msgstr "Preventivne radnje"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_check_wizard
 msgid "Previous"
-msgstr ""
+msgstr "Prethodni"
 
 #. module: quality_control
 #: model:ir.model,name:quality_control.model_product_template
@@ -947,7 +959,7 @@ msgstr ""
 #. module: quality_control
 #: model:ir.ui.menu,name:quality_control.menu_quality_root
 msgid "Quality"
-msgstr ""
+msgstr "Kvaliteta"
 
 #. module: quality_control
 #. odoo-python
@@ -958,18 +970,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_search_inherit_quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.stock_picking_view_form_inherit_quality
 msgid "Quality Alert"
-msgstr ""
+msgstr "Upozorenje kvalitete"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_graph
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_view_pivot
 msgid "Quality Alert Analysis"
-msgstr ""
+msgstr "Analiza upozorenja kvalitete"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_picking__quality_alert_count
 msgid "Quality Alert Count"
-msgstr ""
+msgstr "Broj upozorenja kvalitete"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_lot__quality_alert_qty
@@ -980,7 +992,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:quality_control.quality_alert_stage_action
 #: model:ir.ui.menu,name:quality_control.menu_quality_config_alert_stage
 msgid "Quality Alert Stages"
-msgstr ""
+msgstr "Faze upozorenja kvalitete"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_alert_stage_action
@@ -988,6 +1000,8 @@ msgid ""
 "Quality Alert stages define the different steps a quality alert should go "
 "through."
 msgstr ""
+"Faze upozorenja kvalitete definiraju različite korake kroz koje bi "
+"upozorenje trebalo proći."
 
 #. module: quality_control
 #: model:ir.actions.act_window,name:quality_control.quality_alert_action_check
@@ -997,7 +1011,7 @@ msgstr ""
 #: model:ir.ui.menu,name:quality_control.menu_quality_alert_report
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_dashboard_view_kanban
 msgid "Quality Alerts"
-msgstr ""
+msgstr "Upozorenja kvalitete"
 
 #. module: quality_control
 #. odoo-python
@@ -1007,23 +1021,23 @@ msgstr ""
 #: model:ir.model,name:quality_control.model_quality_check
 #: model_terms:ir.ui.view,arch_db:quality_control.view_stock_move_line_detailed_operation_tree_inherit_quality
 msgid "Quality Check"
-msgstr ""
+msgstr "Test kvalitete"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_graph
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_view_pivot
 msgid "Quality Check Analysis"
-msgstr ""
+msgstr "Analiza provjera kvalitete"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_stock_picking__quality_check_fail
 msgid "Quality Check Fail"
-msgstr ""
+msgstr "Kontrola kvalitete ne prolazi"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_check_wizard_form_failure
 msgid "Quality Check Failed"
-msgstr ""
+msgstr "Provjera nije zadovoljena"
 
 #. module: quality_control
 #. odoo-python
@@ -1065,7 +1079,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:quality_control.stock_production_lot_form_quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_check_wizard
 msgid "Quality Checks"
-msgstr ""
+msgstr "Provjere kvalitete"
 
 #. module: quality_control
 #: model:ir.actions.act_window,name:quality_control.quality_check_action_spc
@@ -1075,12 +1089,12 @@ msgstr ""
 #. module: quality_control
 #: model:ir.ui.menu,name:quality_control.menu_quality_control
 msgid "Quality Control"
-msgstr ""
+msgstr "Kontrola kvalitete"
 
 #. module: quality_control
 #: model:ir.model,name:quality_control.model_quality_point
 msgid "Quality Control Point"
-msgstr ""
+msgstr "Točka kontrole kvalitete"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_product_product__quality_control_point_qty
@@ -1091,7 +1105,7 @@ msgstr ""
 #. module: quality_control
 #: model:ir.actions.act_window,name:quality_control.quality_point_action
 msgid "Quality Control Points"
-msgstr ""
+msgstr "Bodovi kontrole kvalitete"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_product_product__quality_fail_qty
@@ -1114,7 +1128,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:quality_control.product_product_form_view_quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.product_template_form_view_quality_control
 msgid "Quality Points"
-msgstr ""
+msgstr "Bodovi kvalitete"
 
 #. module: quality_control
 #: model:ir.actions.act_window,name:quality_control.quality_spreadsheet_template_action_config
@@ -1126,13 +1140,13 @@ msgstr ""
 #: model:ir.actions.act_window,name:quality_control.quality_tag_action
 #: model:ir.ui.menu,name:quality_control.menu_config_quality_tags
 msgid "Quality Tags"
-msgstr ""
+msgstr "Oznake kvalitete"
 
 #. module: quality_control
 #: model:ir.actions.act_window,name:quality_control.quality_alert_team_action_config
 #: model:ir.ui.menu,name:quality_control.menu_quality_config_alert_team
 msgid "Quality Teams"
-msgstr ""
+msgstr "Timovi kvalitete"
 
 #. module: quality_control
 #: model_terms:ir.actions.act_window,help:quality_control.quality_alert_team_action
@@ -1224,7 +1238,7 @@ msgstr ""
 #. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_frequency_type__random
 msgid "Randomly"
-msgstr ""
+msgstr "Nasumično"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__name
@@ -1239,7 +1253,7 @@ msgstr "Izvještavanje"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_search
 msgid "Responsible"
-msgstr ""
+msgstr "Odgovoran"
 
 #. module: quality_control
 #. odoo-javascript
@@ -1313,7 +1327,7 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_stage_view_tree
 msgid "Stage Name"
-msgstr ""
+msgstr "Naziv faze"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_point__standard_deviation
@@ -1334,7 +1348,7 @@ msgstr "Skladišni prijenos"
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__move_line_id
 msgid "Stock Move Line"
-msgstr ""
+msgstr "Skladišno kretanje"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__spreadsheet_check_cell
@@ -1359,7 +1373,7 @@ msgstr "Tim"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_form
 msgid "Team Name"
-msgstr ""
+msgstr "Naziv tima"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_point_kanban
@@ -1369,17 +1383,17 @@ msgstr ""
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_tree
 msgid "Teams"
-msgstr ""
+msgstr "Timovi"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check_wizard__test_type
 msgid "Technical name"
-msgstr ""
+msgstr "Tehnički naziv"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_search
 msgid "Test Type"
-msgstr ""
+msgstr "Tip testa"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_tree
@@ -1425,7 +1439,7 @@ msgstr "Naslov"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
 msgid "Tolerance"
-msgstr ""
+msgstr "Tolerancija"
 
 #. module: quality_control
 #: model:ir.model.fields,field_description:quality_control.field_quality_check__product_tracking
@@ -1452,7 +1466,7 @@ msgstr "Vrsta"
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.view_quality_point_kanban
 msgid "Type:"
-msgstr ""
+msgstr "Vrsta:"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_point_view_form_inherit_quality_control
@@ -1484,7 +1498,7 @@ msgstr "Poruka upozorenja"
 #. module: quality_control
 #: model:ir.model.fields.selection,name:quality_control.selection__quality_point__measure_frequency_unit__week
 msgid "Weeks"
-msgstr ""
+msgstr "Tjedni"
 
 #. module: quality_control
 #: model:ir.model,name:quality_control.model_quality_check_wizard
@@ -1537,7 +1551,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/quality_control/models/stock_picking.py:0
 msgid "You still need to do the quality checks!"
-msgstr ""
+msgstr "Još trebate odraditi teestove kavlitete!"
 
 #. module: quality_control
 #: model_terms:ir.ui.view,arch_db:quality_control.quality_alert_team_view_form

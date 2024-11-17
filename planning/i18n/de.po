@@ -768,6 +768,46 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<style>\n"
+"                .planning_mail_template_button {\n"
+"                    padding: 5px 10px;\n"
+"                    text-decoration: none;\n"
+"                    border: 1px;\n"
+"                    border-radius: 3px;\n"
+"                    display: inline-block; \n"
+"                    width: 190px;\n"
+"                    text-align: center;\n"
+"                }\n"
+"                </style>\n"
+"                <div>\n"
+"                    <p t-if=\"ctx.get('employee')\">Hallo <t t-out=\"ctx['employee'].name or ''\">Anita Oliver</t>,</p>\n"
+"                    <p t-else=\"\">Hallo,</p>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('start_datetime') and ctx.get('end_datetime')\">\n"
+"                        Ihr nächsten Schichten vom <t t-out=\"format_date(ctx['start_datetime'])\">05-05-2021</t>\n"
+"                        bis zum <t t-out=\"format_date(ctx['end_datetime'])\">05-11-2021</t> wurden veröffentlicht.\n"
+"                    </p>\n"
+"                    <div style=\"display: flex; margin: 15px;\">\n"
+"                        <div t-if=\"ctx.get('planning_url')\" style=\"margin-right: 15px;\">\n"
+"                            <a t-att-href=\"ctx['planning_url']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #FFFFFF; background-color: #875A7B; border: solid #875A7B;\">Planung ansehen</a>\n"
+"                        </div>\n"
+"                        <div t-if=\"ctx.get('planning_url_ics')\">\n"
+"                            <a t-att-href=\"ctx['planning_url_ics']\" target=\"_blank\" class=\"planning_mail_template_button\" style=\"color: #374151; background-color: #E7E9ED; border: solid #E7E9ED;\">Zum Kalender hinzufügen</a>\n"
+"                        </div>\n"
+"                    </div>\n"
+"                    <br>\n"
+"                    <p t-if=\"ctx.get('slot_unassigned') or (object.allow_self_unassign and object.self_unassign_days_before)\">\n"
+"                        <t t-if=\"ctx.get('slot_unassigned')\">\n"
+"                            Wir möchten Sie auch darauf hinweisen, dass noch einige Schichten offen sind. Wenn Sie Interesse und Zeit haben, melden Sie sich bitte für diese Schichten.\n"
+"                        </t>\n"
+"                        <t t-if=\"object.allow_self_unassign and object.self_unassign_days_before\">\n"
+"                            Falls Sie eine Schicht, die Ihnen zugewiesen wurde, nicht wahrnehmen können, entfernen Sie die Zuweisung innerhalb von <t t-out=\"object.self_unassign_days_before or ''\">5</t> Tagen vor dem Schichtbeginn.\n"
+"                        </t>\n"
+"                    </p>\n"
+"                    <p t-if=\"ctx.get('message')\" t-out=\"ctx['message']\"></p>\n"
+"                    <p t-if=\"object.allow_self_unassign\">Falls Ihr aktueller Dienstplan für Sie ungünstig ist, empfehlen wir Ihnen, sich an Ihre Kollegen zu wenden und einen Schichttausch zu beantragen. Vielleicht sind diese an einem Schichttausch mit Ihnen interessiert.</p>\n"
+"                </div>\n"
+"            "
 
 #. module: planning
 #: model_terms:hr.job,website_description:planning.job_maintenance_technician
@@ -2059,7 +2099,7 @@ msgstr "Offene Schichten zugewiesen"
 #. odoo-javascript
 #: code:addons/planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts unscheduled"
-msgstr ""
+msgstr "Planung offener Schichten aufgehoben"
 
 #. module: planning
 #. odoo-javascript
@@ -2268,6 +2308,8 @@ msgid ""
 "Please add a work email for the following employee so that they can receive "
 "their planning:"
 msgstr ""
+"Bitte fügen Sie eine Arbeits-E-Mail-Adresse für den folgenden Mitarbeiter "
+"hinzu, damit der Schichtplan versendet werden kann:"
 
 #. module: planning
 #. odoo-javascript
@@ -2896,7 +2938,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/wizard/planning_send.py:0
 msgid "The work email is missing for the following employees:"
-msgstr ""
+msgstr "Die Arbeits-E-Mail-Adresse fehlt für die folgenden Mitarbeiter:"
 
 #. module: planning
 #. odoo-python
@@ -2965,7 +3007,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "This method must take two slots in argument."
-msgstr ""
+msgstr "Diese Methode muss zwei Zeitfenster im Argument nehmen."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.period_report_template

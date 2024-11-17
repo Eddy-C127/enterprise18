@@ -23,7 +23,7 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "1st amortization schedule"
-msgstr ""
+msgstr "Primera fecha de amortización"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__compounding_method__30a/360
@@ -107,7 +107,7 @@ msgstr "Todos los borradores de asientos después del"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Amortization schedule"
-msgstr ""
+msgstr "Fecha de amortización"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__amount_borrowed
@@ -132,7 +132,7 @@ msgstr "Aplicar"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Asset Group"
-msgstr ""
+msgstr "Grupo de activos"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_asset
@@ -142,7 +142,7 @@ msgstr "Reconocimiento de activos/ingresos"
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__payment_end_of_month__at_anniversary
 msgid "At Anniversary"
-msgstr ""
+msgstr "En el aniversario"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_attachment_count
@@ -181,7 +181,7 @@ msgstr "Fecha de cierre"
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_close_wizard
 #: model:ir.model,name:account_loans.model_account_loan_close_wizard
 msgid "Close Loan Wizard"
-msgstr ""
+msgstr "Asistente para cerrar préstamo"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__closed
@@ -194,13 +194,13 @@ msgstr "Cerrado"
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Closed Loans"
-msgstr ""
+msgstr "Préstamos cerrados"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_close_wizard.py:0
 msgid "Closed on the %(date)s"
-msgstr ""
+msgstr "Cerrado el %(date)s"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__company_id
@@ -211,7 +211,7 @@ msgstr "Compañía"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__compounding_method
 msgid "Compounding Method"
-msgstr ""
+msgstr "Método de composición"
 
 #. module: account_loans
 #. odoo-javascript
@@ -400,24 +400,24 @@ msgstr "Interés"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__interest_difference
 msgid "Interest Difference"
-msgstr ""
+msgstr "Diferencia de interés"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__interest_rate
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Interest Rate"
-msgstr ""
+msgstr "Tipo de interés"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Interest Rate must be between 0 and 100"
-msgstr ""
+msgstr "El tipo de interés debe ser entre 0 y 100"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Interests"
-msgstr ""
+msgstr "Intereses"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_is_follower
@@ -428,17 +428,17 @@ msgstr "Es un seguidor"
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__is_loan_payment_move
 #: model:ir.model.fields,field_description:account_loans.field_account_move__is_loan_payment_move
 msgid "Is Loan Payment Move"
-msgstr ""
+msgstr "Es un movimiento de pago de préstamo"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__is_payment_move_posted
 msgid "Is Payment Move Posted"
-msgstr ""
+msgstr "Es un movimiento de pago publicado"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__is_wrong_date
 msgid "Is Wrong Date"
-msgstr ""
+msgstr "Es una fecha errónea"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_journal
@@ -454,7 +454,7 @@ msgstr "Asiento contable"
 #. module: account_loans
 #: model:account.journal,name:account_loans.account_loans_journal_loan
 msgid "Journal Loan Demo"
-msgstr ""
+msgstr "Demostración de diario de préstamo"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__write_uid
@@ -476,7 +476,7 @@ msgstr "Última actualización el"
 #: model:ir.model.fields,help:account_loans.field_account_bank_statement_line__generating_loan_line_id
 #: model:ir.model.fields,help:account_loans.field_account_move__generating_loan_line_id
 msgid "Line of the loan that generated this entry"
-msgstr ""
+msgstr "Línea del préstamo que generó este asiento"
 
 #. module: account_loans
 #. odoo-python
@@ -701,12 +701,12 @@ msgstr "Vista previa"
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__principal
 msgid "Principal"
-msgstr ""
+msgstr "Principal"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Principals"
-msgstr ""
+msgstr "Principales"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__loan_properties
@@ -772,6 +772,8 @@ msgid ""
 "Set up your amortization schedule, or import it, and let Odoo handle the "
 "monthly interest and principal adjustments automatically."
 msgstr ""
+"Configure su plan de amortización o impórtelo y deje que Odoo gestione "
+"automáticamente los ajustes del interés mensual y de los principales."
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__short_term_account_id
@@ -786,7 +788,7 @@ msgstr "Corto plazo"
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__skip_until_date
 msgid "Skip until"
-msgstr ""
+msgstr "Saltar hasta"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__start_date
@@ -823,7 +825,7 @@ msgstr "La duración debe ser positiva "
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The interest must be positive"
-msgstr ""
+msgstr "El interés debe ser positivo"
 
 #. module: account_loans
 #. odoo-python
@@ -838,18 +840,23 @@ msgid ""
 "The loan amount %(loan_amount)s should be equal to the sum of the "
 "principals: %(principal_sum)s (difference %(principal_difference)s)"
 msgstr ""
+"El importe del préstamo %(loan_amount)s debe ser igual a la suma de los "
+"principales: %(principal_sum)s (diferencia %(principal_difference)s)"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan date should be earlier than the loan lines date."
 msgstr ""
+"La fecha del préstamo debe ser anterior a la fecha de las líneas del "
+"préstamo."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan duration should be equal to the number of loan lines."
 msgstr ""
+"La duración del préstamo debe ser igual al número de líneas de préstamo."
 
 #. module: account_loans
 #. odoo-python
@@ -857,18 +864,20 @@ msgstr ""
 msgid ""
 "The loan interest should be equal to the sum of the loan lines interest."
 msgstr ""
+"El interés del préstamo debe ser igual a la suma del interés de las líneas "
+"del préstamo."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan journal should be set."
-msgstr ""
+msgstr "El diario de préstamo debe estar configurado."
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 msgid "The loan name should be set."
-msgstr ""
+msgstr "El nombre del préstamo debe estar configurado."
 
 #. module: account_loans
 #. odoo-python
@@ -885,27 +894,27 @@ msgstr "Este asiento se ha revirtido apartir de %s"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Amounts Borrowed"
-msgstr ""
+msgstr "Importe total prestado"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Total Outstanding Balance"
-msgstr ""
+msgstr "Saldo pendiente total"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total interests"
-msgstr ""
+msgstr "Total de intereses"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total payments"
-msgstr ""
+msgstr "Total de pagos"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Total principals"
-msgstr ""
+msgstr "Principales totales"
 
 #. module: account_loans
 #. odoo-javascript
@@ -927,6 +936,10 @@ msgid ""
 "you have already manually created entries prior to the creation of this "
 "loan."
 msgstr ""
+"Al confirmar el préstamo, Odoo ignorará las líneas de préstamo existentes "
+"hasta el día de hoy (este incluido) y no creará asientos para ellas. Esto es"
+" útil si ya ha creado manualmente asientos antes de la creación de este "
+"préstamo."
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__website_message_ids
@@ -941,4 +954,4 @@ msgstr "Historial de comunicación del sitio web"
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 msgid "will be deleted and the loan will be marked as closed."
-msgstr ""
+msgstr "se eliminará y el préstamo se marcará como cerrado."

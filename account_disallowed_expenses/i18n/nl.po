@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -33,7 +34,7 @@ msgstr "Actief"
 #. module: account_disallowed_expenses
 #: model_terms:ir.actions.act_window,help:account_disallowed_expenses.action_account_disallowed_expenses_category_list
 msgid "Add a Disallowed Expenses Category"
-msgstr "Voeg een verworpen uitgavencategorie toe"
+msgstr "Voeg een niet-aftrekbare kostencategorie toe"
 
 #. module: account_disallowed_expenses
 #: model:ir.model.fields,field_description:account_disallowed_expenses.field_account_disallowed_expenses_rate__category_id
@@ -88,24 +89,24 @@ msgstr "Niet aftrekbaar bedrag"
 #: model:ir.ui.menu,name:account_disallowed_expenses.menu_action_account_report_de
 #: model_terms:ir.ui.view,arch_db:account_disallowed_expenses.view_account_form
 msgid "Disallowed Expenses"
-msgstr "Verworpen uitgaven"
+msgstr "Niet-aftrekbare kosten"
 
 #. module: account_disallowed_expenses
 #: model:ir.actions.act_window,name:account_disallowed_expenses.action_account_disallowed_expenses_category_list
 #: model:ir.ui.menu,name:account_disallowed_expenses.menu_action_account_disallowed_expenses_category_list
 msgid "Disallowed Expenses Categories"
-msgstr "Verworpen uitgaven"
+msgstr "Niet-aftrekbare kosten"
 
 #. module: account_disallowed_expenses
 #: model:ir.model,name:account_disallowed_expenses.model_account_disallowed_expenses_category
 #: model:ir.model.fields,field_description:account_disallowed_expenses.field_account_account__disallowed_expenses_category_id
 msgid "Disallowed Expenses Category"
-msgstr "Verworpen uitgaven"
+msgstr "Niet-aftrekbare kosten"
 
 #. module: account_disallowed_expenses
 #: model:ir.model,name:account_disallowed_expenses.model_account_disallowed_expenses_report_handler
 msgid "Disallowed Expenses Custom Handler"
-msgstr "Aangepaste handler voor verworpen uitgaven"
+msgstr "Aangepaste handler voor niet-aftrekbare kosten"
 
 #. module: account_disallowed_expenses
 #: model:ir.model,name:account_disallowed_expenses.model_account_disallowed_expenses_rate
@@ -116,12 +117,12 @@ msgstr "Niet aftrekbaar percentage"
 #: model:account.report,name:account_disallowed_expenses.disallowed_expenses_report
 #: model:ir.actions.client,name:account_disallowed_expenses.action_account_report_de
 msgid "Disallowed Expenses Report"
-msgstr "Verworpen uitgavenrapportage"
+msgstr "Niet-aftrekbare kostenrapportage"
 
 #. module: account_disallowed_expenses
 #: model:ir.model.constraint,message:account_disallowed_expenses.constraint_account_disallowed_expenses_category_unique_code
 msgid "Disallowed expenses category code should be unique."
-msgstr "De code van de verworpen uitgavencategorie moet uniek zijn."
+msgstr "De code van de niet-aftrekbare kostencategorie moet uniek zijn."
 
 #. module: account_disallowed_expenses
 #: model:ir.model.fields,field_description:account_disallowed_expenses.field_account_disallowed_expenses_category__display_name
@@ -208,7 +209,8 @@ msgstr "Begindatum"
 #. odoo-javascript
 #: code:addons/account_disallowed_expenses/static/src/components/disallowed_expenses_report/warnings.xml:0
 msgid "There are multiple disallowed expenses rates in this period"
-msgstr "Er zijn meerdere tarieven voor verworpen uitgaven in deze periode"
+msgstr ""
+"Er zijn meerdere tarieven voor niet-aftrekbare kostenn in deze periode"
 
 #. module: account_disallowed_expenses
 #. odoo-python

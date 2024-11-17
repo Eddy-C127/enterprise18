@@ -3,8 +3,8 @@
 # 	* sale_commission
 # 
 # Translators:
-# Malaz Abuidris <msea@odoo.com>, 2024
 # Wil Odoo, 2024
+# Malaz Abuidris <msea@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2024\n"
 "Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -34,7 +34,7 @@ msgstr "-&gt;"
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "<span class=\"o_stat_text\">Commissions</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">العمولات</span> "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement_report__achieved
@@ -45,7 +45,7 @@ msgstr "مؤرشف "
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__achieved_rate
 msgid "Achieved Rate"
-msgstr ""
+msgstr "النسبة التي تم تحقيقها "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__achievement_ids
@@ -55,12 +55,12 @@ msgstr "إنجاز "
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_res_config_settings__group_commission_forecast
 msgid "Achievement Forecast"
-msgstr ""
+msgstr "النسبة المتوقع تحقيقها "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
 msgid "Achievement Report"
-msgstr ""
+msgstr "تقرير الإنجازات "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_achievement_action_report
@@ -84,45 +84,45 @@ msgstr "نشط"
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Active Plans"
-msgstr ""
+msgstr "الخطط النشطة "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_user_wizard
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Add Multiple Salespersons"
-msgstr ""
+msgstr "إضافة عدة مندوبي مبيعات "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_subscription_change_customer_wizard_action
 msgid "Add Salespersons"
-msgstr ""
+msgstr "إضافة مندوبي مبيعات "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Add a new Sales Person"
-msgstr ""
+msgstr "إضافة مندوب مبيعات جديد "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Add a new achievement"
-msgstr ""
+msgstr "إضافة إنجاز جديد "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Add a new commission level"
-msgstr ""
+msgstr "إضافة مستوى عمولة جديد "
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/model/commission_achievement.py:0
 msgid "Adjustment %s"
-msgstr ""
+msgstr "التعديل %s "
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/model/commission_achievement.py:0
 msgid "Adjustment: %s"
-msgstr ""
+msgstr "التعديل: %s "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_achievement
@@ -146,6 +146,8 @@ msgid ""
 "Allows you to manually adjust a salesperson's achievements\n"
 "                for a specific period and commission plan."
 msgstr ""
+"يُتيح لك تعديل إنجازات مندوب المبيعات يدوياً \n"
+"                لفترة محددة ولخطة عمولة محددة. "
 
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_forecast
@@ -153,6 +155,8 @@ msgid ""
 "Allows you to manually set a salesperson's forecast\n"
 "                for a specific period and commission plan."
 msgstr ""
+"يُتيح لك تعيين النِسَب المتوقَّعة من مندوب المبيعات يدوياً \n"
+"                لفترة محددة ولخطة عمولة محددة. "
 
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_my_forecast
@@ -160,6 +164,8 @@ msgid ""
 "Allows you to manually set your sales' forecast\n"
 "                for a specific period and commission plan."
 msgstr ""
+"يُتيح لك تعيين توقعات مبيعاتك يدوياً \n"
+"                لفترة محددة ولخطة عمولة محددة. "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__amount
@@ -176,7 +182,7 @@ msgstr "المبلغ المفوتر "
 #: model:ir.model.fields.selection,name:sale_commission.selection__sale_commission_achievement__type__amount_sold
 #: model:ir.model.fields.selection,name:sale_commission.selection__sale_commission_plan_achievement__type__amount_sold
 msgid "Amount Sold"
-msgstr ""
+msgstr "ما تم تحقيقه من المبيعات "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
@@ -229,13 +235,13 @@ msgstr "العمولة "
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_achievement_view_search
 msgid "Commission Achievement"
-msgstr ""
+msgstr "العمولة التي تم تحقيقها "
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/report/commission_report.py:0
 msgid "Commission Detail: %(name)s"
-msgstr ""
+msgstr "تفاصيل العمولة: %(name)s "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan
@@ -252,12 +258,12 @@ msgstr "خطة العمولة "
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_achievement
 msgid "Commission Plan Achievement"
-msgstr ""
+msgstr "ما تم إنجازه من خطة العمولة "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_target
 msgid "Commission Plan Target"
-msgstr ""
+msgstr "هدف خطة عمولة المبيعات "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_target_commission
@@ -267,12 +273,12 @@ msgstr ""
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_target_forecast
 msgid "Commission Plan Target Forecast"
-msgstr ""
+msgstr "توقعات هدف خطة عمولة المبيعات "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_user
 msgid "Commission Plan User"
-msgstr ""
+msgstr "المستخدِم في خطة العمولة "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_plan
@@ -283,12 +289,12 @@ msgstr "خطط العمولة "
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Commission Report"
-msgstr ""
+msgstr "تقرير عمولة المبيعات "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_res_users__commission_plan_users_ids
 msgid "Commission plans"
-msgstr ""
+msgstr "خطط عمولة المبيعات "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_report
@@ -321,7 +327,7 @@ msgstr "مكتملة "
 msgid ""
 "Compute commissions of your sales people based on their achievements and "
 "targets"
-msgstr ""
+msgstr "احسب عمولات موظفي المبيعات لديك بناءً على إنجازاتهم وأهدافهم "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_res_config_settings
@@ -331,18 +337,18 @@ msgstr "تهيئة الإعدادات "
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_plan
 msgid "Create a new commission plan"
-msgstr ""
+msgstr "إنشاء خطة عمولات جديدة "
 
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_achievement
 msgid "Create an adjustment"
-msgstr ""
+msgstr "إجراء تعديل "
 
 #. module: sale_commission
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_forecast
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_my_forecast
 msgid "Create an forecast"
-msgstr ""
+msgstr "تحديد التوقعات "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__create_uid
@@ -388,7 +394,7 @@ msgstr "سعر صرف العملة"
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "Current Period"
-msgstr ""
+msgstr "الفترة الحالية "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__date
@@ -399,7 +405,7 @@ msgstr "التاريخ"
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_crm_team__commission_plan_ids
 msgid "Default commission plan for team members."
-msgstr ""
+msgstr "خطة العمولة الافتراضية لأعضاء الفريق. "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__display_name
@@ -430,12 +436,12 @@ msgstr "مسودة"
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Effective Period"
-msgstr ""
+msgstr "فترة السريان "
 
 #. module: sale_commission
 #: model:res.groups,name:sale_commission.group_commission_forecast
 msgid "Enable Commission Forecast"
-msgstr ""
+msgstr "تفعيل توقعات العمولة "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_list
@@ -450,6 +456,8 @@ msgid ""
 "Ensure you are assigned to a commission plan and have made sales that "
 "qualify for commissions"
 msgstr ""
+"تأكد من أنه قد تم تعيينك في خطة عمولة وقمت بتحقيق مبيعات مؤهلة للحصول على "
+"عمولات "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_res_users__filtered_commission_plan_users_ids
@@ -489,7 +497,7 @@ msgstr "من"
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan_user.py:0
 msgid "From must be before To"
-msgstr ""
+msgstr "يجب أن تكون قيمة \"من\" قبل قيمة \"إلى\" "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
@@ -571,7 +579,7 @@ msgstr ""
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_achievement
 msgid "Manual Commission Achievement"
-msgstr ""
+msgstr "تحقيق العمولة يدوياً "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
@@ -596,20 +604,20 @@ msgstr "شهرياً"
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_search
 msgid "My Achievements"
-msgstr ""
+msgstr "إنجازاتي "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_report
 #: model:ir.ui.menu,name:sale_commission.sale_commission_my_menu
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_search
 msgid "My Commissions"
-msgstr ""
+msgstr "عمولاتي "
 
 #. module: sale_commission
 #: model:ir.actions.act_window,name:sale_commission.sale_commission_action_my_forecast
 #: model:ir.ui.menu,name:sale_commission.sale_commission_my_forecast
 msgid "My Forecast"
-msgstr ""
+msgstr "توقعاتي "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__name
@@ -645,22 +653,22 @@ msgstr "عدد الرسائل الحادث بها خطأ في التسليم"
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_plan__commission_amount
 msgid "OTC"
-msgstr "التداول خارج البورصة "
+msgstr "العمولة عند تحقيق الهدف "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target_commission__amount_rate
 msgid "OTC %"
-msgstr ""
+msgstr "نسبة العمولة عند تحقيق الهدف "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__commission_amount
 msgid "On Target Commission"
-msgstr ""
+msgstr "العمولة عند تحقيق الهدف "
 
 #. module: sale_commission
 #: model:ir.model.fields,help:sale_commission.field_sale_commission_plan_target_commission__amount_rate
 msgid "On Target Commission rate"
-msgstr ""
+msgstr "نسبة العمولة عند تحقيق الهدف "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_search
@@ -670,7 +678,7 @@ msgstr "جاري"
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_user__other_plans
 msgid "Other plans"
-msgstr ""
+msgstr "الخطط الأخرى "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__payment_date
@@ -680,7 +688,7 @@ msgstr "تاريخ الدفع "
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Payment Frequency"
-msgstr ""
+msgstr "وتيرة الدفع "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement_report__target_id
@@ -722,7 +730,7 @@ msgstr "المنتج"
 #: model:ir.model.fields.selection,name:sale_commission.selection__sale_commission_achievement__type__qty_invoiced
 #: model:ir.model.fields.selection,name:sale_commission.selection__sale_commission_plan_achievement__type__qty_invoiced
 msgid "Quantity Invoiced"
-msgstr ""
+msgstr "الكمية التي تمت فوترتها "
 
 #. module: sale_commission
 #: model:ir.model.fields.selection,name:sale_commission.selection__sale_commission_achievement__type__qty_sold
@@ -753,13 +761,13 @@ msgstr "ذو صلة "
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement_report__related_res_model
 msgid "Related Res Model"
-msgstr ""
+msgstr "نموذج Res ذو الصلة "
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan.py:0
 msgid "Related commissions"
-msgstr ""
+msgstr "العمولات ذات الصلة "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
@@ -774,22 +782,22 @@ msgstr "خطأ في تسليم الرسائل النصية القصيرة "
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__team_id
 msgid "Sale team"
-msgstr ""
+msgstr "فريق المبيعات "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_achievement_report
 msgid "Sales Achievement Report"
-msgstr ""
+msgstr "تقرير إنجازات المبيعات "
 
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_report
 msgid "Sales Commission Report"
-msgstr ""
+msgstr "تقرير عمولة المبيعات "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Sales People"
-msgstr ""
+msgstr "مندوبو المبيعات "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_achievement__user_id
@@ -821,7 +829,7 @@ msgstr "مندوب المبيعات "
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_report_view_list
 msgid "See associated achievements"
-msgstr ""
+msgstr "ألقِ نظرة على الإنجازات ذات الصلة "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_achievement_report_view_list
@@ -852,52 +860,52 @@ msgstr "الهدف"
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__target_amount
 msgid "Target Amount"
-msgstr ""
+msgstr "المبلغ المُراد تحقيقه "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__target_commission_ids
 msgid "Target Commission"
-msgstr ""
+msgstr "العمولة المُراد تحقيقها "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__target_commission_graph
 msgid "Target Commission Graph"
-msgstr ""
+msgstr "الرسم البياني للعمولة المُراد تحقيقها "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan_target_commission__target_rate
 msgid "Target completion (%)"
-msgstr ""
+msgstr "ما تم تحقيقه (%) "
 
 #. module: sale_commission
 #: model:ir.model.fields.selection,name:sale_commission.selection__sale_commission_plan__type__target
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form
 msgid "Targets"
-msgstr ""
+msgstr "الأهداف المُراد تحقيقها "
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan.py:0
 msgid ""
 "The plan should have at least one target with an achievement rate of 0%"
-msgstr ""
+msgstr "يجب أن تتضمن الخطة هدفاً واحداً على الأقل بمعدل إنجاز يبلغ 0% "
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan.py:0
 msgid "The start date must be before the end date."
-msgstr ""
+msgstr "يجب أن يكون تاريخ البدء قبل تاريخ الانتهاء."
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan.py:0
 msgid "The team is required in team plan."
-msgstr ""
+msgstr "الفريق مطلوب في خطة الفريق. "
 
 #. module: sale_commission
 #: model:ir.model.constraint,message:sale_commission.constraint_sale_commission_plan_user_user_uniq
 msgid "The user is already present in the plan"
-msgstr ""
+msgstr "المستخدم موجود بالفعل في الخطة "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_target_forecast_view_search
@@ -929,7 +937,7 @@ msgstr "النوع"
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_report
 #: model_terms:ir.actions.act_window,help:sale_commission.sale_commission_action_report_sale
 msgid "Unfortunately, there are no commissions for you"
-msgstr ""
+msgstr "لسوء الحظ، لا توجد عمولات لك "
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_search
@@ -959,13 +967,13 @@ msgstr "نوع المستخدم"
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan_user.py:0
 msgid "User period cannot end after the plan."
-msgstr ""
+msgstr "لا يمكن أن تنتهي فترة المستخدم بعد الخطة. "
 
 #. module: sale_commission
 #. odoo-python
 #: code:addons/sale_commission/model/commission_plan_user.py:0
 msgid "User period cannot start before the plan."
-msgstr ""
+msgstr "لا يمكن أن تبدأ فترة المستخدم قبل الخطة. "
 
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_plan__website_message_ids
@@ -980,7 +988,7 @@ msgstr "سجل تواصل الموقع الإلكتروني "
 #. module: sale_commission
 #: model:ir.model,name:sale_commission.model_sale_commission_plan_user_wizard
 msgid "Wizard for selecting multiple users"
-msgstr ""
+msgstr "معالج لتحديد عدة مستخدمين "
 
 #. module: sale_commission
 #: model:ir.model.fields.selection,name:sale_commission.selection__sale_commission_plan__periodicity__year
@@ -996,7 +1004,7 @@ msgstr ""
 #. module: sale_commission
 #: model:ir.model.fields,field_description:sale_commission.field_sale_commission_report__forecast_id
 msgid "fc"
-msgstr ""
+msgstr "fc"
 
 #. module: sale_commission
 #: model_terms:ir.ui.view,arch_db:sale_commission.sale_commission_plan_view_form

@@ -82,6 +82,8 @@ msgid ""
 "<span invisible=\"resource_manage_capacity\" class=\"ms-1\">per booking</span>\n"
 "                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">per seat</span>"
 msgstr ""
+"<span invisible=\"resource_manage_capacity\" class=\"ms-1\">por reserva</span>\n"
+"                            <span invisible=\"not resource_manage_capacity\" class=\"ms-1\">por asiento</span>"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.calendar_booking_view
@@ -190,7 +192,7 @@ msgstr "Líneas de reserva"
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__product_id
 msgid "Booking Product"
-msgstr ""
+msgstr "Producto de reserva"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_answer_input__calendar_event_id
@@ -303,12 +305,15 @@ msgstr "Última actualización el"
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make customers pay a fee per person when booking your resources"
 msgstr ""
+"Haga que clientes paguen una tasa por persona al reservar sus recursos."
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Make sure customers pay before they can take a slot in your calendar"
 msgstr ""
+"Asegúrese de que los clientes paguen antes de que puedan reservar un horario"
+" en su calendario."
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__calendar_event_id
@@ -339,6 +344,8 @@ msgstr "Clase de cocina en línea"
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_validated
 msgid "Oops! Paid appointment cannot be cancelled via our website.<br/>"
 msgstr ""
+"Lo sentimos, no puede cancelar una cita pagada a través de nuestro sitio "
+"web.<br/>"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_calendar_booking__staff_user_id
@@ -349,13 +356,13 @@ msgstr "Operador"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Consultation"
-msgstr ""
+msgstr "Consulta pagada"
 
 #. module: appointment_account_payment
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Paid Seats"
-msgstr ""
+msgstr "Asientos pagados"
 
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_payment
@@ -397,7 +404,7 @@ msgstr "Recursos"
 #. odoo-python
 #: code:addons/appointment_account_payment/models/templates/appointment_type.py:0
 msgid "Room %s"
-msgstr ""
+msgstr "Sala %s"
 
 #. module: appointment_account_payment
 #: model:ir.model.fields,field_description:appointment_account_payment.field_appointment_type__product_lst_price
@@ -523,4 +530,4 @@ msgstr "personas"
 #. module: appointment_account_payment
 #: model_terms:ir.ui.view,arch_db:appointment_account_payment.appointment_info
 msgid "per seat"
-msgstr ""
+msgstr "por asiento"

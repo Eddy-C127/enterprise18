@@ -2467,6 +2467,12 @@ msgstr "さらに前"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
 msgstr "フォルダを固定できるのはドキュメントマネジャーだけです。"
 
@@ -3150,6 +3156,11 @@ msgid "Summary"
 msgstr "概要"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3221,6 +3232,12 @@ msgid ""
 msgstr ""
 "次のドキュメント/フォルダはポータルユーザが所有することはできません: \n"
 "- %(partners)s"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3605,6 +3622,18 @@ msgid ""
 msgstr "利用中のコンピュータから、もしくはインターネットのリンクをコピーペーストでファイルをアップロードすることができます。"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
+
+#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3646,7 +3675,7 @@ msgstr "この特別なフォルダにショートカットを作成したり、
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot access folders in the trash."
-msgstr ""
+msgstr "ゴミ箱内のフォルダにアクセスすることはできません。"
 
 #. module: documents
 #. odoo-python
@@ -3670,7 +3699,7 @@ msgstr "ゴミ箱のドキュメントは複製できません。"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot move folders or files when in the trash."
-msgstr ""
+msgstr "ゴミ箱内のフォルダやファイルを移動することはできません。"
 
 #. module: documents
 #. odoo-javascript

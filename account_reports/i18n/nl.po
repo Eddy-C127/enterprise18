@@ -775,7 +775,7 @@ msgstr "Bank afletterrapport"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_bank_reconciliation_report_handler
 msgid "Bank Reconciliation Report Custom Handler"
-msgstr "Aangepaste handler voor bankafstemmingsrapport"
+msgstr "Aangepaste handler voor afletterrapport"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_bank_view0
@@ -1501,7 +1501,7 @@ msgstr "Download het Data Inalterability controlerapport"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Draft Entries"
-msgstr "Conceptinvoer"
+msgstr "Conceptboekingen"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1689,7 +1689,7 @@ msgstr "Provisiekostenrekening"
 #. odoo-python
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 msgid "Expense Provision for %s"
-msgstr "Onkostenvoorziening voor %s"
+msgstr "Kostenvoorziening voor %s"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_expenses0
@@ -1988,7 +1988,7 @@ msgstr "Gegroepeerde uitstelboeking van%s"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/partner_ledger/filter_extra_options.xml:0
 msgid "Hide Account"
-msgstr "Account verbergen"
+msgstr "Rekening verbergen"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2696,13 +2696,13 @@ msgstr "Niet-handelsrelaties"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Non Trade Payable"
-msgstr "Niet in de handel te betalen"
+msgstr "Niet-handelscrediteuren"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Non Trade Receivable"
-msgstr "Niet-handelsvorderingen"
+msgstr "Niet-handelsdebiteuren"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4030,7 +4030,7 @@ msgstr "Ongerealiseerde koerswinsten/-verliezen"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
-msgstr "Niet-afgestemde invoer"
+msgstr "Niet-afgeletterde boekingen"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_vat
@@ -4211,7 +4211,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "You cannot generate entries for a period that is locked."
-msgstr "Je kan geen boekingen genereren voor een vergrendelde periode."
+msgstr "Je kan geen boekingen genereren voor een geblokkeerde periode."
 
 #. module: account_reports
 #. odoo-python
@@ -4232,9 +4232,9 @@ msgid ""
 "need to modify you tax return lock date."
 msgstr ""
 "Je kan deze afsluitboeking niet terugzetten naar concept, omdat dit "
-"overdrachtswaarden zou verwijderen die van invloed zijn op de BTW-rapportage"
-" van een geblokeerde periode. Daarvoor moet je eerst de blokkeerdatum van je"
-" BTW-aangifte wijzigen."
+"overdrachtswaarden zou verwijderen die van invloed zijn op de Btw-"
+"rapportages van een geblokkeerde periode. Daarvoor moet je eerst de "
+"blokkeerdatum van je btw-aangifte wijzigen."
 
 #. module: account_reports
 #. odoo-python

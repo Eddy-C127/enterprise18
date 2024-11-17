@@ -1,26 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* social
-#
+# 
 # Translators:
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Cozmin Candea <office@terrabit.ro>, 2023
-# Dorin Hongu <dhongu@gmail.com>, 2023
-#
+# Wil Odoo, 2024
+# Lyall Kindmurr, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Dorin Hongu <dhongu@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Lyall Kindmurr, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: social
@@ -31,46 +28,54 @@ msgstr "# Conturi"
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
-msgid "%s (max %s chars)"
+msgid "%(media_name)s (max %(max_chars)s chars)"
 msgstr ""
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid ", you must first link a social media."
-msgstr ""
+msgstr ", trebuie să atașați un cont social"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_http_error_view
 msgid "<b>An error occurred while trying to link your account</b>"
-msgstr "<b>A apărut o eroare în timp ce încercați să conectați contul</b>"
+msgstr "<b>A apărut o eroare la conectarea contul</b>"
 
 #. module: social
-#: model_terms:ir.ui.view,arch_db:social.social_post_view_form
-msgid "<i class=\"fa fa-globe\" title=\"See the post\"/>"
-msgstr ""
-
-#. module: social
-#: model_terms:ir.ui.view,arch_db:social.social_http_error_view
-msgid "<i class=\"oi oi-arrow-left\"/> Go back to Odoo"
+#: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
+msgid "<i class=\"fa fa-calendar me-1 small fw-bold\" title=\"Calendar\"/>"
 msgstr ""
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
-msgid "<small class=\"pe-1\">Clicks:</small>"
+msgid "<i class=\"fa fa-calendar-check-o me-1 small fw-bold\" title=\"Calendar\"/>"
 msgstr ""
 
 #. module: social
-#. odoo-javascript
-#: code:addons/social/static/src/js/tours/social.js:0
-msgid "<strong>Congrats! Come back in a few minutes to check your statistics.</strong>"
+#: model_terms:ir.ui.view,arch_db:social.social_post_view_form
+msgid "<i class=\"fa fa-globe ms-1\" title=\"See the post\"/>"
+msgstr "<i class=\"fa fa-globe ms-1\" title=\"Vizualizați postarea\"/>"
+
+#. module: social
+#: model_terms:ir.ui.view,arch_db:social.social_http_error_view
+msgid "<i class=\"oi oi-arrow-left\"/> Go back to Odoo"
+msgstr "<i class=\"oi oi-arrow-left\"/> Reveniți la Odoo"
+
+#. module: social
+#: model_terms:web_tour.tour,rainbow_man_message:social.social_tour
+msgid ""
+"<strong>Congrats! Come back in a few minutes to check your "
+"statistics.</strong>"
 msgstr ""
+"<strong>Felicitări! Reveniți mai târziu pentru a vă verifica "
+"statisticile</strong>"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_needaction
 #: model:ir.model.fields,field_description:social.field_social_post__message_needaction
 msgid "Action Needed"
-msgstr "Intervenție necesară"
+msgstr "Acțiune necesară"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__active
@@ -85,7 +90,7 @@ msgstr "Activități"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Activitate Excepție Decorare"
+msgstr "Decorator Excepție Activitate"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__activity_state
@@ -106,42 +111,47 @@ msgstr "Adaugă"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 msgid "Add Post"
+msgstr "Adaugă postare"
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Add Stream"
 msgstr ""
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/add_stream_modal.js:0
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
-#: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Add a Stream"
-msgstr "Adăugare Flux"
+msgstr "Adaugă flux"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "Add a stream"
-msgstr "Adăugare Flux"
+msgstr "Adaugă flux"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Add an image"
-msgstr "Adăugare Imagine"
+msgstr "Adaugă Imagine"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "All Companies"
-msgstr ""
+msgstr "Toate companiile"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_post_ids
 msgid "All related social media posts"
-msgstr "Toate postările legate de social media"
+msgstr "Toate postările de social media corelate"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__account_allowed_ids
 msgid "Allowed Accounts"
-msgstr ""
+msgstr "Conturi permise"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_account_view_search
@@ -158,7 +168,12 @@ msgstr "Sunt disponibile conturile?"
 #: model:ir.model.fields,field_description:social.field_social_post__image_ids
 #: model:ir.model.fields,field_description:social.field_social_post_template__image_ids
 msgid "Attach Images"
-msgstr "Atașare Imagine"
+msgstr "Atașament imagini"
+
+#. module: social
+#: model:ir.model.fields,field_description:social.field_social_live_post__image_ids
+msgid "Attached Images"
+msgstr ""
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_attachment_count
@@ -171,7 +186,7 @@ msgstr "Număr atașamente"
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #: model:ir.model.fields,field_description:social.field_social_account__audience
 msgid "Audience"
-msgstr "Public / Audiență"
+msgstr "Audiență"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__audience_trend
@@ -190,23 +205,24 @@ msgstr "Nume autor"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__author_link
-msgid "Author link to the external social.media (ex: link to the Twitter Account)."
-msgstr "Link către autor social.media extern (ex: link către contul de Twitter)."
+msgid "Author link to the external social.media (ex: link to the X Account)."
+msgstr ""
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Before posting, links will be converted to be trackable."
 msgstr ""
+"Înainte de postare, link-urile vor fi convertite pentru a putea fi urmărite."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_search
 msgid "By Stream"
-msgstr "De Stream"
+msgstr "După Stream"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__csrf_token
 msgid "CSRF Token"
-msgstr ""
+msgstr "Token CSRF"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__calendar_date
@@ -230,17 +246,19 @@ msgstr "Campanii"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_view_utm_campaigns
-msgid "Campaigns are used to centralize your marketing efforts and track their results."
+msgid ""
+"Campaigns are used to centralize your marketing efforts and track their "
+"results."
 msgstr ""
+"Campaniile sunt folosite pentru a vă centraliza eforturile de marketing și "
+"pentru a putea vizualiza rezultatele acestora."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__can_link_accounts
 msgid "Can link accounts?"
-msgstr ""
+msgstr "Poate atașa conturi?"
 
 #. module: social
-#. odoo-javascript
-#: code:addons/social/static/src/xml/social_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Cancel"
 msgstr "Anulează"
@@ -249,13 +267,13 @@ msgstr "Anulează"
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
 msgid "Choose which <b>account</b> you would like to link first."
-msgstr "Alegeți la care <b>cont</b> ați vrea să faceți legătura mai întâi."
+msgstr "Alegeți la care <b>cont</b> ați dori să faceți legătura mai întâi."
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Click to refresh."
-msgstr ""
+msgstr "Clic pentru reîmprospătare."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
@@ -263,10 +281,15 @@ msgid "Clicks"
 msgstr "Clicuri"
 
 #. module: social
+#: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
+msgid "Clicks:"
+msgstr ""
+
+#. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Comment Image"
-msgstr "Comentare Imagine"
+msgstr "Imagine comentariu"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__company_id
@@ -294,43 +317,54 @@ msgstr "Configurare"
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Connecting Problem"
-msgstr "Problemă Conectare"
+msgstr "Problemă de conectare"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__social_account_handle
-msgid "Contains the social media handle of the person that created this account. E.g: '@odoo.official' for the 'Odoo' Twitter account"
+msgid ""
+"Contains the social media handle of the person that created this account. "
+"E.g: '@odoo.official' for the 'Odoo' X account"
 msgstr ""
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_live_post__message
-msgid "Content of the social post message that is post-processed (links are shortened, UTMs, ...)"
+msgid ""
+"Content of the social post message that is post-processed (links are "
+"shortened, UTMs, ...)"
 msgstr ""
+"Conținutul mesajului din postarea socială care este post-procesat (linkurile"
+" sunt scurtate, UTM-uri, ...)"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__has_streams
 msgid "Controls if social streams are handled on this social media."
-msgstr "Controlează dacă fluxurile sociale sunt gestionate pe acest social media."
+msgstr ""
+"Controlează dacă fluxurile sociale sunt gestionate pe acest social media."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__can_link_accounts
 msgid "Controls if we can link accounts or not."
-msgstr "Controlează dacă putem conecta conturi sau nu."
+msgstr "Controlează dacă Odoo poate conecta conturi sau nu."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_view_utm_campaigns
 msgid "Create a Campaign"
-msgstr ""
+msgstr "Creați o campanie"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_post
 msgid "Create a Post"
-msgstr ""
+msgstr "Creați o postare"
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_account.py:0
-msgid "Create other accounts for %(media_names)s for this company or ask %(company_names)s to share their accounts"
+msgid ""
+"Create other accounts for %(media_names)s for this company or ask "
+"%(company_names)s to share their accounts"
 msgstr ""
+"Creați alte conturi pentru %(media_names)s pentru această companie sau "
+"cereți companiei/companiilor %(company_names)s să le partajeze conturile "
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__create_uid
@@ -356,7 +390,7 @@ msgstr "Creat de"
 #: model:ir.model.fields,field_description:social.field_social_stream_post_image__create_date
 #: model:ir.model.fields,field_description:social.field_social_stream_type__create_date
 msgid "Created on"
-msgstr "Creat în"
+msgstr "Creat pe"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__has_account_stats
@@ -364,8 +398,8 @@ msgid ""
 "Defines whether this account has Audience/Engagements/Stories stats.\n"
 "        Account with stats are displayed on the dashboard."
 msgstr ""
-"Definește dacă acest cont are statistici de audiență / angajamente / povești.\n"
-"        Contul cu statistici sunt afișate pe tabloul de bord."
+"Definește dacă acest cont are statistici pentru audiență / implicare / story-uri.\n"
+"        Conturile cu statistici le afișează pe tabloul de bord."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__has_trends
@@ -375,9 +409,22 @@ msgstr "Definește dacă acest cont are statistici sau nu."
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comment.js:0
+#: code:addons/social/static/src/js/stream_post_comments.js:0
 #: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Delete"
+msgstr "Șterge"
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/js/stream_post_comment.js:0
 msgid "Delete Comment"
 msgstr "Ștergere Comentariu"
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/js/stream_post_comments.js:0
+msgid "Delete Post"
+msgstr ""
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
@@ -392,6 +439,18 @@ msgstr "Descriere"
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
 msgid "Developer Accounts"
+msgstr "Conturi de dezvoltator"
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Discard"
+msgstr "Abandonează"
+
+#. module: social
+#: model:ir.model.fields,field_description:social.field_social_post__display_message
+#: model:ir.model.fields,field_description:social.field_social_post_template__display_message
+msgid "Display Message"
 msgstr ""
 
 #. module: social
@@ -410,7 +469,13 @@ msgstr "Nume afișat"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_comment.js:0
-msgid "Do you really want to delete %s"
+msgid "Do you really want to delete this %s?"
+msgstr ""
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/js/stream_post_comments.js:0
+msgid "Do you really want to delete this Post ?"
 msgstr ""
 
 #. module: social
@@ -425,12 +490,20 @@ msgid ""
 "Due to length restrictions, the following posts cannot be posted:\n"
 " %s"
 msgstr ""
+"Din cauza restricțiilor de dimensiune, următoarele postări nu pot fi postate: \n"
+"%s"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
-msgid "Edit Comment"
-msgstr "Editare Comentariu"
+msgid "Edit"
+msgstr "Editare"
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Edit Your Post"
+msgstr ""
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_res_config_settings__module_social_demo
@@ -439,8 +512,12 @@ msgstr "Activare Mod Demo"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
-msgid "Enable this option and load demo data to test the social module. This must never be used on a production database!"
+msgid ""
+"Enable this option and load demo data to test the social module. This must "
+"never be used on a production database!"
 msgstr ""
+"Activați această opțiune și încărcați datele demo pentru a testa modulul social.<br/>\n"
+"                                    Acestă opțiune nu trebuie folosită niciodată într-un sistem productiv!"
 
 #. module: social
 #. odoo-javascript
@@ -449,10 +526,9 @@ msgstr ""
 #: model:ir.model.fields,field_description:social.field_social_live_post__engagement
 #: model:ir.model.fields,field_description:social.field_social_post__engagement
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
-#: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 msgid "Engagement"
-msgstr "Angajamente"
+msgstr "Implicare"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__engagement_trend
@@ -460,9 +536,18 @@ msgid "Engagement Trend"
 msgstr "Tendință de implicare"
 
 #. module: social
+#: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
+msgid "Engagement:"
+msgstr ""
+
+#. module: social
 #: model:ir.model.fields,help:social.field_social_account__utm_medium_id
-msgid "Every time an account is created, a utm.medium is also created and linked to the account"
-msgstr "De fiecare dată când se creează un cont, un utm.medium este de asemenea creat și legat de cont"
+msgid ""
+"Every time an account is created, a utm.medium is also created and linked to"
+" the account"
+msgstr ""
+"De fiecare dată când se creează un cont, un utm.medium este de asemenea "
+"creat și legat de cont"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_live_post__state__failed
@@ -497,7 +582,7 @@ msgstr "Număr Postări Feed"
 #: model:ir.model.fields,field_description:social.field_social_media__message_follower_ids
 #: model:ir.model.fields,field_description:social.field_social_post__message_follower_ids
 msgid "Followers"
-msgstr "Persoane interesate"
+msgstr "Urmăritori"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_partner_ids
@@ -508,22 +593,25 @@ msgstr "Urmăritori (Parteneri)"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Pictogramă minunată pentru font, de ex. fa-sarcini"
+msgstr "Pictogramă Font awesome, de ex. fa-sarcini"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__formatted_published_date
 msgid "Formatted Published Date"
-msgstr "Dată Publicată Formatată"
+msgstr "Data publicării formatată"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__audience
-msgid "General audience of the Social Account (Page Likes, Account Follows, ...)."
-msgstr "Publicul general al contului social (Like-uri ale paginii, Urmărirea contului, ...)."
+msgid ""
+"General audience of the Social Account (Page Likes, Account Follows, ...)."
+msgstr ""
+"Publicul general al contului social (Like-urile paginii, Urmăritori cont, "
+"...)."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "Go to the"
-msgstr ""
+msgstr "Navigare la"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_account_view_search
@@ -536,7 +624,7 @@ msgstr "Grupează după"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__social_account_handle
 msgid "Handle / Short Name"
-msgstr ""
+msgstr "Identificator / Nume scurt"
 
 #. module: social
 #. odoo-javascript
@@ -563,7 +651,7 @@ msgstr "Are tendințe?"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__is_hatched
 msgid "Hatched"
-msgstr ""
+msgstr "Hatched"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__id
@@ -586,13 +674,13 @@ msgstr "Pictogramă"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Pictograma pentru a indica o activitate de excepție."
+msgstr "Pictograma care indică o activitate de excepție."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__message_needaction
 #: model:ir.model.fields,help:social.field_social_post__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Dacă este selectat, mesajele noi necesită atenția dumneavoastră."
+msgstr "Dacă este bifat, mesaje noi necesită atenția dumneavoastră."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__message_has_error
@@ -600,7 +688,7 @@ msgstr "Dacă este selectat, mesajele noi necesită atenția dumneavoastră."
 #: model:ir.model.fields,help:social.field_social_post__message_has_error
 #: model:ir.model.fields,help:social.field_social_post__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Dacă este bifată, unele mesaje au o eroare de livrare."
+msgstr "Dacă este bifată, există mesaje cu eroare de livrare."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__image
@@ -628,13 +716,18 @@ msgstr "URL-uri Imagini"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__stream_post_image_ids
 msgid "Images that were shared with this post."
-msgstr "Imagini care au fost partajate cu această postare."
+msgstr "Imagini ale aceastei postări."
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Insights"
-msgstr "Insights"
+msgstr "informații"
+
+#. module: social
+#: model:ir.model.fields,field_description:social.field_social_stream_post__is_author
+msgid "Is Author"
+msgstr "Este autor"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_is_follower
@@ -645,14 +738,17 @@ msgstr "Este urmăritor"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
-msgid "It appears there is an issue with the Social Media link, click here to link the account again"
-msgstr "Se pare că există o problemă cu link-ul Social Media, Click Aici pentru a conecta din nou contul"
+msgid ""
+"It appears there is an issue with the Social Media link, click here to link "
+"the account again"
+msgstr ""
+"A apărut o problemă la conectarea contului social, vă rugăm să reîncercați"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
 msgid "It will appear in the Feed once it has posts to display."
-msgstr ""
+msgstr "Va apărea în feed când are postări de afișat."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__write_uid
@@ -683,32 +779,32 @@ msgstr "Ultima actualizare pe"
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
-msgid "Let's <b>connect</b> to Facebook, LinkedIn or Twitter."
-msgstr "Hai să <b>conectăm</b> la Facebook, LinkedIn sau Twitter."
+msgid "Let's <b>connect</b> to Facebook, LinkedIn or X."
+msgstr ""
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
 msgid "Let's create your own <b>social media</b> dashboard."
-msgstr "Hai să creăm propriul tău <b>social media</b> dashboard."
+msgstr "Crează-ți propriul tău dashboard de <b>social media</b> "
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
 msgid "Let's start posting."
-msgstr "Să începem să postăm."
+msgstr "Începeți să postați!"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Like"
-msgstr "Like"
+msgstr "Apreciere"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Likes"
-msgstr "Likes"
+msgstr "Aprecieri"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_description
@@ -720,12 +816,12 @@ msgstr "Descriere Link "
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_kanban
 msgid "Link Image"
-msgstr "Link Imagine"
+msgstr "Imagine link"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_image_url
 msgid "Link Image URL"
-msgstr "URL Link Imagine"
+msgstr "URL imagine link"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__link_title
@@ -741,7 +837,7 @@ msgstr "Link URL"
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Link a new account"
-msgstr ""
+msgstr "Conectați un cont nou"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_media_view_kanban
@@ -751,20 +847,24 @@ msgstr "Link Cont"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "Link an Account"
-msgstr ""
+msgstr "Conectați un cont"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__company_id
 #: model:ir.model.fields,help:social.field_social_live_post__company_id
 #: model:ir.model.fields,help:social.field_social_stream__company_id
 #: model:ir.model.fields,help:social.field_social_stream_post__company_id
-msgid "Link an account to a company to restrict its usage or keep empty to let all companies use it."
+msgid ""
+"Link an account to a company to restrict its usage or keep empty to let all "
+"companies use it."
 msgstr ""
+"Conectați un cont la o companie pentru a restricționa utilizarea acestuia.\n"
+"Când câmpul este gol, toate companiile pot folosi contul."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_live_post__live_post_link
 msgid "Link of the live post on the target media."
-msgstr ""
+msgstr "Link al postării live pe audiența dorită."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -774,17 +874,17 @@ msgstr "Link Conturi Sociale"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stats_link
 msgid "Link to the external Social Account statistics"
-msgstr "Link către statisticile externe ale contului social"
+msgstr "Link extern către statisticile contului social"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__is_media_disconnected
 msgid "Link with external Social Media is broken"
-msgstr "Link cu social media extern este deteriorat"
+msgstr "Conexiunea cu contul social extern nu funcționează"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__account_allowed_ids
 msgid "List of the accounts which can be selected for this post."
-msgstr ""
+msgstr "Lista conturilor selectabile pentru această postare."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__live_posts_by_media
@@ -800,13 +900,20 @@ msgstr "Încarcă mai multe comentarii ..."
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__max_post_length
 msgid "Max Post Length"
-msgstr ""
+msgstr "Lungime maximă postare"
 
 #. module: social
+#: model:ir.model.fields,field_description:social.field_social_live_post__media_type
 #: model:ir.model.fields,field_description:social.field_social_post__media_ids
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 msgid "Media"
 msgstr "Media"
+
+#. module: social
+#: model:ir.model.fields,field_description:social.field_social_post__media_count
+#: model:ir.model.fields,field_description:social.field_social_post_template__media_count
+msgid "Media Count"
+msgstr ""
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__media_type
@@ -826,13 +933,7 @@ msgstr "Mesaj"
 #: model:ir.model.fields,field_description:social.field_social_media__message_has_error
 #: model:ir.model.fields,field_description:social.field_social_post__message_has_error
 msgid "Message Delivery error"
-msgstr "Eroare livrare mesaj"
-
-#. module: social
-#: model:ir.model.fields,field_description:social.field_social_post__message_length
-#: model:ir.model.fields,field_description:social.field_social_post_template__message_length
-msgid "Message Length"
-msgstr ""
+msgstr "Eroare de livrare a mesajului"
 
 #. module: social
 #. odoo-python
@@ -843,8 +944,9 @@ msgstr "Mesaj postat"
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
-msgid "Message posted partially. These are the ones that couldn't be posted:%s"
-msgstr ""
+msgid ""
+"Message posted partially. These are the ones that couldn't be posted:%s"
+msgstr "Mesaj postat parțial. Mesaje care nu au putut fi postate: %s"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_ids
@@ -858,8 +960,8 @@ msgid ""
 "Most social.live.posts directly go from Ready to Posted/Failed since they result of a single call to the third party API.\n"
 "        A 'Posting' state is also available for those that are sent through batching (like push notifications)."
 msgstr ""
-"Majoritatea posturilor social.live.post trec direct de la Gata la Postare / Eșuat, deoarece rezultă dintr-un singur apel către API-ul terț.\n"
-"       O stare de „înregistrare” este de asemenea disponibilă pentru cei care sunt trimiși prin lot (cum ar fi notificările push)."
+"Majoritatea posturilor social.live.post trec direct de la Pregătit la Postat / Eșuat, deoarece rezultă dintr-un singur apel către API-ul third party.\n"
+"       O stare de „Postare” este de asemenea disponibilă pentru postări batch (cum ar fi notificările push)."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__my_activity_date_deadline
@@ -897,13 +999,13 @@ msgstr "Postare Nouă"
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "New content available"
-msgstr ""
+msgstr "Conținut nou disponibil "
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Next"
-msgstr "Înainte"
+msgstr "Următorul"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__activity_calendar_event_id
@@ -923,22 +1025,22 @@ msgstr "Sumarul următoarei activități"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tip de activitate urmatoare"
+msgstr "Următorul tip de activitate"
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "No Social Account yet!"
-msgstr ""
+msgstr "Nu există conturi sociale."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "No Social Streams yet!"
-msgstr ""
+msgstr "Nu există fluxuri sociale."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "No Stream added yet!"
-msgstr ""
+msgstr "Nu există fluxuri adăugate."
 
 #. module: social
 #. odoo-javascript
@@ -950,7 +1052,9 @@ msgstr "Niciun comentariu încă."
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
 msgid "No social accounts configured, please contact your administrator."
-msgstr "Nu este configurat niciun cont social, vă rugăm să contactați administratorul."
+msgstr ""
+"Nu este configurat niciun cont social, vă rugăm să contactați "
+"administratorul."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__message_needaction_counter
@@ -973,18 +1077,21 @@ msgstr "Numărul de click-uri"
 #: model:ir.model.fields,field_description:social.field_social_media__message_has_error_counter
 #: model:ir.model.fields,field_description:social.field_social_post__message_has_error_counter
 msgid "Number of errors"
-msgstr "Numărul de erori"
+msgstr "Număr de erori"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_engagement
-msgid "Number of interactions (likes, shares, comments ...) with the social posts"
-msgstr "Număr de interacțiuni (like-uri, share-uri, comentarii ...) cu postările sociale"
+msgid ""
+"Number of interactions (likes, shares, comments ...) with the social posts"
+msgstr ""
+"Număr de interacțiuni (like-uri, share-uri, comentarii ...) cu postările "
+"sociale"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__message_needaction_counter
 #: model:ir.model.fields,help:social.field_social_post__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Număr de mesaje ce necesită intervenție"
+msgid "Number of messages requiring action"
+msgstr "Numărul de mesaje care necesită acțiune"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__message_has_error_counter
@@ -996,55 +1103,73 @@ msgstr "Numărul de mesaje cu eroare de livrare"
 #: model:ir.model.fields,help:social.field_social_live_post__engagement
 #: model:ir.model.fields,help:social.field_social_post__engagement
 msgid "Number of people engagements with the post (Likes, comments...)"
-msgstr "Număr angajamente cu postarea (aprecieri, comentarii ...)"
+msgstr "Număr interacțiuni cu postarea (aprecieri, comentarii ...)"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__engagement
 msgid "Number of people engagements with your posts (Likes, Comments, ...)."
-msgstr "Număr de angajamente cu postările dvs. (aprecieri, comentarii, ...)."
+msgstr "Număr de interacțiuni cu postările dvs. (aprecieri, comentarii, ...)."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stories
-msgid "Number of stories created from your posts (Shares, Re-tweets, ...)."
-msgstr "Număr de povești create din postările dvs. (Acțiuni, Re-tweet-uri, ...)."
+msgid "Number of stories created from your posts (Shares, Reposts, ...)."
+msgstr ""
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
-msgid "Number of times people have engaged with your posts (likes, comments, shares,...)"
-msgstr "De câte ori oamenii s-au angajat cu postările dvs. (aprecieri, comentarii, distribuții, ...)"
+msgid ""
+"Number of times people have engaged with your posts (likes, comments, "
+"shares,...)"
+msgstr ""
+"De câte ori au interacționat utilizatorii cu postările dvs. (aprecieri, "
+"comentarii, distribuții, ...)"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
-msgid "Number of times people who have engaged with your channel have created stories on their friends' or followers' feed (Shares, Retweets...)"
-msgstr "De nenumărate ori persoanele care s-au conectat la canalul dvs. au creat povești în feed-urile prietenilor sau adepților lor (Distribuiri, Retweets ...)"
+msgid ""
+"Number of times people who have engaged with your channel have created "
+"stories on their friends' or followers' feed (Shares, Reposts...)"
+msgstr ""
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Or add"
-msgstr ""
+msgstr "Sau adaugă"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__audience_trend
 msgid "Percentage of increase/decrease of the audience over a defined period."
-msgstr "Procentul de creștere / scădere a audienței pe o perioadă determinată."
+msgstr ""
+"Procentul de creștere / scădere a audienței pe o perioadă determinată."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__engagement_trend
-msgid "Percentage of increase/decrease of the engagement over a defined period."
-msgstr "Procentul de creștere / scădere a angajamentului pe o perioadă determinată."
+msgid ""
+"Percentage of increase/decrease of the engagement over a defined period."
+msgstr ""
+"Procentul de creștere / scădere a interacțiunilor pe o perioadă determinată."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__stories_trend
 msgid "Percentage of increase/decrease of the stories over a defined period."
-msgstr "Procentul de creștere / scădere a poveștilor într-o perioadă definită."
+msgstr ""
+"Procentul de creștere / scădere a poveștilor într-o perioadă definită."
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 msgid "Please specify at least one account to post into (for post ID(s) %s)."
+msgstr ""
+"Vă rugăm să specificați cel puțin un cont pentru postare (pentru post ID-ul "
+"%s)"
+
+#. module: social
+#. odoo-python
+#: code:addons/social/models/social_post_template.py:0
+msgid "Please specify either a message or upload some images."
 msgstr ""
 
 #. module: social
@@ -1056,41 +1181,46 @@ msgstr "Postează"
 
 #. module: social
 #. odoo-javascript
+#: code:addons/social/static/src/js/fields/social_many2many_images.xml:0
 #: code:addons/social/static/src/xml/social_templates.xml:0
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_kanban
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_kanban
 msgid "Post Image"
-msgstr "Postare Imagine"
+msgstr "Imagine postare"
 
 #. module: social
 #. odoo-javascript
+#: code:addons/social/static/src/js/fields/social_many2many_images.js:0
 #: code:addons/social/static/src/js/post_kanban_view.js:0
 #: code:addons/social/static/src/js/stream_post_comments.js:0
 #: code:addons/social/static/src/js/stream_post_kanban_renderer.js:0
 msgid "Post Images"
-msgstr "Postare Imagini"
+msgstr "Imagini postare"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_live_post__live_post_link
 #: model:ir.model.fields,field_description:social.field_social_stream_post__post_link
 msgid "Post Link"
-msgstr "Postare Link"
+msgstr "Link postare"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_search
 #: model_terms:ir.ui.view,arch_db:social.social_stream_post_view_search
 msgid "Post Message"
-msgstr "Postare Mesaj"
+msgstr "Mesaj postare"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 msgid "Post Now"
-msgstr "Postează Acum"
+msgstr "Postează"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__post_link
-msgid "Post link to the external social.media (ex: link to the actual Facebook Post)."
-msgstr "Publicați un link către social.media extern (ex: link către Facebook Post)."
+msgid ""
+"Post link to the external social.media (ex: link to the actual Facebook "
+"Post)."
+msgstr ""
+"Publicați un link către social.media extern (ex: link către Facebook Post)."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
@@ -1112,6 +1242,7 @@ msgstr "Postare"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__stream_post_ids
 #: model:ir.ui.menu,name:social.menu_social_post
+#: model_terms:ir.ui.view,arch_db:social.social_post_view_form
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_kanban
 msgid "Posts"
@@ -1123,20 +1254,28 @@ msgid "Posts By Account"
 msgstr "Postări după Cont"
 
 #. module: social
-#: model_terms:ir.ui.view,arch_db:social.social_post_view_form
-msgid "Posts By Accounts"
-msgstr "Postări după Conturi"
+#: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
+msgid "Posts Preview"
+msgstr ""
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/xml/social_templates.xml:0
+msgid "Press Enter to edit. Press Shift+Enter to insert a Line Break."
+msgstr ""
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Press Enter to post. Press Shift+Enter to insert a Line Break."
-msgstr "Apăsați Enter pentru a posta. Apăsați Shift + Enter pentru a insera o întrerupere de linie."
+msgstr ""
+"Apăsați Enter pentru a posta. Apăsați Shift + Enter pentru a insera un "
+"Enter."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Preview your post"
-msgstr "Vizualizați postarea dvs."
+msgstr "Previzualizați postarea dvs."
 
 #. module: social
 #. odoo-javascript
@@ -1147,7 +1286,7 @@ msgstr "Anterior"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__post_method
 msgid "Publish your post immediately or schedule it at a later time."
-msgstr "Publicați-vă imediat postarea sau programați-o ulterior."
+msgstr "Publicați imediat postarea sau programați-o pe dată fixă."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_view_search
@@ -1168,7 +1307,7 @@ msgstr "Dată pubicare"
 #: model:ir.model.fields,field_description:social.field_social_media__rating_ids
 #: model:ir.model.fields,field_description:social.field_social_post__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Ratings"
 
 #. module: social
 #: model:ir.model.fields.selection,name:social.selection__social_live_post__state__ready
@@ -1178,17 +1317,17 @@ msgstr "Pregătit"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__media_type
 msgid "Related Social Media"
-msgstr "Social Media Aferent"
+msgstr "Social media aferent"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_id
-msgid "Related Social Media (Facebook, Twitter, ...)."
-msgstr "Related Social Media (Facebook, Twitter, ...)."
+msgid "Related Social Media (Facebook, X, ...)."
+msgstr ""
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__account_id
 msgid "Related social Account"
-msgstr "Cont Social Aferent"
+msgstr "Cont social aferent"
 
 #. module: social
 #. odoo-javascript
@@ -1236,7 +1375,9 @@ msgstr "Dată planificată"
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
-msgid "Selected accounts (%s) do not match the selected company (%s)"
+msgid ""
+"Selected accounts (%(account_list)s) do not match the selected company "
+"(%(company)s)"
 msgstr ""
 
 #. module: social
@@ -1252,12 +1393,15 @@ msgstr "Secvență"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream__sequence
 msgid "Sequence used to order streams (mainly for the 'Feed' kanban view)"
-msgstr "Secvență utilizată pentru a comanda fluxuri (în principal pentru vizualizarea kanban „Feed”)"
+msgstr ""
+"Secvență utilizată pentru a ordona fluxuri (în principal pentru vizualizarea"
+" kanban „Feed”)"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__max_post_length
-msgid "Set a maximum number of characters can be posted in post. 0 for no limit."
-msgstr ""
+msgid ""
+"Set a maximum number of characters can be posted in post. 0 for no limit."
+msgstr "Alegeți o limită decaractere pentru postări. 0 pentru nelimitat."
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_global_settings
@@ -1286,7 +1430,7 @@ msgstr "Conturi Sociale"
 #. module: social
 #: model:ir.model,name:social.model_social_live_post
 msgid "Social Live Post"
-msgstr "Postare Socială Live"
+msgstr "Postare socială live"
 
 #. module: social
 #: model:res.groups,name:social.group_social_manager
@@ -1295,6 +1439,7 @@ msgstr "Manager social"
 
 #. module: social
 #: model:ir.ui.menu,name:social.menu_social_global
+#: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
 msgid "Social Marketing"
 msgstr "Marketing social"
 
@@ -1307,34 +1452,33 @@ msgstr "Marketing social"
 #: model:ir.model.fields,field_description:social.field_social_stream__media_id
 #: model:ir.model.fields,field_description:social.field_social_stream_type__media_id
 #: model:ir.ui.menu,name:social.menu_social_media
-#: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:social.social_media_view_kanban
 #: model_terms:ir.ui.view,arch_db:social.utm_campaign_view_form
 msgid "Social Media"
-msgstr "Social media"
+msgstr "Rețelele de socializare"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_utm_campaign__social_posts_count
 msgid "Social Media Posts"
-msgstr "Postări în rețelele sociale"
+msgstr "Postări în rețele sociale"
 
 #. module: social
 #: model:ir.model,name:social.model_social_post
 #: model:ir.model.fields,field_description:social.field_social_live_post__post_id
 #: model_terms:ir.ui.view,arch_db:social.social_live_post_view_form
 msgid "Social Post"
-msgstr "Postare Socială"
+msgstr "Postare socială"
 
 #. module: social
 #: model:ir.model,name:social.model_social_post_template
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Social Post Template"
-msgstr "Șablon Postare Socială"
+msgstr "Șablon postare socială"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.social_post_template_action
 msgid "Social Post Templates"
-msgstr ""
+msgstr "Șablon postare socială"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_post
@@ -1348,18 +1492,18 @@ msgstr "Postări Sociale"
 #: model:ir.model.fields,field_description:social.field_social_stream_post__stream_id
 #: model_terms:ir.ui.view,arch_db:social.social_stream_view_form
 msgid "Social Stream"
-msgstr "Stream social"
+msgstr "Flux social"
 
 #. module: social
 #: model:ir.model,name:social.model_social_stream_post
 #: model:ir.model,name:social.model_social_stream_type
 msgid "Social Stream Post"
-msgstr "Postare Flux Social"
+msgstr "Postare flux social"
 
 #. module: social
 #: model:ir.model,name:social.model_social_stream_post_image
 msgid "Social Stream Post Image Attachment"
-msgstr "Fișierul social Postează atașarea imaginii"
+msgstr "Imagine postare flux social atașată"
 
 #. module: social
 #: model:ir.actions.act_window,name:social.action_social_stream
@@ -1370,7 +1514,7 @@ msgstr "Fluxuri sociale"
 #. module: social
 #: model:res.groups,name:social.group_social_user
 msgid "Social User"
-msgstr ""
+msgstr "Utilizator rețea socială"
 
 #. module: social
 #: model:ir.actions.server,name:social.ir_cron_post_scheduled_ir_actions_server
@@ -1379,19 +1523,44 @@ msgstr "Social: publicați postări programate"
 
 #. module: social
 #. odoo-javascript
+#: code:addons/social/static/src/js/stream_post_comments_reply.js:0
+msgid "Something went wrong while posting the comment."
+msgstr ""
+
+#. module: social
+#. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_kanban_dashboard.js:0
-msgid "Sorry, you're not allowed to re-link this account, please contact your administrator."
-msgstr "Ne pare rău, nu vi se permite să reconectați acest cont, vă rugăm să contactați administratorul."
+msgid ""
+"Sorry, you're not allowed to re-link this account, please contact your "
+"administrator."
+msgstr ""
+"Nu puteți reconecta acest cont, vă rugăm sa contactați administratorul."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__source_id
 msgid "Source"
-msgstr "Sursa"
+msgstr "Sursă"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__live_posts_by_media
-msgid "Special technical field that holds a dict containing the live posts names by media ids (used for kanban view)."
-msgstr "Câmp tehnic special care deține un dictat care conține numele postărilor live după ID-uri media (utilizat pentru vizualizarea kanban)."
+msgid ""
+"Special technical field that holds a dict containing the live posts names by"
+" media ids (used for kanban view)."
+msgstr ""
+"Câmp tehnic special care deține un dict ce conține numele postărilor live "
+"după ID-uri media (utilizat pentru vizualizarea kanban)."
+
+#. module: social
+#. odoo-javascript
+#: code:addons/social/static/src/js/fields/social_post_split_per_media.xml:0
+msgid "Split Per Media"
+msgstr ""
+
+#. module: social
+#: model:ir.model.fields,field_description:social.field_social_post__is_split_per_media
+#: model:ir.model.fields,field_description:social.field_social_post_template__is_split_per_media
+msgid "Split Per Network"
+msgstr ""
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__stats_link
@@ -1413,8 +1582,8 @@ msgid ""
 "Planned: Future activities."
 msgstr ""
 "Stare bazată pe activități\n"
-"Întârziată: data scadentă este deja trecută\n"
-"Astăzi: activității pentru astăzi\n"
+"Întârziată: data activitații este deja trecută\n"
+"Astăzi: data activității este astăzi\n"
 "Planificate: activități viitoare."
 
 #. module: social
@@ -1427,107 +1596,115 @@ msgstr "Povești"
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_account__stories_trend
 msgid "Stories Trend"
-msgstr ""
+msgstr "Trend povești"
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/stream_post_kanban_controller.js:0
 msgid "Stream Added (%s)"
-msgstr ""
+msgstr "Flux adăugat (%s)"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post_image__stream_post_id
 msgid "Stream Post"
-msgstr "Postare în flux"
+msgstr "Postare flux"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__stream_post_image_ids
 msgid "Stream Post Images"
-msgstr ""
+msgstr "Imagini postare flux"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream_post__stream_post_image_urls
 msgid "Stream Post Images URLs"
-msgstr ""
+msgstr "URL imagini postare flux"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__stream_type_ids
 msgid "Stream Types"
-msgstr ""
+msgstr "Tip flux"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__stream_type_type
 #: model:ir.model.fields,field_description:social.field_social_stream_type__stream_type
 msgid "Stream type name (technical)"
-msgstr ""
+msgstr "Nume tip flux (tehnic)"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_media__has_streams
 msgid "Streams Enabled"
-msgstr ""
+msgstr "Fluxuri activate"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__live_post_ids
 msgid "Sub-posts that will be published on each selected social accounts."
-msgstr ""
+msgstr "Postări copil de publicat pe toate conturile sociale selectate."
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
-msgid "Synchronize"
-msgstr "Sincronizează"
-
-#. module: social
-#. odoo-python
-#: code:addons/social/models/social_post_template.py:0
-msgid "The 'message' field is required for post ID %s"
-msgstr "Câmpul 'mesaj' este obligatoriu pentru postarea cu ID %s"
+msgid "Sync"
+msgstr ""
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__account_ids
 #: model:ir.model.fields,help:social.field_social_post_template__account_ids
 msgid "The accounts on which this post will be published."
-msgstr ""
+msgstr "Conturile pe care vor fi publicate postările."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__author_name
-msgid "The post author name based on third party information (ex: 'John Doe')."
+msgid ""
+"The post author name based on third party information (ex: 'John Doe')."
 msgstr ""
+"Numele autorul postării bazat pe informații de la terți (ex: 'Andrei Mihai')"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__state
-msgid "The post is considered as 'Posted' when all its sub-posts (one per social account) are either 'Failed' or 'Posted'"
+msgid ""
+"The post is considered as 'Posted' when all its sub-posts (one per social "
+"account) are either 'Failed' or 'Posted'"
 msgstr ""
+"Această postare este considerată 'Postată' când toate sub-postările (unul "
+"pentru fiecare cont) este 'Eșuat' sau 'Postat'  "
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_stream_post__published_date
 msgid "The post published date based on third party information."
-msgstr ""
+msgstr "Data publicării postării bazată pe informații de la terț."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_live_post__failure_reason
-msgid "The reason why a post is not successfully posted on the Social Media (eg: connection error, duplicated post, ...)."
+msgid ""
+"The reason why a post is not successfully posted on the Social Media (eg: "
+"connection error, duplicated post, ...)."
 msgstr ""
+"Motivul pentru care o postare nu este postată cu succes pe Social Media (ex:"
+" eroare de conectare, postare duplicată, ...). "
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__media_image
 msgid "The related Social Media's image"
-msgstr ""
+msgstr "Imaginea aferentă mediului social"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__media_ids
 msgid "The social medias linked to the selected social accounts."
-msgstr ""
+msgstr "Rețelele de socializare conectate la conturile sociale selectate."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__has_post_errors
 msgid "There are post errors on sub-posts"
-msgstr ""
+msgstr "Există erori în postările copil"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__csrf_token
-msgid "This token can be used to verify that an incoming request from a social provider has not been forged."
+msgid ""
+"This token can be used to verify that an incoming request from a social "
+"provider has not been forged."
 msgstr ""
+"Acest token poate fi folosit pentru a confirma dacă o cerere primită de la "
+"providerul de rețea este credibil."
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__name
@@ -1538,7 +1715,7 @@ msgstr "Titlu"
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "To add a stream"
-msgstr ""
+msgstr "Pentru a insera un flux"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_stream__stream_type_id
@@ -1548,7 +1725,7 @@ msgstr "Tip"
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Tipul activității de excepție din înregistrare."
+msgstr "Tipul de activitate de excepție înregistrată."
 
 #. module: social
 #: model:ir.model,name:social.model_utm_campaign
@@ -1568,6 +1745,12 @@ msgstr "Sursă UTM"
 
 #. module: social
 #. odoo-python
+#: code:addons/social/controllers/main.py:0
+#, python-format
+msgid "Uh-oh! It looks like this message has been deleted from X."
+msgstr ""
+
+#. module: social
 #: code:addons/social/models/social_post.py:0
 msgid "Unknown error"
 msgstr "Eroare necunoscută"
@@ -1576,19 +1759,26 @@ msgstr "Eroare necunoscută"
 #. odoo-python
 #: code:addons/social/models/social_post_template.py:0
 msgid "Uploaded file does not seem to be a valid image."
-msgstr ""
+msgstr "Fișierele încărcate nu conțin o imagine validă."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.res_config_settings_view_form
-msgid "Use your own Developer Accounts on our Social app. Those credentials are provided in the developer section of your professional social media account."
+msgid ""
+"Use your own Developer Accounts on our Social app. Those credentials are "
+"provided in the developer section of your professional social media account."
 msgstr ""
+"Use your own Developer Accounts on our Social app. Those credentials are "
+"provided in the developer section of your professional social media account."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_account__media_type
+#: model:ir.model.fields,help:social.field_social_live_post__media_type
 #: model:ir.model.fields,help:social.field_social_media__media_type
 #: model:ir.model.fields,help:social.field_social_stream_post__media_type
-msgid "Used to make comparisons when we need to restrict some features to a specific media ('facebook', 'twitter', ...)."
-msgstr "Folosit pentru a face comparații atunci când trebuie să restricționăm anumite caracteristici la un anumit suport („facebook”, „twitter”, ...)."
+msgid ""
+"Used to make comparisons when we need to restrict some features to a "
+"specific media ('facebook', 'x', ...)."
+msgstr ""
 
 #. module: social
 #. odoo-javascript
@@ -1600,13 +1790,13 @@ msgstr "Afișare"
 #: model:ir.model.fields,field_description:social.field_social_media__website_message_ids
 #: model:ir.model.fields,field_description:social.field_social_post__website_message_ids
 msgid "Website Messages"
-msgstr "Mesaje Website"
+msgstr "Mesaje de pe site-ul web"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_media__website_message_ids
 #: model:ir.model.fields,help:social.field_social_post__website_message_ids
 msgid "Website communication history"
-msgstr "Istoric comunicare website"
+msgstr "Istoricul comunicării pe site-ul web"
 
 #. module: social
 #: model:ir.model.fields,field_description:social.field_social_post__post_method
@@ -1615,14 +1805,19 @@ msgstr "Când"
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__published_date
-msgid "When the global post was published. The actual sub-posts published dates may be different depending on the media."
+msgid ""
+"When the global post was published. The actual sub-posts published dates may"
+" be different depending on the media."
 msgstr ""
+"Când a fost publicată postarea globală. Datele reale de publicare a "
+"subpostărilor pot fi diferite în funcție de tip."
 
 #. module: social
 #: model:ir.model.fields,help:social.field_social_post__image_ids
 #: model:ir.model.fields,help:social.field_social_post_template__image_ids
 msgid "Will attach images to your posts (if the social media supports it)."
 msgstr ""
+"Vor fi atașate imaginile la postare (Dacă rețeaua de socializare acceptă)."
 
 #. module: social
 #. odoo-javascript
@@ -1631,21 +1826,30 @@ msgid "Write a comment..."
 msgstr "Scrie un comentariu..."
 
 #. module: social
+#: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
+msgid "Write a message or upload an image"
+msgstr ""
+
+#. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/js/tours/social.js:0
 msgid "Write a message to get a preview of your post."
-msgstr ""
+msgstr "Scrieți un mesaj pentru a avea o previzualizare a postării."
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "Write a reply..."
-msgstr ""
+msgstr "Scrie un răspuns..."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_post
-msgid "Write an enticing post, add images and schedule it to be posted later on multiple platforms at once."
+msgid ""
+"Write an enticing post, add images and schedule it to be posted later on "
+"multiple platforms at once."
 msgstr ""
+"Scrieți o postare interesantă, adăugați imagini și programați-o să fie "
+"postată mai târziu pe mai multe platforme simultan."
 
 #. module: social
 #. odoo-python
@@ -1654,6 +1858,8 @@ msgid ""
 "You cannot delete these UTM Mediums as they are linked to the following social accounts in Social:\n"
 "%(social_accounts)s"
 msgstr ""
+"Nu puteți șterge aceste medii UTM, deoarece sunt ocnectate la următoarele conturi sociale:\n"
+"%(social_accounts)s"
 
 #. module: social
 #. odoo-python
@@ -1662,34 +1868,36 @@ msgid ""
 "You cannot delete these UTM Sources as they are linked to social posts in Social:\n"
 "%(utm_sources)s"
 msgstr ""
+"Nu puteți șterge aceste medii UTM, deoarece sunt ocnectate la următoarele postări sociale:\n"
+"%(utm_sources)s"
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 msgid "You cannot reschedule a post that has already been posted."
-msgstr ""
+msgstr "Nu puteți reprograma o postare care deja a fost publicată."
 
 #. module: social
 #. odoo-python
 #: code:addons/social/models/social_post.py:0
 msgid "You cannot schedule a post in the past."
-msgstr ""
+msgstr "Nu puteți reprograma o postare în trecut."
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "Your Post"
-msgstr ""
+msgstr "Postarea dvs."
 
 #. module: social
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "a Stream from an existing account"
-msgstr ""
+msgstr "un flux de pe un cont existent"
 
 #. module: social
 #: model_terms:ir.ui.view,arch_db:social.social_post_template_view_form
 msgid "before posting."
-msgstr ""
+msgstr "înainte de a publica."
 
 #. module: social
 #. odoo-javascript
@@ -1700,7 +1908,7 @@ msgstr "comentariu/răspuns"
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "dashboard"
-msgstr ""
+msgstr "tablou de bord"
 
 #. module: social
 #. odoo-javascript
@@ -1712,19 +1920,20 @@ msgstr "pentru"
 #. odoo-javascript
 #: code:addons/social/static/src/xml/social_templates.xml:0
 msgid "replies..."
-msgstr ""
+msgstr "răspunsuri..."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream_post
 msgid "to keep an eye on your own posts and monitor all social activities."
 msgstr ""
+"pentru a urmării propriile postări și monitoriza toate activitațile sociale."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_stream
 msgid "to link your accounts and start posting."
-msgstr ""
+msgstr "pentru a atașa conturile și să puteți posta."
 
 #. module: social
 #: model_terms:ir.actions.act_window,help:social.action_social_account
 msgid "to start posting from Odoo."
-msgstr ""
+msgstr "pentru a putea publica din Odoo."

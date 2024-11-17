@@ -79,6 +79,25 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"                        Estimado/a <t t-out=\"object.partner_id.display_name or ''\">Azure Interior</t>\n"
+"                        <br>\n"
+"                        <br>\n"
+"                        Aquí tiene su mandato de domiciliación bancaria SEPA que debe firmar para que\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">SuCompañía</t>\n"
+"                        tenga la autorización de enviar instrucciones a su banco para que cargue el importe en su cuenta según las instrucciones de\n"
+"                        <t t-out=\"object.company_id.display_name or ''\">SuCompañía</t>\n"
+"                        No dude en contactarnos si tiene alguna pregunta.\n"
+"                        <br>\n"
+"                        Saludos,\n"
+"                        <t t-if=\"not is_html_empty(user.signature)\">\n"
+"                            <br><br>\n"
+"                            <t t-out=\"user.signature\">--<br>Mitchell Admin</t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sepa_direct_debit_mandate_form
@@ -418,6 +437,72 @@ msgid ""
 "                </table>\n"
 "            "
 msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #FFFFFF; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                    <tr>\n"
+"                        <td align=\"center\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: #FFFFFF; color: #454748; border-collapse:separate;\">\n"
+"                                <tbody>\n"
+"                                    <!-- CONTENIDO -->\n"
+"                                    <tr>\n"
+"                                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                                <tr>\n"
+"                                                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                        <div>\n"
+"                                                            Hola,<br><br>\n"
+"                                                            El mandato de domiciliación bancario SEPA tiene como fecha de vencimiento automática el <span t-out=\"format_date(object._get_expiry_date_per_mandate()[object])\">18-04-2020</span><br>\n"
+"                                                            Esto puede deberse a uno de los siguientes motivos:\n"
+"                                                            <ul>\n"
+"                                                                <li>\n"
+"                                                                    Es la fecha de finalización del mandato acordada al momento de la firma.\n"
+"                                                                </li>\n"
+"                                                                <li>\n"
+"                                                                    Han pasado más de 36 meses desde la última vez que utilizó este mandato.\n"
+"                                                                </li>\n"
+"                                                            </ul>\n"
+"                                                            <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                                <a t-attf-href=\"{{ website_url }}/odoo/sdd-mandates/{{ object.id }}\" style=\"background-color: #4caf50; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                                    Ir al mandato\n"
+"                                                                </a>\n"
+"                                                            </div>\n"
+"                                                            Consejo de seguridad: verifique que el nombre de dominio al que se le redirige sea <b><a t-att-href=\"object.get_base_url()\" t-out=\"object.get_base_url() or ''\">\n"
+"                                                            https://sucompania.odoo.com</a></b>\n"
+"                                                        </div>\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                                <tr>\n"
+"                                                    <td style=\"text-align:center;\">\n"
+"                                                        <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\">\n"
+"                                                    </td>\n"
+"                                                </tr>\n"
+"                                            </table>\n"
+"                                        </td>\n"
+"                                    </tr>\n"
+"                                </tbody>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                    <!-- CON LA TECNOLOGÍA DE -->\n"
+"                    <tr>\n"
+"                        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                                <tr>\n"
+"                                    <td style=\"text-align: center; font-size: 13px;\">\n"
+"                                        Con la tecnología de <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=auth\" style=\"color: #875A7B;\">Odoo</a>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </table>\n"
+"                            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"                                <tr>\n"
+"                                    <td style=\"text-align: center; font-size: 11px;\">\n"
+"                                        P. D. Contabilidad de Odoo envía este correo electrónico automatizado para notificarle que su mandato de domiciliación bancaria SEPA se cerrará automáticamente.\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </table>\n"
+"                        </td>\n"
+"                    </tr>\n"
+"                </table>\n"
+"            "
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -735,6 +820,9 @@ msgid ""
 "can't be inferior to the sending day + the longest pre-notification period "
 "defined in the mandates linked to this batch."
 msgstr ""
+"Fecha en la que la compañía espera recibir el pago de este lote. No puede "
+"ser inferior al día de envío + el periodo antes de la notificación previa "
+"más largo definido en los mandatos que están vinculados a este lote."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -806,6 +894,11 @@ msgid ""
 "Closed: Expired or manually closed mandates. Previous transactions remain valid.\n"
 "Revoked: Fraudulent mandates. Previous invoices might need reimbursement.\n"
 msgstr ""
+"Borrador: validar antes de usar.\n"
+"Activo: mandatos válidos para cobrar los pagos.\n"
+"Cancelado: mandatos que nunca se validaron.\n"
+"Cerrado: mandatos que caducaron o se cerraron manualmente. Las transacciones previas siguen siendo válidas.\n"
+"Revocado: mandatos fraudulentos. Es posible que tenga que reembolsar facturas previas.\n"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__checkbox_send_mail
@@ -816,6 +909,7 @@ msgstr "Correo electrónico"
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "Email requesting the customer to sign the mandate attached"
 msgstr ""
+"Correo electrónico para solicitar que el cliente firme el mandato adjunto"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__template_id
@@ -841,7 +935,7 @@ msgstr "Todos los mandatos que pertenecen a este contacto."
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__expiration_warning_already_sent
 msgid "Expiration warning sent"
-msgstr ""
+msgstr "Advertencia de caducidad enviada"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -1195,13 +1289,13 @@ msgstr "¡Uy! No hay mandatos SEPA válidos para este cliente."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customer"
-msgstr ""
+msgstr "Abrir cliente"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customers"
-msgstr ""
+msgstr "Abrir clientes"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
@@ -1310,7 +1404,7 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
 msgid "Pre-notification"
-msgstr ""
+msgstr "Notificación previa"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1395,7 +1489,7 @@ msgstr "Mandato SDD"
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_sdd_mandate_send
 msgid "SDD Mandate Send"
-msgstr ""
+msgstr "Envío del mandato de domiciliación bancaria SEPA"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_scheme
@@ -1435,6 +1529,7 @@ msgstr "Domiciliación bancaria SEPA"
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_pre_notification
 msgid "SEPA Direct Debit Customer Pre-Notification mail"
 msgstr ""
+"Correo de notificación previa al cliente de la domiciliación bancaria SEPA"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1449,7 +1544,7 @@ msgstr "Versión pain de domiciliación bancaria SEPA"
 #. module: account_sepa_direct_debit
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_new_mandate
 msgid "SEPA Direct Debit Sending"
-msgstr ""
+msgstr "Envío de domiciliación bancaria SEPA"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_res_company__sdd_creditor_identifier
@@ -1463,7 +1558,7 @@ msgstr ""
 #: model:mail.template,name:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 #: model:mail.template,subject:account_sepa_direct_debit.email_template_sdd_mandate_expiring
 msgid "SEPA Direct Debit mandate expiration warning"
-msgstr ""
+msgstr "Advertencia de caducidad de la domiciliación bancaria SEPA"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1490,13 +1585,13 @@ msgstr "Versión Pain SEPA"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "SEPA Scheme operates in Euro."
-msgstr ""
+msgstr "El esquema SEPA opera en Europa."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "SEPA direct debit stateless customer"
-msgstr ""
+msgstr "Domiciliación bancaria SEPA de un cliente apátrida"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1506,6 +1601,9 @@ msgid ""
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
 msgstr ""
+"Las regulaciones SEPA indican |que la notificación previa debe tener un "
+"periodo de mínimo 2 días para permitir que el cliente tenga el tiempo "
+"suficiente para revisar que su cuenta tenga los fondos suficientes."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1560,7 +1658,7 @@ msgstr "Enviar e imprimir"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__is_sent
 msgid "Sent to the customer"
-msgstr ""
+msgstr "Enviado al cliente"
 
 #. module: account_sepa_direct_debit
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_pre_notification
@@ -1586,7 +1684,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Some payments are linked to an inactive mandate."
-msgstr ""
+msgstr "Algunos pagos están vinculados a un mandato inactivo."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1655,6 +1753,10 @@ msgid ""
 "known by them. In this case, the minimum collection date must be the "
 "%(date)s"
 msgstr ""
+"El banco necesita recibir una notificación al menos 5 días de antelación "
+"para los cobros relacionados a un mandato nuevo y de al menos 2 días si es "
+"un mandato ya existente. En este caso, la fecha de cobro mínima debe ser el "
+"%(date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1667,7 +1769,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "The customer must have a country"
-msgstr ""
+msgstr "El cliente debe tener un país"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1714,6 +1816,9 @@ msgid ""
 "                    you will have to contact us to stop its use. The minimum notification period for creditors\n"
 "                    to inform debtors about an upcoming collection is"
 msgstr ""
+"El mandato solo se utilizará para pagar facturas dentro del periodo de tiempo especificado. Si no se ha especificado una fecha de finalización,\n"
+"                deberá contactarnos para detener su uso. El periodo de notificación mínimo para que los acreedores\n"
+"                informen a los deudores acerca del próximo cobro es"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
@@ -1721,6 +1826,8 @@ msgid ""
 "The minimum notice period in days, used to inform the customer prior to "
 "collection."
 msgstr ""
+"El periodo mínimo de notificación en días que se usa para informar al "
+"cliente antes del cobro."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1820,6 +1927,8 @@ msgstr "Tipo de actividad de excepción en el registro."
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Under B2B SDD Scheme, the customer must be a company."
 msgstr ""
+"En el esquema de domiciliación bancaria SEPA B2B, el cliente debe ser una "
+"compañía."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields.selection,name:account_sepa_direct_debit.selection__account_journal__debit_sepa_pain_version__pain_008_001_08
@@ -1864,6 +1973,8 @@ msgid ""
 "You can't pay any of the selected invoices using the SEPA Direct Debit "
 "method, as no valid mandate is available"
 msgstr ""
+"No puede pagar ninguna de las facturas seleccionadas con el método de "
+"domiciliación bancaria SEPA, no hay ningún mandato válido disponible."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1882,6 +1993,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the longest pre-notification period defined in the mandates linked to this batch.\n"
 "According to these payments mandates, the minimum required date should be the %(minimum_date)s"
 msgstr ""
+"No puede generar un archivo de domiciliación bancaria SEPA cuya fecha de recolección requerida sea inferior al día de envío + el periodo de notificación previa más largo que se definió en los mandatos vinculados en este lote.\n"
+"Según los pagos de estos mandato, la fecha mínima requerida debe ser el %(minimum_date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python

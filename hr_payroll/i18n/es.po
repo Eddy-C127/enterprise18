@@ -391,17 +391,17 @@ msgstr "<strong class=\"me-2\">Nombre:</strong>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Pay Period:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">Período de pago:</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Private Address:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">Dirección privada:</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "<strong class=\"me-2\">Working Schedule:</strong>"
-msgstr ""
+msgstr "<strong class=\"me-2\">Horario laboral:</strong>"
 
 #. module: hr_payroll
 #: model_terms:web_tour.tour,rainbow_man_message:hr_payroll.payroll_tours
@@ -409,6 +409,8 @@ msgid ""
 "<strong>Congrats, Your first payslip is now finished. It's time for you to "
 "explore the Payroll app by yourself.</strong>"
 msgstr ""
+"<strong>Felicidades, su primera nómina ya está terminada.Ahora debe explorar"
+" la aplicación Nómina por usted mismo.</strong>"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.contribution_register
@@ -423,7 +425,7 @@ msgstr "<strong>Total</strong>"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_light_payslip
 msgid "<strong>YTD</strong>"
-msgstr ""
+msgstr "<strong>Año hasta la fecha</strong>"
 
 #. module: hr_payroll
 #: model:mail.template,body_html:hr_payroll.mail_template_new_payslip
@@ -521,7 +523,7 @@ msgstr "Agregue un <strong>nombre</strong> al contrato."
 #. odoo-javascript
 #: code:addons/hr_payroll/static/src/js/tours/hr_payroll.js:0
 msgid "Add a employee to your contract"
-msgstr ""
+msgstr "Agregue un empleado a su contrato"
 
 #. module: hr_payroll
 #: model_terms:ir.actions.act_window,help:hr_payroll.action_view_hr_payroll_structure_from_type
@@ -541,6 +543,8 @@ msgid ""
 "Adds a column in the payslip that shows the accumulated amount paid for "
 "different rules during the year"
 msgstr ""
+"Agrega una columna en la nómina de pago que muestre la cantidad pagada "
+"acumulada para diferentes reglas durante el año."
 
 #. module: hr_payroll
 #: model:res.groups,name:hr_payroll.group_hr_payroll_manager
@@ -581,7 +585,7 @@ msgstr "Importe"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__amount_other_input_id
 msgid "Amount Other Input"
-msgstr ""
+msgstr "Importe de otras entradas"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_line__amount_select
@@ -735,7 +739,7 @@ msgstr "Disponibilidad en estructura"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_input_type__available_in_attachments
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_search
 msgid "Available in attachments"
-msgstr ""
+msgstr "Disponible en archivos adjuntos"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__avatar_1920
@@ -892,6 +896,9 @@ msgid ""
 "Categorize your Employees by type. This field also has an impact on "
 "contracts. Only Employees, Students and Trainee will have contract history."
 msgstr ""
+"Categorice sus empleados por tipo. Este campo también afectará a sus "
+"contactos, solo los Empleados, Estudiantes y Aprendices tendrán historial de"
+" contracto."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_edit_payslip_line__category_id
@@ -907,6 +914,8 @@ msgid ""
 "Check if the value of the salary attachment must be taken into account as "
 "negative (-X)"
 msgstr ""
+"Revise si el valor del embargo de salario debe considerarse como negativo "
+"(-X)"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -1092,7 +1101,7 @@ msgstr "Condición basada en"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_salary_rule__condition_other_input_id
 msgid "Condition Other Input"
-msgstr ""
+msgstr "Otra condición de entrada"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_form
@@ -1166,7 +1175,7 @@ msgstr "Tipo de contrato"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "Contract Wage ("
-msgstr ""
+msgstr "Salario del contrato ("
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_contract_history
@@ -1432,7 +1441,7 @@ msgstr "Día"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "Day where the 'Year To Date' will be reset every year."
-msgstr ""
+msgstr "Día en el que el “Año hasta la fecha” se reiniciará cada año."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_res_company__ytd_reset_day
@@ -1441,6 +1450,8 @@ msgid ""
 "Day where the YTD will be reset every year. If zero or negative, then the first day of the month will be selected instead.\n"
 "        If greater than the last day of a month, then the last day of the month will be selected instead."
 msgstr ""
+"Día en el que el año hasta la fecha se reiniciará cada año. Si es cero o negativo, entonces el primer día del mes se seleccionará.\n"
+"Si es mayor al último día del mes, entonces se seleccionará el último día del mes en su lugar."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_report__number_of_days
@@ -1836,6 +1847,8 @@ msgid ""
 "        When left empty, the employee is considered to have a fully flexible schedule, allowing them to work without any time limit, anytime of the week.\n"
 "        "
 msgstr ""
+"Horario laboral del empleado.\n"
+"Cuando se deja vacío se considera que el empleado tiene un horario laboral flexible, lo cual les permite trabajar sin límite de tiempo, en cualquier momento de la semana."
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_employees__employee_ids
@@ -2317,6 +2330,8 @@ msgid ""
 "If empty, the default salary structure from the Salary structure type of the"
 " employee will be used"
 msgstr ""
+"Si se deja vacío, la estructura salarial del tipo de estructura salarial del"
+" empleado se usará"
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_employee__is_non_resident
@@ -2331,6 +2346,8 @@ msgid ""
 "If set, hide currency and consider the manual input as a quantity for every "
 "rule computation using this input."
 msgstr ""
+"Si lo configura, se ocultará la moneda y se considera una entrada manual "
+"como una cantidad para el cálculo de cada regla usando esta entrada."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_salary_rule__active
@@ -2344,7 +2361,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_employee__disabled
 msgid "If the employee is declared disabled by law"
-msgstr ""
+msgstr "Si el empleado es una persona con discapacidad por ley"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__image_1920
@@ -3547,7 +3564,7 @@ msgstr "Inicio del periodo"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_mixin__period_stop
 msgid "Period Stop"
-msgstr ""
+msgstr "Detener periodo"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__planning
@@ -4105,6 +4122,8 @@ msgid ""
 "Set a specific job if you wish to select all the employees from this job at "
 "once."
 msgstr ""
+"Configure un trabajo especifico si quiere seleccionar a todos los empleados "
+"de este puesto de trabajo al mismo tiempo."
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_by_employees
@@ -4112,6 +4131,8 @@ msgid ""
 "Set a specific structure type if you wish to select all the employees from "
 "this structure type at once."
 msgstr ""
+"Configure un tipo de estructura específico si desea seleccionar a todos los "
+"empleados de este tipo de estructura al mismo tiempo."
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -4309,6 +4330,8 @@ msgid ""
 "The YTD reset day must be a valid day of the month : since the current month"
 " is %(month)s, it should be between 1 and %(day)s."
 msgstr ""
+"El día de de reinicio del año hasta la fecha debe ser un día válido del mes:"
+" como el mes en curso es %(month)s, debe ser entre 1 y %(day)s."
 
 #. module: hr_payroll
 #: model:ir.model.fields,help:hr_payroll.field_hr_payroll_edit_payslip_line__code
@@ -4950,7 +4973,7 @@ msgstr "Informe de análisis de entradas de trabajo"
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "Work Entries Export"
-msgstr ""
+msgstr "Exportación de las entradas de trabajo"
 
 #. module: hr_payroll
 #. odoo-javascript
@@ -4966,7 +4989,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_payroll/models/hr_work_entry_export_mixin.py:0
 msgid "Work Entries for %(employee)s"
-msgstr ""
+msgstr "Entradas de trabajo de %(employee)s"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_work_entry_export_employee_mixin__work_entry_ids
@@ -4981,12 +5004,12 @@ msgstr "Análisis de entrada de trabajo"
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_work_entry_export_employee_mixin
 msgid "Work Entry Export Employee"
-msgstr ""
+msgstr "Exportación de las entradas de trabajo por empleado"
 
 #. module: hr_payroll
 #: model:ir.model,name:hr_payroll.model_hr_work_entry_export_mixin
 msgid "Work Entry Export Mixin"
-msgstr ""
+msgstr "MIxin de exportación de las entradas de trabajo"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_report__work_entry_source
@@ -5169,24 +5192,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip_worked_days__ytd
 #: model_terms:ir.ui.view,arch_db:hr_payroll.report_payslip
 msgid "YTD"
-msgstr ""
+msgstr "Año hasta la fecha"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.res_config_settings_view_form
 msgid "YTD Reset Date"
-msgstr ""
+msgstr "Fecha de reinicio del año hasta la fecha"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_company__ytd_reset_day
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__ytd_reset_day
 msgid "YTD Reset Day of the month"
-msgstr ""
+msgstr "Día del mes en el que se reinicia el año hasta la fecha"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_res_company__ytd_reset_month
 #: model:ir.model.fields,field_description:hr_payroll.field_res_config_settings__ytd_reset_month
 msgid "YTD Reset Month"
-msgstr ""
+msgstr "Mes de reinicio del año hasta la fecha"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_declaration_mixin__year
@@ -5198,7 +5221,7 @@ msgstr "Año"
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__ytd_computation
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__ytd_computation
 msgid "Year to Date Computation"
-msgstr ""
+msgstr "Cálculo del año hasta la fecha"
 
 #. module: hr_payroll
 #. odoo-python
@@ -5326,7 +5349,7 @@ msgstr "p. ej. abril del 2021"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payslip_input_type_view_form
 msgid "e.g. Child Support"
-msgstr ""
+msgstr "p. ej. Subsidio familiar por hijos"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_payroll_structure_type_view_form

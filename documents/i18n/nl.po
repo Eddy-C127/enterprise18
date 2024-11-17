@@ -2519,6 +2519,12 @@ msgstr "Ouder"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
 msgstr "Alleen Documentenbeheerders kunnen mappen vastzetten."
 
@@ -2569,8 +2575,8 @@ msgid ""
 "Operation not supported. Please use \"Move to Trash\" / `action_archive` "
 "instead."
 msgstr ""
-"Operatie niet ondersteund. Gebruik in plaats daarvan \"Verplaats naar "
-"prullenbak\" / `actie_archief`."
+"De bewerking is niet ondersteund. Gebruik in plaats daarvan \"Verplaats naar"
+" prullenbak\" / `actie_archief`."
 
 #. module: documents
 #. odoo-python
@@ -2579,7 +2585,7 @@ msgid ""
 "Operation not supported. Please use \"Restore\" / `action_unarchive` "
 "instead."
 msgstr ""
-"Operatie niet ondersteund. Gebruik in plaats daarvan \"Herstel\" / "
+"De bewerking is niet ondersteund. Gebruik in plaats daarvan \"Herstel\" / "
 "`actie_unarchive`."
 
 #. module: documents
@@ -3220,6 +3226,11 @@ msgid "Summary"
 msgstr "Samenvatting"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3293,6 +3304,12 @@ msgid ""
 msgstr ""
 "De volgende documenten/mappen kunnen geen eigendom zijn van een portaalgebruiker:\n"
 "- %(partners)s"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3698,6 +3715,18 @@ msgstr ""
 "bestand kopiëren/plakken."
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
+
+#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3742,7 +3771,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot access folders in the trash."
-msgstr ""
+msgstr "Je hebt geen toegang tot de mappen in de prullenbak."
 
 #. module: documents
 #. odoo-python
@@ -3769,6 +3798,8 @@ msgstr "Je kunt documenten niet dupliceren in de Prullenbak."
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot move folders or files when in the trash."
 msgstr ""
+"Je kunt geen mappen of bestanden verplaatsen die zich in de prullenbak "
+"bevinden."
 
 #. module: documents
 #. odoo-javascript
@@ -3855,7 +3886,7 @@ msgstr "Bijv. Financiën"
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.documents_request_form_view
 msgid "e.g. Missing Expense"
-msgstr "bijv. Ontbrekende onkosten"
+msgstr "bijv. Ontbrekende declaratie"
 
 #. module: documents
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_form

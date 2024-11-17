@@ -4,7 +4,11 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
+# Vladimir Vrgoč, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
+# Tina Milas, 2024
 # Bole <bole@dajmi5.com>, 2024
+# Milan Tribuson <one.mile.code@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
+"Last-Translator: Milan Tribuson <one.mile.code@gmail.com>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -299,7 +303,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__client_id
 msgid "Client"
-msgstr ""
+msgstr "Klijent"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
@@ -328,7 +332,7 @@ msgstr "Tvrtka"
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Connect"
-msgstr ""
+msgstr "Poveži"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.view_account_bank_selection_form_wizard
@@ -353,7 +357,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__connected
 msgid "Connected"
-msgstr ""
+msgstr "Povezano"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -438,7 +442,7 @@ msgstr "Gotovo"
 #: code:addons/account_online_synchronization/models/account_bank_statement.py:0
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__error
 msgid "Error"
-msgstr ""
+msgstr "Greška"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__expiring_synchronization_date
@@ -478,7 +482,7 @@ msgstr ""
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Fetch Transactions"
-msgstr ""
+msgstr "Dohvati transakcije"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -537,7 +541,7 @@ msgstr "Font awesome ikona npr. fa-tasks"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line_transient__foreign_currency_id
 msgid "Foreign Currency"
-msgstr ""
+msgstr "Strana valuta"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__has_message
@@ -573,7 +577,7 @@ msgstr "Ikona"
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Ikona za prikaz iznimki."
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_account__online_identifier
@@ -624,13 +628,13 @@ msgstr ""
 #: model:ir.model.fields,help:account_online_synchronization.field_account_bank_selection__institution_name
 #: model:ir.model.fields,help:account_online_synchronization.field_account_online_link__name
 msgid "Institution Name"
-msgstr ""
+msgstr "Naziv institucije"
 
 #. module: account_online_synchronization
 #. odoo-python
 #: code:addons/account_online_synchronization/models/account_online.py:0
 msgid "Internal Error"
-msgstr ""
+msgstr "Interna greška"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -712,7 +716,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_account__last_sync
 msgid "Last synchronization"
-msgstr ""
+msgstr "Zadnja sinhronizacija"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
@@ -786,12 +790,12 @@ msgstr "Tip sljedeće aktivnosti"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__next_refresh
 msgid "Next synchronization"
-msgstr ""
+msgstr "Sljedeća sinhronizacija"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_link__state__disconnected
 msgid "Not Connected"
-msgstr ""
+msgstr "Nije povezano"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_needaction_counter
@@ -821,7 +825,7 @@ msgstr "Odoo"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line__online_account_id
 msgid "Online Account"
-msgstr ""
+msgstr "Online račun"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
@@ -831,7 +835,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_account__online_identifier
 msgid "Online Identifier"
-msgstr ""
+msgstr "Online identifikator"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_journal__next_link_synchronization
@@ -843,7 +847,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_online_synchronization.field_res_partner__online_partner_information
 #: model:ir.model.fields,field_description:account_online_synchronization.field_res_users__online_partner_information
 msgid "Online Partner Information"
-msgstr ""
+msgstr "Online informacije o partneru"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -852,7 +856,7 @@ msgstr ""
 #: model:ir.ui.menu,name:account_online_synchronization.menu_action_online_link_account
 #: model_terms:ir.actions.act_window,help:account_online_synchronization.action_account_online_link_form
 msgid "Online Synchronization"
-msgstr ""
+msgstr "Online sinkronizacija"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line__online_transaction_identifier
@@ -869,17 +873,17 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line_transient__partner_name
 msgid "Partner Name"
-msgstr ""
+msgstr "Ime partnera"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line_transient__payment_ref
 msgid "Payment Ref"
-msgstr ""
+msgstr "Referenca plaćanja"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_bank_statement_line_transient__state__pending
 msgid "Pending"
-msgstr ""
+msgstr "Na čekanju"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__planned
@@ -907,7 +911,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_bank_statement_line_transient__state__posted
 msgid "Posted"
-msgstr ""
+msgstr "Proknjiženo"
 
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.missing_bank_statement_line_search
@@ -917,7 +921,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__processing
 msgid "Processing"
-msgstr ""
+msgstr "Obrađujem"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__provider_data
@@ -957,12 +961,12 @@ msgstr "Preusmjeri"
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/refresh_spin_journal_widget/refresh_spin_journal_widget.xml:0
 msgid "Refresh"
-msgstr ""
+msgstr "Osvježi"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__refresh_token
 msgid "Refresh Token"
-msgstr ""
+msgstr "Osvježi token"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -989,7 +993,7 @@ msgstr "Odgovorna osoba"
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_online_link__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Greška u slanju SMSa"
 
 #. module: account_online_synchronization
 #. odoo-javascript
@@ -1059,7 +1063,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__date
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_missing_transaction_wizard__date
 msgid "Starting Date"
-msgstr ""
+msgstr "Početni datum"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line_transient__state
@@ -1140,7 +1144,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_duplicate_transaction_wizard__transaction_ids
 msgid "Transaction"
-msgstr ""
+msgstr "Transakcija"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields,field_description:account_online_synchronization.field_account_bank_statement_line_transient__transaction_details
@@ -1172,7 +1176,7 @@ msgstr "Vrsta aktivnosti iznimke na zapisu."
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.account_online_link_view_form
 msgid "Update Credentials"
-msgstr ""
+msgstr "Ažuriraj akreditive"
 
 #. module: account_online_synchronization
 #: model:ir.model.fields.selection,name:account_online_synchronization.selection__account_online_account__fetching_status__waiting
@@ -1244,7 +1248,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_online_synchronization/static/src/components/transient_bank_statement_line_list_view/transient_bank_statement_line_list_view.xml:0
 msgid "You have"
-msgstr ""
+msgstr "Imaš"
 
 #. module: account_online_synchronization
 #. odoo-python
@@ -1289,7 +1293,7 @@ msgstr ""
 #. module: account_online_synchronization
 #: model_terms:ir.ui.view,arch_db:account_online_synchronization.portal_renew_consent
 msgid "on"
-msgstr ""
+msgstr "na"
 
 #. module: account_online_synchronization
 #: model:ir.model,name:account_online_synchronization.model_account_online_account

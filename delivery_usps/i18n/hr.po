@@ -3,7 +3,12 @@
 # 	* delivery_usps
 # 
 # Translators:
+# Martin Trigaux, 2024
 # Bole <bole@dajmi5.com>, 2024
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Vladimir Vrgoč, 2024
+# Tina Milas, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
+"Last-Translator: Karolina Tonković <karolina.tonkovic@storm.hr>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,33 +27,33 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_intl_non_delivery_option__abandon
 msgid "Abandon"
-msgstr ""
+msgstr "Napusti"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_account_validated
 msgid "Account Validated"
-msgstr ""
+msgstr "Potvrđeni konto"
 
 #. module: delivery_usps
 #: model:ir.model.fields,help:delivery_usps.field_delivery_carrier__usps_account_validated
 msgid "Check this box if your account is validated by USPS"
-msgstr ""
+msgstr "Označite polje ako je Vaš račun ovjeren od strane USPS"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Company phone number is invalid. Please insert a US phone number."
-msgstr ""
+msgstr "Telefonski broj tvrtke nije valjan. Molim unesite US telefonski broj."
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_content_type
 msgid "Content Type"
-msgstr ""
+msgstr "Vrsta datoteke"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_delivery_nature
 msgid "Delivery Nature"
-msgstr ""
+msgstr "Način isporuke"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__documents
@@ -58,7 +63,7 @@ msgstr "Dokumenti"
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_delivery_nature__domestic
 msgid "Domestic"
-msgstr ""
+msgstr "Domaći"
 
 #. module: delivery_usps
 #. odoo-python
@@ -76,12 +81,12 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_service__first_class
 msgid "First Class"
-msgstr ""
+msgstr "Prva klasa"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__flat
 msgid "Flat"
-msgstr ""
+msgstr "Ravan"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__flatrate
@@ -104,12 +109,12 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__gift
 msgid "Gift"
-msgstr ""
+msgstr "Poklon"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_delivery_nature__international
 msgid "International"
-msgstr ""
+msgstr "Internacionalno"
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
@@ -119,12 +124,12 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_size_container__large
 msgid "Large"
-msgstr ""
+msgstr "Veliko"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__largeenvelope
 msgid "Large Envelope"
-msgstr ""
+msgstr "Velika omotnica"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__lg_flat_rate_box
@@ -141,12 +146,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__letter
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_mail_type__letter
 msgid "Letter"
-msgstr ""
+msgstr "Pismo"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_machinable
 msgid "Machinable"
-msgstr ""
+msgstr "Strojno"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__md_flat_rate_box
@@ -156,7 +161,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__merchandise
 msgid "Merchandise"
-msgstr ""
+msgstr "Roba"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_intl_non_delivery_option
@@ -166,7 +171,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_container__nonrectangular
 msgid "Non-rectangular"
-msgstr ""
+msgstr "Nepravokutan"
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
@@ -201,7 +206,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__package_service
 msgid "Package Service"
-msgstr ""
+msgstr "Usluga pakiranja"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_custom_container_width
@@ -217,7 +222,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__parcel
 msgid "Parcel"
-msgstr ""
+msgstr "Paket"
 
 #. module: delivery_usps
 #: model:ir.model.fields,help:delivery_usps.field_delivery_carrier__usps_machinable
@@ -236,19 +241,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Please enter a valid ZIP code in recipient address"
-msgstr ""
+msgstr "Unesite valjani poštanski broj u adresu primatelja."
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Please enter a valid ZIP code in your Company address"
-msgstr ""
+msgstr "Unesite valjani poštanski broj u adresu poduzeća"
 
 #. module: delivery_usps
 #. odoo-python
 #: code:addons/delivery_usps/models/usps_request.py:0
 msgid "Please provide at least one item to ship."
-msgstr ""
+msgstr "Navedite barem jednu stavku za isporuku."
 
 #. module: delivery_usps
 #. odoo-python
@@ -261,7 +266,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_first_class_mail_type__postcard
 msgid "Postcard"
-msgstr ""
+msgstr "Dopisnica"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_service__priority
@@ -271,7 +276,7 @@ msgstr "Prioritet"
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__delivery_type
 msgid "Provider"
-msgstr ""
+msgstr "Davatelj "
 
 #. module: delivery_usps
 #. odoo-python
@@ -288,7 +293,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_container__rectangular
 msgid "Rectangular"
-msgstr ""
+msgstr "Pravokutan"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_intl_non_delivery_option__redirect
@@ -298,12 +303,12 @@ msgstr "Preusmjeri"
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_redirect_partner_id
 msgid "Redirect Partner"
-msgstr ""
+msgstr "Preusmjeri partnera"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_size_container__regular
 msgid "Regular"
-msgstr ""
+msgstr "Običan"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_container__variable
@@ -314,12 +319,12 @@ msgstr ""
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__return
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_intl_non_delivery_option__return
 msgid "Return"
-msgstr ""
+msgstr "Storno"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_content_type__sample
 msgid "Sample"
-msgstr ""
+msgstr "Uzorak"
 
 #. module: delivery_usps
 #. odoo-python
@@ -342,7 +347,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model,name:delivery_usps.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Načini dostave"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__usps_domestic_regular_container__sm_flat_rate_box
@@ -366,6 +371,8 @@ msgid ""
 "The address of your company is missing or wrong (Missing field(s) :  \n"
 " %s)"
 msgstr ""
+"Nedostaje adresa Vaše tvrtke ili je kriva.\n"
+"(Polja(e) koje nedostaje : %s)"
 
 #. module: delivery_usps
 #. odoo-python
@@ -382,6 +389,8 @@ msgid ""
 "The recipient address is missing or wrong (Missing field(s) :  \n"
 " %s)"
 msgstr ""
+"Nedostaje adresa primatelja ili je kriva. (Polja(e) koje nedostaje :\n"
+"%s)"
 
 #. module: delivery_usps
 #. odoo-python
@@ -408,7 +417,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_container
 msgid "Type of container"
-msgstr ""
+msgstr "Vrsta spremnika"
 
 #. module: delivery_usps
 #: model:ir.model.fields.selection,name:delivery_usps.selection__delivery_carrier__delivery_type__usps
@@ -418,7 +427,7 @@ msgstr ""
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.view_delivery_carrier_form_with_provider_usps
 msgid "USPS Configuration"
-msgstr ""
+msgstr "USPS konfiguracija"
 
 #. module: delivery_usps
 #: model:delivery.carrier,name:delivery_usps.delivery_carrier_usps_domestic
@@ -466,7 +475,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_service
 msgid "USPS Service"
-msgstr ""
+msgstr "USPS usluga"
 
 #. module: delivery_usps
 #: model_terms:ir.ui.view,arch_db:delivery_usps.res_config_settings_view_form_sale
@@ -477,7 +486,7 @@ msgstr ""
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_username
 msgid "USPS User ID"
-msgstr ""
+msgstr "ID USPS korisnika"
 
 #. module: delivery_usps
 #: model:ir.model.fields,field_description:delivery_usps.field_delivery_carrier__usps_size_container

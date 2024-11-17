@@ -173,7 +173,7 @@ msgid ""
 "                                </span>"
 msgstr ""
 "<span class=\"text-muted\" invisible=\"min_purchase_lock_date_exception_for_me_id or min_purchase_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>om facturen te blokkeren</i>\n"
+"                                    <i>om leveranciersfacturen te blokkeren</i>\n"
 "                                </span>"
 
 #. module: account_accountant
@@ -184,7 +184,7 @@ msgid ""
 "                                </span>"
 msgstr ""
 "<span class=\"text-muted\" invisible=\"min_sale_lock_date_exception_for_me_id or min_sale_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>facturen vergrendelen</i>\n"
+"                                    <i>om facturen blokkeren</i>\n"
 "                                </span>"
 
 #. module: account_accountant
@@ -195,7 +195,7 @@ msgid ""
 "                                </span>"
 msgstr ""
 "<span class=\"text-muted\" invisible=\"min_tax_lock_date_exception_for_me_id or min_tax_lock_date_exception_for_everyone_id\">\n"
-"                                    <i>na een fiscale afsluiting</i>\n"
+"                                    <i>na een btw afsluiting</i>\n"
 "                                </span>"
 
 #. module: account_accountant
@@ -265,7 +265,7 @@ msgstr "Wizard automatische aflettering"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_wizard
 msgid "Account reconciliation wizard"
-msgstr "Assistent boekhoudkundige aftellering"
+msgstr "Assistent boekhoudkundige aflettering"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_account_id
@@ -571,8 +571,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 msgid ""
 "Click on a fetched bank transaction to start the reconciliation process."
-msgstr ""
-"Klik op een opgehaalde banktransactie om het afstemmingsproces te starten."
+msgstr "Klik op een opgehaalde banktransactie om het afletteren te starten."
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_company
@@ -692,7 +691,7 @@ msgstr "Te gebruiken valuta voor aflettering"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__current_hard_lock_date
 msgid "Current Hard Lock"
-msgstr "Huidig hard slot"
+msgstr "Huidige harde blokkade"
 
 #. module: account_accountant
 #. odoo-python
@@ -888,7 +887,7 @@ msgstr "Valuta voor gestreept bedrag weergeven"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_balance
 msgid "Display Stroked Balance"
-msgstr "Gestreken balans weergeven"
+msgstr "Toon afgesloten saldo"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__sign_invoice
@@ -917,7 +916,7 @@ msgstr "Document"
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "Draft Entries"
-msgstr "Conceptinvoer"
+msgstr "Conceptboekingen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__edit_mode
@@ -1128,7 +1127,7 @@ msgstr "Groeper BTW"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid "Hard Lock"
-msgstr "Hard slot"
+msgstr "Harde blokkade"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__has_abnormal_deferred_dates
@@ -1221,7 +1220,7 @@ msgid ""
 msgstr ""
 "Ongeldig: de banktransactie kan niet worden gevalideerd omdat de tussenrekening nog steeds betrokken is\n"
 "Geldig: De banktransactie kan worden gevalideerd.\n"
-"Afgestemd: de banktransactie is al verwerkt. Niets meer te doen."
+"Afgeletterd: de banktransactie is al verwerkt. Niets meer te doen."
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -1325,7 +1324,7 @@ msgstr "Boekingsregels"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr "Journaalposten die moeten worden afgestemd"
+msgstr "Boekingen die moeten worden afgeletterd"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1338,8 +1337,7 @@ msgid ""
 "Journal items where the account allows reconciliation no matter the residual"
 " amount"
 msgstr ""
-"Journaalposten waarbij de rekening reconciliatie toestaat, ongeacht het "
-"restbedrag"
+"Boekingen waarbij de rekening afletteren toestaat, ongeacht het restbedrag"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_journal_id
@@ -1431,12 +1429,12 @@ msgstr "Blokkeerdatums"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everyone"
-msgstr "Iedereen op slot"
+msgstr "Blokkeer iedereen iedereen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_everyone
 msgid "Lock Everyone For Everyone"
-msgstr "Iedereen op slot Voor iedereen"
+msgstr "Blokker alles voor iedereen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
@@ -1446,27 +1444,27 @@ msgstr "Sluit iedereen voor mij af"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
 msgid "Lock Journal Entries"
-msgstr "Journaalposten vergrendelen"
+msgstr "Boekingen blokkeren"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid "Lock Purchases"
-msgstr "Slotaankopen"
+msgstr "Blokkeer inkopen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date_for_everyone
 msgid "Lock Purchases For Everyone"
-msgstr "Slotaankopen voor iedereen"
+msgstr "Blokkeer inkopen voor iedereen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__purchase_lock_date_for_me
 msgid "Lock Purchases For Me"
-msgstr "Aankopen voor mij vergrendelen"
+msgstr "Inkopen voor mij blokkeren"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid "Lock Sales"
-msgstr "Verkoop sloten"
+msgstr "Blokkeer verkopen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__sale_lock_date_for_everyone
@@ -1481,7 +1479,7 @@ msgstr "Lock Verkoop Voor Mij"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid "Lock Tax Return"
-msgstr "Belastingaangifte vergrendelen"
+msgstr "Blokkeer BTW-aangifte"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_everyone
@@ -1508,7 +1506,7 @@ msgstr "Handmatige bewerkingen"
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__manual
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__manual
 msgid "Manually & Grouped"
-msgstr "Handmatig & Gegroupeerd"
+msgstr "Handmatig & Gegroepeerd"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__manually_modified
@@ -1547,7 +1545,7 @@ msgstr "Aflettercode"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__matching_rules_allow_auto_reconcile
 msgid "Matching Rules Allow Auto Reconcile"
-msgstr "Overeenkomende regels staan automatische afstemming toe"
+msgstr "Overeenkomende regels staan automatische aflettering toe"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_quick_create_form_bank_rec_widget
@@ -1698,7 +1696,7 @@ msgstr "Openstaand"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Not locked"
-msgstr "Niet vergrendeld"
+msgstr "Niet geblokkeerd"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1744,7 +1742,7 @@ msgstr "Aantal berichten met leveringsfout"
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__on_validation
 msgid "On bill validation"
-msgstr "Bij factuurvalidatie"
+msgstr "Bij bevestigen factuur"
 
 #. module: account_accountant
 #. odoo-python
@@ -1997,13 +1995,13 @@ msgstr "Afletteringsaccount"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__reconcile_model_id
 msgid "Reconcile Model"
-msgstr "Verzoeningsmodel"
+msgstr "Aflettermodel"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Reconcile automatically"
-msgstr "Automatisch afstemmen"
+msgstr "Automatisch afletteren"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_auto_reconcile_wizard__search_mode
@@ -2011,8 +2009,8 @@ msgid ""
 "Reconcile journal items with opposite balance or clear accounts with a zero "
 "balance"
 msgstr ""
-"Journaalposten met tegengesteld saldo aansluiten of rekeningen met een "
-"nulsaldo leegmaken"
+"Boekingen met tegengesteld saldo afletteren of rekeningen met een nulsaldo "
+"leegmaken"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -2429,7 +2427,7 @@ msgid ""
 "There are still draft entries in the period you want to lock.\n"
 "                                You should either post or delete them."
 msgstr ""
-"Er zijn nog conceptboekingen in de periode die je wilt vergrendelen.\n"
+"Er zijn nog conceptboekingen in de periode die je wilt blokkeren.\n"
 "                                Je moet ze plaatsen of verwijderen."
 
 #. module: account_accountant
@@ -2452,7 +2450,7 @@ msgid ""
 msgstr ""
 "Deze banktransactie zit strakker op slot dan een eekhoorn in een "
 "notenfabriek! Je kunt de resetknop er niet op indrukken. Dus, wil je het in "
-"plaats daarvan \"unreconcile\"?"
+"plaats daarvan \"afletteren ongedaan maken\"?"
 
 #. module: account_accountant
 #. odoo-python
@@ -2467,8 +2465,8 @@ msgid ""
 "This reconciliation model can't be used in the manual reconciliation widget "
 "because its configuration is not adapted"
 msgstr ""
-"Dit afstemmingsmodel kan niet worden gebruikt in de handmatige "
-"afstemmingswidget omdat de configuratie niet is aangepast"
+"Dit aflettermodel kan niet worden gebruikt in de handmatige afletterwidget "
+"omdat de configuratie niet is aangepast"
 
 #. module: account_accountant
 #: model:digest.tip,name:account_accountant.digest_tip_account_accountant_0
@@ -2511,7 +2509,7 @@ msgstr "Todo-opdracht"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Balance"
-msgstr "Totaal balans"
+msgstr "Totaal saldo"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -2606,7 +2604,7 @@ msgstr "Bekijk"
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "View Reconciled Entries"
-msgstr "Afgestemde invoer bekijken"
+msgstr "Bekijk afgeletterde boekingen"
 
 #. module: account_accountant
 #. odoo-javascript

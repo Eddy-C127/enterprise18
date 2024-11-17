@@ -3,7 +3,14 @@
 # 	* account_followup
 # 
 # Translators:
+# Carlo Štefanac, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
+# Kristina Palaš, 2024
+# Gordana Bilas, 2024
+# Vladimir Vrgoč, 2024
 # Martin Trigaux, 2024
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Tina Milas, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
 msgid ""
@@ -35,7 +42,7 @@ msgstr ""
 #. module: account_followup
 #: model:ir.actions.report,print_report_name:account_followup.action_report_followup
 msgid "'Follow-up ' + object.display_name"
-msgstr ""
+msgstr "'Poduzimanje daljnje radnje ' + object.display_name"
 
 #. module: account_followup
 #: model:account_followup.followup.line,name:account_followup.demo_followup_line1
@@ -195,7 +202,7 @@ msgstr ""
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__account_followup_followup_line__activity_default_responsible_type__account_manager
 msgid "Account Manager"
-msgstr ""
+msgstr "Voditelj računovodstva"
 
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.ir_cron_auto_post_draft_entry_ir_actions_server
@@ -247,7 +254,7 @@ msgstr "Adresa"
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__type
 #: model:ir.model.fields,field_description:account_followup.field_res_users__type
 msgid "Address Type"
-msgstr ""
+msgstr "Vrsta adrese"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__join_invoices
@@ -265,7 +272,7 @@ msgstr "Prilog"
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_reminder_type__automatic
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_line_filter
 msgid "Automatic"
-msgstr ""
+msgstr "Automatski"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__body_has_template_value
@@ -331,7 +338,7 @@ msgstr "Kreirano"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.followup_filter_info_template
 msgid "Customer ref:"
-msgstr ""
+msgstr "Šifra kupca:"
 
 #. module: account_followup
 #: model:ir.actions.client,name:account_followup.action_account_followup
@@ -417,7 +424,7 @@ msgstr "Datum dospijeća"
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__delay
 msgid "Due Days"
-msgstr ""
+msgstr "Prekoračeni dani"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__email
@@ -448,47 +455,47 @@ msgstr ""
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__type__followup
 msgid "Follow-up Address"
-msgstr ""
+msgstr "Adresa Praćenja"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_followup_line
 msgid "Follow-up Criteria"
-msgstr ""
+msgstr "Kriterij Praćenja"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_move_line__followup_line_id
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__followup_line_id
 #: model:ir.model.fields,field_description:account_followup.field_res_users__followup_line_id
 msgid "Follow-up Level"
-msgstr ""
+msgstr "Nivo Praćenja"
 
 #. module: account_followup
 #: model:ir.actions.act_window,name:account_followup.action_account_followup_line_definition_form
 #: model:ir.ui.menu,name:account_followup.account_followup_menu
 msgid "Follow-up Levels"
-msgstr ""
+msgstr "Nivoi praćenja"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_account_followup_report
 msgid "Follow-up Report"
-msgstr ""
+msgstr "Izvještaj Praćenja"
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__account_followup_followup_line__activity_default_responsible_type__followup
 msgid "Follow-up Responsible"
-msgstr ""
+msgstr "Odgovoran Praćenja"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__followup_status
 #: model:ir.model.fields,field_description:account_followup.field_res_users__followup_status
 msgid "Follow-up Status"
-msgstr ""
+msgstr "Status Praćenja"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_tree
 msgid "Follow-up Steps"
-msgstr ""
+msgstr "Koraci Praćenja"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.report_followup_print_all
@@ -622,7 +629,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__followup_next_action_date
 #: model:ir.model.fields,field_description:account_followup.field_res_users__followup_next_action_date
 msgid "Next reminder"
-msgstr ""
+msgstr "Sljedeći podsjetnik"
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__res_partner__followup_status__no_action_needed
@@ -637,7 +644,7 @@ msgstr "Bilješka"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_followup_line_form
 msgid "Notification"
-msgstr ""
+msgstr "Obavijest"
 
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_followup_manual_reminder__lang
@@ -684,7 +691,7 @@ msgstr "Ispis"
 #. module: account_followup
 #: model:ir.actions.report,name:account_followup.action_report_followup
 msgid "Print Follow-up Letter"
-msgstr ""
+msgstr "Ispiši pismo Praćenja"
 
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.action_account_reports_customer_statements_do_followup
@@ -706,12 +713,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__followup_reminder_type
 #: model:ir.model.fields,field_description:account_followup.field_res_users__followup_reminder_type
 msgid "Reminders"
-msgstr ""
+msgstr "Podsjetnici"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_manual_reminder__render_model
 msgid "Rendering Model"
-msgstr ""
+msgstr "Model renderiranja"
 
 #. module: account_followup
 #: model:ir.model,name:account_followup.model_ir_actions_report
@@ -728,12 +735,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__followup_responsible_id
 #: model:ir.model.fields,field_description:account_followup.field_res_users__followup_responsible_id
 msgid "Responsible"
-msgstr ""
+msgstr "Odgovoran"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
 msgid "SMS"
-msgstr ""
+msgstr "SMS"
 
 #. module: account_followup
 #: model:ir.model.fields.selection,name:account_followup.selection__account_followup_followup_line__activity_default_responsible_type__salesperson
@@ -743,12 +750,12 @@ msgstr "Prodavač"
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__create_activity
 msgid "Schedule Activity"
-msgstr ""
+msgstr "Zakaži aktivnost"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_account_followup_line_filter
 msgid "Search Follow-up"
-msgstr ""
+msgstr "Pretraži praćenja"
 
 #. module: account_followup
 #: model:mail.template,name:account_followup.demo_followup_email_template_2
@@ -759,17 +766,17 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
 #: model_terms:ir.ui.view,arch_db:account_followup.view_partner_property_form_followup
 msgid "Send"
-msgstr ""
+msgstr "Pošalji"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.manual_reminder_view_form
 msgid "Send & Print"
-msgstr ""
+msgstr "Šalji i ispiši"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__send_email
 msgid "Send Email"
-msgstr ""
+msgstr "Pošalji e-mail"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__send_sms
@@ -810,7 +817,7 @@ msgstr "Predmet"
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_summary
 msgid "Summary"
-msgstr ""
+msgstr "Sažetak"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.table_header_template_followup_report
@@ -838,7 +845,7 @@ msgstr ""
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_move_line__invoice_origin
 msgid "The document(s) that generated the invoice."
-msgstr ""
+msgstr "Dokument(i) koji su generirali ovaj račun."
 
 #. module: account_followup
 #: model:ir.model.fields,help:account_followup.field_account_followup_followup_line__delay
@@ -867,7 +874,7 @@ msgstr "Ukupno"
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__total_due
 #: model:ir.model.fields,field_description:account_followup.field_res_users__total_due
 msgid "Total Due"
-msgstr ""
+msgstr "Ukupno dospjelo"
 
 #. module: account_followup
 #. odoo-python
@@ -875,7 +882,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__total_overdue
 #: model:ir.model.fields,field_description:account_followup.field_res_users__total_overdue
 msgid "Total Overdue"
-msgstr ""
+msgstr "Ukupno dospjelo"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_res_partner__unpaid_invoice_ids

@@ -1943,7 +1943,7 @@ msgstr ""
 #. module: documents
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__thumbnail_status__restricted
 msgid "Inaccessible"
-msgstr ""
+msgstr "ไม่สามารถเข้าถึงได้"
 
 #. module: documents
 #: model:documents.tag,name:documents.documents_tag_inbox
@@ -2035,6 +2035,8 @@ msgid ""
 "Item(s) you wish to restore are included in archived folders. To restore these items, you must restore the following including folders instead:\n"
 "- %(folders_list)s"
 msgstr ""
+"รายการที่คุณต้องการกู้คืนจะรวมอยู่ในโฟลเดอร์ที่เก็บถาวร หากต้องการกู้คืนรายการเหล่านี้ คุณต้องกู้คืนโฟลเดอร์ต่อไปนี้แทน:\n"
+"- %(folders_list)s"
 
 #. module: documents
 #. odoo-python
@@ -2476,6 +2478,12 @@ msgstr "เว็บไซต์ Odoo"
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__last_access_date_group__0_older
 msgid "Older"
 msgstr "เก่ากว่า"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3173,6 +3181,11 @@ msgid "Summary"
 msgstr "สรุป"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3239,6 +3252,12 @@ msgstr ""
 msgid ""
 "The following documents/folders can't be owned by a Portal User: \n"
 "- %(partners)s"
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
 msgstr ""
 
 #. module: documents
@@ -3634,6 +3653,18 @@ msgid ""
 msgstr ""
 "คุณสามารถอัปโหลดไฟล์จากคอมพิวเตอร์ของคุณ "
 "หรือคัดลอก/วางอินเตอร์เน็ตลิงก์ไปยังไฟล์ของคุณ"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript

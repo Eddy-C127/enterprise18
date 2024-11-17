@@ -48,32 +48,32 @@ msgstr "<i class=\"fa fa-exclamation-circle\"/> 弹跳后"
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Clicked within"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 在此时间内点选："
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Not Clicked within"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 未在此时间内点选："
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Not Opened after"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 未在此时间后开启："
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Not Replied within"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 未在此时间内回复："
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Opened after"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 在此时间后开启："
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
 msgid "<i class=\"fa fa-exclamation-circle\"/> Replied within"
-msgstr ""
+msgstr "<i class=\"fa fa-exclamation-circle\"/> 在此时间内回复："
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_campaign_view_form
@@ -236,31 +236,31 @@ msgstr "已开启"
 #. odoo-python
 #: code:addons/marketing_automation_whatsapp/models/marketing_trace.py:0
 msgid "Parent Whatsapp message got opened"
-msgstr ""
+msgstr "母项 Whatsapp 信息已开启"
 
 #. module: marketing_automation_whatsapp
 #. odoo-python
 #: code:addons/marketing_automation_whatsapp/models/marketing_trace.py:0
 msgid "Parent Whatsapp message was clicked"
-msgstr ""
+msgstr "母项 Whatsapp 信息已点击"
 
 #. module: marketing_automation_whatsapp
 #. odoo-python
 #: code:addons/marketing_automation_whatsapp/models/marketing_trace.py:0
 msgid "Parent Whatsapp was replied to"
-msgstr ""
+msgstr "母项 Whatsapp 已获回复"
 
 #. module: marketing_automation_whatsapp
 #. odoo-python
 #: code:addons/marketing_automation_whatsapp/models/marketing_trace.py:0
 msgid "Parent whatsapp was bounced"
-msgstr ""
+msgstr "母项 whatsapp 已弹回"
 
 #. module: marketing_automation_whatsapp
 #. odoo-python
 #: code:addons/marketing_automation_whatsapp/models/marketing_activity.py:0
 msgid "Participants of %(name)s (%(filter)s)"
-msgstr ""
+msgstr "参与者：%(name)s（%(filter)s）"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_view_form
@@ -391,7 +391,7 @@ msgstr "WhatsApp：已回复"
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
 msgid "after the <strong>Whatsapp message</strong> sent by the Activity \""
-msgstr ""
+msgstr "在以下活动传送 <strong>Whatsapp 信息</strong>之后：“"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
@@ -399,34 +399,36 @@ msgid ""
 "after the Participant <strong>clicks</strong><br/>on any link included in "
 "the <strong>Whatsapp message</strong> sent by the Activity \""
 msgstr ""
+"在参与者<strong>点击</strong><br/>活动传送的 <strong>Whatsapp "
+"訊息</strong>内提供的任何链接之后。活动：“"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
 msgid ""
 "after the Participant <strong>opens the Whatsapp message</strong> sent by "
 "the Activity \""
-msgstr ""
+msgstr "在参与者<strong>开启</strong>以下活动传送的 <strong>Whatsapp 信息</strong>之后：“"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
 msgid ""
 "after the Participant <strong>replies to the Whatsapp message</strong> sent "
 "by the Activity \""
-msgstr ""
+msgstr "在参与者<strong>回复</strong>以下活动发送的 <strong>Whatsapp 信息</strong>之后：“"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
 msgid "doesn't get clicked,"
-msgstr ""
+msgstr "未获点击，"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
 msgid "if <strong>Whatsapp message</strong> sent by the Activity \""
-msgstr ""
+msgstr "若以下活动传送的 <strong>Whatsapp 信息</strong>：“"
 
 #. module: marketing_automation_whatsapp
 #: model_terms:ir.ui.view,arch_db:marketing_automation_whatsapp.marketing_activity_summary_template_whatsapp
 msgid ""
 "if no link included in the <strong>Whatsapp message</strong> sent by the "
 "Activity \""
-msgstr ""
+msgstr "若以下活动传送的 <strong>Whatsapp 信息</strong>内，没有包括链接：“"

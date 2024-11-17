@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Larissa Manderfeld, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Larissa Manderfeld, 2024\n"
 "Language-Team: Spanish (https://app.transifex.com/odoo/teams/41243/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
 msgid "<span invisible=\"enable_batch_size\">No Batch Size</span>"
-msgstr ""
+msgstr "<span invisible=\"enable_batch_size\">No hay tamaño de lote</span>"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
@@ -32,7 +33,7 @@ msgstr "<span invisible=\"enable_max_replenish\">Sin máximo</span>"
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_bom_form_view_inherit_mps
 msgid "<span>Schedules</span>"
-msgstr ""
+msgstr "<span>Horarios</span>"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -131,7 +132,7 @@ msgstr "Disponible para prometer"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__batch_size
 msgid "Batch Size"
-msgstr ""
+msgstr "Tamaño del lote"
 
 #. module: mrp_mps
 #: model:ir.model,name:mrp_mps.model_mrp_bom
@@ -207,7 +208,7 @@ msgstr "Día"
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
 msgid "Default Time Range"
-msgstr ""
+msgstr "Rango de tiempo por defecto"
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__product_uom_id
@@ -297,7 +298,7 @@ msgstr "Mostrar para reponer "
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_batch_size
 msgid "Enable Batch Size"
-msgstr ""
+msgstr "Habilitar tamaño del lote"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__enable_max_replenish
@@ -361,6 +362,8 @@ msgstr "ID"
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__bom_id
 msgid "If set, the bill of materials components will also be imported."
 msgstr ""
+"Si se selecciona también se importarán los componentes de la lista de "
+"materiales."
 
 #. module: mrp_mps
 #: model:ir.model.fields,help:mrp_mps.field_mrp_production_schedule__batch_size
@@ -368,12 +371,14 @@ msgid ""
 "If set, the generated manufacturing orders will be split in quantities of "
 "this value at maximum."
 msgstr ""
+"Si se establece, las órdenes de fabricación generadas se dividirán en "
+"cantidades que corresponden a un máximo de este valor."
 
 #. module: mrp_mps
 #. odoo-python
 #: code:addons/mrp_mps/models/mrp_mps.py:0
 msgid "Import Template for Master Production Schedule"
-msgstr ""
+msgstr "Plantilla de importación del plan maestro de producción"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.mrp_mps_production_schedule_form_view
@@ -396,7 +401,7 @@ msgstr "Producto de demanda indirecta"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_production_schedule__is_manufacture_route
 msgid "Is Manufacture Route"
-msgstr ""
+msgstr "Es una ruta de fabricación"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_mrp_mps_forecast_details__write_uid
@@ -474,6 +479,8 @@ msgid ""
 "Manufacturing Settings: Your Master Production Schedule must always display "
 "at least 1 period."
 msgstr ""
+"Ajustes de fabricación: su plan maestro de producción siempre debe mostrar "
+"al menos 1 periodo."
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -534,27 +541,27 @@ msgstr "No se repone desde el plan maestro de producción"
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_day
 msgid "Number of Daily Manufacturing Period Columns"
-msgstr ""
+msgstr "Número de columnas de periodo de fabricación diario"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_month
 msgid "Number of Monthly Manufacturing Period Columns"
-msgstr ""
+msgstr "Número de columnas de periodo de fabricación mensual"
 
 #. module: mrp_mps
 #: model_terms:ir.ui.view,arch_db:mrp_mps.res_config_settings_view_form
 msgid "Number of Periods"
-msgstr ""
+msgstr "Número de periodos"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_week
 msgid "Number of Weekly Manufacturing Period Columns"
-msgstr ""
+msgstr "Número de columnas de periodo de fabricación semanal"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_config_settings__manufacturing_period_to_display_year
 msgid "Number of Yearly Manufacturing Period Columns"
-msgstr ""
+msgstr "Número de columnas de periodo de fabricación anual"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_day
@@ -562,6 +569,8 @@ msgid ""
 "Number of columns for the daily period to display in Master Production "
 "Schedule"
 msgstr ""
+"Número de columnas para el periodo diario para mostrar en el plan maestro de"
+" producción"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_month
@@ -569,6 +578,8 @@ msgid ""
 "Number of columns for the monthly period to display in Master Production "
 "Schedule"
 msgstr ""
+"Número de columnas para el periodo mensual para mostrar en el plan maestro "
+"de producción"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_week
@@ -576,6 +587,8 @@ msgid ""
 "Number of columns for the weekly period to display in Master Production "
 "Schedule"
 msgstr ""
+"Número de columnas para el periodo semanal para mostrar en el plan maestro "
+"de producción"
 
 #. module: mrp_mps
 #: model:ir.model.fields,field_description:mrp_mps.field_res_company__manufacturing_period_to_display_year
@@ -583,6 +596,8 @@ msgid ""
 "Number of columns for the yearly period to display in Master Production "
 "Schedule"
 msgstr ""
+"Número de columnas para el periodo anual para mostrar en el plan maestro de "
+"producción"
 
 #. module: mrp_mps
 #. odoo-javascript
@@ -970,6 +985,7 @@ msgstr "Semanalmente"
 msgid ""
 "When checked, this product will not appear in the 'To Forecast' filter."
 msgstr ""
+"Si se selecciona, este producto no aparecerá en el filtro “A pronosticar”."
 
 #. module: mrp_mps
 #. odoo-javascript

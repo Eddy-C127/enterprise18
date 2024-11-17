@@ -30,13 +30,13 @@ msgstr "%(name)s 剛剛簽到。要求飲品：%(drink)s。"
 #. odoo-python
 #: code:addons/frontdesk/models/frontdesk_visitor.py:0
 msgid "%(station)s Check-In: %(visitor)s"
-msgstr ""
+msgstr "%(station)s 簽到：%(visitor)s"
 
 #. module: frontdesk
 #. odoo-python
 #: code:addons/frontdesk/models/frontdesk_visitor.py:0
 msgid "%(station)s Check-In: %(visitor)s to meet %(host)s"
-msgstr ""
+msgstr "%(station)s 簽到：%(visitor)s 與 %(host)s 會面"
 
 #. module: frontdesk
 #. odoo-python
@@ -75,6 +75,8 @@ msgid ""
 "<span><b>Congratulations!!!</b> You have created your first visitor.\n"
 "        </span>"
 msgstr ""
+"<span><b>恭喜！</b>你已建立第一名訪客。\n"
+"        </span>"
 
 #. module: frontdesk
 #: model_terms:ir.ui.view,arch_db:frontdesk.print_visitor_badge
@@ -731,7 +733,7 @@ msgstr "列印識別證"
 #. module: frontdesk
 #: model:ir.actions.report,name:frontdesk.frontdesk_visitor_print_badge
 msgid "Print Visitor Badge"
-msgstr ""
+msgstr "列印訪客識別證"
 
 #. module: frontdesk
 #: model:ir.model.fields,field_description:frontdesk.field_frontdesk_visitor__visitor_properties

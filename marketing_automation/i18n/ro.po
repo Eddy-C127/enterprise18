@@ -1,28 +1,47 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* marketing_automation
-#
+# 
 # Translators:
-# Cozmin Candea <office@terrabit.ro>, 2022
-# Dorin Hongu <dhongu@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Claudia Baisan, 2023
-#
+# Larisa Pop, 2024
+# Foldi Robert <foldirobert@nexterp.ro>, 2024
+# Larisa_nexterp, 2024
+# Lyall Kindmurr, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:47+0000\n"
-"Last-Translator: Claudia Baisan, 2023\n"
+"POT-Creation-Date: 2024-10-25 09:12+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "\" <strong>bounced</strong>,"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "\" did <strong>not receive a reply</strong>,"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "\" gets clicked,"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "\" was <strong>not opened</strong>,"
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__link_tracker_click_count
@@ -38,6 +57,11 @@ msgstr "# Filtre Favorite"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mass_mailing_count
 msgid "# Mailings"
 msgstr "# Corespondențe"
+
+#. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mailing_sms_count
+msgid "# SMS Mailings"
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__total_participant_count
@@ -58,6 +82,11 @@ msgstr "# a participanților finalizați"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__test_participant_count
 msgid "# of test participants"
 msgstr "# de participanți la test"
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "<br/>This activity will be"
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -81,7 +110,9 @@ msgstr "<i class=\"fa fa-check-circle\"/> Răspuns"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
-msgid "<i class=\"fa fa-clock-o pe-1\" role=\"img\" aria-label=\"Select time\" title=\"Select time\"/>"
+msgid ""
+"<i class=\"fa fa-clock-o pe-1\" role=\"img\" aria-label=\"Select time\" "
+"title=\"Select time\"/>"
 msgstr ""
 
 #. module: marketing_automation
@@ -131,13 +162,17 @@ msgstr "<i class=\"fa fa-reply\"/> A răspuns după"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
-msgid "<i data-trigger-type=\"activity\" class=\"fa fa-code-fork fa-rotate-180 fa-flip-vertical o_ma_text_processed o_add_child_activity text-success\" title=\"Add Another Activity\" role=\"img\" aria-label=\"Add Another Activity\"/>"
+msgid ""
+"<i data-trigger-type=\"activity\" class=\"fa fa-code-fork fa-rotate-180 fa-"
+"flip-vertical o_ma_text_processed o_add_child_activity text-success\" "
+"title=\"Add Another Activity\" role=\"img\" aria-label=\"Add Another "
+"Activity\"/>"
 msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
-msgid "<span class=\"col-2 px-0 pt-1\">after</span>"
-msgstr "<span class=\"col-2 px-0 pt-1\">după</span>"
+msgid "<span class=\"d-inline-block w-25\">after</span>"
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -171,6 +206,13 @@ msgid "<span>Total</span>"
 msgstr "<span>Total</span>"
 
 #. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid ""
+"<strong>Summary</strong><br/>\n"
+"            Starting from"
+msgstr ""
+
+#. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "<strong>The workflow has been modified!</strong>"
 msgstr "<strong>Fluxul de lucru a fost modificat!</strong>"
@@ -184,6 +226,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_mailings_count
 msgid "A/B Test Mailings #"
 msgstr "Numărul de mailings de test A/B"
+
+#. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_mailings_sms_count
+msgid "A/B Test Mailings SMS #"
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_completed
@@ -225,6 +272,11 @@ msgid "Activity Name"
 msgstr ""
 
 #. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__activity_summary
+msgid "Activity Summary"
+msgstr "Rezumat activitate"
+
+#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__activity_type
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__activity_type
 msgid "Activity Type"
@@ -232,8 +284,31 @@ msgstr "Tip activitate"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__domain
-msgid "Activity will only be performed if record satisfies this domain, obtained from the combination of the activity filter and its inherited filter"
-msgstr "Activitatea va fi efectuată numai dacă înregistrarea satisface acest domeniu, obținută din combinația filtrului de activitate și a filtrului său moștenit"
+msgid ""
+"Activity will only be performed if record satisfies this domain, obtained "
+"from the combination of the activity filter and its inherited filter"
+msgstr ""
+"Activitatea va fi efectuată numai dacă înregistrarea satisface acest "
+"domeniu, obținută din combinația filtrului de activitate și a filtrului său "
+"moștenit"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Add Hot Category"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Add Tag"
+msgstr "Adaugă etichetă  "
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Add To Confirmed List"
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -246,6 +321,23 @@ msgid "Add to Templates"
 msgstr "Adăugați la șabloane"
 
 #. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Add to list"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
+msgid "Advanced"
+msgstr "Avansat"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "After 7 days"
+msgstr "După 7 zile"
+
+#. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__allowed_parent_ids
 msgid "All activities which can be the parent of this one"
 msgstr "Toate activitățile care pot fi părintele acesteia"
@@ -253,7 +345,7 @@ msgstr "Toate activitățile care pot fi părintele acesteia"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_post_ids
 msgid "All related social media posts"
-msgstr "Toate postările legate de social media"
+msgstr "Toate postările de social media corelate"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__allowed_parent_ids
@@ -278,7 +370,9 @@ msgstr "Arhivat"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
-msgid "Are you sure you want to proceed?"
+msgid ""
+"Are you sure you want to create a new participant for each matching record "
+"that has not been used yet?"
 msgstr ""
 
 #. module: marketing_automation
@@ -293,8 +387,24 @@ msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
-msgid "Be aware that participants that had no more activities could be reintroduced into the campaign and new traces could be created for them."
-msgstr "Fiți conștienți că participanții care nu au mai avut activități pot fi reintroduse în campanie și pot fi create noi urme pentru aceștia."
+msgid ""
+"Be aware that participants that had no more activities could be reintroduced"
+" into the campaign and new traces could be created for them."
+msgstr ""
+"Fiți conștienți că participanții care nu au mai avut activități pot fi "
+"reintroduse în campanie și pot fi create noi urme pentru aceștia."
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Blacklist Bounces"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Blacklist record"
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -346,12 +456,27 @@ msgstr "Anulare după"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_trace__state__canceled
-msgid "Canceled"
-msgstr "Anulat(ă)"
+msgid "Cancelled"
+msgstr "Anulat"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Check Bounce Contact"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Check Email Address"
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_activity__validity_duration
-msgid "Check this to make sure your actions are not executed after a specific amount of time after the scheduled date. (e.g. Time-limited offer, Upcoming event, …)"
+msgid ""
+"Check this to make sure your actions are not executed after a specific "
+"amount of time after the scheduled date. (e.g. Time-limited offer, Upcoming "
+"event, …)"
 msgstr ""
 
 #. module: marketing_automation
@@ -362,12 +487,7 @@ msgstr "Acitivități Copil"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Clicked"
-msgstr "Clicked"
-
-#. module: marketing_automation
-#: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__links_click_datetime
-msgid "Clicked On"
-msgstr "Clic pe"
+msgstr "Clic"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -382,13 +502,21 @@ msgstr "Index Culori"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_participants_action_reporting
-msgid "Come back later once your campaigns are running to overview your participants."
+msgid ""
+"Come back later once your campaigns are running to overview your "
+"participants."
 msgstr ""
 
 #. module: marketing_automation
-#: model:utm.campaign,title:marketing_automation.marketing_campaign_1_utm_campaign
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Commercial prospection"
 msgstr ""
+
+#. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__company_id
+msgid "Company"
+msgstr "Companie"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_participant__state__completed
@@ -403,8 +531,45 @@ msgid "Configuration"
 msgstr "Configurare"
 
 #. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Confirmation"
+msgstr "Confirmare"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Confirmed contacts"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-javascript
+#: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
+msgid "Create Campaign"
+msgstr ""
+
+#. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_campaign_action
+msgid "Create a Campaign"
+msgstr "Creați o campanie"
+
+#. module: marketing_automation
+#. odoo-javascript
+#: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
 msgid "Create a Marketing Automation Campaign"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-javascript
+#: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
+msgid "Create one or load a template prepared by our experts."
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.actions.act_window,help:marketing_automation.marketing_campaign_action
+msgid ""
+"Create one or load a template prepared by our experts.<br>\n"
+"                            Then sit down and let Odoo handle the rest!"
 msgstr ""
 
 #. module: marketing_automation
@@ -423,23 +588,26 @@ msgstr "Creat de"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_participant__create_date
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__create_date
 msgid "Created on"
-msgstr "Creat în"
+msgstr "Creat pe"
+
+#. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__currency_id
+msgid "Currency"
+msgstr "Monedă"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_marketing_campaign__ab_testing_schedule_datetime
-msgid "Date that will be used to know when to determine and send the winner mailing"
-msgstr "Data care va fi folosită pentru a determina când să se trimită corespondența "
+msgid ""
+"Date that will be used to know when to determine and send the winner mailing"
+msgstr ""
+"Data care va fi folosită pentru a determina când să se trimită corespondența"
+" "
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__interval_type__days
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__validity_duration_type__days
 msgid "Days"
 msgstr "Zile"
-
-#. module: marketing_automation
-#: model_terms:ir.actions.act_window,help:marketing_automation.marketing_campaign_action
-msgid "Define workflows by chaining up activities and let Odoo handle the rest."
-msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_type
@@ -456,13 +624,27 @@ msgstr "Șterge"
 #. module: marketing_automation
 #. odoo-javascript
 #: code:addons/marketing_automation/static/src/js/marketing_automation_one2many.js:0
-msgid "Deleting this activity will delete ALL its children activities. Are you sure?"
+msgid ""
+"Deleting this activity will delete ALL its children activities. Are you "
+"sure?"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Design your own marketing campaign from the ground up."
 msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__child_ids
 msgid "Direct child traces"
 msgstr "Urme directe copil"
+
+#. module: marketing_automation
+#. odoo-javascript
+#: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
+msgid "Discard"
+msgstr "Abandonează"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__display_name
@@ -494,9 +676,10 @@ msgid "Don't update"
 msgstr "Nu actualizați"
 
 #. module: marketing_automation
-#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
-msgid "Edit"
-msgstr "Editare"
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Double Opt-in"
+msgstr "Înscriere dublă"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__activity_type__email
@@ -504,12 +687,12 @@ msgstr "Editare"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Email"
-msgstr "Email"
+msgstr "E-mail"
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
-msgid "Email canceled"
+msgid "Email cancelled"
 msgstr ""
 
 #. module: marketing_automation
@@ -558,11 +741,6 @@ msgid "Exclude Test"
 msgstr "Excludere Test"
 
 #. module: marketing_automation
-#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
-msgid "Execute activities"
-msgstr "Executați activități"
-
-#. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Expiry Duration"
 msgstr "Durata expirării"
@@ -584,7 +762,6 @@ msgstr "Domeniu filtru favorit"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__domain
-#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 msgid "Filter"
 msgstr "Filtru"
 
@@ -594,8 +771,22 @@ msgid "Generate participants"
 msgstr "Generați participanți"
 
 #. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Get 10% OFF"
+msgstr ""
+
+#. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.marketing_trace_action
-msgid "Here you will be able to check the results of your mailings from all Marketing Automation Campaigns."
+msgid ""
+"Here you will be able to check the results of your mailings from all "
+"Marketing Automation Campaigns."
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Hot"
 msgstr ""
 
 #. module: marketing_automation
@@ -624,6 +815,12 @@ msgid "It will be generated automatically once you save this record."
 msgstr "Acesta va fi generat automat după salvarea acestei înregistrări."
 
 #. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Join partnership!"
+msgstr ""
+
+#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__write_uid
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__write_uid
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign_test__write_uid
@@ -649,7 +846,7 @@ msgstr "Sincronizarea ultimelor activități"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "Launch"
-msgstr ""
+msgstr "Lansează"
 
 #. module: marketing_automation
 #. odoo-python
@@ -681,7 +878,14 @@ msgstr "Urmărire Link"
 
 #. module: marketing_automation
 #: model_terms:ir.actions.act_window,help:marketing_automation.link_tracker_action_marketing_campaign
-msgid "Link Trackers are created when mailings with links are sent to track how many clicks they get."
+msgid ""
+"Link Trackers are created when mailings with links are sent to track how "
+"many clicks they get."
+msgstr ""
+
+#. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__links_click_datetime
+msgid "Links Click Datetime"
 msgstr ""
 
 #. module: marketing_automation
@@ -744,7 +948,7 @@ msgstr "Expediere"
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_mailing_trace
 msgid "Mailing Statistics"
-msgstr "Statistici de Mailing"
+msgstr "Statistici corespondență"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__mass_mailing_id_mailing_type
@@ -755,6 +959,14 @@ msgstr "Tip Mailing"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_tree
 msgid "Mailings"
 msgstr "Corespondenta"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/mailing_mailing.py:0
+msgid ""
+"Mailings %(mailing_names)s are used in marketing campaigns. You should take "
+"care of this before unlinking the mailings."
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -774,6 +986,12 @@ msgid "Marked as completed"
 msgstr "Marcat ca și completat"
 
 #. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Marketing"
+msgstr "Marketing"
+
+#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_mailing_mailing__marketing_activity_ids
 msgid "Marketing Activities"
 msgstr "Activitati de marketing"
@@ -788,7 +1006,7 @@ msgstr "Activitate de marketing"
 #: model:ir.module.category,name:marketing_automation.module_marketing_automation_category
 #: model:ir.ui.menu,name:marketing_automation.marketing_automation_menu
 msgid "Marketing Automation"
-msgstr "Automatizarea marketingului"
+msgstr "Automatizare marketing"
 
 #. module: marketing_automation
 #: model:ir.actions.act_window,name:marketing_automation.mail_mass_mailing_action_marketing_automation
@@ -808,7 +1026,7 @@ msgstr "Automatizare Marketing: sincronziare participanți"
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_campaign
 msgid "Marketing Campaign"
-msgstr "Campania de marketing"
+msgstr "Campanie de marketing"
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_marketing_campaign_test
@@ -833,8 +1051,13 @@ msgstr "Urmărire Marketing"
 
 #. module: marketing_automation
 #: model:ir.model.fields,help:marketing_automation.field_mailing_mailing__use_in_marketing_automation
-msgid "Marketing campaigns use mass mailings with some specific behavior; this field is used to indicate its statistics may be suspicious."
-msgstr "Campaniile de marketing utilizează corespondențe în masă cu un anumit comportament; acest câmp este utilizat pentru a indica că statisticile sale pot fi suspecte."
+msgid ""
+"Marketing campaigns use mass mailings with some specific behavior; this "
+"field is used to indicate its statistics may be suspicious."
+msgstr ""
+"Campaniile de marketing utilizează corespondențe în masă cu un anumit "
+"comportament; acest câmp este utilizat pentru a indica că statisticile sale "
+"pot fi suspecte."
 
 #. module: marketing_automation
 #: model:ir.model,name:marketing_automation.model_mailing_mailing
@@ -853,14 +1076,26 @@ msgid "Mass Mailings"
 msgstr "Emailuri în masă"
 
 #. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__mailing_sms_ids
+msgid "Mass SMS"
+msgstr "SMS în masă"
+
+#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__mailing_trace_ids
 msgid "Mass mailing statistics"
 msgstr "Statistică corespondeță in masă"
 
 #. module: marketing_automation
-#: model:ir.actions.server,name:marketing_automation.ir_action_server_action_message_sales_person
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Message for sales person"
 msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Misc"
+msgstr "Diverse"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__model_id
@@ -897,7 +1132,13 @@ msgstr "Nume"
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_campaign__state__draft
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_search
 msgid "New"
-msgstr "Nou(ă)"
+msgstr "Nou"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Next activity: Check Email Address"
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -963,8 +1204,17 @@ msgstr "Numărul de clicuri generate de campanie"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_engagement
-msgid "Number of interactions (likes, shares, comments ...) with the social posts"
-msgstr "Număr de interacțiuni (like-uri, share-uri, comentarii ...) cu postările sociale"
+msgid ""
+"Number of interactions (likes, shares, comments ...) with the social posts"
+msgstr ""
+"Număr de interacțiuni (like-uri, share-uri, comentarii ...) cu postările "
+"sociale"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Offer free catalog"
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1051,22 +1301,22 @@ msgstr "Participanți"
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
-msgid "Participants of %s (%s)"
-msgstr "Participanți de %s (%s)"
-
-#. module: marketing_automation
-#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
-msgid "Pick a Server Action"
+msgid "Participants of %(activity)s (%(filter)s)"
 msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
-msgid "Pick a Template"
+msgid "Pick a Server Action..."
 msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Pick a record..."
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
+msgid "Pick or Create a Template..."
 msgstr ""
 
 #. module: marketing_automation
@@ -1079,6 +1329,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_trace__state__processed
 msgid "Processed"
 msgstr "Procesat"
+
+#. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__quotation_count
+msgid "Quotation Count"
+msgstr "Număr oferte"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1184,9 +1439,20 @@ msgid "Responsible"
 msgstr "Responsabil"
 
 #. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__invoiced_amount
+msgid "Revenues generated by the campaign"
+msgstr "Veniturile generate de campanie"
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
 msgid "Run"
 msgstr "Execută"
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
+msgid "Run the next scheduled activity for each participant of this campaign?"
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_campaign__state__running
@@ -1196,6 +1462,11 @@ msgstr "Execută"
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_trace_view_search
 msgid "Running"
 msgstr "În execuție"
+
+#. module: marketing_automation
+#: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_sms_winner_selection
+msgid "SMS Winner Selection"
+msgstr "Selectarea câștigătorului SMS"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1233,9 +1504,40 @@ msgid "Selection to determine the winner mailing that will be sent."
 msgstr "Selectați pentru a determina mailing-ul câștigător care va fi trimis."
 
 #. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Send 10% Welcome Discount"
+msgstr ""
+
+#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_schedule_datetime
 msgid "Send Final On"
 msgstr "Trimite final la"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Send Welcome Email"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Send a free catalog and follow-up according to reactions."
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Send a welcome email to contacts and tag them if they click in it."
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid ""
+"Send a welcome email to new subscribers, remove the addresses that bounced."
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_number
@@ -1246,6 +1548,12 @@ msgstr "Trimite după"
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__interval_standardized
 msgid "Send after (in hours)"
 msgstr "Trimite după (în ore)"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Send an email to new recipients to confirm their consent."
+msgstr ""
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
@@ -1261,17 +1569,21 @@ msgstr "Acțiune server"
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__social_posts_count
 msgid "Social Media Posts"
-msgstr "Postări în rețelele sociale"
+msgstr "Postări în rețele sociale"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_view_form
-msgid "Some participants are already running on this campaign. Click on 'Update' to apply the modifications you've just made."
-msgstr "Unii participanți participă deja la această campanie. Faceți clic pe „Actualizare” pentru a aplica modificările pe care tocmai le-ați făcut."
+msgid ""
+"Some participants are already running on this campaign. Click on 'Update' to"
+" apply the modifications you've just made."
+msgstr ""
+"Unii participanți participă deja la această campanie. Faceți clic pe "
+"„Actualizare” pentru a aplica modificările pe care tocmai le-ați făcut."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__source_id
 msgid "Source"
-msgstr "Sursa"
+msgstr "Sursă"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_mailing_mailing__use_in_marketing_automation
@@ -1289,12 +1601,18 @@ msgid "Start"
 msgstr "Start"
 
 #. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Start from scratch"
+msgstr ""
+
+#. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__state
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_participant__state
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_trace__state
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_search
 msgid "State"
-msgstr "Stare"
+msgstr "Județ"
 
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_participant_view_form
@@ -1324,16 +1642,6 @@ msgid "Stopped"
 msgstr "Oprit"
 
 #. module: marketing_automation
-#: model:ir.model.fields,help:marketing_automation.field_marketing_trace__links_click_datetime
-msgid "Stores last click datetime in case of multi clicks."
-msgstr "Stochează ultima dată de clic în cazul mai multor clicuri."
-
-#. module: marketing_automation
-#: model_terms:ir.ui.view,arch_db:marketing_automation.mailing_mailing_view_form_marketing_activity
-msgid "Subject"
-msgstr "Subiect"
-
-#. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 msgid "Success"
@@ -1342,13 +1650,21 @@ msgstr "Succes"
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
-msgid "Switching Target Model invalidates the existing activities. Either update your activity actions to match the new Target Model or delete them."
+msgid ""
+"Switching Target Model invalidates the existing activities. Either update "
+"your activity actions to match the new Target Model or delete them."
 msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__require_sync
 msgid "Sync of participants is required"
 msgstr "Este necesară sincronizarea participanților"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Tag Hot Contacts"
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__tag_ids
@@ -1395,14 +1711,27 @@ msgstr "Teste"
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
-msgid "The saved filter targets different model and is incompatible with this campaign."
+msgid ""
+"The saved filter targets different model and is incompatible with this "
+"campaign."
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-javascript
+#: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
+msgid "Then sit down and let Odoo handle the rest!"
 msgstr ""
 
 #. module: marketing_automation
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
-msgid "To use this feature you should be an administrator or belong to the marketing automation group."
-msgstr "Pentru a utiliza această caracteristică trebuie să fiți administrator sau să faceți parte din grupul de automatizare a marketingului."
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid ""
+"To use this feature you should be an administrator or belong to the "
+"marketing automation group."
+msgstr ""
+"Pentru a utiliza această caracteristică trebuie să fiți administrator sau să"
+" faceți parte din grupul de automatizare a marketingului."
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__total_bounce
@@ -1440,7 +1769,7 @@ msgstr "Urmăriri"
 #. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_view_form
 msgid "Trigger"
-msgstr "Declansati"
+msgstr "Declanșator"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__trigger_category
@@ -1501,7 +1830,7 @@ msgstr ""
 #. module: marketing_automation
 #: model:res.groups,name:marketing_automation.group_marketing_automation_user
 msgid "User"
-msgstr "Operator"
+msgstr "Utilizator"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_activity__validity_duration_number
@@ -1522,13 +1851,25 @@ msgstr "Valabilitate Durată tip"
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "Warning"
-msgstr "Atenție"
+msgstr "Avertizare"
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__interval_type__weeks
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__validity_duration_type__weeks
 msgid "Weeks"
 msgstr "Săptămâni"
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Welcome Flow"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-python
+#: code:addons/marketing_automation/models/marketing_campaign.py:0
+msgid "Welcome!"
+msgstr "Bine ați venit!"
 
 #. module: marketing_automation
 #: model:ir.model.fields,field_description:marketing_automation.field_marketing_campaign__ab_testing_winner_selection
@@ -1550,7 +1891,7 @@ msgstr "Fluxul de lucru a început"
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_activity.py:0
 msgid ""
-"You are trying to set the activity \"%s\" as \"%s\" while its child \"%s\" has the trigger type \"%s\"\n"
+"You are trying to set the activity \"%(parent_activity)s\" as \"%(parent_type)s\" while its child \"%(activity)s\" has the trigger type \"%(trigger_type)s\"\n"
 "Please modify one of those activities before saving."
 msgstr ""
 
@@ -1574,7 +1915,45 @@ msgstr ""
 #. odoo-python
 #: code:addons/marketing_automation/models/marketing_campaign.py:0
 msgid "You must set up at least one activity to start this campaign."
-msgstr "Trebuie să configurați cel puțin o activitate pentru a începe această campanie."
+msgstr ""
+"Trebuie să configurați cel puțin o activitate pentru a începe această "
+"campanie."
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "after the <strong>Mailing</strong> sent by the Activity \""
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "after the <strong>beginning of the workflow</strong>,<br/>the"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid ""
+"after the Participant <strong>clicked</strong>,<br/>on any link included in "
+"the <strong>Mailing</strong> sent by the Activity \""
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid ""
+"after the Participant <strong>opened</strong> the <strong>Mailing</strong> "
+"sent by the Activity \""
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid ""
+"after the Participant <strong>replied</strong> to the "
+"<strong>Mailing</strong> sent by the Activity \""
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "after the execution of the Activity \""
+msgstr ""
 
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__activity
@@ -1584,6 +1963,11 @@ msgstr "o altă activitate"
 #. module: marketing_automation
 #: model:ir.model.fields.selection,name:marketing_automation.selection__marketing_activity__trigger_type__begin
 msgid "beginning of workflow"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "cancelled, if"
 msgstr ""
 
 #. module: marketing_automation
@@ -1602,6 +1986,48 @@ msgid "e.g. eCommerce Offers Plan"
 msgstr ""
 
 #. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "have passed since the scheduled date."
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid ""
+"if no link included in the <strong>Mailing</strong> sent by the Activity \""
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "if the <strong>Mailing</strong> sent by the Activity \""
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "run"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "sent"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "the"
+msgstr "la"
+
+#. module: marketing_automation
 #: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_campaign_test_view_form
 msgid "to generate a Test Participant"
+msgstr ""
+
+#. module: marketing_automation
+#: model_terms:ir.ui.view,arch_db:marketing_automation.marketing_activity_summary_template
+msgid "will be"
+msgstr ""
+
+#. module: marketing_automation
+#. odoo-javascript
+#: code:addons/marketing_automation/static/src/components/campaign_template_picker_dialog/campaign_template_picker_dialog.xml:0
+msgid "{{template_value.title}}"
 msgstr ""

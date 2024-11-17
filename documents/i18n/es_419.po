@@ -5,8 +5,8 @@
 # Translators:
 # Tiffany Chang, 2024
 # Wil Odoo, 2024
-# Fernanda Alvarez, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2195,7 +2195,7 @@ msgstr "¡Enlace copiado al portapapeles!"
 #. module: documents
 #: model:ir.model.fields,field_description:documents.field_documents_document__alias_incoming_local
 msgid "Local-part based incoming detection"
-msgstr "Detección de entradas según las partes locales"
+msgstr "Detección entrante basada en la parte local"
 
 #. module: documents
 #. odoo-javascript
@@ -2519,6 +2519,12 @@ msgstr "Sitio web de Odoo"
 #: model:ir.model.fields.selection,name:documents.selection__documents_document__last_access_date_group__0_older
 msgid "Older"
 msgstr "Antiguos"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3223,6 +3229,11 @@ msgid "Summary"
 msgstr "Resumen"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3294,6 +3305,12 @@ msgid ""
 msgstr ""
 "Los siguientes documentos o carpetas no pueden pertenecerle a un usuario del portal:\n"
 "- %(partners)s"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3697,6 +3714,18 @@ msgstr ""
 "internet a su archivo."
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
+
+#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3740,7 +3769,7 @@ msgstr "No puede crear atajos en o mover documentos a esta carpeta especial."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot access folders in the trash."
-msgstr ""
+msgstr "No puede acceder a las carpetas que están en la papelera."
 
 #. module: documents
 #. odoo-python
@@ -3764,7 +3793,7 @@ msgstr "No puede duplicar documentos que estén en la papelera."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot move folders or files when in the trash."
-msgstr ""
+msgstr "No puede mover carpetas o archivos si están en la papelera."
 
 #. module: documents
 #. odoo-javascript

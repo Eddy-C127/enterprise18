@@ -37,7 +37,7 @@ msgstr "ยอมรับ"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__acknowledged
 msgid "Acknowledged"
-msgstr ""
+msgstr "ได้รับการตอบรับแล้ว"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
@@ -238,7 +238,7 @@ msgstr "รายละเอียด"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__dispatched
 msgid "Dispatched"
-msgstr ""
+msgstr "ถูกจัดส่งแล้ว"
 
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_delivery_provider__display_name
@@ -261,7 +261,7 @@ msgstr "แก้ไข"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__3
 msgid "Eggetarian"
-msgstr ""
+msgstr "มังสวิรัติแบบไข่"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -287,6 +287,11 @@ msgid "Fiscal position for Urban Piper sync menu."
 msgstr ""
 
 #. module: pos_urban_piper
+#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
+msgid "Food Delivery Platforms"
+msgstr ""
+
+#. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_pos_order__prep_time
 msgid "Food Preparation Time"
 msgstr ""
@@ -294,7 +299,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__food_ready
 msgid "Food Ready"
-msgstr ""
+msgstr "อาหารพร้อมแล้ว"
 
 #. module: pos_urban_piper
 #. odoo-javascript
@@ -452,7 +457,7 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__product_template__urbanpiper_meal_type__2
 msgid "Non-Vegetarian"
-msgstr ""
+msgstr "ไม่ใช่มังสวิรัติ"
 
 #. module: pos_urban_piper
 #: model_terms:ir.ui.view,arch_db:pos_urban_piper.product_template_only_form_view_inherit_pos_urban_piper
@@ -559,7 +564,7 @@ msgstr "โทรศัพท์"
 #. module: pos_urban_piper
 #: model:ir.model.fields.selection,name:pos_urban_piper.selection__pos_order__delivery_status__placed
 msgid "Placed"
-msgstr ""
+msgstr "สั่งไว้แล้ว"
 
 #. module: pos_urban_piper
 #: model:ir.model,name:pos_urban_piper.model_pos_config
@@ -882,11 +887,6 @@ msgstr ""
 #. module: pos_urban_piper
 #: model:ir.model.fields,field_description:pos_urban_piper.field_res_config_settings__pos_urbanpiper_webhook_url
 msgid "Urban Piper Webhook URL"
-msgstr ""
-
-#. module: pos_urban_piper
-#: model_terms:ir.ui.view,arch_db:pos_urban_piper.res_config_settings_view_form_pos_urban_piper
-msgid "Urban piper Delivery providers"
 msgstr ""
 
 #. module: pos_urban_piper

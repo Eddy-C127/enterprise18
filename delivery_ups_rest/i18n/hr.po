@@ -3,7 +3,10 @@
 # 	* delivery_ups_rest
 # 
 # Translators:
+# Martin Trigaux, 2024
+# Vladimir Vrgoč, 2024
 # Bole <bole@dajmi5.com>, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:24+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
+"Last-Translator: Karolina Tonković <karolina.tonkovic@storm.hr>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -35,7 +38,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model.fields,field_description:delivery_ups_rest.field_stock_package_type__package_carrier_type
 msgid "Carrier"
-msgstr ""
+msgstr "Prijevoznik"
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_cod_funds_code__8
@@ -45,7 +48,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_package_dimension_unit__cm
 msgid "Centimeters"
-msgstr ""
+msgstr "Centimetri"
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_cod_funds_code__0
@@ -86,7 +89,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_label_file_type__epl
 msgid "EPL"
-msgstr ""
+msgstr "EPL"
 
 #. module: delivery_ups_rest
 #. odoo-python
@@ -124,7 +127,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_package_dimension_unit__in
 msgid "Inches"
-msgstr ""
+msgstr "Inči"
 
 #. module: delivery_ups_rest
 #. odoo-python
@@ -199,7 +202,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups_rest/models/ups_request.py:0
 msgid "Please provide at least one item to ship."
-msgstr ""
+msgstr "Navedite barem jednu stavku za isporuku."
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_package_weight_unit__lbs
@@ -209,12 +212,12 @@ msgstr "Funte"
 #. module: delivery_ups_rest
 #: model:ir.model.fields,field_description:delivery_ups_rest.field_delivery_carrier__delivery_type
 msgid "Provider"
-msgstr ""
+msgstr "Davatelj "
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_duty_payment__recipient
 msgid "Recipient"
-msgstr ""
+msgstr "Primatelj"
 
 #. module: delivery_ups_rest
 #. odoo-python
@@ -233,7 +236,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_label_file_type__spl
 msgid "SPL"
-msgstr ""
+msgstr "SPL"
 
 #. module: delivery_ups_rest
 #: model:ir.model,name:delivery_ups_rest.model_sale_order
@@ -253,7 +256,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_duty_payment__sender
 msgid "Sender"
-msgstr ""
+msgstr "Pošiljalac"
 
 #. module: delivery_ups_rest
 #. odoo-python
@@ -278,7 +281,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model,name:delivery_ups_rest.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Načini dostave"
 
 #. module: delivery_ups_rest
 #. odoo-python
@@ -298,6 +301,8 @@ msgid ""
 "The address of your company is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"Neodstaje adresa vaše tvrtke ili je kriva.\n"
+"(Polja(e) koje nedostaje : %s)"
 
 #. module: delivery_ups_rest
 #. odoo-python
@@ -306,6 +311,8 @@ msgid ""
 "The address of your warehouse is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"Nedostaje adresa vašeg skladišta ili je kriva.\n"
+"(Polja(e) koje nedostaje : %s)"
 
 #. module: delivery_ups_rest
 #. odoo-python
@@ -336,6 +343,8 @@ msgid ""
 "The recipient address is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"Nedostaje adresa primatelja ili je kriva.\n"
+"(Polja(e) koje nedostaje : %s)"
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields,help:delivery_ups_rest.field_delivery_carrier__ups_cod
@@ -397,7 +406,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model_terms:ir.ui.view,arch_db:delivery_ups_rest.view_delivery_carrier_form
 msgid "UPS Configuration"
-msgstr ""
+msgstr "UPS postava"
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__03
@@ -442,7 +451,7 @@ msgstr ""
 #. module: delivery_ups_rest
 #: model:ir.model.fields,field_description:delivery_ups_rest.field_delivery_carrier__ups_default_service_type
 msgid "UPS Service Type"
-msgstr ""
+msgstr "UPS tip usluge"
 
 #. module: delivery_ups_rest
 #: model:ir.model.fields.selection,name:delivery_ups_rest.selection__delivery_carrier__ups_default_service_type__11

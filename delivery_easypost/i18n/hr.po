@@ -3,6 +3,11 @@
 # 	* delivery_easypost
 # 
 # Translators:
+# Martin Trigaux, 2024
+# Antonijo Kovacevic, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
+# Vladimir Vrgoč, 2024
+# Tina Milas, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
 msgid ""
@@ -64,7 +69,7 @@ msgstr "Otkaži"
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_stock_package_type__package_carrier_type
 msgid "Carrier"
-msgstr ""
+msgstr "Prijevoznik"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_easypost_service__easypost_carrier
@@ -100,7 +105,7 @@ msgstr "Kreirano"
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
 msgid "Default Package Type"
-msgstr ""
+msgstr "Zadani tip paketa"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_default_package_type_id
@@ -115,7 +120,7 @@ msgstr ""
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier_easypost__delivery_carrier_id
 msgid "Delivery Carrier"
-msgstr ""
+msgstr "Prevoznik za dostavu"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier_easypost__display_name
@@ -133,7 +138,7 @@ msgstr ""
 #. module: delivery_easypost
 #: model:ir.model.fields.selection,name:delivery_easypost.selection__delivery_carrier__easypost_label_file_type__epl2
 msgid "EPL2"
-msgstr ""
+msgstr "EPL2"
 
 #. module: delivery_easypost
 #: model:ir.model.fields.selection,name:delivery_easypost.selection__delivery_carrier__delivery_type__easypost
@@ -181,7 +186,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.res_config_settings_view_form_sale
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.res_config_settings_view_form_stock
 msgid "Easypost Shipping Methods"
-msgstr ""
+msgstr "Easypost metoda dostave"
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
@@ -212,7 +217,7 @@ msgstr ""
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
 msgid "Go to"
-msgstr ""
+msgstr "Idi na"
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier_easypost__id
@@ -278,7 +283,7 @@ msgstr "PDF"
 #. module: delivery_easypost
 #: model:ir.model.fields.selection,name:delivery_easypost.selection__delivery_carrier__easypost_label_file_type__png
 msgid "PNG"
-msgstr ""
+msgstr "PNG"
 
 #. module: delivery_easypost
 #. odoo-python
@@ -290,7 +295,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 msgid "Please provide at least one item to ship."
-msgstr ""
+msgstr "Navedite barem jednu stavku za isporuku."
 
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__easypost_production_api_key
@@ -300,7 +305,7 @@ msgstr ""
 #. module: delivery_easypost
 #: model:ir.model.fields,field_description:delivery_easypost.field_delivery_carrier__delivery_type
 msgid "Provider"
-msgstr ""
+msgstr "Davatelj "
 
 #. module: delivery_easypost
 #. odoo-python
@@ -317,7 +322,7 @@ msgstr ""
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_easypost_carrier_type
 msgid "Select"
-msgstr ""
+msgstr "Odaberi"
 
 #. module: delivery_easypost
 #: model:ir.actions.act_window,name:delivery_easypost.act_delivery_easypost_carrier_type
@@ -338,12 +343,12 @@ msgstr ""
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Načini dostave"
 
 #. module: delivery_easypost
 #: model_terms:ir.ui.view,arch_db:delivery_easypost.view_delivery_carrier_form_inherit_delivery_easypost
 msgid "Sign up"
-msgstr ""
+msgstr "Registriraj se"
 
 #. module: delivery_easypost
 #: model:ir.model,name:delivery_easypost.model_stock_package_type
@@ -394,6 +399,7 @@ msgid ""
 "The estimated price cannot be computed because the weight of your product is"
 " missing."
 msgstr ""
+"Izražena cijena se ne može izračunati, jer nedostaje težina Vašeg proizvoda."
 
 #. module: delivery_easypost
 #. odoo-python
@@ -426,7 +432,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_easypost/models/easypost_request.py:0
 msgid "Unknown error"
-msgstr ""
+msgstr "Nepoznata greška"
 
 #. module: delivery_easypost
 #. odoo-python

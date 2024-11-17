@@ -2522,6 +2522,12 @@ msgstr "Ältere"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
 msgstr "Nur „Dokumente“-Manager können Ordner anheften."
 
@@ -3225,6 +3231,11 @@ msgid "Summary"
 msgstr "Zusammenfassung"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3297,6 +3308,12 @@ msgid ""
 msgstr ""
 "Die folgenden Dokumente/Ordner können nicht im Besitz eines Portalbenutzers sein: \n"
 "- %(partners)s"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3687,7 +3704,7 @@ msgstr "Sie sind nicht berechtigt, diesen Vorgang durchzuführen."
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You are not allowed to pin/unpin embedded Actions."
-msgstr ""
+msgstr "Sie sind nicht berechtigt, eingebettete Aktionen an-/loszuheften."
 
 #. module: documents
 #. odoo-python
@@ -3703,6 +3720,18 @@ msgid ""
 msgstr ""
 "Sie können entweder eine Datei von Ihrem Rechner hochladen oder einen "
 "Internetlink kopieren und einfügen."
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
 
 #. module: documents
 #. odoo-javascript
@@ -3750,13 +3779,14 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot access folders in the trash."
-msgstr ""
+msgstr "Sie können nicht auf Ordner im Papierkorb zugreifen"
 
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
 msgid "You cannot change the owner of documents you do not own."
 msgstr ""
+"Sie können den Besitzer von Dokumenten, die Sie nicht besitzen, nicht ändern"
 
 #. module: documents
 #. odoo-python
@@ -3774,7 +3804,7 @@ msgstr "Sie können Dokumente im Papierkorb nicht duplizieren."
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot move folders or files when in the trash."
-msgstr ""
+msgstr "Sie können Ordner oder Dateien im Papierkorb nicht verschieben."
 
 #. module: documents
 #. odoo-javascript

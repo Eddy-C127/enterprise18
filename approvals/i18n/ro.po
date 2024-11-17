@@ -1,28 +1,45 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* approvals
-#
+# 
 # Translators:
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Martin Trigaux, 2022
-# Cozmin Candea <office@terrabit.ro>, 2023
-# Dorin Hongu <dhongu@gmail.com>, 2023
-# Claudia Baisan, 2023
-#
+# Hongu Cosmin <cosmin513@gmail.com>, 2024
+# Wil Odoo, 2024
+# Lyall Kindmurr, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:45+0000\n"
-"Last-Translator: Claudia Baisan, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Lyall Kindmurr, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
+
+#. module: approvals
+#: model:ir.actions.report,print_report_name:approvals.action_report_approval_request
+msgid "'Approval - %s' % object.name"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "07/07/2023 10:00:00"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "07/08/2023 10:00:00"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "1200"
+msgstr ""
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
@@ -30,19 +47,19 @@ msgid "<span class=\"fa fa-warning\" title=\"Invalid minimum approvals\"/>"
 msgstr "<span class=\"fa fa-warning\" title=\"Aprobări minime nevalide\"/>"
 
 #. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>From: </span>"
-msgstr "<span> De la: </span>"
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "<span class=\"fw-bold\">Description:</span>"
+msgstr ""
 
 #. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
-msgid "<span>to: </span>"
-msgstr "<span>la: </span>"
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "<span class=\"fw-bold\">To</span>"
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_needaction
 msgid "Action Needed"
-msgstr "Intervenție necesară"
+msgstr "Acțiune necesară"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__active
@@ -62,7 +79,7 @@ msgstr "Activitate"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Activitate Excepție Decorare"
+msgstr "Decorator Excepție Activitate"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_state
@@ -94,14 +111,23 @@ msgstr "Toate aprobările"
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__approval_type
 #: model:ir.model.fields,help:approvals.field_approval_request__approval_type
-msgid "Allows you to define which documents you would like to create once the request has been approved"
-msgstr "Vă permite să definiți ce documente doriți să creați odată ce cererea a fost aprobată"
+msgid ""
+"Allows you to define which documents you would like to create once the "
+"request has been approved"
+msgstr ""
+"Vă permite să definiți ce documente doriți să creați odată ce cererea a fost"
+" aprobată"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__amount
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Amount"
-msgstr "Valoare"
+msgstr "Sumă"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Amount:"
+msgstr "Valoare:"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__has_reference
@@ -126,10 +152,17 @@ msgid "Approval Category"
 msgstr "Categorie aprobare"
 
 #. module: approvals
+#: model:ir.actions.report,name:approvals.action_report_approval_request
 #: model:ir.model,name:approvals.model_approval_request
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__approval_request_id
 msgid "Approval Request"
 msgstr "Cerere de aprobare"
+
+#. module: approvals
+#: model:mail.message.subtype,description:approvals.mt_approval_request_status
+#: model:mail.message.subtype,name:approvals.mt_approval_request_status
+msgid "Approval Status Change"
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__name
@@ -161,11 +194,6 @@ msgid "Approvals Types"
 msgstr "Tipuri de aprobări"
 
 #. module: approvals
-#: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_kanban
-msgid "Approvals Types Image"
-msgstr "Aprobări Tipuri Imagine"
-
-#. module: approvals
 #: model:ir.actions.act_window,name:approvals.approval_request_action_to_review
 #: model:ir.ui.menu,name:approvals.approvals_approval_menu_to_review
 msgid "Approvals to Review"
@@ -179,7 +207,6 @@ msgstr "Aprobări de revizuit"
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/web/activity/approval.xml:0
-#: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Approve"
@@ -189,6 +216,8 @@ msgstr "Aprobă"
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__approved
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__request_status__approved
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__approved
+#: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Approved"
 msgstr "Aprobat(a)"
 
@@ -201,8 +230,11 @@ msgstr "Aprobator"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-msgid "Approver Sequence can only be activated with at least 1 minimum approver."
-msgstr "Secvența aprobatorului poate fi activată numai cu cel puțin 1 aprobator minim."
+msgid ""
+"Approver Sequence can only be activated with at least 1 minimum approver."
+msgstr ""
+"Secvența aprobatorului poate fi activată numai cu cel puțin 1 aprobator "
+"minim."
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__user_ids
@@ -218,6 +250,7 @@ msgstr "Aprobator(i)"
 #: model:ir.model.fields,field_description:approvals.field_approval_category__approver_ids
 #: model:ir.model.fields,field_description:approvals.field_approval_request__approver_ids
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_tree
 msgid "Approvers"
 msgstr "Aprobatori"
 
@@ -228,10 +261,29 @@ msgid "Approvers Sequence?"
 msgstr "Secvență aprobatori?"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Approvers:"
+msgstr ""
+
+#. module: approvals
+#. odoo-javascript
+#: code:addons/approvals/static/src/views/kanban/approvals_category_kanban_controller.js:0
+#: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_kanban
+msgid "Archive"
+msgstr "Arhivează"
+
+#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
+#: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_kanban
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_search
 msgid "Archived"
 msgstr "Arhivat"
+
+#. module: approvals
+#. odoo-javascript
+#: code:addons/approvals/static/src/views/kanban/approvals_category_kanban_controller.js:0
+msgid "Are you sure that you want to archive this record?"
+msgstr "Sunteți sigur că doriți să arhivați această înregistrare?"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
@@ -239,9 +291,19 @@ msgid "Attach Document"
 msgstr "Atașați document"
 
 #. module: approvals
+#: model:ir.model,name:approvals.model_ir_attachment
+msgid "Attachment"
+msgstr "Atașament"
+
+#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_attachment_count
 msgid "Attachment Count"
 msgstr "Număr atașamente"
+
+#. module: approvals
+#: model:ir.model.fields,field_description:approvals.field_approval_request__attachment_ids
+msgid "Attachments"
+msgstr "Atașamente"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_category__automated_sequence
@@ -260,6 +322,11 @@ msgid "Borrow Items"
 msgstr "Împrumutați articole"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Brussels"
+msgstr "Bruxelles"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_business_trip
 msgid "Business Trip"
 msgstr "Călătorie de afaceri"
@@ -275,12 +342,22 @@ msgid "Can Edit"
 msgstr "Poate edita"
 
 #. module: approvals
+#: model:ir.model.fields,field_description:approvals.field_approval_approver__can_edit_user_id
+msgid "Can Edit User"
+msgstr ""
+
+#. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__cancel
-#: model:ir.model.fields.selection,name:approvals.selection__approval_request__request_status__cancel
-#: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__cancel
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 msgid "Cancel"
 msgstr "Anulează"
+
+#. module: approvals
+#: model:ir.model.fields.selection,name:approvals.selection__approval_request__request_status__cancel
+#: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__cancel
+#: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
+msgid "Canceled"
+msgstr "Anulat(ă)"
 
 #. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_car_rental_application
@@ -290,6 +367,7 @@ msgstr "Cerere de închiriere auto"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__product_uom_category_id
 #: model:ir.model.fields,field_description:approvals.field_approval_request__category_id
+#: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
 msgid "Category"
 msgstr "Categorie"
 
@@ -318,10 +396,20 @@ msgid "Configuration"
 msgstr "Configurare"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_tree
+msgid "Confirm Date"
+msgstr ""
+
+#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__partner_id
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
 msgid "Contact"
-msgstr "Contact"
+msgstr "Contactați"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Contact:"
+msgstr "Contact:"
 
 #. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_contract_approval
@@ -330,8 +418,17 @@ msgstr "Aprobarea contractului"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_product_line__product_uom_category_id
-msgid "Conversion between Units of Measure can only occur if they belong to the same category. The conversion will be made based on the ratios."
-msgstr "Conversia între Unitățile de Măsura pot avea loc numai dacă ele aparțin aceleiași categorii. Conversia va fi făcută pe baza proporțiilor."
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
+"Conversia între Unitățile de Măsură poate fi efectuată numai dacă acestea "
+"aparțin aceleiași categorii. Conversia va fi făcută pe baza indicilor."
+
+#. module: approvals
+#: model_terms:ir.actions.act_window,help:approvals.product_product_action
+msgid "Create a new product variant"
+msgstr "Creați o nouă variantă de produs"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__create_uid
@@ -349,10 +446,11 @@ msgstr "Creat de"
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__create_date
 #: model:ir.model.fields,field_description:approvals.field_approval_request__create_date
 msgid "Created on"
-msgstr "Creat în"
+msgstr "Creat pe"
 
 #. module: approvals
 #: model:ir.actions.act_window,name:approvals.approval_category_action_new_request
+#: model:ir.ui.menu,name:approvals.approvals_category_menu_new
 msgid "Dashboard"
 msgstr "Tablou de bord"
 
@@ -379,10 +477,16 @@ msgid "Date start"
 msgstr "Dată început"
 
 #. module: approvals
-#. odoo-javascript
-#: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-msgid "Deadline"
-msgstr "Termen limita"
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Date:"
+msgstr "Dată:"
+
+#. module: approvals
+#: model_terms:ir.actions.act_window,help:approvals.product_template_action
+msgid ""
+"Define the components and finished products you wish to use in\n"
+"            bill of materials and manufacturing orders."
+msgstr ""
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
@@ -419,9 +523,19 @@ msgid "Documents"
 msgstr "Documente"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Documents:"
+msgstr ""
+
+#. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 msgid "E.g: Expenses Paris business trip"
 msgstr "De exemplu: Cheltuieli de călătorie de afaceri la Paris"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_kanban
+msgid "Edit"
+msgstr "Editare"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
@@ -451,7 +565,7 @@ msgstr "Câmpuri"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_follower_ids
 msgid "Followers"
-msgstr "Persoane interesate"
+msgstr "Urmăritori"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_partner_ids
@@ -461,12 +575,22 @@ msgstr "Urmăritori (Parteneri)"
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Pictogramă minunată pentru font, de ex. fa-sarcini"
+msgstr "Pictogramă Font awesome, de ex. fa-sarcini"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "From:"
+msgstr "De la:"
 
 #. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_general_approval
 msgid "General Approval"
 msgstr "Aprobare generală"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
+msgid "Group By"
+msgstr "Grupează după"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__has_access_to_request
@@ -566,28 +690,36 @@ msgstr "Pictogramă"
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Pictograma pentru a indica o activitate de excepție."
+msgstr "Pictograma care indică o activitate de excepție."
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Dacă este selectat, mesajele noi necesită atenția dumneavoastră."
+msgstr "Dacă este bifat, mesaje noi necesită atenția dumneavoastră."
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__message_has_error
+#: model:ir.model.fields,help:approvals.field_approval_request__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Dacă este bifată, unele mesaje au o eroare de livrare."
+msgstr "Dacă este bifată, există mesaje cu eroare de livrare."
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__automated_sequence
 #: model:ir.model.fields,help:approvals.field_approval_request__automated_sequence
-msgid "If checked, the Approval Requests will have an automated generated name based on the given code."
-msgstr "Dacă este bifată, Solicitările de aprobare vor avea un nume generat automat pe baza codului dat."
+msgid ""
+"If checked, the Approval Requests will have an automated generated name "
+"based on the given code."
+msgstr ""
+"Dacă este bifată, Solicitările de aprobare vor avea un nume generat automat "
+"pe baza codului dat."
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_category__approver_sequence
 #: model:ir.model.fields,help:approvals.field_approval_request__approver_sequence
-msgid "If checked, the approvers have to approve in sequence (one after the other). If Employee's Manager is selected as approver, they will be the first in line."
+msgid ""
+"If checked, the approvers have to approve in sequence (one after the other)."
+" If Employee's Manager is selected as approver, they will be the first in "
+"line."
 msgstr ""
 
 #. module: approvals
@@ -653,14 +785,21 @@ msgstr "Să mergem la"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__location
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_tree
 msgid "Location"
 msgstr "Locație"
 
 #. module: approvals
-#. odoo-javascript
-#: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
-msgid "Log"
-msgstr "Jurnal"
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Location:"
+msgstr "Locație:"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+"tempor incididunt ut labore et dolore magna aliqua."
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_main_attachment_id
@@ -673,9 +812,14 @@ msgid "Manager"
 msgstr "Manager"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Marc Demo"
+msgstr "Marc Demo"
+
+#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_has_error
 msgid "Message Delivery error"
-msgstr "Eroare livrare mesaj"
+msgstr "Eroare de livrare a mesajului"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_ids
@@ -691,8 +835,16 @@ msgstr "Aprobare minimă"
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_category.py:0
-msgid "Minimum Approval must be equal or superior to the sum of required Approvers."
-msgstr "Aprobarea minimă trebuie să fie egală sau superioară sumei aprobatorilor necesari."
+msgid ""
+"Minimum Approval must be equal or superior to the sum of required Approvers."
+msgstr ""
+"Aprobarea minimă trebuie să fie egală sau superioară sumei aprobatorilor "
+"necesari."
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Mitchell Admin"
+msgstr "Mitchell Admin"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__my_activity_date_deadline
@@ -731,10 +883,11 @@ msgstr "Nume"
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__new
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__new
 msgid "New"
-msgstr "Nou(ă)"
+msgstr "Nou"
 
 #. module: approvals
-#: model:ir.ui.menu,name:approvals.approvals_category_menu_new
+#. odoo-javascript
+#: code:addons/approvals/static/src/views/kanban/approvals_category_kanban_controller.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_kanban
 msgid "New Request"
 msgstr "Cerere nouă"
@@ -757,7 +910,7 @@ msgstr "Sumarul următoarei activități"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tip de activitate urmatoare"
+msgstr "Următorul tip de activitate"
 
 #. module: approvals
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
@@ -774,6 +927,11 @@ msgstr "Nicio cerere de aprobare"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_to_review_category
 msgid "No new approvals to review"
 msgstr "Nu există aprobări noi de revizuit"
+
+#. module: approvals
+#: model_terms:ir.actions.act_window,help:approvals.product_template_action
+msgid "No product found. Let's create one!"
+msgstr "Nu a fost găsit niciun produs. Să creăm unul!"
 
 #. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_category__has_amount__no
@@ -801,12 +959,12 @@ msgstr "Numărul de atașamente"
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__message_has_error_counter
 msgid "Number of errors"
-msgstr "Numărul de erori"
+msgstr "Număr de erori"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Număr de mesaje ce necesită intervenție"
+msgid "Number of messages requiring action"
+msgstr "Numărul de mesaje care necesită acțiune"
 
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__message_has_error_counter
@@ -821,6 +979,11 @@ msgstr "Numărul de solicitări de validat"
 #. module: approvals
 #: model:res.groups,name:approvals.group_approval_user
 msgid "Officer: Approve all requests"
+msgstr ""
+
+#. module: approvals
+#: model:ir.actions.server,name:approvals.action_open_approval_category
+msgid "Open Approval Category"
 msgstr ""
 
 #. module: approvals
@@ -859,6 +1022,16 @@ msgid "Period"
 msgstr "Perioadă"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Period:"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "Print"
+msgstr "Tipăriți"
+
+#. module: approvals
 #: model:approval.category,name:approvals.approval_category_data_procurement
 msgid "Procurement"
 msgstr "Aprovizionare"
@@ -869,20 +1042,28 @@ msgid "Product"
 msgstr "Produs"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Product Description"
+msgstr "Descriere produs"
+
+#. module: approvals
 #: model:ir.model,name:approvals.model_approval_product_line
 #: model:ir.model.fields,field_description:approvals.field_approval_request__product_line_ids
 msgid "Product Line"
 msgstr "Linie de produs"
 
 #. module: approvals
+#: model:ir.actions.act_window,name:approvals.product_product_action
 #: model:ir.ui.menu,name:approvals.approvals_menu_product_variant
 msgid "Product Variants"
 msgstr "Variante produs"
 
 #. module: approvals
+#: model:ir.actions.act_window,name:approvals.product_template_action
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__product_id
 #: model:ir.ui.menu,name:approvals.approvals_menu_product
 #: model:ir.ui.menu,name:approvals.approvals_menu_product_template
+#: model_terms:ir.ui.view,arch_db:approvals.approval_product_kanban_mobile_view
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree
 #: model_terms:ir.ui.view,arch_db:approvals.approval_product_line_view_tree_independent
@@ -894,13 +1075,14 @@ msgstr "Produse"
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__quantity
 #: model:ir.model.fields,field_description:approvals.field_approval_request__quantity
 #: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_form
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
 msgid "Quantity"
 msgstr "Cantitate"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Ratings"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__reference
@@ -914,9 +1096,13 @@ msgid "Reference Sequence"
 msgstr "Secvență referință"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Reference:"
+msgstr "Referință:"
+
+#. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/web/activity/approval.xml:0
-#: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_kanban
 msgid "Refuse"
@@ -926,6 +1112,7 @@ msgstr "Refuzați"
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__refused
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__request_status__refused
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__refused
+#: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
 msgid "Refused"
 msgstr "Respins"
 
@@ -941,14 +1128,30 @@ msgid "Request Approval"
 msgstr "Solicitare Aprobare"
 
 #. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Request By:"
+msgstr ""
+
+#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__request_owner_id
+#: model_terms:ir.ui.view,arch_db:approvals.approval_search_view_search
 msgid "Request Owner"
 msgstr "Solicitare Propietar"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_tree
+msgid "Request Start"
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__request_status
 msgid "Request Status"
 msgstr "Stare Solicitare"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_tree
+msgid "Request To"
+msgstr "Solicitați la / către"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__required
@@ -972,13 +1175,35 @@ msgid "Responsible User"
 msgstr "Utilizator responsabil"
 
 #. module: approvals
-#. odoo-python
-#: code:addons/approvals/models/approval_category.py:0
+#: model:ir.model.fields,field_description:approvals.field_approval_request__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Eroare livrare SMS"
+
+#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category__sequence
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__sequence
 msgid "Sequence"
 msgstr "Secvență"
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_category.py:0
+msgid "Sequence %(code)s"
+msgstr ""
+
+#. module: approvals
+#: model:ir.model.fields,help:approvals.field_approval_approver__can_edit_user_id
+msgid ""
+"Simple users should not be able to remove themselves as approvers because "
+"they will lose access to the record if they misclick."
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+msgid "Start date should precede the end date."
+msgstr ""
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__status
@@ -994,9 +1219,14 @@ msgid ""
 "Planned: Future activities."
 msgstr ""
 "Stare bazată pe activități\n"
-"Întârziată: data scadentă este deja trecută\n"
-"Astăzi: activității pentru astăzi\n"
+"Întârziată: data activitații este deja trecută\n"
+"Astăzi: data activității este astăzi\n"
 "Planificate: activități viitoare."
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Status:"
+msgstr "Stare:"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
@@ -1007,6 +1237,54 @@ msgstr "Trimite"
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__request_status__pending
 msgid "Submitted"
 msgstr "Trimis"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Test Category"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Test Document"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Test Product"
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Test Reference"
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+msgid "The request %(request_name)s for %(request_owner)s has been accepted"
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+msgid "The request %(request_name)s for %(request_owner)s has been refused"
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+msgid ""
+"The request created on %(create_date)s by %(request_owner)s has been "
+"accepted."
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/approval_request.py:0
+msgid ""
+"The request created on %(create_date)s by %(request_owner)s has been "
+"refused."
+msgstr ""
 
 #. module: approvals
 #: model:res.groups,comment:approvals.group_approval_user
@@ -1021,25 +1299,36 @@ msgstr "Utilizatorul va avea acces la configurația aprobărilor."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-msgid "This request needs to be approved by your manager. There is no manager linked to your employee profile."
-msgstr "Această solicitare trebuie să fie aprobată de către managerul tău. Nu există manager asociat profilului tău de angajat."
+msgid ""
+"This request needs to be approved by your manager. There is no manager "
+"linked to your employee profile."
+msgstr ""
+"Această solicitare trebuie să fie aprobată de către managerul tău. Nu există"
+" manager asociat profilului tău de angajat."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-msgid "This request needs to be approved by your manager. There is no user linked to your manager."
-msgstr "Această solicitare trebuie să fie aprobată de către managerul tău. Nu există utilizator asociat managerului tău."
+msgid ""
+"This request needs to be approved by your manager. There is no user linked "
+"to your manager."
+msgstr ""
+"Această solicitare trebuie să fie aprobată de către managerul tău. Nu există"
+" utilizator asociat managerului tău."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-msgid "This request needs to be approved by your manager. Your manager is not in the approvers list."
-msgstr "Această solicitare trebuie să fie aprobată de către managerul tău. Managerul tău nu este în lista de aprobatori."
+msgid ""
+"This request needs to be approved by your manager. Your manager is not in "
+"the approvers list."
+msgstr ""
+"Această solicitare trebuie să fie aprobată de către managerul tău. Managerul"
+" tău nu este în lista de aprobatori."
 
 #. module: approvals
 #. odoo-javascript
 #: code:addons/approvals/static/src/web/activity/approval.xml:0
-#: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__pending
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__pending
 msgid "To Approve"
@@ -1058,7 +1347,12 @@ msgstr "De Depus"
 #. module: approvals
 #: model:ir.model.fields,help:approvals.field_approval_request__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Tipul activității de excepție din înregistrare."
+msgstr "Tipul de activitate de excepție înregistrată."
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_category_view_kanban
+msgid "Unarchive"
+msgstr "Dezarhivează"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_product_line__product_uom_id
@@ -1066,12 +1360,20 @@ msgid "Unit of Measure"
 msgstr "Unitatea de măsură"
 
 #. module: approvals
-#. odoo-javascript
-#: code:addons/approvals/static/src/xml/web_kanban_activity.xml:0
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "Units"
+msgstr "Buc"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.report_aprroval_request_document
+msgid "UoM"
+msgstr "UM"
+
+#. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_approver__user_id
 #: model:ir.model.fields,field_description:approvals.field_approval_category_approver__user_id
 msgid "User"
-msgstr "Operator"
+msgstr "Utilizator"
 
 #. module: approvals
 #: model:ir.model.fields,field_description:approvals.field_approval_request__user_status
@@ -1079,10 +1381,25 @@ msgid "User Status"
 msgstr "Starea utilizatorului"
 
 #. module: approvals
+#: model:ir.model.fields,field_description:approvals.field_approval_request__user_ids
+msgid "Users"
+msgstr "Utilizatori"
+
+#. module: approvals
 #: model:ir.model.fields.selection,name:approvals.selection__approval_approver__status__waiting
 #: model:ir.model.fields.selection,name:approvals.selection__approval_request__user_status__waiting
 msgid "Waiting"
 msgstr "În așteptare"
+
+#. module: approvals
+#: model:ir.model.fields,field_description:approvals.field_approval_request__website_message_ids
+msgid "Website Messages"
+msgstr "Mesaje de pe site-ul web"
+
+#. module: approvals
+#: model:ir.model.fields,help:approvals.field_approval_request__website_message_ids
+msgid "Website communication history"
+msgstr "Istoricul comunicării pe site-ul web"
 
 #. module: approvals
 #: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
@@ -1099,20 +1416,40 @@ msgstr "Nu puteți aproba înainte de aprobarea anterioară."
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-msgid "You cannot assign the same approver multiple times on the same request."
+msgid ""
+"You cannot assign the same approver multiple times on the same request."
+msgstr ""
+
+#. module: approvals
+#. odoo-python
+#: code:addons/approvals/models/ir_attachment.py:0
+msgid ""
+"You cannot unlink an attachment which is linked to a validated, refused or "
+"cancelled approval request."
 msgstr ""
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
 msgid "You have to add at least %s approvers to confirm your request."
-msgstr "Trebuie să adăugați cel puțin %s aprobatori pentru a vă confirma solicitarea."
+msgstr ""
+"Trebuie să adăugați cel puțin %s aprobatori pentru a vă confirma "
+"solicitarea."
 
 #. module: approvals
 #. odoo-python
 #: code:addons/approvals/models/approval_request.py:0
-msgid "You have to attach at lease one document."
-msgstr "Trebuie să atașați la arendă un document."
+msgid "You have to attach at least one document."
+msgstr ""
+
+#. module: approvals
+#: model_terms:ir.actions.act_window,help:approvals.product_product_action
+msgid ""
+"You must define a product for everything you sell or purchase,\n"
+"            whether it's a storable product, a consumable or a service."
+msgstr ""
+"Trebuie să definiți un produs pentru tot ceea ce vindeți sau cumpărați, "
+"indiferent dacă este un produs stocabil, un consumabil sau un serviciu."
 
 #. module: approvals
 #. odoo-python
@@ -1141,3 +1478,8 @@ msgstr "meniu"
 #: model_terms:ir.actions.act_window,help:approvals.approval_request_action_all
 msgid "new request"
 msgstr "solicitare nouă"
+
+#. module: approvals
+#: model_terms:ir.ui.view,arch_db:approvals.approval_request_view_form
+msgid "to:"
+msgstr "către"

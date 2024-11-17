@@ -3,8 +3,11 @@
 # 	* hr_contract_sign
 # 
 # Translators:
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
 # Martin Trigaux, 2024
 # Bole <bole@dajmi5.com>, 2024
+# Kristina Palaš, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:27+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
+"Last-Translator: Karolina Tonković <karolina.tonkovic@storm.hr>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -84,7 +87,7 @@ msgstr "Povijest ugovora"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__cc_partner_ids
 msgid "Copy to"
-msgstr ""
+msgstr "Kopiraj u"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__create_uid
@@ -109,17 +112,17 @@ msgstr "Naziv za prikaz"
 #. module: hr_contract_sign
 #: model:ir.actions.act_window,name:hr_contract_sign.sign_contract_wizard_action
 msgid "Document Signature"
-msgstr ""
+msgstr "Potpis dokumenta"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__sign_template_id
 msgid "Document to sign"
-msgstr ""
+msgstr "Dokument za potpisivanje"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__sign_template_ids
 msgid "Documents to sign"
-msgstr ""
+msgstr "Dokumenti za potpisivanje"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,help:hr_contract_sign.field_hr_contract_sign_document_wizard__sign_template_ids
@@ -128,6 +131,9 @@ msgid ""
 "        Documents with 1 responsible will only have to be signed by the employee while documents with 2 different responsible will have to be signed by both the employee and the responsible.\n"
 "        "
 msgstr ""
+"Dokumenti za potpisivanje. Moguće je odabrati samo dokumente kojima je dodijeljena 1 ili 2 različite odgovorne osobe.\n"
+"        Dokumente kojima je dodijeljena 1 odgovorna osoba treba potpisati samo zaposlenik, dok dokumente kojima su dodijeljene 2 različite odgovorne osobe trebaju potpisati i zaposlenik i odgovorna osoba od strane poslodavca.\n"
+"        "
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__mail_to
@@ -175,12 +181,12 @@ msgstr "Djelatnici"
 #. module: hr_contract_sign
 #: model:sign.item.role,name:hr_contract_sign.sign_item_role_job_responsible
 msgid "HR Responsible"
-msgstr ""
+msgstr "Odgovoran"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__has_both_template
 msgid "Has Both Template"
-msgstr ""
+msgstr "Ima oba predloška"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__id
@@ -190,7 +196,7 @@ msgstr "ID"
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__is_signature_request
 msgid "Is Signature Request"
-msgstr ""
+msgstr "Zahtjev za potpis"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__write_uid
@@ -210,7 +216,7 @@ msgstr ""
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "Mail Options"
-msgstr ""
+msgstr "Opije e-pošte"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__message
@@ -224,22 +230,24 @@ msgid ""
 "No appropriate template could be found, please make sure you configured them"
 " properly."
 msgstr ""
+"Nije moguće pronaći odgovarajući predložak, provjerite jeste li ih ispravno "
+"konfigurirali."
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "No template available"
-msgstr ""
+msgstr "Predložak nije dostupan"
 
 #. module: hr_contract_sign
 #. odoo-python
 #: code:addons/hr_contract_sign/wizard/hr_contract_sign_document_wizard.py:0
 msgid "Only %s has to sign."
-msgstr ""
+msgstr "Samo %s treba potpisati."
 
 #. module: hr_contract_sign
 #: model:sign.template,redirect_url_text:hr_contract_sign.template_sign_termination
 msgid "Open Link"
-msgstr ""
+msgstr "Otvori link"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
@@ -254,18 +262,18 @@ msgstr ""
 #. module: hr_contract_sign
 #: model:ir.model.fields.selection,name:hr_contract_sign.selection__hr_contract_sign_document_wizard__mail_to__private
 msgid "Private"
-msgstr ""
+msgstr "Privatno"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract__sign_request_ids
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_employee__sign_request_ids
 msgid "Requested Signatures"
-msgstr ""
+msgstr "Zatraženi potpisi"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__responsible_id
 msgid "Responsible"
-msgstr ""
+msgstr "Odgovoran"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_mail_activity_plan_template__responsible_count
@@ -275,19 +283,19 @@ msgstr ""
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "Send"
-msgstr ""
+msgstr "Pošalji"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract__sign_request_count
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_employee__sign_request_count
 #: model:ir.model.fields,field_description:hr_contract_sign.field_res_users__sign_request_count
 msgid "Sign Request Count"
-msgstr ""
+msgstr "Broj zahtjeva za potpisivanje"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "Sign Request Options"
-msgstr ""
+msgstr "Opcije zahtjeva za potpisivanje"
 
 #. module: hr_contract_sign
 #: model:ir.model.fields,field_description:hr_contract_sign.field_hr_contract_sign_document_wizard__sign_template_responsible_ids
@@ -298,7 +306,7 @@ msgstr ""
 #. module: hr_contract_sign
 #: model:ir.model,name:hr_contract_sign.model_hr_contract_sign_document_wizard
 msgid "Sign document in contract"
-msgstr ""
+msgstr "Potpišite dokument u privitku ugovora."
 
 #. module: hr_contract_sign
 #. odoo-python
@@ -309,7 +317,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_employee_sign_view_form
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "Signature Request"
-msgstr ""
+msgstr "Zahtjev za potpis"
 
 #. module: hr_contract_sign
 #: model:ir.actions.server,name:hr_contract_sign.action_signature_request_wizard
@@ -347,7 +355,7 @@ msgstr ""
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.view_hr_contract_sign
 msgid "Write email or search contact..."
-msgstr ""
+msgstr "Napišite e-mail ili pretražite kontakte..."
 
 #. module: hr_contract_sign
 #. odoo-python
@@ -355,13 +363,15 @@ msgstr ""
 msgid ""
 "You can't delete a contract linked to a signed document, archive it instead."
 msgstr ""
+"Ne možete obrisati ugovor povezan s potpisanim dokumentom, umjesto toga ga "
+"arhivirajte."
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_history_view_form
 msgid "document"
-msgstr ""
+msgstr "dokument"
 
 #. module: hr_contract_sign
 #: model_terms:ir.ui.view,arch_db:hr_contract_sign.hr_contract_history_view_form
 msgid "documents"
-msgstr ""
+msgstr "dokumenti"

@@ -3,7 +3,10 @@
 # 	* delivery_ups
 # 
 # Translators:
+# Vladimir Vrgoč, 2024
 # Bole <bole@dajmi5.com>, 2024
+# Martin Trigaux, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:29+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
+"Last-Translator: Karolina Tonković <karolina.tonkovic@storm.hr>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -81,7 +84,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_stock_package_type__package_carrier_type
 msgid "Carrier"
-msgstr ""
+msgstr "Prijevoznik"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_cod_funds_code__8
@@ -91,7 +94,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_dimension_unit__cm
 msgid "Centimeters"
-msgstr ""
+msgstr "Centimetri"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_cod_funds_code__0
@@ -116,7 +119,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_label_file_type__epl
 msgid "EPL"
-msgstr ""
+msgstr "EPL"
 
 #. module: delivery_ups
 #. odoo-python
@@ -146,7 +149,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_dimension_unit__in
 msgid "Inches"
-msgstr ""
+msgstr "Inči"
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_package_weight_unit__kgs
@@ -340,7 +343,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid "Please provide at least one item to ship."
-msgstr ""
+msgstr "Navedite barem jednu stavku za isporuku."
 
 #. module: delivery_ups
 #. odoo-python
@@ -374,12 +377,12 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__delivery_type
 msgid "Provider"
-msgstr ""
+msgstr "Davatelj "
 
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_duty_payment__recipient
 msgid "Recipient"
-msgstr ""
+msgstr "Primatelj"
 
 #. module: delivery_ups
 #. odoo-python
@@ -408,7 +411,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_label_file_type__spl
 msgid "SPL"
-msgstr ""
+msgstr "SPL"
 
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_sale_order
@@ -423,7 +426,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields.selection,name:delivery_ups.selection__delivery_carrier__ups_duty_payment__sender
 msgid "Sender"
-msgstr ""
+msgstr "Pošiljalac"
 
 #. module: delivery_ups
 #. odoo-python
@@ -464,7 +467,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_delivery_carrier
 msgid "Shipping Methods"
-msgstr ""
+msgstr "Načini dostave"
 
 #. module: delivery_ups
 #: model:ir.model,name:delivery_ups.model_stock_package_type
@@ -484,6 +487,8 @@ msgid ""
 "The address of your company is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"Neodstaje adresa vaše tvrtke ili je kriva.\n"
+"(Polja(e) koje nedostaje : %s)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -492,13 +497,15 @@ msgid ""
 "The address of your warehouse is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"Nedostaje adresa vašeg skladišta ili je kriva.\n"
+"(Polja(e) koje nedostaje : %s)"
 
 #. module: delivery_ups
 #. odoo-python
 #: code:addons/delivery_ups/models/ups_request.py:0
 msgid ""
 "The delivery cannot be done because the weight of your product is missing."
-msgstr ""
+msgstr "Ne možemo isporučiti, jer nedostaje težina proizvoda."
 
 #. module: delivery_ups
 #. odoo-python
@@ -529,6 +536,8 @@ msgid ""
 "The recipient address is missing or wrong.\n"
 "(Missing field(s) : %s)"
 msgstr ""
+"Nedostaje adresa primatelja ili je kriva.\n"
+"(Polja(e) koje nedostaje : %s)"
 
 #. module: delivery_ups
 #. odoo-python
@@ -624,12 +633,12 @@ msgstr ""
 #: model:delivery.carrier,name:delivery_ups.delivery_carrier_ups_be
 #: model:product.template,name:delivery_ups.product_product_delivery_ups_be_product_template
 msgid "UPS BE"
-msgstr ""
+msgstr "UPS BE"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.view_delivery_carrier_form_with_provider_ups
 msgid "UPS Configuration"
-msgstr ""
+msgstr "UPS postava"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_label_file_type
@@ -649,7 +658,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_passwd
 msgid "UPS Password"
-msgstr ""
+msgstr "UPS lozinka"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_saturday_delivery
@@ -665,7 +674,7 @@ msgstr ""
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_default_service_type
 msgid "UPS Service Type"
-msgstr ""
+msgstr "UPS tip usluge"
 
 #. module: delivery_ups
 #: model_terms:ir.ui.view,arch_db:delivery_ups.res_config_settings_view_form_sale
@@ -677,12 +686,12 @@ msgstr ""
 #: model:delivery.carrier,name:delivery_ups.delivery_carrier_ups_us
 #: model:product.template,name:delivery_ups.product_product_delivery_ups_us_product_template
 msgid "UPS US"
-msgstr ""
+msgstr "UPS US"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_delivery_carrier__ups_username
 msgid "UPS Username"
-msgstr ""
+msgstr "UPS korisničko ime"
 
 #. module: delivery_ups
 #: model:ir.model.fields,field_description:delivery_ups.field_sale_order__partner_ups_carrier_account

@@ -3,6 +3,8 @@
 # 	* documents_account
 # 
 # Translators:
+# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2024
+# Martin Trigaux, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
 msgid ""
@@ -34,17 +36,17 @@ msgstr ""
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.account_move_view_form
 msgid "<span class=\"o_stat_text\">Documents</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Dokumenti</span>"
 
 #. module: documents_account
 #: model:ir.model.constraint,message:documents_account.constraint_documents_account_folder_setting_journal_unique
 msgid "A setting already exists for this journal"
-msgstr ""
+msgstr "Postavka već postoji za ovaj dnevnik"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_res_config_settings__documents_account_settings
 msgid "Accounting "
-msgstr ""
+msgstr "Knjigovodstvo"
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_account_report
@@ -72,7 +74,7 @@ msgstr "Prilog"
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.res_config_settings_view_form
 msgid "Centralize accounting files and documents"
-msgstr ""
+msgstr "Centraliziraj knjigovodstvene datoteke i dokumente"
 
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.view_account_move_form_inherit_documents_account
@@ -136,7 +138,7 @@ msgstr ""
 #: model:ir.actions.server,name:documents_account.ir_actions_server_create_customer_invoice
 #: model:ir.actions.server,name:documents_account.ir_actions_server_create_customer_invoice_code
 msgid "Create Customer Invoice"
-msgstr ""
+msgstr "Kreiraj izlazni račun"
 
 #. module: documents_account
 #: model:ir.actions.server,name:documents_account.ir_actions_server_create_misc_entry
@@ -190,7 +192,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_account/models/account_report.py:0
 msgid "Export"
-msgstr ""
+msgstr "Izvoz"
 
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_account_reports_export_wizard_format
@@ -205,12 +207,12 @@ msgstr ""
 #. module: documents_account
 #: model:mail.activity.type,name:documents_account.mail_documents_activity_data_fs
 msgid "Financial Statement"
-msgstr ""
+msgstr "Financijski izvještaj"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_account_reports_export_wizard__folder_id
 msgid "Folder"
-msgstr ""
+msgstr "Mapa"
 
 #. module: documents_account
 #: model:ir.model.fields,help:documents_account.field_account_reports_export_wizard__folder_id
@@ -221,7 +223,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_account/wizard/account_reports_export_wizard.py:0
 msgid "Generated Documents"
-msgstr ""
+msgstr "Generirani dokumenti"
 
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_account_bank_statement_line__has_documents
@@ -243,7 +245,7 @@ msgstr "ID"
 #: model:ir.actions.server,name:documents_account.ir_actions_server_bank_statement
 #: model:ir.actions.server,name:documents_account.ir_actions_server_bank_statement_code
 msgid "Import Bank Statement"
-msgstr ""
+msgstr "Uvoz bankovnog izvoda"
 
 #. module: documents_account
 #. odoo-python
@@ -264,12 +266,12 @@ msgstr "Temeljnica"
 #. module: documents_account
 #: model:ir.model,name:documents_account.model_documents_account_folder_setting
 msgid "Journal and Folder settings"
-msgstr ""
+msgstr "Postavke dnevnika i mapa"
 
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.res_config_settings_view_form
 msgid "Journals"
-msgstr ""
+msgstr "Dnevnici"
 
 #. module: documents_account
 #: model:ir.actions.act_window,name:documents_account.action_folder_settings_installer
@@ -335,7 +337,7 @@ msgstr "Oznake"
 #. module: documents_account
 #: model:mail.activity.type,name:documents_account.mail_documents_activity_data_vat
 msgid "Tax Statement"
-msgstr ""
+msgstr "Porezni izvještaj"
 
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.view_account_move_form_inherit_documents_account
@@ -353,7 +355,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:documents_account.field_documents_account_folder_setting__folder_id
 #: model_terms:ir.ui.view,arch_db:documents_account.res_config_settings_view_form
 msgid "Workspace"
-msgstr ""
+msgstr "Radni prostor"
 
 #. module: documents_account
 #: model_terms:web_tour.tour,rainbow_man_message:documents_account.documents_account_tour
@@ -371,7 +373,7 @@ msgstr ""
 #. module: documents_account
 #: model:ir.model.fields,field_description:documents_account.field_res_config_settings__account_folder_id
 msgid "account default folder"
-msgstr ""
+msgstr "zadana mapa knjigovodstva"
 
 #. module: documents_account
 #: model_terms:ir.ui.view,arch_db:documents_account.view_account_move_form_inherit_documents_account

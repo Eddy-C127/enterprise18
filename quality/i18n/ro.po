@@ -1,26 +1,23 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* quality
-#
+# 
 # Translators:
-# Hongu Cosmin <cosmin513@gmail.com>, 2022
-# Martin Trigaux, 2022
-# Foldi Robert <foldirobert@nexterp.ro>, 2022
-# Dorin Hongu <dhongu@gmail.com>, 2023
-# Cozmin Candea <office@terrabit.ro>, 2023
-#
+# Lyall Kindmurr, 2024
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:01+0000\n"
-"PO-Revision-Date: 2022-09-22 05:48+0000\n"
-"Last-Translator: Cozmin Candea <office@terrabit.ro>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:25+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Romanian (https://app.transifex.com/odoo/teams/41243/ro/)\n"
-"Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: ro\n"
 "Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?2:1));\n"
 
 #. module: quality
@@ -36,8 +33,12 @@ msgstr "# Verificări Calitate"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_defaults
-msgid "A Python dictionary that will be evaluated to provide default values when creating new records for this alias."
-msgstr "Un dicționar Python care va fi evaluat pentru a oferi valori implicite la crearea de noi înregistrări pentru acest alias."
+msgid ""
+"A Python dictionary that will be evaluated to provide default values when "
+"creating new records for this alias."
+msgstr ""
+"Un dicționar Python care va fi citit pentru a oferi valori implicite la "
+"crearea de noi înregistrări pentru acest alias."
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__message_needaction
@@ -45,7 +46,7 @@ msgstr "Un dicționar Python care va fi evaluat pentru a oferi valori implicite 
 #: model:ir.model.fields,field_description:quality.field_quality_check__message_needaction
 #: model:ir.model.fields,field_description:quality.field_quality_point__message_needaction
 msgid "Action Needed"
-msgstr "Intervenție necesară"
+msgstr "Acțiune necesară"
 
 #. module: quality
 #: model:quality.alert.stage,name:quality.quality_alert_stage_2
@@ -67,7 +68,7 @@ msgstr "Activități"
 #: model:ir.model.fields,field_description:quality.field_quality_alert__activity_exception_decoration
 #: model:ir.model.fields,field_description:quality.field_quality_check__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Activitate Excepție Decorare"
+msgstr "Decorator Excepție Activitate"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__activity_state
@@ -80,6 +81,11 @@ msgstr "Stare activitate"
 #: model:ir.model.fields,field_description:quality.field_quality_check__activity_type_icon
 msgid "Activity Type Icon"
 msgstr "Pictograma tipului de activitate"
+
+#. module: quality
+#: model_terms:ir.ui.view,arch_db:quality.quality_check_view_activity
+msgid "Activity view"
+msgstr "Vizualizare activitate"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_check__additional_note
@@ -114,27 +120,37 @@ msgstr "Alias"
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_contact
 msgid "Alias Contact Security"
-msgstr "Alias Contact Security"
+msgstr "Alias Contact Securitate"
+
+#. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_domain_id
+msgid "Alias Domain"
+msgstr "Alias Domeniu"
+
+#. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_domain
+msgid "Alias Domain Name"
+msgstr "Alias Nume de domeniu"
+
+#. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_full_name
+msgid "Alias Email"
+msgstr "Alias Email"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_name
 msgid "Alias Name"
-msgstr "Nume alias"
+msgstr "Alias nume"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_status
 msgid "Alias Status"
-msgstr ""
-
-#. module: quality
-#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_domain
-msgid "Alias domain"
-msgstr "Nume domeniu"
+msgstr "Stare Alias"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_status
 msgid "Alias status assessed on the last message received."
-msgstr ""
+msgstr "Starea aliasului evaluată pe ultimul mesaj primit."
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_model_id
@@ -163,12 +179,12 @@ msgstr "Cauză"
 #: model:ir.model.fields,field_description:quality.field_quality_alert__check_id
 #: model:ir.model.fields,field_description:quality.field_quality_point__check_ids
 msgid "Check"
-msgstr "Verifică"
+msgstr "Verificare"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_point__check_count
 msgid "Check Count"
-msgstr ""
+msgstr "Număr verificări"
 
 #. module: quality
 #. odoo-javascript
@@ -179,7 +195,7 @@ msgstr "Închide"
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__color
 msgid "Color"
-msgstr "Color"
+msgstr "Culoare"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_tag__color
@@ -236,7 +252,7 @@ msgstr "Creat de"
 #: model:ir.model.fields,field_description:quality.field_quality_reason__create_date
 #: model:ir.model.fields,field_description:quality.field_quality_tag__create_date
 msgid "Created on"
-msgstr "Creat în"
+msgstr "Creat pe"
 
 #. module: quality
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
@@ -246,7 +262,7 @@ msgstr "Data creării"
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_bounced_content
 msgid "Custom Bounced Message"
-msgstr "Mesaj personalizat de respins"
+msgstr "Mesaj personalizat de respingere"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__date_assign
@@ -276,7 +292,8 @@ msgstr "Descrieți verificarea calității de făcut ..."
 #. module: quality
 #: model_terms:ir.ui.view,arch_db:quality.quality_point_view_form
 msgid "Describe why you need to perform this quality check..."
-msgstr "Descrieți de ce trebuie să efectuați această verificare a calității ..."
+msgstr ""
+"Descrieți de ce trebuie să efectuați această verificare a calității ..."
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__description
@@ -301,9 +318,19 @@ msgid "Done"
 msgstr "Efectuat"
 
 #. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_email
+msgid "Email Alias"
+msgstr "Alias de e-mail"
+
+#. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__email_cc
 msgid "Email cc"
 msgstr "Email cc"
+
+#. module: quality
+#: model:ir.model.fields,help:quality.field_quality_alert_team__alias_domain
+msgid "Email domain e.g. 'example.com' in 'odoo@example.com'"
+msgstr "Domeniu de e-mail de ex. „example.com” în „odoo@example.com”"
 
 #. module: quality
 #: model:ir.model.fields.selection,name:quality.selection__quality_check__quality_state__fail
@@ -321,7 +348,7 @@ msgstr "Pliat"
 #: model:ir.model.fields,field_description:quality.field_quality_check__message_follower_ids
 #: model:ir.model.fields,field_description:quality.field_quality_point__message_follower_ids
 msgid "Followers"
-msgstr "Persoane interesate"
+msgstr "Urmăritori"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__message_partner_ids
@@ -335,7 +362,7 @@ msgstr "Urmăritori (Parteneri)"
 #: model:ir.model.fields,help:quality.field_quality_alert__activity_type_icon
 #: model:ir.model.fields,help:quality.field_quality_check__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr "Pictogramă minunată pentru font, de ex. fa-sarcini"
+msgstr "Pictogramă Font awesome, de ex. fa-sarcini"
 
 #. module: quality
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
@@ -374,8 +401,12 @@ msgstr "ID"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_parent_thread_id
-msgid "ID of the parent record holding the alias (example: project holding the task creation alias)"
-msgstr "ID al înregistrării părinte care deține alias (exemplu: proiect care deține alias de creare a sarcinilor)"
+msgid ""
+"ID of the parent record holding the alias (example: project holding the task"
+" creation alias)"
+msgstr ""
+"ID of the parent record holding the alias (example: project holding the task"
+" creation alias)"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__activity_exception_icon
@@ -387,7 +418,7 @@ msgstr "Pictogramă"
 #: model:ir.model.fields,help:quality.field_quality_alert__activity_exception_icon
 #: model:ir.model.fields,help:quality.field_quality_check__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr "Pictograma pentru a indica o activitate de excepție."
+msgstr "Pictograma care indică o activitate de excepție."
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert__message_needaction
@@ -395,7 +426,7 @@ msgstr "Pictograma pentru a indica o activitate de excepție."
 #: model:ir.model.fields,help:quality.field_quality_check__message_needaction
 #: model:ir.model.fields,help:quality.field_quality_point__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Dacă este selectat, mesajele noi necesită atenția dumneavoastră."
+msgstr "Dacă este bifat, mesaje noi necesită atenția dumneavoastră."
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert__message_has_error
@@ -407,12 +438,16 @@ msgstr "Dacă este selectat, mesajele noi necesită atenția dumneavoastră."
 #: model:ir.model.fields,help:quality.field_quality_point__message_has_error
 #: model:ir.model.fields,help:quality.field_quality_point__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Dacă este bifată, unele mesaje au o eroare de livrare."
+msgstr "Dacă este bifată, există mesaje cu eroare de livrare."
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_bounced_content
-msgid "If set, this content will automatically be sent out to unauthorized users instead of the default message."
-msgstr "Dacă este setat, acest conținut va fi trimis automat utilizatorilor neautorizați în loc de mesajul implicit."
+msgid ""
+"If set, this content will automatically be sent out to unauthorized users "
+"instead of the default message."
+msgstr ""
+"Dacă este setat, acest conținut va fi trimis automat utilizatorilor "
+"neautorizați în loc de mesajul implicit."
 
 #. module: quality
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
@@ -420,6 +455,7 @@ msgid "In Progress"
 msgstr "În desfășurare"
 
 #. module: quality
+#: model:quality.point.test_type,name:quality.test_type_instructions
 #: model_terms:ir.ui.view,arch_db:quality.quality_point_view_form
 msgid "Instructions"
 msgstr "Instrucțiuni"
@@ -462,6 +498,11 @@ msgid "Late Activities"
 msgstr "Activități întârziate"
 
 #. module: quality
+#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_incoming_local
+msgid "Local-part based incoming detection"
+msgstr "Detectare bazată pe partea locală a destinatarului"
+
+#. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__lot_id
 msgid "Lot"
 msgstr "Lot"
@@ -482,7 +523,7 @@ msgstr "Scăzut"
 #: model:ir.model.fields,field_description:quality.field_quality_check__message_has_error
 #: model:ir.model.fields,field_description:quality.field_quality_point__message_has_error
 msgid "Message Delivery error"
-msgstr "Eroare livrare mesaj"
+msgstr "Eroare de livrare a mesajului"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__message_ids
@@ -517,7 +558,7 @@ msgstr "Nume"
 #: code:addons/quality/models/quality.py:0
 #: model:quality.alert.stage,name:quality.quality_alert_stage_0
 msgid "New"
-msgstr "Nou(ă)"
+msgstr "Nou"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__activity_calendar_event_id
@@ -541,7 +582,7 @@ msgstr "Sumarul următoarei activități"
 #: model:ir.model.fields,field_description:quality.field_quality_alert__activity_type_id
 #: model:ir.model.fields,field_description:quality.field_quality_check__activity_type_id
 msgid "Next Activity Type"
-msgstr "Tip de activitate urmatoare"
+msgstr "Următorul tip de activitate"
 
 #. module: quality
 #. odoo-python
@@ -584,15 +625,15 @@ msgstr "Număr de acțiuni"
 #: model:ir.model.fields,field_description:quality.field_quality_check__message_has_error_counter
 #: model:ir.model.fields,field_description:quality.field_quality_point__message_has_error_counter
 msgid "Number of errors"
-msgstr "Numărul de erori"
+msgstr "Număr de erori"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert__message_needaction_counter
 #: model:ir.model.fields,help:quality.field_quality_alert_team__message_needaction_counter
 #: model:ir.model.fields,help:quality.field_quality_check__message_needaction_counter
 #: model:ir.model.fields,help:quality.field_quality_point__message_needaction_counter
-msgid "Number of messages which requires an action"
-msgstr "Număr de mesaje ce necesită intervenție"
+msgid "Number of messages requiring action"
+msgstr "Numărul de mesaje care necesită acțiune"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert__message_has_error_counter
@@ -615,18 +656,19 @@ msgstr "Operații"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_force_thread_id
-msgid "Optional ID of a thread (record) to which all incoming messages will be attached, even if they did not reply to it. If set, this will disable the creation of new records completely."
-msgstr "Id-ul optional al unei înregistrări la care vor fi atașate toate mesajele primite, chiar dacă nu i-au răspuns. Dacă este setat, acesta va dezactiva complet crearea de înregistrări noi."
+msgid ""
+"Optional ID of a thread (record) to which all incoming messages will be "
+"attached, even if they did not reply to it. If set, this will disable the "
+"creation of new records completely."
+msgstr ""
+"Id-ul optional al unei înregistrări la care vor fi atașate toate mesajele "
+"primite, chiar dacă nu i-au răspuns. Dacă este setat, acesta va dezactiva "
+"complet crearea de înregistrări noi."
 
 #. module: quality
 #: model:quality.reason,name:quality.reason_other
 msgid "Others"
 msgstr "Altele"
-
-#. module: quality
-#: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_user_id
-msgid "Owner"
-msgstr "Proprietar"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_parent_model_id
@@ -640,8 +682,14 @@ msgstr "ID-ul thread-ului înregistrării părinte"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_parent_model_id
-msgid "Parent model holding the alias. The model holding the alias reference is not necessarily the model given by alias_model_id (example: project (parent_model) and task (model))"
-msgstr "Modelul părinte care deține aliasul. Modelul care deține referința alias nu este neapărat modelul dat de alias_model_id (example: project (parent_model) and task (model))"
+msgid ""
+"Parent model holding the alias. The model holding the alias reference is not"
+" necessarily the model given by alias_model_id (example: project "
+"(parent_model) and task (model))"
+msgstr ""
+"Modelul părinte care deține aliasul. Modelul care deține referința alias nu "
+"este neapărat modelul dat de alias_model_id (example: project (parent_model)"
+" and task (model))"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_check__partner_id
@@ -662,7 +710,7 @@ msgstr "Trecut"
 #: model:ir.model.fields,field_description:quality.field_quality_alert__picking_id
 #: model:ir.model.fields,field_description:quality.field_quality_check__picking_id
 msgid "Picking"
-msgstr "Ridicare"
+msgstr "Livrare"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_check__picture
@@ -680,12 +728,18 @@ msgstr ""
 "Politica de a posta un mesaj pe document folosind mailgateway.\n"
 "- toată lumea: toată lumea poate posta\n"
 "- parteneri: numai parteneri autentificați\n"
-"- adepți: numai adepți ai documentului aferent sau membri ai canalelor următoare\n"
+"- adepți: numai urmăritori ai documentului aferent sau membri ai canalelor următoare\n"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__action_preventive
 msgid "Preventive Action"
 msgstr "Acțiune preventivă"
+
+#. module: quality
+#. odoo-javascript
+#: code:addons/quality/static/src/tablet_image_field/tablet_image_field.xml:0
+msgid "Preview"
+msgstr "Previzualizare"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__priority
@@ -707,7 +761,7 @@ msgstr "Categorii de produse"
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__product_id
 msgid "Product Variant"
-msgstr "Variantă produs"
+msgstr "Variantă de produs"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_point__product_ids
@@ -718,7 +772,7 @@ msgstr "Produse"
 #: model:ir.model,name:quality.model_quality_alert
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
 msgid "Quality Alert"
-msgstr "Alertă Calitate"
+msgstr "Alertă de Calitate"
 
 #. module: quality
 #: model:ir.model,name:quality.model_quality_alert_stage
@@ -733,12 +787,12 @@ msgstr "Echipă Alertă Calitate"
 #. module: quality
 #: model:ir.model,name:quality.model_quality_check
 msgid "Quality Check"
-msgstr "Verificare Calitate"
+msgstr "Verificare calitate"
 
 #. module: quality
 #: model:ir.model,name:quality.model_quality_point
 msgid "Quality Control Point"
-msgstr "Punct de Control Calitate"
+msgstr "Punct de control al calității"
 
 #. module: quality
 #: model:ir.model,name:quality.model_quality_point_test_type
@@ -747,13 +801,16 @@ msgstr "Tipul testului de control al calității"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_point__product_category_ids
-msgid "Quality Point will apply to every Products in the selected Product Categories."
+msgid ""
+"Quality Point will apply to every Products in the selected Product "
+"Categories."
 msgstr ""
+"Punctul de calitate se va aplica fiecărui produs din categoria  selectată."
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_point__product_ids
 msgid "Quality Point will apply to every selected Products."
-msgstr ""
+msgstr "Punctul de calitate se va aplica fiecărui produs selectat."
 
 #. module: quality
 #: model:ir.model,name:quality.model_quality_tag
@@ -771,12 +828,12 @@ msgstr "Echipa de calitate"
 #: model:ir.model.fields,field_description:quality.field_quality_check__rating_ids
 #: model:ir.model.fields,field_description:quality.field_quality_point__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Ratings"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert_team__alias_force_thread_id
 msgid "Record Thread ID"
-msgstr "ID Înregistrare Fir"
+msgstr "ID Înregistrare Thread"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_check__name
@@ -827,7 +884,9 @@ msgstr "Secvență"
 #. module: quality
 #: model_terms:ir.ui.view,arch_db:quality.quality_alert_view_search
 msgid "Show all records which has next action date is before today"
-msgstr "Afișați toate înregistrările care au data următoarei acțiuni în trecut"
+msgstr ""
+"Afișați toate înregistrările care au data următoarei acțiuni înainte de data"
+" de astăzi"
 
 #. module: quality
 #: model:quality.alert.stage,name:quality.quality_alert_stage_3
@@ -855,14 +914,14 @@ msgid ""
 "Planned: Future activities."
 msgstr ""
 "Stare bazată pe activități\n"
-"Întârziată: data scadentă este deja trecută\n"
-"Astăzi: activității pentru astăzi\n"
+"Întârziată: data activitații este deja trecută\n"
+"Astăzi: data activității este astăzi\n"
 "Planificate: activități viitoare."
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_tag__name
 msgid "Tag Name"
-msgstr "Nume eticheta"
+msgstr "Nume etichetă"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__tag_ids
@@ -872,6 +931,7 @@ msgstr "Etichete"
 #. module: quality
 #. odoo-javascript
 #: code:addons/quality/static/src/tablet_image_field/tablet_image_field.xml:0
+#: model:quality.point.test_type,name:quality.test_type_picture
 msgid "Take a Picture"
 msgstr "Fa o fotografie"
 
@@ -892,7 +952,7 @@ msgstr "Echipe"
 #: model:ir.model.fields,field_description:quality.field_quality_point__test_type
 #: model:ir.model.fields,field_description:quality.field_quality_point_test_type__technical_name
 msgid "Technical name"
-msgstr "Denumire tehnică"
+msgstr "Nume tehnic"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_check__test_type_id
@@ -902,18 +962,23 @@ msgstr "Tip Test"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_model_id
-msgid "The model (Odoo Document Kind) to which this alias corresponds. Any incoming email that does not reply to an existing record will cause the creation of a new record of this model (e.g. a Project Task)"
-msgstr "Modelul (tipul de document Odoo) căruia îi corespunde acest alias. Orice e-mail care nu răspunde la o înregistrare existentă va determina crearea unei noi înregistrări a acestui model (de exemplu, o sarcină de proiect)"
+msgid ""
+"The model (Odoo Document Kind) to which this alias corresponds. Any incoming"
+" email that does not reply to an existing record will cause the creation of "
+"a new record of this model (e.g. a Project Task)"
+msgstr ""
+"Modelul (tipul de document Odoo) căruia îi corespunde acest alias. Orice "
+"e-mail care nu răspunde la o înregistrare existentă va determina crearea "
+"unei noi înregistrări a acestui model (de exemplu, o sarcină de proiect)"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert_team__alias_name
-msgid "The name of the email alias, e.g. 'jobs' if you want to catch emails for <jobs@example.odoo.com>"
-msgstr "Numele aliasului de e-mail, de ex. „locuri de muncă” dacă doriți să primiți e-mailuri pentru <jobs@example.odoo.com>"
-
-#. module: quality
-#: model:ir.model.fields,help:quality.field_quality_alert_team__alias_user_id
-msgid "The owner of records created upon receiving emails on this alias. If this field is not set the system will attempt to find the right owner based on the sender (From) address, or will use the Administrator account if no system user is found for that address."
-msgstr "Deținătorul înregistrărilor create la primirea de email-uri în acest alias. Dacă acest câmp nu este setat, sistemul va încerca să găsească proprietarul potrivit pe baza adresei expeditorului (De la), sau va folosi Contul Administrator dacă nu este găsit un utilizator al sistemului pentru acea adresă."
+msgid ""
+"The name of the email alias, e.g. 'jobs' if you want to catch emails for "
+"<jobs@example.odoo.com>"
+msgstr ""
+"Numele aliasului de e-mail, de ex. „locuri de muncă” dacă doriți să primiți "
+"e-mailuri pentru <jobs@example.odoo.com>"
 
 #. module: quality
 #: model:res.groups,comment:quality.group_quality_manager
@@ -951,7 +1016,7 @@ msgstr "Tip"
 #: model:ir.model.fields,help:quality.field_quality_alert__activity_exception_decoration
 #: model:ir.model.fields,help:quality.field_quality_check__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "Tipul activității de excepție din înregistrare."
+msgstr "Tipul de activitate de excepție înregistrată."
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_tag__color
@@ -961,7 +1026,7 @@ msgstr "Folosit in vizualizare kanban"
 #. module: quality
 #: model:res.groups,name:quality.group_quality_user
 msgid "User"
-msgstr "Operator"
+msgstr "Utilizator"
 
 #. module: quality
 #: model:ir.model.fields,field_description:quality.field_quality_alert__partner_id
@@ -985,7 +1050,7 @@ msgstr "Telespectator"
 #: model:ir.model.fields,field_description:quality.field_quality_check__website_message_ids
 #: model:ir.model.fields,field_description:quality.field_quality_point__website_message_ids
 msgid "Website Messages"
-msgstr "Mesaje Website"
+msgstr "Mesaje de pe site-ul web"
 
 #. module: quality
 #: model:ir.model.fields,help:quality.field_quality_alert__website_message_ids
@@ -993,7 +1058,7 @@ msgstr "Mesaje Website"
 #: model:ir.model.fields,help:quality.field_quality_check__website_message_ids
 #: model:ir.model.fields,help:quality.field_quality_point__website_message_ids
 msgid "Website communication history"
-msgstr "Istoric comunicare website"
+msgstr "Istoricul comunicării pe site-ul web"
 
 #. module: quality
 #: model:quality.reason,name:quality.reason_wo

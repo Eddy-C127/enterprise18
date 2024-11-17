@@ -6,6 +6,7 @@
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
 # Junko Augias, 2024
+# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1240,7 +1241,7 @@ msgstr "流動負債"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_1
 msgid "Current Year Retained Earnings"
-msgstr "当期利益余剰金"
+msgstr "当期利益剰余金"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings0
@@ -1482,7 +1483,7 @@ msgstr "データ変更不可チェックレポートをダウンロード"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Draft Entries"
-msgstr "仕訳をドラフト"
+msgstr "ドラフト仕訳"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2067,6 +2068,8 @@ msgstr "支払を含む"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr "分析用シミュレーションを含む"
 
@@ -3930,6 +3933,7 @@ msgstr "未実現為替利益/損失"
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
 msgstr "未消込仕訳"
 
@@ -4028,6 +4032,8 @@ msgstr "選択した外貨に対応する必要があるかどうか。"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
 msgstr "ドラフト仕訳を含む"
 

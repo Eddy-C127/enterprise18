@@ -3,6 +3,8 @@
 # 	* documents_hr
 # 
 # Translators:
+# Ivica Dimjašević <ivica.dimjasevic@storm.hr>, 2024
+# Kristina Palaš, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
 msgid ""
@@ -47,17 +49,17 @@ msgstr ""
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_absences
 msgid "Absences"
-msgstr ""
+msgstr "Odsustva"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_config_settings_view_form
 msgid "Centralize your employees' documents (contracts, payslips, etc.)"
-msgstr ""
+msgstr "Centralizirani dokumenti djelatnika (ugovori, plaća itd)"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_certification
 msgid "Certifications"
-msgstr ""
+msgstr "Certifikacije"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_company
@@ -82,7 +84,7 @@ msgstr "Dokument"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_employee__document_count
 msgid "Document Count"
-msgstr ""
+msgstr "Broj dokumenata"
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_documents_redirect
@@ -101,7 +103,7 @@ msgstr "Dokumenti"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_settings
 msgid "Documents Hr Settings"
-msgstr ""
+msgstr "Postavke HR Dokumenata"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
@@ -121,16 +123,18 @@ msgid ""
 "Employee's related user and private email must be set to use \"Send Access Link\" function:\n"
 "%s"
 msgstr ""
+"Korisnik sustava i privatna e-mail adresa moraju biti definirani za korištenje \"Pošalji link za pristup\" funkcionalnosti:\n"
+"%s"
 
 #. module: documents_hr
 #: model:documents.tag,name:documents_hr.documents_tag_employees
 msgid "Employees Documents"
-msgstr ""
+msgstr "Dokumenti djelatnika"
 
 #. module: documents_hr
 #: model:mail.template,name:documents_hr.mail_template_document_folder_link
 msgid "HR: Document Access Link"
-msgstr ""
+msgstr "HR: Link za pristup dokumentu"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_settings
@@ -150,12 +154,12 @@ msgstr "Privatni e-mail"
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
 msgid "Send Access Link"
-msgstr ""
+msgstr "Pošaljite link za pristup"
 
 #. module: documents_hr
 #: model:ir.actions.server,name:documents_hr.ir_actions_server_send_access_link
 msgid "Send HR Documents Access Link"
-msgstr ""
+msgstr "Pošaljite link za pristup HR dokumentima"
 
 #. module: documents_hr
 #: model:ir.model.fields,help:documents_hr.field_hr_departure_wizard__send_hr_documents_access_link
@@ -167,18 +171,18 @@ msgstr ""
 #. module: documents_hr
 #: model:mail.template,description:documents_hr.mail_template_document_folder_link
 msgid "Sent manually when recording an employee departure"
-msgstr ""
+msgstr "Šalje se ručno prilikom evidentiranja odlaska zaposlenika"
 
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.documents_hr_portal_view
 msgid "Size:"
-msgstr ""
+msgstr "Veličina:"
 
 #. module: documents_hr
 #. odoo-python
 #: code:addons/documents_hr/models/hr_employee.py:0
 msgid "The access link has been sent to the employee."
-msgstr ""
+msgstr "Link za pristup je poslan zaposleniku."
 
 #. module: documents_hr
 #: model:ir.model,name:documents_hr.model_res_users
@@ -188,7 +192,7 @@ msgstr "Korisnik"
 #. module: documents_hr
 #: model_terms:ir.ui.view,arch_db:documents_hr.res_config_settings_view_form
 msgid "Workspace"
-msgstr ""
+msgstr "Radni prostor"
 
 #. module: documents_hr
 #. odoo-python
@@ -207,14 +211,15 @@ msgstr ""
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_company__documents_hr_folder
 msgid "hr Workspace"
-msgstr ""
+msgstr "HR Radni prostor"
 
 #. module: documents_hr
 #: model:ir.model.fields,field_description:documents_hr.field_res_config_settings__documents_hr_folder
 msgid "hr default workspace"
-msgstr ""
+msgstr "hr zadani radni prostor"
 
 #. module: documents_hr
 #: model:mail.template,subject:documents_hr.mail_template_document_folder_link
 msgid "{{ object.name }}, your personal documents access link is available"
 msgstr ""
+"{{ objekt.ime }}, dostupan je link za pristup vašim osobnim dokumentima"

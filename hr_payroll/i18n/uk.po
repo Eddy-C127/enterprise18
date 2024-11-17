@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Yaroslav Husyar, 2024
 # Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
@@ -660,7 +661,7 @@ msgstr ""
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.default_assignment_of_salary_rule
 msgid "Assignment of Salary"
-msgstr "Призначення зарплати"
+msgstr "Добровільні відрахування"
 
 #. module: hr_payroll
 #. odoo-python
@@ -686,7 +687,7 @@ msgstr "Назва додатку"
 #. module: hr_payroll
 #: model:hr.salary.rule,name:hr_payroll.default_attachment_of_salary_rule
 msgid "Attachment of Salary"
-msgstr "Прикріплення зарплати"
+msgstr "Примусові стягнення"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_entry_source__attendance
@@ -1470,7 +1471,7 @@ msgstr "Декларації"
 #: model:hr.salary.rule,name:hr_payroll.default_deduction_salary_rule
 #: model:hr.salary.rule.category,name:hr_payroll.DED
 msgid "Deduction"
-msgstr "Дедукція"
+msgstr "Утримання"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure__schedule_pay
@@ -3720,7 +3721,7 @@ msgstr "Реєстраційний номер співробітника"
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_structure_type__default_struct_id
 msgid "Regular Pay Structure"
-msgstr "Регулярна структура оплати праці"
+msgstr "Фіксована оплата"
 
 #. module: hr_payroll
 #: model:ir.model.fields.selection,name:hr_payroll.selection__hr_payroll_report__work_type__1
@@ -3851,7 +3852,7 @@ msgstr "Помилка доставки SMS"
 #. module: hr_payroll
 #: model:ir.ui.menu,name:hr_payroll.menu_hr_salary_configuration
 msgid "Salary"
-msgstr "Зарплатня"
+msgstr "Заробітна плата"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3863,19 +3864,19 @@ msgstr "Зарплатня"
 #: model:ir.model,name:hr_payroll.model_hr_salary_attachment
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_form
 msgid "Salary Attachment"
-msgstr "Прикріплення зарплати"
+msgstr "Додаткові нарахування"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract__salary_attachments_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_contract_history__salary_attachment_count
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_employee__salary_attachment_count
 msgid "Salary Attachment Count"
-msgstr "Підрахунок прикріплень зарплати"
+msgstr "Підрахунок додаткових нарахувань"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payslip__salary_attachment_count
 msgid "Salary Attachment count"
-msgstr "Підрахунок прикріплень зарплати"
+msgstr "Підрахунок додаткових нарахувань"
 
 #. module: hr_payroll
 #. odoo-python
@@ -3890,7 +3891,7 @@ msgstr "Підрахунок прикріплень зарплати"
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_attachment_view_tree
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_payslip_form
 msgid "Salary Attachments"
-msgstr "Прикріплення зарплати"
+msgstr "Додаткові нарахування"
 
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.hr_salary_rule_category_form
@@ -5309,7 +5310,7 @@ msgstr "напр., Чиста зарплата"
 #. module: hr_payroll
 #: model_terms:ir.ui.view,arch_db:hr_payroll.view_hr_employee_grade_form
 msgid "e.g. Regular Pay"
-msgstr "напр., Регулярний платіж"
+msgstr "напр., Фіксована оплата"
 
 #. module: hr_payroll
 #: model:ir.model.fields,field_description:hr_payroll.field_hr_payroll_headcount_line__headcount_id

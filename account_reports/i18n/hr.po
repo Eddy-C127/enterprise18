@@ -3,10 +3,26 @@
 # 	* account_reports
 # 
 # Translators:
-# Martin Trigaux, 2024
 # Milan Tribuson <one.mile.code@gmail.com>, 2024
-# Bole <bole@dajmi5.com>, 2024
+# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2024
+# hrvoje sić <hrvoje.sic@gmail.com>, 2024
+# Carlo Štefanac, 2024
+# Camille Dantinne <cmd@odoo.com>, 2024
+# Ana-Maria Olujić <ana-maria.olujic@slobodni-programi.hr>, 2024
+# Jasmina Otročak <jasmina@uvid.hr>, 2024
+# Vojislav Opačić <vojislav.opacic@gmail.com>, 2024
+# Ivica Dimjašević <ivica.dimjasevic@storm.hr>, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Luka Carević <luka@uvid.hr>, 2024
+# storm_mpildek <matija.pildek@storm.hr>, 2024
+# Tina Milas, 2024
+# 0ba0ac30481a756f36528ba6f9a4317e_6443a87 <52eefe24349934c364624ef40611b7a3_1010754>, 2024
+# Martin Trigaux, 2024
+# Bole <bole@dajmi5.com>, 2024
+# Vladimir Vrgoč, 2024
+# Alen Komljen, 2024
+# Gordana Bilas, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Vladimir Olujić <olujic.vladimir@storm.hr>, 2024\n"
+"Last-Translator: Gordana Bilas, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,12 +117,12 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_receipts
 msgid "(+) Outstanding Receipts"
-msgstr ""
+msgstr "(+) Potraživanja od kupaca"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_payments
 msgid "(-) Outstanding Payments"
-msgstr ""
+msgstr "(-) Obveze prema dobavljačima"
 
 #. module: account_reports
 #. odoo-python
@@ -124,7 +140,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "(No Group)"
-msgstr ""
+msgstr "(bez grupe)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -135,7 +151,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "-> Refresh"
-msgstr ""
+msgstr "-> Osvježi"
 
 #. module: account_reports
 #: model:mail.template,body_html:account_reports.email_template_customer_statement
@@ -164,6 +180,9 @@ msgid ""
 "title=\"The email address is unknown on the partner\" invisible=\"not "
 "send_mail_readonly\"/>"
 msgstr ""
+"<i class=\"fa fa-question-circle ml4\" role=\"img\" aria-"
+"label=\"Upozorenje\" title=\"Nije poznata email adresa partnera\" "
+"invisible=\"not send_mail_readonly\"/>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -175,7 +194,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "<span role=\"separator\">Reconciliation</span>"
-msgstr ""
+msgstr "<span role=\"separator\">Zatvaranje</span>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -224,7 +243,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_total_assets0
 msgid "ASSETS"
-msgstr ""
+msgstr "IMOVINA"
 
 #. module: account_reports
 #. odoo-javascript
@@ -250,7 +269,7 @@ msgstr "Predložak kontnog plana"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code"
-msgstr ""
+msgstr "Šifra konta"
 
 #. module: account_reports
 #. odoo-python
@@ -298,7 +317,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_res_partner__account_represented_company_ids
 #: model:ir.model.fields,field_description:account_reports.field_res_users__account_represented_company_ids
 msgid "Account Represented Company"
-msgstr ""
+msgstr "Tvrtka koju zastupa račun"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_revaluation_journal_id
@@ -346,7 +365,7 @@ msgstr "Redak računovodstvenog izvješća"
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_tree
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Accounting Reports"
-msgstr ""
+msgstr "Računovodstvena izvješća"
 
 #. module: account_reports
 #. odoo-javascript
@@ -363,7 +382,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_to_adjust
 msgid "Accounts To Adjust"
-msgstr ""
+msgstr "Konta za uskladu"
 
 #. module: account_reports
 #. odoo-python
@@ -416,7 +435,7 @@ msgstr "Dodaj kontakte za obavijestiti..."
 #: model:ir.model.fields,field_description:account_reports.field_res_company__totals_below_sections
 #: model:ir.model.fields,field_description:account_reports.field_res_config_settings__totals_below_sections
 msgid "Add totals below sections"
-msgstr ""
+msgstr "Dodaj totale ispod sekcija"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_adjustment
@@ -427,19 +446,19 @@ msgstr "Prilagodba"
 #. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "Adjustment Entry"
-msgstr ""
+msgstr "Knjiženje ispravka"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Advance Payments received from customers"
-msgstr ""
+msgstr "Novčani primici od kupaca"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Advance payments made to suppliers"
-msgstr ""
+msgstr "Novčani izdaci dobavljačima"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
@@ -457,7 +476,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_ap
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_payable
 msgid "Aged Payable"
-msgstr ""
+msgstr "Starosna struktura obveza"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_payable_report_handler
@@ -467,7 +486,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Payables"
-msgstr ""
+msgstr "Starosna struktura obveza"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.aged_receivable_report
@@ -475,7 +494,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_ar
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_receivable
 msgid "Aged Receivable"
-msgstr ""
+msgstr "Starosna struktura potraživanja"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_receivable_report_handler
@@ -485,7 +504,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Receivables"
-msgstr ""
+msgstr "Starosna struktura potraživanja"
 
 #. module: account_reports
 #. odoo-javascript
@@ -501,7 +520,7 @@ msgstr "Sve"
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "All Journals"
-msgstr ""
+msgstr "Svi dnevnici"
 
 #. module: account_reports
 #. odoo-javascript
@@ -545,7 +564,7 @@ msgstr "Iznos"
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount_currency
 #: model:account.report.column,name:account_reports.partner_ledger_report_amount_currency
 msgid "Amount Currency"
-msgstr ""
+msgstr "Iznos u valuti"
 
 #. module: account_reports
 #. odoo-python
@@ -581,7 +600,7 @@ msgstr "Analitika"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__filter_analytic_groupby
 msgid "Analytic Group By"
-msgstr ""
+msgstr "Grupiraj analitiku po"
 
 #. module: account_reports
 #. odoo-javascript
@@ -593,7 +612,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_name/line_name.xml:0
 msgid "Annotate"
-msgstr ""
+msgstr "Predbilježiti"
 
 #. module: account_reports
 #. odoo-javascript
@@ -610,13 +629,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "As of %s"
-msgstr ""
+msgstr "od %s"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Ascending"
-msgstr ""
+msgstr "Uzlazni"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period0
@@ -641,17 +660,17 @@ msgstr ""
 #. module: account_reports
 #: model:ir.ui.menu,name:account_reports.account_reports_audit_reports_menu
 msgid "Audit Reports"
-msgstr ""
+msgstr "Revizijska izvješća"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_avgcre0
 msgid "Average creditors days"
-msgstr ""
+msgstr "Prosječan broj dana kašnjenja dobavljača"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_avdebt0
 msgid "Average debtors days"
-msgstr ""
+msgstr "Prosječan broj dana kašnjenja kupca"
 
 #. module: account_reports
 #. odoo-python
@@ -689,7 +708,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
 msgid "Balance at Current Rate"
-msgstr ""
+msgstr "Stanje po trenutnoj stopi"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_operation
@@ -699,7 +718,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_currency
 msgid "Balance in Foreign Currency"
-msgstr ""
+msgstr "Stanje u stranoj valuti"
 
 #. module: account_reports
 #. odoo-python
@@ -733,7 +752,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_bank_reconciliation
 msgid "Bank Reconciliation"
-msgstr ""
+msgstr "Zatvaranje izvoda banke"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.bank_reconciliation_report
@@ -748,7 +767,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_bank_view0
 msgid "Bank and Cash Accounts"
-msgstr ""
+msgstr "Novčana sredstva na računima i blagajni"
 
 #. module: account_reports
 #. odoo-javascript
@@ -777,7 +796,7 @@ msgstr "Prije"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget_item__budget_id
 msgid "Budget"
-msgstr ""
+msgstr "Proračun"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__budget_item_ids
@@ -787,14 +806,14 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_budget_form
 msgid "Budget Items"
-msgstr ""
+msgstr "Stavke proračuna"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_budget_form
 msgid "Budget Name"
-msgstr ""
+msgstr "Naziv budžeta"
 
 #. module: account_reports
 #. odoo-python
@@ -868,87 +887,87 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_cs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_cash_flow
 msgid "Cash Flow Statement"
-msgstr ""
+msgstr "Izvještaj o novčanom toku"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash and cash equivalents, beginning of period"
-msgstr ""
+msgstr "Novac i novčani ekvivalenti na početku razdoblja"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash and cash equivalents, closing balance"
-msgstr ""
+msgstr "Novac i novčani ekvivalenti na kraju razdoblja"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from financing activities"
-msgstr ""
+msgstr "Novčani tok od financijskih aktivnosti"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from investing & extraordinary activities"
-msgstr ""
+msgstr "Novčani tok od investicijskih i izvanrednih aktivnosti"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from operating activities"
-msgstr ""
+msgstr "Novčani tok od poslovnih aktivnosti"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from unclassified activities"
-msgstr ""
+msgstr "Novčani tok od neklasificiranih aktivnosti"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash in"
-msgstr ""
+msgstr "Novčani primici"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash out"
-msgstr ""
+msgstr "Novčani izdaci"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash paid for operating activities"
-msgstr ""
+msgstr "Novčani izdaci od poslovnih aktivnosti"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_received0
 msgid "Cash received"
-msgstr ""
+msgstr "Novčani primitci"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash received from operating activities"
-msgstr ""
+msgstr "Novčani primici od poslovnih aktivnosti"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_spent0
 msgid "Cash spent"
-msgstr ""
+msgstr "Novčani izdaci"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_surplus0
 msgid "Cash surplus"
-msgstr ""
+msgstr "Ukupno novčani primitci"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_change_lock_date
 msgid "Change Lock Date"
-msgstr ""
+msgstr "Promijeni datum zaključavanja"
 
 #. module: account_reports
 #. odoo-python
@@ -976,7 +995,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
 msgid "Closing bank balance"
-msgstr ""
+msgstr "Novčana sredstva na kraju razdoblja"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.journal_report_code
@@ -1046,7 +1065,7 @@ msgstr "Postavke tvrtke"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Comparison"
-msgstr ""
+msgstr "Usporedba"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_res_config_settings
@@ -1073,7 +1092,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Configure your tax accounts"
-msgstr ""
+msgstr "Postavite konta poreza"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_res_partner
@@ -1211,13 +1230,13 @@ msgstr "Trenutno"
 #: model:account.report.line,name:account_reports.account_financial_report_current_assets0
 #: model:account.report.line,name:account_reports.account_financial_report_current_assets_view0
 msgid "Current Assets"
-msgstr ""
+msgstr "Kratkotrajna imovina"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_current_liabilities0
 #: model:account.report.line,name:account_reports.account_financial_report_current_liabilities1
 msgid "Current Liabilities"
-msgstr ""
+msgstr "Kratkotrajne obveze"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_1
@@ -1227,12 +1246,12 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_current_year_earnings0
 msgid "Current Year Unallocated Earnings"
-msgstr ""
+msgstr "Neraspoređena dobit tekuće godine"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_ca_to_l0
 msgid "Current assets to liabilities"
-msgstr ""
+msgstr "Kratkotrajna imovina / kratkoročne obveze"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1278,7 +1297,7 @@ msgstr "Datum"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Date cannot be empty"
-msgstr ""
+msgstr "Datum ne može biti prazan"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_report_annotation__date
@@ -1349,7 +1368,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_revenue
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_deferred_revenue
 msgid "Deferred Revenue"
-msgstr ""
+msgstr "Odgođeni prihodi"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_revenue_report_handler
@@ -1364,12 +1383,12 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 msgid "Definition"
-msgstr ""
+msgstr "Definicija"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity
 msgid "Delay units"
-msgstr ""
+msgstr "Jedinica kašnjenja"
 
 #. module: account_reports
 #. odoo-python
@@ -1381,7 +1400,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Descending"
-msgstr ""
+msgstr "Silazni"
 
 #. module: account_reports
 #. odoo-python
@@ -1423,7 +1442,7 @@ msgstr "Dokument"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__doc_name
 msgid "Documents Name"
-msgstr ""
+msgstr "Naziv dokumenta"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__domain
@@ -1435,7 +1454,7 @@ msgstr "Domena"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Domestic"
-msgstr ""
+msgstr "Domaći"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__checkbox_download
@@ -1462,7 +1481,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Draft Entries"
-msgstr ""
+msgstr "Stavke u nacrtu"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1471,7 +1490,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Due"
-msgstr ""
+msgstr "Dospijeće"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1506,7 +1525,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_equity0
 msgid "EQUITY"
-msgstr ""
+msgstr "KAPITAL"
 
 #. module: account_reports
 #. odoo-python
@@ -1560,7 +1579,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_trial_balance_report.py:0
 msgid "End Balance"
-msgstr ""
+msgstr "Završni saldo"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1584,7 +1603,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 msgid "Engine"
-msgstr ""
+msgstr "Motor"
 
 #. module: account_reports
 #. odoo-python
@@ -1596,7 +1615,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Error message"
-msgstr ""
+msgstr "Error message"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1622,14 +1641,14 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_excluded
 msgid "Excluded Accounts"
-msgstr ""
+msgstr "Konta koja nisu uključena"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.executive_summary
 #: model:ir.actions.client,name:account_reports.action_account_report_exec_summary
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_exec_summary
 msgid "Executive Summary"
-msgstr ""
+msgstr "Menadžerski izvještaj"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__expense_provision_account_id
@@ -1650,12 +1669,12 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_expenses0
 msgid "Expenses"
-msgstr ""
+msgstr "Troškovi"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_report_export_wizard
 msgid "Export"
-msgstr ""
+msgstr "Izvoz"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_reports_export_wizard_format
@@ -1665,7 +1684,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__export_format_ids
 msgid "Export to"
-msgstr ""
+msgstr "Izvoz u"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_reports_export_wizard
@@ -1675,7 +1694,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 msgid "Expression"
-msgstr ""
+msgstr "Izraz"
 
 #. module: account_reports
 #. odoo-python
@@ -1689,7 +1708,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
 msgid "Field"
-msgstr ""
+msgstr "Polje"
 
 #. module: account_reports
 #. odoo-python
@@ -1808,7 +1827,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__fun_to_call
 msgid "Function to Call"
-msgstr ""
+msgstr "Pozvati funkciju"
 
 #. module: account_reports
 #. odoo-python
@@ -1827,7 +1846,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_general_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_general_ledger
 msgid "General Ledger"
-msgstr ""
+msgstr "Glavna knjiga"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_general_ledger_report_handler
@@ -1844,12 +1863,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/wizard/report_export_wizard.py:0
 msgid "Generated Documents"
-msgstr ""
+msgstr "Generirani dokumenti"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.generic_ec_sales_report
 msgid "Generic EC Sales List"
-msgstr ""
+msgstr "Intrastat"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_generic_tax_report_handler
@@ -1886,22 +1905,22 @@ msgstr "Dobra"
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Grid"
-msgstr ""
+msgstr "Mreža"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_gross_profit0
 msgid "Gross Profit"
-msgstr ""
+msgstr "Bruto dobit"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_gross_profit0
 msgid "Gross profit"
-msgstr ""
+msgstr "Bruto dobit"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_gpmargin0
 msgid "Gross profit margin (gross profit / operating income)"
-msgstr ""
+msgstr "Bruto profitna marža (bruto dobit/prihod od prodaje)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -1912,13 +1931,13 @@ msgstr "Grupiraj po"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_horizontal_group_form
 msgid "Group Name"
-msgstr ""
+msgstr "Naziv grupe"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/groupby.xml:0
 msgid "Group by"
-msgstr ""
+msgstr "Grupiraj po"
 
 #. module: account_reports
 #. odoo-python
@@ -1948,7 +1967,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Hierarchy and Subtotals"
-msgstr ""
+msgstr "Struktura i subtotali"
 
 #. module: account_reports
 #. odoo-python
@@ -1968,7 +1987,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_report__horizontal_group_ids
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_horizontal_groups
 msgid "Horizontal Groups"
-msgstr ""
+msgstr "Horizontalne grupe"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_horizontal_group
@@ -2036,13 +2055,15 @@ msgstr "Neaktivan"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/journal_report/filter_extra_options.xml:0
 msgid "Include Payments"
-msgstr ""
+msgstr "Uključi plaćanja"
 
 #. module: account_reports
 #. odoo-javascript
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Including Analytic Simulations"
 msgstr ""
 
@@ -2061,7 +2082,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__income_provision_account_id
 msgid "Income Account"
-msgstr ""
+msgstr "Konto prihoda"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_revaluation_income_provision_account_id
@@ -2101,7 +2122,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/models/account_trial_balance_report.py:0
 msgid "Initial Balance"
-msgstr ""
+msgstr "Početni saldo"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2157,12 +2178,12 @@ msgstr ""
 #: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
-msgstr ""
+msgstr "Datum računa"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_search
 msgid "Invoice lines"
-msgstr ""
+msgstr "Stavke računa"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__is_account_coverage_report_available
@@ -2192,7 +2213,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__item_ids
 msgid "Items"
-msgstr ""
+msgstr "Stavke"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
@@ -2244,7 +2265,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report,name:account_reports.journal_report
 msgid "Journal Report"
-msgstr ""
+msgstr "Dnevnik"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_journal_report_handler
@@ -2261,22 +2282,22 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Journals"
-msgstr ""
+msgstr "Dnevnici"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Journals:"
-msgstr ""
+msgstr "Dnevnici:"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_liabilities_view0
 msgid "LIABILITIES"
-msgstr ""
+msgstr "OBVEZE"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_liabilities_and_equity_view0
 msgid "LIABILITIES + EQUITY"
-msgstr ""
+msgstr "OBVEZE + KAPITAL"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2285,7 +2306,7 @@ msgstr ""
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_label
 msgid "Label"
-msgstr ""
+msgstr "Oznaka"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mail_lang
@@ -2336,7 +2357,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "Later"
-msgstr ""
+msgstr "Kasnije"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2362,12 +2383,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__line_id
 msgid "Line"
-msgstr ""
+msgstr "Redak"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Lines"
-msgstr ""
+msgstr "Stavke"
 
 #. module: account_reports
 #. odoo-python
@@ -2418,7 +2439,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_matching_number
 msgid "Matching"
-msgstr ""
+msgstr "Odgovarajuće"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__company_ids
@@ -2524,23 +2545,23 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_profit0
 #: model:account.report.line,name:account_reports.account_financial_report_net_profit0
 msgid "Net Profit"
-msgstr ""
+msgstr "Neto dobit"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_net_assets0
 msgid "Net assets"
-msgstr ""
+msgstr "Neto imovina"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Net increase in cash and cash equivalents"
-msgstr ""
+msgstr "Povećanje novca i novčanih ekvivalenata"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_npmargin0
 msgid "Net profit margin (net profit / income)"
-msgstr ""
+msgstr "Neto profitna marža (dobitak poslije poreza/prihod od prodaje)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2559,7 +2580,7 @@ msgstr "Ne"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "No Comparison"
-msgstr ""
+msgstr "Bez usporedbe"
 
 #. module: account_reports
 #. odoo-python
@@ -2577,7 +2598,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 msgid "No adjustment needed"
-msgstr ""
+msgstr "Nema potrebe za prilagodbama"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2607,7 +2628,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Non Trade Partners"
-msgstr ""
+msgstr "Obveze"
 
 #. module: account_reports
 #. odoo-python
@@ -2619,7 +2640,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Non Trade Receivable"
-msgstr ""
+msgstr "Ne trgovačka potraživanja"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2653,20 +2674,20 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_off_sheet
 msgid "OFF BALANCE SHEET ACCOUNTS"
-msgstr ""
+msgstr "IZVANBILANČNI ZAPISI"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filters.js:0
 msgid "Odoo Warning"
-msgstr ""
+msgstr "Odoo upozorenje"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period5
 #: model:account.report.column,name:account_reports.aged_receivable_report_period5
 msgid "Older"
-msgstr ""
+msgstr "Starije"
 
 #. module: account_reports
 #. odoo-python
@@ -2679,6 +2700,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_move.py:0
 msgid "Only Billing Administrators are allowed to change lock dates!"
 msgstr ""
+"Samo Administrator Računovodstva može promijeniti datum zaključavanja!"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_account_reports_customer_statements
@@ -2688,7 +2710,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_financial_year_op
 msgid "Opening Balance of Financial Year"
-msgstr ""
+msgstr "Početni saldo poslovne godine"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_operating_income0
@@ -2724,7 +2746,7 @@ msgstr "PDF"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__report_id
 msgid "Parent Report Id"
-msgstr ""
+msgstr "Nadređeni izvještaj"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__export_wizard_id
@@ -2751,7 +2773,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_partner_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
 msgid "Partner Ledger"
-msgstr ""
+msgstr "Salda konti"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_partner_ledger_report_handler
@@ -2784,7 +2806,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_partner.xml:0
 msgid "Partners"
-msgstr ""
+msgstr "Partneri"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
@@ -2794,7 +2816,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Partners:"
-msgstr ""
+msgstr "Partneri: "
 
 #. module: account_reports
 #: model:mail.activity.type,name:account_reports.mail_activity_type_tax_report_to_pay
@@ -2812,7 +2834,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_aged_partner_balance.py:0
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Payable"
-msgstr ""
+msgstr "Obveze"
 
 #. module: account_reports
 #. odoo-python
@@ -2824,12 +2846,12 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_report_current_liabilities_payable
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_creditors0
 msgid "Payables"
-msgstr ""
+msgstr "Potraživanja"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_performance0
 msgid "Performance"
-msgstr ""
+msgstr "Rezultat poslovanja/ Poslovni učinak"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2874,7 +2896,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_reports.field_res_config_settings__account_tax_periodicity
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 msgid "Periodicity"
-msgstr ""
+msgstr "Periodičnost"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity
@@ -2928,17 +2950,17 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_fixed_assets_view0
 msgid "Plus Fixed Assets"
-msgstr ""
+msgstr "Plus materijalna imovina"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_assets_view0
 msgid "Plus Non-current Assets"
-msgstr ""
+msgstr "Plus nematerijalna imovina"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_liabilities0
 msgid "Plus Non-current Liabilities"
-msgstr ""
+msgstr "Plus dugoročne obveze"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_other_income0
@@ -2948,13 +2970,13 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_position0
 msgid "Position"
-msgstr ""
+msgstr "Pozicija"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 msgid "Post"
-msgstr ""
+msgstr "Proknjiži"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2965,7 +2987,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
 msgid "Prepayments"
-msgstr ""
+msgstr "Predujmovi"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__preview_data
@@ -2976,7 +2998,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Previous Period"
-msgstr ""
+msgstr "Prethodni period"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_2
@@ -2986,7 +3008,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_previous_year_earnings0
 msgid "Previous Years Unallocated Earnings"
-msgstr ""
+msgstr "Neraspoređena dobit prethodnih razdoblja"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -3026,11 +3048,13 @@ msgstr "Kategorija proizvoda"
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_profit_and_loss
 msgid "Profit and Loss"
 msgstr ""
+"Račun dobiti i gubitka\n"
+" "
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_profitability0
 msgid "Profitability"
-msgstr ""
+msgstr "Profitabilnost"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -3047,20 +3071,20 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Quarter"
-msgstr ""
+msgstr "Kvartal"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/line_name.xml:0
 msgid "Rates"
-msgstr ""
+msgstr "Stope"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_aged_partner_balance.py:0
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Receivable"
-msgstr ""
+msgstr "Potraživanje"
 
 #. module: account_reports
 #. odoo-python
@@ -3072,7 +3096,7 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_debtors0
 #: model:account.report.line,name:account_reports.account_financial_report_receivable0
 msgid "Receivables"
-msgstr ""
+msgstr "Potraživanja"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mail_partner_ids
@@ -3083,7 +3107,7 @@ msgstr "Primatelji"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Reconciliation Report"
-msgstr ""
+msgstr "Izvješće o zatvaranju"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity_reminder_day
@@ -3091,23 +3115,23 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:account_reports.setup_financial_year_opening_form
 msgid "Reminder"
-msgstr ""
+msgstr "Podsjetnik"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__report_id
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__account_report_id
 msgid "Report"
-msgstr ""
+msgstr "Izvještaj"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 msgid "Report Line"
-msgstr ""
+msgstr "Stavka izvještaja"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Report Name"
-msgstr ""
+msgstr "Naziv izvještaja"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__report_options
@@ -3124,7 +3148,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_variant.xml:0
 msgid "Report:"
-msgstr ""
+msgstr "Izvještaj:"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -3134,7 +3158,7 @@ msgstr "Izvještavanje"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group__report_ids
 msgid "Reports"
-msgstr ""
+msgstr "Izvještaji"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
@@ -3144,23 +3168,23 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings0
 msgid "Retained Earnings"
-msgstr ""
+msgstr "Odgođeni prihodi"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_return_investment0
 msgid "Return on investments (net profit / assets)"
-msgstr ""
+msgstr "ROA Povrat na imovinu (neto dobit/imovina)"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
 #: model:account.report.line,name:account_reports.account_financial_report_revenue0
 msgid "Revenue"
-msgstr ""
+msgstr "Prihod"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__reversal_date
 msgid "Reversal Date"
-msgstr ""
+msgstr "Datum povrata"
 
 #. module: account_reports
 #. odoo-python
@@ -3188,7 +3212,7 @@ msgstr "Pravila"
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Same Period Last Year"
-msgstr ""
+msgstr "Isti period prošle godine"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3205,7 +3229,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 msgid "Send"
-msgstr ""
+msgstr "Pošalji"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__send_and_print_values
@@ -3243,17 +3267,17 @@ msgstr "Sekvenca"
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Services"
-msgstr ""
+msgstr "Usluge"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "Set as Checked"
-msgstr ""
+msgstr "Označi kao provjereno"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_st_cash_forecast0
 msgid "Short term cash forecast"
-msgstr ""
+msgstr "Planirani novčani tijek budućeg razdoblja"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3294,13 +3318,14 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
 msgid "Some journal items appear to point to obsolete report lines."
 msgstr ""
+"Čini se da neke stavke dnevnika pokazuju na zastarjele retke izvješća."
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_date.xml:0
 msgid "Specific Date"
-msgstr ""
+msgstr "Poseban datum"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3323,13 +3348,13 @@ msgstr "Početni datum"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity_reminder_day
 msgid "Start from"
-msgstr ""
+msgstr "Počnite od"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Starting Balance"
-msgstr ""
+msgstr "Početni saldo"
 
 #. module: account_reports
 #. odoo-python
@@ -3351,7 +3376,7 @@ msgstr "Predmet"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Subject..."
-msgstr ""
+msgstr "Naslov..."
 
 #. module: account_reports
 #. odoo-python
@@ -3373,7 +3398,7 @@ msgstr "Oznake"
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Tax Amount"
-msgstr ""
+msgstr "Iznos poreza"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
@@ -3396,7 +3421,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_general_ledger.py:0
 msgid "Tax Declaration"
-msgstr ""
+msgstr "Prijava poreza"
 
 #. module: account_reports
 #. odoo-python
@@ -3437,7 +3462,7 @@ msgstr ""
 #: model:mail.activity.type,summary:account_reports.tax_closing_activity_type
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "Tax Report"
-msgstr ""
+msgstr "Porezni izvještaj"
 
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_gt
@@ -3467,7 +3492,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_unit_ids
 #: model:ir.ui.menu,name:account_reports.menu_view_tax_units
 msgid "Tax Units"
-msgstr ""
+msgstr "Porezne jedinice"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_mail_activity__account_tax_closing_params
@@ -3502,7 +3527,7 @@ msgstr "Porezi"
 #: code:addons/account_reports/models/account_journal_report.py:0
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 msgid "Taxes Applied"
-msgstr ""
+msgstr "Primjenjeni porezi"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__fpos_synced
@@ -3631,7 +3656,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/warnings.xml:0
 msgid "There are"
-msgstr ""
+msgstr "Postoje"
 
 #. module: account_reports
 #. odoo-python
@@ -3792,7 +3817,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Trade Partners"
-msgstr ""
+msgstr "Potraživanja"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
@@ -3804,7 +3829,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_coa
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_coa
 msgid "Trial Balance"
-msgstr ""
+msgstr "Bruto bilanca"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_trial_balance_report_handler
@@ -3854,7 +3879,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Unfold All"
-msgstr ""
+msgstr "Rasklopi sve"
 
 #. module: account_reports
 #. odoo-python
@@ -3867,7 +3892,7 @@ msgstr "Nepoznato"
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Unknown Partner"
-msgstr ""
+msgstr "Nepoznat partner"
 
 #. module: account_reports
 #. odoo-python
@@ -3886,7 +3911,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_multicurrency_revaluation
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_multicurrency_revaluation
 msgid "Unrealized Currency Gains/Losses"
-msgstr ""
+msgstr "Nerealizirane tečajne razlike"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3894,13 +3919,14 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
-msgstr ""
+msgstr "Nezatvorene stavke"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_vat
 msgid "VAT Number"
-msgstr ""
+msgstr "Porezni broj"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.setup_financial_year_opening_form
@@ -3911,7 +3937,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 msgid "Value"
-msgstr ""
+msgstr "Vrijednost"
 
 #. module: account_reports
 #. odoo-python
@@ -3922,13 +3948,13 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "View"
-msgstr ""
+msgstr "Pogledaj"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Bank Statement"
-msgstr ""
+msgstr "Vidi bankovni izvod"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3940,7 +3966,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Journal Entry"
-msgstr ""
+msgstr "Vidi stavku dnevnika"
 
 #. module: account_reports
 #. odoo-python
@@ -3948,7 +3974,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_sales_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "View Partner"
-msgstr ""
+msgstr "Pregled partnera"
 
 #. module: account_reports
 #. odoo-python
@@ -3960,7 +3986,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Payment"
-msgstr ""
+msgstr "Vidi plaćanje"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__warnings
@@ -3992,8 +4018,10 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
+#: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
+#: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
-msgstr ""
+msgstr "Sa stavkama u nacrtu"
 
 #. module: account_reports
 #. odoo-python
@@ -4017,13 +4045,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "XLSX"
-msgstr ""
+msgstr "XLSX"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Year"
-msgstr ""
+msgstr "Godina"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4101,7 +4129,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_main
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_main
 msgid "[Draft]"
-msgstr ""
+msgstr "[Nacrt]"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4118,7 +4146,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year
 msgid "annually"
-msgstr ""
+msgstr "godišnje"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -4158,7 +4186,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 msgid "invoices"
-msgstr ""
+msgstr "računi"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4181,7 +4209,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4198,12 +4226,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__trimester
 msgid "quarterly"
-msgstr ""
+msgstr "kvartalno"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__semester
 msgid "semi-annually"
-msgstr ""
+msgstr "polugodišnje"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4233,13 +4261,13 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_date.xml:0
 msgid "to"
-msgstr ""
+msgstr "do"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/warnings.xml:0
 msgid "unposted Journal Entries"
-msgstr ""
+msgstr "neknjižene stavke dnevnika"
 
 #. module: account_reports
 #. odoo-javascript

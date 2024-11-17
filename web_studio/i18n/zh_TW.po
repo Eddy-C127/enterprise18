@@ -106,7 +106,7 @@ msgstr "\" 失敗。"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s delegated approval rights to %(delegate_to)s"
-msgstr ""
+msgstr "%(user_name)s 已委派批核權限至 %(delegate_to)s"
 
 #. module: web_studio
 #. odoo-python
@@ -114,13 +114,13 @@ msgstr ""
 msgid ""
 "%(user_name)s has set approval rights from %(previous_approvers)s to "
 "%(next_approvers)s"
-msgstr ""
+msgstr "%(user_name)s 已將批核權限設定，從 %(previous_approvers)s 改為 %(next_approvers)s"
 
 #. module: web_studio
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "%(user_name)s revoked their delegation to %(revoked_users)s"
-msgstr ""
+msgstr "%(user_name)s 已撤銷委派至 %(revoked_users)s"
 
 #. module: web_studio
 #. odoo-python
@@ -350,7 +350,7 @@ msgstr "新增優先等級"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Add an approval step"
-msgstr ""
+msgstr "加入一個批核步驟"
 
 #. module: web_studio
 #. odoo-javascript
@@ -455,7 +455,7 @@ msgstr "允許重新排序"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "An approval is missing"
-msgstr ""
+msgstr "缺漏一項批核"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_delegate_approvers
@@ -482,7 +482,7 @@ msgstr "批核組別"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approval Order"
-msgstr ""
+msgstr "批核單"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_entry__rule_id
@@ -494,12 +494,12 @@ msgstr "批核規則"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_approver
 msgid "Approval Rule Approvers Enriched"
-msgstr ""
+msgstr "批核規則批核者已豐富"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_approval_rule_delegate
 msgid "Approval Rule Delegate"
-msgstr ""
+msgstr "批核規則委派"
 
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_button_configuration_search_view
@@ -516,7 +516,7 @@ msgstr "審批"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Approvals %(model_name)s"
-msgstr ""
+msgstr "批核 %(model_name)s"
 
 #. module: web_studio
 #. odoo-python
@@ -545,7 +545,7 @@ msgstr "已審批"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Approved <i class=\"fa fa-thumbs-up text-success\"/>"
-msgstr ""
+msgstr "已批准 <i class=\"fa fa-thumbs-up text-success\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -562,7 +562,7 @@ msgstr "批核人/拒絕的使用者"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/editors/form/form_editor_sidebar/properties/button_properties/button_properties.xml:0
 msgid "Approver Group"
-msgstr ""
+msgstr "批核者組別"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule__approver_log_ids
@@ -1004,7 +1004,7 @@ msgstr "配置額外的模型，以使用 Studio 進行匯出，例如匯出載�
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Configure data and demo data to export"
-msgstr ""
+msgstr "配置要匯出的資料及模擬數據"
 
 #. module: web_studio
 #. odoo-javascript
@@ -1371,7 +1371,7 @@ msgstr "委派"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Delegate to"
-msgstr ""
+msgstr "委派至"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2323,7 +2323,7 @@ msgstr "離開 diff 比對"
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.action_web_studio_leave_with
 msgid "Leave Studio with another action"
-msgstr ""
+msgstr "離開 Studio 使用其他操作"
 
 #. module: web_studio
 #. odoo-javascript
@@ -2497,7 +2497,7 @@ msgstr "模型"
 #. odoo-python
 #: code:addons/web_studio/wizard/studio_export_wizard.py:0
 msgid "Model '%s' should not contain records with the same ID."
-msgstr ""
+msgstr "模型「%s」不應包含擁有相同識別碼的記錄。"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_ir_model_access
@@ -3100,7 +3100,7 @@ msgstr "已拒絕"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.notify_approval
 msgid "Rejected <i class=\"fa fa-thumbs-down text-danger\"/>"
-msgstr ""
+msgstr "已拒絕 <i class=\"fa fa-thumbs-down text-danger\"/>"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3381,7 +3381,7 @@ msgstr "選擇一個欄位"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select a group..."
-msgstr ""
+msgstr "選擇一個組別⋯"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3398,7 +3398,7 @@ msgstr "選擇一個相關聯欄位。"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 msgid "Select group"
-msgstr ""
+msgstr "選擇組別"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3423,7 +3423,7 @@ msgstr "選擇相對應的ManyToOne欄位"
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.studio_approval_rule_form_view_quick_create
 msgid "Select users..."
-msgstr ""
+msgstr "選擇使用者⋯"
 
 #. module: web_studio
 #. odoo-javascript
@@ -3541,7 +3541,7 @@ msgstr "慢"
 #: code:addons/web_studio/models/studio_approval.py:0
 #: code:addons/web_studio/static/src/approval/approval_hook.js:0
 msgid "Some approvals are missing"
-msgstr ""
+msgstr "缺漏一些批核"
 
 #. module: web_studio
 #. odoo-python
@@ -3738,7 +3738,7 @@ msgstr "Studio 自訂功能"
 #. module: web_studio
 #: model_terms:ir.ui.view,arch_db:web_studio.view_studio_export_wizard
 msgid "Studio Customizations will be exported"
-msgstr ""
+msgstr "Studio 自訂功能將會匯出"
 
 #. module: web_studio
 #: model:ir.actions.act_window,name:web_studio.action_models_to_export
@@ -3747,12 +3747,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_form_view
 #: model_terms:ir.ui.view,arch_db:web_studio.models_to_export_list
 msgid "Studio Export"
-msgstr ""
+msgstr "Studio 匯出"
 
 #. module: web_studio
 #: model:ir.actions.client,name:web_studio.studio_export_action
 msgid "Studio Export Action"
-msgstr ""
+msgstr "Studio 匯出操作"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard_data
@@ -3762,12 +3762,12 @@ msgstr "Studio 匯出數據"
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_model
 msgid "Studio Export Models"
-msgstr ""
+msgstr "Studio 匯出模型"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_export_wizard
 msgid "Studio Export Wizard"
-msgstr ""
+msgstr "Studio 匯出精靈"
 
 #. module: web_studio
 #: model:ir.model,name:web_studio.model_studio_mixin
@@ -3937,7 +3937,7 @@ msgstr "步驟描述將顯示在請求批准的按鈕上。"
 msgid ""
 "The user who approves this step will not be able to approve other steps for "
 "the same record."
-msgstr ""
+msgstr "批准此步驟的使用者，將不可批准同一記錄的其他步驟。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4036,7 +4036,7 @@ msgstr "可能是因為已編輯部份內，出現不正確的語法。"
 #. module: web_studio
 #: model:ir.model.constraint,message:web_studio.constraint_studio_export_model_unique_model
 msgid "This model is already being exported."
-msgstr ""
+msgstr "此模型已經正在匯出。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4109,7 +4109,7 @@ msgstr "復原"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "Unsupported operator '%s' to search action_xmlid"
-msgstr ""
+msgstr "不支援以運算符「%s」搜尋 action_xmlid"
 
 #. module: web_studio
 #: model:ir.model.fields,field_description:web_studio.field_studio_approval_rule_delegate__date_to
@@ -4190,7 +4190,7 @@ msgstr "檢視"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/client_action/view_editor/view_editor.js:0
 msgid "View Editor"
-msgstr ""
+msgstr "查看編輯器"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4295,7 +4295,7 @@ msgstr "此模型是否抽象"
 #. odoo-javascript
 #: code:addons/web_studio/static/src/views/kanban_report/new_report_dialog.xml:0
 msgid "Which type of report do you want to create?"
-msgstr ""
+msgstr "你想建立哪種類型的報表？"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4334,7 +4334,7 @@ msgstr "年"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "You can not approve this rule."
-msgstr ""
+msgstr "你沒有權限批准此規則。"
 
 #. module: web_studio
 #. odoo-python
@@ -4342,7 +4342,7 @@ msgstr ""
 msgid ""
 "You cannot cancel an approval you didn't set yourself or you don't belong to"
 " an higher level rule's approvers."
-msgstr ""
+msgstr "若批核不是由你自己設定，或你不屬於較高層級的規則批核人，你便不可取消該項批核。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4372,7 +4372,7 @@ msgstr "動作"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "delegates to %s."
-msgstr ""
+msgstr "委派至 %s。"
 
 #. module: web_studio
 #. odoo-javascript
@@ -4396,7 +4396,7 @@ msgstr "例：房地產"
 #. odoo-python
 #: code:addons/web_studio/models/studio_approval.py:0
 msgid "no one"
-msgstr ""
+msgstr "沒有人"
 
 #. module: web_studio
 #. odoo-javascript

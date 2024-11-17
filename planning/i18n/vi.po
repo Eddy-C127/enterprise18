@@ -35,7 +35,7 @@ msgstr "%s (sao chép)"
 #. module: planning
 #: model:ir.actions.report,print_report_name:planning.report_planning_slot
 msgid "'Planning'"
-msgstr "'Lập kế hoạch'"
+msgstr "'Kế hoạch'"
 
 #. module: planning
 #. odoo-python
@@ -1145,8 +1145,8 @@ msgid ""
 "Company linked to the material resource. Leave empty for the resource to be "
 "available in every company."
 msgstr ""
-"Công ty liên kết với nguồn lực vật chất. Để trống đối với nguồn lực có trong"
-" mọi công ty."
+"Công ty liên kết với tài nguyên. Để trống đối với tài nguyên có trong mọi "
+"công ty."
 
 #. module: planning
 #: model:ir.model,name:planning.model_res_config_settings
@@ -1360,7 +1360,7 @@ msgstr "Tên hiển thị"
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "Distribute your material resources across projects and sales orders."
-msgstr "Phân phối nguồn lực vật chất của bạn cho các dự án và đơn bán hàng."
+msgstr "Phân phối tài nguyên của bạn cho các dự án và đơn bán hàng."
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1410,7 +1410,7 @@ msgstr ""
 "Mỗi nhân viên đều có cơ hội thấy được tầm ảnh hưởng từ công việc của mình.\n"
 "             Bạn có thể tạo ra những đóng góp thiết thực cho sự thành công của công ty.\n"
 "             <br>\n"
-"             Khá nhiều hoạt động được thường xuyên tổ chức trong năm, ví dụ như chơi\n"
+"             Nhiều hoạt động được thường xuyên tổ chức trong năm, ví dụ như chơi\n"
 "             thể thao hàng tuần, sự kiện team building, đồ uống hàng tháng, và hơn thế nữa"
 
 #. module: planning
@@ -1853,7 +1853,7 @@ msgstr "Nắm vững cách demo phần mềm"
 #: code:addons/planning/static/src/views/fields/many2many_avatar_resource/many2many_avatar_resource_field.js:0
 #: model:ir.model.fields.selection,name:planning.selection__planning_analysis_report__resource_type__material
 msgid "Material"
-msgstr "Nguyên liệu/Máy móc"
+msgstr "Tài nguyên"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_action_resources
@@ -1861,7 +1861,7 @@ msgstr "Nguyên liệu/Máy móc"
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_search
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Materials"
-msgstr "Nguyên liệu"
+msgstr "Tài nguyên"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -1991,7 +1991,7 @@ msgstr ""
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_resources
 msgid "No material resources found. Let's create one!"
-msgstr "Không tìm thấy nguồn lực vật chất nào. Hãy tạo mới!"
+msgstr "Không tìm thấy tài nguyên nào. Hãy tạo mới!"
 
 #. module: planning
 #: model_terms:ir.actions.act_window,help:planning.planning_action_roles
@@ -2186,7 +2186,7 @@ msgstr "Số giờ theo kế hoạch"
 #: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:planning.slot_report
 msgid "Planning"
-msgstr "Lập kế hoạch"
+msgstr "Kế hoạch"
 
 #. module: planning
 #: model:ir.actions.act_window,name:planning.planning_report_action_analysis
@@ -2209,7 +2209,7 @@ msgstr "Lập kế hoạch cuộc họp"
 #. module: planning
 #: model:ir.model,name:planning.model_planning_recurrency
 msgid "Planning Recurrence"
-msgstr "Lập kế hoạch tái phát"
+msgstr "Thời gian định kỳ"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_role
@@ -2220,7 +2220,7 @@ msgstr "Lập kế hoạch vai trò"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
 msgid "Planning Role List"
-msgstr "Danh sách Qui tắc kế hoạch"
+msgstr "Danh sách vai trò kế hoạch"
 
 #. module: planning
 #: model:ir.model,name:planning.model_planning_slot
@@ -2350,7 +2350,7 @@ msgstr "Đăng và gửi kế hoạch qua email"
 #: model:ir.model.fields.selection,name:planning.selection__planning_slot__state__published
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_search_base
 msgid "Published"
-msgstr "Đã công bố"
+msgstr "Đã đăng"
 
 #. module: planning
 #: model_terms:hr.job,website_description:planning.job_maintenance_technician
@@ -2538,7 +2538,7 @@ msgstr "Vai trò:"
 #: model_terms:ir.ui.view,arch_db:planning.resource_resource_search_view_inherit
 #: model_terms:ir.ui.view,arch_db:planning.view_employee_filter_inherit_hr
 msgid "Roles"
-msgstr "Qui tắc"
+msgstr "Vai trò"
 
 #. module: planning
 #: model:ir.model.fields,help:planning.field_hr_employee__planning_role_ids
@@ -2755,7 +2755,7 @@ msgstr "Cộng tác viên vận chuyển"
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
 msgid "Some changes were made since this shift was published."
-msgstr "Một số thay đổi đã được thực hiện kể từ khi ca này được công bố."
+msgstr "Một số thay đổi đã được thực hiện kể từ khi ca này được đăng."
 
 #. module: planning
 #: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
@@ -2868,13 +2868,13 @@ msgstr "Ca làm đã được tạo thành công."
 #: code:addons/planning/wizard/planning_send.py:0
 msgid ""
 "The shifts have already been published, or there are no shifts to publish."
-msgstr "Các ca đã được công bố hoặc không có ca nào để công bố."
+msgstr "Các ca đã được đăng hoặc không có ca nào để đăng."
 
 #. module: planning
 #. odoo-python
 #: code:addons/planning/models/planning.py:0
 msgid "The shifts have successfully been published and sent."
-msgstr "Các ca làm đã được công bố và gửi thành công."
+msgstr "Các ca làm đã được đăng và gửi thành công."
 
 #. module: planning
 #: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_days_positive

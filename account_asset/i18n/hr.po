@@ -4,8 +4,18 @@
 # 
 # Translators:
 # Tina Milas, 2024
+# Luka Carević <luka@uvid.hr>, 2024
+# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2024
 # Martin Trigaux, 2024
+# Luka Dimjašević, 2024
+# Milan Tribuson <one.mile.code@gmail.com>, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
+# Jasmina Otročak <jasmina@uvid.hr>, 2024
+# Matija Gudlin, 2024
+# Gordana Bilas, 2024
 # Bole <bole@dajmi5.com>, 2024
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Servisi RAM d.o.o. <support@servisiram.hr>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +23,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:25+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Bole <bole@dajmi5.com>, 2024\n"
+"Last-Translator: Servisi RAM d.o.o. <support@servisiram.hr>, 2024\n"
 "Language-Team: Croatian (https://app.transifex.com/odoo/teams/41243/hr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,7 +39,7 @@ msgstr "# stavaka amortizacije"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__gross_increase_count
 msgid "# Gross Increases"
-msgstr ""
+msgstr "# stavaka uvećanja vrijednosti"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__depreciation_entries_count
@@ -176,6 +186,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_id
 msgid "Account used in the depreciation entries, to decrease the asset value."
 msgstr ""
+"Konto korišteno za knjiženje amortizacije i smanjenje vrijednosti sredstva."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_expense_id
@@ -183,12 +194,16 @@ msgid ""
 "Account used in the periodical entries, to record a part of the asset as "
 "expense."
 msgstr ""
+"Konto korišten u periodičkim knjiženjima, bilježi dio vrijednosti kao "
+"trošak."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__account_asset_id
 msgid ""
 "Account used to record the purchase of the asset at its original price."
 msgstr ""
+"Konto korišten za knjiženje nabavne vrijednosti sredstva po originalnoj "
+"cijeni."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_asset_modify__gain_account_id
@@ -382,7 +397,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_lifetime_days
 msgid "Asset Lifetime Days"
-msgstr ""
+msgstr "Boj dana imovine"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_account__asset_model_ids
@@ -391,19 +406,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
 msgid "Asset Model"
-msgstr ""
+msgstr "Kategorija imovine"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Asset Model name"
-msgstr ""
+msgstr "Naziv kategorije imovine"
 
 #. module: account_asset
 #: model:ir.actions.act_window,name:account_asset.action_account_asset_model_form
 #: model:ir.ui.menu,name:account_asset.menu_action_account_asset_model_form
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Asset Models"
-msgstr ""
+msgstr "Kategorije imovine"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_move_type
@@ -419,7 +434,7 @@ msgstr "Naziv imovine"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_paused_days
 msgid "Asset Paused Days"
-msgstr ""
+msgstr "Broja pauziranih dana imovine"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_value_change
@@ -448,25 +463,25 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Asset disposed. %s"
-msgstr ""
+msgstr "Imovina otpisana. %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Asset paused. %s"
-msgstr ""
+msgstr "Imovina pauzirana. %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Asset sold. %s"
-msgstr ""
+msgstr "Imovina prodana. %s"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "Asset unpaused. %s"
-msgstr ""
+msgstr "Imovina ponovo aktivirana. %s"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_group_form_view
@@ -765,12 +780,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_remaining_value
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_remaining_value
 msgid "Depreciable Value"
-msgstr ""
+msgstr "Amortizirajuća vrijednost"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciated Amount"
-msgstr ""
+msgstr "Otpisana vrijednost"
 
 #. module: account_asset
 #. odoo-python
@@ -787,35 +802,35 @@ msgstr "Amortizacija"
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_depreciation_id
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 msgid "Depreciation Account"
-msgstr ""
+msgstr "Konto amortizacije"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciation Board"
-msgstr ""
+msgstr "Tabla Amortizacija"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciation Date"
-msgstr ""
+msgstr "Datum amortizacije"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__depreciation_move_ids
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciation Lines"
-msgstr ""
+msgstr "Stavke amortizacije"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Depreciation Method"
-msgstr ""
+msgstr "Metoda amortizacije"
 
 #. module: account_asset
 #: model:account.report,name:account_asset.assets_report
 #: model:ir.actions.client,name:account_asset.action_account_report_assets
 #: model:ir.ui.menu,name:account_asset.menu_action_account_report_assets
 msgid "Depreciation Schedule"
-msgstr ""
+msgstr "Plan amortizacije"
 
 #. module: account_asset
 #. odoo-python
@@ -850,31 +865,31 @@ msgstr "Naziv za prikaz"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__disposal
 msgid "Disposal"
-msgstr ""
+msgstr "Otpis"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__disposal_date
 msgid "Disposal Date"
-msgstr ""
+msgstr "Datum otpisa"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Disposal Move"
-msgstr ""
+msgstr "Stavka otpisa"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Disposal Moves"
-msgstr ""
+msgstr "Stavke otpisa"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Dispose"
-msgstr ""
+msgstr "Otpiši"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__distribution_analytic_account_ids
@@ -903,7 +918,7 @@ msgstr "Trajanje"
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_duration_rate
 msgid "Duration / Rate"
-msgstr ""
+msgstr "Trajanje / stopa"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__account_depreciation_expense_id
@@ -915,13 +930,13 @@ msgstr "Konto troška"
 #. module: account_asset
 #: model:account.report.column,name:account_asset.assets_report_first_depreciation
 msgid "First Depreciation"
-msgstr ""
+msgstr "Prva amortizacija"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__account_asset_id
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
 msgid "Fixed Asset Account"
-msgstr ""
+msgstr "Konto ispravka vrijednosti"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_follower_ids
@@ -951,35 +966,35 @@ msgstr "Buduće aktivnosti"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__gain
 msgid "Gain"
-msgstr ""
+msgstr "Dobit"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__gain_account_id
 #: model:ir.model.fields,field_description:account_asset.field_res_company__gain_account_id
 msgid "Gain Account"
-msgstr ""
+msgstr "Konto dobiti"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__gain_or_loss
 msgid "Gain Or Loss"
-msgstr ""
+msgstr "Dobit ili gubitak"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__gain_value
 msgid "Gain Value"
-msgstr ""
+msgstr "Vrijednost dobiti"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Gross Increase"
-msgstr ""
+msgstr "Neto povećanje"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_asset_id
 msgid "Gross Increase Account"
-msgstr ""
+msgstr "Konto povećanja vrijednosti"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__gross_increase_value
@@ -990,7 +1005,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_asset/static/src/components/depreciation_schedule/groupby.xml:0
 msgid "Group By Account"
-msgstr ""
+msgstr "Grupiraj po kontu"
 
 #. module: account_asset
 #. odoo-javascript
@@ -1036,7 +1051,7 @@ msgstr "Ikona"
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Ikona za prikaz iznimki."
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__message_needaction
@@ -1060,12 +1075,12 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__informational_text
 msgid "Informational Text"
-msgstr ""
+msgstr "Informativni tekst"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__invoice_line_ids
 msgid "Invoice Line"
-msgstr ""
+msgstr "Stavka računa"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_is_follower
@@ -1076,7 +1091,7 @@ msgstr "Je li pratitelj"
 #: model:ir.model.fields,help:account_asset.field_account_asset__salvage_value
 #: model:ir.model.fields,help:account_asset.field_account_asset__salvage_value_pct
 msgid "It is the amount you plan to have that you cannot depreciate."
-msgstr ""
+msgstr "Iznos je koji planirate imati a ne možete amortizirati"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__journal_id
@@ -1088,7 +1103,7 @@ msgstr "Dnevnik"
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "Journal Entries"
-msgstr ""
+msgstr "Temeljnice"
 
 #. module: account_asset
 #: model:ir.model,name:account_asset.model_account_move
@@ -1139,7 +1154,7 @@ msgstr "Zakašnjele aktivnosti"
 #. odoo-python
 #: code:addons/account_asset/models/account_assets_report.py:0
 msgid "Linear"
-msgstr ""
+msgstr "Linearno"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__linked_assets_ids
@@ -1149,13 +1164,13 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__gain_or_loss__loss
 msgid "Loss"
-msgstr ""
+msgstr "Gubitak"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__loss_account_id
 #: model:ir.model.fields,field_description:account_asset.field_res_company__loss_account_id
 msgid "Loss Account"
-msgstr ""
+msgstr "Konto gubitka"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
@@ -1193,7 +1208,7 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Modify"
-msgstr ""
+msgstr "Promijeni"
 
 #. module: account_asset
 #. odoo-python
@@ -1201,12 +1216,12 @@ msgstr ""
 #: model:ir.model,name:account_asset.model_asset_modify
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Modify Asset"
-msgstr ""
+msgstr "Uredi imovinu"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Modify Depreciation"
-msgstr ""
+msgstr "Uredi amortizaciju"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method_period__1
@@ -1217,7 +1232,7 @@ msgstr "Mjeseci"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_account__multiple_assets_per_line
 msgid "Multiple Assets per Line"
-msgstr ""
+msgstr "Više sredstava po stavci"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_account__multiple_assets_per_line
@@ -1312,7 +1327,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__salvage_value
 msgid "Not Depreciable Value"
-msgstr ""
+msgstr "Ne amortizirajuća vrijednost"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__salvage_value_pct
@@ -1332,13 +1347,13 @@ msgstr "Broj akcija"
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_tree
 msgid "Number of Depreciations"
-msgstr ""
+msgstr "Broj amortizacija"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__method_period
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_period
 msgid "Number of Months in a Period"
-msgstr ""
+msgstr "Broj mjeseci u periodu"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__gross_increase_count
@@ -1349,7 +1364,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_asset.field_account_bank_statement_line__asset_number_days
 #: model:ir.model.fields,field_description:account_asset.field_account_move__asset_number_days
 msgid "Number of days"
-msgstr ""
+msgstr "Broj dana"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__total_depreciation_entries_count
@@ -1374,7 +1389,7 @@ msgstr "Broj poruka sa greškama pri isporuci"
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__paused
 msgid "On Hold"
-msgstr ""
+msgstr "Na čekanju"
 
 #. module: account_asset
 #. odoo-python
@@ -1386,7 +1401,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__original_value
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_kanban
 msgid "Original Value"
-msgstr ""
+msgstr "Originalna vrijednost"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__parent_id
@@ -1405,7 +1420,7 @@ msgstr ""
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Pause"
-msgstr ""
+msgstr "Pauza"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__paused_prorata_date
@@ -1452,7 +1467,7 @@ msgstr "Ocjene"
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 msgid "Re-evaluate"
-msgstr ""
+msgstr "Povećanje vrijednosti"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset_group__linked_asset_ids
@@ -1505,7 +1520,7 @@ msgstr "U tijeku"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Greška u slanju SMSa"
 
 #. module: account_asset
 #: model:ir.model.fields.selection,name:account_asset.selection__account_move__asset_move_type__sale
@@ -1526,14 +1541,14 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_asset_modify__select_invoice_line_id
 msgid "Select Invoice Line"
-msgstr ""
+msgstr "Odaberi stavku računa"
 
 #. module: account_asset
 #. odoo-python
 #: code:addons/account_asset/wizard/asset_modify.py:0
 #: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
 msgid "Sell"
-msgstr ""
+msgstr "Prodaj"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1652,7 +1667,7 @@ msgstr ""
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__method_number
 msgid "The number of depreciations needed to depreciate your asset"
-msgstr ""
+msgstr "Broj amortizacija koji je potreban za otpisivanje imovine"
 
 #. module: account_asset
 #. odoo-python
@@ -1693,7 +1708,7 @@ msgstr "Ukupno"
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__total_depreciable_value
 msgid "Total Depreciable Value"
-msgstr ""
+msgstr "Ukupna amortizirajuća vrijednost"
 
 #. module: account_asset
 #. odoo-python
@@ -1714,7 +1729,7 @@ msgstr "Vrsta aktivnosti iznimke na zapisu."
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "Value at Import"
-msgstr ""
+msgstr "Vrijednost pri uvozu"
 
 #. module: account_asset
 #. odoo-python
@@ -1806,7 +1821,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_asset/models/account_asset.py:0
 msgid "You cannot delete a document that is in %s state."
-msgstr ""
+msgstr "Ne možete obrisati dokument u %s statusu."
 
 #. module: account_asset
 #. odoo-python
@@ -1855,7 +1870,7 @@ msgstr ""
 #: model:account.report.column,name:account_asset.assets_report_assets_date_to
 #: model:account.report.column,name:account_asset.assets_report_depre_date_to
 msgid "date to"
-msgstr ""
+msgstr "Do datuma"
 
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
@@ -1865,7 +1880,7 @@ msgstr ""
 #. module: account_asset
 #: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
 msgid "e.g. Laptop iBook"
-msgstr ""
+msgstr "npr. Laptop iBook"
 
 #. module: account_asset
 #. odoo-python

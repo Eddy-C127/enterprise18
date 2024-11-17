@@ -2463,6 +2463,12 @@ msgstr "過時"
 #. module: documents
 #. odoo-python
 #: code:addons/documents/models/documents_document.py:0
+msgid "Only Documents Managers can create in company folder."
+msgstr ""
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
 msgid "Only Documents Managers can pin folders."
 msgstr "只限文件管理員才可釘選資料夾。"
 
@@ -3148,6 +3154,11 @@ msgid "Summary"
 msgstr "摘要"
 
 #. module: documents
+#: model:res.groups,name:documents.group_documents_system
+msgid "System Administrator"
+msgstr ""
+
+#. module: documents
 #: model:ir.model,name:documents.model_documents_tag
 #: model:ir.model.fields,field_description:documents.field_mail_activity_type__tag_ids
 #: model_terms:ir.ui.view,arch_db:documents.tag_view_search
@@ -3219,6 +3230,12 @@ msgid ""
 msgstr ""
 "以下文件/資料夾不可由門戶網站使用者擁有：\n"
 "- %(partners)s"
+
+#. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "The following documents/shortcuts have a company mismatch: \n"
+msgstr ""
 
 #. module: documents
 #. odoo-python
@@ -3602,6 +3619,18 @@ msgid ""
 msgstr "您可以從您的電腦上傳一個檔案或者'複製/貼上'一個網路連結到您的檔案。"
 
 #. module: documents
+#. odoo-python
+#: code:addons/documents/models/documents_document.py:0
+msgid "You cannot copy in that folder"
+msgstr ""
+
+#. module: documents
+#. odoo-javascript
+#: code:addons/documents/static/src/views/search/documents_search_panel.js:0
+msgid "You cannot move request in the company folder"
+msgstr ""
+
+#. module: documents
 #. odoo-javascript
 #: code:addons/documents/static/src/views/cog_menu/documents_cog_menu_pin_actions.js:0
 msgid "You can not pin actions for that folder."
@@ -3643,7 +3672,7 @@ msgstr "你不可在此特殊資料夾中建立捷徑，或將文件移至此特
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot access folders in the trash."
-msgstr ""
+msgstr "不可存取垃圾箱內的資料夾。"
 
 #. module: documents
 #. odoo-python
@@ -3667,7 +3696,7 @@ msgstr "你不可複製垃圾箱內的文件。"
 #. odoo-javascript
 #: code:addons/documents/static/src/views/documents_model_mixin.js:0
 msgid "You cannot move folders or files when in the trash."
-msgstr ""
+msgstr "不可移動垃圾箱內的資料夾或檔案。"
 
 #. module: documents
 #. odoo-javascript

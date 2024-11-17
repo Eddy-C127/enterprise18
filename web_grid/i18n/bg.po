@@ -1,25 +1,27 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # 	* web_grid
-#
+# 
 # Translators:
-# Nikola Iliev, 2023
-# aleksandar ivanov, 2023
-# Albena Mincheva <albena_vicheva@abv.bg>, 2023
-# Maria Boyadjieva <marabo2000@gmail.com>, 2023
-#
+# aleksandar ivanov, 2024
+# Albena Mincheva <albena_vicheva@abv.bg>, 2024
+# Maria Boyadjieva <marabo2000@gmail.com>, 2024
+# Petko Karamotchev, 2024
+# KeyVillage, 2024
+# Rumena Georgieva <rumena.georgieva@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0+e\n"
+"Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-16 16:03+0000\n"
-"PO-Revision-Date: 2022-09-22 05:49+0000\n"
-"Last-Translator: Maria Boyadjieva <marabo2000@gmail.com>, 2023\n"
+"POT-Creation-Date: 2024-09-25 09:29+0000\n"
+"PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Rumena Georgieva <rumena.georgieva@gmail.com>, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
-"Language: bg\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: bg\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: web_grid
@@ -47,7 +49,11 @@ msgstr "Основа"
 
 #. module: web_grid
 #. odoo-javascript
-#: code:addons/web_grid/static/src/views/grid_view.js:0
+#: code:addons/web_grid/static/src/views/grid_arch_parser.js:0
+msgid "Count"
+msgstr "Брой"
+
+#. module: web_grid
 #: model:ir.model.fields.selection,name:web_grid.selection__ir_actions_act_window_view__view_mode__grid
 #: model:ir.model.fields.selection,name:web_grid.selection__ir_ui_view__type__grid
 msgid "Grid"
@@ -56,7 +62,8 @@ msgstr "Матрица"
 #. module: web_grid
 #. odoo-javascript
 #: code:addons/web_grid/static/src/views/grid_model.js:0
-msgid "Grouping by the field used in the column of the grid view is not possible."
+msgid ""
+"Grouping by the field used in the column of the grid view is not possible."
 msgstr ""
 
 #. module: web_grid
@@ -79,7 +86,8 @@ msgstr ""
 
 #. module: web_grid
 #. odoo-javascript
-#: code:addons/web_grid/static/src/views/grid_renderer.xml:0
+#: code:addons/web_grid/static/src/components/grid_row/grid_row.xml:0
+#: code:addons/web_grid/static/src/components/many2one_grid_row/many2one_grid_row.xml:0
 msgid "None"
 msgstr "Никакъв"
 
@@ -87,7 +95,7 @@ msgstr "Никакъв"
 #. odoo-javascript
 #: code:addons/web_grid/static/src/views/grid_renderer.xml:0
 msgid "Previous"
-msgstr ""
+msgstr "Предишен"
 
 #. module: web_grid
 #. odoo-javascript
@@ -99,7 +107,7 @@ msgstr "Днес"
 #. odoo-javascript
 #: code:addons/web_grid/static/src/views/grid_renderer.js:0
 msgid "Total"
-msgstr "Общ"
+msgstr "Обща стойност"
 
 #. module: web_grid
 #: model:ir.model,name:web_grid.model_ir_ui_view

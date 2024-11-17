@@ -4,6 +4,10 @@
 # 
 # Translators:
 # Martin Trigaux, 2024
+# Davor Bojkić <davor.bojkic@storm.hr>, 2024
+# Đurđica Žarković <durdica.zarkovic@storm.hr>, 2024
+# Vladimir Olujić <olujic.vladimir@storm.hr>, 2024
+# Karolina Tonković <karolina.tonkovic@storm.hr>, 2024
 # Bole <bole@dajmi5.com>, 2024
 # 
 msgid ""
@@ -36,7 +40,7 @@ msgstr "%s (kopija)"
 #. odoo-javascript
 #: code:addons/data_cleaning/static/src/views/data_merge_list_view.js:0
 msgid "%s records have been merged"
-msgstr ""
+msgstr "%s zapisa je spojeno"
 
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.data_merge_duplicate
@@ -55,7 +59,7 @@ msgstr ""
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_model_form
 msgid "<span class=\"me-1\">Every</span>"
-msgstr ""
+msgstr "<span class=\"me-1\">Svakih</span>"
 
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_model_form
@@ -70,7 +74,7 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.constraint,message:data_cleaning.constraint_data_merge_rule_uniq_model_id_field_id
 msgid "A field can only appear once!"
-msgstr ""
+msgstr "Polje se može pojaviti samo jednom!"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_rule__action
@@ -105,17 +109,17 @@ msgstr "Aktivno"
 #. module: data_cleaning
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_rule__action_case__lower
 msgid "All Lowercase"
-msgstr ""
+msgstr "Sve u mala slova"
 
 #. module: data_cleaning
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_rule__action_trim__all
 msgid "All Spaces"
-msgstr ""
+msgstr "Svi razmaci"
 
 #. module: data_cleaning
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_rule__action_case__upper
 msgid "All Uppercase"
-msgstr ""
+msgstr "Sve velikim slovima"
 
 #. module: data_cleaning
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_merge_model__removal_mode__archive
@@ -146,7 +150,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_model__cleaning_mode__automatic
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_merge_model__merge_mode__automatic
 msgid "Automatic"
-msgstr ""
+msgstr "Automatski"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_ir_model__is_merge_enabled
@@ -157,7 +161,7 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_rule__action_case
 msgid "Case"
-msgstr ""
+msgstr "Slučaj"
 
 #. module: data_cleaning
 #. odoo-python
@@ -168,30 +172,30 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__cleaning_mode
 msgid "Cleaning Mode"
-msgstr ""
+msgstr "Način čiščenja"
 
 #. module: data_cleaning
 #: model:ir.model,name:data_cleaning.model_data_cleaning_model
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__cleaning_model_id
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_rule__cleaning_model_id
 msgid "Cleaning Model"
-msgstr ""
+msgstr "Model za čiščenje"
 
 #. module: data_cleaning
 #: model:ir.model,name:data_cleaning.model_data_cleaning_record
 msgid "Cleaning Record"
-msgstr ""
+msgstr "Zapis za čiščenje"
 
 #. module: data_cleaning
 #: model:ir.model,name:data_cleaning.model_data_cleaning_rule
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_cleaning_record_list
 msgid "Cleaning Rule"
-msgstr ""
+msgstr "Pravilo čiščenja"
 
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_cleaning_record_search
 msgid "Cleaning Rules"
-msgstr ""
+msgstr "Pravila čišćenja"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__company_id
@@ -272,7 +276,7 @@ msgstr "Trenutno"
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_model__custom_merge_method
 msgid "Custom Merge Method"
-msgstr ""
+msgstr "Prilagođena metoda spajanja"
 
 #. module: data_cleaning
 #: model:ir.actions.server,name:data_cleaning.ir_cron_clean_records_ir_actions_server
@@ -282,12 +286,12 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.actions.server,name:data_cleaning.ir_cron_cleanup_ir_actions_server
 msgid "Data Merge: Cleanup Records"
-msgstr ""
+msgstr "Spajanje podataka: Čišćenje zapisa"
 
 #. module: data_cleaning
 #: model:ir.actions.server,name:data_cleaning.ir_cron_find_duplicates_ir_actions_server
 msgid "Data Merge: Find Duplicate Records"
-msgstr ""
+msgstr "Spajanje podataka: Pronalaženje duplih zapisa"
 
 #. module: data_cleaning
 #. odoo-python
@@ -306,7 +310,7 @@ msgstr "Dana"
 #: code:addons/data_cleaning/models/data_merge_record.py:0
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_model_form
 msgid "Deduplicate"
-msgstr ""
+msgstr "Dedupliciraj"
 
 #. module: data_cleaning
 #: model:ir.ui.menu,name:data_cleaning.menu_data_merge_config_rules_deduplication
@@ -363,7 +367,7 @@ msgstr "Detalji"
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__differences
 msgid "Differences"
-msgstr ""
+msgstr "Razlike"
 
 #. module: data_cleaning
 #: model:ir.model.fields,help:data_cleaning.field_data_merge_record__differences
@@ -386,7 +390,7 @@ msgstr "Odbaci"
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_cleaning_record_search
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_record_search
 msgid "Discarded"
-msgstr ""
+msgstr "Odbačeni"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__display_name
@@ -420,7 +424,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:data_cleaning.action_data_merge_record_notification
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_model_form
 msgid "Duplicates"
-msgstr ""
+msgstr "Duplikati"
 
 #. module: data_cleaning
 #. odoo-python
@@ -443,13 +447,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/data_cleaning/models/data_merge_rule.py:0
 msgid "Exact Match"
-msgstr ""
+msgstr "Točno podudaranje"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__field_id
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_rule__field_id
 msgid "Field"
-msgstr ""
+msgstr "Polje"
 
 #. module: data_cleaning
 #: model:ir.ui.menu,name:data_cleaning.menu_data_cleaning_config_rules_cleaning
@@ -477,22 +481,22 @@ msgstr "Naziv polja"
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_cleaning_field_form
 msgid "Field To Clean"
-msgstr ""
+msgstr "Polje za čišćenje"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__field_values
 msgid "Field Values"
-msgstr ""
+msgstr "Fiskne vrijednosti"
 
 #. module: data_cleaning
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_rule__action_case__first
 msgid "First Letters to Uppercase"
-msgstr ""
+msgstr "Prvo slovo u veliko"
 
 #. module: data_cleaning
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_rule__action__phone
 msgid "Format Phone"
-msgstr ""
+msgstr "Format telefonskog broja"
 
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_storage_search
@@ -516,7 +520,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:data_cleaning.data_merge_duplicate
 #: model_terms:ir.ui.view,arch_db:data_cleaning.notification
 msgid "I've identified"
-msgstr ""
+msgstr "Identificirao sam"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__id
@@ -555,17 +559,17 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__is_deleted
 msgid "Is Deleted"
-msgstr ""
+msgstr "Je obrisano"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__is_discarded
 msgid "Is Discarded"
-msgstr ""
+msgstr "Je odbačeno"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__is_master
 msgid "Is Master"
-msgstr ""
+msgstr "Je glavni"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__last_notification
@@ -645,12 +649,12 @@ msgstr "Spoji"
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_rule__match_mode
 msgid "Merge If"
-msgstr ""
+msgstr "Spoji ako"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_model__merge_mode
 msgid "Merge Mode"
-msgstr ""
+msgstr "Način spajanja"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_ir_model__ref_merge_ir_act_server_id
@@ -691,12 +695,12 @@ msgstr "Model"
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_model__res_model_name
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__res_model_name
 msgid "Model Name"
-msgstr ""
+msgstr "Naziv modela"
 
 #. module: data_cleaning
 #: model:ir.model,name:data_cleaning.model_ir_model
 msgid "Models"
-msgstr ""
+msgstr "Modeli"
 
 #. module: data_cleaning
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_model__notify_frequency_period__months
@@ -723,13 +727,13 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:data_cleaning.action_data_merge_record
 #: model_terms:ir.actions.act_window,help:data_cleaning.action_data_merge_record_notification
 msgid "No duplicates found"
-msgstr ""
+msgstr "Duplikati nisu pronađeni"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__notify_frequency
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_model__notify_frequency
 msgid "Notify"
-msgstr ""
+msgstr "Obavijesti"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__notify_frequency_period
@@ -753,30 +757,30 @@ msgstr ""
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_group__record_ids
 #: model:ir.model.fields,field_description:data_cleaning.field_ir_attachment_report__res_id
 msgid "Record"
-msgstr ""
+msgstr "Zapis"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__group_id
 msgid "Record Group"
-msgstr ""
+msgstr "Grupa zapisa"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__res_id
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__res_id
 msgid "Record ID"
-msgstr ""
+msgstr "ID zapisa"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__name
 msgid "Record Name"
-msgstr ""
+msgstr "Naziv zapisa"
 
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.data_merge_record_view_search_merge_action
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_cleaning_record_search
 #: model_terms:ir.ui.view,arch_db:data_cleaning.view_data_merge_record_search
 msgid "Records"
-msgstr ""
+msgstr "Zapisi"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_model__records_to_clean_count
@@ -809,7 +813,7 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_ir_attachment_report__name
 msgid "Resource Name"
-msgstr ""
+msgstr "Naziv resursa"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__rule_ids
@@ -880,12 +884,12 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__suggested_value_display
 msgid "Suggested"
-msgstr ""
+msgstr "Predloženo"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_cleaning_record__suggested_value
 msgid "Suggested Value"
-msgstr ""
+msgstr "Predložena vrijednost"
 
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_model__create_threshold
@@ -980,7 +984,7 @@ msgstr ""
 #. module: data_cleaning
 #: model:ir.model.fields,field_description:data_cleaning.field_data_merge_record__used_in
 msgid "Used In"
-msgstr ""
+msgstr "Koristi se u:"
 
 #. module: data_cleaning
 #. odoo-javascript
@@ -993,7 +997,7 @@ msgstr "Odobri"
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_cleaning_model__notify_frequency_period__weeks
 #: model:ir.model.fields.selection,name:data_cleaning.selection__data_merge_model__notify_frequency_period__weeks
 msgid "Weeks"
-msgstr ""
+msgstr "Tjedni"
 
 #. module: data_cleaning
 #: model:ir.model.fields,help:data_cleaning.field_data_merge_model__mix_by_company
@@ -1006,6 +1010,8 @@ msgid ""
 "Which spaces are trimmed by the rule. Leading, trailing, and successive "
 "spaces are considered superfluous."
 msgstr ""
+"Koja prazna mjesta se brišu po pravilima. Na prvom ili zadnjem mjestu, dva "
+"ili više uzastopnih smatra se previše."
 
 #. module: data_cleaning
 #. odoo-python
@@ -1022,7 +1028,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:data_cleaning.data_merge_duplicate
 #: model_terms:ir.ui.view,arch_db:data_cleaning.notification
 msgid "here"
-msgstr ""
+msgstr "ovdje"
 
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.data_merge_merged
@@ -1037,4 +1043,4 @@ msgstr ""
 #. module: data_cleaning
 #: model_terms:ir.ui.view,arch_db:data_cleaning.notification
 msgid "records to clean with the '"
-msgstr ""
+msgstr "zapisi za čišnjenje sa"
