@@ -212,6 +212,7 @@ export class ViewEditorModel extends Reactive {
             const searchModel = this.editorInfo.editor.SearchModel || SearchModel;
             return {
                 context,
+                domain: editedAction.domain,
                 resModel: this.resModel,
                 SearchModel: searchModel,
                 setOverlay:
