@@ -94,6 +94,7 @@ class TestUi(test_frontend.TestFrontendCommon):
             'name': 'Preparation Display',
             'pos_config_ids': [(4, self.pos_config.id)],
         })
+        self.pos_config.printer_ids.unlink()
         self.pos_config.with_user(self.pos_user).open_ui()
         self.start_pos_tour('PreparationDisplayTourSkipChange')
         order1 = self.env['pos.order'].search([('pos_reference', 'ilike', '%-0001')], limit=1)
