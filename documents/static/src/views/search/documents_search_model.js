@@ -28,7 +28,14 @@ export class DocumentsSearchModel extends SearchModel {
     }
 
     async load(config) {
-        await super.load(...arguments);
+        if (this.documentService.initData.documentId && this.documentService.initData.openPreview) {
+            // Make sure target document is found (if accessible).
+            config.irFilters.forEach((fil) => {
+                fil.is_default = false;
+            });
+        }
+
+        await super.load(config);
 
         let folderId = router.current.folder_id || this.getSelectedFolderId();
 
