@@ -133,10 +133,11 @@ class TaxCloudRequest(object):
             formatted_response['response'] = response
             if response.ResponseType == 'OK':
                 formatted_response['values'] = {}
-                for item in response.CartItemsResponse.CartItemResponse:
-                    index = item.CartItemIndex
-                    tax_amount = item.TaxAmount
-                    formatted_response['values'][index] = tax_amount
+                if response.CartItemsResponse and response.CartItemsResponse.CartItemResponse:
+                    for item in response.CartItemsResponse.CartItemResponse:
+                        index = item.CartItemIndex
+                        tax_amount = item.TaxAmount
+                        formatted_response['values'][index] = tax_amount
             elif response.ResponseType == 'Error':
                 formatted_response['error_message'] = response.Messages.ResponseMessage[0].Message
         except Fault as fault:
