@@ -8,6 +8,7 @@ import {
     PrintRecTotal,
     PrintRecRefund,
     PrintRecItemAdjustment,
+    PrintRecSubtotalAdjustment,
 } from "@l10n_it_pos/app/fiscal_printer/commands";
 
 export class Body extends Component {
@@ -19,11 +20,17 @@ export class Body extends Component {
         PrintRecTotal,
         PrintRecRefund,
         PrintRecItemAdjustment,
+        PrintRecSubtotalAdjustment,
     };
 
     setup() {
         this.pos = usePos();
         this.order = this.pos.get_order();
+        this.adjustment = this.order.get_rounding_applied() && {
+            description: _t("Rounding"),
+            amount: this._itFormatCurrency(Math.abs(this.order.get_rounding_applied())),
+            adjustmentType: this.order.get_rounding_applied() > 0 ? 6 : 1,
+        };
     }
 
     _itFormatCurrency(amount) {
