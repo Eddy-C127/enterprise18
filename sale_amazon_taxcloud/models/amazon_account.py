@@ -12,7 +12,8 @@ class AmazonAccount(models.Model):
             return subtotal
         else:
             return super(AmazonAccount, self)._recompute_subtotal(
-                subtotal, tax_amount, taxes, currency)
+                subtotal, tax_amount, taxes, currency, fiscal_pos
+            )
 
     def _create_order_from_data(self, order_data):
         """ Override to let TaxCloud set the right taxes when creating orders from the SP-API. """
