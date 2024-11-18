@@ -309,7 +309,7 @@ class SaleOrderLine(models.Model):
             else:
                 line.recurring_monthly = line.price_subtotal * INTERVAL_FACTOR[line.order_id.plan_id.billing_period_unit] / line.order_id.plan_id.billing_period_value
 
-    @api.depends('order_id.subscription_id', 'product_id', 'product_uom', 'price_unit', 'order_id', 'order_id.plan_id')
+    @api.depends('order_id.subscription_id', 'order_id.subscription_id.order_line', 'product_id', 'product_uom', 'price_unit', 'order_id', 'order_id.plan_id')
     def _compute_parent_line_id(self):
         """
         Compute the link between a SOL and the line in the parent order. The matching is done based on several
