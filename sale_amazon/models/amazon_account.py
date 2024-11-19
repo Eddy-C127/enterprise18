@@ -1010,6 +1010,7 @@ class AmazonAccount(models.Model):
         if not pricelist:
             pricelist = self.env['product.pricelist'].with_context(tracking_disable=True).create({
                 'name': 'Amazon Pricelist %s' % currency.name,
+                'company_id': self.company_id.id,
                 'active': False,
                 'currency_id': currency.id,
             })
