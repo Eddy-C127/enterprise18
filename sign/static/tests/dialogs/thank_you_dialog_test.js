@@ -94,7 +94,7 @@ QUnit.module("thank you dialog", (hooks) => {
             "Should render subtitle"
         );
         assert.strictEqual(
-            target.querySelector("button.btn-primary").textContent,
+            target.querySelector(".o_sign_thankyou_close_button").textContent,
             "Close",
             "Should render close button"
         );
@@ -128,7 +128,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         assert.strictEqual(
             target.querySelector("#thank-you-message").textContent,
-            "bla You can safely close this window.",
+            "bla",
             "Should render message"
         );
         assert.containsOnce(
@@ -162,7 +162,7 @@ QUnit.module("thank you dialog", (hooks) => {
 
         assert.containsOnce(
             target,
-            "button:contains('Download Document')",
+            "button:contains('Download it')",
             "Should render download document button"
         );
     });
@@ -193,13 +193,13 @@ QUnit.module("thank you dialog", (hooks) => {
         });
 
         assert.strictEqual(
-            target.querySelector("button.btn-primary").textContent,
+            target.querySelector(".o_sign_thankyou_redirect_button").textContent,
             "Redirect Button",
             "Should render redirect button when redirectURL is passed as props"
         );
         assert.containsOnce(
             target,
-            "button:contains('Download Document')",
+            "button:contains('Download it')",
             "Should render download document button"
         );
     });

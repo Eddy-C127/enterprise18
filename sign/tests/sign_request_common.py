@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 import base64
+from contextlib import contextmanager
+from freezegun import freeze_time
+from unittest.mock import patch
 
 from odoo import Command
 from odoo.tools import file_open
@@ -161,10 +164,17 @@ class SignRequestCommon(TransactionCase):
             'email': 'char.aznable.a@example.com',
         })
 
-    def create_sign_request_no_item(self, signer, cc_partners, no_sign_mail=False):
+    @contextmanager
+    def mock_datetime_and_now(self, mock_dt):
+        with freeze_time(mock_dt), \
+                patch.object(self.env.cr, 'now', lambda: mock_dt):
+            yield
+
+    def create_sign_request_no_item(self, signer, cc_partners, no_sign_mail=False, validity=False):
         sign_request = self.env['sign.request'].with_context(no_sign_mail=no_sign_mail).create({
             'template_id': self.template_no_item.id,
             'reference': self.template_no_item.display_name,
+            'validity': validity,
             'request_item_ids': [Command.create({
                 'partner_id': signer.id,
                 'role_id': self.env.ref('sign.sign_item_role_default').id,

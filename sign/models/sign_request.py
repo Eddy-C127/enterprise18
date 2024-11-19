@@ -187,6 +187,13 @@ class SignRequest(models.Model):
             sign_requests.send_signature_accesses()
         return sign_requests
 
+    def write(self, vals):
+        today = fields.Date.today()
+        if 'validity' in vals and fields.Date.from_string(vals['validity']) < today:
+            vals['state'] = 'expired'
+        res = super().write(vals)
+        return res
+
     def copy_data(self, default=None):
         default = dict(default or {})
         vals_list = super().copy_data(default=default)
@@ -425,6 +432,7 @@ class SignRequest(models.Model):
         # find all expired sign requests and those that need a reminder
         # in one query, the code will handle them differently
         # note: archived requests are not fetched.
+        self.flush_model(fnames=['state', 'active', 'validity', 'reminder_enabled', 'last_reminder', 'reminder'])
         self.env.cr.execute(f'''
         SELECT id
         FROM sign_request sr

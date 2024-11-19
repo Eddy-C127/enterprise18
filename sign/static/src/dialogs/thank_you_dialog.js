@@ -8,6 +8,7 @@ import { rpc } from "@web/core/network/rpc";
 import { useService } from "@web/core/utils/hooks";
 import { EncryptedDialog } from "./encrypted_dialog";
 import { Component, onWillStart, useState } from "@odoo/owl";
+import { isMobileOS } from "@web/core/browser/feature_detection";
 
 export class ThankYouDialog extends Component {
     static template = "sign.ThankYouDialog";
@@ -46,6 +47,7 @@ export class ThankYouDialog extends Component {
         this.message =
             this.props.message || _t("You will receive the final signed document by email.");
         onWillStart(this.willStart);
+        this.isMobileOS = isMobileOS();
     }
 
     get suggestSignUp() {
@@ -113,18 +115,11 @@ export class ThankYouDialog extends Component {
                 click: () => {
                     window.location.assign(this.redirectURL);
                 },
-            });
-        }
-
-        if (this.signRequestState === "signed") {
-            this.state.buttons.push({
-                name: _t("Download Document"),
-                click: this.downloadDocument,
+                classes: 'o_sign_thankyou_redirect_button',
             });
         }
 
         if (this.suggestSignUp) {
-            this.message += _t(" You can safely close this window.");
             this.state.buttons.push({
                 name: _t("Sign Up for free"),
                 classes: "btn btn-link ms-auto",
@@ -148,6 +143,7 @@ export class ThankYouDialog extends Component {
                         this.env.services.action.doAction(this.closeAction, this.closeContext);
                     }
                 },
+                classes: 'o_sign_thankyou_close_button'
             });
         }
 
@@ -181,7 +177,7 @@ export class ThankYouDialog extends Component {
     }
 
     async clickNextCancel(doc) {
-        await this.orm.call("sign.request", "cancel", [doc.requestID]);
+        await this.orm.call("sign.request", "cancel", [doc.requestId]);
         this.state.nextDocuments = this.state.nextDocuments.map((nextDoc) => {
             if (nextDoc.id === doc.id) {
                 return {
