@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-15 19:55+0000\n"
-"PO-Revision-Date: 2024-11-15 19:55+0000\n"
+"POT-Creation-Date: 2024-11-19 19:11+0000\n"
+"PO-Revision-Date: 2024-11-19 19:11+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -728,6 +728,24 @@ msgid ""
 "\n"
 "\t 1. Please go to AFIP page and search for the code in the section \"Tablas del Sistema > Paises\" that is in the bottom right of the page and get the corresponding code for the country.\n"
 "\t 2. Go back to  Odoo, in the menú Sales > Settings > Address Book > Localization > Countries, activate the developer mode and add the AFIP code in the corresponding field"
+msgstr ""
+
+#. module: l10n_ar_edi
+#. odoo-python
+#: code:addons/l10n_ar_edi/models/afip_errors.py:0
+#, python-format
+msgid ""
+"If the invoice amount is:\n"
+"\t- GREATER than the minimum amount indicated by AFIP then it is necessary to report the contact information. Make sure that the invoice contact has First and Last Name, ID type, document number and AFIP Responsibility Final Consumer. For example:\n"
+"\t\tMario Nuñez\n"
+"\t\tType of Doc: DNI\n"
+"\t\tID number 34.345.954\n"
+"\t\tAFIP Responsibility \"Final Consumer\"\n"
+"\t- LESS than the minimum amount indicated by AFIP then it is optional: You can register the invoice as \"Anonymous Final Consumer\" or with a \"Final Consumer\" with their tax information.\n"
+"* If you want to report the invoice with \"\"Anonymous Final Consumer\" check the contact configuration is:\n"
+"\tID type: Sigd,\n"
+"\tID number: Empty\n"
+"\tAFIP Responsibility \"Final Consumer\""
 msgstr ""
 
 #. module: l10n_ar_edi
