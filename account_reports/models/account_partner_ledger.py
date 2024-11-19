@@ -424,7 +424,16 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
             'has_more': has_more,
             'progress': next_progress
         }
-
+    
+    def _get_additional_column_aml_values(self):
+        """
+        Allows customization of additional fields in the partner ledger query.
+    
+        This method is intended to be overridden by other modules to add custom fields
+        to the partner ledger query. By default, it returns an empty string.
+        """
+        return ""
+    
     def _get_aml_values(self, options, partner_ids, offset=0, limit=None):
         rslt = {partner_id: [] for partner_id in partner_ids}
 
@@ -451,6 +460,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
         account_name = f"COALESCE(account.name->>'{lang}', account.name->>'en_US')" if \
             self.pool['account.account'].name.translate else 'account.name'
         report = self.env.ref('account_reports.partner_ledger_report')
+        additional_columns = self._get_additional_column_aml_values()
         for column_group_key, group_options in report._split_options_per_column_group(options).items():
             tables, where_clause, where_params = report._query_get(group_options, 'strict_range')
 
@@ -479,6 +489,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     account_move_line.currency_id,
                     account_move_line.amount_currency,
                     account_move_line.matching_number,
+                    {additional_columns}
                     COALESCE(account_move_line.invoice_date, account_move_line.date)                 AS invoice_date,
                     ROUND(account_move_line.debit * currency_table.rate, currency_table.precision)   AS debit,
                     ROUND(account_move_line.credit * currency_table.rate, currency_table.precision)  AS credit,
@@ -517,6 +528,7 @@ class PartnerLedgerCustomHandler(models.AbstractModel):
                     account_move_line.currency_id,
                     account_move_line.amount_currency,
                     account_move_line.matching_number,
+                    {additional_columns}
                     COALESCE(account_move_line.invoice_date, account_move_line.date)                    AS invoice_date,
                     CASE WHEN aml_with_partner.balance > 0 THEN 0 ELSE ROUND(
                         partial.amount * currency_table.rate, currency_table.precision
