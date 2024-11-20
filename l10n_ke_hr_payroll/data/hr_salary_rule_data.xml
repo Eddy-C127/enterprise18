@@ -286,7 +286,8 @@ result = income_tax
         <field name="name">NHIF Amount (Hidden)</field>
         <field name="code">NHIF_AMOUNT_HIDDEN</field>
         <field name="sequence">40</field>
-        <field name="condition_select">none</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = payslip._rule_parameter('l10n_ke_nhif')</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 basic = categories['BASIC']
@@ -465,6 +466,8 @@ result = result_rules['NSSF_EMPLOYEE_TIER_1']['total'] + result_rules['NSSF_EMPL
         <field name="name">NHIF Amount</field>
         <field name="code">NHIF_AMOUNT</field>
         <field name="sequence">54</field>
+        <field name="condition_select">python</field>
+        <field name="condition_python">result = result_rules['NHIF_AMOUNT_HIDDEN']['total']</field>
         <field name="amount_select">code</field>
         <field name="amount_python_compute">
 result = result_rules['NHIF_AMOUNT_HIDDEN']['total']
