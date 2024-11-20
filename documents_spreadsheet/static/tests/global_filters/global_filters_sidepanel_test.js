@@ -383,6 +383,48 @@ QUnit.module(
             });
         });
 
+        QUnit.test("Cannot select ID in date filter", async function (assert) {
+            await createSpreadsheetFromPivotView({
+                serverData: {
+                    models: getBasicData(),
+                    views: {
+                        "partner,false,pivot": `
+                            <pivot string="Partners">
+                                <field name="foo" type="col"/>
+                                <field name="product_id" type="row"/>
+                                <field name="probability" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": `<search/>`,
+                    },
+                },
+            });
+            await openGlobalFilterSidePanel();
+            await clickCreateFilter("date");
+            await click(target, ".o_model_field_selector_value");
+            assert.strictEqual(target.querySelectorAll("[data-name='id']").length, 0);
+        });
+
+        QUnit.test("Cannot select ID in text filter", async function (assert) {
+            await createSpreadsheetFromPivotView({
+                serverData: {
+                    models: getBasicData(),
+                    views: {
+                        "partner,false,pivot": `
+                            <pivot string="Partners">
+                                <field name="foo" type="col"/>
+                                <field name="product_id" type="row"/>
+                                <field name="probability" type="measure"/>
+                            </pivot>`,
+                        "partner,false,search": `<search/>`,
+                    },
+                },
+            });
+            await openGlobalFilterSidePanel();
+            await clickCreateFilter("text");
+            await click(target, ".o_model_field_selector_value");
+            assert.strictEqual(target.querySelectorAll("[data-name='id']").length, 0);
+        });
+
         QUnit.test("Create a new many2many relational global filter", async function (assert) {
             const serverData = getBasicServerData();
             serverData.models["vehicle"] = {
