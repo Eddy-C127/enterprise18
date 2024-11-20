@@ -952,6 +952,7 @@ class Document(models.Model):
             'access_ids',
             'user_permission',
         ])
+        self.env['documents.access'].invalidate_model()
 
         shortcuts_to_check_owner_target_access._unlink_shortcut_if_target_inaccessible()
 
