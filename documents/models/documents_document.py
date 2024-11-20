@@ -1930,6 +1930,7 @@ class Document(models.Model):
 
         return super().search_panel_select_range(field_name)
 
+    @api.readonly
     @api.model
     def get_document_max_upload_limit(self):
         ICP = self.env['ir.config_parameter'].sudo()
@@ -1943,6 +1944,7 @@ class Document(models.Model):
                 _logger.error("invalid %s: %r", key, value)
         return odoo.http.DEFAULT_MAX_CONTENT_LENGTH
 
+    @api.readonly
     @api.model
     def can_upload_traceback(self):
         return self.env.user._is_internal and \
