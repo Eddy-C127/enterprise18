@@ -163,18 +163,17 @@ registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
         },
         {
             content: "Check that we are in the MO view",
-            trigger: ".o_mrp_display_records button:contains('Nuclear Workcenter')",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) button:contains('Nuclear Workcenter')",
         },
         {
             content: "Add Wood to the MO components",
-            trigger: ".o_mrp_display_record .card-footer button.fa-gear",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) .card-footer button.fa-gear",
             run: "click",
         },
         {
-            trigger: ".o_mrp_menu_dialog",
-        },
-        {
-            trigger: "button:contains('Add Component')",
+            trigger: ".o_mrp_menu_dialog button:contains('Add Component')",
             run: "click",
         },
         {
@@ -205,7 +204,8 @@ registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
         },
         {
             content: "Check that the Wood is visible on the MO",
-            trigger: ".o_mrp_record_line:contains('Super Wood')",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) .o_mrp_record_line:contains('Super Wood')",
         },
         {
             content: "Swap to the WO view of the Nuclear Workcenter",
@@ -214,7 +214,8 @@ registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
         },
         {
             content: "Check that the Wood is visible on the MO",
-            trigger: ".o_mrp_record_line:contains('Super Wood')",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) .o_mrp_record_line:contains('Super Wood')",
         },
         {
             content: "Swap to the WO view of the Nuclear Workcenter",
@@ -227,7 +228,8 @@ registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
         },
         {
             content: "Add Courage to the WO components",
-            trigger: ".o_mrp_display_record .card-footer button.fa-gear",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) .card-footer button.fa-gear",
             run: "click",
         },
         {
@@ -265,7 +267,8 @@ registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
         },
         {
             content: "Check that the Courage is visible on the WO",
-            trigger: ".o_mrp_record_line span:contains('Courage')",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) .o_mrp_record_line span:contains('Courage')",
         },
         {
             content: "Go back to the MO",
@@ -274,11 +277,77 @@ registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
         },
         {
             content: "Check that we are in the MO view",
-            trigger: ".o_mrp_display_records button:contains('Nuclear Workcenter')",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) button:contains('Nuclear Workcenter')",
         },
         {
             content: "Check that the Courage is visible on the MO",
-            trigger: ".o_mrp_record_line span:contains('Courage')",
+            trigger:
+                ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) .o_mrp_record_line span:contains('Courage')",
         },
     ],
 });
+
+registry
+    .category("web_tour.tours")
+    .add("test_add_component_from_shop_foor_in_multi_step_manufacturing", {
+        steps: () => [
+            {
+                trigger: ".form-check-input[name='Nuclear Workcenter']",
+                run: "click",
+            },
+            {
+                trigger: "button:contains('Confirm')",
+                run: "click",
+            },
+            {
+                content: "Check that we are in the MO view",
+                trigger:
+                    ".o_mrp_display_records:has(.card-header:contains(Lovely MO)) button:contains(Nuclear Workcenter)",
+            },
+            {
+                content: "Add Wood to the MO components",
+                trigger:
+                    ".o_mrp_display_record:has(.card-header:contains(Lovely MO)) .card-footer button.btn-light.py-3",
+                run: "click",
+            },
+            {
+                trigger: ".o_mrp_menu_dialog",
+            },
+            {
+                trigger: "button:contains(Add Component)",
+                run: "click",
+            },
+            {
+                trigger: ".modal-content input.o_searchview_input.o_input",
+                run: "edit Courage",
+            },
+            {
+                trigger: ".dropdown-item:contains(Courage)",
+                run: "click",
+            },
+            {
+                trigger: ".modal-content .o_kanban_record:has(span:contains('Courage'))",
+                run: "click",
+            },
+            {
+                content: "Await for the Component to be added",
+                trigger: ".modal-content input.o_input[type='number']",
+                run: function () {
+                    helper.assert(
+                        document.querySelector(".modal-content input.o_input[type='number']").value,
+                        "1"
+                    );
+                },
+            },
+            {
+                trigger: ".modal-content button.btn-close",
+                run: "click",
+            },
+            {
+                content: "Check that the Wood is visible on the MO",
+                trigger:
+                    ".o_mrp_display_record:has(.card-header:contains(Lovely MO))  .o_mrp_record_line:contains(Courage)",
+            },
+        ],
+    });
