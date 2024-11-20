@@ -4596,6 +4596,10 @@ registry.category("web_tour.tours").add('test_no_zero_demand_new_line_from_split
             trigger: '.o_exit',
             run: 'click'
         },
+        {
+            trigger: '.o_stock_barcode_main_menu',
+            run: () => {},
+        },
     ]
 });
 

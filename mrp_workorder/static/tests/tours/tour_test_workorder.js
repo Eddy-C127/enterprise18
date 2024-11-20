@@ -216,3 +216,62 @@ registry.category("web_tour.tours").add("test_add_component_from_shop_foor", {
         },
     ],
 });
+
+registry
+    .category("web_tour.tours")
+    .add("test_add_component_from_shop_foor_in_multi_step_manufacturing", {
+        test: true,
+        steps: () => [
+            {
+                trigger: "button:has(input[name='Nuclear Workcenter'])",
+                run: "click",
+            },
+            {
+                trigger: "button.active:has(input[name='Nuclear Workcenter'])",
+                run: () => {},
+            },
+            {
+                trigger: "button:contains(Confirm)",
+                run: "click",
+            },
+            {
+                context: "Check that we are in the MO view",
+                trigger: ".o_mrp_display_records button:contains(Nuclear Workcenter)",
+                run: () => {},
+            },
+            {
+                context: "Add Wood to the MO components",
+                trigger: ".o_mrp_display_record .card-footer button.btn-light.py-3",
+                run: "click",
+            },
+            {
+                trigger: ".o_mrp_menu_dialog",
+                run: () => {},
+            },
+            {
+                trigger: "button:contains(Add Component)",
+                run: "click",
+            },
+            {
+                trigger: ".o_cell:has(div[name='product_id']) input.o_input",
+                run: "text Courage",
+            },
+            {
+                trigger: ".dropdown-item:contains(Courage)",
+                run: "click",
+            },
+            {
+                trigger: "header.modal-header",
+                run: "click",
+            },
+            {
+                trigger: "button:contains(Add Component)",
+                run: "click",
+            },
+            {
+                context: "Check that the Wood is visible on the MO",
+                trigger: ".o_mrp_record_line:contains(Courage)",
+                run: () => {},
+            },
+        ],
+    });

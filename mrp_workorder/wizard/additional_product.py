@@ -61,6 +61,8 @@ class MrpWorkorderAdditionalProduct(models.TransientModel):
                 values = mo._get_move_finished_values(self.product_id.id, self.product_qty, self.product_id.uom_id.id)
 
         move = self.env['stock.move'].create(values)
+        if self.type == 'component':
+            move._adjust_procure_method()
         if not self.workorder_id and self.type == 'component':
             move['production_id'] = None
         move._action_confirm()
