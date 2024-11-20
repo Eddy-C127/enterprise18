@@ -1,8 +1,8 @@
+import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { SpreadsheetAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_action";
 import { SpreadsheetTemplateAction } from "@documents_spreadsheet/bundle/actions/spreadsheet_template/spreadsheet_template_action";
-import { animationFrame } from "@odoo/hoot-mock";
+import { animationFrame, queryFirst, queryText } from "@odoo/hoot-dom";
 import { getBasicServerData } from "@spreadsheet/../tests/helpers/data";
-import { makeDocumentsSpreadsheetMockEnv } from "@documents_spreadsheet/../tests/helpers/model";
 import { UNTITLED_SPREADSHEET_NAME } from "@spreadsheet/helpers/constants";
 import {
     getSpreadsheetActionEnv,
@@ -18,7 +18,6 @@ import {
 } from "@web/../tests/web_test_helpers";
 import { WebClient } from "@web/webclient/webclient";
 import { DocumentsDocument, SpreadsheetTemplate } from "./data";
-import { getMockEnv } from "@web/../tests/_framework/env_test_helpers";
 
 /**
  * @typedef {import("@spreadsheet/../tests/helpers/data").ServerData} ServerData
@@ -122,52 +121,41 @@ export async function createSpreadsheetTemplate(params = {}) {
 }
 
 /**
- * Mock the action service of the env, and add the mockDoAction function to it.
+ * @param {typeof Services["action"].doAction}
  */
-export function mockActionService(mockDoAction) {
-    const env = getMockEnv();
-    if (!env) {
-        mockService("action", { doAction: mockDoAction });
-    } else {
-        patchWithCleanup(env.services.action, {
-            doAction(action, options) {
-                mockDoAction(action, options);
-            },
-        });
-    }
+export function mockActionService(doAction) {
+    mockService("action", { doAction });
 }
 
 /**
- * @param {HTMLElement} target
+ * @param {HTMLElement} [root]
  * @returns {HTMLElement}
  */
-export function getConnectedUsersEl(target) {
-    return target.querySelector(".o_spreadsheet_number_users");
+export function getConnectedUsersEl(root) {
+    return queryFirst(".o_spreadsheet_number_users", { root });
 }
 
 /**
- * @param {HTMLElement} target
+ * @param {HTMLElement} [root]
  * @returns {HTMLElement}
  */
-export function getConnectedUsersElImage(target) {
-    return target.querySelector(".o_spreadsheet_number_users i");
+export function getConnectedUsersElImage(root) {
+    return queryFirst(".o_spreadsheet_number_users i", { root });
 }
 
 /**
  *
- * @param {HTMLElement} target
+ * @param {HTMLElement} [root]
  * @returns {string}
  */
-export function getSynchedStatus(target) {
-    /** @type {HTMLElement} */
-    const content = target.querySelector(".o_spreadsheet_sync_status");
-    return content.innerText;
+export function getSynchedStatus(root) {
+    return queryText(".o_spreadsheet_sync_status:first", { root });
 }
 
 /**
- * @param {HTMLElement} target
+ * @param {HTMLElement} [root]
  * @returns {number}
  */
-export function displayedConnectedUsers(target) {
-    return parseInt(getConnectedUsersEl(target).innerText);
+export function displayedConnectedUsers(root) {
+    return parseInt(queryText(getConnectedUsersEl(root)));
 }

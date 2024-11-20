@@ -343,7 +343,6 @@ test("export cohort", async () => {
             expect(data.date_start_string).toBe("Start");
             expect(data.date_stop_string).toBe("Stop");
             expect(data.title).toBe("Subscription");
-            return Promise.resolve();
         },
     });
 
@@ -356,7 +355,8 @@ test("export cohort", async () => {
     await contains(".o_cohort_download_button").click();
 });
 
-test.tags("desktop")("when clicked on cell redirects to the correct list/form view ", async () => {
+test.tags("desktop");
+test("when clicked on cell redirects to the correct list/form view ", async () => {
     Subscription._views = {
         cohort: `
                 <cohort string="Subscriptions" date_start="start" date_stop="stop" measure="__count" interval="week" />`,
@@ -751,9 +751,7 @@ test("non empty cohort view with sample data", async () => {
 
 test("concurrent reloads: add a filter, and directly toggle a measure", async () => {
     let def;
-    onRpc("get_cohort_data", () => {
-        return Promise.resolve(def);
-    });
+    onRpc("get_cohort_data", () => def);
     await mountView({
         type: "cohort",
         resModel: "subscription",

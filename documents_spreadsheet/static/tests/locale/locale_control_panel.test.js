@@ -74,10 +74,8 @@ test("Different locales between user and spreadsheet: display icon as info", asy
             }
         },
     });
-    const icon = document.querySelector(".o-spreadsheet-topbar .fa-globe");
-    expect(icon).not.toBe(null);
-    expect(icon.classList.contains("text-info")).toBe(true);
-    expect(icon.title).toBe(
+    expect(".o-spreadsheet-topbar .fa-globe.text-info").toHaveProperty(
+        "title",
         "Difference between user locale (fr_FR) and spreadsheet locale (en_US). This spreadsheet is using the formats below:\n" +
             "- dates: m/d/yyyy\n" +
             "- numbers: 1,234,567.89"

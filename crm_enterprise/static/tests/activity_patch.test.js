@@ -29,8 +29,8 @@ test("click on activity Lead/Opportunity clock should open crm.lead view", async
         doAction(action) {
             step(action);
         },
-        loadState(state, options) {
-            return Promise.resolve(true);
+        async loadState(state, options) {
+            return true;
         },
     });
     await start();

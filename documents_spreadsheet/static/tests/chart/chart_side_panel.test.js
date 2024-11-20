@@ -254,7 +254,7 @@ describe("trend line", () => {
             display: true,
         });
         const runtime = model.getters.getChartRuntime(chartId);
-        expect(runtime.chartJsConfig.data.datasets.length).toEqual(2);
+        expect(runtime.chartJsConfig.data.datasets.length).toBe(2);
     });
 
     test("Can change trend type", async function () {
@@ -274,7 +274,7 @@ describe("trend line", () => {
 
         await contains(".trend-type-selector").select("logarithmic");
         definition = model.getters.getChartDefinition(chartId);
-        expect(definition.trend?.type).toEqual("logarithmic");
+        expect(definition.trend?.type).toBe("logarithmic");
     });
 
     test("Can change polynomial degree", async function () {
@@ -318,7 +318,7 @@ describe("trend line", () => {
         await contains(".trend-type-selector").select("polynomial");
         await contains(".trend-order-input").edit("3");
         definition = model.getters.getChartDefinition(chartId);
-        expect(definition.trend?.order).toEqual(3);
+        expect(definition.trend?.order).toBe(3);
     });
 });
 test("Show values", async () => {

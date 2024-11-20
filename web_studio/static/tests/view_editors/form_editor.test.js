@@ -78,7 +78,8 @@ test("empty form editor", async () => {
     expect(".o_web_studio_form_view_editor .o_web_studio_hook").toHaveCount(0);
 });
 
-test.tags("desktop")("Form editor view buttons can be set to invisible", async () => {
+test.tags("desktop");
+test("Form editor view buttons can be set to invisible", async () => {
     onRpc("/web_studio/edit_view", async (request) => {
         const { params } = await request.json();
         expect(params.operations[0].target.xpath_info).toEqual([
@@ -610,7 +611,8 @@ test("field selection when editing a suboption", async () => {
     expect(".o_web_studio_property_suboption .o_select_menu").toHaveCount(1);
 });
 
-test.tags("desktop")("'class' attribute is editable in the sidebar with a tooltip", async () => {
+test.tags("desktop");
+test("'class' attribute is editable in the sidebar with a tooltip", async () => {
     const arch = `<form>
         <header>
             <button string="Test" type="object" class="oe_highlight"/>
@@ -649,7 +651,8 @@ test.tags("desktop")("'class' attribute is editable in the sidebar with a toolti
     );
 });
 
-test.tags("desktop")("the name of the selected element is displayed in the sidebar", async () => {
+test.tags("desktop");
+test("the name of the selected element is displayed in the sidebar", async () => {
     await mountViewEditor({
         type: "form",
         resModel: "coucou",

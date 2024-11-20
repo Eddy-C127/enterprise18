@@ -13,7 +13,7 @@ import {
 describe.current.tags("desktop");
 defineTimesheetModels();
 
-mockDate("2024-09-02");
+beforeEach(() => mockDate("2024-09-02"));
 const { AnalyticLine } = timesheetModels;
 
 const timesheetgridViewParams = {

@@ -26,11 +26,11 @@ const ROUTES_TO_IGNORE = [
 const openPreparedView = async (size) => {
     patchUiSize({ size: size });
     onRpcBefore((route, args) => {
-        if (ROUTES_TO_IGNORE.includes(route)) {
+        if (
+            ROUTES_TO_IGNORE.includes(route) ||
+            route.includes("/web/static/lib/pdfjs/web/viewer.html")
+        ) {
             return;
-        }
-        if (route.includes("/web/static/lib/pdfjs/web/viewer.html")) {
-            return Promise.resolve();
         }
         step(`${route} - ${JSON.stringify(args)}`);
     });
