@@ -23,6 +23,12 @@ msgstr ""
 
 #. module: documents_spreadsheet
 #. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid "%(folder)s is used by %(company)s"
+msgstr ""
+
+#. module: documents_spreadsheet
+#. odoo-python
 #: code:addons/documents_spreadsheet/models/spreadsheet_template.py:0
 msgid "%s (copy)"
 msgstr ""
@@ -432,6 +438,22 @@ msgstr ""
 #. module: documents_spreadsheet
 #: model:ir.model.fields,field_description:documents_spreadsheet.field_save_spreadsheet_template__template_name
 msgid "Template Name"
+msgstr ""
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_document.py:0
+msgid ""
+"The company for a folder cannot be changed if it is already used as the "
+"spreadsheet workspace for at least one other company: %s"
+msgstr ""
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/res_company.py:0
+msgid ""
+"The company of %(folder)s should either be undefined or set to %(company)s. "
+"Otherwise, it is not possible to link the workspace to the company."
 msgstr ""
 
 #. module: documents_spreadsheet
