@@ -72,6 +72,7 @@ QUnit.module("Views", (hooks) => {
                 </templates>
             </kanban>`;
 
+        const pyEnv = getPyEnv();
         const { openView } = await start({
             serverData,
             async mockRPC(route, { method }) {
@@ -79,7 +80,15 @@ QUnit.module("Views", (hooks) => {
                     case "get_running_timer":
                         return { step_timer: 30 };
                     case "action_start_new_timesheet_timer":
-                        return false;
+                        const newTimesheet = {
+                            id: 7,
+                            project_id: 1,
+                            task_id: false,
+                            date: serializeDateTime(DateTime.now()),
+                            unit_amount: 0.0,
+                        };
+                        pyEnv.mockServer.models["analytic.line"].records.push(newTimesheet);
+                        return newTimesheet;
                     case "get_daily_working_hours":
                         return {};
                     case "get_server_time":

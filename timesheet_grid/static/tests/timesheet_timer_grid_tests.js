@@ -1654,57 +1654,6 @@ QUnit.module("Views", (hooks) => {
         }
     );
 
-    QUnit.test("Switch view with GroupBy and start the timer", async function (assert) {
-        serverData.views["analytic.line,1,kanban"] =
-            `<kanban js_class="timesheet_timer_kanban">
-                <templates>
-                    <field name="name"/>
-                    <t t-name="card">
-                        <field name="employee_id"/>
-                        <field name="project_id"/>
-                        <field name="task_id"/>
-                        <field name="date"/>
-                        <field name="display_timer"/>
-                    </t>
-                </templates>
-            </kanban>`;
-
-        const { openView } = await start({
-            serverData,
-            async mockRPC(route, { method }) {
-                switch (method) {
-                    case "get_running_timer":
-                        return { step_timer: 30 };
-                    case "action_start_new_timesheet_timer":
-                        return false;
-                    case "get_daily_working_hours":
-                        return {};
-                    case "get_server_time":
-                        return serializeDateTime(DateTime.now());
-                    case "get_create_edit_project_ids":
-                        return [];
-                    default:
-                        return timesheetGridSetup.mockTimesheetGridRPC(...arguments);
-                }
-            }
-        });
-
-        await openView({
-            res_model: "analytic.line",
-            views: [[false, "grid"], [false, "kanban"]],
-            context: { group_by: ["project_id", "task_id"] },
-        });
-        await nextTick();
-        await click(target, ".o_switch_view.o_kanban");
-        await nextTick();
-        await click(target, ".btn_start_timer");
-        assert.containsNone(
-            target,
-            "button.btn_start_timer",
-            "Timer should be running"
-        );
-    });
-
     QUnit.test("Total cell bg color", async function (assert) {
         const { openView } = await start({
             serverData,
