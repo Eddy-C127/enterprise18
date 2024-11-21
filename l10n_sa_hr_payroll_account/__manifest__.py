@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'K.S.A. - Payroll with Accounting',
-    'author': 'Odoo',
+    'name': 'Saudi Arabia - Payroll with Accounting',
+    'countries': ['sa'],
     'version': '1.0',
     'category': 'Human Resources',
     'description': """
-Accounting Data for KSA Payroll Rules.
+Accounting Data for Saudi Arabia Payroll Rules.
 =======================================================
 
     """,
