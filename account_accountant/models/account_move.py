@@ -571,18 +571,27 @@ class AccountMoveLine(models.Model):
     def _get_deferred_amounts_by_line_values(self, line):
         return {
             'account_id': line['account_id'],
+            # line either be a dict with ids (coming from SQL query), or a real account.move.line object
+            'product_id': line['product_id'] if isinstance(line, dict) else line['product_id'].id,
             'balance': line['balance'],
             'move_id': line['move_id'],
         }
 
     @api.model
     def _get_deferred_lines_values(self, account_id, balance, ref, analytic_distribution, line=None):
-        return {
+        res = {
             'account_id': account_id,
             'balance': balance,
             'name': ref,
             'analytic_distribution': analytic_distribution,
         }
+        # TEMP FIX
+        # didn't add the 'product_id' key directly to the dictionary for v17.0
+        # because if any existing custom module calls this function, it breaks the flow.
+        if line:
+            # line either be a dict with ids (coming from SQL query), or a real account.move.line object
+            res['product_id'] = line['product_id'] if isinstance(line, dict) else line['product_id'].id
+        return res
 
     # ============================= END - Deferred management ====================================
 

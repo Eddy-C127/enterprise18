@@ -591,3 +591,10 @@ class TestDeferredManagement(AccountTestInvoicingCommon):
             {'date': fields.Date.to_date('2024-02-29'), 'amount_total': 4000},
             {'date': fields.Date.to_date('2024-03-31'), 'amount_total': 4000},
         ])
+
+    def test_product_on_deferred_move(self):
+        """
+        Test that product is available on the deferred move
+        """
+        move = self.create_invoice('out_invoice', [self.expense_lines[0]], post=True)
+        self.assertEqual(move.deferred_move_ids[0].line_ids[0].product_id, move.line_ids[0].product_id)

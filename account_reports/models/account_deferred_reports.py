@@ -59,6 +59,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
             "account_move_line.id AS line_id",
             "account_move_line.account_id AS account_id",
             "account_move_line.partner_id AS partner_id",
+            "account_move_line.product_id AS product_id",
             "account_move_line.name AS line_name",
             "account_move_line.deferred_start_date AS deferred_start_date",
             "account_move_line.deferred_end_date AS deferred_end_date",
@@ -431,6 +432,7 @@ class DeferredReportCustomHandler(models.AbstractModel):
     def _get_current_key_totals_dict(self, lines_per_key, sign):
         return {
             'account_id': lines_per_key[0]['account_id'],
+            'product_id': lines_per_key[0]['product_id'],
             'amount_total': sign * sum(line['balance'] for line in lines_per_key),
             'move_ids': {line['move_id'] for line in lines_per_key},
         }
