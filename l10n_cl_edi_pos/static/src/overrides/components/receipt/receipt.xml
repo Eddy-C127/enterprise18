@@ -21,7 +21,7 @@
             </t>
         </xpath>
         <xpath expr="//div[@id='order-date']" position="attributes">
-            <attribute name="t-if" add="props.data.headerData.company.country?.code !== 'CL'" separator=" and "/>
+            <attribute name="t-if" add="(props.data.headerData.company.country?.code !== 'CL' or !props.data.headerData.company.cl_vat)" separator=" and "/>
         </xpath>
     </t>
 </templates>
