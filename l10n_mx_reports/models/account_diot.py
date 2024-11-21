@@ -70,10 +70,8 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
         if current_groupby != 'partner_id':
             return []
 
-        cash_basis_journal_ids = self.env.companies.filtered('tax_cash_basis_journal_id').tax_cash_basis_journal_id
         tables, where_clause, where_params = report._query_get(options, 'strict_range', domain=[
             ('parent_state', '=', 'posted'),
-            ('journal_id', 'in', cash_basis_journal_ids.ids),
         ])
         lang = self.env.user.lang or get_lang(self.env).code
         tags = report.line_ids.expression_ids._get_matching_tags()
