@@ -1,5 +1,6 @@
 /** @odoo-module **/
 
+import VariantMixin from "@website_sale/js/sale_variant_mixin";
 import { WebsiteSale } from '@website_sale/js/website_sale';
 
 WebsiteSale.include({
@@ -25,5 +26,14 @@ WebsiteSale.include({
             this.disabled = !this.selected;
         })
         return this._super(...arguments);
-    }
+    },
+
+    /**
+     * Update the renting text when the combination change.
+     * @override
+     */
+    _onChangeCombination: function (){
+        this._super.apply(this, arguments);
+        VariantMixin._onChangeCombinationSubscription.apply(this, arguments);
+    },
 });
