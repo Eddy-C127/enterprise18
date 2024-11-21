@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'U.A.E. - Payroll with Accounting',
+    'name': 'United Arab Emirates - Payroll with Accounting',
     'countries': ['ae'],
-    'author': 'Odoo PS',
     'category': 'Human Resources',
     'description': """
 Accounting Data for UAE Payroll Rules.
