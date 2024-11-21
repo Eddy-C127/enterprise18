@@ -1,14 +1,18 @@
 # -*- coding: utf-8 -*-
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 {
-    'name': 'K.S.A. - Payroll',
+    'name': 'Saudi Arabia - Payroll',
     'countries': ['sa'],
-    'author': 'Odoo PS',
     'category': 'Human Resources/Payroll',
     'description': """
-Kingdom of Saudi Arabia Payroll and End of Service rules.
+Saudi Arabia Payroll and End of Service rules.
 ===========================================================
-
+- Basic Calculation
+- End of Service Calculation
+- Other Input Rules (Overtime, Salary Attachments, etc.)
+- Split Structures for EOS and Monthly Salaries
+- GOSI Employee Deduction
+- Unpaid leaves
     """,
     'license': 'OEEL-1',
     'depends': ['hr_payroll', 'l10n_sa'],
