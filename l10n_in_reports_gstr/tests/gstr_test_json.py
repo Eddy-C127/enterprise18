@@ -9,6 +9,38 @@ gstr1_test_json = {
       'ctin': '27BBBFF5679L8ZR',
       'inv': [
         {
+          'inum': 'INV/2023/00011',
+          'idt': TEST_DATE.strftime("%d-%m-%Y"),
+          'val': 2580.0,
+          'pos': '27',
+          'rchrg': 'N',
+          'inv_typ': 'SEWP',
+          'itms': [
+            {
+              'num': 1,
+              'itm_det': {
+                'txval': 1000.0,
+                'iamt': 180.0,
+                'camt': 0.0,
+                'samt': 0.0,
+                'csamt': 0.0,
+                'rt': 18.0
+              }
+            },
+            {
+              'num': 2,
+              'itm_det': {
+                'txval': 1400.0,
+                'iamt': 0.0,
+                'camt': 0.0,
+                'samt': 0.0,
+                'csamt': 0.0,
+                'rt': 0.0
+              }
+            }
+          ]
+        },
+        {
           'inum': 'INV/2023/00010',
           'idt': TEST_DATE.strftime("%d-%m-%Y"),
           'val': 2580.0,
@@ -238,8 +270,8 @@ gstr1_test_json = {
         'hsn_sc': '01111',
         'uqc': 'UNT',
         'rt': 0,
-        'qty': 5.0,
-        'txval': 2900.0,
+        'qty': 7.0,
+        'txval': 4300.0,
         'iamt': 0.0,
         'samt': 0.0,
         'camt': 0.0,
@@ -250,9 +282,9 @@ gstr1_test_json = {
         'hsn_sc': '01111',
         'uqc': 'UNT',
         'rt': 18,
-        'qty': 6.5,
-        'txval': 128000.0,
-        'iamt': 22860.0,
+        'qty': 8.5,
+        'txval': 129000.0,
+        'iamt': 23040.0,
         'samt': 90.0,
         'camt': 90.0,
         'csamt': 0.0,
