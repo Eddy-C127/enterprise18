@@ -139,8 +139,13 @@ export const studioService = {
                 const editedActionId = currentHash[URL_ACTION_KEY];
                 const additionalContext = {};
                 if (state.studioMode === MODES.EDITOR) {
-                    if (currentHash.active_id) {
+                    const { active_id, active_ids } = currentHash;
+                    if (active_id) {
                         additionalContext.active_id = currentHash.active_id;
+                        additionalContext.active_ids = [active_id];
+                    }
+                    if (active_ids) {
+                        additionalContext.active_ids = active_ids;
                     }
                     if (editedActionId) {
                         state.editedAction = await env.services.action.loadAction(
