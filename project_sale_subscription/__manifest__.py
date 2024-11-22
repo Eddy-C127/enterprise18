@@ -12,4 +12,7 @@
     'installable': True,
     'auto_install': True,
     'license': 'OEEL-1',
+    'data': [
+        'views/sale_order_line_views.xml',
+    ],
 }
