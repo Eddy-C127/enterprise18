@@ -11,6 +11,7 @@
     'depends': ['sale_project', 'sale_subscription'],
     'data': [
         'views/account_analytic_account_views.xml',
+        'views/sale_order_line_views.xml',
         'views/sale_subscription_views.xml',
     ],
     'demo': [
