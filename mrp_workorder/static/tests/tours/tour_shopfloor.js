@@ -2,6 +2,8 @@
 
 import { registry } from "@web/core/registry";
 import { TourError } from "@web_tour/tour_service/tour_utils";
+import { stepUtils } from "./tour_step_utils";
+import helper from "./tour_helper_mrp_workorder";
 
 registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: () => [
     {
@@ -130,6 +132,96 @@ registry.category("web_tour.tours").add('test_shop_floor', {test: true, steps: (
     { trigger: '.o_apps', isCheck: true }
 ]})
 
+registry.category("web_tour.tours").add("test_shop_floor_my_wo_filter_with_pin_user", {
+    test: true,
+    steps: () => [
+        // Select the right workcenter.
+        { trigger: 'button:has(input[name="Winter\'s Workshop"])' },
+        {
+            extra_trigger: 'button.active:has(input[name="Winter\'s Workshop"])',
+            trigger: "footer.modal-footer button.btn-primary",
+        },
+        // Open the employee panel and select first and second employees.
+        {
+            extra_trigger: '.o_control_panel_actions button:contains("Winter\'s Workshop")',
+            trigger: 'button[name="employeePanelButton"]'
+        },
+        { trigger: 'button:contains("Operator")' },
+        { trigger: '.modal-body .popup .selection div:contains("John Snow")' },
+        {
+            extra_trigger: '.o_mrp_employees_panel .o_admin_user:contains("John Snow")',
+            trigger: 'button:contains("Operator")',
+        },
+        { trigger: '.modal-body .popup .selection div:contains("Queen Elsa")' },
+        // Enter the PIN code for second employee.
+        ...stepUtils.enterPIN("41213"),
+        {
+            content: "Display right Workcenter",
+            extra_trigger: '.o_mrp_employees_panel .o_admin_user:contains("Queen Elsa")',
+            trigger: '.o_control_panel_actions button:contains("Winter\'s Workshop")',
+        },
+        {
+            content: "Start the first WO with the second employee",
+            extra_trigger: 'button:contains("Winter\'s Workshop").active',
+            trigger: ".o_mrp_display_record:first-child .card-title",
+        },
+        {
+            extra_trigger: ".o_mrp_display_record.o_active",
+            trigger: ".o_mrp_employees_panel li:contains(John Snow)",
+        },
+        {
+            content: "Start the second WO with the first employee",
+            extra_trigger: ".o_admin_user:contains(John Snow)",
+            trigger: ".o_mrp_display_record:last-child .card-title",
+        },
+
+        {
+            content: 'Display "My WO" workorders',
+            extra_trigger: ".o_mrp_display_record:contains('TEST/00002').o_active",
+            trigger: ".o_control_panel_actions button:contains(My WO)",
+        },
+        // Check the right WO is displayed.
+        {
+            trigger: ".o_control_panel_actions button:contains(My WO).active",
+            run: () => {
+                const currentEmployeeEl = document.querySelector(".o_admin_user div.fw-bold");
+                helper.assert(currentEmployeeEl.innerText, "John Snow");
+                const records = document.querySelectorAll(".o_mrp_display_record");
+                helper.assert(records.length, 1);
+                const recordTitle = records[0].querySelector(".card-title>span").innerText;
+                helper.assert(recordTitle, "TEST/00002 - Build the Snowman");
+            },
+        },
+        // Select the second employee and check only the right WO is shown.
+        { trigger: ".o_mrp_employees_panel li:contains(Queen Elsa)" },
+        ...stepUtils.enterPIN("41213"),
+        {
+            trigger: ".o_admin_user:contains(Queen Elsa)",
+            run: () => {
+                const currentEmployeeEl = document.querySelector(".o_admin_user div.fw-bold");
+                helper.assert(currentEmployeeEl.innerText, "Queen Elsa");
+                const records = document.querySelectorAll(".o_mrp_display_record");
+                helper.assert(records.length, 1);
+                const recordTitle = records[0].querySelector(".card-title>span").innerText;
+                helper.assert(recordTitle, "TEST/00001 - Build the Snowman");
+            },
+        },
+        // Select again the first employee and check again only its WO is displayed.
+        { trigger: ".o_mrp_employees_panel li:contains(John Snow)" },
+        {
+            trigger: ".o_admin_user:contains(John Snow)",
+            run: () => {
+                const currentEmployeeEl = document.querySelector(".o_admin_user div.fw-bold");
+                helper.assert(currentEmployeeEl.innerText, "John Snow");
+                const records = document.querySelectorAll(".o_mrp_display_record");
+                helper.assert(records.length, 1);
+                const recordTitle = records[0].querySelector(".card-title>span").innerText;
+                helper.assert(recordTitle, "TEST/00002 - Build the Snowman");
+            },
+        },
+    ],
+});
+
 registry.category("web_tour.tours").add('test_generate_serials_in_shopfloor', {test: true, steps: () => [
     {
         content: 'Make sure workcenter is available',
@@ -231,7 +323,6 @@ registry.category("web_tour.tours").add('test_updated_quality_checks', {test: tr
         isCheck: true,
     },
 ]})
-
 
 registry.category("web_tour.tours").add("test_update_tracked_consumed_materials_in_shopfloor", {
     test: true,

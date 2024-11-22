@@ -35,23 +35,9 @@ export class MrpDisplaySearchModel extends SearchModel {
                 },
             ],
         });
-        this.recordCache = { ids: [] };
         this.workorders = true;
         this.loadedWorkcenters = args.loadedWorkcenters;
         this.enableWorkcenterFilter = args.enableWorkcenterFilter;
-    }
-
-    removeRecordFromCache(id) {
-        this.recordCache.ids.splice(this.recordCache.ids.indexOf(id), 1);
-    }
-
-    invalidateRecordCache() {
-        this.recordCache.ids = [];
-    }
-
-    async _notify() {
-        this.invalidateRecordCache();
-        super._notify();
     }
 
     _getFacets() {
