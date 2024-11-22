@@ -118,11 +118,23 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
     };
 
     const askPin = (employee) => {
-        openDialog("PinPopup", PinPopup, {
-            popupData: { employee },
-            onClosePopup: closePopup.bind(this),
-            onPinValidate: checkPin.bind(this),
+        const dialogPromise = new Promise((resolve) => {
+            const onClosePopup = async(args) => {
+                closePopup(args);
+                resolve();
+            };
+            const onPinValidate = async(employeeId, pin) => {
+                const res = await checkPin(employeeId, pin);
+                resolve();
+                return res;
+            };
+            openDialog("PinPopup", PinPopup, {
+                popupData: { employee },
+                onClosePopup,
+                onPinValidate,
+            });
         });
+        return dialogPromise;
     };
 
     const toggleSessionOwner = async (employee_id, pin) => {
@@ -130,7 +142,7 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
             await orm.call("hr.employee", "remove_session_owner", [employee_id]);
             await getConnectedEmployees();
         } else {
-            setSessionOwner(employee_id, pin);
+            await setSessionOwner(employee_id, pin);
         }
     };
 
@@ -148,7 +160,7 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
             if (popup.PinPopup.isShown) {
                 return;
             }
-            askPin({ id: employee_id });
+            await askPin({ id: employee_id });
         }
         await getConnectedEmployees();
     };

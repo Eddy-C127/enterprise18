@@ -17,7 +17,7 @@ import { PinPopup } from "@mrp_workorder/components/pin_popup";
 import { useConnectedEmployee } from "@mrp_workorder/mrp_display/hooks/employee_hooks";
 import { MrpDisplaySearchBar } from "@mrp_workorder/mrp_display/search_bar";
 import { CheckboxItem } from "@web/core/dropdown/checkbox_item";
-import { Component, onWillDestroy, onWillStart, useState, useSubEnv } from "@odoo/owl";
+import { Component, onWillDestroy, onWillRender, onWillStart, useState, useSubEnv } from "@odoo/owl";
 
 export class MrpDisplay extends Component {
     static template = "mrp_workorder.MrpDisplay";
@@ -86,6 +86,7 @@ export class MrpDisplay extends Component {
             offset: 0,
             limit: 40,
         });
+        this.recordCacheIds = [];
 
         const params = this._makeModelParams();
 
@@ -148,10 +149,25 @@ export class MrpDisplay extends Component {
                 this.env.reload();
             }, 600000);
         });
+
+        onWillRender(() => {
+            this.defineRelevantRecords();
+        });
+
         onWillDestroy(async () => {
             clearInterval(this.refreshInterval);
             await this.processValidationStack();
         });
+    }
+
+    removeRecordIdFromCache(id) {
+        this.recordCacheIds.splice(this.recordCacheIds.indexOf(id), 1);
+    }
+
+    invalidateRecordIdsCache() {
+        if (this.recordCacheIds.length) {
+            this.recordCacheIds = [];
+        }
     }
 
     addToValidationStack(record, validationCallback) {
@@ -209,6 +225,10 @@ export class MrpDisplay extends Component {
 
     get barcodeTargetRecord(){
         const currentAdminId = this.useEmployee.employees.admin.id;
+        if (!currentAdminId) {
+            // No current admin, no target record.
+            return false;
+        }
         if (currentAdminId === this.adminId) {
             // We've already found the target record for the current admin, so we can return it
             return this.barcodeTargetRecordId;
@@ -300,45 +320,45 @@ export class MrpDisplay extends Component {
                 "mrp.workorder": [],
             };
         }
-        this.env.searchModel.invalidateRecordCache();
+        this.invalidateRecordIdsCache();
         return { success: true };
     }
 
-    get relevantRecords() {
+    /**
+     * Defines and returns relevant records (Manufacturing or Work Orders) depending of:
+     * - state.activeResModel: Display either `mrp.production` or `mrp.workorder`;
+     * - state.activeWorkcenter: Display only selected Workcenter's WO;
+     * - adminWorkorderIds: Display only WO assigned to this user.
+     * @returns {Object[]}
+     */
+    defineRelevantRecords() {
         const myWorkordersFilter = (wo) => this.adminWorkorderIds.includes(wo.resId) && wo.data.state != "cancel";
         const workcenterFilter = (wo) => wo.data.workcenter_id[0] === this.state.activeWorkcenter && wo.data.state != "cancel";
         const showMOs = this.state.activeResModel === "mrp.production";
         const filteredRecords = showMOs
             ? this.productions
             : this.filteredWorkorders.filter(
-                  this.state.activeWorkcenter === -1 ? myWorkordersFilter : workcenterFilter
-              );
-        if (this.env.searchModel.recordCache.ids.length) {
-            // Add any new records that conform to filter criteria but were not yet in the cache
-            this.env.searchModel.recordCache.ids.push(
-                ...filteredRecords.reduce(
-                    (acc, rec) =>
-                        this.env.searchModel.recordCache.ids.includes(rec.resId)
-                            ? acc
-                            : [...acc, rec.resId],
-                    []
-                )
+                this.state.activeWorkcenter === -1 ? myWorkordersFilter : workcenterFilter
             );
-            const allRecordsHash = (showMOs ? this.productions : this.workorders).reduce(
-                (acc, rec) => ({ ...acc, [rec.resId]: rec }),
-                {}
-            );
-            // In some cases (ex. MO ready after scrap), an MO included in the filtered records at the previous load no
-            // longer conforms to the current filterset.
-            // We make sure this does not result in any undefined values in the returned list.
-            return this.env.searchModel.recordCache.ids.reduce((acc, id) => {
-                const record = allRecordsHash[id];
-                return record ? [...acc, record] : acc;
-            }, []);
-        } else {
-            // Put the filtered records in the cache as it is empty, and return the records
+
+        // Separate filtered records depending if they are already in cache or not.
+        const [recordsAlreadyInCache, recordsNotInCache] = [[], []];
+        for (const record of filteredRecords) {
+            this.recordCacheIds.includes(record.resId)
+                ? recordsAlreadyInCache.push(record)
+                : recordsNotInCache.push(record);
+        }
+
+        // Sort records already in cache by their position in this cache.
+        recordsAlreadyInCache.sort((rec1, rec2) => {
+            const index1 = this.recordCacheIds.indexOf(rec1.id);
+            const index2 = this.recordCacheIds.indexOf(rec2.id);
+            return index1 - index2;
+        });
+
+        if (recordsNotInCache) {
             if (!showMOs) {
-                // Sort the filtered workorders first
+                // Sort Work Orders not in cache by their state.
                 const statesComparativeValues = {
                     // Smallest value = first. Biggest value = last.
                     progress: 0,
@@ -347,7 +367,7 @@ export class MrpDisplay extends Component {
                     waiting: 3,
                     finished: 4,
                 };
-                filteredRecords.sort((wo1, wo2) => {
+                recordsNotInCache.sort((wo1, wo2) => {
                     const v1 = statesComparativeValues[wo1.data.state];
                     const v2 = statesComparativeValues[wo2.data.state];
                     const d1 = wo1.data.date_start;
@@ -355,9 +375,15 @@ export class MrpDisplay extends Component {
                     return v1 - v2 || d1 - d2;
                 });
             }
-            this.env.searchModel.recordCache.ids = filteredRecords.map((r) => r.resId);
-            return filteredRecords;
+            const recordIds = recordsNotInCache.map((r) => r.resId)
+            this.recordCacheIds.push(...recordIds);
         }
+        this._relevantRecords = [...recordsAlreadyInCache, ...recordsNotInCache];
+        return this._relevantRecords;
+    }
+
+    get relevantRecords() {
+        return this._relevantRecords || [];
     }
 
     get adminWorkorderIds() {
@@ -383,7 +409,7 @@ export class MrpDisplay extends Component {
             if (filterMO) {
                 await this._onProductionBarcodeScanned(filterMO);
             } else {
-                this.env.searchModel.invalidateRecordCache();
+                this.invalidateRecordIdsCache();
             }
             const workcencenterIds = this.state.workcenters.map((wc) => wc.id);
             this.state.activeWorkcenter = Number(workcenterId);
@@ -414,7 +440,7 @@ export class MrpDisplay extends Component {
         const foundRecord = relevantStack.find(rec => rec.record.resId === record.resId);
         if (isValidated) {
             foundRecord.isValidated = true;
-            this.env.searchModel.removeRecordFromCache(record.resId);
+            this.removeRecordIdFromCache(record.resId);
             if (relevantStack.every((rec) => rec.isValidated)) {
                 // Empties the validation stack if all under validation MO or WO are validated.
                 this.validationStack[record.resModel] = [];
@@ -483,35 +509,35 @@ export class MrpDisplay extends Component {
         const result = await this.processValidationStack();
         if (result.success) {
             this.env.reload();
-            this.env.searchModel.invalidateRecordCache();
+            this.invalidateRecordIdsCache();
         }
     }
 
     login() {
         this.useEmployee.popupAddEmployee();
         if (this.state.activeWorkcenter === -1) {
-            this.env.searchModel.invalidateRecordCache();
+            this.invalidateRecordIdsCache();
         }
     }
 
     logout(id) {
         this.useEmployee.logout(id);
         if (this.state.activeWorkcenter === -1) {
-            this.env.searchModel.invalidateRecordCache();
+            this.invalidateRecordIdsCache();
         }
     }
 
-    changeAdmin(id) {
-        this.useEmployee.toggleSessionOwner(id);
+    async changeAdmin(id) {
+        await this.useEmployee.toggleSessionOwner(id);
         if (this.state.activeWorkcenter === -1) {
-            this.env.searchModel.invalidateRecordCache();
+            this.invalidateRecordIdsCache();
         }
     }
 
     _onPagerChanged({ offset, limit }) {
         this.state.offset = offset;
         this.state.limit = limit;
-        this.env.searchModel.invalidateRecordCache();
+        this.invalidateRecordIdsCache();
         this.env.reload();
     }
 

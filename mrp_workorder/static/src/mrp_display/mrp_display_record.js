@@ -37,6 +37,7 @@ export class MrpDisplayRecord extends Component {
         barcodeTarget: { type: Boolean, optional: true },
         production: { optional: true, type: Object },
         record: Object,
+        removeFromCache: Function,
         removeFromValidationStack: Function,
         isMyWO: {optional: true, type: Boolean},
         selectWorkcenter: { optional: true, type: Function },
@@ -467,7 +468,7 @@ export class MrpDisplayRecord extends Component {
             record: this.props.record,
             params,
             reload: this.env.reload.bind(this),
-            removeFromCache: this.env.searchModel.removeRecordFromCache.bind(this.env.searchModel),
+            removeFromCache: this.props.removeFromCache,
         });
     }
 
@@ -684,7 +685,7 @@ export class MrpDisplayRecord extends Component {
             return this._doAction(action);
         }
         await this.productionValidation();
-        this.env.searchModel.removeRecordFromCache(this.props.record.resId);
+        this.props.removeFromCache(this.props.record.resId);
         const productions_root = this.props.record._parentRecord.model.root;
         // Manually remove the parent MO from the model, to avoid a full reload.
         productions_root.records.splice(
