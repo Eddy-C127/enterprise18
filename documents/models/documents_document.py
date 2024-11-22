@@ -790,7 +790,7 @@ class Document(models.Model):
             ]
             candidates_domain = expression.AND([candidates_domain, self._get_access_update_domain()])
 
-            candidates = self.env['documents.document']._search(
+            candidates = self.with_context(active_test=False)._search(
                 candidates_domain).select('id', 'folder_id', 'shortcut_document_id', field)
             shortcuts_to_check_owner_target_access |= self.search([('shortcut_document_id', 'any', candidates_domain)])
 
@@ -858,7 +858,7 @@ class Document(models.Model):
         ]
         to_update_domain = expression.AND([to_update_domain, self._get_access_update_domain()])
 
-        documents = self.env['documents.document']._search(to_update_domain).select('id')
+        documents = self.with_context(active_test=False)._search(to_update_domain).select('id')
 
         for (role, expiration_date), partners in values_to_update.items():
             if role not in ('edit', 'view'):
@@ -909,7 +909,7 @@ class Document(models.Model):
             ))
         shortcuts_to_check_owner_target_access = self.browse()
         if partners_to_remove:
-            shortcuts_to_check_owner_target_access = self.search(expression.AND([
+            shortcuts_to_check_owner_target_access = self.with_context(active_test=False).search(expression.AND([
                 [('shortcut_document_id', 'any', to_update_domain)],
                 [('owner_id.partner_id', 'in', partners_to_remove.ids)],
             ]))
