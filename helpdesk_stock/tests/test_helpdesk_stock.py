@@ -179,36 +179,29 @@ class TestHelpdeskStock(common.HelpdeskCommon):
                         "The ticket should have a related delivery order for the commercial partner")
 
     def test_helpdesk_ticket_product_from_parent_company(self):
-        company_product, employee_product = self.env['product.product'].create([
+        company_product, employee_1_product, employee_2_product = self.env['product.product'].create([
             {'name': 'Company Product'},
-            {'name': 'Employee Product'},
+            {'name': 'Employee 1 Product'},
+            {'name': 'Employee 2 Product'},
         ])
-        company_partner, employee_partner = self.env['res.partner'].create([{
-            'name': 'Company',
-            'company_type': 'company',
-        }, {
-            'name': 'Employee',
-            'company_type': 'person',
-        }])
-        employee_partner['commercial_partner_id'] = company_partner.id
-
-        company_so, employee_so = self.env['sale.order'].create([
-            {'partner_id': company_partner.id},
-            {'partner_id': employee_partner.id},
+        partners = self.env['res.partner'].create([
+            {'name': 'Company', 'company_type': 'company'},
+            {'name': 'Employee 1', 'company_type': 'person'},
+            {'name': 'Employee 1', 'company_type': 'person'},
         ])
-        self.env['sale.order.line'].create([{
-            'order_id': company_so.id,
-            'product_id': company_product.id,
-        }, {
-            'order_id': employee_so.id,
-            'product_id': employee_product.id,
-        }])
-        (company_so | employee_so).action_confirm()
+        company, employee_1, employee_2 = partners
+        (employee_1 | employee_2).commercial_partner_id = company
 
+        sale_orders = self.env['sale.order'].create([
+            {'partner_id': company.id, 'order_line': [Command.create({'product_id': company_product.id})]},
+            {'partner_id': employee_1.id, 'order_line': [Command.create({'product_id': employee_1_product.id})]},
+            {'partner_id': employee_2.id, 'order_line': [Command.create({'product_id': employee_2_product.id})]},
+        ])
+        sale_orders.action_confirm()
+
+        products = (company_product | employee_1_product | employee_2_product)
         ticket = self.env['helpdesk.ticket'].create({'name': 'Ticket'})
-        ticket.partner_id = company_partner.id
-        self.assertEqual(ticket.suitable_product_ids.ids, company_product.ids, 'Company should not see SOs of child partners')
-        ticket.partner_id = employee_partner.id
-        self.assertEqual(len(ticket.suitable_product_ids), 2, '2 products should be visible')
-        self.assertIn(company_product, ticket.suitable_product_ids, 'Employee should see SOs of parent company')
-        self.assertIn(employee_product, ticket.suitable_product_ids, 'Employee should see SOs of parent company')
+
+        for partner in partners:
+            ticket.partner_id = partner
+            self.assertEqual(ticket.suitable_product_ids, products, 'Products from all children of the parent company should be visible')
