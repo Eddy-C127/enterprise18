@@ -339,12 +339,6 @@ msgid "The import file is missing the following required columns: %s"
 msgstr "가져오기 파일에 다음과 같은 필수 열이 없습니다: %s"
 
 #. module: account_base_import
-#. odoo-python
-#: code:addons/account_base_import/models/account_account.py:0
-msgid "The import file must contain the 'code' column"
-msgstr "가져오기 파일에는 '코드' 열이 포함되어 있어야 합니다"
-
-#. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
@@ -390,6 +384,14 @@ msgid ""
 msgstr ""
 "Winbooks는 Exact에서 인수한 가장 오래된 벨기에 회계 소프트웨어입니다.\n"
 "                            다음을 사용해보십시오"
+
+#. module: account_base_import
+#. odoo-python
+#: code:addons/account_base_import/models/account_account.py:0
+msgid ""
+"You must provide both the `code_mapping_ids/company_id` and the "
+"`code_mapping_ids/code` columns."
+msgstr ""
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

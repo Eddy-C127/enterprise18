@@ -46,12 +46,12 @@ msgstr "<strong class=\"o_kanban_label_width\">De:</strong>"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban
 msgid "<strong class=\"o_kanban_label_width\">To:</strong>"
-msgstr ""
+msgstr "<strong class=\"o_kanban_label_width\">A:</strong>"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_form
 msgid "<strong class=\"px-2\">to</strong>"
-msgstr ""
+msgstr "<strong class=\"px-2\">hasta</strong>"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_recruitment_post_job_wizard_view_form
@@ -96,7 +96,7 @@ msgstr "Icono de tipo de actvidad"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_post_job_wizard__apply_method
 msgid "Apply Method"
-msgstr ""
+msgstr "Método de solicitud"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__message_attachment_count
@@ -106,12 +106,13 @@ msgstr "Número de archivos adjuntos"
 #. module: hr_recruitment_integration_base
 #: model:ir.actions.server,name:hr_recruitment_integration_base.job_board_campaign_manager_start_ir_actions_server
 msgid "Automatic Job Posting on job boards"
-msgstr ""
+msgstr "Publicación automática del puesto en bolsas de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.actions.server,name:hr_recruitment_integration_base.job_board_campaign_manager_stop_ir_actions_server
 msgid "Automatic job posting deleting on job boards"
 msgstr ""
+"Eliminación automática de la publicación del puesto en bolsas de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_platform__avatar_1920
@@ -141,7 +142,7 @@ msgstr "Avatar 512"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields.selection,name:hr_recruitment_integration_base.selection__hr_job__payment_interval__biweekly
 msgid "Bi-Week"
-msgstr ""
+msgstr "Bisemanal"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_form
@@ -288,7 +289,7 @@ msgstr "Nombre mostrado"
 #. module: hr_recruitment_integration_base
 #: model:ir.actions.server,name:hr_recruitment_integration_base.hr_job_post_double_check_action
 msgid "Double Check Job Post"
-msgstr ""
+msgstr "Verificar el puesto de trabajo otra vez"
 
 #. module: hr_recruitment_integration_base
 #. odoo-javascript
@@ -422,12 +423,12 @@ msgstr "Empleo"
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_post_job_wizard__platform_ids
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
 msgid "Job Board"
-msgstr ""
+msgstr "Bolsa de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_kanban
 msgid "Job Board Posts"
-msgstr ""
+msgstr "Publicaciones en la bolsa de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
@@ -438,7 +439,7 @@ msgstr "Portales de empleo"
 #: model:ir.actions.act_window,name:hr_recruitment_integration_base.action_open_hr_job_post
 #: model:ir.ui.menu,name:hr_recruitment_integration_base.menu_hr_job_boards
 msgid "Job Boards Posts"
-msgstr ""
+msgstr "Publicaciones en bolsas de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model,name:hr_recruitment_integration_base.model_hr_job
@@ -454,13 +455,13 @@ msgstr "Puesto de trabajo"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Job Post on %(platform)s has been %(mode)s"
-msgstr ""
+msgstr "El puesto de trabajo en %(platform)s ha sido %(mode)s"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Job Post on %(platform)s has been modified"
-msgstr ""
+msgstr "El puesto de trabajo en %(platform)s ha sido modificado"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
@@ -468,13 +469,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job__job_post_ids
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_recruitment_post_job_wizard__post_ids
 msgid "Job Posts"
-msgstr ""
+msgstr "Puestos de trabajo"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Job:"
-msgstr ""
+msgstr "Puesto de trabajo:"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__write_uid
@@ -569,7 +570,7 @@ msgstr "Número de acciones"
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job__job_post_count
 msgid "Number of Job Posts"
-msgstr ""
+msgstr "Número de puestos de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__message_has_error_counter
@@ -644,13 +645,13 @@ msgstr "Precio a actualizar"
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
 msgid "Publish on Job Board"
-msgstr ""
+msgstr "Publicar en la bolsa de trabajo"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job.py:0
 msgid "Publish on a Job Board"
-msgstr ""
+msgstr "Publicar en una bolsa de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.hr_job_post_view_kanban_search
@@ -681,7 +682,7 @@ msgstr "Usuario responsable"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "Reuse Job Post"
-msgstr ""
+msgstr "Volver a usar el puesto de trabajo"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,field_description:hr_recruitment_integration_base.field_hr_job_post__message_has_sms_error
@@ -801,6 +802,8 @@ msgid ""
 "This action will update the job post on the platform. This action will cost "
 "%(price)s credits. Do you want to continue?"
 msgstr ""
+"Esta acción actualizará el puesto de trabajo en la plataforma. Esta acción "
+"costará %(price)s créditos, ¿quiere continuar?"
 
 #. module: hr_recruitment_integration_base
 #: model:ir.model.fields,help:hr_recruitment_integration_base.field_hr_job_post__activity_exception_decoration
@@ -853,13 +856,13 @@ msgstr "Año"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_job_post.py:0
 msgid "created"
-msgstr ""
+msgstr "creado"
 
 #. module: hr_recruitment_integration_base
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/models/hr_recruitment_platform.py:0
 msgid "failure"
-msgstr ""
+msgstr "Rechazo"
 
 #. module: hr_recruitment_integration_base
 #: model_terms:ir.ui.view,arch_db:hr_recruitment_integration_base.view_hr_job_form
@@ -875,4 +878,4 @@ msgstr "icono de la plataforma"
 #. odoo-python
 #: code:addons/hr_recruitment_integration_base/wizard/hr_recruitment_post.py:0
 msgid "updated"
-msgstr ""
+msgstr "actualizado"

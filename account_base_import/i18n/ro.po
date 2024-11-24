@@ -344,12 +344,6 @@ msgid "The import file is missing the following required columns: %s"
 msgstr "Din fișierul de import lipsesc următoarele coloane obligatorii: %s"
 
 #. module: account_base_import
-#. odoo-python
-#: code:addons/account_base_import/models/account_account.py:0
-msgid "The import file must contain the 'code' column"
-msgstr "Fișierul de import trebuie să conțină coloana 'code'"
-
-#. module: account_base_import
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid ""
@@ -400,6 +394,14 @@ msgid ""
 msgstr ""
 "Winbooks este un software de contabilitate vechi belgian achiziționat de Exact.\n"
 "                            Utilizați"
+
+#. module: account_base_import
+#. odoo-python
+#: code:addons/account_base_import/models/account_account.py:0
+msgid ""
+"You must provide both the `code_mapping_ids/company_id` and the "
+"`code_mapping_ids/code` columns."
+msgstr ""
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

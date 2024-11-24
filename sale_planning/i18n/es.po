@@ -150,6 +150,14 @@ msgid ""
 "                 You can also manually schedule open shifts for your Sales "
 "Order or assign them to any employee you prefer."
 msgstr ""
+"Si está activado, se generaráautomáticamente un turno para el rol "
+"seleccionado al confirmar un pedido de venta.               Con la función "
+"“Planificar automáticamente” solo se asignarán turnos que contengan un "
+"pedido de venta para esta servicio a los empleados de este puesto de "
+"trabajo.                 El sistema tomará en cuenta la disponibilidad de "
+"los empleados y el tiempo que se tiene que planificar.                 "
+"También puede programar manualmente turnos abiertos para su pedido de venta "
+"o asignarlos al empleado que prefiera."
 
 #. module: sale_planning
 #: model_terms:ir.ui.view,arch_db:sale_planning.planning_slot_view_search_inherit_sale_planning
@@ -185,7 +193,7 @@ msgstr "Turnos abiertos y pedidos de venta asignados"
 #. odoo-javascript
 #: code:addons/sale_planning/static/src/views/planning_hooks.js:0
 msgid "Open shifts and sales orders unscheduled"
-msgstr ""
+msgstr "Turnos abiertos y pedidos de venta no programados"
 
 #. module: sale_planning
 #: model_terms:product.template,description:sale_planning.developer_product_product_template

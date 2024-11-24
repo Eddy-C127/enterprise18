@@ -102,6 +102,37 @@ msgid ""
 "                </div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                    <p style=\"margin: 0px; padding: 0px;\">\n"
+"                        <t t-if=\"object.id != object.commercial_partner_id.id\">Estimado/a <t t-out=\"object.name or ''\"></t> (<t t-out=\"object.commercial_partner_id.name or ''\"></t>),</t>\n"
+"                        <t t-else=\"\">Estimado/a <t t-out=\"object.name or ''\"></t>,</t>\n"
+"                        <br>\n"
+"                        Tiene un saldo pendiente de <t t-out=\"format_amount(object.total_overdue, object.currency_id) or ''\"></t>\n"
+"                        <br>\n"
+"                         Le pedimos que tome las medidas necesarias para realizar el pago de este importe dentro de los próximos 8 días.\n"
+"                        <br>\n"
+"                        <div t-if=\"object._show_pay_now_button()\" class=\"d-flex\">\n"
+"                            <a t-att-href=\"'/my/invoices/overdue'\" class=\"btn btn-primary\">Pagar ahora</a>\n"
+"                        </div>\n"
+"                         Si ya se ha realizado el pago después de recibir este mensaje, haga caso omiso.\n"
+"                         Nuestro departamento de contabilidad está disponible para ayudarle o responder cualquier pregunta que pueda tener.\n"
+"                        <br>\n"
+"                         Gracias por su cooperación.\n"
+"                        <br>\n"
+"                        Atentamente,\n"
+"                        <t t-if=\"not is_html_empty(object._get_followup_responsible().signature)\">\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().signature\"></t>\n"
+"                        </t>\n"
+"                        <t t-else=\"\">\n"
+"                            <br>\n"
+"                            --\n"
+"                            <br>\n"
+"                            <t t-out=\"object._get_followup_responsible().name\"></t>\n"
+"                        </t>\n"
+"                    </p>\n"
+"                </div>\n"
+"            "
 
 #. module: account_followup
 #: model:mail.template,body_html:account_followup.demo_followup_email_template_4
@@ -624,7 +655,7 @@ msgstr "Se requiere una acción"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.view_partner_property_form_followup
 msgid "Invoice Follow-ups"
-msgstr ""
+msgstr "Recordatorios de facturas"
 
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.template_followup_report
@@ -776,7 +807,7 @@ msgstr "Imprimir una carta de seguimiento"
 #. module: account_followup
 #: model:ir.actions.server,name:account_followup.action_account_reports_customer_statements_do_followup
 msgid "Process Follow-ups"
-msgstr ""
+msgstr "Procesar recordatorios"
 
 #. module: account_followup
 #. odoo-python
@@ -808,7 +839,7 @@ msgstr "Acción de informe"
 #. module: account_followup
 #: model_terms:ir.ui.view,arch_db:account_followup.customer_statements_search_view
 msgid "Requires Follow-up"
-msgstr ""
+msgstr "Requiere seguimiento"
 
 #. module: account_followup
 #: model:ir.model.fields,field_description:account_followup.field_account_followup_followup_line__activity_default_responsible_type

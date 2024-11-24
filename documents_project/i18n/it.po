@@ -23,27 +23,27 @@ msgstr ""
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_draft
 msgid "Add Tag Draft"
-msgstr ""
+msgstr "Aggiungi tag bozza"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_to_validate
 msgid "Add Tag To Validate"
-msgstr ""
+msgstr "Aggiungi tag da convalidare"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_add_validated
 msgid "Add Tag Validated"
-msgstr ""
+msgstr "Aggiungi tag convalidato"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation_code
 msgid "Ask For Validation - Check conditions"
-msgstr ""
+msgstr "Chiedi convalida - Verifica condizioni"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_ask_for_validation
 msgid "Ask for validation"
-msgstr ""
+msgstr "Chiedi convalida"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_ir_attachment
@@ -76,7 +76,7 @@ msgstr "Disattiva"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_deprecate_code
 msgid "Deprecate - Check conditions"
-msgstr ""
+msgstr "Disattiva - Verifica condizioni"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_documents_document
@@ -109,7 +109,7 @@ msgstr "Documenti e analisi"
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Documents already linked to a task."
-msgstr ""
+msgstr "Documenti già collegati ad un lavoro."
 
 #. module: documents_project
 #: model:ir.model.fields,field_description:documents_project.field_project_project__documents_folder_id
@@ -124,12 +124,15 @@ msgid ""
 "All of the attachments of your tasks will be automatically added as "
 "documents in this workspace as well."
 msgstr ""
+"Cartella in cui verranno categorizzati tutti i documenti del progetto. Tutti"
+" gli allegati dei tuoi lavori verranno aggiunti automaticamente come "
+"documenti nello spazio di lavoro."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "Impossible to create a task on a deprecated document"
-msgstr ""
+msgstr "Impossibile creare un lavoro per un documento obsoleto"
 
 #. module: documents_project
 #. odoo-python
@@ -146,12 +149,12 @@ msgstr "Ricerca attività non valida"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft_code
 msgid "Mark As Draft - Check conditions"
-msgstr ""
+msgstr "Segna come bozza - Verifica condizioni"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_mark_as_draft
 msgid "Mark as draft"
-msgstr ""
+msgstr "Segna come bozza"
 
 #. module: documents_project
 #. odoo-python
@@ -173,17 +176,17 @@ msgstr "Progetti"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_draft
 msgid "Remove Tag Draft"
-msgstr ""
+msgstr "Elimina tag bozza"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_to_validate
 msgid "Remove Tag To Validate"
-msgstr ""
+msgstr "Elimina tag da convalidare"
 
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_tag_remove_validated
 msgid "Remove Tag Validated"
-msgstr ""
+msgstr "Elimina tag convalidato"
 
 #. module: documents_project
 #: model:ir.model,name:documents_project.model_project_task
@@ -216,6 +219,8 @@ msgid ""
 "The \"%(folder)s\" folder should either be in the \"%(company)s\" company "
 "like this project or be open to all companies."
 msgstr ""
+"La cartella \"%(folder)s\" dovrebbe far parte dell'azienda \"%(company)s\" "
+"come questo progetto o essere aperto a tutte le aziende."
 
 #. module: documents_project
 #. odoo-python
@@ -276,7 +281,7 @@ msgstr "Convalida"
 #. module: documents_project
 #: model:ir.actions.server,name:documents_project.ir_actions_server_validate_code
 msgid "Validate - Check conditions"
-msgstr ""
+msgstr "Convalida - Verifica condizioni"
 
 #. module: documents_project
 #. odoo-python
@@ -296,13 +301,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot create a task from a folder."
-msgstr ""
+msgstr "Non puoi creare un lavoro da una cartella."
 
 #. module: documents_project
 #. odoo-python
 #: code:addons/documents_project/models/documents_document.py:0
 msgid "You cannot set a company on the %s folder."
-msgstr ""
+msgstr "Non puoi configurare un'azienda per la cartella %s."
 
 #. module: documents_project
 #. odoo-python
