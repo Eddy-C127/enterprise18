@@ -508,6 +508,8 @@ msgid ""
 "All selected companies or branches do not share the same Tax ID. Please "
 "check the Tax ID of the selected companies."
 msgstr ""
+"บริษัทหรือสาขาที่เลือกทั้งหมดไม่ได้ใช้หมายเลขประจำตัวผู้เสียภาษีเดียวกัน "
+"โปรดตรวจสอบหมายเลขประจำตัวผู้เสียภาษีของบริษัทที่เลือก"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -1214,6 +1216,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_date
+#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__date
 #, python-format
 msgid "Date"
@@ -1693,6 +1696,11 @@ msgid "Filters:"
 msgstr "ตัวกรอง:"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "ฐานะทางการเงิน"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #, python-format
@@ -2166,7 +2174,6 @@ msgstr "โทเค็นไม่ถูกต้อง '%s' ในสูตร
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"

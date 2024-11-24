@@ -6,8 +6,8 @@
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # 湘子 南 <1360857908@qq.com>, 2024
-# Chloe Wang, 2024
 # Jeffery CHEN <jeffery9@gmail.com>, 2024
+# Chloe Wang, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-26 16:10+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2024\n"
+"Last-Translator: Chloe Wang, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1422,6 +1422,15 @@ msgstr "对于一个给定的亚马逊订单参考，只能存在一个销售订
 msgid ""
 "There can only exist one sale order line for a given Amazon Item Reference."
 msgstr "对于一个给定的亚马逊项目参考，只能存在一个销售订单行。"
+
+#. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/res_partner.py:0
+#, python-format
+msgid ""
+"This Amazon partner was created with an invalid state (%s); please set the "
+"correct state manually."
+msgstr "该亚马逊合作伙伴创建时状态无效%s；请手动设置正确的状态。"
 
 #. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form

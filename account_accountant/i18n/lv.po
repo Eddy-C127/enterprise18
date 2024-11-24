@@ -682,7 +682,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__deferred_revenue_account_id
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_move__deferred_entry_type__revenue
 msgid "Deferred Revenue"
-msgstr ""
+msgstr "Atliktie ieņēmumi"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -799,7 +799,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:account_accountant.action_open_auto_reconcile_wizard
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_auto_reconcile_wizard
 msgid "Find Entries to Reconcile Automatically"
-msgstr ""
+msgstr "Meklēt ierakstus ko saskaņot automātiski"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_fiscal_year
@@ -1094,7 +1094,7 @@ msgstr "Žurnāla ieraksti"
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
 msgid "Journal Items to reconcile"
-msgstr ""
+msgstr "Žurnāla ieraksti saskaņošanai"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1290,7 +1290,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__move_line_ids
 msgid "Move lines to reconcile"
-msgstr ""
+msgstr "Pārvietot rindas saskaņošanai"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__name
@@ -1629,27 +1629,27 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_tree
 msgid "Reconcile"
-msgstr "Savienot"
+msgstr "Saskaņošana"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_wizard
 msgid "Reconcile & open"
-msgstr ""
+msgstr "Saskaņot & atvērt"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_account_id
 msgid "Reconcile Account"
-msgstr ""
+msgstr "Saskaņot kontu"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__reconcile_model_id
 msgid "Reconcile Model"
-msgstr ""
+msgstr "Saskaņošanas modelis"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
 msgid "Reconciled"
-msgstr "Sasaistīts"
+msgstr "Saskaņots"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_id
@@ -1729,7 +1729,7 @@ msgstr "Saglabāt & Jauns"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Search Journal Items to Reconcile"
-msgstr ""
+msgstr "Meklēt žurnāla ierakstus saskaņošanai"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__selected_aml_ids
@@ -2103,19 +2103,19 @@ msgstr "Pārskaitīt uz %s"
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.auto_reconcile_bank_statement_line_ir_actions_server
 msgid "Try to reconcile automatically your statement lines"
-msgstr ""
+msgstr "Mēģināt automātiski saskaņot Jūsu izraksta rindas"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Unreconciled"
-msgstr "Nesaistīts"
+msgstr "Nav saskaņots"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/res_company.py:0
 #, python-format
 msgid "Unreconciled statements lines"
-msgstr ""
+msgstr "Nesaskaņotās izraksta rindas"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__valid
@@ -2186,6 +2186,7 @@ msgstr ""
 #, python-format
 msgid "You can only reconcile entries with up to two different accounts: %s"
 msgstr ""
+"Jūs varat tikai saskaņot ierakstus ar līdz diviem dažādiem kontiem: %s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2250,6 +2251,7 @@ msgstr ""
 msgid ""
 "You might want to %(btn_start)sfully reconcile%(btn_end)s the document."
 msgstr ""
+"Iespējums Jūs vēlaties %(btn_start)spilnībā saskaņot%(btn_end)s dokumentu. "
 
 #. module: account_accountant
 #. odoo-python
@@ -2280,7 +2282,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 #, python-format
 msgid "You reconciled"
-msgstr ""
+msgstr "Jūs saskaņojāt"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__aml

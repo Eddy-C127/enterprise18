@@ -8,6 +8,7 @@
 # Hamed Mohammadi <hamed@dehongi.com>, 2023
 # Hanna Kheradroosta, 2024
 # Martin Trigaux, 2024
+# Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:43+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,7 +102,7 @@ msgstr ""
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Are you sure you want to cancel this manufacturing order?"
-msgstr ""
+msgstr "آیا مطمئن هستید که می‌خواهید این دستور تولید را لغو کنید؟"
 
 #. module: stock_barcode_mrp
 #: model:ir.actions.client,name:stock_barcode_mrp.stock_barcode_mo_client_action
@@ -175,7 +176,7 @@ msgstr ""
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_stock_move_line__manual_consumption
 msgid "Manual Consumption"
-msgstr ""
+msgstr "مصرف دستی"
 
 #. module: stock_barcode_mrp
 #: model:ir.model.fields,field_description:stock_barcode_mrp.field_mrp_production__move_byproduct_line_ids
@@ -249,14 +250,14 @@ msgstr ""
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Produce"
-msgstr ""
+msgstr "تولید کنید"
 
 #. module: stock_barcode_mrp
 #. odoo-javascript
 #: code:addons/stock_barcode_mrp/static/src/components/main.js:0
 #, python-format
 msgid "Produce All"
-msgstr ""
+msgstr "تولید همه"
 
 #. module: stock_barcode_mrp
 #: model_terms:ir.ui.view,arch_db:stock_barcode_mrp.mrp_product_selector
@@ -418,6 +419,8 @@ msgid ""
 "When activated, then the registration of consumption for that component is recorded manually exclusively.\n"
 "If not activated, and any of the components consumption is edited manually on the manufacturing order, Odoo assumes manual consumption also."
 msgstr ""
+"هنگامی که فعال شود، سپس ثبت مصرف برای آن مؤلفه به‌طور انحصاری به‌صورت دستی ثبت می‌شود.\n"
+"اگر غیرفعال شود، و هر کدام از مؤلفه‌ها به‌طور دستی در سفارش تولید ویرایش شود، اودوو نیز مصرف دستی را در نظر می‌گیرد."
 
 #. module: stock_barcode_mrp
 #: model:ir.model,name:stock_barcode_mrp.model_mrp_production_backorder

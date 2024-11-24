@@ -1480,6 +1480,17 @@ msgstr ""
 "Er bestaat slechts één verkooporderregel voor een Amazon item referentie."
 
 #. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/res_partner.py:0
+#, python-format
+msgid ""
+"This Amazon partner was created with an invalid state (%s); please set the "
+"correct state manually."
+msgstr ""
+"Deze Amazon-partner is aangemaakt met een ongeldige status (%s); stel "
+"handmatig de juiste status in."
+
+#. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid ""
 "This action will disconnect your account with Amazon and"

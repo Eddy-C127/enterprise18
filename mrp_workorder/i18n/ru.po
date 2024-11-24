@@ -11,6 +11,7 @@
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2023
 # alenafairy, 2023
 # Martin Trigaux, 2023
+# Larissa Manderfeld, 2024
 # Wil Odoo, 2024
 # 
 msgid ""
@@ -320,7 +321,7 @@ msgstr "Закрыть"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Close Production"
-msgstr "Близкое производство"
+msgstr "Закрыть производство"
 
 #. module: mrp_workorder
 #: model:product.attribute,name:mrp_workorder.product_attribute_color_radio
@@ -972,7 +973,7 @@ msgstr "Количество сотрудников, необходимых дл
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_inherit_workorder
 msgid "Open Shop Floor"
-msgstr "Открытый торговый зал"
+msgstr "Открытый цех"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1297,14 +1298,14 @@ msgstr "Регистрация %s"
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.xml:0
 #, python-format
 msgid "Register Production"
-msgstr "Производство регистров"
+msgstr "Регистрация производства"
 
 #. module: mrp_workorder
 #. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
 #, python-format
 msgid "Register Production: %s"
-msgstr "Производство регистров: %s"
+msgstr "Регистрация производства: %s"
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__additional
@@ -1346,20 +1347,6 @@ msgstr "Ответственный пользователь"
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__result
 msgid "Result"
 msgstr "Результат"
-
-#. module: mrp_workorder
-#. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-#, python-format
-msgid "STARTED work on workorder %s"
-msgstr "НАЧАЛО работы над заказом %s"
-
-#. module: mrp_workorder
-#. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-#, python-format
-msgid "STOPPED work on workorder %s"
-msgstr "ОСТАНОВЛЕНА работа над заказом %s"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1421,7 +1408,7 @@ msgstr "Установите новое изображение"
 #: model:ir.ui.menu,name:mrp_workorder.menu_mrp_workorder_root
 #: model:ir.ui.menu,name:mrp_workorder.menu_shop_floor
 msgid "Shop Floor"
-msgstr "Торговый зал"
+msgstr "Цех"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1789,6 +1776,13 @@ msgstr "Фильтры WO"
 #, python-format
 msgid "Waiting"
 msgstr "Ожидание"
+
+#. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
+#, python-format
+msgid "What do you want to do?"
+msgstr "Каковы ваши действия?"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter

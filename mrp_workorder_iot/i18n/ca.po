@@ -12,6 +12,7 @@
 # Manel Fernandez Ramirez <manelfera@outlook.com>, 2023
 # Quim - eccit <quim@eccit.com>, 2023
 # Óscar Fonseca <tecnico@pyming.com>, 2024
+# Ivan Espinola, 2024
 # 
 msgid ""
 msgstr ""
@@ -19,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Óscar Fonseca <tecnico@pyming.com>, 2024\n"
+"Last-Translator: Ivan Espinola, 2024\n"
 "Language-Team: Catalan (https://app.transifex.com/odoo/teams/41243/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,6 +44,13 @@ msgid "Cancel"
 msgstr "Cancel·la"
 
 #. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+#, python-format
+msgid "Check IoT Box connection. Try restarting if needed."
+msgstr ""
+
+#. module: mrp_workorder_iot
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clomo
 msgid "Close MO"
 msgstr "Tanca MO"
@@ -51,6 +59,13 @@ msgstr "Tanca MO"
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clowo
 msgid "Close WO"
 msgstr "Tanca WO"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+#, python-format
+msgid "Connection failed"
+msgstr ""
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields,field_description:mrp_workorder_iot.field_iot_trigger__create_uid
@@ -127,6 +142,14 @@ msgstr "Paquet"
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__pause
 msgid "Pause"
 msgstr "Atura"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/pedal_status_button.xml:0
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/pedal_status_button.xml:0
+#, python-format
+msgid "Pedal Status"
+msgstr "Estat del pedal"
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__prev

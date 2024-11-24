@@ -7,9 +7,9 @@
 # Tadeusz Karpiński <tadeuszkarpinski@gmail.com>, 2024
 # Monika Grzelak <m.e.grzelak@gmail.com>, 2024
 # Interactive AV-IT, 2024
+# Tadeusz Karpiński <tadeusz.karpinski@braintec.com>, 2024
 # Marta Wacławek, 2024
 # Wil Odoo, 2024
-# Tadeusz Karpiński <tadeusz.karpinski@braintec.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Tadeusz Karpiński <tadeusz.karpinski@braintec.com>, 2024\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Polish (https://app.transifex.com/odoo/teams/41243/pl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -65,7 +65,7 @@ msgstr "%s nie jest wartością liczbową"
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #, python-format
 msgid "%s selected"
-msgstr ""
+msgstr "%s wybrany"
 
 #. module: account_reports
 #. odoo-python
@@ -183,6 +183,8 @@ msgid ""
 "<i>Errors marked with <i class=\"fa fa-warning\"/> are critical and prevent "
 "the file generation.</i>"
 msgstr ""
+"<i>Błędy oznaczone <i class=\"fa fa-warning\"/> są krytyczne i zapobiegają "
+"generowaniu plików.</i>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.partner_view_buttons
@@ -198,6 +200,7 @@ msgstr "<span role=\"separator\">Uzgodnienie</span>"
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "<span>One or more error(s) occurred during file generation:</span>"
 msgstr ""
+"<span>Podczas generowania plików wystąpił jeden lub więcej błędów:</span>"
 
 #. module: account_reports
 #: model:ir.model.constraint,message:account_reports.constraint_account_report_horizontal_group_name_uniq
@@ -209,7 +212,7 @@ msgstr "Grupa pozioma o tej samej nazwie już istnieje."
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.js:0
 #, python-format
 msgid "A line with a 'Group By' value cannot have children."
-msgstr ""
+msgstr "Element z wartością „Group By” nie może mieć podrzędnych elementów."
 
 #. module: account_reports
 #. odoo-python
@@ -267,7 +270,7 @@ msgstr "Kod konta"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Account Code / Tag"
-msgstr ""
+msgstr "Kod / Tag konta"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_display_representative_field
@@ -431,7 +434,7 @@ msgstr "Zaawansowane"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_partner_balance_report_handler
 msgid "Aged Partner Balance Custom Handler"
-msgstr ""
+msgstr "Niestandardowy procesor salda zaległego partnera"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.aged_payable_report
@@ -505,7 +508,7 @@ msgstr "Wszystkie należności"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "All Report Variants"
-msgstr ""
+msgstr "Warianty wszystkich raportów"
 
 #. module: account_reports
 #. odoo-javascript
@@ -515,6 +518,8 @@ msgid ""
 "All selected companies or branches do not share the same Tax ID. Please "
 "check the Tax ID of the selected companies."
 msgstr ""
+"Wszystkie wybrane firmy lub oddziały nie mają tego samego identyfikatora "
+"podatkowego. Sprawdź identyfikator podatkowy wybranych firm."
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -599,7 +604,7 @@ msgstr "Zastosuj"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_date.xml:0
 #, python-format
 msgid "As of"
-msgstr ""
+msgstr "Od"
 
 #. module: account_reports
 #. odoo-python
@@ -688,12 +693,12 @@ msgstr "Saldo w walucie obcej"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr "Saldo '%s'"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "Saldo banku"
 
 #. module: account_reports
 #. odoo-python
@@ -1160,7 +1165,7 @@ msgstr "Kursy walut (%s)"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Currency:"
-msgstr ""
+msgstr "WAluta:"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.deferred_expense_current
@@ -1223,6 +1228,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_date
+#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__date
 #, python-format
 msgid "Date"
@@ -1700,6 +1706,11 @@ msgid "Filters:"
 msgstr ""
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Obszar podatkowy"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #, python-format
@@ -2175,7 +2186,6 @@ msgstr "Nieprawidłowy token '%s' w formule account_codes '%s'"
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"

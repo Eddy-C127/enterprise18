@@ -14,9 +14,10 @@
 # Ivan Kropotkin <yelizariev@itpp.dev>, 2024
 # Malaz Abuidris <msea@odoo.com>, 2024
 # Nadia Martynova, 2024
-# Wil Odoo, 2024
 # Olga Gutorova, 2024
 # Сергей Шебанин <sergey@shebanin.ru>, 2024
+# Wil Odoo, 2024
+# Ilya Rozhkov, 2024
 # 
 msgid ""
 msgstr ""
@@ -24,7 +25,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Сергей Шебанин <sergey@shebanin.ru>, 2024\n"
+"Last-Translator: Ilya Rozhkov, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -58,7 +59,7 @@ msgstr " не поддерживается Журнальным отчетом"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "\" account balance is affected by"
-msgstr ""
+msgstr "\" баланс счета зависит от"
 
 #. module: account_reports
 #. odoo-python
@@ -113,12 +114,12 @@ msgstr "(%s строк)"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_receipts
 msgid "(+) Outstanding Receipts"
-msgstr ""
+msgstr "(+) Неоплаченные поступления"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding_payments
 msgid "(-) Outstanding Payments"
-msgstr ""
+msgstr "(-) Непогашенные платежи"
 
 #. module: account_reports
 #. odoo-python
@@ -153,7 +154,7 @@ msgstr "показать только невыверенные записи"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid ", leading to an unexplained difference of"
-msgstr ""
+msgstr ", что вызывает необъяснимую разницу в"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
@@ -270,7 +271,7 @@ msgstr "Шаблон плана счетов"
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "Account Code"
-msgstr ""
+msgstr "Код счета"
 
 #. module: account_reports
 #. odoo-python
@@ -525,6 +526,8 @@ msgid ""
 "All selected companies or branches do not share the same Tax ID. Please "
 "check the Tax ID of the selected companies."
 msgstr ""
+"Все выбранные компании или филиалы имеют разные ИНН. Пожалуйста, проверьте "
+"ИНН выбранных компаний."
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_amount
@@ -698,12 +701,12 @@ msgstr "Остаток в иностранной валюте"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Balance of '%s'"
-msgstr ""
+msgstr " Баланс «%s»"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.balance_bank
 msgid "Balance of Bank"
-msgstr ""
+msgstr "Баланс банка"
 
 #. module: account_reports
 #. odoo-python
@@ -739,7 +742,7 @@ msgstr "Отчет согласования банковской выписки"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_bank_reconciliation_report_handler
 msgid "Bank Reconciliation Report Custom Handler"
-msgstr ""
+msgstr "Пользовательский обработчик отчета по банку"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_bank_view0
@@ -1228,11 +1231,14 @@ msgid ""
 "Custom engine _report_custom_engine_last_statement_balance_amount does not "
 "support groupby"
 msgstr ""
+"Пользовательский движок _report_custom_engine_last_statement_balance_amount "
+"не поддерживает группировку"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_date
+#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__date
 #, python-format
 msgid "Date"
@@ -1715,6 +1721,11 @@ msgid "Filters:"
 msgstr "Фильтры:"
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Финансовое положение"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #, python-format
@@ -2191,7 +2202,6 @@ msgstr "Недопустимый маркер '%s' в формуле account_cod
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
@@ -3336,7 +3346,7 @@ msgstr "Tax ID"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.company_information
 msgid "Tax ID:"
-msgstr ""
+msgstr "ИНН:"
 
 #. module: account_reports
 #. odoo-python

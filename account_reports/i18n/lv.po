@@ -9,9 +9,9 @@
 # ievaputnina <ievai.putninai@gmail.com>, 2023
 # Arnis Putniņš <arnis@allegro.lv>, 2023
 # Konstantins Zabogonskis <inculin4ik@gmail.com>, 2023
-# Martin Trigaux, 2024
 # Artjoms Ustinovs <artyom.ustinov2010@yandex.ru>, 2024
 # Will Sensors, 2024
+# Martin Trigaux, 2024
 # Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024
 # 
 msgid ""
@@ -138,7 +138,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid ", Only Show Unreconciled Entries"
-msgstr ""
+msgstr ", tikai rādīt nesaskaņotos ierakstus"
 
 #. module: account_reports
 #. odoo-javascript
@@ -718,7 +718,7 @@ msgstr "Bankas darbību saskaņošana"
 #. module: account_reports
 #: model:account.report,name:account_reports.bank_reconciliation_report
 msgid "Bank Reconciliation Report"
-msgstr ""
+msgstr "Bankas saskaņošanas atskaite"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_bank_reconciliation_report_handler
@@ -1211,6 +1211,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_date
+#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__date
 #, python-format
 msgid "Date"
@@ -1283,7 +1284,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_revenue
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_deferred_revenue
 msgid "Deferred Revenue"
-msgstr ""
+msgstr "Atliktie ieņēmumi"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_revenue_report_handler
@@ -1293,7 +1294,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report,name:account_reports.deferred_revenue_report
 msgid "Deferred Revenue Report"
-msgstr ""
+msgstr "Atlikto ieņēmumu atskaite"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
@@ -1677,6 +1678,11 @@ msgid "Filters:"
 msgstr ""
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Nodokļu Profils"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #, python-format
@@ -2006,24 +2012,24 @@ msgstr ""
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "Iekļaujot nesaskaņotos maksājumus"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "Iekļaujot nesaskaņotos čekus"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
 #: model:account.report.line,name:account_reports.account_financial_report_totalincome0
 msgid "Income"
-msgstr "Ienākumi"
+msgstr "Peļņa"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__income_provision_account_id
 msgid "Income Account"
-msgstr "Ieņēmumu Konts"
+msgstr "Peļņas konts"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_revaluation_income_provision_account_id
@@ -2145,7 +2151,6 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
@@ -2662,7 +2667,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 #, python-format
 msgid "Only Show Unreconciled Entries"
-msgstr ""
+msgstr "Rādīt tikai nesaskaņotos ierakstus"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2703,7 +2708,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_other_income0
 msgid "Other Income"
-msgstr "Citi Ienākumi"
+msgstr "Peļņa"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
@@ -2883,7 +2888,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_assets_view0
 msgid "Plus Non-current Assets"
-msgstr ""
+msgstr "Plus ilgtermiņa aktīvi"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_non_current_liabilities0
@@ -3003,7 +3008,7 @@ msgstr "Debitoru parādi"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Reconciliation Report"
-msgstr ""
+msgstr "Saskaņošanas atskaite"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_financial_year_op__account_tax_periodicity_reminder_day
@@ -3011,7 +3016,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:account_reports.setup_financial_year_opening_form
 msgid "Reminder"
-msgstr ""
+msgstr "Atgādinājums"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__report_id

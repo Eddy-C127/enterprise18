@@ -862,6 +862,12 @@ msgstr "このバッチ支払いで、フォームビューに「印刷」の代
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
+msgid "You cannot add payments that are already sent."
+msgstr ""
+
+#. module: account_batch_payment
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
 msgid "You cannot add payments that are not posted."
 msgstr "記帳されていない支払を追加することはできません。"
 
@@ -871,3 +877,26 @@ msgstr "記帳されていない支払を追加することはできません。
 #, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
 msgstr "バッチ支払では金額ゼロの支払を追加することはできません。"
+
+#. module: account_batch_payment
+#. odoo-python
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
+msgid "You cannot add the same payment to multiple batches."
+msgstr ""
+
+#. module: account_batch_payment
+#. odoo-python
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
+msgid ""
+"You cannot create a batch with payments that are already in another batch."
+msgstr ""
+
+#. module: account_batch_payment
+#. odoo-python
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
+msgid "You cannot create batches with overlapping payments."
+msgstr ""

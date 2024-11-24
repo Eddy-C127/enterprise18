@@ -14,6 +14,9 @@
 # aleksandar ivanov, 2023
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # Rumena Georgieva <rumena.georgieva@gmail.com>, 2024
+# Petko Karamotchev, 2024
+# Venelin Stoykov, 2024
+# Milena Georgieva, 2024
 # 
 msgid ""
 msgstr ""
@@ -21,7 +24,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Rumena Georgieva <rumena.georgieva@gmail.com>, 2024\n"
+"Last-Translator: Milena Georgieva, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -520,7 +523,7 @@ msgstr ""
 #. module: whatsapp
 #: model:ir.model.fields.selection,name:whatsapp.selection__whatsapp_template__status__disabled
 msgid "Disabled"
-msgstr ""
+msgstr "Изключен"
 
 #. module: whatsapp
 #: model_terms:ir.ui.view,arch_db:whatsapp.whatsapp_template_view_form
@@ -931,6 +934,8 @@ msgstr "Ако е отметнато, някои съобщения имат г�
 #: model:ir.model.fields,help:whatsapp.field_res_users_settings__is_discuss_sidebar_category_whatsapp_open
 msgid "If checked, the WhatsApp category is open in the discuss sidebar"
 msgstr ""
+"Ако е отметнато, категорията WhatsApp е отворена в страничната лента за "
+"обсъждане"
 
 #. module: whatsapp
 #: model_terms:ir.actions.act_window,help:whatsapp.whatsapp_account_action
@@ -1342,7 +1347,7 @@ msgstr ""
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_account__message_needaction_counter
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_template__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Брой съобщения, изискващи действие"
 
 #. module: whatsapp
 #: model:ir.model.fields,help:whatsapp.field_whatsapp_account__message_has_error_counter
@@ -2243,7 +2248,7 @@ msgstr "История на комуникацията на уебсайт"
 #: model_terms:ir.ui.view,arch_db:whatsapp.res_config_settings_view_form
 #, python-format
 msgid "WhatsApp"
-msgstr ""
+msgstr "WhatsApp"
 
 #. module: whatsapp
 #: model:ir.actions.server,name:whatsapp.ir_actions_server_resend_whatsapp_queue

@@ -4,15 +4,15 @@
 # 
 # Translators:
 # Levent Karakaş <levent@mektup.at>, 2023
-# Nurettin Emre Ozbakir <emre.ozbakir@gamareklam.com>, 2023
+# c0fa46ae159b40fc7d2a6b8f36b94945_afbc909 <70a0c58d79814e369a0b5c321f21567f_386985>, 2023
 # Buket Şeker <buket_skr@hotmail.com>, 2023
 # Martin Trigaux, 2023
 # Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2023
 # Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2023
 # Halil, 2023
-# Tugay Hatıl <tugayh@projetgrup.com>, 2023
 # Murat Kaplan <muratk@projetgrup.com>, 2023
 # Ediz Duman <neps1192@gmail.com>, 2023
+# Tugay Hatıl <tugayh@projetgrup.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Ediz Duman <neps1192@gmail.com>, 2023\n"
+"Last-Translator: Tugay Hatıl <tugayh@projetgrup.com>, 2024\n"
 "Language-Team: Turkish (https://app.transifex.com/odoo/teams/41243/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,6 +44,13 @@ msgid "Cancel"
 msgstr "İptal"
 
 #. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+#, python-format
+msgid "Check IoT Box connection. Try restarting if needed."
+msgstr ""
+
+#. module: mrp_workorder_iot
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clomo
 msgid "Close MO"
 msgstr "MO'yu kapat"
@@ -52,6 +59,13 @@ msgstr "MO'yu kapat"
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__clowo
 msgid "Close WO"
 msgstr "WO'yu Kapat"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/mrp_quality_check_confirmation_dialog.js:0
+#, python-format
+msgid "Connection failed"
+msgstr ""
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields,field_description:mrp_workorder_iot.field_iot_trigger__create_uid
@@ -128,6 +142,14 @@ msgstr "Paket"
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__pause
 msgid "Pause"
 msgstr "Duraklat"
+
+#. module: mrp_workorder_iot
+#. odoo-javascript
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/pedal_status_button.xml:0
+#: code:addons/mrp_workorder_iot/static/src/mrp_display/pedal_status_button.xml:0
+#, python-format
+msgid "Pedal Status"
+msgstr "Pedal Durumu"
 
 #. module: mrp_workorder_iot
 #: model:ir.model.fields.selection,name:mrp_workorder_iot.selection__iot_trigger__action__prev

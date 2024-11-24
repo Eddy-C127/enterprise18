@@ -1228,6 +1228,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_date
+#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__date
 #, python-format
 msgid "Date"
@@ -1327,7 +1328,7 @@ msgstr "Enheter för fördröjning"
 #: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #, python-format
 msgid "Depending moves"
-msgstr ""
+msgstr "Beroende rörelser"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
@@ -1692,6 +1693,11 @@ msgstr "Filter"
 #, python-format
 msgid "Filters:"
 msgstr ""
+
+#. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Finansiell ställning"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2100,7 +2106,7 @@ msgstr "Infoga en fotnot här"
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 #, python-format
 msgid "Integer Rounding"
-msgstr ""
+msgstr "Avrundning av heltal"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2164,7 +2170,6 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
@@ -2181,6 +2186,8 @@ msgstr ""
 #, python-format
 msgid "It seems there is some depending closing move to be posted"
 msgstr ""
+"Det verkar som om det finns något beroende stängningsrörelse som ska "
+"publiceras"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code

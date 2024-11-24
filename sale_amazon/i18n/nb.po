@@ -800,7 +800,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_product_template_view_form
 #, python-format
 msgid "Offers"
-msgstr ""
+msgstr "Tilbud"
 
 #. module: sale_amazon
 #. odoo-python
@@ -1277,6 +1277,15 @@ msgstr ""
 #: model:ir.model.constraint,message:sale_amazon.constraint_sale_order_line_unique_amazon_item_ref
 msgid ""
 "There can only exist one sale order line for a given Amazon Item Reference."
+msgstr ""
+
+#. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/res_partner.py:0
+#, python-format
+msgid ""
+"This Amazon partner was created with an invalid state (%s); please set the "
+"correct state manually."
 msgstr ""
 
 #. module: sale_amazon

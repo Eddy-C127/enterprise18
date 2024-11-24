@@ -1453,6 +1453,15 @@ msgid ""
 msgstr "يمكن أن يكون هناك بند أمر بيع واحد فقط لكل مرجع عنصر في أمازون. "
 
 #. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/res_partner.py:0
+#, python-format
+msgid ""
+"This Amazon partner was created with an invalid state (%s); please set the "
+"correct state manually."
+msgstr ""
+
+#. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid ""
 "This action will disconnect your account with Amazon and"

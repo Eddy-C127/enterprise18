@@ -546,7 +546,7 @@ msgstr ""
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_account_payment_search_inherit_account_batch_payment
 msgid "Not reconciled"
-msgstr ""
+msgstr "Nav saskaņots"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__message_needaction_counter
@@ -660,7 +660,7 @@ msgstr "Saņēmēja bankas konts"
 #. module: account_batch_payment
 #: model:ir.model.fields.selection,name:account_batch_payment.selection__account_batch_payment__state__reconciled
 msgid "Reconciled"
-msgstr "Sasaistīts"
+msgstr "Saskaņots"
 
 #. module: account_batch_payment
 #: model:ir.model.fields,field_description:account_batch_payment.field_account_batch_payment__name
@@ -823,7 +823,7 @@ msgstr "Reģistrētās izņēmuma aktivitātes veids."
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_search
 msgid "Unreconciled"
-msgstr "Nesaistīts"
+msgstr "Nav saskaņots"
 
 #. module: account_batch_payment
 #: model_terms:ir.ui.view,arch_db:account_batch_payment.view_batch_payment_form
@@ -866,6 +866,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
+msgid "You cannot add payments that are already sent."
+msgstr ""
+
+#. module: account_batch_payment
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
 msgid "You cannot add payments that are not posted."
 msgstr "Jūs nevarat pievienot maksājumus, kuri nav grāmatoti."
 
@@ -874,4 +880,27 @@ msgstr "Jūs nevarat pievienot maksājumus, kuri nav grāmatoti."
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add payments with zero amount in a Batch Payment."
+msgstr ""
+
+#. module: account_batch_payment
+#. odoo-python
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
+msgid "You cannot add the same payment to multiple batches."
+msgstr ""
+
+#. module: account_batch_payment
+#. odoo-python
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
+msgid ""
+"You cannot create a batch with payments that are already in another batch."
+msgstr ""
+
+#. module: account_batch_payment
+#. odoo-python
+#: code:addons/account_batch_payment/models/account_batch_payment.py:0
+#, python-format
+msgid "You cannot create batches with overlapping payments."
 msgstr ""

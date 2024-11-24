@@ -10,11 +10,11 @@
 # Faraz Sadri Alamdari <ifarazir@gmail.com>, 2023
 # Hamid Darabi, 2023
 # Yousef Shadmanesh <y.shadmanesh@gmail.com>, 2023
-# Hamed Mohammadi <hamed@dehongi.com>, 2023
 # Sepehr Khoshnood <sepehr.kho@gmail.com>, 2023
 # Martin Trigaux, 2023
 # Hanna Kheradroosta, 2024
 # Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024
+# Hamed Mohammadi <hamed@dehongi.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -22,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Mostafa Barmshory <mostafa.barmshory@gmail.com>, 2024\n"
+"Last-Translator: Hamed Mohammadi <hamed@dehongi.com>, 2024\n"
 "Language-Team: Persian (https://app.transifex.com/odoo/teams/41243/fa/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -216,7 +216,7 @@ msgstr "دسترسی"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_report_mrp_report_bom_structure
 msgid "BOM Overview Report"
-msgstr ""
+msgstr "گزارش نمای کلی فهرست مواد"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -695,7 +695,7 @@ msgstr "راهنمایی"
 #: model:ir.model.fields,help:mrp_workorder.field_mrp_workorder__move_line_ids
 msgid ""
 "Inventory moves for which you must scan a lot number at this work order"
-msgstr ""
+msgstr "حرکت‌های موجودی که باید یک شماره سریال در این دستور کار اسکن کنید."
 
 #. module: mrp_workorder
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__component_tracking
@@ -777,7 +777,7 @@ msgstr "سری/سریال"
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_report_mrp_report_mo_overview
 msgid "MO Overview Report"
-msgstr ""
+msgstr "گزارش کلی MO"
 
 #. module: mrp_workorder
 #: model:res.groups,name:mrp_workorder.group_mrp_wo_tablet_timer
@@ -938,7 +938,7 @@ msgstr ""
 #. module: mrp_workorder
 #: model_terms:ir.actions.act_window,help:mrp_workorder.mrp_workorder_action_tablet
 msgid "No work orders to do!"
-msgstr ""
+msgstr "هیچ سفارش کاری برای انجام وجود ندارد!"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1016,7 +1016,7 @@ msgstr "PDF"
 #: code:addons/mrp_workorder/static/src/components/viewer.xml:0
 #, python-format
 msgid "PDF file"
-msgstr ""
+msgstr "فایل PDF"
 
 #. module: mrp_workorder
 #. odoo-javascript
@@ -1338,20 +1338,6 @@ msgstr ""
 
 #. module: mrp_workorder
 #. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-#, python-format
-msgid "STARTED work on workorder %s"
-msgstr ""
-
-#. module: mrp_workorder
-#. odoo-javascript
-#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display.js:0
-#, python-format
-msgid "STOPPED work on workorder %s"
-msgstr ""
-
-#. module: mrp_workorder
-#. odoo-javascript
 #: code:addons/mrp_workorder/static/src/mrp_display/dialog/mrp_menu_dialog.xml:0
 #, python-format
 msgid "Scrap"
@@ -1441,7 +1427,7 @@ msgstr ""
 #: code:addons/mrp_workorder/static/src/components/viewer.xml:0
 #, python-format
 msgid "Slides viewer"
-msgstr ""
+msgstr "نمایشگر اسلایدها"
 
 #. module: mrp_workorder
 #: model:product.template,description_sale:mrp_workorder.product_template_stool
@@ -1491,7 +1477,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:mrp_workorder.action_mrp_workorder_show_steps
 #: model:ir.model.fields,field_description:mrp_workorder.field_mrp_workorder__quality_point_count
 msgid "Steps"
-msgstr ""
+msgstr "مراحل"
 
 #. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_stock_move
@@ -1552,6 +1538,10 @@ msgid ""
 "            On the operation type you could e.g. specify if packing is needed by default,\n"
 "            if it should show the customer."
 msgstr ""
+"سیستم نوع عملیات به شما اجازه می‌دهد که به هر عملیات\n"
+"            انبار یک نوع خاص اختصاص دهید که مطابق آن نمایش‌ها را تغییر می‌دهد.\n"
+"            در نوع عملیات شما می‌توانید مثلاً مشخص کنید که آیا به بسته‌بندی به‌طور پیش‌فرض نیاز است،\n"
+"            یا اگر باید مشتری را نشان دهد."
 
 #. module: mrp_workorder
 #. odoo-python
@@ -1767,6 +1757,13 @@ msgid "Waiting"
 msgstr "در انتظار"
 
 #. module: mrp_workorder
+#. odoo-javascript
+#: code:addons/mrp_workorder/static/src/mrp_display/mrp_display_record.js:0
+#, python-format
+msgid "What do you want to do?"
+msgstr "چه کاری می‌خواهید انجام دهید؟"
+
+#. module: mrp_workorder
 #: model:ir.model,name:mrp_workorder.model_mrp_workcenter
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_alert__workcenter_id
 #: model:ir.model.fields,field_description:mrp_workorder.field_quality_check__workcenter_id
@@ -1972,7 +1969,7 @@ msgstr ""
 #. module: mrp_workorder
 #: model:ir.model.fields.selection,name:mrp_workorder.selection__quality_point__test_report_type__zpl
 msgid "ZPL"
-msgstr ""
+msgstr "ZPL"
 
 #. module: mrp_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_workorder.mrp_workorder_view_form_tablet

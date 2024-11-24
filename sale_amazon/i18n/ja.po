@@ -1425,6 +1425,15 @@ msgid ""
 msgstr "1つのAmazon商品参照に対して、1つの販売オーダ明細しか存在できません。"
 
 #. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/res_partner.py:0
+#, python-format
+msgid ""
+"This Amazon partner was created with an invalid state (%s); please set the "
+"correct state manually."
+msgstr "このAmazon取引先は無効なステータス(%s)で作成されました。正しい状態を手動で設定して下さい。"
+
+#. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid ""
 "This action will disconnect your account with Amazon and"

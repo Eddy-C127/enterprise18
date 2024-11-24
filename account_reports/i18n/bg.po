@@ -12,10 +12,13 @@
 # Albena Mincheva <albena_vicheva@abv.bg>, 2023
 # Rosen Vladimirov <vladimirov.rosen@gmail.com>, 2023
 # aleksandar ivanov, 2023
-# Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # KeyVillage, 2024
 # Elena Varbanova, 2024
 # Petko Karamotchev, 2024
+# Maria Boyadjieva <marabo2000@gmail.com>, 2024
+# Venelin Stoykov, 2024
+# Milena Georgieva, 2024
+# Margarita Katzeva, 2024
 # 
 msgid ""
 msgstr ""
@@ -23,7 +26,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Petko Karamotchev, 2024\n"
+"Last-Translator: Margarita Katzeva, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -251,7 +254,7 @@ msgstr "Сметка"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_chart_template
 msgid "Account Chart Template"
-msgstr ""
+msgstr "Шаблон за схема на сметката"
 
 #. module: account_reports
 #. odoo-python
@@ -318,7 +321,7 @@ msgstr "Счетоводни Отчети"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_expression
 msgid "Accounting Report Expression"
-msgstr ""
+msgstr "Израз на счетоводен отчет"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_line
@@ -941,7 +944,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
 #, python-format
 msgid "Check them"
-msgstr ""
+msgstr "Проверете ги"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -1215,6 +1218,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_date
+#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__date
 #, python-format
 msgid "Date"
@@ -1681,6 +1685,11 @@ msgid "Filters:"
 msgstr ""
 
 #. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Фискална позиция"
+
+#. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #, python-format
@@ -1817,7 +1826,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_sales_report.py:0
 #, python-format
 msgid "Goods"
-msgstr ""
+msgstr "Стоки"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2149,7 +2158,6 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
@@ -2298,7 +2306,7 @@ msgstr "Последно тримесечие"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Last Statement"
-msgstr ""
+msgstr "Последно извлечение"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2344,7 +2352,7 @@ msgstr "По-късно"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Latest Statement"
-msgstr ""
+msgstr "Последно извлечение"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_footnote__line_id
@@ -2967,7 +2975,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "Proposition of tax closing journal entry."
-msgstr ""
+msgstr "Предложение за операция в дневника за приключване на данъци."
 
 #. module: account_reports
 #. odoo-python
@@ -3129,7 +3137,7 @@ msgstr "Потърсете..."
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Sections"
-msgstr ""
+msgstr "Секции"
 
 #. module: account_reports
 #. odoo-python

@@ -1430,6 +1430,15 @@ msgid ""
 msgstr "지정된 Amazon Item Reference에 대해 하나의 판매 주문 내역만 존재할 수 있습니다."
 
 #. module: sale_amazon
+#. odoo-python
+#: code:addons/sale_amazon/models/res_partner.py:0
+#, python-format
+msgid ""
+"This Amazon partner was created with an invalid state (%s); please set the "
+"correct state manually."
+msgstr "이 Amazon 파트너는 잘못된 상태(%s)로 생성되었습니다. 올바른 상태를 수동 업데이트하세요."
+
+#. module: sale_amazon
 #: model_terms:ir.ui.view,arch_db:sale_amazon.amazon_account_view_form
 msgid ""
 "This action will disconnect your account with Amazon and"

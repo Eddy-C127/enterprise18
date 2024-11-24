@@ -5,7 +5,7 @@
 # Translators:
 # Wil Odoo, 2023
 # Martin Trigaux, 2023
-# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:22+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2023\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2024\n"
 "Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,21 +39,25 @@ msgid ""
 "<i class=\"fa fa-video-camera fa-fw me-1 fs-5 text-muted\"/>\n"
 "                                <span class=\"o_not_editable\">Online</span>"
 msgstr ""
+"<i class=\"fa fa-video-camera fa-fw me-1 fs-5 text-muted\"/>\n"
+"                                <span class=\"o_not_editable\">Online</span>"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_pages_kanban_view
 msgid "<span class=\"fa fa-globe\" title=\"website\"/>"
-msgstr ""
+msgstr "<span class=\"fa fa-globe\" title=\"website\"/>"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_type_view_kanban
 msgid "<span class=\"text-bg-success\">Published</span>"
-msgstr ""
+msgstr "<span class=\"text-bg-success\">Опубліковано</span>"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
 msgid "<span>See all availabilities <i class=\"fa fa-long-arrow-right\"/></span>"
 msgstr ""
+"<span>Перегляньте усіх доступних <i class=\"fa fa-long-arrow-"
+"right\"/></span>"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_select_operator
@@ -83,7 +87,7 @@ msgstr "Усі типи"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "All assigned users"
-msgstr ""
+msgstr "Усі призначені користувачі"
 
 #. module: website_appointment
 #. odoo-python
@@ -131,7 +135,7 @@ msgstr "Сторіка зустічей"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment
 msgid "Book an Appointment"
-msgstr ""
+msgstr "Забронювати зустріч"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
@@ -182,11 +186,13 @@ msgid ""
 "Details<span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted "
 "fs-5\"/>"
 msgstr ""
+"Деталі<span class=\"d-inline-block mx-sm-3 fa fa-angle-right text-muted "
+"fs-5\"/>"
 
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_invite__appointment_type_warning_msg
 msgid "Different Website Message"
-msgstr ""
+msgstr "Різні повідомлення на сайті"
 
 #. module: website_appointment
 #. odoo-javascript
@@ -214,7 +220,7 @@ msgstr "Новий тип призначень"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
 msgid "No result for \""
-msgstr ""
+msgstr "Немає результату для \""
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointment_progress_bar
@@ -270,7 +276,7 @@ msgstr "Пошук..."
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.appointments_cards
 msgid "See all appointments <i class=\"fa fa-long-arrow-right\"/>"
-msgstr ""
+msgstr "Переглянути всі зустрічі <i class=\"fa fa-long-arrow-right\"/>"
 
 #. module: website_appointment
 #: model:ir.model.fields,field_description:website_appointment.field_appointment_type__seo_name
@@ -280,12 +286,12 @@ msgstr "Назва Seo"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "Specific Types"
-msgstr ""
+msgstr "Конкретні типи"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "Specific users"
-msgstr ""
+msgstr "Конкретні корситувачі"
 
 #. module: website_appointment
 #. odoo-python
@@ -294,7 +300,7 @@ msgstr ""
 msgid ""
 "The following appointment type(s) are not compatible with the website "
 "chosen: "
-msgstr ""
+msgstr "Наступні типи записів несумісні з вибраним веб-сайтом:"
 
 #. module: website_appointment
 #: model:ir.model.fields,help:website_appointment.field_appointment_invite__website_url
@@ -390,7 +396,7 @@ msgstr "або"
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options
 msgid "⌙ Specify"
-msgstr ""
+msgstr "⌙ Specify"
 
 #. module: website_appointment
 #: model_terms:ir.ui.view,arch_db:website_appointment.s_online_appointment_options

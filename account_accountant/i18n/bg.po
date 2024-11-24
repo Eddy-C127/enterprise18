@@ -13,6 +13,8 @@
 # KeyVillage, 2024
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # Petko Karamotchev, 2024
+# Milena Georgieva, 2024
+# Margarita Katzeva, 2024
 # 
 msgid ""
 msgstr ""
@@ -20,7 +22,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Petko Karamotchev, 2024\n"
+"Last-Translator: Margarita Katzeva, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -94,12 +96,12 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">1 Bank Transaction</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">1 Банкова транзакция</span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
 msgid "<span class=\"o_stat_text\">Bank Statement</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Банково извлечение</span>"
 
 #. module: account_accountant
 #: model_terms:digest.tip,tip_description:account_accountant.digest_tip_account_accountant_1
@@ -136,7 +138,7 @@ msgstr "Сметка"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_chart_template
 msgid "Account Chart Template"
-msgstr ""
+msgstr "Шаблон за схема на сметката"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_account_group_tree
@@ -221,7 +223,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/finish_buttons.xml:0
 #, python-format
 msgid "All Transactions"
-msgstr ""
+msgstr "Всички транзакции"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -259,14 +261,14 @@ msgstr "Количество"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Company Currency)"
-msgstr ""
+msgstr "Сума (фирмена валута)"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Foreign Currency)"
-msgstr ""
+msgstr "Сума (чужда валута)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -289,7 +291,7 @@ msgstr "Сума във Валута"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__amount
 msgid "Amount in company currency"
-msgstr ""
+msgstr "Сума във фирмена валута"
 
 #. module: account_accountant
 #. odoo-python
@@ -357,7 +359,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/finish_buttons.xml:0
 #, python-format
 msgid "Back to"
-msgstr ""
+msgstr "Обратно към"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -370,7 +372,7 @@ msgstr "Салдо"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_digest_digest__kpi_account_bank_cash
 msgid "Bank & Cash Moves"
-msgstr ""
+msgstr "Движения по банка & кеш"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -398,7 +400,7 @@ msgstr "Банково Извлечение"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "Bank Statement %s.pdf"
-msgstr ""
+msgstr "Банково извлечение %s.pdf"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_bank_statement_line
@@ -410,7 +412,7 @@ msgstr "Ред на Банково Извлечение"
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "Bank Statement.pdf"
-msgstr ""
+msgstr "Банково извлечение.pdf"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_bank_rec_widget
@@ -433,7 +435,7 @@ msgstr ""
 #: model:ir.model.fields,help:account_accountant.field_account_reconcile_wizard__to_check
 msgid ""
 "Check if you are not certain of all the information of the counterpart."
-msgstr ""
+msgstr "Провеврка ако няма сигурност за цялата информация на контрагента."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -481,7 +483,7 @@ msgstr "Фирма"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__company_currency_id
 msgid "Company currency"
-msgstr ""
+msgstr "Фирмена валута"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_res_config_settings
@@ -511,7 +513,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_bank_statement_form_bank_rec_widget
 msgid "Create Statement"
-msgstr ""
+msgstr "Създаване на извлечение"
 
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.action_account_group_tree
@@ -577,7 +579,7 @@ msgstr "Валута"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_currency_id
 msgid "Currency to use for reconciliation"
-msgstr ""
+msgstr " Валута, която да се използва за съгласуване"
 
 #. module: account_accountant
 #. odoo-python
@@ -625,7 +627,7 @@ msgstr "Дебит"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__journal_default_account_id
 msgid "Default Account"
-msgstr ""
+msgstr "Сметка по подразбиране"
 
 #. module: account_accountant
 #. odoo-python
@@ -718,7 +720,7 @@ msgstr "Стойност на отстъпка"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Discount Date"
-msgstr ""
+msgstr "Дата на отстъпката"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -775,7 +777,7 @@ msgstr "Крайна Дата"
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_fiscal_year__date_to
 msgid "Ending Date, included in the fiscal year."
-msgstr ""
+msgstr "Крайна дата, включена във фискалната година."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_company__invoicing_switch_threshold
@@ -847,7 +849,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "Foreign Currency"
-msgstr ""
+msgstr "Чужда валута"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__form_index
@@ -881,7 +883,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
 msgid "Full Months"
-msgstr ""
+msgstr "Пълни месеци"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_company__generate_deferred_expense_entries_method
@@ -1162,7 +1164,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
 #, python-format
 msgid "Let’s go back to the dashboard."
-msgstr ""
+msgstr "Връщане към таблото."
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1213,12 +1215,12 @@ msgstr "Ръчни Операции"
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__manual
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__manual
 msgid "Manually & Grouped"
-msgstr ""
+msgstr "Ръчни & Групирани"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__manually_modified
 msgid "Manually Modified"
-msgstr ""
+msgstr "Ръчно променени"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1233,7 +1235,7 @@ msgstr "Съгласувай"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Match Existing Entries"
-msgstr ""
+msgstr "Съвпадение на съществуващи записи"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_kanban_bank_rec_widget
@@ -1332,14 +1334,14 @@ msgstr "Няма Свързани Приложени Файлове."
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "No statement"
-msgstr ""
+msgstr "Няма извлечение"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_bank_statement.py:0
 #, python-format
 msgid "No transactions matching your filters were found."
-msgstr ""
+msgstr "Не са открити транзакции, отговарящи на филтрите."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__tax_lock_date
@@ -1382,7 +1384,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
 msgid "On bill validation"
-msgstr ""
+msgstr "При валидиране на сметката"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_revenue_entries_method__on_validation
@@ -1448,7 +1450,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__deferred_original_move_ids
 #: model:ir.model.fields,field_description:account_accountant.field_account_payment__deferred_original_move_ids
 msgid "Original Invoices"
-msgstr ""
+msgstr "Оригинални фактури"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1475,7 +1477,7 @@ msgstr "Партньор"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_currency_id
 msgid "Partner Currency"
-msgstr ""
+msgstr "Партньорска валута"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__partner_name
@@ -1485,12 +1487,12 @@ msgstr "Име на партньора"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_account_id
 msgid "Partner Payable Account"
-msgstr ""
+msgstr "Партньорска сума за плащане"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_amount
 msgid "Partner Payable Amount"
-msgstr ""
+msgstr "Партньорска сума за плащане"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_account_id
@@ -1750,7 +1752,7 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Set as Checked"
-msgstr ""
+msgstr "Отбелязване като отметнато"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
@@ -2335,7 +2337,7 @@ msgstr "Ликвидност"
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__manual
 msgid "manual"
-msgstr ""
+msgstr "ръчно"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__new_aml
@@ -2364,7 +2366,7 @@ msgstr "за проверка"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 #, python-format
 msgid "transaction in"
-msgstr ""
+msgstr "транзакции в"
 
 #. module: account_accountant
 #. odoo-javascript

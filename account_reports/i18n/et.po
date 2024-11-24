@@ -6,7 +6,6 @@
 # Helen Sulaoja <helen@avalah.ee>, 2023
 # Maidu Targama <m.targama@gmail.com>, 2023
 # Patrick-Jordan Kiudorv, 2023
-# Martin Aavastik <martin@avalah.ee>, 2023
 # Marek Pontus, 2023
 # JanaAvalah, 2023
 # Rivo Zängov <eraser@eraser.ee>, 2023
@@ -23,6 +22,7 @@
 # Aveli Kannel <aveli@avalah.ee>, 2024
 # Birgit Vijar, 2024
 # Anna, 2024
+# Martin Aavastik <martin@avalah.ee>, 2024
 # 
 msgid ""
 msgstr ""
@@ -30,7 +30,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:42+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Anna, 2024\n"
+"Last-Translator: Martin Aavastik <martin@avalah.ee>, 2024\n"
 "Language-Team: Estonian (https://app.transifex.com/odoo/teams/41243/et/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1235,6 +1235,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_date
+#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__date
 #, python-format
 msgid "Date"
@@ -1706,6 +1707,11 @@ msgstr "Filtrid"
 #, python-format
 msgid "Filters:"
 msgstr "Filtrid:"
+
+#. module: account_reports
+#: model:ir.model,name:account_reports.model_account_fiscal_position
+msgid "Fiscal Position"
+msgstr "Finantspositsioon"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2180,7 +2186,6 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_invoice_date
 #: model:account.report.column,name:account_reports.aged_receivable_report_invoice_date
-#: model:account.report.column,name:account_reports.general_ledger_report_date
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
