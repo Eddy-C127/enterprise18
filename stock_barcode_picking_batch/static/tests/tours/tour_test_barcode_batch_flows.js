@@ -285,7 +285,6 @@ registry.category("web_tour.tours").add('test_barcode_batch_receipt_1', { steps:
     },
     {
         trigger: ".o-autocomplete.dropdown:not(:has(.o-autocomplete--dropdown-menu))",
-        run() {}
     },
     {
         trigger: '.o_save',

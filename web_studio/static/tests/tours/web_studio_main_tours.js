@@ -3,11 +3,7 @@
 import { browser } from "@web/core/browser/browser";
 import { registry } from "@web/core/registry";
 import { randomString } from "@web_studio/utils";
-import {
-    assertEqual,
-    stepNextTick,
-    stepNotInStudio,
-} from "@web_studio/../tests/tours/tour_helpers";
+import { assertEqual, stepNotInStudio } from "@web_studio/../tests/tours/tour_helpers";
 
 const localStorage = browser.localStorage;
 let createdAppString = null;
@@ -245,7 +241,6 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: '.o_web_studio_sidebar input[name="string"]',
             run: "edit My Coucou Field && click .o_web_studio_sidebar",
         },
-        stepNextTick(),
         {
             // verify that the field name has changed and change it
             trigger: '.o_web_studio_sidebar input[name="technical_name"]',
@@ -287,7 +282,6 @@ registry.category("web_tour.tours").add("web_studio_main_and_rename", {
             trigger: '.o_web_studio_sidebar input[name="string"]',
             run: "edit COUCOU && click body",
         },
-        stepNextTick(),
         {
             // verify that the field name has changed (post-fixed by _1)
             trigger: '.o_web_studio_sidebar input[name="technical_name"]',
