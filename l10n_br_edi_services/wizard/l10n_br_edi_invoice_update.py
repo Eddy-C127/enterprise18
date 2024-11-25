@@ -1,5 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
-from odoo import models, fields, _
+from odoo import api, models, fields, _
 from odoo.exceptions import UserError
 
 
@@ -11,6 +11,12 @@ class L10nBrEDIInvoiceUpdate(models.TransientModel):
         related="move_id.l10n_br_is_service_transaction",
         help='Technical field used to hide the "reason" field.',
     )
+
+    @api.constrains("mode", "reason", "move_id")
+    def _constrains_reason(self):
+        # Service invoices don't use the reason field.
+        goods_wizards = self.filtered(lambda wizard: not wizard.is_service_invoice)
+        super(L10nBrEDIInvoiceUpdate, goods_wizards)._constrains_reason()
 
     def default_get(self, fields):
         # Hack to get around the required=True "reason" field which is invisible
