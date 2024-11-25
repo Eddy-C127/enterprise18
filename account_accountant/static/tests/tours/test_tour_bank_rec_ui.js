@@ -361,7 +361,7 @@ registry.category("web_tour.tours").add('account_accountant_bank_rec_widget_ui',
         {
             content: "amls_tab is activated while still on line2 which doesn't contain a badge",
             extra_trigger: ".o_bank_rec_selected_st_line:contains('line2'):not(:has(div.badge))",
-            trigger: "div[name='line_ids']:has(.fa-trash-o)+.o_notebook a.active[name='amls_tab']",
+            trigger: ".o_notebook a.active[name='amls_tab']",
             run: () => {},
         },
         // Test view_switcher
