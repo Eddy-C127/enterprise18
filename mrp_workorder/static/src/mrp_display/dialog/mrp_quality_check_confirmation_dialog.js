@@ -106,6 +106,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     async doActionAndClose(action, saveModel = true, reloadChecks = false){
+        this.state.disabled = true;
         if (saveModel) {
             await this.props.record.save();
         }
