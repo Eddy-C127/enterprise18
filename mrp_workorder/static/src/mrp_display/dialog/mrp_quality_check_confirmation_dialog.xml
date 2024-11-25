@@ -35,7 +35,7 @@
                             <Many2OneField t-props="lotInfo"/>
                         </div>
                         <button t-if="!recordData.lot_id and recordData.test_type === 'register_production'"
-                            class="btn btn-info fa fa-plus col-1" t-on-click="actionGenerateSerial"/>
+                            t-att-disabled="state.disabled" class="btn btn-info fa fa-plus col-1" t-on-click="actionGenerateSerial"/>
                     </div>
                 </div>
             </t>
@@ -58,29 +58,31 @@
                 <div class="d-flex justify-content-between w-100">
                     <div>
                         <t t-if="recordData.test_type === 'passfail'">
-                            <button class="btn btn-danger me-2" barcode_trigger="fail" t-on-click="fail">
+                            <button class="btn btn-danger me-2" barcode_trigger="fail" t-att-disabled="state.disabled" t-on-click="fail">
                                 Fail
                             </button>
-                            <button class="btn btn-success me-2" barcode_trigger="pass" t-on-click="pass">
+                            <button class="btn btn-success me-2" barcode_trigger="pass" t-att-disabled="state.disabled" t-on-click="pass">
                                 Pass
                             </button>
                         </t>
                         <button t-if="recordData.test_type === 'worksheet'" class="btn btn-primary me-2"
-                                t-on-click="openWorksheet">
+                                t-att-disabled="state.disabled" t-on-click="openWorksheet">
                             <i class="fa fa-pencil me-2"/>Fill in worksheet
                         </button>
                         <button t-if="recordData.test_type !== 'passfail' || recordData.quality_state !== 'none'"
-                                class="btn btn-primary me-2" t-on-click="validate" t-esc="confirmLabel"
+                                class="btn btn-primary me-2" t-att-disabled="state.disabled" t-on-click="validate" t-esc="confirmLabel"
                                 t-att-barcode_trigger="recordData.test_type == 'print_label' ? 'print' : 'next'"/>
                         <button t-if="['register_consumed_materials', 'register_byproducts'].includes(recordData.test_type)"
-                                class="btn btn-secondary me-2" t-on-click="continueProduction"
+                                class="btn btn-secondary me-2" t-att-disabled="state.disabled" t-on-click="continueProduction"
                                 barcode_trigger="continue">Continue consumption</button>
                     </div>
                     <div>
                         <button t-if="props.record.data.previous_check_id"
+                                t-att-disabled="state.disabled"
                                 t-on-click="back" class="btn btn-secondary me-2"
                                 barcode_trigger="prev">&lt; Back</button>
                         <button t-if="props.record.data.next_check_id"
+                                t-att-disabled="state.disabled"
                                 t-on-click="skip" class="btn btn-secondary"
                                 barcode_trigger="skip">Skip &gt;</button>
                     </div>

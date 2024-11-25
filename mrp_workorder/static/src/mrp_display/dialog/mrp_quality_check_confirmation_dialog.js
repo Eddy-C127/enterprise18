@@ -8,6 +8,7 @@ import { FloatField } from "@web/views/fields/float/float_field";
 import { Many2OneField } from "@web/views/fields/many2one/many2one_field";
 import { TabletImageField } from "@quality/tablet_image_field/tablet_image_field";
 import { useService, useBus } from "@web/core/utils/hooks";
+import { useState } from "@odoo/owl";
 
 export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     static props = {
@@ -37,6 +38,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
         useBus(this.barcode.bus, "barcode_scanned", (event) =>
             this._onBarcodeScanned(event.detail.barcode)
         );
+        this.state = useState({ disabled: false });
         this.formatFloat = formatFloat;
         const { component_tracking, test_type, product_tracking } = this.recordData;
         this.displayLot =
@@ -91,6 +93,7 @@ export class MrpQualityCheckConfirmationDialog extends ConfirmationDialog {
     }
 
     async doActionAndClose(action, saveModel = true, reloadChecks = false){
+        this.state.disabled = true;
         if (saveModel) {
             await this.props.record.save();
         }

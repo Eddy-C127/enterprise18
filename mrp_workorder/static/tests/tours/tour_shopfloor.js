@@ -419,6 +419,17 @@ registry.category("web_tour.tours").add("test_update_tracked_consumed_materials_
             run: "click",
         },
         {
+            content: "Check that action buttons are disabled during the last click",
+            trigger: ".modal-header",
+            run: () => {
+                const buttons = document.querySelectorAll(".modal-footer button");
+                const disabledButtons = document.querySelectorAll(".modal-footer button:disabled");
+                if (!buttons.length | (buttons.length != disabledButtons.length)) {
+                    throw new TourError("Button not disabled");
+                }
+            },
+        },
+        {
             content: "Check that SN002 is well registered",
             trigger: ".o_mrp_record_line:contains('SN002')",
             isCheck: true,
