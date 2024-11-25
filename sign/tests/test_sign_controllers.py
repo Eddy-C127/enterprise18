@@ -189,8 +189,9 @@ class TestSignController(TestSignControllerCommon):
     def test_sign_request_ignore_from_mail(self):
         """Only GET requests should lead to a sign request being ignored."""
         sign_request = self.create_sign_request_1_role(self.partner_1, self.env['res.partner'])
-        url = '/sign/sign_ignore/%s/%s' % (sign_request.id, sign_request.request_item_ids[0].access_token)
+        request_item = sign_request.request_item_ids[0]
+        url = '/sign/sign_ignore/%s/%s' % (request_item.id, request_item.access_token)
         self.url_open(url, head=True)
-        self.assertEqual(sign_request.request_item_ids[0].ignored, False)
+        self.assertEqual(request_item.ignored, False)
         self.url_open(url)
-        self.assertEqual(sign_request.request_item_ids[0].ignored, True)
+        self.assertEqual(request_item.ignored, True)
