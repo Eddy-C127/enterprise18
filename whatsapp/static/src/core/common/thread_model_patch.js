@@ -1,5 +1,3 @@
-/* @odoo-module */
-
 import { Thread } from "@mail/core/common/thread_model";
 import { patch } from "@web/core/utils/patch";
 import { deserializeDateTime } from "@web/core/l10n/dates";
@@ -12,6 +10,9 @@ patch(Thread.prototype, {
             return this.selfMember?.message_unread_counter || this.message_needaction_counter;
         }
         return super.importantCounter;
+    },
+    get autoOpenChatWindowOnNewMessage() {
+        return this.channel_type === "whatsapp" || super.autoOpenChatWindowOnNewMessage;
     },
     get canLeave() {
         return this.channel_type !== "whatsapp" && super.canLeave;
