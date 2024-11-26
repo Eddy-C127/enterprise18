@@ -15,6 +15,17 @@ class L10nRoTrialBalance5ColumnReportHandler(models.AbstractModel):
         options_date_from = fields.Date.from_string(options['date']['date_from'])
         return options_date_from.month != 1 or options_date_from.day != 1
 
+    def _get_start_of_year_date_options(self, options):
+        date_to = options['comparison']['periods'][-1]['date_from'] if options.get('comparison', {}).get('periods') else options['date']['date_from']
+        new_date_to = fields.Date.from_string(date_to) - timedelta(days=1)
+        date_to_fiscal_year_dates = self.env.company.compute_fiscalyear_dates(new_date_to)
+
+        return {
+            'mode': 'range',
+            'date_from': date_to_fiscal_year_dates['date_from'],
+            'date_to': new_date_to
+        }
+
     def _get_column_group_creation_data(self, report, options, previous_options=None):
         # Override
         data = super()._get_column_group_creation_data(report, options, previous_options)
@@ -66,12 +77,13 @@ class L10nRoTrialBalance5ColumnReportHandler(models.AbstractModel):
         )
 
     def _create_column_group_start_of_year(self, report, options, previous_options, default_group_vals, side_to_append):
-        general_ledger_initial_balance_options = self.env['account.general.ledger.report.handler']._get_options_initial_balance(options)
+        forced_options = {
+            'include_current_year_in_unaff_earnings': False,
+            'date': self._get_start_of_year_date_options(options),
+        }
 
-        forced_options = {'date': general_ledger_initial_balance_options['date']}
-
-        month_from, year_from = format_date(self.env, forced_options['date']['date_from'], date_format="MMM YYYY").split()
-        month_to, year_to = format_date(self.env, forced_options['date']['date_to'], date_format="MMM YYYY").split()
+        month_from, year_from = format_date(self.env, forced_options['date']['date_from'], date_format="MMM yyyy").split()
+        month_to, year_to = format_date(self.env, forced_options['date']['date_to'], date_format="MMM yyyy").split()
 
         if year_from != year_to:
             header_name = f"{month_from} {year_from} - {month_to} {year_to}"
