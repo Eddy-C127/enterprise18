@@ -152,7 +152,7 @@
                                 </div>
                             </div>
                             <field name="location" invisible="has_location == 'no'" readonly="request_status != 'new'" required="has_location == 'required'" placeholder="e.g. Brussels" />
-                            <field name="partner_id" invisible="has_partner == 'no'" readonly="request_status != 'new'" required="has_partner == 'required'"/>
+                            <field name="partner_id" invisible="has_partner == 'no'" readonly="request_status != 'new'" required="has_partner == 'required'" context="{'category_id': ''}"/>
                         </group>
                         <group name="request_details">
                             <field name="quantity" invisible="has_quantity == 'no' or has_product != 'no'" readonly="request_status != 'new'" required="has_quantity == 'required' and has_product == 'no'"/>
