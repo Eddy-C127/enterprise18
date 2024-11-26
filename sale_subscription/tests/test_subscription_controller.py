@@ -5,6 +5,7 @@ from datetime import date
 from freezegun import freeze_time
 from unittest.mock import patch
 
+from odoo.addons.sale.models.sale_order import SaleOrder
 from odoo.addons.sale_subscription.tests.common_sale_subscription import TestSubscriptionCommon
 from odoo.addons.payment.tests.common import PaymentCommon
 from odoo.addons.payment.tests.http_common import PaymentHttpCommon
@@ -412,3 +413,67 @@ class TestSubscriptionController(PaymentHttpCommon, PaymentCommon, TestSubscript
         )
         self.assertEqual(response.status_code, 200)
         self.assertEqual("My attachment", response.text)
+
+    def test_payment_confirmation_email(self):
+        """Check that payment confirmation emails aren't sent for validation transactions."""
+        def process_notification_data(data):
+            tx = self.env['payment.transaction'].search(
+                [('reference', '=', data['reference'])],
+                limit=1,
+            )
+            tx.token_id = tx.tokenize and self.env['payment.token'].create({
+                'provider_id': self.provider.id,
+                'payment_method_id': self.payment_method_id,
+                'partner_id': self.subscription.partner_id.id,
+                'provider_ref': 'test123',
+            })
+            tx._set_done()
+
+        self.portal_user.email = 'chell@aperture.com'
+        self.subscription.partner_id = self.portal_partner
+        self.subscription.action_confirm()
+        self.subscription._create_invoices()
+
+        with patch.object(SaleOrder, '_send_order_notification_mail') as notification_mail_mock:
+            subscription_tx_url = f'/my/subscriptions/{self.subscription.id}/transaction'
+            base_tx_route_values = {
+                'access_token': None,
+                'order_id': self.subscription.id,
+                'amount': 0.0,
+                'provider_id': self.provider.id,
+                'payment_method_id': self.payment_method_id,
+                'token_id': None,
+                'flow': 'direct',
+                'is_validation': False,
+                'tokenization_requested': False,
+                'landing_route': self.subscription.get_portal_url(),
+            }
+
+            # Log in and save a payment method for a subscription
+            self.authenticate(self.portal_user.login, self.portal_user.login)
+            tx_response = self.make_jsonrpc_request(subscription_tx_url, {
+                **base_tx_route_values,
+                'is_validation': True,
+                'tokenization_requested': True,
+            })
+            process_notification_data(tx_response)
+            self.make_jsonrpc_request('/payment/status/poll', {})
+            self.assertFalse(
+                notification_mail_mock.call_count,
+                "Simply setting a payment token shouldn't send a payment succeeded email",
+            )
+
+            # Use saved payment method to pay subscription
+            tx_response = self.make_jsonrpc_request(subscription_tx_url, {
+                **base_tx_route_values,
+                'amount': self.subscription.amount_total,
+                'token_id': self.subscription.payment_token_id.id,
+                'flow': 'token',
+            })
+            process_notification_data(tx_response)
+            self.make_jsonrpc_request('/payment/status/poll', {})
+            self.assertEqual(
+                notification_mail_mock.call_count,
+                1,
+                "Paying a subscription should send one payment succeeded email",
+            )
