@@ -42,6 +42,9 @@ class ComparisonBuilder(AbstractBuilder):
 
     def _format_account_line(self, account, parent_id, level: int, totals: list, options: dict, **kwargs) -> dict:
         account_line = super()._format_account_line(account, parent_id, level, totals, options, **kwargs)
+        # we don't have the necessary info to make it auditable in a comparison
+        for column in account_line['columns']:
+            column['auditable'] = False
         if kwargs.get('include_percentage', False) and totals and account_line:
             account_line['columns'].append(self._build_percentage_column(*totals))
         return account_line

@@ -360,7 +360,7 @@ class TestComparisonBuilder(AccountConsolidationTestCase):
                         'figure_type': 'monetary',
                         'class': 'number',
                         'is_zero': False,
-                        'auditable': True,
+                        'auditable': False,
                     },
                     {
                         'name': f'-2,000.00{NON_BREAKING_SPACE}€',
