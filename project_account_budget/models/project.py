@@ -131,6 +131,8 @@ class Project(models.Model):
             else:
                 budget_data['budgets'] = []
 
+        for budget_data in budget_data_per_budget.values():
+            budget_data['progress'] = budget_data['allocated'] and (budget_data['spent'] - budget_data['allocated']) / abs(budget_data['allocated'])
 
         budget_data_per_budget = list(budget_data_per_budget.values())
         if can_see_budget_items:

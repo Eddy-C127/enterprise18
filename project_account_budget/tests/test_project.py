@@ -58,6 +58,7 @@ class TestProject(TestProjectCommon):
                 {
                     'allocated': 500,
                     'budgets': [],
+                    'progress': -1.0,
                     'spent': 0.0,
                 },
             ],
@@ -98,6 +99,7 @@ class TestProject(TestProjectCommon):
             'data': [
                 {
                     'allocated': 1500.0,
+                    'progress': -1.0,
                     'spent': 0.0,
                     'budgets': [
                         {'allocated': 500.0, 'spent': 0.0, 'progress': -1.0},
