@@ -358,6 +358,7 @@ class MulticurrencyRevaluationReportCustomHandler(models.AbstractModel):
             ) subquery
 
             GROUP BY grouping_key
+            ORDER BY grouping_key
             {tail_query}
         """
         params = [

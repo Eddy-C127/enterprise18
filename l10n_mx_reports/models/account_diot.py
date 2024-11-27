@@ -76,6 +76,15 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
         lang = self.env.user.lang or get_lang(self.env).code
         tags = report.line_ids.expression_ids._get_matching_tags()
 
+        groupby_sql = """
+            raw_results.grouping_key,
+            raw_results.third_party_code,
+            raw_results.operation_type_code,
+            raw_results.partner_vat_number,
+            raw_results.country_code,
+            raw_results.partner_nationality
+        """
+
         tail_query, tail_params = report._get_engine_query_tail(offset, limit)
         self._cr.execute(f"""
             WITH raw_results as (
@@ -105,12 +114,9 @@ class MexicanAccountReportCustomHandler(models.AbstractModel):
                raw_results.partner_nationality AS partner_nationality
             FROM raw_results
             GROUP BY
-                raw_results.grouping_key,
-                raw_results.third_party_code,
-                raw_results.operation_type_code,
-                raw_results.partner_vat_number,
-                raw_results.country_code,
-                raw_results.partner_nationality
+                {groupby_sql}
+            ORDER BY
+                {groupby_sql}
            {tail_query}
         """,
             [tuple(tags.ids)] + [

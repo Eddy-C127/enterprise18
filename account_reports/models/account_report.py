@@ -3100,6 +3100,9 @@ class AccountReport(models.Model):
             acc_tag_name = "acc_tag.name->>'en_US'"
         else:
             acc_tag_name = 'acc_tag.name'
+
+        groupby_clause = f"SUBSTRING({acc_tag_name}, 2, LENGTH({acc_tag_name}) - 1){f', {groupby_sql}' if groupby_sql else ''}"
+
         sql = f"""
             SELECT
                 SUBSTRING({acc_tag_name}, 2, LENGTH({acc_tag_name}) - 1) AS formula,
@@ -3122,8 +3125,9 @@ class AccountReport(models.Model):
 
             WHERE {where_clause}
 
-            GROUP BY SUBSTRING({acc_tag_name}, 2, LENGTH({acc_tag_name}) - 1)
-                {f', {groupby_sql}' if groupby_sql else ''}
+            GROUP BY {groupby_clause}
+
+            ORDER BY {groupby_clause}
 
             {tail_query}
         """
@@ -3200,6 +3204,7 @@ class AccountReport(models.Model):
                 JOIN {ct_query} ON currency_table.company_id = account_move_line.company_id
                 WHERE {where_clause}
                 {f' GROUP BY {groupby_sql}' if groupby_sql else ''}
+                {f' ORDER BY {groupby_sql}' if groupby_sql else ''}
                 {tail_query}
             """
 
@@ -3379,6 +3384,7 @@ class AccountReport(models.Model):
             JOIN {currency_table_query} ON currency_table.company_id = account_move_line.company_id
             WHERE {where_clause}
             GROUP BY account_move_line.account_id{extra_groupby_sql}
+            {'ORDER BY account_move_line.' + current_groupby if current_groupby else ''}
             {tail_query}
         """
         self._cr.execute(query, where_params + tail_params)

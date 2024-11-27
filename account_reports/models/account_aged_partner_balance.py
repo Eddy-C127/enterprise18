@@ -244,6 +244,9 @@ class AgedPartnerBalanceCustomHandler(models.AbstractModel):
                     SUM(ROUND(CASE WHEN account_move_line.balance < 0  THEN -account_move_line.balance else 0 END * currency_table.rate, currency_table.precision))
                     - COALESCE(SUM(ROUND(part_credit.amount * currency_table.rate, currency_table.precision)), 0)
                 ) != 0
+
+            ORDER BY {groupby_clause}
+
             {tail_query}
         """
 
