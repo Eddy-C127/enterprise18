@@ -3579,8 +3579,9 @@ class AccountReport(models.Model):
 
             WHERE %(search_condition)s
 
-            GROUP BY SUBSTRING(%(acc_tag_name)s, 2, LENGTH(%(acc_tag_name)s) - 1)
-                %(groupby_sql)s
+            GROUP BY %(groupby_clause)s
+
+            ORDER BY %(groupby_clause)s
 
             %(tail_query)s
             """,
@@ -3591,7 +3592,11 @@ class AccountReport(models.Model):
             balance_select=self._currency_table_apply_rate(SQL("account_move_line.balance")),
             currency_table_join=self._currency_table_aml_join(options),
             search_condition=query.where_clause,
-            groupby_sql=SQL(', %s', groupby_sql) if groupby_sql else SQL(),
+            groupby_clause=SQL(
+                "SUBSTRING(%(acc_tag_name)s, 2, LENGTH(%(acc_tag_name)s) - 1)%(groupby_sql)s",
+                acc_tag_name=acc_tag_name,
+                groupby_sql=SQL(', %s', groupby_sql) if groupby_sql else SQL(),
+            ),
             tail_query=tail_query,
         )
 
@@ -3671,6 +3676,7 @@ class AccountReport(models.Model):
                 %(currency_table_join)s
                 WHERE %(search_condition)s
                 %(group_by_groupby_sql)s
+                %(order_by_sql)s
                 %(tail_query)s
                 """,
                 select_count_field=SQL.identifier(next_groupby.split(',')[0] if next_groupby else 'id'),
@@ -3680,6 +3686,7 @@ class AccountReport(models.Model):
                 currency_table_join=self._currency_table_aml_join(options),
                 search_condition=query.where_clause,
                 group_by_groupby_sql=SQL('GROUP BY %s', groupby_sql) if groupby_sql else SQL(),
+                order_by_sql=SQL(' ORDER BY %s', groupby_sql) if groupby_sql else SQL(),
                 tail_query=tail_query,
             )
 
@@ -3845,6 +3852,7 @@ class AccountReport(models.Model):
             %(currency_table_join)s
             WHERE %(search_condition)s
             GROUP BY account_move_line.account_id%(extra_groupby_sql)s
+            %(order_by_sql)s
             %(tail_query)s
             """,
             extra_select_sql=extra_select_sql,
@@ -3853,6 +3861,7 @@ class AccountReport(models.Model):
             currency_table_join=self._currency_table_aml_join(options),
             search_condition=query.where_clause,
             extra_groupby_sql=extra_groupby_sql,
+            order_by_sql=SQL('ORDER BY %s', SQL.identifier('account_move_line', current_groupby)) if current_groupby else SQL(),
             tail_query=tail_query,
         )
         self._cr.execute(query)
