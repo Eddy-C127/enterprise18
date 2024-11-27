@@ -102,3 +102,4 @@ class TestSEPAFile(AccountTestInvoicingCommon):
         self.assertTrue("<InstrPrty>HIGH</InstrPrty>" in sepa_file_content)
         self.assertTrue("<Cd>SALA</Cd>" in sepa_file_content)
         self.assertTrue("<Ustrd>/A/ SLIP" in sepa_file_content)
+        self.assertTrue("<Ustrd>SLIP" not in sepa_file_content)
