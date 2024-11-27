@@ -123,8 +123,8 @@ class SocialStreamPostLinkedIn(models.Model):
             },
         )
         response_json = response.json()
-        if 'elements' not in response:
-            self.sudo().account_id._action_disconnect_accounts(response)
+        if 'elements' not in response_json:
+            self.sudo().account_id._action_disconnect_accounts(response_json)
         if not response.ok:
             raise UserError(
                 _(
