@@ -25,9 +25,11 @@ registry.category("web_tour.tours").add("test_document_folder_rights_for_multi_c
             run: "click",
         },
         {
+            trigger: ".o_switch_company_menu:contains('Company_A')",
+        },
+        {
             contet: "Check that the workspace is not visible",
             trigger: ".o_search_panel_label_title:not(:contains('Workspace1'))",
-            run: () => null,
         },
     ],
 });
