@@ -237,8 +237,8 @@ class SpreadsheetMixin(models.AbstractModel):
         if not snapshot_attachment and self.spreadsheet_data is False:
             return False
         elif not snapshot_attachment:
-            return json.loads(self.spreadsheet_data)
-        return json.loads(snapshot_attachment.raw)
+            return json.loads(self.spreadsheet_data or '{}')
+        return json.loads(snapshot_attachment.raw or '{}')
 
     def _should_be_snapshotted(self):
         if not self.spreadsheet_revision_ids:
