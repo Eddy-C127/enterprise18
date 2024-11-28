@@ -1073,9 +1073,13 @@ class L10nMxEdiDocument(models.Model):
 
     @api.model
     def _get_post_fix_tax_amounts_map(self, base_amount, tax_amount, tax_rate, precision_digits):
-        total = base_amount + tax_amount
-        new_base_amount = float_round(total / (1 + tax_rate), precision_digits=precision_digits)
-        new_tax_amount = total - new_base_amount
+        if float_round(abs(base_amount * tax_rate - tax_amount), precision_digits, rounding_method='DOWN') == 0.0:
+            new_base_amount = float_round(base_amount, precision_digits=precision_digits)
+            new_tax_amount = float_round(tax_amount, precision_digits=precision_digits)
+        else:
+            total = base_amount + tax_amount
+            new_base_amount = float_round(total / (1 + tax_rate), precision_digits=precision_digits)
+            new_tax_amount = total - new_base_amount
         return {
             'new_base_amount': new_base_amount,
             'new_tax_amount': new_tax_amount,
@@ -1247,17 +1251,10 @@ class L10nMxEdiDocument(models.Model):
             'tipo_cambio': aggregate_average_or_none([x['tipo_cambio'] for x in cfdi_values_list if x['tipo_cambio']]),
             'tipo_de_comprobante': 'I',
             'exportacion': aggregate_to_one(x['exportacion'] for x in cfdi_values_list),
-            'total_impuestos_trasladados': aggregate_sum_or_none(
-                x.get('total_impuestos_trasladados', 0.0)
-                for x in cfdi_values_list
-            ),
-            'total_impuestos_retenidos': aggregate_sum_or_none(
-                x.get('total_impuestos_retenidos', 0.0)
-                for x in cfdi_values_list
-            ),
+            'total_impuestos_trasladados': 0.0,
+            'total_impuestos_retenidos': 0.0,
             'subtotal': sum(x['subtotal'] - (x['descuento'] or 0.0) for x in cfdi_values_list),
             'descuento': None,
-            'total': sum(x['total'] for x in cfdi_values_list),
         }
 
         # Customer needs to be "Publico En General.
@@ -1377,21 +1374,22 @@ class L10nMxEdiDocument(models.Model):
             results[key] = []
             for tax_key, tax_amounts in global_result_dict.items():
                 tax_values = {**tax_key, **tax_amounts}
-                if tax_values['importe'] and tax_values.get('tasa_o_cuota'):
-                    post_amounts_map = self._get_post_fix_tax_amounts_map(
-                        base_amount=tax_values['base'],
-                        tax_amount=tax_values['importe'],
-                        tax_rate=tax_values['tasa_o_cuota'],
-                        precision_digits=currency.decimal_places,
-                    )
-                    tax_values['base'] = post_amounts_map['new_base_amount']
-                    tax_values['importe'] = post_amounts_map['new_tax_amount']
-                    if results[total_key] is not None:
-                        results[total_key] += post_amounts_map['delta_tax_amount']
-                    results['subtotal'] += post_amounts_map['delta_base_amount']
+                if tax_values['importe']:
+                    if tax_values.get('tasa_o_cuota'):
+                        post_amounts_map = self._get_post_fix_tax_amounts_map(
+                            base_amount=tax_values['base'],
+                            tax_amount=tax_values['importe'],
+                            tax_rate=tax_values['tasa_o_cuota'],
+                            precision_digits=currency.decimal_places,
+                        )
+                        tax_values['base'] = post_amounts_map['new_base_amount']
+                        tax_values['importe'] = post_amounts_map['new_tax_amount']
+                        results['subtotal'] += post_amounts_map['delta_base_amount']
+                    results[total_key] += tax_values['importe']
                 results[key].append(tax_values)
         results['objeto_imp'] = '02' if results['retenciones_reduced_list'] or results['traslados_list'] else '03'
 
+        results['total'] = results['subtotal'] + results['total_impuestos_trasladados'] - results['total_impuestos_retenidos']
         # Cleanup attributes for Exento taxes.
         if all(x['total_impuestos_trasladados'] is None for x in cfdi_values_list):
             results['total_impuestos_trasladados'] = None
