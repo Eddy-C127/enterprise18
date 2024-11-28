@@ -2138,13 +2138,10 @@ Content-Disposition: form-data; name="xml"; filename="xml"
         # -- clean schema locations --
         xsi_ns = cfdi_infos['cfdi_node'].nsmap['xsi']
         schema_locations = cfdi_infos['cfdi_node'].attrib[f"{{{xsi_ns}}}schemaLocation"].split()
-        schema_parts = {ns: location for ns, location in zip(schema_locations[::2], schema_locations[1::2])}
+        schema_parts = {ns: location for ns, location in zip(schema_locations[::2], schema_locations[1::2]) if ns in cfdi_infos['cfdi_node'].nsmap.values()}
         for ns in cfdi_infos['cfdi_node'].nsmap:
             if ns != 'xsi' and not cfdi_infos['cfdi_node'].xpath(f'//{ns}:*', namespaces=cfdi_infos['cfdi_node'].nsmap):
                 schema_parts.pop(cfdi_infos['cfdi_node'].nsmap[ns])
-        pagos_ns = 'http://www.sat.gob.mx/Pagos20'
-        if pagos_ns in schema_parts:
-            schema_parts.pop(pagos_ns)
         cfdi_infos['cfdi_node'].attrib[f'{{{xsi_ns}}}schemaLocation'] = ' '.join(f"{ns} {location}" for ns, location in schema_parts.items())
         cfdi_str = self.env['l10n_mx_edi.document']._convert_xml_to_attachment_data(cfdi_infos['cfdi_node'])
 
