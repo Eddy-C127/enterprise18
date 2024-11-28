@@ -209,4 +209,6 @@ class TestHelpdeskStock(common.HelpdeskCommon):
         ticket.partner_id = company_partner.id
         self.assertEqual(ticket.suitable_product_ids.ids, company_product.ids, 'Company should not see SOs of child partners')
         ticket.partner_id = employee_partner.id
-        self.assertEqual(ticket.suitable_product_ids.ids, [company_product.id, employee_product.id], 'Employee should see SOs of parent company')
+        self.assertEqual(len(ticket.suitable_product_ids), 2, '2 products should be visible')
+        self.assertIn(company_product, ticket.suitable_product_ids, 'Employee should see SOs of parent company')
+        self.assertIn(employee_product, ticket.suitable_product_ids, 'Employee should see SOs of parent company')
