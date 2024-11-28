@@ -131,8 +131,8 @@ export class DocumentsSearchPanel extends SearchPanel {
                 } else if (parentFolderId === "COMPANY") {
                     await this.orm.call(
                         "documents.document",
-                        "write",
-                        [draggingFolderId, { folder_id: false, owner_id: this.documentService.store.odoobot.userId }],
+                        "action_set_as_company_root",
+                        [draggingFolderId],
                     );
                     return this.env.searchModel._reloadSearchModel(true);
                 } else if (parentFolderId) {
@@ -366,10 +366,7 @@ export class DocumentsSearchPanel extends SearchPanel {
                     type: "warning",
                 });
             }
-            await this.orm.call("documents.document", "write", [
-                data.recordIds,
-                { folder_id: false, owner_id: this.documentService.store.odoobot.userId },
-            ]);
+            await this.orm.call("documents.document", "action_set_as_company_root", [data.recordIds]);
             await this.env.searchModel._reloadSearchModel(true);
             return;
         }
