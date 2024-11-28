@@ -138,3 +138,25 @@ registry.category("web_tour.tours").add("PreparationDisplayTourWithInternalNotes
             ProductScreen.orderlinesHaveNoChange(),
         ].flat(),
 });
+
+registry.category("web_tour.tours").add("PreparationDisplayChangeQuantityTour", {
+    test: true,
+    url: "/pos/ui",
+    steps: () =>
+        [
+            ProductScreen.confirmOpeningPopup(),
+            FloorScreen.clickTable("5"),
+            ProductScreen.clickHomeCategory(),
+            ProductScreen.orderBtnIsPresent(),
+            ProductScreen.clickDisplayedProduct("Test Food"),
+            ProductScreen.clickDisplayedProduct("Test Food"),
+            ProductScreen.orderlineIsToOrder("Test Food"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+            ProductScreen.pressNumpad("Qty"),
+            ProductScreen.pressNumpad("1"),
+            ProductScreen.orderlineIsToOrder("Test Food"),
+            ProductScreen.clickOrderButton(),
+            ProductScreen.orderlinesHaveNoChange(),
+        ].flat(),
+});

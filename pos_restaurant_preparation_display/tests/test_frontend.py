@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo.addons.pos_restaurant.tests import test_frontend
+from unittest.mock import patch
 from odoo import Command
 import odoo.tests
 
@@ -109,3 +110,33 @@ class TestUi(test_frontend.TestFrontendCommon):
         self.assertEqual(pdis_order1.preparation_display_order_line_ids[1].internal_note, "Test Internal Notes")
         self.assertEqual(pdis_order1.preparation_display_order_line_ids[2].product_quantity, 1)
         self.assertEqual(pdis_order1.preparation_display_order_line_ids[2].internal_note, "Test Internal Notes")
+
+    def test_change_quatity_notifies_display(self):
+        category = self.env['pos.category'].create({'name': 'Food'})
+        self.env['product.product'].create({
+            'name': 'Test Food',
+            'list_price': 10,
+            'taxes_id': False,
+            'available_in_pos': True,
+            'pos_categ_ids': category,
+        })
+
+        pdis = self.env['pos_preparation_display.display'].create({
+            'name': 'Preparation Display (Food only)',
+            'pos_config_ids': [(4, self.pos_config.id)],
+            'category_ids': category,
+        })
+
+        notifications = []
+
+        def _send_load_orders_message(self, sound):
+            notifications.append(self.id)
+
+        # open a session, the /pos/ui controller will redirect to it
+        with patch('odoo.addons.pos_preparation_display.models.preparation_display.PosPreparationDisplay._send_load_orders_message', new=_send_load_orders_message):
+            self.pos_config.printer_ids.unlink()
+            self.pos_config.with_user(self.user_demo).open_ui()
+            self.start_tour("/pos/ui?config_id=%d" % self.pos_config.id, 'PreparationDisplayChangeQuantityTour', login="demo")
+
+        # Should receive 2 notifications, 1 placing the order, 1 changing qty
+        self.assertEqual(notifications.count(pdis.id), 2)

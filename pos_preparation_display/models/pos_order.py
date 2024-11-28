@@ -157,5 +157,6 @@ class PosOrder(models.Model):
                     elif pdis_qty <= qty_to_cancel:
                         line.product_cancelled += pdis_qty
                         qty_to_cancel -= pdis_qty
+                    category_ids.update(line.product_id.pos_categ_ids.ids)
 
         return {'change': flag_change, 'sound': sound, 'category_ids': category_ids}
