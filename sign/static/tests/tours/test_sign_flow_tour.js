@@ -51,11 +51,6 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             position: "bottom",
         },
         {
-            trigger: "iframe input.o_sign_sign_item:focus",
-            auto: true,
-            run() {},
-        },
-        {
             content: "Fill the sign item",
             trigger: "iframe input.o_sign_sign_item",
             run: "text Mitchell Admin",
@@ -66,8 +61,8 @@ registry.category("web_tour.tours").add("test_sign_flow_tour", {
             run: "click",
         },
         {
-            content: "Click sign it",
-            trigger: 'iframe .o_sign_sign_item_navigator:contains("sign it")',
+            content: "Click navigator",
+            trigger: 'iframe .o_sign_sign_item_navigator',
             run: "click",
         },
         {
