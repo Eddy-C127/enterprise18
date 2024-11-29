@@ -6,6 +6,7 @@ import * as ProductScreenResto from "@pos_restaurant/../tests/tours/utils/produc
 const ProductScreen = { ...ProductScreenPos, ...ProductScreenResto };
 import * as Dialog from "@point_of_sale/../tests/tours/utils/dialog_util";
 import * as FloorScreen from "@pos_restaurant/../tests/tours/utils/floor_screen_util";
+import * as Order from "@point_of_sale/../tests/tours/utils/generic_components/order_widget_util";
 import { registry } from "@web/core/registry";
 
 registry.category("web_tour.tours").add("FiskalyTour", {
@@ -19,6 +20,11 @@ registry.category("web_tour.tours").add("FiskalyTour", {
             ProductScreen.addOrderline("Coca-Cola", "1", "3"),
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
+            Chrome.clickPlanButton(),
+            FloorScreen.clickTable("5"),
+            Order.hasLine({
+                productName: "Coca-Cola",
+            }),
             ProductScreen.addOrderline("Coca-Cola", "1", "5"),
             ProductScreen.clickOrderButton(),
             ProductScreen.orderlinesHaveNoChange(),
