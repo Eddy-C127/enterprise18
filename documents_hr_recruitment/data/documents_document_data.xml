@@ -5,6 +5,8 @@
             <field name="name">Recruitment</field>
             <field name="type">folder</field>
             <field name="is_pinned_folder">True</field>
+            <field name="folder_id" ref="documents_hr.document_hr_folder"/>
+            <field name="access_internal">view</field>
         </record>
     </data>
 </odoo>
