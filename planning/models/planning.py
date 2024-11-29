@@ -867,7 +867,7 @@ class Planning(models.Model):
                 if any(
                     field_name in values
                     for field_name in ('start_datetime', 'end_datetime')
-                ):
+                ) and recurrence_slots:
                     slot = recurrence_slots[-1]
                     values["repeat_type"] = slot.repeat_type    # this is to ensure that the subsequent slots are recreated
                     recurrence_slots -= slot
