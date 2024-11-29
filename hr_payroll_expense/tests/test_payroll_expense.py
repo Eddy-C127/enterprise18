@@ -12,18 +12,6 @@ class TestPayrollExpense(TestPayslipBase):
             'list_price': 100,
             'standard_price': 100,
         })
-        richard_partner_id = self.env['res.partner'].create({'name': 'Richard', 'phone': '21454'}).id
-        richard_bank_account = self.env['res.partner.bank'].create({
-            'acc_number': "0123456789",
-            'partner_id': richard_partner_id,
-            'acc_type': 'bank',
-        })
-        self.richard_emp.write({
-            'address_id': richard_partner_id,
-            'bank_account_id': richard_bank_account.id,
-            'work_contact_id': richard_partner_id,
-            'work_email': 'email@email',
-        })
         expense_sheet = self.env['hr.expense.sheet'].create({
             'name': 'Test Expenses',
             'employee_id': self.richard_emp.id,
@@ -39,11 +27,18 @@ class TestPayrollExpense(TestPayslipBase):
         expense_sheet.action_report_in_next_payslip()
 
         self.richard_emp.contract_ids[0].state = 'open'
+        richard_partner_id = self.env['res.partner'].create({'name': 'Richard', 'phone': '21454'}).id
+        self.richard_emp.write({
+            'address_id': richard_partner_id,
+            'work_contact_id': richard_partner_id,
+            'work_email': 'email@email',
+        })
 
         payslip = self.env['hr.payslip'].create({
             'name': 'Payslip',
             'employee_id': self.richard_emp.id,
         })
+
 
         payslip.write({'expense_sheet_ids': expense_sheet.ids})
         payslip.compute_sheet()
