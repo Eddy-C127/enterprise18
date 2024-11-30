@@ -279,7 +279,8 @@ class AbstractBuilder(ABC):
         }
             for total in totals]
         # The last column 'total' must not be auditable
-        cols[-1]['auditable'] = False
+        if cols:
+            cols[-1]['auditable'] = False
 
         report = self.env['account.report'].browse(options['report_id'])
 
