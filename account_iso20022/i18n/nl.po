@@ -187,13 +187,13 @@ msgstr "Niet-EUR betalingen"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Partner %s has no country code defined."
-msgstr "Bij de relatie %s is geen landcode ingesteld."
+msgstr "Bij de partner %s is geen landcode ingesteld."
 
 #. module: account_iso20022
 #. odoo-python
 #: code:addons/account_iso20022/models/account_journal.py:0
 msgid "Partner %s has not bank account defined."
-msgstr "Bij de relatie %s is geen bankrekening ingesteld."
+msgstr "Bij de partner %s is geen bankrekening ingesteld."
 
 #. module: account_iso20022
 #: model:ir.model,name:account_iso20022.model_account_payment_register
@@ -336,7 +336,7 @@ msgid ""
 "- 2 letters or digits: location code\n"
 "- 3 letters or digits: branch code, optional\n"
 msgstr ""
-"De BIC-code '%(bic_code)s' die is gekoppeld aan de bankinstelling '%(bank)s' van bankrekening '%(account)s' van relatie '%(partner)s' voldoet niet aan de vereiste conventie.\n"
+"De BIC-code '%(bic_code)s' die is gekoppeld aan de bankinstelling '%(bank)s' van bankrekening '%(account)s' van partner '%(partner)s' voldoet niet aan de vereiste conventie.\n"
 "Het moet 8 of 11 tekens bevatten en overeenkomen met de volgende structuur:\n"
 "- 4 letters: bankinstellingscode of bankcode\n"
 "- 2 letters: landcode\n"

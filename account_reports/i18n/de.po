@@ -160,6 +160,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">Hallo <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                    <t t-else=\"\">Hallo <t t-out=\"object.name or ''\"/>,</t>\n"
+"                    <br/>\n"
+"                    Im Anhang finden Sie eine Übersicht Ihres Kundenkontos.\n"
+"                    <br/>\n"
+"                    Zögern Sie nicht, uns bei Fragen zu kontaktieren.\n"
+"                    <br/>\n"
+"                    Mit freundlichen Grüßen\n"
+"                    <br/>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"/>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -2997,6 +3012,8 @@ msgid ""
 "Please select the main company and its branches in the company selector to "
 "proceed."
 msgstr ""
+"Wählen Sie das Hauptunternehmen und seine Niederlassungen im "
+"Unternehmensauswahlmenü aus, um fortzufahren."
 
 #. module: account_reports
 #. odoo-python

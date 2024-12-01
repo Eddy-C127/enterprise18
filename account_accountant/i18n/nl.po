@@ -6,6 +6,7 @@
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1031,7 +1032,7 @@ msgstr "Volgers"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Relaties)"
+msgstr "Volgers (Partners)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -1051,7 +1052,7 @@ msgstr "Forceer gedeeltelijke aflettering"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__force_price_included_taxes
 msgid "Force Price Included Taxes"
-msgstr "Forceer prijs inclusief BTW"
+msgstr "Forceer prijs inclusief btw"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__transaction_currency_id
@@ -1122,7 +1123,7 @@ msgstr "Groeperen op"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__group_tax_id
 msgid "Group Tax"
-msgstr "Groeper BTW"
+msgstr "Groepeer btw"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -1479,7 +1480,7 @@ msgstr "Lock Verkoop Voor Mij"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid "Lock Tax Return"
-msgstr "Blokkeer BTW-aangifte"
+msgstr "Blokkeer btw-aangifte"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_everyone
@@ -1787,7 +1788,7 @@ msgstr "Originele facturen"
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Originator Tax"
-msgstr "Herkomst van de BTW"
+msgstr "Herkomst van de btw"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
@@ -1804,42 +1805,42 @@ msgstr "Uitgaand"
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_quick_create_form_bank_rec_widget
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Partner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_currency_id
 msgid "Partner Currency"
-msgstr "Valuta relatie"
+msgstr "Valuta partner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__partner_name
 msgid "Partner Name"
-msgstr "Relatienaam"
+msgstr "Partnernaam"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_account_id
 msgid "Partner Payable Account"
-msgstr "Crediteurenrekening relatie"
+msgstr "Crediteurenrekening partner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_amount
 msgid "Partner Payable Amount"
-msgstr "Te betalen bedrag relatie"
+msgstr "Te betalen bedrag partner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_account_id
 msgid "Partner Receivable Account"
-msgstr "Debiteurenrekening relatie"
+msgstr "Debiteurenrekening partner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_amount
 msgid "Partner Receivable Amount"
-msgstr "Te ontvangen bedrag relatie"
+msgstr "Te ontvangen bedrag partner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__partner_ids
 msgid "Partners"
-msgstr "Relaties"
+msgstr "Partners"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1928,8 +1929,8 @@ msgid ""
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
 " the corresponding Journal Entry is posted."
 msgstr ""
-"Voorkomt het wijzigen van de BTW-aangifte tot en met de gedefinieerde datum "
-"(boekingen met BTW). De blokkeerdatum van de BTW-aangifte wordt automatisch "
+"Voorkomt het wijzigen van de btw-aangifte tot en met de gedefinieerde datum "
+"(boekingen met btw). De blokkeerdatum van de btw-aangifte wordt automatisch "
 "ingesteld wanneer de bijbehorende boeking wordt geboekt."
 
 #. module: account_accountant
@@ -2270,12 +2271,12 @@ msgstr "Suggesties"
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__tax_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_ids
 msgid "Tax"
-msgstr "BTW"
+msgstr "Btw"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_base_amount_currency
 msgid "Tax Base Amount Currency"
-msgstr "BTW grondslag in valuta"
+msgstr "Btw-grondslag in valuta"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -2285,19 +2286,19 @@ msgstr "Btw-rubriek"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_repartition_line_id
 msgid "Tax Repartition Line"
-msgstr "BTW verdelingsregel"
+msgstr "Btw-verdelingsregel"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_tag_ids
 msgid "Tax Tag"
-msgstr "BTW-label"
+msgstr "btw-label"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 msgid "Taxes"
-msgstr "BTW"
+msgstr "Btw"
 
 #. module: account_accountant
 #. odoo-javascript

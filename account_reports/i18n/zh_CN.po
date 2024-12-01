@@ -156,6 +156,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">亲爱的 <t t-out=\"object.name or ''\"/>（<t t-out=\"object.commercial_partner_id.name or ''\"/>），</t>\n"
+"                    <t t-else=\"\">亲爱的 <t t-out=\"object.name or ''\"/>，</t>\n"
+"                    <br/>\n"
+"                    随函附上您的账户对账单。\n"
+"                    <br/>\n"
+"                    如有任何疑问，请随时联系我们。\n"
+"                    <br/>\n"
+"                    诚挚问候，\n"
+"                    <br/>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"/>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -2925,7 +2940,7 @@ msgstr "请选择一个邮件模板，以传送多份报表。"
 msgid ""
 "Please select the main company and its branches in the company selector to "
 "proceed."
-msgstr ""
+msgstr "请在公司选择器中选择总公司及其分支机构以继续。"
 
 #. module: account_reports
 #. odoo-python

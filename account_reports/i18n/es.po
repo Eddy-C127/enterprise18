@@ -161,6 +161,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">Estimado/a <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                    <t t-else=\"\">Estimado/a <t t-out=\"object.name or ''\"/>,</t>\n"
+"                    <br/>\n"
+"                    Adjunto al correo encontrará el extracto de su cuenta.\n"
+"                    <br/>\n"
+"                    Si tiene preguntas, póngase en contacto con nosotros.\n"
+"                    <br/>\n"
+"                    Saludos,\n"
+"                    <br/>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"/>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -699,12 +714,12 @@ msgstr "Saldo"
 #: model:ir.actions.client,name:account_reports.action_account_report_bs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_balance_sheet
 msgid "Balance Sheet"
-msgstr "Balance general"
+msgstr "Balance de situación"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_balance_sheet_report_handler
 msgid "Balance Sheet Custom Handler"
-msgstr "Gestor personalizado del balance general"
+msgstr "Gestor personalizado del balance de situación"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_balance_current
@@ -885,14 +900,14 @@ msgstr "Efectivo"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_cash_flow_report_handler
 msgid "Cash Flow Report Custom Handler"
-msgstr "Gestor personalizado de los informes de flujo de caja"
+msgstr "Gestor personalizado de los informes de flujo de efectivo"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.cash_flow_report
 #: model:ir.actions.client,name:account_reports.action_account_report_cs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_cash_flow
 msgid "Cash Flow Statement"
-msgstr "Estado de flujos de caja"
+msgstr "Estado de flujos de efectivo"
 
 #. module: account_reports
 #. odoo-python
@@ -910,25 +925,25 @@ msgstr "Efectivo y equivalentes de efectivo, saldo de cierre"
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from financing activities"
-msgstr "Flujos de caja de actividades financieras"
+msgstr "Flujos de efectivo de actividades financieras"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from investing & extraordinary activities"
-msgstr "Flujos de caja de actividades de inversión y extraordinarias"
+msgstr "Flujos de efectivo de actividades de inversión y extraordinarias"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from operating activities"
-msgstr "Flujos de caja de actividades operativas"
+msgstr "Flujos de efectivo de actividades operativas"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from unclassified activities"
-msgstr "Flujos de caja de actividades sin clasificar"
+msgstr "Flujos de efectivo de actividades sin clasificar"
 
 #. module: account_reports
 #. odoo-python
@@ -2998,6 +3013,8 @@ msgid ""
 "Please select the main company and its branches in the company selector to "
 "proceed."
 msgstr ""
+"Seleccione la compañía principal y sus sucursales en el selector de "
+"compañías para continuar."
 
 #. module: account_reports
 #. odoo-python

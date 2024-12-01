@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -98,12 +99,12 @@ msgstr "Grootboekschema sjabloon"
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_account_fiscal_position__avatax_invoice_account_id
 msgid "Account that will be used by Avatax taxes for invoices."
-msgstr "Account dat door Avatax-BTW wordt gebruikt voor facturen."
+msgstr "Account dat door Avatax-btw wordt gebruikt voor facturen."
 
 #. module: account_avatax
 #: model:ir.model.fields,help:account_avatax.field_account_fiscal_position__avatax_refund_account_id
 msgid "Account that will be used by Avatax taxes for refunds."
-msgstr "Account dat door Avatax-BTW wordt gebruikt voor credit-facturen."
+msgstr "Account dat door Avatax-btw wordt gebruikt voor credit-facturen."
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -132,7 +133,7 @@ msgstr "Authenticatie succesvol."
 #. module: account_avatax
 #: model:account.fiscal.position,name:account_avatax.account_fiscal_position_avatax_us
 msgid "Automatic Tax Mapping (AvaTax)"
-msgstr "Automatische BTW mapping (AvaTax)"
+msgstr "Automatische btw-mapping (AvaTax)"
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.res_config_settings_view_form
@@ -231,7 +232,7 @@ msgstr "Avatar Factuuraccount"
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_avatax_exemption
 msgid "Avatax Partner Exemption Codes"
-msgstr "Vrijstellingscodes voor Avatars-relaties"
+msgstr "Vrijstellingscodes voor Avatax-partners"
 
 #. module: account_avatax
 #: model:ir.model,name:account_avatax.model_product_avatax_category
@@ -250,7 +251,7 @@ msgid ""
 "Avatax will use this date to calculate the tax on this invoice. If not "
 "specified it will use the Invoice Date."
 msgstr ""
-"Avatax gebruikt deze datum om de BTW op deze factuur te berekenen. Als dit "
+"Avatax gebruikt deze datum om de btw op deze factuur te berekenen. Als dit "
 "niet is opgegeven, wordt de factuurdatum gebruikt."
 
 #. module: account_avatax
@@ -337,7 +338,7 @@ msgstr "Aangemaakt op"
 #: model:ir.model.fields,help:account_avatax.field_res_partner__avalara_partner_code
 #: model:ir.model.fields,help:account_avatax.field_res_users__avalara_partner_code
 msgid "Customer Code set in Avalara for this partner."
-msgstr "Klantcode ingesteld in Avalara voor deze relatie."
+msgstr "Klantcode ingesteld in Avalara voor deze partner."
 
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_exemption__description
@@ -469,7 +470,7 @@ msgid ""
 "Odoo could not fetch the taxes related to %(document)s.\n"
 "Please check the status of `%(technical)s` in the AvaTax portal."
 msgstr ""
-"Odoo kon de BTW met betrekking tot %(document)s niet ophalen.\n"
+"Odoo kon de btw met betrekking tot %(document)s niet ophalen.\n"
 "Controleer de status van `%(technical)s` in het AvaTax-portaal."
 
 #. module: account_avatax
@@ -496,7 +497,7 @@ msgstr "Origineel adres"
 #. module: account_avatax
 #: model:ir.model.fields,field_description:account_avatax.field_avatax_validate_address__partner_id
 msgid "Partner"
-msgstr "Relatie"
+msgstr "Partner"
 
 #. module: account_avatax
 #. odoo-python
@@ -599,7 +600,7 @@ msgid ""
 "The Avalara Tax Code is required for %(name)s (#%(id)s)\n"
 "See https://taxcode.avatax.avalara.com/"
 msgstr ""
-"De Avalara-BTWcode is vereist voor %(name)s (#%(id)s)\n"
+"De Avalara btw-code is vereist voor %(name)s (#%(id)s)\n"
 "Zie https://taxcode.avatax.avalara.com/"
 
 #. module: account_avatax
@@ -678,7 +679,7 @@ msgid ""
 "Validate and correct the addresses of partners in North America with "
 "Avalara."
 msgstr ""
-"Valideer en corrigeer de adressen van relaties in Noord-Amerika met Avalara."
+"Valideer en corrigeer de adressen van partners in Noord-Amerika met Avalara."
 
 #. module: account_avatax
 #: model_terms:ir.ui.view,arch_db:account_avatax.avatax_validate_address_view_form

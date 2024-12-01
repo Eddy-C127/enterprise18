@@ -529,6 +529,8 @@ msgstr ""
 msgid ""
 "A customer account is required to validate a SEPA Direct Debit mandate."
 msgstr ""
+"Per convalidare un mandato di addebito diretto SEPA è necessario un conto "
+"cliente."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.actions.act_window,help:account_sepa_direct_debit.account_sepa_direct_debit_mandate_tree_act
@@ -819,6 +821,9 @@ msgid ""
 "can't be inferior to the sending day + the longest pre-notification period "
 "defined in the mandates linked to this batch."
 msgstr ""
+"Data in cui l'azienda si aspetta di ricevere i pagamenti di questo lotto. "
+"Non può essere inferiore al giorno di invio + il periodo di pre-notifica più"
+" lungo definito nei mandati collegati a questo lotto."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -890,6 +895,11 @@ msgid ""
 "Closed: Expired or manually closed mandates. Previous transactions remain valid.\n"
 "Revoked: Fraudulent mandates. Previous invoices might need reimbursement.\n"
 msgstr ""
+"Bozza: convalida prima dell'uso.\n"
+"Attivo: mandati validi per riscuotere i pagamenti.\n"
+"Annullato: mandati mai convalidati.\n"
+"Chiuso: mandati scaduti o chiusi manualmente. Le transazioni precedenti restano valide.\n"
+"Revocato: mandati fraudolenti. Potrebbe essere necessario rimborsare fatture precedenti.\n"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate_send__checkbox_send_mail
@@ -925,7 +935,7 @@ msgstr "Tutti i mandati che appartengono a questo partner."
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__expiration_warning_already_sent
 msgid "Expiration warning sent"
-msgstr ""
+msgstr "Avviso scadenza inviato"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__message_follower_ids
@@ -951,19 +961,19 @@ msgstr "Riferimento libero che identifica il debitore dell'azienda."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to journal"
-msgstr ""
+msgstr "Vai al registro"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to mandates"
-msgstr ""
+msgstr "Vai ai mandati"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Go to payments"
-msgstr ""
+msgstr "Vai ai pagamenti"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -975,7 +985,7 @@ msgstr "Vai alle impostazioni"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "Good news! A valid SEPA Mandate is available."
-msgstr ""
+msgstr "Buone notizie! È disponibile un mandato SEPA valido."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__has_message
@@ -1114,7 +1124,7 @@ msgstr "Mandato"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__mandate_pdf_file
 msgid "Mandate Form PDF"
-msgstr ""
+msgstr "Modulo mandato PDF"
 
 #. module: account_sepa_direct_debit
 #: model:ir.actions.report,name:account_sepa_direct_debit.sdd_mandate_form_report_main
@@ -1258,12 +1268,15 @@ msgid ""
 "select a journal associated to one or add an IBAN bank account to the "
 "current journal"
 msgstr ""
+"Solo i numeri di conto IBAN possono ricevere pagamenti con addebito diretto "
+"SEPA. Seleziona un registro associato a uno di essi o aggiungi un conto "
+"bancario con IBAN al registro corrente."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Only mandates in draft state can be deleted."
-msgstr ""
+msgstr "È possibile eliminare solo i mandati in stato di bozza."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
@@ -1275,13 +1288,13 @@ msgstr "Oops Nessun mandato SEPA valido per questo cliente."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customer"
-msgstr ""
+msgstr "Apri cliente"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Open customers"
-msgstr ""
+msgstr "Apri clienti"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_sdd_res_partner_view
@@ -1376,7 +1389,7 @@ msgstr "Pagamenti da riscuotere"
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Payments without mandate"
-msgstr ""
+msgstr "Pagamenti senza mandato"
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_report_invoice_document
@@ -1390,13 +1403,13 @@ msgstr ""
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
 msgid "Pre-notification"
-msgstr ""
+msgstr "Pre-notifica"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Problematic mandates"
-msgstr ""
+msgstr "Mandati problematici"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__rating_ids
@@ -1475,7 +1488,7 @@ msgstr "Mandato SDD"
 #. module: account_sepa_direct_debit
 #: model:ir.model,name:account_sepa_direct_debit.model_sdd_mandate_send
 msgid "SDD Mandate Send"
-msgstr ""
+msgstr "Mandato SSD inviato"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_account_batch_payment__sdd_scheme
@@ -1569,13 +1582,13 @@ msgstr "Versione Pain SEPA"
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.account_payment_register_form_inherit_account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_account_payment_form
 msgid "SEPA Scheme operates in Euro."
-msgstr ""
+msgstr "Schema SEPA opera in Euro."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "SEPA direct debit stateless customer"
-msgstr ""
+msgstr "Cliente addebito diretto SEPA senza stato"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1585,6 +1598,9 @@ msgid ""
 "days to allow enough time for the customer to check that their account is "
 "adequately funded."
 msgstr ""
+"Le regole SEPA stabiliscono un periodo minimo di pre-notifica di 2 giorni "
+"per consentire al cliente di verificare che il suo conto sia adeguatamente "
+"finanziato."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
@@ -1638,7 +1654,7 @@ msgstr "Invia e stampa"
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__is_sent
 msgid "Sent to the customer"
-msgstr ""
+msgstr "Inviato al cliente"
 
 #. module: account_sepa_direct_debit
 #: model:mail.template,description:account_sepa_direct_debit.email_template_sdd_pre_notification
@@ -1664,13 +1680,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Some payments are linked to an inactive mandate."
-msgstr ""
+msgstr "Alcuni pagamenti sono collegati a mandati non attivi."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/account_batch_payment.py:0
 msgid "Some payments are not linked to any mandate."
-msgstr ""
+msgstr "Alcuni pagamenti non sono collegati a nessun mandato."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,field_description:account_sepa_direct_debit.field_sdd_mandate__start_date
@@ -1733,6 +1749,10 @@ msgid ""
 "known by them. In this case, the minimum collection date must be the "
 "%(date)s"
 msgstr ""
+"La banca deve essere informata con almeno 5 giorni di anticipo per gli "
+"incassi relativi a un nuovo mandato e con 2 giorni di anticipo quando il "
+"mandato è già noto. In questo caso, la data minima di incasso deve essere il"
+" %(date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1746,7 +1766,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "The customer must have a country"
-msgstr ""
+msgstr "Indica un Paese per il cliente"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1794,6 +1814,9 @@ msgid ""
 "                    you will have to contact us to stop its use. The minimum notification period for creditors\n"
 "                    to inform debtors about an upcoming collection is"
 msgstr ""
+"Il mandato sarà utilizzato solo per pagare le fatture nell'intervallo di tempo specificato. Se non viene indicata nessuna data di fine,\n"
+"                    dovrai contattarci per bloccarlo. Il periodo minimo di notifica per i creditori\n"
+"                    al fine di informare i debitori sull'incasso imminente è il"
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields,help:account_sepa_direct_debit.field_sdd_mandate__pre_notification_period
@@ -1801,6 +1824,8 @@ msgid ""
 "The minimum notice period in days, used to inform the customer prior to "
 "collection."
 msgstr ""
+"Il periodo minimo di preavviso in giorni, utilizzato per informare il "
+"cliente prima della riscossione."
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1899,7 +1924,7 @@ msgstr "Tipo di attività eccezione sul record."
 #. odoo-python
 #: code:addons/account_sepa_direct_debit/models/sdd_mandate.py:0
 msgid "Under B2B SDD Scheme, the customer must be a company."
-msgstr ""
+msgstr "Se si usa lo schema SDD B2B, il cliente deve essere un'azienda."
 
 #. module: account_sepa_direct_debit
 #: model:ir.model.fields.selection,name:account_sepa_direct_debit.selection__account_journal__debit_sepa_pain_version__pain_008_001_08
@@ -1944,6 +1969,9 @@ msgid ""
 "You can't pay any of the selected invoices using the SEPA Direct Debit "
 "method, as no valid mandate is available"
 msgstr ""
+"Non è possibile pagare nessuna delle fatture selezionate utilizzando il "
+"metodo di addebito diretto SEPA perché non è disponibile nessun mandato "
+"valido"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1962,6 +1990,8 @@ msgid ""
 "You cannot generate a SEPA Direct Debit file with a required collection date inferior to the sending day + the longest pre-notification period defined in the mandates linked to this batch.\n"
 "According to these payments mandates, the minimum required date should be the %(minimum_date)s"
 msgstr ""
+"Non è possibile generare un file di addebito diretto SEPA con una data di incasso richiesta inferiore al giorno di invio + il periodo di pre-notifica più lungo definito nei mandati collegati a questo lotto.\n"
+"Secondo i mandati di pagamento, la data minima richiesta deve corrispondere al %(minimum_date)s"
 
 #. module: account_sepa_direct_debit
 #. odoo-python
@@ -1980,6 +2010,8 @@ msgid ""
 "day(s).\n"
 "                    It will be sent to the debtor's email."
 msgstr ""
+"giorno/i.\n"
+"                    Verrà inviato all'e-mail del debitore."
 
 #. module: account_sepa_direct_debit
 #: model_terms:ir.ui.view,arch_db:account_sepa_direct_debit.sdd_mandate_form
