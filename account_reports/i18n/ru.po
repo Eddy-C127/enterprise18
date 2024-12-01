@@ -1338,7 +1338,7 @@ msgstr "Единицы задержки"
 #: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #, python-format
 msgid "Depending moves"
-msgstr ""
+msgstr "Зависимые проводки"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_depreciation0
@@ -1350,7 +1350,7 @@ msgstr "Амортизация"
 #: code:addons/account_reports/models/account_generic_tax_report.py:0
 #, python-format
 msgid "Difference from rounding taxes"
-msgstr ""
+msgstr "Разница из-за округления налогов"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_line__display_custom_groupby_warning
@@ -1919,7 +1919,7 @@ msgstr "Группированная запись отсрочки %s"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
 msgid "Grouped by month"
-msgstr ""
+msgstr "Группировка по месяцам"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2059,13 +2059,13 @@ msgstr "Включая аналитическое моделирование"
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_payments
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_payments
 msgid "Including Unreconciled Payments"
-msgstr ""
+msgstr "Включая несверенные платежи"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.no_statement_unreconciled_receipt
 #: model:account.report.line,name:account_reports.unreconciled_last_statement_receipts
 msgid "Including Unreconciled Receipts"
-msgstr ""
+msgstr "Включая несверенные поступления"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_income0
@@ -2095,7 +2095,7 @@ msgstr "Резерв по доходам %s"
 #: code:addons/account_reports/models/bank_reconciliation_report.py:0
 #, python-format
 msgid "Inconsistent Statements"
-msgstr ""
+msgstr "Несогласованные выписки"
 
 #. module: account_reports
 #. odoo-python
@@ -2217,7 +2217,7 @@ msgstr "Доступен ли отчет о покрытии счета"
 #: code:addons/account_reports/static/src/components/redirectAction/redirectAction.xml:0
 #, python-format
 msgid "It seems there is some depending closing move to be posted"
-msgstr ""
+msgstr "Похоже, требуется провести зависимую закрывающую проводку."
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
@@ -2384,7 +2384,7 @@ msgstr "Последнее обновление"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
 msgid "Last statement balance"
-msgstr ""
+msgstr "Сальдо последней выписки"
 
 #. module: account_reports
 #. odoo-python
@@ -2483,7 +2483,7 @@ msgstr "Метод '%s' должен начинаться с префикса '%
 #. module: account_reports
 #: model:account.report.line,name:account_reports.misc_operations
 msgid "Misc. operations"
-msgstr ""
+msgstr "Прочие операции"
 
 #. module: account_reports
 #. odoo-python
@@ -2773,7 +2773,7 @@ msgstr "Прочие доходы"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.outstanding
 msgid "Outstanding Receipts/Payments"
-msgstr ""
+msgstr "Неоплаченные поступления/платежи"
 
 #. module: account_reports
 #. odoo-python
@@ -2984,7 +2984,7 @@ msgstr "Только проведенные записи"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
 msgid "Posted and Draft Entries"
-msgstr ""
+msgstr "Проведенные записи и черновики"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_prepayements0
@@ -3225,14 +3225,14 @@ msgstr "Показать предупреждение Перемещение"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "Some"
-msgstr ""
+msgstr "Некоторые"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
 #, python-format
 msgid "Some journal items appear to point to obsolete report lines."
-msgstr ""
+msgstr "Некоторые проводки ссылаются на устаревшие строки отчета."
 
 #. module: account_reports
 #. odoo-javascript
@@ -3244,12 +3244,12 @@ msgstr "Сортировать по дате"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
 msgid "Sorted by date"
-msgstr ""
+msgstr "Сортировка по дате"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.journal_report_pdf_export_filters
 msgid "Sorted by number"
-msgstr ""
+msgstr "Сортировка по номеру"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_res_company__account_representative_id
@@ -3533,7 +3533,7 @@ msgstr "Курс валюты не может быть равен нулю"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "The current balance in the"
-msgstr ""
+msgstr "Текущий остаток на"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3717,7 +3717,7 @@ msgstr "В этом отчете отображаются данные толь�
 #: code:addons/account_reports/models/account_report.py:0
 #, python-format
 msgid "This subformula references an unknown expression: %s"
-msgstr ""
+msgstr "Подформула ссылается на неизвестное выражение: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -3779,7 +3779,7 @@ msgstr "Торговые партнеры"
 #. module: account_reports
 #: model:account.report.line,name:account_reports.transaction_without_statement
 msgid "Transactions without statement"
-msgstr ""
+msgstr "Операции без выписки"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.trial_balance_report
@@ -4078,6 +4078,8 @@ msgid ""
 "You cannot reset this closing entry to draft, as another closing entry has "
 "been posted at a later date."
 msgstr ""
+"Нельзя вернуть эту закрывающую проводку в черновик, так как позже проведена "
+"другая."
 
 #. module: account_reports
 #. odoo-python
@@ -4121,7 +4123,7 @@ msgstr "адресованный"
 #: code:addons/account_reports/static/src/components/tax_report/warnings.xml:0
 #, python-format
 msgid "and correct their tax tags if necessary."
-msgstr ""
+msgstr "и при необходимости исправьте их налоговые показатели."
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__year
@@ -4147,7 +4149,7 @@ msgstr "дней после периода"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "doesn't match the balance of your"
-msgstr ""
+msgstr "не соответствует остатку вашего"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__2_months
@@ -4164,7 +4166,7 @@ msgstr "каждые 4 месяца"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "have a starting balance different from the previous ending balance."
-msgstr ""
+msgstr "начальный остаток отличается от предыдущего конечного."
 
 #. module: account_reports
 #. odoo-javascript
@@ -4187,14 +4189,14 @@ msgstr "счёт-фактуры"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "journal items"
-msgstr ""
+msgstr "проводки"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "last bank statement"
-msgstr ""
+msgstr "последняя банковская выписка"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__res_company__account_tax_periodicity__monthly
@@ -4239,7 +4241,7 @@ msgstr "раз в полгода"
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "statements"
-msgstr ""
+msgstr "выписки"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_tax_unit_form
@@ -4287,7 +4289,7 @@ msgstr "были перенесены на эту статью из предыд
 #: code:addons/account_reports/static/src/components/bank_reconciliation_report/warnings.xml:0
 #, python-format
 msgid "which don't originate from a bank statement nor payment."
-msgstr ""
+msgstr "которые не связаны ни с банковской выпиской, ни с платежом."
 
 #. module: account_reports
 #. odoo-javascript

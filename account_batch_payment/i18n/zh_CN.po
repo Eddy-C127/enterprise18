@@ -6,6 +6,7 @@
 # Wil Odoo, 2023
 # 山西清水欧度(QQ:54773801) <54773801@qq.com>, 2023
 # Jeffery CHEN <jeffery9@gmail.com>, 2023
+# Raymond Yu <cl_yu@hotmail.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2023-10-26 22:20+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Jeffery CHEN <jeffery9@gmail.com>, 2023\n"
+"Last-Translator: Raymond Yu <cl_yu@hotmail.com>, 2024\n"
 "Language-Team: Chinese (China) (https://app.transifex.com/odoo/teams/41243/zh_CN/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -865,7 +866,7 @@ msgstr "此批量支付是否应在表单视图中显示“生成文件”按钮
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add payments that are already sent."
-msgstr ""
+msgstr "您不能添加已发送的付款。"
 
 #. module: account_batch_payment
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
@@ -885,7 +886,7 @@ msgstr "您不能在批量支付中添加金额为零的支付。"
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot add the same payment to multiple batches."
-msgstr ""
+msgstr "您不能将同一笔付款添加到多个批次中。"
 
 #. module: account_batch_payment
 #. odoo-python
@@ -894,11 +895,11 @@ msgstr ""
 #, python-format
 msgid ""
 "You cannot create a batch with payments that are already in another batch."
-msgstr ""
+msgstr "您不能使用已在另一批次中的付款创建批次。"
 
 #. module: account_batch_payment
 #. odoo-python
 #: code:addons/account_batch_payment/models/account_batch_payment.py:0
 #, python-format
 msgid "You cannot create batches with overlapping payments."
-msgstr ""
+msgstr "不能创建付款重叠的批次。"

@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Lucia Pacheco, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Wil Odoo, 2024
 # Fernanda Alvarez, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -263,14 +263,14 @@ msgstr "Importe"
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Company Currency)"
-msgstr "Importe (divisa de la empresa)"
+msgstr "Importe (moneda de la empresa)"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #, python-format
 msgid "Amount (Foreign Currency)"
-msgstr "Importe (divisa extranjera)"
+msgstr "Importe (moneda extranjera)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
@@ -280,7 +280,7 @@ msgstr "Cálculo de importe"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_currency
 msgid "Amount Currency"
-msgstr "Divisa del importe"
+msgstr "Moneda del importe"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -293,7 +293,7 @@ msgstr "Importe en moneda"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__amount
 msgid "Amount in company currency"
-msgstr "Importe en la divisa de la empresa"
+msgstr "Importe en la moneda de la empresa"
 
 #. module: account_accountant
 #. odoo-python
@@ -585,7 +585,7 @@ msgstr "Moneda"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_currency_id
 msgid "Currency to use for reconciliation"
-msgstr "Divisa a usar para la conciliación"
+msgstr "Moneda a usar para la conciliación"
 
 #. module: account_accountant
 #. odoo-python
@@ -795,11 +795,10 @@ msgid ""
 "after installing Accounting if you were using only Invoicing before, before "
 "importing all your actual accounting data in to Odoo."
 msgstr ""
-"Todos los pagos y facturas anteriores a esta fecha tendrán el estado 'De "
-"facturación', y ocultarán todos los asientos contables relacionados. Utilice"
-" esta opción después de instalar Contabilidad si antes solo usaba "
-"Facturación, previo a la importación de todos sus datos contables reales a "
-"Odoo."
+"Todos los pagos y facturas anteriores a esta fecha tendrán el estado \"De "
+"facturación\" y se ocultarán todos los asientos contables relacionados. "
+"Utilice esta opción después de instalar Contabilidad si solo usaba "
+"Facturación antes de importar todos sus datos contables reales a Odoo."
 
 #. module: account_accountant
 #. odoo-python
@@ -891,10 +890,10 @@ msgid ""
 "feature to update multiple journal entries from the General Ledger, or any "
 "Journal view."
 msgstr ""
-"Si desea volver editable cualquier vista de lista solo debe seleccionar "
-"varios registros. Si actualiza una celda, todos los registros seleccionados "
-"se actualizarán al mismo tiempo. Utilice esta función para actualizar varios"
-" asientos contables desde el libro mayor o cualquier vista de diario."
+"Seleccione varios registros desde cualquier vista de lista para poder "
+"editarla. Si actualiza una celda, todos los registros seleccionados se "
+"actualizarán al mismo tiempo. Utilice esta función para actualizar varios "
+"asientos contables desde el libro mayor o cualquier vista de diario."
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_amount_computation_method__full_months
@@ -1618,9 +1617,9 @@ msgid ""
 "inclusive for all users. As a closed period, all accounting operations are "
 "prohibited."
 msgstr ""
-"Impide la creación o modificación de asientos hasta la fecha definida, "
-"inclusive para todos los usuarios. Todas las operaciones contables se "
-"prohíben en periodos cerrados."
+"Impide la creación o modificación de asientos hasta la fecha definida para "
+"todos los usuarios. Todas las operaciones contables se prohíben en periodos "
+"que ya se cerraron."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__period_lock_date
@@ -1983,8 +1982,8 @@ msgid ""
 "The invoice %(display_name_html)s with an open amount of %(open_amount)s "
 "will be entirely paid by the transaction."
 msgstr ""
-"La factura %(display_name_html)s con un importe pendiente de %(open_amount)s"
-" será pagada por completo por la transacción."
+"La transacción pagará por completo la factura %(display_name_html)s con un "
+"importe pendiente de %(open_amount)s."
 
 #. module: account_accountant
 #. odoo-python
@@ -2009,7 +2008,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "The optional other currency if it is a multi-currency entry."
-msgstr "La divisa alternativa si se trata de un asiento multidivisa."
+msgstr "La moneda alterna si se trata de un asiento multimoneda."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids

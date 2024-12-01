@@ -94,7 +94,7 @@ msgstr "開發者密鑰"
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Duties paid by"
-msgstr "Duties paid by"
+msgstr "關稅由誰繳付"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_label_file_type__epl2
@@ -236,12 +236,12 @@ msgstr "FIRST_OVERNIGHT"
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__delivery_type__fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__stock_package_type__package_carrier_type__fedex
 msgid "FedEx (Legacy)"
-msgstr ""
+msgstr "FedEx（舊系統）"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_account_number
 msgid "FedEx Legacy Account Number"
-msgstr ""
+msgstr "FedEx 舊系統帳戶號碼"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_saturday_delivery
@@ -262,7 +262,7 @@ msgstr "FedEx Web Services \"Move to Production\""
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Fedex Configuration"
-msgstr "Fedex Configuration"
+msgstr "Fedex 配置"
 
 #. module: delivery_fedex
 #. odoo-python
@@ -285,7 +285,7 @@ msgstr "FedEx關稅支付"
 #: model:delivery.carrier,name:delivery_fedex.delivery_carrier_fedex_inter
 #: model:product.template,name:delivery_fedex.product_product_delivery_fedex_inter_product_template
 msgid "Fedex International"
-msgstr "Fedex International"
+msgstr "Fedex 國際"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_default_package_type_id
@@ -300,13 +300,13 @@ msgstr "Fedex Service Type"
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Fedex Tutorial"
-msgstr "Fedex Tutorial"
+msgstr "Fedex 教學"
 
 #. module: delivery_fedex
 #: model:delivery.carrier,name:delivery_fedex.delivery_carrier_fedex_us
 #: model:product.template,name:delivery_fedex.product_product_delivery_fedex_us_product_template
 msgid "Fedex US"
-msgstr "Fedex US"
+msgstr "Fedex 美國"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
@@ -353,7 +353,7 @@ msgstr "LB"
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Label Format"
-msgstr "Label Format"
+msgstr "標籤格式"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_label_stock_type
@@ -441,7 +441,7 @@ msgstr "PRIORITY_OVERNIGHT"
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Package Weight Unit"
-msgstr "Package Weight Unit"
+msgstr "包裝重量單位"
 
 #. module: delivery_fedex
 #: model:ir.model.fields,field_description:delivery_fedex.field_delivery_carrier__fedex_developer_password
@@ -541,7 +541,7 @@ msgstr "週六送貨"
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex
 msgid "Screenshot"
-msgstr "Screenshot"
+msgstr "螢幕截圖"
 
 #. module: delivery_fedex
 #: model:ir.model.fields.selection,name:delivery_fedex.selection__delivery_carrier__fedex_duty_payment__sender
@@ -581,14 +581,14 @@ msgid ""
 "                                                                                 3.INTERNATIONAL_PRIORITY.\n"
 "(To Select Countries)"
 msgstr ""
-"Special service:Saturday Delivery, can be requested on following days.\n"
-"                                                                                 Thursday:\n"
-"1.FEDEX_2_DAY.\n"
-"Friday:\n"
-"1.PRIORITY_OVERNIGHT.\n"
-"2.FIRST_OVERNIGHT.\n"
-"                                                                                 3.INTERNATIONAL_PRIORITY.\n"
-"(To Select Countries)"
+"特別服務：星期六送貨，可在下列日子提出要求。\n"
+"                                                                                 星期四：\n"
+"1. FEDEX_2_DAY.\n"
+"星期五：\n"
+"1. PRIORITY_OVERNIGHT.\n"
+"2. FIRST_OVERNIGHT.\n"
+"                                                                                 3. INTERNATIONAL_PRIORITY.\n"
+"（需選擇國家）"
 
 #. module: delivery_fedex
 #: model_terms:ir.ui.view,arch_db:delivery_fedex.view_delivery_carrier_form_with_provider_fedex

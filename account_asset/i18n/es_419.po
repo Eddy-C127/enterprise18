@@ -4,9 +4,9 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # Martin Trigaux, 2024
 # Fernanda Alvarez, 2024
+# Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Fernanda Alvarez, 2024\n"
+"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -312,12 +312,12 @@ msgstr "Todas las líneas deben pertenecer a la misma empresa."
 #: code:addons/account_asset/models/account_move.py:0
 #, python-format
 msgid "All the lines should be posted"
-msgstr "Todas las líneas deben estar publicadas"
+msgstr "Todas las líneas deben publicarse"
 
 #. module: account_asset
 #: model:ir.model.fields,field_description:account_asset.field_account_asset__already_depreciated_amount_import
 msgid "Already Depreciated Amount Import"
-msgstr "Importación de importe ya depreciado"
+msgstr "Importación de total depreciado"
 
 #. module: account_asset
 #: model:ir.model.fields,help:account_asset.field_account_asset__parent_id
@@ -620,8 +620,8 @@ msgid ""
 "  * Declining then Straight Line: Like Declining but with a minimum depreciation value equal to the straight line value."
 msgstr ""
 "Elija el método que se utilizará para calcular el importe de las líneas de depreciación.\n"
-"  * Línea recta: se calcula según: valor bruto / duración\n"
-"  * En declive: se calcula según: valor residual * factor de disminución\n"
+"  * Línea recta: se calcula con la operación valor bruto / duración\n"
+"  * En declive: se calcula con la operación valor residual * factor de disminución\n"
 "  * En declive y luego en línea recta: en declive pero con un valor mínimo de depreciación igual al valor en línea recta."
 
 #. module: account_asset
@@ -1756,9 +1756,9 @@ msgid ""
 "By cancelling an asset, all depreciation entries will be reversed"
 msgstr ""
 "Cuando se crea un activo, el estado es \"Borrador\".\n"
-"Si el activo se confirma, el estado pasa a \"En proceso\" y las líneas de depreciación pueden publicarse en la contabilidad.\n"
-"El estado de \"En espera\" se puede establecer de forma manual cuando desee pausar la depreciación de un activo durante algún tiempo.\n"
-"Puede cerrar un activo de forma manual cuando termina la depreciación.\n"
+"Si el activo se confirma, el estado cambiará a \"En proceso\" y las líneas de depreciación pueden publicarse en la contabilidad.\n"
+"El estado \"En espera\" se puede establecer de forma manual si desea pausar la depreciación de un activo por un tiempo.\n"
+"Puede cerrar un activo de forma manual cuando termine la depreciación.\n"
 "Al cancelar un activo, los asientos de depreciación se revertirán."
 
 #. module: account_asset

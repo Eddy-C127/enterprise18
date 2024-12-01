@@ -480,10 +480,28 @@ msgstr "Ime šablona"
 
 #. module: documents_spreadsheet
 #. odoo-python
+#: code:addons/documents_spreadsheet/models/res_company.py:0
+#, python-format
+msgid ""
+"The company of %s should either be undefined or set to %s. Otherwise, it is "
+"not possible to link the workspace to the company."
+msgstr ""
+
+#. module: documents_spreadsheet
+#. odoo-python
 #: code:addons/documents_spreadsheet/models/documents_document.py:0
 #, python-format
 msgid "The file is not a xlsx file"
 msgstr "Fajl nije xlsx fajl"
+
+#. module: documents_spreadsheet
+#. odoo-python
+#: code:addons/documents_spreadsheet/models/documents_folder.py:0
+#, python-format
+msgid ""
+"The following folders are the spreadsheet workspaces for several companies "
+"and, as such, can not be specific to any single company: %s"
+msgstr ""
 
 #. module: documents_spreadsheet
 #. odoo-python
