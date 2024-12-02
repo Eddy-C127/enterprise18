@@ -77,7 +77,7 @@ export class HrReferralWelcome extends Component {
             tag: 'hr_referral_welcome',
             name: _t('Dashboard'),
             target: 'main'
-        });
+        }, {noEmptyTransition: true});
     }
 
     /**
@@ -93,7 +93,7 @@ export class HrReferralWelcome extends Component {
             tag: 'hr_referral_welcome',
             name: _t('Dashboard'),
             target: 'main'
-        });
+        }, {noEmptyTransition: true});
     }
 
     /**
@@ -109,7 +109,7 @@ export class HrReferralWelcome extends Component {
             tag: 'hr_referral_welcome',
             name: _t('Dashboard'),
             target: 'main'
-        });
+        }, {noEmptyTransition: true});
     }
 
 }
