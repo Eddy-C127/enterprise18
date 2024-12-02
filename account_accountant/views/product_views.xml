@@ -7,6 +7,7 @@
             <field name="arch" type="xml">
                 <xpath expr="//group[@name='accounting_entries']" position="attributes">
                     <attribute name="groups">account.group_account_manager</attribute>
+                    <attribute name="invisible">not is_coa_installed</attribute>
                 </xpath>
                 <xpath expr="//page[@name='accounting_disabled']" position="attributes">
                     <attribute name="string">Accounting</attribute>
