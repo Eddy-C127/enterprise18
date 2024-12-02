@@ -17,6 +17,12 @@ class DocumentFolder(models.Model):
 
     project_ids = fields.One2many('project.project', 'documents_folder_id')
 
+    def write(self, vals):
+        project_folder = self.env.ref('documents_project.documents_project_folder')
+        if not vals.get('active', True) and self._project_folder_in_self_or_ancestors(project_folder):
+            raise UserError(_('The "%s" workspace is required by the Project application and cannot be archived.', project_folder.name))
+        return super().write(vals)
+
     @api.model
     def _name_search(self, name, domain=None, operator='ilike', limit=None, order=None):
         domain = domain or []
@@ -28,11 +34,14 @@ class DocumentFolder(models.Model):
             ])
         return super()._name_search(name, domain, operator, limit, order)
 
+    def _project_folder_in_self_or_ancestors(self, project_folder):
+        project_folder_ancestors = {int(ancestor_id) for ancestor_id in project_folder.parent_path.split('/')[:-1]}
+        return project_folder_ancestors & set(self.ids)
+
     @api.ondelete(at_uninstall=False)
     def unlink_except_project_folder(self):
         project_folder = self.env.ref('documents_project.documents_project_folder')
-        project_folder_ancestors = {int(ancestor_id) for ancestor_id in project_folder.parent_path.split('/')[:-1]}
-        if project_folder_ancestors & set(self.ids):
+        if self._project_folder_in_self_or_ancestors(project_folder):
             raise UserError(_('The "%s" workspace is required by the Project application and cannot be deleted.', project_folder.name))
 
     @api.constrains('company_id')
