@@ -664,3 +664,25 @@ class TestCaseDocuments(TransactionCase):
         with self.assertRaises(AccessError):
             self.env['ir.model'].with_user(manager).check_access_rights('read')
         workflow.with_user(manager).link_to_record(document)
+
+    def test_tags_move_document(self):
+        """
+        Tests if tags are removed when moving a document to another folder
+        1. Move a document to another folder (simple change of folder)
+        2. Move a document to another folder with tags (like a workflow rule)
+        """
+        document_txt = self.env['documents.document'].create({
+            'datas': TEXT,
+            'name': 'file.txt',
+            'mimetype': 'text/plain',
+            'folder_id': self.folder_a.id,
+            'tag_ids': [Command.set(self.tag_a.ids)]
+        })
+        document_txt.write({'folder_id': self.folder_b.id})
+        self.assertFalse(document_txt.tag_ids)
+
+        document_txt.write({'folder_id': self.folder_a.id, 'tag_ids': [Command.link(self.tag_a.id)]})
+        self.assertEqual(document_txt.tag_ids, self.tag_a)
+
+        document_txt.write({'folder_id': self.folder_b.id, 'tag_ids': [Command.link(self.tag_b.id)]})
+        self.assertEqual(document_txt.tag_ids, self.tag_b)
