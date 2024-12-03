@@ -47,7 +47,6 @@
                                 <field name="date_from" class="oe_inline" readonly="state != 'draft'" force_save="1"/>
                                <i class="oi oi-fw oi-arrow-right"/><field name="date_to" class="oe_inline" readonly="state != 'draft'" force_save="1"/>
                             </div>
-                            <!-- arj todo: payment frequency quid ? -->
                             <field name="periodicity" string="Target Frequency" readonly="state != 'draft'" force_save="1"/>
                         </group>
                     </group>
