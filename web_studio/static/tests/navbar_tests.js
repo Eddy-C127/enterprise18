@@ -5,7 +5,14 @@ import { browser } from "@web/core/browser/browser";
 import { registry } from "@web/core/registry";
 import { makeTestEnv } from "@web/../tests/helpers/mock_env";
 import { registerCleanup } from "@web/../tests/helpers/cleanup";
-import { click, getFixture, mount, nextTick, patchWithCleanup } from "@web/../tests/helpers/utils";
+import {
+    click,
+    getFixture,
+    mount,
+    nextTick,
+    patchWithCleanup,
+    makeDeferred,
+} from "@web/../tests/helpers/utils";
 import { menuService } from "@web/webclient/menus/menu_service";
 import { actionService } from "@web/webclient/actions/action_service";
 import { makeFakeDialogService } from "@web/../tests/helpers/mock_services";
@@ -16,6 +23,7 @@ import { getActionManagerServerData, loadState } from "@web/../tests/webclient/h
 import { companyService } from "@web/webclient/company_service";
 import { AppMenuEditor } from "@web_studio/client_action/editor/app_menu_editor/app_menu_editor";
 import { NewModelItem } from "@web_studio/client_action/editor/new_model_item/new_model_item";
+import { contains } from "@web/../tests/utils";
 
 const serviceRegistry = registry.category("services");
 let target;
@@ -395,5 +403,27 @@ QUnit.module("Studio > navbar coordination", (hooks) => {
             2
         );
         assert.containsOnce(target, ".o_studio .o_menu_sections .o_menu_sections_more");
+    });
+
+    QUnit.test("concurrency: open studio while loading the views", async (assert) => {
+        const def = makeDeferred();
+        const mockRPC = async (route, args) => {
+            if (args.method === "get_views") {
+                await def;
+            }
+        };
+        serverData.menus[1].actionID = 1;
+        serverData.actions[1].xml_id = "action_xml_id";
+        await createEnterpriseWebClient({ serverData, mockRPC });
+        assert.containsOnce(target, ".o_web_studio_navbar_item button:not(.o_disabled)");
+
+        await click(target.querySelector(".o_app[data-menu-xmlid=menu_1]"));
+        assert.containsOnce(target, ".o_web_studio_navbar_item.o_disabled");
+
+        await openStudio(target);
+        def.resolve();
+        await contains(".o_kanban_view");
+        assert.containsOnce(target, ".o_web_studio_navbar_item button:not(.o_disabled)");
+        assert.containsNone(target, ".o_web_studio_editor_manager");
     });
 });
