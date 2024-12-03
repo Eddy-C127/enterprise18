@@ -18,7 +18,7 @@ class PosPreparationDisplay(models.Model):
         pdis_order_ids = Orders.browse(obj["id"] for obj in pdis_orders).filtered(lambda o: o.order_stage_ids[-1].stage_id != last_stage)
 
         for pdis_order_id in pdis_order_ids:
-            order_stage_id = pdis_order_id.order_stage_ids[-1].stage_id
+            order_stage_id = pdis_order_id.order_stage_ids.filtered(lambda s: s.stage_id in self.stage_ids)[-1].stage_id
             pos_order_tracking_ref = pdis_order_id.pos_order_id.tracking_number
             unfinished_pdis_orders = (
                 (
