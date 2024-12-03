@@ -60,7 +60,7 @@
                             <field
                                 name="account_asset_id"
                                 domain="[
-                                    ('company_id', '=', company_id),
+                                    ('company_id', 'parent_of', company_id),
                                     ('account_type', 'in', (
                                         'asset_fixed',
                                         'asset_non_current',
@@ -79,7 +79,7 @@
                             <field
                                 name="account_depreciation_id"
                                 domain="[
-                                    ('company_id', '=', company_id),
+                                    ('company_id', 'parent_of', company_id),
                                     ('account_type', 'in', (
                                         'asset_fixed',
                                         'asset_non_current',
@@ -97,7 +97,7 @@
                             <field
                                 name="account_depreciation_expense_id"
                                 domain="[
-                                    ('company_id', '=', company_id),
+                                    ('company_id', 'parent_of', company_id),
                                     ('account_type', 'in', (
                                         'expense_depreciation',
                                         'expense')
@@ -162,7 +162,7 @@
                                     <field
                                         name="account_asset_id"
                                         domain="[
-                                            ('company_id', '=', company_id),
+                                            ('company_id', 'parent_of', company_id),
                                             ('account_type', 'in', (
                                                 'asset_fixed',
                                                 'asset_non_current',
@@ -180,7 +180,7 @@
                                     <field
                                         name="account_depreciation_id"
                                         domain="[
-                                            ('company_id', '=', company_id),
+                                            ('company_id', 'parent_of', company_id),
                                             ('account_type', 'in', (
                                                 'asset_fixed',
                                                 'asset_non_current',
@@ -198,7 +198,7 @@
                                     <field
                                         name="account_depreciation_expense_id"
                                         domain="[
-                                            ('company_id', '=', company_id),
+                                            ('company_id', 'parent_of', company_id),
                                             ('account_type', 'in', (
                                                 'expense_depreciation',
                                                 'expense')
