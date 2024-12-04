@@ -1,6 +1,8 @@
 import logging
 import json
 
+from werkzeug.datastructures import FileStorage
+
 from odoo import http
 from odoo.http import request, content_disposition, Controller
 
@@ -12,7 +14,7 @@ class SpreadsheetController(Controller):
 
     @http.route('/spreadsheet/xlsx', type='http', auth="user", methods=["POST"])
     def get_xlsx_file(self, zip_name, files, **kw):
-        files = json.loads(files)
+        files = json.load(files) if isinstance(files, FileStorage) else json.loads(files)
 
         content = request.env['spreadsheet.mixin']._zip_xslx_files(files)
         headers = [

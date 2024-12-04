@@ -366,8 +366,8 @@ QUnit.module("Views", (hooks) => {
     QUnit.test("export cohort", async function (assert) {
         assert.expect(6);
 
-        mockDownload((options) => {
-            var data = JSON.parse(options.data.data);
+        mockDownload(async (options) => {
+            var data = JSON.parse(await options.data.data.text());
             assert.strictEqual(options.url, "/web/cohort/export");
             assert.strictEqual(data.interval_string, "Day");
             assert.strictEqual(data.measure_string, "Count");
