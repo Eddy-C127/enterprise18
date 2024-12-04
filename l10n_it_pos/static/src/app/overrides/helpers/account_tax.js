@@ -6,10 +6,7 @@ import { accountTaxHelpers } from "@account/helpers/account_tax";
 // -------------------------------------------------------------------------
 // HELPERS IN BOTH PYTHON/JAVASCRIPT (account_tax.js / account_tax.py)
 // -------------------------------------------------------------------------
-if (
-    session.user_companies.allowed_companies[session.user_companies.current_company]
-        .country_code === "IT"
-) {
+if (session["allow_l10n_it_pos"]) {
     patch(accountTaxHelpers, {
         get_total_price(price_unit, quantity, tax_amount, precision_rounding) {
             function round(value) {
