@@ -133,7 +133,7 @@ class TestDKReport(TestAccountReportsCommon):
             # _20230131 is not the export date, but rather the date at which the norm of this csv export was enforced
             ('KONTONUMMER_20230131', 'KONTONAVN_20230131', 'VAERDI_20230131'),
             ('6190', 'Trade and other receivables', '6250'),
-            ('7200', 'Other payables - long-term (copy)', '-10000'),
+            ('7450', 'Suppliers of goods and services (copy)', '-10000'),
             ('7680', 'Sales tax', '-1250'),
             ('7740', 'VAT on purchases', '2000'),
             ('999999', 'Undistributed Profits/Losses', '3000'),
