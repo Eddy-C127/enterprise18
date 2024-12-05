@@ -149,14 +149,15 @@
                             <tbody>
                                 <tr t-foreach="line['scraps']" t-as="scrap"
                                 class="text-success">
+                                    <t t-set="product_qty" t-value="scrap.product_uom == scrap.product_id.uom_id and scrap.quantity or scrap.product_uom._compute_quantity(scrap.quantity, scrap.product_id.uom_id)"/>
                                     <td>
                                         <span class="o_mrp_reports_web_action" t-att-res-id="scrap.id" res-model="stock.move" view-type="form" t-esc="scrap.product_id.display_name"/>
                                     </td>
                                     <td class="text-end">
-                                        <span><t t-esc="scrap.product_qty"/> <t t-esc="scrap.product_id.uom_id.name"/></span>
+                                        <span><t t-esc="product_qty"/> <t t-esc="scrap.product_id.uom_id.name"/></span>
                                     </td>
                                     <td class="text-end">
-                                        <span t-esc="sum(scrap.stock_valuation_layer_ids.mapped('value')) / scrap.product_qty" t-options='{"widget": "monetary", "display_currency": currency}'/>
+                                        <span t-esc="sum(scrap.stock_valuation_layer_ids.mapped('value')) / product_qty" t-options='{"widget": "monetary", "display_currency": currency}'/>
                                     </td>
                                     <td class="text-end">
                                         <span t-esc="sum(scrap.stock_valuation_layer_ids.mapped('value'))"  t-options='{"widget": "monetary", "display_currency": currency}'/>
