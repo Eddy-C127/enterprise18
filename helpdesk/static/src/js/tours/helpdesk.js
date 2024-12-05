@@ -31,19 +31,23 @@ registry.category("web_tour.tours").add('helpdesk_tour', {
     run: 'text SAP is bad, paid by Odoo',
     position: 'right',
 }, {
-    trigger: 'div[name=partner_id] input',
-    content: _t('Select the <b>customer</b> of your ticket.'),
-    run: 'text Deco',
-    position: 'top',
+    trigger: 'div[name=partner_id]',
+    content: markup(_t('Select the <b>customer</b> of your ticket.')),
+    run() {
+        document.querySelector('.o_field_widget[name="partner_id"] input').click();
+    },
+    position: 'right',
 }, {
-    trigger: 'a.dropdown-item:contains(Deco)',
-    run: 'click'
+    trigger: ".ui-autocomplete > li > a:not(:has(i.fa))",
+    run: 'click',
+    position: 'right',
+    auto: true,
 }, {
     trigger: 'button:contains(Add)',
     content: _t('Save this ticket and the modifications you\'ve made to it.'),
     position: 'bottom',
 }, {
-    trigger: 'span:contains(SAP is bad, paid by Odoo)',
+    trigger: '.o_kanban_record',
     content: _t('Open the ticket.'),
     run: 'click',
     position: 'bottom',
