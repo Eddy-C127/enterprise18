@@ -208,7 +208,7 @@ class DataMergeModel(models.Model):
                 sql_group_by = SQL()
                 company_field = res_model._fields.get('company_id')
                 if company_field and not dm_model.mix_by_company:
-                    if company_field.store:
+                    if company_field.store or company_field.inherited:
                         sql_group_by = SQL(', %s', res_model._field_to_sql(table, 'company_id', query))
                     elif company_field.related and company_field.related_field.store:
                         sql_group_by = SQL(', %s', res_model._field_to_sql(table, company_field.related, query))
