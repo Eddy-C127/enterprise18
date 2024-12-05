@@ -33,6 +33,20 @@ class HrExpense(models.Model):
         for expense in self:
             expense.is_in_extractable_state = expense.state == 'draft' and not expense.sheet_id
 
+    @api.depends('extract_state', 'state')
+    def _compute_extract_state_processed(self):
+        # Overrides 'iap_extract'
+        for expense in self:
+            expense.extract_state_processed = expense.extract_state == 'waiting_extraction' and expense.state == 'draft'
+
+    def _check_ocr_status(self, force_write=False):
+        # Extends `iap_extract`
+        self.ensure_one()
+        if self.state == 'draft':
+            super()._check_ocr_status(force_write)
+        else:
+            self.extract_state = 'done'
+
     @api.model
     def _contact_iap_extract(self, pathinfo, params):
         params['version'] = OCR_VERSION
