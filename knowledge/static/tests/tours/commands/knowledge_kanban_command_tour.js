@@ -138,11 +138,13 @@ function domHelpFieldSteps () {
             trigger: '.o_knowledge_behavior_type_embedded_view .o_kanban_renderer',
             run: () => {
                 const helpField = document.querySelector('.o_knowledge_content[data-prop-name="action_help"]');
+                const sectionCreate = document.querySelector("section[data-section='workspace'] .o_section_create");
                 if (!helpField) {
                     throw new Error('Help field was not rendered in the DOM');
                 }
                 // allow further modifications of the help field for testing
                 helpField.classList.remove('d-none');
+                sectionCreate.classList.add("d-block");
             },
         }, { // modify the help message in the dom
             trigger: '.o_knowledge_content[data-prop-name="action_help"] > p',
