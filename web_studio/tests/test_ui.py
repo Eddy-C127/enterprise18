@@ -1861,3 +1861,25 @@ class TestStudioUIUnit(odoo.tests.HttpCase):
         })
         self.start_tour("/web?debug=tests", "web_studio_test_use_action_domain", login="admin")
 
+    def test_drag_before_sheet(self):
+        self.testView.arch = """
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="display_name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        """
+        self.start_tour("/web?debug=tests", "web_studio_test_drag_before_sheet", login="admin")
+        studio_view = _get_studio_view(self.testView)
+        [html_field] = self.env['ir.model.fields'].search([('name', '=like', 'x_studio_html_field_%')], limit=1)
+        assertViewArchEqual(self, studio_view.arch, '''
+             <data>
+                <xpath expr="//form[1]/sheet[1]/group[1]" position="before">
+                    <field name="{html_field.name}"/>
+                </xpath>
+            </data>
+        '''.format(html_field=html_field))
