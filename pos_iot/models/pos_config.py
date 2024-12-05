@@ -3,6 +3,7 @@
 
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+from odoo.tools import float_compare
 
 
 class PosConfig(models.Model):
@@ -19,6 +20,13 @@ class PosConfig(models.Model):
     iot_device_ids = fields.Many2many('iot.device', compute="_compute_iot_device_ids")
     # TODO: Remove this field, it's not being used.
     payment_terminal_device_ids = fields.Many2many('iot.device', compute="_compute_payment_terminal_device_ids")
+
+    def _load_pos_data(self, data):
+        response = super()._load_pos_data(data)
+
+        is_eu_country = self.env.company.country_id in self.env.ref('base.europe').country_ids
+        response['data'][0]["_is_eu_country"] = is_eu_country
+        return response
 
     @api.depends('iface_printer_id')
     def _compute_print_via_proxy(self):
@@ -53,6 +61,16 @@ class PosConfig(models.Model):
             return self.iface_display_id.iot_ip
         else:
             return super()._get_display_device_ip()
+
+    @api.model
+    def fix_rounding_for_scale_certification(self, uom_ids):
+        units_of_measure = self.env['uom.uom'].browse(uom_ids)
+        for uom in units_of_measure:
+            if float_compare(uom.rounding, 0.001, precision_digits=3) == 1:
+                uom.rounding = 0.001
+        decimal_precision = self.env['decimal.precision'].search([('name', '=', 'Product Unit of Measure')])
+        if decimal_precision.digits < 3:
+            decimal_precision.digits = 3
 
     @api.constrains('iface_display_id', 'customer_display_type', 'is_posbox')
     def _check_customer_display_type(self):
