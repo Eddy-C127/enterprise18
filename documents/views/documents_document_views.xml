@@ -345,6 +345,7 @@
                 <field name="name" required="True" readonly="False"/>
                 <field name="display_name" column_invisible="1"/>
                 <field name="owner_id" widget="many2one_avatar_user" optional="show"/>
+                <field name="access_url" column_invisible="1"/>
                 <field name="partner_id" optional="show"/>
                 <field name="tag_ids" widget="many2many_tags" optional="hide" options="{'color_field': 'color'}"/>
                 <field name="url" optional="hide"/>
