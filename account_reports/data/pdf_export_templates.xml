@@ -140,9 +140,11 @@
     </template>
 
     <template id="pdf_export_filter_extra_options_template">
+        <t t-set="rounding_unit_display_names" t-value="{k: v[1] for k, v in options['rounding_unit_names'].items() if v[1]}"/>
         <div class="col-3" t-if="(report.filter_show_draft and options['all_entries']) or
                                  (report.filter_unreconciled and options['unreconciled']) or
-                                  options.get('include_analytic_without_aml')">
+                                 options.get('include_analytic_without_aml') or
+                                 options['rounding_unit'] in rounding_unit_display_names">
             Options:
         </div>
         <div class="col-9 o_text_muted">
@@ -164,6 +166,12 @@
             <t t-if="options.get('include_analytic_without_aml')" name="include_analytic">
                 <t t-set="label_analytic_simulations">Including Analytic Simulations</t>
                 <t t-set="extra_options" t-value="extra_options + [label_analytic_simulations]"/>
+            </t>
+
+            <!-- Currency Unit Amount Text -->
+            <t t-if="options['rounding_unit'] in rounding_unit_display_names">
+                <t t-set="rounding_unit" t-value="options.get('rounding_unit')"/>
+                <t t-set="extra_options" t-value="extra_options + [rounding_unit_display_names[rounding_unit]]"/>
             </t>
 
             <t t-out="', '.join(extra_options)"/>
@@ -208,12 +216,6 @@
                 <t t-foreach="options['columns']" t-as="subheader">
                     <th>
                         <t t-out="subheader.get('name')"/>
-
-                        <t t-if="subheader.get('figure_type') == 'monetary'">
-                            <t t-set="rounding_unit" t-value="options.get('rounding_unit')"/>
-
-                            <t t-out="'( ' + options['rounding_unit_names'][rounding_unit] + ' )'"/>
-                        </t>
                     </th>
                 </t>
             </tr>

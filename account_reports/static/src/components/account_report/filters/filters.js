@@ -202,7 +202,7 @@ export class AccountReportFilters extends Component {
     // Rounding unit
     //------------------------------------------------------------------------------------------------------------------
     roundingUnitName(roundingUnit) {
-        return _t("In %s", this.controller.options['rounding_unit_names'][roundingUnit]);
+        return _t("In %s", this.controller.options["rounding_unit_names"][roundingUnit][0]);
     }
 
     //------------------------------------------------------------------------------------------------------------------

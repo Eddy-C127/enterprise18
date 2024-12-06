@@ -47,6 +47,7 @@ NUMBER_FIGURE_TYPES = ('float', 'integer', 'monetary', 'percentage')
 
 LINE_ID_HIERARCHY_DELIMITER = '|'
 
+CURRENCIES_USING_LAKH = {'AFN', 'BDT', 'INR', 'MMK', 'NPR', 'PKR', 'LKR'}
 
 class AccountReportFootnote(models.Model):
     _name = 'account.report.footnote'
@@ -1224,17 +1225,17 @@ class AccountReport(models.Model):
 
     def _get_rounding_unit_names(self):
         currency_symbol = self.env.company.currency_id.symbol
+        currency_name = self.env.company.currency_id.name
+
         rounding_unit_names = [
-            ('decimals', '.%s' % currency_symbol),
-            ('units', '%s' % currency_symbol),
-            ('thousands', 'K%s' % currency_symbol),
-            ('millions', 'M%s' % currency_symbol),
+            ('decimals', (f'.{currency_symbol}', '')),
+            ('units', (f'{currency_symbol}', '')),
+            ('thousands', (f'K{currency_symbol}', _('Amounts in Thousands'))),
+            ('millions', (f'M{currency_symbol}', _('Amounts in Millions'))),
         ]
 
-        # We want to add 'lakhs' for Indian Rupee
-        if (self.env.company.currency_id == self.env.ref('base.INR')):
-            # We want it between 'thousands' and 'millions'
-            rounding_unit_names.insert(3, ('lakhs', 'L%s' % currency_symbol))
+        if currency_name in CURRENCIES_USING_LAKH:
+            rounding_unit_names.insert(3, ('lakhs', (f'L{currency_symbol}', _('Amounts in Lakhs'))))
 
         return dict(rounding_unit_names)
 
