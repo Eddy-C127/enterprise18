@@ -52,6 +52,22 @@ export class DocumentsSearchModel extends SearchModel {
         }
     }
 
+    /**
+     * Override to 'forget' archived folders.
+     *
+     * @override
+     */
+    _createCategoryTree(sectionId, result) {
+        const category = this.sections.get(sectionId);
+        // Clear non-permanent keys, necessary to 'forget' archived folders.
+        for (const folderId of category.values.keys()) {
+            if (typeof folderId === "number") {
+                category.values.delete(folderId);
+            }
+        }
+        super._createCategoryTree(...arguments);
+    }
+
     //---------------------------------------------------------------------
     // Actions / Getters
     //---------------------------------------------------------------------

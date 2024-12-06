@@ -220,7 +220,7 @@ export const DocumentsRecordMixin = (component) => class extends component {
             return agg;
         }, {});
         const draggableRecords = root.selection.filter(
-            (record) => (!record.data.lock_uid || record.data.lock_uid[0] === this.context.uid) && foldersById[record.data.folder_id[0]].has_write_access
+            (record) => (!record.data.lock_uid || record.data.lock_uid[0] === this.context.uid) && foldersById[record.data.folder_id[0]]?.has_write_access
         );
         if (draggableRecords.length === 0) {
             ev.preventDefault();
