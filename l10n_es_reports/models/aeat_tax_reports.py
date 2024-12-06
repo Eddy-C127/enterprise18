@@ -1285,8 +1285,9 @@ class SpanishMod349TaxReportCustomHandler(models.AbstractModel):
                                 result_dict['value'] += matching_move.amount_residual
                                 treated_moves.append(matching_move.id)
 
-                    elif move_type == 'invoice':
-                        # In case the move is in ('in_invoice', 'out_invoice') we always add the value to the result
+                    elif ((res_line['move_type'] in ('in_invoice', 'out_invoice') and move_type == 'invoice') or
+                            (res_line['move_type'] in ('in_refund', 'out_refund') and move_type == 'refund')):
+                        # In case the move is matching the section type we always add the value to the result
                         result_dict['value'] += res_line['amount_total']
 
             elif current_groupby == 'partner_id':
