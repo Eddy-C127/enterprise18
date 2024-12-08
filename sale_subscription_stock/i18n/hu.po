@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0+e\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-13 10:43+0000\n"
+"POT-Creation-Date: 2024-11-15 13:59+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
 "Last-Translator: Tamás Németh <ntomasz81@gmail.com>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
@@ -20,6 +20,23 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: sale_subscription_stock
+#. odoo-python
+#: code:addons/sale_subscription_stock/models/sale_order.py:0
+#, python-format
+msgid ""
+"A system error prevented the automatic creation of delivery orders for this "
+"subscription. To ensure your delivery is processed, please trigger it "
+"manually by using the \"Subscription: Generate delivery\" action."
+msgstr ""
+
+#. module: sale_subscription_stock
+#. odoo-python
+#: code:addons/sale_subscription_stock/models/sale_order.py:0
+#, python-format
+msgid "Delivery creation failed"
+msgstr ""
 
 #. module: sale_subscription_stock
 #: model:product.template,name:sale_subscription_stock.product_recurring_mug_product_template
@@ -47,6 +64,11 @@ msgstr "Vevői megrendelés sor"
 #: model:ir.model,name:sale_subscription_stock.model_stock_forecasted_product_product
 msgid "Stock Replenishment Report"
 msgstr "Készletfeltöltés kimutatás"
+
+#. module: sale_subscription_stock
+#: model:ir.actions.server,name:sale_subscription_stock.action_compute_price_bom_product
+msgid "Subscription: Generate delivery"
+msgstr ""
 
 #. module: sale_subscription_stock
 #. odoo-javascript

@@ -5,8 +5,8 @@
 # Translators:
 # Sergio Zanchetta <primes2h@gmail.com>, 2024
 # Martin Trigaux, 2024
-# Marianna Ciofani, 2024
 # Wil Odoo, 2024
+# Marianna Ciofani, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-13 10:41+0000\n"
 "PO-Revision-Date: 2023-10-26 23:09+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Marianna Ciofani, 2024\n"
 "Language-Team: Italian (https://app.transifex.com/odoo/teams/41243/it/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -232,7 +232,7 @@ msgstr "Tutte le transazioni"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "All Users Lock Date"
-msgstr "Data di blocco tutti utenti"
+msgstr "Data di chiusura tutti utenti"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_autocomplete_ids
@@ -434,7 +434,7 @@ msgstr "Annulla"
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_change_lock_date
 msgid "Change Lock Date"
-msgstr "Variazione data di blocco"
+msgstr "Variazione data di chiusura"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_reconcile_wizard__to_check
@@ -1065,7 +1065,7 @@ msgstr "È un trasferimento conto richiesto per la riconciliazione"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__lock_date_violated_warning_message
 msgid "Is the date violating the lock date of moves"
-msgstr "La data viola la data di blocco dei movimenti"
+msgstr "La data viola la data di chiusura dei movimenti"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
@@ -1090,7 +1090,7 @@ msgstr "Valuta registro"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__period_lock_date
 msgid "Journal Entries Lock Date"
-msgstr "Voci di giornale Data di blocco"
+msgstr "Voci di giornale Data di chiusura"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_move
@@ -1641,8 +1641,8 @@ msgid ""
 " the corresponding Journal Entry is posted."
 msgstr ""
 "Previene la modifica delle dichiarazioni fiscali fino alla data indicata "
-"(registrazioni contabili che comprendono imposte). La data di blocco della "
-"dichiarazione fiscale viene configurata automaticamente all'inserimento "
+"(registrazioni contabili che comprendono imposte). La data di chiusura della"
+" dichiarazione fiscale viene configurata automaticamente all'inserimento "
 "della registrazione contabile corrispondente."
 
 #. module: account_accountant
@@ -1916,7 +1916,7 @@ msgstr "Riga ripartizione imposta"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid "Tax Return Lock Date"
-msgstr "Data di blocco dichiarazione fiscale"
+msgstr "Data di chiusura dichiarazione fiscale"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_tag_ids
@@ -1960,7 +1960,7 @@ msgid ""
 "The date you set violates the lock date of one of your entry. It will be "
 "overriden by the following date : %(replacement_date)s"
 msgstr ""
-"La data configurata viola la data di blocco di una delle registrazioni. "
+"La data configurata viola la data di chiusura di una delle registrazioni. "
 "Verrà sostituita dalla data seguente:%(replacement_date)s"
 
 #. module: account_accountant
@@ -2311,7 +2311,7 @@ msgstr ""
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 #, python-format
 msgid "You cannot set a lock date in the future."
-msgstr "Non è possibile configurare una data di blocco nel futuro."
+msgstr "Non è possibile configurare una data di chiusura nel futuro."
 
 #. module: account_accountant
 #. odoo-python
