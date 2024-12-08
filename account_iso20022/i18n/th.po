@@ -286,6 +286,8 @@ msgid ""
 "Some payments are missing a value for 'UETR', required for the SEPA "
 "Pain.001.001.09 format."
 msgstr ""
+"การชำระเงินบางรายการขาดค่า 'UETR' ซึ่งจำเป็นสำหรับรูปแบบ SEPA "
+"Pain.001.001.09"
 
 #. module: account_iso20022
 #. odoo-python
@@ -299,6 +301,7 @@ msgid ""
 "Specifies which party/parties will bear the charges associated with the "
 "processing of the payment transaction."
 msgstr ""
+"ระบุว่าฝ่ายใดที่จะเป็นผู้รับผิดชอบค่าธรรมเนียมที่เกี่ยวข้องกับการประมวลผลธุรกรรมการชำระเงิน"
 
 #. module: account_iso20022
 #: model:account.payment.method,name:account_iso20022.account_payment_method_iso20022_se
@@ -347,6 +350,8 @@ msgid ""
 "The Name Identification and Issuer details are required to proceed. Please "
 "configure them in the settings."
 msgstr ""
+"จำเป็นต้องระบุชื่อและรายละเอียดผู้ออกบัตรเพื่อดำเนินการต่อ "
+"โปรดกำหนดค่าในการตั้งค่า"
 
 #. module: account_iso20022
 #. odoo-python
@@ -411,7 +416,7 @@ msgstr ""
 msgid ""
 "Will appear as the name of the party initiating the payment. Limited to 70 "
 "characters."
-msgstr ""
+msgstr "จะแสดงเป็นชื่อผู้เริ่มชำระเงิน จำกัด 70 ตัวอักษร"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_res_config_settings__iso20022_orgid_issr

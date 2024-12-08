@@ -161,6 +161,21 @@ msgid ""
 "            </div>\n"
 "        "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"                <p style=\"margin: 0px; padding: 0px;\">\n"
+"                    <t t-if=\"object.id != object.commercial_partner_id.id\">Prezado(a) <t t-out=\"object.name or ''\"/> (<t t-out=\"object.commercial_partner_id.name or ''\"/>),</t>\n"
+"                    <t t-else=\"\">Prezado(a) <t t-out=\"object.name or ''\"/>,</t>\n"
+"                    <br/>\n"
+"                    Veja em anexo o extrato de sua conta.\n"
+"                    <br/>\n"
+"                    Não hesite em entrar em contato conosco se tiver alguma dúvida.\n"
+"                    <br/>\n"
+"                    Cordialmente,\n"
+"                    <br/>\n"
+"\t                <t t-out=\"object._get_followup_responsible().name if is_html_empty(object._get_followup_responsible().signature) else object._get_followup_responsible().signature\"/>\n"
+"                </p>\n"
+"            </div>\n"
+"        "
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
@@ -2992,6 +3007,8 @@ msgid ""
 "Please select the main company and its branches in the company selector to "
 "proceed."
 msgstr ""
+"Selecione a empresa principal e suas filiais no seletor de empresas para "
+"prosseguir."
 
 #. module: account_reports
 #. odoo-python
@@ -4448,4 +4465,4 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/multicurrency_revaluation_report/warnings.xml:0
 msgid "⇒ Reset to Odoo’s Rate"
-msgstr "⇒ Resetar para a taxa do Odoo"
+msgstr "⇒ Redefinir para a taxa do Odoo"

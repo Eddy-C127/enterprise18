@@ -424,6 +424,43 @@ msgid "Anglo-Saxon Accounting"
 msgstr "Contabilidad anglosajona"
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
+msgid ""
+"Any entry implying with taxes up to and including that date will be "
+"postponed to a later time, in accordance with its journal's sequence. The "
+"tax lock date is automatically set when the tax closing entry is posted."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal sequence. This lock date is irreversible and "
+"does not allow any exception."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
+msgid ""
+"Any purchase entry prior to and including this date will be postponed to a "
+"later date, in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
+msgid ""
+"Any sales entry prior to and including this date will be postponed to a "
+"later date, in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
 msgid "Attachment Count"
 msgstr "Número de archivos adjuntos"
@@ -976,6 +1013,11 @@ msgid "Exception Duration"
 msgstr "Duración de la excepción"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
+msgid "Exception Needed Fields"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
 msgid "Exception Reason"
 msgstr "Motivo de la excepción"
@@ -1409,7 +1451,6 @@ msgid "Let’s go back to the dashboard."
 msgstr "Volvamos al tablero."
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid "Like the \"Everyone Lock\", but no exceptions are possible."
 msgstr "Como el \"bloqueo de todos\", pero sin excepciones."
 
@@ -1435,7 +1476,6 @@ msgid "Lock Dates"
 msgstr "Fechas de bloqueo"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everyone"
 msgstr "Bloquear para todos"
 
@@ -1448,6 +1488,11 @@ msgstr "Bloquear todos para todos"
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
 msgid "Lock Everyone For Me"
 msgstr "Bloquear todos para mí"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
+msgid "Lock Everything"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -1921,7 +1966,6 @@ msgstr ""
 "facturas y pagos"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid ""
 "Prevents Journal Entry creation or modification up to the defined date "
 "inclusive for all users. As a closed period, all accounting operations are "
@@ -1932,7 +1976,6 @@ msgstr ""
 "prohíben en periodos cerrados."
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid ""
 "Prevents Tax Returns modification up to the defined date inclusive (Journal "
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
@@ -1944,7 +1987,6 @@ msgstr ""
 "el asiento correspondiente."
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid ""
 "Prevents creation and modification of entries in purchase journals up to the"
 " defined date inclusive"
@@ -1953,7 +1995,6 @@ msgstr ""
 " la fecha definida"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid ""
 "Prevents creation and modification of entries in sales journals up to the "
 "defined date inclusive"

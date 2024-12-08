@@ -8,6 +8,7 @@
 # Александра Николова <alexandra1nikolova@gmail.com>, 2024
 # Maria Boyadjieva <marabo2000@gmail.com>, 2024
 # Martin Trigaux, 2024
+# Veselina Slavkova, 2024
 # 
 msgid ""
 msgstr ""
@@ -15,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Martin Trigaux, 2024\n"
+"Last-Translator: Veselina Slavkova, 2024\n"
 "Language-Team: Bulgarian (https://app.transifex.com/odoo/teams/41243/bg/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -29,6 +30,8 @@ msgid ""
 "Allows you to define which documents you would like to create once the "
 "request has been approved"
 msgstr ""
+"Позволява ви да определите кои документи искате да създадете, след като "
+"заявката се одобри."
 
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_category
@@ -50,12 +53,12 @@ msgstr "Вид одобрение"
 #: model:ir.model.fields.selection,name:approvals_purchase.selection__approval_category__approval_type__purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.approval_purchase_request_view_form_inherit
 msgid "Create RFQ's"
-msgstr ""
+msgstr "Създайте заявки за оферта."
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "Exception occurred: the Approval Request"
-msgstr ""
+msgstr "Възникна изключение: Заявката за одобрение"
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
@@ -67,6 +70,8 @@ msgstr "Изключение(я):"
 #: code:addons/approvals_purchase/models/approval_product_line.py:0
 msgid "Please select a vendor on product line or set it on product(s) %s."
 msgstr ""
+"Моля, изберете доставчик на продуктова линия или го задайте на продукт(и) "
+"%s."
 
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_product_line
@@ -110,6 +115,8 @@ msgstr ""
 msgid ""
 "The quantity converted into the UoM used by the product in Purchase Order."
 msgstr ""
+"Количеството, превърнато в UoM, използвано от продукта в поръчката за "
+"покупка."
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__seller_id
@@ -120,13 +127,13 @@ msgstr "Доставчици"
 #. odoo-python
 #: code:addons/approvals_purchase/models/approval_request.py:0
 msgid "You cannot create an empty purchase request."
-msgstr ""
+msgstr "Не можете да създадете празна заявка за покупка."
 
 #. module: approvals_purchase
 #. odoo-python
 #: code:addons/approvals_purchase/models/approval_request.py:0
 msgid "You must select a product for each line of requested products."
-msgstr ""
+msgstr "Трябва да изберете продукт за всеки ред от заявените продукти."
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
@@ -139,6 +146,8 @@ msgid ""
 "has been canceled.\n"
 "            Manual actions may be needed."
 msgstr ""
+"е била отменена.\n"
+"Може да са необходими ръчни действия."
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled

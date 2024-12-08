@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Manon Rondou, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -168,7 +168,7 @@ msgstr "Boekingsregels importeren"
 #. module: account_base_import
 #: model:ir.actions.client,name:account_base_import.action_partner_import
 msgid "Import Partners"
-msgstr "Partners importeren"
+msgstr "Contacten importeren"
 
 #. module: account_base_import
 #. odoo-python
@@ -199,7 +199,7 @@ msgstr "Overzicht namen importeren"
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_partner_ids
 msgid "Import Summary Partner"
-msgstr "Overzicht partners importeren"
+msgstr "Overzicht contacten importeren"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_tax_ids
@@ -216,7 +216,8 @@ msgstr "Contacten importeren"
 #. odoo-javascript
 #: code:addons/account_base_import/static/src/xml/account_import.xml:0
 msgid "Import customers or suppliers (partners) and their contacts using a"
-msgstr "Importeer klanten of leveranciers (partners) en hun contacten met een"
+msgstr ""
+"Importeer klanten of leveranciers (contacten) en hun contacten met een"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -420,8 +421,8 @@ msgid ""
 "                            For the SIE entry, only entries and partners will be created, the rest must already be present in the system."
 msgstr ""
 "is vereist om de SIE- en SIE-invoerbestanden te importeren.\n"
-"Voor algemene SIE stellen we je rekeningschema's, dagboeken, partners en de geschiedenis van journaalboekingen in (dagboekgegevens moeten aanwezig zijn in het bestand).\n"
-"Voor de SIE-inzending worden alleen inzendingen en partners aangemaakt, de rest moet al in het systeem aanwezig zijn."
+"Voor algemene SIE stellen we je rekeningschema's, dagboeken, contacten en de geschiedenis van boekingen in (dagboekgegevens moeten aanwezig zijn in het bestand).\n"
+"Voor de SIE-inzending worden alleen inzendingen en contacten aangemaakt, de rest moet al in het systeem aanwezig zijn."
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
@@ -442,7 +443,7 @@ msgstr "of"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "partners imported"
-msgstr "geïmporteerde partners"
+msgstr "geïmporteerde contacten"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form

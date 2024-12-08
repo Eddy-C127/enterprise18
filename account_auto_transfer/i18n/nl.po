@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Manon Rondou, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -112,7 +112,7 @@ msgid ""
 "and partner(s): %(partners)s)"
 msgstr ""
 "Automatische boeking (boekingen met kostenplaats(en): %(analytic_accounts)s "
-"en partner(s): %(partners)s)"
+"en contact(s): %(contacten)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -124,7 +124,7 @@ msgstr "Automatische boeking (boekingen met analytische rekening(en): %s)"
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "Automatic Transfer (entries with partner(s): %s)"
-msgstr "Automatische boeking (boekingen met partner(s): %s)"
+msgstr "Automatische boeking (boekingen met contact(s): %s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -134,7 +134,7 @@ msgid ""
 "account(s): %(analytic_accounts)s and partner(s): %(partners)s)"
 msgstr ""
 "Automatische boeking (van rekening %(origin_account)s met kostenplaats(en): "
-"%(analytic_accounts)s en partner(s): %(partners)s)"
+"%(analytic_accounts)s en contact(s): %(contacten)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -154,7 +154,7 @@ msgid ""
 "%(partners)s)"
 msgstr ""
 "Automatische boeking (van rekening %(origin_account)s met "
-"partner(s):%(partners)s)"
+"contact(s):%(contacten)s)"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -336,7 +336,7 @@ msgstr "Bronmodel"
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__partner_ids
 msgid "Partner Filter"
-msgstr "Partnerfilter"
+msgstr "Contactfilter"
 
 #. module: account_auto_transfer
 #: model:ir.model.fields,field_description:account_auto_transfer.field_account_transfer_model_line__percent
@@ -417,7 +417,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_auto_transfer/models/transfer_model.py:0
 msgid "The partner filter %s is duplicated"
-msgstr "Dit partnerfilter %s is gedupliceerd"
+msgstr "Dit contactfilter %s is gedupliceerd"
 
 #. module: account_auto_transfer
 #. odoo-python
@@ -459,7 +459,7 @@ msgid ""
 "You cannot delete an automatic transfer that has draft moves attached "
 "('%s'). Please delete them before deleting this transfer."
 msgstr ""
-"Je kan geen automatische boeking verwijderen waaraan conceptboekingen zijn "
+"Je kunt geen automatische boeking verwijderen waaraan conceptboekingen zijn "
 "gekoppeld ('%s'). Verwijder deze voordat je deze boeking verwijdert."
 
 #. module: account_auto_transfer
@@ -469,8 +469,8 @@ msgid ""
 "You cannot delete an automatic transfer that has posted moves attached "
 "('%s')."
 msgstr ""
-"Je kan geen automatische boeking verwijderen waaraan geboekte boekingen zijn"
-" gekoppeld ('%s')."
+"Je kunt geen automatische boeking verwijderen waaraan geboekte boekingen "
+"zijn gekoppeld ('%s')."
 
 #. module: account_auto_transfer
 #. odoo-python

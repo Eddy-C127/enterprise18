@@ -412,6 +412,43 @@ msgid "Anglo-Saxon Accounting"
 msgstr "Anglo-Saxon會計"
 
 #. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
+msgid ""
+"Any entry implying with taxes up to and including that date will be "
+"postponed to a later time, in accordance with its journal's sequence. The "
+"tax lock date is automatically set when the tax closing entry is posted."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal sequence. This lock date is irreversible and "
+"does not allow any exception."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
+msgid ""
+"Any purchase entry prior to and including this date will be postponed to a "
+"later date, in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
+msgid ""
+"Any sales entry prior to and including this date will be postponed to a "
+"later date, in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
 msgid "Attachment Count"
 msgstr "附件數目"
@@ -953,6 +990,11 @@ msgid "Exception Duration"
 msgstr "例外持續時間"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
+msgid "Exception Needed Fields"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
 msgid "Exception Reason"
 msgstr "例外原因"
@@ -1374,7 +1416,6 @@ msgid "Let’s go back to the dashboard."
 msgstr "讓我們回到儀表板."
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid "Like the \"Everyone Lock\", but no exceptions are possible."
 msgstr "與「鎖定所有人」類似，但不可有例外。"
 
@@ -1400,7 +1441,6 @@ msgid "Lock Dates"
 msgstr "鎖定日期"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everyone"
 msgstr "鎖定所有人"
 
@@ -1413,6 +1453,11 @@ msgstr "鎖定所有人，適用於所有人"
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
 msgid "Lock Everyone For Me"
 msgstr "鎖定所有人，只適用於我"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
+msgid "Lock Everything"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -1880,7 +1925,6 @@ msgid ""
 msgstr "請在應收憑單和應付款匹配期間建立日記帳分錄"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid ""
 "Prevents Journal Entry creation or modification up to the defined date "
 "inclusive for all users. As a closed period, all accounting operations are "
@@ -1888,7 +1932,6 @@ msgid ""
 msgstr "設定的日期完結前，一律防止所有用戶建立或修改日記賬記項。該段期間會被封閉，禁止一切會計操作。"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid ""
 "Prevents Tax Returns modification up to the defined date inclusive (Journal "
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
@@ -1896,14 +1939,12 @@ msgid ""
 msgstr "設定的日期完結前，防止用戶修改報稅表（涉及稅項的日記賬記項）。「報稅鎖定日期」會在相應的日記賬記項過賬時自動設置。"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid ""
 "Prevents creation and modification of entries in purchase journals up to the"
 " defined date inclusive"
 msgstr "禁止在採購日記賬內，建立或修改在設定日期之前（包括當天）的記項"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid ""
 "Prevents creation and modification of entries in sales journals up to the "
 "defined date inclusive"

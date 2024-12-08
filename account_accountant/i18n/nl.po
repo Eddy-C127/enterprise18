@@ -5,8 +5,8 @@
 # Translators:
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
-# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # Manon Rondou, 2024
+# Erwin van der Ploeg <erwin@odooexperts.nl>, 2024
 # 
 msgid ""
 msgstr ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Manon Rondou, 2024\n"
+"Last-Translator: Erwin van der Ploeg <erwin@odooexperts.nl>, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -366,7 +366,7 @@ msgstr "Bedrag (vreemde valuta)"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__amount_currency
 msgid "Amount Currency"
-msgstr "Bedrag valuta"
+msgstr "Valutabedrag"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
@@ -420,6 +420,43 @@ msgstr "Analytische nauwkeurigheid"
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__use_anglo_saxon
 msgid "Anglo-Saxon Accounting"
 msgstr "Angelsaksische boekhouding"
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
+msgid ""
+"Any entry implying with taxes up to and including that date will be "
+"postponed to a later time, in accordance with its journal's sequence. The "
+"tax lock date is automatically set when the tax closing entry is posted."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal sequence. This lock date is irreversible and "
+"does not allow any exception."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
+msgid ""
+"Any entry up to and including that date will be postponed to a later time, "
+"in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
+msgid ""
+"Any purchase entry prior to and including this date will be postponed to a "
+"later date, in accordance with its journal's sequence."
+msgstr ""
+
+#. module: account_accountant
+#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
+msgid ""
+"Any sales entry prior to and including this date will be postponed to a "
+"later date, in accordance with its journal's sequence."
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -674,7 +711,7 @@ msgstr "Credit"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__cron_last_check
 msgid "Cron Last Check"
-msgstr "Cron laatste controle"
+msgstr "Geplande actie laatste controle"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -970,6 +1007,11 @@ msgid "Exception Duration"
 msgstr "Uitzondering Duur"
 
 #. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
+msgid "Exception Needed Fields"
+msgstr ""
+
+#. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
 msgid "Exception Reason"
 msgstr "Uitzondering Reden"
@@ -1032,7 +1074,7 @@ msgstr "Volgers"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_partner_ids
 msgid "Followers (Partners)"
-msgstr "Volgers (Partners)"
+msgstr "Volgers (Contacten)"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -1401,7 +1443,6 @@ msgid "Let’s go back to the dashboard."
 msgstr "Laten we teruggaan naar het dashboard."
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
 msgid "Like the \"Everyone Lock\", but no exceptions are possible."
 msgstr "Net als het \"Iedereen Slot\", maar er zijn geen uitzonderingen mogelijk."
 
@@ -1428,7 +1469,6 @@ msgid "Lock Dates"
 msgstr "Blokkeerdatums"
 
 #. module: account_accountant
-#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everyone"
 msgstr "Blokkeer iedereen iedereen"
 
@@ -1441,6 +1481,11 @@ msgstr "Blokker alles voor iedereen"
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date_for_me
 msgid "Lock Everyone For Me"
 msgstr "Sluit iedereen voor mij af"
+
+#. module: account_accountant
+#: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
+msgid "Lock Everything"
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -1485,12 +1530,12 @@ msgstr "Blokkeer btw-aangifte"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_everyone
 msgid "Lock Tax Return For Everyone"
-msgstr "Lock Belastingaangifte Voor Iedereen"
+msgstr "Blokkeer btw-aangifte voor Iedereen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__tax_lock_date_for_me
 msgid "Lock Tax Return For Me"
-msgstr "Sluit belastingaangifte voor mij af"
+msgstr "Sluit btw-aangifte voor mij af"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_main_attachment_id
@@ -1805,42 +1850,42 @@ msgstr "Uitgaand"
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_quick_create_form_bank_rec_widget
 msgid "Partner"
-msgstr "Partner"
+msgstr "Contact"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_currency_id
 msgid "Partner Currency"
-msgstr "Valuta partner"
+msgstr "Valuta contact"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__partner_name
 msgid "Partner Name"
-msgstr "Partnernaam"
+msgstr "Contactnaam"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_account_id
 msgid "Partner Payable Account"
-msgstr "Crediteurenrekening partner"
+msgstr "Crediteurenrekening contact"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_amount
 msgid "Partner Payable Amount"
-msgstr "Te betalen bedrag partner"
+msgstr "Te betalen bedrag contact"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_account_id
 msgid "Partner Receivable Account"
-msgstr "Debiteurenrekening partner"
+msgstr "Debiteurenrekening contact"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_receivable_amount
 msgid "Partner Receivable Amount"
-msgstr "Te ontvangen bedrag partner"
+msgstr "Te ontvangen bedrag contact"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__partner_ids
 msgid "Partners"
-msgstr "Partners"
+msgstr "Contacten"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1912,7 +1957,6 @@ msgstr ""
 " betalingen"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid ""
 "Prevents Journal Entry creation or modification up to the defined date "
 "inclusive for all users. As a closed period, all accounting operations are "
@@ -1923,7 +1967,6 @@ msgstr ""
 "handelingen verboden."
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__tax_lock_date
 msgid ""
 "Prevents Tax Returns modification up to the defined date inclusive (Journal "
 "Entries involving taxes). The Tax Return Lock Date is automatically set when"
@@ -1934,7 +1977,6 @@ msgstr ""
 "ingesteld wanneer de bijbehorende boeking wordt geboekt."
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid ""
 "Prevents creation and modification of entries in purchase journals up to the"
 " defined date inclusive"
@@ -1943,7 +1985,6 @@ msgstr ""
 "met de gedefinieerde datum"
 
 #. module: account_accountant
-#: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid ""
 "Prevents creation and modification of entries in sales journals up to the "
 "defined date inclusive"
@@ -2666,7 +2707,7 @@ msgstr ""
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 msgid "You can only reconcile entries with up to two different accounts: %s"
 msgstr ""
-"Je kan enkel boekingen afletteren met tot twee verschillende rekeningen: %s"
+"Je kunt enkel boekingen afletteren met tot twee verschillende rekeningen: %s"
 
 #. module: account_accountant
 #. odoo-python
@@ -2690,7 +2731,7 @@ msgstr ""
 #: code:addons/account_accountant/models/account_move.py:0
 msgid "You cannot create a deferred entry with a start date but no end date."
 msgstr ""
-"Je kan geen uitgestelde boekingen maken met startdatum en zonder einddatum."
+"Je kunt geen uitgestelde boekingen maken met startdatum en zonder einddatum."
 
 #. module: account_accountant
 #. odoo-python
@@ -2699,14 +2740,15 @@ msgid ""
 "You cannot create a deferred entry with a start date later than the end "
 "date."
 msgstr ""
-"Je kan geen uitgestelde boekingen maken met een startdatum na de einddatum."
+"Je kunt geen uitgestelde boekingen maken met een startdatum na de einddatum."
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/models/account_move.py:0
 msgid ""
 "You cannot generate deferred entries for a miscellaneous journal entry."
-msgstr "Je kan geen uitgestelde boekingen genereren voor een diverse boeking."
+msgstr ""
+"Je kunt geen uitgestelde boekingen genereren voor een diverse boeking."
 
 #. module: account_accountant
 #. odoo-python
@@ -2721,8 +2763,8 @@ msgid ""
 "You cannot reset to draft an invoice that is grouped in deferral entry. You "
 "can create a credit note instead."
 msgstr ""
-"Je kan een factuur die gegroepeerd is in een uitstelboeking niet terugzetten"
-" naar concept. Maak liever een creditfactuur aan."
+"Je kunt een factuur die gegroepeerd is in een uitstelboeking niet "
+"terugzetten naar concept. Maak liever een creditfactuur aan."
 
 #. module: account_accountant
 #. odoo-python
