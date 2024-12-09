@@ -160,7 +160,7 @@ class WebsiteForm(form.WebsiteForm):
         # Give access token to these attachments and make the message
         # accessible to the portal user
         # (which will be able to view and download its own documents).
-        model_name = model.model
+        model_name = model.sudo().model
         if model_name == "helpdesk.ticket":
             ticket = model.env[model_name].browse(id_record)
             attachments = request.env['ir.attachment'].sudo().search([('res_model', '=', model_name), ('res_id', '=', ticket.id), ('access_token', '=', False)])
@@ -171,7 +171,7 @@ class WebsiteForm(form.WebsiteForm):
 
     def insert_record(self, request, model, values, custom, meta=None):
         res = super().insert_record(request, model, values, custom, meta=meta)
-        if model.model != 'helpdesk.ticket':
+        if model.sudo().model != 'helpdesk.ticket':
             return res
         ticket = request.env['helpdesk.ticket'].sudo().browse(res)
         default_field = model.website_form_default_field_id
