@@ -91,7 +91,7 @@ class EstonianTaxReportCustomHandler(models.AbstractModel):
         report = self.env['account.report'].browse(options['report_id'])
         date_to = fields.Date.from_string(options['date'].get('date_to'))
 
-        if options['date']['period_type'] != 'tax_period' and options['tax_periodicity']['periodicity'] != 'monthly':
+        if options['date']['period_type'] != 'month' and options['tax_periodicity']['periodicity'] != 'monthly':
             raise UserError(_('Choose a month to export the VAT Report'))
 
         sender_company = report._get_sender_company_for_export(options)
