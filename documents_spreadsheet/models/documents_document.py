@@ -172,12 +172,14 @@ class Document(models.Model):
             raise ValidationError(_("The spreadsheet you are trying to access does not exist."))
         data = super().join_spreadsheet_session(access_token)
         self._update_spreadsheet_contributors()
+        sudo_self = self.sudo()
         return {
             **data,
-            'handler': self.sudo().handler,
-            'access_url': self.sudo().access_url,
-            'is_favorited': self.sudo().is_favorited,
-            'folder_id': self.sudo().folder_id.id,
+            'handler': sudo_self.handler,
+            'access_url': sudo_self.access_url,
+            'is_favorited': sudo_self.is_favorited,
+            'folder_id': sudo_self.folder_id.id,
+            'copy_in_my_drive': self._cannot_create_sibling(),
         }
 
     def _check_spreadsheet_share(self, operation, access_token):
@@ -503,7 +505,11 @@ class Document(models.Model):
         }
 
     def _creation_msg(self):
-        return _("New spreadsheet created in Documents")
+        return (
+            _("New spreadsheet created in My Drive")
+            if not self.folder_id and self.owner_id == self.env.user
+            else  _("New spreadsheet created in Documents")
+        )
 
     @api.model
     def _get_spreadsheet_selector(self):
