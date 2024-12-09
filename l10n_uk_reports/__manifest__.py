@@ -30,7 +30,7 @@ MTD-VAT API to HMRC.
     ],
     'assets': {
         'web.assets_backend': [
-            "l10n_uk_reports/static/src/components/**/*",
+            "l10n_uk_reports/static/**/*",
             ],
     },
     'installable': True,

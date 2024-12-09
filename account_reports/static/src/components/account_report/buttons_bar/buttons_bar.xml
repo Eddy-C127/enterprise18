@@ -6,7 +6,7 @@
             <t t-foreach="buttons.single" t-as="singleButton" t-key="singleButton_index">
                 <button
                     t-att-class="'btn text-nowrap' + (singleButton.disabled ? ' disabled' : '') + (singleButton_first ? ' btn-primary' : ' btn-secondary')"
-                    t-on-click="(ev) => controller.reportAction(ev, singleButton.action, singleButton.action_param, true)"
+                    t-on-click="(ev) => controller.buttonAction(ev, singleButton)"
                 >
                     <t t-out="singleButton.name"/>
                 </button>
@@ -19,7 +19,7 @@
                         <DropdownItem>
                             <button
                                 t-att-class="'btn btn-link text-nowrap' + (groupedButton.disabled ? ' disabled' : '')"
-                                t-on-click="(ev) => controller.reportAction(ev, groupedButton.action, groupedButton.action_param, true)"
+                                t-on-click="(ev) => controller.buttonAction(ev, groupedButton)"
                             >
                                 <t t-out="groupedButton.name"/>
                             </button>
