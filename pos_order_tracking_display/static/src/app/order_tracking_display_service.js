@@ -9,9 +9,12 @@ const orderTrackingDisplayService = {
     async start(env, { bus_service, rpc }) {
         const orders = reactive(session.initial_data);
         bus_service.addChannel(`pos_tracking_display-${session.preparation_display.access_token}`);
-        bus_service.subscribe("NEW_ORDERS", (newOrders) => {
-            Object.assign(orders, newOrders);
-        });
+        bus_service.subscribe(
+            `${session.preparation_display.access_token}-NEW_ORDERS`,
+            (newOrders) => {
+                Object.assign(orders, newOrders);
+            }
+        );
         bus_service.start();
         return orders;
     },
