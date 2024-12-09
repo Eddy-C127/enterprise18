@@ -3,6 +3,8 @@
 # 	* account_bank_statement_import
 # 
 # Translators:
+# Konstantins Zabogonskis <inculin4ik@gmail.com>, 2024
+# Will Sensors, 2024
 # Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024
 # 
 msgid ""
@@ -23,28 +25,28 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "%d transactions had already been imported and were ignored."
-msgstr ""
+msgstr "%d darījumi jau tika importēti un bija ignorēti."
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "1 transaction had already been imported and was ignored."
-msgstr ""
+msgstr "1 darījums jau tika importēts un bija ignorēts."
 
 #. module: account_bank_statement_import
 #: model:ir.model.constraint,message:account_bank_statement_import.constraint_account_bank_statement_line_unique_import_id
 msgid "A bank account transactions can be imported only once!"
-msgstr ""
+msgstr "Bankas konta darījumi var tikt importēti tikai vienreiz!"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_bank_statement_line
 msgid "Bank Statement Line"
-msgstr ""
+msgstr "Bankas konta izraksta rinda"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_setup_bank_manual_config
 msgid "Bank setup manual config"
-msgstr ""
+msgstr "Bankas iestatīšanas manuālā konfigurācija"
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -53,6 +55,8 @@ msgid ""
 "Cannot find in which journal import this statement. Please manually select a"
 " journal."
 msgstr ""
+"Nevarēja atrast, kurā žurnālā importēt šo izrakstu. Lūdzu, manuāli "
+"izvēlieties žurnālu."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -72,23 +76,23 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "Go to Apps"
-msgstr ""
+msgstr "Doties uz Lietotnēm"
 
 #. module: account_bank_statement_import
 #: model_terms:ir.ui.view,arch_db:account_bank_statement_import.journal_dashboard_view_inherit
 msgid "Import File"
-msgstr ""
+msgstr "Importēt failu"
 
 #. module: account_bank_statement_import
 #: model:ir.model.fields,field_description:account_bank_statement_import.field_account_bank_statement_line__unique_import_id
 msgid "Import ID"
-msgstr ""
+msgstr "Importēšanas ID"
 
 #. module: account_bank_statement_import
 #. odoo-javascript
 #: code:addons/account_bank_statement_import/static/src/account_bank_statement_import_model.js:0
 msgid "Import Template for Bank Statements"
-msgstr ""
+msgstr "Importēt veidni bankas izrakstiem"
 
 #. module: account_bank_statement_import
 #: model:ir.model,name:account_bank_statement_import.model_account_journal
@@ -99,19 +103,19 @@ msgstr "Žurnāls"
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "Manual (or import %(import_formats)s)"
-msgstr ""
+msgstr "Manuāli (vai importēt %(import_formats)s)"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "No attachment was provided"
-msgstr ""
+msgstr "Pielikums netika iesniegts"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "No currency found matching '%s'."
-msgstr ""
+msgstr "Nav atrasta valūta, kas atbilstu '%s'."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -167,13 +171,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "View successfully imported statements"
-msgstr ""
+msgstr "Skatīt veiksmīgi importētos izrakstus"
 
 #. module: account_bank_statement_import
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You already have imported that file."
-msgstr ""
+msgstr "Jūs jau importējāt šo failu."
 
 #. module: account_bank_statement_import
 #. odoo-python
@@ -185,4 +189,4 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_bank_statement_import/models/account_journal.py:0
 msgid "You uploaded an invalid or empty file."
-msgstr ""
+msgstr "Jūs augšupielādējāt nederīgu vai tukšu failu."

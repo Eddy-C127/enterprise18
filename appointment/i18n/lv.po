@@ -3,7 +3,12 @@
 # 	* appointment
 # 
 # Translators:
+# Anzelika Adejanova, 2024
+# Will Sensors, 2024
+# Arnis Putniņš <arnis@allegro.lv>, 2024
+# ievaputnina <ievai.putninai@gmail.com>, 2024
 # Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +16,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Armīns Jeltajevs <armins.jeltajevs@gmail.com>, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Latvian (https://app.transifex.com/odoo/teams/41243/lv/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1215,6 +1220,8 @@ msgid ""
 "Are you sure you want to delete this Booking? Once it's gone, it's gone for "
 "good!"
 msgstr ""
+"Vai Jūs esat pārliecināts, ka Jūs vēlaties izdzēst šo rezervāciju? Kad tā "
+"pazudīs, tā pazudīs par labu!"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__resources_choice
@@ -1510,7 +1517,7 @@ msgstr "Konfigurācija"
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 msgid "Configure"
-msgstr ""
+msgstr "Konfigurēt"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_invite_action
@@ -1518,38 +1525,40 @@ msgid ""
 "Configure links that allow booking appointments with custom settings<br>\n"
 "                (e.g. a specific user only, a list of appointment types, ...)"
 msgstr ""
+"Konfigurējiet saites, kas atļauj rezervēt tikšanos ar pielāgotiem iestatījumiem<br>\n"
+"                (piem., tikai noteiktam lietotājam, pierakstu tipu sarakstam, ...)"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_resources.xml:0
 msgid "Confirm"
-msgstr ""
+msgstr "Apstiprināt"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Confirm Appointment"
-msgstr ""
+msgstr "Apstiprināt tikšanos"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__booked_mail_template_id
 msgid "Confirmation Email"
-msgstr ""
+msgstr "Apstiprinājuma e-pasts"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_confirmation
 msgid "Confirmation Message"
-msgstr ""
+msgstr "Apstiprinājuma ziņojums"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Confirmed"
-msgstr ""
+msgstr "Apstiprināts"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_sync_button/appointment_sync_button.xml:0
 msgid "Connect"
-msgstr ""
+msgstr "Izveidot savienojumu"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__connectors_displayed
@@ -1559,7 +1568,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model,name:appointment.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kontakts"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_partner_ids
@@ -1572,13 +1581,13 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "Continue <span class=\"oi oi-arrow-right\"/>"
-msgstr ""
+msgstr "Turpināt <span class=\"oi oi-arrow-right\"/>"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.js:0
 msgid "Copied!"
-msgstr ""
+msgstr "Kopēts!"
 
 #. module: appointment
 #. odoo-javascript
@@ -1591,12 +1600,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/components/appointment_invite/appointment_invite_copy_close.xml:0
 msgid "Copy Link & Close"
-msgstr ""
+msgstr "Kopēt saiti & Aizvērt"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Create Closing Day(s)"
-msgstr ""
+msgstr "Izveidot slēgtās dienas"
 
 #. module: appointment
 #. odoo-javascript
@@ -1615,7 +1624,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_resource_action
 msgid "Create an Appointment Resource"
-msgstr ""
+msgstr "Izveidot tikšanās resursu"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_type_action_custom
@@ -1653,19 +1662,19 @@ msgstr "Izveidots"
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__custom
 msgid "Custom"
-msgstr ""
+msgstr "Pielāgots"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Custom Link"
-msgstr ""
+msgstr "Pielāgota saite"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__partner_id
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
 msgid "Customer"
-msgstr ""
+msgstr "Klients"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -1685,23 +1694,24 @@ msgstr "Datums"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_progress_bar
 msgid "Date &amp; time"
-msgstr ""
+msgstr "Datums &amp; laiks"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_manage_leaves_view_form
 msgid "Dates"
-msgstr ""
+msgstr "Datumi"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Declined"
-msgstr ""
+msgstr "Noraidīts"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/models/appointment_type.py:0
 msgid "Default slots cannot be applied to the %s appointment type category."
 msgstr ""
+"Noklusējuma posmi nevart tikt pielietoti %s tikšanās tipa kategorijai."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_slot__slot_type
@@ -1735,7 +1745,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_resource_view_form
 msgid "Description"
-msgstr ""
+msgstr "Apraksts"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__destination_resource_ids
@@ -1776,7 +1786,7 @@ msgstr "Atmest"
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__display_name
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nosaukums"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__avatars_display
@@ -1811,13 +1821,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_duration
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Duration"
-msgstr ""
+msgstr "Ilgums"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/gantt/gantt_renderer.js:0
 msgid "Edit"
-msgstr ""
+msgstr "Labot"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
@@ -1847,7 +1857,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model,name:appointment.model_calendar_alarm
 msgid "Event Alarm"
-msgstr ""
+msgstr "Notikuma atgadinājums"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
@@ -1873,7 +1883,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_confirmation
 msgid "Extra information provided once the appointment is booked."
-msgstr ""
+msgstr "Papildus informācija norādīta, kad tikšanās ir rezervēta."
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_ir_binary
@@ -1883,7 +1893,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_home_appointment
 msgid "Follow, reschedule or cancel your appointments"
-msgstr ""
+msgstr "Sekojiet, pārnesiet vai atceliet Jūsu tikšanās"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_follower_ids
@@ -1893,7 +1903,7 @@ msgstr "Sekotāji"
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__activity_type_icon
 msgid "Font awesome icon e.g. fa-tasks"
-msgstr ""
+msgstr "Fonts awesome ikona, piem., fa-tasks"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -1903,13 +1913,13 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__5
 msgid "Friday"
-msgstr ""
+msgstr "Piektdiena"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__start_datetime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "From"
-msgstr ""
+msgstr "No"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__avatars_display
@@ -1955,17 +1965,17 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Guests"
-msgstr ""
+msgstr "Viesi"
 
 #. module: appointment
 #: model:ir.model,name:appointment.model_ir_http
 msgid "HTTP Routing"
-msgstr ""
+msgstr "HTTP maršrutēšana"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Ir ziņojums"
 
 #. module: appointment
 #. odoo-javascript
@@ -2006,23 +2016,23 @@ msgstr "ID"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__activity_exception_icon
 msgid "Icon"
-msgstr ""
+msgstr "Ikona"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__activity_exception_icon
 msgid "Icon to indicate an exception activity."
-msgstr ""
+msgstr "Ikona izņēmuma aktivitātes identificēšanai."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Ja atzīmēts, jums jāpievērš uzmanība jauniem ziņojumiem."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_has_error
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr ""
+msgstr "Ja atzīmēts, daži ziņojumi satur piegādes kļūdu."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -2063,6 +2073,8 @@ msgid ""
 "If set an email will be sent to the customer when the appointment is "
 "confirmed."
 msgstr ""
+"Ja iestatīts, klientam tiks nosūtīts e-pasts, kad tikšanās tiks "
+"apstiprināta."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__active
@@ -2070,6 +2082,8 @@ msgid ""
 "If the active field is set to False, it will allow you to hide the resource "
 "record without removing it."
 msgstr ""
+"Lauka 'Aktīvs sistēmā' atzīmēšana kā False ļaus Jums paslēpt resursa "
+"ierakstu, to nedzēšot."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__active
@@ -2077,42 +2091,44 @@ msgid ""
 "If the active field is set to false, it will allow you to hide the event "
 "alarm information without removing it."
 msgstr ""
+"Ja lauks 'Āktīvs' ir iestatīts kā nepatiess, tas ļaus paslēpt notikuma "
+"atgādinājuma informāciju, to nedzēšot."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__image_1920
 msgid "Image"
-msgstr ""
+msgstr "Attēls"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__image_1024
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__image_1024
 msgid "Image 1024"
-msgstr ""
+msgstr "Attēls 1024"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__image_128
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__image_128
 msgid "Image 128"
-msgstr ""
+msgstr "Attēls 128"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__image_256
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__image_256
 msgid "Image 256"
-msgstr ""
+msgstr "Attēls 256"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__image_512
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__image_512
 msgid "Image 512"
-msgstr ""
+msgstr "Attēls 512"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/appointment_plugin.js:0
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 msgid "Insert Appointment Link"
-msgstr ""
+msgstr "Ievietojiet tikšanās saiti"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form_insert_link
@@ -2147,18 +2163,18 @@ msgstr ""
 #. module: appointment
 #: model:mail.template,subject:appointment.attendee_invitation_mail_template
 msgid "Invitation to {{ object.event_id.name }}"
-msgstr ""
+msgstr "Ielūgums uz {{ object.event_id.name }}"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_type_action_custom
 #: model:ir.ui.menu,name:appointment.menu_appointment_type_custom
 msgid "Invitations"
-msgstr ""
+msgstr "Ielūgumi"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Ir sekotājs"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__is_published
@@ -2188,7 +2204,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__write_uid
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Pēdējo reizi atjaunoja"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__write_date
@@ -2201,7 +2217,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__write_date
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Pēdējās izmaiņas"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__allow_guests
@@ -2291,7 +2307,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__question_required
 msgid "Mandatory Answer"
-msgstr ""
+msgstr "Obligāta atbilde"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__appointment_manual_confirmation
@@ -2317,29 +2333,29 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 msgid "Meetings"
-msgstr ""
+msgstr "Tikšanās"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Ziņojuma piegādes kļūda"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Messages"
-msgstr ""
+msgstr "Ziņojumi"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__1
 msgid "Monday"
-msgstr ""
+msgstr "Pirmdiena"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/custom_appointment_form_dialog/custom_appointment_form_dialog.xml:0
 msgid "More Options"
-msgstr ""
+msgstr "Vairāk iespēju"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__text
@@ -2349,12 +2365,12 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__my_activity_date_deadline
 msgid "My Activity Deadline"
-msgstr ""
+msgstr "Manas aktivitātes izpildes termiņš"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "My Appointments"
-msgstr ""
+msgstr "Manas tikšanās"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_search
@@ -2366,7 +2382,7 @@ msgstr ""
 #: code:addons/appointment/controllers/portal.py:0
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__name
 msgid "Name"
-msgstr ""
+msgstr "Nosaukums"
 
 #. module: appointment
 #. odoo-javascript
@@ -2383,27 +2399,27 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_alarm__default_for_new_appointment_type
 msgid "New Appointments Default"
-msgstr ""
+msgstr "Jaunu tikšanos noklusējums"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr ""
+msgstr "Nākamās darbības kalendāra pasākums"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr ""
+msgstr "Nākamās aktivitātes beigu termiņš"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__activity_summary
 msgid "Next Activity Summary"
-msgstr ""
+msgstr "Nākamās darbības kopsavilkums"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__activity_type_id
 msgid "Next Activity Type"
-msgstr ""
+msgstr "Nākamās darbības veids"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.appointment_answer_input_action_from_question
@@ -2447,7 +2463,7 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_report_all
 msgid "No data yet!"
-msgstr ""
+msgstr "Vēl nav datu!"
 
 #. module: appointment
 #. odoo-python
@@ -2455,32 +2471,33 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form_custom_share
 msgid "None"
-msgstr ""
+msgstr "Nav"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_event__alarm_ids
 msgid "Notifications sent to all attendees to remind of the meeting."
 msgstr ""
+"Paziņojumi tiek nosūtīti visiem dalībniekiem, lai atgādinātu par sapulci."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Darbību skaits"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Kļūdu skaits"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Ziņojumu, kuriem nepieciešama darbība, skaits"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Ziņojumu, kas satur piegādes kļūdu, skaits"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -2502,7 +2519,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form_custom_share
 msgid "Online Meeting"
-msgstr ""
+msgstr "Tiešsaistes tikšanās"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_form
@@ -2544,17 +2561,17 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_user
 msgid "Operator"
-msgstr ""
+msgstr "Operators"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Options"
-msgstr ""
+msgstr "Iestatījumi"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__user_id
 msgid "Organizer"
-msgstr ""
+msgstr "Organizators"
 
 #. module: appointment
 #. odoo-javascript
@@ -2565,13 +2582,13 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Outlook"
-msgstr ""
+msgstr "Outlook"
 
 #. module: appointment
 #. odoo-python
 #: code:addons/appointment/controllers/portal.py:0
 msgid "Past"
-msgstr ""
+msgstr "Iepriekšējie"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__appointment_booker_id
@@ -2628,7 +2645,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Preview"
-msgstr ""
+msgstr "Priekšskatīt"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__category__punctual
@@ -2642,14 +2659,14 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__name
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
 msgid "Question"
-msgstr ""
+msgstr "Jautājums"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__question_ids
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 msgid "Questions"
-msgstr ""
+msgstr "Jautājumi"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__radio
@@ -2659,7 +2676,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Reitingi"
 
 #. module: appointment
 #. odoo-javascript
@@ -2670,7 +2687,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__reason
 msgid "Reason"
-msgstr ""
+msgstr "Iemesls"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__slot_type__recurring
@@ -2689,12 +2706,12 @@ msgstr "Novirzīšanas URL"
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__alarm_ids
 #: model:ir.ui.menu,name:appointment.menu_appointment_reminders
 msgid "Reminders"
-msgstr ""
+msgstr "Atgādinājumi"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Remove"
-msgstr ""
+msgstr "Noņemt"
 
 #. module: appointment
 #: model:ir.ui.menu,name:appointment.menu_schedule_report
@@ -2706,7 +2723,7 @@ msgstr "Atskaites"
 #: model:ir.model.fields.selection,name:appointment.selection__calendar_event__appointment_status__request
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Request"
-msgstr ""
+msgstr "Pieprasījums"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_search_booking
@@ -2716,7 +2733,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__resource_id
 msgid "Resource"
-msgstr ""
+msgstr "Resurss"
 
 #. module: appointment
 #. odoo-python
@@ -2748,7 +2765,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_gantt_booking_resource
 msgid "Resources"
-msgstr ""
+msgstr "Resursi"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__schedule_based_on__resources
@@ -2769,12 +2786,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/controllers/portal.py:0
 msgid "Responsible"
-msgstr ""
+msgstr "Atbildīgais"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__activity_user_id
 msgid "Responsible User"
-msgstr ""
+msgstr "Atbildīgie lietotāji"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
@@ -2810,23 +2827,23 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "Īsziņas piegādes kļūda"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__6
 msgid "Saturday"
-msgstr ""
+msgstr "Sestdiena"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Save"
-msgstr ""
+msgstr "Saglabāt"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/gantt/gantt_renderer.js:0
 msgid "Save & Close"
-msgstr ""
+msgstr "Saglabāt & Aizvērt"
 
 #. module: appointment
 #. odoo-javascript
@@ -2844,7 +2861,7 @@ msgstr ""
 #: model:ir.ui.menu,name:appointment.menu_appointment_schedule_resources
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "Schedule"
-msgstr ""
+msgstr "Ieplānot"
 
 #. module: appointment
 #. odoo-python
@@ -2862,7 +2879,7 @@ msgstr ""
 #: code:addons/appointment/static/src/appointment_plugin.js:0
 #: code:addons/appointment/static/src/js/wysiwyg.js:0
 msgid "Schedule an Appointment"
-msgstr ""
+msgstr "Ieplānot tikšanos"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__min_schedule_hours
@@ -2889,7 +2906,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/controllers/portal.py:0
 msgid "Search in Description"
-msgstr ""
+msgstr "Meklēt aprakstā"
 
 #. module: appointment
 #. odoo-python
@@ -2948,7 +2965,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form_gantt_booking
 msgid "Select attendees..."
-msgstr ""
+msgstr "Atlasīt dalībniekus..."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer_input__value_answer_id
@@ -2958,7 +2975,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__appointment_type_count
 msgid "Selected Appointments Count"
-msgstr ""
+msgstr "Izvēlēto tikšanos skaits"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_answer_input_view_search
@@ -2968,12 +2985,12 @@ msgstr ""
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_canceled_mail_template
 msgid "Sent to all attendees when an appointment is cancelled"
-msgstr ""
+msgstr "Nosūtīt visiem dalībniekiem, kad tikšanās ir atcelta"
 
 #. module: appointment
 #: model:mail.template,description:appointment.appointment_booked_mail_template
 msgid "Sent to followers of an appointment type when a meeting is booked"
-msgstr ""
+msgstr "Nosūtīt tikšanās tipa sekotājiem, kad tikšanās ir rezervēta"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_answer__sequence
@@ -2981,20 +2998,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__sequence
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "Sekvence"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_tree
 msgid "Share"
-msgstr ""
+msgstr "Kopīgot"
 
 #. module: appointment
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.xml:0
 msgid "Share Appointment Link"
-msgstr ""
+msgstr "Dalīties ar tikšanās saiti"
 
 #. module: appointment
 #. odoo-javascript
@@ -3008,7 +3025,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/appointment_calendar/appointment_calendar_controller.js:0
 msgid "Share Link"
-msgstr ""
+msgstr "Kopīgošanas saite"
 
 #. module: appointment
 #: model:ir.actions.act_window,name:appointment.appointment_invite_action
@@ -3035,7 +3052,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code
 msgid "Short Code"
-msgstr ""
+msgstr "Īsais kods"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__short_code_format_warning
@@ -3055,7 +3072,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 msgid "Sign in"
-msgstr ""
+msgstr "Piereģistrēties"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_question__question_type__char
@@ -3070,7 +3087,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__message_intro
 msgid "Small description of the appointment type."
-msgstr ""
+msgstr "Neliels apraksts tikšanās tipam."
 
 #. module: appointment
 #. odoo-javascript
@@ -3082,7 +3099,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Sorry, it is no longer possible to schedule an appointment."
-msgstr ""
+msgstr "Piedodiet, vairāk nav iespējams ieplānot tikšanos."
 
 #. module: appointment
 #. odoo-javascript
@@ -3094,7 +3111,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "Sorry, we have no availability for an appointment."
-msgstr ""
+msgstr "Piedodiet, mums nav pieejamības priekš tikšanās."
 
 #. module: appointment
 #. odoo-javascript
@@ -3122,7 +3139,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_manage_leaves__leave_start_dt
 msgid "Start Date"
-msgstr ""
+msgstr "Sākuma datums"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__start_datetime
@@ -3132,7 +3149,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_start
 msgid "Start date of an event, without time for full days events"
-msgstr ""
+msgstr "Notikuma sākuma datums, visas dienas notikumiem - bez konkrēta laika"
 
 #. module: appointment
 #. odoo-python
@@ -3156,7 +3173,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_search_booking
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Status"
-msgstr ""
+msgstr "Statuss"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__activity_state
@@ -3166,16 +3183,20 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
+"Statuss balstīts uz darbībām\n"
+"Kavēts: termiņš jauy ir pagājis\n"
+"Šodien: darbības datums ir šodien\n"
+"Plānots: nākotnes aktivitātes."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_stop
 msgid "Stop date of an event, without time for full days events"
-msgstr ""
+msgstr "Notikuma beigu datums, visas dienas notikumiem - bez konkrēta laika"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking
 msgid "Subject"
-msgstr ""
+msgstr "Priekšmets"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_question__answer_input_ids
@@ -3185,7 +3206,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__7
 msgid "Sunday"
-msgstr ""
+msgstr "Svētdiena"
 
 #. module: appointment
 #: model:appointment.question,name:appointment.appointment_type_dental_care_question_1
@@ -3201,7 +3222,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/appointment/models/templates/appointment_type.py:0
 msgid "Table"
-msgstr ""
+msgstr "Tabula"
 
 #. module: appointment
 #. odoo-python
@@ -3262,7 +3283,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.constraint,message:appointment.constraint_appointment_slot_check_start_and_end_hour
 msgid "The end time must be later than the start time."
-msgstr ""
+msgstr "Beigu laikam jābūt pēc sākuma laika."
 
 #. module: appointment
 #. odoo-python
@@ -3323,12 +3344,12 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointments_list_layout
 msgid "There is currently no appointment available"
-msgstr ""
+msgstr "Pašreiz nav pieejamu tikšanos"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "There is no appointment linked to your account."
-msgstr ""
+msgstr "Nav tikšanos saistītu ar Jūsu kontu."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_resource__shareable
@@ -3377,6 +3398,7 @@ msgid ""
 "This field is used in order to define in which timezone the resources will "
 "work."
 msgstr ""
+"Šis lauks tiek izmantots, lai noteiktu, kurā laika joslā darbinieki strādās."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_edit_in_backend
@@ -3386,7 +3408,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__4
 msgid "Thursday"
-msgstr ""
+msgstr "Ceturtdiena"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__tz
@@ -3394,12 +3416,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_kanban
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 msgid "Timezone"
-msgstr ""
+msgstr "Laika zona"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__appointment_tz
 msgid "Timezone where appointment take place"
-msgstr ""
+msgstr "Laika zona, kurā notiks tikšanās"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_info
@@ -3410,7 +3432,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__end_datetime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "To"
-msgstr ""
+msgstr "Līdz"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3455,23 +3477,23 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "Total:"
-msgstr ""
+msgstr "Kopā:"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__2
 msgid "Tuesday"
-msgstr ""
+msgstr "Otrdiena"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_search
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_form
 msgid "Type"
-msgstr ""
+msgstr "Tips"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr ""
+msgstr "Reģistrētās izņēmuma aktivitātes tips."
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_calendar_event__on_leave_partner_ids
@@ -3481,7 +3503,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "Uncertain"
-msgstr ""
+msgstr "Nenoteikts"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3514,7 +3536,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_calendar_alarm__default_for_new_appointment_type
 msgid "Use as default for new Appointment Types"
-msgstr ""
+msgstr "Izmantot kā noklusējumu jaunajiem tikšanās tipiem"
 
 #. module: appointment
 #: model_terms:ir.actions.act_window,help:appointment.calendar_event_action_appointment_reporting
@@ -3542,14 +3564,14 @@ msgstr ""
 #. module: appointment
 #: model:res.groups,name:appointment.group_appointment_user
 msgid "User"
-msgstr ""
+msgstr "Lietotājs"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_invite__staff_user_ids
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__staff_user_ids
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_type__schedule_based_on__users
 msgid "Users"
-msgstr ""
+msgstr "Lietotāji"
 
 #. module: appointment
 #. odoo-python
@@ -3566,7 +3588,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/views/gantt/gantt_renderer.js:0
 msgid "View"
-msgstr ""
+msgstr "Skatīt"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
@@ -3576,17 +3598,17 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Tīmekļa lapas ziņojumi"
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Tīmekļa lapas komunikācijas vēsture"
 
 #. module: appointment
 #: model:ir.model.fields.selection,name:appointment.selection__appointment_slot__weekday__3
 msgid "Wednesday"
-msgstr ""
+msgstr "Trešdiena"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__weekday
@@ -3606,7 +3628,7 @@ msgstr ""
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__resource_calendar_id
 msgid "Working Hours"
-msgstr ""
+msgstr "Darba stundas"
 
 #. module: appointment
 #. odoo-javascript
@@ -3618,7 +3640,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_details_column
 msgid "Your Appointment"
-msgstr ""
+msgstr "Jūsu tikšanās"
 
 #. module: appointment
 #. odoo-javascript
@@ -3634,7 +3656,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "at"
-msgstr ""
+msgstr "at"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3725,7 +3747,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "has no availability for an appointment."
-msgstr ""
+msgstr "nav pieejamības priekš tikšanās"
 
 #. module: appointment
 #. odoo-javascript
@@ -3747,13 +3769,13 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/appointment/static/src/xml/appointment_no_slot.xml:0
 msgid "on"
-msgstr ""
+msgstr "on"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_form
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_validated
 msgid "or"
-msgstr ""
+msgstr "vai"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_meeting_details
@@ -3782,7 +3804,7 @@ msgstr ""
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "to"
-msgstr ""
+msgstr "līdz"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -3797,7 +3819,7 @@ msgstr ""
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.portal_my_appointments
 msgid "with"
-msgstr ""
+msgstr "ar"
 
 #. module: appointment
 #. odoo-javascript

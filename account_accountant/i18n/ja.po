@@ -417,6 +417,8 @@ msgid ""
 "postponed to a later time, in accordance with its journal's sequence. The "
 "tax lock date is automatically set when the tax closing entry is posted."
 msgstr ""
+"その日付以前の税に関連するとみられる仕訳は全て、仕訳帳の順序に従って、後日まで延期されます。 "
+"税のロック日付は、税決算仕訳が記帳された時点で自動的に設定されます。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -424,28 +426,28 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
-msgstr ""
+msgstr "その日付(その日付を含む)までの仕訳は、仕訳帳の順序に従って、全て後日まで延期されます。この期日は変更できず、例外は認められません。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
-msgstr ""
+msgstr "その日付まで(その日付を含む)の仕訳は、仕訳帳の順序に従って、後日に行われる予定です。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
-msgstr ""
+msgstr "この日付以前の購買仕訳は、仕訳帳の順序に従って、後日に行われることになります。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
-msgstr ""
+msgstr "その日付以前の販売仕訳は、仕訳帳の順序に従って、後日に行われる予定です。"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -988,7 +990,7 @@ msgstr "例外期間"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
 msgid "Exception Needed Fields"
-msgstr ""
+msgstr "例外必要フィールド"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
@@ -1453,7 +1455,7 @@ msgstr "全員をロック 自分に適用"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr ""
+msgstr "全てをロック"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date

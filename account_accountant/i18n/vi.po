@@ -427,6 +427,10 @@ msgid ""
 "postponed to a later time, in accordance with its journal's sequence. The "
 "tax lock date is automatically set when the tax closing entry is posted."
 msgstr ""
+"Bất kỳ bút toán nào liên quan đến thuế cho đến và bao gồm ngày đó sẽ được "
+"hoãn lại đến một thời gian sau, theo trình tự sổ nhật ký của bút toán đó. "
+"Ngày khóa sổ thuế được tự động thiết lập khi bút toán quyết toán thuế được "
+"ghi sổ."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -435,6 +439,9 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"Bất kỳ bút toán nào cho đến và bao gồm ngày đó sẽ được hoãn lại đến một thời"
+" gian sau, theo trình tự nhật ký của bút toán đó. Ngày khóa sổ này không thể"
+" đảo ngược và không cho phép bất kỳ ngoại lệ nào."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -442,6 +449,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"Bất kỳ bút toán nào cho đến và bao gồm ngày đó sẽ được hoãn lại đến một thời"
+" gian sau, theo trình tự sổ nhật ký của bút toán đó."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -449,6 +458,8 @@ msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Bất kỳ bút toán mua hàng nào trước và tính cả ngày này sẽ được hoãn lại đến "
+"một thời gian sau, theo trình tự sổ nhật ký của bút toán đó."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -456,6 +467,8 @@ msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Bất kỳ bút toán bán hàng nào trước và tính cả ngày này sẽ được hoãn lại đến "
+"một thời gian sau, theo trình tự sổ nhật ký của bút toán đó."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -1009,7 +1022,7 @@ msgstr "Thời hạn ngoại lệ"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
 msgid "Exception Needed Fields"
-msgstr ""
+msgstr "Exception Needed Fields"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
@@ -1484,7 +1497,7 @@ msgstr "Lock Everyone For Me"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr ""
+msgstr "Khoá tất cả"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date

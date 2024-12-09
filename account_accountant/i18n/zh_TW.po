@@ -417,7 +417,7 @@ msgid ""
 "Any entry implying with taxes up to and including that date will be "
 "postponed to a later time, in accordance with its journal's sequence. The "
 "tax lock date is automatically set when the tax closing entry is posted."
-msgstr ""
+msgstr "在該日期及之前（包括該日期）任何隱含稅項的條目，都將根據其日記賬順序，推遲至較後的時間。稅務鎖定日期會在稅務結算記項過賬時自動設定。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -425,28 +425,28 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
-msgstr ""
+msgstr "在該日期及之前（包括該日期）的任何條目，都將根據其日記賬順序，推遲至較後的時間。此鎖定日期不可逆轉，亦不允許任何例外。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
-msgstr ""
+msgstr "在該日期及之前（包括該日期）的任何條目，都將根據其日記賬順序，推遲至較後的時間。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
 msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
-msgstr ""
+msgstr "在此日期及之前（包括此日期）的任何採購條目，都將根據其日記賬順序，推遲至較後的日期。"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
 msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
-msgstr ""
+msgstr "在此日期及之前（包括此日期）的任何銷售條目，都將根據其日記賬順序，推遲至較後的日期。"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -992,7 +992,7 @@ msgstr "例外持續時間"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
 msgid "Exception Needed Fields"
-msgstr ""
+msgstr "需要例外的欄位"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
@@ -1457,7 +1457,7 @@ msgstr "鎖定所有人，只適用於我"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr ""
+msgstr "鎖定所有資料"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date

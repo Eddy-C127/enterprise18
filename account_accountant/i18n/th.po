@@ -401,6 +401,8 @@ msgid ""
 "postponed to a later time, in accordance with its journal's sequence. The "
 "tax lock date is automatically set when the tax closing entry is posted."
 msgstr ""
+"รายการที่มีภาษีจนถึงและรวมถึงวันที่ดังกล่าวจะถูกเลื่อนออกไปเป็นวันถัดไปตามลำดับของสมุดรายวันนั้น"
+" วันล็อกภาษีจะถูกกำหนดโดยอัตโนมัติเมื่อมีการลงรายการปิดภาษี"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -409,6 +411,8 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"รายการจนถึงวันที่ดังกล่าวจะถูกเลื่อนออกไปเป็นวันอื่นตามลำดับการบันทึกประจำวัน"
+" วันที่ล็อกนี้ไม่สามารถย้อนกลับได้และไม่อนุญาตให้มีข้อยกเว้นใดๆ"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -416,6 +420,7 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"รายการจนถึงวันที่ดังกล่าวจะถูกเลื่อนออกไปในภายหลังตามลำดับของสมุดรายวัน"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -423,6 +428,7 @@ msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"รายการซื้อก่อนและรวมถึงวันที่นี้จะถูกเลื่อนไปเป็นวันถัดไปตามลำดับในสมุดรายวัน"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -430,6 +436,7 @@ msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"รายการขายก่อนและรวมถึงวันที่นี้จะถูกเลื่อนไปเป็นวันถัดไปตามลำดับในสมุดรายวัน"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count

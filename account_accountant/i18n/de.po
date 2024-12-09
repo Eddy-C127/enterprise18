@@ -432,6 +432,10 @@ msgid ""
 "postponed to a later time, in accordance with its journal's sequence. The "
 "tax lock date is automatically set when the tax closing entry is posted."
 msgstr ""
+"Jede Buchung, die bis zu diesem Datum Steuern beinhaltet, wird gemäß der "
+"Journalsequenz auf einen späteren Zeitpunkt verschoben. Das Datum der "
+"Steuersperre wird automatisch festgelegt, wenn der Posten zum "
+"Steuerabschluss gebucht wird."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -440,6 +444,9 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"Jede Buchung bis einschließlich zu diesem Datum wird gemäß der "
+"Journalsequenz auf einen späteren Zeitpunkt verschoben. Dieses Sperrdatum "
+"ist unumkehrbar und lässt keine Ausnahmen zu."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -447,6 +454,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"Jede Buchung bis einschließlich zu diesem Datum wird gemäß der "
+"Journalsequenz auf einen späteren Zeitpunkt verschoben."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -454,6 +463,8 @@ msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Jede Einkaufsbuchung vor diesem Datum wird gemäß der Journalsequenz auf "
+"einen späteren Zeitpunkt verschoben."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -461,6 +472,8 @@ msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Jede Verkaufsbuchung vor diesem Datum wird gemäß der Journalsequenz auf "
+"einen späteren Zeitpunkt verschoben."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -1020,7 +1033,7 @@ msgstr "Ausnahmedauer"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
 msgid "Exception Needed Fields"
-msgstr ""
+msgstr "Felder, die eine Ausnahme erfordern"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
@@ -1497,7 +1510,7 @@ msgstr "Alle für mich sperren"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr ""
+msgstr "Überall nachsehen"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
