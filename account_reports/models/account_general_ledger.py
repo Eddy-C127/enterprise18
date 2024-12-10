@@ -476,7 +476,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
         params = []
         for column_group_key, options_group in report._split_options_per_column_group(options).items():
             new_options = self._get_options_initial_balance(options_group)
-            ct_query = report._get_query_currency_table(new_options)
+            ct_query = report._get_query_currency_table(options_group)
             domain = [('account_id', 'in', account_ids)]
             if new_options.get('include_current_year_in_unaff_earnings'):
                 domain += [('account_id.include_initial_balance', '=', True)]
