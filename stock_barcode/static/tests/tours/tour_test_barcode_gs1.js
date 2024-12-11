@@ -947,7 +947,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             const [line1, line2] = helper.getSublines();
             helper.assertLinesTrackingNumbers([line1, line2], ["b1-b001", "b1-b002"]);
             helper.assertLineQty(parentLine, "12/40");
-            helper.assertLineQty(line1, "8/40");
+            helper.assertLineQty(line1, "8");
             helper.assertLineQty(line2, "4");
             helper.assertLineIsHighlighted(line1, false);
             helper.assertLineIsHighlighted(line2, true);
@@ -963,7 +963,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(2);
             const [line1, line2] = helper.getSublines();
             helper.assertLinesTrackingNumbers([line1, line2], ["b1-b001", "b1-b002"]);
-            helper.assertLineQty(line1, "8/40");
+            helper.assertLineQty(line1, "8");
             helper.assertLineQty(line2, "8");
             helper.assertLineIsHighlighted(line1, false);
             helper.assertLineIsHighlighted(line2, true);
@@ -980,7 +980,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(3);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "1");
             helper.assertLineIsHighlighted(sublines[0], false);
@@ -1004,7 +1004,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(3);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "3");
             helper.assertLineIsHighlighted(sublines[0], false);
@@ -1024,7 +1024,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(3);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineIsHighlighted(sublines[0], false);
@@ -1061,7 +1061,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             const sublines = helper.getSublines({ selected: false });
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003"]);
             const line4 = helper.getSubline({ selected: true });
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(line4, "0");
@@ -1085,7 +1085,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(4);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004"]);
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "4");
@@ -1107,7 +1107,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(5);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004", "b1-b005"]);
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "4");
@@ -1130,7 +1130,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(5);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004", "b1-b005"]);
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "4");
@@ -1154,7 +1154,7 @@ registry.category("web_tour.tours").add('test_gs1_receipt_lot_serial', { steps: 
             helper.assertSublinesCount(5);
             const sublines = helper.getSublines();
             helper.assertLinesTrackingNumbers(sublines, ["b1-b001", "b1-b002", "b1-b003", "b1-b004", "b1-b005"]);
-            helper.assertLineQty(sublines[0], "8/40");
+            helper.assertLineQty(sublines[0], "8");
             helper.assertLineQty(sublines[1], "8");
             helper.assertLineQty(sublines[2], "8");
             helper.assertLineQty(sublines[3], "8");

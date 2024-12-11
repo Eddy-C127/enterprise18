@@ -494,6 +494,13 @@ export default class BarcodeMRPModel extends BarcodePickingModel {
         return false;
     }
 
+    displayLineQtyDemand(line) {
+        if (!this.pageLines.includes(line)) {
+            return true;
+        }
+        return super.displayLineQtyDemand(line);
+    }
+
     /** Save commands */
 
     _getPrintOptions() {

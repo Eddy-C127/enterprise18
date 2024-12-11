@@ -143,6 +143,16 @@ export default class BarcodePickingModel extends BarcodeModel {
             (!this.getQtyDemand(line) || this.getQtyDemand(line) >= this.getQtyDone(line) + packagingQty);
     }
 
+    displayLineQtyDemand(line) {
+        if (!this.showReservedSns) {
+            return (
+                this.getQtyDemand(line) &&
+                !(this.lineIsTracked(line) && !line.lines && this._getParentLine(line))
+            );
+        }
+        return super.displayLineQtyDemand(line);
+    }
+
     groupKey(line) {
         return super.groupKey(...arguments) + `_${line.location_dest_id.id}`;
     }
@@ -701,7 +711,11 @@ export default class BarcodePickingModel extends BarcodeModel {
     }
 
     lineIsFaulty(line) {
-        return this._useReservation && line.qty_done > line.reserved_uom_qty;
+        return (
+            this._useReservation &&
+            line.qty_done > line.reserved_uom_qty &&
+            (this.showReservedSns || !this.lineIsTracked(line))
+        );
     }
 
     get moveIds() {
