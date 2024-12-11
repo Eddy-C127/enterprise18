@@ -5,6 +5,9 @@
             <field name="model">res.partner</field>
             <field name="inherit_id" ref="account.view_partner_property_form"/>
             <field name="arch" type="xml">
+                <xpath expr="//group[@name='accounting_entries']" position="inside">
+                    <field name="is_coa_installed" invisible="1"/>
+                </xpath>
                 <xpath expr="//group[@name='accounting_entries']" position="attributes">
                     <attribute name="groups">account.group_account_manager</attribute>
                     <attribute name="invisible">not is_coa_installed</attribute>
