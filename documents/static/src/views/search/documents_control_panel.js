@@ -9,6 +9,7 @@ import { serializeDate } from "@web/core/l10n/dates";
 const { DateTime } = luxon;
 import { toggleArchive, openDeleteConfirmationDialog } from "@documents/views/hooks";
 import { browser } from "@web/core/browser/browser";
+import { user } from "@web/core/user";
 
 // TODO: clean
 export class DocumentsControlPanel extends ControlPanel {
@@ -129,10 +130,13 @@ export class DocumentsControlPanel extends ControlPanel {
     }
 
     /**
-     * Unlink the selected documents if they are archived.
+     * For internal user, unlink the selected documents if they are archived.
+     * And for non-internal user, unlink the selected documents as they don't have access to the trash.
      */
     async onDelete() {
-        const records = this.targetRecords.filter((r) => !r.data.active);
+        const records = !this.documentService.userIsInternal
+            ? this.targetRecords
+            : this.targetRecords.filter((r) => !r.data.active);
         if (!(await openDeleteConfirmationDialog(this.env.model, true))) {
             return;
         }
@@ -340,6 +344,21 @@ export class DocumentsControlPanel extends ControlPanel {
         return this.documentsState.previewedDocument
             ? [this.documentsState.previewedDocument.record]
             : this.env.model.root.selection;
+    }
+
+    get areTargetRecordsDeletable() {
+        // Portal user can delete their own documents while internal user can only delete document in the Trash.
+        const documents = this.targetRecords.map((r) => r.data);
+        if (this.userIsInternal) {
+            return documents.some((d) => !d.active);
+        }
+        return documents.every(
+            (r) =>
+                r.owner_id?.[0] === user.userId &&
+                ["binary", "url"].includes(r.type) &&
+                typeof r.folder_id?.[0] === "number" &&
+                this.env.searchModel.getFolderById(r.folder_id[0]).user_permission === "edit"
+        );
     }
 
     async notifyChange() {
