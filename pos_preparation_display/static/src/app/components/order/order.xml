@@ -54,7 +54,7 @@
             <div class="m-2 text-break" t-if="this.props.order.generalNote?.length > 0" t-on-click="clickOrder">
                 <p class="fw-bold mb-2 px-2 fs-6">General Note</p>
                 <ul class="small text-muted px-4">
-                    <t t-foreach="this.props.order.generalNote.split('\n')" t-as="subNote" t-key="general_note">
+                    <t t-foreach="this.props.order.generalNote.split('\n')" t-as="subNote" t-key="subNote_index">
                         <li><t t-esc="subNote"/></li>
                     </t>
                 </ul>
