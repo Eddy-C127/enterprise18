@@ -6,18 +6,21 @@
             <field name="name">To cook</field>
             <field name="color">#C8C9CB</field>
             <field name="alert_timer">10</field>
+            <field name="sequence">0</field>
         </record>
         <record id="preparation_display_main_restaurant_ready_stage"
             model="pos_preparation_display.stage">
             <field name="name">Ready</field>
             <field name="color">#60A8FF</field>
             <field name="alert_timer">5</field>
+            <field name="sequence">1</field>
         </record>
         <record id="preparation_display_main_restaurant_completed_stage"
             model="pos_preparation_display.stage">
             <field name="name">Completed</field>
             <field name="color">#59C629</field>
             <field name="alert_timer">0</field>
+            <field name="sequence">2</field>
         </record>
 
         <record

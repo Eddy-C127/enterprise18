@@ -143,7 +143,9 @@ class PosOrder(models.Model):
                         })
             elif data['order'] < data['display']:
                 qty_to_cancel = data['display'] - data['order']
-                for line in pdis_lines.filtered(lambda li: li.product_id.id == product_id and li.internal_note == data['note'] and li.attribute_value_ids.ids == data['attribute_value_ids']):
+                lines = pdis_lines.filtered(lambda li: li.product_id.id == product_id and li.internal_note == data['note'] and li.attribute_value_ids.ids == data['attribute_value_ids'])
+                sorted_lines = lines.sorted(key=lambda li: li.preparation_display_order_id.order_stage_ids[-1].stage_id.sequence)
+                for line in sorted_lines:
                     flag_change = True
                     line_qty = 0
                     pdis_qty = line.product_quantity - line.product_cancelled
