@@ -511,3 +511,200 @@ class TestAccountFollowupReports(TestAccountReportsCommon):
             active_ids=self.partner_a.ids,
         )) as wizard:
             self.assertEqual(wizard.render_model, "res.partner")
+
+    def test_followup_report_with_levels_on_main_company(self):
+        cron = self.env.ref('account_followup.ir_cron_auto_post_draft_entry')
+
+        self.env['account_followup.followup.line'].create([{
+            'company_id': self.company_data['company'].id,
+            'name': 'First Reminder',
+            'delay': 15,
+            'send_email': True,
+            'auto_execute': True,
+        }, {
+            'company_id': self.company_data['company'].id,
+            'name': 'Second Reminder',
+            'delay': 30,
+            'send_email': True,
+            'auto_execute': True,
+        }])
+
+        self.env['account.move'].create({
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'invoice_date_due': '2016-01-01',
+            'date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 500,
+            })]
+        }).action_post()
+
+        cron.method_direct_trigger()
+
+        count_mail = self.env['mail.mail'].search_count([('recipient_ids', '=', self.partner_a.id)])
+        # We should have 1 email :
+        # 1 for the main company
+        self.assertEqual(count_mail, 1)
+
+    def test_followup_report_with_levels_on_one_branch(self):
+        cron = self.env.ref('account_followup.ir_cron_auto_post_draft_entry')
+
+        branch_a, branch_b = self.env['res.company'].create([{
+            'name': 'Branch number 1',
+            'parent_id': self.company_data['company'].id,
+        }, {
+            'name': 'Branch number 2',
+            'parent_id': self.company_data['company'].id,
+        }])
+
+        self.cr.precommit.run()  # load the COA
+
+        self.env['account_followup.followup.line'].create([{
+            'company_id': branch_a.id,
+            'name': 'First Reminder (A)',
+            'delay': 15,
+            'send_email': True,
+            'auto_execute': True,
+        }, {
+            'company_id': branch_a.id,
+            'name': 'Second Reminder (A)',
+            'delay': 30,
+            'send_email': True,
+            'auto_execute': True,
+        }])
+
+        self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'invoice_date_due': '2016-01-01',
+            'date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'company_id': branch_a.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 400,
+            })]
+        }, {
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'invoice_date_due': '2016-01-01',
+            'date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'company_id': branch_b.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 800,
+            })]
+        }]).action_post()
+
+        cron.method_direct_trigger()
+
+        count_mail = self.env['mail.mail'].search_count([('recipient_ids', '=', self.partner_a.id)])
+        # We should have 1 email :
+        # 1 for the Branch number 1
+        self.assertEqual(count_mail, 1)
+
+    def test_followup_report_with_levels_on_branches_and_main_company(self):
+        cron = self.env.ref('account_followup.ir_cron_auto_post_draft_entry')
+
+        branch_a, branch_b = self.env['res.company'].create([{
+            'name': 'Branch number 1',
+            'parent_id': self.company_data['company'].id,
+        }, {
+            'name': 'Branch number 2',
+            'parent_id': self.company_data['company'].id,
+        }])
+
+        self.cr.precommit.run()  # load the COA
+
+        self.env['account_followup.followup.line'].create([{
+            'company_id': branch_a.id,
+            'name': 'First Reminder (A)',
+            'delay': 15,
+            'send_email': True,
+            'auto_execute': True,
+        }, {
+            'company_id': branch_a.id,
+            'name': 'Second Reminder (A)',
+            'delay': 30,
+            'send_email': True,
+            'auto_execute': True,
+        }, {
+            'company_id': branch_b.id,
+            'name': 'First Reminder (B)',
+            'delay': 10,
+            'send_email': True,
+            'auto_execute': True,
+        }, {
+            'company_id': branch_b.id,
+            'name': 'Second Reminder (B)',
+            'delay': 20,
+            'send_email': True,
+            'auto_execute': True,
+        }, {
+            'company_id': self.company_data['company'].id,
+            'name': 'First Reminder',
+            'delay': 20,
+            'send_email': True,
+            'auto_execute': True,
+        }, {
+            'company_id': self.company_data['company'].id,
+            'name': 'Second Reminder',
+            'delay': 40,
+            'send_email': True,
+            'auto_execute': True,
+        }])
+
+        self.env['account.move'].create([{
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'invoice_date_due': '2016-01-01',
+            'date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'company_id': branch_a.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 400,
+            })]
+        }, {
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'invoice_date_due': '2016-01-01',
+            'date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'company_id': branch_b.id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 800,
+            })]
+        }, {
+            'move_type': 'out_invoice',
+            'invoice_date': '2016-01-01',
+            'invoice_date_due': '2016-01-01',
+            'date': '2016-01-01',
+            'partner_id': self.partner_a.id,
+            'company_id': self.company_data['company'].id,
+            'invoice_line_ids': [Command.create({
+                'quantity': 1,
+                'price_unit': 200,
+            })]
+        }]).action_post()
+
+        cron.method_direct_trigger()
+
+        count_mail = self.env['mail.mail'].search_count([('recipient_ids', '=', self.partner_a.id)])
+        # We should have 3 emails :
+        # 1 for the main company
+        # 1 for the Branch number 1
+        # 1 for the Branch number 2
+        self.assertEqual(count_mail, 3)
+
+        # Now we check the amounts overdue
+        # Expected : 200 (main_company) + 400 (branch_a) + 800 (branch_b)
+        self.assertEqual(self.partner_a.total_overdue, 1400)
+        # Expected : 400
+        self.assertEqual(self.partner_a.with_company(branch_a).total_overdue, 400)
+        # Expected : 800
+        self.assertEqual(self.partner_a.with_company(branch_b).total_overdue, 800)
