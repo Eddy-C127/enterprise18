@@ -19,6 +19,10 @@ class TestSEPACreditTransferCommon(AccountTestInvoicingCommon):
         cls.partner_a.name = cls.env['account.journal']._sepa_sanitize_communication(cls.partner_a.name)
         cls.partner_b.name = cls.env['account.journal']._sepa_sanitize_communication(cls.partner_b.name)
 
+        # A country is required for sepa transfer
+        cls.partner_a.country_id = cls.env.ref('base.us')
+        cls.partner_b.country_id = cls.env.ref('base.us')
+
         cls.company_data['company'].write({
             'country_id': cls.env.ref('base.be').id,
             'vat': 'BE0477472701',
