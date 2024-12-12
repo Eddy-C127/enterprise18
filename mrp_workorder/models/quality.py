@@ -202,7 +202,7 @@ class QualityCheck(models.Model):
     move_id = fields.Many2one(
         'stock.move', 'Stock Move', check_company=True)
     move_line_id = fields.Many2one(
-        'stock.move.line', 'Stock Move Line', check_company=True)
+        'stock.move.line', 'Stock Move Line', check_company=True, index='btree_not_null')
     component_id = fields.Many2one(
         'product.product', 'Component', check_company=True)
     component_uom_id = fields.Many2one('uom.uom', related='move_id.product_uom', readonly=True)
