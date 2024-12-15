@@ -2,12 +2,20 @@
 # This file contains the translation of the following modules:
 # 	* currency_rate_live
 # 
+# Translators:
+# Ákos Nagy <akos.nagy@oregional.hu>, 2024
+# Martin Trigaux, 2024
+# krnkris, 2024
+# gezza <geza.nagy@oregional.hu>, 2024
+# Tamás Németh <ntomasz81@gmail.com>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Tamás Németh <ntomasz81@gmail.com>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,16 +29,18 @@ msgid ""
 "<i title=\"Update now\" role=\"img\" aria-label=\"Update now\" class=\"fa "
 "fa-fw fa-refresh\"/>"
 msgstr ""
+"<i title=\"Update now\" role=\"img\" aria-label=\"Update now\" class=\"fa "
+"fa-fw fa-refresh\"/>"
 
 #. module: currency_rate_live
 #: model:ir.model,name:currency_rate_live.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Vállalatok"
 
 #. module: currency_rate_live
 #: model:ir.model,name:currency_rate_live.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #. module: currency_rate_live
 #: model:ir.actions.server,name:currency_rate_live.ir_cron_currency_update_ir_actions_server
@@ -40,7 +50,7 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__daily
 msgid "Daily"
-msgstr ""
+msgstr "Napi"
 
 #. module: currency_rate_live
 #. odoo-python
@@ -51,34 +61,34 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__ecb
 msgid "European Central Bank"
-msgstr ""
+msgstr "Európai Központi Bank"
 
 #. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
 msgid "Interval"
-msgstr ""
+msgstr "Intervallum"
 
 #. module: currency_rate_live
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_company__currency_interval_unit
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_config_settings__currency_interval_unit
 msgid "Interval Unit"
-msgstr ""
+msgstr "Időköz egység"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__manually
 msgid "Manually"
-msgstr ""
+msgstr "Kézzel"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__monthly
 msgid "Monthly"
-msgstr ""
+msgstr "Havi"
 
 #. module: currency_rate_live
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_company__currency_next_execution_date
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_config_settings__currency_next_execution_date
 msgid "Next Execution Date"
-msgstr ""
+msgstr "A következő végrehajtás dátuma"
 
 #. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
@@ -94,13 +104,13 @@ msgstr ""
 #. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
 msgid "Service"
-msgstr ""
+msgstr "Szolgáltatás"
 
 #. module: currency_rate_live
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_company__currency_provider
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_config_settings__currency_provider
 msgid "Service Provider"
-msgstr ""
+msgstr "Szolgáltató"
 
 #. module: currency_rate_live
 #. odoo-python
@@ -121,7 +131,7 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__weekly
 msgid "Weekly"
-msgstr ""
+msgstr "Heti"
 
 #. module: currency_rate_live
 #. odoo-python
@@ -244,4 +254,4 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__xe_com
 msgid "xe.com"
-msgstr ""
+msgstr "xe.com"

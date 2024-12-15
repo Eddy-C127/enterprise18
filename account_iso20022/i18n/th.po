@@ -30,7 +30,7 @@ msgstr "ไม่ได้กำหนดบัญชีธนาคาร"
 #. odoo-python
 #: code:addons/account_iso20022/models/account_payment_register.py:0
 msgid "A bank account must be set on the following documents: %s(doc_name)"
-msgstr ""
+msgstr "บัญชีธนาคารจะต้องตั้งค่าตามเอกสารต่อไปนี้: %s(doc_name)"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_journal__sepa_pain_version__pain_001_001_03_austrian_004
@@ -255,13 +255,15 @@ msgstr ""
 msgid ""
 "SEPA only accepts payments in EUR. Some payments are using another currency."
 msgstr ""
+"SEPA ยอมรับการชำระเงินเป็นสกุลเงินยูโรเท่านั้น "
+"การชำระเงินบางรายการใช้สกุลเงินอื่น"
 
 #. module: account_iso20022
 #: model:ir.model.fields,help:account_iso20022.field_account_journal__sepa_pain_version
 #: model:ir.model.fields,help:account_iso20022.field_account_payment__sepa_pain_version
 msgid ""
 "SEPA version to use to generate Credit Transfer XML files from this journal"
-msgstr ""
+msgstr "เวอร์ชัน SEPA ที่จะใช้ในการสร้างไฟล์ XML การโอนเครดิตจากสมุดรายวันนี้"
 
 #. module: account_iso20022
 #: model:ir.model.fields.selection,name:account_iso20022.selection__account_batch_payment__iso20022_charge_bearer__slev

@@ -5,13 +5,14 @@
 # Translators:
 # f1b3a33e3b33fcf18004a5292e501f50_3500ca8 <373b677b151624c4521d9efc77b996fd_750224>, 2024
 # Krisztián Juhász <juhasz.krisztian@josafar.hu>, 2024
-# Tamás Dombos, 2024
-# krnkris, 2024
-# Tamás Németh <ntomasz81@gmail.com>, 2024
-# Ákos Nagy <akos.nagy@oregional.hu>, 2024
 # 5768b353f27900ae76ad88cc42dfd5b8_3bb349f, 2024
+# Ákos Nagy <akos.nagy@oregional.hu>, 2024
+# Tamás Dombos, 2024
+# Csaba Tóth <i3rendszerhaz@gmail.com>, 2024
 # Martin Trigaux, 2024
+# Tamás Németh <ntomasz81@gmail.com>, 2024
 # gezza <geza.nagy@oregional.hu>, 2024
+# krnkris, 2024
 # 
 msgid ""
 msgstr ""
@@ -19,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: gezza <geza.nagy@oregional.hu>, 2024\n"
+"Last-Translator: krnkris, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -593,6 +594,12 @@ msgstr "Beállítások"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Confirm the transaction."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 msgid "Congrats, you're all done!"
 msgstr ""
@@ -623,6 +630,12 @@ msgstr ""
 #: model_terms:ir.actions.act_window,help:account_accountant.action_account_group_tree
 msgid "Create a new account group"
 msgstr "Új számlacsoport létrehozása"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Create a new transaction."
+msgstr ""
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1270,7 +1283,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Journal"
-msgstr ""
+msgstr "Napló"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__journal_currency_id
@@ -1285,19 +1298,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Journal Entry"
-msgstr ""
+msgstr "Könyvelési tétel"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_move_line
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
 msgid "Journal Item"
-msgstr ""
+msgstr "Könyvelési tétel"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Journal Items"
-msgstr ""
+msgstr "Könyvelési tételek"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_move_line_posted_unreconciled
@@ -1307,7 +1320,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Journal items where matching number isn't set"
-msgstr ""
+msgstr "Napló tételek ahol egyeztetett számok nincsenek beállítva"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -1332,12 +1345,12 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__label
 msgid "Label"
-msgstr ""
+msgstr "Felirat"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.res_config_settings_view_form
 msgid "Last Day"
-msgstr ""
+msgstr "Utolsó nap"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
@@ -1350,7 +1363,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__write_uid
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Frissítette"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__write_date
@@ -1358,7 +1371,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__write_date
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Frissítve"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
@@ -1389,7 +1402,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__line_ids
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__line_ids
 msgid "Line"
-msgstr ""
+msgstr "Sor"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_bank_rec_widget_line
@@ -1473,7 +1486,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_main_attachment_id
 msgid "Main Attachment"
-msgstr ""
+msgstr "Fő melléklet"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1519,7 +1532,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Matching"
-msgstr ""
+msgstr "Párosítás"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__matching_rules_allow_auto_reconcile
@@ -1529,22 +1542,22 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_quick_create_form_bank_rec_widget
 msgid "Memo"
-msgstr ""
+msgstr "Emlékeztető"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_ir_ui_menu
 msgid "Menu"
-msgstr ""
+msgstr "Menü"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Üzenetkézbesítési hiba"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Üzenetek"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_res_config_settings__deferred_expense_amount_computation_method
@@ -1602,19 +1615,19 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "Misc"
-msgstr ""
+msgstr "Egyebek"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_expense_amount_computation_method__month
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__deferred_revenue_amount_computation_method__month
 msgid "Months"
-msgstr ""
+msgstr "Hónap"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "More"
-msgstr ""
+msgstr "Továbbiak"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__move_attachment_ids
@@ -1630,7 +1643,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__name
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__name
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__narration
@@ -1641,7 +1654,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "New"
-msgstr ""
+msgstr "Új"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_bank_statement_line_form_bank_rec_widget
@@ -1683,7 +1696,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_tree_bank_rec_widget
 msgid "Notes"
-msgstr ""
+msgstr "Megjegyzések"
 
 #. module: account_accountant
 #: model_terms:ir.actions.act_window,help:account_accountant.action_bank_statement_line_transactions
@@ -1700,22 +1713,22 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Akciók száma"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Hibák száma"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Üzenetek száma, melyek akciót igényelnek"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Kézbesítési hibával rendelkező üzenetek száma"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__res_company__generate_deferred_expense_entries_method__on_validation
@@ -1769,7 +1782,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_search_bank_rec_widget
 msgid "Outgoing"
-msgstr ""
+msgstr "Kimenő"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1781,7 +1794,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_quick_create_form_bank_rec_widget
 msgid "Partner"
-msgstr ""
+msgstr "Partner"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_currency_id
@@ -1791,7 +1804,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__partner_name
 msgid "Partner Name"
-msgstr ""
+msgstr "Partner neve"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__partner_payable_account_id
@@ -1816,12 +1829,12 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__partner_ids
 msgid "Partners"
-msgstr ""
+msgstr "Partnerek"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Payable"
-msgstr ""
+msgstr "Szállítónak fizetendő"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1844,12 +1857,12 @@ msgstr ""
 #: model:ir.model,name:account_accountant.model_account_payment
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Payments"
-msgstr ""
+msgstr "Fizetések"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
 msgid "Payments Matching"
-msgstr ""
+msgstr "Fizetések könyvelői párosítása"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__account_auto_reconcile_wizard__search_mode__one_to_one
@@ -1884,6 +1897,8 @@ msgstr ""
 msgid ""
 "Preset to create journal entries during a invoices and payments matching"
 msgstr ""
+"Előzetes beállítás naplótételek létrehozásához számlák és fizetések "
+"párosítása során"
 
 #. module: account_accountant
 msgid ""
@@ -1914,7 +1929,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Értékelések"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -1924,7 +1939,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Receivable"
-msgstr ""
+msgstr "Kintlévőség, követelés"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1941,7 +1956,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_tree
 msgid "Reconcile"
-msgstr ""
+msgstr "Egyeztetés"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_wizard
@@ -1974,7 +1989,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
 msgid "Reconciled"
-msgstr ""
+msgstr "Egyeztetett"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__reco_model_id
@@ -1989,13 +2004,13 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__ref
 msgid "Ref"
-msgstr ""
+msgstr "Hiv."
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Reference"
-msgstr ""
+msgstr "Hivatkozás"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_form_inherit
@@ -2011,12 +2026,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Reset"
-msgstr ""
+msgstr "Visszaállítás"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Residual"
-msgstr ""
+msgstr "Rendezetlen"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -2031,12 +2046,12 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Review"
-msgstr ""
+msgstr "Átnézés"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Revoke"
-msgstr ""
+msgstr "Visszavonás"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_reconcile_model_line
@@ -2046,22 +2061,22 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "SMS kézbesítési hiba"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
 msgid "Save"
-msgstr ""
+msgstr "Mentés"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
 msgid "Save & Close"
-msgstr ""
+msgstr "Mentés és bezárás"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_form_bank_rec_widget
 msgid "Save & New"
-msgstr ""
+msgstr "Mentés és új"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2087,8 +2102,20 @@ msgstr ""
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set an amount."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Set as Checked"
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set the payment reference."
 msgstr ""
 
 #. module: account_accountant
@@ -2106,7 +2133,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement_line__signature
 #: model:ir.model.fields,field_description:account_accountant.field_account_move__signature
 msgid "Signature"
-msgstr ""
+msgstr "Aláírás"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_res_config_settings__signing_user
@@ -2178,7 +2205,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_fiscal_year__date_from
 #: model:ir.model.fields,field_description:account_accountant.field_account_move_line__deferred_start_date
 msgid "Start Date"
-msgstr ""
+msgstr "Kezdődátum"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_fiscal_year__date_from
@@ -2188,19 +2215,19 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__state
 msgid "State"
-msgstr ""
+msgstr "Állam/megye"
 
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.action_bank_statement_attachment
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_kanban_bank_rec_widget
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Statement"
-msgstr ""
+msgstr "Kivonat"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Statement Line"
-msgstr ""
+msgstr "Kivonat tételsor"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_amount_currency
@@ -2220,14 +2247,14 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
 msgid "Suggestions"
-msgstr ""
+msgstr "Javaslatok"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_tax
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__tax_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_ids
 msgid "Tax"
-msgstr ""
+msgstr "Adó"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_base_amount_currency
@@ -2237,7 +2264,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Tax Grids"
-msgstr ""
+msgstr "Adórácsok"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__tax_repartition_line_id
@@ -2254,13 +2281,13 @@ msgstr ""
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/kanban.js:0
 msgid "Taxes"
-msgstr ""
+msgstr "Adók"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 msgid "That's on average"
-msgstr ""
+msgstr "Ez az átlagon"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget__country_code
@@ -2269,6 +2296,8 @@ msgid ""
 "The ISO country code in two chars. \n"
 "You can use this field for quick search."
 msgstr ""
+"Kétbetűs ISO országkód.\n"
+"Ezt a mezőt a gyors kereséshez használhatja."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__amount_transaction_currency
@@ -2276,6 +2305,8 @@ msgid ""
 "The amount expressed in an optional other currency if it is a multi-currency"
 " entry."
 msgstr ""
+"Szabadon választott más pénznemben kifejezett összeg, ha a tétel több "
+"pénznembeli devizás."
 
 #. module: account_accountant
 #. odoo-python
@@ -2345,7 +2376,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_bank_rec_widget_line__transaction_currency_id
 msgid "The optional other currency if it is a multi-currency entry."
-msgstr ""
+msgstr "Szabadon választott más pénznem, ha a tétel több-devizás."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement_line__deferred_original_move_ids
@@ -2411,7 +2442,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_auto_reconcile_wizard__to_date
 msgid "To"
-msgstr ""
+msgstr "Cél"
 
 #. module: account_accountant
 #. odoo-javascript
@@ -2419,7 +2450,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__to_check
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "To Check"
-msgstr ""
+msgstr "Ellenőrizendő"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_kanban_bank_rec_widget
@@ -2444,17 +2475,17 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Credit"
-msgstr ""
+msgstr "Összes bevétel/követelés"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Debit"
-msgstr ""
+msgstr "Összes terhelés"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Residual"
-msgstr ""
+msgstr "Összes, pénzügyileg rendezetlen összesen"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
@@ -2464,7 +2495,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
 msgid "Transaction"
-msgstr ""
+msgstr "Tranzakció"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__transaction_currency_id
@@ -2481,19 +2512,19 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_accountant.account_journal_dashboard_kanban_view
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_tree
 msgid "Transactions"
-msgstr ""
+msgstr "Tranzakciók"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 msgid "Transfer from %s"
-msgstr ""
+msgstr "Belső utalás innen %s"
 
 #. module: account_accountant
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 msgid "Transfer to %s"
-msgstr ""
+msgstr "Belső utalás ide %s"
 
 #. module: account_accountant
 #: model:ir.actions.server,name:account_accountant.auto_reconcile_bank_statement_line_ir_actions_server
@@ -2503,7 +2534,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
 msgid "Unreconciled"
-msgstr ""
+msgstr "Egyeztetetlen, könyveletlen"
 
 #. module: account_accountant
 #. odoo-python
@@ -2514,21 +2545,21 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__valid
 msgid "Valid"
-msgstr ""
+msgstr "Érvényes"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 msgid "Validate"
-msgstr ""
+msgstr "Jóváhagyás"
 
 #. module: account_accountant
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/list_view_switcher.js:0
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_list_bank_rec_widget
 msgid "View"
-msgstr ""
+msgstr "Megtekintés"
 
 #. module: account_accountant
 #. odoo-python
@@ -2545,12 +2576,12 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Weboldal üzenetek"
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_bank_statement__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Weboldal kommunikációs előzmények"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_move_line_reconcile_search
@@ -2560,7 +2591,7 @@ msgstr ""
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__wizard_id
 msgid "Wizard"
-msgstr ""
+msgstr "Varázsló"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__company_currency_id
@@ -2572,7 +2603,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_reconcile_wizard.py:0
 msgid "Write-Off"
-msgstr ""
+msgstr "Leírás"
 
 #. module: account_accountant
 #. odoo-python
@@ -2708,7 +2739,7 @@ msgstr ""
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_reconcile_model_widget_wizard
 msgid "e.g. Bank Fees"
-msgstr ""
+msgstr "pl.: Banki kezelési díjak"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__early_payment
@@ -2759,7 +2790,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "in"
-msgstr ""
+msgstr "hüvelyk"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__liquidity
@@ -2780,7 +2811,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 msgid "seconds per transaction."
-msgstr ""
+msgstr "tranzakciónkénti másodpercek."
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget_line__flag__tax_line

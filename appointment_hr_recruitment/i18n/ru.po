@@ -2,12 +2,16 @@
 # This file contains the translation of the following modules:
 # 	* appointment_hr_recruitment
 # 
+# Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -43,22 +47,22 @@ msgstr ""
 #: model:ir.model.fields,field_description:appointment_hr_recruitment.field_appointment_invite__applicant_id
 #: model:ir.model.fields,field_description:appointment_hr_recruitment.field_calendar_event__applicant_id
 msgid "Applicant"
-msgstr ""
+msgstr "Кандидат"
 
 #. module: appointment_hr_recruitment
 #: model:ir.model,name:appointment_hr_recruitment.model_appointment_invite
 msgid "Appointment Invite"
-msgstr ""
+msgstr "Приглашение на встречу"
 
 #. module: appointment_hr_recruitment
 #: model:ir.model,name:appointment_hr_recruitment.model_appointment_type
 msgid "Appointment Type"
-msgstr ""
+msgstr "Тип встречи"
 
 #. module: appointment_hr_recruitment
 #: model:ir.model,name:appointment_hr_recruitment.model_calendar_event
 msgid "Calendar Event"
-msgstr ""
+msgstr "Календарное событие"
 
 #. module: appointment_hr_recruitment
 #: model:mail.template,subject:appointment_hr_recruitment.email_template_data_applicant_schedule_interview
@@ -70,7 +74,7 @@ msgstr ""
 #. module: appointment_hr_recruitment
 #: model:appointment.type,name:appointment_hr_recruitment.appointment_type_interviews
 msgid "Interviews availabilities"
-msgstr ""
+msgstr "Возможность проведения интервью"
 
 #. module: appointment_hr_recruitment
 #: model:ir.model.fields,help:appointment_hr_recruitment.field_appointment_invite__applicant_id
@@ -79,14 +83,17 @@ msgid ""
 "Link an applicant to the appointment invite created.\n"
 "Used when creating an invitation from the Meeting action in the applicant form view."
 msgstr ""
+"Связывает заявителя с созданным приглашением на встречу.\n"
+"Используется при создании приглашения из действия \"Встреча\" в представлении формы заявителя."
 
 #. module: appointment_hr_recruitment
 #: model:mail.template,name:appointment_hr_recruitment.email_template_data_applicant_schedule_interview
 msgid "Recruitment: Schedule interview"
-msgstr ""
+msgstr "Подбор персонала: Запланируйте собеседование"
 
 #. module: appointment_hr_recruitment
 #: model:mail.template,description:appointment_hr_recruitment.email_template_data_applicant_schedule_interview
 msgid ""
 "Send this email when you want to schedule an interview with a candidate"
 msgstr ""
+"Отправьте это письмо, когда хотите назначить собеседование с кандидатом"

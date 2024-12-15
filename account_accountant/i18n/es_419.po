@@ -4,8 +4,8 @@
 # 
 # Translators:
 # Wil Odoo, 2024
-# Fernanda Alvarez, 2024
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024
+# Fernanda Alvarez, 2024
 # 
 msgid ""
 msgstr ""
@@ -13,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:43+0000\n"
-"Last-Translator: Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2024\n"
+"Last-Translator: Fernanda Alvarez, 2024\n"
 "Language-Team: Spanish (Latin America) (https://app.transifex.com/odoo/teams/41243/es_419/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -428,6 +428,10 @@ msgid ""
 "postponed to a later time, in accordance with its journal's sequence. The "
 "tax lock date is automatically set when the tax closing entry is posted."
 msgstr ""
+"Cualquier asiento que implique impuestos anterior o hasta esa fecha se "
+"pospondrá para una fecha posterior de acuerdo con la secuencia de su diario."
+" La fecha de bloqueo de impuestos se establece en automático al registrar el"
+" asiento de cierre de impuestos."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -436,6 +440,9 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"Cualquier asiento anterior o hasta esa fecha se pospondrá para una fecha "
+"posterior de acuerdo con la secuencia de su diario. Esta fecha de bloqueo es"
+" irreversible y no permite realizar ninguna excepción."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -443,6 +450,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"Cualquier asiento anterior o hasta esa fecha se pospondrá para una fecha "
+"posterior de acuerdo con la secuencia de su diario."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -450,6 +459,8 @@ msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Cualquier asiento de compra anterior o hasta esta fecha se pospondrá para "
+"una fecha posterior de acuerdo con la secuencia de su diario."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -457,6 +468,8 @@ msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Cualquier asiento de venta anterior o hasta esta fecha se pospondrá para una"
+" fecha posterior de acuerdo con la secuencia de su diario."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -641,6 +654,12 @@ msgstr "Ajustes de configuración"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Confirm the transaction."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 msgid "Congrats, you're all done!"
 msgstr "¡Felicidades, ha terminado!"
@@ -671,6 +690,12 @@ msgstr "Crear estado de cuenta"
 #: model_terms:ir.actions.act_window,help:account_accountant.action_account_group_tree
 msgid "Create a new account group"
 msgstr "Crear un nuevo grupo de cuentas"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Create a new transaction."
+msgstr ""
 
 #. module: account_accountant
 #. odoo-javascript
@@ -923,7 +948,7 @@ msgstr "Nombre en pantalla"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_amount_currency
 msgid "Display Stroked Amount Currency"
-msgstr "Mostrar la divisa del importe trazado"
+msgstr "Mostrar la moneda del importe trazado"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__display_stroked_balance
@@ -1012,7 +1037,7 @@ msgstr "Duración de la excepción"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
 msgid "Exception Needed Fields"
-msgstr ""
+msgstr "Campos de excepción necesaria"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
@@ -1292,7 +1317,7 @@ msgstr "Es un seguidor"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__is_multi_currency
 msgid "Is Multi Currency"
-msgstr "Es multidivisa"
+msgstr "Es multimoneda"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__is_rec_pay_account
@@ -1490,7 +1515,7 @@ msgstr "Bloquear todos para mi"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr ""
+msgstr "Bloquear todo"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -2180,9 +2205,21 @@ msgstr "Modelo de conciliación seleccionado"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set an amount."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Set as Checked"
 msgstr "Establecer como seleccionado"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set the payment reference."
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
@@ -2220,7 +2257,7 @@ msgstr "Usuario que firmará"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_reconcile_wizard__single_currency_mode
 msgid "Single Currency Mode"
-msgstr "Modo de divisa única"
+msgstr "Modo de moneda única"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_aml_id
@@ -2240,7 +2277,7 @@ msgstr "Nombre del movimiento de AML de origen"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_amount_currency
 msgid "Source Amount Currency"
-msgstr "Divisa del importe de origen"
+msgstr "Moneda del importe de origen"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__source_balance
@@ -2298,7 +2335,7 @@ msgstr "Línea de estado de cuenta"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_amount_currency
 msgid "Suggestion Amount Currency"
-msgstr "Divisa del importe sugerida"
+msgstr "Moneda del importe sugerida"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__suggestion_balance
@@ -2578,7 +2615,7 @@ msgstr "Remanente total"
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_move_line_reconcile_tree
 msgid "Total Residual in Currency"
-msgstr "Remanente total en divisa"
+msgstr "Total residual en moneda"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_bank_statement_line_search_bank_rec_widget
@@ -2685,7 +2722,7 @@ msgstr "Asistente"
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget__company_currency_id
 #: model:ir.model.fields,field_description:account_accountant.field_bank_rec_widget_line__company_currency_id
 msgid "Wizard Company Currency"
-msgstr "Divisa de la empresa del asistente"
+msgstr "Moneda de la empresa del asistente"
 
 #. module: account_accountant
 #. odoo-python

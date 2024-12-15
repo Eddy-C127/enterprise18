@@ -2,12 +2,18 @@
 # This file contains the translation of the following modules:
 # 	* approvals_purchase
 # 
+# Translators:
+# Tamás Németh <ntomasz81@gmail.com>, 2024
+# krnkris, 2024
+# gezza <geza.nagy@oregional.hu>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-09-25 09:26+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: gezza <geza.nagy@oregional.hu>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,17 +31,17 @@ msgstr ""
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_category
 msgid "Approval Category"
-msgstr ""
+msgstr "Jóváhagyás kategória"
 
 #. module: approvals_purchase
 #: model:ir.model,name:approvals_purchase.model_approval_request
 msgid "Approval Request"
-msgstr ""
+msgstr "Jóváhagyás kérelem"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_category__approval_type
 msgid "Approval Type"
-msgstr ""
+msgstr "Jóváhagyás típusa"
 
 #. module: approvals_purchase
 #: model:approval.category,name:approvals_purchase.approval_category_data_rfq
@@ -52,7 +58,7 @@ msgstr ""
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "Exception(s):"
-msgstr ""
+msgstr "Kivételek:"
 
 #. module: approvals_purchase
 #. odoo-python
@@ -68,12 +74,12 @@ msgstr ""
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__product_template_id
 msgid "Product Template"
-msgstr ""
+msgstr "Terméksablon"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__product_id
 msgid "Products"
-msgstr ""
+msgstr "Termékek"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_request__purchase_order_count
@@ -83,14 +89,14 @@ msgstr ""
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__purchase_order_line_id
 msgid "Purchase Order Line"
-msgstr ""
+msgstr "Beszerzési rendelés tétel"
 
 #. module: approvals_purchase
 #. odoo-python
 #: code:addons/approvals_purchase/models/approval_request.py:0
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.approval_purchase_request_view_form_inherit
 msgid "Purchase Orders"
-msgstr ""
+msgstr "Beszerzési rendelések"
 
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__po_uom_qty
@@ -106,7 +112,7 @@ msgstr ""
 #. module: approvals_purchase
 #: model:ir.model.fields,field_description:approvals_purchase.field_approval_product_line__seller_id
 msgid "Vendors"
-msgstr ""
+msgstr "Beszállítók"
 
 #. module: approvals_purchase
 #. odoo-python
@@ -123,7 +129,7 @@ msgstr ""
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "cancelled"
-msgstr ""
+msgstr "visszavont"
 
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
@@ -135,4 +141,4 @@ msgstr ""
 #. module: approvals_purchase
 #: model_terms:ir.ui.view,arch_db:approvals_purchase.exception_approval_request_canceled
 msgid "of"
-msgstr ""
+msgstr "ebből"

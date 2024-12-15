@@ -418,8 +418,8 @@ msgid ""
 "automatically mark as done when a document is uploaded"
 msgstr ""
 "Las acciones pueden activar comportamientos específicos, como abrir la vista"
-" de calendario o marcar como la actividad como hecha de forma automática al "
-"subir un documento"
+" de calendario o marcar la actividad como hecha de forma automática al subir"
+" un documento"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_mail_activity
@@ -488,7 +488,7 @@ msgstr "Gestor personalizado de los balances antiguos del contacto"
 #: model:ir.actions.client,name:account_reports.action_account_report_ap
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_payable
 msgid "Aged Payable"
-msgstr "Cuenta antigua por pagar"
+msgstr "Cuenta por pagar vencida"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_payable_report_handler
@@ -498,7 +498,7 @@ msgstr "Gestor personalizado de cuentas vencidas"
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Payables"
-msgstr "Cuentas antiguas por pagar"
+msgstr "Cuentas por pagar vencidas"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.aged_receivable_report
@@ -506,7 +506,7 @@ msgstr "Cuentas antiguas por pagar"
 #: model:ir.actions.client,name:account_reports.action_account_report_ar
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_receivable
 msgid "Aged Receivable"
-msgstr "Cuenta antigua por cobrar"
+msgstr "Cuentas por cobrar vencidas"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_receivable_report_handler
@@ -585,7 +585,7 @@ msgstr "Moneda del importe"
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Amount in currency: %s"
-msgstr "Importe en divisa: %s"
+msgstr "Importe en moneda: %s"
 
 #. module: account_reports
 #. odoo-python
@@ -1670,7 +1670,7 @@ msgstr "Excluir líneas del banco"
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__exclude_provision_currency_ids
 msgid "Exclude Provision Currency"
-msgstr "Excluir la provisión de divisa"
+msgstr "Excluir la provisión de moneda"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.multicurrency_revaluation_excluded
@@ -2558,12 +2558,12 @@ msgstr "Varios libros mayores"
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_report_handler
 msgid "Multicurrency Revaluation Report Custom Handler"
-msgstr "Gestor personalizado de reportes de revalorización multidivisa"
+msgstr "Gestor personalizado de reportes de revalorización multimoneda"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_multicurrency_revaluation_wizard
 msgid "Multicurrency Revaluation Wizard"
-msgstr "Asistente de revalorización multidivisa"
+msgstr "Asistente de revalorización multimoneda"
 
 #. module: account_reports
 #: model:ir.model.fields.selection,name:account_reports.selection__account_report_send__mode__multi
@@ -2848,12 +2848,12 @@ msgstr "Categorías de contacto"
 #: model:ir.actions.client,name:account_reports.action_account_report_partner_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_partner_ledger
 msgid "Partner Ledger"
-msgstr "Libro mayor de clientes"
+msgstr "Libro mayor de la empresa"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_partner_ledger_report_handler
 msgid "Partner Ledger Custom Handler"
-msgstr "Gestor personalizado del libro mayor de clientes"
+msgstr "Gestor personalizado del libro mayor de la empresa"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4044,7 +4044,7 @@ msgstr "Alcance de fecha desconocida: %s"
 #: model:ir.actions.client,name:account_reports.action_account_report_multicurrency_revaluation
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_multicurrency_revaluation
 msgid "Unrealized Currency Gains/Losses"
-msgstr "Ganancias/pérdidas de divisa no realizadas"
+msgstr "Ganancias/pérdidas por cambios de divisa no realizadas"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4263,7 +4263,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "You need to activate more than one currency to access this report."
-msgstr "Debe activar más de una divisa para acceder a este reporte."
+msgstr "Debe activar más de una moneda para acceder a este reporte."
 
 #. module: account_reports
 #. odoo-python

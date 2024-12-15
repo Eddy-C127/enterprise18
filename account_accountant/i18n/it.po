@@ -433,6 +433,10 @@ msgid ""
 "postponed to a later time, in accordance with its journal's sequence. The "
 "tax lock date is automatically set when the tax closing entry is posted."
 msgstr ""
+"Qualsiasi registrazione imposte incluse fino a tale data sarà rinviata a un "
+"momento successivo, in base alla sequenza del registro. La data di chiusura "
+"delle imposte viene impostata automaticamente quando viene registrata la "
+"registrazione di chiusura delle imposte."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__hard_lock_date
@@ -441,6 +445,9 @@ msgid ""
 "in accordance with its journal sequence. This lock date is irreversible and "
 "does not allow any exception."
 msgstr ""
+"Tutte le registrazioni fino al e inclusa quella data saranno rinviate a un "
+"orario successivo, in base alla sequenza del registro. La data di chiusura è"
+" irreversibile e non consente eccezioni."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
@@ -448,6 +455,8 @@ msgid ""
 "Any entry up to and including that date will be postponed to a later time, "
 "in accordance with its journal's sequence."
 msgstr ""
+"Tutte le registrazioni fino al e inclusa quella data saranno rinviate a un "
+"orario successivo, in base alla sequenza del registro."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__purchase_lock_date
@@ -455,6 +464,8 @@ msgid ""
 "Any purchase entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Tutte le registrazioni di acquisto precedenti a questa data saranno rinviate"
+" a una data successiva, in base alla sequenza del registro."
 
 #. module: account_accountant
 #: model:ir.model.fields,help:account_accountant.field_account_change_lock_date__sale_lock_date
@@ -462,6 +473,8 @@ msgid ""
 "Any sales entry prior to and including this date will be postponed to a "
 "later date, in accordance with its journal's sequence."
 msgstr ""
+"Tutte le registrazioni di vendita precedenti a questa data saranno rinviate "
+"a una data successiva, in base alla sequenza del registro."
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_bank_statement__message_attachment_count
@@ -645,6 +658,12 @@ msgstr "Impostazioni di configurazione"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Confirm the transaction."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 msgid "Congrats, you're all done!"
 msgstr "Congratulazioni, tutto completato!"
@@ -675,6 +694,12 @@ msgstr "Crea estratto conto"
 #: model_terms:ir.actions.act_window,help:account_accountant.action_account_group_tree
 msgid "Create a new account group"
 msgstr "Crea un nuovo gruppo conto"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Create a new transaction."
+msgstr ""
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1017,7 +1042,7 @@ msgstr "Durata eccezione"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_needed_fields
 msgid "Exception Needed Fields"
-msgstr ""
+msgstr "Campi eccezione necessaria"
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__exception_reason
@@ -1494,7 +1519,7 @@ msgstr "Blocca tutti per me"
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__fiscalyear_lock_date
 msgid "Lock Everything"
-msgstr ""
+msgstr "Blocca tutto"
 
 #. module: account_accountant
 #: model:ir.actions.act_window,name:account_accountant.action_view_account_change_lock_date
@@ -2188,9 +2213,21 @@ msgstr "Modello di riconciliazione selezionato"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set an amount."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Set as Checked"
 msgstr "Impostare come Controllato"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set the payment reference."
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning

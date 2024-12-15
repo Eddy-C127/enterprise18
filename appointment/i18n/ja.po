@@ -5,6 +5,7 @@
 # Translators:
 # Wil Odoo, 2024
 # Junko Augias, 2024
+# Ryoko Tsuda <ryoko@quartile.co>, 2024
 # 
 msgid ""
 msgstr ""
@@ -12,7 +13,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:12+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: Junko Augias, 2024\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>, 2024\n"
 "Language-Team: Japanese (https://app.transifex.com/odoo/teams/41243/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1007,7 +1008,7 @@ msgstr "<span class=\"text-muted\">場所</span>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "<span> hours before the meeting</span>"
-msgstr "<span>時間、ミーティングまで </span>"
+msgstr "<span>時間前（ミーティングまで） </span>"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -1778,7 +1779,7 @@ msgstr "取消済"
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_resource__capacity
 msgid "Capacity"
-msgstr "能力"
+msgstr "収容人数"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__resource_manual_confirmation_percentage
@@ -2271,7 +2272,7 @@ msgstr "金曜"
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__start_datetime
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "From"
-msgstr "from"
+msgstr "開始"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_type__avatars_display
@@ -3155,7 +3156,7 @@ msgstr "リソースに制限"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_invite_view_tree
 msgid "Restrict to User"
-msgstr "ユーザに限定する"
+msgstr "ユーザを限定"
 
 #. module: appointment
 #: model:ir.model.fields,field_description:appointment.field_appointment_slot__restrict_to_user_ids
@@ -4022,7 +4023,7 @@ msgstr "於"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "days into the future"
-msgstr "日後です。"
+msgstr "日後"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
@@ -4130,7 +4131,7 @@ msgstr "時間のため、今取消することはできません。<br/>"
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "hours before the meeting"
-msgstr "時間前(ミーティングの)"
+msgstr "時間前（ミーティングまで）"
 
 #. module: appointment
 #. odoo-javascript
@@ -4171,7 +4172,7 @@ msgstr "このリンク"
 #: code:addons/appointment/static/src/xml/appointment_slots.xml:0
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form
 msgid "to"
-msgstr "から"
+msgstr "終了"
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.appointment_type_view_form

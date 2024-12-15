@@ -100,6 +100,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_fiscalyear_lock_date_exception_for_me_id                                                  or not min_fiscalyear_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -108,6 +111,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_purchase_lock_date_exception_for_me_id                                                  or not min_purchase_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -116,6 +122,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_sale_lock_date_exception_for_me_id                                                  or not min_sale_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -124,6 +133,9 @@ msgid ""
 "                                      <span style=\"white-space: pre\">; </span>\n"
 "                                </span>"
 msgstr ""
+"<span class=\"text-muted o_form_label\" invisible=\"not min_tax_lock_date_exception_for_me_id                                                  or not min_tax_lock_date_exception_for_everyone_id\">\n"
+"                                      <span style=\"white-space: pre\">; </span>\n"
+"                                </span>"
 
 #. module: account_accountant
 #: model_terms:ir.ui.view,arch_db:account_accountant.view_account_change_lock_date
@@ -616,6 +628,12 @@ msgstr "ตั้งค่าการกำหนดค่า"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Confirm the transaction."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/rainbowman_content.xml:0
 msgid "Congrats, you're all done!"
 msgstr "เสร็จสิ้น"
@@ -646,6 +664,12 @@ msgstr "สร้างคำสั่ง"
 #: model_terms:ir.actions.act_window,help:account_accountant.action_account_group_tree
 msgid "Create a new account group"
 msgstr "สร้างกลุ่มบัญชีใหม่"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Create a new transaction."
+msgstr ""
 
 #. module: account_accountant
 #. odoo-javascript
@@ -1300,7 +1324,7 @@ msgstr "เป็นวันที่ฝ่าฝืนการล็อคว
 #. odoo-python
 #: code:addons/account_accountant/wizard/account_change_lock_date.py:0
 msgid "It is not possible to decrease or remove the Hard Lock Date."
-msgstr ""
+msgstr "ไม่สามารถลดหรือลบวันที่ฮาร์ดล็อคได้"
 
 #. module: account_accountant
 #: model:ir.model,name:account_accountant.model_account_journal
@@ -2021,6 +2045,7 @@ msgid ""
 "Reconcile journal items with opposite balance or clear accounts with a zero "
 "balance"
 msgstr ""
+"กระทบยอดรายการสมุดรายวันที่มียอดคงเหลือตรงกันข้ามหรือบัญชีเคลียร์ที่มียอดคงเหลือเป็นศูนย์"
 
 #. module: account_accountant
 #: model:ir.model.fields.selection,name:account_accountant.selection__bank_rec_widget__state__reconciled
@@ -2139,9 +2164,21 @@ msgstr "โมเดล Reco ที่เลือก"
 
 #. module: account_accountant
 #. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set an amount."
+msgstr ""
+
+#. module: account_accountant
+#. odoo-javascript
 #: code:addons/account_accountant/static/src/components/bank_reconciliation/bank_rec_form.xml:0
 msgid "Set as Checked"
 msgstr "ตั้งค่าเป็นตรวจสอบแล้ว"
+
+#. module: account_accountant
+#. odoo-javascript
+#: code:addons/account_accountant/static/src/js/tours/account_accountant.js:0
+msgid "Set the payment reference."
+msgstr ""
 
 #. module: account_accountant
 #: model:ir.model.fields,field_description:account_accountant.field_account_change_lock_date__show_draft_entries_warning
@@ -2670,7 +2707,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_accountant/models/bank_rec_widget.py:0
 msgid "You can't hit the reset button on a secured bank transaction."
-msgstr ""
+msgstr "คุณไม่สามารถกดปุ่มรีเซ็ตธุรกรรมธนาคารที่ปลอดภัยได้"
 
 #. module: account_accountant
 #. odoo-python

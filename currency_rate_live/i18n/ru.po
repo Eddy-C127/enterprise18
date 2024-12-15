@@ -2,12 +2,16 @@
 # This file contains the translation of the following modules:
 # 	* currency_rate_live
 # 
+# Translators:
+# Wil Odoo, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:14+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: Wil Odoo, 2024\n"
 "Language-Team: Russian (https://app.transifex.com/odoo/teams/41243/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -21,26 +25,28 @@ msgid ""
 "<i title=\"Update now\" role=\"img\" aria-label=\"Update now\" class=\"fa "
 "fa-fw fa-refresh\"/>"
 msgstr ""
+"<i title=\"Update now\" role=\"img\" aria-label=\"Update now\" class=\"fa "
+"fa-fw fa-refresh\"/>"
 
 #. module: currency_rate_live
 #: model:ir.model,name:currency_rate_live.model_res_company
 msgid "Companies"
-msgstr ""
+msgstr "Компании"
 
 #. module: currency_rate_live
 #: model:ir.model,name:currency_rate_live.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Параметры конфигурации"
 
 #. module: currency_rate_live
 #: model:ir.actions.server,name:currency_rate_live.ir_cron_currency_update_ir_actions_server
 msgid "Currency: rate update"
-msgstr ""
+msgstr "Валюта: обновление курса"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__daily
 msgid "Daily"
-msgstr ""
+msgstr "Ежедневно"
 
 #. module: currency_rate_live
 #. odoo-python
@@ -51,39 +57,39 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__ecb
 msgid "European Central Bank"
-msgstr ""
+msgstr "Европейский центральный банк"
 
 #. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
 msgid "Interval"
-msgstr ""
+msgstr "Интервал"
 
 #. module: currency_rate_live
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_company__currency_interval_unit
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_config_settings__currency_interval_unit
 msgid "Interval Unit"
-msgstr ""
+msgstr "Единица интервала"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__manually
 msgid "Manually"
-msgstr ""
+msgstr "Вручную"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__monthly
 msgid "Monthly"
-msgstr ""
+msgstr "Ежемесячно"
 
 #. module: currency_rate_live
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_company__currency_next_execution_date
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_config_settings__currency_next_execution_date
 msgid "Next Execution Date"
-msgstr ""
+msgstr "Дата следующего исполнения"
 
 #. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
 msgid "Next Run"
-msgstr ""
+msgstr "Следующий запуск"
 
 #. module: currency_rate_live
 #. odoo-python
@@ -94,13 +100,13 @@ msgstr ""
 #. module: currency_rate_live
 #: model_terms:ir.ui.view,arch_db:currency_rate_live.res_config_settings_view_form
 msgid "Service"
-msgstr ""
+msgstr "Услуга"
 
 #. module: currency_rate_live
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_company__currency_provider
 #: model:ir.model.fields,field_description:currency_rate_live.field_res_config_settings__currency_provider
 msgid "Service Provider"
-msgstr ""
+msgstr "Поставщик услуг"
 
 #. module: currency_rate_live
 #. odoo-python
@@ -109,6 +115,8 @@ msgid ""
 "The selected exchange rate provider requires the GTQ and USD currencies to "
 "be active."
 msgstr ""
+"Выбранный поставщик обменных курсов требует, чтобы были активны валюты GTQ и"
+" USD."
 
 #. module: currency_rate_live
 #. odoo-python
@@ -117,11 +125,14 @@ msgid ""
 "Unable to connect to the online exchange rate platform %s. The web service "
 "may be temporarily down. Please try again in a moment."
 msgstr ""
+"Невозможно подключиться к онлайн-платформе обменных курсов %s. Возможно, "
+"веб-сервис временно не работает. Пожалуйста, повторите попытку через "
+"некоторое время."
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_interval_unit__weekly
 msgid "Weekly"
-msgstr ""
+msgstr "Еженедельно"
 
 #. module: currency_rate_live
 #. odoo-python
@@ -130,36 +141,38 @@ msgid ""
 "Your main currency (%s) is not supported by this exchange rate provider. "
 "Please choose another one."
 msgstr ""
+"Ваша основная валюта (%s) не поддерживается этим поставщиком обменных "
+"курсов. Пожалуйста, выберите другую."
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cbuae
 msgid "[AE] Central Bank of the UAE"
-msgstr ""
+msgstr "[AE] Центральный банк ОАЭ"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bnb
 msgid "[BG] Bulgaria National Bank"
-msgstr ""
+msgstr "[BG] Болгарский национальный банк"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bbr
 msgid "[BR] Central Bank of Brazil"
-msgstr ""
+msgstr "[BR] Центральный банк Бразилии"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__boc
 msgid "[CA] Bank of Canada"
-msgstr ""
+msgstr "[CA] Банк Канады"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__fta
 msgid "[CH] Federal Tax Administration of Switzerland"
-msgstr ""
+msgstr "[CH] Федеральное налоговое управление Швейцарии"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__mindicador
 msgid "[CL] Central Bank of Chile via mindicador.cl"
-msgstr ""
+msgstr "[CL] Центральный банк Чили via mindicador.cl"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__banrepco
@@ -169,17 +182,17 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cnb
 msgid "[CZ] Czech National Bank"
-msgstr ""
+msgstr "[CZ] Чешский национальный банк"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__cbegy
 msgid "[EG] Central Bank of Egypt"
-msgstr ""
+msgstr "[EG] Центральный банк Египта"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__banguat
 msgid "[GT] Bank of Guatemala"
-msgstr ""
+msgstr "[GT] Банк Гватемалы"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bi
@@ -194,7 +207,7 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__banxico
 msgid "[MX] Bank of Mexico"
-msgstr ""
+msgstr "[MX] Банк Мексики"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bnm
@@ -204,17 +217,17 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bcrp
 msgid "[PE] SUNAT (replaces Bank of Peru)"
-msgstr ""
+msgstr "[PE] SUNAT (заменяет Банк Перу)"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__nbp
 msgid "[PL] National Bank of Poland"
-msgstr ""
+msgstr "[PL] Национальный банк Польши"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bnr
 msgid "[RO] National Bank of Romania"
-msgstr ""
+msgstr "[RO] Национальный банк Румынии"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__srb
@@ -234,7 +247,7 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__hmrc
 msgid "[UK] HM Revenue & Customs"
-msgstr ""
+msgstr "[Великобритания] HM Revenue & Customs"
 
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__bcu
@@ -244,4 +257,4 @@ msgstr ""
 #. module: currency_rate_live
 #: model:ir.model.fields.selection,name:currency_rate_live.selection__res_company__currency_provider__xe_com
 msgid "xe.com"
-msgstr ""
+msgstr "xe.com"

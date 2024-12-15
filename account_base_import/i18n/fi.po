@@ -49,7 +49,7 @@ msgstr "Winbooks-tilien lataamisen moduuli"
 #. module: account_base_import
 #: model:ir.model,name:account_base_import.model_account_import_summary
 msgid "Account import summary view"
-msgstr ""
+msgstr "Tilin tuonnin yhteenvetonäkymä"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -178,37 +178,37 @@ msgstr "Tuo kumppanit"
 #. odoo-python
 #: code:addons/account_base_import/wizard/account_import_summary.py:0
 msgid "Import Summary"
-msgstr ""
+msgstr "Yhteenveto tuonnista"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_account_ids
 msgid "Import Summary Account"
-msgstr ""
+msgstr "Tuo yhteenvetotili"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_journal_ids
 msgid "Import Summary Journal"
-msgstr ""
+msgstr "Tuo yhteenvetopäiväkirja"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_move_ids
 msgid "Import Summary Move"
-msgstr ""
+msgstr "Tuo yhteenvetosiirto"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_name
 msgid "Import Summary Name"
-msgstr ""
+msgstr "Tuo yhteenvedon nimi"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_partner_ids
 msgid "Import Summary Partner"
-msgstr ""
+msgstr "Tuo yhteenvedon partneri"
 
 #. module: account_base_import
 #: model:ir.model.fields,field_description:account_base_import.field_account_import_summary__import_summary_tax_ids
 msgid "Import Summary Tax"
-msgstr ""
+msgstr "Tuo yhteenvedon vero"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -233,7 +233,7 @@ msgstr "Tuo tilikartta ja alkusaldot käyttämällä"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "Imported Data"
-msgstr ""
+msgstr "Tuodut tiedot"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.res_config_settings_import_view_form
@@ -290,7 +290,7 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "No data was imported."
-msgstr ""
+msgstr "Tietoja ei tuotu."
 
 #. module: account_base_import
 #. odoo-javascript
@@ -407,11 +407,13 @@ msgid ""
 "You must provide both the `code_mapping_ids/company_id` and the "
 "`code_mapping_ids/code` columns."
 msgstr ""
+"Sinun on annettava sekä \"code_mapping_ids/company_id\"- että "
+"\"code_mapping_ids/code\"-sarakkeet."
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "accounts imported"
-msgstr ""
+msgstr "tuodut tilit"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -428,12 +430,12 @@ msgstr ""
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "journals imported"
-msgstr ""
+msgstr "tuodut päiväkirjat"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "moves imported"
-msgstr ""
+msgstr "tuodut siirrot"
 
 #. module: account_base_import
 #. odoo-javascript
@@ -444,12 +446,12 @@ msgstr "tai"
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "partners imported"
-msgstr ""
+msgstr "tuodut kumppanit"
 
 #. module: account_base_import
 #: model_terms:ir.ui.view,arch_db:account_base_import.account_import_summary_form
 msgid "taxes imported"
-msgstr ""
+msgstr "tuodut verot"
 
 #. module: account_base_import
 #. odoo-javascript

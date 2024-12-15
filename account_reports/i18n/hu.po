@@ -3,13 +3,16 @@
 # 	* account_reports
 # 
 # Translators:
-# Ákos Nagy <akos.nagy@oregional.hu>, 2024
-# Tamás Németh <ntomasz81@gmail.com>, 2024
-# Martin Trigaux, 2024
+# Csaba Tóth <i3rendszerhaz@gmail.com>, 2024
 # Tamás Dombos, 2024
+# Krisztián Juhász <juhasz.krisztian@josafar.hu>, 2024
+# Gergő Kertész <gergo.kertesz@maxflow.hu>, 2024
+# Tamás Németh <ntomasz81@gmail.com>, 2024
+# gezza <geza.nagy@oregional.hu>, 2024
+# Ákos Nagy <akos.nagy@oregional.hu>, 2024
 # Kovács Tibor <kovika@gmail.com>, 2024
 # krnkris, 2024
-# gezza <geza.nagy@oregional.hu>, 2024
+# Martin Trigaux, 2024
 # 
 msgid ""
 msgstr ""
@@ -17,7 +20,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
-"Last-Translator: gezza <geza.nagy@oregional.hu>, 2024\n"
+"Last-Translator: Martin Trigaux, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -59,7 +62,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/budget.py:0
 msgid "%s (copy)"
-msgstr ""
+msgstr "%s (másolat)"
 
 #. module: account_reports
 #. odoo-python
@@ -127,7 +130,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "(No Group)"
-msgstr ""
+msgstr "(Nincs csoport)"
 
 #. module: account_reports
 #. odoo-javascript
@@ -138,7 +141,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_move_form_vat_return
 msgid "-> Refresh"
-msgstr ""
+msgstr "-> Frissítés"
 
 #. module: account_reports
 #: model:mail.template,body_html:account_reports.email_template_customer_statement
@@ -178,7 +181,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "<span role=\"separator\">Reconciliation</span>"
-msgstr ""
+msgstr "<span role=\"separator\">Egyeztetés</span>"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -227,7 +230,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_total_assets0
 msgid "ASSETS"
-msgstr ""
+msgstr "ESZKÖZÖK"
 
 #. module: account_reports
 #. odoo-javascript
@@ -241,19 +244,19 @@ msgstr ""
 #: model:ir.model,name:account_reports.model_account_account
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget_item__account_id
 msgid "Account"
-msgstr ""
+msgstr "Főkönyvi számla"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_chart_template
 msgid "Account Chart Template"
-msgstr ""
+msgstr "Számlatükör sablon"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Account Code"
-msgstr ""
+msgstr "Számlakód"
 
 #. module: account_reports
 #. odoo-python
@@ -322,7 +325,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report
 msgid "Accounting Report"
-msgstr ""
+msgstr "Könyvelési riport"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_report_budget
@@ -349,14 +352,14 @@ msgstr ""
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_tree
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Accounting Reports"
-msgstr ""
+msgstr "Főkönyvi kimutatások"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic_groupby.xml:0
 msgid "Accounts"
-msgstr ""
+msgstr "Számlák"
 
 #. module: account_reports
 #. odoo-python
@@ -379,7 +382,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_mail_activity_type__category
 msgid "Action"
-msgstr ""
+msgstr "Akció"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__actionable_errors
@@ -396,24 +399,24 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_mail_activity
 msgid "Activity"
-msgstr ""
+msgstr "Tevékenység"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_mail_activity_type
 msgid "Activity Type"
-msgstr ""
+msgstr "Tevékenység típus"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_name/popover/annotations_popover.xml:0
 #: code:addons/account_reports/static/src/widgets/account_report_x2many/account_report_x2many.xml:0
 msgid "Add a line"
-msgstr ""
+msgstr "Új sor"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Add contacts to notify..."
-msgstr ""
+msgstr "Értesíteni kívánt kapcsolatok hozzáadása..."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__totals_below_sections
@@ -424,30 +427,30 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.multicurrency_revaluation_report_adjustment
 msgid "Adjustment"
-msgstr ""
+msgstr "Helyesbítés"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_multicurrency_revaluation_report.py:0
 msgid "Adjustment Entry"
-msgstr ""
+msgstr "Kerekítés bevitel"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Advance Payments received from customers"
-msgstr ""
+msgstr "Vásárlóktól beérkezett előre fizetések"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Advance payments made to suppliers"
-msgstr ""
+msgstr "Előre fizetések a beszállítók részére"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Advanced"
-msgstr ""
+msgstr "Haladó"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_partner_balance_report_handler
@@ -460,7 +463,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_ap
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_payable
 msgid "Aged Payable"
-msgstr ""
+msgstr "Korosított fizetendő"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_payable_report_handler
@@ -470,7 +473,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Payables"
-msgstr ""
+msgstr "Korosított fizetendők"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.aged_receivable_report
@@ -478,7 +481,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_ar
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_aged_receivable
 msgid "Aged Receivable"
-msgstr ""
+msgstr "Korosított vevőkövetelés"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_aged_receivable_report_handler
@@ -488,7 +491,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Aged Receivables"
-msgstr ""
+msgstr "Korosított vevőkövetelés"
 
 #. module: account_reports
 #. odoo-javascript
@@ -498,7 +501,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #: code:addons/account_reports/static/src/components/sales_report/filters/filters.js:0
 msgid "All"
-msgstr ""
+msgstr "Összes"
 
 #. module: account_reports
 #. odoo-python
@@ -538,7 +541,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.partner_ledger_amount
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget_item__amount
 msgid "Amount"
-msgstr ""
+msgstr "Összeg"
 
 #. module: account_reports
 #. odoo-python
@@ -548,7 +551,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_amount_currency
 #: model:account.report.column,name:account_reports.partner_ledger_report_amount_currency
 msgid "Amount Currency"
-msgstr ""
+msgstr "Összeg pénzneme"
 
 #. module: account_reports
 #. odoo-python
@@ -579,7 +582,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_analytic_groupby.xml:0
 msgid "Analytic"
-msgstr ""
+msgstr "Analitika"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report__filter_analytic_groupby
@@ -596,7 +599,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line_name/line_name.xml:0
 msgid "Annotate"
-msgstr ""
+msgstr "Kijegyzetel"
 
 #. module: account_reports
 #. odoo-javascript
@@ -613,24 +616,24 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "As of %s"
-msgstr ""
+msgstr "Úgy mint %s"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Ascending"
-msgstr ""
+msgstr "Növekvő"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_period0
 #: model:account.report.column,name:account_reports.aged_receivable_report_period0
 msgid "At Date"
-msgstr ""
+msgstr "Napi árfolyam"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_send_form
 msgid "Attach a file"
-msgstr ""
+msgstr "Fájl csatolása"
 
 #. module: account_reports
 #. odoo-javascript
@@ -649,12 +652,12 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_avgcre0
 msgid "Average creditors days"
-msgstr ""
+msgstr "Hitelezők átlagolt naptúllépései"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_avdebt0
 msgid "Average debtors days"
-msgstr ""
+msgstr "Adósok átlagolt naptúllépései"
 
 #. module: account_reports
 #. odoo-python
@@ -674,7 +677,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.profit_and_loss_column
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
 msgid "Balance"
-msgstr ""
+msgstr "Egyenleg"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.balance_sheet
@@ -682,7 +685,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_bs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_balance_sheet
 msgid "Balance Sheet"
-msgstr ""
+msgstr "Mérleg"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_balance_sheet_report_handler
@@ -736,7 +739,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_bank_reconciliation
 msgid "Bank Reconciliation"
-msgstr ""
+msgstr "Banki egyeztetés"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.bank_reconciliation_report
@@ -751,7 +754,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_bank_view0
 msgid "Bank and Cash Accounts"
-msgstr ""
+msgstr "Bank és készpénz számlák"
 
 #. module: account_reports
 #. odoo-javascript
@@ -761,13 +764,13 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Base Amount"
-msgstr ""
+msgstr "Alap összeg"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_aging.xml:0
 msgid "Based on"
-msgstr ""
+msgstr "Alapján"
 
 #. module: account_reports
 #. odoo-python
@@ -780,7 +783,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget_item__budget_id
 msgid "Budget"
-msgstr ""
+msgstr "Költségvetés"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_account__budget_item_ids
@@ -790,14 +793,14 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_budget_form
 msgid "Budget Items"
-msgstr ""
+msgstr "Költségvetés tételek"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_budget_form
 msgid "Budget Name"
-msgstr ""
+msgstr "Költségvetés név"
 
 #. module: account_reports
 #. odoo-python
@@ -812,7 +815,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_multicurrency_revaluation_wizard
 #: model_terms:ir.ui.view,arch_db:account_reports.view_report_export_wizard
 msgid "Cancel"
-msgstr ""
+msgstr "Visszavonás"
 
 #. module: account_reports
 #. odoo-python
@@ -859,7 +862,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash0
 msgid "Cash"
-msgstr ""
+msgstr "Készpénz"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_cash_flow_report_handler
@@ -871,55 +874,55 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_cs
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_cash_flow
 msgid "Cash Flow Statement"
-msgstr ""
+msgstr "CashFlow kivonat"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash and cash equivalents, beginning of period"
-msgstr ""
+msgstr "Készpénz és készpénzzel egyenértékű, időszak elején"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash and cash equivalents, closing balance"
-msgstr ""
+msgstr "Készpénz és készpénzzel egyenértékű, záró egyenleg"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from financing activities"
-msgstr ""
+msgstr "CashFlow a pénzügyi tevékenységekből"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from investing & extraordinary activities"
-msgstr ""
+msgstr "CashFlow befektetésekből & rendkívüli tevékenységekből"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from operating activities"
-msgstr ""
+msgstr "CashFlow működtetési tevékenységekből"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash flows from unclassified activities"
-msgstr ""
+msgstr "CashFlow nem osztályozott tevékenységekből"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash in"
-msgstr ""
+msgstr "Bejövő készpénz"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_cash_flow_report.py:0
 msgid "Cash out"
-msgstr ""
+msgstr "Kimenő készpénz"
 
 #. module: account_reports
 #. odoo-python
@@ -930,7 +933,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_received0
 msgid "Cash received"
-msgstr ""
+msgstr "Beérkezett készpénz"
 
 #. module: account_reports
 #. odoo-python
@@ -941,12 +944,12 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_spent0
 msgid "Cash spent"
-msgstr ""
+msgstr "Elköltött készpénz"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_cash_surplus0
 msgid "Cash surplus"
-msgstr ""
+msgstr "Készpénz többlet"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_change_lock_date
@@ -968,7 +971,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
 msgid "Close"
-msgstr ""
+msgstr "Bezárás"
 
 #. module: account_reports
 #. odoo-python
@@ -979,12 +982,12 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_closing_bank_balance0
 msgid "Closing bank balance"
-msgstr ""
+msgstr "Banki záró egyenleg"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.journal_report_code
 msgid "Code"
-msgstr ""
+msgstr "Kód"
 
 #. module: account_reports
 #. odoo-javascript
@@ -995,12 +998,12 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Columns"
-msgstr ""
+msgstr "Oszlopok"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.general_ledger_report_communication
 msgid "Communication"
-msgstr ""
+msgstr "Kommunikáció"
 
 #. module: account_reports
 #. odoo-python
@@ -1008,7 +1011,7 @@ msgstr ""
 #: model:ir.model,name:account_reports.model_res_company
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__company_ids
 msgid "Companies"
-msgstr ""
+msgstr "Vállalatok"
 
 #. module: account_reports
 #. odoo-python
@@ -1016,7 +1019,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__company_id
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__company_id
 msgid "Company"
-msgstr ""
+msgstr "Vállalat"
 
 #. module: account_reports
 #. odoo-python
@@ -1030,7 +1033,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Company Currency"
-msgstr ""
+msgstr "Vállalat pénzneme"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1049,12 +1052,12 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 msgid "Comparison"
-msgstr ""
+msgstr "Összehasonlítás"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_res_config_settings
 msgid "Config Settings"
-msgstr ""
+msgstr "Beállítások"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -1081,17 +1084,17 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_res_partner
 msgid "Contact"
-msgstr ""
+msgstr "Kapcsolat"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mail_body
 msgid "Contents"
-msgstr ""
+msgstr "Tartalmak"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_direct_costs0
 msgid "Cost of Revenue"
-msgstr ""
+msgstr "Árbevételek költsége"
 
 #. module: account_reports
 #. odoo-python
@@ -1116,18 +1119,18 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Country"
-msgstr ""
+msgstr "Ország"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_country
 msgid "Country Code"
-msgstr ""
+msgstr "Országkód"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_budgets.xml:0
 msgid "Create"
-msgstr ""
+msgstr "Létrehozás"
 
 #. module: account_reports
 #: model:ir.actions.server,name:account_reports.action_create_composite_report_list
@@ -1157,7 +1160,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__create_uid
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Létrehozta"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__create_date
@@ -1172,7 +1175,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__create_date
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Létrehozva"
 
 #. module: account_reports
 #. odoo-python
@@ -1183,7 +1186,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.partner_ledger_report_credit
 #: model:account.report.column,name:account_reports.trial_balance_report_credit
 msgid "Credit"
-msgstr ""
+msgstr "Követel"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.aged_payable_report_currency
@@ -1191,7 +1194,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_currency
 #: model:account.report.column,name:account_reports.general_ledger_report_amount_currency
 msgid "Currency"
-msgstr ""
+msgstr "Pénznem"
 
 #. module: account_reports
 #. odoo-python
@@ -1208,19 +1211,19 @@ msgstr ""
 #: model:account.report.column,name:account_reports.deferred_expense_current
 #: model:account.report.column,name:account_reports.deferred_revenue_current
 msgid "Current"
-msgstr ""
+msgstr "Jelenlegi"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_current_assets0
 #: model:account.report.line,name:account_reports.account_financial_report_current_assets_view0
 msgid "Current Assets"
-msgstr ""
+msgstr "Forgóeszközök"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_current_liabilities0
 #: model:account.report.line,name:account_reports.account_financial_report_current_liabilities1
 msgid "Current Liabilities"
-msgstr ""
+msgstr "Rövid lejáratú kötelezettségek"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_retained_earnings_line_1
@@ -1235,7 +1238,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_ca_to_l0
 msgid "Current assets to liabilities"
-msgstr ""
+msgstr "Forgóeszközök kötelezettségekhez"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1276,7 +1279,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__date
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget_item__date
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1293,7 +1296,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_aging.xml:0
 msgid "Days"
-msgstr ""
+msgstr "nap"
 
 #. module: account_reports
 #. odoo-python
@@ -1304,7 +1307,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.partner_ledger_report_debit
 #: model:account.report.column,name:account_reports.trial_balance_report_debit
 msgid "Debit"
-msgstr ""
+msgstr "Tartozik"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1332,7 +1335,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_expense
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_deferred_expense
 msgid "Deferred Expense"
-msgstr ""
+msgstr "Halasztott ráfordítás"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_expense_report_handler
@@ -1353,7 +1356,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_deferred_revenue
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_deferred_revenue
 msgid "Deferred Revenue"
-msgstr ""
+msgstr "Halasztott bevétel"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_deferred_revenue_report_handler
@@ -1368,7 +1371,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 msgid "Definition"
-msgstr ""
+msgstr "Meghatározás"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_tax_periodicity
@@ -1385,7 +1388,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Descending"
-msgstr ""
+msgstr "Csökkenő"
 
 #. module: account_reports
 #. odoo-python
@@ -1416,13 +1419,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__display_name
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Megjelenített név"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_journal_report.py:0
 msgid "Document"
-msgstr ""
+msgstr "Dokumentum"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard__doc_name
@@ -1432,19 +1435,19 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__domain
 msgid "Domain"
-msgstr ""
+msgstr "Tartomány"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_fiscal_position.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Domestic"
-msgstr ""
+msgstr "Belföldi"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__checkbox_download
 msgid "Download"
-msgstr ""
+msgstr "Letöltés"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_file_download_error_wizard_form
@@ -1475,14 +1478,14 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Due"
-msgstr ""
+msgstr "Esedékes"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/aged_partner_balance/filter_aging.xml:0
 #: model:account.report.column,name:account_reports.partner_ledger_report_date_maturity
 msgid "Due Date"
-msgstr ""
+msgstr "Fizetési határidő"
 
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_sales
@@ -1510,7 +1513,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_equity0
 msgid "EQUITY"
-msgstr ""
+msgstr "SAJÁT TŐKE"
 
 #. module: account_reports
 #. odoo-python
@@ -1531,7 +1534,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__checkbox_send_mail
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mail_template_id
@@ -1588,7 +1591,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 msgid "Engine"
-msgstr ""
+msgstr "Motor"
 
 #. module: account_reports
 #. odoo-python
@@ -1600,7 +1603,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Error message"
-msgstr ""
+msgstr "Hibaüzenet"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1633,12 +1636,12 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_exec_summary
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_exec_summary
 msgid "Executive Summary"
-msgstr ""
+msgstr "Adminisztratív összegzés"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__expense_provision_account_id
 msgid "Expense Account"
-msgstr ""
+msgstr "Ráfordítás főkönyvi számla"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_revaluation_expense_provision_account_id
@@ -1654,12 +1657,12 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_expenses0
 msgid "Expenses"
-msgstr ""
+msgstr "Költségek"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_report_export_wizard
 msgid "Export"
-msgstr ""
+msgstr "Exportálás"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_reports_export_wizard_format
@@ -1679,7 +1682,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_expression_form
 msgid "Expression"
-msgstr ""
+msgstr "Kifejezés"
 
 #. module: account_reports
 #. odoo-python
@@ -1693,7 +1696,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__field_name
 msgid "Field"
-msgstr ""
+msgstr "Mező"
 
 #. module: account_reports
 #. odoo-python
@@ -1738,14 +1741,14 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_file_download_error_wizard__file_name
 msgid "File Name"
-msgstr ""
+msgstr "Fájlnév"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Filters"
-msgstr ""
+msgstr "Szűrők"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1764,7 +1767,7 @@ msgstr ""
 #: model:ir.model,name:account_reports.model_account_fiscal_position
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__fiscal_position_id
 msgid "Fiscal Position"
-msgstr ""
+msgstr "Pénzügyi pozíció"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1794,7 +1797,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 msgid "Formula"
-msgstr ""
+msgstr "Képlet"
 
 #. module: account_reports
 #. odoo-python
@@ -1831,7 +1834,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_general_ledger
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_general_ledger
 msgid "General Ledger"
-msgstr ""
+msgstr "Főkönyvi kartonok"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_general_ledger_report_handler
@@ -1848,7 +1851,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/wizard/report_export_wizard.py:0
 msgid "Generated Documents"
-msgstr ""
+msgstr "Generált dokumentumok"
 
 #. module: account_reports
 #: model:account.report,name:account_reports.generic_ec_sales_report
@@ -1881,7 +1884,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Goods"
-msgstr ""
+msgstr "Termékek"
 
 #. module: account_reports
 #. odoo-javascript
@@ -1890,39 +1893,39 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/journal_report/line/line.xml:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 msgid "Grid"
-msgstr ""
+msgstr "Rács"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_gross_profit0
 msgid "Gross Profit"
-msgstr ""
+msgstr "Teljes nyereség"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_gross_profit0
 msgid "Gross profit"
-msgstr ""
+msgstr "Teljes nyereség"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_gpmargin0
 msgid "Gross profit margin (gross profit / operating income)"
-msgstr ""
+msgstr "Teljes nyereség árrése (teljes nyereség / működtetési bevétel)"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_line_form
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Group By"
-msgstr ""
+msgstr "Csoportosítás"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_horizontal_group_form
 msgid "Group Name"
-msgstr ""
+msgstr "Csoportnév"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/deferred_reports/groupby.xml:0
 msgid "Group by"
-msgstr ""
+msgstr "Csoportosítás..."
 
 #. module: account_reports
 #. odoo-python
@@ -1952,7 +1955,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_extra_options.xml:0
 msgid "Hierarchy and Subtotals"
-msgstr ""
+msgstr "Rangsor és részösszegek"
 
 #. module: account_reports
 #. odoo-python
@@ -2007,7 +2010,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__id
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2034,7 +2037,7 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_account_report_search
 msgid "Inactive"
-msgstr ""
+msgstr "Inaktív"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2066,7 +2069,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__income_provision_account_id
 msgid "Income Account"
-msgstr ""
+msgstr "Árbevétel számla"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_res_company__account_revaluation_income_provision_account_id
@@ -2106,7 +2109,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/models/account_trial_balance_report.py:0
 msgid "Initial Balance"
-msgstr ""
+msgstr "Nyitó egyenleg"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2162,7 +2165,7 @@ msgstr ""
 #: model:account.report.column,name:account_reports.journal_report_date
 #: model:account.report.column,name:account_reports.partner_ledger_report_invoicing_date
 msgid "Invoice Date"
-msgstr ""
+msgstr "Számla kelte"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_search
@@ -2197,7 +2200,7 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_budget__item_ids
 msgid "Items"
-msgstr ""
+msgstr "Tételek"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_journal_code
@@ -2209,7 +2212,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
 #: model_terms:ir.ui.view,arch_db:account_reports.setup_financial_year_opening_form
 msgid "Journal"
-msgstr ""
+msgstr "Napló"
 
 #. module: account_reports
 #: model:ir.actions.client,name:account_reports.action_account_report_ja
@@ -2220,12 +2223,12 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Könyvelési tétel"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_move_line
 msgid "Journal Item"
-msgstr ""
+msgstr "Könyvelési tétel"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2237,7 +2240,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/general_ledger/line_name.xml:0
 #: code:addons/account_reports/static/src/components/partner_ledger/line_name.xml:0
 msgid "Journal Items"
-msgstr ""
+msgstr "Könyvelési tételek"
 
 #. module: account_reports
 #. odoo-python
@@ -2266,17 +2269,17 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Journals"
-msgstr ""
+msgstr "Naplók"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
 msgid "Journals:"
-msgstr ""
+msgstr "Naplók:"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_liabilities_view0
 msgid "LIABILITIES"
-msgstr ""
+msgstr "KÖTELEZETTSÉGEK"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_liabilities_and_equity_view0
@@ -2290,12 +2293,12 @@ msgstr ""
 #: code:addons/account_reports/wizard/multicurrency_revaluation.py:0
 #: model:account.report.column,name:account_reports.bank_reconciliation_report_label
 msgid "Label"
-msgstr ""
+msgstr "Felirat"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mail_lang
 msgid "Lang"
-msgstr ""
+msgstr "Nyelv"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_reports_journal_dashboard_kanban_view
@@ -2315,7 +2318,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__write_uid
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Frissítette"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_multicurrency_revaluation_wizard__write_date
@@ -2330,7 +2333,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_reports.field_account_reports_export_wizard_format__write_date
 #: model:ir.model.fields,field_description:account_reports.field_account_tax_unit__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Frissítve"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.last_statement_balance
@@ -2341,7 +2344,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_deferred_reports.py:0
 msgid "Later"
-msgstr ""
+msgstr "Később"
 
 #. module: account_reports
 #. odoo-javascript
@@ -2367,18 +2370,18 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_annotation__line_id
 msgid "Line"
-msgstr ""
+msgstr "Sor"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_form
 msgid "Lines"
-msgstr ""
+msgstr "Sorok"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Load more..."
-msgstr ""
+msgstr "Továbbiak betöltése..."
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mail_attachments_widget
@@ -2423,7 +2426,7 @@ msgstr ""
 #. module: account_reports
 #: model:account.report.column,name:account_reports.partner_ledger_report_matching_number
 msgid "Matching"
-msgstr ""
+msgstr "Párosítás"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_tax_unit__company_ids
@@ -2444,23 +2447,23 @@ msgstr ""
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__mode
 msgid "Mode"
-msgstr ""
+msgstr "Mód"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_horizontal_group_rule__res_model_name
 msgid "Model"
-msgstr ""
+msgstr "Modell"
 
 #. module: account_reports
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Month"
-msgstr ""
+msgstr "Hónap"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.account_report_budget_form
 msgid "Months"
-msgstr ""
+msgstr "Hónap"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filters
@@ -2518,7 +2521,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_journal_report_taxes_summary
 #: model_terms:ir.ui.view,arch_db:account_reports.view_tax_unit_form
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #. module: account_reports
 #: model:ir.model.fields,help:account_reports.field_account_reports_export_wizard__doc_name
@@ -2529,7 +2532,7 @@ msgstr ""
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_profit0
 #: model:account.report.line,name:account_reports.account_financial_report_net_profit0
 msgid "Net Profit"
-msgstr ""
+msgstr "Nettó nyereség"
 
 #. module: account_reports
 #: model:account.report.line,name:account_reports.account_financial_report_executivesummary_net_assets0
@@ -3781,7 +3784,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_date.xml:0
 msgid "Today"
-msgstr ""
+msgstr "Ma"
 
 #. module: account_reports
 #. odoo-python
@@ -3793,13 +3796,13 @@ msgstr ""
 #: model:account.report.column,name:account_reports.aged_payable_report_total
 #: model:account.report.column,name:account_reports.aged_receivable_report_total
 msgid "Total"
-msgstr ""
+msgstr "Összesen"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Total %s"
-msgstr ""
+msgstr "Összes%s"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3817,7 +3820,7 @@ msgstr ""
 #: model:ir.actions.client,name:account_reports.action_account_report_coa
 #: model:ir.ui.menu,name:account_reports.menu_action_account_report_coa
 msgid "Trial Balance"
-msgstr ""
+msgstr "Főkönyvi kivonat"
 
 #. module: account_reports
 #: model:ir.model,name:account_reports.model_account_trial_balance_report_handler
@@ -3873,14 +3876,14 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "Unknown"
-msgstr ""
+msgstr "Ismeretlen"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_partner_ledger.py:0
 #: code:addons/account_reports/models/account_sales_report.py:0
 msgid "Unknown Partner"
-msgstr ""
+msgstr "Ismeretlen parner"
 
 #. module: account_reports
 #. odoo-python
@@ -3909,12 +3912,12 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "Unreconciled Entries"
-msgstr ""
+msgstr "Egyeztetetlen tételek"
 
 #. module: account_reports
 #: model:account.report.column,name:account_reports.account_financial_report_ec_sales_vat
 msgid "VAT Number"
-msgstr ""
+msgstr "Adószám"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.setup_financial_year_opening_form
@@ -3925,7 +3928,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/line/popover/debug_popover.xml:0
 msgid "Value"
-msgstr ""
+msgstr "Érték"
 
 #. module: account_reports
 #. odoo-python
@@ -3936,13 +3939,13 @@ msgstr ""
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.view_journal_report_audit_move_line_tree
 msgid "View"
-msgstr ""
+msgstr "Megtekintés"
 
 #. module: account_reports
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Bank Statement"
-msgstr ""
+msgstr "Bankivonat megtekintése"
 
 #. module: account_reports
 #. odoo-javascript
@@ -3954,7 +3957,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Journal Entry"
-msgstr ""
+msgstr "Napló tételek mutatása"
 
 #. module: account_reports
 #. odoo-python
@@ -3974,12 +3977,12 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "View Payment"
-msgstr ""
+msgstr "Kifizetés nézet"
 
 #. module: account_reports
 #: model:ir.model.fields,field_description:account_reports.field_account_report_send__warnings
 msgid "Warnings"
-msgstr ""
+msgstr "Figyelmeztetések"
 
 #. module: account_reports
 #: model_terms:ir.ui.view,arch_db:account_reports.res_config_settings_view_form
@@ -4008,7 +4011,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 #: model_terms:ir.ui.view,arch_db:account_reports.pdf_export_filter_extra_options_template
 msgid "With Draft Entries"
-msgstr ""
+msgstr "Könyveletlen /Tervezet/ tételekkel"
 
 #. module: account_reports
 #. odoo-python
@@ -4038,7 +4041,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/account_report/filters/filters.js:0
 msgid "Year"
-msgstr ""
+msgstr "Év"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4046,7 +4049,7 @@ msgstr ""
 #: code:addons/account_reports/models/account_report.py:0
 #: code:addons/account_reports/static/src/components/account_report/line_cell/popover/edit_popover.xml:0
 msgid "Yes"
-msgstr ""
+msgstr "Igen"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4173,7 +4176,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_reports/static/src/components/sales_report/warnings.xml:0
 msgid "invoices"
-msgstr ""
+msgstr "számla"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4196,7 +4199,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/account_reports/models/account_report.py:0
 msgid "n/a"
-msgstr ""
+msgstr "n/a"
 
 #. module: account_reports
 #. odoo-javascript
@@ -4248,7 +4251,7 @@ msgstr ""
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_comparison.xml:0
 #: code:addons/account_reports/static/src/components/account_report/filters/filter_date.xml:0
 msgid "to"
-msgstr ""
+msgstr "eddig"
 
 #. module: account_reports
 #. odoo-javascript

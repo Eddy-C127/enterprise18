@@ -2,12 +2,23 @@
 # This file contains the translation of the following modules:
 # 	* account_loans
 # 
+# Translators:
+# f1b3a33e3b33fcf18004a5292e501f50_3500ca8 <373b677b151624c4521d9efc77b996fd_750224>, 2024
+# Gergő Kertész <gergo.kertesz@maxflow.hu>, 2024
+# krnkris, 2024
+# Tamás Németh <ntomasz81@gmail.com>, 2024
+# Martin Trigaux, 2024
+# Tamás Dombos, 2024
+# Ákos Nagy <akos.nagy@oregional.hu>, 2024
+# gezza <geza.nagy@oregional.hu>, 2024
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0+e\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-25 09:13+0000\n"
 "PO-Revision-Date: 2024-09-25 09:44+0000\n"
+"Last-Translator: gezza <geza.nagy@oregional.hu>, 2024\n"
 "Language-Team: Hungarian (https://app.transifex.com/odoo/teams/41243/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -82,13 +93,13 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_needaction
 msgid "Action Needed"
-msgstr ""
+msgstr "Akció szükséges"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__active
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__active
 msgid "Active"
-msgstr ""
+msgstr "Aktív"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
@@ -114,7 +125,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Apply"
-msgstr ""
+msgstr "Alkalmazás"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_asset_group
@@ -128,7 +139,7 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_asset
 msgid "Asset/Revenue Recognition"
-msgstr ""
+msgstr "Eszköz/Bevétel aktiválás"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__payment_end_of_month__at_anniversary
@@ -138,35 +149,35 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_attachment_count
 msgid "Attachment Count"
-msgstr ""
+msgstr "Mellékletek száma"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/wizard/account_loan_compute_wizard.py:0
 msgid "Balance"
-msgstr ""
+msgstr "Egyenleg"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Cancel"
-msgstr ""
+msgstr "Visszavonás"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__cancelled
 msgid "Cancelled"
-msgstr ""
+msgstr "Visszavont"
 
 #. module: account_loans
 #. odoo-python
 #: code:addons/account_loans/models/account_loan.py:0
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Close"
-msgstr ""
+msgstr "Bezárás"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_close_wizard__date
 msgid "Close Date"
-msgstr ""
+msgstr "Zárás dátuma"
 
 #. module: account_loans
 #: model:ir.actions.act_window,name:account_loans.action_view_account_loan_close_wizard
@@ -179,7 +190,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Closed"
-msgstr ""
+msgstr "Lezárt"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
@@ -197,7 +208,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__company_id
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__company_id
 msgid "Company"
-msgstr ""
+msgstr "Vállalat"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__compounding_method
@@ -208,7 +219,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_loans/static/src/components/loans/file_upload.xml:0
 msgid "Compute"
-msgstr ""
+msgstr "Kiszámítás"
 
 #. module: account_loans
 #. odoo-python
@@ -219,7 +230,7 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Confirm"
-msgstr ""
+msgstr "Megerősítés"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__count_linked_assets
@@ -238,7 +249,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__create_uid
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Létrehozta"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__create_date
@@ -246,20 +257,20 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__create_date
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Létrehozva"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__currency_id
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__currency_id
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__currency_id
 msgid "Currency"
-msgstr ""
+msgstr "Pénznem"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Current"
-msgstr ""
+msgstr "Jelenlegi"
 
 #. module: account_loans
 #. odoo-python
@@ -267,25 +278,25 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__date
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Date"
-msgstr ""
+msgstr "Dátum"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Discard"
-msgstr ""
+msgstr "Elvetés"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_close_wizard__display_name
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__display_name
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Megjelenített név"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__draft
 msgid "Draft"
-msgstr ""
+msgstr "Piszkozat"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
@@ -297,7 +308,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Duration"
-msgstr ""
+msgstr "Időtartam"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__duration_difference
@@ -307,7 +318,7 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__end_date
 msgid "End Date"
-msgstr ""
+msgstr "Befejező dátum"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan_compute_wizard__payment_end_of_month__end_of_month
@@ -322,7 +333,7 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__expense_account_id
 msgid "Expense Account"
-msgstr ""
+msgstr "Ráfordítás főkönyvi számla"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__first_payment_date
@@ -332,12 +343,12 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_follower_ids
 msgid "Followers"
-msgstr ""
+msgstr "Követők"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_partner_ids
 msgid "Followers (Partners)"
-msgstr ""
+msgstr "Követők (Partnerek)"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__generated_move_ids
@@ -354,12 +365,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Group By"
-msgstr ""
+msgstr "Csoportosítás"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__has_message
 msgid "Has Message"
-msgstr ""
+msgstr "Van üzenet"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__id
@@ -367,18 +378,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__id
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
+msgstr "Ha be van jelölve, akkor az új üzenetek figyelmet igényelnek."
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__message_has_error
 #: model:ir.model.fields,help:account_loans.field_account_loan__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
 msgstr ""
+"Ha be van jelölve, akkor néhány üzenetnél kézbesítési hiba lépett fel."
 
 #. module: account_loans
 #. odoo-python
@@ -413,7 +425,7 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_is_follower
 msgid "Is Follower"
-msgstr ""
+msgstr "Követő"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_bank_statement_line__is_loan_payment_move
@@ -435,12 +447,12 @@ msgstr ""
 #: model:ir.model,name:account_loans.model_account_journal
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__journal_id
 msgid "Journal"
-msgstr ""
+msgstr "Napló"
 
 #. module: account_loans
 #: model:ir.model,name:account_loans.model_account_move
 msgid "Journal Entry"
-msgstr ""
+msgstr "Könyvelési tétel"
 
 #. module: account_loans
 #: model:account.journal,name:account_loans.account_loans_journal_loan
@@ -453,7 +465,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__write_uid
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Frissítette"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__write_date
@@ -461,7 +473,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__write_date
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Frissítve"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_bank_statement_line__generating_loan_line_id
@@ -602,12 +614,12 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_has_error
 msgid "Message Delivery error"
-msgstr ""
+msgstr "Üzenetkézbesítési hiba"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_ids
 msgid "Messages"
-msgstr ""
+msgstr "Üzenetek"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_journal__loan_properties_definition
@@ -618,7 +630,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__name
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__loan_name
 msgid "Name"
-msgstr ""
+msgstr "Név"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__nb_posted_entries
@@ -628,22 +640,22 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_needaction_counter
 msgid "Number of Actions"
-msgstr ""
+msgstr "Akciók száma"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_has_error_counter
 msgid "Number of errors"
-msgstr ""
+msgstr "Hibák száma"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr ""
+msgstr "Üzenetek száma, melyek akciót igényelnek"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__message_has_error_counter
 msgid "Number of messages with delivery error"
-msgstr ""
+msgstr "Kézbesítési hibával rendelkező üzenetek száma"
 
 #. module: account_loans
 #. odoo-python
@@ -663,12 +675,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__payment_end_of_month
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__payment
 msgid "Payment"
-msgstr ""
+msgstr "Fizetés"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_list_view
 msgid "Payments"
-msgstr ""
+msgstr "Fizetések"
 
 #. module: account_loans
 #. odoo-python
@@ -679,13 +691,13 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Posted Entries"
-msgstr ""
+msgstr "Könyvelt tételek"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__preview
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_compute_wizard
 msgid "Preview"
-msgstr ""
+msgstr "Előnézet"
 
 #. module: account_loans
 #. odoo-python
@@ -703,12 +715,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__loan_properties
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_search_view
 msgid "Properties"
-msgstr ""
+msgstr "Tulajdonságok"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__rating_ids
 msgid "Ratings"
-msgstr ""
+msgstr "Értékelések"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
@@ -734,17 +746,17 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Reset"
-msgstr ""
+msgstr "Visszaállítás"
 
 #. module: account_loans
 #: model:ir.model.fields.selection,name:account_loans.selection__account_loan__state__running
 msgid "Running"
-msgstr ""
+msgstr "Folyamatban"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr ""
+msgstr "SMS kézbesítési hiba"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_line_search_view
@@ -755,7 +767,7 @@ msgstr ""
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_form_view
 msgid "Set to Draft"
-msgstr ""
+msgstr "Piszkozatra állít"
 
 #. module: account_loans
 #: model_terms:ir.actions.act_window,help:account_loans.action_view_account_loans
@@ -784,13 +796,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_compute_wizard__start_date
 #: model_terms:ir.ui.view,arch_db:account_loans.account_loan_list_view
 msgid "Start Date"
-msgstr ""
+msgstr "Kezdődátum"
 
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__state
 #: model:ir.model.fields,field_description:account_loans.field_account_loan_line__loan_state
 msgid "Status"
-msgstr ""
+msgstr "Státusz"
 
 #. module: account_loans
 #. odoo-python
@@ -902,7 +914,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/account_loans/static/src/components/loans/file_upload.xml:0
 msgid "Upload"
-msgstr ""
+msgstr "Feltöltés"
 
 #. module: account_loans
 #. odoo-python
@@ -922,12 +934,12 @@ msgstr ""
 #. module: account_loans
 #: model:ir.model.fields,field_description:account_loans.field_account_loan__website_message_ids
 msgid "Website Messages"
-msgstr ""
+msgstr "Weboldal üzenetek"
 
 #. module: account_loans
 #: model:ir.model.fields,help:account_loans.field_account_loan__website_message_ids
 msgid "Website communication history"
-msgstr ""
+msgstr "Weboldal kommunikációs előzmények"
 
 #. module: account_loans
 #: model_terms:ir.ui.view,arch_db:account_loans.view_account_loan_close_wizard
