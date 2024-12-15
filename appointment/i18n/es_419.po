@@ -1859,9 +1859,9 @@ msgid ""
 "        defining non-recurring time slot (e.g. 10th of April 2021 from 10 to 11 am) from its calendar."
 msgstr ""
 "Define el tipo de espacio libre. El espacio recurrente es del tipo predeterminado que se usa\n"
-"para tipos de cita que se usan seguido en tipo, como cita con el doctor.\n"
+"para tipos de cita que se usan de manera recurrente según el tipo, como cita con el doctor.\n"
 "El tipo de una vez solo se usa cuando un usuario crea un tipo de cita personalizado para un cliente\n"
-"y define una cita no recurrente (p. ej. 10 de abril de 2021 de 10 a 11 a.m.) del calendario."
+"y define una cita no recurrente (p. ej. 10 de abril de 2021 de 10 a 11 a.m.) en el calendario."
 
 #. module: appointment
 #: model:ir.model.fields,help:appointment.field_appointment_type__event_videocall_source
@@ -2090,7 +2090,7 @@ msgid ""
 "the users that can be selected"
 msgstr ""
 "Obtener los usuarios vinculados al tipo de cita seleccionado para aplicar un"
-" dominio sobre los usuarios que pueden ser seleccionados."
+" dominio sobre los usuarios que pueden seleccionarse."
 
 #. module: appointment
 #: model:onboarding.onboarding.step,title:appointment.appointment_onboarding_preview_invite_step
@@ -3365,8 +3365,8 @@ msgstr "¡Listo!"
 #: model:ir.model.fields,help:appointment.field_appointment_booking_line__event_stop
 msgid "Stop date of an event, without time for full days events"
 msgstr ""
-"Fecha de fin del evento. Los eventos que duran todo el día no incluyen la "
-"hora."
+"Fecha de finalización del evento, no muestra la hora para eventos que duran "
+"todo el día."
 
 #. module: appointment
 #: model_terms:ir.ui.view,arch_db:appointment.calendar_event_view_tree_booking

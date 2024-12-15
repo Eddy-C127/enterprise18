@@ -29,13 +29,17 @@ msgid ""
 "subscription. To ensure your delivery is processed, please trigger it "
 "manually by using the \"Subscription: Generate delivery\" action."
 msgstr ""
+"Ein Systemfehler hat die automatische Erstellung von Lieferaufträgen für "
+"dieses Abonnement verhindert. Um sicherzustellen, dass Ihre Lieferung "
+"bearbeitet wird, lösen Sie sie bitte manuell über die Aktion „Abonnement: "
+"Lieferung generieren“ aus."
 
 #. module: sale_subscription_stock
 #. odoo-python
 #: code:addons/sale_subscription_stock/models/sale_order.py:0
 #, python-format
 msgid "Delivery creation failed"
-msgstr ""
+msgstr "Erstellung der Lieferung fehlgeschlagen"
 
 #. module: sale_subscription_stock
 #: model:product.template,name:sale_subscription_stock.product_recurring_mug_product_template
@@ -69,7 +73,7 @@ msgstr "Bestandsauffüllbericht"
 #. module: sale_subscription_stock
 #: model:ir.actions.server,name:sale_subscription_stock.action_compute_price_bom_product
 msgid "Subscription: Generate delivery"
-msgstr ""
+msgstr "Abonnement: Lieferung generieren"
 
 #. module: sale_subscription_stock
 #. odoo-javascript

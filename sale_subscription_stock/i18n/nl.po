@@ -4,6 +4,7 @@
 # 
 # Translators:
 # Wil Odoo, 2024
+# Manon Rondou, 2024
 # 
 msgid ""
 msgstr ""
@@ -11,7 +12,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-11-15 13:59+0000\n"
 "PO-Revision-Date: 2023-10-26 23:10+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
+"Last-Translator: Manon Rondou, 2024\n"
 "Language-Team: Dutch (https://app.transifex.com/odoo/teams/41243/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,13 +29,17 @@ msgid ""
 "subscription. To ensure your delivery is processed, please trigger it "
 "manually by using the \"Subscription: Generate delivery\" action."
 msgstr ""
+"Een systeemfout heeft het automatisch aanmaken van leveringsorders voor dit "
+"abonnement verhinderd. Om ervoor te zorgen dat de levering wordt verwerkt, "
+"moet je deze handmatig activeren met de actie “Abonnement: Genereer "
+"levering”."
 
 #. module: sale_subscription_stock
 #. odoo-python
 #: code:addons/sale_subscription_stock/models/sale_order.py:0
 #, python-format
 msgid "Delivery creation failed"
-msgstr ""
+msgstr "Aanmaken levering mislukt"
 
 #. module: sale_subscription_stock
 #: model:product.template,name:sale_subscription_stock.product_recurring_mug_product_template
@@ -68,7 +73,7 @@ msgstr "Voorraadaanvulling rapport"
 #. module: sale_subscription_stock
 #: model:ir.actions.server,name:sale_subscription_stock.action_compute_price_bom_product
 msgid "Subscription: Generate delivery"
-msgstr ""
+msgstr "Abonnement: Genereer levering"
 
 #. module: sale_subscription_stock
 #. odoo-javascript
