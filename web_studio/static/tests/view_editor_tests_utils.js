@@ -131,6 +131,7 @@ export async function mountViewEditor(params) {
 function prepareRegistry() {
     registry.category("main_components").remove("mail.ChatHub");
     registry.category("main_components").remove("discuss.CallInvitations");
+    registry.category("main_components").remove("bus.connection_alert");
     const REQUIRED_SERVICES = [
         "mail.popout",
         "title",
