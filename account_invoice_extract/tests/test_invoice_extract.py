@@ -971,3 +971,25 @@ class TestInvoiceExtract(AccountTestInvoicingCommon, TestExtractMixin, MailCommo
         self.assertEqual(invoice.payment_reference, '+++123/1234/12345+++')
         self.assertEqual(invoice.ref, 'INV0001')
         self.assertEqual(invoice.invoice_line_ids.mapped('name'), ["Test 1", "Test 2", "Test 3"])
+
+    def test_invoice_ocr_note_author(self):
+        invoice = self.env['account.move'].create({'move_type': 'in_invoice', 'extract_state': 'waiting_extraction'})
+        attachment = self.env['ir.attachment'].create({
+            'name': 'test_attachment.png',
+            'res_model': 'account.move',
+            'raw': b'My invoice',
+        })
+        with self._mock_iap_extract(extract_response=self.parse_success_response()):
+            invoice.message_post(attachment_ids=[attachment.id])
+
+        with self._mock_iap_extract(extract_response=self.get_result_success_response()):
+            invoice.check_all_status()
+
+        self.env.cr.flush()
+        message = self.env['mail.message'].search([
+            ('model', '=', 'account.move'),
+            ('res_id', '=', invoice.id),
+            ('tracking_value_ids', '!=', False),
+        ]).ensure_one()
+        author_name = message.author_id.complete_name
+        self.assertEqual(author_name, 'OdooBot')
