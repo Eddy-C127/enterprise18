@@ -93,21 +93,21 @@ class OSSTaxReportTest(TestAccountReportsCommon):
             #   Name                        Net               Tax
             [   0,                            1,                2],
             [
-                ("Sales",                    '',               85),
+                ("Sales",                    '',               90),
                 ("France",                   '',              200),
                 ("20.0% FR VAT (20.0%)",   1000,              200),
                 ("Total France",             '',              200),
                 ("Greece",                   '',             -240),
                 ("24.0% GR VAT (24.0%)",  -1000,             -240),
                 ("Total Greece",             '',             -240),
-                ("Luxembourg",               '',              125),
-                ("16.0% LU VAT (16.0%)",   1000,              160),
-                ("7.0% LU VAT (7.0%)",     -500,              -35),
-                ("Total Luxembourg",         '',              125),
+                ("Luxembourg",               '',              130),
+                ("17.0% LU VAT (17.0%)",   1000,              170),
+                ("8.0% LU VAT (8.0%)",     -500,              -40),
+                ("Total Luxembourg",         '',              130),
                 ("Netherlands",              '',              0.0),
                 ("21.0% NL VAT (21.0%)",    0.0,              0.0),
                 ("Total Netherlands",        '',              0.0),
-                ("Total Sales",              '',               85),
+                ("Total Sales",              '',               90),
             ],
             options,
         )
@@ -153,8 +153,8 @@ class OSSTaxReportTest(TestAccountReportsCommon):
                   <ns2:MemberStateOfConsumption>LU</ns2:MemberStateOfConsumption>
                   <ns2:OSSDeclarationRows SequenceNumber="1">
                     <ns2:SupplyType>GOODS</ns2:SupplyType>
-                    <ns2:VatRateType type="REDUCED">16.00</ns2:VatRateType>
-                    <ns2:VatAmount currency="EUR">160.0</ns2:VatAmount>
+                    <ns2:VatRateType type="STANDARD">17.00</ns2:VatRateType>
+                    <ns2:VatAmount currency="EUR">170.0</ns2:VatAmount>
                     <ns2:TaxableAmount currency="EUR">1000.0</ns2:TaxableAmount>
                   </ns2:OSSDeclarationRows>
                   <ns2:CorrectionsInfo>
@@ -162,7 +162,7 @@ class OSSTaxReportTest(TestAccountReportsCommon):
                       <ns2:Year>2021</ns2:Year>
                       <ns2:Quarter>2</ns2:Quarter>
                     </ns2:Period>
-                    <ns2:TotalVATAmountCorrection currency="EUR">-35.0</ns2:TotalVATAmountCorrection>
+                    <ns2:TotalVATAmountCorrection currency="EUR">-40.0</ns2:TotalVATAmountCorrection>
                   </ns2:CorrectionsInfo>
                 </ns0:OSSDeclarationInfo>
               </ns0:OSSDeclaration>
@@ -242,8 +242,8 @@ class OSSTaxReportTest(TestAccountReportsCommon):
                     <ns2:FixedEstablishment>
                         <ns2:VATIdentificationNumber issuedBy="BE">0477472701</ns2:VATIdentificationNumber>
                     </ns2:FixedEstablishment>
-                    <ns2:VatRateType type="REDUCED">16.00</ns2:VatRateType>
-                    <ns2:VatAmount currency="EUR">160.0</ns2:VatAmount>
+                    <ns2:VatRateType type="STANDARD">17.00</ns2:VatRateType>
+                    <ns2:VatAmount currency="EUR">170.0</ns2:VatAmount>
                     <ns2:TaxableAmount currency="EUR">1000.0</ns2:TaxableAmount>
                   </ns2:OSSDeclarationRows>
                   <ns2:CorrectionsInfo>
@@ -251,7 +251,7 @@ class OSSTaxReportTest(TestAccountReportsCommon):
                       <ns2:Year>2022</ns2:Year>
                       <ns2:Quarter>2</ns2:Quarter>
                     </ns2:Period>
-                    <ns2:TotalVATAmountCorrection currency="EUR">-35.0</ns2:TotalVATAmountCorrection>
+                    <ns2:TotalVATAmountCorrection currency="EUR">-40.0</ns2:TotalVATAmountCorrection>
                   </ns2:CorrectionsInfo>
                 </ns0:OSSDeclarationInfo>
               </ns0:OSSDeclaration>
