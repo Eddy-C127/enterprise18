@@ -439,6 +439,37 @@ class TestDeferredManagement(AccountTestInvoicingCommon):
         self.assertEqual(len(move.line_ids.filtered(lambda l: l.display_type == 'tax')), 1)
         self.assertEqual(move.amount_total, original_amount_total)
 
+    def test_syncing_dates_between_invoice_and_tax_lines(self):
+        """
+        Ensure the `deferred_{start|end}_date` fields are properly
+        synced between the invoice line and the appropriate tax line.
+        """
+
+        move = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'invoice_line_ids': [
+                Command.create({
+                    'quantity': 1,
+                    'account_id': self.expense_lines[0][0].id,
+                    'price_unit': self.expense_lines[0][1],
+                    'tax_ids': [Command.set(self.env['account.tax'].create({'name': '21%', 'amount': 21.0}).ids)],
+                    'deferred_start_date': '2023-01-01',
+                    'deferred_end_date': '2023-04-30',
+                })
+            ]
+        })
+
+        tax_line = move.line_ids.filtered(lambda l: l.display_type == 'tax')
+        self.assertEqual(len(tax_line), 1)
+
+        self.assertEqual(tax_line.deferred_start_date, datetime.date(2023, 1, 1))
+        self.assertEqual(tax_line.deferred_end_date, datetime.date(2023, 4, 30))
+
+        move.invoice_line_ids.write({'deferred_start_date': False, 'deferred_end_date': False})
+
+        self.assertFalse(tax_line.deferred_start_date)
+        self.assertFalse(tax_line.deferred_end_date)
+
     def test_compute_empty_start_date(self):
         """
         Test that the deferred start date is computed when empty and posting the move.

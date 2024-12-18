@@ -520,6 +520,14 @@ class AccountMoveLine(models.Model):
                 deferred_start_date=line.deferred_start_date,
                 deferred_end_date=line.deferred_end_date,
             )
+
+        if tax_repartition_line_id:
+            return frozendict(
+                **tax_key,
+                deferred_start_date=False,
+                deferred_end_date=False,
+            )
+
         return tax_key
 
     @api.depends('deferred_start_date', 'deferred_end_date')
