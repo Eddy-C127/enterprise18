@@ -52,10 +52,8 @@ class WebsitePageGenerator(models.Model):
                 rendered_snippets.append(rendered_snippet)
             except ValueError as e:
                 logger.warning("Error rendering snippet: %s", e)
-        self.view_id.save(
-            value="".join(rendered_snippets),
-            xpath="(//div[hasclass('oe_structure')])[last()]",
-        )
+        self.view_id.save(value=f'<div class="oe_structure">{"".join(rendered_snippets)}</div>',
+                          xpath="(//div[hasclass('oe_structure')])[last()]")
 
     def _create_header(self, homepage_data):
         # Remove all website menus, keep only the top menu "container"
