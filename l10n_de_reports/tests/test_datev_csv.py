@@ -744,7 +744,7 @@ class TestDatevCSV(AccountTestInvoicingCommon):
         reader = pycompat.csv_reader(BytesIO(csv), delimiter=';', quotechar='"', quoting=2)
         csv_data = list(reader)[2]
 
-        self.assertEqual(f'"BEDI ""{move_guid}"""', csv_data[19])
+        self.assertEqual(f'BEDI "{move_guid}"', csv_data[19])
 
         # xml document is generated during tests because of an override in _hook_invoice_document_after_pdf_report_render
         expected_tree = f"""

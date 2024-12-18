@@ -398,7 +398,7 @@ class GeneralLedgerCustomHandler(models.AbstractModel):
                 array[11] = receipt2
                 array[13] = aml.name or ref
                 if m.message_main_attachment_id:
-                    array[19] = f'"BEDI ""{m._l10n_de_datev_get_guid()}"""'
+                    array[19] = f'BEDI "{m._l10n_de_datev_get_guid()}"'
                 lines.append(array)
             # In case of epd we actively fix rounding issues by checking the base line and tax line
             # amounts against the move amount missing cent and adjust the vals accordingly.
