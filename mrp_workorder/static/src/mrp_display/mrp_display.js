@@ -186,9 +186,6 @@ export class MrpDisplay extends Component {
             barcode,
         ]);
         if (employee) {
-            if (this.useEmployee.popup.SelectionPopup.isShown){
-                this.useEmployee.popup.SelectionPopup.close();
-            }
             return this.useEmployee.setSessionOwner(employee, undefined);
         }
     }

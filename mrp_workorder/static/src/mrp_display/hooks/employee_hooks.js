@@ -135,6 +135,7 @@ export function useConnectedEmployee(controllerType, context, actionService, dia
     };
 
     const setSessionOwner = async (employee_id, pin) => {
+        dialogService.closeAll();
         if (employees.admin.id == employee_id && employee_id == employees.connected[0].id) {
             return;
         }
