@@ -5,10 +5,12 @@ import datetime
 from freezegun import freeze_time
 from .test_common import TestCommon
 
+from odoo import Command
 
 @freeze_time('2020-01-01')
 class TestPlanningLeaves(TestCommon):
     def test_simple_employee_leave(self):
+        self.leave_type.responsible_ids = [Command.link(self.env.ref('base.user_admin').id)]
         leave = self.env['hr.leave'].sudo().create({
             'holiday_status_id': self.leave_type.id,
             'employee_id': self.patrick.id,
