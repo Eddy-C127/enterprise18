@@ -12,6 +12,7 @@ import {
     setupTestEnv,
     addFieldsInArch,
 } from "@hr_timesheet/../tests/hr_timesheet_common_tests";
+import { timerService } from "@timer/services/timer_service";
 
 const { DateTime } = luxon;
 
@@ -28,6 +29,7 @@ QUnit.module("timesheet_grid", (hooks) => {
     hooks.beforeEach(async function (assert) {
         setupTestEnv();
         registry.category("services").add("orm", ormService, {force: true});
+        registry.category("services").add("timer", timerService, { force: true });
 
         const serverData = getServerData();
         serverData.models["account.analytic.line"].fields.timer_start = { string: "Timer Started", type: 'datetime' };

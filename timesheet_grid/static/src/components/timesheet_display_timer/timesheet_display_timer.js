@@ -3,7 +3,6 @@
 import { formatFloatTime } from "@web/views/fields/formatters";
 import { FloatTimeField } from "@web/views/fields/float_time/float_time_field";
 import { standardFieldProps } from "@web/views/fields/standard_field_props";
-import { TimerReactive } from "@timer/models/timer_reactive";
 import {
     Component,
     onWillDestroy,
@@ -12,6 +11,7 @@ import {
     status,
     useState,
 } from "@odoo/owl";
+import { useService } from "@web/core/utils/hooks";
 
 export class TimesheetTimerFloatTimerField extends FloatTimeField {
     static template = "timesheet_grid.TimesheetTimerFloatTimeField";
@@ -54,7 +54,8 @@ export class TimesheetDisplayTimer extends Component {
     };
 
     setup() {
-        this.timerReactive = this.props.timerReactive || new TimerReactive(this.env);
+        this.timerService = useService("timer");
+        this.timerReactive = this.props.timerReactive || this.timerService.createTimer();
         this.state = useState({
             timerStart: this.props.record.data.timer_start,
             timerRunning:
@@ -92,8 +93,7 @@ export class TimesheetDisplayTimer extends Component {
 
     async onWillStart() {
         if (this.state.timerRunning) {
-            this.serverTime = await this.timerReactive.getServerTime();
-            this.timerReactive.computeOffset(this.serverTime);
+            await this.timerService.getServerOffset();
             if (!this.state.timerStart) {
                 this.state.timerStart = this.timerReactive.getCurrentTime();
             }

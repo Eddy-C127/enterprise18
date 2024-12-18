@@ -5,6 +5,8 @@ import { serializeDateTime } from "@web/core/l10n/dates";
 import { makeView } from "@web/../tests/views/helpers";
 import { getFixture } from "@web/../tests/helpers/utils";
 import { getServerData, updateArch, setupTestEnv, addFieldsInArch } from "@hr_timesheet/../tests/hr_timesheet_common_tests";
+import { registry } from "@web/core/registry";
+import { timerService } from "@timer/services/timer_service";
 
 const { DateTime } = luxon;
 
@@ -15,6 +17,8 @@ QUnit.module("timer", (hooks) => {
     const now = DateTime.utc();
     hooks.beforeEach(async function (assert) {
         setupTestEnv();
+
+        registry.category("services").add("timer", timerService, { force: true });
 
         let serverData = getServerData();
         serverData.models["account.analytic.line"].fields["timer_start"] = { string: "Timer Started", type: 'datetime' };

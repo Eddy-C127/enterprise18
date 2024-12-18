@@ -4,6 +4,8 @@ import { serializeDateTime } from "@web/core/l10n/dates";
 
 import { makeView, setupViewRegistries } from "@web/../tests/views/helpers";
 import { getFixture } from "@web/../tests/helpers/utils";
+import { registry } from "@web/core/registry";
+import { timerService } from "@timer/services/timer_service";
 
 const { DateTime } = luxon;
 
@@ -60,6 +62,7 @@ QUnit.module("timer", (hooks) => {
                 }
             },
         };
+        registry.category("services").add("timer", timerService, { force: true });
 
         target = getFixture();
     });
