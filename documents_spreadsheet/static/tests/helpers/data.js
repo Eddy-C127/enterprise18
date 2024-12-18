@@ -308,7 +308,6 @@ export function defineDocumentSpreadsheetTestAction() {
             id: 1,
             name: "partner Action",
             res_model: "partner",
-            type: "ir.actions.act_window",
             xml_id: "spreadsheet.partner_action",
             views: [
                 [false, "list"],
