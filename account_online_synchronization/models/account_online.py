@@ -699,7 +699,7 @@ class AccountOnlineLink(models.Model):
                 matching_account.unlink()
         accounts = {}
         data = {
-            'currency_code': self.company_id.currency_id,
+            'currency_code': self.company_id.currency_id.name,
         }
         swift_code = False
         while True:
