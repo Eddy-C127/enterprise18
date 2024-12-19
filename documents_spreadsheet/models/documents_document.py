@@ -351,6 +351,10 @@ class Document(models.Model):
             docs = docs[offset:]
         return docs.read(["display_name", "thumbnail"])
 
+    @api.model
+    def _get_shortcuts_copy_fields(self):
+        return super()._get_shortcuts_copy_fields() | {'handler'}
+
     def clone_xlsx_into_spreadsheet(self, archive_source=False):
         """Clone an XLSX document into a new document with its content unzipped, and return the new document id"""
         self.ensure_one()

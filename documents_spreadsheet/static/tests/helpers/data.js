@@ -59,6 +59,9 @@ export class DocumentsDocument extends models.Model {
         relation: "res.partner",
     });
     alias_id = fields.Many2one({ relation: "mail.alias" });
+    alias_domain_id = fields.Many2one({ relation: "mail.alias.domain" });
+    alias_name = fields.Char({ string: "Alias name" });
+    alias_tag_ids = fields.Many2many({ relation: "documents.tag" });
     description = fields.Char({ string: "Attachment description" });
     last_access_date_group = fields.Selection({
         string: "Last Accessed On",
@@ -269,6 +272,12 @@ export class MailAlias extends models.Model {
     alias_name = fields.Char({ string: "Alias Name" });
 }
 
+export class MailAliasDomain extends models.Model {
+    _name = "mail.alias.domain";
+
+    name = fields.Char({ string: "Alias Domain Name" });
+}
+
 export class ResCompany extends webModels.ResCompany {
     document_spreadsheet_folder_id = fields.Many2one({
         relation: "documents.document",
@@ -279,6 +288,7 @@ export class ResCompany extends webModels.ResCompany {
 export function defineDocumentSpreadsheetModels() {
     const SpreadsheetDocumentModels = {
         MailAlias,
+        MailAliasDomain,
         DocumentsDocument,
         TagsCategories,
         DocumentsTag,
