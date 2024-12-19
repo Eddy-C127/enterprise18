@@ -37,7 +37,7 @@ class SaleOrderLine(models.Model):
         if len(self.product_id) > 1:
             raise ValueError("Expected singleton or no record: %s" % self.product_id)
         rented_quantities = defaultdict(float)
-        for so_line in self:
+        for so_line in self.filtered('is_rental'):
             rented_quantities[so_line.reservation_begin] += so_line.product_uom_qty
             rented_quantities[so_line.return_date] -= so_line.product_uom_qty
 
