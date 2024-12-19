@@ -3,19 +3,34 @@
     <t t-name="account_reports.AccountReportFilterComparison">
         <Dropdown togglerClass="'btn btn-secondary'">
             <t t-set-slot="toggler">
-                <i class="fa fa-bar-chart me-1"/>Comparison
-
-                <t t-if="controller.options.comparison.filter === 'custom'">
+                <i class="fa fa-bar-chart me-1"/>Comparison<t t-if="controller.options.comparison.filter != 'no_comparison'">: </t>
+                <t t-if="controller.options.comparison.filter === 'previous_period'">
+                    <t t-if="controller.options.comparison.number_period === 1">
+                        <t t-esc="`Previous Period`"/>
+                    </t>
+                    <t t-elif="controller.options.comparison.number_period > 1">
+                        <t t-esc="`${ controller.options.comparison.number_period } Previous Periods`"/>
+                    </t>
+                </t>
+                <t t-elif="controller.options.comparison.filter === 'same_last_year'">
+                    <t t-if="controller.options.comparison.number_period === 1">
+                        <t t-esc="`Previous Year`"/>
+                    </t>
+                    <t t-elif="controller.options.comparison.number_period > 1">
+                        <t t-esc="`${ controller.options.comparison.number_period } Previous Years`"/>
+                    </t>
+                </t>
+                <t t-elif="controller.options.comparison.filter === 'custom'">
                     <t t-if="controller.options.date.mode === 'range'">
-                        <t t-esc="`: ${ localeDateFrom('comparison') } - ${ localeDateTo('comparison') }`"/>
+                        <t t-esc="`${ localeDateFrom('comparison') } - ${ localeDateTo('comparison') }`"/>
                     </t>
                     <t t-if="controller.options.date.mode === 'single'">
-                        <t t-esc="`: ${ localeDateTo('comparison') }`"/>
+                        <t t-esc="`${ localeDateTo('comparison') }`"/>
                     </t>
                 </t>
                 <t t-else="">
                     <t t-if="controller.options.comparison.string">
-                        <t t-esc="`: ${ controller.options.comparison.string }`"/>
+                        <t t-esc="`${ controller.options.comparison.string }`"/>
                     </t>
                 </t>
             </t>
