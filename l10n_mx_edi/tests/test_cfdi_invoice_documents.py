@@ -1820,3 +1820,38 @@ class TestCFDIInvoiceWorkflow(TestMxEdiCommon):
         with self.with_mocked_pac_sign_success():
             invoice._l10n_mx_edi_cfdi_global_invoice_try_send()
         self._assert_global_invoice_cfdi_from_invoices(invoice, 'test_global_invoice_year_month_format')
+
+    def test_access_invoice_form_with_second_user(self):
+        def create_invoice(**kwargs):
+            return self._create_invoice(
+                invoice_line_ids=[
+                    Command.create({
+                        'product_id': self.product.id,
+                    })
+                ],
+                **kwargs
+            )
+
+        with self.mx_external_setup(self.frozen_today):
+            second_partner = self.env['res.partner'].create({
+                'name': 'second user',
+            })
+            second_user = self.env['res.users'].create({
+                'login': 'seconduser',
+                'partner_id': second_partner.id,
+                'groups_id': [self.env.ref('account.group_account_manager').id]
+            })
+
+            invoice = create_invoice()
+            with self.with_mocked_pac_sign_success():
+                invoice._l10n_mx_edi_cfdi_invoice_try_send()
+            invoice_for_global = create_invoice(l10n_mx_edi_cfdi_to_public=True)
+            with self.with_mocked_pac_sign_success():
+                invoice_for_global._l10n_mx_edi_cfdi_global_invoice_try_send()
+
+            self.env.invalidate_all()  # remove values from cache to check access rights
+            request_list = ['followers', 'attachments', 'suggestedRecipients', 'activities']
+            data = invoice.with_user(second_user)._get_mail_thread_data(request_list)
+            self.assertTrue(invoice.l10n_mx_edi_cfdi_attachment_id._attachment_format()[0] in data['attachments'])
+            data = invoice_for_global.with_user(second_user)._get_mail_thread_data(request_list)
+            self.assertTrue(invoice_for_global.l10n_mx_edi_cfdi_attachment_id._attachment_format()[0] in data['attachments'])
