@@ -111,7 +111,7 @@ class SignContract(Sign):
                     'reference': _('Signature Request - %s', benefit.name or contract.name),
                     'subject': _('Signature Request - %s', benefit.name or contract.name),
                 })
-                sign_request_sudo.message_subcribe(partner_ids=benefit.sign_copy_partner_id.ids)
+                sign_request_sudo.message_subscribe(partner_ids=benefit.sign_copy_partner_id.ids)
                 sign_request_sudo.toggle_favorited()
 
                 contract.sign_request_ids += sign_request_sudo
