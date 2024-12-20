@@ -1,7 +1,7 @@
 import { ControlPanel } from "@web/search/control_panel/control_panel";
 import { DocumentsBreadcrumbs } from "@documents/components/documents_breadcrumbs";
 import { DocumentsCogMenu } from "../cog_menu/documents_cog_menu";
-import { onWillPatch, onWillStart, useState } from "@odoo/owl";
+import { onPatched, onWillPatch, onWillStart, useState } from "@odoo/owl";
 import { useService, useBus } from "@web/core/utils/hooks";
 import { _t } from "@web/core/l10n/translation";
 import { download } from "@web/core/network/download";
@@ -34,6 +34,13 @@ export class DocumentsControlPanel extends ControlPanel {
         this.firstLoad = true;
         onWillPatch(() => {
             this.firstLoad = false;
+        });
+
+        onPatched(() => {
+            const searchPanelContainer = document.querySelector('.o_search_panel');
+            if (searchPanelContainer) {
+                searchPanelContainer.classList.toggle('d-none', this.env.isSmall && this.targetRecords.length);
+            }
         });
 
         onWillStart(async () => {
@@ -262,6 +269,17 @@ export class DocumentsControlPanel extends ControlPanel {
      */
     async onToggleChatter() {
         this.documentService.toggleChatterState();
+
+        if (this.env.isSmall && this.documentsState.isChatterVisible) {
+            this.observer = new MutationObserver(() => {
+                const chatterContainer = document.querySelector('.o-mail-Thread');
+                if (chatterContainer) {
+                    chatterContainer.scrollIntoView({ behavior: "smooth"});
+                    this.observer.disconnect();
+                }
+            });
+            this.observer.observe(document.querySelector('.o_documents_content'), { childList: true, subtree: true });
+        }
     }
 
     /**
