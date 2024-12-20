@@ -1500,3 +1500,23 @@ registry
             },
         ],
     });
+
+registry.category("web_tour.tours").add("web_studio.test_do_not_delete_unspecial_spans", {
+    test: true,
+    steps: () => [
+        {
+            trigger: "body iframe .odoo-editor-editable#wrapwrap span",
+            run() {
+                insertText(this.$anchor[0], "added");
+            },
+        },
+        {
+            trigger: ".o-web-studio-save-report.btn-primary",
+            run: "click",
+        },
+        {
+            trigger: ".o-web-studio-save-report:not(.btn-primary)",
+            run() {},
+        },
+    ],
+});

@@ -250,6 +250,8 @@ function visitNode(el, callback) {
     }
 }
 
+const SPAN_PREVENT_DELETION_ATTR = "ws-prevent-deletion";
+
 export class ReportEditorWysiwyg extends Component {
     static components = {
         CharField,
@@ -279,6 +281,18 @@ export class ReportEditorWysiwyg extends Component {
             );
             for (const table of tree.querySelectorAll("[oe-origin-tag='table']")) {
                 computeTableLayout(table);
+            }
+            const walker = tree.createTreeWalker(tree, NodeFilter.SHOW_ELEMENT, (node) => {
+                return ["SPAN", "FONT"].includes(node.nodeName) && !node.hasAttributes()
+                    ? NodeFilter.FILTER_ACCEPT
+                    : NodeFilter.FILTER_SKIP;
+            });
+            // The OdooEditor will unwrap any span/font element that bear no attributes
+            // This behavior breaks translation in Odoo, so we prevent it here.
+            // odoo-editor/utils/sanitize.js
+            let node;
+            while ((node = walker.nextNode())) {
+                node.setAttribute(SPAN_PREVENT_DELETION_ATTR, "true");
             }
             return tree.firstElementChild;
         });
@@ -443,6 +457,10 @@ export class ReportEditorWysiwyg extends Component {
             if (!viewId) {
                 return;
             }
+            Array.from(el.querySelectorAll(`[${SPAN_PREVENT_DELETION_ATTR}]`)).forEach((el) => {
+                el.removeAttribute(SPAN_PREVENT_DELETION_ATTR);
+            });
+
             Array.from(el.querySelectorAll("[t-call]")).forEach((el) => {
                 el.replaceChildren();
             });
@@ -485,7 +503,7 @@ export class ReportEditorWysiwyg extends Component {
         try {
             await this.wysiwyg.cancel(false);
         } catch {
-            return
+            return;
         }
         await this.reportEditorModel.discardReport();
     }
